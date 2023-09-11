@@ -1,0 +1,2774 @@
+ \documentclass{article}
+ \usepackage{amsmath}
+ \usepackage{stmaryrd}
+ \usepackage{amsthm}
+ \usepackage{amssymb}
+ \usepackage{pgfplots}
+ \usepackage{amsfonts}
+ \usepackage[margin=2.5cm]{geometry}
+ \usepackage{graphicx}
+ \usepackage[export]{adjustbox}
+ \usepackage{fancyhdr}
+ \usepackage[portuguese]{babel}
+ \usepackage{hyperref}
+ \usepackage{lastpage}
+ \usepackage{mathtools}
+ \usepackage{tikz-cd}
+
+ \usetikzlibrary{babel}
+
+ \pagestyle{fancy}
+ \fancyhf{}
+
+ \pgfplotsset{compat = 1.18}
+
+ \hypersetup{
+     colorlinks,
+     citecolor=black,
+     filecolor=black,
+     linkcolor=black,
+     urlcolor=black
+ }
+ \newtheorem*{def*}{\underline{Defini\c c\~ao}}
+ \newtheorem*{prop*}{\underline{Proposi\c c\~ao}}
+ \newtheorem*{theorem*}{\underline{Teorema}}
+ \newtheorem*{crl*}{\underline{Corol\'ario}}
+ \newtheorem{example*}{\underline{Exemplo}}
+ \newtheorem*{proof*}{\underline{Prova}}
+ \newtheorem*{lemma*}{\underline{Lema}}
+ \renewcommand\qedsymbol{$\blacksquare$}
+ \newcommand{\Lin}[1]{Lin_{\mathbb{K}}({#1})}
+
+ \rfoot{P\'agina \thepage \hspace{1pt} de \pageref{LastPage}}
+
+ \title{Notas de Algebra}
+ \author{Renan Wenzel}
+ \date{\today}
+
+ \begin{document}
+ \begin{figure}[ht]
+	\minipage{0.76\textwidth}
+		\includegraphics[width=4cm]{../icmc.png}
+		\hspace{7cm}
+		\includegraphics[height=4.9cm,width=4cm]{../brasao_usp_cor.jpg}
+	\endminipage	
+\end{figure}
+
+\begin{center}
+	\vspace{1cm}
+	\LARGE
+	UNIVERSIDADE DE S\~AO PAULO
+
+	\vspace{1.3cm}
+	\LARGE
+	INSTITUTO DE CI\^ENCIAS MATEM\'ATICAS E COMPUTACIONAIS - ICMC
+
+	\vspace{1.7cm}
+	\Large
+	\textbf{Notas de Aula de \'Algebra}
+
+	\vspace{1.3cm}
+	\large
+	\textbf{Renan Wenzel - 11169472}
+
+	\vspace{1.3cm}
+	\large
+	\textbf{Roberto Carlos - alvarenga@icmc.usp.br}
+
+	\vspace{1.3cm}
+	\today
+\end{center}
+
+ \newpage
+
+ \tableofcontents
+
+ \newpage
+
+\section{Aula 01 - 14/03/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+  \item Compreender o que ser\'a estudado ao longo do curso;
+\end{itemize}
+\subsection{Introdu\c c\~ao ao Curso}
+  Este curso \'e sobre teoria de grupos, a qual possui origem no estudo de simetrias, sejam elas de figuras ou de objetos alg\'ebricos.
+Um exemplo de grupo seria o seguinte: 
+
+  Considere um tri\^angulo equil\'atero. Existem algumas formas de olharmos para as simetrias
+do tri\^angulo, como rotacionando-o, refletindo-o com rela\c c\~ao a um ponto m\'edio e um v\'ertice fixo. Contabilizando todas as poss\'iveis
+formas delas acontecerem, h\'a seis simetrias deste ret\^angulo. Ademais, compondo simetrias resulta em outra, i.e., rotacionar e refletir
+um certo v\'ertice continuar\'a sendo uma simetria do tri\^angulo. Al\'em disto, \'e um fato (futuramente visto) que essas seis simetrias 
+totalizam todas as poss\'iveis simetrias de um tri\^angulo equil\'atero. De fato, dado um pol\'igono regular de n lados, ele possui
+n! simetrias.
+
+\subsection{Grupos e Opera\c c\~oes}
+ \begin{def*}
+   Seja S um conjunto n\~ao-vazio. Uma opera\c c\~ao em S \'e um mapa
+   \begin{align*}
+     \mu:&S \times S\rightarrow S\\
+         &(a, b)\mapsto{\mu(a, b)}
+   \end{align*}
+ \end{def*}
+\begin{example*}
+  A opera\c c\~ao soma em $\mathbb{Z}, +:\mathbb{Z}\times{\mathbb{Z}}\rightarrow \mathbb{Z}, (a, b)\mapsto a + b$ \'e uma opera\c c\~ao.
+\end{example*}
+\begin{example*}
+  Uma opera\c c\~ao em $\mathbb{R}$ \'e a multiplica\c c\~ao $.:\mathbb{R}\times{\mathbb{R}}\rightarrow \mathbb{R}, (a, b)\mapsto ab.$
+\end{example*}
+\begin{example*}
+  Um exemplo do que n\~ao \'e opera\c c\~ao seria a subtra\c c\~ao dos naturais, $-:\mathbb{N}\times{\mathbb{N}}\rightarrow \mathbb{N}, (a, b)\mapsto a - b.$ (Consegue responder por que n\~ao \'e?)
+\end{example*}
+\begin{example*}
+  Se S \'e o conjunto de simetrias de um tri\^angulo equil\'atero, ent\~ao a composi\c c\~ao
+  \begin{align*}
+    \circ: &S\times{S}\rightarrow S \\
+           &(\sigma, \tau)\mapsto \sigma\circ \tau
+  \end{align*}
+  \'e uma opera\c c\~ao bin\'aria.
+\end{example*}
+  Faremos a conven\c c\~ao de denotar $\mu(a, b)$ por $a.b$ ou $a + b$, com base no contexto.
+ \begin{def*}
+   Uma opera\c c\~ao $\mu$ em S n\~ao-vazio, denotada pelo produto, \'e dita associativa se, para todos a, b, c em S,
+   $$
+      (a.b).c = a.(b.c), \quad \biggl(\mu(a, \mu(b, c)) = \mu(\mu(a, b), c)\biggr).
+   $$
+   Por outro lado, ser\'a dita comutativa se 
+   $$
+      a.b = b.a, \quad \biggl(\mu(a, b) = \mu(b, a)\biggr).
+   $$
+   Diremos, tamb\'em, que ela tem elemento neutro (ou identidade) se existe um elemento e em S tal que 
+   $$
+    a.e = e.a = a,\forall a\in{S}.
+   $$
+   Neste caso, diremos que e \'e o elemento neutro, ou a identidade, para $\mu$.
+ \end{def*}
+  Utilizaremos a nota\c c\~ao 1 para a identidade no caso em que $\mu$ \'e denotada por um produto e 0 pro caso em que \'e denotada por adi\c c\~ao.
+
+ \begin{example*}
+   A multiplica\c c\~ao de matrizes \'e associativa, n\~ao \'e comutativa e possui identidade.
+ \end{example*}
+\begin{example*}
+  A soma de n\'umeros inteiros \'e associativa, comutativa e possui identidade.
+\end{example*}
+\begin{example*}
+  A pot\^encia nos n\'umeros reais \'e n\~ao associativa, nem comutativa, mas possui identidade: $a^{(b^{c})} \neq (a^{b})^{c} = a^{bc}$
+\end{example*}
+
+\begin{prop*}
+  Seja S um conjunto n\~ao-vazio e $\mu$ uma opera\c c\~ao em S denotada pelo produto. Ent\~ao, existe um \'unico jeito de definir o
+produto (denotado temporariamente por $[a_{1}, \cdots, a_{n}]$) de n elementos em S tal que 
+\begin{align*}
+  &(i)\quad [a_{1}] = a_{1}; \\
+  &(ii)\quad [a_{1}, a_{2}] = \mu(a_{1}, a_{2}) = a_{1}a_{2}; \\
+  &(iii)\quad\forall 1\leq{i}<n, [a_{1}, \cdots, a_{n}] = [a_{1}, \cdots, a_{i}][a_{i+1}, \cdots, a_{n}].
+\end{align*}
+\end{prop*}
+\begin{proof*}
+  (iii)$\Rightarrow$ Para o caso $n\leq{2}$ \'e ok. Agora, suponha o produto bem-definido de r elementos em S, $r\leq{n=1}$. Ent\~ao,
+  defina $[a_{1}, \cdots, a_{n}]\coloneqq [a_{1}, \cdots, a_{n-1}][a_{n}]. $ Como a defini\c c\~ao acima satisfaz a condi\c c\~ao (iii) para
+i=n-1, se ela estiver bem-definida, ela ser\'a \'unica. Com efeito, seja $1\leq{i}<n-1$, tal que 
+  \begin{align*}
+    [a_{1}, \cdots, a_{n}] &= [a_{1}, \cdots, a_{n-1}][a_{n}] = [a_{1}, \cdots, a_{i}][a_{i+1}, \cdots, a_{n-1}][a_{n}]\\
+                           &= \biggl([a_{1}, \cdots, a_{i}]\biggr)\biggl([a_{i+1}, \cdots, a_{n-1}][a_{n}]\biggr) \\
+                           &= [a_{1}, \cdots, a_{i}][a_{i+1}, \cdots, a_{n}].\text{ \qedsymbol}
+  \end{align*}
+\end{proof*}
+\begin{def*}
+  Seja S n\~ao-vazio e $\mu$ uma opera\c c\~ao em S com identidade 1. Um elemento a de S \'e dito invers\'ivel se existe b em S tal que
+ $ab = ba = 1.$ Neste caso, b \'e o inverso de a, denotado por $b\coloneqq a^{-1}$.
+\end{def*}
+  Note que tanto o elemento inverso quanto o elemento neutro, se existirem, s\~ao \'unicos (c.f. Lema abaixo). Al\'em disso, o inverso da adi\c c\~ao \'e
+denotad por -a.
+\begin{lemma*}
+  Seja S n\~ao-vazio, $\mu$ uma opera\c c\~ao associativa denotada pelo produto. Ent\~ao, 
+ \begin{itemize}
+   \item[i)] Existe no m\'aximo um elemento neutro para S e $\mu$;
+   \item[ii)] Se o elemento neutro existe, ent\~ao para cada elemento de S, existe no m\'aximo um inverso;
+   \item[iii)] Se um elemento a de S tem inverso \`a esquerda l e \`a direita r, i.e. $l.a = 1 \text{ e } a.r = 1$, ent\~ao
+a \'e invers\'ivel com inverso l = r.
+   \item[iv)] Se a, b em S s\~ao invers\'iveis, ent\~ao o produto ab \'e invers\'ivel, com inverso $b^{-1}a^{-1}.$
+ \end{itemize}
+\end{lemma*}
+  Antes de provar, observe que a exist\^encia de um elemento inverso \`a esquerda ou \`a direita n\~ao garante que um elemento
+seja invers\'ivel (exerc\'icio), eles devem coincidir.
+\begin{proof*}
+ $(i)\Rightarrow)$ Suponha que existem 1, 1' em S como seus elementos neutros. Basta mostramos que eles coincidem. Com efeito,
+ $$
+    1 = 1.1' = 1'.1 = 1'.
+ $$
+ Portanto, o elemento neutro \'e \'unico.
+
+ $(ii)\Rightarrow)$ Assuma a exist\^encia de dois elementos inversos em S para um elemento a, denotados por b, b'. Ent\~ao, como
+ab = ba = 1, temos
+  $$
+    b = b1 = b(ab') = (ba)b' = 1b' = b'.
+  $$
+  Portanto, o elemento inverso \'e \'unico. Os itens (iii) e (iv) s\~ao exerc\'icios. \qedsymbol
+\end{proof*}
+  
+ \begin{def*}
+   Um monoide \'e um par (G, $\mu$), em que G \'e um conjunto n\~ao-vazio e $\mu$ uma opera\c c\~ao associativa e com elemento neutro em G.
+  Se, ainda por cima, $\mu$ for comutativa, (G, $\mu$) \' e um monoide abeliano (ou comutativo).
+ \end{def*}
+ \begin{def*}
+   Um grupo \'e um par (G, $\mu$) \'e um monoide (G, $\mu$) com a condi\c c\~ao extra que todo elemento de G possui inverso. Caso
+ $\mu$ seja comutativa, chamamos G de grupo abeliano.
+ \end{def*}
+\begin{example*}
+  Os inteiros com a soma, $(\mathbb{Z}, +)$, \'e um grupo comutativo, enquanto $(\mathbb{Z}, .)$ n\~ao \'e um grupo, mas sim um monoide.
+\end{example*}
+\begin{example*}
+  O grupo das matrizes com entradas reais e sua multiplica\c c\~ao, $(\mathbb{M}_{n}(\mathbb{R}), .)$, \'e um grupo n\~ao-abeliano.
+\end{example*}
+
+\section{Aula 02 - 16/03/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+  \item Outras estruturas alg\'ebricas e exemplos;
+  \item Tamanho de um grupo;
+  \item Subgrupos
+\end{itemize}
+\subsection{Usos de Grupos}
+  Podemos usar grupos para definir outras constru\c c\~oes alg\'ebricas, como segue.
+ \begin{def*}
+   Um anel \'e uma terna $(A, \mu, \varphi)$, em que $(A, \mu)$ \'e um grupo abeliano e $(A, \varphi)$ \'e um monoide. Al\'em disso,
+vale a distributiva.
+   $$
+    \varphi(a, \mu(c, d)) = \varphi(\mu(a, c), \mu(a, d)), \quad (a(b + c) = ab + ac).
+   $$
+   Usualmente, escrevemos $(A, \mu, \varphi) = (A, +, \cdot).\square$
+ \end{def*}
+\begin{def*}
+  Um corpo \'e um anel $(A, +, \cdot)$ tal que $(A-\{0\}, .)$ \'e um grupo abeliano. $\square$
+\end{def*}
+  Deste ponto em diante, abandonaremos as letras gregas para usar apenas os s\'imbolos ``+'' ou ``.'' para um grupo com adi\c c\~ao
+ou com multiplica\c c\~ao. Vejamos alguns exemplos.
+\begin{example*}
+  \begin{center}
+  \begin{tabular}{||c c c c c||}
+  \hline
+  Conjunto & Monoide & Monoide Comutativo & Grupo & Grupo Comutativo \\ [1ex] 
+ \hline\hline
+ $(GL_{n}, \cdot)$ & Sim & N\~ao & Sim & N\~ao \\ 
+ \hline
+ $(SL_{n}, \cdot)$ & Sim & N\~ao & Sim & N\~ao \\
+ \hline
+ $(\mathbb{Z}, +)$ & Sim & Sim & Sim & Sim \\
+ \hline
+ $(\mathbb{Z}, \cdot)$ & Sim & Sim & N\~ao & N\~ao \\
+ \hline
+ $(\mathbb{Q}, +)$ & Sim & Sim & Sim & Sim \\ [1ex] 
+ \hline 
+ $(\mathbb{Q}, \cdot)$ & Sim & Sim & N\~ao & N\~ao \\ [1ex] 
+ \hline 
+ $(S = \{z\in \mathbb{C}: |z| = 1\}, \cdot)$ & Sim & Sim & Sim & Sim \\ [1ex] 
+ \hline 
+ $(\mathbb{M}_{n}(\mathbb{R}), +)$ & Sim & Sim & Sim & Sim \\ [1ex] 
+ \hline 
+ $(\mathbb{M}_{n}(\mathbb{R}), .)$ & Sim & N\~ao & N\~ao & N\~ao \\ [1ex] 
+ \end{tabular}
+\qedsymbol
+\end{center}
+\end{example*}
+\begin{example*}
+  Seja T um conjunto qualquer e 
+  $$
+    G = \{f:T\rightarrow T: f \text{ bijetora.}\}
+  $$
+  Ent\~ao, $(G, \circ)$ \'e um grupo, chamado grupo das permuta\c c\~oes ou simetrias de T. Se T \'e um conjunto finito, e.g.
+  $T = \{1, \cdots, n\}, $ ent\~ao denotamos $(G, \circ)$ por $(S_{n}, \circ).$ \qedsymbol
+\end{example*}
+\begin{def*}
+  A ordem de um grupo $(G, \cdot)$ \'e a cardinalidade de G: $|G|$. Caso $|G| < \infty,$ dizemos que $(G, \cdot)$ \'e um grupo finito. $\square$
+\end{def*}
+\begin{example*}
+  A ordem de $|\mathbb{Z}| = \infty$ e $|S_{n}| = n!$ \qedsymbol
+\end{example*}
+\begin{prop*}
+  Se $(G, \cdot)$ \'e um grupo e a, b, c s\~ao elementos de G tais que ab = ac ou ba = ca, ent\~ao b = c. Al\'em disso, se ab = a ou
+ba = a, ent\~ao b = 1.
+\end{prop*}
+\begin{proof*}
+  Seja $a^{-1}$ o inverso de a, ent\~ao $a^{-1}(ab) = a^{-1}(ac).$ Mais ainda, se ab = a, ent\~ao $b = (a^{-1}a)b = a^{-1}(ab) = a^{-1}a = 1.$
+\end{proof*}
+  Fica de exerc\'icio mostrar que s\'o existe um grupo de ordem 2 e que $S_{3}$ \'e um grupo n\~ao-comutativo.
+\subsection{Subgrupos}
+ \begin{def*}
+   Um subgrupo H de um grupo $(G, \cdot)$ \'e um subconjunto H de contido em G tal que
+  \begin{align*}
+    &1) 1\in H; \\
+    &2) a, b\in H\Rightarrow ab \in H; \\
+    &3) a\in H\Rightarrow a^{-1}\in H.
+  \end{align*}
+  Denotaremos subrupos por $H \leq{G}$ ou $(H, \cdot) \leq{(G, \cdot)}. \square$
+ \end{def*}
+\begin{prop*}
+ Com opera\c c\~ao induzida pela multiplica\c c\~ao de G restrita a H, $(H, \cdot)$ \'e um grupo. 
+\end{prop*}
+\begin{proof*}
+  Como H est\'a contido em G, podemos restringir o produto de G a H para 
+  $$
+    ._H:H \times H\rightarrow H.
+  $$
+  Afirmamos que $(H, \cdot)$ \'e um grupo. Com efeito, a restri\c c\~ao de . a H est\'a bem-definida pelo segundo item da defini\c c\~ao
+de subgrupo. Mais ainda, ela \'e associativa em H por ser em G e todo elemento em H tem inverso pela condi\c c\~ao 3. Por fim,
+ela tem elemento neutro pela primeira requisi\c c\~ao ao definir subgrupo. Portanto, $(H, \cdot)$ \'e um grupo.
+\end{proof*}
+Observe que todo grupo tem ao menos dois subgrupos, chamados triviais, sendo eles $\{1\}$ e ele mesmo. Qualquer outro leva o nome de
+subgrupo pr\'oprio.
+\begin{example*}
+  $(SL_{n}, \cdot) \leq{(GL_{n}, \cdot)}$ e $(\mathbb{Z}, +) \leq{(\mathbb{Q}, +)}.$ \qedsymbol
+\end{example*}
+\begin{example*}
+  Seja n um inteiro, ent\~ao $n\mathbb{Z}\coloneqq \{nk: k\in \mathbb{Z}\}$ \'e um subgrupo dos inteiros. De fato, 0 = n0 pertence
+  a $n\mathbb{Z}.$ Al\'em disso, se nk e nk' pertencem a $n\mathbb{Z},$ ent\~ao
+  $$
+    nk + nk' = n(k + k')\in n \mathbb{Z}.
+  $$
+  Por fim, se nk pertence a $ n\mathbb{Z}$, ent\~ao n(-k) tamb\'em pertence a $n \mathbb{Z}$ e nk + n(-k) = 0. \qedsymbol
+\end{example*}
+\begin{prop*}
+  Todo subgrupo de $(\mathbb{Z}, +)$ \'e da forma $n \mathbb{Z}$ para algum n inteiro.
+\end{prop*}
+\begin{proof*}
+  Caso n seja 1, $n \mathbb{Z} = \mathbb{Z}$ e, se n = 0, ent\~ao $n \mathbb{Z} = \{0\}. $ Agora, seja H um subgrupo pr\'oprio dos
+inteiros e n o menor inteiro positivo em H. Afirmamos que $n \mathbb{Z} = H$. 
+
+  De fato, $n \mathbb{Z} \leq{H}$, pois n \'e um elemento de H, ent\~ao $nk = \underbrace{n + \ldots + n}_{\text{k-vezes}} \in H$. Al\'em disso, $-n\in H,$ de forma
+que $-nk = \underbrace{(-n) + \ldots + (-n)}_{\text{k-vezes}}\in H.$ Portanto, $n \mathbb{Z}\in H.$
+
+  Por outro lado, seja m um inteiro de H e considere $m = nq + r, 0 \leq{r} < n, q\in \mathbb{Z}.$ Pelo algoritmo de divis\~ao de Euclides,
+  $$
+  m - nq = r \Rightarrow r\in H\Rightarrow r = 0.
+  $$
+  e, assim, m = nq pertence a $n\mathbb{Z}$. Portanto, $H = n \mathbb{Z}$. \qedsymbol
+\end{proof*}
+\begin{prop*}
+ \begin{itemize}
+   \item[1)] $n \mathbb{Z} + m \mathbb{Z}$ \'e subgrupo de $\mathbb{Z};$
+   \item[2)] $n \mathbb{Z} + m \mathbb{Z} = d \mathbb{Z}$, em que d \'e tal que 
+    \item[2.1)] $d | n$ e $d | m$;
+      \item[2.2)] Se $l | n$ e $l | m$, ent\~ao $l | d;$
+        \item[2.3)] Existem r, s inteiros tais que $rn + sm = d.$
+ \end{itemize}
+ Definimos $d = \gcd{(n, m)}$ como o m\'aximo divisor comum de m e n.
+\end{prop*}
+\begin{proof*}
+  A prova do item 1 fica como exerc\'icio. 
+
+  $2.1)\Rightarrow n \mathbb{Z} + m \mathbb{Z} = d \mathbb{Z}.$ Em particular, se n, m pertencem a $d \mathbb{Z}$, ent\~ao
+$d | n \text{ e } d | m.$
+
+  $2.2)\Rightarrow$ Suponha que $n = lq_{1}, m = lq_{2} $. Se x pertence a $n \mathbb{Z} + m \mathbb{Z},$ ent\~ao
+  \begin{align*}
+    &x = nk_{1} + mk_{2} = lq_{1}k_{1} + lk_{2}q_{2} \in l \mathbb{Z} \\
+    &\Rightarrow n \mathbb{Z} + m \mathbb{Z} \subseteq{l \mathbb{Z}} \Rightarrow l | d.
+  \end{align*}
+  tamb\'em \'e poss\'ivel mostrar isso usando o item 3 da proposi\c c\~ao.
+
+  $2.3)\Rightarrow$ imediato. \qedsymbol
+\end{proof*}
+\begin{prop*}
+ \begin{itemize}
+   \item[1)] $m \mathbb{Z}\cap n \mathbb{Z}$ \'e subgrupo dos inteiros;
+   \item[2)] $m \mathbb{Z}\cap n \mathbb{Z} = l \mathbb{Z}$, em que l \'e tal que 
+     \item[2.1)] $m | l, n | l;$
+       \item[2.2)] Se $m | l'$ e $n | l'$, ent\~ao $l | l'.$
+ \end{itemize}
+ Definimos $l = mmc(m, n)$ o m\'inimo m\'ultiplo comum de m e n.
+\end{prop*}
+\begin{proof*}
+  Fica como exerc\'icio.
+\end{proof*}
+\begin{crl*}
+  Se m, n s\~ao inteiros, ent\~ao $mn = mmc(m, n)\gcd{(m, n)}$.
+\end{crl*}
+\newpage
+
+\section{Aula 03 - 21/03/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+  \item Outros exemplos de subgrupos;
+  \item Subgrupos gerado por subconjuntos;
+  \item Grupo c\'iclico e ordem de elementos.
+\end{itemize}
+\subsection{Subgrupos - Outras Propriedades}
+  Quando o conjunto candidato a subgrupo \'e n\~ao-vazio, n\~ao \'e necessario exigir que a identidade seja parte dele. De fato,
+\begin{prop*}
+  Se G \'e um grupo e $H\subseteq{G}, H \neq\emptyset$, ent\~ao $H\leq{G}$ se, e somente se,
+ \begin{align*}
+   &1) ab\in H, \quad a, b\in H\\
+   &2) a^{-1}\in H, \quad a\in H.
+ \end{align*}
+\end{prop*}
+\begin{proof*}
+  $\Rightarrow$ Segue da defini\c c\~ao de subgrupo (ab e $a^{-1}$ pertencem a H por defini\c c\~ao);
+
+  $\Leftarrow$ Sendo H n\~ao-vazio, existe $a\in H$. Atrav\'es de (2), $a^{-1}\in H$ e, por (1), $aa^{-1} = 1\in H.$ Portanto,
+H \'e subgrupo de G. \qedsymbol
+\end{proof*}
+  Outra formula\c c\~ao de subgrupo requer apenas uma condi\c c\~ao:
+ \begin{prop*}
+   Se G \'e um grupo e $H\subseteq{G}, H \neq\emptyset$, ent\~ao $H\leq{G}$ se, e s\'o se, $ab^{-1}\in H$ para todos $a, b\in H.$
+ \end{prop*}
+\begin{proof*}
+  $\Rightarrow$ Suponha que H \'e um subgrupo de G e sejam $a, b\in H$. Ent\~ao, por defini\c c\~ao, $a^{-1}, b^{-1}\in H$. Assim,
+segue da defini\c c\~ao de subgrupo que $ab^{-1}\in H$.
+
+  $\Leftarrow$ Se $H \neq\emptyset$, existe ao menos um a em H. Por hip\'otese, $1 = aa^{-1}\in H$. Assim, $a^{-1} = 1a^{-1}\in H$.
+Por fim, se a, b s\~ao membros de H, ent\~ao $b^{-1}\in H$, tal que $ab = a(b^{-1})^{-1}\in H$. Portanto, H \'e subgrupo de G. \qedsymbol
+\end{proof*}
+
+ \begin{def*}
+   Se G \'e um grupo, ent\~ao $Z(G) = \{g\in G: ga = ag\forall a\in{G}\} $ \'e um subgrupo de G chamado centro de G.
+ \end{def*}
+  Provemos que Z(G) \'e de fato um subgrupo. De fato, $1\in Z(G)$ pela defini\c c\~ao de elemento neutro. Al\'em disso, se $g, h\in Z(G),$
+ent\~ao gha = gah = agh, tal que $gh\in Z(G).$ Al\'em disso, $g^{-1}\in Z(G),$ pois $g^{-1}a = (a^{-1}g)^{-1} = (ga^{-1})^{-1} = ag^{-1}.$
+  Uma propriedade interessante \'e que G ser\'a um grupo abeliano se, e somente se, $Z(G) = G.$ 
+ \begin{example*}
+ Exerc\'icio: Dados $G_{1}, G_{2}$ grupo, defina o grupo produto como $G_{1}\times G_{2} = \{(g_{1}, g_{2}): g_{i}\in G_{i}\}$. Encontre
+uma opera\c c\~ao que torne este conjunto um grupo de fato.
+ \end{example*}
+ \begin{example*}
+  \begin{itemize}
+    \item[1)]  Se V \'e um subespa\c co vetorial de um corpo qualquer $\mathbb{K}$, ent\~ao $V<\leq{\mathbb{K}}$.  
+    \item[2)] O conjunto 
+      $$
+      SU_{2}(\mathbb{C}) = \biggl\{ \begin{bmatrix}
+          \alpha & -\overline{\beta} \\
+          \beta & \overline{\alpha}
+    \end{bmatrix}: \alpha, \beta \in \mathbb{C}, |\alpha|^{2} + |\beta|^{2} = 1\biggr\} 
+    $$
+    \'e um subgrupo de $GL_{2}(\mathbb{C})$.
+    \item[3)] O conjunto
+      $$
+      SO_{2}(\mathbb{R}) = \biggl\{\begin{bmatrix}
+          \cos{(\theta)} & \sin{(\theta)}\\
+          \sin{(\theta)} & \cos{(\theta)}
+      \end{bmatrix}: \theta\in \mathbb{R}\biggr\} \leq{GL_{2}(\mathbb{R})}
+      $$
+  \end{itemize}
+ \end{example*}
+\begin{prop*}
+  Se G \'e um grupo abeliano, ent\~ao todo subgrupo de G \'e tamb\'em abeliano
+\end{prop*}
+\begin{proof*}
+  Se $H\leq{G}, a, b\in H$, em particular a, b tamb\'em pertencem a G, tal que $ab = ba.$ \qedsymbol
+\end{proof*}
+  Observe que a rec\'iproca e falsa. Com efeito, o subgrupo 
+  $$
+  \biggl\{\begin{bmatrix}
+      1 & a \\
+      0 & 1
+    \end{bmatrix}\in GL_{2}(\mathbb{R}): a\in \mathbb{R}\biggr\}
+  $$
+  \'e subgrupo abeliano de $GL_{2}(\mathbb{R}).$ Al\'em disso, a rec\'iproca n\~ao vale nem mesmo se todo subgrupo pr\'oprio de um
+grupo for abeliano, visto que todo subgrupo de $S_{3}$ \'e abeliano, mas o pr\'oprio $S_{3}$ n\~ao \'e.
+
+ \begin{def*}
+   Seja G um grupo e $S\subseteq{G}$ um subconjunto n\~ao-vazio. Definimos o conjunto gerado por S como 
+   $$
+   <S>\coloneqq \biggl\{a_{1}\cdots a_{n}: a_{i}\in S\text{ ou }a_{i}^{-1}\in{S}\biggr\}, \quad n\in \mathbb{N}\square.
+   $$
+ \end{def*}
+\begin{prop*}
+  $<S>$ \'e um subgrupo de G.
+\end{prop*}
+\begin{proof*}
+  \'E claro que $<S> \neq\emptyset$. Agora, se $a_{1}\cdots a_{n} (= x), b_{1}\cdots b_{m}(= y)\in <S>$, ent\~ao
+  $$
+  xy^{-1} = a_{1} \cdots a_{n}(b_{1}\cdots b_{m})^{-1} = a_{1}\cdots a_{n}b_{m}^{-1}\cdots b_{1}^{-1}\in <S>.
+  $$
+  Portanto, pela segunda defini\c c\~ao equivalente de subgrupo, $<S>\leq{G}.$ \qedsymbol
+\end{proof*}
+\begin{def*}
+  Nas condi\c c\~oes da propsi\c c\~ao, $<S>$ \'e o subgrupo gerado por S. Caso S seja finito, digamos $S=\{g_{1},\cdots, g_{n}\}$, denotamos
+  $<S>$ por $<g_{1}, \cdots, g_{n}>.\square$
+\end{def*}
+\begin{def*}
+  Sejam G um grupo e g um elemento seu. Se $G=<g>$, diremos que G \'e um grupo c\'iclico. $\square$
+\end{def*}
+\begin{def*}
+  Se G \'e um grupo e g seu elemento, definimos a ordem de g (nota\c c\~ao: $|g|$ ou ord(g)) como a ordem de $<g>$.
+\end{def*}
+\begin{example*}
+  $\mathbb{Z} = (1)$ \'e um grupo c\'iclico infinito, $S_{2}$ \'e um grupo c\'iclico finito e $S_{3}$ n\~ao \'e c\'iclico. \qedsymbol
+\end{example*}
+Atente-se ao fato de que $<g>\coloneqq\{\cdots, g^{-2}, g^{-1}, g^{0}=1, g, g^{2}, \cdots\} = \{g^{\mathbb{Z}}\} $
+\begin{example*}
+  Exerc\'icio: Calcule as ordens dos elementos de $S_{2}, S_{3}.$
+\end{example*}
+  Note que todo subgrupo de $\mathbb{Z}$ \'e c\'iclico. Al\'em disso, se $|G|<\infty,$ segue que $|g|<\infty$. Em particular,
+$|g|\leq{|G|}$. Vale mencionar tamb\'em que mesmo se o grupo tem ordem infinita, o grupo c\'iclico pode ter ordem finita. De fato,
+se $(G, \cdot) = (\mathbb{R}^{\times}, \cdot)$, tome g = 1. Ent\~ao, $<g> = \{-1, 1\}$, que \'e finito de ordem 2.
+ \begin{prop*}
+   Sejam G um grupo e g um elemento seu. Denotemos por S o conjunto dos inteiros n tais que $g^{n} = 1.$ Ent\~ao,
+  \begin{itemize}
+    \item[i)]$S\leq{\mathbb{Z}}$;
+    \item[ii)]As pot\^encias $g^{m}, g^{n}, m\geq{n}$ s\~ao iguais se, e somente se, $g^{m-n} = 1(i.e. m-n\in S);$
+    \item[iii)] Se $S\neq0 \mathbb{Z},$ ent\~ao $S=n\mathbb{Z}$ e as pot\^encias $1, g, g^{2}, \cdots, g^{n-1}$ s\~ao distintas e 
+  s\~ao todos os elementos em $<g>.$ Em particular, $|g|=n.$
+  \end{itemize}
+ \end{prop*}
+\begin{proof*}
+  $(i)\Rightarrow$ Se m, n pertence a S, ent\~ao $g^{m-n} = g^{m}(g^{n})^{-1} = 1$, logo m-n pertence a S. \'E claro que S \'e n\~ao-vazio, pois 0 sempre \'e um elemento seu.
+
+  $(ii)\Rightarrow$ \'E a lei do cancelamento.
+
+  $(iii)\Rightarrow$ Se $S = \{0\}$, \'e autom\'atico. Como $S\leq{\mathbb{Z}}$, pela classifica\c c\~ao dos subgrupos de $\mathbb{Z},$
+existe n em $\mathbb{Z}$ tal que $S = n \mathbb{Z}$. Agora, seja k um inteiro qualquer. Segue da divis\~ao Euclidiana que
+$k = nq + r, 0\leq{r}<n$. Assim, $g^{k} = g^{nq}g^{r} = 1g^{r},$ tal que $<g> \subseteq{\{g^{0}=1, \cdots, g^{n-1}\}}$. Finalmente, pelo
+item (ii) e da minimalidade de n. \qedsymbol
+\end{proof*}
+\begin{crl*}
+  $<g> = \{1, g, g^{2}, \cdots, g^{n-1}\} $ 
+\end{crl*}
+\begin{crl*}
+  Se a ordem de g \'e diferente de zero, ent\~ao ela \'e o menor inteiro positivo n tal que $g^{n} = 1$.
+\end{crl*}
+\begin{crl*}
+  Se a ordem de g \'e $n>{0}$, ent\~ao $g^{k} = 1,$ se, e somente se, $n|k.$
+\end{crl*}
+\begin{crl*}
+  Se a ordem de g \'e $n>0, k\in \mathbb{Z}$, ent\~ao $|g^{k}|=\displaystyle \frac{n}{mdc(n, k)}$.
+\end{crl*}
+\newpage
+
+\section{Aula 04 - 23/03/2023}
+\begin{itemize}
+  \item Ciclos e Grupo de Permuta\c c\~oes
+  \item Morfismo de Grupos
+  \item Classes laterais
+\end{itemize}
+\subsection{Ciclos e Grupos de Permuta\c c\~ao}
+Introduzimos a seguir o grupo das permuta\c c\~oes, denotado $S_{n}.$
+\begin{def*}
+  Uma permuta\c c\~ao $\sigma\in S_{n}$ \'e um r-ciclo se existem $a_{1},\cdots, a_{r}\in\{1,\cdots, n\}$ tais que $\sigma(a_{1})=a_{2},
+  \sigma(a_{2})=a_{3}, \cdots, \sigma(a_{r-1})=a_{r}, \sigma(a_{r}) = a_{1}$ e, al\'em disso, $\sigma(j) = j$ para todo j em $\{1,\cdots, n\}/\{a_{1},\cdots,a_{r}\}$. 
+  Dizemos que r \'e o comprimento de r, e denotamos $\sigma$ por $\sigma=(a_{1}\cdots a_{r}).\square$
+\end{def*}
+\begin{def*}
+  Um 2-ciclo \'e chamado transposi\c c\~ao. $\square$
+\end{def*}
+ \begin{example*}
+   Seja $\sigma\in S_{5}.$ Um 5-ciclo \'e , por exemplo, $\sigma(1)=2, \sigma(2)=3, \sigma(3)=4, \sigma(4)=5, \sigma(5)=1,$ ou $\sigma=(12345)=(34512).$
+Um 3-ciclo seria $\sigma(1)=4, \sigma(2)=2, \sigma(3)=1, \sigma(4)=3, \sigma(5)=5$ e uma transposi\c c\~ao seria $\sigma(1)=2, \sigma(2)=1, \sigma(3)=3, \sigma(4)=4, \sigma(5)=5.$
+ \end{example*}
+\begin{def*}
+  Duas permuta\c c\~oes $\sigma, \tau\in S_{n}$ s\~ao disjuntas se para todo $j\in\{1, \cdots, n\}, \sigma(j) = j$ ou $\tau(j) = j.$
+\end{def*}
+\begin{example*}
+  $\tau\in S_{5}, \tau=(34), \sigma(12) \Rightarrow \tau, \sigma$ s\~ao disjuntas.
+\end{example*}
+  Observe que nem toda permuta\c c\~ao \'e um r-ciclo. De fato, $\sigma\in S_{5}$ dada por $\sigma(1)=3, \sigma(2) = 4, \sigma(3) = 5, \sigma(4) = 2$
+e $\sigma(5)=1$ n\~ao \'e um r-ciclo. O fato \'e que toda permuta\c c\~ao \'e o produto de ciclos disjuntos de comprimento maior ou igual a 2.
+Assim, $\sigma = (135)(24)$ descreve a permuta\c c\~ao enviando 1 pra 3, 2 pra 4, 3 pra 5, 4 pra 2 e 5 pra 1. 
+\begin{example*}
+  Seja $\sigma\in S_{5}, \sigma=(12)(13)(15) = (1532)$. Note que l\^e-se o produto de permuta\c c\~oes como a composi\c c\~ao de fun\c c\~oes, isto \'e,
+come\c ca-se pela direita e termina na esquerda (afinal, \'e a composi\c c\~ao de permuta\c c\~oes, que s\~ao, particularmente, fun\c c\~oes!). Deste produt\'orio, vimos que o n\'umero 1 \'e o \'unico que ser\'a alterado, i.e., uma permuta\c c\~ao ap\'os o 1 demarca o fim da a\c c\~ao. Assim, este
+exemplo indica que 1 se torna 5 e permanece assim (a primeira a\c c\~ao torna 1 no elemento 5). 5 se torna 1, depois 3 e permanece assim ($1->5->3->3$), 2 se torna 1
+no final ($2->2->2->1$), 3 se torna eventualmente 2 ($3->2->1->2$) e 4 permanece constante. (P.S. Se essa parte ficar confusa, me chamem no celular pra eu explicar melhor).
+\end{example*}
+\begin{prop*}
+  Toda permuta\c c\~ao em $S_{n}$ \'e um produto de transposi\c c\~oes (2-ciclos). Isto \'e, $S_{n}=\langle\text{transposi\c c\~oes}\rangle$. 
+Al\'em disso, se $\sigma\in S_{n}, \sigma=\tau_{1}\cdots\tau_{r} = \rho_{1}\cdots\rho_{s}$ fatora\c c\~oes em transposi\c c\~oes, ent\~ao $2|r-s.$
+\end{prop*}
+\begin{proof*}
+  Observe que $Id = (12)(21)\in\langle\text{ transposi\c c\~oes }\rangle$. Se $\sigma\in S_{n}$ \'e uma permuta\c c\~ao qualquer, ent\~ao $\sigma$ \'e 
+o produto de ciclos. Logo, basta verificar a proposi\c c\~ao para um r-ciclo $\sigma.$ Suponha, assim, que $\sigma = (a_{1}\cdots a_{r}$ \'e um r-ciclo.
+Com isso, $r=(a_{1}a_{r})(a_{1}a_{r-1})\cdots(a_{1}a_{2}).$ \qedsymbol
+\end{proof*}
+\begin{prop*}
+  Exerc\'icio: Mostre que qualquer fatora\c c\~ao de um r-ciclo em transposi\c c\~oes tem mesma paridade.
+\end{prop*}
+\begin{def*}
+  Seja $\sigma\in S_{n}$. Ent\~ao, a matriz de permuta\c c\~ao $\sigma$ \'e
+  $$
+    U(\sigma)\coloneqq \begin{pmatrix}
+      e_{\sigma(1)}\\
+      \vdots\\
+      e_{\sigma(n)}
+    \end{pmatrix}
+  $$
+  em que $e_{i}$ \'e o i-\'esimo vetor can\^onico de $\mathbb{R}^{n}.\square$
+\end{def*}
+\begin{example*}
+  Seja $\sigma = (135)(24)\in S_{5}.$ Para esta permuta\c c\~ao, a matriz \'e
+  $$
+    U(\sigma) =
+    \begin{pmatrix}
+      e_{3}\\
+      e_{4}\\
+      e_{5}\\
+      e_{2}\\
+      e_{1}
+    \end{pmatrix} =
+    \begin{pmatrix}
+      0 & 0 & 1 & 0 & 0\\
+      0 & 0 & 0 & 1 & 0\\
+      0 & 0 & 0 & 0 & 1\\
+      0 & 1 & 0 & 0 & 0\\
+      1 & 0 & 0 & 0 & 0
+    \end{pmatrix}
+  $$
+  Note que 
+  $$
+    U(\sigma) = \begin{pmatrix}
+      1\\
+      2\\
+      3\\
+      4\\
+      5
+    \end{pmatrix} =
+    \begin{pmatrix}
+      5\\
+      4\\
+      3\\
+      2\\
+      1
+    \end{pmatrix}
+  $$
+\end{example*}
+ \begin{prop*}
+   Sejam $\sigma, \tau\in S_{n}$ e $U(\sigma), U(\tau)$ as matrizes associadas respectivas. Ent\~ao,
+  \begin{itemize}
+    \item[1)] $U(\sigma)(12 \cdots n)^{T} = a_{1}e_{1} + \cdots + a_{n}e_{n} \Longleftrightarrow \sigma(j) = a_{j},\quad j = 1, \cdots, n.$
+    \item[2)] $U(\sigma)$ sempre tem um \'unico 1 em cada linha e em cada coluna. Reciprocamente, toda matriz desse tipo
+    \'e uma matriz de alguma permuta\c c\~ao.
+    \item[3)] $\det{U(\sigma)}\in\{-1, 1\}.$
+    \item[4)] A matriz de permuta\c c\~ao de $\tau\sigma$ \'e $U(\tau)\cdot U(\sigma)$.
+  \end{itemize}
+ \end{prop*}
+\begin{proof*}
+  Exerc\'icio.
+\end{proof*}
+\begin{def*}
+  Se $\sigma\in S_{n}$ e $U(\sigma)$ \'e a matriz associada, definimos o sinal de $\sigma (sgn(\sigma))$ como sendo o 
+$\det{(U(\sigma)}.$Al\'em disso, diremos que $\sigma$ \'e uma permuta\c c\~ao par quando $sgn(\sigma) = 1$ e \'impar quando
+ $sgn(\sigma) = -1.\quad\square$ 
+\end{def*}
+  Observe que \'e poss\'ivel demonstrar que $sgn(\sigma) = (-1)^{r},$ em que r \'e o n\'umero de transposi\c c\~oes que aparecem
+na decomposi\c c\~ao de $\sigma.$
+
+\subsection{Morfismos de Grupos}
+  Morfismos de grupos funcionam como fun\c c\~oes entre conjuntos, mas que levam em conta a opera\c c\~ao existente nos grupos.
+ \begin{def*}
+   Sejam G, G' dois grupos. Um morfismo de grupos \'e um mapa $\varphi:G\rightarrow G'$ tal que $\varphi(gh)=\varphi(g)\varphi(h)$ para todo
+  g, h em G. $\quad\square$
+ \end{def*}
+ \begin{example*}
+   S\~ao morfismos:
+  \begin{align*}
+    &1) sgn:S_{n}\rightarrow \{+1, -1\}, \sigma\mapsto sgn(\sigma),\quad sgn(\sigma\tau) = \det(U(\sigma)U(\tau)) = \det(U(\sigma))\det(U(\tau)) = sgn(\sigma)sgn(\tau)\\
+    &2) \det:GL_{n}\rightarrow \mathbb{R}^{\times}, A\mapsto\det(A)\\
+    &3) \exp:(\mathbb{R}, +)\rightarrow (\mathbb{R}, \cdot), x\mapsto e^{x}\\
+    &3) \varphi:G\rightarrow G', g\mapsto 1', \quad\text{ em que }1'\text{ \'e o elemento neutro de G'.}\\
+    &3) \text{ Se }H\leq{G}, \text{ ent\~ao a inclus\~ao} i:H\rightarrow G, h\mapsto h\text{ \'e um morfismo.}\\
+    &\quad3.1) \text{ Em particular, } U:S_{n}\rightarrow GL_{n}, \sigma\mapsto U(\sigma)\\
+    &3) \mathbb{Z}\rightarrow G, n\mapsto g^{n}, g\in G\text{ fixo.}
+  \end{align*}
+ \end{example*}
+ \begin{prop*}
+   Seja $\varphi:G\rightarrow G'$ um morfismo. Ent\~ao,
+  \begin{align*}
+    &1)g_{1}\cdots g_{n}\in G, \varphi(g_{1}\cdots g_{n}) = \varphi(g_{1})\cdots\varphi(g_{n}).\\
+    &2)\text{ Se 1 \'e o elemento neutro de G e 1' o elemento neutro de G', } \varphi(1)=1'.\\
+    &3)\varphi(g^{-1}) = \varphi(g)^{-1}.
+  \end{align*}
+ \end{prop*}
+\begin{proof*}
+  1.) Os casos 1 e 2 s\~ao ok. Assim, vamos mostrar por indu\c c\~ao. Suponha que vale para
+n-1. Ent\~ao, 
+  $$
+  \varphi(g_{1}\cdots\varphi_{n})=\varphi((g_{1}\cdots g_{n-1})g_{n}) = \varphi(g_{1}\cdots g_{n-1})\varphi(g_{n}) = \varphi(g_{1})\cdots\varphi(g_{n-1})\varphi(g_{n}).
+  $$
+
+  2.) $\varphi(1) = \varphi(1.1)\coloneqq \varphi(1)\varphi(1) \Rightarrow 1' = \varphi(1)\varphi(1)^{-1} = \varphi(1)$
+
+  3.) $1' = \varphi(1) = \varphi(gg^{-1}) = \varphi(g)\varphi(g^{-1}) \Rightarrow \varphi(g)^{-1} = \varphi(g^{-1}).$ \qedsymbol
+\end{proof*}
+\begin{def*}
+  Se $\varphi:G\rightarrow G'$ \'e um morfismo, defina a imagem de $\varphi$ por $Im \varphi\coloneqq\{u\in G': \exists x\in G, \varphi(x)=y\}$ 
+  e o n\'ucleo (ou kernel) de $\varphi$ por $\ker{(\varphi)}\coloneqq\{x\in G: \varphi(x) = 1'\} $, em que 1' \'e o elemento neutro de G'.  
+\end{def*}
+\begin{prop*}
+  A imagem de um morfismo $\varphi:G\rightarrow G'$ \'e um subgrupo de G' e o kernel de $\varphi$ \'e um de G.
+\end{prop*}
+\begin{proof*}
+  Se y, y' pertencem a $Im\varphi$, ent\~ao existem x, x' em G tais que $\varphi(x) = y, \varphi(x')=y'.$ Assim, 
+  $$
+    yy' = \varphi(x)\varphi(x') = \varphi(xx') \Rightarrow yy'\in Im\varphi.
+  $$
+  Al\'em disso, \'e claro que $\varphi(1) = 1'\in Im\varphi.$ Finalmente, se y pertence a $Im \varphi,$ ent\~ao
+ $\varphi(x^{-1}) = \varphi(x)^{-1} = y^{-1} \Rightarrow y^{-1}\in Im \varphi.$ A prova de que $\ker\varphi\leq{G}$ fica como
+ exerc\'icio. \qedsymbol
+\end{proof*}
+\begin{def*}
+  Seja $sgn:S_{n}\rightarrow \{+1, -1\}$. Definimos $A_{n} = \ker{(sgn)}$ como o grupo alternado. $\quad\square$
+\end{def*}
+\begin{def*}
+  Se H \'e um subgrupo de G e g um elemento de G, defina a classe lateral \`a esquerda de G em H como
+  $$
+    gH\coloneqq \{gh: h\in H\}.\quad\square
+  $$
+\end{def*}
+\begin{prop*}
+  Seja $\varphi:G\rightarrow G'$ um morfismo e K $= \ker{(\varphi)}.$ Se a, b s\~ao elementos de G, s\~ao equivalentes:
+ \begin{align*}
+   &1) \varphi(a) = \varphi(b)\\
+   &2) a^{-1}b\in K\\
+   &3) b\in aH\\
+   &4) aK = bK.
+ \end{align*}
+\end{prop*}
+\begin{proof*}
+  \begin{align*}
+  &1)\Rightarrow2): \varphi(a) = \varphi(b) \Rightarrow \varphi(a^{-1}b) = 1' \Rightarrow a^{-1}b\in K;\\ 
+  &2)\Rightarrow1): a^{-1}b\in K \Rightarrow \varphi(a^{-1}b) = 1' \Rightarrow \varphi(a)=\varphi(b);\\
+  &1)\Rightarrow3): a^{-1}b\in K \text{ se } \exists h\in K \text{ tais que } a^{-1}h = bh \Rightarrow b\in aK;\\
+  &3)\Rightarrow1): \text{ Suponha que }b\in aH, b = ah \Rightarrow \varphi(b) = \varphi(a)\varphi(h) = \varphi(a);\\
+  &(1)\Longleftrightarrow(4): \text{Exerc\'icio. \qedsymbol}
+  \end{align*}
+\end{proof*}
+\newpage
+
+\section{Aula 05 - 30/03/2023}
+\subsection{Motiva\c c\~oes}
+ \begin{itemize}
+   \item Subgrupos Normais;
+   \item Isomorfismos e Automorfismos;
+   \item Parti\c c\~oes e rela\c c\~oes de equival\^encia.
+ \end{itemize}
+\subsection*{Errata \'Ultima Aula}
+Seja $P_{ij}\in \mathbb{M}_{n}(\mathbb{R})$ tal que se $P_{ij}=(a_{kl})$, ent\~ao $a_{kl} = 1$ se k = i, l = j e 0 caso contr\'ario.
+Assim, se $\sigma\in S_{n},$ 
+  $$
+    U(\sigma) = (e_{\sigma(1)}\cdots e_{\sigma(n)}) = \sum\limits_{}^{}P_{\sigma(i), i}, 
+  $$
+  em que $e_{j}$ \'e o vetor em $\mathbb{R}^{n}$ com 1 na j-\'esima entrada e zero nos demais. De fato, $U(\sigma)$ \'e a matriz
+da tansforma\c c\~ao linear $\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}, e_{j}\mapsto e_{\sigma(j)}.$
+\subsection{Subgrupos Normais}
+  Come\c camos com um corol\'ario \`a \'ultima aula:
+ \begin{crl*}
+   Uma $\varphi$ \'e injetora se, e somente se, $\ker{(\varphi)} =\{0\}.$
+ \end{crl*}
+\begin{proof*}
+  $ \Rightarrow)$ Seja a um elemento do kernel de $\varphi$. Ent\~ao, 
+    $$
+      \varphi(a) = 1' = \varphi(1).
+    $$
+    Mas, como $\varphi$ \'e injetora, segue que a = 1 \'e o \'unico elemento no kernel.
+
+  $ \Leftarrow)$ Suponha que $\varphi$ tem kernel trivial, i.e., $\ker{(\varphi)} =\{0\}.$ Ent\~ao,
+    $$
+    \varphi(a)\varphi(b)^{-1} = 1' \Rightarrow 1 = \varphi(a)\varphi(b^{-1}) = \varphi(ab^{-1}) \Rightarrow ab^{-1}\in\ker{\varphi} = {1}.
+    $$
+    Portanto, $ab^{-1} = 1$ e, assim, $a = b.$ \qedsymbol
+\end{proof*}
+ \begin{def*}
+   Se G \'e um gurpo e a, g seus elementos, dizemos que $gag^{-1}\in G$ \'e um conjugado de a com respeito a g. Dois elementos a, b
+  de G s\~ao conjugados se existe um g no grupo tal que $a = g b g^{-1}.\square$
+ \end{def*}
+ \begin{def*}
+   Sejam G um grupo e $H\leq{G}$. Dizemos que H \'e um subgrupo normal a G ($H\trianglelefteq G$) se para todos $h\in H$ e $g\in G$,
+  $ghg^{-1}\in H$, i.e., H absorve os conjugados de seus elementos. $\square$
+ \end{def*}
+  Em outras palavras, um subgroup \'e normal se ele \'e fechado pela conjuga\c c\~ao, o que pode ser denotado por $gHg^{-1}\subseteq{H},$ para todo
+g de G.
+ \begin{prop*}
+   Se $H\leq{g},$ s\~ao equivalente
+  \begin{align*}
+    &i)\quad H\trianglelefteq{G} \\
+    &ii)\quad gHg^{-1} = H\\
+    &iii)\quad gH = Hg.
+  \end{align*}
+ \end{prop*}
+\begin{proof*}
+  (1) $ \Rightarrow$ (2): Obviamente, $gHg^{-1}\leq{H}$ por defini\c c\~ao. Sejam h em H e g em G. Ent\~ao, $ghg^{-1}\in gHg^{-1}\subseteq{H},$
+  tal que existe x em H que satisfaz $ghg^{-1} = x \Rightarrow h = \underbrace{(g^{-1})x(g^{-1})^{-1}}_{\in gHg^{-1}}$
+
+  (2) $ \Rightarrow$ (1): Ok.
+
+  (1) $ \Rightarrow$ (3): Se x pertence a gH, x = gh para algum h de H. Por hip\'otese, $gHg^{-1}\subseteq{H}$, de maneira que
+ $ghg^{-1} = y\in H$, ou seja, $gh = yg.$ Como x = gh, $x = yg\in Hg$. Portanto, $gH\subseteq{Hg}.$ O outro lado da inclus\~ao fica como exerc\'icio.
+
+  (3) $\Rightarrow$ (1): Se $x\in gHg^{-1}, x = ghg^{-1}, h\in H$, segue da hip\'otese que $gh = h'g$ para algum h' em H. Assim,
+  $x = h'\in H.$ \qedsymbol
+\end{proof*}
+\begin{example*}
+ \begin{itemize}
+   \item[1)] Se G \'e um grupo, s\~ao subgrupos normais: G, $\{e\}$, Z(g).
+   \item[2)] Se G \'e um grupo abeliano, todo subgrupo \'e normal, mas n\~ao vale a volta.
+ \end{itemize}
+\end{example*}
+ \begin{example*}
+   Exerc\'icio: Seja $Q = \{\pm1, \pm i, \pm j, \pm k: -1^{2} = 1, i^{2} = j^{2} = k^{2} = -1\}.$ Mostre que Q \'e um grupo
+n\~ao abeliano, mas que todo subgrupo \'e normal.
+ \end{example*}
+\begin{example*}
+  $<(12)> = <id, (12)>\not\trianglelefteq{S_{3}}$, visto que 
+  $$
+    (123)(12)(123)^{-1} = (32)\not\in <(12)>\\
+  $$
+  Portanto, $<(12)>$ n\~ao \'e um subgrupo normal de $S_{3}.$
+\end{example*}
+ \begin{prop*}
+   Se $\varphi:G\rightarrow G'$ \'e um morfismo, ent\~ao $\ker{\varphi}\trianglelefteq{G}.$
+ \end{prop*}
+\begin{proof*}
+  Sejam g um elemento de G e h um elemento de $\ker{\varphi}$. Ent\~ao, 
+    $$
+      \varphi(ghg^{-1}) = \varphi(g)\varphi(h)\varphi(g^{-1}) = \varphi(g)1'\varphi(g)^{-1} = \varphi(g)\varphi(g)^{-1} = 1'.
+    $$
+    Portanto, $ghg^{-1}\in\ker{\varphi}$ e, portanto, $\ker{\varphi}\trianglelefteq{G}.$ \qedsymbol
+\end{proof*}
+ \begin{example*}
+  \begin{itemize}
+    \item[1)] $SL_{n}\trianglelefteq{GL_{n}}, \quad SL_{n} = \ker{det}.$
+    \item[2)] $A_{n} = \ker{sgn}\trianglelefteq{S_{n}}, \quad sgn:S_{n}\rightarrow\{\pm 1\}, \sigma\mapsto \det{U(\sigma)}.$
+  \end{itemize}
+ \end{example*}
+ Lembre-se que, dado $\sigma\in S_{n}, \sigma = \tau_{1}\cdots\tau_{r}$ s\~ao 2-ciclos, ent\~ao $sgn(\sigma) = (-1)^{r}.$
+\begin{def*}
+  Sejam G, G' grupos. Um isomorfismo $\varphi$ \'e um morfismo $\sigma:G\rightarrow G'$ bijetor. Se G = G', $\varphi$ \'e chamado automorfismo.
+Por fim, se existe um isomorfismo entre dois grupos, dizemos que eles s\~ao isomorfos, escrevendo $G\cong G'$
+\end{def*}
+\textbf{(Nota ao leitor)} Mas o que h\'a de \'util em isomorfismo? Por que nos importamos? 
+
+  Em \'Algebra linear, estudamos os isomorfismos entre espa\c cos vetoriais, e como eles preservavam algumas propriedades. Essencialmente,
+o mesmo ocorrer\'a aqui, ou seja, se h\'a um isomorfismo entre dois grupos, essencialmente estamos estudando o mesmo grupo, mas sob uma \'otica diferente.
+Os elementos de um grupo podem ser escritos utilizando os do outro, eles ter\~ao os mesmos tamanhos, a propriedade abeliana ser\'a preservada, etc.
+Com isso, caso encontre um grupo aparentemente muito dif\'icil de trabalhar, \'e poss\'ivel simplificar o problema encontrando um outro grupo
+isomorfo e que facilitar\'a seu servi\c co. Veremos exemplos a seguir.
+ \begin{example*}
+  \begin{itemize}
+    \item[1)] Todo subgrupo de ordem 2 \'e isomorfo a $S_{2}$.
+    \item[2)] H\'a um isomorfismo entre o grupo aditivo dos reais e o multiplicativo positivo dado por $exp:(\mathbb{R}, +)\rightarrow (\mathbb{R}_{>0}, \cdot), x\mapsto e^{x}.$'
+    \item[3)] Se g \'e um elemento de G de ordem infinita, ent\~ao $\mathbb{Z}\rightarrow <g>\leq{G}, n\mapsto g^{n}$ \'e um isomorfismo.
+    \item[4)] Seja $P\leq{GL_{n}}$ o conjunto das matrizes com somente um 1 em cada linha e cada coluna, tendo entrada 0 nos demais. Ent\~ao,
+  $P\leq{GL_{n}}$ e $S_{n}\rightarrow P, \sigma\mapsto U(\sigma)$ \'e isomorfismo.
+    \item[5)] $id:G\rightarrow G'$ \'e um isomorfismo.
+    \item[6)] Se g pertence a G, $\varphi_{g}:G\rightarrow G, x\mapsto gxg^{-1}$ \'e isomorfismo.
+  \end{itemize}
+ \end{example*}
+ \begin{prop*}
+   Se $\varphi$ \'e isomorfismo, ent\~ao $|g| = |\varphi(g)|$. Em part\'icular, $|g| = |aga^{-1}|$ para todo a de G.
+ \end{prop*}
+\begin{proof*}
+    No caso em que $|g| = \infty,$ se $|\varphi(g)| = g < \infty$. Assim, 
+      $$
+      1' = \varphi(g)^{m} = \varphi(g^{m}) \Rightarrow g^{m}\in\ker{\varphi} = \{1\} \Rightarrow g^{m} = 1.
+      $$
+
+    Agora, se $|g| = n <\infty$. Seja $m = |\varphi(g)|$, ent\~ao 
+      $$
+        1' = \varphi(g)^{m} = \varphi(g^{m}) \Rightarrow g^{m} = 1 \Rightarrow n|m.
+      $$ 
+    Por outro lado, como $g^{n} = 1,$ 
+      $$
+        1' = \varphi(g^{n}) = \varphi(g)^{n} \Rightarrow m|n.
+      $$
+    Portanto, m = n. \qedsymbol
+\end{proof*}
+\begin{lemma*}
+  Se $\varphi:G\rightarrow G'$ \'e um isomorfismo, ent\~ao $\varphi^{-1}:G'\rightarrow G$ tamb\'em \'e isomorfismo. 
+\end{lemma*}
+\begin{proof*}
+  Segue que $\varphi^{-1}$ est\'a bem-definida e \'e uma bije\c c\~ao pois $\varphi$ \'e bije\c c\~ao. Sejam x, y elementos de G'.
+Sendo $\varphi$ uma bije\c c\~ao, existem a, b em G tais que 
+  $$
+  x = \varphi(a)\quad\text{e}\quad y = \varphi(b).
+  $$
+  Desta forma, $\varphi^{-1}(xy) = \varphi^{-1}(\varphi(a)\varphi(b)) = \varphi^{-1}(\varphi(ab)) = ab = \varphi^{-1}(x)\varphi^{-1}(y).$ \qedsymbol
+\end{proof*}
+ \begin{def*}
+   Dado S um conjunto, uma parti\c c\~ao para S \'e uma cobertura por subconjuntos n\~ao-vazios e disjuntos. Em outras palavras,
+existe $U_{j}\subseteq{S}, U_{j}\neq\emptyset$ e $U_{j}\cap U_{i} = \emptyset$ se $i\neq j$ tal que 
+  $$
+    S = \bigsqcup_{j\in I}U_{j}.
+  $$
+ \end{def*}
+\begin{def*}
+  Uma rela\c c\~ao de equival\^encia em um conjunto S \'e um subconjunto R de $S\times S$ tal que 
+ \begin{itemize}
+   \item[-]$\overbrace{(a, a)}^{a\sim a}\in R, \forall a\in S$ (Reflexiva);
+   \item[-]$(a, b)\in R \Rightarrow (b, a)\in R (a\sim b \Rightarrow b\sim a)$ (Sim\'etrica);
+   \item[-]$(a, b)(b, c)\in R \Rightarrow (a, c)\in R (a\sim b, b\sim c \Rightarrow a\sim c)$ (Transitiva).
+ \end{itemize}
+ Denotamos $(a, b)\in R$ por $a~b$, e l\^e-se ``a est\'a relacionado com b''. $\square$
+\end{def*}
+ \begin{def*}
+   Se R \'e uma rela\c c\~ao de equival\^encia em S, denotamos por $[a], a\in S$ o conjunto dos elementos de S que se relacionam com a. Em outras palavras, 
+     $$
+     [a]\coloneqq\{b\in S: a~b\} = \{b\in S: (a, b)\in R\}
+     $$
+     e chamamos $[a]$ de classe de equival\^encia de a. $\square$
+ \end{def*}
+\begin{example*}
+ \begin{itemize}
+   \item[1)] A ordem em um grupo define uma rela\c c\~ao de equival\^encia;
+   \item[2)] A conjuga\c c\~ao define uma rela\c c\~ao de equival\^encia em um grupo G. $(a~b \Longleftrightarrow \exists g\in G: a = gbg^{-1})$
+     Neste caso, denotamos $[a] = Cl(a)$ como a classe de conjuga\c c\~ao de a.
+ \end{itemize}
+\end{example*}
+\begin{theorem*}
+  Uma parti\c c\~ao em um conjunto S define uma rela\c c\~ao de equival\^encia em S. Reciprocamente, uma rela\c c\~ao de 
+equival\^encia define uma parti\c c\~ao em S.
+\end{theorem*}
+\newpage
+
+\section{Aula 06 - 11/04/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+  \item Classes de equival\^encia;
+  \item \'Indice de um grupo;
+  \item Teorema de Lagrange.
+\end{itemize}
+
+\subsection{Classe de Equival\^encia de Parti\c c\~oes}
+\begin{theorem*}
+  Uma parti\c c\~ao em um conjunto S define uma rela\c c\~ao de equival\^encia em S. Reciprocamente, uma rela\c c\~ao de 
+equival\^encia define uma parti\c c\~ao em S.
+\end{theorem*}
+\begin{proof*}
+  Seja $S = \bigsqcup_{i\in I}S$ uma parti\c c\~ao, tal que
+    $$
+    R = \{(a,b)\in S\times S: \exists i\in I, a ,b\in S_{i}\}
+    $$
+  \'e uma defini\c c\~ao de equival\^encia em S.
+
+  Reciprocamente, dada uma rela\c c\~ao de equival\^encia em S, temos $[a]$ como a classe de equival\^encia de um elemento a de S.
+  Por reflexividade, $a\in[a],$ ou seja, $[a]$ \'e n\~ao-vazio e 
+    $$
+    S = \bigcup_{a\in S}[a].
+    $$
+    \textbf{Afirma\c c\~ao:} Se $[a]\cap[b]\neq\emptyset,$ ent\~ao $[a]=[b].$
+    Com efeito, seja c um elemento na intersec\c c\~ao das classes [a] e [b]. Segue que $a\sim c$ e $b\sim c$. Por simetria,
+    $c\sim b$, logo, por transitividade, $a\sim c\sim b$, ou seja, $c\sim b$. Tome x em [b], ou seja, $b\sim x.$ Novamente,
+    por transitividade, $a\sim x,$ isto \'e, $x\in[a].$ Provamos, ent\~ao, que $[a]\subseteq{[b]}$ e $[b]\subseteq{[a]}$, ou seja,
+    $[a]=[b].$ \qedsymbol
+\end{proof*}
+\begin{example*}
+  A ordem de um elemento define uma rela\c c\~ao de equival\^encia em um grupo. Particularmente, no caso de $S_{3},$ as classes
+de equival\^encia s\~ao 
+ \begin{align*}
+  &(i)\quad [(12)]  = \{(12), (13), (23)\}\\
+  &(ii)\quad [(123)] = \{(123), (132)\}\\
+  &(iii)\quad [id] = \{id\}.
+ \end{align*} 
+ Assim, $S_{3}=[(12)]\bigsqcup{}[(123)]\bigcup{[id]}.$ \qedsymbol
+\end{example*}
+\begin{def*}
+  Se $S = \bigsqcup{S_{i}}_{i\in I}$ \'e uma parti\c c\~ao, denotamos $\overline{S}\coloneqq\{[S_{i}]\} $ o conjunto das classes
+de equival\^encia dadas por $S_{i}.$
+\end{def*}
+\begin{example*}
+Se $\mathbb{Z}=\{\text{n\'umeros pares}\}\bigsqcup{\{\text{n\'umeros \'impares}\}}$, ent\~ao $\overline{\mathbb{Z}} =\{[\text{pares}], [\text{\'impares}]\} 
+ \{\overline{0}, \overline{1}\}.$
+\end{example*}
+  Observe que, se S tem uma rela\c c\~ao de equival\^encia, \'e poss\'ivel ``projetarmos'' um elemento de S em sua classe de equival\^encia atrav\'es de 
+    $$
+    \pi:S\rightarrow \overline{S},\quad a\mapsto[a]=\overline{a}.
+    $$
+ \begin{example*}
+   Fixe um inteiro n. Dados a, b tamb\'em inteiros, dizemos que $a\sim b$ m\'odulo n (ou $a\equiv b\mod n$) se $n|a-b.$ Mostre que
+   a congru\^encia mod n \'e de fato uma rela\c c\~ao de equival\^encia em $\mathbb{Z}.$ Al\'em disso, $\overline{\mathbb{Z}}^{n} = \mathbb{Z}/n\mathbb{Z} = \{\overline{0}, \cdots, \overline{n-1}\}.$
+ \end{example*}
+\begin{def*}
+  Se $\varphi:S\rightarrow T$ \'e um mapa entre conjuntos, ent\~ao $\varphi$ define uma rela\c c\~ao de equival\^encia em S dada por 
+    $$
+      a\sim b\quad \Longleftrightarrow \varphi(a) = \varphi(b).
+    $$
+    Al\'em disso, [a] \'e definida como a fibra por $\varphi$ de $\varphi(a) = t,$ ou seja, 
+      $$
+      \varphi^{-1}(t) = \{s\in S: \varphi(s) = t\}.
+      $$
+      Em outras palavras, se $\varphi(a) = t$, ent\~ao $\overline{a} = [a] = \varphi^{-1}(t).$ Em part\'icular, 
+        $$
+          S = \bigsqcup_{t\in Im\varphi}{\varphi^{-1}(t)}.
+        $$
+\end{def*}
+
+\subsection{Classes Laterias e \'Indices.}
+\begin{prop*}
+  Sejam $\varphi:G\rightarrow G'$ morfismos de grupos e K = $\ker{\varphi}$. Ent\~ao, a fibr de $\varphi$ que cont\'em o elemento a
+a de G \'e a classe lateral $aK$. Al\'em disso, essas classes particionam G e correspondem aos elementos da imagem de $\varphi.$
+\end{prop*}
+\begin{proof*}
+  Segue que, dado b em aK, $\varphi(a) = \varphi(b) = t$. Disto segue que a, b pertencem \`a pr\'e-imagem de $\varphi, \varphi^{-1}(t).$
+\end{proof*}
+\begin{prop*}
+  As classes laterais \`a esquerda de H em G s\~ao as classes de equival\^encia da seguinte rela\c c\~ao 
+    $$
+      a\cong{b} \Longleftrightarrow b = ah, \quad h\in H.
+    $$
+  Denotamos $a\cong{b}$ por $a\equiv b.$
+\end{prop*}
+\begin{proof*}
+  Observe que a = 1a, $1\in H.$ Logo, $a\cong{a}.$ Se $a\cong{b},$ existe h em H tal que b = ah, ou seja, $a = bh^{-1}, h^{-1}\in H$ 
+de modo que $b\cong{a}.$ 
+
+  Se $a\cong{b}, b\cong{c},$ existem $h_{1}, h_{2}\in H$ tais que $b = ah_{1}, c = bh_{2},$ de forma que $c = ah_{1}h_{2},$ i.e.,
+ $a\cong{c}.$ 
+
+  Por fim, 
+  \begin{align*}
+    [a] &= \{b\in G: a\cong{b}\}\\
+        &= \{b\in G: \exists h\in H\text{ tal que }b = ah\}\\
+        &= \{ah: h \in H\} = aH.\text{ \qedsymbol}
+  \end{align*}
+\end{proof*}
+\begin{crl*}
+  G = $\bigsqcup_{a\in G\text{distintos}}^{}{aH}.$
+\end{crl*}
+\begin{example*}
+  Em $S_{3} = <(12), (123)>$, seja $H = <(12)>.$ Temos 
+ \begin{align*}
+   &(i)id H = H = \{id, (12)\} = (12)H\\
+   &(ii)(123)H = \{(123), (123)(12)\} = (123)(12)H\\
+   &(iii)(123)^{2}H = \{(123)^{2}, (123)^{2}(12)\} = (123)^{2}(12)H.
+ \end{align*}
+ De fato, $S_{3} = H\bigsqcup_{}^{}{(123)H}\bigsqcup_{}^{}{(123)^{2}H}$ \qedsymbol
+\end{example*}
+\begin{def*}
+  O n\'umero de classes laterais (\`a esquerda) de H em G \'e chamado o \'indice de H em G, denotado por $[G:H].\square$
+\end{def*}
+\begin{example*}
+  No exemplo anterior, $[S_{3} : H]=3, |H| = 2.$
+\end{example*}
+\begin{lemma*}
+  Todas as classes laterais aH de H em G t\^em mesma ordem.
+\end{lemma*}
+\begin{proof*}
+  O mapa $m_{a}:H\rightarrow H_{a}, h\mapsto ah$ \'e um mapa bijetor com inversa $m_{a^{-1}}.$ \qedsymbol
+\end{proof*}
+  Este lema ser\'a usado para demonstrar um resultado extremamente importante em Teoria de Grupos. Essencialmente falando,
+ele afirma que a ordem de um grupo \'e um m\'ultiplo da ordem dos seus subgrupos. Mas por que isso importa? Al\'em de ser um
+resultado intrigante por si s\'o, ele pode ser usado para mostrar que grupos n\~ao s\~ao isom\'orficos, quantidade de elementos de 
+uma dada ordem dentro de um grupo, entre outras coisas. Segue seu enunciado.
+\begin{theorem*}
+  Se G \'e um grupo finito e H um subgrupo de G, ent\~ao 
+    $$
+      |G| = |H|[G:H].
+    $$ 
+  Em particular, $|H|$ divide $|G|.$
+\end{theorem*}
+\begin{proof*}
+  Da proposi\c c\~ao anterior, sabemos que $G = \bigsqcup_{a\in{G}\text{diferentes}}^{}{aH}.$ Portanto,
+    $$
+    |G| = \sum\limits_{a\in{G}\text{diferentes}}^{}|aH| = |H|[G:H]\text{ \qedsymbol}
+    $$
+\end{proof*}
+\begin{crl*}
+  Se a pertence a G, ent\~ao $|a|\biggl|\biggr.|G|$
+\end{crl*}
+\begin{proof*}
+  Segue do Teorema de Lagrange que  
+    $$
+    |a|=|<a>|\biggl|_{}^{}\biggr.|G|\text{ \qedsymbol}
+    $$
+\end{proof*}
+\begin{crl*}
+  Se $|G|=p$ n\'umero primo e a \'e um elemento de G diferente do elemento neutro, ent\~ao 
+    $$
+      G = <a>.
+    $$
+\end{crl*}
+\begin{proof*}
+  Se |a| divide p, ent\~ao $|a|=1$ ou p, mas, como $a\neq 1, |a| = p,$ segue que
+    $$
+    G = <a>\text{ \qedsymbol}
+    $$
+\end{proof*}
+\begin{crl*}
+  Se $\varphi:G\rightarrow G'$ \'e um morfismo de grupos finitos, segue que 
+ \begin{align*}
+   &1)\quad |G| = |\ker{\varphi}||im\varphi|\\
+   &2)\quad |\ker{\varphi}| \biggl|_{}^{}\biggr. |G|\\
+   &3)\quad |im\varphi|\text{ divide } |G|\text{ e }|G'|.
+ \end{align*}
+\end{crl*}
+\begin{proof*}
+  $1\Rightarrow)$ Temos 
+ \begin{align*}
+   G &= \bigsqcup_{}^{}{a\ker{\varphi}}\\
+     & \Rightarrow |G| = |im\varphi||\ker{\varphi}|\\
+     & \Rightarrow |G| = |\ker\varphi|[G:\ker{\varphi}] = |\ker{\varphi}||im\varphi|.
+ \end{align*}
+  Os outros itens ficam como exerc\'icio para os estudantes. \qedsymbol
+\end{proof*}
+\begin{example*}
+  Considere $sgn:S_{n}\rightarrow \{\pm 1\}.$ Temos 
+    $$
+      |im(sgn)| = 2,
+    $$
+    de modo que 
+    $$
+    |A_{n}| = |\ker{sgn}| = \frac{|S_{n}|}{2} = \frac{n!}{2}.
+    $$
+\end{example*}
+\begin{prop*}
+  Se $K\leq{H}\leq{G},$ ent\~ao 
+    $$
+    [G:K] = [G:H][H:K] 
+    $$ 
+\end{prop*}
+\begin{proof*}
+  Suponha que $[G:H] = n$ e $[H:K]=m$. Ent\~ao, 
+    $$
+    G = g_{1}H\bigsqcup_{}^{}{\cdots}\bigsqcup_{}^{}{g_{n}H} = \bigsqcup_{i=1}^{n}{g_{i}H}\quad\text{e}\quad H = \bigsqcup_{j=1}^{m}{h_{j}K}.
+    $$
+  A multliplica\c c\~ao por $g_{i}$ \'e uma bije\c c\~ao 
+    $$
+      m_{g_{i}}:h_{j}K\rightarrow g_{i}h_{j}K,\quad x\mapsto g_{i}x.
+    $$
+  Assim, $g_{i}H = \bigsqcup_{j=1}^{m}{g_{i}h_{j}K}.$ Portanto, 
+    $$
+    G = \bigsqcup_{i=1}^{n}{\biggl[\bigsqcup_{j=1}^{m}{g_{i}g_{j}K}\biggr]},
+    $$
+    de onde conclu\'i-se que $[G:K]=mn.$ \qedsymbol
+\end{proof*}
+\newpage
+
+\section{Aula 07 - 13/04/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+  \item Relacionando morfismos com as estruturas de subgrupos;
+  \item Teorema da Correspond\^encia.
+\end{itemize}
+
+\subsection{Mais Sobre Morfismos}
+\begin{prop*}
+  Se $\varphi:G\rightarrow G'$ \'e um morfismo de grupos finitos e $H\leq{G}$ \'e tal que  $\gcd{(|H|, |G'|)} = 1$, ent\~ao $\ker{\varphi}\supseteq{H}.$
+\end{prop*}
+\begin{proof*}
+  Tome $\varphi_{H}:H\rightarrow G'$. Pela propriedade da aula passada, 
+    $$
+    |im{\varphi_{H}}|\biggl|_{}^{}\biggr. |H|\text{ e } |G'|.
+    $$
+    Por hip\'otese, $|im(\varphi_{H})|=1$, i.e., $im \varphi_{H} = \{1'\}$. Assim, $\varphi(H)\subseteq{\{1'\}}.$
+    Portanto, $H\subseteq{\ker{\varphi}}.$ \qedsymbol
+\end{proof*}
+\begin{example*}
+  Se $H\leq{S_{n}}, |H| = 2k+1,$ ent\~ao $H\subseteq{A_{n}}.$ Considere $sgn:S_{n}\rightarrow \{\pm1\}$. Pela proposi\c c\~ao,
+  $H\subseteq{\ker{sgn}}=A_{n}.$
+\end{example*}
+\begin{prop*}
+  Seja $\varphi:G\rightarrow G'$ um morfismo de grupos, $K=\ker{\varphi}, H'\leq{G'}$ e $H = \varphi^{-1}(H').$ Ent\~ao, 
+ $H\leq{G}$ e $K\leq{H}.$ Al\'em disso, se $H'\trianglelefteq{G'}$, ent\~ao $H\trianglelefteq{G}$. Por fim, se $\varphi$ for
+ sobrejetora e $H\trianglelefteq{G}$, temos $\varphi(H) = H'\trianglelefteq{G'}.$
+\end{prop*}
+\begin{proof*}
+  Vamos come\c car mostrando que H \'e um subgrupo de G. Com efeito, como H' \'e subgrupo de G', ent\~ao 1' \'e um de seus elementos.
+Assim, $\varphi^{-1}(1')\subseteq{H}$ e, em particular, 1 pertence a H e $K\leq{H}.$ Agora, sejam x, y elementos de H. Ent\~ao,
+ $\varphi(x), \varphi(y)\in H'$, ou seja, $\varphi(x)\varphi(y)^{-1}\in H'$. Assim, $\varphi(xy^{-1})\in H'$ e $xy^{-1}\in H.$
+Portanto, H \'e subgrupo de G.
+
+  Daremos continuidade provando a segunda parte do resultado. Suponha que $H'\trianglelefteq{G'}$ e sejam $x\in gHg^{-1}, x = ghg^{-1}$ 
+para algum h em H. 
+  $$
+    \varphi(x) = \varphi(ghg^{-1}) = \varphi(g)\varphi(h)\varphi(g)^{-1}\in H' \Rightarrow ghg^{-1}\in H.
+  $$
+Portanto, $H\trianglelefteq{G}.$
+
+  Finalmente, mostremos que $\varphi(H)\trianglelefteq{G'}.$ Tome g' em G e $y\in\gamma(H).$ Como $\varphi$ \'e sobrejetora, existe
+x em H e g em G tal que $\varphi(g)=g', \varphi(x) = y.$ Portanto,
+  $$
+  g'y(g')^{-1} = \varphi(g)\varphi(x)\varphi(g)^{-1} = \varphi(gxg^{-1})\in \varphi(H).\text{ \qedsymbol}
+  $$
+\end{proof*}
+\begin{example*}
+  Segue que $GL_{n}(\mathbb{R})^{+}\trianglelefteq{GL_{n}(\mathbb{R})}$. De fato, note que, se definirmos
+    $$
+      \det:GL_{n}(\mathbb{R})\rightarrow \mathbb{R}^{\times},
+    $$
+    ent\~ao $GL_{n}(\mathbb{R})^{+} = \det^{-1}(\mathbb{R}_{>0})\trianglelefteq{GL_{n}(\mathbb{R})}$. \qedsymbol
+\end{example*}
+\subsection{Teorema da Correspond\^encia}
+  O resultado a seguir \'e conhecido como Teorema da Correspond\^encia.
+\begin{theorem*}
+  Seja $\varphi:G\rightarrow G'$ sobrejetora e $K=\ker{\varphi}.$ Ent\~ao,  
+  \begin{align*}
+    &\{H\leq{G}: K \subseteq{H}\} \longleftrightarrow \{N: N\leq{G'}\}\\
+    &\quad\quad\quad\quad H\mapsto \varphi(H)\\
+    &\quad\quad\quad\quad \varphi^{-1}(N)\mapsfrom N.
+  \end{align*}
+  Al\'em diso, se $H\leftrightarrow N$', ent\~ao $H\trianglelefteq{G} \Longleftrightarrow N\trianglelefteq{G'}$ e
+  $|H| = |N|\cdot|K|.$
+\end{theorem*}
+\begin{proof*}
+  Vamos mostrar as seguintes coisas - $H = \varphi^{-1}\varphi(H) N = \varphi \varphi^{-1}(N), |H|=|N||K|.$ 
+
+  Nesta ordem, come\c camos observando que $H\leq{\varphi^{-1}\varphi(H)}$ \'e sempre verdadeira. Seja x em $\varphi^{-1}\varphi(H).$
+  Ent\~ao, $\varphi(x)\in\varphi(H),$ isto \'e, existe h em H tal que $\varphi(x) = \varphi(h)$. Disto, temos 
+    $$
+      \varphi(xh^{-1}) = 1' \Longleftrightarrow xh^{-1}\in K\subseteq{H} \Rightarrow x\in H,
+    $$
+  concluindo o que desej\'avamos mostrar.
+
+  Para a segunda parte, fica como exerc\'icio.
+
+  Por fim, considere $\varphi_{|_{H}}:H\rightarrow \gamma(H) = N$. Pela aula anterior, portanto,
+    $$
+    |H| = |\ker{\varphi_{|_{H}}}||Im(\varphi_{|_{H}})| = |K||N|.\text{ \qedsymbol}
+    $$
+\end{proof*}
+\begin{def*}
+  Dados G e G' grupos, defina o quociente de G por G' como 
+    $$
+    G\times{G'} = \{(g, g'): g\in G, g'\in G'\}\quad\square
+    $$
+\end{def*}
+  Afirmamos que $G\times{G'}$ com a opera\c c\~ao $(g_{1}, g_{1}')(g_{2}, g_{2}') = (g_{1}g_{1}', g_{2}g_{2}')$ \'e um grupo.
+Al\'em disso, temos os seguintes morfismos:
+ \begin{align*}
+   & \pi:G\times{G'}\rightarrow G,\quad \pi':G\times{G'}\rightarrow G'\\
+   &  i:G\rightarrow G\times{G'},\quad i':G'\rightarrow G\times{G'},
+ \end{align*}
+ Sendo eles chamados, respectivamente, de proje\c c\~oes e inje\c c\~oes. Ademais, $(1, 1')$ \'e o elemento neutro de $G\times{G'}.$
+ \begin{prop*}
+   Se $\gcd{(r, s)} = 1$, ent\~ao o grupo c\'iclico de ordem rs \'e o produto $C_{r}\times{C_{s}}$, sendo $C_{r}$ o grupo
+ c\'iclico de ordem r (E $C_{s}$ o c\'iclico de ordem s).
+ \end{prop*}
+\begin{proof*}
+  Seja $C_{rs}$ o grupo c\'iclico de ordem rs. Se $C_{r}=<x>, C_{s} = <y>.$ Ent\~ao, $C_{r}\times{C_{s}} = <(x, y)>.$ De fato, 
+    $$
+    (x, y)^{rs} = (x^{rs}, y^{rs}) = ((x^{r})^{s}, (y^{s})^{r}) = (1, 1'),
+    $$
+  tal que $k = ord(xy)\biggl|_{}^{}\biggr.rs.$ Como $(r, s) = 1,$ existem $a, b\in \mathbb{Z}$ tais que 
+   \begin{align*}
+     &1 = ar + bs\\
+     &k = ark + bsk.
+   \end{align*}
+  Observe que $(x, y)^{k} = (x^{k}, y^{k}) = (1, 1')$, o que implica que $r \biggl|_{}^{}\biggr.k$ e $s \biggl|_{}^{}\biggr.k$, ou seja,
+  $k = rr'$ e $k = ss'.$ Substituindo isso na segunda f\'ormula, temos $k = rsar' + rsbs' = rs(\text{outros termos})$. Portanto,
+  $rs \biggl|_{}^{}\biggr.k.$ \qedsymbol
+\end{proof*}
+\begin{example*}
+  Segue que $C_{2}\times C_{2}\neq C_{4}$ (Verifique!).
+\end{example*}
+\begin{prop*}
+  Sejam $H, K \subseteq{G}$ e $f:H\times{K}\rightarrow G, (h,k)\mapsto hk$ com $im F = HK\coloneqq\{hk: h\in H, k\in K\}.$ Ent\~ao,
+ \begin{itemize}
+   \item[a)] f \'e injetora se, e somente se, $H\cap{K} = \{1\};$
+   \item[b)] f \'e morfismo se, e somente se, $hk=kh$ para todo $h\in H, k\in K;$
+   \item[c)] Se $H\trianglelefteq{G},$ ent\~ao $HK\leq{G};$
+   \item[d)] f \'e isomorfismo se, e somente se, $H\cap{K}=\{1\}, HK = G\text{ e }H, K\trianglelefteq{G}.$
+\end{itemize}
+\end{prop*}
+\begin{proof*}
+  a) $(\Rightarrow)$ Se $H\cap{K}\neq\{1\}$, ent\~ao existe x em $H\cap{K}, x\neq 1$, ou seja, 
+    $$
+      f(xx^{-1}) = xx^{-1} = 1 f(1.1),
+    $$
+    o que implica que f n\~ao \'e injetora, uma contradi\c c\~ao.
+
+    $(\Leftarrow)$ Se $f(h_{1},k_{1})=h_{1}k_{1}=h_{2}k_{2} = f(h_{2}k_{2}) \Longleftrightarrow h_{2}^{-1}h_{1} = k_{2}k_{1}^{-1}\in H\cap K$. Logo,
+    $h_{2}^{-1}h_{1} = 1$ e $k_{2}k_{1}^{-1} = 1,$ ou seja, f \'e injetora.
+
+  b) $(\Leftarrow)$ Segue que $f((h_{1},k_{1})(h_{2},k_{2})) = f(h_{1}h_{2}, k_{1}k_{2}) = h_{1}h_{2}k_{1}k_{2} = h_{1}k_{1}h_{2}k_{2} =
+f(h_{1}, k_{1})f(h_{2},k_{2}).$
+
+    $(\Rightarrow)$ Se f \'e um morfismo, ent\~ao $h_{1}h_{2}k_{1}k_{2} = h_{1}k_{1}h_{2}k_{2}$ para todos $h_{1},h_{2}\in H, k_{1},k_{2}\in K.$
+  Em part\'icular, para $h_{1}=k_{2}=1,$ temos $h_{2}k_{1} = k_{1}h_{2}$ para todos $h_{1}\in H, k_{2}\in K.$
+
+  c) Sejam $h_{1}, h_{2}\in H$ e $k_{1}, k_{2}\in K$. Ent\~ao, 
+    $$
+    (h_{1}k_{1})(h_{2}k_{2})^{-1} = h_{1}k_{1}k_{2}^{-1}h_{2}^{-1} = h_{1}h_{2}'h_{1}k_{1}^{-1}\in HK
+    $$
+
+    d) $(\Leftarrow)$ Por $H\cap K = \{1\}$ e $HK = G,$ f \'e bijetora. Assim, basta mostrar que f \'e morfismo. 
+    Sejam $h_{2}, h_{1}\in H$ e $k_{1}, k_{2}\in K$. Segue que 
+      $$
+        f((h_{1},k_{1})(h_{2}, k_{2})) = f((h_{1}h_{2}, k_{1}k_{2})) = h_{1}h_{2}k_{1}k_{2}k = h_{1}k_{1}h_{2}k_{2} = f(h_{1}, k_{1})f(h_{2}, k_{2}).
+      $$
+      Sejam, tamb\'em, $h\in H, k\in K$ 
+        $$
+          hkh^{-1}k^{-1} = hk(kh)^{-1}.
+        $$
+        Como $H\trianglelefteq{G},$ segue que 
+          $$
+            hh'kk^{-1} = hh'\in H
+          $$
+        Como $K\trianglelefteq{G},$ temos tamb\'em 
+          $$
+            hkh^{-1}k^{-1} = hh^{-1}k'k^{-1}\in K.
+          $$
+          Portanto, $hkh^{-1}k^{-1}\in H\cap K=\{1\}$ \qedsymbol
+\end{proof*}
+\begin{prop*}
+  Os grupos de ordem 4 s\~ao $C_{4}$ ou $C_{2}\times C_{2}.$
+\end{prop*}
+\begin{proof*}
+  Seja G um grupo de ordem 4 dado por $G=\{1, g_{1}, g_{2}, g_{3}\}$. Pelo teorema de Lagrange, $ord(g_{i})\biggl|_{}^{}\biggr.4$,
+ou seja, $ord g_{i} = 2$ ou 4. Se existe $g_{i}\in G$ tal que $ord(g_{i}) = 4,$ ent\~ao $G\cong C_{4}.$
+
+Caso contr\'ario, todo $g_{i}$ \'e tal que $|g_{i}|=2.$ Assim, defina 
+  $$
+    f:<g_{1}>\times<g_{2}>\rightarrow G,\quad (x,y)\mapsto xy.
+  $$
+  Pelo item d da proposi\c c\~ao anterior, f \'e isomorfismo. \qedsymbol
+\end{proof*}
+\newpage
+
+\section{Aula 08 - 18/04/2023}
+\subsection{O Que Esperar}
+\begin{itemize}
+  \item Grupos quocientes;
+  \item Primeiro Teorema do Isomorfismo;
+  \item Teorema de Classifica\c c\~ao de Grupos Abelianos Finitamente Gerados.
+\end{itemize}
+
+\subsection{Motiva\c c\~ao para a Aula}
+\begin{center}
+  (Se\c c\~ao teste. Se gostarem, me avisem pra fazer nas outras).
+\end{center}
+
+Os grupos quociente, o primeiro teorema do isomorfismo para grupos e o teorema de classifica\c{c}\~{a}o dos grupos abelianos
+finitamente gerados s\~{a}o conceitos fundamentais na teoria dos grupos, um ramo importante da matem\'{a}tica que estuda a 
+estrutura e propriedades dos grupos. Esses conceitos e teoremas nos ajudam a entender melhor as rela\c{c}\~{o}es entre 
+diferentes grupos e suas subestruturas.
+
+A motiva\c{c}\~{a}o por tr\'{a}s desses conceitos e teoremas \'{e} simplificar e classificar grupos em categorias mais f\'{a}ceis
+de entender e manipular. Ao estudar grupos quociente, podemos analisar propriedades de grupos maiores e mais complexos por meio
+de seus subgrupos normais. O primeiro teorema do isomorfismo nos permite estabelecer conex\~{o}es entre diferentes grupos e 
+suas subestruturas, enquanto o teorema de classifica\c{c}\~{a}o dos grupos abelianos finitamente gerados nos fornece uma 
+maneira sistem\'{a}tica de descrever e classificar esse tipo espec\'{i}fico de grupo.
+
+Uma analogia que pode ser usada imagine que voc\^{e} tem um grupo de amigos e quer dividi-los em equipes para um jogo. Os grupos
+quociente s\~{a}o como as equipes formadas, o primeiro teorema do isomorfismo mostra como as habilidades dos jogadores se
+relacionam entre as equipes, e o teorema de classifica\c{c}\~{a}o dos grupos abelianos finitamente gerados ajuda a entender os
+diferentes tipos de amigos que voc\^{e} tem. Isso torna mais f\'{a}cil entender como seus amigos se organizam e trabalham juntos.
+
+Resumindo, os grupos quociente s\~{a}o uma maneira de "reduzir" um grupo dividindo-o por um subgrupo normal. O primeiro teorema
+do isomorfismo relaciona a estrutura de um grupo e seus subgrupos normais aos grupos quocientes, mostrando que certas 
+propriedades s\~{a}o preservadas no processo. O teorema de classifica\c{c}\~{a}o dos grupos abelianos finitamente gerados
+fornece uma descri\c{c}\~{a}o \'{u}nica para cada grupo abeliano finitamente gerado, permitindo-nos classific\'{a}-los de 
+maneira eficiente.
+
+\subsection{Grupos Quociente}
+\begin{def*}
+  Se $N\leq{G},$ ent\~ao $G/N\coloneqq\{aN: a\in G\}=\{\overline{a}: a\in G\}$ \'e o Grupo Quociente de G por N. $\square$
+\end{def*}
+\begin{def*}
+  Se A, B s\~ao subconjuntos de um grupo G, ent\~ao $AB\coloneqq\{x\in G: x=ab, a\in A, b\in B\}.\square$
+\end{def*}
+\begin{lemma*}
+  Se N \'e um subgrupo normal de G, ent\~ao aNbN = abN para todos a, b elementos de G.
+\end{lemma*}
+\begin{proof*}
+  Como $N\leq{G}, N \cdot N = N.$ Al\'em disso, j\'a que $N\trianglelefteq{G}, bN = Nb.$ Portanto, 
+    $$
+    aNbN = a(Nb)N = abNN = abN. \text{\qedsymbol}
+    $$ 
+\end{proof*}
+\begin{lemma*}
+  Seja G grupo e $\mathcal{L}$ um conjunto com uma opera\c c\~ao. Se $\varphi:G\rightarrow \mathcal{L}$ \'e uma fun\c c\~ao
+  sobrejetora tal que $\varphi(ab)=\varphi(a)\varphi(b)$ para todo a, b em G. Ent\~ao, $\mathcal{L}$ \'e um grupo e $\varphi$ \'e
+  um morfismo.
+\end{lemma*}
+\begin{proof*}
+  Dados x, y em $\mathcal{L}$, existem a, b em G tais que $\varphi(a)=x, \varphi(b)=y$ e $xy = \varphi(a)\varphi(b)=\varphi(ab).$
+  Seja $1_{\mathcal{L}}=\varphi(1),$ ent\~ao $1_{\mathcal{L}}\cdot x=\varphi(1)\cdot \varphi(a) = \varphi(1 \cdot a) = \varphi(a)=x.$
+  Vamos provar a associatividade a seguir.
+
+  Se $z\in \mathcal{L}, z=\varphi(c),$ ent\~ao 
+    $$
+      x(yz)=\varphi(a)(\varphi(b)\varphi(c)) = \varphi(abc)=\varphi(ab)\varphi(c)=(\varphi(a)\varphi(b))\varphi(c) = (xy)z.
+    $$
+  A demonstra\c c\~ao da exist\^encia de inverso fica como exerc\'icio. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+  Se $N\trianglelefteq{G},$ ent\~ao $G/N$ \'e um grupo e $\pi:G\rightarrow G/N$ (O morfismo proje\c c\~ao can\^onica) \'e um morfismo
+  sobrejetor com $\ker{\pi}=N.$
+\end{theorem*}
+\begin{proof*}
+  Segue que 
+    $$
+      G/N\times G/N\rightarrow G/N,\quad (\overline{a}, \overline{b})\mapsto \overline{ab}
+    $$
+  est\'a bem-definido. Ademais, 
+    $$
+      \pi:G\rightarrow G/N
+    $$
+    satisfaz $\pi(a)\pi(b) = \overline{a}\cdot \overline{b}=\overline{ab}=\pi(ab).$ Pelo segundo lema, $G/N$ \'e um grupo
+    e $\pi$ um morfimso sobrejetor. Al\'em disso, se $\pi(a) = \overline{a} = \overline{1} - N$ se, e somente se, a pertence a N.
+    Portanto, $\ker{\pi} = N.$ \qedsymbol
+\end{proof*}
+\subsection{Primeiro Teorema do Isomorfismo}
+\begin{theorem*}
+  Se $\varphi:G\rightarrow H$ \'e um morfismo sobrejetor de grupos, ent\~ao $G/\ker{\varphi}\cong H.$ Mais precisamente, se 
+  $\pi:G\rightarrow G/\ker{\varphi}$ \'e o mapa can\^onico, ent\~ao 
+    $$
+    \overline{\varphi}:G/\ker{\varphi}\rightarrow H,\quad \overline{a}\mapsto \varphi(a)
+    $$
+    e est\'a bem-definido um isomorfismo tal que 
+
+  \begin{center}
+    \begin{tikzcd}
+      G \arrow[rd, "\pi"] \arrow[r, "\varphi"] & H \\
+      & G/\ker{\varphi} \arrow[u, "\overline{\varphi}"]
+  \end{tikzcd}
+  \end{center}
+  comuta.
+\end{theorem*}
+\begin{proof*}
+  Come\c camos mostrando que $\overline{\varphi}$ est\'a bem-definida. Se $\overline{a}=\overline{b}, ab^{-1}\in\ker{\varphi}$, tal que
+  existe g em $\ker{\varphi}$ para o qual $ab^{-1}=g.$ Assim, $\varphi(ab^{-1})=\varphi(g)=1,$ logo $\varphi(a)=\varphi(b).$
+
+  A seguir, mostremos que $\overline{\varphi}$ \'e morfismo. De fato, $\overline{\varphi}(\overline{a})\overline{\varphi}(\overline{b}) 
+  = \varphi(a)\cdot \varphi(b) = \varphi(ab)=\overline{\varphi}(\overline{ab}).$
+
+  Observe que $\overline{\varphi}$ \'e sobrejetora porque $\varphi$ o \'e. Finalmente, a injetividade de $\overline{\varphi}$ segue de 
+  $$
+    \varphi(\overline{a})=1 \Longleftrightarrow \varphi(a)=1 \Longleftrightarrow a\in\ker{\varphi} \Longleftrightarrow \overline{a}=\ker{\varphi} = 1.
+  $$
+  
+  Portanto, $\overline{\varphi}$ \'e isomorfismo. \qedsymbol
+\end{proof*}
+
+\begin{crl*}
+  Se $\varphi:G\rightarrow H$ \'e um morfismo, ent\~ao $G/\ker{\varphi}\cong im\varphi.$
+\end{crl*}
+
+  O resultado a seguir mostra que todo grupo abeliano pode ser escrito apenas com n\'umeros inteiros que satisfazem certa propriedade.
+ \begin{theorem*}
+   Seja G um grupo abeliano finitamente gerado. Ent\~ao, 
+     $$
+       G\cong{} \mathbb{Z}\times \cdots\times \mathbb{Z}\times \frac{\mathbb{Z}}{d_{1}\mathbb{Z}}\times \cdots\times \frac{\mathbb{Z}}{d_{r} \mathbb{Z}}.
+     $$
+     com $d_{i} > 1$ e $d_{i}\bigl|\bigr. d_{i+1}, i=1,\cdots,r-1.$ 
+ \end{theorem*}
+\newpage
+
+\section{Aula 09 - 25/04/2023}
+\subsection{O que esperar}
+\begin{itemize}
+  \item Transforma\c c\~oes que preservam dist\^ancias - Isometrias;
+  \item Caracteriza\c c\~oes de Isometrias.
+\end{itemize}
+
+\subsection{Motiva\c c\~ao para Aula}
+  Ações de grupos são um conceito importante na álgebra, que estuda a interação entre grupos e estruturas algébricas. 
+Elas descrevem como os elementos de um grupo atuam em outro conjunto, preservando a estrutura desse conjunto.
+
+  Formalmente, uma ação de grupo é uma função que mapeia cada par formado por um elemento do grupo e um elemento do
+conjunto em outro elemento do conjunto, obedecendo às seguintes propriedades:
+\begin{itemize}
+  \item[i)] Identidade: A ação do elemento neutro do grupo (normalmente denotado por "e") em qualquer elemento do conjunto é o próprio elemento, ou seja, $e \cdot x = x.$
+  \item[ii)] Compatibilidade: A ação de um produto de elementos do grupo é a mesma que a ação dos elementos 
+  individuais na sequência, ou seja, $(gh)x = g(h \cdot x)$, para todos g, h pertencentes ao grupo e x pertencente ao conjunto.
+\end{itemize}
+Num contexto mais aplicado, as a\c c\~oes de grupos surgem em \'areas como f\'isica, qu\'imica, computa\c c\~ao, etc.
+Na forma de 
+\begin{itemize}
+  \item[1)] Simetrias: Em geometria, ações de grupos são usadas para analisar simetrias de formas geométricas, como rotações e reflexões.
+  \item[2)] Teoria dos Grafos: Ações de grupos ajudam a estudar a simetria e as propriedades de grafos em teoria dos grafos.
+  \item[3)] Química: Ações de grupos são aplicadas na análise das simetrias moleculares, especialmente na teoria dos grupos de pontos, que é fundamental para a compreensão da espectroscopia e da estrutura molecular.
+  \item[4)] Criptografia: Em ciência da computação, as ações de grupos são utilizadas em algoritmos criptográficos e na teoria da codificação.
+\end{itemize}
+  Uma analogia que podemos utilizar para compreender a ideia \'e a de crian\c cas com um brinquedo: Imagina que
+você tem um grupo de amiguinhos e alguns brinquedos. Os amiguinhos são como os elementos do grupo, e os brinquedos
+são como os elementos do conjunto. Quando seus amiguinhos brincam com os brinquedos, eles podem trocar os brinquedos
+de lugar, girá-los ou virá-los de cabeça para baixo. Essa brincadeira segue algumas regrinhas, e é isso que chamamos de "ações de grupos".
+Essa ideia nos ajuda a entender padrões e simetrias em coisas do nosso mundo, como formas geométricas e até moléculas!
+
+  De maneira geral, as ações de grupos são uma maneira de descrever como um grupo de elementos interage com outro conjunto de elementos. Essa 
+interação segue algumas regras e ajuda a entender padrões, simetrias e propriedades em várias áreas do conhecimento, como geometria, química e ciência da computação.
+
+  Come\c caremos introduzindo este assunto por meio das simetrias, partindo do ponto das isometrias.
+\subsection{Isometrias}
+  Aqui, considere $\left< \cdot , \cdot  \right>:\mathbb{R}^{n}\times \mathbb{R}^{n}\rightarrow \mathbb{R}$ o produto interno usual.
+ \begin{def*}
+   Uma isometria $f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}$ \'e uma fun\c c\~ao que preserva dist\^ancia, isto \'e,
+   dados u, v em $\mathbb{R}^{n},$ 
+     $$
+       |f(u)-f(v)| = |u-v|.
+     $$
+ \end{def*}
+ \begin{example*}
+   O operador linear ortogonal $\varphi :\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}$ \'e uma isometria.
+ \end{example*}
+\begin{example*}
+  Se $a\in \mathbb{R}^{n}, t_{a}:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}, v\mapsto v+a$ \'e uma isometria chamada
+de transla\c c\~ao.
+\end{example*}
+\begin{example*}
+  A fun\c c\~ao $\varphi :\mathbb{R}^{2}\rightarrow \mathbb{R}^{2}, \varphi (x,y)=(x\cos{\theta }-y\sin{\theta }, x\sin{\theta }+y\cos{\theta })$
+  \'e uma isometria.
+\end{example*}
+\begin{example*}
+  A composta de isometrias \'e uma isometria.
+\end{example*}
+\begin{lemma*}
+  Sejam $x,y\in \mathbb{R}^{n}$ tais que $\left< x, x \right> = \left< x, y \right> = \left< y, y \right>.$ Ent\~ao,
+  $x = y.$
+\end{lemma*}
+\begin{proof*}
+  Segue que 
+    $$
+      \left< x-y, x-y \right> = \left< x, x \right>-2\left< x, y \right>+\left< y, y \right> = 0.
+    $$
+  Portanto, $x-y =0$, ou seja, $x=y.$ \qedsymbol
+\end{proof*}
+\begin{theorem*}
+  Seja $\varphi :\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}.$ S\~ao equivalentes:
+ \begin{itemize}
+   \item[i)] $\varphi $ \'e isometria e $\varphi (0)=0;$
+   \item[ii)] $\left< \varphi (u), \varphi (v) \right> = \left< u, v \right>\forall u, v\in \mathbb{R}^{n};$
+   \item[iii)]$\varphi $ \'e um operador linear ortogonal.
+ \end{itemize}
+\end{theorem*}
+\begin{proof*}
+  $c)\Rightarrow a)$ Ok;
+
+  $a)\Rightarrow b)$ Pela defini\c c\~ao de isometria, temos 
+    $$
+      |\varphi (u)-\varphi (v)| = |u-v| \Longleftrightarrow \left< \varphi (u)-\varphi (v), \varphi (u)-\varphi (v) \right> = 
+      \left< u-v, u-v \right>.
+    $$
+  Fazendo u = 0, temos 
+  $$
+    \left< \varphi (v), \varphi (v) \right> = \left< v, v \right>.
+  $$
+  Analogamente, para v =0, temos 
+    $$
+      \left< \varphi (u), \varphi (u) \right> = \left< u, u \right>.
+    $$
+  Como o produto interno \'e bilinear, 
+    \begin{align*} 
+      &\left< \varphi (u), \varphi (u) \right> - 2\left< \varphi (u), \varphi (v) \right> + \left< \varphi (v), \varphi (v) \right>\\
+      &=\left< u, u \right> - 2\left< u, v \right> + \left< v, v \right>.
+    \end{align*}
+    Logo, 
+      $$
+        \left< \varphi (u), \varphi (v) \right> = \left< u, v \right>.
+      $$
+
+    $b)\Rightarrow c)$ Basta mostrar que $\varphi (u+v)=\varphi (u)+\varphi (v)$ e $\varphi (\alpha u) = \alpha \varphi (u).$
+    para todos u, v em $\mathbb{R}^{n}, \alpha \in \mathbb{R}.$ 
+
+    Sejam $x=\varphi (u+v), y=\varphi (u)+\varphi (v).$ Observe que 
+   \begin{align*}
+     &\circ{}\left< x, x \right>=\left< \varphi (u+v), \varphi (u+v) \right> = \left< u+v, u+v \right>\\
+     &\circ{}\left< y, y \right> = \left< \varphi (a)+\varphi (v), \varphi (a)+\varphi (v) \right> =\\
+     &=\left< \varphi (u), \varphi (u) \right> + 2\left< \varphi (u),\varphi (v) \right> + \left< \varphi (v), \varphi (v) \right>\\
+     &=\left< u, v \right> +2\left< u, v \right> + \left< v, v \right> = \left< u+v, u+v \right>.\\
+     &\circ{}\left< x, y \right>=\left< \varphi (u+v), \varphi (u)+\varphi (v) \right>=\left< u+v, u \right>+\left< u+v, v \right>=\left< u+v, u+v. \right>
+   \end{align*}
+    Assim, pelo lema anterior, x=y. Analogamente, se $x=\varphi (\alpha u)$ e $y=\alpha \varphi (u),$ temos x=y (exerc\'icio). \qedsymbol
+\end{proof*}
+ \begin{crl*}
+   Todo isomorfismo f de $\mathbb{R}^{n}$ \'e uma composi\c c\~ao de um operador ortogonal com uma transla\c c\~ao. Mais precisamente,
+   $f=t_{a}\varphi,$ sendo $\varphi $ ortogonal a $a=f(0).$ Al\'em disso, essa decomposi\c c\~ao \'e \'unica.
+ \end{crl*}
+\begin{proof*}
+  Observe que $t_{a}^{-1}f(0)=(t_{a}^{-1})(a)=0.$ Logo, $t_{a}^{-1}f$ \'e uma isometria que leva 0 em 0. Pelo teorema, $\varphi =t_{a}^{-1}f$
+  \'e um operador linear ortogonal. Deste modo, $f=t_{a}\varphi .$ \qedsymbol
+\end{proof*}
+\begin{prop*}
+ \begin{itemize}
+   \item[1)] Se $\varphi $ \'e um operador linear ortogonal, ent\~ao $\varphi ^{-1}$ \'e um operador linear ortogonal.
+   \item[2)] Se $\varphi , \psi$ s\~ao operadores ortogonais, net\~ao $\varphi\circ{\psi}$ \'e operador ortogonal.
+   \item[3)] $t_{a}\circ{t_{b}}=t_{a+b};$
+     \item[4)] $\varphi\circ{t_{a}}=t_{a'}\circ{\varphi },$ em que $a'=\varphi (a)$ e $\varphi $ \'e operador linear.
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  Exerc\'icio.
+\end{proof*}
+\begin{crl*}
+  Corol\'ario 1: Seja $\mathcal{O}_{n}\coloneqq\{\varphi :\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}: \varphi \text{ \'e operador linear}\}$.
+  Ent\~ao, $(\mathcal{O}_{n}, \circ)$ \'e um grupo.
+\end{crl*}
+\begin{crl*}
+  Corol\'ario 2: Seja $T=\{ta:a\in \mathbb{R}^{n}\}$. Ent\~ao $(T, \circ)$ \'e um grupo.
+\end{crl*}
+\begin{crl*}
+  Corol\'ario 3: Se $M_{n}$ \'e o conjunto de todas as isometrias de $\mathbb{R}^{n}$, net\~ao $(M_{n}, \circ)$ \'e um grupo.
+\end{crl*}
+\begin{proof*}
+  J\'a sabemos que a composta de isometrias \'e uma isometria e que a opera\c c\~ao de composi\c c\~ao de fun\c c\~oes \'e associativa.
+  Observe que $Id_{\mathbb{R}^{n}}=Id\in M_{n}$, logo dado $f\in M_{n},$ 
+    $$
+      f\circ{Id}=Id\circ{f}=f.
+    $$
+    Agora, se $f\in M_{n}$, do teorema anterior, $f = t_{a}\varphi ,$ sendo a um vetor de $\mathbb{R}^{n}$ e $\varphi $
+    um operador linear ortogonal. Net\~ao, 
+      $$
+        f^{-1}\coloneqq\varphi ^{-1}\circ{t_{-a}}=t_{a'}\circ{\varphi ^{-1}},\quad a'=\varphi ^{-1}(-a).
+      $$
+      Logo, $f^{-1}\in M_{n}.$ Ainda mais, 
+        $$
+          f\circ{f^{-1}} = t_{a}\varphi \varphi ^{-1}t_{-a}=t_{a}t_{-a}=t_{a A}=t_{0}=Id.
+        $$
+      e, portanto, $f^{-1}\circ{f}=Id.$ \qedsymbol
+\end{proof*}
+\begin{prop*}
+  Seja $a\in \mathbb{R}^{n}$ e $\pi :M_{n}\rightarrow \mathcal{O}_{n}, f=t_{a}p\mapsto \varphi $, ent\~ao $\pi $
+  \'e um morfismo sobrejetor cujo n\'ucleo \'e T. Em particular, $T\trianglelefteq{M_{n}}.$
+\end{prop*}
+\begin{proof*}
+  Sejam $f, g\in M_{n}.$ Ent\~ao, existem $a, b\in \mathbb{R}^{n}$ e $\varphi , \psi\in \mathcal{O}_{n}$ tais que 
+  $f=t_{a}\varphi $ e $g=t_{b}\psi.$ Desta forma, 
+ \begin{align*}
+   \pi (fg) &= \pi (t_{a}\varphi t_{b}\psi)=\pi (t_{a}t_{b'}\varphi\circ{\psi})&\\
+            &=\pi (t_{a+b'}(\varphi\circ{\psi}))\\
+            &=\varphi \psi = \pi (f)\pi (g).\text{ \qedsymbol}
+ \end{align*}
+\end{proof*}
+  Em particular, pelo Teorema do Isomorfismo, uma consequ\^encia desta proposi\c c\~ao \'e que 
+    $$
+      \frac{M_{n}}{T}\cong{\mathcal{O}_{n}}.
+    $$
+\newpage
+
+\section{Aula 10 - 27/04/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+  \item Tipos de Isometrias Principais.
+\end{itemize}
+\subsection{Principais Isometrias em $\mathbb{R}^{n}$}
+\begin{lemma*}
+  Sejam $\eta, f\in M_{n}, x, y\in \mathbb{R}^{n}$ tais que f(x) = y. Suponha que $\eta(x) = x', \eta(y) = y'.$
+Considere $f'\in M_{n}$ tal que $f'(x')=y'$ para todos x, y em $\mathbb{R}^{n}.$ Ent\~ao, $f' = \eta f\eta^{-1}$.
+  Em outras palavras, o diagrama abaixo comuta: 
+\begin{center}
+ \begin{tikzcd}
+   \mathbb{R}^{n} \arrow[d, "\eta "] \arrow[r, "f"] & \mathbb{R}^{n}\arrow[d,"\eta =t_{v}"]\\
+   \mathbb{R}^{n} \arrow[r, "f'"] & \mathbb{R}^{n}
+ \end{tikzcd}
+\end{center}
+\end{lemma*}
+\begin{proof*}
+  Se f(x) = y, ent\~ao $f\eta ^{-1}(u') = \eta ^{-1}(y')$, ou seja, $\eta f\eta ^{-1}(x')=y'$. \qedsymbol
+\end{proof*}
+\begin{crl*}
+  O morfismo $\pi :M_{n}\rightarrow O_{n}$ n\~ao muda por transla\c c\~ao de origem
+\end{crl*}
+\begin{proof*}
+  Sejam $t_{a}$ uma translação em $\mathbb{R}^{n}, a\in \mathbb{R}^{n}, f\in M_{n}$. Então, do lema anterior, f,
+  após a mudança de coordenadas por $t_{a}$, é dado por 
+    $$
+      f'=t_{a}f(ta)^{-1} = t_{a}ft_{-a}.
+    $$
+    Então, $\pi (f') = \pi (t_{a}ft_{-a}) = \pi (t_{a})\pi (f)\varphi (t_{-a}) = \pi (f).$ \qedsymbol
+\end{proof*}
+  Lembre-se que se $\varphi \in \mathcal{O}_{n}$ e $M_{\varphi }$ é sua matriz, então $M_{\varphi }$ é uma matriz ortogonal e,
+  assim, $M_{\varphi }^{-1} = M_{\varphi }^{t}.$ Logo, 
+    $$
+    1 = \det{(M_{\varphi }M_{\varphi }^{-1})} = \det{M_{\varphi }^{2}} \Rightarrow \det{M_{\varphi }} = Id.
+    $$
+   \begin{def*}
+     Um operador ortogonal $\varphi \in \mathcal{O}_{n}$ preserva orientação se o determinante de sua matriz vale 1. Analogamente,
+     diremos que ele reverte orientação se seu determinante vale -1. $\square$.
+   \end{def*}
+   \begin{def*}
+     Uma função $f\in M_{n}$ preserva orientação se $f=t_{a}\varphi $, sendo $a\in \mathbb{R}^{n}$ e $\det{(M_{\varphi })} = 1.$
+     Caso contrário, diremos que f reverte orientação. $\square$
+   \end{def*}
+   \begin{lemma*}
+     O mapa $\sigma :M_{n}\rightarrow \{\pm1\}, \sigma =t_{a}\varphi\mapsto \det{(M_{\varphi })}$ é um morfismo de grupos.
+   \end{lemma*}
+   \begin{proof*}
+     Sejam $f, g\in M_{n}, f = t_{a}\varphi , g = t_{b}\psi$ com $a, b\in \mathbb{R}^{n}$. Então, 
+       $$
+         \sigma (f\circ{}g) = \sigma (t_{a}\varphi t_{b}\psi) = \sigma (t_{a}t_{b'}\sigma \psi),
+       $$ 
+    sendo b'=$\varphi (b).$ Portanto, 
+      $$
+      \det{(M_{\varphi \psi})} = \det{(M_{\varphi }M_{\psi})} = \det{M_{\varphi }}\det{M_{\psi}}=\sigma (f)\sigma (g).\text{ \qedsymbol}
+      $$
+   \end{proof*}
+   \begin{def*}
+     Define-se $M_{2}$ o grupo das isometrias no plano $\mathbb{R}^{2}.\square$ 
+   \end{def*}
+   Considere
+  \begin{itemize}
+    \item[1)] Translação: $t_{a}:\mathbb{R}^{2}\rightarrow \mathbb{R}^{2}, x\mapsto x+a, a\in \mathbb{R}^{2}.$
+    \item[2)] Rotação: $\rho_{\theta }:\mathbb{R}^{2}\rightarrow \mathbb{R}^{2}, (x,y)\mapsto \begin{pmatrix}
+        \cos{\theta } & -\sin{\theta } \\
+        \sin{\theta } & \cos{\theta }
+      \end{pmatrix} \begin{pmatrix}
+        x\\
+        y
+      \end{pmatrix}$
+    \item[3)] Reflexão em Torno do Eixo -x: $\sigma :\mathbb{R}^{2}\rightarrow \mathbb{R}^{2}, (x,y)\mapsto \begin{pmatrix}
+        1 & 0\\
+          0 & -1
+    \end{pmatrix}\begin{pmatrix}
+      x\\
+      y
+    \end{pmatrix}$
+   \end{itemize}
+   É preciso, no entanto, conferir que essas funções pertencem a $M_{2}.$
+ \begin{lemma*}
+   $t_{a},\rho_{\theta },\sigma \in M_{2}$
+ \end{lemma*}
+ \begin{proof*}
+   Imediato. \qedsymbol
+ \end{proof*}
+\begin{lemma*}
+  Este lema será um exercício de álgebra linear.
+ \begin{itemize}
+   \item[1)] Uma matriz ortogonal cujo determinante vale 1 é da forma 
+     $$
+       \rho_{\theta } = \begin{pmatrix}
+         \cos{\theta } & -\sin{\theta } \\
+         \sin{\theta } & \cos{\theta }
+       \end{pmatrix}
+     $$
+     para algum $\theta \in[0,2\pi )$ único.
+   \item[2)] Uma matriz ortogonal de determinante -1 é da forma $\rho_{\theta }\sigma ,$ em que $\theta \in[0, 2\pi)$ é único e 
+     $$
+       \sigma \in \begin{pmatrix}
+         1 & 0 \\
+         0 & -1
+       \end{pmatrix}.
+     $$
+ \end{itemize}
+\end{lemma*}
+\begin{theorem*}
+  Se $f\in M_{2},$ então $f=t_{a}\rho_{\theta },$ ou $f = t_{a}\rho_{\theta }\sigma  $ para únicos $a\in \mathbb{R}^{2},\theta \in[0,2\pi)$
+  e $\sigma = \begin{pmatrix}
+    1 & 0\\
+    0 & -1
+  \end{pmatrix}$. Em outras palavras, $M_{2} = \langle t_{a}, \rho_{\theta }, \sigma \rangle, a \in \mathbb{R}^{2}, \theta \in[0,2\pi).$
+\end{theorem*}
+Antes de demonstrar, um comentário sobre este teorema: Segundo ele, \textbf{qualquer} isometria no plano $\mathbb{R}^{2}$ é
+descrita por uma composição de isometrias elementares - translação, reflexão e rotação! 
+\begin{proof*}
+  Seja $f\in M_{2}.$ Já sabemos que $f = t_{a}\varphi $, sendo $\varphi \in \mathcal{O}_{2}, a\in \mathbb{R}^{2}.$ Logo, segue do lema
+  anterior que 
+    $$
+    f = t_{a}\rho _{\theta }\quad\text{ ou } f = t_{a}\rho_{\theta }\sigma . \text{ \qedsymbol}
+    $$
+\end{proof*}
+\begin{crl*}
+  Isometrias $t_{a}\rho_{\theta }$ preservam orientação, enquanto $t_{a}\rho_{\theta }\sigma $ revertem orientação.
+\end{crl*}
+\begin{proof*}
+  Seja $f=t_{a}\rho_{\theta }.$ Então, como $\det{\rho_{\theta }} =1,$ f preserva orientação. Por outro lado, se $f=t_{a}\rho_{\theta }\sigma ,$
+  então $\det{(\rho_{\theta }\sigma )} = \det{\rho_{\theta }}\det{\sigma } = 1 \cdot (-1) = -1.$ Portanto, f reverte orientação. \qedsymbol
+\end{proof*}
+\begin{crl*}
+  Em $M_{2},$
+ \begin{align*}
+   &1)\quad \rho_{\theta }t_{a} = t_{a'}\rho_{\theta },\quad a'=\rho_{\theta }(a);\\
+   &2)\quad \sigma t_{a} = t_{a'}\sigma , \quad a'= \sigma(a);\\
+   &3)\quad \sigma \rho_{\theta } = \rho_{-\theta }\sigma;\\
+   &4)\quad t_{a}t_{b} = t_{a+b};\\
+   &5)\quad \rho_{\theta }\rho_{\theta '} = \rho_{\theta +\theta '};\\
+   &6)\quad \sigma \sigma = \begin{pmatrix}
+     1 & 0 \\
+     0 & 1
+   \end{pmatrix}\text{ i.e. } ord(\sigma ) = 2.
+ \end{align*}
+\end{crl*}
+\begin{proof*}
+
+  1) $\rho_{\theta }t_{a}(t_{a'}\rho_{\theta })^{-1} = \rho_{\theta }t_{a}\rho_{\theta }^{-1}t_{a'}^{-1} = \rho_{\theta }\rho_{\theta }^{-1}t_{\rho_{\theta }^{-1}(a)}t_{-\theta '}
+  = t_{a'}t_{-a'} = t_{a'-a'} = Id.$
+
+  2) $(rta)(ta'\sigma )^{-1} = \sigma t_{a}r^{-1}t_{-a'} = \sigma \sigma^{-1}t_{r^{-1}(a)}t_{-a'} = t_{a'}t_{-a'} = Id.$
+
+  3) $\sigma \rho_{\theta } = \begin{pmatrix}
+    1 & 0\\
+    0 & -1
+  \end{pmatrix}\begin{pmatrix}
+    \cos{\theta } & -\sin{\theta }\\ 
+    \sin{(\theta )} & \cos{(\theta )}
+  \end{pmatrix} = \begin{pmatrix}
+    \cos{(\theta )} & -\sin{(\theta )}\\
+    -\sin{(\theta )} & -\cos{(\theta )}
+  \end{pmatrix} = \begin{pmatrix}
+    \cos{(\theta )} & -\sin{(-\theta )}\\
+    \sin{(\theta )} & \cos{(\theta )}
+  \end{pmatrix}\begin{pmatrix}
+    1 & 0 \\
+    0 & -1
+  \end{pmatrix} = \rho_{-\theta }\sigma.$ \qedsymbol
+\end{proof*}
+\newpage
+\section{Aula 11 - 02/05/2023}
+  Preciso de fotos dessa aula RS
+\newpage
+\section{Aula 12 - 04/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+  \item Outra Caracterização das Isometrias em $\mathbb{R}^{2}$
+\end{itemize}
+\subsection{Isometrias em $\mathbb{R}^{2}$ - Relação com a Geometria.}
+\begin{theorem*}
+  Toda isometria do plano é da forma:
+ \begin{enumerate}
+   \item Isometrias que preservam orientação:
+    \begin{enumerate}
+      \item Translações;
+      \item Rotação do plano por ângulo $\theta $ em torno de algum ponto;
+    \end{enumerate}
+  \item Isometrias que não preservam orientação são:
+   \begin{enumerate}
+     \item[(c)] Reflexão com respeito a uma reta l;
+     \item[(d)] Reflexão com respeito a uma reta l seguida de uma translação por um vetor não-nulo e
+       paralelo a l.
+   \end{enumerate}
+ \end{enumerate}
+\end{theorem*}
+\begin{proof*}
+  (i) Seja $f\in M_{2}$ que preserva orientação e que não é translação, então 
+    $$
+      f = t_{a}\rho_{\theta }
+    $$
+    para algum $a\in \mathbb{R}^{2}$ e $\theta \neq0.$ Logo, queremos mostrar que existe $p\in \mathbb{R}^{2}$
+    tal que $t_{p}^{-1}ft_{p}=\rho_{\theta }.$
+
+    No entanto, $t_{p}^{-1}ft_{p}=t_{-t}t_{a}\rho _{\theta }t_{p} = t_{a-p+\rho (p)}\rho _{\theta }.$
+Então, queremos $p\in \mathbb{R}^{2}$ tal que $a - p + \rho (p) = (Id - \rho )(p).$ Considere o operador linear 
+  $$
+    Id - \rho _{\theta } = \begin{pmatrix}
+      1 - \cos{(\theta )} & \sin{(\theta )}\\
+      -\sin{(\theta )} & 1-\cos{(\theta )}
+    \end{pmatrix}
+  $$
+  e observe que $\det{(Id-\rho _{\theta })} = (1-\cos{(\theta )})^{2} +\sin{(\theta )}^{2} = 2-2\cos{(\theta )}.$
+  Além disso, $2-2\cos{(\theta )} = 0$ equivale $\cos{(\theta )}=1,$ ou seja, $\theta =0.$ Portanto, existe
+  $p\in \mathbb{R}^{2}$ tal que $t_{p}^{-1}ft_{p}=t_{\theta },$ ou seja, 
+    $$
+      f = t_{p}\rho _{\theta }t_{p}^{-1}.
+    $$ 
+
+  (ii) Seja $f\in M_{2}$ que reverte orientação. Então, 
+    $$
+      f = t_a\rho _{\theta }\sigma.
+    $$ 
+    Note que $\rho _{\theta }\sigma $ é a reflexão por uma reta passando pela origem. Assim, a menos de mudança de coordenada,
+    podemos supor $\theta =0$, isto é, $f = t_{a}\sigma .$
+
+    Agora, seja $(x, y)\in \mathbb{R}^{2}.$ Logo, $f(x,y) = t_{a}(x, -y)=(x+a_{1}, -y+a_{2}),$ sendo $a = (a_{1}, a_{2})$.
+    Se $a_{1}=0,$ então $f(x, y) = (x, -y+a_{2}),$ tal que f é uma reflexão com respeito à reta $l=\{y=\frac{1}{2}a_{2}\}.$
+
+    Por outro lado, se $a_{1}\neq0,$ então f é reflexão com respeito à reta l com uma translação por $(a_{1}, 0).$ \qedsymbol
+\end{proof*}
+\begin{crl*}
+  Se $f\in M_{2}$ é como na demonstração do Teorema(i)(b). Então, o p como na demonstração é um ponto fixo de f.
+\end{crl*}
+\begin{proof*}
+  $f(p)=t_{a}\rho _{\theta }(p) = t_{a}(p-a) = p.$ \qedsymbol
+\end{proof*}
+\begin{crl*}
+  A composição de rotações por (possivelmente) pontos diferentes é ainda uma rotação por (possivelmente) um terceiro ponto,
+a menos que tal composição seja uma translação.
+\end{crl*}
+\begin{proof*}
+  Composição de isomorfismo que possuem orientação é uma isometria que preserva orientação.
+\end{proof*}
+\begin{example*}
+  Se $\rho _{1}$ é a rotação centrada em (1, 0) com $\theta = \pi $ e se $\rho _{2}$ é a rotação centrada em (3,0) com
+  $\gamma =\pi ,$ então $\rho _{2}\rho _{1}=t_{a}, a = (4, 0)$ \qedsymbol 
+\end{example*}
+\begin{crl*}
+  A composição de composição de reflexões $\sigma _{1}, \sigma _{2}$ por retas não paralelas $l_{1}, l_{2}$ é uma rotação no ponto
+  $p=l_{1}\cap l_{2}.$
+\end{crl*}
+\begin{proof*}
+  $\sigma_{1}\sigma _{2}$ preserva orientação. Do teorema, 
+    $$
+    \sigma _{1}\sigma _{2} = ta\text{ ou } \rho _{\theta }.
+    $$
+  No entanto, $\sigma _{1}\sigma _{2}(p) = p.$ Portanto, $\sigma _{1}\sigma _{2} = \rho _{\theta }$ centrada em p. \qedsymbol
+\end{proof*}
+\begin{crl*}
+  A composição de reflexões $\sigma _{1}$ e $\sigma _{2}$ por retas paralelas distintas é uma translação por um vetor ortogonal
+  às retas paralelas.
+\end{crl*}
+\begin{proof*}
+  Do teorema, $\sigma _{1}\sigma _{2} = t_{a},$ ou $\sigma _{1}\sigma _{2} = \rho _{\theta }.$ Como $\sigma _{1}, \sigma _{2}$
+  não têm ponto fixo, então $\sigma _{1}\sigma _{2} = t_{a}.$
+
+  A menos de mudança de coordenada, podemos supor $\sigma _{2}$ reflexão no eixo x e $\sigma _{1}$ reflexão $l=\{y=\frac{b}{2}\}.$ Assim,
+  $\sigma _{2}(x, y) = (x, -y), \sigma _{1}(x,y) = (x, -y+b)$ e $\sigma _{1}\sigma _{2}(x, y)=\sigma _{1}(x, -y) = (x, y+b).$ Portanto,
+    $$
+    \sigma _{1}\sigma _{2}(x,y) = t_{(0, b)}(x,y)\quad\text{ e }(0,b)\perp l.\text{ \qedsymbol}
+    $$
+\end{proof*}
+\begin{prop*}
+  Seja $\mathcal{O}_{2}$ o grupo dos operadores ortogonais. Escolha um sistema de coordenadas. Então, 
+ \begin{itemize}
+   \item[a)] $\mathcal{O}_{2}\leq M_{2}$ é o subgrupo das isometrias que fixam a origem.
+     \item[b)] Se $H\leq M_{2}$ das isometrias que fixam um ponto p de $\mathbb{R}^{2},$ então $H = t_{p}\mathcal{O}_{2}t_{p}^{-1}.$
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  a) Ok.
+
+  b) Seja $f\in H, f(p) = p.$ Então, 
+    $$
+    \underbrace{t_{p}^{-1}ft_{p}(0)}_{\in \mathcal{O}_{2}} = t_{p}^{-1}f(p) = t_{p}^{-1}(p) = 0.
+    $$
+    Logo, existe $g\in \mathcal{O}_{2}$ tal que $t_{p}^{-1}ft_{p} = g.$ Portanto, $f = t_{p}gt_{p}^{-1}.$ \qedsymbol
+\end{proof*}
+\newpage
+
+\section{Aula 13 - 09/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+  \item Grupos diedrais;
+  \item Subgrupos discretos;
+  \item A\c cão de grupo;
+  \item Teorema do Ponto Fixo.
+\end{itemize}
+\subsection{Grupos Diedrais}
+\begin{def*}
+  Seja \(D_{n}\) o subgrupo de \(M_{2}\) gerado por \(\rho _{\theta }\) e r,
+  em que \(\theta =\frac{2\pi }{n}\) e \(r = \begin{bmatrix}
+    1 & 0 \\
+    0 & -1
+  \end{bmatrix}\), i.e., \(D_{n}=\left< \rho _{\theta }, r \right>.\) Chamamos
+  \(D_{n}\) de grupo diedral. \(\square\)
+\end{def*} 
+\begin{prop*}
+  Vale que \(|D_{n}|=2n\) e \(D_{n}\cong{\left< x, y \right>}\), em que \(x^{n} = y^2=1\) e
+  \(xy=x^{-1}y\).
+\end{prop*}
+\begin{proof*}
+  Observe que \(\rho _{\theta }^{n} = Id\) e \(r^2 = id\). Além disso, \(\rho _{\theta }r = r\rho_{\theta }^{-1}\), ou seja, 
+    \[
+      \begin{pmatrix}
+        \cos{(\theta )} & -\sin{(\theta )}\\
+        \sin{(\theta )} & \cos{(\theta )}
+      \end{pmatrix}\begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+      \end{pmatrix} = \begin{pmatrix}
+        1 & 0 \\
+        0 & -1
+      \end{pmatrix}\begin{pmatrix}
+        \cos{(\theta )} & \sin{(\theta )}\\
+        -\sin{(\theta )} & \cos{(\theta )}.
+      \end{pmatrix}
+    \]
+    Logo, os elementos de \(D_{n}\) são \(Id, \rho _{\theta }, \rho _{\theta }^2, \cdots, \rho _{\theta }^{n-1},
+    r, r\rho _{\theta }, r\rho _{t}^{2}, \cdots, r\rho _{\theta }^{n-1}\). Portanto,
+    \(|D_{n}| = 2n\). Fica como exercício mostrar que \(D_{n}\cong{\left< x, y \right>}\) utilizando 
+      \[
+        \rho \mapsto x, \quad r\mapsto y.\text{ \qedsymbol}
+      \]
+\end{proof*}
+\begin{example*}
+ \begin{itemize}
+   \item[1)] \(D_{1}\cong{\mathbb{Z}/2 \mathbb{Z}}\);
+   \item[2)] \(D_{2} = \left< Id, r, \rho , r\rho  \right>\), em que \(\rho = \rho _{\theta }, \theta =\pi \).
+   \item[3)] \(D_{3}\cong{S_{3}} = \left< (12), (123) \right>\)\text{ (Exercício).}
+ \end{itemize}
+\end{example*}
+Observe que \(D_{n}\) é o grupo de simetrias do polígono regular de n-lados. 
+Além disso, \(D_{n}\neq S_{n}, n >3\).
+\begin{def*}
+  Um subgrupo \(\Gamma\leq (\mathbb{R}, +)\) é chamado subgrupo discreto se existe
+  \(\varepsilon  \in \mathbb{R}_{\geq 0}\) tal que para todo \(x\in\Gamma/\{0\}, |x| > \varepsilon .\)
+\end{def*}
+\begin{lemma*}
+  Suponha que \(\Gamma\leq (\mathbb{R}, +)\) é discreto. Então, \(\Gamma =\{0\}, \Gamma =a \mathbb{Z}\)
+  para algum a real.
+\end{lemma*}
+\begin{proof*}
+  Sejam x, y em \(\Gamma \) distintos. Como \(\Gamma\leq (\mathbb{R}, +)\), 
+    \[
+      x - y\in \Gamma  \text{ i.e. }  |x-y| > \varepsilon 
+    \]
+    Logo, um intervalo limitado de \(\mathbb{R}\) só pode conter uma quantidade finita
+    de elementos de \(\Gamma \). 
+      \[
+        \biggl((an)\subseteq{(a,b)\subseteq{\mathbb{R}}}, a_{n}\in \Gamma \Rightarrow \text{ se } a_{n_{0}} < a_{n}\text{ e se } a_{n_{+}} > a_{n}\text{ para todo } n \text{, então } |a_{n_{0}}-a_{n_{+}}| > |b-a| \biggr)
+      \]
+      Suponha \(\Gamma \neq\{0\}\), então existe \(b\in \Gamma , b\neq0\). Como
+      \(\Gamma\leq (\mathbb{R}, +)\), então \(-b\in \Gamma \). Logo, \(\Gamma \) contém 
+      algum número real positivo. Seja \(a\in\Gamma \) o menor elemento positivo.
+
+      \textbf{Afirmativo: } \(\Gamma =a \mathbb{Z}\). 
+
+      De fato, se é claro que \(a \mathbb{Z} \subseteq{\Gamma }\). Para \(\Gamma \subseteq{a \mathbb{Z}}\),
+      seja \(b\in \Gamma.\) Existe r real tal que \(b=ar\). Agora, sejam m em \(\mathbb{Z}\) 
+      e \(0\leq r_{0} < 1\) tais que \(r = m + r_{0}\). Logo, 
+        \[
+          b = am + ar_{0} \Rightarrow b-am = ar_{0}\in\Gamma.
+        \]
+        Pela escolha de a, temos \(r_{0} = 0\), ou seja, \(b=am\in a \mathbb{Z}\). \qedsymbol
+\end{proof*}
+\begin{theorem*}
+  Seja \(G\leq O_{2}, |G| < \infty\). Então, existe um \(n\in \mathbb{Z}_{\geq 0}\) tal que 
+ \begin{itemize}
+   \item[a)] \(G\cong{\mathbb{Z}/n \mathbb{Z}}, G = <\rho >, \rho = \rho _{\theta }, \theta =\frac{2\pi }{n}\);
+     \item[b)] \(G\cong{D_{n} = <r, \rho >}, \rho  = \rho _{\theta }, \theta =\frac{2\pi }{n}\).
+ \end{itemize}
+\end{theorem*}
+\begin{proof*}
+  Lembre-se que \(\mathcal{O}_{2} = \left< r, \rho _{\theta } \right>\). Vamos separar em casos.
+
+  \textbf{Caso 1 - G só contém rota\c cões:}
+
+  Seja \(H\coloneqq \{\theta \in \mathbb{R}: \rho _{\theta }\in G\}\). Como
+  \(G\leq \mathcal{O}_{2}\) e \(|G| < \infty,\) então \(H\leq (\mathbb{R}, +)\)
+  é discreto. Do lema anterior, \(H = a \mathbb{Z}\) para algum a real.
+
+  Logo, G é o grupo das rota\c cões por ângulos múltiplos inteiros de a. Em
+  particular, G é cíclico. 
+
+  Por fim, observe que \(2\pi \in H,\) logo existe n inteiro tal que \(2\pi =an\),
+  ou seja, \(a = \frac{2\pi }{n}.\) Portanto, \(G = <\rho_{0}>, \theta =\frac{2\pi }{n}\).
+
+  \textbf{Caso 2 - r pertence a G:}
+
+  Seja \(H\leq G\) das rota\c cões em G. Do caso 1, \(H = <\rho >, \rho = \rho _{\theta }, \theta =\frac{2\pi }{n}, n\in \mathbb{Z}\).
+  Assim, \(r\rho^{j}\in G\) para todo \(j=0, \cdots, n-1.\) Isto é, \(D_{n}\subseteq{G}\).
+
+  Afirmamos que \(G=D_{n}\). De fato, seja g em G. Se g é uma rota\c cão, então
+  g pertence a H, mas como \(H\subseteq{D_{n}}\), então g pertence a \(D_{n}\).
+  Se g é uma reflexão, então \(g=\rho^{j}r\) para algum j. Mas, \(r\in G,\) então
+  \(gr = \rho^{j}\in G,\) então \(\rho ^{j}=\rho _{\theta }^{i}\) para algum i,
+  e assim \(g=\rho _{\theta }^{i}r\in D_{n}\). \qedsymbol
+\end{proof*}
+\begin{lemma*}
+  Seja \(S = \left< s_{1}, \cdots, s_{n} \right>\subseteq{\mathbb{R^{2}}}\) e
+  p o seu centroide, isto é, \(p=\frac{1}{n}(s_{1} + \cdots + s_{n})\). Seja \(f\in M_{2}\)
+  e \(h_{i}=f(s_{i}), q=f(p), i = 1,\cdots,n.\) Então q é o centroide de 
+  \(\{h_{1}, \cdots, h_{n}\}\).
+\end{lemma*}
+\begin{proof*}
+  Seja \(f\in M_{2}\), podemos escrever \(f=t_{a}\varphi \) para \(a\in \mathbb{R}^{2}, \varphi \in O_{2}\).
+
+  Se \(f=t_{a}\), então 
+ \begin{align*}
+   q = p + a &=\frac{1}{n}(s_{1}+\cdots+s_{n})+a \\
+             &=\frac{1}{n}((h_{1}-a)+\cdots+(h_{n}-a)) + a = \frac{1}{n}(h_{1}+\cdots+h_{n}).
+ \end{align*}
+ Se \(f=\varphi \),  
+\begin{align*}
+  q = \varphi (p) &= \varphi \biggl(\frac{1}{n}(s_{1}+\cdots+s_{n})\biggr)\\
+                  &=\frac{1}{n}\biggl(\varphi (s_{1})+\cdots+\varphi (s_{n})\biggr) = \frac{1}{n}(h_{1}+\cdots+h_{n}).\text{ \qedsymbol}
+\end{align*}
+\end{proof*}
+\begin{crl*}
+  Seja \(G\leq M_{2}, |G| < \infty,\) então existe n em \(\mathbb{Z}_{\geq 0}\) tal que 
+ \begin{itemize}
+   \item[a)] \(G\cong{\mathbb{Z}/n \mathbb{Z}}, G = <\rho >, \rho =\rho _{\theta }, \theta =\frac{2\pi }{n}\);
+   \item[b)] \(G\cong{D_{n}}=\left< r, \rho  \right>, \rho =\rho _{\theta }, \theta =\frac{2\pi }{n}\).
+ \end{itemize}
+\end{crl*}
+\subsection{A\c cões de Grupos}
+\begin{def*}
+  Seja G um grupo e X um conjunto. Uma a\c cão de G em X é um mapa 
+    \[
+      G\times{X}\rightarrow X, (g,x)\mapsto g \cdot x
+    \]
+  satisfazendo 
+ \begin{itemize}
+   \item[i)] \(1 \cdot x = x;\)
+   \item[ii)] \((gh)\cdot x= g \cdot (h \cdot x). \square\)
+ \end{itemize}
+\end{def*}
+  Denotamos a frase `` G é um grupo agindo em X'' por \(G \curvearrowright X\).
+  \begin{example*}
+   \begin{itemize}
+     \item[i)] \(M_{2} \curvearrowright \mathbb{R}^{2}, \mathcal{O}_{2} \curvearrowright \mathbb{R}^{2}\);
+     \item[ii)] \(S_{n}\curvearrowright \{1, \cdots, n\}\);
+     \item[iii)] \(G \curvearrowright G\).
+   \end{itemize}
+  \end{example*}
+  Observe que, dado \(G \curvearrowright X\), temos 
+    \[
+      m_{g}:X\rightarrow X, x\mapsto gx
+    \]
+  como uma bije\c cão cuja inversa é \(m_{g^{-1}}\).
+ \begin{def*}
+   Dada uma a\c cão \(G \curvearrowright X\) e \(x\in X\), defina 
+     \[
+       \mathcal{O}(x)\coloneqq \{x'\in X: x'=gx, g\in G\}
+     \]
+     como a orbita de x sob a a\c cão \(G \curvearrowright X.\square\)
+ \end{def*}
+\hypertarget{fixed_pt}{
+ \begin{theorem*}
+   Seja \(G\leq M_{2}\) finito. Então, existe p em \(\mathbb{R}^{2}\) tal que
+   \(g(p)=p\) para todo g em G.
+ \end{theorem*}
+}
+\begin{proof*}
+  Seja a em \(\mathbb{R}^{2}\) e 
+    \[
+      \mathcal{O}(a)\coloneqq \{g(a):g\in G\}
+    \]
+  Como \(|G| < \infty,\) podemos escrever 
+    \[
+      \mathcal{}(a) = \{s_{1},\cdots, s_{n}\}\subseteq{\mathbb{R}^{2}}.
+    \]
+  Além disso, se g pertence a G, então 
+    \[
+      m_{g}:\mathcal{O}(a)\rightarrow \mathcal{O}(a), \quad s_{i}\mapsto g(s_{i})
+    \]
+    Com isso, se p é o centroide de \(\mathcal{O}(a)\),
+   \begin{align*}
+     g(p) &= g(\frac{1}{n}(s_{1}+\cdots+s_{n}))\\
+          &= \frac{1}{n}(g(s_{1})+\cdots+g(s_{n}))\\
+          &= \frac{1}{n}(s_{1}+\cdots+s_{n}) = p.
+   \end{align*}
+   Portanto, \(g(p)=p\) para todo g em G. \qedsymbol
+\end{proof*}
+\newpage
+
+\section{Aula 14 - 11/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+  \item Estabilizadores e Teorema da Orbita-Estabilizador;
+  \item Representa\c cão por Permuta\c cão;
+  \item A\c cões Fiéis.
+\end{itemize}
+\subsection{Motiva\c cão}
+  Nesta introdu\c cão, discutiremos a intuição por trás dos estabilizadores de grupos e do Teorema da Órbita-Estabilizador. Também comentaremos sobre a
+  Representação por Permutação e suas aplicações na vida real.
+
+  Um estabilizador de um grupo é um conceito fundamental na teoria dos grupos. Dado um grupo de ação $G$ em um conjunto $X$, o estabilizador de um elemento
+  $x$ em $X$ é o conjunto de todos os elementos em $G$ que fixam $x$.
+
+  O Teorema da Órbita-Estabilizador é um resultado fundamental na teoria dos grupos que relaciona o tamanho de uma órbita de um elemento sob a ação de um grupo
+  com o tamanho do estabilizador desse elemento. O teorema é enunciado da seguinte forma:
+ \begin{quote}
+   Seja $G$ um grupo finito que age em um conjunto $X$ e seja $x$ um elemento de $X$. Então, o tamanho da órbita de $x$ sob a ação de $G$ é igual ao
+   índice do estabilizador de $x$ em $G$.
+ \end{quote}
+
+  A representação por permutação é uma maneira de representar os elementos de um grupo como permutações de um conjunto, o que é útil para visualizar e entender
+  a estrutura do grupo.
+
+  Os conceitos de estabilizadores de grupos, o Teorema da Órbita-Estabilizador e a representação por permutação têm aplicações em várias áreas, incluindo
+  física, química, ciência da computação e matemática. 
+  Na física, eles são usados para descrever simetrias em sistemas físicos. Por exemplo, as simetrias de rotação e translação em física são exemplos de ações de grupo, onde o estabilizador de um ponto no espaço é o conjunto de todas as rotações e translações que deixam o ponto inalterado.
+  Na química, eles são usados para descrever a simetria de moléculas. A título de exemplo, a molécula de água tem uma simetria de rotação, onde a rotação em torno do eixo que passa pelo átomo de oxigênio e o centro da linha entre os dois átomos de hidrogênio deixa a molécula inalterada. Esta é uma ação de grupo, e o estabilizador é o conjunto de todas as rotações que deixam a molécula inalterada.
+  Na ciência da computação, eles são usados em algoritmos de busca e ordenação. Por exemplo, o algoritmo de ordenação por permutação é baseado na ideia de representar as permutações de um conjunto como um grupo.
+
+  Intuitivamente, imagine que você tem um conjunto de objetos e um conjunto de operações que você pode realizar nesses objetos. Um grupo é apenas um
+  conjunto de tais operações. Um estabilizador é o conjunto de operações que deixam um objeto específico inalterado. A órbita de um objeto é o conjunto de
+  todos os estados que esse objeto pode alcançar através das operações do grupo. Para ilustrar, imagine que você tem um cubo e as operações são rotações do cubo.
+  O estabilizador de uma face do cubo é o conjunto de rotações que deixam essa face no mesmo lugar. 
+  A órbita de uma face é o conjunto de todas as posições que essa face pode ocupar através das rotações do cubo. O Teorema da Órbita-Estabilizador nos diz que
+  o número de estados possíveis (a órbita) é igual ao número de operações, dividido pelo número de operações que deixam o objeto inalterado (o estabilizador).
+  A representação por permutação é uma maneira de visualizar essas operações como rearranjos dos objetos. Assim, se você tem três objetos e uma operação que troca
+  o primeiro e o segundo objeto, isso pode ser representado como uma permutação (2,1,3).
+\subsection{Estabilizadores}
+\begin{prop*}
+  Se \(G \curvearrowright X\), o conjunto das órbitas dessa a\c cão são classes de equivalência para a seguinte rela\c cão: 
+    \[
+      x\sim y \Longleftrightarrow \exists g\in G: y = gx.
+    \]
+    Em particular, se \(x\sim y\), então \(\mathcal{O}(x) = \mathcal{O}(y)\) e X é particionado pelas órbitas.
+\end{prop*}
+\begin{proof*}
+  Se x pertence a X, \(Cl(x)\coloneqq \{y\in X: y\sim x\} = \{y\in X: y=gx, g\in G\} = \{gx: g\in G\}= \mathcal{O}(x)\). \qedsymbol
+\end{proof*}
+\begin{def*}
+  Seja \(G \curvearrowright X\). Dado \(x\in X\), definimos 
+    \[
+      E(x)\coloneqq \{g\in G: gx = x\}
+    \]
+    como o estabilizador de x. \(\square\).
+\end{def*}
+\begin{example*}
+  Se x pertence a X é um ponto fixo para \(G \curvearrowright X\), então \(E(x) = G.\)
+\end{example*}
+\begin{prop*}
+  \(E(x)\leq G\).
+\end{prop*}
+\begin{proof*}
+  Como 1x = x, \(1\in E(x)\). Sejam \(a, b\in E(x)\), então \((ab)x = a(bx) = ax = x\). Logo, \(ab\in E(x)\). Agora, \(ax = x \) implica que \( x = a^{-1}x \),
+  tal que \(a^{-1}\in E(x)\). Portanto, \(E(x)\leq G.\) \qedsymbol
+\end{proof*}
+\begin{example*}
+ \begin{itemize}
+   \item[1)] \(S_{n} \curvearrowright \{1, \cdots, n\}, E(n) = S_{n-1};\)
+     \item[2)] \(M_{2} \curvearrowright \mathbb{R}^{2}, E((a, 0)) = \mathcal{O}_{2}.\)
+ \end{itemize}
+\end{example*}
+\begin{prop*}
+  Seja \(G \curvearrowright X, x\in X, H\coloneqq E(x)\). Então, 
+ \begin{itemize}
+   \item[i)] Se a, b pertencem a G, então ax = bx se, e somente se, \(ab^{-1}\in H\) se, e somente se, \(b\in aH\);
+     \item[ii)] Se ax=y, então \(E(y) = aHa^{-1}\).
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  (i) Se \(ax = bx,\) então \(b^{-1}ax = x\), ou seja, \(b^{-1}a\in H, b\in aH\) e existe h em H tal que \(b^{-1}a = h\) e \(b = ah^{-1}\).
+
+  (ii) Seja \(b\in E(y)\), i.e., \(by=y.\) Segue que 
+    \[
+      bax = ax \Longleftrightarrow a^{-1}bax = x \Longleftrightarrow a^{-1}ba\in H \Longleftrightarrow b\in aHa^{-1}.
+    \]
+    Logo, \(E(y)\subseteq{aHa^{-1}}\). 
+
+    Por outro lado, se \(b\in aHa^{-1}\), existe h em H tal que \(b = aha^{-1}\), de forma que 
+      \[
+        by = (aha^{-1})y = (ah)x = ax = y,
+      \]
+    ou seja, b pertence a E(y) e \(aHa^{-1}\subseteq{E(y)}\). Portanto, \(E(y) = aHa^{-1}.\) \qedsymbol
+\end{proof*}
+\begin{example*}
+  Se \(H\leq G\) e \(G/H = \{aH: a \in G\}\), então \(G \curvearrowright  G/H\) por \(g(aH) = gaH.\) Fica como exercício mostrar que essa a\c cão
+  é transitiva e \(E(1 \cdot H) = 1 \cdot H\).
+\end{example*}
+\begin{example*}
+  Sejam \(G = S_{3}\) e \(H = \{1, y\}, y = (23).\). Se \(x=(123)\), 
+    \[
+      G/H = \{H, \underbrace{xH}_{\{x, xy\}}, \underbrace{x^{2}H}_{x^{2}, x^{2}y}\} = \{[1], [x], [x^{2}]\} = \{\overline{1}, \overline{2}, \overline{3}\}.
+    \]
+  Temos \(S_{3} \curvearrowright S_{3}/H\) como acima e, para \(y\in S_{3}\), 
+     \begin{align*}
+       m_{g}:&G/H\rightarrow G/H\\
+             &[1]\mapsto[1]\\
+             &[x]\mapsto\{x^{2}y, x^{2}\} = [x^{2}]\\
+             &[x^{2}]\mapsto[x].
+     \end{align*}
+    Logo, y age em \(G/H\) como age em \(\{1, 2, 3\}\) (Verifique que o mesmo acontece para x).
+\end{example*} 
+  O resultado a seguir relaciona a órbita com o estabilizador, conhecido como Teorema Órbita-Estabilizador.
+    \hypertarget{orbit_stabilizer}{
+     \begin{theorem*}
+       Se \(G \curvearrowright X, x\in X\) temos uma bije\c cão \(\varepsilon :G/E(x)\rightarrow \mathcal{O}(x), [aE(x)]\mapsto ax\). Além disso,
+       \(\varepsilon (g*aE(x)) = g\varepsilon (aE(x))\).
+     \end{theorem*}
+    }
+   \begin{proof*}
+     Vamos come\c car mostrando que \(\varepsilon \) está bem-definida. De fato, seja \(H = E(x)\). Note que \(\varepsilon (aH) = ax\in \mathcal{O}(x)\).
+     Ainda se \(aH = bH\), então \(b^{-1}a\in H.\) Logo, existe \(h\in H\) tal que a = bh e, assim, \(ax = bhx = bx.\) Por isso, \(\varepsilon (aH) = \varepsilon (bH)\).
+
+     Note que \(\varepsilon  \) é sobrejetora diretamente. Para ver que \(\varepsilon \) é injetora, seja \(\varepsilon (aH) = \varepsilon (bH)\). Segue que 
+       \[
+         ax = bx \Longleftrightarrow b^{-1}ax = x \Longleftrightarrow b^{-1}a\in H.
+       \]
+       Portanto, \(b\in aH\) é equivalente a \(aH = bH\). \qedsymbol
+   \end{proof*}
+   \begin{example*}
+      Temos \(M_{2} \curvearrowright \mathbb{R}^{2}\) transitiva e \(E((0, 0)) = \mathcal{O}_{2}\). Logo, do \hyperlink{orbit_stabilizer}{Teorema Órbita-Estabilizador},
+      \(|\cdot |:M_{2}/\mathcal{O}_{2}\rightarrow \mathbb{R}^{2}\).
+   \end{example*}
+  \begin{crl*}
+    Se X é um conjunto finito e \(G \curvearrowright X, x\in X\), então 
+      \[
+        |G| = |E(x)|\cdot |\mathcal{O}(x)|.
+      \]
+  \end{crl*}
+ \begin{proof*}
+   Segue de 
+     \[
+       |G| = |E(x)|\cdot [G:E(x)] = \underbrace{|E(x)|\cdot |\mathcal{O}(x)|}_{\hyperlink{orbit_stabilizer}{\text{Teorema Órbita-Estabilizador}}}.\text{ \qedsymbol}
+     \]
+ \end{proof*}
+  Algumas observa\c cões devem ser feitas. Primeiramente, se \(G \curvearrowright X\) e \(H\leq G\), então \(H \curvearrowright X\).
+  Além disso, se \(G \curvearrowright X\) e \(X'\subseteq{X}, |X'| = r\), então 
+    \[
+      gX' = \{gy: y\in X'\}
+    \]
+  também tem ordem r. Logo, G age no conjunto dos subconjuntos de ordem r de X.
+\subsection{Representa\c cões por Permuta\c cões}
+ \begin{def*}
+   Uma representa\c cão por permuta\c cão do grupo G é um morfismo \(\varphi :G\rightarrow S_{n}. \square\)
+ \end{def*}
+\begin{prop*}
+  Se \(X = \{1, \cdots, n\}\), então temos 
+    \[
+      |\cdot |:\biggl\{\text{A\c cões de G em X}\biggr\}\rightarrow \biggl\{\text{Representa\c cão por Permuta\c cão}\biggr\}
+    \]
+    uma bije\c cão.
+\end{prop*}
+\begin{proof*}
+  Dado \(G \curvearrowright X\), para cada g de G, temos 
+    \[
+      m_{g}:X\rightarrow X,\quad x\mapsto gx.
+    \]
+  Logo, temos \(\varphi :G\rightarrow S_{n}, g\mapsto m_{g}.\) Por outro lado, dado um morfismo \(\varphi :G\rightarrow S_{n}\), temos 
+    \[
+      G\times{}X\rightarrow X,\quad (g, x)\mapsto gx = \varphi (g)x.\text{ \qedsymbol}
+    \]
+\end{proof*}
+\begin{example*}
+  Segue que \(D_{n}\curvearrowright \{v_{1}, \cdots, v_{n}\}\) equivale aos vértices de um polígono regular de n-lados. Com isso, temos um morfismo
+  \(D_{n}\rightarrow S_{n}\).
+\end{example*}
+\begin{prop*}
+  Se X é um conjunto qualquer e Perm(X) = \(\{f:X\rightarrow X: f \text{ é bije\c cão}\}\) é o grupo das permuta\c cões de X, então temos 
+    \[
+      |\cdot |:\biggl\{\text{A\c cões de G em X}\biggr\}\rightarrow\biggl\{\text{Morfismos de G em Perm(X)}\biggr\}
+    \]
+\end{prop*}
+\begin{def*}
+  A a\c cão \(G \curvearrowright X\) é dita fiel se o morfismo correspondente de G em Perm(X) é injetor. \(\square\)
+\end{def*}
+\begin{example*}
+  (Exercícios: )Mostre que \(G = GL_{2}(\mathbb{Z}/2 \mathbb{Z})\cong{S_{3}}\).
+
+  Se \(e_{1}=(1, 0), e_{2} = (0, 1), e_{1}+e_{2} = (1, 1) = e_{3}\), mostre que \(G \curvearrowright \{e_{1}, e_{2}, e_{3}\}\) fielmente, de maneira que 
+    \[
+      G\hookrightarrow S_{3}\text{ é injetora}
+    \]
+    e, como \(|G| = |S_{3}|\), vale que \(G\cong{S_{3}.}\)
+
+    \(G \curvearrowright X\) é fiel se \(gx=x\) para todo x em X implica em g = 1.
+\end{example*}
+\newpage
+
+\section{Aula 15 - 23/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+  \item Fórmula de Burnside;
+  \item Teorema de Colty;
+  \item Teorema de Equa\c cão de Classe;
+  \item p-Grupos.
+\end{itemize}
+\subsection{Motiva\c cões}
+
+\par\textbf{Fórmula de Burnside} 
+
+A Fórmula de Burnside é uma ferramenta importante na teoria dos grupos, usada para contar o número de órbitas de uma ação de grupo. Seja $G$ um grupo finito que atua em um conjunto $X$, a fórmula de Burnside é dada por:
+\[
+|X/G| = \frac{1}{|G|} \sum_{g \in G} |X^g|
+\]
+onde $X/G$ é o conjunto de órbitas de $X$ sob a ação de $G$, e $X^g$ é o conjunto de pontos fixos do elemento $g$ em $G$. 
+
+Por exemplo, podemos usar a fórmula de Burnside para contar o número de
+maneiras de colorir um cubo com três cores diferentes, considerando rotações
+como iguais. 
+
+Ou seja, a fórmula de Burnside é usada para contar coisas em situações onde certas transformações
+(como rotação ou reflexão) não mudam a "essência" do que estamos contando.
+
+\textbf{Teorema de Colty}
+
+O Teorema de Colty é um resultado importante na teoria dos grupos, que se aplica a grupos $p$-nilpotentes. Ele afirma que se $G$ é um grupo $p$-nilpotente finito e $H$ é um subgrupo normal de $G$, então o conjunto $N_G(p)$ de elementos de ordem $p$ em $G$ que normalizam $H$ é também um subgrupo normal de $G$. 
+
+Em outras palavras, o Teorema de Colty é uma propriedade interessante que certos
+tipos de grupos possuem. Ele nos dá uma maneira de encontrar novos subgrupos
+normais em um grupo, o que é útil para entender a estrutura do grupo.
+
+\textbf{Teorema da Equação de Classe}
+
+O Teorema da Equação de Classe é um resultado fundamental na teoria dos grupos que relaciona o tamanho de um grupo com o tamanho de suas classes de conjugação. Dado um grupo finito $G$, o teorema afirma que:
+\[
+|G| = |Z(G)| + \sum_{i=1}^r [G : C_G(x_i)]
+\]
+onde $Z(G)$ é o centro de $G$, $C_G(x_i)$ é o centralizador de $x_i$ em $G$, e a soma é sobre todas as classes de conjugação não-trivial de $G$. 
+
+Uma forma de visualizar isso é que o Teorema da Equação de Classe nos dá uma
+maneira de "dividir" um grupo em peças menores, chamadas classes de conjugação.
+
+\textbf{p-Grupos}
+
+Os $p$-grupos são um tipo especial de grupo que é especialmente importante na
+teoria dos grupos. Um grupo finito é um $p$-grupo se e somente se sua ordem 
+(o número de seus elementos) é uma potência de $p$. Dado um grupo finito $G$,
+os teoremas de Sylow garantem a existência de um subgrupo de $G$ de ordem
+$p^n$ para cada potência do primo $p^n$ que divide a ordem de $G$.
+Os $p$-grupos da mesma ordem não são necessariamente isomórficos;
+por exemplo, o grupo cíclico $C_4$ e o grupo de Klein $V_4$ são ambos
+$2$-grupos de ordem $4$, mas eles não são isomórficos
+Intuitivamente, $p$-grupos são grupos cujo número de elementos é uma potência
+de um número primo. Eles têm algumas propriedades interessantes e são uma área
+ativa de pesquisa na teoria dos grupos.
+
+\subsection{Fórmula de Burnside}
+\begin{lemma*}
+  Sejam X um conjunto finito e G um grupo finito agindo em X. Se \(X^{g}\coloneqq \{x\in X: gx=x\}, g\in G\).
+  Então, 
+    \[
+      \sum\limits_{x\in X}^{}|E(x)| = \sum\limits_{g\in G}^{}|X^{g}|.
+    \]
+\end{lemma*}
+\begin{proof*}
+  Temos 
+    \[
+      \sum\limits_{g\in G}^{}|X^{g}| = \#\{(g, x)\in G\times X: gx=x\} = \sum\limits_{x\in X}^{}|E(x)|.\text{ \qedsymbol}
+    \]
+\end{proof*}
+  Esse lema será usado para provarmos o resultado conhecido como Fórmula Burnside.
+  \hypertarget{burnside}{
+ \begin{prop*}
+   Com as nota\c cões do lema anterior, 
+     \[
+       |G|\cdot |X/G| = \sum\limits_{g\in G}^{}|X^{g}|,
+     \]
+  em que \(X/G\) é o conjunto das orbitas distintas com respeito à a\c cão de \(G \curvearrowright X\).
+ \end{prop*}
+}
+\begin{proof*}
+  Suponha \(X/G=\{\mathcal{O}(x_{1}), \cdots, \mathcal{O}(x_{n})\}\), isto é, \(X=\bigcup_{i=1}^{n}{\mathcal{O}(x_{i})}\)
+e \(|X/G| = n\). Assim,   
+  \[
+    \sum\limits_{g\in G}^{}|X^{g}| = \sum\limits_{x\in X}^{}|E(x)| = \sum\limits_{x\in X}^{}\frac{|G|}{|\mathcal{O}(x)|}.
+  \]
+  Pelo lema, portanto, 
+  \[
+    \sum\limits_{g\in G}^{}|X^{g}| = |G|\cdot \biggl(\sum\limits_{x\in \mathcal{O}(x_{1})}^{}\frac{1}{|\mathcal{O}(x_{1})|} + \cdots + \sum\limits_{x\in \mathcal{O}(x_{n})}^{}\frac{1}{|\mathcal{O}(x_{n})|}\biggr) = |G|\cdot |X/G|.\text{ \qedsymbol}
+  \]
+\end{proof*}
+\begin{example*}
+  \(D_{3}\) age em \(X=\{1, 2, 3\}\) o conjunto de vértices do triângulo equilátero 
+    \[
+      D_{3} = \{1, (123), (132), (12), (13), (23)\}
+    \]
+  Com a nota\c cão utilizada, 
+    \[
+      X^{1} = X,\quad X^{(123)}=\emptyset,\quad X^{(132)}=\emptyset,\quad X^{(12)}=\{3\}, X^{(13)}=\{2\}, X^{(23)}=\{1\}.
+    \]
+  Logo, pela \hyperlink{burnside}{Fórmula Burnside}, 
+    \[
+      \sum\limits_{g\in D_{3}}^{}|X^{g}| = G = |D_{3}||X/G|. 
+    \]
+\end{example*}
+  Vamos considerar o seguinte mapa para a próxima discussão: 
+    \[
+      G\times{G}\rightarrow G,\quad (g, x)\mapsto gx.
+    \]
+  Como exercício, mostre que ele satisfaz os axiomas da a\c cão de G em G.
+ \begin{lemma*}
+   \(G \curvearrowright G\) fielmente por multiplica\c cão à esquerda.
+ \end{lemma*}
+\begin{proof*}
+  Segue de 
+    \[
+      E(x) = \{g\in G: gx = x\} = \{1\}. \text{ \qedsymbol}
+    \]
+\end{proof*}
+  Com isso, estudemos o teorema de Colty
+\hypertarget{colty}{\begin{theorem*}
+  Todo grupo G é um subgrupo do grupo de permuta\c cões de algum conjunto. Em particular,
+  se \(|G| = n,\) então G é subgrupo de \(S_{n}\).
+\end{theorem*}}
+\begin{proof*}
+  Como \(G \curvearrowright G\) fielmente por multiplica\c cão à esquerda, então 
+    \[
+      \varphi :G\rightarrow Perm(G),\quad g\mapsto m_{g}:G\rightarrow G, x\mapsto gx
+    \]
+    sendo \(\varphi \) injetora. Se \(|G|=n\), então \(Perm(G) = S_{n}\) e o teorema
+    segue pelo Teorema do Isomorfismo.
+\end{proof*}
+\begin{example*}
+  Defina \(G\times{G}\rightarrow G, \quad (g, x)\mapsto gxg^{-1}\). O mapa acima satisfaz
+os axiomas de a\c cão de G.
+\end{example*}
+\begin{def*}
+  Dado x em G, seja \(Z(x)\coloneqq \{g\in G: gx=xg\}\) é o centralizador de x. \(\square\)
+\end{def*}
+\begin{example*}
+  Exercício: \(Z(x)\leq G\).
+\end{example*}
+\begin{prop*}
+  Se \(G \curvearrowright G\) por conjuga\c cão, então \(E(x) = Z(x)\).
+\end{prop*}
+\begin{proof*}
+ \begin{align*}
+   E(x) &= \{g\in G: g * x = x\}\\
+        &= \{g\in G: gxg^{-1} = x\}\\
+        &= \{g\in G: gx = xg\} = Z(x).\text{ \qedsymbol}
+ \end{align*}
+\end{proof*}
+\begin{def*}
+  Se \(G \curvearrowright G\) por conjuga\c cão, definimos a classe de conjuga\c cão 
+de x em G por ser a órbita \(\mathcal{O}(x)\). Além disso, denotamos \(\mathcal{O}(x)\) por 
+ \(C(x).\) Assim, 
+   \[
+     C(x)\coloneqq \{gxg^{-1}: g\in G\}. \square
+   \]
+\end{def*}
+\begin{prop*}
+ \begin{itemize}
+   \item[1)] \(|G| = |Z(x)||C(x)|,\quad \forall x\in G\);
+   \item[2)] \(x\in Z(x), Z(G)\subseteq{Z(x)}, \quad \forall x\in G\);
+   \item[3)] \(x\in Z(G) \Longleftrightarrow Z(x) = G \Longleftrightarrow C(x) = \{x\}\).
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  A prova de (1) segue pelo Teorema Órbita-Estabilizador.
+
+  Para 2, note que, como \(xx = x^{2} = xx,\) então x está em \(Z(x).\) Além disso,
+se g pertence a \(Z(G)\), então \(gh = hg\) para todo h de G. Em particular, \(gx = xg\),
+ou seja, \(g\in Z(x)\).
+
+  Por fim, para 3, se \(x\in Z(G)\), temos 
+ \begin{align*}
+   x\in Z(g) &\Longleftrightarrow xg=gx \forall g\in G\\
+             &\Longleftrightarrow g\in Z(x) \forall g\in G\\
+             &\Longleftrightarrow Z(x) = G\\
+             &\Longleftrightarrow C(x) = \{x\}.\quad\text{\qedsymbol}
+ \end{align*}
+\end{proof*}
+  Podemos agora entender o Teorema da Equa\c cão de Classe:
+  \hypertarget{class_eqn}{
+ \begin{theorem*}
+   Sejam \(C(x_{1}), \cdots, C(x_{n})\) as órbitas que particionam G com respeito
+  à a\c cão por conjuga\c cão \(G \curvearrowright G\), então 
+ \begin{align*}
+   |G| &= \sum\limits_{i=1}^{n}|C(x_{i})|\\
+       &= |Z(G)| + \sum\limits_{x_{i}\not\in Z(G)}^{}|C(x_{i})|.
+ \end{align*}
+ \end{theorem*}}
+\begin{example*}
+  \(S_{3} \curvearrowright S_{3}\) por conjuga\c cão. Escreva \(S_{3} = \langle x, y \rangle\)
+em que \(x^{2} = 1\) e \(y^{3}=1.\) Assim, \(Z(y)\leq S_{3},\) logo \(|Z(y)| = 1, 2, 3,\) ou 6.
+Agora se y pertence a Z(y), então \(|Z(y)| = 3\) ou 6. Mas, \(xy=y^{2}x\neq yx.\) Desta forma,
+ \(|Z(y)|=3\) e, assim, \(|C(y)|=2.\) De exercício, mostre que \(|C(x)| = 3.\)
+ Portanto, a equa\c cão de classe para \(S_{3}\) é 
+   \[
+     G = 2 + 3 + 1
+   \]
+\end{example*}
+\begin{def*}
+  Seja p um número primo. G é um p-grupo se \(|G| = p^{n}\) para algum n. \(\square\)
+\end{def*}
+\begin{prop*}
+  O centro de um p-grupo é não trivial.
+\end{prop*}
+\begin{proof*}
+  Seja G um p-grupo. Da equa\c cão de classes, 
+    \[
+      |G| = |Z(G)| + \sum\limits_{x_{i}\not\in Z(G)}^{}|C(x_{i})|
+    \]
+  em que \(G = \bigsqcup_{i=1}^{n}{C(x_{i})}\sqcup Z(g).\) 
+
+Agora, do Teorema Órbita-Estabilizador, \(|C(x_{i})|\biggl|\biggr. p^{n}\) Logo, 
+ \(|C(x_{i})| = p^{n_{i}}\) para algum \(n_{i}\geq 0\). Como \(x_{i}\not\in Z(G),\) segue
+ que \(|C(x_{i})| > 1\), ou seja, \(n_{i} > 0.\) Portanto, 
+\begin{align*}
+  &p\biggl|\biggr. |G| - \sum\limits_{}^{}|C(x_{i})| = |Z(G)|\\
+  &p\biggl|\biggr. |Z(G)| \Rightarrow |Z(G)| > 1.\quad\text{\qedsymbol}
+\end{align*}
+\end{proof*}
+  A seguir, veremos um teorema de ponto fixo, resultados que sempre fornecem implica\c cões
+agradáveis na matemática.
+\hypertarget{fixed_point}{
+\begin{theorem*}
+  Sejam G um p-grupo e X um conjunto finito com \(G \curvearrowright X.\) Se p
+não divide \(|X|,\) então existe \(x\in X\) tal que \(E(x) = G.\)
+\end{theorem*}}
+\begin{proof*}
+  Escreva \(X = \bigsqcup_{i=1}^{n}{\mathcal{O}(x_{i}).}\) Então, 
+    \[
+      |X| = \sum\limits_{}^{}|\mathcal{O}(x_{i})|.
+    \]
+  Do Teorema Órbita-Estabilizador, \(|\mathcal{O}(x_{i})|\biggl|\biggr. |G|= p^{n}.\)
+  Então, existem \(n_{i}\geq 0\) tais que \(|\mathcal{O}(x_{i})| = p^{n_{i}}.\)
+  Se \(n_{i} > 0\) para todo i, então \(p\bigl|\bigr. \sum\limits_{}^{}|\mathcal{O}(x_{i})| = |X|.\)
+  Logo, existe j tal que \(n_{j}=0\). Portanto, 
+    \[
+      |\mathcal{O}(x_{j})| = 1 \Rightarrow |E(x_{j})| = |G| \Rightarrow E(x_{j}) = G.\text{ \qedsymbol}
+    \]
+\end{proof*}
+\begin{prop*}
+  Se \(|G| = p^{2}\), p primo, então G é abeliano.
+\end{prop*}
+\begin{proof*}
+  Da proposi\c cão anterior, \(|Z(G)| = p\) ou \(p^{2}.\) Se \(|Z(G)|=p^{2},\) está ok.
+Caso \(|Z(G)| = p\), então existe x fora de Z(G). Assim, \(Z(x)\supsetneq{Z(G)}\) e, assim, 
+  \[
+    |Z(x)| = p^{2} \Rightarrow x\in Z(G)\backslash X.
+  \]
+  Portanto, \(Z(G) = G.\) \qedsymbol
+\end{proof*}
+\begin{crl*}
+  Um grupo de ordem \(p^{2}\) é cíclico ou o produto de dois grupos cíclicos de ordem p, sendo p primo.
+\end{crl*}
+\begin{proof*}
+  Se \(|G| = p^{2},\) se G tem elemento de ordem \(p^{2},\) está ok.
+
+  Caso contrário, todo elemento não-identidade de G tem ordem p. Assim, existem 
+ \(x, y\in G\) com \(|x|=|y| = p\) e \(y\not\in\langle x\rangle\). Portanto, 
+   \[
+     \langle x\rangle \times\langle y\rangle\rightarrow G, \quad (x^{m}, y^{n})\mapsto x^{m}y^{n}
+   \]
+  é um isomorfismo. \qedsymbol
+\end{proof*}
+\newpage
+
+\section{Aula 16 - 25/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+  \item Grupos Simples;
+  \item Normalizadores;
+  \item Teoremas de Sylow.
+\end{itemize}
+\subsection{Grupos Simples}
+ \begin{def*}
+   Um grupo G é simples se \(G\neq\{1\}\) e não tem subgrupo normal próprio (Não
+  existe subgrupo normal de G diferente de \(\{1\}\) ou G.) \(\square\)
+ \end{def*}
+\begin{example*}
+ \begin{itemize}
+    \item Todo p-grupo é um grupo simples;
+    \item \(A_{2}=\{1\}\), ou seja, não é simples;
+    \item \(A_{3} = \mathbb{Z}/3 \mathbb{Z}\) é cíclico de ordem 3, logo simples;
+    \item \(A_{4}\) não é simples, pois \(H = \{Id, (12)(34), (13)(24), (14)(23)\}\)
+  é um subgrupo normal de \(S_{4}\) e \(H\leq A_{4}.\)
+    \item \(A_{n}\) é simples para \(n\geq 5\)
+ \end{itemize}
+\end{example*}
+\begin{def*}
+  Seja X o conjunto de todos os subgrupos de um grupo G. Então, 
+    \[
+      G\times X\rightarrow X,\quad (g, H)\mapsto gHg^{-1}
+    \]
+  é a a\c cão por conjuga\c cão e, dado \(H\in X\), seu estabilizador é 
+    \[
+      N(H) = \{g\in G: gHg^{-1}=H\}
+    \]
+  chamado de normalizador de H. \(\square\)
+\end{def*}
+  Observe que \(N(H)\leq G\) e \(H\leq N(G)\). Além disso, pelo Teorema da Órbita-Estabilizador,
+ \begin{align*}
+   |G| &= |N(H)|\cdot (\#\text{subgrupos de G conjugados por H})\\
+       &= |N(H)|[G:N(H)].
+ \end{align*}
+\begin{prop*}
+  Sejam \(H\leq G, N = N(H)\) normalizador.
+ \begin{itemize}
+   \item[1)] \(H \trianglelefteq N\);
+     \item[2)] \(H \trianglelefteq{G} \Longleftrightarrow N = G.\)
+       \item[3)] \(|H|\bigl|\bigr.|G|\) e \(|N|\bigl|\bigr.|G|\)
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  1) Dado g em N, então \(gHg^{-1}=H\) por defini\c cão de \(N = N(H)\), logo
+ \(H \trianglelefteq{N}.\)
+  
+  2) Para todo g de G, \(H \trianglelefteq{G} \Longleftrightarrow gHg^{-1} = H\) .
+Consequentemente, \(H \trianglelefteq{G}\) se, e somente se, \(g\in N\) para todo g em G.
+Logo, se, e somente se, \(N = G.\)
+
+  3) Ok. \qedsymbol
+\end{proof*}
+\begin{example*}
+  Em \(S_{3}, |C((123))| = 2,\) logo, se \(H = \langle(123)\rangle\), então \(|\mathcal{O}(H)| = 2\) e
+ \(|N(H)| = \frac{6}{2} = 3.\)
+\end{example*}
+\subsection{Teoremas de Sylow}
+  Adotaremos a seguinte conven\c cão: Se G é um grupo de ordem \(n=p^{varepsilon}m\),
+sendo p um número primo e \(mdc(p^{varepsilon}, m) = 1.\)
+\begin{def*}
+  Se \(|G| = p^{varepsilon}m = n\), um subgrupo \(H\leq G\) é um p-subgrupo de Sylow (ou p-Sylow) se
+ \(|H| = p^{varepsilon}.\square\)
+\end{def*}
+Observe que H é p-subgrupo de Sylow se \(p\nmid [G:H].\)
+\begin{example*}
+  Em \(S_{3}, \langle (12) \rangle\) é um 2-Sylow e \(\langle (123) \rangle\) é um 3-Sylow.
+\end{example*}
+  Uma pergunta é: quando existem p-subgrupos de Sylow? Por exemplo, \(A_{4}\) tem
+ordem 12, mas não tem subgrupo de ordem 6.
+\begin{lemma*}
+  Seja X o conjunto de todos os subconjuntos de um grupo G. Então, \(G \curvearrowright X\) por multiplica\c cão
+à esquerda e com respeito a esta a\c cão, se \(\mathcal{U}\in X,\) 
+  \[
+    |E(\mathcal{U})|\biggl|\biggr.|G|\quad\text{ e } |E(\mathcal{U})|\biggl|\biggr.|\mathcal{U}|
+  \]
+\end{lemma*}
+\begin{proof*}
+  Se \(H\leq G\), temos 
+    \[
+      H\times G\rightarrow G\quad (h, g)\mapsto hg.
+    \]
+  Observe que \(\mathcal{O}(g) = Hg\). Agora, se \(H = E(\mathcal{U}), \mathcal{U}\in X,\) então 
+    \[
+      H\times \mathcal{U}\rightarrow \mathcal{U} \quad (h, u)\mapsto hu
+    \]
+  é uma a\c cão de \(\mathcal{U}\) bem-definida. Logo, todas as órbitas dessa a\c cão particionam \(\mathcal{U},\) ou seja,
+existem \(u_{1}, \cdots, u_{n}\in \mathcal{U}\) tais que 
+  \[
+    \mathcal{U} = \bigsqcup_{i=1}^{n}{Hu_{i}}.
+  \]
+  Logo, \(|\mathcal{U}| = \sum\limits_{i=1}^{n}|Hu_{i}| = \sum\limits_{}^{n}|H| = n|H|.\)
+  Portanto, \(|H|\biggl|\biggr.|\mathcal{U}|.\) \qedsymbol
+\end{proof*}
+\begin{lemma*}
+  Seja \(n=p^{\varepsilon }m, \varepsilon >0\), p primo, \(p\nmid m.\) Então,
+  o número N de subconjuntos de ordem \(p^{\varepsilon }\) de um conjunto de ordem n não
+  é divisível por p, isto é, \(p\nmid N\). 
+\end{lemma*}
+\begin{proof*}
+  Exercício. \(\biggl(N = \begin{pmatrix}
+    n\\
+    p^{\varepsilon }
+  \end{pmatrix}\biggr)\)
+\end{proof*}
+  O resultado a seguir é o primeiro dos três teoremas de Sylow.
+  \hypertarget{sylow_one}{
+ \begin{theorem*}
+   Seja G um grupo finito e \(p\mid |G|,\) p primo. Então, existe um p-subgrupo de Sylow.
+ \end{theorem*}
+} 
+\begin{proof*}
+  Seja \(|G| = n = p^{\varepsilon }m, (p^{\varepsilon }, m) = 1\) e considere 
+    \[
+      X = \{\mathcal{U}\subseteq{G}: |\mathcal{U}| = p^{\varepsilon }\}.
+    \]
+    Temos \(G \curvearrowright X\) por multiplica\c cão à esquerda. Logo, existem 
+    \(\mathcal{U}_{1}, \cdots, \mathcal{U}_{n}\) em X tais que \(X = \bigsqcup_{}^{}{\mathcal{O}(\mathcal{U}_{i})}\).
+    Logo, \(N = |X| = \sum\limits_{}^{}|\mathcal{O}(\mathcal{U}_{i})|\), tal que do segundo lema,
+    \(p\nmid N.\) Então, existe j tal que \(p\nmid|\mathcal{O}(\mathcal{U}_{j})|\).
+    Agora, considere \(H = E(\mathcal{U}_{j}).\) Do lema 1, também, 
+      \[
+        |H|\biggl|\biggr. |\mathcal{U}_{j}| = p^{\varepsilon }.
+      \]
+    Então, \(|H| = p^{r}\) para algum \(r\geq 0\). Pelo Teorema Órbita-Estabilizador, 
+      \[
+        |G| = p^{\varepsilon }m = |H||\mathcal{O}(\mathcal{U}_{j})|,
+      \]
+      mas, como \(p\nmid|\mathcal{O}(\mathcal{U}_{j})|,\) segue que \(|H| = p^{\varepsilon }\)(i.e. \(r=\varepsilon \)). \qedsymbol
+\end{proof*} 
+\begin{crl*}
+  Se \(p\mid |G|,\) então existe g em G tal que \(|g| = p.\)
+\end{crl*}
+\begin{proof*}
+  Escreva \(|G| = p^{\varepsilon }m\) \((p^{\varepsilon }, m) = 1\) e seja \(H\leq G\),
+\(|H| = p^{\varepsilon }\) (Aqui, foi usado o \hyperlink{sylow_one}{Primeiro Teorema de Sylow})
+Seja h em H diferente da identidade. Logo, \(|h| = p^{r}.\) Assim, \(g = h^{p^{r}-1}\)
+tem ordem p, pois 
+  \[
+    g^{p} = (h^{p^{r}-1})^{p} = h^{p^{r}} = 1.\quad\text{ \qedsymbol}
+  \]
+\end{proof*}
+  Em seguida, temos o segundo dos três teoremas de Sylow.
+  \hypertarget{sylow_two}{
+ \begin{theorem*}
+   Seja \(|G| = p^{\varepsilon }m, \varepsilon >0\).
+  \begin{itemize}
+    \item[1)] Os p-subgrupos de Sylow são conjugados entre si.
+    \item[2)] Todo p-subgrupo de G está contido em algum p-subgrupo de Sylow.
+  \end{itemize}
+ \end{theorem*}}
+  Observa\c cão - No item (1), se H é p-subgrupo de Sylow, então qualquer outro é um elemento de
+ \(\mathcal{O}(H) = \{gHg^{-1}: g\in G\}\).
+\begin{proof*}
+  Seja \(X\coloneqq \{xH: x\in G\},\) em que H é um p-subgrupo de Sylow de G. Observe que
+  \(|X| = m.\) Agora, considere \(G \curvearrowright X\) por 
+    \[
+      G\times X\rightarrow X,\quad (g, xH)\mapsto gxH.
+    \]
+  Seja \(K\leq G\) um p-subgrupo e restrinja a a\c cão anterior a K, isto é, 
+    \[
+      K\times X\rightarrow X,\quad (k, xH)\mapsto kxH.
+    \]
+  Como K é um p-grupo e p não divide \(|X|,\) do \hyperlink{fixed_point}{Teorema do Ponto Fixo,} existe
+  \(x\in G\) tal que \(k \cdot xH = xH\) para todo k de K. Logo, dados \(k\in K\) e 
+  \(h_{1}\in H,\) existe \(h_{2}\in H\) tal que 
+    \[
+      kxh_{1} = xh_{2} \Longleftrightarrow k = xh_{2}h_{1}^{-1}x^{-1}\in xHx^{-1}.
+    \]
+    Portanto, \(K\subseteq{xHx^{-1}}\) e (2) está provado. Em particular, se K é um p-subgrupo de Sylow,
+    então \(K\leq xHx^{-1}, |K|^{\varepsilon } = |xHx^{-1}|\). Portanto, \(K = xHx^{-1}.\) \qedsymbol
+\end{proof*}
+\begin{crl*}
+  Se \(n_{p}\) é o número de p-subgrupos de Sylow distintos, então \(n_{p} = [G:N(H)]\), em
+que H é um algum p-Sylow.
+\end{crl*}
+\begin{proof*}
+  Segue diretamente de 
+    \[
+      n_{p} = |\mathcal{O}(H)| = \frac{|G|}{|N(H)|} = [G:N(G)].\quad\text{ \qedsymbol}
+    \]
+\end{proof*}
+\end{document}

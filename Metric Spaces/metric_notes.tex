@@ -1,0 +1,769 @@
+\documentclass{article}
+ \usepackage{amsmath}
+ \usepackage{amsthm}
+ \usepackage{amssymb}
+ \usepackage{pgfplots}
+ \usepackage[utf8]{inputenc}
+ \usepackage{amsfonts}
+ \usepackage[margin=2.5cm]{geometry}
+ \usepackage{graphicx}
+ \usepackage[export]{adjustbox}
+ \usepackage{fancyhdr}
+ \usepackage[portuguese]{babel}
+ \usepackage{hyperref}
+ \usepackage{lastpage}
+ \usepackage{mathtools}
+ \setcounter{section}{-1}
+
+ \pagestyle{fancy}
+ \fancyhf{}
+
+ \pgfplotsset{compat = 1.18}
+
+ \hypersetup{
+     colorlinks,
+     citecolor=black,
+     filecolor=black,
+     linkcolor=black,
+     urlcolor=black
+ }
+ \newtheorem*{def*}{\underline{Defini\c c\~ao}}
+ \newtheorem*{theorem*}{\underline{Teorema}}
+ \newtheorem*{lemma*}{\underline{Lema}}
+ \newtheorem*{prop*}{\underline{Proposi\c c\~ao}}
+ \newtheorem*{crl*}{\underline{Corolário}}
+ \newtheorem{example}{\underline{Exemplo}}
+ \newtheorem*{proof*}{\underline{Prova}}
+ \renewcommand\qedsymbol{$\blacksquare$}
+ \newcommand{\Lin}[1]{Lin_{\mathbb{K}}({#1})}
+
+ \rfoot{P\'agina \thepage \hspace{1pt} de \pageref{LastPage}}
+
+ \begin{document}
+ \begin{figure}[ht]
+  \minipage{0.76\textwidth}
+    \includegraphics[width=4cm]{../icmc.png}
+    \hspace{7cm}
+    \includegraphics[height=4.9cm,width=4cm]{../brasao_usp_cor.jpg}
+  \endminipage  
+\end{figure}
+
+\begin{center}
+  \vspace{1cm}
+  \LARGE
+  UNIVERSIDADE DE S\~AO PAULO
+
+  \vspace{1.3cm}
+  \LARGE
+  INSTITUTO DE CI\^ENCIAS MATEM\'ATICAS E COMPUTACIONAIS - ICMC
+
+  \vspace{1.7cm}
+  \Large
+  \textbf{Notas de Espaços Métricos}
+
+  \vspace{1.3cm}
+  \large
+  \textbf{Renan Wenzel - 11169472}
+
+  \vspace{1.3cm}
+  \large
+  \textbf{Professora - Thaís Jordão}
+
+  \textbf{E-mail: tjordao@icmc.usp.br}
+
+  \vspace{1.3cm}
+  \today
+\end{center}
+
+ \newpage
+
+ \tableofcontents
+ \newpage
+ \section{Informações (Possivelmente) Úteis}
+ \subsection{Datas das Provas:}
+\begin{itemize}
+  \item[P1)] 31/08 - Peso 1;
+  \item[P2)] 03/10 - Peso 2;
+  \item[P3)] 31/10 - Peso 2;
+  \item[P4)] 23/11 - Peso 3;
+  \item[P5)] 14/12 - Peso 3.
+\end{itemize}
+\subsection{Bibliografia}
+ \begin{itemize}
+   \item LIMA, E. L.  ``Espaços Métricos'', Rio de Janeiro: Projeto Euclides, 2005.
+   \item DOMINGUES, H. H. ``Espaços Métricos e Introdução à Topologia'', Atual Editora, 1982.
+ \end{itemize}
+\subsection*{Monitoria}
+  A ser definido. 
+
+ \newpage
+
+\section{Aula 01 - 08/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Introdução ao Material do Curso.
+\end{itemize}
+\subsection*{O que é um espaço métrico?}
+  Ao longo deste curso, trabalharemos com um conjunto M não-vazio.
+\hypertarget{def_metric}{ \begin{def*}
+   Uma função \(d:M\times M\rightarrow \mathbb{R}\) é dita ser uma métrica em M se: 
+  \begin{itemize}
+    \item[i)] \(d(x, y)\geq 0, x, y\in M\);
+    \item[ii)] \(d(x, y) = 0 \Leftrightarrow x = y, x, y\in M\);
+    \item[iii)] \(d(x, y) = d(y, x), x, y\in M\);
+    \item[iv)] \(d(x, y)\leq d(x, z) + d(z, y), x, y, z\in M\).
+  \end{itemize}
+  Neste caso, o par \((M, d)\) é chamado espaço métrico.
+ \end{def*}
+}
+\begin{example}
+ \begin{itemize}
+   
+   \item[1)] \((\mathbb{R}, d)\), em que \(d:\mathbb{R}\times \mathbb{R}\rightarrow [0, \infty)\) é dado por 
+    d(x, y) = \(|x-y|.\) É claro que, olhando para \(d(x,y),\) vale para quaisquer x, y reais que 
+      \[
+        d(x, y) = |x-y| = |-1(y-x)| = 1|y-x| = d(y, x).
+      \]
+    Assim, resta verificarmos os itens dois e quatro da \hyperlink{def_metric}{definição de métrica}. Para o item (ii), 
+    \[
+      |x-y| = 0 \Longleftrightarrow x = y.
+    \]
+    Com relação ao último item, observe que 
+    \[
+      |x+y|\leq |x| + |y|.
+    \]
+    De fato, como \(|a|\geq a\) para todo número real a, 
+    \[
+      |x+y|^{2} = (x+y)^{2} = x^{2} + 2xy +y^{2}\leq x^{2} + 2|x||y| + y^{2} = (|x| + |y|)^{2}.
+    \]
+    Logo, tomando a raíz dos dois lados, segue a afirmação:
+    \[
+        |x+y|\leq |x| + |y|.
+    \]
+    Com isso, temos 
+      \[
+        d(x, y) = |x-y| = |x-z+z-y| = |(x-z)-(y-z)|\leq |x-z| + |y-z|.
+      \]
+    Portanto, \(d(x, y)\leq d(x, z) + d(z, y)\), o que torna \((\mathbb{R}, d)\) um espaço métrico.
+
+    \item[2)] Seja X um conjunto não-vazio. Definimos 
+      \[
+        d:X\times X\rightarrow [0, \infty)
+      \]
+      por 
+        \[
+          d(x, y) = \left\{\begin{array}{ll}
+              0,\quad x = y\\
+              1,\quad x\neq y.
+            \end{array}\right.
+        \]
+      Esta métrica é conhecida como \textit{métrica discreta}. Verifiquemos as propriedades dela.
+
+Com efeito, como a imagem dela pode ser apenas 0 ou 1, o item 1 é trivial. Por definição, a métrica vale 0 se,
+e somente se, x e y são iguais, tal que o item (ii) está feito. O item (iii) segue automaticamente se x e y são iguais. Caso
+eles sejam diferentes, temos \(d(x, y) = 1, d(y, x) = 1\), ou seja, o item (iii) é válido para todos os casos. Por fim, a desigualdade triangular fica como exercício.
+ \end{itemize} 
+\end{example}
+\newpage
+
+\section{Aula 02 - 10/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Exemplos de espaços métricos;
+  \item Similaridade entre métricas;  
+  \item Produto de espaços métricos.
+\end{itemize}
+\subsection{Uma nota histórica}
+  Algumas dessas informações podem ser vistas com mais detalhe do livro de espaços métricos
+de Jean Cerqueira, do IME. 
+
+  Para um contexto temporal, em 1906, Maurice Fréchet publicou sua tese de doutorado, nomeada
+``Sus quelques du calcul functionnel''. A seguir, em 1910, David Hilbert faz sua tentativa de axiomatizar
+as ideias vistas na tese de Fréchet e, dois anos depois, Felix Hausdorff, trabalhando no conceito de separação de pontos
+a partir do ponto de vista de conjuntos, acaba contribuindo com essa axiomatização. Antes disso, Henri Poincaré, havia sistematizado as ideias
+de forma prototípica. Outro nome mencionável é o de Pavel Urysohnn, responsável por aprofundar-se na parte da separação de pontos.
+
+\subsection{Exercício 1 da Lista 1}
+  Considere \(d:\mathbb{R}^{2}\times \mathbb{R}^{2}\rightarrow [0, \infty) \) definida por 
+    \[
+      d((x_{1}, x_{2}), (y_{1}, y_{2})) = |x_{2}-y_{2}|.
+    \]
+  Então, d não é uma métrica. Chequemos este fato. 
+
+  Com efeito, considere x um número real qualquer. Assim, 
+    \[
+      d((1, x), (2, x)) = |x-x| = 0.
+    \]
+  No entanto, (1, x) não é igual a (2, x), ou seja, já falha logo na primeira condição de métrica!
+Portanto, conclui-se que d não pode ser métrica. Analogamente, definindo \(d':\mathbb{R}^{2}\times \mathbb{R}^{2}\rightarrow [0, \infty)\) por 
+ \(d'((x_{1}, x_{2}), (y_{1}, y_{2}))=|x_{1}-y_{1}|\), ela também não será métrica.
+
+ \textbf{Obs.:} Definiremos, ainda essa aula, a métrica \(d_{s}:\mathbb{R}^{2}\times \mathbb{R}^{2}\rightarrow [0, \infty)\) por 
+   \[
+     d_{s}((x_{1}, x_{2}), (y_{1}, y_{2})) = |x_{1}-y_{1}|+|x_{2}-y_{2}|,
+   \]
+   a qual torna \((\mathbb{R}^{2}, d_{s})\) num espaço métrico. Mostremos isso. Os itens \hyperlink{def_metric}{(i), (ii) e (iii)}
+da definição de métrica estão trivialmente cumpridos. Para a desigualdade triangular, observe que 
+\begin{align*}
+  d((x_{1}, x_{2}), (y_{1}, y_{2})) &= |x_{1}-y_{1}| + |x_{2}-y_{2}| \\
+                                    &\leq |x_{1}-z_{1}| + |z_{1}-y_{1}| + |x_{2}-z_{2}| + |x_{2}-y_{2}| \\
+                                    &=d((x_{1}, x_{2}), (z_{1}, z_{2})) + d((z_{1}, z_{2}), (y_{1}, y_{2}))
+\end{align*}
+\subsection{Espaço de funções contínuas}
+   Considere o intervalo I=[0, 1] e tome o conjunto 
+     \[
+       \mathcal{C}(I, \mathbb{R})\coloneqq \{f:I\rightarrow \mathbb{R}: f \text{ contínua}\}.
+     \]
+     Então, são métrica em \(\mathcal{C}(I, \mathbb{R})\) as funções \(d:\mathcal{C}(I, \mathbb{R})\rightarrow [0, \infty), (f, g)\mapsto \sup_{x\in I}\{|f(x)-g(x)|\}\)
+e \(\rho :\mathcal{C}(I, \mathbb{R})\times \mathcal{C}(I, \mathbb{R})\rightarrow [0, +\infty)\) definida por 
+  \[
+    \rho(f, g) = \int_{0}^{1}|f(x)-g(x)|dx,\quad f, g\in \mathcal{C}(I, \mathbb{R}).
+  \]
+    Mostremos que elas são \hyperlink{def_metric}{métricas}, começando pela d.
+
+    Observe que, se \(d(f, g) = 0,\), então 
+      \[
+        |f(y)-g(y)|\leq \sup_{x\in I}\{|f(x)-g(x)|\}\quad \forall y\in I.
+      \]
+    Logo, \(|f(y) - g(y)| = 0\) para todo y em I, garantindo que f e g são as mesmas.
+    Para a desigualdade triangular, observe que, para qualquer y em I, e h em \(\mathcal{C}(I, \mathbb{R}),\) vale que
+    \[
+      |f(y)\pm h(y) - g(y)|\leq |f(y) - h(y)| + |h(y) - g(y)|.
+    \]
+    Tomando o supremo, obtemos 
+      \[
+        d(f, g)\leq d(f, h) + d(h, g).
+      \]
+    Assim, \((\mathcal{C}(I, \mathbb{R}), d)\) é um espaço métrico.
+
+    Agora, analisando a questão de \(\rho\), se \(\rho (f, g) = 0,\) então 
+      \[
+        \int_{0}^{1}|f(x)-g(x)|dx = 0
+      \]
+    Como o Teorema da Conservação de Sinal implicaria em \(\int_{0}^{1}|f(x)-g(x)|dx > 0\) se \(|f(x)-g(x)| > 0\) para algum x em I.
+    Logo, \(|f(x)-g(x)|=0\) para todo x em I. Para mostrar a desigualdade triangular, considere \(f, g, h\in \mathcal{C}(I, \mathbb{R}).\)
+    Temos, para todo \(x\in I\), 
+      \[
+        |f(\overbrace{x)-g(}^{\pm h(x)}x)|\leq |f(x) - h(x)| + |h(x) - g(x)|
+      \]
+    Integrando os dois lados da desigualdade, 
+      \[
+        \int_{0}^{1}|f(x)-g(x)|\leq \int_{0}^{1}|f(x) - h(x)|dx + \int_{0}^{1}|h(x) - g(x)|dx,
+      \]
+      de onde segue a desigualdade triangular. Portanto, \((\mathcal{C}(I, \mathbb{R}), \rho)\) é um espaço métrico.
+\subsection{Espaço euclidiano n-dimensional}
+  Seja n um natural, \(n\geq 1.\) O espaço euclidiano é 
+    \[
+      \mathbb{R}^{n}\coloneqq \{(x_{1}, \cdots, x_{n}): x_{i}\in \mathbb{R}, i = 1, 2, \cdots, n\},
+    \]
+    munido da métrica usual/euclidiana, definida por 
+      \[
+        d(x, y) = \biggl(\sum\limits_{i=1}^{n}(x_{i}-y_{i})^{2}\biggr)^{\frac{1}{2}},
+      \]
+      em que \(x=(x_{1}, x_{2}, \cdots, x_{n})\) e \(y = (y_{1}, y_{2}, \cdots, y_{n}\) são elementos de \(\mathbb{R}^{n}.\)
+  Sobre \(\mathbb{R}^{n}\), podemos considerar duas outras métricas, a métrica da soma e do máximo. Definimo-las, respectivamente, por
+ \begin{align*}
+   &d_{s}(x, y)\coloneqq \sum\limits_{i=1}^{n}|x_{i}-y_{i}|\\
+   &d_{m}(x, y)\coloneqq \max\{|x_{i}-y_{i}|, i = 1, 2, \cdots, n\},
+ \end{align*}
+ para  \(x=(x_{1}, x_{2}, \cdots, x_{n})\) e \(y = (y_{1}, y_{2}, \cdots, y_{n}\) são elementos de \(\mathbb{R}^{n}.\) Vamos mostrar que a primeira d é métrica.
+ 
+  Pra começar, não é difícil ver que os itens \hyperlink{def_metric}{(i) e (ii)} da definição são satisfeitos. Para mostrar a desigualdade triangular, será necessário
+utilizar Cauchy-Schwarz: 
+\begin{lemma*}[Desigualdade de Cauchy-Schwars]Dados \((x_{1}, \cdots, x_{n})\) e \((y_{1}, \cdots, y_{n})\), vale a desigualdade
+  \[
+    \hypertarget{cauchy_schwarz}{\sum\limits_{i=1}^{n}|x_{i}\cdot y_{i}|\leq \biggl(\sum\limits_{i=1}^{n}|x_{i}|^{2}\biggr)^{\frac{1}{2}}\biggl(\sum\limits_{i=1}^{n}|y_{i}|^{2}\biggr)^{\frac{1}{2}} }
+  \]
+\end{lemma*}
+\begin{proof*}
+  Observe que, dados \(x, y\in \mathbb{R}\), vale que \(2xy\leq x^{2} + y^{2}\).
+  Temos, para \(x=(\sum\limits_{i=1}^{n}|x_{i}|^{2})^{\frac{1}{2}}\) e \(y=(\sum\limits_{i=1}^{n}|y_{i}|^{2})^{\frac{1}{2}}\). Com isso, aplicando a desigualdade vista para
+  \(\frac{|x_{i}|}{x}\) e \(\frac{|y_{i}|}{y}\), ganhamos 
+    \[
+      2\frac{|x_{i}||y_{i}|}{xy}\leq \frac{|x_{i}|^{2}}{x^{2}} + \frac{|y_{i}|^{2}}{y^{2}}.
+    \]
+    Somando de \(i=1, \cdots, n,\) obtemos 
+      \[
+        \frac{2}{xy}\sum\limits_{i=1}^{n}|x_{i}||y_{i}| \leq \frac{1}{x^{2}}\sum\limits_{i=1}^{n}|x_{i}|^{2} + \frac{1}{y^{2}}\sum\limits_{i=1}^{n}|y_{i}|^{2} = 1 + 1 = 2.
+      \]
+    Portanto, isolando a soma à esquerda, temos 
+      \[
+        \sum\limits_{i=1}^{n}|x_{i}||y_{i}|\leq \frac{2}{2}\cdot xy = xy.\text{\qedsymbol}
+      \]
+    \end{proof*}
+  A desigualdade triangular seguirá do seguinte 
+  \begin{align*}
+    \bigl[d(\overline{x}, \overline{y})\bigr]^{2} = \sum\limits_{i=1}^{n}(x_{i}-y_{i})^{2} &=\sum\limits_{i=1}^{n}(x_{i}-z_{i}+z_{i}-y_{i})^{2}\\
+                                                                                           &=\sum\limits_{i=1}^{n}(x_{i}-z_{i})^{2} + 2\sum\limits_{i=1}^{n}(x_{i}-z_{i})(z_{i}-y_{i}) + \sum\limits_{i=1}^{n}(z_{i}-y_{i})^{2}\\
+                                                                                           &\leq \sum\limits_{i=1}^{n}(x_{i}-z_{i})^{2} + 2\biggl(\sum\limits_{i=1}^{n}|x_{i}-z_{i}|^{2}\biggr)^{\frac{1}{2}}\biggl(\sum\limits_{i=1}^{n}|z_{i}-y_{i}|^{2}\biggr)^{\frac{1}{2}} + \sum\limits_{i=1}^{n}(z_{i}-y_{i})^{2}\\
+                                                                                           &=\bigl[d(\overline{x}, \overline{y})\bigl]^{2} + 2 d(\overline{x}, \overline{z})d(\overline{z}, \overline{y}) + \bigl[d(\overline{z}, \overline{y})\bigr]^{2} \\
+                                                                                           & = (d(\overline{x}, \overline{z})+d(\overline{z}, \overline{y}))^{2}.
+  \end{align*}
+  O fim da prova da desigualdade triangular é um exercício.
+\newpage
+
+\section{Aula 03 - 17/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Métricas similares;
+  \item Produtos de Espaços Métricos;
+  \item Espaços vetoriais normados;
+  \item Desigualdade de Hölder e de Minkowski.
+\end{itemize}
+\subsection{Similaridade de Métricas}
+ \begin{def*}
+   Seja M um conjunto não vazio. Duas métricas d e \(\rho \) em M são similares se existem \(c_{1}, c_{2} > 0\) tais que 
+     \[
+       c_{1}d(x, y)\leq \rho (x, y)\leq c_{2}d(x, y)
+     \]
+ \end{def*}
+\begin{example}
+  Seja d a métrica usual e \(\delta  \) a métrica discreta em \(\mathbb{R}\). Para todo c positivo, existem
+x, y em \(\mathbb{R}\) tais que \(d(x, y) > c\delta (x, y)\), ou seja, não vale \(d(z, w)\leq c\delta (z, w)\) para todos
+z, w reais. 
+
+  De fato, dado \(c > 0\), tome \(x=2c\) e \(y=c-1.\) Tem-se \(d(x, y) = c + 1\) e \(\delta (x, y) = 1\). Logo, não são similares.
+\end{example}
+\begin{prop*}
+  Para quaisquer x, y em \(\mathbb{R}^{n},\) vale a desigualdade 
+    \[
+      d_{m}(x,y)\leq d(x,y)\leq d_{s}(x, y)\leq nd_{m}(x,y)
+    \]
+\end{prop*}
+\begin{proof*}
+  Seja \(x=(x_{1}, x_{2}, \cdots, x_{n}), y = (y_{1}, \cdots, y_{n})\). Temos: 
+    \[
+      d_{m}(x, y) = \max \biggl\{(|x_{i}-y_{i}|^{2})^{\frac{1}{2}}\biggr\}\leq \biggl(\sum\limits_{i=1}^{n}|x_{i}-y_{i}|^{2}\biggr)^{\frac{1}{2}} = d(x, y)
+    \]
+  e também \(d_{s}(x, y) = \sum\limits_{i=1}^{n}|x_{i}-y_{i}|\leq n\max \biggl\{|x_{i}-y_{i}|\biggr\}\),
+  provando a desigualdade do meio  
+  \[
+    (d(x,y))^{2} = \sum\limits_{i=1}^{n}(x_{i}-y_{i})^{2} = \underbrace{\biggl(\sum\limits_{i=1}^{n}|x_{i}-y_{i}|\biggr)}_{d_{s}(x, y)^{2}} - A,\quad A\geq 0,
+  \]
+  de onde segue que \((d(x, y))^{2}\leq (d_{s}(x, y))^{2} - A\) e prova a desigualdade. \qedsymbol
+\end{proof*}
+\subsection{Produto de Espaços Métricos}
+Considere \((M_{1}, d_{2}), (M_{2}, d_{2}), \cdots, (M_{n}, d_{n})\) espaços métricos. Para \(M=\Pi_{i=1}^{n}M_{i}\) e definimos as métricas anteriores
+\begin{itemize}
+  \item \(d(x, y) = \biggl\{\sum\limits_{i=1}^{n}[d_{i}(x_{i}, y_{i})]^{2}\biggr\}^{\frac{1}{2}}\)
+  \item \(d_{s}(x, y) = \sum\limits_{i=1}^{n}d_{i}(x_{i}, y_{i})\);
+  \item \(d_{max}(x, y) = \max\{d_{i}(x_{i}, y_{i})\}\).
+\end{itemize}
+\begin{example}
+  Tome \(M = \mathcal{C}(I, \mathbb{R})\times \mathbb{R}\). Se \(x = (f, s), y=(h, t)\), então 
+    \[
+      d_{m}(x, y) = \max \biggl\{\rho (f, h), d(s, t)\biggr\}
+    \]
+\end{example}
+\subsection{Espaços Vetoriais Normados}
+\begin{def*}
+  Dado V um espaço vetorial, uma norma em V é uma função \(||\cdot ||:V\rightarrow [0, +\infty)\) que satisfaz
+ \begin{itemize}
+   \item[i)] \(||\vec{v}|| = 0 \Longleftrightarrow \vec{v}=0\);
+   \item[ii)] \(||\lambda \vec{v}|| = |\lambda |||\vec{v}||\);
+   \item[iii)] \(||\vec{v}+\vec{w}||\leq ||\vec{v}|| + ||\vec{w}||\).
+ \end{itemize}
+\end{def*}
+\begin{example}
+  Seja \((\mathbb{R}^{2n}, +, \cdot )\) é um espaço vetorial e \(||\cdot ||:\mathbb{R}^{n}\rightarrow [0, \infty)\) dada por 
+    \[
+      x\mapsto ||x|| = \sqrt[]{\sum\limits_{i=1}^{n}x_{i}^{2}}
+    \]
+\end{example}
+\begin{example}
+  Considere \((\mathcal{C}(I, \mathbb{R}), +, \cdot )\) e defina \(||f||_{\infty} = \max \biggl\{|f(x)|: x\in I\biggr\}, f\in \mathcal{C}(I, \mathbb{R}).\) Isto define uma norma em
+ \(\mathcal{C}(I, \mathbb{R}).\) 
+
+  Note que \(||f||_{\infty} = 0 = \max\{|f(x)|\}.\) Logo, \(|f(y)| = |f|_{\infty} = 0\) para todo y em I e \(f(y) = 0\) para todo y em I.
+Isso demonstra a primeira propriedade. Para a segunda propriedade, 
+  \[
+    ||\lambda f||_{\infty} = \max\{|\lambda f(x)|: x\in I\} = |\lambda |||f||_{\infty}
+  \]
+  pelas propriedades de módulo. Por fim, temos 
+    \[
+      ||f+g||_{\infty} = \max\{|f(x)+g(x)|: x\in I\}\leq \max\{|f(x)| + |g(x)|: x\in I\}\leq \max\{|f(x)|\} + \max\{|g(x)|\}\leq ||f||_{\infty} + ||g||_{\infty}.
+    \]
+\end{example}
+\begin{example}
+  Definiremos a norma p em \(\mathbb{R}^{n}\). Se \(p=\infty,\) coloquemos 
+    \[
+      ||x||_{\infty} = \sup\{|x_{i}|: 1\leq i\leq n\}.
+    \]
+  Se \(p\neq\infty\), definimos 
+    \[
+      ||x||_{p} = \biggl(\sum\limits_{i=1}^{n}|x_{i}|^{p}\biggr)^{\frac{1}{p}}
+    \]
+\end{example}
+\subsection{A Desigualdade de Minkowski}
+\begin{lemma*}
+  Se \(p, q\in (1, \infty)\) é tal que \(\frac{1}{p} + \frac{1}{q} = 1\) e \(a, b\in [0, \infty),\) então 
+    \[
+      a^{\frac{1}{p}} + b^{\frac{1}{q}}\leq \frac{a}{q} + \frac{b}{q}.
+    \]
+\end{lemma*}
+\begin{proof*}
+  Se \(b > 0\), então \(\frac{a^{\frac{1}{p}}+b^{\frac{1}{q}}}{b} = \frac{a}{bp} + \frac{1}{q}\), isto é, 
+    \[
+      \biggl(\frac{a}{b}\biggr)^{\frac{1}{p}}\leq \frac{a}{bp} + \frac{1}{q}.
+    \]
+    Tomando \(z=\frac{a}{b}\) e \(\alpha =\frac{1}{p},\) segue que \(t^{\alpha }\leq \alpha t + 1 - \alpha.\) Com isso, defina 
+  \(f_{\alpha }:\mathbb{R}^{+}\rightarrow \mathbb{R}\) por 
+    \[
+      f_{\alpha }(t) = \alpha t +1 - \alpha - z^{\alpha }.
+    \]
+    Segue que \(f_{\alpha }(t)\geq 0\) pela sua derivada. \qedsymbol
+\end{proof*} 
+\begin{lemma*}[Desigualdade de Hölder]
+  Se \(p\in(1, \infty), q\in (1, \infty)\) é tal que \(\frac{1}{p}+\frac{1}{q}=1\) e \(a, b\in [0, \infty),\) então 
+    \[
+      \sum\limits_{i=1}^{n}|x_{i}y_{i}|\leq \biggl[\sum\limits_{i=1}^{n}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{n}|y_{i}|^{q}\biggr]^{\frac{1}{q}}
+    \] 
+  para todo \(x=(x_{1}, \cdots, y_{n}), y=(y_{1}, \cdots, y_{n}) \in \mathbb{R}^{n}.\)
+\end{lemma*}
+\begin{proof*}
+  Se x = 0 ou y = 0, a desigualdade é trivial. Se \(x\neq0\) e \(y\neq0\), então defina 
+    \[
+      a_{j} = \frac{|x_{j}|^{p}}{\sum\limits_{i=1}^{n}|x_{i}|^{p}}\quad b_{j}=\frac{|y_{j}|^{q}}{\sum\limits_{i=1}^{n}|y_{i}|^{q}}.
+    \] 
+  Observamos que \(\sum\limits_{j=1}^{n}a_{j} = \sum\limits_{j=1}^{n}b_{j}=1.\) Aplicando a desigualdade de Young, 
+    \[
+    a_{j}^{\frac{1}{p}}b_{j}^{\frac{1}{q}} = \frac{|x_{j}y_{j}|}{\biggl[\sum\limits_{i=1}^{n}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{n}|y_{i}|^{q}\biggr]^{\frac{1}{q}}}\leq \frac{1}{p}a_{j} + \frac{1}{q}b_{j},
+    \]
+  para \(j=1, \cdots, n.\) Assim, 
+    \[
+      \frac{\sum\limits_{j=1}^{n}|x_{j}y_{j}|}{\biggl[\sum\limits_{i=1}^{n}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{n}|y_{i}|^{q}\biggr]^{\frac{1}{q}}}\leq \frac{1}{p} + \frac{1}{q}=1,
+    \]
+  donde segue a desigualdade. \qedsymbol
+\end{proof*}
+\begin{prop*}
+  Se \(p\in[1, \infty)\), então 
+    \[
+      \biggl[\sum\limits_{i=1}^{n}|x_{i}+y_{i}|^{p}\biggr]^{\frac{1}{p}}\leq \biggl[\sum\limits_{i=1}^{n}|x_{i}|^{p}\biggr]^{\frac{1}{p}} + \biggl[\sum\limits_{i=1}^{n}|y_{i}|^{p}\biggr]^{\frac{1}{p}},
+    \]
+  para todo \(x=(x_{1}, \cdots, x_{n}), y=(y_{1}, \cdots, y_{n})\in \mathbb{R}^{n}\).
+\end{prop*}
+\begin{proof*}
+  Os casos \(p=1, \infty\) são deixados como exercício. Se \(p\in(1, \infty),\) então 
+    \[
+      \biggl[\sum\limits_{i=1}^{n}|x_{i}+y_{i}|^{p}\biggr]^{\frac{1}{p}}\leq \biggl[\sum\limits_{i=1}^{n}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{p}}.
+    \]
+  Podemos escrever 
+    \[
+      (|x_{i}|+|y_{i}|)^{p} = (|x_{i}|+|y_{i}|)^{p-1}|x_{i}|+(|x_{i}|+|y_{i}|)^{p-1}|y_{i}|,\quad i = 1, \cdots, n.
+    \]
+    Somando os elementos à esquerda da desigualdade anterior, obtemos 
+      \[
+        \sum\limits_{i=1}^{n}(|x_{i}|+|y_{i}|)^{p} = x_{n}+y_{n}
+      \]
+    com 
+      \[
+        x_{n} + y_{n}\coloneqq \sum\limits_{i=1}^{n}(|x_{i}|+|y_{i}|)^{p-1}|x_{i}| + \sum\limits_{i=1}^{n}(|x_{i}|+|y_{i}|)^{p-1}|y_{i}|.
+      \]
+    Aplicando a Desigualdade de Hölder, temos 
+   \begin{align*}
+     x_{n}&\leq \biggl[\sum\limits_{i=1}^{n}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{n}(|x_{i}|+|y_{i}|)^{(p-1)q}\biggr]^{\frac{1}{q}}\\
+          &\leq \biggl[\sum\limits_{i=1}^{n}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{n}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{q}}.
+   \end{align*}
+   De forma análoga, temos 
+     \[
+       y_{n}\leq \biggl[\sum\limits_{i=1}^{n}|y_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{n}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{q}}.
+     \]
+  Portanto, 
+    \[
+      \sum\limits_{i=1}^{n}(|x_{i}|+|y_{i}|)^{p} = x_{n} + y_{n}\leq \cdots.\quad\text{\qedsymbol}
+    \]
+\end{proof*}
+\begin{example}
+  Dado \(p\in[0, \infty], (\mathbb{R}^{n}, d_{p})\) é um espaço métrico, em que \(d_{p}\) está representando a métrica induzida por \(||\cdot ||_{p}.\) Então, para \(p=2\),
+recuperamos o espaço euclidiano n-dimensional.
+\end{example}
+\newpage
+
+\section{Aula 04 - 21/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Subespaços métricos e distância entre conjuntos;
+  \item Conjuntos limitados, abertos e fechados;
+  \item A topologia de espaços métricos.
+\end{itemize}
+\subsection{Subespaços Métricos e Distância entre Conjuntos}
+\begin{def*}
+  Seja (X, d) um espaço métrico e \(M\subseteq{X}.\) Então, \(d|_{M}M\times M:\rightarrow \mathbb{R}\)
+define uma métrica, chamada métrica induzida em M. Isso faz de \((M, d|_M)\) um subespaço métrico. \(\square\)
+\end{def*}
+  Além da distância entre pontos, pode-se falar da distância entre um ponto e um subconjunto do espaço métrico
+e da distância entre dois subconjuntos de um espaço métrico. Para isso, considere \((X, \rho )\) um espaço métrico, 
+ \(x\in X\) e \(E, F\subseteq{X}.\) Definimos, então,
+\begin{align*}
+  &d(x, E)\coloneqq \inf\{\rho (x, e): e\in E\}\\
+  &d(E, F)\coloneqq \inf\{d(e, F): e\in E\}.
+\end{align*}
+\textbf{Observação:} O nome ``distância'', aqui, não é sinônimo de métrico. De fato, há um exercício na lista que mostra que a distância entre conjuntos
+\textbf{NÃO} é simétrica, ou seja, não define uma métrica.
+\begin{prop*}
+  Seja \((X, \rho )\) um espaço métrico e \(E\subseteq{X}.\) Então, 
+    \[
+      |d(x, E) - d(y, E)|\leq \rho (x, y) \quad \forall x, y\in X.
+    \]
+\end{prop*}
+\begin{proof*}
+  Note que, para todo e em E, 
+    \[
+      d(x, E)\leq \rho (x, e)\leq \rho (x, y) + \rho (y, E).
+    \]
+  Logo, para todo \(x, y\in X\), 
+    \[
+      d(x, E)\leq \rho (x, y) + d(y, E).
+    \]
+  Assim, temos 
+    \[
+      d(x, E) - d(y, E)\leq \rho (x, y).
+    \]
+  Analogamente, 
+    \[
+      d(y, E) - d(x, E)\leq \rho (x, y)
+    \]
+  Portanto, 
+    \[
+      |d(x, E) - d(y, E)|\leq \rho (x, y).\quad\text{\qedsymbol}
+    \]
+\end{proof*}
+\begin{example}
+  Considere \((\mathbb{R}, |\cdot |), A = (-1, 0]\) e x = -2. Por definição, 
+    \[
+      d(x, A) = \inf\{|-2-a|: a\in A\} = \inf\{|2+a|: a\in A\} = 1\quad [d(-2, 1+\varepsilon )= 1 +\varepsilon \forall \varepsilon >0]
+    \]
+  No entanto, \(d(-2, a) > 1\) para todo a em A.
+\end{example}
+\begin{crl*}
+   Seja \((X, \rho )\) um espaço métrico. Vale a desigualdade 
+     \[
+       |\rho (x, z) - \rho (y, z)|\leq \rho (x, y).
+     \]
+ \end{crl*}
+\begin{proof*}
+  Seja \(E=\{z\}\). Pela proposição, o resultado já segue. \qedsymbol 
+\end{proof*}
+\subsection{Topologia de Espaços Métricos}
+\begin{def*}
+  Seja \((X, d)\) um espaço métrico. Dado x em X e \(r > 0\), o conjunto 
+    \[
+      B_{r}(x)\coloneqq \{y\in X: d(x, y) < r\}
+    \]
+  é chamado bola aberta de centro em x e raio r. O conjunto
+    \[
+      D_{r}(x)\coloneqq \{y\in X: d(x, y)\leq r\}
+    \]
+  é chamado bola fechada de centro em x e raio r. \(\square\)
+\end{def*}
+\begin{example}
+  Considere \((\mathbb{R}^{2}, d_{p})\), em que \(d_{p}(x, y)=||x-y||_{p}, 1\leq p\leq \infty.\)
+ \begin{align*}
+   &d_{2}((x_{1}, y_{1}), (x_{2}, y_{2})) = [(x_{1}-x_{2})^{2}+(y_{1}-y_{2})^{2}]^{\frac{1}{2}} \Rightarrow B_{1}(0) = \{(x, y)\in \mathbb{R}^{2}: d_{2}((0, 0), (x, y)) < 1\}\\
+   &d_{\infty}((x_{1}, y_{1}), (x_{2}, y_{2})) = \max\{|x_{1} - x_{2}|, |y_{1} - y_{2}|\} \Rightarrow B_{1}(0) = \{(x, y)\in \mathbb{R}^{2}: \max\{|x|, |y|\} < 1\}\\
+   &d_{1}((x_{1}, y_{1}), (x_{2}, y_{2})) = |x_{1}-y_{1}| + |x_{2} - y_{2}| \Rightarrow B_{1}(0)=\{(x, y)\in \mathbb{R}^{2}: |x|+|y| < 1\}
+ \end{align*}
+\end{example}
+\begin{def*}
+  Seja \((X, d)\) um espaço métrico e x um ponto de X. Chamamos x de ponto isolado se existe \(r > 0\) tal que \(B_{r}(x) = \{x\}. \quad\square\)
+\end{def*}
+\begin{example}
+  Seja \(S = [0, 1]\cup \{2\}\) munido da métrica usual, induzida da reta. Temos 
+    \[
+      B_{\frac{1}{2}}(2)=\{y\in S: |x-2| < \frac{1}{2}\} = \{2\}.
+    \]
+\end{example}
+\begin{example}
+  Seja \(X \neq\emptyset\) e d a métrica discreta. Então, 
+ \begin{itemize}
+   \item[-] Todo ponto é isolado;
+   \item[-] \(D_{r}(x) = \{x\}\) se \(r > 1\);
+   \item[-] \(B_{1}(x) = \{x\}\) e \(D_{1}(x) = X;\)
+   \item[-] \(B_{r}(x) = X\) se \(r > 1\).
+  De fato, \(D_{r}(x) = \{y\in X: d(x, y)\leq r\}.\) Por isso, se r = 1, \(D_{1}(x) = X.\) Pela mesma lógica, prova-se os outros itens.
+ \end{itemize}
+\end{example}
+\begin{example}
+\begin{itemize}
+  \item[i)] Dado \((\mathbb{R}, d),\) d a métrica usual, nenhum ponto é isolado e \(B_{r}(x) = (x-r, x+r), x\in \mathbb{R}, r > 0.\)
+  \item[ii)] Se \(M=[0, 2]\) com métrica induzida, \(B_{1}(0) = [0, 1).\)
+  \item[iii)] Se \(M=\mathbb{Z}\) com a métrica induzida, então \(B_{1}(n) = \{n\}\)
+  \item[iv)] Se \(M=\{\frac{1}{n}:n\in \mathbb{N}, n\neq0\}\cup\{0\}\), com a métrica induzida, então \(B_{1}(0)\neq\{0\}\) para todo \(r>0.\) 
+Neste caso, se \(n, m\neq 0\), então existe \(r > 0\) tal que \(B_{r}\biggl(\frac{1}{n}\biggr)=\{\frac{1}{n}\}\) e \(B_{r}\biggl(\frac{1}{m}\biggr)=\{\frac{1}{m}\}.\) Porém,
+para qualquer \(r> 0\), seja \(n_{0}\) tal que \(0 < \frac{1}{n_{0}} < \frac{r}{2}\) e \(\frac{1}{n_{0}}\in B_{r}(0).\) Portanto, \(B_{r}(0)\neq\{0\}\) para todo \(r> 0\).
+\end{itemize}
+\end{example}
+\begin{example}
+  Considere \((C([a, b]), ||\cdot ||_{\infty}\), com \(||f||_{\infty} = \sup\{|f(x)|: x\in[a, b]\}.\) Seja
+ \(h\in C([a, b])\) e \(r > 0\). Temos 
+   \[
+     B_{r}(h) = \{f\in C([a, b]): ||f-h||_{\infty} < r\} = \{f\in C([a, b]):\max_{x\in[a, b]}\{|f(x)-h(x)|\} < r\}.
+   \]
+\end{example}
+\begin{def*}
+  Um subconjunto \(M \neq\emptyset\) de um espaço métrico (X, d) é limitado se 
+    \[
+      diam(X)\coloneqq \sup\{d(x, y):x, y\in X\} < \infty.
+    \]
+    Neste caso, diam(X) é chamado diâmetro de X. Caso contrário, diz-se que M é ilimitado e \(diam(X) = \infty.\quad\square\)
+  \end{def*}
+\begin{example}
+  Seja \((X, d)\) métrico. Para todo x em X e \(r>0, B_{r}(x)\) é ilimitado e, além disso, \(diam(B_{r}(x))\leq 2r\), o que segue da relação
+ \(d(y, z)\leq d(y, x) + d(x, z)\leq r + r = 2r.\) Além disso, se \((X, ||\cdot ||)\) é um espaço vetorial normado e a métrica d é induzida pela norma,
+ então \(diam(B_{r}(x)) = 2r.\) Com efeito, seja \(s < 2r.\) Tome y em X com \(x\neq0.\) Definimos 
+   \[
+     v = \frac{t}{||y||}y,
+   \]
+   para algum t satisfazendo \(s < 2t < 2r.\) Neste caso, \(x-v, x+v\in B_{r}(x)\)  e 
+     \[
+       d(x+v, x-v) = 2||v|| = 2t > s,
+     \]
+     ou seja, a afirmação feita está garantida.
+\end{example}
+\newpage
+
+\section{Aula 05 - 24/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Propriedades do diâmetro;
+  \item Exemplo de limitado;
+  \item Conjuntos abertos;
+  \item Propriedade dos abertos.
+\end{itemize}
+\subsection{Propriedades do Diâmetro}
+ \begin{example}
+   A função 
+     \[
+       \rho_{p}(x,y) = \frac{||x-y||_{p}}{1+||x-y||_{p}},\quad \forall x, y\in \mathbb{R}^{n}
+     \]
+     é uma métrica em \(\mathbb{R}^{n}\). Para ver isso, comece definindo \(f(t) = \frac{t}{1+t}\) e exiba que essa função é
+crescente, de forma que \(f(||x-y||_{p}\leq f(||x-z||_{p}+||z-y||_{p})\). Com essa métrica, afirmamos que o seguinte ocorre: 
+  \[
+    \mathbb{R}^{n} = B_{1}(0)\quad\&\quad diam(\mathbb{R}^{n})\leq 1.
+  \]
+  A inclusão \(B_{1}(0)\subseteq{\mathbb{R}^{n}}\) é automática. Por outro lado, seja \(y\in \mathbb{R}^{n}.\) Temos 
+    \[
+      \rho_{p}(y, 0) = \frac{||y||_{p}}{1 + ||y||_{p}} < 1. \Rightarrow \mathbb{R}^{n}\subseteq{B_{1}(0)}.
+    \]
+  Portanto, \(\mathbb{R}^{n}\) é limitado no espaço métrico \((\mathbb{R}^{n}, \rho_{p}),\) mas não é limitado em \((\mathbb{R}^{n}, d_{p})\).
+ \end{example}
+ Vale uma observação - apesar dessa diferença entre \(\rho_{p}\) e \(d_{p}\), veremos futuramente que as duas métricas induzem a mesma
+estrutura de formato do espaço - em outras palavras, a mesma topologia.
+\begin{prop*}
+  Seja \((X, \rho )\) um espaço métrico.
+ \begin{itemize}
+   \item[1)] \(E\subseteq{X}\) é limitado se, e somente se, existe \(r>0\) tal que \(E\subseteq{B_{r}(x)}\) para todo \(x\in E\).
+     \item[2)] Se \(E\subseteq{X}\) é limitado e não-vazio, então 
+       \[
+         diam(E) = \inf\{r > 0: E \subseteq{B_{r}(x)}, x \in E\}.
+       \]
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  \(1 \Rightarrow )\) A volta é simples, segue das propriedades do supremo. Por outro lado, se E é limitado, então \(diam(E) < \infty\). Seja
+ \(r=2diam(E)\) e \(B_{r}(x)\supseteq{E}\) para todo x em E. De fato, se \(e\in E\), temos 
+   \[
+     d(e, x)\leq diam(E) < r.
+   \]
+
+   \(2 \Rightarrow )\) Seja \(A = \{r>0: E \subseteq{B_{r}(x)}, x\in E\}\). Mostremos que \(diam(E) = \inf{(A)}.\) Se \(r > diam(E)\) e x
+é um ponto de E, então 
+  \[
+    d(x, y)\leq diam(E) < r\quad \forall y\in E,
+  \]
+  logo, \(E\subseteq{B_{r}(x)}\). Assim, o intervalo \((diam(E), \infty)\subseteq{A}.\) Deste modo, \(\inf{(A)}\leq diam(E).\)
+  Por outro lado, se \(r < diam(E),\) então existem \(x, y\in E\) tais que 
+    \[
+      d(x, y) > r,\quad y\not\in B_{r}(x),\quad \&\quad r\not\in A.
+    \]
+    Consequentemente, \((0, diam(E))\cap A = \emptyset.\) Portanto, \(diam(E) = \inf{(A)}.\) \qedsymbol 
+\end{proof*}
+\begin{def*}
+  Seja \((X, d)\) um espaço métrico. Um subconjunto \(E\subseteq{X}\) é dito aberto em \((X, d)\) se, para cada
+x em E, existir \(r_{x} > 0\) tal que \(B_{r_{x}}(x)\subseteq{E}.\quad\square\)
+\end{def*}
+\newpage
+
+\section{Aula 06 - 29/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Propriedades dos abertos;
+  \item Propriedades dos fechados.
+\end{itemize}
+\subsection{Propriedades de Abertos e Fechados}
+\begin{example}
+  Considere \((\mathbb{R}, |\cdot |)\). Com \(E = B_{\frac{1}{2}}\biggl(\frac{1}{2}\biggr) = (0, 1)\) é aberto. De fato, se \(x\in(0, 1)\),
+então consideramos \(0 < r < \min\{x, 1-x\}.\) Neste caso, temos 
+  \[
+    B_{r}(x) = (x-r, x+r)\subseteq{(0, 1)}\quad \text{Exercício.]}
+  \]
+\end{example}
+\begin{prop*}
+  Seja \((X, \rho )\) um espaço métrico. Então,
+ \begin{itemize}
+   \item[a)] X e \(\emptyset\) são abertos;
+   \item[b)] \(B_{r}(x)\) é aberto;
+   \item[c)] A união arbitrária de abertos é um aberto;
+   \item[d)] A intersecção finita de abertos é aberto.
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  O item a é trivial.
+
+  Para o item b, dado y em \(B_{r}(x)\), consideramos \(0 < r_{y} < r - \rho (x, y)\). Se z pertence a \(B_{r_{y}}(y)\), a desigualdade triangular implica 
+    \[
+      \rho (x, z)\leq \rho (x, y)\leq \rho (y, z) < \rho (x, y) + r_{y} < r.
+    \]
+  Logo, \(\rho_{r_{y}}(y)\subseteq{B_{r}(x)}\), ou seja, a bola aberta é aberta.
+
+  Quanto ao c, seja \(\{A_{\lambda }\}_{\lambda \in I}\) uma coleção de abertos de X e \(A = \bigcup_{\lambda \in I}^{}{A_{\lambda }}\). Vamos mostrar que A é aberto.
+  Com efeito, dado x em A, segue que \(x\in A_{\lambda}\) para algum \(\lambda \in I.\) Como \(A_{\lambda }\) é aberto, existe \(r_{x} > 0\) tal que \(B_{r_{x}}(x)\subseteq{A_{\lambda}}\subseteq{A}.\)
+  Destarte, A é aberto.
+
+  Finalmente, para o item d, tome \(\{A_{i}\}_{i=1}^{n}\) uma coleção finita de abertos em X e seja \(A = \bigcap_{i=1}^{n}{A_{i}}\). Seja \(x\in A\). Temos x pertencente a \(A_{i}\) para algum \(i=1, 2, \cdots, n\).
+Como \(A_{i}\) é sempre aberto, existe \(r_{i} > 0\) tal que \(B_{r_{i}}(x)\subseteq{A_{i}}.\) Fazendo \(r=\min\{r_{i}: 1\leq i\leq n\}\), segue que 
+  \[
+    B_{r}(x)\subseteq{A_{i}},\quad \forall i=1, \cdots, n.
+  \]
+Deste modo, 
+  \[
+    B_{r}(x)\subseteq{\bigcap_{i=1}^{n}{A_{i}}} = A.
+  \]
+  Portanto, A é aberto. \qedsymbol
+\end{proof*}
+\begin{def*}
+  Um subconjunto \(F\subseteq{X}\) é dito fechado em \((X, d)\) se \(F^{c}\) é aberto em \((X, d).\quad\square\)
+\end{def*}
+  Para proceder, vale a pena relembrar uma das formas mais úteis de manipulação de operações de conjuntos, as chamadas Leis de deMorgan. Com a forma que abertos e fechados foram definidos,
+torna-se fundamental entender como complementares agem. Sem mais delongas, as Leis de deMorgan são as seguintes: 
+  \[
+    \hypertarget{demorgan}{\boxed{\biggl(\bigcap_{i\in I}^{}{A_{i}}\biggr)^{c} = \bigcup_{i\in I}^{}{A_{i}^{c}}}\quad\boxed{\biggl(\bigcup_{i\in I}^{}{A_{i}}\biggr)^{c} = \bigcap_{i\in I}^{}{A_{i}^{c}}}}
+  \]
+  \textbf{\underline{Observação}:} Pessoalmente, gosto de pensar que a ação do complementar é ``virar'' o sinal da operação de cabeça pra baixo, então \(\cup\) vira \(\cap\) e vice-versa.
+\begin{prop*}
+  Seja \((X, \rho )\) um espaço métrico. Então, 
+ \begin{itemize}
+   \item[a)] \(X, \emptyset\) são fechados;
+   \item[b)] \(D_{r}(x)\) é fechado;
+   \item[c)] A intersecção arbitrária de fechados é um conjunto fechado;
+   \item[d)] A união finita de fechados é um fechado.
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  As provas de todos os itens, menos do b, seguem a partir das \hyperlink{demorgan}{Leis de DeMorgan}
+
+  Para o item b, dado y fora de \(D_{r}(x)\), vale \(d(x, y) < r.\) Seja \(0 < r_{y} < \rho (x, y) - r.\) Se z pertence a \(B_{r_{y}}(y),\), pela desigualdade triangular, 
+    \[
+      \rho (x, z)\geq \rho (x, y) - \rho (y, z)\geq \rho (x, y) - r_{y} > r.
+    \]
+    Logo, \(z\not\in D_{r}(x)\) e \(B_{r_{y}}(y)\subseteq{(D_{r}(x))^{c}}.\) \qedsymbol
+\end{proof*}
+\begin{example}
+  Seja \(\mathbb{R}\) com a métrica usual. Temos:
+ \begin{align*}
+   &[x-r, x+r]=\bigcap_{n=1}^{\infty}{(x-r-\frac{1}{n}, x+r+\frac{1}{n})}\\
+   &\{x\} = \bigcap_{i=1}^{n}{(x-\frac{1}{n}, x+\frac{1}{n})}.
+ \end{align*}
+\end{example}
+
+\end{document}
