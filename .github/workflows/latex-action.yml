@@ -1,6 +1,16 @@
 name: Github Action for LaTeX
 on: [push]
 jobs:
+  check-bats-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+      - run: npm install -g bats
+      - run: bats -v
+     -run: bats -v
   build_latex:
     runs-on: ubuntu-latest
     steps:
@@ -14,4 +24,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with: 
         name: PDF
-        path: ~/Desktop/USP-Math-LaTeX/*.pdf
+        path: ./*/*.pdf
