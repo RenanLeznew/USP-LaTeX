@@ -12,6 +12,13 @@ jobs:
         root_file: |
           Algebra/algebra_notes.tex
           Analysis/analysis_notes.tex
+          Physics\ I/physics_notes.tex
+          Physics\ II/physicsII_notes.tex
+          ComplexAnalysis/complex.tex
+          Calculus1/Exercícios de Cálculo.tex
+          Linear\ Algebra/Linear_Algebra_Notes.tex
+          Metric\ Spaces/metric_notes.tex
+          Probability/probability_notes.tex
     - name: Upload Algebra file
       uses: actions/upload-artifact@v3
       with: 
@@ -20,11 +27,96 @@ jobs:
         path: 
           algebra_notes.pdf
         if-no-files-found: error
+   - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: $
+      with:
+        tag_name: $
+        release_name: Release $
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: $
+      with:
+        upload_url: $ 
+        asset_path: ./algebra_notes.pdf
+        asset_name: algebra_notes.pdf
+        asset_content_type: pdf 
+
     - name: Upload Analysis file
       uses: actions/upload-artifact@v3
       with: 
         name: 
-          Analysis
+          Analise
         path: 
           analysis_notes.pdf
+        if-no-files-found: error
+
+    - name: Upload Physics I file
+      uses: actions/upload-artifact@v3
+      with: 
+        name: 
+          Fisica I
+        path: 
+          physics_notes.pdf
+        if-no-files-found: error- name: Upload Analysis file
+
+    - name: Upload Metrics file
+      uses: actions/upload-artifact@v3
+      with: 
+        name: 
+          Espaços Metricos 
+        path: 
+          metric_notes.pdf
+        if-no-files-found: error- name: Upload Analysis file
+
+    - name: Upload Complex Analysis file
+      uses: actions/upload-artifact@v3
+      with: 
+        name: 
+          Funções de Variável Complexa
+        path: 
+          complex.pdf
+        if-no-files-found: error- name: Upload Analysis file
+
+    - name: Upload Probability file
+      uses: actions/upload-artifact@v3
+      with: 
+        name: 
+          Probabilidade
+        path: 
+          probability_notes.pdf
+        if-no-files-found: error- name: Upload Analysis file
+
+    - name: Upload Physics II file
+      uses: actions/upload-artifact@v3
+      with: 
+        name: 
+          Física II
+        path: 
+          physicsII_notes.pdf
+        if-no-files-found: error- name: Upload Analysis file
+
+    - name: Upload Calculus I file
+      uses: actions/upload-artifact@v3
+      with: 
+        name: 
+          Calculo I
+        path: 
+          exercícios de cálculo.pdf
+        if-no-files-found: error
+
+    - name: Upload Linear Algebra file
+      uses: actions/upload-artifact@v3
+      with: 
+        name: 
+          Algebra Linear
+        path: 
+          Linear_Algebra_Notes.pdf
         if-no-files-found: error
