@@ -765,5 +765,381 @@ torna-se fundamental entender como complementares agem. Sem mais delongas, as Le
    &\{x\} = \bigcap_{i=1}^{n}{(x-\frac{1}{n}, x+\frac{1}{n})}.
  \end{align*}
 \end{example}
+\newpage
+
+\section{Aula 07 - 12/09/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item Fecho e bordo de conjuntos;
+  \item Conjuntos densos;
+  \item Pontos isolados e de acumulação.
+\end{itemize}
+\subsection{Fechos e Bordos}
+ \begin{def*}
+   O interior \({E}^{\mathrm{o}}\) de \(E\subseteq{X}\) é a união de todos os abertos de \((X, \rho )\) contidos em E. \(\square\)
+ \end{def*}
+\begin{def*}
+  O fecho \(\overline{E}\) de \(E\subseteq{X}\) é a intersecção de todos os fechados contendo E. \(\square\)
+\end{def*}
+Note que \({E}^{\mathrm{o}}\coloneqq \{x\in E: \exists r > 0, B_{r}(x)\subseteq{E}\}\) e \(\overline{E}\coloneqq \{x\in M: B_{r}(x)\cap E \neq\emptyset, \forall r>0\}\).
+Além disso, por definição, \({E}^{\mathrm{o}}\subseteq{E}\subseteq{\overline{E}}\).
+\begin{def*}
+  Um conjunto \(E\subseteq{X}\) é dito denso se \(\overline{E}=X.\square\)
+\end{def*}
+\begin{def*}
+  Um ponto \(x\in X\) é dito um ponto de fronteira de E se 
+    \[
+      B_{r}(x)\cap E \neq\emptyset\quad\& B_{r}(x)\cap E^{c}\neq\emptyset,\quad \forall r>0.
+    \]
+    O conjunto de todos os pontos de fronteira de E é denotado por \(\partial E.\square\)
+\end{def*}
+\begin{example}
+  Para \((\mathbb{R}, |\cdot |),\) temos \(\mathbb{Q}\subseteq{\mathbb{R}}\) denso em \(\mathbb{R}\).
+  De fato, \(\mathbb{Q}=\mathbb{R}\), pois, para todo x em \(\mathbb{R}\) e \(r > 0\), 
+    \[
+      B_{r}(x)\cap \mathbb{Q}\neq\emptyset,
+    \]
+    o que implica em \(x\in \overline{\mathbb{R}}\)
+\end{example} 
+\begin{example}
+ \begin{itemize}
+   \item[1)] Vale que \(E = \overline{E}\) se, e somente se, E é fechado. Afinal, se E é fechado, o menor aberto
+  que o contém é ele mesmo, ou seja, \(\overline{E}\subseteq{E}\). O outro lado da inclusão já foi comentado anteriormente.
+   \item[2)] O interior da bola fechada nem sempre é a bola aberta;
+   \item[3)] Para d discreta, \(B_{r}(x) = \overline{B_{r}}(x).\)
+ \end{itemize}
+\end{example}
+\begin{def*}
+  Se \((X, \rho )\) é um espaço métrico, uma sequência em X é \(\varphi:\mathbb{N}\rightarrow X\) com \(\varphi(n) = x_{n}\) e
+\(Im\varphi = \{x_{n}\}\). Diremos que uma sequência \(\{x_{n}\}\) em \((X, \rho )\) converge se existe \(x\in X\)
+tal que \(\{\rho(x_{n}, x)\}\) converge para zero em \(\mathbb{R}\). Escrevemos \(x_{n}\rightarrow x\) para denotar que \(\{x_{n}\}\) 
+converge para x. \(\square\)
+\end{def*}
+\begin{example}
+  Considere \(\mathcal{B}(I; \mathbb{R})\), em que \(I = [0, 1]\), com a norma 
+    \[
+      ||f||_{1}\coloneqq \int_{0}^{1}|f(x)|dx.
+    \]
+    Seja \(\{f_{n}\}\) em \(\mathcal{B}(I; \mathbb{R})\) dada por \(f_{n}(x) =x^{n}, x\in[0,1]\). Para cada \(x\in[0, 1)\), vale
+ \(\lim_{n\to \infty}x_{n} = 0\). Assim, \(\lim_{n\to \infty}f_{n}(x) = 0, x\in[0, 1)\) e \(\lim_{n\to \infty}f_{n}(1) = 1.\) Considere \(g\in \mathcal{B}(I; \mathbb{R})\)
+ dada por \(g(x) = \left\{\begin{array}{ll}
+     0,\quad x\in[0, 1)\\
+     1,\quad x=1.
+   \end{array}\right.\)
+  Para cada \(x\in I\), vale \(\lim_{n\to \infty}f_{n}(x)=g(x)\). Temos, de fato, 
+    \[
+      d(f_{n}, g)= \int_{0}^{1}|x^{n}|dx = \frac{x^{n+1}}{n+1}\biggl|_{0}^{1}\biggr.\longrightarrow 0,\quad n\to\infty.
+    \] 
+\end{example}
+\begin{prop*}
+  Seja \((X, \rho )\) um espaço métrico e \(E\subseteq{X}\). Equivalem: 
+ \begin{itemize}
+   \item[a)] \(x\in \overline{E}\);
+   \item[b)] \(B_{r}(x)\cap E \neq\emptyset,\quad \forall r>0\);
+   \item[c)] Existe \(\{x_{n}\}\) em E tal que \(\lim_{n\to \infty}x_{n} = x.\)
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  \(1) \Rightarrow 2):\) Assuma que existe \(r > 0\) tal que \(B_{r}(x)\subseteq{E^{c}}\). Então,
+\(({E}^{\mathrm{o}})^{c}.\) Como \([({E}^{\mathrm{o}})^{c}]^{c}\) é fechado e contém E, concluímos que 
+\(x\not\in \overline{E}.\) De fato, se existe \(r > 0\) tal que \(B_{r}(x)\cap E = \emptyset\), então \(x\not\in \overline{E}\). 
+Assim, se \(x\in \overline{E},\) então \(B_{r}(x)\cap E \neq\emptyset\) para todo \(r > 0\).
+
+  \(2)\Rightarrow 3):\) Se \(B_{r}(x)\cap E \neq\emptyset\) para todo \(r > 0\), então \(B_{\frac{1}{n}}(x)\cap \neq\emptyset.\) Seja 
+ \(x_{n}\) um elemento de \(B_{\frac{1}{n}}(x)\cap E,\) para cada n natural. Então, \(\{x_{n}\}\rightarrow x\), visto que vale \(0\leq d(x_{n}, x) < \frac{1}{n}\rightarrow 0\) 
+ quando \(n\rightarrow\infty.\)
+
+
+  \(3) \Rightarrow 1):\) Se existe \(\{x_{n}\}\) em E, \(\lim_{n\to \infty}x_{n} = x\) tal que \(x\not\in \overline{E},\) então \(B_{r}(x)\subseteq{\overline{E}^{c}}\) 
+para algum \(r>0.\) Devido ao fato de \(x_{n}\rightarrow x\) quando \(n\rightarrow \infty\), existe \(n_{0}\in \mathbb{N}\) tal que \(\rho(x_{n}, x) < \varepsilon \).
+Em particular, para \(\varepsilon = r, \rho(x, x) < r\)  e \(x_{n}\in B_{r}(x)\subseteq{\overline{E}^{c}}\) para \(n\geq n_{0}\), um absurdo. \qedsymbol
+\end{proof*}
+\begin{def*}
+  Um ponto \(x\in X\) é chamado de ponto de acumulação de \(E\subseteq{X}\) se 
+    \[
+      (B_{r}(x)\setminus\{x\})\cap E \neq\emptyset,\quad \forall r>0.
+    \]
+    Um ponto \(x\in E\subseteq{X}\) é chamado ponto isolado de E se existe \(r > 0\) tal que 
+   \(B_{r}(x)\cap{E} = \{x\}\). O conjunto de pontos de acumulação de E, chamado conjunto derivado 
+  de E, será denotado por \(E'. \square\)
+\end{def*}
+\begin{prop*}
+  Seja \((X, \rho )\) um espaço métrico. Então:
+ \begin{itemize}
+   \item[a)] \(E = E^{c}\cup \partial E\);
+   \item[b)] \(\overline{E} = E\cup (\partial E\cap E')\);
+   \item[c)] \({E}^{\mathrm{o}} = E\setminus{\partial E}\);
+   \item[d)] \(\partial E\) é um fechado.
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+a) Como \([({E}^{\mathrm{o}})^{c}]^{c} = E^{c\mathrm{o}c}={E}^{\mathrm{o}}\cup \partial E\) é fechado
+e contém E, concluímos que \(\overline{E}\subseteq{{E}^{\mathrm{o}}}\cup \partial E\). 
+
+  Por outro lado, sabe-se que \({E}^{\mathrm{o}}\subseteq{E}\subseteq{\overline{E}}\). Se \(x\in \partial E\) e \(x\not\in {E}^{\mathrm{o}}\),
+então \(B_{\frac{1}{n}}(x)\cap E \neq\emptyset\) para todo n natural. Seja \(\{x_{n}\}\) tal que \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to\infty }x.\)
+Temos \(x\in \overline{E}\) e segue que \({E}^{\mathrm{o}}\cup \partial E \subseteq{\overline{E}}.\) 
+
+b) Observe que \(E\cup(\partial E\cap E')\subseteq{\overline{E}}\). Se \(x\in\overline{E}\setminus{E}\), segue que 
+existe uma sequência \(\{x_{n}\}\) em E tal que \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x.\) Logo, 
+  \[
+    B_{r}(x)\cap E \neq\emptyset\quad\&\quad B_{r}(x)\cap E^{c} \neq\emptyset,\quad \forall r>0,
+  \]
+e para todo \(x\in \partial E\cap E'.\) Portanto, \(\overline{E}\subseteq{E\cup(\partial E\cap E')}.\)
+
+c) Segue que \(E\subseteq{{E}^{\mathrm{o}}\cup \partial E}\) dos anteriores. A partir disto, basta tomar 
+a diferença dos conjuntos.
+
+d) Segue da igualdade \(\partial E = ({E}^{\mathrm{o}}\cup ({E}^{\mathrm{o}})^{c})^{c}\).
+\qedsymbol
+
+\end{proof*}
+\newpage
+
+\section{Aula 08 - 14/09/2023}
+\newpage
+
+\section{Aula 09 - 19/09/2023}
+  Essa aula e a próxima foram planejadas, apresentadas e ministradas pela Bruna, aluna da Thaís. Todos os créditos vão para ela.
+Além disso, por convenção, trocarei a ordem das aulas 09 e 10 para melhor compreensão das mesmas.
+\subsection{Motivações}
+\begin{itemize}
+  \item Breve revisão de continuidade;
+  \item Exemplos de funções continuas;
+  \item Continuidade da Transformação Linear.
+\end{itemize}
+\subsection{Uma breve revisão}
+ \begin{def*}
+   Uma função \(f:X\rightarrow Y\) é contínua em \(p\in X\) se para todo \(\varepsilon >0\) existir um
+  \(\delta =\delta (p, \varepsilon)>0\) tal que \(B_{\delta }^{X}(p)\subseteq{f^{-1}(B_{\varepsilon }^{Y}(f(p))}.\)
+  Equivalentemente, \(f(B_{\delta }^{X}(p))\subseteq{B_{\varepsilon }^{Y}(f(p))}.\square\)
+ \end{def*}
+\begin{def*}
+  Uma função \(f:(X, \rho )\rightarrow (Y, d)\) é uma imersão isométrica se \(d(f(x), f(y)) = \rho (x, y).\square\)
+\end{def*}
+  Anteriormente, provamos que funções isométricas são contínuas.
+\subsection{Exemplos de Funções Contínuas}
+\subsubsection{Inclusão}
+  Sejam \((X, \rho )\) um espaço métrico e \(M\subseteq{X}\) um subespaço de X. Definimos a função inclusão por 
+    \[
+      i:M\rightarrow X,\quad \underbrace{x}_{\text{Como elemento de M}}\longmapsto \underbrace{x}_{\text{Como elemento de X}}
+    \]
+  Note que \(\rho (i(x), i(y)) = \rho (x, y) = \rho_{M}(x, y)\) para todos \(x, y\in M\), tal que i é uma imersão isométrica
+e, portanto, é contínua.
+\subsubsection{Projeções}
+  Sejam \((X_{i}, \rho_{i}), i\in \mathbb{N},\) espaços métricos. Definimos a i-ésima projeção como
+ \(\pi :\prod\limits_{i=1}^{n}X_{i}\rightarrow X_{i}, \pi_{i}(x_1, x_2, \cdots, x_{n}) = x_{i}.\) A projeção
+ é contínua. De fato, seja \(A\subseteq{X}\) um aberto, \(i=1, \cdots, n.\) Mostremos que \(\pi^{-1}(A)\) é aberto. 
+ Com efeito, 
+   \[
+     \pi_{i}^{-1}(A) = X_{1}\times X_{2}\times \cdots\times X_{i-1}\times A_{i}\times X_{i+1}\times \cdots\times X_{n}.
+   \]
+   Sendo o produto finito de abertos um aberto, portanto, \(\pi_{i}\) é contínua.
+\subsubsection{Contração Fraca}
+ \begin{def*}
+   Uma contração fraca é uma aplicação \(f:(X, \rho )\rightarrow (Y, d)\) tal que 
+     \[
+       d(f(x), f(y))\leq \rho(x, y),\quad \forall x,y \in X.\square
+     \]
+ \end{def*}
+ Toda contração fraca é contínua. Com efeito, dado \(\varepsilon > 0\), escolhemos \(\delta = \varepsilon\). A partir
+disso, obtemos 
+  \[
+    \rho (x, y) < \delta \Rightarrow d(f(x), f(y))\leq \rho (x, y) < \delta =\varepsilon .
+  \]
+  Portanto, f é contínua.
+\subsubsection{Soma} 
+  Sejam \(\mathbb{E}\) um espaço vetorial normado com a métrica induzida d, e considere
+\((\mathbb{E}\times \mathbb{E}, D_{1})\), em que \(D_{1}\) é a métrica da soma. Definimos a soma como
+\(s:\mathbb{E}\times \mathbb{E}\rightarrow \mathbb{E}, s(x, y) = x + y.\)
+\textbf{Afirmação:} A soma é uma contração fraca.
+
+  Com efeito, sejam \((x_{1}, y_{1}), (x_{2}, y_{2})\in \mathbb{E}.\) Temos
+ \begin{align*}
+   d(s(x_{1}, y_{1}), s(x_{2}, y_{2})) &= d(x_{1}+y_{1}, x_{2}+y_{2}) = ||(x_{1}+y_{1})-(x_{2}+y_{2})||\\
+                                       &\leq ||x_{1}-x_{2}|| + ||y_{1}-y_{2}|| = d(x_{1}, x_{2}) + d(y_{1}, y_{2})\\
+                                       &=D_{1}((x_{1}, y_{1}), (x_{2}, y_{2})).
+ \end{align*}
+Portanto, s é uma contração fraca, ou seja, é contínua.
+\subsubsection{Norma}
+  Sejam \(x, y\in \mathbb{E}, \mathbb{E}\) espaço vetorial normado. Temos, para \((\mathbb{R}, d)=(\mathbb{R}, |\cdot |),\)
+    \[
+      |||x||-||y||| < ||x-y||.
+    \]
+  Como \(|||x||-||y||| = d(||x||, ||y||),\) isto equivale a 
+    \[
+      d(||x||, ||y||)\leq ||x-y||.
+    \]
+  Portanto, a norma é uma contração fraca, ou seja, contínua.
+\subsubsection{Multiplicação por Escalar}
+  Seja \(\mathbb{E}\) um espaço vetorial normado com métrica d induzida pela norma, \((\mathbb{R}, |\cdot |)\) e \((\mathbb{R}\times \mathbb{E}, D_{1})\).
+Definimos a multiplicação por escalar como 
+  \[
+    m:\mathbb{R}\times \mathbb{E}\rightarrow \mathbb{E},\quad (\alpha ,x)\mapsto \alpha x
+  \]
+\begin{def*}
+  Uma função \(f:X\rightarrow Y\) é localmente Lipschitz se, para todo x em X, existir \(r_{x}>0\) e \(\lambda_{x}>0\) tais que 
+    \[
+      d(f(z), f(w))\leq \rho (x, w)\lambda_{x},\quad \forall z, w\in B_{r_{x}}^{X}(x).
+    \]
+\end{def*}
+  Toda função localmente Lipschitz é contínua. De fato,
+
+\textbf{Afirmação:} m é localmente Lipschitz.
+
+  Com efeito, seja \(x\in \mathbb{R}\times \mathbb{E}\). Consideramos a bola \(B\coloneqq B_{r_{x}}^{\mathbb{R}\times \mathbb{E}}\), em que \(r_{x}>0\)
+é tal que \(B\subseteq{\mathbb{R}\times \mathbb{E}}.\) Escolhemos \(\lambda_{x} = r_{x}+d(O, x),\) em que \(O = (0, 0)\) é a origem 
+de \(\mathbb{R}\times \mathbb{E}.\) Dessa escolha, \(B_{1}=B_{\lambda_{x}}^{\mathbb{R}\times \mathbb{E}}(O)\). Sejam \((\alpha , x), (\beta, y)\in B\subseteq{B_{1}}.\)
+Então, 
+  \[
+    D_{1}(O, (\alpha , x)) < \lambda_{x}\quad\&\quad D_{1}(O, (\beta, y)) < \lambda_{x}.
+  \]
+  Pela definição da métrica da soma, 
+    \[
+      |\alpha - 0| + d(x, 0) < \lambda_{x}\quad\&\quad |\beta - 0| + d(y, 0) < \lambda_{x},
+    \]
+  ou seja, \(|\alpha | + ||x|| < \lambda_{x}\) e \(|\beta |+||y||<\lambda_{x}\). Em particular, \(||x|| < \lambda_{x}\) e \(||\beta || < \lambda_{x}\). Assim, 
+ \begin{align*}
+   d(m(\alpha, x), m(\beta, y)) &= d(\alpha x, \beta y) = ||\alpha x - \beta y|| = ||\alpha x-\beta _{x}+\beta _{x}-\beta _{y}||\\
+                                &=||x(\alpha -\beta ) + \beta (x-y)||\leq ||x(\alpha -\beta )|| + ||\beta (x-y)||\\
+                                &=|\alpha -\beta |||x||+|\beta |||x-y||\leq |\alpha -\beta |\lambda_{x} + \lambda_{x}||x-y||\\
+                                &=\lambda_{x}(|\alpha -\beta | + ||x-y||) = \lambda_{x}[D_{1}((\alpha , x), (\beta , y))].
+ \end{align*}
+ Então, \(d(m(\alpha , x), m(\beta , y))\leq \lambda_{x}[D_{1}((\alpha, x), (\beta , y))] \). Portanto, m é localmente Lipschitziana, logo, contínua.
+\subsection{Continuidade da Transformação Linear}
+  Sejam X, Y espaços vetoriais sobre um corpo \(\mathbb{K}\).
+ \begin{def*}
+   Uma transformação linear \(T:X\rightarrow Y\) é definida por:
+ \begin{itemize}
+   \item[a)] \(T(u+v)=T(u)+T(v),\quad \forall u, v\in X\)
+   \item[b)] \(T(\alpha u) = \alpha T(u),\quad \forall \alpha \in \mathbb{K}, u\in X.\quad\square\)
+ \end{itemize}
+ \end{def*}
+  Observe que, de (a) e (b), segue que \(T(0) = T(0u) = 0T(u) = 0, T(0) = T(u+(-u)) = T(u) + T(-u),\) ou seja,
+ \(T(-u) = -T(u)\) e \(T(u-v) = T(u) + T(-v) = T(u) - T(v)\).
+\begin{example}
+  Para X = Y espaços vetoriais sobre \(\mathbb{R}\), um exemplo de transformação linear é 
+    \[
+      T[x] = \alpha x,\quad T:\mathbb{R}\rightarrow \mathbb{R},
+    \]
+    pois \(T[x+y] = \alpha (x+y) = \alpha x + \alpha y = T[x] + T[y]\) e \(T[\beta x] = \beta \alpha x = \beta T[x].\)
+\end{example}
+\begin{theorem*}
+  Se X, Y são espaços vetoriais normados sobre \(\mathbb{R}\) e se \(T:X\rightarrow Y\) é uma transformação linear, então, são equivalentes:
+ \begin{itemize}
+   \item[a)] T é contínua;
+   \item[b)] T é contínua na origem;
+   \item[c)] Existe um \(k > 0\) tal que \(||T(u)|| < k||u||,\) para todo \(u\in X\);
+   \item[d)] T é Lipschitziana.
+ \end{itemize}
+\end{theorem*}
+\begin{proof*}
+  (a) \(\Rightarrow \)(b) é automático.
+
+  (b) \(\Rightarrow \) (c): Se T é contínua na origem, tome \(\varepsilon = 1.\) Com isso, existe \(\delta > 0\) tal que 
+    \[
+      ||u-0|| = ||u|| < \delta \Rightarrow ||T(u)-T(0)|| = ||T(u)|| < 1.
+    \]
+  Escolha \(k > 0\) tal que \(\frac{1}{\delta } < k.\) Notemos que, para u em X, \(u\neq0\), o vetor
+ \(\frac{1}{k}\frac{u}{||u||}\) tem norma \(\frac{1}{k} < \delta .\) Com isso, \(||u|| < \delta \) implica que
+ \(||T(u)|| < 1\) e, em particular,
+ \begin{align*}
+   \biggl|\biggl|\frac{u}{k||u||}\biggr|\biggr| < \delta &\Rightarrow \biggl|\biggl|T \biggl(\frac{u}{k||u||}\biggr)\biggr|\biggr| = \biggl|\biggl|\frac{1}{k||u||}T(u)\biggr|\biggr|\\
+                                                         &= \frac{1}{k||u||}||T(u)|| < 1\\
+                                                         &\Rightarrow ||T(u)|| < k||u||.
+  \end{align*}
+  Além disso, caso \(u=0\), segue que \(0 = ||T(0)|| = 0k = ||u||k.\) Portanto, \(||T(u)||\leq k||u||\) para todo u em X.
+
+  (c) \(\Rightarrow \) (d): Segue que, para todos u, v em X, 
+    \[
+      ||T(u-v)||\leq k||u-v||.
+    \]
+    Como T é linear, isto equivale a 
+    \[
+      ||T(u)-T(v)||\leq k||u-v||.
+    \]
+    Portanto, T é Lipschitziana com constante k.
+
+  (d) \(\Rightarrow \) (a): Fixado \(\varepsilon > 0\), caso T seja Lipschitz, então, para todos u, v em X, existe uma constante \(k > 0\) tal que 
+    \[
+      ||T(u) - T(v)||\leq  k ||u-v||
+    \]
+    Assim, escolhendo \(\delta  = \frac{\varepsilon }{k} > 0,\) obtemos o seguinte: Caso \(||u-v|| < \delta \), então 
+      \[
+        ||T(u)-T(v)||\leq k||u-v|| < k \frac{\varepsilon }{k} = \varepsilon .
+      \]
+    Portanto, T é contínua. \qedsymbol
+
+\end{proof*}
+\newpage
+
+\section{Aula 10 - 21/09/2023}
+\subsection{Motivações}
+ \begin{itemize}
+   \item Composta de Funções Contínuas;
+   \item Propriedades de Funções Contínuas.
+ \end{itemize}
+\subsection{Composta de Funções Contínuas}
+ \begin{prop*}
+   Sejam \(f:M\rightarrow N\) e \(g:N\rightarrow P\) são funções contínuas nos pontos p em M e f(p) em N,
+respectivamente. Então, \(g\circ{f}:M\rightarrow P\) é contínua no ponto p em M.
+ \end{prop*}
+ \begin{proof*}
+   Seja \(\varepsilon >0.\) Considere a bola \(B_{\varepsilon }^{P}(g\overline{f}(p)) = B_{1}.\) Como g é contínua em f(p), então
+existe \(\delta_{g}>0\) tal que \(B_{2}\coloneqq B_{\delta_{g}}^{N}(f(p))\subseteq{g^{-1}(B_{1}),}\) tal que 
+  \[
+    f^{-1}(B_{2})\subseteq{f^{-1}(g^{-1}(B_{1}))} = (f^{-1}\circ{g^{-1}})(B_{1}) = (g\overline{f})^{-1}(B_{1}).
+  \]
+  Agora, por f ser contínua, existe \(\delta_{f}>0\) tal que 
+  \[
+    B_{\delta_{f}^{M}(p)}\subseteq{f^{-1}(B_{2})}.
+  \]
+  Assim, juntando tudo, 
+  \[
+    B_{\delta_{f}}^{M}(p)\subseteq{f^{-1}(B_{2})}\subseteq{(g\circ{f})^{-1}(B_{1})} = (g\circ{f})^{-1}(B_{\varepsilon }^{P}(g\circ{f}(p))).
+  \]
+  Portanto, \(g\circ{f}\) é contínua em p em M. \qedsymbol
+ \end{proof*} 
+\subsection{Propriedades de Funções Contínuas}
+\begin{def*}
+  Sejam \(\mathbb{E}\) um espaço vetorial normado e \(X \neq\emptyset, f:X\rightarrow \mathbb{E}, g:X\rightarrow \mathbb{E}.\)
+Definimos \(f+g:X\rightarrow \mathbb{E}\) por \((f+g)(x)\coloneqq f(x)+g(x).\square\)
+\end{def*}
+\begin{prop*}
+  Se f e g são contínuas, então f + g é contínua.
+\end{prop*}
+\begin{proof*}
+  Definimos \(h:X\rightarrow \mathbb{E}\times \mathbb{E}\) por \(h(x) = (f(x), g(x))\), a qual é contínua. A função soma
+ \(s:\mathbb{E}\times \mathbb{E}\rightarrow \mathbb{E}\) dada por \(s(x, y) = x + y\), como vimos, é contínua. Com isso, 
+   \[
+     f(x)+g(x)=s(f(x), g(x)) = s(h(x)) = (s\circ{h})(x).
+   \]
+  Portanto, (f+g)(x) é contínua.\qedsymbol
+\end{proof*}
+\begin{def*}
+  Sejam \(\mathbb{E}\) um espaço vetorial normado e \(X \neq\emptyset, f:X\rightarrow \mathbb{E}, g:X\rightarrow \mathbb{E}.\)
+Definimos \(fg:X\rightarrow \mathbb{E}\) por \((fg)(x)\coloneqq f(x)g(x).\square\)
+\end{def*}
+\begin{prop*}
+  Se f e g são contínuas, então fg é contínua.
+\end{prop*}
+\begin{proof*}
+  Definimos \(h:X\rightarrow \mathbb{E}\times \mathbb{E}\) por \(h(x) = (f(x), g(x))\), a qual é contínua. A função multiplicação
+ \(m:\mathbb{E}\times \mathbb{E}\rightarrow \mathbb{E}\) dada por \(m(x, y) = xy\), como vimos, é contínua. Com isso, 
+   \[
+     f(x)g(x)=m(f(x), g(x)) = m(h(x)) = (m\circ{h})(x).
+   \]
+  Portanto, (fg)(x) é contínua.\qedsymbol
+\end{proof*}
+\begin{prop*}
+  Se f e g são contínuas e \(g(x)\neq0\) para todo x em X, então \(\frac{f}{g}\) é contínua.
+\end{prop*}
+\begin{proof*}
+  Definimos \(h:\mathbb{R}^{\times}\rightarrow \mathbb{R}, h(t)=\frac{1}{t}\), a qual é contínua. Então, 
+    \[
+      \frac{f(x)}{g(x)} = f(x)\frac{1}{g(x)} = f(x)h(g(x)) = f(x)(h\circ{g})(x).
+    \]
+    Portanto, como o produto de funções contínuas é contínua, \(\frac{f(x)}{g(x)}\) é contínua. \qedsymbol
+\end{proof*}
 
 \end{document}

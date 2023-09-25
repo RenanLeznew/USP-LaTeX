@@ -1017,8 +1017,64 @@ Escolhendo o centro das coordenadas, o momento angular \(\vec{L}\) será na dire
  \(\vec{R}'\), não será na direção z. Além disso, conforme a partícula precessiona, ele também moverá-se, formando um cone. Num sistema em que há uma outra partícula diametralmente
  oposta fazendo a mesma coisa, a soma dos dois momentos angulares apontaria, sim, para o eixo z.
 \newpage
+
 \section{Aula 10 - 31/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Exemplos para Trabalhar com os Conceitos.
+\end{itemize}
+\subsection{Exemplos}
+\begin{example}
+  Considere uma barra vertical de tamanho L, massa M e presa em um pivô. Além disso, tome uma partícula movendo-se em direção à barra vertical com velocidade \(\vec{v}\) e massa m.
+Ela atinge a barra no ponto x e passa a fazer parte dela. Encontre a razão entre a energia cinética final e inicial do sistema e o valor da energia cinética após a colisão, dado
+que a barra faz um ângulo máximo \(\theta_{max}\) após a colisão, deixando-a com uma nova altura de \(\frac{L}{2}\).
+
+\textbf{Descrevendo o sistema:} 
+
+  Num momento inicial, a energia cinética do sistema é dominada pela partícula, já que ela é a única em movimento. Sua energia cinética é calculável fazendo 
+  \[
+    \mathbb{K}_{i} = \frac{1}{2}mv^{2}.
+  \]
+  Com relação à barra, ela possui um certo momento angular no ponto x, valendo 
+  \[
+    L_{i} = mvx.
+  \]
+
+  Analisando o sistema após a colisão, chamando \(I_{t}\) como o momento de inércia total do sistema barra e partícula juntos, a energia cinética final
+é descrita por 
+  \[
+    \mathbb{K}_{f} = \frac{1}{2}\frac{L^{2}}{I_{T}}
+  \]
+  e o momento angular final por 
+  \[
+    \vec{L_{f}} = I_{t}\omega_{f}.
+  \]
+\textbf{Desenvolvendo as contas:}
+
+  Conseguimos explicitar uma forma para \(I_{t}\) como \(I_{t} = \frac{1}{3}ML^{2} + mx^{2}\). Já que o sistema é livre de forças externas, o momento angular deve ser conservado, isto é,
+ \(L_{i} = L_{f}\). Podemos resolver isso para encontrar o valor de \(\omega_{f}:\)
+ \begin{align*}
+   &mvx = \biggl[\frac{1}{3}ML^{2} + mx^{2}\biggr]\omega_{f}\\
+   \Rightarrow &\omega_{f} = \frac{mvx}{\biggl[\frac{1}{3}ML^{2}+mx^{2}\biggr]}
+ \end{align*}
+
+  Por fim, calculamos a razão entre as energias cinéticas
+ \begin{align*}
+   \frac{\mathbb{K}_{i}}{\mathbb{K}_{f}} &= \frac{\frac{1}{2}mv^{2}}{\frac{1}{2}\frac{L^{2}}{I_{t}}} = \frac{mv^{2}}{m^{2}v^{2}x^{2}}\frac{1}{3}(ML^{2}+mx^{2})\\
+                                         &= \frac{1}{mx^{2}}\biggl[mx^{2}+\frac{1}{3}ML^{2}\biggr].
+ \end{align*}
+\textbf{Pós colisão:}
+  Utilizando as informações dadas pelo exercício, podemos descrever a energia cinética final do sistema como 
+    \[
+      \mathbb{K}_{f}=Mg \biggl(\frac{L}{2}(1-\cos{(\theta_{max} )})\biggr) + mgx(1-\cos{(\theta_{max} )}),
+    \]
+    em que o termo de cosseno aparece manipulando as relações de tamanhos em triângulos.
+\end{example}
+\subsection{Disclaimer}
+  Tiveram outros exemplos nessa aula. No entanto, devido à quantidade de desenho que eles exigem, optei por não colocá-los (talvez por não saber
+descrever o sistema física em texto como costumo fazer nos desenhos, os que apareceram eram complexos demais pra mim).
 \newpage
+
 \section{Aula 11 - 11/09/2023}
 \subsection{Motivações}
 \begin{itemize}
@@ -1226,4 +1282,229 @@ Com isso, chegamos em
     \[
       \hypertarget{pressure_submerging}{\boxed{P(z) = P_{0}+\rho gz.}}
     \]
+\newpage
+
+\section{Aula 13 - 20/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Pressão em Fluídos e Paradoxo Hidrostático;
+  \item Variação de Pressão;
+  \item Princípio de Arquimedes.
+\end{itemize}
+\subsection{Pressão}
+\begin{example}
+  Considere uma barragem de tamanho L e pressão inicial de 1 atm. Essa barragem impede um líquido com distância da terra até ele sendo h.
+Qual é a variação da força com a profundidade z?
+
+  Sabemos da aula anterior a fórmula da \textit{\hyperlink{pressure_submerging}{pressão com profundidade}}. Vimos, também, a relação da pressão com a força
+como sendo \(P(z)dA = dF\). Unindo-as, tem-se 
+  \[
+    dF = (P_{0}+\rho gz)Ldz \Rightarrow F = \int_{0}^{h}P_{0}Ldz + \rho gL \int_{0}^{h}z dz.
+  \]
+  Portanto, 
+    \[
+      F = P_{0}Lh + \rho gL \frac{z^{2}}{2}\biggl|_{0}^{h}\biggr. = P_{0}Lh + \rho gL \frac{h^{2}}{2}.
+    \]
+  Usualmente, barragens no mundo real não são simplesmente retas, possuindo uma curvatura na base conforme aprofunda-se. Podemos descrever 
+a força que essa base curvada sofrerá fazendo \(\vec{dF}' = dS L P_{0}\). Como essa forçá faz um ângulo \(\theta \) com a horizontal, vale também
+\(dF'_{x} = dF'\cos{(\theta )} = LP_{0}ds\cos{(\theta )} = LP_{0}dl.\) Podemos integrar com respeito ao tamanho para chegar em 
+   \[
+     F_{x}' = \int_{0}^{h}LP_{0}dl = LP_{0}h.
+   \]
+ Assim, a força que o fluído exerce nessa barreira é dado pela diferença dos dois resultados 
+   \[
+     F - F_{x}' = \rho g \frac{h^{2}}{2}L.
+   \]
+\end{example}
+\begin{example}
+  Considerando uma caverna subaquática com um ponto \(P_{1}\) próximo ao topo da coluna d'água,
+outro \(P_{2}\) na reta vertical de \(P_{1}\), mas mais profundo e \(P_{3}\) na reta horizontal de \(P_{3}\) 
+(formam um triângulo), como as diferentes pressões relacionam-se?
+
+  Para os pontos 1 e 2, note que, por estarem na mesma vertical, a força atuando neles é a gravitacional apenas, ou seja, 
+    \[
+      P_{2} - P_{1} = \frac{mg}{A} = \frac{\rho Ahg}{A} = \rho hg.
+    \]
+  Para os pontos 2 e 3, eles estão na mesma altura, então não há forças a serem compensadas, ou seja, \(P_{2} = P_{3}\).
+\end{example}
+  O fenômeno da pressão em um fluído não depender do formato do recipiente que o contém é conhecido como paradoxo da hidrostática (recomendo pesquisar na internet pra ver uma imagem).
+
+\subsection{Medindo Pressões}
+\subsubsection{Pressão Barométrica}
+  Considere um recipiente sob pressão P conectado uma mangueira com um fluído dentro e uma diferença entre as colunas d'água
+do topo da mangueira ao ponto que o líquido para dada por h. Suponha, também, que, fora do sistema, há uma pressão atmosférica \(P_{atm}\).
+Então, a pressão do recipiente será dada por 
+  \[
+    P = P_{atm} + \rho gh
+  \]
+\subsubsection{Barômetro de Mercúrio}
+  Tome um tubo de vidro submerso em mercúrio líquido, fazendo com que o mercúrio desça. A parte que o mercúrio não alcança fica um vácuo, ou seja, com pressão 0.
+Com isso, é possível calcular a pressão do exterior do vidro utilizando o tamanho da coluna de mercúrio, h: 
+  \[
+    P = \rho_{Hg}gh.
+  \]
+  Utilizando este método no nível do mar, foi possível estimar que \(1atm = 760mmHg\).
+
+\subsection{A Pressão Variando com Altura}
+  Vamos chamar de z uma certa altura de atmosfera. Consideramos uma parte dela, sofrendo pressão P(z) por baixo e P(z+dz) por cima. Essa parte tem área A, espessura dz e sofre
+da força gravitacional por mg. Analisando esse sistema, 
+  \[
+    [P(z) - P(z+dz)]A = mg.
+  \]
+  Utilizando \(m = Adz\rho \), temos 
+    \[
+      -[P(z+dz)-P(z)]A = Adz\rho g \Rightarrow dP = -\rho g dz.
+    \]
+  Relembrando o caso dos gases, 
+    \[
+      Pv = NkT \Rightarrow P = \rho kT \Rightarrow \frac{\rho }{P} = \frac{1}{kT} \Rightarrow \frac{\rho }{P}=\frac{\rho_{0}}{P_{0}},
+    \]
+  em que \(\rho_{0}\) e \(P_{0}\) são os valore no nível do mar. Assim, \(\rho = \rho_{0} \frac{P}{P_{0}}\) e, utilizando a relação descoberta, 
+    \[
+      dP = -\frac{\rho_{0}}{P_{0}}gPdz.
+    \]
+  Integrando esse resultado, 
+    \[
+      \int_{P_{0}}^{P}\frac{dP}{P} = \frac{\rho_{0}}{P_{0}}\int_{0}^{z}gdz \Rightarrow \ln{(P)}-\ln{(P_{0})} = -\frac{\rho_{0}}{P_{0}}gz.
+    \]
+  Manipulando e resolvendo para P, chega-se em 
+    \[
+      \hypertarget{pressure_decay}{\boxed{P = P_{0}e^{-\frac{\rho_{0}gz}{P_{0}}}}}
+    \]
+    Em outras palavras, o decaimento da pressão com a altura é exponencial.
+\begin{example}
+  Dado que \(\rho_{0} = 1.23\frac{kg}{m^{3}}\) é a densidade do ar e \(P_{0} = 1atm\), a altura necessária para a pressão valer metade do valor de \(P_{0}\) é \(h = 5.5km\)
+Numa altura de um avião comercial, isto é, \(h=10km\), a pressão é \(P = \frac{P_{0}}{4}\).
+\end{example}
+
+\subsection{Princípio de Arquimedes}
+  Ao entrar na água, nota-se que uma pessoa com um peso \(\vec{P}\) registrará numa balança um valor \(\vec{P}'\) menor que o registrado em terra. Isto deve-se graças ao empuxo,
+a reação que o líquido gera à força gravitacional. Para calcular este empuxo, toma-se a diferença entre a força peso e o peso aparente: 
+  \[
+    \vec{E} = \vec{F}_{g}-\vec{F}_{gap}.
+  \]
+  Quando não tem-se uma balança, podemos descrever o empuxo levando em conta, primeiramente, que o empuxo age em sentido oposto ao peso. Assim, 
+  \[
+    \vec{E} = \vec{P} = mg.
+  \]
+  Na expressão inicial, o peso aparente recebe o valor de \(\vec{F}_{gap}=\vec{F}_{g} - E\).
+ \begin{example}
+   Para um anel de ouro com peso \(F_{g} = 0.158N\), após ser submerso, aparentou um peso aparente de \(\vec{F}_{gap}=0.15N\). Considerando que
+  \(\rho_{Au} = 19.3\frac{g}{cm^{3}},\) determine se o material do anel é realmente ouro.
+
+  Segue que, sendo \(m_{f}, \rho_{f}\) massa e densidade do fluído
+    \[
+      \frac{E}{F_{g}} = \frac{m_{f}g}{m_{A}g} = \frac{\rho_{f}V}{\rho_{Au}V} = \frac{\rho_{f}}{\rho_{Au}}.
+    \]
+  Com isso, 
+    \[
+      \rho_{Au} = \rho_{f}\frac{F_{g}}{E} = \rho_{H_{2}O}\frac{F_{g}}{F_{g}-F_{gap}}=\rho_{H_{2}O}\frac{0.158}{0.158-0.15}\approx 20\frac{g}{cm^{3}}.
+    \]
+ \end{example}
+\begin{example}
+  Após submergir uma pessoa, seu peso aparente é \(5\%\) do peso original. Considerando que a densidade da gordura é de
+ \(\rho_{g} = 0.9 \frac{g}{cm^{3}}\) e a densidade do resto é \(\rho_{r} = 1.1 \frac{g}{cm^{3}}\), qual é a massa de gordura da pessoa?
+
+  Temos 
+    \[
+      \frac{\rho }{\rho_{H_{2}O}} = \frac{F_{g}}{F_{g}-F_{gap}} = \frac{F_{g}}{(1-0.05)F_{g}}\approx 1.05.
+    \]
+    Considerando que o volume total é a soma do volume da gordura com o do resto, segue que 
+      \[
+        \frac{m_{T}}{\rho }= \frac{m_{g}}{\rho_{g}}+\frac{m_{r}}{\rho_{r}}.
+      \]
+    Como 
+      \[
+         \left.\begin{array}{ll}
+            m_{g} = f_{g}m_{T}\\
+            m_{r} = f_{r}m_{T}
+          \end{array}\right\},
+      \]
+    obtemos \((m_{g}+m_{r}) = (f_{g}+f_{r})m_{T}.\) Desta forma, \(f_{g}+f_{r}=1\) e
+   \begin{align*}
+     &\frac{m_{T}}{\rho } = \frac{f_{g}m_{T}}{\rho_{g}} + \frac{f_{r}m_{T}}{\rho_{r}}\\
+     &\frac{1}{\rho }=\frac{1}{\rho_{g}}f_{g} + \frac{(1-f_{g})}{\rho_{r}}\\
+     &\frac{1}{\rho }-\frac{1}{\rho_{r}}=\biggl(\frac{1}{\rho_{g}}-\frac{1}{\rho_{r}}\biggr)f_{g}\\
+     &\frac{\frac{1}{\rho_{r}}\biggl(\frac{\rho_{r}}{\rho }-1\biggr)}{\frac{1}{\rho_{r}}\biggl(\frac{\rho_{r}}{\rho_{g}}-1\biggr)} = \rho_{g}\approx0,21.
+   \end{align*}
+\end{example}
+\newpage
+
+\section{Aula 14 - 21/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Exemplos de Empuxo;
+  \item Hidrodinâmica.
+\end{itemize}
+\begin{example}
+  Tome 5 Beckeres iguais. No primeiro, há um barquinho flutuando. No segundo, o barquinho afundou e tem o dobro da densidade. No terceiro,
+coloca-se um bloco de gelo flutuando. No quarto, o bloco de gelo está preso e possui metade da densidade. No último, não faz-se nada. Como são os pesos?
+Suponha que todos os objetos colocados têm o mesmo peso \(F_{g_{o}}\)
+
+\textbf{Becker E:}
+  O peso de E é fácil, já que não têm nada, utilizaremos ele como base, sendo seu peso \(F_{g_{E}}\).  
+
+\textbf{Becker A:}
+  Inicialmente, antes de inserir o barco, \(F_{g_{A}} = F_{g_{E}}\). Após a adição dele, o deslocamento de líquido equivale ao peso do barco,
+ou seja, \(F_{g_{A}} = F_{g_{E}}-F_{g_{O}}.\) Como o barco está agora incluso, adiciona-se seu peso novamente, donde obtemos 
+  \[
+    F_{g_{A}} = F_{g_{E}} - F_{g_{O}} + F_{g_{O}} = F_{g_{E}}.
+  \]
+
+\textbf{Becker B:}
+  Como o barco tem o dobro da densidade, mas a massa é a mesma, o volume do barco é metade do primeiro caso, tal que 
+    \[
+      F_{g_{B}} = F_{g_{E}} - \frac{F_{g_{O}}}{2} + F_{g_{O}} = F_{g_{E}} + \frac{F_{g_{O}}}{2}
+    \]
+
+  \textbf{Becker C:}
+    O raciocínio do A vale para este, donde obtemos 
+      \[
+        F_{g_{C}} = F_{g_{E}} - F_{g_{O}} + F_{g_{O}} = F_{g_{E}}.
+      \]
+
+  \textbf{Becker D:}
+    Analogamente ao B, como a massa é a mesma, mas a densidade é metade, o volume deslocado é duas vezes maior, ou seja, 
+      \[
+        F_{g_{D}} = F_{g_{E}} - 2 F_{g_{O}} + F_{g_{O}} = F_{g_{E}} - F_{g_{O}}.
+      \]
+\end{example}
+\begin{example}
+  Dado que um iceberg está no mar flutuando, calcule a fração dele que está visível.
+
+  A força gravitacional do iceberg é dada pela relação 
+    \[
+      F_{g_{ic}} = \rho_{gelo}Vg.
+    \]
+  Sabemos, também, que \(E = F_{g_{ic}}\). Assim, 
+    \[
+      \rho_{mar}V_{submerso}g = \rho_{gelo}Vg \Rightarrow \frac{V_{submerso}}{V} = \frac{\rho_{gelo}}{\rho_{mar}} = \frac{0.9\frac{g}{cm^{3}}}{1.022\frac{g}{cm^{3}}}.
+    \]
+  Portanto, \(\frac{V_{sub}}{V}\approx 0.9\).
+\end{example}
+\subsection{Hidrodinâmica}
+  Pegue um tubo, com área na parte maior \(A_{1}\) que estreita-se um pouco conforme é percorrido, formando quase uma garrafa, com a ponta mais estreita tendo área \(A_{2}\).
+Preencha-o com um fluído. Na parte não estreitada, o fluído tem velocidade \(\vec{v}_{1}\) e, após chegar na parte mais estreita, passa a ter velocidade \(\vec{v_{2}}\).
+A massa do fluído que passa pela primeira parte do percurso - antes de estreitar - a cada instante de tempo, então, será 
+  \[
+    \Delta m_{1} = \rho_{1}A_{1}v_{1}\Delta t
+  \]
+  e, pela segunda parte, 
+  \[
+    \Delta m_{2} = \rho_{2}A_{2}v_{2}\Delta t
+  \]
+  Chamamos as vazões de massas nos pontos respectivos por 
+    \[
+      \text{vazão massica} = \left\{\begin{array}{ll}
+          \frac{\Delta m_{1}}{\Delta t} = I_{m_{1}}\\
+          \frac{\Delta m_{2}}{\Delta t} = I_{m_{2}}.
+        \end{array}\right.
+    \]
+  A quantidade de massa passando entre os pontos pode, assim, ser obtida calculando-se a diferença entre as duas vazões acima,
+resultando numa equação conhecida como \textit{equação da continuidade}:
+    \[
+      \hypertarget{continuity_equation}{\boxed{\frac{dm_{12}}{dt} = I_{m_{1}}-I_{m_{2}}}}
+    \]
+  Observe que, se \(\frac{dm_{12}}{dt} = 0\), então \(I_{m_{1}} = I_{m_{2}}\), ou seja, \(A_{1}v_{1}=A_{2}v_{2}\). Nestes casos, chamamos de vazão
+volumétrica o valor \(I_{v}=Av\).
 \end{document}
