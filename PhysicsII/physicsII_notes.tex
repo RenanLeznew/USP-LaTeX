@@ -1507,4 +1507,138 @@ resultando numa equação conhecida como \textit{equação da continuidade}:
     \]
   Observe que, se \(\frac{dm_{12}}{dt} = 0\), então \(I_{m_{1}} = I_{m_{2}}\), ou seja, \(A_{1}v_{1}=A_{2}v_{2}\). Nestes casos, chamamos de vazão
 volumétrica o valor \(I_{v}=Av\).
+\newpage
+
+\section{Aula 15 - 25/09/2023}
+\subsection{Motivações}
+ \begin{itemize}
+   \item Equação de Bernoulli;
+   \item Tubo de Venturi;
+   \item Tubo de Pitot.
+ \end{itemize}
+\subsection{Pressão}
+  Imagine um tubo que começa a subir na vertical e está preenchido por um fluído. Considere um ponto 1 na parte mais inferior deste tubo, com uma altura \(y_{1}\),
+e um ponto 2 na parte superior do mesmo, a uma altura \(y_{2} > y_{1}\). No ponto 1, hão velocidade e pressão \(v_{1}, P_{1}\) e, respectivamente no ponto 2, \(v_{2}, P_{2}\).
+Passam, por esses pontos, quantidades de massa \(\Delta m\). Vamos analisar esse sistema.
+
+  Sabe-se que \(W = \Delta \mathbb{K}\). As forças que realizam trabalho, nesta configuração, são a pressão e a gravidade. Considerando as quantidades em questão, 
+    \[
+      \Delta \mathbb{K} = \frac{1}{2}\Delta m v_{2}^{2} - \frac{1}{2}\Delta m v_{1}^{2}
+    \]
+Quanto ao trabalho, também, para a gravidade, tem-se
+\[
+  W_{g} = \Delta mgy_{1} - \Delta mgy_{2}
+\]
+e, para as pressões, 
+  \[
+    W_{p_{1}} = F_{1}\Delta x_{1} = p_{1}A_{1}\Delta x_{1} = p_{1}\Delta V\quad\&\quad W_{p_{2}} = -p_{2}\Delta V,
+  \]
+totalizando 
+  \[
+    W_{p_{t}} = W_{p_{1}} + W_{p_{2}} = (p_{1}-p_{2})\Delta V.
+  \]
+  Com isso, obtemos 
+  \[
+    W_{g}+W_{p_{t}} = \Delta \mathbb{K}.
+  \]
+  Podemos, então, destrinchar a equação como segue
+ \begin{align*}
+   &\Delta mgy_{1}-\Delta mgy_{2} + (p_{1}-p_{2})\Delta V = \frac{1}{2}\Delta mv_{2}^{2}-\Delta mv_{1}^{2}\\
+  \Longleftrightarrow\quad  & \frac{1}{2}\Delta mv_{1}^{2} + p_{1}\Delta V + \Delta mgy_{1} = \frac{1}{2}\Delta mv_{2}^{2} + p_{2}\Delta v + \Delta mgy_{2}\\
+  \underbrace{\Longrightarrow}_{\Delta m=\rho \Delta V}         & \frac{1}{2}\rho v_{1}^{2} + p_{1} + \rho gy_{1} = \frac{1}{2}\rho v_{2}^{2} + p_{2} + \rho gy_{2}.
+ \end{align*}
+ Em outras palavras, estes valores das igualdades são \textbf{constantes}, o que nos leva à equação de Bernoulli: 
+   \[
+     \hypertarget{bernoulli}{\boxed{\frac{1}{2}\rho v_{1}^{2}+p_{1}+\rho gy_{1}=constante}}
+   \]
+   O problema com ela é que ela descreve apenas sistemas idealizados, que muitas vezes não ocorrem na vida real. Por exemplo, 
+ela não leva em conta a viscosidade do líquido, o que resulta em inconsistências no mundo real.
+\begin{example}
+  Considere um tanque preenchido com um fluído até uma altura \(y_{1}\), com área de abertura \(A_{1}\). Neste tanque, há um buraco
+ a uma altura \(y_{2}\) menor que \(y_{1}\) e pressão \(A_{2}\). Suponhamos que \(A_{1}>> A_{2}\). Utilizando a equação 
+   \[
+     A_{1}v_{1} = A_{2}v_{2},
+   \]
+  concluímos que \(v_{1}\approx0\). Assim, utilizando Bernoulli, 
+    \[
+      p_{1} + \rho gy_{1} + \underbrace{\frac{1}{2}\rho v_{1}^{2}}_{0} = p_{2} + \rho gy_{2} + \frac{1}{2}\rho v_{2}^{2}. 
+    \]
+  Como as pressões são as mesmas, 
+    \[
+      \frac{1}{2}\rho v_{2}^{2} = \rho g(y_{1}-y_{2}) \Rightarrow v_{2}^{2} = 2g\Delta y \Rightarrow v_{2}=\sqrt[]{2g\Delta y}
+    \]
+  Até mesmo sem fazer a suposição das áreas, sabe-se que 
+    \[
+      v_{1} = \frac{A_{2}}{A_{1}}v_{2},
+    \]
+  tal que 
+    \[
+      \rho gy_{1} + \frac{1}{2}\rho \frac{A_{2}^{2}}{A_{1}^{2}}v_{2}^{2} = \frac{1}{2}\rho v_{2}^{2} + \rho gy_{2},
+    \]
+  donde segue que 
+    \[
+      g(y_{1}-y_{2}) = \frac{v_{2}^{2}}{2}\biggl(1-\frac{A_{2}^{2}}{A_{1}^{2}}\biggr),
+    \]
+  ou seja, 
+    \[
+      v_{2}^{2} = \frac{2g\Delta y}{1-\frac{A_{2}^{2}}{A_{1}^{2}}} \Rightarrow v_{2} = \sqrt[]{\frac{2g\Delta y}{1-\frac{A_{2}^{2}}{A_{1}^{2}}}}.
+    \]
+\end{example}
+\subsection{Tubo de Venturi}
+  O tubo de Venturi é um aparato para medir a velocidade de um certo fluído (recomendo olhar uma imagem no Google!), baseado no princípio de Bernoulli.
+
+Ele consiste de três seções principais, uma de entrada, uma de ``garganta'' - um caminho estreito ligando a primeira e a terceira seção, e a terceira, a seção de saída.
+Conecta-se a garganta e a primeira seção, além da abertura delas, com uma coluna de líquidos em formato de U.
+
+Dado que a área das seções um e três é \(A_{1}\), a pressão é \(p_{1}\), a densidade é \(\rho_{f}\)
+e a velocidade é \(v_{1}\) e que, na garganta, \(A_{2}, v_{2}, p_{2}\) são os valores respectivos, 
+temos duas equações descrevendo este sistema, \hyperlink{bernoulli}{Bernoulli}
+e \(A_{1}v_{1} = A_{2}v_{2}.\) Através de ambas, obtemos 
+\begin{align*}
+  &p_{1}+\frac{1}{2}\rho_{f}v_{1}^{2} = p_{2} + \frac{1}{2}\rho_{f}v_{2}^{2}\\
+  &\frac{1}{2}\rho_{f}(v_{1}^{2}-v_{2}^{2}) = p_{2}-p_{1}\\
+  \Longrightarrow &\frac{1}{2}\rho_{f}\biggl(1-\frac{A_{1}^{2}}{A_{2}^{2}}\biggr)v_{1}^{2} = p_{2}-p_{1}\\
+  \Longleftrightarrow &\frac{1}{2}\rho_{f} \biggl(\frac{A_{1}^{2}}{A_{2}^{2}}-1\biggr)v_{1}^{2} = p_{1}-p_{2}.
+\end{align*}
+  Sendo \(\rho_{L}\) a densidade do líquido dentro do tubo em U e h a diferença da altura das pontas do líquido, aplicamos Bernoulli a ele e à seção 1, tal que 
+    \[
+      p_{1}+\rho_{F}gh = p_{2}+\rho_{L}gh \Rightarrow p_{1}-p_{2} = gh(\rho_{L}-\rho_{f}).
+    \]
+  Chamando de \(r = \frac{A_{1}}{A_{2}}\) e juntando as duas equações, 
+    \[
+      \frac{1}{2}\rho_{f}(r^{2}-1)v_{1}^{2} = gh(\rho_{L}-\rho_{f}).
+    \]
+  Portanto, 
+    \[
+      v_{1}^{2} = \frac{2gh(\rho_{L}-\rho _{f})}{(r^{2}-1)\rho_{f}}.
+    \]
+\subsection{Tubo de Pitot}
+  O tubo de Pitot é um instrumento utilizado para medir a velocidade de um fluido
+em um ponto específico de um duto ou fluxo livre. Ele foi nomeado em homenagem
+ao engenheiro francês Henri Pitot, que o introduziu no início do século XVIII. 
+O tubo de Pitot é amplamente utilizado em aplicações aeronáuticas para medir a 
+velocidade do ar em relação a aeronaves, mas também tem aplicações em outros
+campos da engenharia.
+
+  Ele é composto por um tubo externo chamado tubo estático e um tubo interno
+chamado tubo de impacto ou tubo dinâmico. A extremidade aberta do tubo interno
+é direcionada diretamente para o fluxo do fluido, enquanto as aberturas laterais
+do tubo externo medem a pressão estática do fluido. 
+
+  Quando o fluido atinge a extremidade aberta do tubo de impacto, ele é trazido
+ao repouso (velocidade zero). A pressão medida neste ponto é chamada de pressão 
+de impacto ou pressão total, denotada por \(p_{1}\). As aberturas laterais do tubo estático medem a pressão
+estática do fluido, denotada por \(p_{2}\). A diferença entre a pressão de impacto e a pressão estática é chamada
+de pressão dinâmica, e está diretamente relacionada à velocidade do fluido. Para medir a velocidade
+do fluído, utiliza-se a equação de Bernoulli: 
+  \[
+    p_{1} + \underbrace{\frac{1}{2}\rho v_{1}^{2}}_{0} = p_{2} + \frac{1}{2}\rho v_{2}^{2}.
+  \]
+  Assim,
+ \begin{align*}
+   &p_{1}-p_{2} = \frac{1}{2}\rho_{f}v_{2}^{2}\\
+   &\rho_{L}gh = \frac{1}{2}\rho_{f}v_{2}^{2}\\
+   &v_{2} = \sqrt[]{\frac{2\rho_{L}gh}{\rho_{f}}}.
+ \end{align*}
+
 \end{document}
