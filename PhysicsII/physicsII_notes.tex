@@ -91,7 +91,7 @@ Caso julgue necessário, contatar: renan.wenzel.rw@gmail.com}
 
  \section{Aula 00 - 07/08/2023}
    Avisos sobre o curso (Ler e baixar o pdf no e-disciplinas!!!!); 
-
+  
 \section{Aula 01 - 09/08/2023}
 \subsection{Motivações}
 \begin{itemize}
@@ -1640,5 +1640,383 @@ do fluído, utiliza-se a equação de Bernoulli:
    &\rho_{L}gh = \frac{1}{2}\rho_{f}v_{2}^{2}\\
    &v_{2} = \sqrt[]{\frac{2\rho_{L}gh}{\rho_{f}}}.
  \end{align*}
+\newpage
 
+\section{Aula 16 - 27/09/2023}
+\subsection{Motivações}
+ \begin{itemize}
+   \item Oscilador Harmônico;
+   \item Sistema massa-mola;
+   \item Amplitude, frequência e fase.
+ \end{itemize}
+\subsection{Oscilador Harmônico (OH)!}
+  Numa situação de movimento harmônico simples, a aceleração e a força resultante são
+proporcionais e de sentidos opostos ao deslocamento a partir da posição de equilíbrio.
+Em outras palavras, \(F = -kx\), ou seja, 
+  \[
+    m\frac{d^{2}x}{dt^{2}}=-kx \Rightarrow \frac{d^{2}x}{dt^{2}}=-\frac{k}{m}x,
+  \]
+o que é uma EDO de segunda ordem da variável x. Existem formas e métodos de lidar com elas,
+formando uma área inteira da matemática. Para esta equação em específico, as soluções possíveis são 
+  \[
+    x(t)=\sin^{}{\biggl(\sqrt[]{\frac{k}{m}}t\biggr)} \quad\&\quad x(t)=\cos^{}{\biggl(\sqrt[]{\frac{k}{m}}t\biggr)} 
+  \]
+  Em geral, a função posição de um sistema de oscilador harmônico é descrita por \(x(t) = A\cos^{}{(\omega t + \delta )}.\)
+Chama-se A de amplitude, \(\omega \) de frequência e \(\delta \) de fase. Derivando-a, obtemos velocidade 
+e aceleração: 
+  \[
+    v(t) = -A\omega \sin^{}{(\omega t + \delta )}\quad a(t) = -A\omega^{2}\cos^{}{(\omega t + \delta )}
+  \]
+  Utilizando a relação de antes para frequência, \(\omega = 2\pi f = \frac{2\pi }{T}\), podemos
+isolar em função do período a fim de obter o período do oscilador harmônico: 
+  \[
+    T = 2\pi \sqrt[]{\frac{M}{k}}.
+  \]
+  Para conseguirmos informações sobre a fase do sistema, calculamos a posição no momento t = 0, tal que
+ \(x(0) = A\cos^{}{(\omega 0 + \delta )} = A\cos^{}{(\delta )}\), ou seja, \(\cos^{}{(\delta )}=\frac{x(0)}{A}\)
+ \begin{example}
+  Dado que \(\omega = 8 rad/s\) e que, em \(t=0\), temos as informações 
+    \[
+       \left.\begin{array}{ll}
+         x=4cm\\
+         v_{x} = 25 cm/s
+     \end{array}\right\}
+    \] 
+  encontre a amplitude do sistema de oscilações e a equação que descreve o sistema.
+
+  Com efeito, como \(x = A \cos{(\omega t + \delta )}\), podemos utilizar este ponto de partida. Note que 
+    \[
+      \tan{(\delta )} = \frac{-V_{0}}{\omega x_{0}} = \frac{-25}{32} \Rightarrow \delta \approx -0.66.
+    \]
+  Assim, \(A = \frac{x_{0}}{\cos{(\delta )}}\approx 5.1cm\). Portanto, \(x = 5.1\cos{(\omega t - 0.66)}.\)
+ \end{example}
+ \begin{example}
+  Dado que um bloco está preso a uma mola, considere \(m=2kg\) a massa dele, \(k = 19.6\frac{N}{m}\) e que, inicialmente,
+ele está em \(x_{0} = 5cm\). Encontre a aceleração e velocidade máximas dele.
+
+ Começamos observando que \(\omega^{2} = \frac{k}{m} = \frac{19.6}{2} = 98,\) ou seja, \(\omega \approx 9.9 \frac{rad}{s}\).
+A partir disso, encontramos a frequência e, consequentemente, o período 
+  \[
+    f = \frac{\omega }{2\pi }\approx 1.58Hz \Rightarrow T\approx 0.63s.
+  \]
+  A equação que descreve esse oscilador é \(x(t) = 5\cos{(9.9t)}\), donde tiramos que a velocidade do sistema é descrita por 
+  \[
+    v = -9.9\times 5\sin{(9.9t)}.
+  \]
+  Como a função seno é limitada por 1, fica fácil de encontrar o valor máximo da velocidade: 
+  \[
+    |v_{max}| = 49.5 \frac{cm}{s}.
+  \]
+  Analogamente, a aceleração será descrita por 
+  \[
+    a = -(9.9)^{2}\times 5\cos{(9.9t)}
+  \]
+  e o mesmo raciocínio mostra que 
+  \[
+    |a_{max}| = (9.9)^{2}\times 5 \frac{cm}{s}.
+  \]
+ \end{example}
+\begin{example}
+  Num sistema de movimento circular uniforme, as equações que descrevem o movimento da partícula no instante t são 
+    \[
+       \left\{\begin{array}{ll}
+          x(t) = R\cos{(\omega t + \delta )}\\
+          y(t) = R\sin{(\omega t + \delta )}
+        \end{array}\right.
+    \] 
+tal que o movimento vetorial dele será dado pela combinação de posição, velocidade e aceleração 
+  \[
+     \left\{\begin{array}{ll}
+        \vec{R}(t) = R\cos{(\omega t + \delta )}\hat{i} + R\sin{(\omega t + \delta )}\hat{j}\\
+        \vec{v}(t) = -R\omega \sin{(\omega t + \delta )}\hat{i} + \omega R\cos{(\omega t + \delta )}\hat{j}\\
+        \vec{a}(t) = -R\omega ^{2}\cos{(\omega t + \delta )}\hat{i} - \omega ^{2}R\sin{(\omega t + \delta )}\hat{j}.
+      \end{array}\right.
+  \]
+  Disto, faz sentido falar sobre componente de oscilação nos eixos x e y, como 
+    \[
+       \left\{\begin{array}{ll}
+          x = A_{x}\cos{(\omega_{x}t + \delta )}\\
+          y = A_{y}\cos{(\omega_{y}t)}
+        \end{array}\right.
+    \]
+\end{example}
+\subsection{Energia Mecânica no OH}
+  Dado um sistema massa mola, sendo que a velocidade angular é \(\omega \), a amplitude da oscilação é A e a constante da mola é K, o sistema pode ser 
+descrito, no quesito posição, por 
+  \[
+    x(t) = A\cos{(\omega t + \delta )}
+  \]
+  Quanto às energias, temos 
+  \[
+    U = \frac{1}{2}kx^{2} = \frac{1}{2}A^{2}\cos^{2}{(\omega t + \delta )}\quad\&\quad \mathbb{K} = \frac{1}{2}mv^{2} = \frac{1}{2}A^{2}\omega ^{2}\sin^{2}{(\omega t+\delta )}
+  \]
+  Sendo que a soma delas é a energia mecânica do sistema:
+    \[
+      E_{mec} = U + \mathbb{K} = \frac{1}{2}A^{2}\cos^{2}{(\omega t + \delta )} + \frac{1}{2}A^{2}\omega ^{2}\sin^{2}{(\omega t+\delta )}
+    \]
+  Como \(\omega^{2} = \frac{k}{m},\) vale 
+    \[
+      E_{mec} = \frac{1}{2}A^{2}k\sin^{2}{(\omega t + \delta )} + \frac{1}{2}kA^{2}\cos^{2}{(\omega t + \delta )} = \frac{1}{2}kA^{2}\biggl[\cos^{2}{(\omega t+\delta )} + \sin^{2}{(\omega t + \delta )}\biggr] = \frac{1}{2}kA^{2}
+    \]
+\newpage 
+
+\section{Aula 17 - 28/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Continuação de Energia;
+  \item Massa-Mola vertical;
+  \item Pêndulo Simples.
+\end{itemize}
+\subsection{Continuando Energias}
+  Utilizando o que vimos na última aula, também podemos encontrar o valor médio da Energia Cinética: 
+    \[
+      \left< \mathbb{K} \right> = \frac{1}{T}\int_{t}^{t+T}\frac{1}{2}KA^{2}\sin^{2}{(\omega t'+\delta )}dt'
+    \] 
+Como \(\left< \mathbb{K} \right> = \left< U \right>,\) já que a variação de seno e a de cosseno é a mesma, segue que \(\left< \mathbb{K} \right> = \frac{E_{mec}}{2}\).
+\begin{example}
+  Considere um sistema massa mola em que há uma massa \(m=3kg, A = 4cm\) e o período é de \(T=2s\). Encontre a energia mecânica, a velocidade máxima e a posição na qual
+a velocidade do corpo é metade da velocidade máxima.
+
+  Começamos observando a relação que nos fornece o valor da constante de mola k: 
+  \[
+    \omega ^{2} = \frac{k}{m} \Rightarrow \biggl(\frac{2\pi }{T}\biggr)^{2} = \frac{k}{m} \Rightarrow k = m \biggl(\frac{2\pi }{T}\biggr)^{2}
+  \]
+a partir disso, a energia mecânica sai como 
+  \[
+    E_{mec} = \frac{1}{2}kA^{2} = \frac{1}{2}m \biggl(\frac{2\pi }{T}\biggr)^{2}A^{2}\approx 2.4 10^{-2}J
+  \]
+A velocidade máxima de um sistema isolado é atingido quando a energia mecânica do sistema é composta apenas por cinética, ou seja, 
+  \[
+    \frac{1}{2}mv_{max}^{2} = E_{mec}\approx 0.13\frac{m}{s}.
+  \]
+  Finalmente, para encontrar o x desejado, teremos 
+  \[
+    E_{mec} = \frac{1}{2}mv^{2} + \frac{1}{2}kx^{2} = \frac{1}{2}kA^{2},
+  \]
+  do que segue que 
+ \begin{align*}
+   &\frac{1}{2}m \frac{v_{max}^{2}}{4} + \frac{1}{2}kx^{2} = \frac{1}{2} kA^{2} = \frac{1}{2}mv_{max}^{2}\\
+   &\frac{1}{2}kx^{2}=\frac{1}{2}mv_{max}^{2}-\frac{1}{2}m \frac{v_{max}^{2}}{4}\\
+   \Rightarrow &\frac{1}{2}kx^{2} = \frac{1}{2}mv_{max}^{2}\frac{3}{4} \Rightarrow x^{2} = \frac{3}{4}\frac{m}{k}v_{max}^{2}\\
+               & x\approx\pm 3.5cm 
+ \end{align*}
+\end{example}
+\subsection{Sistemas Massa Mola Vertical}
+
+  Considere uma mola presa a um teto e atrelada a um bloco de massa m na sua outra ponta. Ao soltá-la, o bloco
+se desloca uma quantidade \(y_{0}\) por conta da gravidade e puxamos este bloco por uma quantidade \(y'\), totalizando
+uma distensão da mola em \(y = y_{0}+y'.\) A equação deste sistema, no equilíbrio, é dada por 
+  \[
+    m \frac{d^{2}y}{dt^{2}} = -ky - mg = -ky_{0}-ky'+mg = - ky',
+  \]
+ou seja, temos uma EDO da forma 
+  \[
+    m \frac{d^{2}y}{dt^{2}} = -ky'.
+  \]
+Porém, note que, de \(y=y_{0} + y',\) temos 
+  \[
+    \frac{dy}{dt} = c + \frac{dy'}{dt} \Rightarrow \frac{d^{2}y}{dt^{2}} = \frac{d^{2}y'}{dt^{2}}.
+  \]
+Logo, nossa equação é a mesma que a do oscilador harmônico:
+  \[
+    \frac{d^{2}y'}{dt^{2}} = -\frac{k}{m}y'.
+  \]
+\subsection{Pêndulo Simples}
+  Faça uma corda de tamanho L, presa ao teto e com uma massa na ponta, oscilar após puxar essa massa em um ângulo \(\theta \).
+Caso \(s\) denote o deslocamento com relação ao ponto de equilíbrio, então segue que 
+  \[
+    m \frac{d^{2}s}{dt^{2}} = -mg\sin^{}{(\theta )}.
+  \]
+Como \(s = L\theta \), vale que 
+  \[
+    \frac{d^{2}\theta }{dt^{2}}=-\frac{g}{L}\sin^{}{(\theta )}.
+  \]
+  Para pequenas oscilações (\(\theta < 15^{\circ})\), nas quais \(\sin^{}{(\theta )}\approx \theta \), obtemos 
+\[
+  \frac{d^{2}\theta }{dt^{2}} = -\frac{g}{L}\theta .
+\]
+\newpage
+
+\section{Aula 18 - 02/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Continuando o Pêndulo Simples;
+  \item Outros tipos de pêndulo;
+  \item Caminhadas.
+\end{itemize}
+  Começamos por relembrar o conteúdo prévio:
+  \begin{quote}``Faça uma corda de tamanho L, presa ao teto e com uma massa na ponta, oscilar após puxar essa massa em um ângulo \(\theta \).
+Caso \(s\) denote o deslocamento com relação ao ponto de equilíbrio, então segue que 
+  \[
+    m \frac{d^{2}s}{dt^{2}} = -mg\sin^{}{(\theta )}.
+  \]
+Como \(s = L\theta \), vale que 
+  \[
+    \frac{d^{2}\theta }{dt^{2}}=-\frac{g}{L}\sin^{}{(\theta )}.
+  \]
+  Para pequenas oscilações (\(\theta < 15^{\circ})\), nas quais \(\sin^{}{(\theta )}\approx \theta \), obtemos 
+\[
+  \frac{d^{2}\theta }{dt^{2}} = -\frac{g}{L}\theta .''
+\]
+\end{quote}
+  A partir disto, como o movimento harmônico é descrito por 
+    \[
+      \frac{d^{2}x}{dt^{2}}=-\omega^{2}x,
+    \]
+  segue que, no pêndulo, \(\omega^{2}=\frac{g}{l},\) ou seja, \(\omega = \sqrt[]{\frac{g}{l}}.\)
+Em particular, isso permite com que calculemos o \textbf{período} do pêndulo: 
+  \[
+    \frac{2\pi }{T} = \sqrt[]{\frac{g}{l}} \Rightarrow T = 2\pi \sqrt[]{\frac{l}{g}}.
+  \]
+
+  Agora, vamos resolver o pêndulo utilizando energia. Começamos por notar que a energia mecânica do sistema é dada por 
+    \[
+      E_{mec} = \frac{1}{2}mv^{2} + mgl(1-\cos^{}{(\theta )}
+    \]
+  Vamos usar que, para ângulos pequenos, \(\cos^{}{(\theta )}\approx 1-\frac{\theta ^{2}}{2} \), chegamos em
+   \[
+      E_{mec} = \frac{1}{2}mv^{2}+\frac{mgl\theta ^{2}}{2}.  
+   \]
+   Para \(v=\frac{ds}{dt} = l\dot \theta ,\) reescrevemo a equação acima como 
+     \[
+       E_{mec} = \frac{1}{2}ml^{2}\dot\theta ^{2} + \frac{mgl}{2}\theta^{2} = \frac{1}{2}m'\theta ^{2} + \frac{1}{2}k'\theta ^{2},
+     \]
+  ou seja, encontramos uma equação análoga à da mola, o que nos permite calcular o valor da velocidade angular como \(\omega^{2}=\frac{k'}{m} = \frac{g}{l}.\)
+\subsection{Pêndulo de Torção}
+  Um pêndulo de torção é um no qual o peso preso à ponta é um disco em movimento rotacional. Utilizando as relações de torque e momento de inércia, isto é, 
+    \[
+      \tau = -k\theta, \quad \tau = I\alpha, \Rightarrow -k\theta = I \frac{d^{2}\theta }{dt^{2}},
+    \]
+  tiramos disso que 
+    \[
+      \frac{d^{2}\theta }{dt^{2}} = - \frac{k}{I}\theta \Rightarrow \omega^{2} = \frac{k}{I}.
+    \]
+\subsection{Pêndulo físico}
+  Para um corpo qualquer atuando como pêndulo, dado que seu centro de massa é cm, sofrendo um peso \(mg\), se ele for segurado por um ponto que está a uma distância
+D desse centro de massa tal que o ângulo com o eixo vertical é \(\theta \) e seu momento de inércia é I, segue que 
+  \[
+    \tau  = -mgD\sin^{}{(\theta )}.
+  \]
+  Além disso, como \(\tau = I \frac{d^{2}\theta }{dt^{2}},\) juntamos as duas informações a fim de obter 
+    \[
+      -mgD\sin^{}{(\theta )} = I \frac{d^{2}\theta }{dt^{2}}.
+    \]
+  Com a aproximação de pequenos ângulos de \(\sin^{}{(\theta )}\approx \theta \), 
+    \[
+      \frac{d^{2}\theta }{dt^{2}} = -\frac{mgD}{I}\theta \Rightarrow \omega^{2}= \frac{mgD}{I}.
+    \]
+\subsection{Caminhar}
+\paragraph{} Quando caminhamos, o movimento antagonista das pernas funciona como um pêndulo. A partir disso, pode-se imaginar que caminhar próximo
+a uma ``frequência natural'' pode ser mais confortável. Vamos tentar descrever esse sistema.
+
+  Considere que as pernas são barras uniformes com centros de massa CM, tamanho l, massa m e momento de inércia I. Considere
+que o ponto pivô está a uma distância \(\frac{l}{2}\) do centro de massa. Então, 
+  \[
+    \frac{2\pi }{T} = \sqrt[]{\frac{mgD}{I}} \Rightarrow 2\pi \sqrt[]{\frac{I}{mgD}}.
+  \]
+Como \(I = \frac{1}{3}ml^{2}\) e \(D = \frac{l}{2},\) o período que encontramos é 
+  \[
+    2\pi \sqrt[]{\frac{2ml^{2}}{3mgl}} = 2\pi \sqrt[]{\frac{2l}{3g}}
+  \]
+  Curiosamente, descobrimos experimentalmente que, para humanos, 5 períodos vale 6.7s. No entanto,
+calculando pelo modelo, encontra-se \(5T=7.8s,\) que é um pouco maior que o dado empírico. Isso dá-se 
+devido ao fato de que as pernas humanas não são realmente uniformes - a massa da coxa é maior que do joelho.
+  
+  Deixando de lado o contexto da caminhada, considere simplesmente uma barra (não uma perna) como antes. Desta vez,
+tome um ponto a uma distância x qualquer do centro de massa. Vamos calcular o período dele.
+Usualmente, o período é dado por 
+  \[
+    T = 2\pi \sqrt[]{\frac{I}{mgD}} 
+  \]
+que, para o nosso caso, torna-se 
+  \[
+    T = 2\pi \sqrt[]{\frac{I_{cm}+mx^{2}}{mgx}}
+  \]
+Utilizando que \(I_{cm}= \frac{1}{12}ml^{2},\) 
+  \[
+    T = 2\pi \sqrt[]{\frac{1}{gx}\biggl[\frac{1}{12}l^{2}+x^{2}\biggr]} 
+  \]
+Analisando o comportamento dessa função em extremos, deduz-se que ela deve possuir um mínimo. Vamos buscá-lo.
+Coloque \(z = \frac{1}{x}\biggl(\frac{1}{12}l^{2}+x^{2},\biggr)\) tal que 
+  \[
+    T = 2\pi \sqrt[]{\frac{z}{g}}.
+  \]
+  Então, \(\frac{dT}{dx}=0\). Pela Regra da Cadeia, \(\frac{dT}{dx} = \frac{dT}{dz}\frac{dZ}{dx} = 0\), o que equivale a 
+  \[
+    \frac{1}{\sqrt[]{z}}\biggl(-\frac{1}{12}\frac{l^{2}}{x^{2}}+1\biggr) = 0,
+  \]
+ em que as constantes sumiram porque cancelamos elas com 0. Assim, como z não pode zerar, a única forma desse sistemas ser verdade é que 
+  \[
+    -\frac{1}{12}\frac{l^{2}}{x^{2}}+1 = 0 \Rightarrow 1 = \frac{l^{2}}{12x^{2}}.
+  \]
+\subsection{Oscilador Harmônico Amortecido}
+  O oscilador harmônico é uma idealização da natureza. Nele, não há perdas de energia e ele essencialmente
+oscila para sempre. Para uma simulação mais realista do mundo, utilizamos o \textbf{Oscilador Harmônico Amortecido}.
+
+  Considere uma mola presa a um telhado com constante elástica k e com uma massa m presa à sua ponta. Além disso, suponha que
+esse sistema está imerso em um fluído com viscosidade. Para descrever esse sistema, há uma equação diferencial 
+  \[
+    m \frac{d^{2}x}{dt^{2}} = -kx - b \frac{dx}{dt}.
+  \]
+A energia do sistema, inicialmente, é dada por 
+  \[
+    E = \frac{1}{2}kA^{2}.
+  \]
+  Ao tratar de atrito, vimos que 
+  \[
+   \frac{dE}{dt} = - P = - Fv, 
+  \]
+e que isto é proporcional ao quadrado da velocidade. Analogamente, no caso do pêndulo, a velocidade é proporcional à amplitude, pois x 
+é proporcional a ela. Assim, 
+  \[
+    \frac{dE}{dt}\propto -A^{2} \Rightarrow \frac{dE}{dt}\propto -E.
+  \]
+  Conhecemos uma função cuja derivada é proporcional a ela mesma - a exponencial. Com isso,  
+  \[
+    E = E_{0} e^{\frac{-t}{\tau }}
+  \]
+e 
+  \[
+   A = A_{0} e^{\frac{-t}{2\tau }}.
+  \]
+  Feito isso, podemos propor uma solução para o oscilador harmônico:
+  \[
+    x(t) = A_{0}e^{-\gamma t}\cos^{}{(\omega t + \delta )}.
+  \]
+  Confiramos a solução. De fato, derivando com relação a t,
+ \begin{align*}
+   &\frac{dx}{dt} = -A_{0}\gamma e^{-\gamma t}\cos^{}{(\omega t + \delta )}-A_{0}\omega e^{-\gamma t}\sin^{}{(\omega t + \delta )}\\
+   &\frac{d^{2}x}{dt^{2}} = A_{0}\gamma ^{2}e^{-\gamma t}\cos^{}{(\omega t + \delta )} + A_{0}\gamma \omega e^{-\gamma t}\sin^{}{(\omega t + \delta )}\\
+   &+A_{0}\gamma\omega e^{-\gamma t}\sin^{}{(\omega t+\delta )}-A_{0}\omega ^{2}e^{-\gamma t}\cos^{}{(\omega t + \delta )}.
+ \end{align*}
+
+Para facilitar, vamos coletar os termos com base em cosseno e seno na equação original.
+
+\textbf{\underline{Termos com Cosseno:}}
+\paragraph{}  Manipulando algebricamente - cancelando os \(A_{0}\) e os cossenos com exponenciais - obtemos 
+  \[
+    m\gamma ^{2} - m\omega^{2} = -k + b\gamma 
+  \]
+\newpage
+\textbf{\underline{Termos com Seno:}}
+\paragraph{}  Manipulando algebricamente - cancelando os \(A_{0}\) e os cossenos com exponenciais - obtemos 
+  \[
+    m\gamma \omega  + m\omega \gamma  = b\omega \Rightarrow 2m\gamma  = b \Rightarrow \gamma = \frac{b}{2m}
+  \]
+
+Utilizando essas duas coisas, a equação torna-se 
+  \[
+    m\gamma ^{2} - b\gamma + k = m\omega ^{2} \Rightarrow \omega ^{2} = \gamma ^{2}-\frac{b\gamma }{m}+\frac{k}{m}\omega_{0}^{2}.
+  \]
+Com isso, encontramos o valor de \(\omega\) - supondo que \(\frac{b}{2m\omega_{0}} <<1\):
+\begin{align*}
+  &\omega ^{2} = \omega_{0}^{2} + \gamma ^{2}\biggl(1 - \frac{b}{m\gamma }\biggr)\\
+  &\omega ^{2} = \omega_{0}^{2} + \biggl(\frac{b}{2m}\biggr)^{2}\biggl(1-\frac{b}{m \frac{b}{2m}}\biggr)\\
+  &\omega ^{2} = \omega_{0}^{2} - \biggl(\frac{b}{2m}\biggr)^{2}\\
+  &\omega  = \omega_{0}\sqrt[]{1-\biggl(\frac{b}{2m\omega_{0}}\biggr)^{2}}.
+\end{align*}
+  Agora que temos tanto \(\omega \) quanto \(\gamma \), a equação original torna-se 
+    \[
+      \boxed{x(t) = A_{0}e^{-\frac{b}{2m}t}\cos^{}{\biggl(t\omega_{0}\sqrt[]{1-\biggl(\frac{b}{2m\omega_{0}}\biggr)^{2}}+\delta \biggr)}}
+    \]
 \end{document}
