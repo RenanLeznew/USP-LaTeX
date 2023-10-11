@@ -13,6 +13,9 @@
 \usepackage{hyperref}
 \usepackage{lastpage}
 \usepackage{mathtools}
+\usepackage[T1]{fontenc}
+\usepackage[sfdefault,scaled=.85]{FiraSans}
+\usepackage{newtxsf}
 \setcounter{section}{-1}
 
 \pagestyle{fancy}
@@ -2019,4 +2022,403 @@ Com isso, encontramos o valor de \(\omega\) - supondo que \(\frac{b}{2m\omega_{0
     \[
       \boxed{x(t) = A_{0}e^{-\frac{b}{2m}t}\cos^{}{\biggl(t\omega_{0}\sqrt[]{1-\biggl(\frac{b}{2m\omega_{0}}\biggr)^{2}}+\delta \biggr)}}
     \]
+\newpage
+
+\section{Aula 19 - 04/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Tipos de Osciladores Harmônicos Amortecidos;
+  \item Oscilador Harmônico Subamortecido;
+  \item Oscilador Harmônico Amortecido Forçado.
+\end{itemize}
+\subsection{Oscilador Harmônico Amortecido}
+  Olhando para o caso estudado na última aula, chegamos à conclusão de que, num sistema 
+de oscilador harmônico amortecido, a velocidade angular é dada por 
+  \[
+    \omega  = \omega_{0} \sqrt[]{1-\biggl(\frac{b}{2m\omega_{0}}\biggr)^{2}}.
+  \]
+
+  Em particular, se o termo ao quadrado é muito menor que 1, pode-se aproximar \(\omega \) puramente
+por \(\omega_{0}\). Este tipo de oscilador é chamado ``\textit{Oscilador Harmônico Subamortecido} ''. 
+Novas ferramentas como geladeiras e ares-condicionados implementam esse tipo de oscilador harmônico por meio 
+dos \textit{inverters}.
+
+  Caso \(\frac{b}{2m\omega_{0}} = 1,\) ou seja, \(b = 2m\omega_{0}\), dizemos que o oscilador é um 
+``\textit{Oscilador Harmônico Criticamente Amortecido}'', e denotaremos esse b específico por \(b_{c}.\) 
+Um sistema que funciona dessa forma é o amortecedor de um carro.
+  
+  O caso restante é quando \(\frac{b}{2m\omega_{0}} > 1\), mas este caso \textbf{NÃO CAI NA PROVA}. Nestes casos,
+o valor de \(\omega \) é complexo. Para lidar com ele, recordemos a fórmula de Euler: 
+  \[
+    e^{i \theta } = \cos^{}{(\theta )} + i\sin^{}{(\theta )},
+  \]
+donde segue que 
+  \[
+    \cos^{}{(\theta )} = \frac{e^{i\theta }+e^{-i\theta }}{2}\quad\&\quad \sin^{}{(\theta )} = \frac{e^{i\theta }-e^{-i\theta }}{2i}.
+  \]
+  Assim, \(\omega = \pm \lambda i,\) e o caso é conhecido como ``\textit{Oscilador Harmônico Superamortecido}''.
+
+  Nosso enfoque será no caso subamortecido. Nestes casos, \(A(t) = A_{0}e^{-\gamma t}.\) Como 
+a energia mecânica é dada por \(E_{mec} = \frac{1}{2}kA^{2},\) colocando \(k=m\omega_{0}^{2}\), temos 
+  \[
+    E_{mec} = \frac{1}{2}m\omega_{0}^{2}A_{0}^{2}e^{-2\gamma t}.
+  \]
+Chamando de \(E_{0} = \frac{1}{2}m\omega_{0}^{2}A_{0}^{2},\) a energia mecânica torna-se 
+  \[
+    E_{mec} = E_{0}e^{-\frac{b}{m}t} = E_{0}e^{-\frac{t}{\tau }}.
+  \]
+  Chamamos este \(\tau \) de \textit{tempo característico}. Derivando esta energia mecânica em relação ao tempo, 
+  \[
+    \frac{dE_{mec}}{dt} = -\frac{1}{\tau }E_{0} e^{-\frac{t}{\tau }} = -\frac{E}{\tau }.
+  \]
+  Equivalentemente, 
+  \[
+    \frac{dE}{E} = -\frac{dt}{\tau }.
+  \]
+  Antes de prosseguir, definimos o \textit{fator de qualidade} como \(Q = \omega_{0}\tau \). Para
+oscilações muito pequenas, podemos escrever 
+  \[
+    \biggl(\frac{\Delta E}{E}\biggr)_{1\text{período}} = -\frac{T}{\tau } = -\frac{2\pi }{\omega_{0}\tau } = -\frac{2\pi }{Q}.
+  \]
+  Ainda mais, note que 
+  \[
+    \frac{b}{2m\omega_{0}} = \frac{1}{2\tau \omega_{0}} = \frac{1}{2Q}, 
+  \]
+  tal que \(\omega = \omega_{0}\sqrt[]{1 - \frac{1}{4Q^{2}}}\).
+\begin{example}
+  Considere um amortecedor de massa \(m=1100kg\) e frequência \(f = 1Hz\). Qual é o valor de b para que o amortecedor
+seja criticamente amortecido?
+
+  Pelo que vimos, 
+    \[
+      b_{c} = 2m\omega_{0} = 2\times(1100)\times 2\pi \frac{kg}{s}.
+    \]
+\end{example}
+\begin{example}
+  Suponha que uma corda que reproduz a nota Dó/C no piano tem uma frequência \(f = 262Hz\). Ela perde metade
+  da energia em 4 segundos. Qual é o \(\tau \), o Q e o \(\biggl(\frac{\Delta E}{E}\biggr)_{\text{ciclo}}\) do sistema?
+
+  Como houve uma perda de metade da energia, tem-se 
+    \[
+      \frac{E_{0}}{2} = E_{0}e^{-\frac{t}{\tau }},
+    \]
+  donde segue que 
+    \[
+      \ln \biggl(\frac{1}{2}\biggr) = \frac{-t}{\tau } \Rightarrow \tau \approx 5.7s.
+    \]
+    A partir disso, lembrando que \(Q = \omega_{0}\tau  = 2\pi f \tau \), segue que \(Q = 9.5\times 10^{3}.\) Finalmente, 
+      \[
+        \biggl(\frac{\Delta E}{E}\biggr) = \frac{2\pi }{Q} = \frac{1}{f\tau }\approx 6.6\times 10^{-4}.
+      \]
+\end{example}
+\subsection{Oscilador Harmônico Amortecido Forçado}
+  Prenda uma mola com constante elástica k a uma roda que fica subindo e descendo ela. Coloque um corpo de massa m na sua ponta e 
+suponha que está tudo submerso em um líquido. A equação deste sistema é 
+  \[
+    m \frac{d^{2}x}{dt^{2}} + b \frac{dx}{dt} + kx = F_{0}\cos^{}{(\omega t)}.
+  \]
+  Propomos uma solução 
+  \[
+    x(t) = A(\omega ) \cos^{}{(\omega t - \delta )}.
+  \]
+  Derivando essa equação, 
+ \begin{align*}
+   &\dot x = -A\omega \sin^{}{(\omega t - \delta )}\\
+   &\ddot x = -A\omega ^{2}\cos^{}{(\omega t - \delta )}.
+ \end{align*}
+  Expandindo o cosseno, obtemos as seguintes equações
+ \begin{center}
+   \begin{table}[h]
+   \centering
+     \begin{tabular}{| c | c |}
+       \hline 
+       Funções & Expansões\\
+       \hline
+       x & \(A\cos^{}{(\omega t )}\cos^{}{(\delta )} + A \sin^{}{(\omega t)}\sin^{}{(\delta )}\)\\
+       \(\dot x\) & \(-A\omega \sin^{}{(\omega t)}\cos^{}{(\delta )} + A\omega \cos^{}{(\omega t)}\sin^{}{(\delta )}\)\\
+       \(\ddot x\) & \(-A\omega^{2}\cos^{}{(\omega t)}\cos^{}{(\delta )} - A\omega ^{2}\sin^{}{(\omega t)}\sin^{}{(\delta )}\)\\
+       \hline
+     \end{tabular}
+   \end{table}
+ \end{center}
+ 
+ Analisemos separadamente os termos em cosseno e em seno.
+
+ \underline{\textbf{Termos em \(\cos^{}{(\omega t)}\)}}:
+\begin{align*}
+  &-mA\omega ^{2}\cos^{}{(\delta )} + b A\omega \sin^{}{(\delta )} + kA \cos^{}{(\delta )} = F_{0}\\
+  &A\cos^{}{(\delta )}\biggl[-m\omega ^{2} + b \tan^{}{(\delta )} + m\omega_{0}^{2}\biggr] = F_{0}
+\end{align*}
+
+\underline{\textbf{Termos em \(\sin^{}{(\omega t)}\)}}:
+\begin{align*}
+  &-mA\omega ^{2}\sin^{}{(\delta )} - bA\omega\cos^{}{(\delta )} + m\omega_{0}^{2}A\sin^{}{(\delta )} = 0\\
+  &m(\omega_{0}^{2}-\omega ^{2})\sin^{}{(\delta )}=b\omega^{2}\cos^{}{(\delta )}\\
+  &\tan^{}{(\delta )}=\frac{-b\omega}{m(\omega ^{2}-\omega_{0}^{2})} = \frac{b\omega}{m(\omega_{0}^{2}-\omega ^{2})}.
+\end{align*}
+
+Agora, como \(\sin^{2}{(\delta )} + \cos^{2}{(\delta )} = 1\), vale que 
+  \[
+    \biggl(\frac{\sin^{}{(\delta )}}{\cos^{}{(\delta )}}\biggr)^{2} + 1 = \frac{1}{\cos^{2}{(\delta )}} \Rightarrow \cos^{2}{(\delta )} = \frac{1}{1+\tan^{2}{(\delta )}} = \frac{1}{1+\frac{b^{2}\omega ^{2}}{m(\omega_{0}^{2}-\omega ^{2})^{2}}},
+  \]
+ou seja, 
+  \[
+    \cos^{2}{(\delta )} = \frac{m(\omega_{0}^{2}-\omega ^{2})^{2}}{m(\omega_{0}^{2}-\omega ^{2})^{2}+b^{2}\omega ^{2}.}
+  \]
+Disto, encontramos o valor de A usando a separação dos termos em cosseno como sendo 
+  \[
+    A = \frac{F_{0}}{\cos^{}{(\delta )}\biggl[m(\omega_{0}^{2}-\omega ^{2})+\frac{b^{2}\omega ^{2}}{m(\omega_{0}^{2}-\omega ^\{2\})}\biggr]} = \frac{F_{0}}{\frac{m(\omega_{0}^{2}-\omega ^{2})}{\sqrt[]{m(\omega_{0}^{2}-\omega ^{2})^{2}+b^{2}\omega ^{2}}}\biggl[m(\omega_{0}^{2}-\omega ^{2})+\frac{b^{2}\omega ^{2}}{m(\omega_{0}^{2}-\omega ^\{2\})}\biggr]}m(\omega_{0}^{2}-\omega ^{2})
+  \]
+Simplificando e cortando termos, 
+  \[
+    A = \frac{F_{0}}{\biggl[m(\omega_{0}^{2}-\omega ^{2})^{2}+b^{2}\omega ^{2}\biggr]^{\frac{1}{2}}}
+  \]
+\newpage
+
+\section{Aula 19 - 05/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Potência em Osciladores Harmônicos
+  \item Exemplos de Osciladores e Sistemas Harmônicos.
+\end{itemize}
+\subsection{Potência em Osciladores Harmônicos}
+  Como vimos nos casos de sistemas anteriores, é possível associar a cada força uma potência, definida como 
+    \[
+      P = \vec{F}\cdot \vec{v},
+    \]
+ \(\vec{v}\) a velocidade com que o objeto sofrendo a força moverá-se. No caso dos osciladores, já possuímos conhecimento
+de ambas as quantidades, o que leva-nos a calcular a potência para esse caso:
+\begin{align*}
+  P &= \vec{F}\cdot \vec{v} = F_{0}\cos^{}{(\omega t)}[\omega A(\omega )\cos^{}{(\omega t-\delta )}]\\
+    &=F_{0}A\omega \cos^{}{(\omega t)}[\cos^{}{(\omega t)}\cos^{}{(\delta )} + \sin^{}{(\omega t)}\sin^{}{(\delta )}]\\
+  \Rightarrow & \left< P\right> = \frac{F_{0}A\omega \cos^{}{(\delta )}}{2} = \frac{F_{0}^{2}\omega^{2}b}{2[m^{2}(\omega_{0}^{2}-\omega^{2})+b^{2}\omega^{2}]}.
+\end{align*}
+  Com relação a \(\left< P \right>,\) podemos usar que \(b = 2m\gamma \) para calcular 
+    \[
+      \left< P \right> = \frac{F_{0}^{2}}{2}\frac{2m\gamma \omega^{2}}{[m^{2}(\omega_{0}^{2}-\omega^{2}) + 4m^{2}\gamma^{2}\omega^{2}]} = \frac{F_{0}^{2}}{4m\gamma }\frac{(2\gamma \omega )^{2}}{(\omega_{0}^{2}-\omega ^{2})^{2}+4\gamma^{2}\omega^{2}}.
+    \]
+Assim, podemos fazer uma análise de como a média da potência varia com relação a \(\omega \). Começamos notando que 
+  \[
+    \left< P(\omega \pm \Delta \omega ) \right> = \frac{\left< P_{max} \right>}{2},
+  \]
+donde segue que 
+\begin{align*}
+  &\frac{(2\gamma \omega )^{2}}{(\omega_{0}^{2}-\omega ^{2})^{2}+(2\gamma \omega )^{2}} = \frac{1}{2}\\
+  \Rightarrow &2(2\gamma \omega )^{2} = (\omega_{0}^{2}-\omega ^{2})^{2}+(2\gamma \omega )^{2}\\
+  \Rightarrow &(2\gamma \omega )^{2}=(\omega_{0}^{2}-\omega ^{2})^{2}.
+\end{align*}
+Como \(\omega = \omega \pm \Delta \omega \), \(\omega^{2} = \omega_{0}^{2}\biggl(1\pm \frac{\Delta \omega }{\omega_{0}}\biggr)^{2},\) tal que, para \(\frac{\Delta \omega }{\omega_{0}} <<1,\)
+vale \(\omega ^{2} = \omega_{0}^{2}\biggl(1 \pm \frac{2\Delta \omega }{\omega_{0}}\biggr).\) Destarte, juntando isso com a equação de cima,
+ \begin{align*}
+   &(\omega_{0}^{2}-\omega_{0}^{2}\pm 2\Delta \omega \omega_{0})^{2} = (2\gamma \omega_{0})^{2}\\
+   \Rightarrow &\pm 2\Delta \omega \omega_{0} = 2\gamma \omega_{0}\\
+   \Rightarrow &\Delta \omega = \pm\gamma .
+ \end{align*}
+  Sobre \(\gamma \), por sua definição, 
+    \[
+      \gamma = \frac{b}{2m} = \frac{\omega_{0}}{2\frac{m}{b}\omega 00} = \frac{\omega_{0}}{2\tau \omega_{0}} = \frac{\omega_{0}}{2Q},
+    \]
+tal que obtemos a expressão
+  \[
+    \left< P(\omega_{0}) \right> = \frac{F_{0}^{2}2m\gamma \omega_{0}^{2}}{8m^{2}\gamma^{2}\omega_{0}^{2}} = \frac{F_{0}^{2}}{4m\gamma } = \frac{F_{0}^{2}}{4m}\frac{2Q}{\omega_{0}}.
+  \]
+ \begin{example}
+   Considere um sistema em que uma mola, com constante elástica \(k = 600 \frac{N}{m}\), tem atrelada à sua ponta um objeto de massa m=1,5Kg, sofrendo uma força de
+ \(F=0,5N\). Suponha, também, que, num ciclo, \(\biggl(\frac{\Delta E}{E}\biggr)_{ciclo}=0,03\). Quanto vale o fator de qualidade Q, a variação \(\delta \omega ,\) b e a amplitude em \(\omega_{0}\) nesse caso?
+
+  Temos \(\omega_{0}^{2} = \frac{k}{m} \Rightarrow \omega_{0} = 2rad/s\). Além disso, 
+    \[
+      Q = \frac{2\pi }{\biggl(\frac{\Delta E}{E}\biggr)} = 210.      
+    \]
+Assim, obtemos 
+  \[
+    \Delta \omega  = \frac{\omega_{0}}{Q} = 0,096\frac{rad}{s},\quad b = \frac{m\omega_{0}}{Q} = 0,144 Kg\dot{}s,\quad A(\omega_{0}) = \frac{F_{0}}{b\omega_{0}} =17cm.
+  \]
+ \end{example}
+\newpage
+
+\section{Aula 20 - 09/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Ondas;
+  \item Classificação das Ondas;
+  \item A Equação da Onda.
+\end{itemize}
+\subsection{Ondas e Classificações}
+  As ondas fazem transporte de energia e momento. Exemplos delas incluem o som, terremotos,
+ondas d'água e a própria luz, possuindo aplicações em diversas áreas do cotidiano. Estudaremos
+esse fenômeno, desde suas classificações à sua descrição físico-matemática.
+
+  Começando pelas classificações, existem dois tipos principais de ondas - as transversais e as longitudinais.
+A melhor forma de pensar nas transversais é pensando que elas têm um formato de, enquanto que as longitudinais
+aparentam ser um monte de barra vertical que juntam-se e separam-se. Como exemplo
+das ondas transversais, vide o gráfico abaixo:
+
+\begin{center}
+\begin{tikzpicture}
+    \draw[->] (0,0) -- (6,0) node[right] {$x$};
+    \draw[->] (0,-1.5) -- (0,1.5) node[above] {$y$};
+    \draw[scale=0.5,domain=0:10,smooth,variable=\y,shift={(0,0)}] 
+        plot ({\y},{sin(2*\y r)});
+    \node[below] at (3,-1.0) {Ondas Transversais};
+\end{tikzpicture}
+\end{center}
+
+e, para as longitudinais, a seguir está o exemplo:
+
+\begin{center}
+  \begin{tikzpicture}
+ \begin{scope}[z={(70:1)},y={(110:1)},local bounding box=coil] 
+  \draw plot[domain=0:14400,variable=\t,samples=1441,smooth] 
+  ({\t/1200+0.1*pi*sin(\t/20)},{-0.5*sin(\t)},{0.5*cos(\t)}); 
+ \end{scope} 
+ \path (coil.south west) -- (coil.south east) 
+ node[pos=0.25,below]{Compressão} node[pos=0.5,below]{Rarefacão}; 
+ \draw[very thick,red,stealth-stealth] 
+  ([yshift=2mm]coil.north) -- ([yshift=2mm]coil.north east)
+  node[midway,above]{$\lambda$}; 
+\end{tikzpicture} 
+\end{center}
+
+\subsection{A Equação da Onda - Primeiros Passos}
+  Ao analisarmos o gráfico de uma onda, vemos que a posição dela no momento t é dada por 
+  \[
+    x = vt + x'.
+  \]
+Desta forma, \(x' = x - vt\), o que permite-nos escrever uma forma para a função de propagação dela. Quando
+é da esquerda para a direita - ou seja, + x - \(f(x') = f(x-vt)\) e, da direita pra esquerda, -x, é \(f(x') = f(x+vt)\).
+Nosso próximo passo é continuar essa análise a fim de encontrar uma equação que descreverá as ondas, começando pelo exemplo
+mais simples da corda.
+
+ Para que uma corda vibre, ela precisa estar tensionada com tensão \(F_{T}\). Suponha, também, que ela possui densidade de massa \(\mu\).
+Passados t segundos, ela é deformada tal qual passa a parecer uma rampa inclinada. O pedaço que ela estava tem tamanho
+ \(v\Delta t\), enquanto que a altura será \(u\Delta t\), sendo u a velocidade com que ela subiu e v a velocidade da onda.
+Para que ela fosse levantada, uma forçá vertical \(F_{y}\) foi exercida. Junto da tração de antes, a soma dessas duas resulta em uma
+força \(\vec{F} = \vec{F}_{y} + \vec{F}_{T}.\) De forma mais analítica,
+
+\underline{\textbf{Analisando o Sistema em y:}}
+
+  A equação de momento linear no eixo y será 
+    \[
+      F_{y}\Delta t = \Delta p = \Delta mu.
+    \]
+
+Dividindo as duas forças presentes, segue que 
+  \[
+    \frac{F_{y}}{F_{t}} = \frac{\Delta tu}{\Delta tv} = \frac{u}{v}.
+  \]  
+Assim, juntando as duas equações, segue que 
+  \[
+    \frac{\Delta m u}{\Delta t F_{t}} = \frac{u}{v},
+  \]
+ou seja, 
+  \[
+    \frac{\Delta m}{\Delta t F_{t}} = \frac{1}{v}.
+  \]
+Utilizando aproximações \(\Delta m\approx \mu v\Delta t,\) chegamos em 
+  \[
+    \frac{\mu v\Delta t}{\Delta t F_{t}} = \frac{1}{v} \Rightarrow v^{2}=\frac{F_{t}}{\mu} \Rightarrow v = \sqrt[]{\frac{F_{T}}{\mu}}.
+  \]
+\begin{example}
+  Considere uma corda presa à ponta de um telhado e, amarrado a ela, há um peso de \(m=10kg\). Esta corda
+tem comprimento L de 25m e ela sofre uma perturbação na ponta, gerando um pulso a \(20m \) do começo dela. Além disso,
+nesse começo, tem uma lagarta, a \(\Delta x = 2.5cm\) da ponta da corda e movendo-se com \(v'=2.5cm/s\). A massa da
+lagarta é de \(1kg\). Quanto tempo leva para o pulso chegar à lagarta?
+
+  A velocidade do pulso é dada por 
+    \[
+      v = \sqrt[]{\frac{F_{T}}{\mu}}=\sqrt[]{\frac{M_{g}}{\frac{m}{L}}} = \sqrt[]{\frac{10\times 10\times 25}{1}}=50m/s.
+    \]
+Com isso, somos capazes de descobrir o tempo que leva para o pulso alcançar a lagarta como
+    \[
+      \Delta t = \frac{l}{v} = \frac{20}{50} = 0.4s.
+    \]
+O tempo para a lagarta atingir em segurança a borda seria 
+    \[
+      \Delta t' = \frac{\Delta x}{v'} = 1s.
+    \]
+\end{example}
+\subsection{Velocidade do Som}
+  Supondo um gás ideal, no qual PV = NkT, vale que 
+    \[
+      v = \sqrt[]{\frac{B}{\rho }},
+    \]
+em que \(B = \frac{-\Delta P}{\frac{\Delta V}{V}}.\) Assim, 
+  \[
+    v = \sqrt[]{\frac{\gamma RT}{M}},
+  \]
+e, já que \(\gamma \) e R são constantes, essa velocidade só depende da massa e da temperatura do fluído no qual
+o som percorrerá.
+\subsection{Deduzindo a Equação da Onda}
+  Voltando à situação da corda, pegue um pedacinho dela com comprimento \(\Delta x\) e altura \(\Delta y\). Além disso,
+na sua extremidade mais alta, uma força \(\vec{F}_{2}\) faz ângulo \(\theta_{2}\) com o eixo horizontal. Analogamente,
+na extremidade mais baixa, uma força \(\vec{F}_{1}\) faz ângulo \(\theta_{1}\) com a reta horizontal. Suponha que
+ \(\theta_{1}, \theta_{2} << 1\), tal que \(\Delta m = \mu\Delta x.\) Vejamos os movimentos em cada eixo.
+
+ \underline{\textbf{Eixo x:}}
+  
+  Como não há movimento em x, a somatória das forças nesse eixo deve ser nula: 
+    \[
+      \sum\limits_{}^{}F_{x} = 0 \Rightarrow F_{2}\cos^{}{(\theta_{2})} - F_{1}\cos^{}{(\theta_{1})} = 0.
+    \]
+Como os ângulos são muito pequenos, \(\cos^{}{(\theta_{i})} = 1,  i=1, 2\), ou seja,
+  \[
+    F_{1} = F_{2} \Rightarrow F_{1} = F_{2} = F_{T}.
+  \]
+
+  \underline{\textbf{Eixo y:}}
+    
+  Aqui, há movimento, de onde vale a segunda Lei de Newton 
+    \[
+      \sum\limits_{}^{}F_{y} = \Delta m \frac{\partial^{2}y}{\partial t^{2}}.
+    \]
+Do raciocínio inicial, sabemos que 
+\begin{align*}
+  &y_{+} = y(x-vt),\\
+  &y_{-} = y(x+vt).
+\end{align*}
+  
+  Unindo com a parte de x, obtemos a equação 
+  \[
+    F_{T}\sin^{}{(\theta_{2})} - F_{T}\sin^{}{(\theta_{1})} = \Delta m \frac{\partial^{2}{y}}{\partial{t^{2}}}
+  \]
+  Como o ângulo é muito pequeno, \(\sin^{}{(\theta )} = \tan^{}{(\theta )}\). Assim, colocando 
+ \begin{align*}
+   &s_{2} = \tan^{}{(\theta_{2})} = \frac{\partial^{}y}{\partial x^{}}\biggl|_{2}^{}\biggr.\\
+   &s_{1} = \tan^{}{(\theta_{1})} = \frac{\partial^{}y}{\partial x^{}}\biggl|_{1}^{}\biggr.,
+ \end{align*}
+ a equação torna-se 
+ \[
+   F_{T}(s_{2}-s_{1}) = \Delta x\mu \frac{\partial^{2}y}{\partial t^{2}}.
+ \]
+Logo, 
+\begin{align*}
+  &F_{T}\frac{\Delta S}{\Delta x} = \mu \frac{\partial^{2}y}{\partial t^{2}}\\
+  \Rightarrow &\lim_{\Delta x\to 0}\frac{\Delta S}{\Delta x}= \frac{\partial^{}S}{\partial x^{}}=\frac{\partial^{2}y}{\partial x^{2}}\\
+  \Rightarrow &F_{T}\frac{\partial^{2}y}{\partial x^{2}}=\mu \frac{\partial^{2}y}{\partial t^{2}}\\
+  \Rightarrow &\frac{\partial^{2}y}{\partial x^{2}}=\frac{\mu}{F_{T}}\frac{\partial^{2}y}{\partial t^{2}}.
+\end{align*}
+  Portanto, a equação da onda na corda é a seguinte:
+  \[
+    \boxed{\frac{\partial^{2}y}{\partial x^{2}}=\frac{\mu}{F_{T}}\frac{\partial^{2}y}{\partial t^{2}}}
+  \]
+
+  Apesar de termos derivado isso para uma corda, ela vale para todos os tipos de ondas. De fato, para
+ \(y = y(x-vt)\) qualquer, coloque \(\alpha  = x - vt\). Então, 
+\begin{align*}
+  &\frac{\partial^{}y}{\partial x^{}} = \frac{\partial^{}y}{\partial \alpha ^{}}\frac{\partial^{}\alpha }{\partial x^{}} = \frac{\partial^{}y}{\partial \alpha ^{}}\\
+  \Rightarrow & \frac{\partial^{2}y}{\partial x^{2}} = \frac{\partial^{2}y}{\partial \alpha ^{2}}\\
+              & \frac{\partial^{}y}{\partial t^{}}=\frac{\partial^{}y}{\partial \alpha ^{}}\frac{\partial^{}\alpha }{\partial t^{}}=\frac{\partial^{}y}{\partial x^{}}(-v)\\
+  \Rightarrow & \frac{\partial^{2}y}{\partial t^{2}}=v^{2}\frac{\partial^{2}y}{\partial \alpha ^{2}}.
+\end{align*}
+Juntando ambas, obtemos 
+ \begin{align*}
+   &\frac{1}{v^{2}}\frac{\partial^{2}y}{\partial t^{2}}=\frac{\partial^{2}y}{\partial x^{2}}\\
+   \Rightarrow & \frac{\partial^{2}y}{\partial x^{2}}=\frac{1}{v^{2}}\frac{\partial^{2}y}{\partial t^{2}}.
+ \end{align*}
+Portanto, a equação da onda em sua forma geral é dada por 
+  \[
+    \hypertarget{wave_eqn}{\boxed{\frac{\partial^{2}y}{\partial x^{2}}=\frac{1}{v^{2}}\frac{\partial^{2}y}{\partial t^{2}}}}
+  \]
+
 \end{document}

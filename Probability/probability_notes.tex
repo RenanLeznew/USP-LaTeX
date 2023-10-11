@@ -1,5 +1,6 @@
 \documentclass{article}
  \usepackage{amsmath}
+ \usepackage{xcolor}
  \usepackage{amsthm}
  \usepackage{amssymb}
  \usepackage{pgfplots}
@@ -13,6 +14,8 @@
  \usepackage{hyperref}
  \usepackage{lastpage}
  \usepackage{mathtools}
+ \usepackage[light, math]{iwona}
+ \usepackage[T1]{fontenc}
  \setcounter{section}{-1}
 
  \pagestyle{fancy}
@@ -386,5 +389,404 @@ encontrar duas defeituosas, qual é a probabilidade de que a última defeituosa 
       \[
         \mathbb{P}(A|D) = \frac{\mathbb{P}(A\cap D)}{\mathbb{P}(D)} = \frac{\mathbb{P}(D|A)\mathbb{P}(A)}{\mathbb{P}(D)} = \frac{0,01\times 0,4}{0,025} = \frac{0,004}{0,025} = 0,16.
       \]
+\end{example}
+\newpage
+
+\section{Aula 04 - 07/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Noções de Contagens e resultados iniciais;
+  \item Princípio Fundamental da Contagem.
+\end{itemize}
+
+\newpage
+
+\section{Aula 05 - 19/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Variáveis Aleatórias;
+  \item Distribuições discretas;
+  \item Massa de probabilidade.
+\end{itemize}
+\subsection{Observação}
+  A aula 04 foi, na verdade, uma aula sobre contabilidade, que irei adicionar futuramente, pois não consegui copiar ela na hora.
+\subsection{Variáveis aleatórias}
+  Na descrição de um experimento aleatório, é conveniente descrever numericamente os resultados.
+Vimos, ao longo do curso, exemplos de experimentos que já vinham atrelados a números - o tempo de duração
+de uma lâmpada, um número telefônico que chega a uma central, até mesmo os dados e suas faces. No entanto,
+em várias situações, esse tipo de informação não está disponível. Também tivemos exemplos
+dessas situações, tais quais o sexo de um filho que nasceu e o resultado do lançamento de duas moedas.
+Para estes casos, como podemos lidar com eles numericamente? Uma forma natural de fazer
+isso é contar quantas vezes uma coisa aparece.
+\begin{example}
+  Considere uma moeda lançada duas vezes. Seja X a função definida no espaço e que é
+igual ao número de caras nos lançamentos. Vale que:
+\begin{center}
+  \begin{table*}[h!]
+  \caption{Variável Aleatória de Caras}
+  \centering
+    \begin{tabular}{| c | c |}
+      \hline
+      Espaço amostral & Valores de X\\
+      \hline
+      C C & 2\\
+      C \(\overline{C}\) & 1\\
+      \(\overline{C}\) C & 1\\
+      \(\overline{C}\) \(\overline{C}\) & 0\\
+      \hline
+    \end{tabular}
+  \end{table*}
+\end{center}
+  Observa-se desta tabela que a variável aleatória associada ao evento ``moeda caiu cara" assume os valores
+ \(X(CC) = 2, X(C\overline{C})=1, X(\overline{C}C)=1), X(\overline{CC}) = 0.\)
+\end{example}
+\begin{example}
+  Dado um lote de 4 peças, das quais 2 são defeituosas, retiram-se peças até que as duas defeituosas
+sejam retiradas. Coloque como X o número de peças retiradas. Temos:
+\begin{center}
+  \begin{table}[h]
+  \caption{Número de Peças Retiradas}
+  \centering
+    \begin{tabular}{| c | c |}
+      \hline
+      Espaço Amostral & Valores de X\\
+      \hline
+      D D & X(D, D) = 2\\
+      D P D & X(D, P, D) = 3\\
+      P D D & X (P, D, D) = 3\\
+      P P D D & X(P, P, D, D) = 4\\
+      P D P D & X(P, D, P, D) = 4\\
+      D P P D & X(D, P, P, D) = 4\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{center}
+\end{example}
+  Em outras palavras, é interessante associar, a cada ponto do espaço amostral, um número real. Essa associação é
+chamada \textit{variável aleatória}. Formalmente, podemos escrever a seguinte definição:
+\begin{def*}
+  Uma variável aleatória é uma função \(X:\Omega \rightarrow \mathbb{R}\) definida num espaço amostral e que assume valores reais.
+Sua imagem será denotada por \(R_{X}\). \(\square\)
+\end{def*}
+  Também é importante transmitir a noção de finitude, ou de quantidades não contínuas de valores.
+ \begin{def*}
+   As variáveis aleatórias que assumem valores em um conjunto enumerável serão denominadas discretas. Variáveis aleatórias que assumem valores
+num intervalo da reta real serão denominadas contínuas.\(\square\)
+ \end{def*}
+  Os eventos associados a \(\Omega \) são ``relacionados'' a eventos associados com \(R_{X}\) a partir 
+da seguinte definição:
+\begin{def*}
+  Seja o espaço amostral \(\Omega \). Seja X uma variável aleatória com imagem \(R_{X}\). Tome A
+um evento em \(\Omega \) e B um evento em \(R_{X}\). Diremos que os eventos A e B são equivalentes se 
+  \[
+    A = \{\omega \in \Omega : X(\omega )\in B\}.\quad\square
+  \]
+\end{def*}
+\begin{def*}
+  Seja A um evento em \(\Omega \) e B um evento em \(R_{X}\). Definimos a probabilidade de B como
+ \(\mathbb{P}_{X}(B) = \mathbb{P}(A),\) em que \(A = \{\omega \in \Omega : X(\omega )\in B\}.\quad\square\)
+\end{def*}
+  Denotaremos por \(\mathbb{P}_{X}\) a medida de probabilidade induzida por X em \(R_{X}\), tal que \((R_{X}, \cdot , \mathbb{P}_{X})\) será o espaço
+de probabilidade induzido pela variável aleatória.
+\subsection{Distribuição de Probabilidade}
+  Vamos nos restringir às variáveis aleatórias discretas. Para conhecermos uma variável aleatória,
+além de seus valores, precisamos ter em mente as probabilidades associadas a elas. Nisto, entra a ideia
+de distribuição de probabilidade.
+\begin{def*}
+  A distribuição de probabilidade de uma variável aleatória discreta X, definida em um espaço amostral S,
+é uma tabela que associa a cada valor de X sua probabilidade. Em outras palavras, 
+  \[
+    F(x) = \mathbb{P}(X\in (-\infty, x]) = \mathbb{P}(X\leq x),
+  \]
+  em que x percorre todos os reais.\(\square\)
+\end{def*}
+\begin{example}
+  Vamos olhar para a distribuição de probabilidade da variável aleatória do caso das moedas.
+Para cada valor de X, determinamos os pontos amostrais nos quais X é igual a tal valor, ou seja,
+a imagem inversa de X. Vamos observar na tabela:
+\begin{center}
+  \begin{table}[h]
+  \caption{Valores de X, probabilidades e pontos amostrais}
+
+  \centering
+    \begin{tabular}{| c | c | c |}
+      \hline
+      Valores de X & Pontos Amostrais & Probabilidades\\
+      \hline
+      0 & \(\overline{C}\overline{C}\) & \(\frac{1}{4}\)\\
+      1 & \(\overline{C}C, C\overline{C}\) & \(\frac{1}{2} = \frac{1}{4} + \frac{1}{4}\)\\
+      2 & CC & \(\frac{1}{4}\)\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{center}
+  Os valores das probabilidades são calculados da seguinte forma:
+ \begin{align*}
+   &\mathbb{P}[X = 0] = \mathbb{P}(\overline{CC}) = \frac{1}{4}\\
+   &\mathbb{P}[X = 1] = \mathbb{P}(\overline{C}C) = \frac{1}{2}\\
+   &\mathbb{P}[X = 2] = \mathbb{P}(CC) = \frac{1}{4}.
+ \end{align*}
+\end{example}
+\begin{example}
+  Consideremos o experimento de lançar um dado sucessivamente sobre uma superfície plana. 
+Analisemos quantos lançamentos o número 6 ocorre pela primeira vez - evento que denotaremos por X.
+Temos, para todo \(n\geq 1\), 
+  \[
+    \mathbb{P}(X = n) = \biggl(\frac{5}{6}\biggr)^{(n-1)}\frac{1}{6}.
+  \]
+  De fato, pelos lançamentos serem independentes, a probabilidade de que não ocorra 6 nos
+(n-1) primeiros lançamentos, mas que ocorra no n-ésimo lançamento, é dada pela fórmula dada acima.
+\end{example}
+\begin{lemma*}
+  A função de distribuição de uma variável aleatória X satisfaz as seguintes condições:
+ \begin{itemize}
+   \item[a)] \(0\leq F(x)\leq 1\)
+   \item[b)] F(x) é não decrescente e é contínua à direita
+   \item[c)] \(\lim_{x\to \infty}F(x) = 0\) e \(\lim_{x\to \infty}F(x) = 1.\)
+ \end{itemize}
+\end{lemma*}
+\begin{proof*}
+  Isso será, essencialmente, um comentário sobre a ideia da prova.
+
+  a) Segue de que F(x) representa uma probabilidade, ou seja, \(0\leq F(x)\leq 1.\)
+
+  b) Se \(x_{1}\leq x_{2},\) então \(\{\omega \in \Omega : X(\omega ) < x_{1}\}\subseteq{\{\omega \in \Omega : X(\omega )\leq x_{2}\}}\) e, assim, \(\mathbb{P}(\{\omega \in \Omega : X(\omega )[2]\leq x_{1}\})\leq 
+  \mathbb{P}(\omega \in \Omega : X(\omega )\leq x_{2}),\) ou seja, \(F(x_{1})\leq F(x_{2}).\)
+
+  Para provar a continuidade à direita, seria preciso o seguinte resultado que sai do escopo do curso:
+ \begin{quote}
+   ``Se uma sequência de eventos \(A_{n}\) é decrescente e se aproxima de um evento A, então a sequência
+   das probabilidades \(\mathbb{P}(A_{n})\) também é decrescente e tem limite \(\mathbb{P}(A).\)''
+ \end{quote}
+ Assumindo esse resultado, consideramos uma sequência \(\{x_{n}\}\) de números reais que seja decrescente e que
+ \(\lim_{n\to \infty}x_{n} = x.\)  Assim, a sequência de eventos \([X\leq x_{n}]\) é decrescente e se aproxima de \([X\leq x].\) 
+ Pela propriedade que citada, segue a continuidade à direita.
+
+ c) Para uma sequência de eventos \(A_{n}\) que cresce para um evento A, vale uma propriedade análoga - 
+\(\mathbb{P}(A_{n})\) converge para \(\mathbb{P}(A)\). Assim, tome \(\{x_{n}\}\) uma sequência de números reais
+que tende a infinito. Assim, \([X\leq x_{n}]\) é uma sequência que tende ao evento \([X < \infty]\), tal que \(\mathbb{P}[X\leq x_{n}]\) 
+converge para \(\mathbb{P}[X <\infty]\), que é trivialmente o espaço todo, cuja probabilidade é 1. Para demonstrar a segunda parte,
+considera-se uma sequência \(\{x_{n}\}\) que tende a \(-\infty\), ou seja, \([X\leq x_{n}]\) tende ao vazio \(\emptyset\) e, portanto,
+ \(F(x_{n}) = \mathbb{P}[X\leq x_{n}].\) \qedsymbol
+\end{proof*}
+\begin{example}
+Seja 
+  \[
+    F(x)  = \left\{\begin{array}{ll}
+        0,\quad x < 0;\\
+        \frac{1}{2},\quad 0\leq x < 1;\\
+        1,\quad x\geq 1.
+      \end{array}\right.
+  \]
+  Essa F é uma função de distribuição?
+
+  Ela é, de fato. Para ver isso, note que, como \(F(x) = 0\) para \(x < 0\) e \(F(x) = 1\) para 
+ \(x\geq 1\),
+  \[
+    \lim_{x\to -\infty} F(x) = 0\quad\&\quad \lim_{x\to +\infty}F(x) = 1
+  \]
+  Além disso, a continuidade nos reais entre 0 e 1 é simples. Para os extremos, temos 
+    \[
+      F(0) = \lim_{x\to 0^{+}}F(x) = \frac{1}{2}\quad\&\quad F(1) = \lim_{x\to 1^{+}}F(x) = 1.
+    \]
+  Por fim, F é não decrescente pela sua definição.  
+\end{example}
+\begin{def*}
+  A função de probabilidade de uma variável aleatória discreta X é uma que atribui probabilidade
+a cada um dos possíveis valores \(x_{i}\) assumidos pela variável aleatória X, isto é, 
+  \[
+    p(x_{i}) = \mathbb{P}(X = x_{i}) = \mathbb{P}(\{\omega \in \Omega (\omega ): X(\omega ) = x_{i}\}),\quad i = 1, 2, \cdots, n.
+  \]
+  Além disso, \(p(x_{i})\) deve satisfazer 
+    \[
+      0\leq p(x_{i})\leq 1,\quad i = 1, \cdots, n
+    \]
+  e 
+    \[
+      \sum\limits_{i=1}^{n}p(x_{i}) = 1.\quad \square
+    \]
+\end{def*}
+
+\subsection{EXTRA: Densidade de Probabilidade}
+  As densidades de probabilidade surgem para tratar das variáveis aleatórias contínuas. Um dos problemas 
+que surgem é que a soma dos valores em quantidades não enumeráveis de números positivos não pode ser igual a um.
+  Com isso, definimos a densidade de probabilidade como uma função não negativa tal que sua integral, avaliada
+num dado intervalo, equivale à probabilidade da variável pertencer a este intervalo. Além disso, para ser condizente com
+a probabilidade total ser 1, impõe-se que a integral estendida à reta toda seja um.
+\begin{def*}
+  A densidade de probabilidade de uma variável aleatória contínua é uma função \(f(x)\geq 0\) tal que 
+    \[
+      \int_{-\infty}^{+\infty}f(x)dx = 1.
+    \]
+Além disso, a probabilidade de uma variável aleatória X pertencer a um intervalo da forma \((a, b]\) é dada por 
+  \[
+    \mathbb{P}[a < X\leq b] = \int_{a}^{b}f(x)dx.\quad \square
+  \]
+\end{def*}
+\begin{example}
+  Seja \(f(x) = x\) para \(0\leq x\leq 1\) e \(f(x) = 2 - x\) para \(1\leq x\leq 2\). No complementar desses dois,
+coloque \(f(x)=0.\) Note que 
+  \[
+    \int_{0}^{2}f(x)dx = \int_{0}^{1}xdx + \int_{1}^{2}2-xdx = 1.
+  \]
+  Vamos calcular, também, as probabilidades \(\mathbb{P}[0\leq X\leq 0.8].\) Segue que 
+    \[
+      \mathbb{P}[0\leq X\leq 0.8]=\int_{0}^{0.8}xdx = \frac{1}{2}x^{2}\biggl|_{0}^{0.8}\biggr. = \frac{1}{2}(0.8)^{2} = 0.32.
+    \]
+  e 
+    \[
+      \mathbb{P}[0.3\leq X\leq 1.5] = \int_{0.3}^{1}xdx + \int_{1}^{1.5}2-xdx = 0.83.
+    \]
+\end{example}
+\newpage
+
+\section{Aula 06 - 10/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Esperança
+\end{itemize}
+\subsection{Esperança Discreta}
+  A esperança matemática, ou apenas esperança, é uma quantidade associada às variáveis aleatórias e que representa,
+por exemplo, a média dos valores do resultado de um experimento repetido uma sequência muito grande de vezes, sempre com
+respeito aos extremos do intervalo. É um conceito essencial para estudar futuramente a noção de momento, de variância e de desvio padrão.
+Sem mais delongas, formalizaremos a seguir as bases dessa ideia, juntamente de exemplos de como calculá-la.
+  
+\begin{def*}
+  A esperança de uma variável aleatória discreta X, definida num espaço amostral \(\Omega \) no qual está definida uma
+probabilidade \(\mathbb{P},\) é definida por 
+  \[
+    \mathbb{E}(X) = \sum\limits_{\omega \in \Sigma }^{}X(\omega )\mathbb{P}(\omega ),
+  \]
+desde que \(\sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) < \infty. \square\)
+\end{def*}
+  Um resultado interessante é que a esperança pode ser expressa por meio da função de distribuição previamente vista:
+\begin{lemma*}
+  A esperança matemática de uma variável aleatória discreta X que assume os valores \(x_{i}\) para \(i = 1, 2, \cdots\), com
+respectivas probabilidades \(\mathbb{P}[X=x_{i}],\) é dada por 
+  \[
+    \mathbb{E}(X) = \sum\limits_{i=1}^{\infty}x_{i}\mathbb{P}[X=x_{i}].
+  \]
+\end{lemma*}
+\begin{proof*}
+  A ideia dessa prova é, a partir da definição da esperança, obtermos a expressão desejada e vice-versa.
+Denote os pontos do espaço amostral por \(\omega_{j}, j=1, 2, \cdots\). Partindo do ponto de que a série 
+ \(\sum\limits_{i=1}^{n}X(\omega_{j})\mathbb{P}(\omega_{j})\) é absolutamente convergente, um teorema de análise
+ matemática afirma que podemos reordenar seus termos como quisermos. Faremos isso da seguinte forma:
+\begin{align*}
+  \mathbb{E}(X) &= \color{blue}\sum\limits_{j=1}^{\infty}X(\omega_{j})\mathbb{P}(\omega_{j}) = \color{red}\sum\limits_{i=1}^{\infty}\biggl[\sum\limits_{j:X(\omega_{j})=x_{i}}^{}X(\omega_{j})\mathbb{P}(X(\omega_{j}))\biggr]\\
+                &= \color{green}\sum\limits_{i=1}^{\infty}\biggl[\sum\limits_{j:X(\omega_{j}) = x_{i}}^{}x_{i}\mathbb{P}(X(\omega_{j}))\biggr]=\sum\limits_{i=1}^{\infty}\biggl[x_{i}\sum\limits_{j:X(\omega_{j})=x_{i}}^{}\mathbb{P}(X(\omega_{j}))\biggr]\\
+                &= \color{magenta}\sum\limits_{i=1}^{\infty}x_{i}\mathbb{P}[X = x_{i}].
+\end{align*}
+  Vamos entender o que aconteceu por partes. Para facilitar a compreensão, há um guia por cor a seguir:
+ \begin{itemize}
+   \item[\textbf{Azul)}] Neste passo, escrevemos a definição da esperança.
+   \item[\textbf{Vermelho)}] Utilizamos a convergência absoluta da série (\(\sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) < \infty\) por definição) para
+fazer a seguinte reordenação: Somamos primeiramente os termos nos quais a variável aleatória, quando calculada em \(\omega_{j}\), vale \(x_{i}\). Isso resulta na mudança de índice de j
+para i, ou seja, após essa primeira soma, realizamos uma soma infinita em i ao invés de j.
+   \item[\textbf{Verde)}] Como os termos selecionados são os que \(X(\omega_{j})\) vale \(x_{i}\), trocamos a expressão \(X(\omega_{j})\mathbb{P}(X(\omega_{j}))\) por
+ \(x_{i}\mathbb{P}(X(\omega_{j}))\) primeiro, fazendo com que \(x_{i}\) perca a dependência no índice j e possa ser retirado da primeira soma. Um processo similar será aplicado em
+ \(\mathbb{P}(X(\omega_{j})),\) que é o próximo e último passo.
+   \item[\textbf{Magenta)}] Por estarmos considerando os termos onde\(X(\omega_{j})\) vale \(x_{i}\), trocamos a expressão \(\mathbb{P}(X(\omega_{j}))\) por \(\mathbb{P}(X = x_{i})\), 
+obtendo justamente a expressão do enunciado.
+ \end{itemize}
+ Como foi mencionado previamente, basta fazer o caminho oposto, partindo de \(\mathbb{E}(X) = \sum\limits_{i=1}^{\infty}x_{i}\mathbb{P}[X=x_{i}]\) e, a partir de 
+ reordenações, chegar em \(\sum\limits_{j=1}^{\infty}X(\omega_{j})\mathbb{P}(X(\omega_{j})) = \sum\limits_{\omega \in \Omega }^{}X(\omega )\mathbb{P}(\omega ).\) \qedsymbol
+\end{proof*}
+  Outra propriedade muito importante tanto da esperança quanto das variáveis aleatórias é a linearidade. Não provaremos ela para
+as variáveis aleatórias, mas isso quer dizer que, para variáveis aleatórias X e Y, vale para qualquer \(\Omega \ni \omega \)
+  \[
+    (X+Y)(\omega ) = X(\omega ) + Y(\omega )\quad\text{e}\quad (cX)(\omega ) = cX(\omega ).
+  \]
+  Precisamos disto para provas a mesma cosia para a esperança. De fato, 
+ \begin{lemma*}
+   Se as esperanças das variáveis aleatórias X e Y existem, então existe a esperança de X + Y. Além disso, se c é uma constante, temos
+  \begin{itemize}
+    \item[i)]\(\mathbb{E}(X+Y) = \mathbb{E}(X)+\mathbb{E}(Y)\);
+    \item[ii)] \(\mathbb{E}(cX) = c \mathbb{E}(X).\)
+  \end{itemize}
+ \end{lemma*}
+ \begin{proof*}
+   Começamos mostrando que \(\mathbb{E}(X+Y)\) existe. Isso baseia-se nas propriedades de somas infinitas e módulo. De fato, 
+     \[
+       \mathbb{E}(X+Y) = \sum\limits_{\omega \in \Omega }^{}(X+Y)(\omega)\mathbb{P}(\omega) = \sum\limits_{\omega\in \Omega}^{}(X(\omega)+Y(\omega ))\mathbb{P}(\omega).
+     \]
+Assim, para que \(\mathbb{E}(X+Y)\) existe, é preciso que essa série seja finita em módulo. De fato, 
+  \[
+    \sum\limits_{\omega \in \Omega }^{}|X(\omega)+Y(\omega )|\mathbb{P}(\omega )\leq \sum\limits_{\omega \in \Omega }^{}(|X(\omega )| + |Y(\omega )|)\mathbb{P}(\omega ) = \sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) + \sum\limits_{\omega \in \Omega }^{}|Y(\omega )|\mathbb{P}(\omega ).
+  \]
+Note que, como \(\mathbb{E}(X)\) e \(\mathbb{E}(Y)\) existem por hipótese, \(\sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) < \infty\) e \(\sum\limits_{\omega \in \Omega }^{}|Y(\omega )|\mathbb{P}(\omega ) < \infty\), ou seja, 
+  \[
+    \sum\limits_{\omega \in \Omega }^{}|X(\omega)+Y(\omega )|\mathbb{P}(\omega )\leq \sum\limits_{\omega \in \Omega }^{}(|X(\omega )| + |Y(\omega )|)\mathbb{P}(\omega ) = \sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) + \sum\limits_{\omega \in \Omega }^{}|Y(\omega )|\mathbb{P}(\omega ) < \infty.
+  \]
+Logo, \(\mathbb{E}(X+Y)\) existe. Além disso, segue da primeira expressão, isto é, 
+  \[
+   \mathbb{E}(X+Y) = \sum\limits_{\omega \in \Omega }^{}(X+Y)(\omega)\mathbb{P}(\omega) = \sum\limits_{\omega\in \Omega}^{}(X(\omega)+Y(\omega ))\mathbb{P}(\omega),
+  \]
+  que basta quebrar a série em duas para obter a expressão (i):
+    \[
+     \mathbb{E}(X+Y) = \sum\limits_{\omega\in \Omega}^{}(X(\omega)+Y(\omega ))\mathbb{P}(\omega) = \sum\limits_{\omega \in \Omega }^{}X(\omega )\mathbb{P}(\omega ) + \sum\limits_{\omega \in \Omega }^{}Y(\omega )\mathbb{P}(\omega ) = \mathbb{E}(X) + \mathbb{E}(Y),
+    \]
+  como queríamos. Por fim, tome c uma constante real. Então, 
+    \[
+      \mathbb{E}(cX) = \sum\limits_{\omega \in \Omega }^{}(cX)(\omega )\mathbb{P}(\omega ) = \sum\limits_{\omega \in \Omega }^{}cX(\omega )\mathbb{P}(\omega ) = c \sum\limits_{\omega \in \Omega }^{}X(\omega )\mathbb{P}(\omega ).
+    \]
+  Portanto, \(\mathbb{E}(cx) = c \mathbb{E}(x)\). \qedsymbol
+   \end{proof*}
+   Vamos ver um exemplo antes de seguir para a esperança contínua. 
+  \begin{example}
+    Uma loteria vende 100 bilhetes, cada um valendo R\$ 1,20. O bilhete sorteado ganhará um prêmio de R\$100,00.
+  Qual é a esperança de seu ganho se você comprar um bilhete?
+    
+    Vamos designar por X a variável aleatória que representa o ganho. Se seu bilhete estiver entre os 99 que não ganham,
+você pagou 1,20, ou seja, X assume o valor -1,20 em \(\frac{99}{100} = 0.99\) dos casos. Caso tenha a sorte de comprar o 
+bilhete sorteado, X assume o valor \(100,00 - 1,20 = 98,80\), o que ocorre em \(\frac{1}{100} = 0.01\) dos casos. Assim,
+a esperança de ganho é dada por 
+  \[
+    \mathbb{E}(X) = -1,20\times 0,99 + 98,80\times 0.01 = -0,20
+  \]
+  Como a esperança representa uma ``média'' dos resultados, na versão do jogo da loteria, uma esperança negativa quer dizer que
+haverá uma perda na maioria dos casos, ou seja, há uma tendência do jogador perder dinheiro a longo prazo.
+  \end{example}
+\subsection{Esperança Contínua}
+  Como no cálculo, faremos a passagem de quantidades discretas somadas para quantidades contínuas integradas. Em outras palavras,
+se a função de distribuição da variável aleatória X é contínua, a esperança será definida da seguinte forma:
+\begin{def*}
+  A esperança de uma variável aleatória X, com densidade de probabilidade f(x), será dada por 
+    \[
+      \mathbb{E}(X) = \int_{-\infty}^{\infty}xf(x)dx.
+    \]
+\end{def*}
+  Como a integral, assim como a soma, é linear, o lema provado que mostra a linearidade da esperança discreta permanece verdadeiro no caso contínuo. Vejamos, agora,
+um exemplo da esperança contínua
+\begin{example}
+  Calcule a esperança da variável aleatória X, cuja densidade de probabilidade é dada por 
+  \[
+    f(x) = \left\{\begin{array}{ll}
+        2x,\quad 0\leq x\leq 0.5,\\
+        -\frac{2}{3}x + \frac{4}{3},\quad 0.5\leq x\leq 2\\
+        0,\quad \text{caso contrário}
+      \end{array}\right.
+  \]
+
+  Pela definição que vimos, segue que 
+  \[
+     \mathbb{E}(X) = \int_{-\infty}^{\infty}xf(x)dx.
+  \]
+  Antes de fazer a conta, vamos ver os possíveis valores da integral de xf(x), com base na definição de f:
+  \[
+   \int_{-\infty}^{\infty}xf(x)dx = \left\{\begin{array}{ll}
+       \int_{0}^{0.5}x(2x)dx,\quad 0\leq x\leq 0.5\\
+       \int_{0.5}^{2}x \biggl(-\frac{2}{3}x + \frac{4}{3}\biggr)dx,\quad 0.5\leq x\leq 2\\
+       \int_{-\infty}^{a}x\times 0dx, a < 0, \text{ ou } \int_{b}^{\infty}x\times 0dx, b > 2.
+     \end{array}\right.
+ \]
+  Com base nisso, a esperança será dada pela soma dessas integrais: 
+  \begin{align*}
+    \mathbb{E}(x) &= \int_{-\infty}^{a}x\times 0dx + \int_{0}^{0.5}x(2x)dx + \int_{0.5}^{2}x \biggl(-\frac{2}{3}x + \frac{4}{3}\biggr)dx + \int_{b}^{\infty}x\times0dx \\
+                  &= 0 + \int_{0}^{0.5}x(2x)dx + \int_{0.5}^{2}x \biggl(-\frac{2}{3}x + \frac{4}{3}\biggr)dx + 0 \\
+                  &= \frac{2}{3}x^{3}\biggl|_{0}^{0.5}\biggr. + \biggl(-\frac{2}{3}\biggr)\frac{1}{3}x^{3}\biggl|_{0.5}^{2}\biggr. + \frac{4}{3}\frac{1}{2}x^{2}\biggl|_{0.5}^{2}\biggr.\\
+                  &= \frac{1}{12} - \frac{63}{36} + \frac{2}{3}\biggl(4-\frac{1}{4}\biggr) = \frac{30}{36} = 0.8333\cdots,
+  \end{align*}
+  em que assume-se que \(a < 0\) e que \(b > 0.\)
 \end{example}
 \end{document}
