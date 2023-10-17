@@ -8,43 +8,37 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: finds directory
-      run: echo "${{ github.workspace }}"
-    - name: Hello world action
+      run: echo "${{ github.workspace/algebra }}"
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v3
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v3
+      with:
+        root_file: |
+          Algebra/algebra_notes.tex
+          Analysis/analysis_notes.tex
+          PhysicsI/physics_notes.tex
+          PhysicsII/physicsII_notes.tex
+          ComplexAnalysis/complex.tex
+          Calculus1/exercícios_de_cálculo.tex
+          LinearAlgebra/linear_algebra_notes.tex
+          MetricSpaces/metric_notes.tex
+          Probability/probability_notes.tex
+    - name: Upload Algebra file
+      uses: actions/upload-artifact@v3
+      with: 
+        name: 
+          Algebra
+        path: 
+          algebra_notes.pdf
+        if-no-files-found: error
+    - name: Upload Artifacts TO Google Drive
       uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with: # Set the secret as an input
-        target: Algebra/algebra_notes.tex
+      with:
+        target: algebra_notes.pdf
         credentials: ${{ secrets.DRIVESHHHH }}
         parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-#    steps:
-#    - name: Set up Git repository
-#      uses: actions/checkout@v3
-#    - name: Compile LaTeX document
-#      uses: xu-cheng/latex-action@v3
-#      with:
-#        root_file: |
-#          Algebra/algebra_notes.tex
-#          Analysis/analysis_notes.tex
-#          PhysicsI/physics_notes.tex
-#          PhysicsII/physicsII_notes.tex
-#          ComplexAnalysis/complex.tex
-#          Calculus1/exercícios_de_cálculo.tex
-#          LinearAlgebra/linear_algebra_notes.tex
-#          MetricSpaces/metric_notes.tex
-#          Probability/probability_notes.tex
-#    - name: Upload Algebra file
-#      uses: actions/upload-artifact@v3
-#      with: 
-#        name: 
-#          Algebra
-#        path: 
-#          algebra_notes.pdf
-#        if-no-files-found: error
-#    - name: Upload Artifacts TO Google Drive
-#      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-#      with:
-#        target: algebra_notes.pdf
-#        credentials: ${{ secrets.DRIVESHHHH }}
-#        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 #    - name: Upload Analysis file
 #      uses: actions/upload-artifact@v3
 #      with: 
