@@ -6,6 +6,10 @@ jobs:
   build_latex:
     runs-on: ubuntu-latest
     steps:
+    - name: Hello world action
+      with: # Set the secret as an input
+        super_secret: ${{ secrets.SuperSecret }}
+    steps:
     - name: Set up Git repository
       uses: actions/checkout@v3
     - name: Compile LaTeX document
