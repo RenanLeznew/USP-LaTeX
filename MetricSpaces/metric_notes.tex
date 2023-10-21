@@ -1409,10 +1409,415 @@ Portanto, i é homeomorfismo. \qedsymbol
 \end{proof*}
 \newpage
 
-\section{Aula 13 - 10/10/2023}
+\section{Aula 13 - 17/10/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item aaa
+  \item Espaço Conexos;
+  \item Exemplos de Espaços Conexos;
+  \item Teorema do Valor Intermediário.
 \end{itemize}
+\subsection{Espaço Conexos}
+ \begin{def*}
+   Uma cisão de um espaço métrico M é uma decomposição 
+     \[
+       M = A\cup{B},
+     \]
+  em que A e B são conjuntos abertos e disjuntos de M. \(\square\)
+ \end{def*}
+  Observe que, em uma cisão, os conjuntos A e B são simultaneamente abertos e fechados 
+de M, visto que 
+  \[
+    M = A\cup B\quad\&\quad A\cap B = \emptyset
+  \]
+se, e somente se, 
+  \[
+    A = B^{c} \quad\&\ B = A^{c}.
+  \]
+  Além disso, é possível definir uma \textit{Cisão Trivial}, na qual A ou B é vazio, fazendo com que
+a cisão tenha a forma \(M = M\cup\emptyset\)
+\begin{def*}
+  Um espaço métrico M é dito ser conexo se a única cisão possível para M é a trivial. Um
+subconjunto A de M é um conjunto conexo dado que \((A, \rho_{A})\) é conexo com a métrica induzida.\(\square\)
+\end{def*}
+  Quando A admite uma cisão não-trivial, dizemos que A é \textit{desconexo}.
+ \begin{example}
+   Seja \(M_{1} = [0,1]\cup [2, 3]\). Podemos escrever 
+     \[
+       M_{1} = \biggl((-\varepsilon , 1 + \varepsilon )\cap M\biggr)\bigcup_{}^{}{\biggl((2-\varepsilon , 3+\varepsilon )\cap M\biggr)},
+     \]
+em que \(0 < \varepsilon < \frac{1}{2}.\) Tome, também, 
+  \[
+    M_{2} = \{1, 2, 3\}.
+  \]
+  Neste caso, \(M_{2} = (B_{\frac{1}{2}}(1)\cap M)\cup ((B_{\frac{1}{2}}(2)\cup B_{\frac{1}{2}}(3))\cap M)\)
+Em ambos os casos, \(M_{1}\) e \(M_{2}\) são desconexos.
+ \end{example}
+ \begin{example}
+   São desconexos os seguintes subconjuntos de \(\mathbb{R}\): 
+     \[
+       \mathbb{Q}, \quad \mathbb{Z},\quad\text{e}\quad A = \mathbb{R}\setminus\{0\}.
+     \]
+Vejamos estes exemplos. 
 
+  Nos casos de \(\mathbb{Q}, \mathbb{Z}\), vale que 
+    \[
+      \mathbb{Q} = \underbrace{\biggl((-\infty, \pi )\cap \mathbb{Q}\biggr)}_{A}\cup \underbrace{\biggl((\pi , \infty)\cap \mathbb{Q}\biggr)}_{B}
+    \]
+e 
+    \[
+    \mathbb{Z} = \underbrace{\biggl((-\infty, \pi )\cap \mathbb{Z}\biggr)}_{C}\cup \underbrace{\biggl((\pi , \infty)\cap \mathbb{Z}\biggr)}_{D}
+    \]
+  Como \(A\cap B = C\cap D = \emptyset, A,\text{ e }B\) são abertos em \(\mathbb{Q}\) e \(C, D\) em \(\mathbb{Z}\), tal que \(\mathbb{Q} = A\cup B\)
+e \(\mathbb{Z} = C\cup D\) são ambos desconexos.
+
+  Colocando \(\mathbb{R}\setminus\{0\} = M\), temos a cisão não-trivial de M
+    \[
+      M = \biggl((-\infty, 0)\cap M\biggr)\bigcup_{}^{}{\biggl((0, +\infty)\cap M\biggr)},
+    \]
+tornando-o desconexo.
+
+ \end{example}
+ \begin{example}
+   \(\mathbb{R}\) com a métrica usual é um conjunto conexo. De fato, suponha que exisstam
+   \(A, B\subseteq{\mathbb{R}}\) não-vazios que são abertos e fechados e tais que \(A\cup B = \mathbb{R}\).
+   Seja \(a\in A\) e \(b\in B\) e digamos que \(a < b\). O conjunto 
+     \[
+       A_{b}\coloneqq \{x\in A: x < b\}\neq\emptyset
+     \]
+  é limitado superiormente. Coloque \(c = \sup A_{b}\leq b\) e \(c\in \overline{A_{b}}\subseteq{\overline{A}}.\) 
+Como \(A = \overline{A}, c\in A\) (Lembrando que A é aberto e fechado) e \(c < b\). Como A é
+aberto, existe \(\varepsilon >0\) tal que \(c+\varepsilon < b\) e \((c-\varepsilon , c + \varepsilon )\subseteq{A}\),
+contradizendo a hipótese de \(c = \sup A_{b}.\)
+ \end{example}
+\begin{prop*}
+  Seja \((X, \rho )\) um espaço métrico. São equivalentes:
+ \begin{itemize}
+   \item[1)] X é conexo;
+   \item[2)] X e \(\emptyset\) são os únicos subconjuntos de X que são simultaneamente
+abertos e fechados;
+   \item[3)] Se \(A\subseteq X\) tem fronteira vazia, então \(A = X\) ou \(A = \emptyset\)
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  \(1) \Rightarrow 2)\) Se \(A \subseteq{X}\) for, ao mesmo tempo, aberto e fechado,
+então \(A^{c}\) será, também, aberto e fechado ao mesmo tempo. Além disso, \(A\cup A^{c} = X\).
+Segue que \(A = X\) ou \(A = \emptyset.\)
+
+  \(2) \Rightarrow 3)\) Se \(A\subseteq{X}\) e \(\partial A = \emptyset,\) A é aberto e \(A^{c}\) é 
+  aberto. Logo, A e \(A^{c}\) também são fechados e \(A=X\) ou \(A=\emptyset\).
+
+  \(3) \Rightarrow 1)\) Se \(X = A\cup A^{c}\) com A e \(A^{c}\) abertos, então \(\partial A = \emptyset\) e \(A = X\)
+ou \(A = \emptyset.\) Logo, X é conexo. \qedsymbol
+\end{proof*}
+ \begin{prop*}
+  \begin{itemize}
+    \item[1)] A imagem de um conjunto conexo por uma função contínua é um conjunto conexo (continuidade preserva conexidade)
+    \item[2)] O fecho de um conjunto conexo é conexo
+    \item[3)] Se \(A_{1}\) e \(A_{2}\) são subconjuntos conexos de um espaço M e 
+  \(A_{1}\cap A_{2}\neq\emptyset\), então \(A_{1}\cup A_{2}\) também é conexo.
+  \end{itemize}
+ \end{prop*}
+ \begin{proof*}
+\textbf{Prova do Item 1:} Considere o caso em que \(f:M\rightarrow N\) é contínua, sobrejetiva e M é conexo.
+Vamos provar que \(N = f(M)\) é conexo. Com efeito, seja \(N=A\cup{B}\) uma cisão.
+Então, \(M = f^{-1}(A)\cup f^{-1}(B)\) é uma cisão. Como M é conexo, segue que ou \(f^{-1}(A)\) ou \(f^{-1}(B)\) é vazio.
+Já que f é sobrejetiva, A ou B deve ser vazio. 
+
+  Por fim, se \(f:M\rightarrow N\) é contínua e \(X\subseteq{M}\) é conexo, então
+\(f:X\rightarrow f(X)\) é uma sobrejeção, caso o qual já demonstramos que será conexo.
+  
+  \textbf{Prova do Item 2:} Consideremos, primeiramente, o caso em que \(X\subseteq{M}\) é um conjunto conexo tal que
+ \(\overline{X} = M\), ou seja, X é denso em M. Neste caso, se \(M = A\cup B\) for uma cisão, temos a cisão
+ \(X = (A\cap X)\cup(B\cap X)\). Como X é conexo, segue que \(A\cap X = \emptyset\) ou \(B\cap X = \emptyset\). Sendo X denso
+em M, isto implica \(A = \emptyset\) ou \(B = \emptyset\).
+
+  Agora, com relação ao caso geral, se X é conexo, segue de \(\overline{X} = \overline{\overline{X}}\) que X é denso em \(\overline{X}\), reduzindo, assim,
+ao caso anterior.
+
+\textbf{Prova do Item 3:} Consideremos \(X\coloneqq A_{1}\cup A_{2}\) e seja \(X = C\cup D\) uma cisão. Nosso objetivo é mostrar que
+ou C ou D devem ser vazios. Tome \(a\in A_{1}\cap A_{2}\) e assuma que \(a\in C\). As cisões 
+  \[
+    A_{1} = (A_{1}\cap C)\cup (A_{2}\cap D)\quad\text{e}\quad A_{2} = (A_{2}\cap C)\cup(A_{2}\cap D)
+  \]
+  implicam que \(A_{1}\cap D = A_{2}\cap D = \emptyset, \) já que \(A_{1}\) e \(A_{2}\) são conexos. Logo, 
+    \[
+      D = D\cap X = D\cap(A_{1}\cup A_{2}) = (D\cap A_{1})\cup(D\cap A_{2}) = \emptyset.\text{\qedsymbol} 
+    \]
+ \end{proof*}
+\begin{crl*}
+ \begin{itemize}
+   \item[1)] Se M é conexo e N é homeomorfo a M, então N também é conexo
+   \item[2)] Se \(X\subseteq{Y}\subseteq{\overline{X}}\) e X é conexo, então Y é conexo
+   \item[3)] Dados dois espaços métricos M e N, então \(M\times N\) é conexo se, e somente se,
+M e N são conexos.
+ \end{itemize}
+\end{crl*}
+\begin{proof*}
+  \textbf{Prova do Item 3:} Se \(M\times N\) é conexo, então \(M = \pi_{1}(M\times N)\) e \(N = \pi_{2}(M\times N)\) são conexos, pois
+a projeção é uma função contínua. 
+
+  Por outro lado, suponha que M e N são conexos. Para todo x em M, é possível provar
+que \(\{x\}\times N\) é homeomorfo a N, tal que \(\{x\}\times N\) é conexo para todo x em M. Analogamente, \(M\times\{y\}\) é 
+homeomorfo a M e, assim, conexo para todo y em N. Com isso, seja \(n\in N\) e considere 
+  \[
+    C_{x} = \biggl(\{x\}\times N\biggr)\bigcup_{}^{}{\biggl(M\times \{n\}\biggr)},
+  \]
+em que \(\biggl(\{x\}\times N\biggr)\cap \biggl(M\times \{n\}\biggr)\neq\emptyset.\) Neste caso, \(C_{x}\) é conexo para todo
+x em M. Observamos, também, que 
+  \[
+    M\times \{n\}\subseteq{\bigcap_{x\in M}^{}{C_{x}}}\neq\emptyset.
+  \]
+  Portanto, 
+    \[
+      M\times N = \bigcup_{x\in M}^{}{C_{x}},
+    \]
+o qual é conexo.\qedsymbol
+\end{proof*}
+\begin{example}
+  \(\mathbb{S}^{1}\) é conexa. Com efeito, tomando \(p = (0, 1)\in \mathbb{S}^{1}\) e \(X = \mathbb{S}^{1}\setminus\{p\}\), sabemos que X é homeomorfo
+à reta \(\mathbb{R}\) pela projeção estereográfica. Logo, X é conexo. Concluímos, assim, que \(\mathbb{S}^{1}\) é conexo observando que
+ \(\overline{X} = \mathbb{S}^{1}.\)
+\end{example}
+\begin{example}
+  Podemos definir uma ``projeção estereográfica'' \(\pi_{u}:\mathbb{S}^{1}\setminus\{u\}\rightarrow \mathbb{R}\) a partir de qualquer ponto 
+ \(u\in \mathbb{S}^{1}\) usado como polo no lugar de p, de forma que \(\mathbb{S}^{1}\setminus\{u\}\) é um conjunto conexo. No entanto, se omitirmos dois pontos distintos \(u, v\in \mathbb{S}^{1},\) obtemos o conjunto
+ desconexo \(\mathbb{S}^{1}\setminus\{u, v\}\). Com efeito, seja \(ax + by = c\) a equação da reta que passa
+ pelos dois pontos u e v. Então, \(A\cup B\) é uma cisão não trivial tal que \(A = \{(x, y)\in \mathbb{S}^{1}: ax + by > c\}\) e 
+ \(B = \{(x, y)\in \mathbb{S}^{1}: ax + by < c\}\).
+\end{example}
+\begin{example}
+  Todo intervalo aberto de \(\mathbb{R}\) é conexo (de fato, a recíproca também vale, como veremos logo mais). Com efeito, todo intervalo
+aberto é homeomorfo a \(\mathbb{R}\). Caso o intervalo seja limitado, esse fato decorre dos seguintes homeomorfismos:
+  \[
+    h:B_{1}(0)\rightarrow B_{r}(u),\quad v\mapsto h(v) = u + rv
+  \]
+e 
+  \[
+    g:V\rightarrow B_{1}(0),\quad v\mapsto g(v) = \frac{v}{(1+||v||)}
+  \]
+Se o intervalo é ilimitado, então decorre dos seguintes homeomorfismos:
+  \[
+    h:\mathbb{R}\rightarrow (a, \infty),\quad x\mapsto a + e^{x}
+  \]
+e 
+  \[
+    h^{-1}:(a, \infty)\rightarrow \mathbb{R},\quad x\mapsto \ln{(x-a)}.
+  \]
+Para o outro tipo de intervalo ilimitado, eles são 
+  \[
+    h:\mathbb{R}\rightarrow (-\infty, a),\quad x\mapsto a - e^{-x}
+  \]
+e 
+  \[
+    h^{-1}:(-\infty, a)\rightarrow \mathbb{R},\quad x\mapsto -\ln{(a-x)}.
+  \]
+\end{example}
+Esse último exemplo mostra uma parte do seguinte teorema:
+ \begin{theorem*}
+    Um subconjunto de \(\mathbb{R}\) é conexo se, e somente se, ele é um intervalo. 
+ \end{theorem*}
+ \begin{proof*}
+   A parte de todo intervalo ser conexo foi mostrada no exemplo anterior.
+
+   \(\Rightarrow )\) Reciprocamente, seja \(X\subseteq{\mathbb{R}}\) conexo. Suponha que \(a, b\in X\) e que
+  \(a < c < b.\) Provaremos que, neste caso, \(c\in X\). Com efeito, suponha, para fins de contradição, que
+  \(c\not\in X.\) Então, teríamos a cisão não trivial de X
+    \[
+      X = [X\cap(-\infty, c)]\cup[X\cap(c, +\infty)],
+    \]
+    pois \(a\in X\cap(-\infty, c)\) e \(b\in X\cap(c, +\infty).\) Assim, \(a < c < b\) com \(a, b\in X\) implica que c pertence a X, propriedade que
+garante que X seja um intervalo. \qedsymbol
+ \end{proof*}
+ \hypertarget{intermediate_value}{\begin{crl*}
+     Seja \(f:[a, b]\rightarrow \mathbb{R}\) contínua. Se \(f(a) < d < f(b)\), então existe c em \((a, b)\) tal que \(f(c) = d.\)  
+ \end{crl*}}
+ \begin{proof*}
+   A imagem \(f([a, b])\) é um intervalo que contém os pontos \(f(a)\) e \(f(b)\), logo \([f(a), f(b)]\subseteq{f([a, b])}.\) Assim,
+existe \(c\in[a, b]\) tal que \(f(c) = d\). Porém, \(f(a) < f(c) < f(b)\) exclui a possibilidade de \(c = a\) ou \(c = b\). Portanto,
+ \(c\in (a, b)\). \qedsymbol
+ \end{proof*}
+\newpage
+
+\section{Aula 14 - 19/10/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item a
+\end{itemize}
+\subsection{Conexidade - Continuação}
+\begin{theorem*}[Alfândega]
+  Sejam Y, X subconjuntos de um espaço métrico M. Se Y é conexo e \(Y\cap X \neq\emptyset\) e \(Y\cap X^{c}\neq\emptyset\), então
+ \(Y\cap \partial X \neq\emptyset.\)
+\end{theorem*}
+\begin{proof*}
+  Como \(Y\cap X \neq\emptyset\) e \(Y\cap X^{c} \neq\emptyset\), o subconjunto \(Y \cap X\) do espaço métrico conexo
+não é nem vazio e nem o espaço todo. Logo, existe algum c pertencente à fronteira de \(Y\cap X\) no subespaço Y. De fato,
+na verdade, vamos mostrar que c pertence à fronteira de X em M. Com efeito, dado \(\varepsilon >0\), existe \(s\in Y\cap X\subseteq{X}\) e 
+ \(t\in Y\setminus\{Y\cap X\} = Y\setminus{X}\subseteq{M\setminus\{X\}}\) com \(d(c, s) < \varepsilon \) e \(d(c, t) < \varepsilon \), tal que
+ \(c\in \partial X\). Portanto, \(Y\cap \partial X \neq\emptyset.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+  Um \textbf{caminho} num espaço métrico M é uma função contínua \(f:[0, 1]\rightarrow M.\) Os pontos \(a = f(0)\) e \(b = f(1)\) são os extremos
+do caminho. Neste cado, f é dito ligar o ponto a ao ponto b em M e escreveremos \(x\thicksim a.\) Quando \(a = b,\) dizemos que f é um caminho fechado
+em M. \(\square\)
+\end{def*}
+Essa relação é de equivalência. 
+
+Para ver que é reflexiva, seja x em M e defina \(f:[0, 1]\rightarrow M\) por \(f(t) = x, t\in [0, 1],\) tal que temos \(x\thicksim x.\)
+
+Agora, para a simetria, sejam \(x, y\in M\) tais que \(x\thicksim y\) e \(f:[0, 1]\rightarrow M\) tal que \(f(0) = x\) e \(f(1) = y\). Definimos \(g:[0, 1]\rightarrow M\) por
+ \(g(t) = f(1-t), t\in [0, 1],\) que é contínua por ser a composta de contínua e \(g(0) = f(1) = y\) e \(g(1) = x,\) de modo que \(y\thicksim x\).
+
+Finalmente, a transitividade segue do seguinte - sejam \(x, y, z\in M\) com \(x\thicksim y\) e \(y\thicksim z\). Seja f o caminho com ponto inicial x, final y e g o 
+caminho com ponto inicial y e final z. Definimos \(h:[0, 1]\rightarrow M \) por 
+  \[
+    h(t) = \left\{\begin{array}{ll}
+        f(2t),\quad 0\leq t\leq \frac{1}{2}\\
+        g(2t-1),\quad \frac{1}{2}\leq t\leq 1.
+      \end{array}\right.
+  \]
+  Essa função h é chamada \textbf{caminho justaposto}.
+ \begin{def*}
+   Um espaço métrico M é dito ser \textbf{conexo por caminho} se, para quaisquer a, b em M, \(a\thicksim b\), ou seja,
+existe um caminho f em M que liga a a b, ou seja, \(f(0)=a\) e \(f(1)=b.\) Isto equivale a dizer que só há uma 
+classe de equivalência com respeito a ``\(\thicksim\)''. \(\square\)
+ \end{def*}
+ \begin{example}
+   Para todo \(n\geq 2, \mathbb{R}^{n}\setminus\{0\}\) é conexo por caminhos. De fato, sejam x, y em \(\mathbb{R}^{n}\setminus\{0\}\) e
+consideremos dois casos.
+
+  (1) Se \(0\not\in[x, y]\coloneqq \{ty + (1-t)x: t\in[0, 1]\},\) então consideramos o caminho 
+    \[
+      \gamma (t) = ty + (1-t)x,\quad t\in[0,1],
+    \]
+  que liga x a y em \(\mathbb{R}^{n}\setminus\{0\}.\)
+
+  (2) Se \(0 = t_{0}y + (1-t_{0})x\) para algum \(t_{0}\in (0, 1),\) então existe 
+    \[
+      z\in \mathbb{R}^{n}\setminus\biggl\{t \biggl(x, \frac{yt_{0}}{(1-t_{0})}\biggr):t\in \mathbb{R}\biggr\}
+    \] 
+ \end{example}
+ \begin{theorem*}
+   Seja \(h:M\rightarrow N\) um homeomorfismo. Então, M é conexo por caminho se, e somente se, N é conexo por caminhos.
+ \end{theorem*}
+ \begin{proof*}
+   Basta ver que, se M é conexo por caminho, dados \(f(x), f(y)\in N\), os elementos \(x, y\in M\) são ligados por um caminho \(\varphi \). Como h
+é contínua, \(h\circ{\varphi }\) é contínua e sai de \([0, 1]\), provando que N é conexo por caminhos. A volta é análoga, mas com \(h^{-1}.\) \qedsymbol
+ \end{proof*}
+ \begin{theorem*}
+   Se o espaço métrico M é conexo por caminhos, então M é conexo.
+ \end{theorem*}
+ \begin{proof*}
+   Se \(M = A \cup B\) fosse uma cisão não-trivial de M, dados \(a\in A\) e \(b\in B\), existiria um caminho 
+  \(f:[0, 1]\rightarrow M\) tal que \(f(0) = a, f(1) = b\) e, assim, teríamos 
+    \[
+      [0, 1] = f^{-1}(M) = f^{-1}(A)\cup f^{-1}(B),
+    \]
+    uma cisão de \([0, 1]\), já que \(0\in f^{-1}(A)\) e \(1\in f^{-1}(B)\), formando uma cisão do intervalo. Contradição.
+Portanto, M é conexo. \qedsymbol
+ \end{proof*}
+ \begin{example}[Espaço Pente]
+  Seja \(P\subseteq{\mathbb{R}^{2}}, P\coloneqq \{0\}\times (0,1]\cup D\cup H,\) o espaço pente, com (dentes e haste) 
+    \[
+      D = \bigcup_{n\in \mathbb{N}}^{}{\biggl\{\frac{1}{n}\biggr\}\times[0, 1]}\quad\text{e}\quad H = (0, 1]\times\{0\}.
+    \]
+  Esse espaço é conexo e não é conexo por caminhos. Suponha que existe f contínua, \(f:[0, 1]\rightarrow X\) tal que 
+    \[
+      f(0) = (0, 1)\quad\text{e}\quad f(1) = (1,1).
+    \]
+Defina \(\alpha  = \sup{\{x\in[0, 1]: f(0, x)\subseteq{B}\}}\). Então, \(f(\alpha )\) está bem-definida e vamos verificar o pertencimento de \(f(\alpha )\) a A ou a B.
+
+\textbf{Caso \(f(\alpha )\in A\):}
+  Se isso acontece, então 
+    \[
+      B_{r}^{f(\alpha )}\cap B = \emptyset,\quad r < d(f(\alpha ), B),
+    \]
+ou seja, \(A\subseteq{\mathbb{R}^{2}}\setminus{(B\cup \{0, 0\})}\), mostrando que A é aberto. Por f ser contínua, existe \(\delta \) tal que 
+ \(f(\delta -\alpha , \delta +\alpha ) \subseteq{B_{r}^{f(\alpha )}}.\) Tomemos \(y\in (\alpha -\delta , \alpha ),\) de forma que \(f(y)\cap B = \emptyset\).
+ Como \(y < \alpha \), então, \(f(y)\in B\), mas, pela definição de \(\alpha \), deve existir y em \((\alpha , \alpha +\delta )\) tal que não existe nenhum \(\delta \)
+ satisfazendo \(f(\alpha -\delta ,\alpha +\delta )\cap B = \emptyset \)
+
+\textbf{Caso \(f(\alpha )\in B\):}
+  Analogamente, suponha que \(f(\alpha )\in B\). Sempre é possível obter \(\varepsilon >0\) tal que \((0, 0)\not\in B_{\varepsilon }(f(\alpha ))\) e, pela continuidade
+de f em \(\alpha \), existe um intervalo aberto V tal que \(f(V)\subseteq{B_{\varepsilon }(f(\alpha ))}.\) Um argumento similar ao anterior mostra a existência de
+um intervalo \((\alpha , \alpha +\delta ) \subseteq{V}\) para o qual \(f((\alpha , \alpha +\varepsilon ))\subseteq{B_{\varepsilon }(f(\alpha ))}.\) Assim, pela definição
+de \(\alpha ,\) deve existir um \(\beta \in (\alpha , \alpha +\delta )\) tal que \(f(\beta)\in A\), já que, se não fosse o caso, \(\alpha \) não seria o supremo.
+Com isso, no intervalo V, f assume valores em B e em A, o que impede que \(f(V)\) seja conexo, visto que \(f(V)\subseteq{B_{\varepsilon }(f(\alpha ))}\) e este conjunto
+é composto por retas verticais. 
+
+  Encontramos elementos tanto em B quanto em A. Isso é uma contradição ao fato de funções contínuas preservarem conexidade, ou seja, não pode existir tal função f. Portanto,
+X não é conexo por caminhos, pois provamos que não há função contínua de \((0, 1)\) à \((1, 1)\).
+  \end{example}
+  \begin{prop*}
+    Um espaço métrico \((M, \rho )\) é conexo se, e somente se, quaisquer dois pontos de M estiverem contidos em algum subconjunto
+conexo.
+  \end{prop*}
+  \begin{proof*}
+    Se \((M, \rho )\) é conexo, o resultado segue automaticamente. Para a recíproca, fixe \(x_{1}\in M\) e seja
+\(C_{x}\) um conexo contendo \(\{x_{1}, x\}\). Temos \(M = \bigcup_{x\in M}^{}{C_{x}}\), que é conexo, já que \(\bigcap_{x\in M}^{}{C_{x}}\neq\emptyset.\) \qedsymbol
+  \end{proof*}
+  \begin{def*}
+    Seja \((M, \rho )\) um espaço métrico e x um elemento de M. A \textbf{componente conexa} do ponto x em M é o subconjunto conexo maximal
+ \(C_{x}\) de M com x em \(C_{x}\). 
+  \end{def*}
+  Entenda por maximal que, se \(D_{x}\) é qualquer conexo de M contendo x, vale \(D_{x}\subseteq{C_{x}}.\)
+ \begin{example}
+   As componentes conexas de \(\mathbb{R}\setminus{\{0\}}\) se referem aos conexos \((-\infty, 0)\) e \((0, \infty).\)
+ \end{example}
+ \begin{example}
+   No espaço métrico \(\mathbb{Q},\) cada componente conexa reduz-se ao conjunto unitário formado por um ponto. Em outras palavras,
+nenhum subconjunto conexo de \(\mathbb{Q}\) pode conter dois pontos distintos. Com efeito, seja \(A\subseteq{\mathbb{Q}}\) com \(A \neq\emptyset\)
+e \(A\neq\{q\}.\) Sejam \(q_{1}, q_{2}\in A\) distintos e \(r\in(q_{1}, q_{2})\setminus{\mathbb{Q}}\). Temos 
+  \[
+    A = \biggl((-\infty, r)\cap A\biggr)\bigcup_{}^{}{\biggl((r, +\infty)\cap A\biggr)},
+  \]
+  formando uma cisão não trivial de A. Portanto, os únicos conjuntos conexos de \(\mathbb{Q}\) são os unitários.
+ \end{example}
+  Em geral, a componente maximal tem a forma 
+    \[
+      C_{x} = \bigcup_{\alpha \in J}^{}{D_{\alpha }^{x}},
+    \]
+  em que \(\{D_{\alpha }^{x}: \alpha \in J\}\neq\emptyset\) é a família de todos os subconjuntos conexos de M contendo x.
+
+  Além disso, se \(C_{x}\cap C_{y} \neq\emptyset\), então \(C_{x} = C_{y}.\) De fato, 
+    \[
+      C_{x} \subseteq\underbrace{{C_{x}\cup C_{y}}}_{\text{conexos}} \subseteq{C_{y}}
+    \]
+  e 
+    \[
+      C_{y}\subseteq{C_{x}\cup C_{y}}\subseteq{C_{x}}.
+    \]
+
+  Note também que a família \(\{C_{x}: x\in M\}\) das componentes conexas de M nos fornece uma partição de M
+em partes disjuntas da seguinte forma: 
+  \[
+    M = \bigcup_{x\in M}^{}{C_{x}}.
+  \]
+  Devido ao fato do fecho da componente conexa ser conexa, toda componente conexa é fechada. Ademais, se M tiver uma quantidade finita de componentes conexas,
+elas serão abertas. Com efeito, se \(M = \cup_{i=1}^{n}C_{i},\) com \(C_{i}, i = 1,\cdots,n\) componentes conexas, então 
+  \[
+    C_{i}^{\complement} = \cup_{j=1, j\neq i}^{n}C_{j}
+  \]
+  que é fechado, visto que cada \(C_{j}\) é fechado e, portanto, \(C_{i}\) é aberto.
+ \begin{example}
+   Se M não tiver um número finito, as componentes podem não ser conjuntos abertos, vide o exemplo de \(M = \mathbb{Q}\), tal que a decomposição em suas componentes aberats é 
+     \[
+       \mathbb{Q} = \bigcup_{q\in \mathbb{Q}}^{}{\{q\}}.
+     \]
+ \end{example}
+ \begin{theorem*}
+   Seja \(h:M\rightarrow N\) um homeomorfismo. Então, \(C_{x}\subseteq{M}\) é componente conexa de M se, e somente se,
+ \(h(C_{x})\) é uma componente conexa de N.
+ \end{theorem*}
+\begin{proof*}
+  Se \(C_{x}\subseteq{M}\) é uma componente conexa em M e \(C_{y}\) é a componente conexa de \(y=h(x),\) então \(h(C_{x})\) é
+um conexo contendo \(y = h(x)\) e, por isso, \(h(C_{x})\subseteq{C_{y}}\). Além disso, como \(h^{-1}\) é contínua, 
+  \[
+    h^{-1}(C_{y})\subseteq{C_{x}},
+  \]
+  pois \(h^{-1}(C_{y})\) é um conexo contendo x. Segue que \(C_{y}\subseteq{h(C_{x})}\), donde segue que \(h(C_{x}) = C_{y}\) é 
+uma componente de N.
+
+  Analogamente, mostra-se que \(h(C)\) é uma componente conexa de N e \(C_{x}\) é a componente conexa e \(x=h^{-1}(y)\) para algum y em h(C), então
+ \(h^{-1}(C_{y})\) é uma componente de M. \qedsymbol
+\end{proof*}
 \end{document}
