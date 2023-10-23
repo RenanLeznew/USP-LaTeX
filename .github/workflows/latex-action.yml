@@ -27,7 +27,7 @@ jobs:
         name: 
           Algebra
         path: 
-          algebra_notes.pdf
+          Algebra/algebra_notes.pdf
         if-no-files-found: error
     - name: Upload Analysis file
       uses: actions/upload-artifact@v3
@@ -35,7 +35,7 @@ jobs:
         name: 
           Analise
         path: 
-          analysis_notes.pdf
+          Analysis/analysis_notes.pdf
         if-no-files-found: error
     - name: Upload Physics I file
       uses: actions/upload-artifact@v3
@@ -93,3 +93,17 @@ jobs:
         path: 
           linear_algebra_notes.pdf
         if-no-files-found: error    
+    - name: Create Zip Archive
+      run: |
+        mkdir Artifacts
+        cp Algebra/algebra_notes.pdf Artifacts/
+        cp Analysis/analysis_notes.pdf Artifacts/
+        # ... (other cp commands for other PDFs)
+        zip -r Artifacts.zip Artifacts
+    - name: Upload Artifacts to Google Drive
+      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+      with:
+        target: Artifacts.zip
+        credentials: ${{ secrets.DRIVESHHHH }}
+        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+
