@@ -93,17 +93,17 @@ jobs:
         path: 
           linear_algebra_notes.pdf
         if-no-files-found: error    
-    - name: Create Zip Archive
-      run: |
-        mkdir Artifacts
-        cp algebra_notes.pdf Artifacts/
-        cp analysis_notes.pdf Artifacts/
-        # ... (other cp commands for other PDFs)
-        zip -r Artifacts.zip Artifacts
+#   - name: Create Zip Archive
+#     run: |
+#       mkdir Artifacts
+#       cp algebra_notes.pdf Artifacts/
+#       cp analysis_notes.pdf Artifacts/
+#       # ... (other cp commands for other PDFs)
+#       zip -r Artifacts.zip Artifacts
     - name: Upload Artifacts to Google Drive
       uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
       with:
-        target: Artifacts.zip
+        target: algebra_notes.pdf
         credentials: ${{ secrets.DRIVESHHHH }}
         parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
