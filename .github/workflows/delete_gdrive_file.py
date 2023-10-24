@@ -4,13 +4,12 @@ import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
+print(os.environ.get("DRIVESHHHH"))
 def get_file_id(file_name):
     query = f"name='{file_name}'"
-    creds = None
     creds = service_account.Credentials.from_service_account_info(
         json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8'))
     )
-    print(os.environ.get("DRIVESHHHH"))
     # Get the base64-encoded credentials string from the environment variable
 #       creds_base64_str = """ewogICJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsCiAgInByb2plY3RfaWQiOiAiY2xhc3Nlc3Bk
 #   ZnMiLAogICJwcml2YXRlX2tleV9pZCI6ICJhODlkZWUzZjQ2ZWNhYzJhMjMwY2NiZWFlNDMyZWE1
@@ -126,11 +125,9 @@ def delete_file(file_id):
 #       # Create a Credentials object from the dictionary
 #       creds = service_account.Credentials.from_service_account_info(creds_json)
 #       # Build and return the Google Drive API service client
-    creds = None
     creds = service_account.Credentials.from_service_account_info(
         json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8'))
     )
-    print(creds)
     service = build('drive', 'v3', credentials=creds)
 
     service.files().delete(fileId=file_id).execute()
@@ -185,11 +182,9 @@ def list_files():
 #       creds_json = json.loads(creds_json_str)
 #       # Create a Credentials object from the dictionary
 #       creds = service_account.Credentials.from_service_account_info(creds_json)
-    creds = None
     creds = service_account.Credentials.from_service_account_info(
         json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8'))
     )
-    print(creds)
     # Build and return the Google Drive API service client
     service = build('drive', 'v3', credentials=creds)
 

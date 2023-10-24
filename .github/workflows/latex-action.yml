@@ -20,92 +20,93 @@ jobs:
     - name: Delete file from Google Drive
       env: 
         DRIVESHHHH: ${{ secrets.DRIVESHHHH }}
-      run: python delete_gdrive_file.py
-    - name: Compile LaTeX document
-      uses: xu-cheng/latex-action@v3
-      with:
-        root_file: |
-          Algebra/algebra_notes.tex
-          Analysis/analysis_notes.tex
-          PhysicsI/physics_notes.tex
-          PhysicsII/physicsII_notes.tex
-          ComplexAnalysis/complex.tex
-          Calculus1/exercícios_de_cálculo.tex
-          LinearAlgebra/linear_algebra_notes.tex
-          MetricSpaces/metric_notes.tex
-          Probability/probability_notes.tex
-    - name: Upload Algebra file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Algebra
-        path: 
-          algebra_notes.pdf
-        if-no-files-found: error
-    - name: Upload Analysis file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Analise
-        path: 
-          analysis_notes.pdf
-        if-no-files-found: error
-    - name: Upload Physics I file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Fisica I
-        path: 
-          physics_notes.pdf
-        if-no-files-found: error
-    - name: Upload Metrics file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Espaços Metricos 
-        path: 
-          metric_notes.pdf
-        if-no-files-found: error
-    - name: Upload Complex Analysis file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Funções de Variável Complexa
-        path: 
-          complex.pdf
-        if-no-files-found: error
-    - name: Upload Probability file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Probabilidade
-        path: 
-          probability_notes.pdf
-        if-no-files-found: error
-    - name: Upload Physics II file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Física II
-        path: 
-          physicsII_notes.pdf
-        if-no-files-found: error
-    - name: Upload Calculus I file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Calculo I
-        path: 
-          exercícios_de_cálculo.pdf
-        if-no-files-found: error
-    - name: Upload Linear Algebra file
-      uses: actions/upload-artifact@v3
-      with: 
-        name: 
-          Algebra Linear
-        path: 
-          linear_algebra_notes.pdf
-        if-no-files-found: error    
+#     run: python delete_gdrive_file.py
+      run: python -c 'import os;print(os.environ)'
+#   - name: Compile LaTeX document
+#     uses: xu-cheng/latex-action@v3
+#     with:
+#       root_file: |
+#         Algebra/algebra_notes.tex
+#         Analysis/analysis_notes.tex
+#         PhysicsI/physics_notes.tex
+#         PhysicsII/physicsII_notes.tex
+#         ComplexAnalysis/complex.tex
+#         Calculus1/exercícios_de_cálculo.tex
+#         LinearAlgebra/linear_algebra_notes.tex
+#         MetricSpaces/metric_notes.tex
+#         Probability/probability_notes.tex
+#   - name: Upload Algebra file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Algebra
+#       path: 
+#         algebra_notes.pdf
+#       if-no-files-found: error
+#   - name: Upload Analysis file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Analise
+#       path: 
+#         analysis_notes.pdf
+#       if-no-files-found: error
+#   - name: Upload Physics I file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Fisica I
+#       path: 
+#         physics_notes.pdf
+#       if-no-files-found: error
+#   - name: Upload Metrics file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Espaços Metricos 
+#       path: 
+#         metric_notes.pdf
+#       if-no-files-found: error
+#   - name: Upload Complex Analysis file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Funções de Variável Complexa
+#       path: 
+#         complex.pdf
+#       if-no-files-found: error
+#   - name: Upload Probability file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Probabilidade
+#       path: 
+#         probability_notes.pdf
+#       if-no-files-found: error
+#   - name: Upload Physics II file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Física II
+#       path: 
+#         physicsII_notes.pdf
+#       if-no-files-found: error
+#   - name: Upload Calculus I file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Calculo I
+#       path: 
+#         exercícios_de_cálculo.pdf
+#       if-no-files-found: error
+#   - name: Upload Linear Algebra file
+#     uses: actions/upload-artifact@v3
+#     with: 
+#       name: 
+#         Algebra Linear
+#       path: 
+#         linear_algebra_notes.pdf
+#       if-no-files-found: error    
 #   - name: Create Zip Archive
 #     run: |
 #       mkdir Artifacts
@@ -113,57 +114,57 @@ jobs:
 #       cp analysis_notes.pdf Artifacts/
 #       # ... (other cp commands for other PDFs)
 #       zip -r Artifacts.zip Artifacts
-    - name: Upload Algebra to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: algebra_notes.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-    - name: Upload Analysis to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: analysis_notes.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-    - name: Upload PhysicsII to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: physicsII_notes.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-    - name: Upload Phsyics to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: physics_notes.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-    - name: Upload Linear Algebra to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: linear_algebra_notes.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc   
-    - name: Upload Probability to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: probability_notes.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-    - name: Upload Complex Variables to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: complex.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-    - name: Upload Metric Spaces to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: metric_notes.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-    - name: Upload Calculus I to Google Drive
-      uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-      with:
-        target: exercícios_de_cálculo.pdf
-        credentials: ${{ secrets.DRIVESHHHH }}
-        parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+#   - name: Upload Algebra to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: algebra_notes.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+#   - name: Upload Analysis to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: analysis_notes.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+#   - name: Upload PhysicsII to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: physicsII_notes.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+#   - name: Upload Phsyics to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: physics_notes.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+#   - name: Upload Linear Algebra to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: linear_algebra_notes.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc   
+#   - name: Upload Probability to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: probability_notes.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+#   - name: Upload Complex Variables to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: complex.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+#   - name: Upload Metric Spaces to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: metric_notes.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+#   - name: Upload Calculus I to Google Drive
+#     uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+#     with:
+#       target: exercícios_de_cálculo.pdf
+#       credentials: ${{ secrets.DRIVESHHHH }}
+#       parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
