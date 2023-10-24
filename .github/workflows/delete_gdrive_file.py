@@ -23,9 +23,13 @@ def delete_file(service, file_id):
     print(f'Deleted file with ID: {file_id}')
 
 def list_files():
-    with open('/home/rnzl/Downloads/classespdfs-a89dee3f46ec.json', 'r') as file:
-        creds_json = json.load(file)
-        creds = service_account.Credentials.from_service_account_info(creds_json)
+#   with open('/home/rnzl/Downloads/classespdfs-a89dee3f46ec.json', 'r') as file:
+#       creds_json = json.load(file)
+#       creds = service_account.Credentials.from_service_account_info(creds_json)
+    creds = None
+    creds = service_account.Credentials.from_service_account_info(
+        os.environ['GDRIVE_SERVICE_ACCOUNT_CREDS']
+    )
 
 
     service = build('drive', 'v3', credentials=creds)
@@ -47,10 +51,14 @@ def list_files():
     
 
 def main(file_name):
-    with open('/home/rnzl/Downloads/classespdfs-a89dee3f46ec.json', 'r') as file:
-        creds_json = json.load(file)
-        creds = service_account.Credentials.from_service_account_info(creds_json)
-   
+#   with open('/home/rnzl/Downloads/classespdfs-a89dee3f46ec.json', 'r') as file:
+#       creds_json = json.load(file)
+#       creds = service_account.Credentials.from_service_account_info(creds_json)
+    creds = None
+    creds = service_account.Credentials.from_service_account_info(
+        os.environ['GDRIVE_SERVICE_ACCOUNT_CREDS']
+    )
+
     service = build('drive', 'v3', credentials=creds)
     
     file_id = get_file_id(service, file_name)
