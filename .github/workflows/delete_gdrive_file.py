@@ -87,7 +87,6 @@ if __name__ == '__main__':
 #               ]  # Replace with your file's name
     for file in FILES:
         if file["id"]!='1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc':
-            print(file.values())
             main(file)
         else:
             continue
