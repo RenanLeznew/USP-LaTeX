@@ -1,4 +1,5 @@
 import os
+import base64
 import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
@@ -26,12 +27,15 @@ def list_files():
 #   with open('/home/rnzl/Downloads/classespdfs-a89dee3f46ec.json', 'r') as file:
 #       creds_json = json.load(file)
 #       creds = service_account.Credentials.from_service_account_info(creds_json)
-    creds = None
-    creds = service_account.Credentials.from_service_account_info(
-        os.environ['GDRIVE_SERVICE_ACCOUNT_CREDS']
-    )
-
-
+    # Get the base64-encoded credentials string from the environment variable
+    creds_base64_str = os.environ['GDRIVE_SERVICE_ACCOUNT_CREDS']
+    # Decode the base64-encoded string
+    creds_json_str = base64.b64decode(creds_base64_str).decode('utf-8')
+    # Parse the JSON string to a dictionary
+    creds_json = json.loads(creds_json_str)
+    # Create a Credentials object from the dictionary
+    creds = service_account.Credentials.from_service_account_info(creds_json)
+    # Build and return the Google Drive API service client
     service = build('drive', 'v3', credentials=creds)
 
     results = []
@@ -54,11 +58,15 @@ def main(file_name):
 #   with open('/home/rnzl/Downloads/classespdfs-a89dee3f46ec.json', 'r') as file:
 #       creds_json = json.load(file)
 #       creds = service_account.Credentials.from_service_account_info(creds_json)
-    creds = None
-    creds = service_account.Credentials.from_service_account_info(
-        os.environ['GDRIVE_SERVICE_ACCOUNT_CREDS']
-    )
-
+    # Get the base64-encoded credentials string from the environment variable
+    creds_base64_str = os.environ['GDRIVE_SERVICE_ACCOUNT_CREDS']
+    # Decode the base64-encoded string
+    creds_json_str = base64.b64decode(creds_base64_str).decode('utf-8')
+    # Parse the JSON string to a dictionary
+    creds_json = json.loads(creds_json_str)
+    # Create a Credentials object from the dictionary
+    creds = service_account.Credentials.from_service_account_info(creds_json)
+    # Build and return the Google Drive API service client
     service = build('drive', 'v3', credentials=creds)
     
     file_id = get_file_id(service, file_name)
