@@ -1641,7 +1641,8 @@ existe \(c\in[a, b]\) tal que \(f(c) = d\). Porém, \(f(a) < f(c) < f(b)\) exclu
 \section{Aula 14 - 19/10/2023}
 \subsection{Motivações} 
 \begin{itemize}
-  \item a
+  \item Exemplos de Espaços Conexos;
+  \item Relação de continuidade e conexidade.
 \end{itemize}
 \subsection{Conexidade - Continuação}
 \begin{theorem*}[Alfândega]
@@ -1820,4 +1821,225 @@ uma componente de N.
   Analogamente, mostra-se que \(h(C)\) é uma componente conexa de N e \(C_{x}\) é a componente conexa e \(x=h^{-1}(y)\) para algum y em h(C), então
  \(h^{-1}(C_{y})\) é uma componente de M. \qedsymbol
 \end{proof*}
+\newpage
+
+\section{Aula 24/10/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item Sequências de Cauchy;
+  \item Espaço Métrico Completo.
+\end{itemize}
+\subsection{Espaços Completos}
+ \begin{def*}
+   Seja \((X, \rho )\) espaço métrico. Uma sequência \(\{x_{n}\}\in X\) é chamada \textbf{sequência de Cauchy }se dado \(\varepsilon > 0\), existe \(n_{0}\in \mathbb{N}\) tal que 
+   \[
+     \rho (x_{n}, x_{m}) < \varepsilon ,\quad \forall n, m\geq n_{0}.\square
+   \]
+ \end{def*}
+ \begin{def*}
+   Uma \textbf{subsequência} de \(\{x_{n}\}\) é uma sequência \(\{x_{n, k}\}_{k}\subseteq{\{x_{n}\}}.\square\)
+ \end{def*}
+Vejamos algumas propriedades
+\begin{lemma*}
+ \begin{itemize}
+   \item[1)] Toda subsequência de uma sequência de Cauchy é também de Cauchy;
+   \item[2)] Toda sequência convergente é de Cauchy;
+   \item[3)] Uma sequência de Cauchy pode não ser convergente;
+   \item[4)] Toda sequência de Cauchy é limitada;
+   \item[5)] Nem toda sequência limitada é de Cauchy;
+   \item[6)] Uma sequência de Cauchy que possui subsequência convergente é convergente.
+ \end{itemize}
+\end{lemma*}
+\begin{proof*}
+  2.) Suponha que \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x\) em M. Dado \(\varepsilon > 0\), existe \(n_{0}\in \mathbb{N}\) tal que 
+    \[
+      d(x_{n}, x) < \frac{\varepsilon }{2},\quad n\geq n_{0}.
+    \]
+  Assim, se \(n, m\geq n_{0}\), então 
+    \[
+      d(x_{n}, x_{m})\leq d(x_{n}, x) + d(x, x_{m}) < \frac{\varepsilon }{2}+\frac{\varepsilon }{2}=\varepsilon .
+    \]
+  Logo, \(\{x_{n}\}\) é de Cauchy. 
+
+  3.) Para um exemplo de uma sequência de Cauchy que não é convergente, considere \(M=(0, 1), x_{n}=\frac{1}{n},n\in \mathbb{N}\).
+
+  4.) Seja \(\{x_{n}\}\) de Cauchy. Existe \(n_{0}\in \mathbb{N}\) tal que 
+    \[
+      d(x_{n}, x_{m}) < 1,\quad \forall n\, m\geq n_{0}.
+    \]
+  Com isso, para \(n\geq n_{0}\), vale 
+    \[
+      d(x_{n_{0}}, x_{n}) < 1.
+    \]
+  Concluímos que \(x_{n}\in B_{1}(n_{0})\) para \(n\geq n_{0}\). Seja \(r = \max_{1\leq i\leq n_{0}-1}\{1, d(x_{n_{0}}, x_{i})\}\). Temos, então,
+ \(\{x_{n}\}\subseteq{B_{2r}(x_{n_{0}})}\).
+
+  5.) Um exemplo é \(\{(-1)^{n}\}.\)
+
+  6.) Considere \(\{x_{n}\}\) sequência de Cauchy com uma subsequência \(\{x_{n, k}\}_{k}\) convergente com limite x.
+Dado \(\varepsilon >0\), existe \(n_{0}\in \mathbb{N}\) tal que \(d(x_{n}, x_{m}) < \varepsilon , n\geq n_{0}\), já que \(\{x_{n}\}\) é de Cauchy,
+e \(d(x_{n_{k}}, x) < \varepsilon , k\geq n_{1}.\) Para \(m_{0}=\max{n_{0}, n_{1}}\), valem para
+todo \(n, k\geq n_{0}\) as duas coisas, tal que, para \(n\geq m_{0},\)
+  \[
+    d(x_{n}, x)\leq d(x_{n}, x_{m_{0}}) + d(x_{m_{0}}, x) < \frac{\varepsilon }{2} + \frac{\varepsilon }{2} = \varepsilon .
+  \]
+  Portanto, \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x.\)
+  \qedsymbol
+\end{proof*}
+\begin{def*}
+  Um espaço métrico \((X, \rho )\) é dito \textbf{completo} se toda sequência de Cauchy em X converge. Um subconjunto \(E\subseteq{X}\) é \textbf{completo} se toda sequência de Cauchy de E for convergente em E. \(\square\)
+\end{def*}
+\begin{example}
+  \(\mathbb{R}\) é completo. Seja \(\{x_{n}\}\) uma sequência de Cauchy em \(\mathbb{R}\). Consideremos \(X_{n}= \{x_{j}:j = n, n + 1, \cdots\}, n = 1, 2, \cdots\).
+Então, 
+  \[
+    X_{n} \supsetneq{X_{n+1}}\quad \forall n\in \mathbb{N}.
+  \]
+  Seja \(a_{n} = \inf\{X_{n}\}, n\in \mathbb{N}.\) Pela relação acima, \(a_{n} = \inf\{X_{n}\}\leq \inf\{X_{n+1}\} = a_{n+1}\), mostrando que \(\{a_{n}\}\) é crescente e 
+limitada. Em outras palavras, \(a = \sup\{a_{n}: n\in \mathbb{N}\} = \lim_{n\to \infty}a_{n}.\)
+  Mostremos agora que \(\{x_{n}\}\) tem uma subsequência convergente para a e, nesse caso, \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}a.\)
+
+  Com efeito, dado \(\varepsilon_{k} = \frac{1}{k},\) existe \(n_{0, k}\in \mathbb{N}\) tal que 
+  \[
+  a-\frac{1}{k} < a_{n} < a + \frac{1}{k},\quad \forall n\geq n_{0_{k}}.
+  \]
+Como \(a_{n_{0_{k}}}=\inf\{X_{n_{0_{k}}}\},\) existe \(x_{n_{k}}\in X_{n_{0_{k}}}\) tal que 
+  \[
+    a - \frac{1}{k} < a_{n_{k}}\leq x_{n_{k}} < a + \frac{1}{k}.
+  \]
+  Portanto, a sequência \(\{x_{n_{k}}\}\) converge para a e o resultado está provado. 
+\end{example}
+\begin{example}
+  Considere \(M = (0, 1)\) com a métrica usual. Então, M não é completo, visto que existe uma sequência de Cauchy que não é convergente.
+\end{example}
+\begin{example}
+  \((X, \rho )\) com \(X \neq\emptyset\) e \(\rho \) a métrica discreta em X é completo. 
+
+  De fato, seja \(\{x_{n}\}\) de Cauchy em X. Por definição, para \(0 < \varepsilon < 1,\) existe \(n_{0}\in \mathbb{N}\) tal que  
+  \[
+    d(x_{n}, x_{m}) < \varepsilon, \quad \forall n,m\geq n_{0}.
+  \]
+Como \(d(x_{n}, x_{m}) < \varepsilon \) se, e somente se, \(x_{n} = x_{m},\) conclui-se que a sequência \(\{x_{n}\}\) é constante a partir do \(n_{0}\),
+portanto ela converge, já que \(\{x_{n, k}\}_{k\geq n_{0}}\) é uma subsequência convergente.
+\end{example}
+\begin{example}
+  \((\mathbb{R}^{n}, ||\cdot||_{p})\) é completo e \(\mathbb{Q}^{n}\) não é completo.
+
+  Com efeito, temos 
+  \[
+    ||x||_{p} = \biggl(\sum\limits_{i=1}^{n}|x_{i}|^{p}\biggr)^{\frac{1}{p}},\quad p\geq 1.
+  \]
+Considere \(\{x_{n}\}\) de Cauchy em \(\mathbb{R}^{n}\). Observamos que se \(x_{n} = (x_{m}^{1}, \cdots, x_{m}^{n}), m = 1, 2, \cdots.\), então 
+  \[
+    |x_{m}^{i}-x_{q}^{i}|\leq ||x_{m}-x_{q}||_{p}
+  \]
+Logo, \(\{x_{m}^{i}\}\) é uma sequência de Cauchy para cada \(i=1, \cdots, n.\) Como \(\mathbb{R}\) é completo,
+existe \(y_{i}\) tal que \(x_{m}^{i}\overbracket[0pt]{\longrightarrow}^{m\to \infty}y_{i}.\) Seja \(y= (y_{1}, \cdots, y_{n}).\)
+Mostremos que \(x_{m}\overbracket[0pt]{\longrightarrow}^{m\to \infty}y.\) De fato, dado \(\varepsilon >0\), existe \(n_{0}\in \mathbb{N}\)
+tal que 
+  \[
+    ||x_{m}-y||_{p} = \biggl(\sum\limits_{i=1}^{n}|x_{m}^{i}-y_{i}|^{p}\biggr)^{\frac{1}{p}} < \varepsilon.
+  \]
+Da convergência de \(x_{m}^{i}\overbracket[0pt]{\longrightarrow}^{m\to \infty}y_{i},\) existe \(n_{i}\in \mathbb{N}\) tal que 
+  \[
+    |x_{m}^{i}-y_{i}| < \frac{\varepsilon}{n},\quad i=1,\cdots,n.
+  \]
+  Temos, então, 
+  \[
+    ||x_{m}-y||_{p} < \biggl(\sum\limits_{i=1}^{n}\frac{\varepsilon^{p}}{n}\biggr)^{\frac{1}{p}} = \varepsilon.
+  \]
+  Com relação a \(\mathbb{Q},\) veja que \(\mathbb{Q}\) não é completo, pois 
+  \[
+    x_{n} = \biggl(1 + \frac{1}{n}\biggr)^{n}\in \mathbb{Q},
+  \]
+  mas \(x_{n}\overbracket[0pt]{\longrightarrow}^{\to }e\in \mathbb{R}\setminus{\mathbb{Q}}.\) 
+
+\end{example}
+\begin{def*}
+  Um espaço vetorial normado \((V, ||\cdot ||\) é chamado \textbf{espaço de Banach} se é um espaço métrico completo com a distância induzida pela norma, isto é,
+ \(d(x, y) = ||x-y||, x, y\in V.\square\)
+\end{def*}
+\begin{example}
+  \(\mathcal{C}([a, b], \mathbb{R})\) com a norma 
+  \[
+    ||f|| = \max_{x\in [a, b]}|f(x)|,\quad f\in \mathcal{C}([a, b], \mathbb{R}),
+  \]
+é completo. Em outras palavras, \(\mathcal{C}([a, b]), ||||\) é um espaço de Banach.
+
+Com efeito, seja \(\{h_{n}\}\) de Cauchy em \(\mathcal{C}([a, b])\) para todo \(x\in [a, b]\). Segue que 
+  \[
+    |h_{n}(x) - h_{m}(x)|\leq ||h_{n}-h_{m}||
+  \]
+  Logo, \(\{h_{n}(x)\}\subseteq{\mathbb{R}}\) é de Cauchy para cada x em \([a, b]\). Seja \(h(x)\) o limite de \(\{h_{n}(x)\}\) e
+  considere \(h:[a, b]\rightarrow \mathbb{R}, x\mapsto h(x) = \lim_{n\to \infty}h_{n}(x).\) Mostraremos que \(h\in \mathcal{C}([a, b])\) e 
+    \[
+      ||h_{n}-h|| \rightarrow 0, n\rightarrow \infty.
+    \]
+Dado \(\varepsilon >0,\) do fato de \(\{h_{n}\}\) ser de Cauchy, existe \(n_{0}\in \mathbb{N}\) tal que 
+  \[
+    |h_{n}(x) - h_{m}(x)|\leq ||h_{n}-h_{m}|| < \frac{\varepsilon }{3},
+  \] 
+para todo \(x\in[a, b]\) e \(n, m\geq n_{0}\). Fazendo \(n\longrightarrow \infty,\) obtemos 
+  \[
+    |h(x)-h_{m}(x)|\leq \frac{\varepsilon }{3},\quad m\geq n_{0}, \forall x\in[a, b].
+  \]
+  Assim, se \(h\in \mathcal{C}([a, b]), \) então 
+  \[
+    \underbrace{\sup_{x}\{|h(x) - h_{m}(x)|\}}_{||h-h_{m}||}\leq \frac{\varepsilon }{3},\quad m\geq n_{0}.
+  \]
+e \(h_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}h\) em \(\mathcal{C}([a, b]).\) Mostremos a continuidade de h.
+Seja \(y\in [a, b]\) e verifiquemos que h é contínua em y. Dado \(\varepsilon >0,\) existe \(n_{0}\in \mathbb{N}\) tal que 
+valha
+  \[
+    |h(x)-h_{m}(x)|\leq \frac{\varepsilon }{3},\quad m\geq n_{0}, \forall x\in[a, b].
+  \]
+Como \(h_{n_{0}}\in \mathcal{C}([a, b]),\) existe \(\delta > 0\) tal que 
+  \[
+    |x-y| < \delta \Rightarrow |h_{n_{0}}(x) - h(y)| < \frac{\varepsilon }{3}.
+  \]
+  Com isso, temos o seguinte - se \(|x-y| < \delta \), então 
+  \[
+    |h(x)-h(y)|\leq |h(x)-h_{n_{0}}(x)| + |h_{n_{0}}(x) - h(y)| < \frac{\varepsilon }{3} + \frac{\varepsilon }{3} = \frac{2\varepsilon }{3} < \varepsilon .
+  \]
+Portanto, h é contínua em y.
+\end{example}
+\begin{example}
+  O espaço \((\ell_{\infty}, ||\cdot ||_{\infty}), \ell_{\infty}\coloneqq \biggl\{\{x_{n}:\sup_{i}|x_{i}|<\infty\}\biggr\}\) é Banach. A norma em \(\ell_{\infty}\) é dada por 
+  \[
+    ||x||_{\infty}=\sup\{|x_{i}|:i\in \mathbb{N}\},\quad x = \{x_{n}\}\in \ell_{\infty}.
+  \]
+
+  De fato, seja \(\{x_{n}\}\subseteq{\ell_{\infty}}\) de Cauchy. Escreveremos 
+  \[
+    x_{n} = \{x_{n}^{k}\}_{k}, \quad n = 1, 2, \cdots.
+  \]
+  Temos 
+  \[
+    |x_{n}^{k}-x_{m}^{k}|\leq \sup_{j}|x_{n}^{j}-x_{m}^{j} |. = ||x_{n}-x_{m}||,
+  \]
+garantindo que \(\{x_{n}^{k}\}_{k}\) é de Cauchy na reta \(\mathbb{R}\). Sendo \(\mathbb{R}\) um espaço completo, podemos tomar
+ \(y_{n} = \lim_{k\to \infty}x_{n}^{k}\) e definir \(y = \{y_{n}\}\). A partir disso, devemos mostrar que 
+\begin{itemize}
+  \item[1)] \(y\in \ell_{\infty}\);
+  \item[2)] \(||x_{n}-y||\longrightarrow 0\) quando \(n\longrightarrow\infty\)
+\end{itemize}
+  Dado \(\varepsilon > 0\), existe \(n_{0}\in \mathbb{N}\) tal que 
+  \[
+    |x_{n}^{k}-x_{m}^{k}| < \frac{\varepsilon }{2},\quad m,n\geq n_{0}.
+  \]
+  Isso implica que 
+  \[
+    |y_{n}-x_{n}^{k}|\leq \frac{\varepsilon }{2}, m\geq n_{0}.
+  \]
+  Logo, \(x_{m}^{k}-\frac{\varepsilon }{2} < y_{n} < x_{m}^{k}+\frac{\varepsilon }{2}\) para \(m, n\geq n_{0}.\) Como
+  \(\{x_{m}^{k}\}_{k}\) é limitada, segue que \(\{y_{n}\}_{n}\) também é. Assim, 
+  \[
+    |y_{n}-x_{m}^{k}|\leq \frac{\varepsilon }{2},\quad m\geq n_{0}.
+  \]
+  Agora, 
+  \[
+    ||y-x_{n}||_{\infty}=\sup_{i}\{|y_{i}-x_{n}^{i}|\}\leq \frac{\varepsilon }{2},\quad m\geq n_{0}.
+  \] 
+  Portanto, a sequência de Cauchy convergiu para y.
+\end{example}
 \end{document}

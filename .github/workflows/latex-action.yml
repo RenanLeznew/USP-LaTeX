@@ -8,6 +8,15 @@ jobs:
     steps:
     - name: Set up Git repository
       uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        pip install --upgrade google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+    - name: Delete file from Google Drive
+      run: python delete_gdrive_file.py
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v3
       with:
@@ -93,15 +102,6 @@ jobs:
         path: 
           linear_algebra_notes.pdf
         if-no-files-found: error    
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-    - name: Install dependencies
-      run: |
-        pip install --upgrade google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
-    - name: Delete file from Google Drive
-      run: python delete_gdrive_file.py
 #   - name: Create Zip Archive
 #     run: |
 #       mkdir Artifacts
