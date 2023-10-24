@@ -8,7 +8,7 @@ def get_file_id(file_name):
     query = f"name='{file_name}'"
     creds = None
     creds = service_account.Credentials.from_service_account_info(
-        os.environ['DRIVESHHHH']
+        os.environ[json.loads(base64.b64decode('DRIVESHHHH').decode('utf-8'))]
     )
     # Get the base64-encoded credentials string from the environment variable
 #       creds_base64_str = """ewogICJ0eXBlIjogInNlcnZpY2VfYWNjb3VudCIsCiAgInByb2plY3RfaWQiOiAiY2xhc3Nlc3Bk
@@ -127,7 +127,7 @@ def delete_file(file_id):
 #       # Build and return the Google Drive API service client
     creds = None
     creds = service_account.Credentials.from_service_account_info(
-        os.environ['DRIVESHHHH']
+        os.environ[json.loads(base64.b64decode('DRIVESHHHH').decode('utf-8'))]
     )
     print(creds)
     service = build('drive', 'v3', credentials=creds)
@@ -186,7 +186,7 @@ def list_files():
 #       creds = service_account.Credentials.from_service_account_info(creds_json)
     creds = None
     creds = service_account.Credentials.from_service_account_info(
-        os.environ['DRIVESHHHH']
+        json.loads(base64.b64decode(os.environ['DRIVESHHHH'].decode('utf-8')))
     )
     print(creds)
     # Build and return the Google Drive API service client
