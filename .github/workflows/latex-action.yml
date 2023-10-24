@@ -93,6 +93,17 @@ jobs:
         path: 
           linear_algebra_notes.pdf
         if-no-files-found: error    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install dependencies
+      run: |
+        pip install --upgrade google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+    - name: Delete file from Google Drive
+      run: python delete_gdrive_file.py
+      env:
+        GDRIVE_SERVICE_ACCOUNT_CREDS: ${{ secrets.DRIVESHHHH }}
 #   - name: Create Zip Archive
 #     run: |
 #       mkdir Artifacts
@@ -151,6 +162,6 @@ jobs:
     - name: Upload Calculus I to Google Drive
       uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
       with:
-        target: exercicios_de_cálculo.pdf
+        target: exercícios_de_cálculo.pdf
         credentials: ${{ secrets.DRIVESHHHH }}
         parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
