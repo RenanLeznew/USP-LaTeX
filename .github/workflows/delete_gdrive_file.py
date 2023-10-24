@@ -58,6 +58,7 @@ def list_files():
 
 def main(file_name):
     file_id = get_file_id("algebra_notes.pdf")
+    print(file_id)
     if file_id:
         delete_file(file_id)
 
