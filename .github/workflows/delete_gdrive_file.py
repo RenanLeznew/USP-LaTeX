@@ -6,9 +6,7 @@ from googleapiclient.discovery import build
 
 def get_file_id(file_name):
     query = f"name='{file_name}'"
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8'))
-    )
+    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8')))
     service = build('drive', 'v3', credentials=creds)
 
     results = service.files().list(q=query).execute()
@@ -23,17 +21,13 @@ def get_file_id(file_name):
         return None
     
 def delete_file(file_id):
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8'))
-    )
+    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8')))
     service = build('drive', 'v3', credentials=creds)
 
     service.files().delete(fileId=file_id).execute()
 
 def list_files():
-    creds = service_account.Credentials.from_service_account_info(
-        json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8'))
-    )
+    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8')))
     # Build and return the Google Drive API service client
     service = build('drive', 'v3', credentials=creds)
 
@@ -52,8 +46,10 @@ def list_files():
     response.clear()
     return results
     
+print("oi")
 
 def main(file_name):
+    print(file_name)
     file_id = get_file_id(file_name)
     if file_id:
         delete_file(file_id)
