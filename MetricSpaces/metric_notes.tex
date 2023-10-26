@@ -1823,7 +1823,7 @@ uma componente de N.
 \end{proof*}
 \newpage
 
-\section{Aula 24/10/2023}
+\section{Aula 14 - 24/10/2023}
 \subsection{Motivações} 
 \begin{itemize}
   \item Sequências de Cauchy;
@@ -2044,5 +2044,63 @@ garantindo que \(\{x_{n}^{k}\}_{k}\) é de Cauchy na reta \(\mathbb{R}\). Sendo 
 \end{example}
 \newpage
 
-\section{Aula }
+\section{Aula 15 - 26/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Mais Exemplos de Espaços de Banach;
+  \item Propriedade Topológicas de Espaços Métricos Completos.
+\end{itemize}
+  Continuemos com outro exemplo de um espaço de Banach:
+  \begin{example}
+    O espaço métrico \(\mathcal{B}(X, \mathbb{R})\coloneqq \{f:X\rightarrow \mathbb{R}: f\text{ é limitada}\}\) é um espaço de Banach com a norma 
+      \[
+        ||f||=\sup_{x\in X}\{|f(x)|\}.
+      \]
+
+    De fato, seja \(\{f_{n}\}\subseteq{\mathcal{B}(X, \mathbb{R})}\) uma sequência de Cauchy. Logo, para todo \(\varepsilon >0\), existe \(n_{0}\in \mathbb{N}\) tal que 
+  se \(m, n\geq n_{0}\), 
+    \[
+      |f_{n}-f_{m}|\leq \sup_{x\in X}\{f_{n}(x)-f_{m}(x)\} = ||f_{n}-f_{m}|| < \varepsilon .
+    \]
+  para todo x em X. Logo, \(\{f_{n}(x)\}\subseteq{\mathbb{R}}\) é uma sequência de Cauchy e, portanto, converge para algum \(f(x),\) pois \(\mathbb{R}\) é um espaço métrico completo.
+Assim, temos \(f:X\rightarrow \mathbb{R}\) definida por 
+  \[
+    f(x) = \lim_{n\to \infty}f_{n}(x),\quad x\in X.
+  \]
+  Fazendo \(n\longrightarrow \infty\) na primeira desigualdade e colocando \(m=n_{0}\), obtemos 
+  \[
+    |f(x)-f_{n_{0}}(x)|\leq \varepsilon .
+  \]
+  Disto segue que 
+  \[
+    |f(x)| - |f_{n_{0}}(x)|\leq \varepsilon \Rightarrow |f(x)|\leq \varepsilon + |f_{n_{0}}(x)|.
+  \]
+  Como \(f_{n_{0}}\in \mathcal{B}(X, \mathbb{R}),\) concluímos que \(f\in \mathcal{B}(X, \mathbb{R}).\) Por aquela mesma desigualdade, segue que 
+  \[
+    \sup_{x\in X}\{f(x)-f_{m}(x)\}\leq \varepsilon ,
+  \]
+  ou seja, \(||f-f_{m}|| < \varepsilon \) para todo \(m\geq n_{0}\), o que equivale a dizer que \(f_{m}\) converge para f em \(\mathcal{B}(X, \mathbb{R}).\)
+  \end{example}
+  Um resultado muito importante sobre a topologia dos espaços métricos completos diz que todo subconjunto fechado do espaço métrico é completo e vice-versa - em outras
+palavras, há uma equivalência entre completude e ser fechado! 
+ \begin{prop*}
+   Seja \((M, d)\) um espaço métrico.
+ \begin{itemize}
+   \item[a)] Se M é completo, então \(F\subseteq{M}\) é completo se F é fechado.
+   \item[b)] Se \(F\subseteq{M}\) é completo, então F é fechado.
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  b) Se F é completo e x pertence ao seu fecho, então 
+ \begin{itemize}
+   \item[i)] Existe \(\{x_{n}\}\subseteq{F}\) tal que \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x\)
+   \item[ii)] Como \(\{x_{n}\}\) é convergente, ela é de Cauchy em F e converge em F.
+ \end{itemize}
+ Portanto, \(x\in F\) e \(\overline{F}\subseteq{F},\) donde segue que \(F = \overline{F}\) e que F é fechado.
+
+ a) Se F é fechado, toda sequência em F converge para um elemento de F. Sendo assim, dada uma sequência de Cauchy \(\{x_{n}\}\subseteq{F},\) ela é,
+em particular, de Cauchy em M, o qual é completo. Sendo assim, existe \(x\in M\) tal que \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x.\) No entanto,
+já que F é fechado, o limite de uma sequência de F deve estar lá, o que significa que \(x\in F\). Portanto, \(\{x_{n}\}\) de Cauchy tem seu limite em F, provando a 
+completude do mesmo. \qedsymbol
+\end{proof*}
 \end{document}
