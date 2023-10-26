@@ -44,8 +44,6 @@ def list_files():
             break
     response.clear()
     return results
-    
-print("oi")
 
 def main(file_name):
     file_id = get_file_id(file_name)
@@ -57,5 +55,4 @@ if __name__ == '__main__':
     for file in FILES:
         if file["id"]!='1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc':
             main(file["name"])
-        else:
-            continue
+
