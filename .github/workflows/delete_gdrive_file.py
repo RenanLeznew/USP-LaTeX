@@ -45,6 +45,7 @@ Mi92MS9jZXJ0cyIsCiAgImNsaWVudF94NTA5X2NlcnRfdXJsIjogImh0dHBzOi8vd3d3Lmdvb2ds
 ZWFwaXMuY29tL3JvYm90L3YxL21ldGFkYXRhL3g1MDkvZHJpdmVycGRmcyU0MGNsYXNzZXNwZGZz
 LmlhbS5nc2VydmljZWFjY291bnQuY29tIiwKICAidW5pdmVyc2VfZG9tYWluIjogImdvb2dsZWFw
 aXMuY29tIgp9Cg=="""
+
 def get_file_id(file_name):
     query = f"name='{file_name}'"
     creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(test_var).decode('utf-8')))
@@ -85,8 +86,6 @@ def list_files():
             break
     response.clear()
     return results
-    
-print("oi")
 
 def main(file_name):
     file_id = get_file_id(file_name)
