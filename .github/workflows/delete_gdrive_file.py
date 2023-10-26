@@ -3,7 +3,7 @@ import base64
 import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
-
+#os.environ.get("DRIVESHHHH")
 def get_file_id(file_name):
     query = f"name='{file_name}'"
     creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8')))
@@ -28,7 +28,6 @@ def delete_file(file_id):
 
 def list_files():
     creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8')))
-    # Build and return the Google Drive API service client
     service = build('drive', 'v3', credentials=creds)
 
     results = []
@@ -49,7 +48,6 @@ def list_files():
 print("oi")
 
 def main(file_name):
-    print(file_name)
     file_id = get_file_id(file_name)
     if file_id:
         delete_file(file_id)
@@ -58,6 +56,6 @@ if __name__ == '__main__':
     FILES = list_files()
     for file in FILES:
         if file["id"]!='1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc':
-            main(file)
+            main(file["name"])
         else:
             continue
