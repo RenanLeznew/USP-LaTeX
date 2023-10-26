@@ -47,8 +47,7 @@ def list_files():
 
 def main(file_name):
     file_id = get_file_id(file_name)
-    if file_id:
-        delete_file(file_id)
+    delete_file(file_id)
 
 if __name__ == '__main__':
     FILES = list_files()
