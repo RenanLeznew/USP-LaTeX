@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 #os.environ.get("DRIVESHHHH")
 def get_file_id(file_name):
     query = f"name='{file_name}'"
-    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8')))
+    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get["DRIVESHHHH"]).decode('utf-8')))
     service = build('drive', 'v3', credentials=creds)
 
     results = service.files().list(q=query).execute()
@@ -21,13 +21,13 @@ def get_file_id(file_name):
         return None
     
 def delete_file(file_id):
-    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8')))
+    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ["DRIVESHHHH"]).decode('utf-8')))
     service = build('drive', 'v3', credentials=creds)
 
     service.files().delete(fileId=file_id).execute()
 
 def list_files():
-    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ.get("DRIVESHHHH")).decode('utf-8')))
+    creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(os.environ["DRIVESHHHH"]).decode('utf-8')))
     service = build('drive', 'v3', credentials=creds)
 
     results = []
