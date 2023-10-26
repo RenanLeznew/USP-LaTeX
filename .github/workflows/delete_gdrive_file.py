@@ -4,7 +4,7 @@ import json
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 
-test_var = os.getenv["DRIVESHHHH"]
+test_var = os.environ("DRIVE_ENV_SEC")
 def get_file_id(file_name):
     query = f"name='{file_name}'"
     creds = service_account.Credentials.from_service_account_info(json.loads(base64.b64decode(test_var).decode('utf-8')))
