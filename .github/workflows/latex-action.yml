@@ -3,11 +3,10 @@ on:
   [push]
 
 jobs:
-  build_latex:
+  refresh_drive:
+    environment: DRIVE_ENV_SEC
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Git repository
-      uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -19,6 +18,11 @@ jobs:
       env:
         DRIVE_ENV_SEC: '${{ secrets.DRIVE_ENV_SEC }}'
       run: python delete_gdrive_file.py
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Git repository
+      uses: actions/checkout@v3
 #   - name: Compile LaTeX document
 #     uses: xu-cheng/latex-action@v3
 #     with:
