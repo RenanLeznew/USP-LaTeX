@@ -395,8 +395,207 @@ encontrar duas defeituosas, qual é a probabilidade de que a última defeituosa 
 \subsection{Motivações}
 \begin{itemize}
   \item Noções de Contagens e resultados iniciais;
-  \item Princípio Fundamental da Contagem.
+  \item Princípio Fundamental da Contagem;
+  \item Permutações, Arranjos e Combinações.
 \end{itemize}
+\subsection{Introdução}
+  Começamos com o seguinte problema de motivação: Em um lote de 100 peças, das quais
+20 são defeituosas e 80 são perfeitas, escolhe-se ao acaso dez dessas peças, sem reposição.
+Qual é a probabilidade de que \textit{exatamente} metade das peças escolhidas seja defeituosa?
+
+  A análise deste problema começa a partir do espaço amostral, \(\Omega \), em que cada elemento
+é constituído de dez possíveis peças do lote, sejam elas \((a_{1}, \cdots, a_{10})\). Quantos resultados
+desses existem? Dentre esses resultados, quais deles têm a característica desejada - exatamente metade das
+peças selecionadas são defeituosas?
+
+  Problemas do tipo são comuns no mundo, então foram desenvolvidas ferramentas adequadas para tratar deles, as chamadas
+\textit{técnicas sistemáticas de enumeração}. Vamos conhecer algumas delas.
+\subsection{Princípios Fundamentais da Contagem}
+  Suponha que um processo \(P_{1}\) possa ser executado de \(n\) maneiras diferentes e considere,
+também, que um segundo processo, \(P_{2}\), possa ser executado de m maneiras. Partindo da hipótese de que
+cada maneira de executar \(P_{1}\) possa ser seguida por uma outra para executar \(P_{2},\) o processo
+``\(P_{1}\) seguido de \(P_{2}\)'', denotado por P, pode ser executado de \(n=n \cdot m\) maneiras. Essa versão é 
+a mais básica do \textit{princípio fundamental da contagem para a multiplicação}. Formalmente,
+\begin{theorem*}
+  Se existirem k processos e o i-ésimo puder ser executado de \(n_{i}\) maneiras, \(i=1, 2, \cdots, \), então
+o procedimento P formado por \(P_{1},\) seguido por \(P_{2}\), seguido por \(P_{3}, \cdots,\) seguido pelo procedimento \(P_{k}\),
+poderá ser executado de 
+  \[
+    n = n_{1}\times n_{2}\times \cdots\times n_{k}
+  \]
+  maneiras.
+\end{theorem*}
+\begin{example}
+  Uma peça manufaturada deve passar por três estações de controle. Em cada estação, a peça é
+infecionada para determinada característica e marcada adequadamente. Na primeira estação, três
+classificações são possíveis, enquanto que nas duas últimas, quatro classificações são possíveis. 
+De quantas maneiras possíveis uma peça pode ser marcada?
+
+  Utilizando o princípio fundamental da contagem, segue que cada peça pode ser marcada de \(3\times 4\times 4 = 48\) maneiras.
+\end{example}
+  Além da versão de multiplicação, há uma para a adição, relacionada ao termo ``realizar um OU outro''.
+Indo direto ao ponto, ele pode ser enunciado da seguinte forma:
+\begin{theorem*}
+  O \textit{princípio fundamental da contagem para a adição} afirma que, se existem k processos
+e o i-ésimo procedimento puder ser realizado de \(n_{i}, i = 1, 2, \cdots, k\) maneiras, então
+o número de maneiras pelas quais podemos realizar ou o processo \(P_1\), ou o processo \(P_{2}\),
+ \(\cdots,\) ou o processo \(P_{k}\), é dado por 
+   \[
+     n = n_1 + n_{2} + \cdots + n_{k},
+   \]
+  em que supõe-se que dois processos quaisquer não podem ser realizados simultaneamente.
+\end{theorem*}
+\begin{example}
+  Suponha que estejamos planejando uma viagem e devamos escolher entre o transporte por ônibus ou por trem.
+Se existirem três rodovias e duas ferrovias, quantos caminhos estão disponíveis para a viagem?
+
+  Como não é possível andar de ônibus e trem ao mesmo tempo, aplicamos o princípio fundamental da contagem para a adição.
+Portanto, existirão 3 + 2 = 5 caminhos disponíveis para a viagem.
+\end{example}
+\subsection{Permutações, Arranjos e Combinações}
+  Suponha que tenhamos n objetos diferentes. De quantas maneiras, \(_{n}P_{n}\), podemos dispor esses objetos?
+Vejamos um exemplo:
+\begin{example}
+  Se tivermos os objetos a, b e c, poderemos considerar as seguintes permutações: 
+    \[
+      abc, acb, bac, bca, cab\quad\text{e}\quad cba.
+    \]
+    Portanto, a resposta é 6.
+\end{example}
+  Utilizando o princípio fundamental da contagem para a multiplicação, o número de permutações
+de n objetos diferentes é dado por 
+  \[
+    _{n}P_{n} = n\times(n-1)\times(n-2)\times \cdots\times 1 = n!.
+  \]
+  Outras noções importantes são de arranjos e de combinações. Consideremos n objetos diferentes. Desejamos 
+escolher r desses objetos, sendo r um número \(0\leq r\leq n\) e permutar os r
+escolhidos. Denotamos por \(_{n}A_{r}\) o número de maneiras de fazer esses arranjos.
+Como paramos no \((n-r+1)\)-ésimo elemento, o princípio fundamental da contagem para a multiplicação mostra que 
+  \[
+    _{n}A_{r} = n\times(n-1)\times(n-2)\times \cdots\times(n-r+1) = \frac{n!}{(n-r)!}
+  \]
+ \begin{example}
+   Temos os objetos a, b, c e d, e \(r=2\). Desejamos contar 
+   \[
+     ab, ac, ad, bc, bd\quad\text{e}\quad cd,
+   \]
+  mas, como ab e ba são os mesmos objetos com a ordem inversa, não escreveremos eles. Assim, 
+  \[
+    _{4}A_{2} = \frac{4!}{2!} = \frac{24}{2} = 12.
+  \]
+ \end{example}
+  Para obtermos o resultado geral, considere a expressão para o arranjo dos r objetos dentre n, ou seja, 
+  \[
+    _{n}A_{r} = \frac{n!}{(n-r)!}.
+  \]
+  Considerando \(_{n}C_{r}\) como o número de maneiras de escolher r objetos dentre os n, mas 
+sem considerar a ordem. Uma vez que r objetos tenham sido escolhidos, existirão \(r!\) maneiras
+de permutá-los. Consequentemente, outra aplicação do princípio fundamental da contagem para a multiplicação 
+fornece-nos 
+  \[
+    _{n}C_{r}\times r! = \frac{n!}{(n-r)!}.
+  \]
+  Portanto, o número de maneiras de escolher r dentre n objetos diferentes, desconsiderando
+a ordem deles, é dado por 
+  \[
+    _{n}C_{r} = \frac{n!}{r!(n-r)!} = \binom{n}{r}.
+  \]
+  Algumas propriedades dos números \(\binom{n}{r}\) valem ser mencionadas.
+ \begin{prop*}
+   Os números \(\binom{n}{r}\) apresentam as seguintes propriedades:
+  \begin{itemize}
+    \item[i)]   
+  \[
+    \binom{n}{r} = \binom{n}{n-r}.
+  \]
+    \item[ii)] 
+      \[
+        \binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}.
+      \]
+  \end{itemize}
+ \end{prop*}
+\begin{proof*}
+  i) Quando escolhemos r dentre n coisas, estamos ao mesmo tempo deixando (n-r) coisas não escolhidas e, por isso
+escolher r dentre n é equivalente a escolher (n-r) dentre n. Em outras palavras, 
+
+  ii) Fixe um elemento qualquer dos n objetos, digamos a. Ao escolher r objetos, a estará incluído ou excluído entre eles,
+mas nunca poderá estar e não estar ao mesmo tempo. Logo, ao contar o número de maneiras de escolher r objetos,
+aplicamos o princípio fundamental da contagem para a adição. 
+
+  Se a for excluindo, escolhemos os r objetos dentre os (n-1) restantes, e existem \(\binom{n-1}{r}\) maneiras de fazer isso. 
+
+  Caso a seja incluso, somente (r-1) objetos devem ser escolhidos dentre os (n-1) restantes, resultando em \(\binom{n-1}{r-1}.\)
+
+  Portanto, 
+    \[
+      \binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}.\text{\qedsymbol}
+    \]
+\end{proof*}
+\begin{example}
+  Considerando oito pessoas, quantas comissões de três membros podem ser escohidas?
+
+  Desde que duas comissões sejam a mesma comissão se forem constituídas pelas mesmas pessoas
+(não se levando em conta a ordem em que sejam escolhidas), teremos quantas comissões possíveis? 
+  \[
+    _{8}C_{3} = \binom{8}{3} = \frac{8!}{3!(8-3)!} = \frac{40320}{6\times 120} = 56.
+  \]
+\end{example}
+\begin{example}
+  Com oito bandeiras diferentes, quantos sinais, feitos com três bandeiras podemos obter?
+
+  Este problema é próximo do anterior, entretanto, aqui a ordem acarreta diferença e, por isso, obteremos quantos sinais?
+
+  Teremos que utilizar o arranjo ao invés da combinação, tal que 
+  \[
+    _{8}A_{3} = \frac{8!}{(8-3)!} = 336.
+  \]
+\end{example}
+\begin{example}
+  Voltemos à pergunta inicial sobre o lote. Temos nele 20 peças defeituosas e 80 peças perfeitas. Ao escolher
+10 peças ao acaso, sem reposição, nos perguntamos - qual é a probabilidade de escolhermos exatamente 5 peças defeituosas
+e 5 peças perfeitas entre as 10 escolhidas?
+
+  Primeiro, enumeramos o número de maneiras que podemos amostrar as peças dentre as 100, isto é, 
+  \[
+    _{100}C_{10} = \binom{100}{10}.
+  \]
+  Em seguida, enumeramos o número de maneiras que podemos amostrar as 5 peças defeituosas dentre as 20 totais, ou seja 
+  \[
+    _{20}C_{5} = \binom{20}{5},
+  \]
+e, também, o número de maneiras que podemos amostrar as 5 peças perfeitas entre as 80,
+  \[
+    _{80}C_{5} = \binom{80}{5}.
+  \]
+  Com isso, a probabilidade desejada é dada por 
+  \[
+    \frac{\binom{20}{5}\binom{80}{5}}{\binom{100}{10}} \approx 0,021 = 2,1\%
+  \]
+\end{example}
+  A ideia deste exemplo pode ser generalizada da seguinte forma: dados N objetos, dos quais
+n são escolhidos ao acaso sem reposição, 
+\begin{itemize}
+  \item[a)] Teremos \(\binom{N}{n}\) diferentes amostras possíveis;
+  \item[b)] Se as N peças forem formadas por \(r_{1}\) da classe A e \(r_{2}\) da classe B (com \(r_{1} + r_{2} = N\).
+\end{itemize}
+  Então, a probabilidade de que as n peças escolhidos sejam exatamente \(s_{1}\) da classe A
+e \((n-s_{1})\) da classe B será dada por 
+  \[
+  \frac{\binom{r_{1}}{s_{1}}\binom{r_{2}}{n-s_{1}}}{\binom{N}{n}}.
+  \]
+  Essa expressão denomina-se \textbf{probabilidade hipergeométrica}.
+
+  Em todas as técnicas vistas até agora, supomos que os objetos sejam diferentes entre si, mas isso nem sempre é possível.
+Forneceremos a ferramenta que permite lidar com isso agora. 
+
+Suponha que temos n objetos, subdivididos em k grupos com
+ \(n_{1}, n_{2}, \cdots, n_{k}\) elementos indistinguíveis entre si, dentro de seus respectivos grupos, 
+ e tais que \(n = n_{1} + n_{2} + \cdots + n_{k}\). Neste caso, o número de permutações possíveis desses n objetos é 
+ \[
+   \frac{_{n}P_{n}}{_{n_{1}}P_{n_{1}}\times _{n_{2}}P_{n_{2}}\times \cdots _{n_{k}}P_{n_{k}}} = \frac{n!}{n_{1}!\times n_{2}!\times \cdots\times n_{k}!}
+ \]
+ Note que, se todos os objetos fossem diferentes, \(n_{i} = 1\) para todo \(i=1, 2, \cdots, k\) e, consequentemente,
+a fórmula seria reduzida ao caso que vimos antes, ou seja, \(n!.\)
 
 \newpage
 
@@ -1027,6 +1226,125 @@ que é um modelo cuja variância é máxima quando p vale \(\frac{1}{2}\).
 \section{Aula 09 - 31/10/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item a
+  \item Desigualdade de Tchebycheff;
+  \item Momentos de Ordem Superior.
 \end{itemize}
+\subsection{Desigualdade de Thebycheff}
+  O conhecimento da função de probabilidade de uma variável aleatória possibilita-nos calcular a esperança e a variância
+dela, desde que elas existam. No entanto, não somos capazes de fazer o oposto - ou seja, conhecer \(\mathbb{E}(X)\)
+e Var(X) não permite-nos reconstruir a função densidade nem a função de probabilidade de X.
+Embora isso seja impossível, o que podemos fazer é estabelecer limites superiores e inferiores muito úteis para estimá-las.
+Uma dessas formas está contida no que é conhecido como Desigualdade de Tchebycheff.
+
+  A desigualdade de Tchebycheff é a seguinte: 
+\begin{theorem*}
+  Suponha que X é uma variável aleatória
+com esperança \(\mathbb{E}(X) = \mu\) e seja c um número real qualquer. Então, se \(\mathbb{E}((X-c)^{2})\)
+for finita e \(\varepsilon >0\) for um número positivo qualquer, teremos 
+  \[
+    \mathbb{P}(|X-c|\geq \varepsilon )\leq \frac{1}{\varepsilon ^{2}}\mathbb{E}((X-c)^{2}).
+  \]
+\end{theorem*}
+\begin{proof*}
+Começamos analisando a primeira parte da expressão. Temos
+\begin{align*}
+  \mathbb{P}(|X-c|\geq \varepsilon )& = 1 - \mathbb{P}(|X-c| < \varepsilon )\\
+                                    & = 1 - \mathbb{P}(-\varepsilon + c < X < \varepsilon + c)\\
+                                    & = 1 - \int_{c-\varepsilon }^{c+\varepsilon }f(x)dx\geq 1 - \int_{-\infty}^{\infty}f(x)dx.
+\end{align*}
+  Note que  
+  \[
+    \mathbb{P}(|X-c|\geq \varepsilon ) = \int_{-\infty}^{c-\varepsilon }f(x)dx + \int_{c+\varepsilon }^{\infty}f(x)dx\leq \int_{-\infty}^{c-\varepsilon }f(x)dx + \int_{c+\varepsilon }^{\infty}\frac{(X-c)^{2}}{\varepsilon ^{2}}f(x)dx
+  \]
+  O mesmo vale para a integral imprópria de \(-\infty\) a \(c-\varepsilon \), pois elevamos \(-\varepsilon \) ao quadrado e chegamos no seguinte:
+ \begin{align*}
+   \mathbb{P}(|X-c|\geq \varepsilon )&\leq \int_{-\infty}^{c-\varepsilon }\frac{(X-c)^{2}}{\varepsilon ^{2}}f(x)dx + \int_{c+\varepsilon }^{\infty}\frac{(X-c)^{2}}{\varepsilon ^{2}}f(x)dx\\
+                                     &\leq \int_{-\infty}^{\infty}\frac{(X-c)^{2}}{\varepsilon ^{2}}f(x)dx = \frac{1}{\varepsilon ^{2}}\int_{-\infty}^{\infty}(X-c)^{2}f(x)dx\\
+                                     &= \frac{1}{\varepsilon ^{2}}\mathbb{E}[(X-c)^{2}].
+ \end{align*}
+ Portanto, obtemos a desigualdade desejada. \qedsymbol
+\end{proof*}
+  Há algumas formas equivalentes de interpretarmos isso. 
+Considerando o evento complementar, temos 
+  \[
+    \mathbb{P}(|X-c|< \varepsilon )\geq 1 - \frac{1}{\varepsilon ^{2}}\mathbb{E}((X-c)^{2})
+  \]
+Se \(c = \mu,\) temos 
+  \[
+    \mathbb{P}(|X-\mu|\geq \varepsilon )\leq \frac{Var(X)}{\varepsilon ^{2}}.
+  \]
+Se \(c=\mu\) e \(\varepsilon = k\sigma \), em que \(\sigma ^{2}=Var(X) > 0\), obtemos 
+  \[
+    \mathbb{P}(|X-\mu|\geq k\sigma )\leq k^{-2}.
+  \]
+
+  Uma das coisas importantes que são notáveis é que ele \textbf{não depende do modelo de probabilidade}. Em momento algum colocamos
+alguma hipótese sobre \(\mathbb{P}(\cdot )\)! Afinal, caso o modelo fosse conhecido, valeria mais a pena simplesmente fazer a conta
+\begin{example}
+  Considere a terceira forma equivalente da desigualdade de Tchebycheff, isto é, 
+  \[
+    \mathbb{P}(|X-\mu|\geq k\sigma )\leq k^{-2}.
+  \]
+Para \(k=\frac{3}{2},\) o que podemos dizer sobre X? E se soubermos que X é uniformemente
+distribuída em \(\biggl(1-\frac{1}{\sqrt[]{3}}, 1 + \frac{1}{\sqrt[]{3}}\biggr)\)?
+
+  Para a primeira parte, segue que 
+  \[
+    \mathbb{P}(|X-\mu|\geq 1,5\sigma )\leq \frac{4}{9}.
+  \] 
+Quanto à segunda, dado que X é uma variável aleatória distribuída uniformemente em \(\biggl(1-\frac{1}{\sqrt[]{3}}, 1 + \frac{1}{\sqrt[]{3}}\biggr)\),
+sabemos descrever a densidade de probabilidade dela como 
+  \[
+    f(X) = \frac{1}{1+\frac{1}{\sqrt[]{3}} - 1 + \frac{1}{\sqrt[]{3}}} = \frac{\sqrt[]{3}}{2}.
+  \]
+  Com isso, somos capazes de calcular a esperança de X 
+  \[
+    \mathbb{E}(X) = \int_{1-\frac{1}{\sqrt[]{3}}}^{1 + \frac{1}{\sqrt[]{3}}} \frac{\sqrt[]{3}}{2}xdx = \frac{\sqrt[]{3}}{2}\frac{x^{2}}{2}\biggl|_{1-\frac{1}{\sqrt[]{3}}}^{1+\frac{1}{\sqrt[]{3}}}\biggr. = \frac{\sqrt[]{3}}{4} \frac{4}{\sqrt[]{3}} = 1.
+  \]
+  Além disso, 
+  \[
+    \mathbb{E}(X^{2}) + \int_{1-\frac{1}{\sqrt[]{3}}}^{1 + \frac{1}{\sqrt[]{3}}} \frac{\sqrt[]{3}}{2}x^{2}dx = \frac{\sqrt[]{3}}{2}\frac{x^{3}}{3}\biggl|_{1-\frac{1}{\sqrt[]{3}}}^{1+\frac{1}{\sqrt[]{3}}}\biggr. = \frac{\sqrt[]{3}}{6}3,8 (????)
+  \]
+  Depois da confusão em aula, foi mostrada que a resposta é
+ \begin{align*}
+   \mathbb{P}\biggl(|X-1|\geq \frac{3}{2}\sqrt[]{\frac{1}{9}}\biggr) &= \mathbb{P}\biggl(|X-1|\geq \frac{1}{2}\biggr) \\
+                                                                     &= 1 - \frac{\sqrt[]{3}}{2} \approx 0,134.
+ \end{align*}
+
+\end{example}
+\subsection{Momentos de Ordem Superior}
+  Podemos introduzir uma noção mais geral sobre as questões até o momento vistas introduzindo outros ``momentos'' - informações importantes que usamos 
+para caracterizar distribuições de probabilidade. Já vimos alguns deles - o primeiro momento é a esperança, o segundo é a dispersão e o terceiro, ainda não
+visto, fornece um coeficiente de assimetria da distribuição e o quarto diz respeito ao ``achatamento'' dela.
+  \begin{def*}
+  Se X é uma variável aleatória discreta, com função de probabilidade \(p(x_{i}) = \mathbb{P}(X = x_{i}),\) então o \textbf{momento de ordem k}
+é definido como 
+  \[
+    \mu_{k} = \mathbb{E}(X^{k}),
+  \]
+  em que 
+  \[
+    \mathbb{E}(X^{k}) = \sum\limits_{i=1}^{\infty}x_{i}^{k}p(x_{i}).
+  \]
+  Caso X seja uma variável aleatória contínua, a definição segue a mesma, mas 
+  \[
+    \mathbb{E}(X^{k}) = \int_{-\infty}^{\infty}X^{k}f(x)dx.\quad\square
+  \]
+  \end{def*}
+  Além dessa noção, podemos introduzir o momento central de ordem k como
+ \begin{def*}
+   Se X for uma variável aleatória, com esperança finita, então o \textbf{momento central de ordem k} é definido como 
+   \[
+     \mu_{k}^{*} = \mathbb{E}\biggl([X-\mathbb{E}(X)]^{k}\biggr).\quad\square
+   \]
+ \end{def*}
+ Para evitar a expansão de altas ordens na integral, definimos a seguinte função:
+\begin{def*}
+  A \textbf{função geradora de momentos} da variável aleatória X é definida para \(t\in \mathbb{R}\) por 
+  \[
+    M_{X}(t) = \mathbb{E}(e^{tX}),
+  \]
+  desde que a esperança seja finita para \(t\in \mathbb{R}\) em algum intervalo \(-t_{0} < t < t_{0},\) com \(t_{0} > 0.\square\)
+\end{def*}
+  É preciso mostrarmos que isso de fato coincide com a definição.
 \end{document}

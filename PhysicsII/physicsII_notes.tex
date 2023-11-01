@@ -3006,4 +3006,234 @@ e nem o volume dos constituintes. Além disso,, note que
   \]
   ou seja, visto como uma função da pressão e colocado num gráfico \(\frac{PV}{nT}\times P,\) cada elemento terá um valor diferente de R, chegando ao valor \(8,314 \frac{J}{mol K}\) apenas
 se a pressão for muito pequena, justamente por não levar em conta as interações entre as partículas.
+\newpage
+
+\section{Aula 27 - 01/11/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item Múltiplos gases juntos;
+  \item Teoria Cinética dos Gases;
+  \item Teorema da Equipartição da Energia;
+  \item Livre Caminho Médio.
+\end{itemize}
+\subsection{Lei dos Gases Ideais}
+  Para um contexto com vários gases, digamos N gases diferentes. Então, sendo a pressão total dada por 
+  \[
+    P_{T} = \sum\limits_{i=1}^{n}P_{i},
+  \]
+a lei dos gases ideais fornece 
+  \[
+    P_{T}V = (P_{1} + P_{2} + \cdots + P_{N})V = (n_{1} + n_{2} + \cdots + n_{N})RT.
+  \]
+  Individualmente, cada gás obedece
+ \begin{align*}
+   &P_{1}V = n_{1}RT\\
+   &P_{2}V = n_{2}RT\\
+   &\vdots\\
+   &P_{N}V = n_{N}RT.
+ \end{align*}
+\begin{example}
+  Suponha um gás composto de 20L de \(O_{2}\) a uma pressão de \(0,3atm\) e 30L de \(N_{2}\) a \(0,6atm\), ambos estando
+a 300K. Após transferir o \(O_{2}\) e recuperar \(N_{2},\) qual é a pressão final?
+
+  Pela \hyperlink{boyle}{relação de Bolle}, 
+  \[
+    P_{1}V_{1} = P_{2}V_{2} \Rightarrow P_{2} = \frac{P_{1}V_{1}}{V_{2}} = \frac{2}{3}0,3 = 0,2atm.
+  \]
+  A pressão total é dada pela soma de cada pressão, de forma que 
+  \[
+    P_{T} = P_{N_{2}} + P_{O_{2}} = 0,6 + 0,2 = 0,8atm.
+  \]
+\end{example}
+
+  Olhando para uma situação na qual o número de moles n é conservado, 
+  \[
+    \frac{P_{1}V_{1}}{T_{1}} = \frac{P_{2}V_{2}}{T_{2}}.
+  \]
+  Chamamos P, V e T de variáveis de estado.
+
+\begin{example}
+  Suponha que há um balão de ar quente, tal ar à temperatura de \(75^{\circ{}}C\), com volume de \(15m^{3}\).
+No exterior, a temperatura é de \(24^{\circ{}}C\) e a pressão é de \(1atm\). Este balão está preso por uma corda exercendo
+força de 10N. Supondo uma massa molar \(M_{molar} = 29 \cdot 10^{-3}\frac{kg}{mol}\). Qual é a pressão interna do balão?
+
+  Começando pelo diagrama de força, as forças atuando no balão são:
+
+  \textbf{\underline{Empuxo}:}
+  Aponta para cima e vale 
+  \[
+    \vec{E} = mg + F\quad\text{e}\quad \vec{E} = \rho_{out} Vg.
+  \]
+  Além disso, 
+  \[
+    mg = \rho_{in}Vg.
+  \]
+
+  \textbf{\underline{Peso}:}
+  Aponta para baixo e vale 
+  \[
+    \vec{F}_{P} = m \vec{g}.
+  \]
+
+  Assim, somos capazes de calcular a força F, tal que 
+  \[
+    \vec{F} = \vec{E} - m \vec{g} = (\rho_{out}-\rho_{in})V \vec{g}.
+  \]
+  Conseguimos encontrar os valores de \(\rho_{out}\) e \(\rho_{in}\) por meio de 
+  \[
+    \rho_{out} = \frac{n_{out}M}{V};\quad \rho_{in} = \frac{n_{in}M}{V}.
+  \]
+  Colocando isso na forma de F,
+  \[
+    \vec{F} = \biggl(n_{out}-n_{in}\biggr)\frac{M}{V}Vg = \biggl(n_{out}-n_{in}\biggr)Mg
+  \]
+  Levando em conta que 
+  \[
+    n_{out} = \frac{P_{out}V}{T_{out}R};\quad n_{in} = \frac{P_{in}V}{T_{in}R},
+  \]
+podemos reescrever 
+  \[
+    \frac{F}{Mg} = \frac{P_{out}V}{T_{out}R} - \frac{P_{in}V}{T_{in}R}.
+  \]
+  Desta forma, 
+ \begin{align*}
+   &\frac{P_{out}V}{T_{out}R} - \frac{F}{mg} = \frac{P_{in}V}{T_{in}R}\\
+   \Rightarrow & P_{in} = RT_{in}\biggl[\frac{P_{out}}{T_{out}R} - \frac{F}{MgV}\biggr].
+ \end{align*}
+
+ \textbf{\underline{Observação}: O truque aqui era reconhecer que é possível reescrever as densidades usando o número
+de moles e, a partir disso, escrever o número de moles em si por meio das relações vistas para gases ideais.}
+\end{example}
+\subsection{Teoria Cinética dos Gases}
+  Deduzimos, por meio de observação experimental, a Lei dos Gases Ideais e chegamos na expressão 
+  \[
+    PV = nRT.
+  \]
+  O problema dela é que ela não mostra de onde vem a pressão, ou seja, nosso próximo passo é estudar de onde
+exatamente vem o motivo físico que leva os gases a terem uma pressão em primeiro lugar. A área que estuda isso
+é a \textit{Teoria Cinética dos Gases}.
+
+  O primeiro passo aqui é encontrar um modelo adequado para o gás. Imaginando ele como um conjunto
+de várias partículas, é razoável pressupor que deveremos lidar com colisões elásticas, o que inclui momento
+linear, energia cinética, etc. Além disso, as dimensões das partículas devem ser muito menores do que a separação entre elas.
+Consideraremos o espaço como \textbf{isotrópico}, uma maneira bonita de dizer que o gás não vai acumular inteiro em um
+lugar só subitamente. A gravidade poderá ser desprezada devido à alta energia cinética das partículas com relação à potencial.
+Por estarem movendo-se dentro de um recipiente, as partículas colidem com a parede e desprezaremos as colisões de partículas com partículas.
+
+
+  Em forma de lista, fazemos as seguintes premissas sobre nosso modelo:
+ \begin{itemize}
+   \item[i)] Colisão elástica (conservação de momento);
+   \item[ii)] Dimensão da partícula muito menor que a separação entre eles;
+   \item[iii)] Espaço isotrópico;
+   \item[iv)] Desprezar a gravidade;
+   \item[v)] Colisão partícula/parede;
+   \item[vi)] Colisão partícula/partícula é desprezada.
+ \end{itemize}
+
+  Considerando um recipiente visualizado no eixo xyz com uma parede de área de superfície A, qual
+é a pressão exercida sobre essa parede? Partindo do pressuposto de que há uma densidade de velocidade 
+dentro do recipiente, ou seja, nem todas as partículas estão com a mesma velocidade (nome chique: \textit{Distribuição de
+Maxwell-Boltzmann}). No entanto, fazer contas com ela torna-se uma tarefa exaustiva, então olharemos apenas
+para uma classe de velocidade, e diremos que uma partícula nesse recipiente tem velocidade \(\vec{v}_{x}\),
+tal que, ao olhar para o intervalo \(\Delta t,\) as únicas partículas que podem fazer pressão na parede são
+as que movem-se na direção \(x\), isto é, são aquelas com velocidade \(\vec{v}_{x}.\) Em outras palavras,
+somente as partículas que estão no pedaço \(\vec{v}_{x}\Delta t\) contribuem com a pressão na parede.
+Assim, o número de partículas que batem na parede satisfaz 
+  \[
+    \hypertarget{number_collisions}{\#\text{colisões em }\Delta t = \frac{1}{2}\frac{N}{v}A v_{x}\Delta t.}
+  \]
+Com isso, vamos olhar a variação de momento por colisão. Temos, para uma única colisão,
+  \[
+    \Delta p_{\text{colisão}} = -mv_{x} - mv_{x} = -2mv_{x} \Rightarrow |\Delta p_{\text{colisão}}| = 2mv_{x}.
+  \]
+  Para várias, utilizamos a \hyperlink{number_collisions}{fórmula deduzida}, tal que 
+  \[
+    |\Delta p_{T}| = 2mv_{x}\frac{1}{2}\frac{N}{V}Av_{x}\Delta t,
+  \]
+o que equivale a 
+  \[
+    \frac{|\Delta p_{T}|}{A\Delta t} = mv_{x}^{2}N \Rightarrow PV = Nmv_{x}^{2}.
+  \]
+  Podemos fazer, então, 
+  \[
+    PV = Nm \langle V_{x}^{2} \rangle.
+  \]
+  Considerando que a velocidade total vale 
+  \[
+    \langle v^{2} \rangle = \langle v_{x}^{2} \rangle + \langle v_{y}^{2} \rangle + \langle v_{z}^{2} \rangle,
+  \]
+utilizamos a hipótese do espaço ser isotrópico, que, em particular, significa que a média de todas as velocidade é a mesma,
+  \[
+    \langle v_{x}^{2} \rangle = \langle v_{y}^{2} \rangle = \langle v_{z}^{2} \rangle,
+  \]
+segue que 
+  \[
+    \langle v_{x}^{2} \rangle = \frac{1}{3}\langle v^{2} \rangle,
+  \]
+tal que 
+  \[
+    PV = \frac{1}{3}Nm \langle v^{2} \rangle.
+  \]
+  Por meio da \hyperlink{pvnrt}{Lei dos Gases Ideais,} portanto, 
+  \[
+    \frac{1}{3}Nm \langle v^{2} \rangle = Nk_{B}T \Rightarrow k_{B}T = \frac{1}{3}m \langle v^{2} \rangle,
+  \]
+uma expressão que remete muito a energia cinética. Multiplicando e dividindo ela por 2, de fato, chegamos na energia cinética média:
+  \[
+    \langle \mathbb{K} \rangle = \frac{3}{2}k_{B}T.
+  \]
+  Por outro lado, usando a fórmula para energia cinética média, isto equivale ào chamado \textbf{Teorema da Equipartição da Energia}
+  \[
+  \hyperlink{energy_equipartition}{\boxed{\frac{1}{2}\biggl[\langle v_{x}^{2} \rangle + \langle v_{y}^{2} \rangle + \langle v_{z}^{} \rangle\biggr] = \frac{3}{2}k_{B}T.}}
+  \]
+  Os termos de velocidade dentro dos colchetes são chamados de graus de liberdade. Como a partícula tem três termos, dizemos que ela tem três graus de liberdade.
+Em geral, para cada grau de liberdade, soma-se \(\frac{1}{2}k_{B}T.\)
+
+  Em outra nota, essa expressão permite-nos calcular a velocidade quadrática média por meio de 
+  \[
+    \frac{1}{2}m \langle v^{2} \rangle = \frac{3}{2}k_{B}T \Rightarrow \langle v \rangle = \sqrt[]{\frac{3k_{B}T}{m}}.
+  \]
+\begin{example}
+  Dado um gás composto de \(H_{2}\), cuja massa molar é \(2\frac{g}{mol}\), em uma sala a 300K, a velocidade média do gás é de 
+  \[
+    \langle v_{H_{2}} \rangle\approx 1900\frac{m}{s}
+  \]
+  Para o oxigênio nas mesmas condições, com massa molar de \(32 \frac{g}{mol}\),
+  \[
+    \langle v_{O_{2}} \rangle\approx 484 \frac{m}{s}
+  \]
+  No caso do Hélio, 
+  \[
+    \langle v_{He} \rangle\approx 1370 \frac{m}{s},
+  \]
+  o que faz com que ele escape da nossa atmosfera. Isso não ocorre com o hidrogênio porque ele é muito reativo,
+tal que ele fica mais pesado por juntar-se a outros gases.
+\end{example}
+  Embora nosso modelo não tenha colisão entre as partículas, no mundo real elas colidem a todo momento, Vamos imaginar
+que o caminho da colisão é esticado e que elas estão em um cilindro, tal que uma partícula de raio \(r_{1}\) irá colidir com partículas de raios \(r_{2}\).
+Ela só pode bater em partículas distando por um raio \(d\leq r_{1} + r_{2}\). Assim, o número de colisões para uma
+partícula movendo-se com velocidade v será 
+  \[
+    \#\text{colisões} = \rho \pi d^{2}vt,
+  \]
+  de modo que definimos o \textbf{livre caminho médio} como 
+  \[
+    ;\lambda = \frac{vt}{\rho \pi d^{2}vt} = \frac{1}{\rho \pi d^{2}}.
+  \]
+  Um dos problemas deste modelo é impôr que as outras partículas estão paradas. Caso todas estejam andando, o livre
+caminho médio é dado por 
+  \[
+    \lambda = \frac{1}{\sqrt[]{2}\rho \pi d^{2}}
+  \]
+  e o tempo entre colisões será 
+  \[
+    \frac{\lambda }{\langle v \rangle}\approx 10^{-9}s.
+  \]
+  Podemos, além disso, encontrar o tempo de duração de colisões 
+  \[
+    \frac{d}{\langle v \rangle}\approx 10^{-12}s.
+  \]
+\newpage
+
 \end{document}
