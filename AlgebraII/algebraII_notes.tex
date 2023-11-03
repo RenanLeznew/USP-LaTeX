@@ -1,0 +1,897 @@
+\documentclass{article}
+\usepackage{bookmark}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{fancyhdr}
+\usepackage[portuguese]{babel}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{lastpage}
+\usepackage{mathtools}
+\usepackage{fouriernc}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+\pgfplotsset{compat = 1.18}
+
+\hypersetup{
+   colorlinks,
+   citecolor=black,
+   filecolor=black,
+   linkcolor=black,
+   urlcolor=black
+}
+\newtheorem*{def*}{\underline{Defini\c c\~ao}}
+\newtheorem*{theorem*}{\underline{Teorema}}
+\newtheorem*{lemma*}{\underline{Lema}}
+\newtheorem*{prop*}{\underline{Proposi\c c\~ao}}
+\newtheorem{example}{\underline{Exemplo}}
+\newtheorem*{proof*}{\underline{Prova}}
+\newtheorem*{crl*}{\underline{Corolário}}
+\renewcommand\qedsymbol{$\blacksquare$}
+
+\rfoot{P\'agina \thepage \hspace{1pt} de \pageref{LastPage}}
+
+\begin{document}
+\begin{figure}[ht]
+\minipage{0.76\textwidth}
+\includegraphics[width=4cm]{../icmc.png}
+\hspace{7cm}
+\includegraphics[height=4.9cm,width=4cm]{../brasao_usp_cor.jpg}
+\endminipage  
+\end{figure}
+
+\begin{center}
+\vspace{1cm}
+\LARGE
+UNIVERSIDADE DE S\~AO PAULO
+
+\vspace{1.3cm}
+\LARGE
+INSTITUTO DE CI\^ENCIAS MATEM\'ATICAS E COMPUTACIONAIS - ICMC
+
+\vspace{1.7cm}
+\Large
+\textbf{Notas de Álgebra II}
+
+\vspace{1.3cm}
+\large
+\textbf{Renan Wenzel - 11169472}
+
+\vspace{1.3cm}
+\large
+\textbf{Professor(a): Behrooz Miraii}
+
+\textbf{E-mail: behrooz@icmc.usp.br}
+
+\vspace{1.3cm}
+\today
+\end{center}
+
+\newpage
+\textbf{{\Huge Disclaimer}}
+\vspace{5cm}
+
+{\huge Essas notas não possuem relação com professor algum. 
+
+Qualquer erro é responsabilidade solene do autor.
+
+Caso julgue necessário, contatar: renan.wenzel.rw@gmail.com}
+\tableofcontents
+
+\newpage
+
+\section{Aula 01 - 09/08/2023}
+\newpage
+
+\section{Aula 02 - 14/08/2023}
+\newpage
+
+\section{Aula 03 - 16/08/2023}
+\newpage
+
+\section{Aula 04 - 21/08/2023}
+\newpage
+
+\section{Aula 05 - 23/08/2023}
+\newpage
+
+\section{Aula 06 - 28/08/2023}
+\newpage
+
+\section{Aula 07 - 30/08/2023}
+\newpage
+
+\section{Aula 08 - 11/09/2023}
+\newpage
+
+\section{Aula 09 - 13/09/2023}
+\newpage
+
+\section{Aula 10 - 18/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+\item Polinômios em Aneis;
+\item Algoritmo de Divisão;
+\item Exemplos.
+\end{itemize}
+\subsection{Anéis de Polinômios}
+\begin{def*}
+  Seja A um anel. O \textbf{anel de polinômios com coeficientes em A}, \(A[x]\), é definido como 
+  \[
+    A[x]\coloneqq \{a_{n}x^{n}+\cdots+a_{1}x + a_{0}: a_{i}\in A, i = 1, \cdots, n\},
+  \]
+em que x é chamado de variável. \(\square\)
+\end{def*}
+  Nestes estudos, assumiremos sempre algumas coisas:
+ \begin{itemize}
+   \item[i)] \(ax = xa\) para todo a em A;
+   \item[ii)] \(a_{n}x^{n} + \cdots + a_{0} = 0\) se, e somente se, \(a_{i} = 0\) para todo \(i=1, \cdots, n.\)
+   \item[iii)] \(a_{n}x^{n} + \cdots + a_{1}x + a_{0} = b_{m}x^{m} + \cdots + b_{1}x + b_{0}\) se, e somente se, \(n=m\) e \(a_{i} = b_{i}\) para todo \(i=1, \cdots, n\).
+ \end{itemize}
+
+\begin{def*}
+  Seja \(f(x) = a_{n}x^{n} + \cdots + a_{0}\in A[x]\). Definimos
+  \begin{itemize}
+   \item[1)] Se \(a_{n}\neq0, a_{n}\) é chamado o \textbf{coeficiente líder} de f(x). Denotamos o coeficiente líder
+  de f(x) por \(\ell_{f}\) ou \(\ell_{f(x)}\)
+  \item[2)] Se \(a_{n}\neq0\), n é chamado o \textbf{grau} de f(x), denotado por \(\deg(f(x))\)
+  \item[3)] \(a_{0}\) é chamado o \textbf{coeficiente constante} de f(x)
+  \item[4)] Diz-se que \(\alpha\in A\) é uma raiz de \(f(x)\in A[x]\) se \(f(\alpha ) = 0.\quad\square\)
+  \end{itemize}
+\end{def*}
+  Algumas propriedades simples que temos são:
+\begin{itemize}
+  \item[i)] \(\deg{(f(x) + g(x))}\leq \max\{\deg{f(x)}, \deg{g(x)}\}\). A igualdade ocorre se, e somente se,
+   \(\deg{f(x)}\neq \deg{g(x)}\) ou \(\deg{f(x)}=\deg{g(x)},\) mas \(\ell_{f} + \ell_{g}\neq0.\)
+  \item[2)] \(\deg{(f(x)\cdot g(x))}\leq \deg{f(x)} + \deg{g(x)}.\) A igualdade ocorre se, e somente se,
+ \(\ell_{f}\cdot \ell_{g} \neq0\)
+\end{itemize}
+  Fica como um bom exercício prová-las.
+ \begin{example}
+   Se A é um domínio, então 
+  \[
+    \deg{(f \cdot g)} = \deg{f} + \deg{g},
+  \]
+para todo \(f, g\neq0.\)
+ \end{example}
+ \begin{example}
+  Em \(\biggl(\mathbb{Z}/4\biggr)[x],\) temos 
+  \[
+    2x \cdot 2x = 0,
+  \]
+tal que \(\deg{2x \cdot 2x} = 0 < 2 = \deg{2x} + \deg{2x}.\)
+ \end{example}
+\begin{def*}
+  Um polinômio \(f(x)\in A[x]\) é dito \textbf{mônico} se \(\ell_{f} = 1.\) Em outras palavras, 
+  \[
+    f(x) = x^{n} + a_{n-1}x^{n-1} + \cdots + a_{0}.
+  \]
+Um polinômio mônico \(f(x)\) é dito \textbf{irredutível} se não existem polinômios mônicos
+ \(g(x), h(x)\) tais que 
+ \[
+   f(x) = g(x)\cdot h(x).\square
+ \]
+\end{def*}
+\begin{example}
+  Em \(\mathbb{R}[x]\), o polinômio mônico \(x^{2} + 1\) é irredutível. De fato, suponha que existam 
+ \(h(x), g(x)\) tais que 
+  \[
+    x^{2} + 1 = h(x)g(x).
+  \]
+  Então,
+  \[
+    x^{2} + 1 = h(x)g(x) = (x-a)(x-b) = x^{2} - (a+b)x +ab.
+  \]
+  Podemos reescrever isso em forma de sistema de equações 
+  \[
+   \left\{\begin{array}{ll}
+      a + b = 0\\
+      ab = 1
+    \end{array}\right. 
+    \Rightarrow  
+    \left\{\begin{array}{ll}
+        a = -b\\
+        a(-a) = 1
+    \end{array}\right.
+    \Rightarrow 
+    a^{2} = -1,
+  \]
+  mas isso não é possível para coeficientes reais. Portanto, não existe tal redução de \(x^{2} + 1.\)
+\end{example}
+   Se \(f(x)\in \mathbb{R}[x]\) é irredutível, então 
+  \[
+    1\leq \deg{f(x)}\leq 2.
+  \]
+  Suponha, por outro lado, que \(f(x)\in \mathbb{R}[x]\) tem grau n, isto é, \(\deg{f(x)} = n.\) Então, \(f(x)\) tem n raízes complexas,
+digamos \(\alpha_{1}, \cdots, \alpha_{n}\). Assim, 
+  \[
+    f(x) = (x-\alpha_{1})\cdots(x-\alpha_{n}).
+  \]
+  Vamos separar essas raízes nas puramente reais e nas puramente complexas. Sejam \(\alpha_{1}, \cdots, \alpha_{h}\in \mathbb{R}\) e
+ \(\alpha_{h+1}, \cdots, \alpha_{n}\in \mathbb{C}\setminus{\mathbb{R}}.\) Com isso, 
+  \[
+    f(x) = g(x)h(x),
+  \]
+em que \(g(x) = (x-\alpha_{1})\cdots(x-\alpha_{h})\) e \(h(x) = (x-\alpha_{h+1})\cdots(x-\alpha_{n}).\)
+Se \(z = a + ib\in \mathbb{C}\) é uma raiz de \(h(x),\) então \(\overline{z} = a - ib\) também é uma raiz de h, ou seja, 
+  \[
+    (x-z)(x-\overline{z})\mid h(x).
+  \]
+  Se \(h(x) = (x-z)(x-\overline{z})h_{1}(x) = (x^{2}-2a + (a^{2}+b^{2}))h_{1}(x)\), o termo 
+  \(x^{2}-2a + (a^{2}+b^{2})\) é irredutível em \(\mathbb{R}[x]\). Continuando assim, podemos ver que 
+  \[
+    f(x) = (x-a)\cdots(x-a_{n})(x^{2}+a_{h+1}x + b_{h+1})(x^{2}+a_{h+2}x+b_{h+2})\cdots(x^{2}+a_{n}x + b_{n}),\quad n = h = 2m.
+  \]
+  Uma consequência deste raciocínio é que um polinômio complexo \(f(x)\in \mathbb{C}[x]\) é irredutível se, e somente se, \(\deg{f(x)} = 1.\)
+ \begin{example}
+   Em \(\mathbb{Q}[x]\), os polinômios irredutíveis podem ter qualquer grau. Polinômios irredutíveis em \(\mathbb{Q}[x]\)
+são, por exemplo, 
+\begin{align*}
+  &x-a,\quad a\in \mathbb{Q}\\
+  &x^{2}-2ax + (a^{2}+b^{2}),\quad a, b\in \mathbb{Q}\\
+  &x^{2} - p,\quad p\in \mathbb{Z}\text{ livre de quadrados}\\
+  &x^{n} - 2.
+\end{align*}
+ \end{example}
+\begin{def*}
+  Dados \(f, g\in A[x]\), dizemos que \textbf{f divide g,} denotado \(f\mid g\), se existe \(h\in A[x]\) tal que 
+    \[
+      g(x) = f(x)h(x).\quad\square
+    \]
+\end{def*}
+\begin{lemma*}
+  Se \(f(x)\in A[x]\) é mônico, então existem polinômios mônicos irredutíveis \(f_{1}, \cdots, f_{m}\in A[x]\) tais que 
+    \[
+      f(x) = f_{1}(x)^{r_{1}}\cdot \cdots \cdot f_{m}(x)^{r_{m}}.
+    \]
+\end{lemma*}
+\begin{proof*}
+  Exercício.
+\end{proof*}
+  Agora, vejamos o \textbf{Algoritmo da Divisão:}
+ \begin{theorem*}
+  Sejam \(f(x), g(x)\in A[x], \deg{g(x)}\geq 1\) e \(\ell_{g}\in A^{*}.\) Então,
+  existem polinômios únicos \(q(x)\) e \(r(x)\) em \(A[x]\) satisfazendo 
+  \[
+    f(x) = q(x)g(x) + r(x),
+  \]
+com \(\deg{r(x)} < \deg{g(x)}.\)
+ \end{theorem*}
+ \begin{proof*}
+  A prova é por indução no grau de f.
+
+  Se \(\deg{f}=0,\) f é constante. Como \(\deg{g}\geq 1, 0 = \deg{f} < \deg{g},\) g não é constante.
+  Tome \(q(x) = 0\) e \(r(x) = f(x).\) Então, \(f(x) = 0g(x) + f(x)\) e \(\deg{r} < \deg{g}.\)
+
+  Suponha agora que o resultado seja válido para polinômios de grau menor que n e sejam \(f(x) = \sum\limits_{i=0}^{n+1}a_{i}x^{i}, g(x) = \sum\limits_{i=0}^{m}b_{i}x^{i}, b_{m}\in A^{*}\).
+Se \(\deg{f(x)} < \deg{g(x)},\) basta copiarmos o caso em que f era constante, colocando \(q(x) = 0\) e \(r(x) = f(x)\).
+Assim, podemos assumir que \(\deg{f(x)}\geq \deg{g(x)}.\) Neste caso, o polinômio 
+  \[
+    f_{1}(x)\coloneqq f(x) - a_{n+1}b_{m}^{-1}x^{n+1-m}g(x) = c_{n}x^{n} + \cdots + c_{0}
+  \] 
+  é de grau menor ou igual que n. Aplicando a hipótese de indução, existem \(q_{1}(x), r_{1}(x)\) 
+com \(\deg{r_{1}(x)} < \deg{g(x)},\) de forma que \(f_{1} = gq_{1} + r_{1}.\) Temos:
+\begin{align*}
+  f(x) &= f(x)-a_{n}b_{m}^{1}x^{n+1-m}g(x) = q_{1}(x)g(x) + r_{1}(x)\\
+       &= (a_{n}b_{m}^{-1}x^{n+1-m}+q_{1}(x))g(x) + r_{1}(x).
+\end{align*}
+  Definindo \(q(x) = a_{n}b_{m}^{-1}x^{n+1-m}+q_{1}(x), r = r_{1},\) temos o resultado. Pela hipótese
+de indução, ele vale para todo \(n\in \mathbb{N},\) restando apenas provar que os polinômios são únicos.
+
+Destarte, suponha que existem \(q_{1}, r_{1}, q_{2}, r_{2}\in A[x]\) tais que 
+  \[
+    f(x) = q_{1}g+r_{1} = q_{2}g+r_{2},
+  \]
+com \(\deg{r_{1}}, \deg{r_{2}} < \deg{g}.\) Temos \(r_{1}-r_{2} = (q_{2}-q_{1})g.\) Suponha que \(q_{2}\neq q_{1},\)]
+de modo que \(q_{2}-q_{1}\neq0\) e 
+  \[
+    \deg{(r_{1}-r_{2})} = \deg{(q_{2}-q_{1})}g = \deg{(q_{2}-q_{1})} + \deg{g},
+  \]
+em que a igualdade do produto dos graus ocorre pois, se \(f, g\in A[x]\) e o coeficiente líder de g é \(b\in A^{*}\),
+então \(\deg{fg} = \deg{f} + \deg{g}.\) De fato, \(f(x)g(x) = a_{n}b_{m}x^{n+m} + \cdots + a_{0}b_{0}\) com
+ \(a_{n}b_{m}\neq0\), já que, se \(a_{n}b_{m} = 0, a_{n} = 0.\) Assim, o grau do produto é \(n+m\).
+
+  Logo, da igualdade, segue que \(\deg{(r_{1}-r_{2})} = \deg{(q_{2}-q_{1})g}\geq \deg{g}.\) Como
+ \(\deg{(r_{1}-r_{2})}\leq \max\{\deg{r_{1}}, \deg{r_{2}}\}\leq \deg{g},\) temos um absurdo. Portanto,
+  \(q_{2} = q_{1}.\) \qedsymbol
+ \end{proof*}
+ \begin{example}
+   Em \(\mathbb{Z}[x],\) considere \(f(x) = 2x^{3} + x^{2} + x + 1\)  e \(g(x) = -x + 1.\)
+Podemos aplicar o algoritmo da divisão da seguinte forma:
+\begin{align*}
+  &2x^{3} + x^{2} + x + 1\quad \text{(Polinômio original)}\\
+  &2x^{3} + x^{2} + x + 1 \underbrace{- 2x^{3} + 2x^{2}}_{-2x^{2}g(x)} \quad (-2x^{2}g(x)\text{ pois é o que falta para g ``alcançar'' o grau de f)}\\
+  &3x^{2} + x + 1 - 3x^{2} \underbrace{- 3x^{2} + 3x}_{-3xg(x)} \quad (\text{Novamente, faltava multiplicar g(x) por } -3x \text{ a fim de cancelar).}\\
+  &4x + 1 \underbrace{- 4x + 4}_{-4g(x)} \quad\text{(Mesma coisa, multiplicamos g(x) para cancelar o } 4x)\\
+  &5\quad\text{(Finaliza-se com um polinômio de grau 0 (constante)).}
+\end{align*}
+  Coletamos os termos que não foram usados para cancelar os maiores graus, ou seja, \(2x^{2}, 3x\) e \(4\), multiplicamos eles por -1 e, assim, o algoritmo da divisão nos dá 
+    \[
+      f(x) = g(x)(-2x^{2} -3x -4) + 5 = (-x+1)(-2x^{2}-3x-4)+5.
+    \]
+\end{example}
+\newpage
+
+\section{Aula 11 - 20/09/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item Corolários do Algoritmo da Divisão;
+  \item Decomposição de polinômios.
+\end{itemize}
+\subsection{Corolários do Algoritmo da Divisão}
+ \begin{prop*}
+  Se F é um corpo, então \(F[x]\) é um Domínio de Ideais Principais.
+ \end{prop*}
+ \begin{proof*}
+  Seja \(\mathfrak{i} \trianglelefteq{F[x]}\) e seja 
+  \[
+    n = \min\{\deg{f(x)}: f(x)\in \mathfrak{i}\setminus{\{0\}}\}.
+  \]
+  Se \(n=0,\) então existe um polinômio constante \(f(x) = a\neq 0, a\in F.\) Logo, 
+  \[
+    1 = \frac{1}{a}\cdot a = \frac{1}{a}f(x)\in \mathfrak{I}.
+  \]
+  Assim, 
+  \[
+    I = F[x] = \langle 1 \rangle.
+  \]
+  Então, podemos assumir que \(n > 0\). Seja \(g(x)\in \mathfrak{i}\) com \(\deg{g} = n\) e observe que
+ \(\deg{g}\geq 1\) e \(\ell_{g}\in F^{*}\). Se \(f(x)\in \mathfrak{i},\) pelo algoritmo da divisão, existem
+  \(g(x), r(x)\in F[x]\) tais que \(f(x) = q(x)g(x) + r(x),\) com \(\deg{r(x)} < \deg{g(x)}.\) Se \(r(x)\neq0, r(x) = f(x) 
+- q(x)g(x)\in \mathfrak{i}\) e, junto com \(\deg{r} < \deg{g},\) obtemos um absurdo, pois g deveria ser o polinômio de
+grau mínimo.
+
+  Logo, \(r(x) = 0\) e, assim, \(f(x) = q(x)g(x)\) para algum polinômio \(q(x)\in F[x]\), tal que \(f(x)\in \langle g(x) \rangle.\) 
+Portanto, \(\mathfrak{i} = \langle g(x) \rangle.\) \qedsymbol
+ \end{proof*}
+ \begin{example}[Exercício]
+ \begin{itemize}
+   \item[1)] \(\mathbb{Z}[x]\) não é D.I.P: O ideal gerado \(\mathfrak{i} = \langle 2, x \rangle\) não é principal, mas é primo.
+   \item[2)] Mostre que \(\langle 3, x^{2}-2 \rangle \trianglelefteq{\mathbb{Z}[x]}\) é ideal maximal e não é principal. (Dica:
+mostre que 
+  \[
+    \frac{\mathbb{Z}[x]}{\langle 3, x^{2}-2 \rangle}\cong{\frac{\mathbb{Z}_{3}[x]}{\langle x^{2}-2 \rangle}}.
+  \]
+ \end{itemize} 
+\end{example}
+\begin{crl*}
+  Seja F um corpo e \(f, g, h\in F[x]\) tais que f(x) é mônico e irredutível.
+Se \(f(x)\mid g(x)h(x),\) então \(f(x)\mid g(x)\) ou \(f(x)\mid h(x).\)
+\end{crl*}
+\begin{proof*}
+  Faremos indução no grau de f.
+  
+  Se \(\deg{f(x)} = 1,\) como f é mônico, \(f(x) = x-a\) para algum a em F. Por hipótese, existe \(p(x)\) tal que
+ \(g(x)h(x) = (x-a)p(x).\) Aplicando em \(x=a,\) segue que \(g(a)h(a) = 0.\) Como f é domínio, é preciso que
+  \(g(a) = 0\) ou \(h(a) = 0\). Em outras palavras, \((x-a)\mid g(x)\) ou \((x-a)\mid h(x),\) como desejado.
+
+  Suponha agora que o resultado vale grau menor que n, \(\deg{f} = n\) e \(f\mid g\) e \(f\mid h.\) Assim, existem 
+ \(q, r, q', r'\in A[x]\) tais que \(g(x) = f(x)q(x) + r(x)\) e \(h(x) = q'(x)f(x) + r'(x),\) satisfazendo
+   \(\deg{r'} < \deg{g'}, \deg{r} < \deg{g}\) e \(r, r'\neq 0.\) Assim,
+\begin{align*}
+  g(x)h(x) &= (qf + r)(q'f + r')\\
+           &= qq'f^{2} + (qr' + q'r)f + rr'\\
+  \Rightarrow & rr' = gh - qq'f^{2} - (qr' + rq')f.
+\end{align*}
+  Sabemos que f divide \(gh, qq'f^{2}\) e \((qr' + q'r)f.\) Com isso, \(f\mid rr'\) e, então,
+existe \(p(x)\in F[x]\) tal que \(fp = rr'.\) Note também que \(\deg{p} < \deg{r} \) e \(\deg{r'}.\) De fato,
+caso contrário, teríamos \(\deg{p}\geq \deg{r}\) e como \(\deg{f} > \deg{r'},\) temos 
+  \[
+    \deg{p}\geq \deg{r} \Rightarrow \deg{f} + \deg{p} > \deg{r'} + \deg{r} \Rightarrow \deg{fp} > \deg{rr'},
+  \]
+  o que é um absurdo. O mesmo vale para \(\deg{p}\geq r'.\) Escrevamos \(p = \alpha p_{1}^{\alpha_{1}}\cdot \cdots \cdot p_{r}^{\alpha_{r}},\) 
+em que \(p_{1}, \cdots, p_{r}\) são irredutíveis (isso é possível pois F é corpo). Assim, \(p_{i}\mid fp = rr'.\) 
+Como \(\deg{p} < \deg{r} < \deg{f}\) e \(\deg{p_{i}}\leq \deg{p},\) podemos aplicar a hipótese de indução em \(p_{i}\) e então
+ \(p_{i}\mid r\) ou \(p_{i}\mid r'\) para cada \(i=1, \cdots, r\). Suponha, sem perda de generalidade, que \(p_{1}\mid r,\) tal que 
+ \(r=p_{1}r_{1}\). Consequentemente, 
+ \[
+   fp = rr' \Rightarrow fp_{1}^{\alpha_{1}}\cdot \cdots \cdot p_{r}^{\alpha_{r}} = p_{1}rr' \Rightarrow fp_{1}^{\alpha_{1} -1}\cdot \cdots \cdot p_{r}^{\alpha_{r}} = r_{1}r.
+ \]
+ Pode-se continuar esse processo até sobrarem os termos \(p_{i}\)'s, chegando em
+\(f = r_{t}r_{t}'\) com \(\deg{r_{t}}\geq 1\) e \(\deg{r_{t}'}\geq 1\) (pois \(\deg{p} < \deg{r}, \deg{r'}\)). Isso é uma contradição
+com o fato de r ser irredutível.
+\end{proof*}
+\begin{example}[Exercício]
+  Seja A um domínio, \(a\in A\) e \((x-a)\mid f(x)g(x).\) Mostre que \((x-a)\mid f(x)\) e \((x-a)\mid g(x).\) 
+\end{example}
+\begin{prop*}
+  Seja F um corpo e \(f(x)\in F[x]\). Então, temos uma decomposição única 
+  \[
+    f(x) = af_{1}^{\alpha_{1}}(x)\cdot \cdots \cdot f_{r}^{\alpha_{r}}(x),
+  \]
+  com \(a\in F\) e \(f_{1}, \cdots, f_{r}\in F[x]\) polinômios irredutíveis e mônicos.
+\end{prop*}
+\begin{proof*}
+  Já provamos a existência da decomposição para polinômios mônicos. Como F é corpo, existe \(b\in F\) tal que 
+ \(bf(x)\) é mônico (basta tomarmos \(b=a^{-1},\) em que a é o coeficiente líder de f). Então, \(bf(x) = f_{1}^{\alpha_{1}}\cdot \cdots \cdot f_{r}^{\alpha_{r}}\)
+e assim \(f(x) =af_{1}^{\alpha_{1}}\cdot \cdots \cdot f_{r}^{\alpha_{r}}.\)
+
+  Provemos agora a unicidade. Seja 
+  \[
+    f(x)=af_{1}^{\alpha_{1}} \cdot \cdots \cdot f_{r}^{\alpha_{r}} = bg_{1}^{\beta_{1}} \cdot \cdots \cdot g_{s}^{\beta_{s}}.
+  \]
+  Mostraremos que \(\{f_{1}, \cdots, f_{r}\} = \{g_{1}, \cdots, g_{s}\}\) e \(\{\alpha_{1}, \cdots, \alpha_{r}\} = \{\beta_{1}, \cdots, \beta_{s}\}\).
+Se \(\deg{f} = 1, f = a(x-\alpha ) = b(x-\beta )\) e \(ax -a\alpha =bx - b\beta,\) tal que \(a=b\) e \(\alpha =\beta .\)
+
+  Agora, suponha que o resultado vale para grau menor que n e \(\deg{f} = n.\) Então: 
+  \[
+    f_{1}\mid f(x) \Rightarrow f_{1}\mid bg_{1}^{\beta_{1}}\cdot \cdots g_{s}^{\beta_{s}} \Rightarrow \exists j: f_{1}\mid g_{j}.
+  \]
+  Como \(g_{j}\) é irredutível e mônico, se \(g_{j}=f_{1}\), existe \(h_{j}\) tal que \(g_{j} = h_{j}f_{1}.\) Se \(\deg{(h_{j})}\geq 1, g_{j}\) não seria
+irredutível e, então, \(h_{j} = a\in F.\) Mas, se \(a\neq1,\) como \(f_{1}\) é mônico, \(g_{j}\) não seria mônico. Logo, \(h_{j} = 1\) e \(g_{j} = f_{1}.\) 
+Podemos reordenar tal que \(f_{1} = g_{1}. \) Assim, 
+  \[
+    af_{2}^{\alpha_{2}}\cdot \cdots \cdot f_{r}^{\alpha_{r}} = bg_{2}^{\beta_{2}} \cdot \cdots \cdot g_{s}^{\beta_{s}}.
+  \]
+  Portanto, pela hipótese indutiva, o resultado segue. \qedsymbol
+\end{proof*}
+\newpage
+
+\section{Aula 12 - 25/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Corpos de Elementos Finitos;
+  \item Característica de um Corpo.
+\end{itemize}
+\subsection{Corpos Finitos}
+  Seja F um corpo. Definimos o homomorfismo de anéis
+\begin{align*}
+  &\varphi :\mathbb{Z}\rightarrow F\\
+  &n\mapsto n \cdot 1_{F}\coloneqq \underbrace{1_{F} + \cdots + 1_{F}}_{\text{n-vezes}}.
+\end{align*}
+Já vimos que \(\overline{\varphi }:\frac{\mathbb{Z}}{\ker{(\varphi )}}\rightarrow F, \overline{n}\mapsto \varphi (n)=n \cdot 1_{F}\) é um monomorfismo. Como F é um
+domínio, \(\mathbb{Z}/\ker{(\varphi )}\) é um domínio. Logo, \(\ker{(\varphi )}\in \mathrm{Spec}(\mathbb{Z}).\) Então, 
+  \[
+    \ker{(\varphi )} = (0)\quad\text{ou}\quad \ker{(\varphi )}=\langle p \rangle,\text{ p primo.}
+  \]
+  Olhando mais atentamente a estes casos, se \(\ker{(\varphi )} = (0),\) então \(\varphi \) é um monomorfismo. Agora, 
+o mapa 
+ \begin{align*}
+   &\overline{\varphi }:\mathbb{Q}\rightarrow F\\
+   &\frac{m}{n}\mapsto m \cdot 1_{F} \cdot (n \cdot 1_{F})^{-1} = m \cdot n^{-1}
+ \end{align*}
+é um homomorfismo de corpos que é injetivo.
+
+  Por outro lado, se \(\ker{(\varphi )} = \langle p \rangle,\) p um primo, então 
+  \[
+    \overline{\varphi }:\mathbb{F}_{p}=\mathbb{Z}_{p}\hookrightarrow F,
+  \]
+logo \(\overline{\varphi }:\mathbb{F}_{p}\rightarrow F\) é um homomorfismo de corpos que é injetivo.
+\begin{def*}
+  Dizemos que um corpo F \textbf{é de característica} 0 se pudermos mergulhar \(\mathbb{Q}\) em F e diremos que \textbf{é de característica positiva} p, p
+um primo, se pudemos mergulhar \(\mathbb{F}_{p} em \mathbb{F}.\) Neste caso, 
+  \[
+    \mathrm{char}{(F)} = \left\{\begin{array}{ll}
+        0,\quad \mathbb{Q}\hookrightarrow F\\
+        p,\quad \mathbb{F}_{p}\hookrightarrow \mathbb{F}_{p}.
+      \end{array}\right.\quad\square
+  \]
+\end{def*}
+  Algumas observações devem ser feitas.
+ \begin{itemize}
+   \item[1)] \(\mathbb{Q}\) e \(\mathbb{F}_{p}\) não têm subcorpos próprios. Por isso, são chamados corpos primos.
+   \item[2)] Se F é um corpo finito, então \(\mathrm{char}(F) = p\) por um primo p.
+   \item[3)] Se F é um subcorpo do corpo E, então \(\mathrm{char}(E) = \mathrm{char}(F).\)
+ \end{itemize}
+\begin{example}
+ \begin{itemize}
+  \item[1)] \(\mathrm{char}(\mathbb{Q}) = 0,\quad \mathrm{char}(\mathbb{R})=0 = \mathrm{char}(\mathbb{C})\)
+  \item[2)] Seja \(\mathbb{Q}(\sqrt[]{2})\coloneqq \{a + b\sqrt[]{2}: a, b\in \mathbb{Q}\}\supseteq{\mathbb{Q}}.\) Segue que 
+  \[
+    \mathbb{Q}(\sqrt[]{2})\cong{\frac{\mathbb{Q}[x]}{\langle x^{2}-2 \rangle}},
+  \]
+em que \(x^{2}-2\) é irracional. Assim, o mapa \(\mathbb{Q}\hookrightarrow \mathbb{Q}[x]/\langle x^{2}-2 \rangle,\quad a\mapsto \overline{a}\) é vazio.
+Com isso, tomando \(f(x)\in \mathbb{Q}[x]\) irracional e colocando \(F = \frac{\mathbb{Q}[x]}{\langle f(x) \rangle},\)
+segue que \(\mathrm{char}(F) = 0.\)
+  \item[3)] Coloque \(A = \mathbb{Q}[x]\) e
+  \[
+    F = Q(A)\coloneqq \biggl\{\frac{f(x)}{g(x)}: f, g\in \mathbb{Q}[x], g(x)\neq0\biggr\}.
+  \]
+  Segue que \(\mathbb{Q}\subseteq{F}\), tal que \(\mathrm{char}(F) = 0\). Em particular, 
+  \[
+    E = Q(\mathbb{Z}[x]) = \biggl\{\frac{f(x)}{g(x)}:f, g\in \mathbb{Z}[x], g(x)\neq0\biggr\} = F.
+  \]
+  \item[4)] Colocando \(K = Q(\mathbb{R}[x]),\) segue que \(\mathbb{Q} \subseteq{\mathbb{R}}\subseteq{K}\) e, logo, \(\mathrm{char}(K) = 0.\)
+  \item[5)] Temos \(\mathrm{char}(\mathbb{F}_{p}) = p > 0.\) Além disso, colocando 
+  \[
+    \mathbb{F}_{p}[\sqrt[]{2}]\coloneqq \frac{\mathbb{F}_{p}[x]}{\langle x^{2}-2 \rangle},\quad p\neq2,
+  \]
+se chamarmos de \(F = \mathbb{F}_{3}[\sqrt[]{2}]\) e \(K = \mathbb{F}_{5}[\sqrt[]{5}],\) então
+F é um corpo com \(\mathrm{char}(F) = 3\) e K é um corpo com \(\mathrm{char}(F) = 5.\) No entanto, para p = 7,
+\(x^{2}-2\) tem uma raiz em \(\mathbb{F}_{7}\) e, logo, não é irracional. Portanto, \(\mathbb{F}_{7}[\sqrt[]{2}]\) não é um
+corpo.
+  \item[6)] Defina 
+  \[
+    \mathbb{Q}(\mathbb{F}_{p}[x])\coloneqq \biggl\{\frac{f}{g}: f, g\in \mathbb{F}_{p}[x], g\neq 0\biggr\}.
+  \]
+  Então, \(\mathbb{F}_{p}[x]\) é infinito, logo F é infinito. Apesar disso, \(\mathrm{char}(F) = p > 0.\)
+ \end{itemize}
+\end{example}
+ Seja K um corpo finito tal que \(\mathrm{char}(K) = p > 0.\) Então, \(\mathbb{F}_{p}\hookrightarrow K\) e 
+  \[
+    n = [K:\mathbb{F}_{p}] = \dim_{\mathbb{F}_{p}}K < \infty.
+  \]
+  Isto implica que \(|K| = p^{n}\). Como \(\mathbb{F}_{p}\)-espaço vetorial, temos 
+  \[
+    K\cong{\mathbb{F}_{p}^{n}} = \underbrace{\mathbb{F}_{p}\times \cdots\times \mathbb{F}_{p}}_{\text{n-vezes}}
+  \]
+  Como um fato geral, se F é um corpo e olhamos para V como um F-espaço vetorial com dimensão \(n = \dim_{F}V < \infty\), então 
+  \[
+    V\cong{F^{n}}.
+  \]
+ \begin{theorem*}
+\begin{itemize}
+    \item[1)] Para todo primo p e todo número natural \(n > 0,\) temos um corpo com \(p^{n}\) elementos;
+    \item[2)] Quaisquer dois corpos com \(p^{n}\) elementos são isomorfos.
+\end{itemize}
+ \end{theorem*}
+\begin{def*}
+  Denotamos um corpo finito com \(p^{n}\) elementos por \(\mathbb{F}_{p^{n}}.\square\)
+\end{def*}
+\begin{theorem*}
+  Seja p um primo e \(m, n\in \mathbb{N}\) com \(m\leq n.\) Então, podemos mergulhar \(\mathbb{F}_{p^{m}}\) em \(\mathbb{F}_{p^{n}}\) se, e somente se, \(m\mid n.\)
+\end{theorem*}
+\newpage
+
+\section{Aula 13 - 27/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Espectro e Maximais de um Corpo de Polinômios;
+  \item Extensões e Quocientes.
+\end{itemize}
+\subsection{Espectro de Polinômios}
+\begin{prop*}
+  Se F é um corpo, então o espectro de \(F[x]\) é o conjunto \(\mathrm{Spec}(F[x]) = \{0\}\cup\{\langle f(x) \rangle: f\text{ é irredutível}\}\) e o espectro maximal de 
+ \(F[x]\) é \(\mathrm{Specm}(F[x]) = \{\langle f(x) \rangle: f\text{ é irredutível}\}\).
+\end{prop*}
+\begin{proof*}
+  Como \(F[x]\) é um domínio, \((0)\in \mathrm{Spec(F[x])}.\) Seja \( \mathfrak{p} = \langle f(x) \rangle\in \mathrm{Spec}(F[x])\) e seja
+ f(x) não irredutível. Então, \(f(x) = g(x)h(x),\) em que \(\deg{g}, \deg{h} < \deg{f}.\) Temos 
+  \[
+    gh = f\in \langle f(x) \rangle = \mathfrak{p} \Rightarrow g\in \mathfrak{p}\text{ ou } h\in \mathfrak{p}.
+  \]
+  Contradição. Logo, f(x) é irredutível. Agora, suponhamos que \(f(x)\) é irredutível, de forma que nosso objetivo será mostrar que 
+ \(\langle f(x) \rangle\) é primo. Sejam \(g, h \in \langle f(x) \rangle,\) tal que \(f\mid gh.\) Como f é irredutível, vale que 
+ ou \(f\mid g\), ou \(f\mid h\), ou seja, \(g\in \langle f(x) \rangle\) ou \(h\in \langle f \rangle\), o que significa, exatamente,
+ que \(\langle f \rangle\) é primo, isto é, \(\langle f \rangle\in \mathrm{Spec}(F[x]).\)
+
+  Agora, tome \(\mathfrak{m}\in \mathrm{Specm}(F[x]).\) Duas possibilidades surgem - ou \(\mathfrak{m}\) é \(\langle f(x) \rangle\) com f irredutível,
+ou \((0)\), ou seja, \(\mathrm{Specm}(F[x]) \subseteq{\{\langle f(x) \rangle: f\text{ é irredutível}\}}\). Por outro lado,
+seja f(x) irredutível. Pela primeira parte, \(\langle f(x) \rangle\) é primo. Considere 
+  \[
+    \langle f(x) \rangle \subseteq{\mathfrak{j}}\subsetneq{F[x]}
+  \]
+  e coloque \(\mathfrak{j} = \langle g(x) \rangle.\) Temos 
+  \[
+    \langle f(x) \rangle \subseteq{\langle g(x) \rangle} \Rightarrow f(x)\in \langle g(x) \rangle,
+  \]
+ou seja, \(g\mid f,\) mas f é irredutível, donde segue que \(g=1\) ou \(g = f.\) Se \(g=1,\) então \(\mathfrak{j} = F[x],\) 
+uma contradição. Logo, \(g=f\) e \(\langle f \rangle = \mathfrak{j}.\) Portanto, \(\langle f \rangle\) é maximal, provando que 
+ \(\mathrm{Specm}(F[x]) = \{\langle f(x) \rangle: f\text{ é irredutível}\}\). \qedsymbol
+\end{proof*}
+\subsection{Corpos}
+\begin{def*}
+  Sejam F e K dois corpos tais que \(F\subseteq{K}.\) Neste caso, dizemos que K é uma \textbf{extensão} de F e denotaremos por
+ \(K/F.\) Se \(K/F\) é uma extensão de corpos, K pode ser visto como espaço vetorial sobre F, e a dimensão de K
+como F-espaço vetorial (\(\dim_{F}K\) é denotada por \([K:F]\) e chamada o \textbf{grau} da extensão. \(\square\)
+\end{def*}
+\begin{example}
+ \begin{itemize}
+   \item[1)] \([\mathbb{C}:\mathbb{R}] = 2,\) com base \(\{1, i\}\);
+   \item[2)] \([\mathbb{R}:\mathbb{Q}] = \infty\) (não enumerável);
+   \item[3)] Se F é um corpo, \([F:f]=1\);
+   \item[4)] \([\mathbb{Q}[\sqrt[]{2}]:\mathbb{Q}] = 2,\) com base \(\{1, \sqrt[]{p}\}\).
+ \end{itemize}
+\end{example}
+\begin{crl*}
+  Se \(f(x)\in F[x]\) é irredutível e mônico, então \(K\coloneqq \frac{F[x]}{\langle f(x) \rangle}\) é um corpo.
+\end{crl*}
+\begin{proof*}
+  Segue automaticamente de \(\langle f(x) \rangle \) ser maximal e o quociente de um corpo por um maximal ser outro corpo. \qedsymbol
+\end{proof*}
+  Podemos definir o mapa 
+ \begin{align*}
+   &\varphi :F\rightarrow K=\frac{F[x]}{\langle f(x) \rangle}\\
+   &a\mapsto \overline{a} = a + \langle f(x) \rangle.
+ \end{align*}
+ Observe que \(\varphi \) é um morfismo de corpos injetor, já que \(\ker{\varphi } \trianglelefteq{F}\) e,
+sendo F um corpo, os únicos ideais são \((0)\) ou \(F\). Sabendo que \(\varphi(1) = \overline{1}\neq\overline{0}, \ker{\varphi }\neq F\) e,
+assim, \(\ker{\varphi } = (0).\)
+
+  Com isso, podemos pensar em F como subcorpo de K usando a injeção dada por \(\varphi \), e denotaremos \(\overline{a}\) simplesmente por a.
+\begin{prop*}
+  Seja \(f(x)\in F[x]\) irredutível e mônico e \(K = \frac{F[x]}{\langle f(x) \rangle}.\) Então, \([K:F] = \deg{f(x)}.\)
+\end{prop*}
+\begin{proof*}
+  Seja \(\alpha  = \overline{x}\), tal que \(K = F(\alpha ) = \{g(\alpha ): g(x)\in F[x]\}.\) Tome \(\beta \in K.\) Então,
+ \(\beta = \overline{g(x)} = g(\overline{x}) = g(\alpha ).\) Mostraremos que \(B = \{1, \alpha , \cdots, \alpha ^{n-1},\}\) em que
+ \(n=\deg{f}\), é base de \(K/F.\)
+
+  Começamos provando que B gera todo o espaço. Pelo algoritmo da divisão, \(g(x) = q(x)f(x) + r(x),\) com \(\deg{r} < \deg{g}.\)
+Assim, \(\beta  = g(\alpha ) = \underbrace{\overline{q(x)f(x)}}_{=\overline{0}} + \overline{r(x)} = \overline{r(x)}\).
+Então, se \(r(x) = b_{m}x^{m} + \cdots + b_{0}, m < n,\) segue que 
+  \[
+    \beta = 0\alpha ^{n-1} + \cdots + 0\alpha ^{m+1} + b_{m}\alpha ^{m} + \cdots + b_{0}.
+  \] 
+
+  Agora, vamos mostrar que B é linearmente independente. Seja \(c_{0}1 + c_{1}\alpha + \cdots + c_{n-1}\alpha ^{n-1} = 0\) com coeficientes
+ \(c_{i}\in F.\) Se \(h(x) = c_{n-1}x^{n-1} + \cdots + c_{1}x + c_{0},\) então \(\overline{h(x)} = \overline{0}\in K\) e, assim, 
+ \(h(x)\in \langle f(x) \rangle,\) ou seja, \(f(x)\mid h(x).\) Como \(\deg{h} < \deg{f}, \) isso é possível se, e somente se, \(h(x) = 0,\) o
+ que implica que \(c_{i} = 0\) para todo \(i=0, \cdots, n-1\).
+
+  Portanto, B é um conjunto gerador linearmente independente de K, ou seja, uma base. \qedsymbol
+\end{proof*}
+\begin{example}
+ \begin{itemize}
+   \item[1)] Como \([\mathbb{C}:\mathbb{R}]=2, \mathbb{C}\cong{\frac{\mathbb{R}}{\langle x^{2} + 1 \rangle}}\)
+   \item[2)] Seja F um corpo qualquer. Como \([F:F] = 1, F\cong{\frac{F[x]}{\langle x-a \rangle}}\)
+   \item[3)] Para \(\mathbb{Q}[\sqrt[]{p}],\) tal que \([\mathbb{Q}[\sqrt[]{p}]:\mathbb{Q}]=2, \mathbb{Q}[\sqrt[]{p}]\cong{\mathbb{Q}/\langle x^{2}-p \rangle}\)
+   \item[4)] Seja \(f(x) = x^{2} + x + 1\in \mathbb{F}_{2}[x].\) Note que \(f(0) = 1\neq0\) e \(f(1) = 1^{2} + 1 + 1 = 1\neq0\), ou seja,
+f não tem raízes em \(\mathbb{F}_{2}\), o que significa que ele é irredutível. Assim, \(K = \mathbb{F}_{2}[x]/\langle x^{2}+x+1 \rangle = \mathbb{F}_{2}(\alpha )\) 
+e, pelo resultado acima, \([K:\mathbb{F}_{2}] = \deg{f} = 2,\) tal que \(K = \{\overline{0}, \overline{1}, \overline{x}, \overline{x+1}: \overline{x}^{2} = \overline{x} + \overline{1}\}\)
+e \(|K| = 4.\) Construímos, assim, um corpo com 4 elementos.
+   \item[5)] Se \(K = \frac{\mathbb{F}_{2}[x]}{\langle x^{3} + x + 1 \rangle}\) e \(L = \mathbb{F}_{2}[x]/\langle x^{3}+x^{2}+1 \rangle,\) então \([K:\mathbb{F}_{2}] = 3, [L:\mathbb{F}_{2}]=3\).
+Assim, \(|K| = 2^{3} = 8\) e \(|L| = 2^{3} = 8\).
+ \end{itemize}
+\end{example}
+\begin{example}[Exercícios]
+ \begin{itemize}
+   \item[1)] Se E é um corpo com 4 elementos, mostre que \(E\cong{\frac{\mathbb{F}_{2}[x]}{\langle x^{2}+x+1 \rangle}}\)
+   \item[2)] Se E é um corpo com 8 elementos, então \(E\cong{K}\cong{L}.\) Denotaremos um corpo com 8 elementos por \(\mathbb{F}_{8}.\)
+   \item[3)] Mostre que não existe monomorfismo \(\mathbb{F}_{4}\hookrightarrow \mathbb{F}_{8}.\)
+   \item[4)] Seja F corpo e \(f(x)\in F[x]\) tal que \(2\leq \deg{f}\leq 3\). Mostre que f é irredutível se, e somente se, f noa possui raízes em F.
+   \item[5)] Mostre que \(\mathbb{F}_{4}^{*}\cong{\mathbb{Z}/3}, \mathbb{F}_{8}^{*}\)
+ \end{itemize}
+\end{example}
+\newpage
+
+\section{Aula 14 - 09/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Números Algébricos e Transcendentes;
+  \item Extensões Algébricas;
+\end{itemize}
+\subsection{Números Algébricos e Transcendentes}
+\begin{def*}
+  Seja \(K/F\) uma extensão de corpos e seja \(a\in K\). Definimos o \textbf{mapa de evaluação em} \(\alpha \) por:
+ \begin{align*}
+   &e_{\alpha }:F[x]\rightarrow K\\
+   &f(x)\mapsto f(\alpha ).\quad\square
+ \end{align*}
+ Note que \(e_{\alpha }\) é um morfismo de anéis. Dizemos que um elemento \(\alpha \in K\) é
+\begin{itemize}
+  \item[1)] \textbf{algébrico} sobre F se \(\ker{(e_{\alpha })}\neq(0)\)
+  \item[2)] \textbf{transcendente} sobre F se \(\ker{(e_{\alpha })}=(0).\)
+\end{itemize}
+\end{def*}
+\begin{example}[Exercícios]
+ \begin{itemize}
+   \item[1)] Mostre que \(\alpha \in K\) é algébrico sobre F se, e somente se, existe \(f(x)\neq 0\) em \(F[x]\) tal que
+ \(f(\alpha ) = 0.\)
+   \item[2)] Mostre que \(\alpha \in K\) é transcendente sobre F se, e somente se, para todo
+ \(f(x)\in F[x]\) não nulo, \(f(\alpha)\neq0.\)
+ \end{itemize}
+\end{example}
+  Podemos observar algumas coisas. A primeira delas é que \(\ker{e_{\alpha }}\neq(0).\) Como
+F[x] é D.I.P., existe f(x) tal que \(\ker{e_{\alpha }} = \langle f(x) \rangle.\) Já que \((0)\in \mathrm{Spec(K)}, \ker{e_{\alpha }}=e_{\alpha }^{-1}((0))\in \mathrm{Spec(F[x])}.\)
+Assim, \(f(x)\) é irredutível e \(\ker{e_{a}}\in \mathrm{Specm(F[x])},\) donde obtemos a injeção de corpos:
+  \[
+    \overline{e}_{\alpha }:\frac{F[x]}{\langle f(x) \rangle}\rightarrow K.
+  \]
+  Denotaremos \(Im(e_{\alpha }) = F(\alpha ).\) Desta forma, \(F(\alpha )\subseteq{K}\) e \([F(\alpha ): F]=\deg{f}\) pela última aula.
+
+  Além disso, note que se \(e_{\alpha }\) é injetor, então \(F[x]\cong{F[\alpha ]}\) (isomorfismo de anéis).
+ \begin{def*}
+   Dizemos que uma extensão \(K/F\) é \textbf{algébrica} se todo elemento de K é algébrico. \(\square\)
+ \end{def*}
+ \begin{example}
+  \begin{itemize}
+    \item[1)] Se \([K:F]\) é finita, então \(K/F\) é algébrica. De fato, seja \(n=[K:F]\) e \(\alpha \in K\) um elemento qualquer.
+Considere o conjunto \(S = \{1, \cdots, \alpha ^{n}\}\subseteq{K};\) Como \(\dim_{F}K = n,\) S é necessariamente um conjunto linearmente
+dependente. Então, existe \(a_{0}, \cdots, a_{n}\in F\) não todos nulos tais que \(a_{0} + a_{1}\alpha + \cdots + a_{n}\alpha^{n} = 0.\)
+
+  Considere o polinômio \(f(x) = a_{0}+a_{1}x + \cdots + a_{n}x^{n}.\) Ele é não nulo, pois nem todos os \(a_{i}\) são nulos,
+e \(f(\alpha ) = 0\). Logo, \(\alpha \) é algébrico sobre F.
+
+  \item[2)] Seja \(K/\mathbb{C}\) uma extensão algébrica sobre \(\mathbb{C}.\) Então, \(K = \mathbb{C}.\) Com efeito, seja \(\alpha \in K\)
+e \(f(x)\in \mathbb{C}[x]\) não nulo e mônico tal que \(f(\alpha ) = 0\). Pelo Teorema Fundamental da Álgebra, podemos escrever 
+  \[
+    f(x) = a(x-\alpha_{1})\cdot \cdots \cdot (x-\alpha_{n}),
+  \]
+  para algum \(a\in \mathbb{C}\setminus{\{0\}},\alpha_{i}\in \mathbb{C}\) e \(n = \deg{f}.\) Assim, \(0 = f(\alpha ) = a(\alpha -\alpha_{1})\cdot \cdots(\alpha -\alpha_{n})\)
+e, como K é domínio, existe i tal que \((\alpha -\alpha_{i})=0,\) o que significa que \(\alpha=\alpha_{i}\in \mathbb{C}.\) Logo, \(\ker{e_{\alpha }}=\langle x-a \rangle\) e \([K:\mathbb{C}] = 1.\)
+\end{itemize}
+\end{example}
+\begin{prop*}
+  Seja \(K/F\) uma extensão de corpos. Suponha que F é não enumerável e \([K:F]=\dim_{F}K\) é enumerável. Então,
+ \(K/F\) é algébrica.
+\end{prop*}
+\begin{proof*}
+  Suponha que \(K/F\) não seja algébrica. Escolha \(\alpha \in K/F\) que não é
+algébrico sobre F. Mostraremos que 
+  \[
+    S = \biggl\{\frac{1}{\alpha - a}: a\in F\biggr\}\subseteq{K}
+  \]
+é linearmente independente, e assim teremos um absurdo, pois \(|S| = |F|\) e teríamos 
+ \(\dim_{F}K\geq |S|.\)
+
+ Com efeito, seja uma combinação linear finita:
+\begin{align*}
+  &\frac{c_{1}}{\alpha - a_{1}} + \cdots + \frac{c_{n}}{\alpha - a_{n}} = 0\\
+  \underbrace{\Rightarrow}_{\times (\alpha -a_{1})}&c_{1} + \frac{c_{2}(\alpha - a_{1})}{\alpha - a_{2}} + \cdots + \frac{c_{n}(\alpha - a_{1})}{\alpha - a_{n}} = 0.
+\end{align*}
+  Como \(\alpha \) é transcendente, temos \(F[x]\cong{F(\alpha )}\) e então \(\mathrm{Frac}(F[x])\cong{\mathrm{Frac}(F(\alpha ))}\).
+Assim, aplicando o isomorfismo, substituindo \(\alpha \) por x, obtemos a mesma igualdade com 0: 
+  \[
+    c_{1} + \frac{c_{2}(x-a_{1})}{x-a_{2}} + \cdots + \frac{c_{n}(x-a_{1})}{x-a_{n}} = 0.
+  \]
+  Como a igualdade vale para todo x, substituindo \(x=a_{1}, c_{1} = 0.\) Podemos fazer esse processo para
+todo \(i=1, \cdots, n\) e conseguindo, assim, \(c_{i} = 0\) para \(i=1, \cdots, n.\) Então, o conjunto é linearmente independente
+e temos o que queríamos demonstrar. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+  Seja \(A = F[x_{1}, \cdots, x_{n}],\) F corpo. Então, \(\mathfrak{i} = \langle x_{1}-a_{1}, \cdots, x_{n}-a_{n}\rangle \trianglelefteq{A}\) 
+é maximal, para \(a_{1}, \cdots, a_{n}\in F\).
+\end{theorem*}
+\begin{proof*}
+
+ A prova segue da indução sobre o número de variáveis
+
+\textbf{\underline{Caso Base}:} Sejam \(\mathfrak{i} = \langle x - a_{1} \rangle, 0\neq \overline{f(x)}\in A/\mathfrak{i}.\)
+Existem \(q(x), r(x)\) tais que \(f(x) = q(x)(x-a_{1})+r(x),\) com \(\deg{r}\leq \deg{(x-a)}=1.\) Com isso,
+r(x) é constante, digamos \(r(x) = a\). Então, \(\overline{f(x)}=\overline{a}\) é constante e
+ \(g(x) = \overline{a^{-1}}\) é o inverso de f(x) em \(A/\mathfrak{i}.\) Assim, \(A/\mathfrak{i}\) é um corpo isomorfo a F por meio
+ de \(f(x)\mapsto a.\)
+
+\textbf{\underline{Hipótese Indutiva}:} Suponha que o resultado vale para \(k < n\). Agora, \(\mathfrak{i} = \langle x-a_{1}, x-a_{2}, \cdots, x-a_{n} \rangle\) e tomemos
+ \(0\neq \overline{f(x_{1}, \cdots, x_{n})}\in A/\mathfrak{i}\). Podemos escrever
+ \(f(x_{1}, \cdots, x_{n})\) como um elemento de \(F[x_{2}, \cdots, x_{n}][x_{1}]\) da seguinte forma:
+  \[
+    f(x_{1}, \cdots, f_{n}) = f_{m}x_{1}^{m} + f_{m-1}x_{1}^{m-1} + \cdots + f_{0},
+  \]
+em que \(f_{i}\in F[x_{2}, \cdots, x_{n}].\) Pelo algoritmo de Euclides, existem \(q, r\in A\) com 
+  \[
+    f(x_{1}, \cdots, x_{n}) = q(x_{1} - a_{1} ) + r,
+  \]
+  com \(r\neq0\) e \(\deg_{x_{1}}{r} = 0, r \in F[x_{2}, \cdots, x_{n}].\) Por indução, \(\frac{F[x_{2}, \cdots, x_{n}]}{\langle x_{2}-a_{2}, \cdots, x_{n}-a_{n} \rangle}\cong{F}\) e
+então \(\overline{r} = \overline{b}\in F, r = b+g, g\in \langle x_{2}-a_{2}, \cdots, x_{n}-a_{n} \rangle\). Logo, 
+  \[
+    f(x_{1}, \cdots, x_{n}) = q(x_{1}-a_{1}) + g + b \Rightarrow \overline{f(x_{1}, \cdots, x_{n})} = \overline{b}.
+  \]
+  Assim, \(\overline{f(x_{1}, \cdots, x_{n})}\) corresponde a um polinômio constante \(\overline{b}\in F.\)
+Portanto, \(\mathfrak{i}\) é maximal. \qedsymbol
+\end{proof*}
+\newpage
+
+\section{Aula 15 - 18/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Nullstelensatz de Hilbert;
+  \item Fecho Algébrico.
+\end{itemize}
+\subsection{Nullstelensatzs}
+\begin{theorem*}[Nullstelensatz Algébrico]
+  Seja K um corpo algebricamente fechado. Então, 
+  \[
+    \mathrm{Specm}(K[x_{1}, \cdots, x_{n}]) = \{\langle x-a_{1}, \cdots, x-a_{n} \rangle: a_{1}, \cdots, a_{n}\in K\}
+  \] 
+\end{theorem*}
+\begin{proof*}
+  Vamos provar para o caso \(K = \mathbb{C}.\) Tome \(M\in \mathrm{Specm}(K[x_{1}, \cdots, x_{n}])\) e considere o quociente \(F \coloneq K[x_{1}, \cdots, x_{n}]/M\). Como M é maximal
+este quociente é um corpo. É claro que \(F\hookrightarrow K\) e que \(S=\{\overline{x_{1}}^{i_{1}}\cdot \dotsc \cdot \overline{x_{n}}^{i_{n}}: i_{j}\in \mathbb{N}\} \subseteq{F}\)
+gera F como K-espaço vetorial e é enumerável. Em outras palavras, \(\dim_{K}F\) é enumerável e, como K é não enumerável, a extensão
+ \(K/F\) é algébrico, do que segue que \(K\cong{F}.\)
+
+  Seja \(\overline{x_{i}} = \overline{a_{i}}, a_{i}\in \mathbb{C}\). Então, \(\overline{x_{i} - a_{i}} = \overline{0}\) e, assim, \(x_{i}-a_{i}\in M\) para cada \(i=1, \cdots, n.\)
+Sabemos que \(\langle x_{1}-a_{1}, \cdots, x_{n}-a_{n} \rangle\) é maximal e \(\langle x_{1}-a_{1}, \cdots, x_{n}-a_{n} \rangle \subseteq{M}\) implica, portanto, que
+ \(M = \langle x_{1}-a_{1}, \cdots, x_{n}-a_{n} \rangle\). \qedsymbol
+\end{proof*}
+\begin{theorem*}[Nullstelensatz Geométrico]
+  Seja \(S \subseteq{K[x_{1}, \cdots, x_{n}]}\) tal que \(\langle S \rangle\neq K[x_{1}, \cdots, x_{n}].\) Então, existe \(a=(a_{1}, \cdots, a_{n})\in K^{n}\)
+tal que, para todo \(f(x_{1}, \cdots, x_{n})\in K[x_{1}, \cdots, x_{n}], f(a_{1}, \cdots, a_{n}) = 0.\)
+\end{theorem*}
+\begin{proof*}
+  Tome \(M\in \mathrm{Specm}(K[x_{1}, \cdots, x_{n}])\) tal que \(\langle S \rangle \subseteq{M}.\) Pelo Teorema
+Nullstelensatz Algébrico, sabemos que \(M = \langle x_{1}-a_{1}, \cdots, x_{n}-a_{n} \rangle\), para \(a_{i}\in \mathbb{C}.\)
+
+  Pelo isomorfismo \(\varphi :K[x_{1}, \cdots, x_{n}]/M\rightarrow \mathbb{C},\) definido por \(\varphi (\overline{x_{i}}) = a_{i}\) temos
+um polinômio genérico \(\varphi (\overline{g(x_{1}, \cdots, x_{n})}) = g(a_{1}, \cdots, a_{n}).\) Como \(\langle S \rangle \subseteq{M},\)
+dado \(f(x_{1}, \cdots, x_{n})\in S, \varphi (\overline{f(x_{1}, \cdots, x_{n})})=\varphi (\overline{0}) = 0\) e, por outro, \(\varphi (\overline{f(x_{1}, \cdots, x_{n})}) =
+f(a_{1}, \cdots, a_{n}).\) Assim, o ponto \((a_{1}, \cdots, a_{n})\) é raiz de todo polinômio \(f\in M\). Portanto,
+é raiz de \(f\in S.\) \qedsymbol
+\end{proof*}
+\subsection{Fecho Algébrico}
+\begin{def*}
+  Um corpo K é dito \textbf{algebricamente fechado} se todo polinômio não constante \(f(x)\in K[x]\) tem
+uma raiz em K. \(\square\)
+\end{def*}
+\begin{lemma*}
+  Se K é algebricamente fechado, então todo \(f(x)\in K[x]\) fatora-se na forma 
+    \[
+      f(x) = (x-a_{1})^{r_{1}}\cdot \cdots \cdot (x-a_{n})^{r_{n}},
+    \]
+    em que \(a_{1}, \cdots, a_{n}\in K\).
+\end{lemma*}
+\begin{example}
+ \begin{itemize}
+   \item[1)] \(\mathbb{C}\) é algebricamente fechado pelo Teorema Fundamental da Álgebra;
+   \item[2)] \(\overline{\mathbb{Q}} = \{\alpha \in \mathbb{C}: f(\alpha ) = 0, f(x)\in \mathbb{Q}[x]\}\) é algebricamente fechado
+ \end{itemize}
+\end{example}
+  Todo corpo pode ser mergulhado em um outro algebricamente fechado.
+\begin{def*}
+  Seja F um corpo e e K um corpo algebricamente fechado que é uma extensão de F. Chamamos de
+\textbf{fecho algébrico de F} o conjunto 
+  \[
+    \overline{F} = \{\alpha \in K: \exists f(x)\in F[x], f(\alpha ) = 0\}.\quad\square
+  \]
+\end{def*}
+\begin{prop*}
+  Seja F um corpo e K um corpo algebricamente fechado tal que \(F \subseteq{K}.\) Então, 
+  \[
+    \overline{F} = \{\alpha \in K: \exists f(x)\in F[x], f(\alpha ) = 0\}
+  \]
+  é um corpo algebricamente fechado.
+\end{prop*}
+  Vale notar que o fecho algébrico de um corpo é único a menos de isomorfismo.
+\subsection{Parte Extra - Construindo a Topologia de Zariski sobre \(\mathbb{C}\)}
+  Para \(\mathfrak{i}\trianglelefteq{\mathbb{C}[x_{1}, \cdots, x_{n}]},\) defina \(V(I) = \{a\in \mathbb{C}^{n}: f(a) = 0 \forall f\in \mathfrak{i}\}\). 
+Mostre que:
+\begin{itemize}
+  \item[1)] \(\bigcap_{k\in K}^{}{V(\mathfrak{i}_{k})} = V(\sum\limits_{k\in K}^{}\mathfrak{i}_{k})\);
+  \item[2)] \(\bigcup_{i=1}^{n}{V(\mathfrak{i_{k}})} = V(\bigcap_{i=1}^{n}{\mathfrak{i}_{k}}) = V(\mathfrak{i}_{1}\cdot \dotsc \mathfrak{i}_{k})\);
+  \item[3)] \(V(\mathbb{C}[x_{1}, \cdots, x_{n}]) = \emptyset\) e \(V((0)) = \mathbb{C}^{n}\);
+  \item[4)] \(\mathfrak{i}\subseteq{\mathfrak{j}} \Rightarrow V(\mathfrak{j}) \subseteq{} V(\mathfrak{i})\);
+  \item[5)] \(V(\mathfrak{i}) = V(\sqrt[]{\mathfrak{i}}),\) em que \(\sqrt[]{\mathfrak{i}}\coloneqq \{g\in A: \exists n, g^{n}\in \mathfrak{i}\}\)
+\end{itemize}
+  As propriedade 1, 2 e 3 fornece-nos uma topologia sobre \(\mathbb{C}^{n}\) gerada pelos fechados \(V(\mathfrak{i}),\) chamada \textbf{topologia de Zariski.} Se
+ \(f\in \mathbb{C}[x_{1}, \cdots, x_{n}],\) definimos \(V(f) = V(\langle f \rangle)\).
+\begin{itemize}
+  \item[1)] Mostre que \(S^{1}\coloneqq \{z=(a, b)\in \mathbb{C}^{2}: |a|^{2} + |b|^{2}=1\}\) é fechado na topologia usual em
+ \(\mathbb{C}^{2},\) mas não é fechado na topologia de Zariski.
+  \item[2)] Mostre que \(\{V(f): f\in \mathbb{C}[x_{1}, \cdots, x_{n}]\}\) é uma base para a topologia de Zariski em \(\mathbb{C}^{n}.\)
+  \item[3)] Mostre que \(\mathbb{C}^{n}\) é compacto com a topologia de Zariski.
+\end{itemize}
+\newpage
+
+\section{Aula 16 - 23/10/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item Domínios Euclideanos;
+  \item Normas.
+\end{itemize}
+\newpage
+
+\section{Aula 17 - 25/10/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item Corpos quadráticos;
+  \item O anel dos inteiros de \(\mathbb{Q}[\sqrt[]{d}]\);
+  \item Elementos irredutíveis;
+  \item Anéis Noetherianos e Teorema da Base de Hilbert.
+\end{itemize}
+\newpage
+
+\section{Aula 18 - 30/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item a 
+\end{itemize}
+\newpage
+
+\section{Aula 19 - 01/11/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item a
+\end{itemize}
+\newpage
+\end{document}
