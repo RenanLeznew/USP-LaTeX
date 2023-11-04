@@ -869,7 +869,143 @@ Mostre que:
   \item Domínios Euclideanos;
   \item Normas.
 \end{itemize}
-\newpage
+\subsection{Domínios Euclidianos}
+ \begin{def*}
+  Um domínio A é dito \textbf{euclidiano} se existe uma função \(N:A\setminus{\{0\}}\rightarrow \mathbb{N}\cup\{0\}\)
+satisfazendo:
+\begin{itemize}
+  \item[1)] \(N(a)\leq N(ab)\) para todos \(a, b\in A\setminus{\{0\}}\)
+  \item[2)] (Algoritmo da Divisão) Para todos \(a, b\in A, b\neq0,\) existem \(q,r\in A\) tais que
+ \(a = bq + r,\) em que \(N(r) < N(b)\) ou \(r = 0\).
+\end{itemize}
+Neste caso, a função N é  chamada \textbf{norma} de A. \(\square\)
+ \end{def*}
+\begin{example}
+ \begin{itemize}
+  \item[1)] Para \(A = \mathbb{Z},\) uma possível norma é 
+  \begin{align*}
+      &N=|\cdot |:\mathbb{Z}\rightarrow \mathbb{N}\\
+      &n\mapsto |n|
+  \end{align*}
+  \item[2)] Se F é um corpo e \(A = F[x]\), temos a norma 
+  \begin{align*}
+    &N:F[x]\rightarrow \mathbb{N}\\
+    &p(x)\mapsto \deg{p(x)}.
+  \end{align*}
+ \end{itemize}
+\end{example}
+\begin{theorem*}
+  Domínios Euclidianos são D.I.P.'s
+\end{theorem*}
+\begin{proof*}
+  Seja \(\mathfrak{i} \trianglelefteq{A}\) não nulo e seja \(0\neq a\in \mathfrak{i}\) elemento com
+menor norma, i.e., \(N(A) = \min\{N(x): x\in \mathfrak{i}\}\). Mostraremos que \(\mathfrak{i} = \langle a \rangle\).
+
+  Por um lado, é claro que \(\langle a \rangle \subseteq{\mathfrak{i}}.\) Por outro, tome \(x\in \mathfrak{i}\).
+Pela segunda parte da definição, existem \(q, r\in A\) tais que \( x = qa + r\) e \(N(r) < N(a).\)
+Então, \(r=x-qa\in \mathfrak{i}.\) Se \(r\neq0, N(r) < N(a)\), o que é um absurdo pela definição de a como 
+elemento com menor norma. Assim, \(r=0\), ou seja, \(x = qa\). Portanto, \(x\in \mathfrak{i}\) e \(\mathfrak{i} = \langle a \rangle\). \qedsymbol
+\end{proof*}
+\begin{example}
+ \begin{itemize}
+  \item[1)] Corpos são Domínios Euclidianos:
+  \begin{align*}
+    &N:F^{*}\rightarrow \mathbb{N}\\
+    &a\mapsto 1
+  \end{align*}
+  \item[2)] Em \(A = K[x, y],\) o ideal \(\mathfrak{i} = \langle x, y \rangle\) não é principal. Logo, A não é Domínio Euclidiano.
+ \end{itemize}
+\end{example}
+  Vale observar que a norma num Domínio Euclidiano não é única, no sentido de que pode ter mais que uma norma. Por exemplo,
+  \[
+    \left\{\begin{array}{ll}
+      N_{1}:&\mathbb{Z}\setminus{\{0\}}\rightarrow \mathbb{N}\\
+            &a\mapsto |a|\\
+      N_{2}:&\mathbb{Z}\setminus{0}\rightarrow \mathbb{N}\\
+            &a\mapsto |2a|.
+    \end{array}\right.
+  \]
+ \begin{prop*}
+  Seja \((A, N)\) um Domínio Euclidiano. Então, \(A^{*}=\{a\in A\setminus{\{0\}}: N(a) = N(1)\}.\)
+ \end{prop*}
+ \begin{proof*}
+  Sejam \(a\in A^{*}\) e \(b\in A^{*}\) tais que \(ab = 1.\) Pela propriedade 1,
+ \(N(a)\leq N(ab) = N(1).\) Além disso, vale também que \(N(1)\leq N(a \cdot 1) = N(a).\) Logo,
+ \(N(a) = N(1).\) Com isso, provamos que \(A^{*}\subseteq{\{a\in A\setminus{\{0\}}: N(a) = N(1)\}}.\)
+
+  Por outro lado, tome um elemento \(a\in A\setminus{\{0\}}\) tal que \(N(a) = N(1).\) Aplicando o algoritmo da divisão,
+existem \(q, r\in A\) tais que \(1 = aq + r, r = 0\) ou \(N(r) < N(a) = N(1).\)
+
+  Se \(r\neq0, N(1)\leq N(1 \cdot r) = N(r)\) implica que \(N(1)\leq N(r).\) No entanto, por hipótese,
+ \(N(r) < N(1)\), ou seja, temos um absurdo. Logo, \(r = 0\) e \(aq = 1\) implica que \(a\in A^{*},\) assim provando
+a outra relação de contenção.
+
+  Portanto, \(A^{*}=\{a\in A\setminus{\{0\}}: N(a) = N(1)\}.\) \qedsymbol
+ \end{proof*}
+ \begin{theorem*}
+  O anel \(\mathbb{Z}[i] = \{a + ib: a, b\in \mathbb{Z}\}\subseteq{\mathbb{C}}\) é um Domínio Euclidiano com a norma
+ \begin{align*}
+   &N:\mathbb{Z[i]}\setminus{\{0\}}\rightarrow \mathbb{N}\\
+   &z = a + ib\mapsto |z|^{2} = a^{2} + b^{2}.
+ \end{align*}
+ \end{theorem*}
+ \begin{proof*}
+  Note que \(N(a+ib) = (a+ib)(a-ib)\), donde fica fácil ver que \(N((a+ib)(c+id)) = N(a+ib)N(c+id)\).
+Observe também que \(N(z) = 0\) se, e somente se, \(z = 0,\) tal que dados \(x, y\in \mathbb{Z}[i], N(xy) = N(x)N(y)
+\geq N(x)\) para todo \(y\neq0\).
+
+  O corpo de frações \(\mathrm{Frac}(\mathbb{Z}[i]) = \mathbb{Q}[i] \subseteq{\mathbb{C}}\) pode receber a mesma norma
+induzida que a de \(\mathbb{Z}[i]\). Assim, sejam \(x, y\in \mathbb{Z}[i], y\neq0.\) Buscamos \(q, r\in \mathbb{Z}[i]\) tais que
+ \(x = qy + r,\) em que \(r=0\) ou \(N(r) < N(y)\). Isso é equivalente a
+\begin{align*}
+  N(x-qy) < N(y) &\Longleftrightarrow N \biggl(y \biggl(\frac{x}{y}\biggr) - qy\biggr) < N(y)\\
+                 &\Longleftrightarrow N(y) N \biggl(\frac{x}{y}-q\biggr) < N(y)\\
+                 &\Longleftrightarrow N \biggl(\frac{x}{y} - q\biggr) < 1.
+\end{align*}
+  Com isso, basta acharmos \(q\in \mathbb{Z}[i]\) tal que \(N(x/y - q) < 1.\)
+
+  Dado \(x/y\in \mathbb{Q}[i],\) seja \(x/y = e + if.\) Existem \(g, h\in \mathbb{Z}\)
+tais que \(|e-g|\leq 1/2\) e \(|e-h|\leq 1/2\) através do seguinte processo:
+
+  Se \(e\in \mathbb{Q},\) existe \(n\in \mathbb{Z}\) tal que \(n\leq e < n+1.\) Se \(0 < e-n\leq 1/2\),
+então \(|e-n|\leq 1/2\). Caso contrário, \(1/2 < e-n < 1,\) tal que \(-1/2 < e - n - 1 < 0\) e, assim,
+ \(|e-(n+1)| < 1/2\).
+
+  Com isso, se \(q\coloneqq g + ih,\) temos 
+ \begin{align*}
+   N \biggl(\frac{x}{y} - q\biggr) &= N(e + if - g - ih)\\
+                                   &= N(e - q + (f-h)i)\\
+                                   &= (e-q)^{2} + (f-h)^{2}\\
+                                   &=\frac{1}{2} < 1.
+ \end{align*}
+  Portanto, provamos o resultado. \qedsymbol
+ \end{proof*}
+\begin{crl*}
+  \(\mathbb{Z}[i]\) é um D.I.P.
+\end{crl*}
+\begin{example}
+  Mostremos que o ideal \(\langle (3, 2 + \sqrt[]{-5}) \rangle \trianglelefteq{\mathbb{Z}[\sqrt[]{-5}]}\) não é principal. Logo, que
+ \(\mathbb{Z}[\sqrt[]{-5}]\) não é um domínio euclidiano.
+
+  Com efeito, seja \(\langle 3, 2 + \sqrt[]{-5} \rangle = \langle a + b\sqrt[]{-5} \rangle.\) Observe que 
+    \[
+      N':\mathbb{Z}\sqrt[]{-5}\rightarrow \mathbb{N},\quad x = a+b\sqrt[]{-5}\mapsto a^{2}+5b^{2} = N(x)
+    \]
+satisfaz a condição \(N(xy) = N(x)N(y)\geq N(x).\) Dado o elemento \(3\in \langle a + b\sqrt[]{-5}, \rangle\)
+vale que \(3 = (a+b\sqrt[]{-5})(c+d\sqrt[]{-5}),\) do que obtemos que 
+  \[
+    9 = N(3) = N(a+b\sqrt[]{-5})N(c+d\sqrt[]{-5}) = (a^{2}+5b^{2})(c^{5}+5d^{5}).
+  \]
+Com isso, \(a^{2}+5b^{2}\mid 9\) dá-nos três possibilidade - \(a^{2} + 5b^{2} = 1, 3,\text{ ou }9.\)
+Se \(a^{2} + 5b^{2} = 1\) ou \(a^{2} + 5b^{2} = 3,\) obtemos \(b = 0\), duas contradições. Fazendo mais contas,
+chegamos em ainda mais contradições, do que segue que a condição \(N(xy)\geq N(x)\) não pode ser satisfeito e, portanto,
+ \(\mathbb{Z}[\sqrt[]{-5}]\) não é Domínio Euclidiano e nem \(\langle (3, 2+\sqrt[]{-5}) \rangle\) é um ideal principal.
+\end{example}
+ \begin{example}[Exercício]
+  Mostre que \(\mathbb{Z}[\sqrt[]{-2}] = \{a + b\sqrt[]{-2}: a, b\in \mathbb{Z}\}\) é um Domínio
+Euclidiano com a norma \(N(a+b\sqrt[]{-2}) = a^{2} + 2b^{2}.\)
+\end{example}
+ \newpage
 
 \section{Aula 17 - 25/10/2023}
 \subsection{Motivações} 
@@ -879,6 +1015,159 @@ Mostre que:
   \item Elementos irredutíveis;
   \item Anéis Noetherianos e Teorema da Base de Hilbert.
 \end{itemize}
+\subsection{Corpos Quadráticos}
+\begin{def*}
+  Seja \(\alpha \) raiz de um polinômio irredutível e mônico de grau 2, ou seja, \(x^{2}+ax+b\in \mathbb{Z}[x].\) Vamos denotar
+por \(\mathbb{Z}[\alpha ]\) o menor subanel de \(\mathbb{C}\) que contém \(\mathbb{Z}\) e \(\alpha \): 
+  \[
+    \mathbb{Z}[\alpha ]\coloneqq \bigcap_{A\in \mathcal{A}}^{}{A},
+  \]
+em que \(\mathcal{A} = \{A\text{ subanel de }\mathbb{C}: \mathbb{Z}\subseteq{A}\text{ e }\alpha \in A\}. \square\)
+\end{def*}
+\begin{prop*}
+  Temos \(\mathbb{Z}[\alpha ] = \{a + b\alpha : a, b\in \mathbb{Z}\}.\)
+\end{prop*}
+\begin{proof*}
+  De fato, coloque \(B\coloneqq \{c+d\alpha : c, d\in \mathbb{Z}\}.\) Note que B é subanel de \(\mathbb{C}\).
+Com isso, se \(a + b\alpha , c + d\alpha \in B,\) então \(a + b\alpha + c +d\alpha = a + c + (b+d)\alpha \in B\)
+e, a multiplicação: 
+  \[
+    (a+b\alpha )(c+d\alpha ) = ac + bd\alpha^{2} + ad\alpha + bc\alpha 
+  \]
+e note que, já que \(\alpha \) é raiz de um polinômio, \(x^{2} + a'x + b'\), então \(\alpha ^{2} + a'\alpha  + b' = 0\) implica 
+que \(\alpha^{2} = -a'\alpha  - b'\), isto é, \(\alpha^{2} = c'\alpha + d'\) para \(c', d'\in \mathbb{Z},\) donde segue que 
+  \[
+    ac + bd(c'+d'\alpha ) + ad\alpha + bc\alpha = ac + bdc' + \alpha(bdd'+ad+bc)\in B.
+  \]
+  Logo, B é subanel de \(\mathbb{C}.\) Além disso, temos \(\mathbb{Z}\subseteq{B}, \alpha \in B\), tal que
+ \(\mathbb{Z}[\alpha ]\subseteq{B}.\)
+
+  Por outro lado, seja \(A\) um subanel de \(\mathbb{C}\) que contém \(\mathbb{Z}\) e \(\alpha .\) Caso \(c+d\alpha \in B, c, d,\in A\)
+  e a combinação \(c+d\alpha \in A\). Logo, \(B \subseteq{A}.\) Portanto, \(B\subseteq{\mathbb{Z}[\alpha ]}\). \qedsymbol
+\end{proof*}
+\begin{example}[Exercícios]
+ \begin{itemize}
+ \item[1)] Seja \(\alpha \) raiz de \(x^{2} + ax + b\in \mathbb{Z}[x]\) irredutível. Então, 
+   \[
+     \mathbb{Z}[\alpha ] \cong{\frac{\mathbb{Z}[x]}{\langle x^{2} + ax + b \rangle}}
+   \]
+  \item[2)] Se \(\beta \) é outra raiz do mesmo polinômio, então \(\mathbb{Z}[\alpha ] = \mathbb{Z}[\beta ]\)
+ \end{itemize}
+\end{example}
+  Definimos 
+\begin{align*}
+  &N:\mathbb{Z}[\alpha ]\setminus{\{0\}}\rightarrow \mathbb{N}\\
+  &x+y\alpha \mapsto |x^{2} - axy + y^{2}b|.
+\end{align*}
+\begin{def*}
+  Se \(\alpha \) é a raiz do polinômio mônico de grau 2, o \textbf{conjugado} de \(\theta = c+d\alpha \) é definido como \(\overline{\theta } = c + d\beta \), em que \(\beta \) é a outra raiz. \(\square\)
+\end{def*}
+  Note que um elemento e seu conjugado satisfazem a seguinte relação
+\begin{align*}
+  \theta \overline{\theta } &= (x+y\alpha )(x+y\beta)\\
+                            &= x^{2} + xy\beta  + xy\alpha  + y^{2}\alpha \beta \\
+                            &= x^{2} + (\alpha +\beta )xy + \alpha \beta y^{2}\\
+                            &= x^{2} + (-a)xy + (b)y^{2}\\
+                            &= N(\theta).
+\end{align*}
+  Disto segue que 
+ \begin{itemize}
+  \item[1)] \(N(\theta \varphi )=N(\theta )N(\varphi )\);
+  \item[2)] \(\mathbb{Zj[\alpha ]^{*} = \{\theta \in \mathbb{Z}[\alpha ]: N(\theta ) = 1\}}\).
+ \end{itemize}
+\begin{def*}
+  Seja \(d\in \mathbb{Z}\) livre de quadrados. O corpo \(\mathbb{Q}[\sqrt[]{d}] = \{a + b\sqrt[]{d}: a, b\in \mathbb{Q}\}\) é 
+chamado \textbf{corpo quadrático.} \(\square\)
+\end{def*}
+ \begin{example}
+  \begin{itemize}
+    \item[1)] Os inteiros de Gauss, \(\mathbb{Z}[i]\), com o polinômio correspondente \(x^{2} + 1 = 0\).
+    \item[2)] Os inteiros de Eisenstein, \(\mathbb{Z}\biggl[\frac{1+\sqrt[]{-3}}{2}\biggr]\), com o polinômio \(x^{2} - x + 1 = 0\)
+    \item[3)] Para o polinômio \(x^{2} - x - 1 = 0, \mathbb{Z}\biggl[\frac{1 + \sqrt[]{5}}{2}\biggr]\)
+    \item[4)] Se \(d\in \mathbb{Z}\) é \textbf{livre de quadrados}, i.e., não existe \(l\in \mathbb{Z}\)
+      tal que \(l^{2}\mid d, \mathbb{Z}[\sqrt[]{d}]\) é um anel quadrático do polinômio \(x^{2} - d = 0.\)
+  \end{itemize}
+ \end{example}
+\begin{def*}
+  Seja d livre de quadrados, denotamos por \(\mathcal{O}_{d}\) o conjunto
+\(\{\alpha \in \mathbb{Q}[\sqrt[]{d}]:\text{ existe }f(x)\in \mathbb{Z}[x], \deg{f(x)} = 2, f \text{ mônico irracionais, tais que } f(\alpha)=0\}.\quad\square\)
+\end{def*}
+\begin{theorem*}
+  Se \(d\in \mathbb{Z}\) é livre de quadrados, então 
+  \[
+    \mathcal{O}_{d} = \left\{\begin{array}{ll}
+        \mathbb{Z}[\sqrt[]{d}],\quad\text{se } d\equiv 2, 3 \mod{4}\\
+        \mathbb{Z}\biggl[\frac{1+\sqrt[]{d}}{2}\biggr],\quad\text{se } d\equiv 1\mod{4}.
+      \end{array}\right.
+  \]
+\end{theorem*}
+\begin{def*}
+  O anel \(\mathcal{O}_{d}\) é chamado o \textbf{anel dos inteiros} do corpo \(\mathbb{Q}[\sqrt[]{d}].\) Nele,
+podemos definir a norma:
+\begin{align*}
+  &N_{d}:\mathcal{O}_{d}\rightarrow \mathbb{N}\\
+  &x+y\theta \mapsto \left\{\begin{array}{ll}
+      x^{2} + dy^{2},\quad \text{se } d\equiv2,3\mod{4}\\
+      x^{2} - xy - \frac{d-1}{4}y^{2},\quad\text{se } d\equiv1\mod{4},
+    \end{array}\right.
+\end{align*}
+em que \(\theta = \sqrt[]{d}\) se \(d\equiv 2, 3\mod{4}\) e \(\theta = \frac{1+\sqrt[]{d}}{2}\), se \(d\equiv 1\mod{4}.\square\)
+\end{def*}
+\begin{def*}
+  Dizemos que \(\mathcal{O}_{d}\) é \textbf{norma euclidiano} se é um domínio euclidiano com a norma definida \(N_{d}\) acima. \(\square\)
+\end{def*}
+\begin{theorem*}
+  \(\mathcal{O}_{d}\) é norma euclidiano se, e somente se, 
+  \[
+    d\in\{-11, -7, -3, -2, -1, 2, 3, 5, 6, 7, 11, 13, 17, 19, 21, 29, 33, 37, 41, 57, 73\}.
+  \]
+\end{theorem*}
+\begin{theorem*}
+ \begin{itemize}
+  \item[1)] \(\mathcal{O}_{69}\) é euclidiano (mas não é norma euclidiano)
+  \item[2)] \(\mathcal{O}_{14}\) é euclidiano (mas não é norma euclidiano)
+  \item[3)] Se \(d < 0\) e \(d\not\in\{-11, -7, -3, -2, 1\},\) então \(\mathcal{O}_{d}\) não é euclidiano
+  \item[4)] Se \(d < 0\), então \(\mathcal{O}_{d}\) é D.I.P., se e somente se 
+    \[
+      d\in\{-1, -2, -3, -7, -11, -19, -43, -67, -163\}.
+    \]
+ \end{itemize}
+\end{theorem*}
+  Relacionada a esses anéis dos inteiros, há a seguinte conjectura:
+
+\textbf{Conjectura:} Classificar para quais \(d\in \mathbb{Z}\) o anel \(\mathcal{O}_{d}\) é D.I.P. e para quais
+ \(\mathcal{O}_{d}\) é euclidiano.
+
+\begin{def*}
+  Seja A um domínio. Dizemos que \(a\in A\) é \textbf{irredutível} se \(a\not\in A^{*}\) e se \(a = bc,\) então \(b\in A^{*}\) ou \(c\in A^{*}.\square\)
+\end{def*}
+\begin{example}
+ \begin{itemize}
+  \item[1)] Em \(\mathbb{Z}\), apenas primos positivos ou negativos são irredutíveis;
+  \item[2)] Se F é um corpo, em \(F[x]\) apenas os polinômios irredutíveis são irredutíveis.
+ \end{itemize}
+\end{example}
+\begin{theorem*}
+  Se A é um D.I.P, então todo elemento não irredutível de A pode ser escrito como produto de elementos irredutíveis.
+\end{theorem*}
+\begin{proof*}
+  Suponha que existe um \(a\in A\) que não é irredutível, porém não pode ser escrito como produto de
+elementos irredutíveis. Seja \(a=bc\) tais que \(b, c\not\in A^{*}.\)
+
+  Note que um dos dois, b ou c, não pode ser produto de elementos irredutíveis. Suponha que este seja b.
+Disto, segue que \(\langle a \rangle\subsetneq{\langle b \rangle}\), já que, como \(a=bc, a\in \langle b \rangle\) e, assim,
+ \(\langle a \rangle\subset{\langle b \rangle}\). Suponha, agora, que \(\langle a \rangle = \langle b \rangle.\) Então, \(b\in \langle a \rangle\) implica
+ que \(b = ar\) para algum \(r\in A\), de forma que \(b = (bc)r.\) Como A é domínio, \(cr = 1\), ou seja, \(c\in A^{*},\)
+contrariando a hipótese antes feita.
+
+  Seja \(a_{1}\coloneqq b.\) Segue que \(\langle a \rangle\subsetneq{\langle a_{1} \rangle}\) e \(a_{1}\) não é produto de elementos irredutíveis.
+Continuando este processo indutivamente, obteremos uma cadeia de ideais \(\langle a \rangle \subsetneq{\langle a_{1} \rangle}\subsetneq{\langle a_{2} \rangle}\subsetneq{\cdots}\)
+tal que cada \(a_{i}\) não é produto de elementos irredutíveis. Seja \(\mathfrak{i} = \bigcup_{i=1}^{\infty}{}\). Já que A é D.I.P., seja \(x\in A\) tal que \(\mathfrak{i} = \langle x \rangle\).
+
+  Caso \(x\in \mathfrak{i},\) existe \(n\in \mathbb{N}\) tal que \(x\in \langle a_{n} \rangle\) e, então, \(\mathfrak{i} = \langle x \rangle\subseteq{\langle a_{n} \rangle}.\) Portanto,
+ \(\langle a_{n} \rangle = \langle a_{n+1} \rangle = \cdots = \mathfrak{i}\), o que é um absurdo. Portanto, todo elemento irredutível de A
+pode ser escrito como produto de elementos irredutíveis. \qedsymbol
+\end{proof*}
 \newpage
 
 \section{Aula 18 - 30/10/2023}
