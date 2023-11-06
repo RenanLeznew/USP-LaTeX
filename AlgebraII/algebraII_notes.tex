@@ -1173,14 +1173,368 @@ pode ser escrito como produto de elementos irredutíveis. \qedsymbol
 \section{Aula 18 - 30/10/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item a 
+  \item Aneis Noetherianos;
+  \item Anel de Inteiros Algébricos.
 \end{itemize}
+\subsection{Aneis Noetherianos}
+\begin{prop*}
+  Todo elemento de um anel quadrático é produto de elementos irredutíveis.
+\end{prop*}
+\begin{proof*}
+  Seja \(\mathbb{Z}[\alpha ] = \{c + d\alpha : c, d\in \mathbb{Z}\}, \alpha \) raiz de \(x^{2} + ax + b\in \mathbb{Z}[x]\) irredutível.
+Tome \(x\in \mathbb{Z}[\alpha ]\) tal que x não é o produto dos elementos irredutível com menor norma \(N(c+d\alpha ) = [c^{2}-acd + bd^{2}]\).
+Como x não é irredutível, \(x=yz\), com \(y,z\not\in \mathbb{Z}[\alpha ]^{*},\) em que um deles não é o produto de elementos
+irredutíveis.
+
+  Agora, note que \(N(y)\neq1\) e \(N(z)\neq1\). De fato, se \(N(y)=1, y\in \mathbb{Z}[\alpha ]^{*}\) e então \(x=yz\) seria irredutível.
+Pela propriedade \(N(x) = N(y)N(z)\) e \(N(y) > 1, N(z) > 1\), temos \(N(y) < N(x)\) e \(N(z) < N(x)\). 
+Pelo menos um deles não é produto de irredutíveis, contrariando a minimalidade de x. Portanto, x deve ser o produto
+de elementos irredutíveis. \qedsymbol
+\end{proof*}
+\begin{example}
+  2 é elemento irredutível em \(\mathbb{Z}[\sqrt[]{-5}].\)
+
+  De fato, suponha que 2 possa ser escrito como \(2 = (a + b\sqrt[]{-5})(c+d\sqrt[]{-5}).\) Então,
+ \begin{align*}
+   &N(2) = N(a+b\sqrt[]{-5})N(c+d\sqrt[]{-5})\\
+   &4 = (a^{2} + 5b^{2})(c^{2}+5d^{2}).
+ \end{align*}
+ Então, \(c^{2} + 5d^{2}\mid 4\), tal que \(c^{2} + 5d^{2} = 1, 2, 4.\). Caso \(a^{2}+5b^{2} = 1, b = 0 e a = \pm 1\in \mathbb{Z}[\sqrt[]{-5}]^{*}.\) 
+Com isso, \(a^{2} + 5b^{2} = 4\) e \(a = \pm 2\) e \(d=0.\) Assim, \(2=(\pm1)(\pm2).\)
+O caso \(c^{2} + 5d^{2} = 2\) não tem soluções e o caso \(c^{2} + 5d^{2} = 4\) é simétrico ao primeiro caso.
+\end{example}
+\begin{def*}
+  Dizemos que um anel A é \textbf{noetheriano} se todo ideal de A é finitamente gerado. \(\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+  As propriedades a seguir são equivalentes:
+ \begin{itemize}
+  \item[1)] A é noetheriano;
+  \item[2)] Toda cadeia de ideais de A: \(\mathfrak{i}_{1}\subseteq{}\mathfrak{i}_{2}\subseteq{}\mathfrak{i}_{3}\subseteq{\cdots}\) estabiliza, i.e.,
+existe \(n\in \mathbb{N}\) tal que \(\mathfrak{i}_{n} = \mathfrak{i}_{n+1} = \cdots.\)
+  \item[3)] Todo conjunto S de ideias de A tem um elemento maximal.
+ \end{itemize}
+\end{prop*}
+\begin{theorem*}[Base de Hilbert]
+  Se A é noetheriano, então \(A[x]\) também é noetheriano.
+\end{theorem*}
+\begin{prop*}[Exercícios]
+ \begin{itemize}
+  \item[1)] Seja A noetheriano e \(\mathfrak{i}\trianglelefteq{A}.\) Então, \(A/\mathfrak{i}\) é noetheriano.
+  \item[2)] Seja A um domínio noetheriano. Então, todo elemento de A é produto de irredutíveis
+ \end{itemize}
+\end{prop*}
+\begin{example}
+ \begin{itemize}
+  \item[1)] Mostre que \(\mathbb{Z}[\sqrt[]{-3}]\) não é D.I.P. (Mostre que \(\langle 2, 1 + \sqrt[]{-3} \rangle\) não é principal);
+  \item[2)] Seja \(F\subseteq{\mathbb{C}}\) subcorpo. Então, \(\mathbb{Q}\subseteq{F}.\);
+  \item[3)] Seja F um subcorpo de \(\mathbb{C}\) tal que \([F:\mathbb{Q}]<\infty\). (Chamamos estes corpo de \textbf{corpos globais});
+  \item[4)] Seja \(\mathcal{O}_{F}\coloneqq \{\alpha \in F: \exists f(x)\in \mathbb{Z}[x]\} \text{ mônico irredutível e } f(\alpha ) = 0\). Mostre que
+ \(\mathcal{O}_{F}\) é um anel. (Chamamos este anel de \textbf{anel de inteiros algébricos} de F). Além disso, \(\mathrm{Frac}(\mathcal{O}_{F}) = F.\);
+  \item[5)] Se \(F = \mathbb{Q}[\sqrt[]{d}],\) d livre de quadrados, então \(\mathcal{O}_{F} = \mathcal{O}_{d}.\)
+ \end{itemize}
+\end{example}
+\begin{example}
+ \begin{itemize}
+  \item[1)] \(\mathcal{O}_{-3} = \{\pm1, \pm \frac{1\pm \sqrt[]{-3}}{2}\}\);
+  \item[2)] \(\mathcal{O}_{-1} = \{\pm1, \pm i\}\);
+  \item[3)] \(2, 3\in \mathcal{O}_{-19}\) são irredutíveis;
+  \item[4)] Seja p primo. Se \(p\equiv 1 \mod 4,\) então \(p\in \mathbb{Z}[i]\) não é irredutível.
+ \end{itemize}
+\end{example}
 \newpage
 
 \section{Aula 19 - 01/11/2023}
 \subsection{Motivações} 
 \begin{itemize}
-  \item a
+  \item Teorema de Dedekind;
+  \item Anéis quasi-euclidianos;
 \end{itemize}
+\subsection{O Teorema de Dedekind}
+\begin{theorem*}
+  \(\mathcal{O}_{-19}\) não é euclidiano.
+\end{theorem*}
+\begin{proof*}
+  Suponha que exista \(N':\mathcal{O}_{-19}\setminus{\{0\}}\rightarrow \mathbb{N}\) tal que \(\mathcal{O}_{-19}\) é um domínio euclidiano com norma \(N'.\) Seja \(m\in \mathcal{O}_{-19}, m\neq \pm1, 0,\)
+tal que 
+  \[
+    N'(m) = \min\{N'(a): a\in \mathcal{O}_{-19}, a\neq \pm1, 0\}.
+  \]
+  Pelo algoritmo da divisão, existem \(q, r\) tais que \(2 = mq + r\), com \(N'(r) < N'(m)\)
+ou \(r=0\).
+
+  Como m tem menor norma dentre os elementos diferentes de \(0\) e \(\pm 1\), então \(r=0, \pm1\). Se \(r=1\), temos
+ \(mq = 1\) implica que \(m\in \mathcal{O}_{-19}^{*},\) um absurdo. Assim, \(r=0, -1\) e,
+ logo, \(mq = 2, 3\) e, já que \(2, 3\) são irredutíveis, \(q\in \mathcal{O}_{-19}^{*} = \{\pm1\}.\) Com isso,
+ \(m=\pm2, \pm 3\in \mathbb{Z}.\)
+  
+  Agora, seja \(\theta = \frac{1 + \sqrt[]{-19}}{2}.\) Então, existem \(q', r'\) tais que \(\theta  = mq'+r'.\) Usando o mesmo
+argumento que o feito acima, temos \(r'=0, \pm1.\) Destarte, \(mq'=\theta - r', r'=0, \pm1.\) Seja \(q'= a + b\theta ,\)
+em que \(a, b\in \mathbb{Z}.\) Logo, 
+  \[
+    m(a + b\theta ) = -r + \theta  \Rightarrow ma + mb\theta = -r + \theta  \Rightarrow mb = 1,
+  \]
+mas, note que, como \(m = \pm2, \pm3\), temos \(b\not\in \mathbb{Z}\), ou seja, não existe \(q'\) que satisfaça \(\theta  = mq' + r'\) e, portanto,
+ \(\mathcal{O}_{-19}\) não é euclidiano. \qedsymbol
+\end{proof*}
+\begin{def*}
+  Um domínio A é dito \textbf{quasi-euclidiano} se existe uma aplicação \(d:A\setminus{\{0\}}\rightarrow \mathbb{N}\) tal que para todos \(a, b\in A, b\neq0\),
+existem \(p, q, r\in A\) com \(p\neq0\) tais que: 
+  \[
+    ap = bq + r\quad\&\quad d(r) < d(b) \text{ ou } (p=1 e r=0).\quad\square
+  \]
+\end{def*}
+\begin{lemma*}
+  Todo domínio quasi-euclidiano é D.I.P.
+\end{lemma*}
+\begin{proof*}
+  Seja \((0)\neq \mathfrak{i}\trianglelefteq{A}\) e \(b\in \mathfrak{i}\) tal que \(d(b) = \min\{d(x):x\in \mathfrak{i}\setminus{\{\}}\}\).
+Tome \(a\in \mathfrak{i}.\) Então, existem \(p, q, r\in A\) tais que \(p\neq 0\) e \(pa = bq + r\), com \(d(r) < d(b)\) ou \(p=1, r=0.\)
+Caso \(r\neq 0,\) então \(r = pa-bq\in \mathfrak{i}\) e, assim, \(d(r) < d(b),\) um absurdo com a minimalidade de b em \(\mathfrak{i}.\)
+
+  Com isso, \(r=0\) e, então, \(a = ap = bq\), tal que \(a\in \langle b \rangle.\) Além disso, segue que \(\mathfrak{i}\subseteq{\langle b \rangle}.\)
+Por outro lado, como temos \(b\in \mathfrak{i}, \mathfrak{I} = \langle b \rangle\). Portanto, todo ideal de A é principal, ou seja, A é D.I.P. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+  \(\mathcal{O}_{-19}\) é quasi-euclidiano. (Em particular, é D.I.P).
+\end{theorem*}
+\begin{proof*}
+  Considere a norma \(N:\mathcal{O}_{-19}\rightarrow \mathbb{N}\) definida por \(N(a+b\theta ) = a^{2} + ab + 5b^{2}.\) Essa norma é a
+restrição dos complexos em \(\mathcal{O}_{-19}.\) De fato,
+\begin{align*}
+  a + b\theta &= a +b \biggl(\frac{1+\sqrt[]{-19}}{2}\biggr) = \biggl(a + \frac{b}{2}\biggr) + \frac{\sqrt[]{19}}{2}ib.\\
+              &= a' + b'i\in \mathbb{C}.
+\end{align*}
+  Representando \(a + b\theta \) desta forma, conseguimos calcular a norma como 
+ \begin{align*}
+   |a+b\theta |^{2} &= \biggl(a + \frac{b}{2}\biggr)^{2} + \biggl(\frac{\sqrt[]{19}}{b}\biggr)^{2}\\
+                    &= a^{2} + ab + \frac{b^{2}}{4} + \frac{19}{4}b^{2}\\
+                    &= a^{2} + ab + 5b^{2} = N(a + b\theta ).
+ \end{align*}
+ Sejam \(a, b\in a, b\neq0.\) Se \(a\in \langle b \rangle, a = bq\) para algum \(q\in A\) (ou seja, \(p=1, r = 0\)).
+Caso \(a\not\in \langle b \rangle\), a existência de \(p, q, r\in A\) com \(p\neq 1\) e \(r\neq 0\) depende da condição 
+a seguir:
+\begin{align*}
+  N(r) &= N(ap-bq) < N(p)\\
+      \Longleftrightarrow & N(b)N \biggl(\frac{a}{b}p - q\biggr) < N(b)\\
+      \Longleftrightarrow & N \biggl(\frac{a}{b}p - q\biggr) < 1\\
+      \Longleftrightarrow & \biggl|\frac{a}{b}p - q\biggr| < 1. \quad\text{\qedsymbol}
+\end{align*} 
+\end{proof*}
+\begin{lemma*}
+  Para todo \(a, b\in A = \mathcal{O}_{-19},\) com \(b\neq0, a\not\in \langle b \rangle,\) existem \(p, q\in A\) tais que 
+ \(\biggl|\frac{a}{b}p - q\biggr| < 1.\)
+\end{lemma*}
+\subsection{Domínios de Fatoração Única}
+\begin{def*}
+  Um domínio A é chamado \textbf{Domínio de Fatoração Única (D.F.U.)} ou \textbf{Domínio Fatorial} se 
+todo elemento não nulo \(a\in A\) pode ser escrito como produto de elementos irredutíveis de maneira única a menos 
+da ordem dos fatores e de elementos associados. Mais explicitamente, dado \(a\in A\setminus{\{0\}},\)
+\begin{itemize}
+  \item[1)] Existem \(\pi_{1}, \cdots, \pi_{r}\) irredutíveis em A tais que \(a = \pi_{1}\cdot \dotsc \cdot \pi_{r}.\)
+  \item[2)] Se \(a = \rho_{1}\cdot\dotsc \cdot \rho_{m} = \pi_{1}\cdot \dotsc \cdot \pi_{r}\), com \(\pi_{i}, \rho_{j}\) irredutíves em A, então \(r = m\)
+e existe \(b\in S_{r}\) permutação tal que \(\pi_{i}\) é associado com \(\rho_{b(i)}\) para todo \(i=1, \cdots, r. \quad\square\)
+\end{itemize}
+\end{def*}
+\newpage
+
+\section{Aula 20 - 06/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Domínios de Fatoração e primos;
+  \item Primos de \(\mathcal{O}_{-3}\);
+  \item M.D.C. e M.M.C.
+\end{itemize}
+\subsection{D.F.U.'s e Exemplos}
+ \begin{theorem*}
+  Se A é um D.I.P., então A é D.F.U.
+ \end{theorem*}
+\begin{proof*}
+  Como um D.I.P. é noetheriano, basta mostrar que elementos irredutíveis são primos.
+Seja \(\pi \in A\) irredutível e seja \(\pi \mid ab.\) Suponha que \(\pi\) não divide a e considere
+o ideal \(\langle \pi , a \rangle.\) Seja 
+  \[
+    \langle \pi , a \rangle = \langle d \rangle.
+  \]
+  Temos 
+  \[
+    \pi \in \langle d \rangle \Rightarrow \exists d'\in A: \pi  = dd'.
+  \]
+  Assim, \(d\in A^{*},\) ou \(d'\in A^{*}\), tal que \(d'^{-1}\pi  = d\), do que segue que \(\pi \mid d\) e,
+como \(d\mid a,\) temos \(\pi \mid a.\) Contradição. Logo, a única possibilidade é \(d\in A^{*}\), donde segue que 
+  \[
+    \langle \pi , a \rangle = \langle d \rangle = \langle 1 \rangle = A.
+  \]
+  Já que \(1\in A, 1\in \langle \pi , a \rangle\), ou seja, existem r e s tais que 
+  \[
+    1 = r\pi +sa.
+  \]
+  Desta forma,
+ \begin{align*}
+   b = b \cdot 1 &= b(r\pi + sa)\\
+   \Rightarrow & b = br\pi + sab.
+ \end{align*}
+ Como \(\pi \mid ab\) e \(\pi \mid \pi ,\) portanto, 
+  \[
+    \pi \mid(rb\pi +sab) = b.\quad \text{\qedsymbol}
+  \]
+\end{proof*}
+\begin{example}
+ \begin{itemize}
+  \item[1)] Sabe-se que \(\mathbb{Z}\) é D.F.U;
+  \item[2)] Se F é um corpo, \(F[x]\) é um D.F.U.;
+  \item[3)] Domínio Euclidianos são D.F.U.;
+  \item[4)] Domínios quasi-euclidianos são D.F.U. (em particular, \(\mathcal{O}_{-19})\);
+  \item[5)] Seja A um D.I.P. Se \(0\neq\mathfrak{p}\in \mathrm{Spec}(A)\), então \(A/\mathfrak{p}\) é D.I.P. e é um corpo;
+  \item[6)] Se A é um D.I.P. e \(S\subseteq{A}\) é um conjunto multiplicativo, então \(S^{-1}A\) é um D.I.P. e, assim, um D.F.U. Seja \(\mathfrak{p}\in \mathrm{Spec}(A), \mathfrak{p} = \langle \pi  \rangle, \pi\) primo. Considere o conjunto 
+  \[
+    A_{\mathfrak{p}} = \biggl\{\frac{a}{b}: a, b \in A, \pi \text{ não divide } b\biggr\}.\quad \text{(\textbf{``Discrete Valuation Ring'' - Anel de Avaliação Discreta})}
+  \]
+  Então, se \(\mathfrak{p} = (0),\) segue que \(A_{\mathfrak{p}} = \mathrm{Frac}(A)\) e, se \(\mathfrak{p}\neq (0),\) então
+ \(A_{\mathfrak{p}}\) é anel local com ideal maximal 
+ \[
+   \mathfrak{p}A_{\mathfrak{p}} = \biggl\{\frac{a}{b}: a,b\in A, \pi \mid a, \pi \text{ não divide } b\biggr\}
+ \]
+ Assim, \(\mathrm{Spec}(A_{\mathfrak{p}}) = \{(0), \mathfrak{p}A_{\mathfrak{p}}\}\) e os elementos irredutíveis primos de \(A_{\mathfrak{p}}\)
+são associados com \(\pi \). Além disso, dado \(\mathfrak{j}\trianglelefteq{A_{\mathfrak{p}}}, \mathfrak{j} = \langle x \rangle, x\in A,\) então
+ \(x = \pi ^{n}\) para algum n, pois só temos um elemento irredutível. Com isso, \(\mathfrak{j} = \langle \pi ^{n} \rangle = \langle \pi  \rangle^{n} = (\mathfrak{p}A_{\mathfrak{p}})^{n} = \mathfrak{p}^{n}A_{\mathfrak{p}}\).
+ \item[7)] Tome \(p\in A\) primo, A D.I.P. e coloque 
+  \[
+    S = \{p^{n}: n\in \mathbb{N}\cup \{0\}\} = \{1, p, p^{2}, p^{3}, \cdots\}.
+  \]
+  O conjunto \(A \biggl[\frac{1}{p}\biggr] = S^{-1}A\) é um D.I.P. e, além disso, 
+  \[
+    S^{-1}A = \biggl\{\frac{a}{p^{n}}:a\in A, n\in \mathbb{N}\cup\{0\}\biggr\}.
+  \]
+  Se \(\mathcal{P}\) é o conjunto dos primos de A, então o conjunto dos primos de \(A \biggl[\frac{1}{p}\biggr]\) é 
+ \(\mathcal{P}\setminus{\{p\}}\).
+ \end{itemize}
+\end{example}
+  É importante notar que \textbf{nem todo D.F.U.} é D.I.P. Antes disso, porém, vamos ver como encontrar
+todos os ideais primos dos inteiros de Gauss:
+\begin{example}
+  Considere \(\mathcal{O}_{-1} = \mathbb{Z}[i] = \{a + ib: a, b\in \mathbb{Z}\}\subseteq{\mathbb{C}}\) e considere o elemento \(13\in \mathbb{Z}\subseteq{\mathbb{Z}[i]}\).
+  Em \(\mathbb{Z},\) 13 é primo, mas em \(\mathbb{Z}[i]\), temos 
+  \[
+    13 = 9 + 4 = (3+2i)(3-2i).
+  \]
+  Como \(\mathbb{Z}[i]^{*} = \{\pm1, \pm i,\}\) temos \(3-2i, 2+2i\not\in \mathbb{Z}[i]^{*}\) e, assim,
+13 é o produto de dois elementos não invertíveis, fazendo com que 13 não seja primo nos inteiros de Gauss.
+\end{example}
+\begin{example}
+  Seja \(\mathcal{O}_{-3} = \{a + b\theta : a, b\in \mathbb{Z}\} \subseteq{\mathbb{C}}, \theta  = \frac{1 + \sqrt[]{-3}}{2}\). Vimos que 
+  \[
+    \mathcal{O}_{-3} = \biggl\{\pm 1, \frac{\pm1 \pm \sqrt[]{-3}}{2}\biggr\}.
+  \]
+Então, 
+
+\begin{center}
+  \begin{table}[h!]
+  \caption{Casos dos elementos}
+  \centering
+    \begin{tabular}{| c | c |}
+      \hline
+      Produtos de \(\mathcal{O}_{-3}^{*}\) & Resultado\\
+      \hline
+      \(\theta ^{2} - \theta  + 1 = 0\) & \(\mathbb{Z} \subseteq{}\mathcal{O}_{-3}\)\\
+      \hline
+      \(\theta (\theta -1)=-1\) & \(-2\in \mathbb{Z}\) é primo\\
+      \hline
+      \(-\theta (\theta -1) = 1\) & \(-2\in \mathcal{O}_{-3}, 2 = (1-\sqrt[]{-3})\underbrace{\biggl(\frac{1+\sqrt[]{-3}}{2}\biggr)}_{\in \mathcal{O}_{-3}^{*}} = (1+\sqrt[]{-3})\underbrace{\biggl(\frac{1-\sqrt[]{-3}}{2}\biggr)}_{\in \mathcal{O}_{-3}^{*}}\)\\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{center}
+
+  Assim, vemos que \(2\) e \((1\pm\sqrt[]{-3})\) são associados. Como \(2\in \mathcal{O}_{-3}\) é primo, \(1\pm\sqrt[]{-3}\) são primos também. Logo,
+ \(\langle 2 \rangle = \langle 1 + \sqrt[]{-3} \rangle = \langle 1 - \sqrt[]{-3} \rangle.\) Para ver isso,
+ utiliza-se a norma induzida dos complexos em \(\mathcal{O}_{-3}\) e escreve-se 2 e 4 como elementos de \(\mathcal{O}_{-3}\).
+\end{example}
+\subsection{Máximo Divisor Comum e Mínimo Múltiplo Comum}
+\begin{def*}
+  Sejam A um domínio e \(a_{1}, \cdots, a_{n}\in A\setminus{\{0\}}\). O \textbf{maior divisor comum (m.d.c)} de \(a_{1}, \cdots, a_{n}\)
+é um elemento \(d = \mathrm{mdc}(a_{1}, \cdots, a_{n})\in A\setminus{\{0\}}\) tal que 
+\begin{itemize}
+  \item[i)] \(d\mid a_{i}\) para todo \(i = 1, \cdots, n;\)
+  \item[ii)] Se \(a\in A\setminus{\{0\}}\) e \(a\mid a_{i}\) para todo \(i=1, \cdots, n\), então \(a\mid d.\quad\square\)
+\end{itemize}
+\end{def*}
+\begin{def*}
+  Sejam A um domínio e \(a_{1}, . ., a_{n}\in A\setminus{\{0\}}\). O \textbf{menor múltiplo comum} de \(a_{1}, \cdots, a_{n}\) é um elemento
+ \(m = \mathrm{mmc}(a_{1}, \cdots, a_{n})\in A\setminus{\{0\}}\) tal que
+\begin{itemize}
+  \item[i)] \(a_{i}\mid m\) para todo \(i=1, \cdots, n\);
+  \item[ii)] Se \(m'\in A\setminus{\{0\}}\) e \(a_{i}\mid m'\) para todo \(i=1, \cdots, n\), então \(m\mid m'.\quad\square\)
+\end{itemize}
+\end{def*}
+\begin{prop*}
+ \begin{itemize}
+  \item[1)] Se \(d, d'\) são maiores divisores comuns de \(a_{1}, \cdots, a_{n}\in A\), então eles são associados (existe \(s\in A^{*}: d = d's\));
+  \item[2)] Se \(m, m'\) são menores múltiplos comuns de \(a_{1}, \cdots, a_{n}\in A\), então eles são associados (existe \(s\in A^{*}: m = m's\)).
+ \end{itemize}
+\end{prop*}
+\begin{example}
+  Considere \(2, 3\in \mathbb{Z}.\) Então, \(\mathrm{mdc}(2, 3) = \pm1\)
+\end{example}
+\begin{theorem*}[Exercício]
+  Sejam A um D.F.U. e \(a_{1}, \cdots, a_{n}\in A\setminus{\{0\}}.\) Suponha que 
+  \[
+    a_{j} = a_{j}\pi_{1}^{e_{j1}}\cdot\dotsc \cdot \pi_{n}^{e_{jn}} \quad (e_{ji} = 0 \text{ se } \pi_{j} \text{ não divide } a_{j}),
+  \]
+  em que \(\pi_{i}\) são irredutíveis e dois-a-dois distintos. Com isso, 
+  \begin{align*}
+    &i)\quad\mathrm{mdc}(a_{1},\cdots,a_{n}) = \prod\limits_{i=1}^{n}\pi_{i}^{\min\{e_{1i}, \cdots, e_{nj}\}};\\
+    &ii)\quad \mathrm{mmc}(a_{1}, \cdots, a_{n}) = \prod\limits_{i=1}^{n}\pi_{i}^{\max\{e_{1i}, \cdots, e_{ni}\}};\\
+    &iii)\quad a_{1}\cdot \dotsc \cdot  a_{n} = \mathrm{mdc}(a_{1}, \cdots, a_{n})\cdot \mathrm{mmc}(a_{1}, \cdots, a_{n});\\
+    &iv)\quad \text{Se A é um D.I.P., então }  \langle a_{1}, \cdots, a_{n} \rangle = \langle \mathrm{mdc}(a_{1}, \cdots, a_{n}) \rangle.
+  \end{align*}
+\end{theorem*}
+\begin{prop*}
+  Os primos de \(\mathcal{O}_{-1} = \mathbb{Z}[i]\), a menos de associação, são:
+ \begin{itemize}
+  \item[1)] Primo \(p\in \mathbb{Z}\) tal que \(p\equiv \beta  \mod 4\)
+  \item[2)] \(a+ib\in \mathbb{Z}[i]\) tais que \(a^{2} + b^{2} = p, p\) primo com \(p = 2\) ou \(p\equiv 1 \mod 4\)
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  Seja \(p\equiv 3\mod 4\) e seja 
+  \[
+    p = \alpha \cdot \beta , \alpha , \beta \in \mathbb{Z}[i].
+  \]
+  Temos \(N(p) = N(\alpha )\cdot N(\beta )\), tal que \(p^{2} = N(\alpha )\cdot N(\beta )\). Logo,
+ \(N(\alpha ) = 1, p, ^{2},\) a partir donde analisamos casos.
+\begin{itemize}
+  \item Se \(N(\alpha ) = 1\), então \(\alpha \in \mathbb{Z}[i]^{*}\);
+  \item Se \(N(\alpha ) = p^{2},\) então \(N(\beta ) = 1\) e \(\beta \in \mathbb{Z}[i]^{*}\);
+\end{itemize}
+  Resta o caso \(N(\alpha ) = N(\beta ) = p.\) Com este caso, segue que 
+  \[
+    \alpha = a + ib \Rightarrow N(\alpha ) = a^{2} + b^{2} = p,
+  \]
+  tal que \(\overline{a}^{2} + \overline{b}^{2} = 0\) em \(\mathbb{F}_{p} = \mathbb{Z}/\{p\}\). Consequentemente,
+ \(p^{2}\mid a^{2}+b^{2} = p\), um absurdo. Logo, \(\overline{a}\neq \overline{0}\) e \(\overline{b}\neq \overline{0}\), o que implica que 
+  \[
+    \biggl(\frac{\overline{a}}{\overline{b}}\biggr)^{2} + 1 = 0 \text{ em } \mathbb{F}_{p}.
+  \]
+  Logo, \(x^{2} + 1 = 0\) tem uma raiz em \(\mathbb{F}_{p},\) o que ocorre apenas se \(p\equiv 1 \mod 4,\) que também
+é um absurdo. Conclui-se, assim, que o caso \(N(\alpha ) = p\) é impossível, restando apenas as outras opções.
+
+  Agora, seja \(a+ib\in \mathbb{Z}[i]\) primo tal que \(a^{2} + b^{2} = p, p\) um primo de \(\mathbb{Z}.\)
+Vamos mostrar que \(p = 2\) ou \(p\equiv 1\mod 4\). Com efeito, considerando \(\pi  = \alpha \cdot \beta \), vale 
+  \[
+    N(\pi ) = N(\alpha )\cdot N(\beta ).
+  \]
+  Com isto, 
+  \[
+    p = a^{2} + b^{2} = N(\pi) = N(\alpha )\cdot N(\beta ) \Rightarrow N(\alpha ) = 1 \text{ ou } N(\beta ) = 1,
+  \]
+do que segue o fato de \(\pi \) ser um primo. Analogamente ao argumento acima, se \(N(\alpha ) = p\), então \(x^{2} + 1\) tem raiz em \(\mathbb{F}_{p}\),
+tal que \(p\equiv 1 \mod 4\) ou \(p = 2\).
+  
+  Fica como exercício mostrar que não há outros primos além destes. \qedsymbol
+\end{proof*}
+\begin{example}
+  Os elementos \(3, 7, 11, 19, 23, \dotsc\) são primos, assim como \(1\pm i, 1\pm 2i, 2\pm i, 3\pm 2i, 4\pm i, 5\pm 2i, \dotsc\)
+\end{example}
 \newpage
 \end{document}
