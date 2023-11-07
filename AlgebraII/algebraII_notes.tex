@@ -90,30 +90,406 @@ Caso julgue necessário, contatar: renan.wenzel.rw@gmail.com}
 \newpage
 
 \section{Aula 01 - 09/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Anéis e Anéis Comutativos;
+  \item Exemplos de Anéis;
+  \item Grupo Multiplicativo e Elemento Inversível.
+\end{itemize}
+\subsection{Anéis - Nosso Objeto de Estudo no Curso}
+ \begin{def*}
+  Um \textbf{anel} é um conjunto A munido de duas operações, \(+, \cdot \), tais que:
+ \begin{itemize}
+  \item[1)] \((A, +)\) é um grupo abeliano;
+  \item[2)] \((A, \cdot )\) é associativo, com unidade \(1_{A}\);
+  \item[3)] Para todos a, b, c em A, temos 
+    \[
+      (a+b)\cdot c = a \cdot c + b \cdot c \quad\&\quad a \cdot (b+c) = a \cdot b + a \cdot c.\quad\square
+    \]
+ \end{itemize}
+ \end{def*}
+\begin{def*}
+   Dado um anel \((A, +, \cdot )\), diremos que A é um \textbf{anel comutativo} se o grupo \((A, \cdot )\) é abeliano. \(\square\)
+\end{def*}
+\begin{example}
+ \begin{itemize}
+  \item[1)] Com as operações usuais, \(\mathbb{Z}, \mathbb{R}, \mathbb{C}\) são todos anéis (comutativos).
+  \item[2)] Os anéis de polinômios na variável X com coeficientes inteiros ou complexos são anéis, i.e., 
+    \[
+      \mathbb{Z}[x]\coloneqq \biggl\{\sum\limits_{i=0}^{n}a_{i}x^{i}: n\in \mathbb{N}, a_{i}\in \mathbb{Z}\biggr\}\quad\&\quad \mathbb{C}[x]\coloneqq \biggl\{\sum\limits_{i=0}^{n}a_{i}x^{i}:n\in \mathbb{N}, a_{i}\in \mathbb{C}\biggr\}
+    \]
+ \end{itemize}
+\end{example}
+\textbf{\underline{Observação 1}:} A unidade é única - Se \(1_{A}, e\) são duas unidades de \((A, \cdot ),\) então 
+  \[
+    1_{A}\cdot e = e = e \cdot 1_{A} = 1_{A} \Rightarrow e = 1_{A}.
+  \]
+
+ \textbf{\underline{Observação 2}:} Se A é um anel e \(0\in A\) é o elemento neutro da soma, temos, para todo \(a\in A\), 
+  \[
+    a0 = a(0+0) = a0 + a0 \Rightarrow a0 = 0.
+  \]
+\begin{def*}
+  Seja \((A, +, \cdot )\) um anel. Um subconjunto \(B\subseteq{A}\) é um \textbf{subanel} de A se \((B, +, \cdot )\) é um anel e \(1_{A} = 1_{B}.\quad\square\)
+\end{def*}
+  A segunda condição é importante para evitar casos como o seguinte: Considere \(\mathbb{Z}\times \{0\}\subseteq{\mathbb{Z}\times \mathbb{Z}}.\) Note que a restrição
+das operações de \(\mathbb{Z}\times \mathbb{Z}\) faria de \(\mathbb{Z}\times \{0\}\) um subanel, mas \(1_{\mathbb{Z}\times \mathbb{Z}} = (1, 1)\) e \(1_{\mathbb{Z}\times\{0\}}=(1, 0).\)
+\begin{example}
+\begin{itemize}
+  \item[i)] Temos a seguinte cadeia de subanéis: \(\mathbb{Z}\subseteq{\mathbb{Q}}\subseteq{\mathbb{R}}\subseteq{\mathbb{C}}.\)
+  \item[ii)] Analogamente, temos a seguinte cadeia de subanéis de polinômios: \(\mathbb{Z}[x]\subseteq{\mathbb{Q}[x]}\subseteq{\mathbb{R}[x]}\subseteq{\mathbb{C}[x]}\).
+  \item[iii)]\texttt{(Anel zero)} Seja S um conjunto unitário \(S = \{a\}.\) Podemos definir as operações \(a + a\coloneqq a\) e \(a \cdot a\coloneqq a\). Com estas operações,
+S torna-se um anel, o \textbf{Anel Zero}, no qual \(1_{S} = 0_{S}\). Este anel é especial não só porque podemos brincar que ``1 = 0'', como também porque ele é \textit{único}.
+
+  Com efeito, seja A um anel qualquer no qual \(1_{A} = 0_{A}\). Para \(a\in A\), vale \(a = a \cdot 1_{A} = a \cdot 0_{A} = 0.\) Assim, \(a = 0\) e \(A = \{0\}\) é 
+um anel zero. 
+
+  Portanto, denotaremos o único anel zero por \(\{0_{A}\} = (0).\)
+\end{itemize}
+\end{example}
+\begin{example}[Exercícios]
+  Mostre que os seguintes conjuntos, com suas operações usuais, são anéis:
+\begin{itemize}
+  \item[a)] \(\mathbb{Z}[i] \subseteq{\mathbb{C}}, \mathbb{Z}[\sqrt[]{p}]\subseteq{\mathbb{R}},\) em que p é primo;
+  \item[b)] \(\mathbb{Z}\biggl[\frac{1}{p}\biggr]\coloneqq \biggl\{\frac{a}{p^{r}}: a\in \mathbb{Z}, r\in \mathbb{N}\biggr\}\subseteq{\mathbb{Q}}\);
+  \item[c)] \(\mathbb{Z}_{(p)}\coloneqq \biggl\{\frac{a}{b}: a, b\in \mathbb{Z}\quad \text{e}\quad \text{p não divide b} \biggr\}\subseteq{\mathbb{Q}}\).
+\end{itemize}
+\end{example}
+\begin{def*}
+  Seja A um anel. Um elemento \(a\in A\) é dito \textbf{invertível} (ou \textbf{unitário}) se existe \(b\in B\) tal que \(ab = 1_{A}.\) O \textbf{grupo multiplicativo} de A
+é o conjunto 
+  \[
+    A^{*}\coloneqq \{a\in A: \text{a é invertível}\}.\quad\square
+  \]
+\end{def*}
+  Vale observar que, caso exista o inverso, ele é único.
+\begin{prop*}
+  O grupo multiplicativo de um anel \((A, +, \cdot )\) é, de fato, um grupo.
+\end{prop*}
+\begin{proof*}
+  Primeiro, note que \(1_{A}\in A^{*},\) pois \(1_{A} \cdot 1_{A} = 1_{A}.\) 
+
+  Além disso, todo elemento \(a\in A^{*}\) possui inverso \(a^{-1}\in A^{*}.\) A operação herda a associatividade do anel. 
+
+  Finalmente, basta provarmos que A é fechado por multiplicação. Com efeito, se \(a, b\in A^{*},\) considere \(x = b^{-1}a^{-1}\) e note que \(abx = abb^{-1}a^{-1} =
+a 1_{A} a^{-1} = aa^{-1} = 1_{A}\) e, assim, \(ab\in A^{*}.\)
+
+  Portanto, \(A^{*}\) é um grupo. \qedsymbol
+\end{proof*}
+\begin{example}[Exercício]
+  Prove que os grupos multiplicativos dos anéis a seguir são estes:
+\begin{itemize}
+  \item[1)] \((\mathbb{Z}/n \mathbb{Z})^{*} = \{\overline{r}: (n, r) = 1\}\), em que \((n, r)\) denota o \textit{maior divisor comum} entre n e r;
+  \item[2)] \((\mathbb{Z}[i])^{*}=\{\pm1, \pm i\}\);
+  \item[3)] \((\mathbb{Z}[\sqrt[]{p}])^{*} = \{\pm1\}\);
+  \item[4)] \((\mathbb{Z}[1/p])^{*} = \{\pm p^{r}: r\in \mathbb{Z}\}\);
+  \item[5)] \((\mathbb{Z}_{(p)})^{*} = \biggl\{\frac{a}{b}: a, b\in \mathbb{Z}, \text{ em que p não divide a e nem b}\biggr\}\);
+  \item[6)] Se A é um anel comutativo, \(M_{n}(A)^{*} = \{A\in M_{n}(A): \det{(A)}\in A^{*}\}\).
+\end{itemize}
+\end{example}
 \newpage
 
 \section{Aula 02 - 14/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Domínios;
+  \item Ideais, Ideais Principais e Ideais Finitamente Gerados;
+  \item Corpos;
+  \item Operações com Ideais e Ideais em \(\mathbb{Z}\).
+\end{itemize}
+\subsection{Domínios e Ideais}
+\begin{def*}
+  Seja A um anel. Um elemento não nulo \(a\in A\) é dito \textbf{divisor de zero} se existe \(b\in A\setminus{\{0\}}\) tal que
+ \(ab = 0.\) Caso A não possua divisores de zero, A é chamado \textbf{domínio.} \(\square\)
+\end{def*}
+\begin{example}
+  O anel \(\mathbb{Z}/4\) não é um domínio, pois \(\overline{2}\cdot \overline{2} = \overline{4} = \overline{0}.\)
+\end{example}
+\begin{example}
+ \begin{itemize}
+  \item[1)] Se A é um anel, \(A\times A\) não é um domínio. Basta notar que \((1, 0)\cdot (0, 1) = (0, 0).\)
+  \item[2)] O conjunto \(A = \mathbb{Q} + \mathbb{Q}x \subseteq{\mathbb{Q}[x]}\) (apenas como um subconjunto) com operação de soma usual e um
+produto diferente definido por 
+  \[
+    (a+bx)(c+dx) = ac + (bc+ad)x.
+  \]
+  Neste caso, \(x \cdot x = 0.\) Essa construção será futuramente conhecida como o anel quociente \(\mathbb{Q}/(x^{2}).\)
+ \end{itemize}
+\end{example}
+\begin{example}[Exercício]
+ \begin{itemize}
+  \item[1)] Temos \(\mathbb{Z}/n \mathbb{Z}\) é um domínio se, e somente se, n é primo;
+  \item[2)] A é domínio se, e somente se, \(A[x]\) é domínio.
+ \end{itemize}
+\end{example}
+\begin{def*}
+  Seja A um anel. Um subconjunto \(\mathfrak{i}\subseteq{A}\) é um \textbf{ideal} se:
+ \begin{itemize}
+  \item[1)] Para todos \(a, b\in \mathfrak{i}, a + b\in \mathfrak{i}\), ou seja, \textbf{um ideal é fechado pela soma};
+  \item[2)] Para \(a\in \mathfrak{i}\) e \(r\in A, r \cdot a\in \mathfrak{i}\), ou seja, \textbf{um ideal absorve produtos}.
+ \end{itemize}
+Ideais serão denotados por letras em \textit{Old English Script} - letras frescas, como \(\mathfrak{i}, \mathfrak{j}, \mathfrak{o}, \mathfrak{a}, \dotsc\).
+Além disso, para dizer que um subconjunto é um ideal, escrevemos \(\mathfrak{i} \trianglelefteq{A}.\quad\square\)
+\end{def*}
+\begin{prop*}
+  Todo ideal \(\mathfrak{i}\trianglelefteq{A}\) é um subgrupo pela soma de A, ou seja, \((\mathfrak{i}, +)\leq (A, +).\)
+\end{prop*}
+\begin{proof*}
+  Já vimos que, por definição, os ideais são fechados pela soma. Além disso, como \(0\in A,\) 
+tome \(a\in \mathfrak{i}\) qualquer. Teremos \(0 = 0a\in \mathfrak{i},\) fornecendo o elemento neutro do grupo.
+Finalmente, \(-a = (-1)a\in \mathfrak{i}\). Portanto, \((\mathfrak{i}, +)\) é um subgrupo de \((A, +).\) \qedsymbol
+\end{proof*}
+\begin{def*}
+  Se \((M, +)\) é um grupo abeliano munido de uma aplicação \(A\times \mathfrak{i}\longrightarrow \mathfrak{i}\) com \((r, a)\mapsto r \cdot a\)
+e satisfazendo
+\begin{itemize}
+  \item \((r + r')a = ra + r'a\);
+  \item \(r(a + a') = ra + ra'\);
+  \item \(r(r'a) = (rr')a\);
+  \item \(1 \cdot a = a,\)
+\end{itemize}
+dizemos que M é um \textbf{A-módulo.} \(\square\)
+\end{def*}
+  Em particular, se \(\mathfrak{i} \trianglelefteq{A},\) então \(\mathfrak{i}\) é um A-módulo.
+\begin{example}
+  \begin{itemize}
+    \item[i)] Seja A um anel. Então, \(\{0\}\) e A são ideais de A. 
+    \item[ii)] Se \(a\in A,\) então \(\langle a \rangle\coloneqq aA = \{ra: r\in A\}\trianglelefteq{A}.\) De fato,
+verifiquemos os axiomas de ideal para este caso.
+
+  Caso \(ra, r'a\in \langle a \rangle\), então \(ra + r'a = (r+r')a\in \langle a \rangle\), já que \(r + r'\in A.\)
+Além disso, se \(r'\in A\) e \(ra\in \langle a \rangle\), temos \(r'(ra) = (r'r)a\in \langle a \rangle\), pois \(rr'\in A.\)
+
+  Portanto, \(\langle a \rangle \trianglelefteq{A}\). Em particular, \((0) = \langle 0 \rangle\) e \(\langle 1 \rangle = A.\)
+  \end{itemize}
+\end{example}
+  Esse último tipo do exemplo compões uma classe importante de ideais, definida a seguir
+\begin{def*}
+  Seja A um anel. Um ideal \(\mathfrak{i}\trianglelefteq{A}\) é \textbf{principal} se existe \(a\in A\) tal que \(\langle a \rangle = \mathfrak{i}.\quad\square\)
+\end{def*}
+\begin{lemma*}
+  Seja \(\{\mathfrak{i}_{k}\}_{k\in K}\) uma família qualquer de ideais de um anel A. Então, 
+  \[
+    \bigcap_{k\in K}^{}{\mathfrak{i}_{k}}\trianglelefteq{A}.\quad \text{(Em outras palavras, a interseção de ideais é um ideal)}
+  \]
+\end{lemma*}
+\begin{proof*}
+  Para não carregar a notação, coloque \(\mathfrak{i} = \bigcap_{k\in K}^{}{\mathfrak{i_{k}}}.\) Seja \(a, a'\in \mathfrak{i}\) e \(r\in A\).
+Para \(k\in K, a, a'\in \mathfrak{i}_{k}\). Como cada \(\mathfrak{i}_{k}\) é um ideal, \(a + a'\in \mathfrak{i}_{k}\) e, assim,
+ \(a + a'\in \mathfrak{i}.\) Além disso, como \(ra\in \mathfrak{i}_{k}\) para todo \(k\in K\), temos também \(ra \in \mathfrak{i}.\)
+
+ Portanto, \(\mathfrak{i}\) é um ideal. \qedsymbol
+\end{proof*}
+\begin{prop*}[Exercício]
+  Seja A um anel. Se \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A},\) mostre que \(\mathfrak{i}\cup \mathfrak{j}\trianglelefteq{A}\) se, e somente se,
+ \(\mathfrak{i}\subseteq{\mathfrak{j}}\) ou \(\mathfrak{j}\subseteq{\mathfrak{i}}.\)
+\end{prop*}
+\begin{def*}
+  Se \(S\subseteq{A}\) é um subconjunto, o ideal gerado por S é o ideal 
+  \[
+    \langle S \rangle\coloneqq \bigcap_{S\subseteq{\mathfrak{i}}\trianglelefteq{A}}^{}{\mathfrak{i}} \trianglelefteq{A}.\quad\square
+  \]
+\end{def*}
+  Esta definição passa a noção de \textit{menor ideal que contém o conjunto S.}
+\begin{lemma*}
+  Vale a igualdade \(\langle S \rangle = \{\sum\limits_{i=1}^{n}a_{i}s_{i}: a_{i}\in A, s_{i}\in S, n\in \mathbb{N}\}.\)
+\end{lemma*}
+\begin{proof*}
+  Novamente, a fim de não carregar a notação, seja \(\mathfrak{i} = \{\sum\limits_{i=1}^{n}a_{i}s_{i}: a_{i}\in A, s_{i}\in S, n\in \mathbb{N}\}\). Note que
+ \(\mathfrak{i}\) é um ideal, pois a soma de dois elementos de \(\mathfrak{i}\) está em \(\mathfrak{i}\) e o produto por um elemento do anel é absorvido.
+A soma segue por definição, e a absorção segue de, se \(r\in A,\) 
+  \[
+    r \sum\limits_{i=1}^{n}a_{i}s_{i} = \sum\limits_{i=1}^{n}(ra_{i})s_{i}\in \mathfrak{i}.
+  \]
+  Para ver que \(\langle S \rangle \subseteq{\mathfrak{i}}.\) Para isso, note que \(S\subseteq{\mathfrak{i}},\) bastando tomar \(a_{1} = 1\) para todo
+ \(s\in S\). Assim, \(\langle S \rangle\) é a interseção de todos os ideais que contém S e, como \(\mathfrak{i}\) é um deles, a inclusão segue.
+
+  Por outro lado, mostremos que \(\mathfrak{i}\subseteq{\langle S \rangle}.\) Se \(\mathfrak{j}\) é um ideal que contém S, pela definição de ideal, 
+temos \(s_{1}, \dotsc, s_{n}\in S\) implica que \(s_{1} + \dotsc + s_{n}\in \mathfrak{j}\) e, se \(s\in S, r\in A\), então \(rs\in \mathfrak{j}.\)
+Temos, assim, que se \(r_{1}, \dotsc, r_{n}\in A\) e \(s_{1}, \dotsc, s_{n}\in S\), então \(r_{i}s_{i}\in \mathfrak{j}\) e \(\sum\limits_{}^{}r_{i}s_{i}\in \mathfrak{j}.\)
+Com isso, \(\mathfrak{i}\subseteq{\mathfrak{j}}.\) Repetindo isso para todo \(\mathfrak{j}\) que contém S, temos \(\mathfrak{i}\subseteq{\langle S \rangle}.\)
+
+  Portanto, \(\langle S \rangle = \mathfrak{i}.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+  Seja A um anel. Dizemos que \(\mathfrak{i} \trianglelefteq{A}\) é \textbf{finitamente gerado (f.g.)} se existe um conjunto finito
+ \(S = \{s_{1}, \dotsc, s_{n}\}\) tal que \(\mathfrak{i} = \langle S \rangle.\quad\square\)
+\end{def*}
+  Em particular, todo ideal principal é finitamente gerado.
+\begin{def*}
+  Dizemos que um domínio A é um \textbf{domínio de ideais principais (D.I.P.)} se todo ideal é principal. \(\square\)  
+\end{def*}
+\begin{def*}
+  Dizemos que um anel A é um \textbf{corpo} se \((0)\) e A são os únicos ideais principais. \(\square\)
+\end{def*}
+\begin{example}[Exercício]
+\begin{itemize}
+\item[1)] Se \(\mathfrak{i}\trianglelefteq{A}\) e \(\mathfrak{i}\cap A^{*}\neq\emptyset\), então \(\mathfrak{i} = A\);
+\item[2)] Todo corpo é um domínio;
+\item[3)] Todo domínio finito é um corpo;
+\item[4)] A é um corpo se, e somente se, \(A^{*} = A \setminus{\{0\}}\);
+\item[5)] \(\mathbb{Q}[i]\) é um corpo.
+\end{itemize} 
+\end{example}
+\begin{lemma*}
+  Vale que \(\mathbb{Z}\) e \(\mathbb{Z}/n \mathbb{Z}\) são domínio de ideais principais.
+\end{lemma*}
+\begin{proof*}
+  Seja \(\mathfrak{i} \trianglelefteq{Z}.\) Então, \((\mathfrak{i}, +)\leq (\mathbb{Z}, +)\). Usando o resultado
+de classificação de subgrupos de \((\mathbb{Z}, +)\), que afirma que todo subgrupo é da forma \(n \mathbb{Z}\) para
+algum \(n\in \mathbb{N},\) segue que \(\mathfrak{i} = n \mathbb{Z}\) para algum n e, assim, \(\mathfrak{i} = \langle n \rangle\) 
+é principal.
+
+  O caso \(\mathbb{Z}/n \mathbb{Z}\) fica de exercício. \qedsymbol
+\end{proof*}
+\begin{def*}
+  Seja A um anel. Se \(\mathfrak{i}, \mathfrak{j} \trianglelefteq{A},\) podemos definir os ideais \(\mathfrak{i} + \mathfrak{j}\coloneqq \{x+y:x\in \mathfrak{i}\text{ e } y\in \mathfrak{j}\}\)
+e \(\mathfrak{i} \cdot \mathfrak{j}\coloneqq \{x_{1}y_{1}+\dotsc+x_{n}y_{n}: x_{i}\in \mathfrak{i}, y_{i}\in \mathfrak{j}, \text{ e } n\in \mathbb{N}\}.\quad\square\)
+\end{def*}
+  Vamos mostrar que esses conjuntos são, de fato, ideais. No primeiro caso, sejam \(a, a'\in \mathfrak{i} + \mathfrak{j}.\)
+Assim, eles podem ser escritos como \(a = x + y\) e \(a'= x'+ y'\) para \(x, x'\in \mathfrak{i}\) e \(y, y'\in \mathfrak{j}.\)
+Então, \(a + a' = (x + x') + (y + y')\in \mathfrak{i} + \mathfrak{j}.\) Considere agora \(r\in A\), tal que 
+  \[
+    ra = r(x'+y') = rx' + ry'.
+  \]
+  Como \(\mathfrak{i}, \mathfrak{j}\) são ideais, cada parcela destas está no seu ideal respectivo.
+Logo, \(ra \in \mathfrak{i} + \mathfrak{j}.\)
+
+  No segundo caso, se \(a, b\in \mathfrak{i}\cdot \mathfrak{j},\) temos 
+  \[
+    a = \sum\limits_{}^{}x_{i}y_{i}\quad\&\quad b = \sum\limits_{}^{}u_{j}v_{j},
+  \]
+com \(x_{i}, u_{j}\in \mathfrak{i}\) e \(y_{i}, v_{j}\in \mathfrak{j}.\) Reorganizando os termos, podemos ver
+ \(a+b\) como a soma finita de termos da forma \(x_{k}y_{k}, x_{k}\in \mathfrak{i}, y_{k}\in \mathfrak{j}\), ou seja, 
+ \(a+b\in \mathfrak{i}\cdot \mathfrak{j}\). Além disso, se \(r\in A,\) temos 
+  \[
+    ra = r \sum\limits_{}^{}x_{i}y_{i} = \sum\limits_{}^{}(rx_{i})y_{i}\in \mathfrak{i}\cdot \mathfrak{j},
+  \]
+pois \(rx_{i}\in \mathfrak{i},\) já que \(\mathfrak{i}\) é ideal, provando, assim, que ambos os conjuntos definidos são ideais.
+\begin{lemma*}
+  Se A é um anel e \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A},\) então \(\mathfrak{i}\cdot \mathfrak{j}=\langle \{xy: x\in \mathfrak{i}, y\in \mathfrak{j}\} \rangle\) e
+ \(\mathfrak{i}+\mathfrak{j} = \langle \mathfrak{i}\cup \mathfrak{j} \rangle\).
+\end{lemma*}
+\begin{proof*}
+  Denotemos por \(\mathfrak{b}\) o conjunto 
+  \[
+    \mathfrak{b}\coloneqq \langle \{xy:x\in \mathfrak{i}, y\in \mathfrak{j}\} \rangle.
+  \]
+Primeiramente, note que \(\mathfrak{i}\cdot \mathfrak{j}\subseteq{\mathfrak{b}}.\) De fato, seja \(\mathfrak{k}\) um ideal tal que \(\{xy:x\in \mathfrak{i}, y\in \mathfrak{j}\}\subseteq{\mathfrak{k}}.\)
+Como \(\mathfrak{k}\) é fechado pela soma, se \(x_{1}, \dotsc, x_{n}\in \mathfrak{i}\) e \(y_{1},\dotsc,y_{n}\in \mathfrak{j},\) temos  
+ \(\sum\limits_{}^{}x_{i}y_{i}\in \mathfrak{k}.\) Logo, \(\mathfrak{i}\cdot \mathfrak{j}\subseteq{\mathfrak{k}}\) e \(\mathfrak{i}\cdot \mathfrak{j}\) está
+ na intersecção \(\langle \{xy: x\in \mathfrak{i}, y\in \mathfrak{j}\} \rangle.\)
+
+ Por outro lado, por definição, elementos da forma \(xy\) tal que \(x\in \mathfrak{i}, y\in \mathfrak{j}\) são elementos
+de \(\mathfrak{i}\cdot \mathfrak{j}.\) Assim, \(\{xy:x\in \mathfrak{i}, y\in \mathfrak{j}\}\subseteq{\mathfrak{i}\cdot \mathfrak{j}}.\) Como
+ \(\mathfrak{i}\cdot \mathfrak{j}\) é ideal, a intersecção de ideais com ele está contido nele, ou seja, \(\mathfrak{b}\subseteq{\mathfrak{i}\cdot \mathfrak{j}}\).
+ Logo, \(\mathfrak{b} = \mathfrak{i}\cdot \mathfrak{j}.\)
+
+ Com relação à segunda parte, começamos por mostrar que \(\mathfrak{i}+\mathfrak{j}\subseteq{\langle \mathfrak{i}\cup \mathfrak{j} \rangle}.\) De fato,
+seja \(\mathfrak{k}\) um ideal tal que \(\mathfrak{i}\cup \mathfrak{j}\subseteq{\mathfrak{k}}.\) Como \(\mathfrak{k}\) é fechado pela soma,
+se \(x\in \mathfrak{i}\) e \(y\in \mathfrak{j},\) temos \(x+y\in \mathfrak{k}\) tal que, assim, \(\mathfrak{i} + \mathfrak{j}\subseteq{\mathfrak{k}}\).
+Finalmente, como \(\mathfrak{k}\) é qualquer, \(\mathfrak{i}+\mathfrak{j}\subseteq{\langle \mathfrak{i}\cup \mathfrak{j} \rangle}.\)
+
+  Em contrapartida, pela definição de \(\mathfrak{i} + \mathfrak{j},\) conseguimos 
+que \(\mathfrak{i}\cup \mathfrak{j}\subseteq{\mathfrak{i}+\mathfrak{j}}\) (basta tomar 0 + y ou x + 0).
+Como \(\mathfrak{i} + \mathfrak{j}\) é ideal e contém \(\mathfrak{i}\cup \mathfrak{j},\) segue que \(\langle \mathfrak{i}\cup \mathfrak{j} \rangle\subseteq{\mathfrak{i}+\mathfrak{j}}\).
+Portanto, \(\mathfrak{i}+\mathfrak{j} = \langle \mathfrak{i}\cup \mathfrak{j} \rangle.\) \qedsymbol
+\end{proof*}
+\begin{prop*}
+  Seja \(\{\mathfrak{i}_{k}\}_{k\in K}\) uma família de ideais de A. Então,
+ \begin{itemize}
+  \item[1)] O conjunto 
+  \[
+    \sum\limits_{k\in K}^{}\mathfrak{i}_{k}\coloneqq \biggl\{\sum\limits_{\text{finita}}^{}a_{i}: a_{i}\in \mathfrak{i}\biggr\},
+  \]
+  é um ideal e, além disso, 
+  \[
+    \sum\limits_{k\in K}^{}\mathfrak{i}_{k}\coloneqq \biggl\langle \bigcup_{k\in K}^{}{\mathfrak{i}_{k}} \biggr\rangle
+  \]
+  \item[2)] Se \((K,\leq )\) é um conjunto totalmente ordenado e a família satisfaz a propriedade que
+\textbf{para todos k, k' em K tais que} \(k\leq k'\), \textbf{temos} \(\mathfrak{i}_{k}\subseteq{\mathfrak{i}_{k'}}\). Então, 
+  \[
+    \bigcup_{k\in K}^{}{\mathfrak{i}_{k}}\trianglelefteq{A}.
+  \]
+ \end{itemize}
+ \begin{proof*}
+  Provar que \(\sum\limits_{}^{}\mathfrak{i}_{k}\) é um ideal e que é igual ao gerado pela união é análogo ao caso finito.
+
+  Para o item dois, sejam \(a, a'\in \cup \mathfrak{i}_{k}.\) Assim, existem \(k, k'\) tais que \(a\in \mathfrak{i}_{k}\) e \(a'\in \mathfrak{i}_{k'}\).
+Como K é totalmente ordenado, podemos supor, sem perda de generalidade, que \(k\leq k'.\) Pela propriedade que K possui,
+ \(\mathfrak{i}_{k}\subseteq{\mathfrak{i}_{k'}}\) e \(a, a'\in \mathfrak{i}_{k'}.\) Como \(\mathfrak{i}_{k'}\) é ideal, a soma
+ \(a + a'\in \mathfrak{i}_{k}\) e, assim, \(a + a'\in\cup \mathfrak{i}_{k}.\) Agora, considere \(r\in A\)
+ e \(a\in \cup \mathfrak{i}_{k}.\) Então, existe \(k\in K\) tal que \(a\in \mathfrak{i}_{k}\). Já que \(\mathfrak{i}_{k}\)
+é ideal, \(ra\in \mathfrak{i}_{k}\), tal que \(ra\in \cup \mathfrak{i}_{k}.\) Portanto, \(\bigcup_{k\in K}^{}{\mathfrak{i}_{k}}\) é um
+ideal de A. \qedsymbol
+ \end{proof*}
+\end{prop*}
+\begin{example}[Exercício]
+  Se \(n \mathbb{Z}\) e \(m \mathbb{Z}\) são ideais de \(\mathbb{Z},\) prove que:
+ \begin{itemize}
+  \item[1)] \(n \mathbb{Z}\cdot m \mathbb{Z} = nm \mathbb{Z};\)
+  \item[2)] \(n \mathbb{Z} + m \mathbb{Z} = \mathrm{mdc}(n, m) \mathbb{Z};\)
+  \item[3)] \(n \mathbb{Z}\cap m \mathbb{Z} = \mathrm{mmc}(n, m) \mathbb{Z}.\)
+ \end{itemize}
+\end{example}
+\begin{def*}
+  Seja A um anel e \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A}.\) Dizemos que \(\mathfrak{i}, \mathfrak{j}\) são \textbf{coprimos}
+se \(\mathfrak{i} + \mathfrak{j} = A.\quad\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+  Sejam \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A}\). Se \(\mathfrak{i}, \mathfrak{j}\) são coprimos, então \(\mathfrak{i}\cdot \mathfrak{j} = \mathfrak{i}\cap \mathfrak{j}.\)
+\end{prop*}
 \newpage
 
 \section{Aula 03 - 16/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Ideais Primos e Ideais Maximais;
+  \item Espectro de um Anel;
+  \item Anéis Locais e Elementos Nilpotentes.
+\end{itemize}
 \newpage
 
 \section{Aula 04 - 21/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item a
+\end{itemize}
 \newpage
 
 \section{Aula 05 - 23/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item a
+\end{itemize}
 \newpage
 
 \section{Aula 06 - 28/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item a
+\end{itemize}
 \newpage
 
 \section{Aula 07 - 30/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item a
+\end{itemize}
 \newpage
 
 \section{Aula 08 - 11/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item a
+\end{itemize}
 \newpage
 
 \section{Aula 09 - 13/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item a
+\end{itemize}
 \newpage
 
 \section{Aula 10 - 18/09/2023}
@@ -1249,6 +1625,7 @@ existe \(n\in \mathbb{N}\) tal que \(\mathfrak{i}_{n} = \mathfrak{i}_{n+1} = \cd
 \begin{itemize}
   \item Teorema de Dedekind;
   \item Anéis quasi-euclidianos;
+  \item Domínios de Fatoração Única.
 \end{itemize}
 \subsection{O Teorema de Dedekind}
 \begin{theorem*}
@@ -1327,6 +1704,38 @@ a seguir:
 \end{lemma*}
 \subsection{Domínios de Fatoração Única}
 \begin{def*}
+  Seja A um domínio e sejam \(a, b\in A\).
+\begin{itemize}
+  \item[1)] Dizemos que a \textbf{divide} b (ou b é \textbf{múltiplo} de x), e escrevemos \(a\mid b,\) se existe \(c\in A\) tal que \(b = ac.\)
+  \item[2)] Dizemos que a, b são \textbf{associados} se existe \(c\in A^{*}\) tal que a = bc. \(\square\)
+\end{itemize}
+\end{def*}
+\begin{prop*}[Exercício]
+\begin{itemize}
+  \item[1)] \(a\mid b \Longleftrightarrow \langle b \rangle \subseteq{\langle a \rangle}\);
+  \item[2)] a, b são associados se, e somente se, \(\langle b \rangle = \langle a \rangle\);
+  \item[3)] a é irredutível se, e somente se, todo divisor de a é associado, ou a 1, ou a a.
+\end{itemize}
+\end{prop*}
+\begin{def*}
+  Dizemos que \(0\neq a\in A\setminus{A^{*}}\) é \textbf{primo} se \(a\mid xy \Rightarrow a\mid x\) ou \(a\mid y.\quad\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+  Um elemento \(a\in A\) é primo se, e somente se, \(\langle a \rangle\in \mathrm{Spec}(A).\)
+\end{prop*}
+\begin{lemma*}
+  Elementos primos são irredutíveis.
+\end{lemma*}
+\begin{proof*}
+  Seja \(a\in A\) e \(a = xy, x, y\in A.\) Como \(a\mid a, a\mid xy\) e \(a\mid x\) ou \(a\mid y\).
+
+  Suponha, sem perda de generalidade, que \(a\mid x\). Então, existe \(c\in A\) tal que \(x=ac\) e, assim, \(a=xy=acy\), de forma que \(cy = 1\), ou seja,
+ \(y\in A^{*}.\) Portanto, a é irredutível. \qedsymbol
+\end{proof*}
+\begin{example}[Exercício]
+  Seja \(A = \mathbb{Z}\) ou \(A = F[x]\), em que F é um corpo. Mostre que os elementos irredutíveis de A são primos.
+\end{example}
+\begin{def*}
   Um domínio A é chamado \textbf{Domínio de Fatoração Única (D.F.U.)} ou \textbf{Domínio Fatorial} se 
 todo elemento não nulo \(a\in A\) pode ser escrito como produto de elementos irredutíveis de maneira única a menos 
 da ordem dos fatores e de elementos associados. Mais explicitamente, dado \(a\in A\setminus{\{0\}},\)
@@ -1336,6 +1745,43 @@ da ordem dos fatores e de elementos associados. Mais explicitamente, dado \(a\in
 e existe \(b\in S_{r}\) permutação tal que \(\pi_{i}\) é associado com \(\rho_{b(i)}\) para todo \(i=1, \cdots, r. \quad\square\)
 \end{itemize}
 \end{def*}
+\begin{prop*}
+  Num D.F.U., elementos irredutíveis são primos.
+\end{prop*}
+\begin{proof*}
+  Seja a irredutível e \(a\mid xy\). Então, existe \(c\in A\) tal que \(ac = xy.\) Coloque 
+  \[
+    x = \pi_{1} \cdot \dotsc \cdot \pi_{n},\quad y = \pi_{n+1}\cdot \dotsc \cdot \pi_{n+m}\quad\&\quad c=\rho_{1}\cdot \dotsc \rho_{r}.
+  \]
+  Temos \(a\mid ac = xy = \pi_{1}\cdot \dotsc \cdot \pi_{n+m},\) tal qual existe \(d\in A\) satisfazendo \(a = d\pi_{1}\cdot \dotsc \cdot \pi_{n+m}.\) Como a é 
+irredutível e cada \(\pi_{i}\) é irredutível, \(d\in A^{*}.\) Assim, a é associado a \(\pi_{i}\) para algum \(i.\) Se \(i\leq n, a\mid x\) e, se \(n < i\leq m + n, a \mid y.\)
+Portanto, a é primo. \qedsymbol
+\end{proof*}
+\begin{prop*}
+  Se A é um domínio Noetheriano e todo elemento irredutível é primo, então A é D.F.U.
+\end{prop*}
+\begin{proof*}
+  Sabemos que, se A é noetheriano, todo elemento de A é produto de elementos irredutíveis. Precisamos, então, provar apenas que essa representação é única.
+
+  Seja \(a\in A\setminus{\{0\}}\) e \(a = \pi_{1}\cdot \dotsc \cdot \pi_{n} = \rho_{1}\cdot \dotsc \cdot \rho_{m},\) em que \(\rho_{j}, \pi_{i}\) são elementos
+irredutíveis em A. Faremos essa prova por indução. Se n = 1, então \(a = \pi_{1}\) e, como \(a\mid a\), \(\pi_{1}\mid\rho_{1}\cdot \dotsc \cdot \rho_{m}\). Já que 
+ \(\pi_{1}\) é primo, temos \(\pi_{1}\mid\rho_{j}\) para algum \(1\leq j\leq m.\) Sem perda de generalidade, podemos supor \(j=1\) (basta reordenar via permutação). Então, existe \(c\in A\) tal que \(\rho _{1} = c\pi_{1}.\) Como \(\rho_{j}\) é irredutível,
+ \(c\in A^{*},\) pois \(\pi_{1}\) é irredutível, ou seja, \(\pi_{1}\not\in A^{*}\).
+
+  Suponha que \(m > 1,\) então 
+  \[
+    \pi_{1} = \rho_{1}\cdot \dotsc \cdot \rho_{m} \Rightarrow c\pi_{1}\cdot \rho_{2}\cdot \dotsc \cdot \rho_{m} = \pi_{1} \Rightarrow c\rho_{2} \cdot \dotsc \cdot \rho_{m} = 1.
+  \]
+  Assim, temos \(\rho_{2}\in A^{*},\) um absurdo. Logo, \(m=1\) e \(\pi_{1} = \rho_{1}\). 
+
+  Agora, seja \(n > 1\). Segue que \(\pi_{1}\mid \rho_{1}\cdot \dotsc \cdot \rho_{m}\) e existe j tal que \(\pi_{1}\mid\rho_{j}.\) Podemos supor novamente
+que j=1, tal que, pelo mesmo argumento anterior, existe \(c\in A^{*}\) tal que \(\pi_{1} = c\rho_{1}\) e, assim, 
+  \[
+    \pi_{1}\cdot \dotsc \cdot \pi_{n} = c\rho_{1}\cdot \rho_{2} \cdot \dotsc \cdot \rho_{m} \Rightarrow \pi_{2}\cdot \dotsc \pi_{n} = \rho_{2}\cdot \dotsc \cdot \rho_{m}
+  \]
+  Renumerando os termos da última igualdade tal que eles vão de 1 até n-1 do lado esquerdo e de 1 até m-1 do lado direito, pela hipótese de indução, existe \(b\in S_{m-1}\)
+tal que \(\pi_{i} = c_{i}\rho_{b(i)}\) e \(n-1 = m-1.\) Portanto, n = m e os termos são associados. \qedsymbol
+\end{proof*}
 \newpage
 
 \section{Aula 20 - 06/11/2023}
