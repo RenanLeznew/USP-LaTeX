@@ -1,3 +1,4 @@
+
 \documentclass[a4paper]{article}
 \usepackage{fullpage} % Package to use full page
 \usepackage{parskip} % Package to tweak paragraph skipping
@@ -1742,5 +1743,127 @@ with $\lambda = \max \{\lambda_j: j=1,\cdots,k\}$, and $\lambda_j$ the factors o
     
     \end{itemize}
     \end{corollary}
-    
+
+\section{Random Power Series}
+  The main result for this part uses all the theory developed until this point to give us a way
+to know how frequently an IFS goes through a set. The proof of this is done specifically for intervals
+I, and it can be mathematically seen as 
+  \[
+    \boxed{\mathbb{P}\biggl(\sum\limits_{i=0}^{\infty}\pm\lambda^{n}\in I\biggr) = \text{frequency with which } f_{\omega }^{n}(x) \text{ goes through I}}, 
+  \]
+  where \(\lambda \in (0, 1)\). Meanwhile, the more general result can be stated in a way similar to von Mises' definition
+of probability - the one using an event's repetition: 
+\begin{theorem}
+  For all \textbf{``well-behaved''} sets A, it follows that 
+  \[
+    \mathbb{P}(\pi \in A) = \lim_{n\to \infty}\frac{1}{n}\#\biggl\{i: f_{\omega }^{i}(x)\in A, 0\leq i\leq n-1\biggr\}.
+  \]
+\end{theorem}
+\begin{rem}[von Mises' Definition of Probability]
+  If \(n_{A}\) is the number of times event A occurs in n independent repetitions of a given ``experiment'', then 
+  \[
+    \mathbb{P}(A) = \lim_{n\to \infty} \frac{n_{A}}{n}.\quad\square
+  \] 
+\end{rem}
+  Using the remark, we may give the following interpretation for the theorem - if A is the event ``\(f_{\omega }^{i}(x)\) passes through A'',
+then \(n_{A}\) would be the number of times that the coding map's terms have passed through A after n repetitions, and thus 
+  \[
+    \mathbb{P}(\pi \in A) = \lim_{n\to \infty} \frac{1}{n}\#\biggl\{i: f_{\omega }^{i}(x)\in A, 0\leq i\leq n-1\biggr\} = \lim_{n\to \infty}\frac{n_{A}}{n}.
+  \]
+  Leaving that aside, let's start the proof of the theorem's special case of intervals, stated as 
+ \begin{theorem}
+   For every interval I, we have 
+   \[
+     \mathbb{P}\biggl(\sum\limits_{n=0}^{\infty}\pm \lambda ^{n}\in I\biggr) = \text{frequency with which } f_{\omega }^{n}(x) \text{ goes through I},
+   \]
+  where \(f_{\omega }^{n}(x)\) is the \textbf{random orbit} of the contraction systems \(f_{i}(x) = \lambda x + i, i\in\{-1, 1\}\).
+ \end{theorem}
+\begin{rem}
+  The \textbf{random orbit} consists of all the many ways to combine values which \(\omega_{i}, 0\leq i\leq n\), 
+can assume in an iteration \(f_{\omega }^{n}(x) = f_{\omega_{n}}\circ{f_{\omega_{n-1}}}\circ{\dotsc}\circ{f_{\omega_{0}}}(x),
+ \omega_{i}\in\{-1, 1\}\). 
+\end{rem}
+\begin{proof}
+  Given the data in the theorem's statement, our system of functions is of the form \(\{f_{1}, f_{-1}\},\) i.e., \(\omega\in\{-1, 1\}^{\mathbb{N}}\).
+Consider the coding map 
+  \[
+    \pi(\omega ) = \lim_{n\to \infty}f_{\omega_{0}}\circ{\dotsc}\circ{f_{\omega_{n}}(p)},
+  \]
+which is known to ve independent of p to us. We start by proving that, given \(\lambda\in (0, 1)\), 
+  \[
+    \pi (\omega ) = \sum\limits_{n=0}^{\infty}\omega_{n}\lambda ^{n}.
+  \]
+  In other words, we are going to show that te coding map can be seen as a random power series with respect to the \(\lambda \), and
+what makes this power series a \textit{random} power series is the fact that each \(\omega_{n}\) is random.
+
+  In fact, given that \(f_{i}(x) = \lambda x + i, i\in \{-1, 1\}\), the following is true for \(n\in \mathbb{N}\):
+\begin{itemize}
+  \item \(f_{\omega_{n}}(x) = \lambda x + \omega_{n}\)
+  \item \(f_{\omega_{n-1}}\circ{f_{\omega_{n}}}(x) = \lambda(f_{\omega_{n}}(x)) + \omega_{n-1} = \lambda(\lambda x + \omega_{n}) + \omega_{n-1} = \lambda^{2}x + \lambda\omega_{n} + \omega_{n-1}\)
+  \item \(f_{\omega_{n-2}}\circ{f_{\omega_{n-1}}}\circ{f_{\omega_{n}}}(x) = \lambda(\lambda^{2} x + \lambda\omega_{n} + \omega_{n-1}) + \omega_{n-2} = \lambda^{3}x + \lambda^{2}\omega_{n} + \lambda\omega_{n-1} + \omega_{n-1}\)
+
+  \quad\vdots
+
+  \item \(f_{\omega_{0}}\circ{\dotsc}\circ{f_{\omega_{n}}}(x) = \lambda^{n+1}x + \lambda^{n}\omega_{n} + \dotsc + \omega_{0} = \lambda^{n+1}x + \sum\limits_{i=0}^{n}\lambda^{i}\omega_{i}.\)
+\end{itemize}
+Taking the limite as \(n\rightarrow \infty,\) we find out that 
+  \[
+    \pi(\omega) = \lim_{n\to \infty}f_{\omega_{0}}\circ{\dotsc}\circ{f_{\omega_{n}}}(x) = \lim_{n\to \infty} \biggl(\lambda^{n+1}x + \sum\limits_{i=0}^{n}\lambda^{n}\omega_{n}\biggr) = \lim_{n\to \infty}\lambda^{n+1}x + \lim_{n\to \infty}\sum\limits_{i=0}^{n}\lambda^{n}\omega_{n}.
+  \] 
+Because \(\lambda\in(0, 1)\), \(\lambda^{n+1}\) goes to 0, so that 
+  \[
+    \pi(\omega) = \lim_{n\to \infty}\lambda^{n+1}x + \lim_{n\to \infty}\sum\limits_{i=0}^{n}\lambda^{n}\omega_{n} = 0 + \lim_{n\to \infty}\sum\limits_{i=0}^{n}\lambda^{n}\omega_{n} = \sum\limits_{n=0}^{\infty}\lambda^{n}\omega_{n}.
+  \]
+  Thus, 
+  \[
+    \pi (\omega ) = \sum\limits_{n=0}^{\infty}\lambda^{n}\omega_{n}.
+  \]
+  According to the Letac Principle, the pushforward of the coding map is the unique stationary measure, given by 
+  \[
+    \pi_{*}\mathbb{P} = \mathbb{P}(\pi \in A) = \mathbb{P}\biggl(\biggl\{\omega \in \{-1, 1\}^{\mathbb{N}}: \sum\limits_{}^{}\omega_{n}\lambda^{n}\in I\biggr\}\biggr)
+  \]
+  Next, our goal is to prove that a stationary measure has no atoms. This is related to the ``well-behaved'' part
+of the statement since, as long as we have shown that it indeed has no atoms, then the boundary will have null measure,
+which is exactly what we wanted.
+
+  Before moving to that, recall that an atom is a singleton set \(\{x\}\) such that \(\mu(\{x\}) > 0\).
+To prove that a stationary measure has no atoms, thus, it suffices to show that any singleton has null measure.
+On that note, to make notation easier, let m be the stationary measure. Put K as the Hutchinson attractor and define
+the function \(M:K\rightarrow \mathbb{R}_{\geq 0}\), \(M(a)=m(\{a\})\). Taking a closer look at M, because of the way it
+is defined, it follows that given any \(a\in K\),
+  \[
+    M(a) = m(\{a\}) = \pi_{*}\mathbb{P}(\{a\}) = \mathbb{P}(\pi\in \{a\}) = \mathbb{P}(\{\omega: \pi(\omega)\in \{a\})\} < \infty.
+  \]
+  Moreover, the continuity from above of m is inherited by M. Hence, given an increasing sequence \(a_{n}\uparrow a\in K\),
+it follows that \(M(a_{n})\uparrow M(a).\) In particular, continuity from above also implies semi-continuity from above. This is importanto
+to prove that M attains its maximum in K. As a matter of fact, using the semi-continuity from above and the fact
+that K is a compact set, it follows readily that M indeed reaches its maximum in K, i.e., there exists a \(q\geq 0\) such that
+ \(q\geq M(x)\) for all \(x\in K\) and \(M(x_{0}) = q\) for some \(x_{0}\in K\).
+
+  Now let \(q\) be the maximum of M in K and consider the set of all singletons of elements of K whose measures are equal to q:
+  \[
+    B = \{a\in K: m(\{a\}) = q\}.
+  \]
+  If \(q > 0\), then because we are in a probability space, \(m(\{a\}) = \mathbb{P}(\pi \in \{a\})\leq 1\), so that only
+finitely many a's in K can be mapped to q, meaning B is a finite set. This will be important to fin a contradiction and conclude
+that \(q=0.\)
+
+  Firstly, notice that 
+  \[
+    f_{i}(x) = \lambda x + i \Rightarrow f_{i}(x)-i = \lambda x \Rightarrow x = \frac{f_{i}(x) - 8}{\lambda },
+  \]
+so that \(f_{i}^{-1}(x) = \frac{x-i}{\lambda }.\) Hence, 
+  \[
+    q = m\{a\} = \sum\limits_{}^{}p_{j}m(\{f_{i}^{-1}(a)\})\leq \sum\limits_{}^{}p_{i} q = q \sum\limits_{}^{}p_{j} = q,
+  \]
+meaning that \(m(\{f_{i}^{-1}(a)\}) = q\) for all i, contradicting the finiteness of B. Therefore, \(q = 0\), singletons are all
+zero measured and there are no atoms in this measure space.
+
+  In conclusion, for any interval \(I\) formed by real number a and b, its boundary is \(\partial I = \{a, b\}\). However, notice that 
+  \[
+    \{a, b\} = \{a\}\cup \{b\}\quad\&\quad \{a\}\cap \{b\} = \emptyset.  
+  \]
+Consequently, \(\pi_{*}\mathbb{P}(\partial I) = \pi_{*}\mathbb{P}(\{a\}\cup \{b\}) = \pi_{*}\mathbb{P}(\{a\}) + \pi_{*}\mathbb{P}(\{b\}) = 0 + 0 = 0.\)
+\end{proof}
+
 \end{document}

@@ -448,6 +448,87 @@ se \(\mathfrak{i} + \mathfrak{j} = A.\quad\square\)
   \item Espectro de um Anel;
   \item Anéis Locais e Elementos Nilpotentes.
 \end{itemize}
+\subsection{Ideais Primos e  Maximais}
+\begin{def*}
+  Uma ideal \(\mathfrak{i} \trianglelefteq{A}\) é dito \textbf{primo} se \(\mathfrak{i}\neq A\) e \(ab\in \mathfrak{i}\)
+implica \(a\in \mathfrak{i}\) ou \(b\in \mathfrak{i}.\) 
+
+  Um ideal \(\mathfrak{i}\trianglelefteq{A}\) é dito maximal se \(\mathfrak{i}\neq A\) e se, dado \(\mathfrak{j}\trianglelefteq{A}\)
+com \(\mathfrak{i}\subseteq{\mathfrak{j}}\), então 
+  \[
+    \mathfrak{i} = \mathfrak{j}\text{ ou } \mathfrak{j} = A.\quad\square
+  \]
+\end{def*}
+  Diremos que uma \textbf{cadeia} \(K\subseteq{S}\) de um conjunto parcialmente ordenado é um subconjunto totalmente
+ordenado do mesmo.
+\begin{prop*}
+ \begin{itemize}
+  \item[1)] Os ideais maximais são primos;
+  \item[2)] Todo anel não nulo tem um ideal maximal e logo tem um ideal primo;
+  \item[3)] Todo ideal próprio de A está contido em algum ideal maximal de A.
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  1. Seja M maximal e \(ab\in M.\) Mostremos \(a\in M\) ou \(b\in M\). Suponha
+ \(a\not\in M\). Considere o anel:
+  \[
+    M + \langle a \rangle = \{x+ra: x\in M\text{ e }r\in A\} \trianglelefteq{A}.
+  \] 
+  Note que \(M\subsetneq{M + \langle a \rangle},\) pois \(a\not\in M.\) Como M é maximal, segue que
+ \(M + \langle a \rangle = A.\) Assim, \(1\in M + \langle a \rangle\) e existe \(x\in M\), \(r\in A\)
+tais que \(x + ra = 1\) e, então, 
+  \[
+    b = b1 = b(x+ra) = bx + rab.
+  \]
+  Como M é ideal, \(ab\in M\), o que implica em \(rab\in M\), e \(x\in M\) implica em \(bx\in M\).
+Assim, \(b = bx + rab\in M\). 
+
+  2. Para obtermos o ideal maximal, usaremos o Lema de Zorn. Construiremos o conjunto parcialmente ordenado 
+dado por \(S\coloneqq \{\mathfrak{i}\trianglelefteq{A}: \mathfrak{i}\neq A\}\), sendo a ordem dada por \(\subseteq{}.\)
+Sabemos que \(S \neq\emptyset\), pois \((0)\in S.\) Considere, agora, uma cadeia \(\{\mathfrak{i}_{l}\}_{l\in L}\) de elementos
+de S. Por indução, a união destes ideais é um ideal e, além disso, é um ideal próprio
+  \[
+    \mathfrak{i}\coloneqq \bigcup_{l\in L}^{}{\mathfrak{i}_{l}}\vartriangleleft{A},
+  \]
+pois para cada \(l\in L, 1\not\in \mathfrak{i}_{l}\), já que, se \(1\in \mathfrak{i}_{l}\) para algum \(l\in L\), teríamos
+ \(\mathfrak{i} = A\). Então, a união é um elemento de S e é uma cota superior da cadeia, no sentido de \(\mathfrak{i}_{l}\subseteq{\mathfrak{i}}\)
+para cada \(l\in L.\) Pelo Lema de Zorn, segue que existe um elemento maximal no conjunto S, que será o ideal maximal por definição.
+
+  3. Considere \(\mathfrak{i}\) um ideal próprio de A e defina o conjunto \(S_{\mathfrak{i}}\coloneqq \{\mathfrak{j}\vartriangleleft{A}:\mathfrak{i}\subseteq{\mathfrak{j}}\}\).
+Como \(\mathfrak{i}\in S_{\mathfrak{i}}, S_{\mathfrak{i}}\neq\emptyset.\) Seja \(\{\mathfrak{j}_{l}\}_{l\in L}\) uma cadeia de \(S_{\mathfrak{i}}.\)
+Assim como no item 2, a união de elementos da cadeia é cota superior para ela e, aplicando o Lema de Zorn, temos um elemento
+maximal dessa família - um anel maximal que contém \(\mathfrak{i}.\) 
+\qedsymbol
+\end{proof*}
+\begin{def*}
+  Seja A um anel. Definimos o \textbf{espectro primo} de A por \(\mathrm{Spec}(A) = \{\mathfrak{p}\trianglelefteq{A}: \mathfrak{p}\text{ é ideal primo de } A\}\)
+e o \textbf{espectro maximal} de A como \(\mathrm{Specm}(A) = \{\mathfrak{m}\trianglelefteq{A}:\mathfrak{m} \text{ é ideal maximal de } A\}.\quad\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+ \begin{itemize}
+  \item[1)] A é domínio se, e somente se, \((0)\in \mathrm{Spec}(A)\)
+  \item[2)] Dado um ideal \(\mathfrak{i} = n \mathbb{Z},\) então \(\mathfrak{i}\in \mathrm{Spec}(\mathbb{Z})\) se, e somente se,
+n é primo ou n = 0. Assim, \(\mathrm{Spec}(\mathbb{Z}) = \{p \mathbb{Z}: p \text{ é primo}\}\cup \{(0)\}\).
+  \item[3)] Dado um ideal \(\mathfrak{i} = n \mathbb{Z}\), então \(\mathfrak{i}\in \mathrm{Specm}(\mathbb{Z})\) se, e somente se,
+n é primo. Logo, \(\mathrm{Specm}(\mathbb{Z}) = \{p \mathbb{Z}:p \text{ é primo}\}\).
+ \end{itemize}
+\end{prop*}
+\begin{def*}
+  Um anel é dito \textbf{local} se tem só um ideal maximal. \(\square\)
+\end{def*}
+\begin{lemma*}
+  Seja \(\mathfrak{m}\in \mathrm{Specm}(A)\). Então, A é local se, e somente se, \(A^{*} = A\setminus{\mathfrak{m}}\).
+\end{lemma*}
+\begin{proof*}
+  \(\Rightarrow )\) Suponha que \(\mathfrak{m}\) seja o único ideal maximal de A. Como \(\mathfrak{m} \neq\emptyset, A^{*}\cap \mathfrak{m} = \emptyset\).
+Assim, \(A^{*}\subseteq{A\setminus{\mathfrak{m}}}.\) Tome \(a\in A\setminus{\mathfrak{m}}\) e considere o ideal principal \(\langle a \rangle \trianglelefteq{A}.\)
+Se \(\langle a \rangle\neq A,\) então \(\langle a \rangle \subseteq{\mathfrak{m}},\) pois todo ideal próprio está contido num maximal, que supomos ser unicamente \(\mathfrak{m}\).
+Logo, \(a\in \mathfrak{m}\), o que é um absurdo. Então, \(\langle a \rangle = A\) e existe \(r\in A\) tal que \(ra = 1,\) i.e., \(a\in A^{*}.\)
+
+  \(\Leftarrow )\) Suponha que existe outro ideal maximal \(\mathfrak{m}'\neq \mathfrak{m}.\) Então, existe \(a\in \mathfrak{m}'\)
+tal que \(a\in A\setminus{\mathfrak{m}} = A^{*}.\) Portanto, \(\mathfrak{m}'\cap A^{*} \neq\emptyset\) e, assim, \(\mathfrak{m}' = A,\)
+contrariando a maximalidade de \(\mathfrak{m}.\) \qedsymbol
+\end{proof*}
 \newpage
 
 \section{Aula 04 - 21/08/2023}
