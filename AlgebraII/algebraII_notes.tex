@@ -779,8 +779,65 @@ Então, \(\mathfrak{j}/\mathfrak{i} = \mathfrak{m}/\mathfrak{i}\) ou \(\mathfrak
 \section{Aula 06 - 28/08/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item a
+  \item Relação Entre Anel e Quociente;
+  \item Primeiro Teorema do Isomorfismo;
+  \item Segundo Teorema do Isomorfismo.
 \end{itemize}
+\subsection{Relação entre Anéis e seus Quocientes}
+ \begin{prop*}
+  Seja \(\mathfrak{i}\trianglelefteq{A}.\)
+ \begin{itemize}
+  \item[1)] \(\mathfrak{i}\) é primo se, e somente se, \(A/\mathfrak{i}\) é domínio;
+  \item[2)] \(\mathfrak{i}\) é maximal se, e somente se, \(A/\mathfrak{i}\) é corpo.
+ \end{itemize}
+ \end{prop*}
+ \begin{proof*}
+  1. \(\Rightarrow ):\) Sejam \(a+\mathfrak{i}, b+\mathfrak{i}\in A/\mathfrak{i}\) tais que \((a+\mathfrak{i})(b+\mathfrak{i})=\mathfrak{i}=0_{A/\mathfrak{i}}.\) Assim,
+ \(ab+\mathfrak{i} = \mathfrak{i}\) e \(ab\in \mathfrak{i}.\) como \(\mathfrak{i}\) é primo, \(a\in \mathfrak{i}\) ou \(b\in \mathfrak{i}\), o que implica que
+ \(a+\mathfrak{i} = \mathfrak{i} = 0_{A/\mathfrak{i}}\) ou \(b+\mathfrak{i} = \mathfrak{i} = 0_{A/\mathfrak{i}}.\) Logo, \(A/\mathfrak{i}\) é domínio.
+
+ \(\Leftarrow ):\) Suponha agora que \(A/\mathfrak{i}\) é domínio. Tome \(ab\in \mathfrak{i}\). Assim, \(ab + \mathfrak{i} = (a+\mathfrak{i})(b+\mathfrak{i}) = \mathfrak{i}.\)
+Como \(A/\mathfrak{i}\) é domínio, \(a+\mathfrak{i} = \mathfrak{i}\) ou \(b+\mathfrak{i} = \mathfrak{i}\), i.e., \(a\in \mathfrak{i}\) ou \(b\in \mathfrak{i}.\) Destarte, \(\mathfrak{i}\) é primo.
+
+  2. \(\Rightarrow ):\) Suponha que \(\mathfrak{i}\) é maximal e seja \(\mathfrak{k}\trianglelefteq{A/\mathfrak{i}}.\) Pela proposição anterior,
+ \(\mathfrak{k} = \mathfrak{j}/\mathfrak{i}\) para algum \(\mathfrak{i}\subseteq \mathfrak{j}\trianglelefteq{A}.\) Como \(\mathfrak{i}\) é maximal,
+ \(\mathfrak{i}=\mathfrak{j}\) ou \(\mathfrak{j} = A.\) Com isso, \(\mathfrak{k} = \mathfrak{i}/\mathfrak{i} = (\mathfrak{i})\) ou \(\mathfrak{k} = A/\mathfrak{i}.\) 
+ Visto que \(\mathfrak{k}\) é genérico, \(A/\mathfrak{i}\) é um corpo.
+
+ \(\Leftarrow ):\) Assuma que \(A/\mathfrak{i}\) seja um corpo. Seja \(\mathfrak{j}\trianglelefteq{A}\) com \(\mathfrak{i}\mathfrak{j}\).
+Considere o ideal no quociente \(\mathfrak{k} = \mathfrak{j}/\mathfrak{i}\trianglelefteq{A/\mathfrak{i}}\). Como \(A/\mathfrak{i}\) é um corpo,
+segue que \(\mathfrak{k} = (\mathfrak{i})\) ou \(\mathfrak{k} = A/\mathfrak{i}.\) Assim, \(\mathfrak{j} = \mathfrak{i}\) ou \(\mathfrak{j} = A.\)
+Portanto, \(\mathfrak{i}\) é maximal. \qedsymbol
+ \end{proof*}
+ \begin{example}[Exercício]
+  Seja p um número primo. Mostre que:
+ \begin{itemize}
+  \item[1)] \(\mathbb{Z}[1/p]\cong \mathbb{Z}[x]/(\langle px-1 \rangle)\);
+  \item[2)] \(\mathbb{Z}[\sqrt[]{p}]\cong \mathbb{Z}[x]/(\langle x^{2}-p \rangle)\);
+  \item[3)] Se \(\mathfrak{m}\) é o ideal maximal do anel local \(\mathbb{Z}_{(p)},\) então \(\mathbb{Z}_{(p)}/\mathfrak{m}\cong{\mathbb{Z}/p \mathbb{Z}}.\)
+ \end{itemize}
+\end{example}
+\begin{prop*}[Exercício]
+  Seja \(\mathfrak{i}\trianglelefteq{A}\) e \(\mathfrak{i}[x]\subseteq A[x]\) o conjunto de polinômios 
+com coeficientes em \(\mathfrak{i}.\) Mostre que:
+ \begin{itemize}
+  \item[1)] \(\mathfrak{i}[x] \trianglelefteq{A[x]}\);
+  \item[2)] \(A[x]/\mathfrak{i}[x]\cong{(A/\mathfrak{i})}[x];\)
+  \item[3)] \(\mathfrak{i}\) é primo se, e somente se, \(\mathfrak{i}[x]\) é primo.
+ \end{itemize}
+\end{prop*}
+\begin{prop*}[Exercício]
+  Se \(\mathfrak{m}\in \mathrm{Specm}(A),\) mostre que \(A/\mathfrak{m}^{n}\) é um anel local para todo
+ \(n \geq 1\), com ideal maximal \(\mathfrak{m}/\mathfrak{m}^{n}.\)
+\end{prop*}
+\begin{example}[Exercício]
+  Mostre que \(\mathbb{R}[x]/(\langle x^{2}+1 \rangle)\cong{\mathbb{C}}, \mathbb{Q}[x]/(\langle x^{2}+1 \rangle)\cong{\mathbb{Q}[i]}\)
+e \(\mathbb{Z}[x]/(\langle x^{2}+1 \rangle)\cong{\mathbb{Z}[i]}.\)
+\end{example}
+\begin{prop*}[Exercício]
+  Seja k um corpo e seja \(\mathfrak{m} = \{x_{1}-a_{1}, \dotsc, x_{n}-a_{n}\}\trianglelefteq{k[x_{1}, \dotsc, x_{n}]}\) para
+ \(a_{i}\in k.\) Mostre que \(k[x_{1}, \dotsc, x_{n}]/\mathfrak{m}\cong{k}\), tal que \(\mathfrak{m}\) é maximal. 
+\end{prop*}
 \newpage
 
 \section{Aula 07 - 30/08/2023}

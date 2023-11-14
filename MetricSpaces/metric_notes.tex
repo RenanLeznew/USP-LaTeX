@@ -2199,9 +2199,148 @@ Para ver que \(x_{0}\) é ponto fixo de T, note que
 Isso pode ser visto no meio da prova de que \(\{T^{n}x\}\) é de Cauchy, já que, a cada aplicação de T a si mesma, multiplicou-se por \(\kappa \) o fator \(\kappa^{n}.\)
 \newpage
 
-\section{Aula 17 - 09/11/2023}
+\section{Aula 17 - 14/11/2023}
 \subsection{Motivações} 
 \begin{itemize}
-  \item a
+  \item Compacidade e Coberturas;
 \end{itemize}
+\subsection{Coberturas e Limitação Total}
+\begin{def*}
+  Seja \((X, \rho )\) um espaço métrico e \(E\subseteq{X}.\) Uma família \(\{V_{\alpha }\}_{\alpha \in A}\) de subconjuntos de X satisfazendo 
+  \[
+    E \subseteq \bigcup_{\alpha \in A}^{}{V_{\alpha }}
+  \]
+  é chamada \textbf{cobertura}. Se a cobertura \(\{V_{\alpha }\}_{\alpha \in A}\) for composta de conjuntos abertos, chamaremos ela de \textbf{cobertura aberta}. \(\square\)
+\end{def*}
+\begin{example}
+  Para \(\mathbb{R}\), \(\{[-n, n]\}\) é uma cobertura e \(\{(-n, n)\}\) é uma cobertura aberta, \(n\in \mathbb{N}\).
+\end{example}
+\begin{def*}
+  Seja \(\{V_{\alpha }\}_{\alpha \in A}\) uma cobertura de E. Se \(\Omega \subseteq{A}\) e 
+  \[
+    E \subseteq{\bigcup_{\alpha \in \Omega }^{}{V_{\alpha }}},
+  \]
+então \(\{V_{\alpha }\}_{\alpha \in \Omega }\) é uma \textbf{subcobertura} de \(\{V_{\alpha }\}_{\alpha \in A}.\) Se \(\{U_{\gamma }\}_{\gamma \in \Omega }\) é uma cobertura 
+de E tal que para todo \(\gamma \in \Omega, \) existe \(\alpha \in A\) tal que \(U_{\gamma }\subseteq{V_{\alpha }}\), então \(\{U_{\gamma }\}_{\gamma \in\Omega }\)
+é chamado de \textbf{refinamento.} \(\square\)
+\end{def*}
+\begin{def*}
+  Dizemos que \(E\subseteq{X}\) é \textbf{totalmente limitado} se para qualquer \(\varepsilon > 0\), existem \(x_{1}, x_{2}, \dotsc, x_{n}\in E\) tais que 
+  \[
+    E \subseteq{\bigcup_{i=1}^{n}{B_{\varepsilon }(x_{i})}}.\quad\square
+  \]
+\end{def*}
+\begin{example}
+  Seja \((X, \rho )\) um espaço métrico.
+\begin{itemize}
+  \item[1)] Se \(E\subseteq{X},\) então, para todo \(\varepsilon >0,\) os conjuntos 
+  \[
+    \{B_{\varepsilon }(x)\}_{x\in X}\quad\&\quad \{B_{\varepsilon }(x)\}_{x\in E}
+  \]
+são coberturas de E.
+  \item[2)] Se \(E = \{e_{1}, e_{2}, \dotsc, e_{n}\}\subseteq{X},\) então para todo \(\varepsilon >0,\) a coleção \(\{B_{\varepsilon }(x_{i})\}_{i=1}^{n}\) é uma subcobertura
+da cobertura \(\{B_{\varepsilon }(x)\}_{x\in X}\).
+\item[3)] Se \(E\subseteq{X}\), então para todo \(\varepsilon >0\), a coleção \(\{B_{\frac{\varepsilon }{2}(x)}\}_{x\in X}\) é um refinamento da cobertura \(\{B_{\varepsilon }(x)\}_{x\in X}\).
+\item[4)] Seja \(E\subseteq{X}\) tal que existe \(r > 0\) e \(x_{1}, x_{2}, \dotsc, x_{n}\in E\) tal que 
+  \[
+    E\subseteq{\bigcup_{i=1}^{n}{B_{r}(x_{i})}},
+  \]
+  então \(\mathrm{diam}(E) < \infty.\)
+\end{itemize}
+\end{example}
+\begin{prop*}
+  Todo conjunto totalmente limitado é limitado. Se E for totalmente limitado, então \(\overline{E}\) é totalmente limitado.
+\end{prop*}
+ Observe que E pode ser limitado e não ser totalmente limitado.
+\begin{example}
+  Tome o espaço \((\ell_{\infty}, \Vert \cdot  \Vert_{\infty}),\) em que \(\ell_{\infty}=\{\{a_{n}\}: \sup\{|a_{n}|\} < \infty\}, \Vert a_{n} \Vert = \sup\{|a_{n}|:n\in \mathbb{N}.\}\)
+Para cada \(i\in \mathbb{N},\) seja \(e_{i}\) a sequência nula, exceto na i-ésima entrada, que vale 1. Temos \(\Vert e_{i} \Vert_{\infty} = 1\) para todo i em \(\mathbb{N}.\) Logo,
+o conjunto \(L = \{e_{i}:i\in \mathbb{N}\}\) é limitado. No entanto, para \(\varepsilon = \frac{1}{2},\) como \(\Vert e_{i}-e_{j} \Vert_{\infty} = 1\) para \(i\neq j,\)
+segue que 
+  \[
+    L\not\subseteq{\bigcup_{i=1}^{n}{B_{\frac{1}{2}(x_{i})}}}\quad \forall n\in \mathbb{N}.
+  \]
+\end{example}
+\begin{example}[Exercício]
+  Em \(\mathbb{R}^{n},\) um conjunto é totalmente limitado se, e somente se, é limitado.
+\end{example}
+\begin{proof*}
+  Consideremos em \(\mathbb{R}^{n}\) a métrica do máximo. Se \(E\subseteq{\mathbb{R}^{n}}\) é limitado, existe \(r > 0\) e \(x = (x_{1}, \dotsc, x_{n})\in E\) tal que 
+  \[
+    E\subseteq{B_{r}(x)} = \prod\limits_{i=1}^{n}(x_{i}-r, x_{i}+r).
+  \]
+  Dado \(\varepsilon >0\), existe \(a_{1}^{n}, \dotsc, a_{m_{\varepsilon }^{n}}^{n}\in(x_{n}-r, x_{n}+r)\) satisfazendo 
+  \[
+    (x_{n}-r,x_{n}+r) \subseteq{\bigcup_{j_{n}=1}^{m_{\varepsilon }^{n}}{(a_{j_{n}}^{n}-\varepsilon , a_{j_{n}}^{n}+\varepsilon )}}.
+  \]
+  Logo, 
+ \begin{align*}
+  E \subseteq{B_{r}(x)} &=\prod\limits_{i=1}^{n}(x_{i}-r, x_{i}+r)\\
+                        &\subseteq{}\prod\limits_{i=1}^{n-1}(x_{i}-r, x_{i}+r)\times \bigcup_{j_{n}=1}^{m_{\varepsilon }^{n}}{(a_{j_{n}}^{n}-\varepsilon , a_{j_{n}}^{n}+\varepsilon )}\\
+                        &\subseteq{\bigcup_{j_{n}=1}^{m_{\varepsilon }^{n}}\prod\limits_{i=1}^{n-1}(x_{i}-r, x_{i}+r)\times (a_{j_{n}}^{n}-\varepsilon , a_{j_{n}}^{n}+\varepsilon ).}
+ \end{align*}
+ Repetimos o argumento para o intervalo \((x_{n-1}-\varepsilon , x_{n-1}+\varepsilon )\) e obtemos 
+  \[
+    (x_{n-1}-r, x_{n-1}+r)\subseteq{\bigcup_{j_{n-1}=1}^{m_{\varepsilon }^{n}}{(a_{j_{n-1}}^{n-1}-\varepsilon, a_{j_{n-1}}^{n-1}+\varepsilon  )}}
+  \]
+Consequentemente,
+\begin{align*}
+  &E\subseteq{\bigcup_{j_{n}=1}^{m_{\varepsilon }^{n}}\prod\limits_{i=1}^{n-1}(x_{i}-r, x_{i}+r)\times (a_{j_{n}}^{n}-\varepsilon , a_{j_{n}}^{n}+\varepsilon ).}\subseteq{}\\
+  &\subseteq{\bigcup_{j_{n-1}=1}^{m_{\varepsilon }^{n-1}}\bigcup_{j_{n}=1}^{m_{\varepsilon }^{n}}\prod\limits_{i=1}^{n-2}(x_{i}-r, x_{i}+r)\times(a_{j_{n-1}}^{n-1}-\varepsilon , a_{j_{n-1}}^{n-1}+\varepsilon )\times (a_{j_{n}}^{n}-\varepsilon , a_{j_{n}}^{n}+\varepsilon ).}
+\end{align*}
+  Por indução, concluímos que 
+ \begin{align*}
+  E \subseteq{B_{r}(x)} &=\prod\limits_{i=1}^{n}(x_{i}-r, x_{i}+r)\\
+                        &\subseteq{}\prod\limits_{j_{1}=1}^{m_{\varepsilon }^{1}}\dotsc \prod\limits_{j_{n}=1}^{m_{\varepsilon }^{n}}\prod\limits_{i=1}^{n}(a_{j_{i}}^{i}-\varepsilon , a_{j_{i}}^{i}+\varepsilon )\\
+                        &=\bigcup_{j_{1}=1}^{m_{\varepsilon }^{1}}{\dotsc}\bigcup_{j_{n}=1}^{m_{\varepsilon }^{n}}{B_{\varepsilon }(a_{j, k}}),
+ \end{align*}
+ com \(a_{j, k} = (a_{j_{k}1}^{1},\dotsc,a_{j_{k}n}^{n})\), para cada \(k=1, \dotsc, m_{\varepsilon }^{k}\) e \(j=j_{1},\dotsc,j_{n}\). Portanto, E é totalmente limitado. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+  Seja \((X, \rho )\) um espaço métrico e \(E\subseteq{X}.\) São equivalentes:
+ \begin{itemize}
+  \item[1)]E é completo e totalmente limitado
+  \item[2)] Toda sequência em E possui subsequência convergente em E;
+  \item[3)] Toda cobertura aberta de E possui subcobertura finita.
+ \end{itemize}
+\end{theorem*}
+\begin{proof*}
+  Faremos a prova mostrando a equivalência entre 1 e 2, depois que 1 e 2 juntos implicam 3 e, por fim, que 3 implica 2.
+
+  \(1 \Rightarrow 2):\) Seja \(\{x_{n}\}\subseteq{E}\) sem subsequência convergente. Como E é totalmente limitado para \(\varepsilon = \frac{1}{2},\) existe
+ \(y_{1}, \dotsc, y_{n}\in E\) tais que 
+  \[
+    E\subseteq{\bigcup_{i=1}^{n}{B_{\frac{1}{2}(y_{i})}}}.
+  \]
+  Então, existe i tal que \(\{x_{n}\}\cap B_{\frac{1}{2}}(y_{i})\) contém infinitos elementos. Seja \(N_{1}\) o conjunto \(N_{1}\subseteq{\mathbb{N}}\) tal que 
+  \[
+    \{x_{k}\}\subseteq{\{x_{n}\}\cap B_{\frac{1}{2}}(y_{i}),}\quad k\in N_{1}.
+  \]
+  Como \(E\cap B_{\frac{1}{2}}(y_{i})\) é totalmente limitado, para \(\varepsilon = \frac{1}{2^{2}},\) existem \(z_{1}, \dotsc, x_{n_{2}}\in E\cap B_{\frac{1}{2}(y_{i})}\)
+com 
+  \[
+    E\cap B_{\frac{1}{2}}(y_{i})\subseteq{\bigcup_{i=1}^{n_{2}}{B_{\frac{1}{2}}(z_{i})}}.
+  \]
+  Analogamente ao que foi feito anteriormente, existe \(N_{2}\subseteq{N_{1}}\) com \(x_{k}\in E\cap B_{\frac{1}{2^{2}}}(z_{i}), k \in N_{2}\). Indutivamente, construímos uma coleção
+\(\{B_{n}\}_{n}\) de bolas com diâmetro \(\mathrm{diam}(B_{n})\leq \frac{1}{2^{n}}\) tais que \(x_{n}\in E\cap B_{k}, n\in N_{k}\) e que \(N_{1}\supseteq{N_{2}}\dotsc \supseteq{N_{k}}\supseteq{\dotsc}\)
+Para cada \(k\in N_{k},\) seja \(y_{k}\in E\cap B_{k}.\) A sequência \(\{y_{k}\}\) é uma subsequência de \(\{x_{n}\}\) que é de Cauchy em E (Verfique). Como E é completo, 
+ \(y_{k}\) deve ser convergente, o que é uma contradição ao que havia sido assumido.
+
+  \(2 \Rightarrow 1):\) Suponha que toda sequência \(\{x_{n}\}\) possui subsequência \(\{x_{n_{k}}\}\) convergente e que E não seja completo. Com isso, existe uma
+sequência de Cauchy sem subsequência convergente. Já obtivemos uma contradição, pois é diretamente contrário à hipótese de que toda sequência de Cauchy converge. Agora, suponha que E
+não seja totalmente limitado e considere \(\varepsilon >0\) tal que 
+  \[
+    E\not\subseteq{B_{\varepsilon }(x)}, \quad x\in E.
+  \]
+  Existe \(x_{1}\in E\setminus{B_{\varepsilon }(x)}\). Além disso, também vale que 
+  \[
+    E\not\subseteq{B_{\varepsilon }(x)\cup B_{\varepsilon }(x_{1})}.
+  \]
+  Com isso, existe também \(x_{2}\in E\setminus{(B_{\varepsilon }(x)\cup B_{\varepsilon }(x_{1}))}\). Chamando 
+ \(x_{0} = x\), indutivamente, construímos a sequência \(\{x_{n}\}\subseteq{E}\) tal que 
+  \[
+    d(x_{n}, x_{m})\geq \varepsilon, \quad n\neq m,\quad n, m\in \mathbb{N}.
+  \]
+  Justamente por isso, \(\{x_{n}\}\) não possui subsequência convergente. (Continua na próxima aula).
+\end{proof*}
 \end{document}
