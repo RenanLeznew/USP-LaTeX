@@ -529,22 +529,253 @@ Logo, \(a\in \mathfrak{m}\), o que é um absurdo. Então, \(\langle a \rangle = 
 tal que \(a\in A\setminus{\mathfrak{m}} = A^{*}.\) Portanto, \(\mathfrak{m}'\cap A^{*} \neq\emptyset\) e, assim, \(\mathfrak{m}' = A,\)
 contrariando a maximalidade de \(\mathfrak{m}.\) \qedsymbol
 \end{proof*}
+\begin{example}[Exercício]
+ \begin{itemize}
+  \item[1)] Mostre que todo corpo é um anel local.
+  \item[2)] Mostre que \(\mathbb{Z}_{(p)},\) para p primo, é um anel local.
+  \item[3)] Seja \(\mathbb{K}\) um corpo e seja \(f(x)\in \mathbb{K}[x]\) um polinômio não nulo irredutível.
+Defina o seguinte conjunto:
+  \[
+    \mathbb{K}[x]_{(f(x))} = \biggl\{\frac{h(x)}{g(x)}: h(x), g(x)\in \mathbb{K}[x] \text{ e f(x) não divide g(x)}\biggr\}.
+  \]
+  Mostre que este é um anel local de \(\mathbb{K}[x].\)
+ \end{itemize}
+\end{example}
+\begin{def*}
+  Para um anel A, os ideais a seguir:
+  \[
+    \mathrm{nil}(A) = \bigcap_{\mathfrak{p}\in \mathrm{Spec}(A)}^{}{\mathfrak{p}}\quad \& \quad J(A)\coloneqq \bigcap_{\mathfrak{m}\in \mathrm{Specm}(A)}^{}{\mathfrak{m}}
+  \]
+  são chamados nil-radical e radical Jacobson de A. \(\square\)
+\end{def*}
+\begin{prop*}
+  Temos \(\mathrm{nil}(A) \subseteq{J(A)}.\)
+\end{prop*}
+\begin{proof*}
+  De fato, como sabemos que os ideais maximais são primos, vale que \(\mathrm{Specm}(A)\subseteq{\mathrm{Spec}(A)}.\) Assim, se
+ \(x\in \mathrm{nil}(A),x\in \mathfrak{p}\) para todo \(\mathfrak{p}\in \mathrm{Spec}(A).\) Em particular, \(x\in \mathfrak{p}\) para todo \(\mathfrak{p}\in \mathrm{Specm}(A)\)
+ e então \(x\in J(A)\). Portanto, \(\mathrm{nil}(A) \subseteq{J(A)}.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+  Um elemento \(a\in A\) é dito \textbf{nilpotente} se existir um inteiro \(n\geq 1\) tal que \(a^{n} = 0.\) Um ideal
+ \(\mathfrak{i}\) é dito \textbf{nilpotente} se existir um inteiro \(n\geq 1\) tal que \(\mathfrak{i}^{n} = (0).\)
+\end{def*}
+\begin{prop*}[Exercício]
+ \begin{itemize}
+  \item[1)] Mostre que \(\mathrm{nil}(A)\) é o conjunto de todos os elementos nilpotentes de A;
+  \item[2)] Mostre que se \(\mathrm{nil}(A)\) é finitamente gerado, ele é um ideal nilpotente;
+  \item[3)] Se A é domínio, \((0)\in \mathrm{Spec}(A)\) e, logo, \(\mathrm{nil}(A) = (0);\)
+  \item[4)] Se A é local com ideal maximal \(\mathfrak{m}\), então \(J(A) = \mathfrak{m}.\)
+ \end{itemize}  
+\end{prop*}
 \newpage
 
 \section{Aula 04 - 21/08/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item a
+  \item Morfismos entre Anéis
 \end{itemize}
+\subsection{Morfismos de Anéis}
+\begin{def*}
+  Sejam \((A, +_{A}, \cdot_{A})\) e \(B, +_{B}, \cdot_{B})\) anéis. Um mapa \(f:A\rightarrow B\) é chamado um \textbf{homomorfismo de anéis}
+(ou, neste texto, apenas morfismo), se:
+\begin{itemize}
+  \item[i)] \(f(a +_{A} a') = f(a) +_{B} f(a')\) para todo \(a, a'\in A;\)
+  \item[ii)] \(f(a \cdot_{A} a') = f(a)\cdot_{B}f(a')\) para todo \(a, a'\in A;\)
+  \item[iii)] \(f(1_{A}) = 1_{B}.\quad\square\)
+\end{itemize}
+\end{def*}
+\begin{def*}
+  Dizemos que um homomorfismo de anéis \(f:A\rightarrow B\) é:
+\begin{itemize}
+  \item[1)] \textbf{monomorfismo} se f é um morfismo injetor;
+  \item[2)] \textbf{epimorfismo} se f é um morfismo sobrejetor;
+  \item[3)] \textbf{isomorfismo} se f é um morfismo bijetor.
+\end{itemize}
+  Caso exista um isomorfismo entre dois anéis, dizemos que eles são \textbf{isomorfos}. \(\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+\begin{itemize}
+  \item[1)] A identidade \(id_{A}:A\rightarrow A\) é um isomorfismo;
+  \item[2)] Se A é subanel de B, então a inclusão \(i:A\rightarrow B\), \(i(a) = a\), é
+um monomorfismo.
+\end{itemize}
+\end{prop*}
+\begin{example}[Exercício]
+\begin{itemize}
+  \item[1)] Se A é um anel qualquer, então:
+  \begin{align*}
+      \varphi:&\mathbb{Z}\rightarrow A\\
+              &n\mapsto n1_{A},
+  \end{align*}
+  é um morfismo.
+  \item[2)] Se \(B=(0), f:A\rightarrow (0)\) é um morfismo.
+  \item[3)] Se A é um anel, então:
+  \begin{align*}
+    e:&A[x]\rightarrow A\\
+      &f(x)\mapsto f(a).
+  \end{align*}
+\end{itemize}
+\end{example}
+\begin{def*}
+  Seja \(f:A\rightarrow B\) um homomorfismo. O conjunto \(\ker{(f)}\coloneqq \{a\in A: f(a) = 0\}\)
+é chamado \textbf{núcleo} ou \textbf{kernel} de f. O conjunto \(\mathrm{Im}(f)\coloneqq f(A)\) é chamado 
+\textbf{imagem} de f. \(\square\)
+\end{def*}
+\begin{lemma*}
+  O kernel de um homomorfismo é um ideal do Anel domínio e a imagem de um homomorfismo é subanel do codomínio. Em outras palavras,
+  \[
+    \ker{(f)}\trianglelefteq{A}\quad\&\quad \mathrm{Im}(f)\text{ é subanel de }B.
+  \]
+\end{lemma*}
+\begin{proof*}
+  1.) Da Álgebra I, sabemos que \((\ker{(f)}, +)\leq (A, +).\) Seja \(a\in A\) e 
+considere \(x\in\ker{(f)}.\) Note que \(f(ax) = f(a)f(x) = f(a)0 = 0\) e, então, \(ax\in\ker{(f)}.\)
+
+  2.) Para provar este, basta usarmos as propriedades de morfismo de anéis. Segue que
+ \(f(a), f(b)\in \mathrm{Im}(f),\quad f(a) + f(b) = f(a+b)\in \mathrm{Im}(f).\) Além disso,
+ \(f(a)f(b) = f(ab)\in \mathrm{Im}(f)\) e \(1_{A}f(a) = f(1)f(a) = f(1a) = f(a).\) \qedsymbol
+\end{proof*}
+\begin{lemma*}
+  As seguintes propriedades são equivalentes:
+\begin{itemize}
+  \item[1)] f é monomorfismo;
+  \item[2)] \(\ker{(f)} = (0);\)
+  \item[3)] Se \(f(a) = 0\), então \(a=0.\)
+\end{itemize}
+\end{lemma*}
+  A prova é análoga ao caso de grupos, então será omitida.
+\begin{example}[Exercício]
+ \begin{itemize}
+  \item[1)] Os anéis com um elemento são todos isomorfos;
+  \item[2)] Todo anel com p elementos, sendo p um primo, é isomorfo à \(\mathbb{Z}/p \mathbb{Z};\)
+  \item[3)] Os anéis A e B são isomorfos se, e somente se, existirem homomorfismos
+\(f:A\rightarrow B\) e \(g:A\rightarrow B\) tais que \(f\circ{g}=id_{B}\) e \(g\circ{f} = id_{A}.\)
+ \end{itemize} 
+\end{example}
+\begin{prop*}
+  Seja \(f:A\rightarrow B\) um homomorfismo de anéis.
+\begin{itemize}
+  \item[1)] Se \(\mathfrak{j}\trianglelefteq{B}\), então \(f^{-1}(\mathfrak{j})\trianglelefteq{A}.\) Em particular, \(\ker{(f)} = f^{-1}((0))\trianglelefteq{A};\)
+  \item[2)] Se \(\mathfrak{q}\in \mathrm{Spec}(B)\), então \(f^{-1}(\mathfrak{q})\in \mathrm{Spec}(A).\)
+  \item[3)] Se A é subanel de B e \(\mathfrak{j}\trianglelefteq{B},\) então \(\mathfrak{j}\cap A \trianglelefteq{A}.\) Se \(i:A\hookrightarrow B\),
+então \(i^{-1}(\mathfrak{j})=\mathfrak{j}\cap A.\)
+\end{itemize}
+\begin{proof*}
+  1.) De fato, já sabemos que \(f^{-1}(\mathfrak{j})\leq A\) como grupo. Porém, sejam \(x\in f^{-1}(\mathfrak{j})\)
+e \(y\in A\) tais que \(f(x) = a\in \mathfrak{j}.\) Como \(\mathfrak{j}\) é ideal, \(af(y)\in \mathfrak{j},\)
+ou seja, \(f(x)f(y) = f(xy)\in \mathfrak{j}\). Logo, \(xy\in f^{-1}(\mathfrak{j})\).
+
+  2.) Se \(xy\in f^{-1}(\mathfrak{q}),\) temos \(f(xy) = f(x)f(y)\in \mathfrak{q}.\) Como \(\mathfrak{q}\) é primo, 
+então \(f(x)\in \mathfrak{q}\) ou \(f(y)\in \mathfrak{q}.\) Assim, \(x\in f^{-1}(\mathfrak{q})\) ou \(y\in f^{-1}(\mathfrak{q}).\)
+
+  3.) A primeira parte segue do fato de que subanel é um subconjunto fechado pelas operações restritas. Além disso,
+ \(i^{-1}(\mathfrak{j}) = \mathfrak{j}\cap A.\) \qedsymbol
+\end{proof*}
+\end{prop*}
+  Note que a imagem inversa de um ideal maximal não é necessariamente maximal.
+Basta considerar a inclusão \(i:\mathbb{Z}\hookrightarrow \mathbb{Q}, (0)\in \mathrm{Specm}(\mathbb{Q}),\)
+mas \(i^{-1}((0)) = (0)\not\in \mathrm{Specm}(\mathbb{Z}).\)
+\begin{lemma*}
+  Seja \(f:A\rightarrow B\) um epimorfismo de anéis.
+\begin{itemize}
+  \item[1)] Se \(\mathfrak{i}\trianglelefteq{A},\) então \(f(\mathfrak{i})\trianglelefteq{B}.\) De fato, sabemos que a imagem
+de grupo é um grupo.
+  \item[2)] Todo ideal \(\mathfrak{j}\) de B é da forma \(f(\mathfrak{i})\) para algum ideal \(\mathfrak{i}\trianglelefteq{A}.\)
+\end{itemize}
+\end{lemma*}
+\begin{proof*}
+  1.) Já sabemos que a imagem é grupo. Seja \(y\in B.\) Como f é epimorfismo, existe
+ \(a\in A\) tal que \(f(a) = y.\) Assim, se \(f(x)\in f(\mathfrak{i}), x\in \mathfrak{i}\) e 
+ \(ax\in \mathfrak{i}.\) Então, \(f(ax) = f(a)f(x) = y f(x)\in f(\mathfrak{i}).\)
+
+  2.) Seja \(\mathfrak{j}\trianglelefteq{B}.\) Com isso, \(f^{-1}(\mathfrak{j})\) é ideal de A, pelo lema anterior.
+Como f é epimorfismo, \(f(f^{-1}(\mathfrak{j})) = \mathfrak{j}.\) Assim, \(\mathfrak{j}\) é imagem de um ideal
+ \(f^{-1}(\mathfrak{j})\) de A. \qedsymbol
+\end{proof*}
 \newpage
 
 \section{Aula 05 - 23/08/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item a
+  \item Anel Quociente.
 \end{itemize}
-\newpage
+\subsection{Anel Quociente}
+\begin{def*}
+  Seja A um anel e \(\mathfrak{i}\trianglelefteq{A}.\) Como \((\mathfrak{i}, +)\leq (A, +)\) como grupos e
+como é um subgrupo normal, podemos considerar o \textbf{grupo quociente} \((A/\mathfrak{i}, +)\), em que 
+  \[
+    A/\mathfrak{i} = \{a + \mathfrak{i}: a \in A\}.\quad\square
+  \]
+\end{def*}
+  A operação de soma no grupo quociente é definida pela regra 
+  \[
+    (a+\mathfrak{i})+(b+\mathfrak{i})\coloneqq (a+b)+\mathfrak{i}.
+  \]
+  Definamos, também, uma nova operação neste grupo - a multiplicação, dada por 
+  \[
+    (a+\mathfrak{i})\cdot (b+\mathfrak{i})\coloneqq ab + \mathfrak{i}. 
+  \]
+  Precisamos mostrar que esta operação está bem definida. Com efeito, suponha que
+ \(a+\mathfrak{i} = a'+\mathfrak{i}\) e \(b+\mathfrak{i} = b'+\mathfrak{i},\) ou seja,
+  \(a'-a\in \mathfrak{i}\) e \(b-b'\in \mathfrak{i}.\) Vamos provar que 
+  \[
+    (a+\mathfrak{i})(b+\mathfrak{i}) = (a'+\mathfrak{i})(b'+\mathfrak{i}) \Longleftrightarrow ab - a'b'\in \mathfrak{i}.
+  \]
+  Note que podemos somar \(0=a'b-a'b\), a fim de obter 
+  \[
+    ab - a'b + a'b - a'b' = b(a-a') + a'(b-b')\in \mathfrak{i}.
+  \] 
+  Como \(b(a-a') + a'(b-b') = ba - a'b',\) mostramos o que queríamos. Por fim,
+defina a identidade do produto por \(1 + \mathfrak{i}.\) A partir dessa construção,
+definimos o \textbf{anel quociente A por \(\mathfrak{i}\)} como \((A/\mathfrak{i}, +, \cdot )\)
+  
+  Vale observe que, junto dessa construção, obtemos acesso canônico à definição do \textbf{mapa quociente} \(\pi :A\rightarrow A/\mathfrak{i},\)
+dado por \(\pi(a) = a + \mathfrak{i}.\) Este mapa é um morfismo de anéis sobrejetor - um epimorfismo.
+Com efeito, a sobrejetividade ocorre pois, se \(a+\mathfrak{i}\in A/\mathfrak{i}\), sabemos que \(\pi(a)= a + \mathfrak{i}.\)
+Sobre a parte do morfismo, se \(a, b\in A, \pi (a+b) = (a+b)+\mathfrak{i} = (a+\mathfrak{i})+(b+\mathfrak{i}) = \pi(a) + \pi(b)\).
+Além disso, \(\pi (ab) = ab + \mathfrak{i} = (a+\mathfrak{i})(b+\mathfrak{i}) = \pi (a)\pi (b).\)
+\begin{prop*}
+  Seja \(\mathfrak{i}\trianglelefteq{A}\) um ideal de A.
+ \begin{itemize}
+  \item[1)] Se \(\mathfrak{j}\trianglelefteq{A}\) e \(\mathfrak{i}\subseteq{\mathfrak{j}}, \) então \(\mathfrak{j}/\mathfrak{i}\trianglelefteq{A/\mathfrak{i}},\) em que 
+ \(\mathfrak{j}/\mathfrak{i}=\{a+\mathfrak{i}\}\);
+  \item[2)] Se \(\mathfrak{k}\trianglelefteq{A/\mathfrak{i}},\) então \(\mathfrak{k}=\mathfrak{j}/\mathfrak{i}\) para algum \(\mathfrak{j}\trianglelefteq{A};\)
+  \item[3)] Exite uma correspondência biunívoca entre os conjuntos:
+    \[
+      \biggl\{\mathfrak{j}\trianglelefteq{A}: \mathfrak{i}\subseteq{\mathfrak{j}}\biggr\}\longleftrightarrow \biggl\{\mathfrak{k}\trianglelefteq{A/\mathfrak{i}}\biggr\};
+    \]
+  \item[4)] Se \(\mathfrak{k}\in \mathrm{Spec}(A/\mathfrak{i}),\) então \(\mathfrak{k} = \mathfrak{p}/\mathfrak{i}\) para algum \(\mathfrak{p}\in \mathrm{Spec}(A).\)
+Assim, \(\mathrm{Spec}(A/\mathfrak{i}) = \{\mathfrak{p}/\mathfrak{i}:\mathfrak{i}\subseteq{\mathfrak{p}}\in \mathrm{Spec}(A)\}\);
+  \item[5)] Se \(\mathfrak{k}\in \mathrm{Specm}(A/\mathfrak{i}),\) então \(\mathfrak{k} = \mathfrak{m}/\mathfrak{i}\) para algum \(\mathfrak{m}\in \mathrm{Specm}(A).\)
+Com isso, \(\mathrm{Specm}(A/\mathfrak{i}) = \{\mathfrak{m}/\mathfrak{i}: \mathfrak{i}\subseteq{\mathfrak{m}}\in \mathrm{Specm}(A)\}.\)
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  1.) Se \(a+\mathfrak{i}, b+\mathfrak{i}\in \mathfrak{j}/\mathfrak{i}\) e \(r+\mathfrak{i}\in A/\mathfrak{i},\) temos
+ \(a, b\in \mathfrak{j}.\) Como \(\mathfrak{j}\) é ideal, \(a+b\in \mathfrak{j}\) e assim \((a+\mathfrak{i}) + (b+\mathfrak{i}) = (a+b)
+ +\mathfrak{i}\in \mathfrak{j}/\mathfrak{i}.\) Além disso, \(ar\in \mathfrak{j}\), tal que \((a+\mathfrak{i})(r+\mathfrak{i})=ar + \mathfrak{i}\in
+ \mathfrak{j}/\mathfrak{i}.\)
 
+ 2.) Tome \(\mathfrak{j} = \pi^{-1}(\mathfrak{k})\trianglelefteq{A}.\) Se \(\mathfrak{k}\trianglelefteq{A/\mathfrak{i}}, 0_{A/\mathfrak{i}}\in \mathfrak{k}\)
+implica que \(\mathfrak{i}\subseteq{\mathfrak{j}}.\) Como \(\pi \) é sobrejetora, podemos escrever
+ \(\mathfrak{k} = \pi(\mathfrak{j}) = \{a+\mathfrak{i}: a\in \mathfrak{j}\} = \mathfrak{j}/\mathfrak{i}.\)
+
+ 3.) Segue usando 1 e 2.
+
+ 4.) Dado \(\mathfrak{k}\in \mathrm{Spec}(A/\mathfrak{i})\), temos \(\mathfrak{k} = \mathfrak{p}/\mathfrak{i},\)
+para \(\mathfrak{i}\subseteq{\mathfrak{p}}\trianglelefteq{A}.\) Vamos, então, provar que \(\mathfrak{p}\) é primo. 
+De fato, se \(ab\in \mathfrak{p},\) então \(\pi (ab)=\pi(a)\pi(b)\in \mathfrak{k}\). Como \(\mathfrak{k}\) é primo,
+isto significa que \(\pi(a)\in \mathfrak{k}\) ou \(\pi(b)\in \mathfrak{k}\). Logo, \(a\in \mathfrak{p}\) ou \(b\in \mathfrak{p},\) do que
+segue que \(\mathfrak{p}\) é primo.
+
+  5.) Suponha que \(\mathfrak{k}\in \mathrm{Specm}(A/\mathfrak{i}).\) Com isso, \(\mathfrak{k} = \mathfrak{m}/\mathfrak{i}\)
+para algum \(\mathfrak{m}\subseteq{\mathfrak{i}}.\) Assuma que \(\mathfrak{j}/\mathfrak{i}\) é outro ideal tal que \(\mathfrak{m}/\mathfrak{i}\subseteq{\mathfrak{j}/\mathfrak{i}}.\)
+Então, \(\mathfrak{j}/\mathfrak{i} = \mathfrak{m}/\mathfrak{i}\) ou \(\mathfrak{j}/\mathfrak{i} = A/\mathfrak{i}\), isto é,
+ \(\mathfrak{j} = \mathfrak{m}\) ou \(\mathfrak{j} = A\). Portanto, \(\mathfrak{m} \) é maximal. \qedsymbol
+\end{proof*}
+\newpage
+ 
 \section{Aula 06 - 28/08/2023}
 \subsection{Motivações}
 \begin{itemize}

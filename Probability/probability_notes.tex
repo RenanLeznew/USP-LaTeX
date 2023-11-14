@@ -1363,7 +1363,13 @@ visto, fornece um coeficiente de assimetria da distribuição e o quarto diz res
   \]
   desde que a esperança seja finita para \(t\in \mathbb{R}\) em algum intervalo \(-t_{0} < t < t_{0},\) com \(t_{0} > 0.\square\)
 \end{def*}
-  A magia por trás disto está na seguinte conta:
+  A magia por trás disto está na seguinte conta: 
+  Sabemos algumas coisas: a esperança é uma função linear, ou seja, podemos tirar somas e constantes pra fora dela para simplificar contas.
+Isto sugere que a gente encontre uma forma de expressar \(e^{tx}\) como uma soma. Para fazer isso, lembre-se da série de Taylor em torno do 0 da exponencial:
+  \[
+    e^{x} = \sum\limits_{n=0}^{\infty}\frac{x^{n}}{n!}.
+  \]
+  Assim, 
  \begin{align*}
    \mathbb{E}(e^{tx}) &= \mathbb{E}\biggl(\sum\limits_{n=0}^{\infty}\frac{(tx)^{n}}{n!}\biggr)\\
                       &= \sum\limits_{n=0}^{\infty}\frac{1}{n!}\mathbb{E}[(tx)^{n}]\\
@@ -1371,5 +1377,49 @@ visto, fornece um coeficiente de assimetria da distribuição e o quarto diz res
                       &= \mathbb{E}(x^{0}) + t \mathbb{E}(x) + \frac{1}{2}t^{2} \mathbb{E}(x^{2}) + \dotsc.
  \end{align*}
   Isso dá uma sugestão de como utilizar a fórmula para encontrar o n-ésimo momento - caso sejamos capazes de zerar os termos com grau diferente de n,
-teremos o n-ésimo momento. Mas como fazer isso? Vamos testar alguns casos:
+teremos o n-ésimo momento. Mas como fazer isso? Vejamos alguns casos.
+\begin{itemize}
+  \item[t=0)] Para t = 0, \(\mathbb{E}(e^{tx}) = \mathbb{E}(e^{0}) = \mathbb{E}(1) = 1\), que é o primeiro termo da soma expandida.
+  \item[t=1)] Neste caso, \(\mathbb{E}(e^{tx}) = \mathbb{E}(e^{x}) = \mathbb{E}(x^{0}) + \mathbb{E}(x) + \frac{1}{2}\mathbb{E}(x^{2}) + \dotsc\), o que não
+é muito bom de se calcular. 
+\end{itemize}
+  No entanto, se conseguíssemos diminuir o grau do polinômio, o termo \(\mathbb{E}(x)\) ficaria livre de t, mas os outros termos não,
+então poderíamos repetir o caso t = 0. Para essa diminuição, vimos que a derivada do cálculo funciona. Com isso, 
+  \[
+    \frac{dM_{x}(t)}{dt}\biggl|_{t=0}^{}\biggr.=\frac{d \mathbb{E}(e^{tx})}{dt} = \frac{d}{dt}\biggl(\sum\limits_{n=0}^{\infty}\frac{t^{n}}{n!}\mathbb{E}(x^{n})\biggr) = \sum\limits_{n=1}^{\infty}\frac{nt^{n-1}}{n(n-1)!}\mathbb{E}(x^{n}) = \mathbb{E}(x) + t \mathbb{E}(x^{2}) + \frac{1}{2}t^{2}\mathbb{E}(x^{3}) + \dotsc = \sum\limits_{n=0}^{\infty}\frac{t^{n}}{n!}\mathbb{E}(x^{n+1}).
+  \]
+  Calculando em t = 0, temos 
+  \[
+    \frac{dM_{x}(t)}{dt}\biggl|_{t=0}^{}\biggr. = \frac{d \mathbb{E}(e^{tx})}{dt}\biggl|_{t=0}^{}\biggr. = \mathbb{E}(x) + 0 + 0 + \dotsc = \mathbb{E}(x).
+  \]
+  Em outras palavras, a primeira derivada calculada em t = 0 nos dá a esperança, ou seja, a primeira derivada em 0 fornece o primeiro momento.
+Uma pergunta natural é: será que isso funciona para outros momentos? E a resposta é que sim! Derivando a função geradora de momentos n-vezes fornece
+para nós o n-ésimo momento da variável aleatória. O raciocínio é análogo:
+  \begin{align*}
+    \frac{d^{n}M_{x}(t)}{dt^{n}}\biggl|_{t=0}^{}\biggr.=\frac{d^{n}\mathbb{E}(e^{tx})}{dt^{n}}\biggl|_{t=0}^{}\biggr. &= \frac{d^{n}}{dt^{n}}\biggl(\sum\limits_{n=0}^{\infty}\frac{t^{n}}{n!}\mathbb{E}(x^{n})\biggr)\biggl|_{t=0}^{}\biggr. \\
+                                                                                                                      &= \underbrace{0 + 0 + \dotsc + 0}_{\text{termos de grau menor que n anulam-se}} + \mathbb{E}(x^{n}) + t \mathbb{E}(x^{n+1}) + \frac{1}{2}\mathbb{E}(x^{n+2}) + \dotsc \biggl|_{t=0}^{}\biggr.\\
+                                                                                                                      &= 0 + 0 + \dotsc + 0 + \mathbb{E}(x^{n}) + 0 + 0 + \dotsc\\
+                                                                                                                      &= \mathbb{E}(x^{n}).
+  \end{align*}
+  Vejamos alguns exemplos.
+\begin{example}
+  Considere uma variável aleatória X uniformemente distribuída em um intervalo \([a, b]\). Qual é a esperança dessa variável aleatória ao longo do intervalo?
+
+  Inicialmente, perceba que 
+ \begin{align*}
+   M_{X}(t) = \mathbb{E}(e^{tX}) &= \int_{a}^{b}e^{tX}\frac{1}{b-a}dX\\
+                                 &= \frac{1}{b-a}\int_{a}^{b}e^{tx}dx\\
+                                 &= \frac{1}{b-a}\frac{e^{tX}}{t}\biggl|_{a}^{b}\biggr.\\
+                                 &= \frac{1}{t(b-a)}(e^{tb}-e^{ta}).
+ \end{align*}
+  Agora, pelo resultado obtido acima, basta derivarmos essa expressão e calculá-la em t = 0. Com efeito, 
+  \[
+    M_{X}'(t)\biggl|_{t=0}^{}\biggr. = \lim_{t\to 0}\biggl(\frac{(b e^{tb}-a e^{ta})t(b-a) - (b-a)(e^{tb}-e^{ta})}{t^{2}(b-a)^{2}}\biggr)  
+  \]
+  Pela regra de L'Hôpital,
+  \[
+    M_{X}'(t) = \lim_{t\to 0}\biggl(\frac{be^{tb} - ae^{ta} + (b^{2}e^{tb} - a ^{2}e^{ta})t - (be^{tb}-ae^{ta})}{2t(b-a)}\biggr) = \lim_{t\to 0}\biggl(\frac{(b-a)(b+a)}{2(b-a)}\biggr) = \frac{b+a}{2}.
+  \]
+\end{example}
+
 \end{document}
