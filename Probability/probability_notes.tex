@@ -1694,5 +1694,37 @@ Nesta ordem respectiva,
                   &= \frac{(1-p)[-p+2-1+p]}{p^{2}}\\
                   &= \frac{1-p}{p^{2}}.
 \end{align*}
-
+\subsection{Distribuição de Poisson}
+  O modelo de Poisson é um caso particular do modelo Binominal, no qual \(n\longrightarrow \infty\) e \(p\longrightarrow 0\).
+\begin{def*}
+  O modelo de Poisson é muito utilizado quando desejamos contar as ocorrências num intervalo de tempo, numa área, volume ou qualquer unidade
+de medidad de interesse prático. Denotamos 
+  \[
+    X\sim \mathrm{Poisson}(\lambda )\quad \text{ou}\quad X\sim \mathrm{Poi}(\lambda ).\quad\square
+  \]
+\end{def*}
+  Para este modelo, a probabilidade é dada por 
+  \[
+    \mathbb{P}(X=x) = \frac{e^{-\lambda }\lambda^{x}}{x!}.
+  \]
+  A esperança será \(\mathbb{E}(X) = \lambda \). Além disso, a função geradora de momentos pode ser calculada como 
+ \begin{align*}
+  M_{X}(t) &= \mathbb{E}(e^{tx})\\
+           &= \sum\limits_{x=0}^{\infty}e^{tx}\frac{e^{-\lambda }\lambda ^{x}}{x!}\\
+           &= e^{-\lambda }\sum\limits_{x=0}^{\infty}\frac{(e^{t}\lambda)^{x}}{x!}\\
+           &= e^{(e^{t}-1)\lambda }.
+ \end{align*}
+ Assim, o segundo momento assume o valor 
+\begin{align*}
+ M_{X}''(t) &= \frac{d^{2}}{dt^{2}}e^{(e^{t}-1)\lambda }\biggl|_{t=0}^{}\biggr. \\
+            &= \frac{d}{dt}\biggl[\lambda e^{t}e^{(e^{t}-1)\lambda }\biggr]\biggl|_{t=0}^{}\biggr.\\
+            &= \biggl[\lambda e^{t}e^{(e^{t}-1)\lambda } + \lambda e^{t}e^{(e^{t}-1)\lambda }\lambda e^{t}\biggr]\biggl|_{t=0}^{}\biggr.\\
+            &= \lambda + \lambda^{2}.
+\end{align*}
+  Portanto, a variância é 
+  \[
+    \mathrm{Var}(X) = (\lambda + \lambda^{2})-\lambda^{2} = \lambda .
+  \] 
+  Modelos nos quais a variância e a média/esperança coincidem são chamados de modelos com \textbf{equidispersão}.
  \end{document}
+
