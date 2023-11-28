@@ -14,15 +14,16 @@ Atualmente, há um Drive no qual é possível baixar os PDF's das disciplinas. [
 ### Primeiro Ano (Ⅰ)
 - [🚀Cálculo 1 (Exercícios)](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Calculus1)
 - [🚀Cálculo 2 (W.I.P)](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Calculus2)
-- [🚀Álgebra Linear (W.I.P)](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Linear%20Algebra)
+- [🚀Álgebra Linear (W.I.P)](https://github.com/RenanLeznew/USP-LaTeX/tree/master/LinearAlgebra)
 - [🚀Pré-Cálculo](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PreCalculus)
 
 ### Segundo Ano (Ⅱ)
 - [🚀Análise](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Analysis)
 - [🚀Álgebra](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Algebra)
-- [🚀Física I](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Physics%20I)
-- [🚀Física II](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Physics%20II)
-- [🚀Espaços Métricos](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Metric%20Spaces)
+- [🚀Álgebra II](https://github.com/RenanLeznew/USP-LaTeX/tree/master/AlgebraII)
+- [🚀Física I](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PhysicsI)
+- [🚀Física II](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PhysicII)
+- [🚀Espaços Métricos](https://github.com/RenanLeznew/USP-LaTeX/tree/master/MetricSpaces)
 - [🚀Probabilidade](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Probability)
 
 ### Terceiro Ano (III)
@@ -62,7 +63,7 @@ I also plan to include an english translated version of all the PDF's, though th
 
 - [🚀Calculus 2](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Calculus2)
 
-- [🚀Linear Algebra](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Linear%20Algebra)
+- [🚀Linear Algebra](https://github.com/RenanLeznew/USP-LaTeX/tree/master/LinearAlgebra)
 
 - [🚀Pre-Calculus](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PreCalculus)
 
@@ -71,11 +72,13 @@ I also plan to include an english translated version of all the PDF's, though th
 
 - [🚀Algebra](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Algebra)
 
-- [🚀Physics](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Physics%20I)
+- [🚀AlgebraII](https://github.com/RenanLeznew/USP-LaTeX/tree/master/AlgebraII)
 
-- [🚀Physics II](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Physics%20II)
+- [🚀Physics](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PhysicsI)
 
-- [🚀Metric Spaces](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Metric%20Spaces)
+- [🚀Physics II](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PhysicsII)
+
+- [🚀Metric Spaces](https://github.com/RenanLeznew/USP-LaTeX/tree/master/MetricSpaces)
 
 - [🚀Probability](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Probability)
 
