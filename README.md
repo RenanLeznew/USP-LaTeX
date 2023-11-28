@@ -25,6 +25,12 @@ Atualmente, há um Drive no qual é possível baixar os PDF's das disciplinas. [
 - [🚀Espaços Métricos](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Metric%20Spaces)
 - [🚀Probabilidade](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Probability)
 
+### Terceiro Ano (III)
+- [🚀Geometria Diferencial](https://github.com/RenanLeznew/USP-LaTeX/tree/master/DifferentialGeometry)
+- [🚀Topologia](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Topology)
+- [🚀Álgebra III](https://github.com/RenanLeznew/USP-LaTeX/tree/master/AlgebraIII)
+- [🚀EDP](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PDE)
+
 ### Curso de Verão
 - [🚀Análise Complexa](https://github.com/RenanLeznew/USP-LaTeX/tree/master/ComplexAnalysis)
 
@@ -39,7 +45,7 @@ Se você quiser entrar em contato comigo para fazer perguntas sobre os PDFs, inf
 Outros E-mails*: renan.wenzel.rw@protonmail.com, renanw.science@gmail.com, 11169472@usp.br.
 
 # ***ENGLISH VERSION***
-# USP-Math-LaTeX
+# USP-LaTeX
 A respository to upload LaTeX works done during my undergradute years in University of São Paulo - Brazil. 🌎
 
 ## About Me and the Project 🎓
@@ -48,6 +54,8 @@ Hello! My name is Renan, I'm currently going through an undegraduation on mathem
 
 If everything goes as expected, this repository shall be updated (at least) monthly.😀
 
+Recently, I've been using Github Actions to upload the PDF's to a Google Drive Folder [Click Here to Access It](https://drive.google.com/drive/u/2/folders/1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc).
+I also plan to include an english translated version of all the PDF's, though that will take a long time.
 ## Items Included Here (By year) ✒️📜
 ### First Year Ⅰ
 - [🚀Calculus 1](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Calculus1)
@@ -57,6 +65,7 @@ If everything goes as expected, this repository shall be updated (at least) mont
 - [🚀Linear Algebra](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Linear%20Algebra)
 
 - [🚀Pre-Calculus](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PreCalculus)
+
 ### Second Year Ⅱ
 - [🚀Analysis](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Analysis)
 
@@ -69,6 +78,13 @@ If everything goes as expected, this repository shall be updated (at least) mont
 - [🚀Metric Spaces](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Metric%20Spaces)
 
 - [🚀Probability](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Probability)
+
+### Terceiro Ano (III)
+- [🚀Geometria Diferencial](https://github.com/RenanLeznew/USP-LaTeX/tree/master/DifferentialGeometry)
+- [🚀Topologia](https://github.com/RenanLeznew/USP-LaTeX/tree/master/Topology)
+- [🚀Álgebra III](https://github.com/RenanLeznew/USP-LaTeX/tree/master/AlgebraIII)
+- [🚀EDP](https://github.com/RenanLeznew/USP-LaTeX/tree/master/PDE)
+
 ### Summer Course
 - [🚀Complex Analysis](https://github.com/RenanLeznew/USP-LaTeX/tree/master/ComplexAnalysis)
 
