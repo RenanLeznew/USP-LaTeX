@@ -116,8 +116,9 @@ Caso julgue necessário, contatar: renan.wenzel.rw@gmail.com}
     \item[1)] Com as operações usuais, \(\mathbb{Z}, \mathbb{R}, \mathbb{C}\) são todos anéis (comutativos).
     \item[2)] Os anéis de polinômios na variável X com coeficientes inteiros ou complexos são anéis, i.e., 
       \[
-        \mathbb{Z}[x]\coloneqq \biggl\{\sum\limits_{i=0}^{n}a_{i}x^{i}: n\in \mathbb{N}, a_{i}\in \mathbb{Z}\biggr\}\quad\&\quad \mathbb{C}[x]\coloneqq \biggl\{\sum\limits_{i=0}^{n}a_{i}x^{i}:n\in \mathbb{N}, a_{i}\in \mathbb{C}\biggr\}
+        \mathbb{Z}[x]\coloneqq \biggl\{\sum\limits_{i=0}^{n}a_{i}x^{i}: n\in \mathbb{N}, a_{i}\in \mathbb{Z}\biggr\}\quad\&\quad \mathbb{C}[x]\coloneqq \biggl\{\sum\limits_{i=0}^{n}a_{i}x^{i}:n\in \mathbb{N}, a_{i}\in \mathbb{C}\biggr\};
       \]
+
   \end{itemize}
 \end{example}
 \textbf{\underline{Observação 1}:} A unidade é única - Se \(1_{A}, e\) são duas unidades de \((A, \cdot ),\) então 
@@ -145,6 +146,11 @@ das operações de \(\mathbb{Z}\times \mathbb{Z}\) faria de \(\mathbb{Z}\times \
       um anel zero. 
 
       Portanto, denotaremos o único anel zero por \(\{0_{A}\} = (0).\)
+    \item[iv)] \(\mathbb{Z}[\sqrt[]{d}]\) é subanel de \(\mathbb{Q}[\sqrt[]{d}]\);
+    \item[v)] Se A é um anel, então 
+      \[
+        A\subseteq A[x] \subseteq A[x, y] \subseteq A[x, y, z].
+      \]
   \end{itemize}
 \end{example}
 \begin{example}[Exercícios]
@@ -176,6 +182,52 @@ Vale observar que, caso exista o inverso, ele é único.
 
   Portanto, \(A^{*}\) é um grupo. \qedsymbol
 \end{proof*}
+\begin{def*}
+  Se A é um anel, dizemos que A é um \textbf{corpo} se todo elemento não nulo de A possui um elemento inverso também em A. Em outras palavras, se \(A = A^{*}.\quad\square\)
+\end{def*}
+\begin{example}
+  Os anéis \(\mathbb{Q}, \mathbb{R}, \mathbb{C}\) são todos corpos. Para \(\mathbb{Q}\), basta notar que, dado \(0\neq \frac{p}{q}\in \mathbb{Q}\), seu inverso
+ \(\frac{q}{p} = \biggl(\frac{p}{q}\biggr)^{-1}\) é um elemento de \(\mathbb{Q}\) também. Para \(\mathbb{R},\) dado \(a\in \mathbb{R},\) segue que \(a^{-1} = \frac{1}{a}\in \mathbb{R}\).
+ Finalmente, para \(\mathbb{C},\) considere \(z = a + ib\in \mathbb{C}.\) Como 
+   \[
+     z\overline{z} = a^{2} + b^{2} = \Vert Z \Vert^{2},
+   \]
+  segue que \(z^{-1}=\frac{\overline{z}}{\Vert z \Vert^{2}}.\)
+
+  Os inteiros de Gauss, \(\mathbb{Z}[i]\), não formam um corpo, mas \(\mathbb{Q}[i]\) forma um corpo. 
+\end{example}
+\begin{example}[Exercício]
+  Seja \(d\in \mathbb{Z}\) livre de quadrados. Mostre que \(\mathbb{Q}[\sqrt[]{d}]\) é um corpo.
+\end{example}
+\begin{theorem*}
+  O conjunto \(\mathbb{Z}_{n} = \{m\mod n: m\in \mathbb{Z}\} = \{\overline{0}, \overline{1}, \dotsc , \overline{n}\}\) é um corpo se, e somente se, n é primo.
+\end{theorem*}
+  Caso p seja primo, denotamos 
+  \[
+    \mathbb{Z}_{p} = \mathbb{F}_{p},
+  \]
+  representando o corpo finito de característica (``tamanho'') p.
+
+  Seja \(\mathbb{C}_{p}\coloneqq \mathbb{F}_{p}\times \mathbb{F}_{p}\) e defina, neste conjunto, as operações 
+  \[
+    (\overline{a}, \overline{b}) + (\overline{c}, \overline{d}) = (\overline{a}+\overline{c}, \overline{b}+\overline{d})
+  \]
+e 
+  \[
+    (\overline{a}, \overline{b})\cdot (\overline{c}, \overline{d}) = (\overline{a}\overline{c} - \overline{b}\overline{d}, \overline{a}\overline{d}+\overline{b}\overline{c}).
+  \]
+Fica de exercício mostrar que \((\mathbb{C}_{p}, +, \cdot )\) é um anel com unidade multiplicativa \(1_{\mathbb{C}_{p}} = (1, 0).\) e aditiva \(0_{\mathbb{C}_{p}} = (0, 0).\)
+Além disso, dado \(a\neq 0\) em \(\mathbb{C}_{p},\) note que \(y = -\frac{b}{a}x\) implica que 
+\begin{align*}
+  &ax - b(\frac{-b}{a}x) = 1\\
+  \Rightarrow & ax + \frac{b^{2}}{a}x = 1.\\
+  \Rightarrow & (a^{2} + b^{2})x = a\\
+  \Rightarrow & x = \frac{a}{a^{2}+b^{2}} \quad\&\quad y = \frac{-b}{a^{2}+b^{2}}.
+\end{align*}
+Disto segue que \(a^{2} + b^{2}\neq 0\), ou, equivalentemente, \(1 + \biggl(\frac{b}{a}\biggr)^{2}\neq 0\). Conclui-se que \(x^{2}+1\in \mathbb{F}_{p}[x]\) não tem que ter raíz.
+\begin{prop*}
+  O conjunto \(\mathbb{C}_{p}\) é um corpo com \(p^{2}\) elementos se, e somente se, o polinômio \(x^{2}-1 \) em \(\mathbb{F}_{p}[x]\) não tem raíz em \(\mathbb{F}_{p}.\)
+\end{prop*}
 \begin{example}[Exercício]
   Prove que os grupos multiplicativos dos anéis a seguir são estes:
   \begin{itemize}
@@ -900,6 +952,34 @@ Enunciaremos a seguir dois resultados de extrema importância para a álgebra co
   \end{itemize}
 \end{prop*}
 \subsubsection{EXTRA: O Terceiro e o Quarto Teoremas do Isomorfismo}
+  Um pouco menos conhecidos, existem dois outros Teoremas do Isomorfismo em Teoria de Anéis. 
+
+\begin{theorem*}[Terceiro Teorema do Isomorfismo]
+  Seja A um anel e \(\mathfrak{i} \trianglelefteq{A}\) um ideal de A. Então, 
+ \begin{itemize}
+  \item[i)] Se B é um subanel de A, tal que \(\mathfrak{i}\subseteq B\subseteq A,\) então \(B/\mathfrak{i}\) é um
+subanel de \(A/\mathfrak{i};\)
+  \item[ii)] Todo subanel de \(A/\mathfrak{i}\) é da forma \(B/\mathfrak{i}\) para algum subanel B de A tal que
+ \(\mathfrak{i} \subseteq B \subseteq A\);
+  \item[iii)] Se \(\mathfrak{j}\) é um ideal de A tal que \(\mathfrak{i}\subseteq \mathfrak{j}\subseteq A,\) então
+ \(\mathfrak{j}/\mathfrak{i}\) é um ideal de \(A/\mathfrak{i}.\)
+  \item[iv)] Todo ideal de \(A/\mathfrak{i}\) é da forma \(\mathfrak{j}/\mathfrak{i}\) para algum ideal \(\mathfrak{j}\) tal que
+ \(\mathfrak{i}\subseteq \mathfrak{j}\subseteq R.\) 
+ \end{itemize}
+\end{theorem*}
+\begin{theorem*}[Quarto Teorema do Isomorfismo]
+  Seja \(\mathfrak{i}\) um ideal de A. A correspondência \(A\longleftrightarrow A/\mathfrak{i}\) é uma bijeção, entre os subconjuntos B de A que contêm \(\mathfrak{i}\) e o 
+conjunto de subanéis de \(A/\mathfrak{i}\), que preserva inclusões. Além disso, o subanel B com \(\mathfrak{i} \subseteq B\) é um ideal de A se, e somente se,
+ \(B/\mathfrak{i}\) é um ideal de \(A/\mathfrak{i}\).
+\end{theorem*}
+  Em algumas fontes é possível encontrar o segundo teorema do isomorfismo como outro resultado (O apresentado aqui seria parte do terceiro), relacionando o quociente da soma de ideais
+com a interseção:
+\begin{theorem*}[Segundo Teorema do Isomorfismo Alternativo]
+  Seja A um anel, S um subanel de A e \(\mathfrak{i}\) um ideal de A. Então, 
+    \[
+      \frac{(S+\mathfrak{i})}{\mathfrak{i}}\cong{\frac{S}{S\cap \mathfrak{i}}}.
+    \]
+\end{theorem*}
 \newpage
 
 \section{Aula 07 - 30/08/2023}
@@ -2768,7 +2848,7 @@ todos os ideais primos dos inteiros de Gauss:
 \begin{prop*}
   Os primos de \(\mathcal{O}_{-1} = \mathbb{Z}[i]\), a menos de associação, são:
   \begin{itemize}
-    \item[1)] Primo \(p\in \mathbb{Z}\) tal que \(p\equiv \beta  \mod 4\)
+    \item[1)] Primo \(p\in \mathbb{Z}\) tal que \(p\equiv 3 \mod 4\)
     \item[2)] \(a+ib\in \mathbb{Z}[i]\) tais que \(a^{2} + b^{2} = p, p\) primo com \(p = 2\) ou \(p\equiv 1 \mod 4\)
   \end{itemize}
 \end{prop*}
@@ -2980,4 +3060,6 @@ Com essas condições, \(\overline{g(x)} = \overline{b_{r}}x^{r} + \dotsc + \ove
  Logo, \(\overline{c_{0}} = \overline{0}\) e segue que \(\pi \) divide \(b_{0}\) e \(c_{0}\) o que ipmlica que \(\pi^{2}\) divide \(b_{0}c_{0} = a_{0}.\) Novamente, 
  contradição. Portanto, f(x) é irredutível e o resultado segue. \qedsymbol
 \end{proof*}
+\newpage
+
 \end{document}
