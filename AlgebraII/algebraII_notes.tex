@@ -266,12 +266,16 @@ Disto segue que \(a^{2} + b^{2}\neq 0\), ou, equivalentemente, \(1 + \biggl(\fra
         (a+bx)(c+dx) = ac + (bc+ad)x.
       \]
       Neste caso, \(x \cdot x = 0.\) Essa construção será futuramente conhecida como o anel quociente \(\mathbb{Q}/(x^{2}).\)
+    \item[3)] Como \(\mathbb{C}\) é um domínio, qualquer subanel de \(\mathbb{C}\) é um domínio, ou seja, \(\mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{Z}[i]\) e \(\mathbb{Q}[i]\)
+  são todos domínio.
+  \item[4)] Se \(d\in \mathbb{Z}\setminus{\{0\}}\) é livre de quadrados, então \(\mathbb{Z}[\sqrt[]{\alpha }]\leq \mathbb{Q}[\sqrt[]{\alpha }] \) são domínio.
+  \item[5)] O anel nulo é um domínio.
   \end{itemize}
 \end{example}
 \begin{example}[Exercício]
   \begin{itemize}
     \item[1)] Temos \(\mathbb{Z}/n \mathbb{Z}\) é um domínio se, e somente se, n é primo;
-    \item[2)] A é domínio se, e somente se, \(A[x]\) é domínio.
+    \item[2)] A é domínio se, e somente se, \(A[x]\) é domínio. Em particular, \(A[x_{1}, \dotsc , x_{n}]\) é um domínio.
   \end{itemize}
 \end{example}
 \begin{def*}
@@ -306,7 +310,17 @@ Em particular, se \(\mathfrak{i} \trianglelefteq{A},\) então \(\mathfrak{i}\) �
 \begin{example}
   \begin{itemize}
     \item[i)] Seja A um anel. Então, \(\{0\}\) e A são ideais de A. 
-    \item[ii)] Se \(a\in A,\) então \(\langle a \rangle\coloneqq aA = \{ra: r\in A\}\trianglelefteq{A}.\) De fato,
+    \item[ii)] Um conjunto \(\mathfrak{i}\) é um ideal de \(\mathbb{Z}\) se, e somente se, existe n inteiro tal que \(\mathfrak{i} = n \mathbb{Z}\coloneqq \{nr:r\in \mathbb{Z}\}\).
+Com efeito, suponha que \(\mathfrak{i}\) é um ideal de \(\mathbb{Z}.\) Caso \(\mathfrak{i} = \{0\},\) então \(\mathfrak{i} = 0 \mathbb{Z},\) ou seja, podemos supor que \(\mathfrak{i}\neq \{0\}.\) Seja 
+  \[
+    n = \min\{x\in \mathfrak{i}: x > 0\}.
+  \]
+  Temos \(n \mathbb{Z} = \{nr:r\in \mathbb{Z}\}\subseteq \mathfrak{i}\). Por outro lado, seja \(x\in \mathfrak{i}.\) Pelo algoritmo de divisão, existem
+ \(q, rzin \mathbb{Z}\) tais que \(x = nq + r,\) em que \( 0 \leq r \leq n\). Assim, \(r = x-nq = x + (-q)n\in \mathfrak{i}\).
+ Porém, \(r\in \mathfrak{i}\) implica que \(0\leq r < n,\) tal que \( r = 0\). Logo,
+ \(x = nq \), que pertence a \(n \mathbb{Z}.\) Conclui-se que \(\mathfrak{i}\subseteq n \mathbb{Z}\) e, portanto, \(\mathfrak{i} = n \mathbb{Z}\). O outro lado da 
+ afirmação é automático.
+    \item[iii)] Se \(a\in A,\) então \(\langle a \rangle\coloneqq aA = \{ra: r\in A\}\trianglelefteq{A}.\) De fato,
       verifiquemos os axiomas de ideal para este caso.
 
       Caso \(ra, r'a\in \langle a \rangle\), então \(ra + r'a = (r+r')a\in \langle a \rangle\), já que \(r + r'\in A.\)
@@ -315,7 +329,13 @@ Em particular, se \(\mathfrak{i} \trianglelefteq{A},\) então \(\mathfrak{i}\) �
       Portanto, \(\langle a \rangle \trianglelefteq{A}\). Em particular, \((0) = \langle 0 \rangle\) e \(\langle 1 \rangle = A.\)
   \end{itemize}
 \end{example}
-Esse último tipo do exemplo compões uma classe importante de ideais, definida a seguir
+  Vale observar que subaneis próprios de um anel, i.e., \(B\subsetneq A\), \textbf{não} são ideais, pois, se fossem então para todo \(a\in A,\) 
+    \[
+      a = a \cdot 1_{A} = a \cdot 1_{B}\in B,
+    \]
+  o que resultaria em \(A\subseteq B\), uma contradição.
+
+Em particular, o último tipo do exemplo compõe uma classe importante de ideais, definida a seguir
 \begin{def*}
   Seja A um anel. Um ideal \(\mathfrak{i}\trianglelefteq{A}\) é \textbf{principal} se existe \(a\in A\) tal que \(\langle a \rangle = \mathfrak{i}.\quad\square\)
 \end{def*}
@@ -336,6 +356,9 @@ Esse último tipo do exemplo compões uma classe importante de ideais, definida 
   Seja A um anel. Se \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A},\) mostre que \(\mathfrak{i}\cup \mathfrak{j}\trianglelefteq{A}\) se, e somente se,
   \(\mathfrak{i}\subseteq{\mathfrak{j}}\) ou \(\mathfrak{j}\subseteq{\mathfrak{i}}.\)
 \end{prop*}
+  Como contra exemplo de que é preciso a hipótese de estarem pelo menos um contido no outro, tome os ideais \(2 \mathbb{Z}\) e \(3 \mathbb{Z}\) dos inteiros.
+Então, \(2\mathbb{Z}\cup 3 \mathbb{Z} = \{2r, 3s: r, s \in \mathbb{Z}\},\) tal que é possível ver que esse conjunto não é um ideal de \(\mathbb{Z}\) usando o exemplo
+fornecido previamente que dita a forma dos ideais dos inteiros.
 \begin{def*}
   Se \(S\subseteq{A}\) é um subconjunto, o ideal gerado por S é o ideal 
   \[
@@ -563,6 +586,8 @@ ordenado do mesmo.
       n é primo ou n = 0. Assim, \(\mathrm{Spec}(\mathbb{Z}) = \{p \mathbb{Z}: p \text{ é primo}\}\cup \{(0)\}\).
     \item[3)] Dado um ideal \(\mathfrak{i} = n \mathbb{Z}\), então \(\mathfrak{i}\in \mathrm{Specm}(\mathbb{Z})\) se, e somente se,
       n é primo. Logo, \(\mathrm{Specm}(\mathbb{Z}) = \{p \mathbb{Z}:p \text{ é primo}\}\).
+    \item[4)] Mostre que \(\mathfrak{i}\trianglelefteq A\) é primo se, e somente se, para \(\mathfrak{j}, \mathfrak{k}\trianglelefteq A\) são tais que \(\mathfrak{j}\mathfrak{k}\subseteq \mathfrak{i}\), então 
+ \(\mathfrak{j}\subseteq \mathfrak{i}\) ou \(\mathfrak{k}\subseteq \mathfrak{i}\).
   \end{itemize}
 \end{prop*}
 \begin{def*}
@@ -581,6 +606,65 @@ ordenado do mesmo.
   tal que \(a\in A\setminus{\mathfrak{m}} = A^{*}.\) Portanto, \(\mathfrak{m}'\cap A^{*} \neq\emptyset\) e, assim, \(\mathfrak{m}' = A,\)
   contrariando a maximalidade de \(\mathfrak{m}.\) \qedsymbol
 \end{proof*}
+\begin{theorem*}
+  Seja A um anel não-nulo. Então, todo ideal próprio de A está contido num ideal maximal. Em particular, todo anel
+não nulo tem pelo menos um ideal maximal.
+\end{theorem*}
+\begin{proof*}
+  Seja \(\mathfrak{i}\trianglelefteq A\) e defina a coleção 
+  \[
+    \mathcal{A} \coloneqq \{\mathfrak{j}\trianglelefteq A: \mathfrak{j} \text{ é um ideal próprio de A que contém }\mathfrak{i}\}.
+  \]
+  Por definição, \(\mathfrak{i}\in \mathcal{A},\) tal que \(\mathcal{A}\neq\emptyset.\) Seja, agora, \(\{\mathfrak{j}_{l}\}_{l\in L}\) uma cadeia
+dos ideais de A que estão em \(\mathcal{A}\) de modo tal que, para todo \(l, l'\in L\),
+ \(\mathfrak{j}_{l}\subseteq \mathfrak{j}_{l'}\) ou \(\mathfrak{j}_{l'}\subseteq \mathfrak{j}\). Temos 
+  \[
+    \mathfrak{m}\coloneqq \bigcup_{l\in L}^{}\mathfrak{j}_{l}\trianglelefteq A
+  \]
+e 
+  \[
+    \mathfrak{i}\subseteq \bigcup_{l\in L}^{}\mathfrak{j}_{l}\neq A.
+  \]
+  De fato, dados \(a, b\in \mathfrak{m}\), existem \(l, l'\in L\) tais que \(a\in \mathfrak{j}_{l}, b\in \mathfrak{j}_{l'}\).
+Caso \(\mathfrak{j}_{l}\subseteq \mathfrak{j}_{l'},\) então ambos \(a, b\) pertencem a \(\mathfrak{j}_{l'},\) ou seja, \(a + b, ra\in \mathfrak{j}_{l'}.\) Caso
+seja o oposto e \(\mathfrak{j}_{l'}\subseteq \mathfrak{j}_{l}\), o raciocínio aplica-se para \(a + b, ra\in \mathfrak{j}_{l}\). Logo, \(\mathfrak{m}\trianglelefteq A.\)
+
+  Com relação à segunda propriedade, é claro que \(\mathfrak{i}\subseteq \bigcup_{l\in L}^{}\mathfrak{j}_{l}.\) Assim, se
+ \(\mathfrak{m} = A,\) então \(1\in \mathfrak{m}.\) Logo, existe \(l\in L\) tal que \(1\in \mathfrak{j}_{l'},\) donde segue que 
+  \(\mathfrak{j}_{l} = A.\) Contradição.
+
+  Em outras palavras, temos um candidato para ideal maximal. Agora, utilizando o \textbf{Lema de Zorn}\footnotemark{1} \footnotetext{Relembre o enunciado do \textbf{Lema de Kuratowski-Zorn: Suponha que um conjunto parcialmente ordenado P tem a propriedade de que toda
+  cadeia em P tem um limitante superior. Então, o conjunto P contém ao menos um elemento maximal.} Ele é equivalente ao axioma da escolha e ao princípio da boa-ordenação.}, \(\mathcal{A}\) tem
+ao menos um elemento maximal - \(\mathfrak{m}\). Para ver que este elemento maximal é, de fato, um ideal maximal, suponha que ele não é. Então, existe \(\mathfrak{j}_{i} \trianglelefteq A\) tal que 
+ \(\mathfrak{m}\subsetneq \mathfrak{j}_{i} \subsetneq A\). Como \(\mathfrak{i}\subseteq \mathfrak{j}_{i}\neq A,\) segue que \(\mathfrak{j}_{i}\in \mathcal{A}.\) Mas isto é uma contradição,
+ pois \(\mathfrak{m}\) é o elemento maximal de \(\mathcal{A}.\) Portanto, \(\mathfrak{m}\) é um ideal maximal de A. \qedsymbol
+\end{proof*}
+\begin{example}
+  Segue que \(n \mathbb{Z}\) é primo se, e somente se, n é primo ou n = 0 (isso está em um dos exercício).
+De fato, suponha que p é primo e tome \(ab\in p \mathbb{Z}.\) Então, p divide ab e, como p é primo, p divide a ou p divide b.
+Isto significa exatamente que \(a\in p\mathbb{Z}\) ou \(b\in p \mathbb{Z}.\) Caso p = 0, se \(ab\in (0),\) então
+ \(ab=0\). Sendo \(\mathbb{Z}\) um domínio, isto significa que ou a = 0, ou b = 0, tal que \(a\in (0)\) ou \(b\in (0)\).
+
+  Por outro lado, seja \(n \mathbb{Z}\) primo. Caso  n = 0, não há nada para provar, então suponha que \(n\neq 0\).
+Neste caso, suponha que n não é primo, ou seja, existem \(l, k\) diferentes de 1 e de n tais que \(n = lk\). Note que 
+ \(n = lk\in n\mathbb{Z}\), mas \(l\not\in n \mathbb{Z}\) e \(k\not\in n \mathbb{Z}.\) Contradição. Portanto, n tem que ser primo.
+\end{example}
+\begin{example}
+  Vamos olhar o caso de \(\mathbb{Z}_{(n)} = \mathbb{Z}/n \mathbb{Z}.\) Se n for primo, então \(\mathbb{Z}_{(n)}\) é um corpo, ou seja, tem apenas \((\overline{0})\) como 
+ideal maximal. Por outro lado, se n não é primo, existem l, k diferentes de 1 e de n tais que \(n = lk\). Em particular, isto significa que 
+  \[
+    \overline{0} = \overline{n} = \overline{lk} = \overline{l}\overline{k}\in (\overline{0}),
+  \]
+mas tanto \(\overline{l}\) quanto \(\overline{k}\) são diferentes de \(\overline{0}\) por serem diferentes de n. Logo, conclui-se que \((\overline{0})\) não é
+um ideal primo neste caso. Qual seria, então, a cara dos ideais primos de \(\mathbb{Z}_{n}\) para n não sendo primo?
+
+  Para responder isso, seja p um primo tal que \(p\mid n\). Como \(p\leq n, \langle \overline{p} \rangle\subseteq n \mathbb{Z}\) e p é primo, segue que 
+ \(\langle \overline{p} \rangle\) é um ideal primo. Além disso, suponha que n é tal que \(n = pl\). Isso nos permite explicitar a cara do ideal gerado pela classe
+ de equivalência de p:
+  \[
+    \langle \overline{p} \rangle = \{\overline{0}, \overline{p}, 2\overline{p}, \dotsc , (l-1)\overline{p}\}.
+  \]
+\end{example} 
 \begin{example}[Exercício]
   \begin{itemize}
     \item[1)] Mostre que todo corpo é um anel local.
@@ -593,6 +677,25 @@ ordenado do mesmo.
       Mostre que este é um anel local de \(\mathbb{K}[x].\)
   \end{itemize}
 \end{example}
+\begin{example}
+  Sejam F um corpo e seja \(A = F[x]\). Vamos mostrar que todo ideal de A é formado por um polinômio em x.
+Começando pelo caso trivial, se \(\mathfrak{i} = (0),\) então \(\mathfrak{i} = \langle 0 \rangle.\) Assim, suponha que \(\mathfrak{i}\neq (0)\)
+e seja \(f(x)\in \mathfrak{i}\) um polinômio com menor grau em \(\mathfrak{i}.\) Por um lado, é claro que \(\langle f((x) \rangle\subseteq \mathfrak{i},\)
+afinal \(f(x)\) é um elemento de \(\mathfrak{i}.\) Por outro lado, seja \(h(x)\in \mathfrak{i},\) de modo que, pelo algoritmo da divisão, existem \(q(x), r(x)\in F[x]\) tais que 
+  \[
+    h(x) = q(x)f(x) + r(x),\quad 0\leq \deg{(r)}<\deg{(f)}.
+  \]
+  Note que, em particular, \(r(x) = h(x)-q(x)f(x)\in \mathfrak{i},\) tal que \(r(x)\in \mathfrak{i}\) e \(\deg{(r)} <\deg{(f)}\) 
+imlicam que \(r(x) = 0\). Com isso, \(h(x) = q(x)f(x),\) ou seja, \(h(x)\in \langle f(x) \rangle,\) mostrando que \(\mathfrak{i}\subseteq \langle f(x) \rangle.\)
+Portanto, \(\mathfrak{i} = \langle f(x) \rangle.\)
+\end{example}
+\begin{lemma*}[Exercício]
+  Seja \(\mathfrak{i}\in F[x]\), em que F é um corpo. Então, 
+ \begin{itemize}
+  \item[1)] \(\mathfrak{i}\) é primo se \(\mathfrak{i} = 0\) ou \(\mathfrak{i} = \langle f(x) \rangle,\) com f(x) irredutível;
+  \item[2)] \(\mathfrak{i}\) é maximal se \(\mathfrak{i} = \langle f(x) \rangle,\) f(x) irredutível
+ \end{itemize}
+\end{lemma*}
 \begin{def*}
   Para um anel A, os ideais a seguir:
   \[
@@ -625,7 +728,9 @@ ordenado do mesmo.
 \section{Aula 04 - 21/08/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item Morfismos entre Anéis
+  \item Morfismos entre Anéis;
+  \item Núcleo e Imagem;
+  \item Morfismos que Preservam Estruturas.
 \end{itemize}
 \subsection{Morfismos de Anéis}
 \begin{def*}
@@ -637,6 +742,28 @@ ordenado do mesmo.
     \item[iii)] \(f(1_{A}) = 1_{B}.\quad\square\)
   \end{itemize}
 \end{def*}
+\begin{example}
+  A função \(f:\mathbb{Z}\rightarrow \mathbb{Z}_{n}\) dada por \(f(r) = \overline{r}\) é um homomorfismo de anéis. No entanto, não existe homomorfismo
+ \(g:\mathbb{Z}_{n}\rightarrow \mathbb{Z},\) pois, caso existisse, então 
+   \[
+     g(\overline{1}) = 1 \Rightarrow g(n\overline{1}) = g(\overline{0}) = 0,
+   \]
+  mas \(g(n\overline{1}) = \underbrace{g(\overline{1}) + \dotsc + g(\overline{1})}_{\text{n-vezes}} = 1 + \dotsc + 1 = n\). Contradição, pois isso
+significaria que 0 = n se g fosse um homomorfismo.
+\end{example}
+\begin{lemma*}
+  Um homomorfismo possui as seguintes propriedades:
+ \begin{itemize}
+  \item[1)] \(f(0_{A}) = 0_{B}\)
+  \item[2)] Se \(a\in A\) é inversível, então \(f(a)\) é inversível e \(f(a)^{-1} = f(a^{-1})\)
+  \item[3)] \(f(-1_{A}) = -1_{B}\)
+  \item[4)] \(f(n1_{A}) = n1_{B}\)
+  \item[5)] \(f(a_{1} + \dotsc + a_{n}) = f(a_{1})+\dotsc +f(a_{n})\) e \(f(a_{1}\cdot \dotsc \cdot a_{n}) = f(a_{1})\dotsc f(a_{n}).\)
+ \end{itemize}
+\end{lemma*}
+\begin{example}
+  Para todo anel A, \(i_{A}:A\rightarrow A,\) dada por \(i_{A}(a) = a\), é um homomorfismo.
+\end{example}
 \begin{def*}
   Dizemos que um homomorfismo de anéis \(f:A\rightarrow B\) é:
   \begin{itemize}
@@ -646,6 +773,10 @@ ordenado do mesmo.
   \end{itemize}
   Caso exista um isomorfismo entre dois anéis, dizemos que eles são \textbf{isomorfos}. \(\square\)
 \end{def*}
+\begin{example}
+  A função de antes, \(f:\mathbb{Z}\rightarrow \mathbb{Z}_{n}, r \mapsto \overline{r},\) é um epimorfismo, mas não é mono (note que 0, n e qualquer múltiplo de n
+são mapeados para o mesmo elemento).
+\end{example}
 \begin{prop*}[Exercício]
   \begin{itemize}
     \item[1)] A identidade \(id_{A}:A\rightarrow A\) é um isomorfismo;
@@ -664,7 +795,7 @@ ordenado do mesmo.
     \item[2)] Se \(B=(0), f:A\rightarrow (0)\) é um morfismo.
     \item[3)] Se A é um anel, então:
       \begin{align*}
-        e:&A[x]\rightarrow A\\
+        \varphi_{a}:&A[x]\rightarrow A\\
           &f(x)\mapsto f(a).
       \end{align*}
   \end{itemize}
@@ -688,6 +819,17 @@ ordenado do mesmo.
   \(f(a), f(b)\in \mathrm{Im}(f),\quad f(a) + f(b) = f(a+b)\in \mathrm{Im}(f).\) Além disso,
   \(f(a)f(b) = f(ab)\in \mathrm{Im}(f)\) e \(1_{A}f(a) = f(1)f(a) = f(1a) = f(a).\) \qedsymbol
 \end{proof*}
+\begin{example}
+  Seja A um anel e considere \(A[x].\) Dado \(a\in A\), defina o mapa
+ \begin{align*}
+  \varphi_{a}:&A[x]\rightarrow A\\
+              &f(x)\mapsto f(a).
+ \end{align*}
+ Note que, assim, \(\ker{(\varphi_{a})} = \{f(x)\in A[x]: f(a) = 0\} \trianglelefteq F[x].\) Ainda mais, esse ideal é principal, sendo gerado por 
+  \[
+    \ker{\varphi_{a}} = \langle (x-a) \rangle = \{g(x)\in F[x]: (x-a)\mid g(x)\}.
+  \]
+\end{example}
 \begin{lemma*}
   As seguintes propriedades são equivalentes:
   \begin{itemize}
@@ -725,9 +867,35 @@ A prova é análoga ao caso de grupos, então será omitida.
     \(i^{-1}(\mathfrak{j}) = \mathfrak{j}\cap A.\) \qedsymbol
   \end{proof*}
 \end{prop*}
-Note que a imagem inversa de um ideal maximal não é necessariamente maximal.
+\begin{example}[Exercício]
+  Seja A um anel. Se \(\mathfrak{p}\trianglelefteq A\) é um ideal primo de A, então 
+  \[
+    \mathfrak{p}[x] = \{a_{0} + a_{1}x + \dotsc + a_{n}x^{n}:p\mid a_{i}\}
+  \]
+é um ideal primo de A[x].
+\end{example}
+\begin{example}
+  Defina \(\alpha :\mathbb{Z}[x]\rightarrow \mathbb{F}_{p}[x]\) por 
+  \[
+    \alpha \biggl(\sum\limits_{j=0}^{n}a_{j}x^{j}\biggr) = \overline{f(x)}\coloneqq \sum\limits_{j=0}^{n}\overline{a}_{j}x^{n}.
+  \]
+  Com isso, \(\ker{(\alpha )} = p \mathbb{Z}[x] = \{a_{0} + a_1x + \dotsc +a_{n}x^{n}: p\mid a_{i}\}\). Note que 
+\(\ker{(\alpha )} = f^{-1}((0))\) e, como \(\mathbb{F}_{p}[x]\) é um domínio, segue que \((0)\trianglelefteq \mathbb{F}_{p}[x]\) é um ideal primo.
+Pela proposição recém-provada, isso quer dizer que \(\ker{(\alpha )}\) é um ideal primo. No entanto, ele não é maximal, pois 
+  \[
+    (p \mathbb{Z})[x] \subsetneq \langle p \mathbb{Z}, x \rangle = p \mathbb{Z} + \langle x \rangle \subsetneq \mathbb{Z}[x].
+  \]
+\end{example}
+  Note que a imagem inversa de um ideal maximal não é necessariamente maximal.
 Basta considerar a inclusão \(i:\mathbb{Z}\hookrightarrow \mathbb{Q}, (0)\in \mathrm{Specm}(\mathbb{Q}),\)
 mas \(i^{-1}((0)) = (0)\not\in \mathrm{Specm}(\mathbb{Z}).\)
+
+  Além disso, a imagem de um ideal não é, em geral, um ideal. Para ver isso, basta considerar \(\varphi_{0}:A[x]\rightarrow A[x].\)
+  Assim, \(\mathrm{Im}(\varphi_{0}) = A\subseteq A[x],\) tal que 
+  \[
+    f(\mathfrak{i}) = \mathrm{Im}(\varphi_{0}) = A
+  \]
+não é um ideal de A[x]. No entanto, é possível pôr uma condição em f para que ocorra o desejado:
 \begin{lemma*}
   Seja \(f:A\rightarrow B\) um epimorfismo de anéis.
   \begin{itemize}
@@ -781,6 +949,109 @@ Note que podemos somar \(0=a'b-a'b\), a fim de obter
 Como \(b(a-a') + a'(b-b') = ba - a'b',\) mostramos o que queríamos. Por fim,
 defina a identidade do produto por \(1 + \mathfrak{i}.\) A partir dessa construção,
 definimos o \textbf{anel quociente A por \(\mathfrak{i}\)} como \((A/\mathfrak{i}, +, \cdot )\)
+\begin{example}
+  Tome o ideal \(3 \mathbb{Z}\) de \(\mathbb{Z}.\) Neste caso, 
+    \[
+      \mathbb{Z}/3 \mathbb{Z} = \{\overline{r} = r + 3 \mathbb{Z}:r\in \mathbb{Z}\} = \{\overline{0}, \overline{1}, \overline{2}\}.
+    \]
+Note que \(2\not\in \mathbb{Z}^{*},\) mas \(\overline{2}\cdot \overline{2} = \overline{1}\) e, portanto, \(\overline{2} = (\overline{2})^{-1},\) ou seja,
+ \(\overline{2}\in (\mathbb{Z}/3 \mathbb{Z})^{*}.\)
+
+  Vamos olhar para este exemplo com uma visão mais ampla. Considere, para \(n\in \mathbb{Z},\) o anel quociente 
+  \[
+    \mathbb{Z}/n \mathbb{Z} = \{\overline{0}, \overline{1}, \overline{2}, \dotsc , \overline{n-1}\}.
+  \]
+  Com isso, o mapa 
+ \begin{align*}
+  \varphi : &\mathbb{Z}/n \mathbb{Z}\rightarrow \mathbb{Z}_{1}\\
+            &r + n\mathbb{Z}\mapsto \overline{r}
+ \end{align*}
+ é um isomorfismo de anéis.
+\end{example}
+\begin{example}
+  Considere o anel de polinômios \(\mathbb{R}[x]\) e seu ideal \(\langle x^{2}+1 \rangle\trianglelefteq \mathbb{R}[x]\).
+Como \(x^{2}+1\) é irredutível (afinal, não tem solução em \(\mathbb{R}\)), ele é um ideal primo, cuja forma é 
+  \[
+    \langle x^{2}+1 \rangle = \{g(x)\cdot (x^{2}+1):g(x)\in \mathbb{R}[x]\}.
+  \]
+Neste exemplo, estudaremos o anel quociente 
+  \[
+    \frac{\mathbb{R}[x]}{\langle x^{2}+1 \rangle} = \{\overline{a} + \overline{b}x: a, b\in \mathbb{R}\}.
+  \]
+  Dado \(f(x)\in \mathbb{R}[x],\) o algoritmo da divisão garante que existem \(q(x), r(x)\in \mathbb{R}[x]\) tais que 
+ \(f(x) = q(x)(x^{2}+1) + r(x),\) em que \(0 \leq \deg{(r(x))} < \deg{(x^{2}+1)} = 2,\) tal que r tem forma \(r(x) = ax + b\).
+ Com isso, 
+\begin{align*}
+  \overline{f(x)} &= \overline{q(x)}\cdot \overline{(x^{2}+1)} + \overline{r(x)}\\
+                  &= \overline{r(x)} = \overline{a}+\overline{b}x.
+\end{align*}
+  Em particular, como consquência disso, colocando r(x) = 0 e q(x) = 1, segue que 
+    \[
+      \overline{x^{2}+1} = \overline{0} \Rightarrow \overline{x}^{2} + \overline{1} = \overline{0} \Rightarrow \overline{x}^{2} = -\overline{1}.
+    \]
+Isso induz a existência de um isomorfismo entre o corpo dos complexos e o quociente \(\mathbb{R}[x]/\langle x^{2}+1 \rangle\), explicitado como (exercício)
+\begin{align*}
+  \varphi :&\mathbb{C}\rightarrow \mathbb{R}[x]/\langle x^{2}+1 \rangle\\
+           &a + bi\mapsto \overline{a} + \overline{b}x.
+\end{align*}
+\end{example}
+\begin{prop*}[Exercício]
+  Seja F um corpo, \(A\neq 0\) um anel e \(\varphi : F\rightarrow A\) um homomorfismo. Então, \(\varphi \) é monomorfismo.
+\end{prop*}
+\begin{example}
+  Vejamos uma construção parecida com a do exemplo anterior. Desta vez, considere o anel quociente 
+  \[
+    \frac{\mathbb{R}[x]}{\langle x^{2}-1 \rangle} = \{\overline{a}+\overline{b}x:a, b\in \mathbb{R}\}.
+  \]
+  Mostraremos que \(\mathbb{R}[x]/\langle x^{2}-1 \rangle\cong{\mathbb{R}\times \mathbb{R}}\), com as operações definidas por
+  \[
+    \left\{\begin{array}{ll}
+        (a, b) + (c, d) = (a + c, b + d)\\
+        (a, b) \cdot (c, d) = (ac, bd).
+    \end{array}\right.
+  \]
+  Para isso, definiremos a função \(\varphi :\mathbb{R}[x]/\langle x^{2}-1 \rangle\rightarrow \mathbb{R}\times \mathbb{R}\) dada por \(\overline{f(x)}\mapsto (f(1), f(-1)).\)
+
+\underline{ \(\varphi \)\textbf{ está bem-definido}:} Tome dois elementos com classes de equivalência iguais, ou seja,
+ \(\overline{f}(x) = \overline{g}(x)\). Então, \(f(1) = g(1) \) e \(f(-1) = g(-1)\). Com isso,
+  \(f(x) - g(x)\in \langle x^{2} - 1 \rangle,\) tal que \(f(x) - g(x) = q(x)(x^{2}-1)\). Logo, 
+  \[
+    f(1) - g(1) = q(1)(1-1) = 0
+  \]
+e 
+  \[
+    f(-1)-g(-1) = 0.
+  \]
+
+\underline{\(\varphi\) \textbf{ é homomorfismo}:} Para isso, basta perceber que 
+\begin{align*}
+  \varphi (\overline{f(x)} + \overline{g(x)}) &= \varphi (\overline{f(x)+g(x)}) \\
+                                              &= (f(1) + g(1), f(-1)+g(-1))\\
+                                              &= (f(1), f(-1)) + (g(1), g(-1))\\
+                                              &= \varphi (\overline{f(x)}) + \varphi (\overline{g(x)}).
+\end{align*}
+
+\underline{\(\varphi \)\textbf{ é epimorfismo}:} Dado \((a, b)\in \mathbb{R}\times \mathbb{R},\) temos 
+  \[
+    f(x) = \frac{(a-b)}{2}x + \frac{a+b}{2}. 
+  \]
+
+\underline{\(\varphi \)\textbf{ é monomorfismo}:} Observe que 
+  \[
+    \varphi (\overline{f}(x)) = 0 = (0, 0) \Rightarrow (f(1), f(-1)) = (0, 0) \Rightarrow f(1) = f(-1) = 0.
+  \]
+  Disto, segue que 
+    \[
+    \left.\begin{array}{ll}
+          f(1) = 0 \Rightarrow x-1\mid f(x)\\
+          f(-1) = 0 \Rightarrow x+1\mid f(x)
+        \end{array}\right\{ \Rightarrow x^{2}-1 = (x-1)(x+1)\mid f(x).
+    \]
+Portanto, \(f(x)\in \langle x^{2}-1 \rangle,\) ou seja, \(\overline{f(x)} = 0.\)
+\end{example}
+\begin{example}[Exercícios]
+  Mostre que \(\langle x^{2} + 1 \rangle \trianglelefteq \mathbb{R}[x]\) é maximal e que \(\langle x^{2}-1 \rangle \trianglelefteq \mathbb{R}[x]\) não é primo. 
+\end{example}
 
 Vale observe que, junto dessa construção, obtemos acesso canônico à definição do \textbf{mapa quociente} \(\pi :A\rightarrow A/\mathfrak{i},\)
 dado por \(\pi(a) = a + \mathfrak{i}.\) Este mapa é um morfismo de anéis sobrejetor - um epimorfismo.
@@ -826,6 +1097,19 @@ Além disso, \(\pi (ab) = ab + \mathfrak{i} = (a+\mathfrak{i})(b+\mathfrak{i}) =
   Então, \(\mathfrak{j}/\mathfrak{i} = \mathfrak{m}/\mathfrak{i}\) ou \(\mathfrak{j}/\mathfrak{i} = A/\mathfrak{i}\), isto é,
   \(\mathfrak{j} = \mathfrak{m}\) ou \(\mathfrak{j} = A\). Portanto, \(\mathfrak{m} \) é maximal. \qedsymbol
 \end{proof*}
+\begin{example}
+  Considere o ideal \(n \mathbb{Z}\subseteq \mathbb{Z}\) e o anel quociente \(\mathbb{Z}/n \mathbb{Z}.\)
+Um ideal \(\mathfrak{j}\trianglelefteq \mathbb{Z}/n \mathbb{Z}\) do anel quociente terá a forma 
+  \[
+    \mathfrak{j} = \mathfrak{i}/n \mathbb{Z},\quad n \mathbb{Z}\subseteq \mathfrak{i}\subseteq \mathbb{Z}
+  \]
+  Seja \(\mathfrak{i} = l \mathbb{Z}\) satisfazendo essa condição. Consequentemente, \(l\mid n\). Assim, os ideais de
+ \(\mathbb{Z}/n \mathbb{Z}\) são da forma \(\frac{l \mathbb{Z}}{n \mathbb{Z}},\) em que \(l\mid n\). Por exemplo, os ideais
+ de \(\mathbb{Z}_{20} = \mathbb{Z}/20 \mathbb{Z}\) serão 
+   \[
+     (0) = \frac{20 \mathbb{Z}}{20 \mathbb{Z}},\quad \frac{10 \mathbb{Z}}{20 \mathbb{Z}}, \quad \frac{5 \mathbb{Z}}{20 \mathbb{Z}},\quad \frac{4 \mathbb{Z}}{20 \mathbb{Z}}, \quad \frac{2 \mathbb{Z}}{20 \mathbb{Z}}, \quad\&\quad \frac{\mathbb{Z}}{20 \mathbb{Z}}.
+   \]
+\end{example}
 \newpage
 
 \section{Aula 06 - 28/08/2023}
@@ -861,6 +1145,28 @@ Além disso, \(\pi (ab) = ab + \mathfrak{i} = (a+\mathfrak{i})(b+\mathfrak{i}) =
   segue que \(\mathfrak{k} = (\mathfrak{i})\) ou \(\mathfrak{k} = A/\mathfrak{i}.\) Assim, \(\mathfrak{j} = \mathfrak{i}\) ou \(\mathfrak{j} = A.\)
   Portanto, \(\mathfrak{i}\) é maximal. \qedsymbol
 \end{proof*}
+\begin{example}
+\begin{itemize}
+  \item[1)] Se p é um primo, então \(\mathbb{Z}/p \mathbb{Z}\) é um corpo, ou seja, \(p \mathbb{Z}\) é um ideal maximal de \(\mathbb{Z}.\)
+  \item[2)] Seja \(\mathfrak{i} = \langle 2 \rangle - 2 \mathbb{Z}\subseteq \mathbb{Z}\) e considere o anel 
+  \[
+    \mathfrak{i}[x] \trianglelefteq \mathbb{Z}[x],\quad  \mathfrak{i}[x]\coloneqq \{a_{0}+a_{1}x+\dotsc +a_{n}x^{n}\in \mathbb{Z}[x]: a_{i}\in \mathfrak{i}, n\in \mathbb{N}.\}
+  \]
+  Vamos verificar que o mapa 
+  \[
+    \varphi : \frac{\mathbb{Z}[x]}{\mathfrak{i}[x]}\rightarrow \biggl(\frac{\mathbb{Z}}{\mathfrak{i}}\biggr)[x] = \mathbb{F}_{2}[x]
+  \]
+  dado por \(\varphi \biggl(\sum\limits_{i=0}^{n}a_{i}x^{i}\biggr) = \sum\limits_{i=0}^{n}\overline{a_{i}}x^{i}\) é um isomorfismo. Como \(\mathbb{F}_{2}[x]\) é um domínio,
+pelo teorema anterior, \(\mathfrak{i}[x]\) é um ideal primo de \(\mathbb{Z}[x]\).
+\end{itemize}
+\end{example}
+\begin{prop*}[Exercício]
+  Seja \(\mathfrak{p}\) um ideal primo de A. Mostre que 
+  \[
+    \frac{A[x]}{\mathfrak{p}[x]}\cong{\biggl(\frac{A}{\mathfrak{p}}\biggr)}[x]
+  \]  
+  e que \(\mathfrak{p}[x]\) é um ideal primo de A[x].
+\end{prop*}
 \begin{example}[Exercício]
   Seja p um número primo. Mostre que:
   \begin{itemize}
@@ -939,6 +1245,46 @@ Enunciaremos a seguir dois resultados de extrema importância para a álgebra co
 
   Portanto, podemos usar o primeiro teorema do isomorfismo e obtemos o resultado desejado. \qedsymbol
 \end{proof*}
+ \begin{example}
+ Seja \(\mathfrak{p}\) um primo e \(\mathbb{Z}_{(p)} = \biggl\{\frac{a}{b}\in \mathbb{Q}:a, b\in \mathbb{Z}, \text{ p não divide b.}\biggr\} \subseteq \mathbb{Q}\).
+ Note que \(\mathbb{Z}_{(p)}\) é subanel de \(\mathbb{Q}.\) Além disso, o conjunto 
+  \[
+    \mathfrak{i}_{(p)}=\biggl\{\frac{a}{b}\in \mathbb{Q}: p\mid a, p \text{ não divide b}\biggr\}
+  \]
+  é um ideal de \(\mathbb{Z}_{(p)}\). Vamos estudar este ideal por meio do Teorema do Isomorfismo. Defina a função 
+ \begin{align*}
+  \varphi : &\mathbb{Z}_{(p)}\rightarrow \mathbb{F}_{p} = \mathbb{Z}/p \mathbb{Z}\\
+            &\frac{a}{b}\mapsto \frac{\overline{a}}{\overline{b}} = \overline{a}\overline{b}^{-1}.
+ \end{align*}
+ Em particular, como p não divide b, \(\mathrm{mdc}(p, b) = 1,\) tal que existem r, s em \(\mathbb{Z}\) que satisfazem 
+  \[
+    rp + sb = 1 \Rightarrow \overline{rp + sb} = \overline{1}
+  \]
+  Como o anel quociente é \(\mathbb{Z}/p \mathbb{Z}\), isto quer dizer que 
+  \[
+    \overline{r}\overline{0} + \overline{s}\overline{b} = \overline{1} \Rightarrow \overline{s}\overline{b} = \overline{1},
+  \]
+  tal que \(\overline{b}\) tem inverso multiplicativo no anel quociente. Além disso, \(\varphi \) é epimorfismo. Vamos mostrar que 
+ \(\ker{(\varphi )} = \mathfrak{i}_{(p)}.\) 
+
+  Com efeito, para ver que \(\mathfrak{i}_{(p)}\subseteq \ker{(\varphi )},\) dado \(\frac{a}{b}\in \mathfrak{i}_{(p)},\) segue que \(p\mid a\) e p não divide b, tal que 
+ \(\overline{a} = \overline{0}\) e \(\overline{b}\neq \overline{0}.\) Com isso, 
+  \[
+    \varphi \biggl(\frac{a}{b}\biggr) = \frac{\overline{a}}{\overline{b}} = \frac{\overline{0}}{\overline{b}} = \overline{0}.
+  \]
+  Consequentemente, \(\frac{a}{b}\in \ker{(\varphi )}\) e \(\mathfrak{i}_{(p)}\subseteq \ker{(\varphi )}\).
+
+  Por outro lado, suponha que \(\varphi \biggl(\frac{a}{b}\biggr)=\overline{0}\), tal que \(\frac{\overline{a}}{\overline{b}} = \overline{0}\). Em particular, isto significa que 
+  \(\overline{a} = \overline{0}\) e que, então, \(p\mid a\), ou seja, \(\frac{a}{b}\in \mathfrak{i}_{(p)},\) mostrando que \(\ker{(\varphi )}\subseteq \mathfrak{i}_(p)\).
+
+  Assim, mostramos que \(\ker{(\varphi )} = \mathfrak{i}_{(p)}.\) Agora, pelo Teorema do Isomorfismo,
+  \[
+    \mathbb{Z}_{(p)}/\mathfrak{i}_{(p)} \cong{\mathbb{Z}_{(p)}/\ker{(\varphi )}} \cong{\mathbb{F}_{p}}.
+  \]
+  Logo, \(\mathfrak{i}_{(p)}\) é um ideal maximal de \(\mathbb{Z}_{(p)}\).
+
+  Podemos levar isto um pouco mais a fundo e concluiremos que \(\mathbb{Z}_{(p)}\) tem apenas dois ideais primos, sendo eles \((0)\) e \(\mathfrak{i}_{(p)}=\langle \mathfrak{p}/\mathfrak{i} \rangle.\)
+ \end{example}
 \begin{prop*}[Exercício]
   Sejam \(f:A\rightarrow B\) um morfismo de anéis e \(\mathfrak{i}\trianglelefteq{A}.\)
   \begin{itemize}
@@ -1537,7 +1883,7 @@ Uma consequência deste raciocínio é que um polinômio complexo \(f(x)\in \mat
 \begin{lemma*}
   Se \(f(x)\in A[x]\) é mônico, então existem polinômios mônicos irredutíveis \(f_{1}, \cdots, f_{m}\in A[x]\) tais que 
   \[
-    f(x) = f_{1}(x)^{r_{1}}\cdot \cdots \cdot f_{m}(x)^{r_{m}}.
+    f(x) = f_{1}(x)^{r_{1}}\cdot \dotsc \cdot f_{m}(x)^{r_{m}}.
   \]
 \end{lemma*}
 \begin{proof*}
@@ -1674,13 +2020,13 @@ Agora, vejamos o \textbf{Algoritmo da Divisão:}
   \[
     \deg{p}\geq \deg{r} \Rightarrow \deg{f} + \deg{p} > \deg{r'} + \deg{r} \Rightarrow \deg{fp} > \deg{rr'},
   \]
-  o que é um absurdo. O mesmo vale para \(\deg{p}\geq r'.\) Escrevamos \(p = \alpha p_{1}^{\alpha_{1}}\cdot \cdots \cdot p_{r}^{\alpha_{r}},\) 
+  o que é um absurdo. O mesmo vale para \(\deg{p}\geq r'.\) Escrevamos \(p = \alpha p_{1}^{\alpha_{1}}\cdot \dotsc \cdot p_{r}^{\alpha_{r}},\) 
   em que \(p_{1}, \cdots, p_{r}\) são irredutíveis (isso é possível pois F é corpo). Assim, \(p_{i}\mid fp = rr'.\) 
   Como \(\deg{p} < \deg{r} < \deg{f}\) e \(\deg{p_{i}}\leq \deg{p},\) podemos aplicar a hipótese de indução em \(p_{i}\) e então
   \(p_{i}\mid r\) ou \(p_{i}\mid r'\) para cada \(i=1, \cdots, r\). Suponha, sem perda de generalidade, que \(p_{1}\mid r,\) tal que 
   \(r=p_{1}r_{1}\). Consequentemente, 
   \[
-    fp = rr' \Rightarrow fp_{1}^{\alpha_{1}}\cdot \cdots \cdot p_{r}^{\alpha_{r}} = p_{1}rr' \Rightarrow fp_{1}^{\alpha_{1} -1}\cdot \cdots \cdot p_{r}^{\alpha_{r}} = r_{1}r.
+    fp = rr' \Rightarrow fp_{1}^{\alpha_{1}}\cdot \dotsc \cdot p_{r}^{\alpha_{r}} = p_{1}rr' \Rightarrow fp_{1}^{\alpha_{1} -1}\cdot \cdots \cdot p_{r}^{\alpha_{r}} = r_{1}r.
   \]
   Pode-se continuar esse processo até sobrarem os termos \(p_{i}\)'s, chegando em
   \(f = r_{t}r_{t}'\) com \(\deg{r_{t}}\geq 1\) e \(\deg{r_{t}'}\geq 1\) (pois \(\deg{p} < \deg{r}, \deg{r'}\)). Isso é uma contradição
@@ -1692,31 +2038,31 @@ Agora, vejamos o \textbf{Algoritmo da Divisão:}
 \begin{prop*}
   Seja F um corpo e \(f(x)\in F[x]\). Então, temos uma decomposição única 
   \[
-    f(x) = af_{1}^{\alpha_{1}}(x)\cdot \cdots \cdot f_{r}^{\alpha_{r}}(x),
+    f(x) = af_{1}^{\alpha_{1}}(x)\cdot \dotsc \cdot f_{r}^{\alpha_{r}}(x),
   \]
   com \(a\in F\) e \(f_{1}, \cdots, f_{r}\in F[x]\) polinômios irredutíveis e mônicos.
 \end{prop*}
 \begin{proof*}
   Já provamos a existência da decomposição para polinômios mônicos. Como F é corpo, existe \(b\in F\) tal que 
-  \(bf(x)\) é mônico (basta tomarmos \(b=a^{-1},\) em que a é o coeficiente líder de f). Então, \(bf(x) = f_{1}^{\alpha_{1}}\cdot \cdots \cdot f_{r}^{\alpha_{r}}\)
-  e assim \(f(x) =af_{1}^{\alpha_{1}}\cdot \cdots \cdot f_{r}^{\alpha_{r}}.\)
+  \(bf(x)\) é mônico (basta tomarmos \(b=a^{-1},\) em que a é o coeficiente líder de f). Então, \(bf(x) = f_{1}^{\alpha_{1}}\cdot \dotsc \cdot f_{r}^{\alpha_{r}}\)
+  e assim \(f(x) =af_{1}^{\alpha_{1}}\cdot \dotsc \cdot f_{r}^{\alpha_{r}}.\)
 
   Provemos agora a unicidade. Seja 
   \[
-    f(x)=af_{1}^{\alpha_{1}} \cdot \cdots \cdot f_{r}^{\alpha_{r}} = bg_{1}^{\beta_{1}} \cdot \cdots \cdot g_{s}^{\beta_{s}}.
+    f(x)=af_{1}^{\alpha_{1}} \cdot \dotsc \cdot f_{r}^{\alpha_{r}} = bg_{1}^{\beta_{1}} \cdot \cdots \cdot g_{s}^{\beta_{s}}.
   \]
   Mostraremos que \(\{f_{1}, \cdots, f_{r}\} = \{g_{1}, \cdots, g_{s}\}\) e \(\{\alpha_{1}, \cdots, \alpha_{r}\} = \{\beta_{1}, \cdots, \beta_{s}\}\).
   Se \(\deg{f} = 1, f = a(x-\alpha ) = b(x-\beta )\) e \(ax -a\alpha =bx - b\beta,\) tal que \(a=b\) e \(\alpha =\beta .\)
 
   Agora, suponha que o resultado vale para grau menor que n e \(\deg{f} = n.\) Então: 
   \[
-    f_{1}\mid f(x) \Rightarrow f_{1}\mid bg_{1}^{\beta_{1}}\cdot \cdots g_{s}^{\beta_{s}} \Rightarrow \exists j: f_{1}\mid g_{j}.
+    f_{1}\mid f(x) \Rightarrow f_{1}\mid bg_{1}^{\beta_{1}}\cdot \dotsc g_{s}^{\beta_{s}} \Rightarrow \exists j: f_{1}\mid g_{j}.
   \]
   Como \(g_{j}\) é irredutível e mônico, se \(g_{j}=f_{1}\), existe \(h_{j}\) tal que \(g_{j} = h_{j}f_{1}.\) Se \(\deg{(h_{j})}\geq 1, g_{j}\) não seria
   irredutível e, então, \(h_{j} = a\in F.\) Mas, se \(a\neq1,\) como \(f_{1}\) é mônico, \(g_{j}\) não seria mônico. Logo, \(h_{j} = 1\) e \(g_{j} = f_{1}.\) 
   Podemos reordenar tal que \(f_{1} = g_{1}. \) Assim, 
   \[
-    af_{2}^{\alpha_{2}}\cdot \cdots \cdot f_{r}^{\alpha_{r}} = bg_{2}^{\beta_{2}} \cdot \cdots \cdot g_{s}^{\beta_{s}}.
+    af_{2}^{\alpha_{2}}\cdot \dotsc \cdot f_{r}^{\alpha_{r}} = bg_{2}^{\beta_{2}} \cdot \dotsc \cdot g_{s}^{\beta_{s}}.
   \]
   Portanto, pela hipótese indutiva, o resultado segue. \qedsymbol
 \end{proof*}
@@ -1991,9 +2337,9 @@ Além disso, note que se \(e_{\alpha }\) é injetor, então \(F[x]\cong{F[\alpha
     \item[2)] Seja \(K/\mathbb{C}\) uma extensão algébrica sobre \(\mathbb{C}.\) Então, \(K = \mathbb{C}.\) Com efeito, seja \(\alpha \in K\)
       e \(f(x)\in \mathbb{C}[x]\) não nulo e mônico tal que \(f(\alpha ) = 0\). Pelo Teorema Fundamental da Álgebra, podemos escrever 
       \[
-        f(x) = a(x-\alpha_{1})\cdot \cdots \cdot (x-\alpha_{n}),
+        f(x) = a(x-\alpha_{1})\cdot \dotsc \cdot (x-\alpha_{n}),
       \]
-      para algum \(a\in \mathbb{C}\setminus{\{0\}},\alpha_{i}\in \mathbb{C}\) e \(n = \deg{f}.\) Assim, \(0 = f(\alpha ) = a(\alpha -\alpha_{1})\cdot \cdots(\alpha -\alpha_{n})\)
+      para algum \(a\in \mathbb{C}\setminus{\{0\}},\alpha_{i}\in \mathbb{C}\) e \(n = \deg{f}.\) Assim, \(0 = f(\alpha ) = a(\alpha -\alpha_{1})\cdot \dotsc(\alpha -\alpha_{n})\)
       e, como K é domínio, existe i tal que \((\alpha -\alpha_{i})=0,\) o que significa que \(\alpha=\alpha_{i}\in \mathbb{C}.\) Logo, \(\ker{e_{\alpha }}=\langle x-a \rangle\) e \([K:\mathbb{C}] = 1.\)
   \end{itemize}
 \end{example}
@@ -2103,7 +2449,7 @@ Além disso, note que se \(e_{\alpha }\) é injetor, então \(F[x]\cong{F[\alpha
 \begin{lemma*}
   Se K é algebricamente fechado, então todo \(f(x)\in K[x]\) fatora-se na forma 
   \[
-    f(x) = (x-a_{1})^{r_{1}}\cdot \cdots \cdot (x-a_{n})^{r_{n}},
+    f(x) = (x-a_{1})^{r_{1}}\cdot \dotsc \cdot (x-a_{n})^{r_{n}},
   \]
   em que \(a_{1}, \cdots, a_{n}\in K\).
 \end{lemma*}
