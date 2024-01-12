@@ -4694,7 +4694,7 @@ de \((u_{j}, v_{j})\) pertence a \(\mathcal{P}\). Se \(x_{i-1}\neq u_{j}\) para 
 \begin{proof*}
   Dado \(\varepsilon >0\), como \(\varphi \) é uniformemente contínua em \([m, M]\)(Por ser compacto),
 existe \(0 < \delta  < \varepsilon \) tal que \(s, t\in[m, M], |s-t|\leq \delta \) implica em \(|\varphi (s)-\varphi (t)| < \varepsilon .\)
-Como \(f\in \mathfrak{R}(\alpha , [a, b]),\) existe \(\mathcal{P} = \{x_{0}, x_{1}, \cdots, x_{n}\}\in \mathfrak{P}_{[a, b]}\) tal que  
+Como \(f\in \mathfrak{R}(\alpha , [a, b]),\) existe \(\mathcal{P} = \{x_{0}, x_{1}, \cdots, x_{n}\}\in \mathfrak{P}([a, b])\) tal que
   \[
     U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha ) < \delta^{2}.
   \]
@@ -4711,6 +4711,227 @@ e \(\sum\limits_{i\in B}^{}\Delta\alpha_{i} < \delta <\varepsilon .\) Segue que
                                                           &\leq \varepsilon [\alpha (b)-\alpha (a)]+2K\delta < \varepsilon [\alpha (b)-\alpha (a)+2K].
 \end{align*}
   Portanto, como \(\varepsilon >0\) é arbitrário, segue que \(h\in \mathfrak{R}(\alpha , [a, b]).\)\qedsymbol
-   
 \end{proof*}
+\begin{theorem*}
+ \begin{itemize}
+   \item[a)] Se \(f_1\in \mathfrak{R}(\alpha , [a, b])\) e \(f_2\in \mathfrak{R}(\alpha , [a, b])\), então \(f_1 + f_2\in \mathfrak{R}(\alpha , [a, b])\), 
+ \(c \cdot f\in \mathfrak{R}(\alpha , [a, b])\) para todo c em \(\mathbb{R}\) e 
+\begin{align*}
+  &\int_{a}^{b} (f_1 + f_2)d\alpha = \int_{a}^{b}f_1d\alpha + \int_{a}^{b}f_2d\alpha \\
+  &\int_{a}^{b}cfd\alpha = c \int_{a}^{b}fd\alpha .
+\end{align*}
+\item[b)] Se \(f_{1}(x)\leq f_{2}(x)\) em \([a, b]\), então 
+  \[
+    \int_{a}^{b}f_{1}d\alpha \leq \int_{a}^{b}f_{2}d\alpha .
+  \]
+\item[c)] Se \(f\in \mathfrak{R}(\alpha , [a, b])\) e \(c\in (a, b)\), então \(f\in \mathfrak{R}(\alpha , [a, c])\cap \mathfrak{R}(\alpha ,[c, b])\) e 
+  \[
+    \int_{a}^{c}fd\alpha + \int_{c}^{b}f\alpha  = \int_{a}^{b}f\delta a.
+  \]
+  \item[d)] Se \(f\in \mathfrak{R}(\alpha , [a, b])\) e se \(|f(x)|\leq M\), então 
+    \[
+      \biggl\vert \int_{a}^{b}fd\alpha  \biggr\vert \leq  M[\alpha (b) - \alpha (a)]
+    \]
+  \item[e)] Se \(f\in \mathfrak{R}(\alpha_1, [a, b])\) e \(f\in \mathfrak{R}(\alpha _2, [a, b])\), então \(f\in \mathfrak{R}(\alpha _1 + \alpha _2, [a, b])\) e 
+    \[
+      \int_{a}^{b}fd(\alpha_1 + \alpha_2) = \int_{a}^{b}fd\alpha _1 + \int_{a}^{b}fd\alpha _2.
+    \]
+    Se \(f\in \mathfrak{R}(\alpha , [a,b])\) e \(c\in \mathbb{R}\) é positivo, então \(f\in \mathfrak{R}(c\alpha, [a, b] )\) e 
+      \[
+        \int_{a}^{b}fd(c\alpha) = c \int_{a}^{b}fd\alpha .
+      \]
+ \end{itemize}
+\end{theorem*}
+\begin{proof*}
+  Se \(f_1 + f_2 = f\) e \(\mathcal{P}\) é uma partição qualquer de [a, b], temos 
+    \[
+      L(\mathcal{P}, f_1, \alpha ) + L(\mathcal{P}, f_2, \alpha )\leq L(\mathcal{P}, f, \alpha ) \leq U(\mathcal{P}, f, \alpha ) \leq U(\mathcal{P}, f_1, \alpha ) + U(\mathcal{P}, f_2, \alpha ).
+    \] 
+    Caso \(f_1\in \mathfrak{R}(\alpha , [a,b])\) e \(f_2\in \mathfrak{R}(\alpha , [a,b])\) e \(\varepsilon > 0\) existem \(\mathcal{P}_{j}\in \mathfrak{P}([a, b]), j = 1, 2\) tal que 
+      \[
+        U(\mathcal{P}, f_{j}, \alpha ) - L(\mathcal{P}, f_{j}, \alpha )\leq U(\mathcal{P}_{j}, f_{j}, \alpha ) - L(\mathcal{P}_{j}, f_{j}, \alpha ) < \frac{\varepsilon }{2},
+      \]
+    sendo \(\mathcal{P}\) um refinamento comum a \(\mathcal{P}_1\) e \(\mathcal{P}_2\). Logo, 
+      \[
+        U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha ) < \varepsilon .
+      \]
+    Segue que \(f\in \mathcal{R}(\alpha , [a, b])\). 
+ 
+    Com esta mesma \(\mathcal{P},\) temos 
+      \[
+        U(\mathcal{P}, f, \alpha ) < \int_{a}^{b} f_{j}d\alpha +\varepsilon (j = 1, 2)
+      \]
+    e
+      \[
+        \int_{a}^{b}fd\alpha \leq U(\mathcal{P}, f, \alpha ) < \int_{a}^{b} f_1d\alpha + \int_{a}^{b}f_2d\alpha + 2\varepsilon .
+      \]
+    Como \(\varepsilon \) é arbitrário, concluímos que 
+      \[
+        \int_{a}^{b}fd\alpha \leq \int_{a}^{b}f_1d\alpha +\int_{a}^{b}f_2d\alpha .
+      \]
+    Por este mesmo resultado, mas para \(-f_1\) e \(-f_2\), a desigualdade reversa e a igualdade estão provadas. 
+
+    As provas das demais afirmativas são semelhantes e deixadas como exercícios. Na parte (c), a estratégia é considerar
+  refinamentos que contêm o ponto c, na aproximação da integral. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+  Se \(f\in \mathfrak{R}(\alpha , [a, b])\) e \(g\in \mathfrak{R}(\alpha , [a, b])\), então 
+  \begin{itemize}
+    \item[a)] \(fg\in \mathcal{R}(\alpha , [a,b])\)
+    \item[b)] \(|f|\in \mathcal{R}(\alpha , [a,b])\) e \(\biggl\vert \int_{a}^{b}fd\alpha  \biggr\vert\leq \int_{a}^{b}|f|d\alpha .\)
+  \end{itemize}
+\end{theorem*}
+\begin{proof*}
+  Se \(f\in \mathfrak{R}(\alpha , [a,b])\) e \(\varphi (t) = t^{2},\) então \(\varphi \circ f = f^{2}\in \mathfrak{R}(\alpha , [a,b])\). A identidade 
+    \[
+      4fg = (f+g)^{2} - (f-g)^{2}
+    \]
+  completa a prova de (a).
+
+  Se \(\varphi (t) = |t|, \varphi \circ f = |f|\in \mathfrak{R}(\alpha , [a,b])\). Tome \(c = \pm 1\) tal que 
+    \[
+      c \int_{}^{}fd\alpha \geq 0.
+    \]
+  Com isso, 
+    \[
+      \biggl\vert fd\alpha  \biggr\vert = c \int_{}^{}fd\alpha = c \int_{}^{}fd\alpha \leq \int_{}^{}|f|d\alpha 
+    \]
+  pois \(cf\leq |f|,\) provando (b). \qedsymbol
+\end{proof*}
+\newpage 
+
+\section{Aula 28 - 07/06/2023}
+\subsection{Motivações} 
+\begin{itemize}
+  \item Função Degrau; 
+  \item Séries como Integrais; 
+  \item Relação com a Integral de Riemann.
+\end{itemize}
+\begin{def*}
+  A função degrau unitário I é definida por 
+    \[
+      I(x) = \left\{\begin{array}{ll}
+          0,\quad x\leq 0\\ 
+          1,\quad x > 0.
+        \end{array}\right.\quad \square
+    \] 
+\end{def*}
+\begin{theorem*}
+  Se \(a < s < b, f\in \mathcal{B}([a, b], \mathbb{R})\) é contínua em s e \(\alpha (x) = I(x-s)\), então 
+    \[           
+      \int_{a}^{b} f d\alpha = f(s)
+    \]
+\end{theorem*}
+\begin{proof*}
+  Considere as partições \(\mathcal{P} = \{x_{0}, x_1, x_2, x_3\},\) em que \(x_{0} = a\) e \(x_1 = s < x_2 < x_3 = b\). Então,
+    \[
+      U(\mathcal{P}, f, \alpha ) = M_{2}, \quad L(\mathcal{P}, f, \alpha ) = m_{2}.
+    \]
+  Como f é contínua em s, vemos que \(M_3\) e \(m_2\) convergem para f(s) quando \(x_2\to s.\) \qedsymbol
+\end{proof*}
+\begin{theorem*}
+  Se \(c_{n}\geq 0, n = 1, 2, 3, \dotsc \), \(\sum\limits_{n=1}^{\infty}c_{n}\) é convergente, \(\{s_{n}\}\) é uma sequência de pontos distantes em (a, b), 
+    \[
+      \alpha (x) = \sum\limits_{n=1}^{\infty}c_{n}I(x-s_{n})
+    \]
+  e f é contínua em [a, b], então 
+    \[
+      \int_{a}^{b}f d\alpha  = \sum\limits_{n=1}^{\infty}c_{n}f(s_{n}).
+    \]
+\end{theorem*}
+\begin{proof*}
+  Por comparação, a série é convergente para cada x. Sua soma, \(\alpha (x)\), é monótona, \(\alpha (a) = 0\) e \(\beta (b) = \sum\limits_{n=1}^{\infty}c_{n}.\)
+
+  Com isto em mente, dado \(\varepsilon > 0\), escolha \(N\in \mathbb{N}\) tal que \(\sum\limits_{N+1}^{\infty} < \varepsilon \). Faça 
+    \[
+      \alpha _1(x) = \sum\limits_{n=1}^{N}c_{n}I(x-s_{n}),\quad \alpha _2(x) = \sum\limits_{N+1}^{\infty}c_{n}I(x-s_{n}).
+    \]
+  Dos teoremas anteriores, 
+    \[
+      \int_{a}^{b}fd\alpha_1 = \sum\limits_{i=1}^{N}c_{n}f(s_{n}).
+    \]
+  Como \(\alpha _2(b) - \alpha _2(a) = \sum\limits_{N+1}^{\infty}c_{n} < \varepsilon \), segue que 
+    \[
+      \biggl\vert \int_{a}^{b}f d\alpha_2 \biggr\vert \leq m\varepsilon ,
+    \]
+  sendo \(M = \sup{|f(x)|}\). Como \(\alpha = \alpha _1 + \alpha _2, \) segue que 
+    \[
+      \biggl\vert \int_{a}^{b}fd\alpha  - \sum\limits_{i=1}^{N}c_{n}f(s_{n}) \biggr\vert\leq M\varepsilon .
+    \] 
+  Se fazemos \(N\to \infty,\) portanto, segue o resultado que 
+    \[
+      \int_{a}^{b}f d\alpha = \sum\limits_{n=0}^{\infty}c_{n}f(s_{n}) = f(s).\quad \text{\qedsymbol}
+    \]
+\end{proof*}
+\begin{theorem*}
+  Sejam \(\alpha :[a, b]\rightarrow \mathbb{R}\) não-decrescente e diferenciável com \(\alpha '\in \mathfrak{R}([a, b])\) e \(f\in \mathcal{B}([a, b], \mathbb{R})\). Então, \(f\in \mathfrak{R}(\alpha , [a, b])\) se, e somente se, 
+ \(f\alpha '\in \mathfrak{R}([a, b])\). Neste caso, 
+   \[
+     \int_{a}^{b}fd\alpha = \int_{a}^{b}f(x)\alpha'(x) dx. 
+   \]
+\end{theorem*}
+\begin{proof*}
+  Dado \(\varepsilon > 0\), existe \(\mathcal{P} = \{x_{0},\dotsc ,x_{n}\}\in \mathfrak{P}([a, b])\) tal que 
+    \[
+      U(\mathcal{P}, \alpha ') - L(\mathcal{P}, \alpha') < \varepsilon .
+    \]
+    Do \hypertarget{mean_value}{Teorema do Valor Médio} existe \(t_{i}\in [x_{i-1}, x_{i}]\) tal que 
+      \[
+        \Delta \alpha_{i} = \alpha'(t_{i})\Delta x_{i},\quad 1\leq i\leq n.
+      \]
+    Se \(s_{i}\in [x_{i-1}, x_{i}]\), então 
+      \[
+        \sum\limits_{i=1}^{n}|\alpha '(s_{i}) - \alpha '(t_{i})|\Delta x_{i} < \varepsilon .
+      \]
+  Seja \(M = \sup|f(x)|\). Como
+    \[
+      \sum\limits_{i=1}^{n}f(s_{i})\Delta \alpha_{i} = \sum\limits_{i=1}^{n}f(s_{i})\alpha'(t_{i})\Delta x_{i},
+    \]
+  segue que
+    \[
+      \biggl\vert \sum\limits_{i=1}^{n}f(s_{i})\Delta \alpha_{i} - \sum\limits_{i=1}^{n}f(s_{i})\alpha'(s_{i})\Delta x_{i} \biggr\vert \leq M\varepsilon .
+    \]
+  Em particular,
+    \[
+    \sum\limits_{i=1}^{n}f(s_{i})\Delta \alpha_{i} \leq U(\mathcal{P}, f\alpha') + M\varepsilon 
+    \]
+  para todas as escolhas \(s_{i}\in [x_{i-1}, x_{i}],\) de modo que 
+    \[
+      U(\mathcal{P}, f, \alpha )\leq U(\mathcal{P}, fa') + M\varepsilon .
+    \]
+  O mesmo argumento de antes nos leva a
+    \[
+      U(\mathcal{P}, f\alpha') \leq U(\mathcal{P}, f, \alpha ) + M\varepsilon  
+    \]
+  e, logo,
+    \[
+      |U(\mathcal{P}, f, \alpha ) - U(\mathcal{P}, f\alpha ')| \leq M\varepsilon .
+    \]
+    Agora, note que 
+      \[
+        U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha ) < \varepsilon 
+      \]
+    permanece válida se \(\mathcal{P}\) for substituída por um refinamento, ou seja, as relações derivadas disso
+também continuam válidas. Concluímos, então, que 
+  \[
+    \biggl\vert \overline{\int_{a}^{b}}f d\alpha - \overline{\int_{a}^{b}}f(x)\alpha '(x)dx \biggr\vert\leq M\varepsilon .
+  \]
+  Como \(\varepsilon \) é arbitrário,
+    \[
+      \overline{\int_{a}^{b}}fd\alpha = \overline{\int_{a}^{b}}f(x)\alpha '(x)dx
+    \]
+  para qualquer \(f\in \mathcal{B}([a, b], \mathbb{R}).\) A igualdade para as integrais inferiores segue da mesma maneira. Portanto, 
+    \[
+      \int_{a}^{b}fd\alpha = \int_{a}^{b}f(x)\alpha '(x)dx.\quad \text{\qedsymbol}
+    \]
+\end{proof*}
+\newpage
+\section{Aula 29 - 12/06/2023}
+\subsection{Motivação}
+\begin{itemize}
+  \item Mudança de Variáveis; 
+  \item Teorema Fundamental do Cálculo; 
+  \item Integração por Partes.
+\end{itemize}
+\subsection{Mudança de Variáveis}
 \end{document}
