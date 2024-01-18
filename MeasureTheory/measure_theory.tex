@@ -1337,7 +1337,7 @@ será fechado pois a interseção arbitrária de fechados permanece fechado. Com
     todo ponto \(a\in [0, 1]\) é ponto de descontinuidade. Agora, se \(q_1, q_2, \dotsc \) é a enumeração dos racionais e \(I_{j}\) é vizinhança aberta de \(q_{j},\) então \(f=1\) no fechado \(A = [0, 1]\setminus{\bigcup_{i}^{}I_{i}.}\)
     Logo, f é contínua neste conjunto. Portanto, provamos o Teorema de Lusin.
 \end{proof*}
-\section{Integral de Lebesgue}
+\subsection{Integral de Lebesgue}
 \begin{def*}
   Seja \((X, \mathcal{A}, \mu )\) um espaço de medida. 
  \begin{itemize}
@@ -1414,26 +1414,1197 @@ será fechado pois a interseção arbitrária de fechados permanece fechado. Com
 \section{Aula 05 - 15/01/2024}
 \subsection{Motivações}
 \begin{itemize}
-	\item
+  \item Teoremas de Limites; 
+  \item Relação entre Lebesgue e Riemann.
 \end{itemize}
+\subsection{Teoremas de Limites} 
+  Vimos que 
+    \[
+      \int_{}f d\mu_{} = \sup_{}\biggl\{\int_{}s d\mu_{}: 0 \leq s\leq f, \text{ s simples}\biggr\}.
+    \]
+  Isto elucida a seguinte definição: 
+ \begin{def*}
+   Se f é mensurável e \(\int_{}|f| d\mu_{} < \infty,\) diremos que \textbf{f é integrável.} \(\square\)
+ \end{def*}
+\begin{prop*}
+  Suponha que f e g são integráveis. 
+ \begin{itemize}
+   \item[a)] Se \(c \geq 0\) e \(f\geq 0\), \(\int_{}c\varphi  d\mu_{} = c \int_{}\varphi d\mu_{}\)
+     \item[b)] Se \(f\leq g\) com \(f, g \geq 0\), então \(\int_{}f d\mu_{} \leq \int_{}g d\mu_{}\)
+       \item[c)] Se \(0\leq a\leq f(x)\leq b\) para todo x e \(\mu (X) < \infty,\) então \(a\mu (X) \leq \int_{}f d\mu_{} \leq b\mu (X)\)
+         \item[d)] Se \(f\geq 0\) e \(\mu (A) = 0\), então \(\int_{A}f d\mu_{}\equiv \int_{}f \chi_{A} d\mu_{} = 0.\)
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  A linearidade e outras propriedades serão posteriormente vistas com outros teoremas. 
+
+  1. Vimos que, se \(c \geq 0\) e \(\varphi \) é simples, então \(\int_{}c \varphi  d\mu_{} = c \int_{}\varphi  d\mu_{}\). O mesmo vale se \(\varphi \leq f,\) então vale a igualdade. 
+
+  Para o item 2, vimos que, se \(\varphi, \psi\) são simples   \(\varphi \leq \psi,\) então \(\int_{}\varphi  d\mu_{} \leq \int_{}\psi d\mu_{}\). O mesmo vale se tomarmos \(\varphi \leq f\) e \(\psi \leq g\),
+  tal que 
+    \[
+      \sup_{}\biggl\{\int_{}\varphi  d\mu_{}: \varphi \leq f\biggr\} \leq \sup_{}\biggl\{\int_{}\psi d\mu_{}: \psi \leq g\biggr\},
+    \]
+  donde segue que \(\int_{}f d\mu_{} \leq \int_{}g d\mu_{}.\) 
+
+  O item 3 segue do item 2. 
+
+  Por fim, o item 4 é feito tomando \(\varphi \) simples tal que \(\varphi  \leq f \chi_{A}.\) Note que, de fato, \(\varphi \) é simples em A. Tome \(A = \bigcup_{i=1}^{n}A_{i}.\)
+  Então,
+    \[
+      \varphi = \sum\limits_{i}^{}a_{i}A_{i} \quad\&\quad \int_{}\varphi  d\mu_{} = \sum\limits_{}^{}a_{i}\mu (A_{i}) \leq \sum\limits_{}^{}a_{i}\mu (A) = 0.
+    \]
+  Portanto, tomando supremos, temos \(\int_{}f \chi_{A} d\mu_{} = 0.\) \qedsymbol
+\end{proof*}
+  Veremos alguns teoremas de limites que são fundamentais na teoria de medida. Em ordem que serão vistos, temos 
+ \begin{itemize}
+   \item Teorema da Convergência Monótona;
+   \item Lema de Fatou;
+   \item Teorema da Convergência Dominada;
+   \item Teorema de Fubini.
+ \end{itemize}
+ \hypertarget{monotone_convergence}{\begin{theorem*}[Teorema da Convergência Monótona]
+   Sejam \(f_{n}\geq 0\) mensuráveis, \(f_{1}(x) \leq f_2(x) \leq \dotsc \) para todo x em X e \(\lim_{n\to \infty}f_{n}(x) = f(x)\), também para todo x em X. Então,
+     \[
+       \int_{X}f_{n} d\mu_{}\longrightarrow \int_{X}f d\mu_{}
+     \]
+  \end{theorem*}}
+  \begin{proof*}
+   Note que 
+     \[
+       f_{n}\leq f_{n+1} \Rightarrow \int_{}^{}f_{n}\leq \int_{}^{}f_{n+1},
+     \]
+  ou seja, a sequência das integrais de \(f_{n}\) com respeito a \(\mu \) é uma crescente. Com isso, sabe-se que o limite f é mensurável. Por outro lado, como 
+    \[
+      f_1(x)\leq f_2(x)\leq \dotsc \leq f,
+    \]
+    segue que f é limitada. Daí, se 
+      \[
+        L\equiv \lim_{n\to \infty}\int_{}^{}f_{n}d\mu ,\quad f_{n}\leq f \Rightarrow L \leq \int_{}f d\mu_{}.
+      \]
+    Seja 
+      \[
+        s = \sum\limits_{i=1}^{m}a_{i}\chi_{E_{i}},\quad a_{i}\geq 0, \text{ s simples, com } s\leq f.
+      \]
+    Com \(c\in (0, 1),\) defina 
+      \[
+        A_{n} = \{x: f_{n}(x) \geq cs(x)\},
+      \]
+    de modo que, como \(f_{n}\leq f_{n+1}\) e \(c < 1,\) chegamos em 
+      \[
+        A_{n}\uparrow X,\quad A_1\subseteq A_2\subseteq \dotsc \Rightarrow \mu (X) = \lim_{n\to \infty}\mu (A_{n}).
+      \]
+    Para cada n, 
+      \[
+        \int_{}f_{n} d\mu_{} \geq \int_{A_{n}}f_{n} d\mu_{} \geq c \int_{A_{n}}s d\mu_{} = c \int_{}\sum\limits_{i=1}^{m}a_{i}\chi_{E_{i}} d\mu_{} = c \sum\limits_{i=1}^{m}a_{i}\mu (E_{i}\cap A_{i}).
+      \]
+    Fazendo \(n\to \infty\), 
+      \[
+        L \geq c \sum\limits_{i=1}^{m}\mu (A_{i}) = c \int_{}^{}s d\mu .
+      \]
+    Por \(c\in (0, 1)\) ser arbitrário, podemos concluir que 
+      \[
+        L \geq \int_{}^{}s d\mu, 
+      \]
+    Portanto, tomando o supremo para \(s \leq f\), 
+      \[
+        L \geq \int_{}f d\mu_{}.\quad \text{\qedsymbol}
+      \]
+ \end{proof*}
+ \begin{example}
+   Coloque \(X = [0, \infty), f_{n}(x) = \frac{-1}{n}\) para todo x em X. Então, 
+     \[
+       \int_{}^{}f_{n}d\mu = -\infty,
+     \]
+    mas \(f_{n}\uparrow f,\) em que \(f=0\) e \(\int_{}f d\mu_{} = 0.\) Conclui-se que não é aplicável o Teorema da Convergência Monótona, pois \(f_{n}\) não é não-negativa.
+ \end{example}
+ \begin{example}
+   Agora, coloque \(X = [0, \infty), f_{n} = n \chi_{(0, \frac{1}{n})}\) para x em X. Com isso, 
+     \[
+       f_{n}\geq 0,\quad \int_{}^{}f_{n}d\mu = 1,
+     \]
+    mas \(f_{n}\) não converge para \(\int_{}^{}f d\mu = 0\), em que \(f=0\). Neste caso, o Teorema não aplica pois a sequência não é crescente.
+ \end{example}
+\begin{theorem*}
+  Se \(f, g \geq 0\) são mensuráveis ou integráveis, então 
+    \[
+      \int_{}(f+g) d\mu_{} = \int_{}f d\mu_{} + \int_{}g d\mu_{}.
+    \]
+\end{theorem*}
+\begin{proof*}
+  Vimos que se f e g são simples, o resultado já é verificado. Agora, suponha que \(f, g \geq 0\) e tome sequências \(\{s_{n}\}\) e \(\{t_{n}\}\) simples tais que 
+  \(s_{n}\uparrow f\) e \(t_{n}\uparrow g\), de modo que \(s_{n}+t_{n}\) são simples e \(s_{n}+t_{n}\uparrow f+g\). Portanto, pelo Teorema da Convergência Monótona,
+    \[
+      \int_{}(f+g) d\mu_{} = \lim_{n\to \infty}\int_{}(s_{n} + t_{n}) d\mu_{} = \lim_{n\to \infty}\int_{}s_{n} d\mu_{} + \lim_{n\to \infty}\int_{}t_{n} d\mu_{} = \int_{}f d\mu_{} + \int_{}g d\mu_{}    
+    \]
+  Suponha, agora, que \(f = f^{+} - f^{-}\) e \(g = g^{+}-g^{-}.\) Observe que f + g é integrável, pois 
+    \[
+      \int_{}|f+g| d\mu_{} \leq \int_{}|f| + |g| d\mu_{} = \int_{}|f| d\mu_{} + \int_{}|g| d\mu_{} < \infty.
+    \]  
+  Note que 
+    \[
+      (f+g)^{+} - (f+g)^{-} = f^{+} - f^{-} + g^{+}-g^{-} \Rightarrow (f+g)^{+} + f^{-} + g^{-} = f^{+} + g^{+} + (f+g)^{-}.
+    \]
+  Pelos resultados para funções não-negativas, segue que 
+    \[
+      \int_{}(f+g)^{+} d\mu_{} + \int_{}f^{-} d\mu_{} + \int_{}g^{-} d\mu_{} = \int_{}f^{+} d\mu_{} + \int_{}g^{+} d\mu_{} + \int_{}(f+g)^{-} d\mu_{}.
+    \]
+  Rearranjando, chegamos em 
+    \[
+      \int_{}(f+g) d\mu_{} = \int_{}f d\mu_{} + \int_{}g d\mu_{}.
+    \]
+  Caso f e g tenham valores complexos, aplica-se para a parte real e a parte imaginária. \qedsymbol
+\end{proof*}
+\begin{prop*}
+  Suponha f e g integráveis. 
+ \begin{itemize}
+   \item[i)] Se \(c\geq 0\), então \(\int_{}cf d\mu_{} = c \int_{}f d\mu_{}\)
+     \item[ii)] Se \(f \leq g,\) então \(\int_{}f d\mu_{} \leq \int_{}g d\mu_{}\)
+       \item[iii)] Se \(a\leq f(x) \leq b\) para todo x e \(\mu (X) < \infty\), então \(a\mu (X) \leq \int_{}f d\mu_{} \leq b\mu (X)\)
+         \item[iv)] Se \(\mu (A) = 0\), então \(\int_{A}f d\mu_{}\equiv \int_{}f \chi_{A} d\mu_{} = 0\)
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  Podemos considerar as funções reais. 
+
+  Para a parte 1, é imediato, basta tomar \(\{s_{n}\}\) simples tal que \(s_{n}\uparrow f\), do que segue que \(cs_{n}\) é simples e \(cs_{n}\uparrow cf.\)
+Pelo TCM, temos 
+  \[
+    \int_{}cf d\mu_{} = \lim_{n\to \infty}\int_{}cs_{n} d\mu_{} = c \lim_{n\to \infty}\int_{}s_{n} d\mu_{} = c \int_{}f d\mu_{}
+  \]
+  Para o caso geral, basta separar f em parte positiva e negativa como antes. ]
+
+  2. Note que 
+    \[
+      f = f^{+} - f^{-} \leq g^{+} - g^{-} = g \Rightarrow  0 \leq f^{+} + g^{-} \leq g^{+} + f^{-}
+    \]
+  Integrando, para o caso não negativo e usando linearidade, temos 
+    \[
+      \int_{}(f^{+} + g^{-}) d\mu_{} \leq \int_{}(g^{+}+f^{-}) d\mu_{} \Rightarrow \int_{}f^{+} d\mu_{} + \int_{}g^{-} d\mu_{} \leq \int_{}g^{+} d\mu_{} + \int_{} f^{-} d\mu_{},
+    \]
+  donde conclui-se que 
+    \[
+      \int_{}f d\mu_{} \leq \int_{}g d\mu_{}.
+    \]
+  O item 3 segue do item 2 e, por fim, para o item 4, como \(\int_{}f^{\pm}\chi_{A} d\mu_{} = 0\), segue da linearidade que 
+    \[
+      \int_{}f \chi_{A} d\mu_{} = \int_{}f^{+}\chi_{A} d\mu_{} - \int_{}f^{-}\chi_{A} d\mu_{} = 0. \quad \text{\qedsymbol}
+    \]
+\end{proof*}
+\begin{prop*}
+  Suponha \(f_{n}\geq 0\) mensuráveis. Então, 
+    \[
+      \int_{}\sum\limits_{i=1}^{\infty}f_{i} d\mu_{} = \sum\limits_{i=1}^{\infty}\int_{}f_{i} d\mu_{}
+    \]
+\end{prop*}
+\begin{proof*}
+  Seja \(F_{N} = \sum\limits_{i=1}^{N}f_{i}.\) Como \(0 \leq F_{n}(x)\uparrow \sum\limits_{i=1}^{\infty}f_{i}(x),\) temos 
+ \begin{align*}
+   \int_{}\sum\limits_{i=1}^{\infty}f_{i} d\mu_{} &= \int_{}\lim_{N\to \infty} d\mu_{} \sum\limits_{i=1}^{N}f_{i} \\ 
+                                                  &= \int_{}^{}\lim_{N\to \infty}F_{N}d\mu  = \lim_{N\to \infty}\int_{}F_{N} d\mu_{}.\\ 
+                                                  &= \lim_{N\to \infty}\sum\limits_{i=1}^{N}\int_{}f_{n} d\mu_{} = \sum\limits_{i=1}^{\infty}f_{n},
+ \end{align*}
+em que usamos tanto o Teorema da Convergência Monótona e a linearidade. \qedsymbol
+\end{proof*}
+\begin{prop*}
+  Se f é integrável, então 
+    \[
+      \biggl\vert \int_{}f d\mu_{} \biggr\vert \leq \int_{}|f| d\mu_{}
+    \].
+\end{prop*}
+\begin{proof*}
+  No caso real, \(f \leq |f| \Rightarrow \int_{}f d\mu_{} \leq \int_{}|f| d\mu_{}\) e o análogo vale para -f. No caso complexo, \(\int_{}f d\mu_{}\in \mathbb{C}.\)
+
+  Se \(\int_{}f d\mu_{} = 0\), não há nada a fazer. Caso contrário, \(\int_{}f d\mu_{} = re^{i\theta }\) para algum r e \(\theta \). Com isso, 
+    \[
+      \biggl\vert \int_{}f d\mu_{} \biggr\vert = r = e^{-i\theta }\int_{}f d\mu_{} = \int_{}e^{-i\theta }f d\mu_{}
+    \]
+  Agora, note que \(\mathrm{Re}(\int_{}f d\mu_{}) = \int_{}\mathrm{Re}(f) d\mu_{}.\) Como \(|\int_{}f d\mu_{}|\in \mathbb{R},\) temos o que queríamos: 
+    \[
+      \biggl\vert \int_{}f d\mu_{}  \biggr\vert = \mathrm{Re}\biggl(\int_{}e^{-\theta }f d\mu_{}\biggr) = \int_{}\mathrm{Re}(e^{-\theta }f) d\mu_{} \leq \int_{}|f| d\mu_{}.\quad \text{\qedsymbol}
+    \]
+\end{proof*}
+\hypertarget{fatou}{ 
+  \begin{lemma*}[Fatou]
+ Sejam \(f_{n}\geq 0\) mensuráveis. Então, 
+   \[
+     \int_{}\lim_{n\to \infty}f_{n} d\mu_{} \leq \liminf_{n\to \infty}\int_{}f_{n} d\mu_{}.
+   \]
+\end{lemma*}}
+\begin{proof*}
+  Defina \(g_{n} = \inf_{i\geq n}f_{i},\) tal que \(g_{n}\geq 0\),  \(g_{n}\uparrow \liminf_{n\to \infty}f_{n}\). Obesrva-se de cada que, para \(i\geq n\), 
+  \(g_{n}\leq f_{i}\), tal que \(\int_{}g_{n} d\mu_{} \leq \int_{}f_{i} d\mu_{}.\) Portanto, 
+    \[
+      \int_{}g_{n} d\mu_{} \leq \inf_{i\geq n} \int_{}f_{i} d\mu_{}
+    \]
+  Fazendo n tender a infinito na desigualdade acima, o lado direito fica \(\liminf_{n\to \infty}\int_{}f_{n} d\mu_{},\) enquanto o lado esquerdo, via Teorema da Convergência Monótona, fornece 
+    \[
+      \int_{}\liminf_{n\to \infty}f_{n} d\mu_{}.
+    \]
+  Portanto, 
+    \[
+      \int_{}\liminf_{n\to \infty}f_{n} d\mu_{} \leq \liminf_{n\to \infty}\int_{}f_{n} d\mu_{}.\quad \text{\qedsymbol}
+    \]
+\end{proof*}
+\begin{example}
+  Suponha \(f_{n}\longrightarrow f\) e \(\sup_{n}\int_{}|f_{n}| d\mu_{} \leq C < \infty.\) Então, \(|f_{n}|\to |f|,\) do que segue, pelo \hyperlink{fatou}{Lema de Fatou}, que 
+    \[
+      \int_{}|f| d\mu_{} \leq C.
+    \]
+\end{example}
+ \hypertarget{dominated_convergence}{
+   \begin{theorem*}[Convergência Dominada de Lebesgue]
+   Suponha as seguintes coisas: 
+  \begin{itemize}
+    \item \(f_{n}\) são funções reais mensuráveis 
+    \item \(f_{n}(x)\to f(x)\) para cada x q.t.p.
+    \item Eosite \(g\geq 0\) integrável tal que \(|f_{n}(x)| \leq g(x)\) para todo x.
+  \end{itemize}
+  Então, 
+    \[
+      \lim_{n\to \infty}\int_{}f_{n} d\mu_{} = \int_{}f d\mu_{}
+    \]
+ \end{theorem*}}
+\begin{proof*}
+  Como \(f_{n} +g \geq 0\), segue do \hyperlink{fatou}{Lema de Fatou} que 
+    \[
+      \int_{}f d\mu_{} + \int_{}g d\mu_{} = \int_{}(f+g) d\mu_{} \leq \liminf_{n\to \infty}\int_{}(f_{n}+g) d\mu_{} = \liminf_{n\to s8}\int_{}f_{n} d\mu_{} + \int_{}g d\mu_{}.
+    \]
+  Por g ser integrável, 
+    \[
+      \int_{}f d\mu_{} \leq \liminf_{n\to \infty}\int_{}f_{n} d\mu_{}.
+    \]
+  Analogamente, \(g-f_{n}\geq 0\), tal que 
+    \[
+      \int_{}g d\mu_{} - \int_{}f d\mu_{} = \int_{}(g-f) d\mu_{} \leq \liminf_{n\to \infty}\int_{}(g-f_{n}) d\mu_{} = \int_{}g d\mu_{} + \liminf_{n\to \infty}\int_{}(-f_{n}) d\mu_{}.
+    \]
+  Logo, 
+    \[
+      -\int_{}f d\mu_{} \leq \liminf_{n\to \infty}\int_{}(-f_{n}) d\mu_{} = - \limsup_{n\to \infty}\int_{}f_{n} d\mu_{},
+    \]
+  donde 
+    \[
+      \int_{}f d\mu_{} \geq \limsup_{n\to \infty}\int_{}f_{n} d\mu_{}.
+    \]
+  Portanto, ao juntar as duas desigualdades, obtemos o resultado. \qedsymbol
+\end{proof*}
+  Vale uma observação - nos teoremas da convergência monótona ou dominada, a convergência \(f_{n}(x)\to f(x)\) pode ser quase sempre. De fato, defina \(A = \{x:f_{n}(x)\to f(x)\}.\) Feito isso, 
+  \(f_{n}\chi_{A}(x)\uparrow f \chi_{A}(x)\) para cada x. Como \(\mu (A ^{\complement}) = 0, \) uma aplicação do \hypertarget{dominated_convergence}{Teorema da Convergência Dominada} garante que 
+    \[
+      \lim_{n\to \infty}\int_{}f_{n} d\mu_{} = \lim_{n\to \infty}\biggl(\int_{}f_{n} \chi_{A} d\mu_{} + \int_{}f_{n}\chi_{A ^{\complement}} d\mu_{}\biggr) = \lim_{n\to \infty}\int_{}f_{n}\chi_{A} d\mu_{} = \int_{}f \chi_{A} d\mu_{} = \int_{}f d\mu_{}.
+    \]
+\subsection{Integral de Lebesgue Relacionada à de Riemann}
+ \begin{prop*}
+   Seja f não-negativa, mensurável e \(\int_{}f d\mu_{} = 0.\) Então, \(f=0\) quase sempre.
+ \end{prop*}
+ \begin{proof*}
+   Se f não fosse 0 quase sempre, existe n tal que \(\mu (A_{n}) > 0\), sendo \(A_{n} = \{s: f(x) > 1/n\}\). No entanto, \(f\geq 0\),
+     \[
+       0 = \int_{}f d\mu_{} \geq \int_{A_{n}}f d\mu_{} \geq \frac{1}{n}\mu (A_{n}),\quad n = 1, 2, \dotsc .
+     \]
+    Uma contradição. Portanto, f deve ser nula quase sempre. \qedsymbol
+ \end{proof*}
+\begin{prop*}
+  Seja f com valores reais, integrável  e \(\int_{A}f d\mu_{} = 0\) para todo conjunto mensurável A. Então, \(f=0\) quase sempre.
+\end{prop*}
+\begin{proof*}
+  Seja \(A = \{x: f(x) > \varepsilon \}.\) Segue que 
+    \[
+      0 = \int_{A}f d\mu_{} \geq \int_{A}\varepsilon  d\mu_{} = \varepsilon \mu (A),
+    \]
+  pois \(f \chi_{A} \geq \varepsilon \chi_{A}\). Logo, \(\mu (A) = 0\). Fazendo \(\varepsilon  = \frac{1}{n}, n = 1, 2, \dotsc ,\) temos 
+ \begin{align*}
+   \mu (\{x:f(x) > 0\}) &= \mu \biggl(\bigcup_{i=1}^{\infty}\biggl\{x: f(x) > \frac{1}{n}\biggr\}\biggr)\\ 
+                        &\leq \sum\limits_{i=1}^{\infty}\mu \biggl(\biggl\{x:f(x)>\frac{1}{n}\biggr\}\biggr) = 0.
+ \end{align*}
+ Analogamente, \(\mu (\{x:f(x)<0\}) = 0.\) \qedsymbol
+\end{proof*}
+\begin{crl*}
+  Seja m a medida de Lebesgue e \(a\in \mathbb{R}\). Suponha \(f:\mathbb{R}\rightarrow \mathbb{R}\) integrável e \(\int_{a}^{x}f(y)dy = 0\) para todo x. Então, \(f=0\) quase sempre.
+\end{crl*}
+\begin{proof*}
+  Para todo intervalo [c, d], temos 
+    \[
+      \int_{c}^{d}f dm = \int_{a}^{d} fdm - \int_{a}^{c} fdm = 0.
+    \]
+  Por linearidade, se G é aberto, digamos \(G = \bigcup_{n=1}^{m}I_{n}\), sendo \(I_{n}\) intervalos disjuntos, então 
+    \[
+      \int_{G}f dm = \int_{}f \chi_{G} dm = \int_{}f \chi_{\bigcup_{i}^{}I_{i}} dm = \sum\limits_{}^{}\int_{}f \chi_{I_{n}} dm = \sum\limits_{}^{}\int_{I_{n}}f dm = 0.
+    \]
+  Usando o \hyperlink{dominated_convergence}{Teorema da Convergência Dominada}, \(\int_{G}f dm = 0\) para qualquer aberto G que seja a união infinita de intervalos abertos. 
+
+  Se \(I_{n}\) for uma sequência de abertos decrescentes para H, então o \hyperlink{dominated_convergence}{TCD} implica que \(\int_{G}f dm = 0,\) pois note que 
+  \(f_{n} = f \chi_{I_{n}}\to f \chi_{H}\) e \(|f \chi_{I_{n}}| \leq f.\) Com isso,
+    \[
+      \int_{H}f dm = \lim_{n\to } \int_{I_{n}}f dm = 0.
+    \]
+  Caso E seja um conjunto Borel mensurável, existe uma sequência de abertos \(G_{n}\) que decresce para H, sendo H = E quase sempre. Consequentemente, 
+    \[
+      \int_{E}f dm = \int_{}^{}f \chi_{E} dm = \int_{}f \chi_{H} dm = \int_{H}f dm = 0.
+    \]
+  Portanto, \(f = 0\) quase sempre. \qedsymbol
+\end{proof*}
 \newpage
+
 \section{Aula 06 - 16/01/2024}
 \subsection{Motivações}
 \begin{itemize}
-	\item
+  \item Aproximação por uma Função Contínua; 
+  \item Relação Entre Lebesgue e Riemann, Parte 2;
+  \item Tipos de Convergências;
+  \item Lema de Chebyshev e Teorema de Egorov.
 \end{itemize}
+\subsection{Relação Entre Riemann e Lebesgue, Parte 2}
+\begin{theorem*}
+  Suponha f Lebesgue mensurável, função real e integrável sobre \(\mathbb{R}.\) Seja \(\varepsilon >0\). 
+Com isso, existe uma função contínua g com suporte compacto tal que 
+  \[
+    \int_{}|f-g| dm < \varepsilon .
+  \]
+\end{theorem*}
+\begin{proof*}
+  Escrevemos \(f = f^{+} - f^{-}.\) Se existir \(g^{\pm} \) contínuas com suporte compacto satisfazendo \(\int_{}|f^{\pm} - g^{\pm}| dm < \varepsilon /2,\) 
+tomando \(g = g^{+} - g^{-},\) temos que g é contínua, com suporte compacto e \(\int_{}|f-g| dm < \varepsilon .\) Assim, podemos assumir que \(f\geq 0\) sem grandes problemas. 
+
+Por outro lado, pelo \hyperlink{monotone_convergence}{Teorema da Convergência Monótona},
+  \[
+    \int_{}f \chi_{[-n, n]} dm \uparrow \int_{}f dm,
+  \]
+o qual é finito. Assim, para n grande suficiente,
+  \[
+    \biggl\vert \int_{}f dm - \int_{}f \chi_{[-n, n]} dm \biggr\vert < \frac{\varepsilon }{2}.
+  \]
+No entanto, como \(f - f \chi_{[-n, n]} \geq 0\), temos
+  \[
+    \int_{}|f - f \chi_{[-n, n]}| dm < \frac{\varepsilon }{2}.
+  \]
+  Se encontrarmos g contínua de suporte compacto tal que
+    \[
+      \int_{}|f \chi_{[-n, n]} - g| dm < \frac{\varepsilon }{2},
+    \]
+  concluímos que por um argumento de dois epsilons,
+    \[
+      \int_{}|f-g| dm < \varepsilon.
+    \]
+  Usando o \hyperlink{monotone_convergence}{TCD,} pode-se concluir que \(h_{n} = |f \chi_{[-n, n]} - g|\to |f-g|\) quase sempre e \(|h_{n}| \leq |f-g|\) é, assim, integrável. Agora, ganhamos a liberdade de supor que \(f \geq 0\) e 
+  f zero fora de um intervalo limitado.  
+
+  Basta supor \(f=\chi_{A},\) sendo A um conjunto limitado Lebesgue mensurável. Escolha G aberto e F fechado tal que \(F\subseteq A\subseteq G\) e \(m(G\setminus{F}) < \varepsilon.\) Na realidade,
+  \(m(G\setminus{A}),\) \(m(A\setminus{F}) < \varepsilon /2.\) Use que \((G\setminus{A})\cup (A\setminus{F}).\) Podemos assumir G limitado, o que faz F compacto e, assim, existe uma distância mínima entre F e \(G^{\complement}\), digamos que ela é \(\delta \). Seja 
+    \[
+      g(x) = \biggl(1 - \frac{\mathrm{dist}(x, F)}{\delta }\biggr)^{+}.
+    \]
+  Então, g é contínua, \(0\leq g \leq 1, \) g é 1 sobre F, 0 sobre \(G ^{\complement}\) e g tem suporte compacto. Com isso, já que \(F\subseteq A\),
+    \[
+      |g- \chi_{A}|\leq \chi_{G} - \chi_{F}.
+    \]
+  Além disso,
+    \[
+      \int_{}|g-\chi_{A}| dm \leq \int_{}(\chi_{G} - \chi_{F}) dm = m(G\setminus{F})<\varepsilon .
+    \]
+  Provamos, então, que o resultado é verdadeiro para funções características sobre conjuntos limitados. Faremos as provas para funções simples, não-negativas e gerais. Se 
+    \[
+      f= \sum\limits_{i=1}^{p}a_{i}\chi_{A_{i}},
+    \]
+  em que \(A_{i}\subseteq I_{i}, I_{i}\) intervalo limitado e \(a_{i} > 0,\) então existe função contínua \(g_{i}\) de suporte compacto tal que 
+    \[
+      \int_{}|\chi_{A_{i}} - g_{i}| dm < \frac{\varepsilon }{a_{i}p_{i}},
+    \]
+  de modo que \(g=\sum\limits_{i=1}^{p}g_{i}\) é a função procurada. 
+
+  Para o caso geral, suponha f não-negativa e com suporte compacto. Existe uma sequência de funções simples \(s_{n}\) com suporte num intervalo limitado e crescendo
+para f, \(s_{n}\leq f,\) cuja integral \(\int_{}s_{n} dm \uparrow \int_{}f dm.\) Podemos assumir 
+  \[
+    \int_{}s_{n} dm \geq \int_{}f dm - \frac{\varepsilon }{2}.
+  \]
+  Tome g contínua com suporte compacto tal que \(\int_{}|s_{m} - g| dm < \frac{\varepsilon }{2}.\) Portanto, como \(f - s_{n}\geq 0,\)
+    \[
+      \int_{}|f-g| dm < \varepsilon .\quad \square
+    \]
+\end{proof*}
+  A partir deste instante, denotaremos \(\int_{}f dm\) pra ser a integral de Lebesgue e \(R(f)\) como a integral de Riemann. Recordando a definição da integral de Riemann de \(f:[a, b]\rightarrow \mathbb{R}.\) Seja \(\mathcal{P} = \{x_{0} = a, x_1, \dotsc , x_{n} = b\}\) de [a, b]. 
+  Defina 
+ \begin{align*}
+   &U(\mathcal{P}, f) = \sum\limits_{i=1}^{n}\sup_{x_{i-1}\leq x \leq x_{i}}f(x)[x_{i} - x_{i-1}]\\
+   &L(\mathcal{P}, f) = \sum\limits_{i=1}^{n}\inf_{x_{i-1}\leq x \leq x_{i}}f(x)[x_{i} - x_{i-1}]\\
+   &\overline{R}(f) = \inf_{}\{U(\mathcal{P}, f): \mathcal{P} \text{ partição}\}
+   &\underline{R}(f) = \inf_{}\{L(\mathcal{P}, f): \mathcal{P} \text{ partição}\}.
+ \end{align*}
+  Dizemos que a integral de Riemann existe se \(\overline{R}(f) = \underline{R}_{}(f)\), sendo o valor comum denotado por R(f).
+ \begin{theorem*}
+   Seja \(f:[a, b]\rightarrow \mathbb{R}\) limitada. Então, f é Riemann integrável se, e somente se, \(m(D_f) = 0\), em que \(D_f = \{x: f \text{ é descontínua no ponto x}\}\) é o conjunto dos pontos 
+   de descontinuidade de f 
+
+   Neste caso, f é Lebesgue-mensurável e a integral de Riemann de f coincidindo com o integral, ou seja,
+     \[
+       \int_{}f dm = R(f),\quad \text{\qedsymbol}.
+     \]
+ \end{theorem*}
+\begin{proof*}
+  Passo 1. Mostraremos que se f é Riemann integrável, então f é contínua quase sempre e \(R(f) = \int_{}f dm.\) Se \(\mathcal{P}\) é uma partição, defina 
+    \[
+      T_{\mathcal{P}}(x) = \sum\limits_{i=1}^{n}\chi_{[x_{i-1}, x_{i})}(x)\sup_{x_{i-1}\leq y\leq x_{i}}f(y) \quad\&\quad S_{\mathcal{P}}(x) = \sum\limits_{i=1}^{n}\chi_{[x_{i-1}, x_{i})}(x)\inf_{x_{i-1}\leq y\leq x_{i}}f(y).
+    \]
+  Note que 
+    \[
+      \int_{}T_{\mathcal{P}} dm = U(\mathcal{P}, f) \quad\&\quad \int_{}S_{\mathcal{P}} dm = L(\mathcal{P}, f).
+    \]
+  Se f é Riemann integrável, existe uma sequência de partições \(Q_{i}\) tal que \(U(Q_{i}, f)\downarrow R(f)\) e uma sequência \(Q_{i}'\) tal que \(L(Q_{i}', f)\uparrow R(f).\) Note que, ao adicionar pontos a uma partição L, ela cresce e, 
+  na partição U, ela decresce. Assim, seja \(P_{i} = \bigcup_{j\geq i}^{}(Q_{j}\cup Q_{j}')\), de modo que \(P_{i}\) é uma sequência crescente de partições tais que 
+    \[
+      U(P_{i}, f)\downarrow R(f)\quad\&\quad L(P_{i}, f)\uparrow R(f)>
+    \]
+  Observe que existem T(x) e S(x) satisfazendo 
+    \[
+      T_{P_{i}}(x)\downarrow T(x) \quad\&\quad S_{P_{i}}(x)\uparrow S(x),\quad T(x)\geq f(x)\geq S(x).
+    \]
+  Como f é limitada, pelo \hyperlink{dominated_convergence}{Teorema da Convergência Dominada}, temos 
+    \[
+      \int_{}(T-S) dm = \lim_{i\to \infty}\int_{}(T_{P_{i}} - S_{P_{i}}) dm = \lim_{i\to \infty}(U(P_{i}, f) - L(P_{i}, f)) = 0.
+    \]
+  Consequentemente, \(T = S = f\) quase sempre. 
+
+  Agora, note que T é limite de funções escada, o que a torna Borel mensurável e, para cada a, 
+    \[
+      \{x:f(x)>a\}\quad\&\quad \{x:T(x)>a\}
+    \]
+  diferem somente num conjunto de medida nula, donde conclui-se que f é Lebesgue Mensurável. Se x não está no conjunto de medida nula em que \(T(x)\neq S(x)\) nem em \(U_{i}, P_{i}\), 
+o qual é enumerável e, consequentemente, de medida nula, então 
+  \[
+    T_{P_{i}}(x)\downarrow f(x) \quad\&\quad S_{P_{i}}(x)\uparrow f(x).
+  \]
+  Dado \(\varepsilon \), escolha i suficientemente grande para que 
+    \[
+      T_{P_{i}} - S_{P_{i}} < \varepsilon 
+    \]
+  e escolha \(\delta \) pequeno tal que \((x-\delta , x+\delta )\) esteja contido num subintervalo de \(P_{i}\) contendo x. Aplicando o \hyperlink{dominated_convergence}{Teorema da Convergência Dominada} e notando que 
+    \[
+      R(f) = \lim_{i\to \infty}U(P_{i}, f) = \lim_{i\to \infty}\int_{}T_{P_{i}} dm = \int_{}f dm,
+    \]
+  concluímos que as duas integrais são iguais.
+
+  Para o segundo passo, suponha que f seja contínua quase sempre e tome \(\varepsilon >0\) qualquer. Seja \(P_{i}\) partição que divide \([a, b]\) em \(2^{i}\) partes iguais. Se x não está no conjunto de medida nula onde f é descontínua, nem 
+  em \(U_{i}, P_{i}\), então 
+    \[
+      T_{P_{i}}(x)\downarrow f(x)\quad\&\quad S_{P_{i}}(x)\uparrow f(x).
+    \]
+  Assim como no passo 1, f é mensurável, e o TCD nos fornece 
+    \[
+      U(P_{i}, f) = \int_{}T_{P_{i}} dm\to \int_{}f dm,\quad L(P_{i}, f) = \int_{}S_{P_{i}} dm\to \int_{}f. dm
+    \]
+  Portanto, \(\overline{R}(f) = \underline{R}(f) = R(f),\) ou seja, \(R(f)\) é integrável. \qedsymbol
+\end{proof*}
+\begin{example}
+  Considere 
+    \[
+      f(x) = \left\{\begin{array}{ll}
+          1,\quad x\in [0,1]\cap \mathbb{Q}^{\complement}\\ 
+          0,\quad x\in [0,1]\cap \mathbb{Q}.
+        \end{array}\right.
+    \]
+    Note que \(D_{f} = [0, 1]\) é o conjunto de descontinuidade da f e \(m(D_{f}) = 1,\) donde conclui-se que f não é Riemann integrável. No entanto, 
+  \(f=1\) quase sempre, tal que 
+    \[
+      \int_{}f dm = 1.
+    \]
+  Portanto, f é Lebesgue integrável, mas não é Riemann integrável. 
+\end{example}
+\begin{example}
+  Coloque 
+    \[
+      f(x) = \left\{\begin{array}{ll}
+          1,\quad x\in \mathbb{R} \quad \&\quad x>0\\ 
+          0,\quad x\in \mathbb{R} \quad \&\quad  x < 0. 
+        \end{array}\right.
+    \]
+  Aqui, \(D_{f} = 0\), tal que \(m(D_{f}) = 0\) e, assim, f não é Riemann integrável, pois f tem domínio ilimitado. Além disso,
+    \[
+      \int_{}f dm = \int_{}1 \chi_{\mathbb{R}_{x > 0}} dm + \int_{}0\chi_{\mathbb{R}_{x < 0}} dm = \infty,
+    \]
+  tal que f não é Lebesgue integrável.
+\end{example}
+\begin{example}
+  Coloque 
+    \[
+      f(x) = \left\{\begin{array}{ll}
+          1,\quad x\in [0, 1]\cap \mathbb{Q}^{\complement}\\
+          \frac{1}{q},\quad x\in[0,1], x = \frac{p}{q}\text{ (irredutível)}
+        \end{array}\right..
+    \]
+    Observe que o domínio de descontinuidade de f é \(D_f = \mathbb{Q}\), tal que \(m(D_{f}) = 0\) e, portanto, f é Riemann Integrável. Obesrva-se que f = 0 quase sempre, tal que 
+      \[
+        \int_{}f dm = 0,
+      \]
+    mostrando que ela também é Lebesgue integrável. 
+
+    Vale uma obesrvação: Note que \(\lim_{x\to a}f(x) = 0\) para todo \(a\in \mathbb{R},\) de forma que f é contínua em \(a\in \mathbb{Q}^{\complement}\). Para ver que isso é verdade, se \(a\in \mathbb{R}\) e \(\varepsilon > 0\) for dado, 
+    o conjunto \(A_{\varepsilon } = \{q: q \leq \varepsilon^{-1}\}\) é finito. Assim, tomando \(\delta  < \mathrm{dist}(a, A_{\varepsilon }),\) esse conjunto de tamanho \(\delta \) não contém \(x = \frac{p}{q}\) com \(q\in A_{\varepsilon },\) isto é, 
+    \(q\not\in a_{\varepsilon }.\) Mais exatamente, 
+      \[
+        q > \frac{1}{\varepsilon } \Longleftrightarrow \frac{1}{q} < \varepsilon .
+      \]
+\end{example}
+\subsection{Tipos de Medidas}
+  Seja, ao longo dessa seção, \(\mu \) uma medida, \(f_{n}, f\) mensuráveis. 
+ \begin{def*}
+   Dizemos que \(f_{n}\) \textbf{converge quase sempre} para f se existir um conjunto de medida nula A tal que, se \(x\not\in A\), temos \(f_{n}(x)\to f(x).\) Notação: \(f_{n}\to f\) q.s. \(\square\)
+ \end{def*}
+ \begin{def*}
+   Dizemos que \(f_{n}\) \textbf{converge em medida} para f, se para cada \(\varepsilon  > 0\),
+     \[
+       \mu (\{x: |f_{n}(x) - f(x)| > \varepsilon \})\to 0,\quad n\to \infty.\quad \square 
+     \]
+ \end{def*}
+ \begin{def*}
+   Seja \(1\leq p < \infty. f_{n}\)\textbf{ converge em }\(L^{p}\)\textbf{ para f}, se 
+     \[
+       \int_{}|f_{n} - f|^{p} d\mu\to 0,\quad n\to \infty.
+     \]
+ \end{def*}
+\begin{prop*}
+  \begin{itemize}
+    \item[i)]Suponha que \(\mu \) seja uma medida finita. Se \(f_{n}\to f\) q.s., então \(f_{n}\) converge para f em medida.
+    \item[ii)] Suponha que \(\mu \) é uma medida não necessariamente finita. Se \(f_{n}\to f\) em medida, então existe uma subsequência \(n_{j}\) tal que \(f_{n_{j}}\) converge para f q.s.
+  \end{itemize}
+\end{prop*}
+\begin{proof*}
+  Seja \(\varepsilon > 0\) e suponha que \(f_{n}\to f\) q.s. Se 
+    \[
+      A_{n} = \mu (\{x: |f_{n}(x) - f(x)| > \varepsilon \}),
+    \]
+  então \(\chi_{A_{n}}\to 0\) q.s. e, pelo \hyperlink{dominated_convergence}{Teorema da Convergência Dominada}, 
+    \[
+      \mu (A_{n}) = \int_{}\chi_{A_{n}}(x) \mu_{}(dx)\to 0,
+    \]
+  provando (1).
+
+  Para o (2), suponha que \(f_{n}\to f\) em medida, seja \(n_1 = 1\) e escolha \(n_{j} > n_{j-1}\) por indução, tal que 
+    \[
+      \mu (\{x: |f_{n_{j}}(x) - f(x)| > 1/j\} \leq 2^{-j}.
+    \]
+  Seja \(A_{j} = \{x: |f_{n_{j}}(x) - f(x)| > 1/j\}.\) Se colocarmos 
+    \[
+      A = \bigcap_{k=1}^{\infty}\bigcup_{j=k}^{\infty}A_{j},
+    \]
+  teremos 
+    \[
+      \mu (A) = \lim_{k\to \infty}\mu \biggl(\bigcup_{j=k}^{\infty}A_{j}\biggr) \leq \lim_{k\to \infty}\sum\limits_{j=k}^{\infty}\mu (A_{j}) \leq \lim_{k\to \infty}2^{-k+1} = 0.
+    \]
+  Logo, A tem medida nula. Se \(x\not\in A,\) então \(x\not\in \bigcup_{j=k}^{\infty}A_{j}\) para algum k e, assim, 
+    \[
+      |f_{n}(x)-f(x)|\leq \frac{1}{j},\quad \forall j\geq k
+    \]
+  Portanto, \(f_{n}\to f\) sobre \(A ^{\complement}\). \qedsymbol
+\end{proof*}
+  Notação: Se \(A = \bigcap_{k=1}^{\infty}\bigcup_{j=k}^{\infty}A_{j},\) então \(x\in A\) se, e somente se, \(x\in A_{j}\) para uma infinidade de j. Denotamos por \(A = \{A_{j}\mathrm{i.o.}\}.\)
+\begin{example}
+  Se \(\mu (X) = \infty\), não vale que ``Se \(f_{n}\to f\) q.s., então \(f_{n}\) converge para f em medida''. De fato, tome \(X = \mathbb{R}\) e seja \(f_{n} = \chi_{(n, n+1)}.\) Temos \(f_{n}\to 0\) quase sempre, mas \(f_{n}\) não converge em medida, pois 
+    \[
+      \mu (\{x: |f_{n}(x) - f(x)|> \varepsilon \}) = \mu (\{x: |\chi_{(n, n+1)}| > \varepsilon \} = \mu (n, n+1)\not\to 0.
+    \]
+\end{example}
+ \hypertarget{chebyshev}{
+   \begin{lemma*}[Chebyshev]
+    Se \(a\leq p < \infty\), então 
+      \[
+        \mu (\{x: |f(x)| \geq a\}) \leq \frac{\int_{}|f|^{p} d\mu_{}}{a^{p}}.
+      \]
+ \end{lemma*}}
+ \begin{proof*}
+   Seja \(A = \{x: |f(x)| \geq a\}.\) Como \(\chi_{A} \leq \frac{|f|^{p}\chi_{A}}{a^{p}},\) temos 
+     \[
+       \mu (A) \leq \int_{A}\frac{|f|^{p}}{a^{p}} d\mu_{} \leq \frac{1}{a^{p}}\int_{}|f|^{p} d\mu_{}. \quad \text{\qedsymbol}
+     \]
+ \end{proof*}
+\begin{prop*}
+  Se \(f_{n}\) converge para f em \(L^{p},\) então \(f_{n}\) converge para f em medida.
+\end{prop*} 
+\begin{proof*}
+  Da \hyperlink{chebyshev}{desigualdade de Chebyshev}, para \(\varepsilon >0\), 
+    \[
+      \mu (\{x: |f_{n}(x) - f(x)| > \varepsilon \}) \leq \frac{1}{\varepsilon ^{p}}\int_{}|f_{n}-f|^{p} d\mu_{}\to 0,
+    \]
+  como desejado. \qedsymbol
+\end{proof*}
+\begin{example}
+  Seja \(f_{n} = n^{2}\chi_{(0, 1/n)}\) sobre \([0, 1]\) e seja \(\mu \) a medida de Lebesgue. Note que \(f_{n}\) converge a 0 quase sempre e em medida, mas não converge em \(L^{p}\) para \(p \geq 1\).
+
+  Com efeito, dado x, existe n tal que \(\frac{1}{n} < x\) e, então, \(f_{n}(x) = 0.\) Assim, \(f_{n}\) converge a 0 quase sempre. Agora, 
+    \[
+      \mu (\{x: |f_{n}(x) - f(x)| > \varepsilon \} = \mu (\{x: |f_{n}(x)| > \varepsilon \}) \leq \mu \biggl(\biggl[0, \frac{1}{n}\biggr]\biggr)\to 0
+    \]
+  converge em medida. No entanto, 
+    \[
+      \int_{}|f_{n}-0|^{p} d\mu_{} = \int_{0}^{\frac{1}{n}}n^{2p}dx = n^{2p-1}\to \infty,
+    \]
+  ou seja, não converge em \(L^{p}.\)
+\end{example}
+\begin{example}
+  Também podemos construir um exemplo em que a sequência converge em medida e em \(L^{p},\) mas não quase sempre. 
+
+  De fato, tome \(S = \{e^{i\theta }: 0 \leq \theta < 2\pi \}\) como o círculo unitário no plano complexo e defina 
+    \[
+      \mu (A) = m(\{\theta \in [0, 2\pi ): e^{i\theta }\in A\}
+    \]
+  como a medida do comprimento de arco sobre S, sendo m a medida de Lebesgue sobre \([0, 2\pi ).\) Seja \(X = S\) e \(f_{n}(x) = \chi_{F_{n}}(x),\) em que 
+    \[
+      F_{n} = \biggl\{e^{i\theta }: \sum\limits_{j=1}^{n}\frac{1}{j} \leq \theta \leq \sum\limits_{j=1}^{n+1}\frac{1}{j}\biggr\} \Rightarrow \mu (F_{n}) \leq \frac{1}{n+1}\to 0,
+    \]
+  ou seja, \(f(e^{i\theta }) = 0\) para todo \(\theta \), do que concluímos que \(f_{n}\to f\) em medida. Além disto, como \(f_{n}\) é 1 ou 0, 
+    \[
+      \int_{}|f_{n}-f|^{p} d\mu_{} = \int_{}\chi_{F_{n}} d\mu_{} = \mu (F_{n})\to 0.
+    \]
+  Porém, como \(\sum\limits_{j=1}^{\infty}\frac{1}{j} = \infty,\) cada ponto de S está infinitamente em \(F_{n}\), e cada ponto de S está em \(S\setminus{F_{n}}\) para uma infinidade de n. Assim, 
+  \(f_{n}\) não converge para f em qualquer ponto, pois podemos construir duas subsequência \(fn_{j}(x) = 1, x\in F_{n}\) e \(fn_{k}(x) = 0, x\in S\setminus{F_{n}}.\) Logo, a subsequência não pode convergir. 
+
+  Note que \(F_{n}\) são arcos cujos comprimentos tendem a 0, mas tais que \(\bigcup_{n\geq m}^{F_{n}}\) contém S para cada m.
+\end{example}
+ \hypertarget{egorov}{
+   \begin{theorem*}[Teorema de Egorov]
+  Suponha \(\mu \) medida finita, \(\varepsilon > 0\) dado e \(f_{n}\to f\) q.s. Então, existe um conjunto enumerável A tal que \(\mu (A) < \varepsilon \) e \(f_{n}\to f\) uniformemente em \(A ^{\complement}\).
+\end{theorem*}}
+\begin{proof*}
+  Seja 
+    \[
+      A_{nk} = \bigcup_{m=n}^{\infty}\biggl\{x: |f_{m}(x) - f(x)| > \frac{1}{k}\biggr\}.
+    \]
+  Fixado k, \(A_{nk}\) decresce quando n cresce. A interseção \(\bigcap_{n}^{}A_{nk}\) tem medida 0 pois quase todo x satisfaz 
+    \[
+      |f_{m}(x) - f(x)| \leq \frac{1}{k}
+    \]
+  para m suficientemente grande. Logo, \(\mu (X) < \infty\) e \(\lim_{} \mu (A_{nk}) = \mu (\bigcap_{n}^{}A_{nk}) = 0, \mu (A_{nk})\to 0\) quando \(n\to \infty\). Desta forma, existe \(n_{k}\) tal que 
+ \(\mu (A_{n_kk}) < \varepsilon 2^{-k}. \) Coloque 
+   \[
+     A = \bigcup_{k=1}^{\infty}A_{n_kk}.
+   \]
+  Com isso, \(\mu (A) < \varepsilon \) e, se \(x\not\in A\), então \(x\not\in A_{n_{k}k}\) e, assim, 
+    \[
+      |f_{n}(x) - f(x)| \leq \frac{1}{k}
+    \]
+  se \(n \geq n_{k}.\) Portanto, \(f_{n}\to f\) uniformemente em \(A ^{\complement}.\) \qedsymbol
+\end{proof*}
+
 \newpage
 \section{Aula 07 - 17/01/2024}
 \subsection{Motivações}
 \begin{itemize}
-	\item
+  \item Produto de Medidas; 
+  \item Teorema de Fubini-Tonelli;
+  \item Medidas com Sinais;
+  \item Teorema de Hahn.
 \end{itemize}
+\subsection{Produto de Medidas}
+\begin{def*}
+  Sejam \((X, \mathcal{A}, \mu )\) e \((Y, \mathcal{B}, \nu)\) dois espaços de medida. Um \textbf{retângulo mensurável} é um 
+  conjunto da forma \(A\times B\), em que \(A\in \mathcal{A}\) e \(B\in \mathcal{B}.\quad \square\)
+\end{def*}
+Seja \(\mathcal{C}_{0}\) a coleção da união finita e disjunta de retângulos mensuráveis, ou seja, todo elemento de \(\mathcal{C}_{0}\) é da forma 
+  \[
+    \bigcup_{i=1}^{n}(A_{i}\times B_{i}),\quad A_{i}\in \mathcal{A}, B_{i}\in \mathcal{B}
+  \]
+e 
+  \[
+    (A_{i}\times B_{i})\cap (A_{j}\times B_{j}) = \emptyset , i\neq j.
+  \]
+  Como 
+    \[
+      (A\times B)^{\complement} = (X\times B ^{\complement})\cup (A ^{\complement}\times Y)
+    \]
+    e a interseção de dois retângulos mensuráveis é um retângulo mensurável, então é fácil ver que \(\mathcal{C}_{0}\) é uma álgebra de conjunto. Definimos a \(\sigma \)-álgebra produto como sendo 
+      \[
+        \mathcal{A}\times \mathcal{B} = \sigma (\mathcal{C}_{0}).
+      \]
+    Se \(E\subseteq X\times Y\), definimos a x-seção de E por 
+      \[
+        s_x(E) = \{y\in Y: (x, y)\in E\},
+      \]
+    analogamente a y-seção de E por 
+      \[
+        t_y(E) = \{x\in X: (x, y)\in E\}.
+      \]
+    Dada \(f:X\times Y\rightarrow \mathbb{R},\) para cada x e y, definimos 
+      \[
+        S_{x}f :Y\rightarrow \mathbb{R}, \quad T_{y}f:X\rightarrow \mathbb{R}
+      \]
+    descritas por \(S_xf(y) = f(x, y)\) e \(T_yf(x) = f(x, y).\)
+\begin{lemma*}
+ \begin{itemize}
+   \item[1)] Se \(E\in \mathcal{A}\times \mathcal{B},\) então \(s_x(E)\in \mathcal{B}\) para cada x e \(t_y(E)\in \mathcal{A}\) para cada y.
+   \item[2)] Se f é \(\mathcal{A}\times \mathcal{B}\)-mensurável, então \(S_{x}f\) é \(\mathcal{B}\)-mensurável para cada x e \(T_yf\) é \(\mathcal{A}\)-mensurável para cada y.
+ \end{itemize}
+\end{lemma*}
+\begin{proof*}
+  Para o item 1, seja \(\mathcal{C}\) a coleção de conjuntos em \(\mathcal{A}\times \mathcal{B}\) tais que \(s_x(E)\in \mathcal{B}\) para cada x. Se 
+    \[
+      E = A\times B \Rightarrow s_x(E)  = \left\{\begin{array}{ll}
+          B,\quad x\in A\\ 
+          \emptyset ,\quad x\not\in A.
+        \end{array}\right.
+    \]
+    Logo, \(s_x(E)\in \mathcal{B}\) para cada x quando E é um retângulo mensurável. 
+
+    Se \(E\in \mathcal{C}\) e \(x\in X\), note que, caso \(s_x(E) = \emptyset \), então \(s_x(E ^{\complement}) = s_x(E)^{\complement} = Y.\) Por outro lado, caso \(s_x(E)\neq\emptyset\),
+então \(y\in s_x(E ^{\complement})\) se, e somente se, \((x, y)\in E ^{\complement}\), ou seja, \(y\not\in s_x(E).\) Destarte, 
+  \[
+    s_x(E ^{\complement}) = (s_x(E))^{\complement}.
+  \]
+  Além disso, \(\mathcal{C}\) é fechado com relação a complementos. Analogamente, 
+    \[
+      s_x \biggl( \bigcup_{i=1}^{\infty}E_{i}\biggr) = \bigcup_{i=1}^{\infty}s_x(E_{i}),
+    \]
+    pois dado \(y\in s_x(\cup_i E_{i}\), isto significa que [SLIDE 15] \((x, y)\in \cup_i E_{i}\), ou seja, \((x, y)\in E_{i}\) para algum i. Logo, \(y\in s_x(E_{i})\) e \(y\in \bigcup_{i}^{}s_{x}(E_{i}).\)
+  Assim, \(\mathcal{C}\) é fechado com relação à união contável. Logo, \(\mathcal{C}\) é uma \(\sigma \)-álgebra contendo retângulos mensuráveis, tal que 
+    \[
+      \mathcal{C} = \mathcal{A}\times \mathcal{B}.
+    \]
+    Analogamente para \(t_y(E).\)
+
+    Para o item (2), fixe x. Se \(f=\chi_{E}\) para \(E\in \mathcal{A}\times \mathcal{B}.\) Note que 
+      \[
+        S_xf(y) = \chi_{S_x(E)}(y),
+      \]
+    o qual é \(\mathcal{B}\)-mensurável. De fato, seja \(a\in \mathbb{R},\) \(x\in X\), 
+      \[
+        \{y: S_{x}f(y) > a\} = \{y:f(x, y) > a\} = \{(x, y)\in A\times B: f(x, y) > a\}_{x}.
+      \]
+    Pela linearidade, \(S_{x}f\) é \(\mathcal{B}\)-mensurável, quando f é simples. Se \(f\geq 0\), uma sequência \(\mathcal{A}\times \mathcal{B}\)-mensurável simples, \(\{r_{n}\}, r_{n}\uparrow f\), e como 
+      \[
+        S_xr_{n}\uparrow S_{x}f,
+      \]
+    conclui-se que \(S_xf\) é \(\mathcal{B}\)-mensurável. Escrevendo \(f=f^{+}-f^{-}\) e por meio da linearidade, mostra-se que \(S_{x}f\) é \(\mathcal{B}\)-mensurável. Analogamente, prova-se as mesmas coisas
+    para \(T_{y}f\). \qedsymbol
+\end{proof*}
+\begin{prop*}
+
+  Suponha \(\mu \) e \(\nu\) são medidas \(\sigma \)-finitas. Seja \(E\in \mathcal{A}\times \mathcal{B}\) e sejam
+    \[
+      h(x) = \nu(s_x(E)),\quad\&\quad k(y) = \mu (t_y(E)).
+    \]
+  Então, 
+ \begin{itemize}
+   \item[i)] h é \(\mathcal{A}\)-mensurável e k é \(\mathcal{B}\)-mensurável
+     \item[ii)] Vale 
+       \[
+         \int_{}h(x) \mu (dx) = \int_{}^{}k(y)\nu(dy),
+       \]
+      o qual é equivalente a 
+        \[
+          \int_{}^{}\biggl(\int_{}^{}\chi_{E}(x, y)\nu(dy)\biggr)\mu (dx) = \int_{}^{}\biggl(\int_{}^{}\chi_{E}(x, y)\mu (dx)\biggr)\nu(dy).
+        \]
+ \end{itemize}
+\end{prop*}
+ \begin{proof*}
+   A equivalência vem do seguinte: Note que 
+     \[
+       h(x) = \nu(s_x(E)) =
+     \]
+     aqui usamos \(y\in s_x(E)\) e, e somente se, \((x, y)\in E\) 
+
+    Suponha que \(\nu\) e \(\mu \) são finitas. Seja \(\mathcal{C}\) a coleção de conjuntos em \(\mathcal{A}\times \mathcal{B}\) para o qual (1)
+  e (2) valem. Sendo \(\mathcal{C}_{0}\) a coleção da união disjunta de retângulos, provaremos que \(\mathcal{C}\supseteq \mathcal{C}_{0}\) e monótona. 
+  Com efeito, se \(E = A\times B\), com \(A\in \mathcal{A}\) e \(B\in \mathcal{B}\), então \(h(x) = \chi_{A}(x)\nu(B)\), o qual é \(\mathcal{A}\)-mensurável e 
+    \[
+      \int_{}h(x) \mu (dx) = \mu (A)\nu(B).
+    \]
+  Aqui, \(h(x) = \nu(s_x(E)) = \nu(B),\) \(x\in A = \nu(B)\chi_{A},\) \(E = A\times B\), pois \(y\in s_x(E) \) equivale a \(x\in  A, y\in B\). Analogamente, 
+    \[
+      k(y) = \mu (A)\chi_{B}(y)
+    \]
+  é \(\mathcal{B}\)-mensurável e 
+    \[
+      \int_{}k(y)\nu( dy) = \mu (A)\nu(B).
+    \]
+  Com isso, provamos que 1 e 2 valem para retângulos mensuráveis. Se \(E = \bigcup_{i=1}^{n}E_{i},\) em que cada \(E_{i}\) é retângulo mensurável e \(E_{i}\) são disjuntos, então \(s_x(E) = \bigcup_{i=1}^{n}s_x(E_{i})\)
+e, como \(s_x(E_{i})\) são disjuntos, temos 
+  \[
+    h(x) = \nu(s_x(E)) = \nu \biggl(\bigcup_{i=1}^{n}s_x(E_{i})\biggr) = \sum\limits_{i=1}^{n}\nu(s_x(E_{i})).
+  \]
+  Isso prova que h é \(\mathcal{A}\)-mensurável e k é \(\mathcal{B}\)-mensurável, ambos por serem somas de funções mensuráveis. Se colocarmos \(h_{i}(x) = \nu(s_x(E_{i}))\) e k(y) similarmente, então 
+    \[
+      \int_{}h_{i}(x)\mu ( dx) = \int_{}k_{i}(y)\nu( dy)
+    \]
+  provando que \(\mathcal{C}\) contém \(\mathcal{C}_{0}\). Agora, suponha que \(E_{n}\uparrow E\) e cada \(E_{n}\in \mathcal{C}\). Ponha \(h_{n}(x) = \nu(s_x(E_{n}))\) e \(k_{n}(y) = \mu (t_y(E_{n}))\), tal que 
+  \(h_{n}\uparrow h\) e \(k_{n}\uparrow k\). Portanto, \(h_{n}\) é \(\mathcal{A}\)-mensurável e \(k_{n}\) é \(\mathcal{B}\)-mensurável, donde segue que (2) vale e 
+    \[
+      \int_{}h_{n}(x)\mu ( dx) = \int_{}k_{n}(y)\nu( dy).
+    \]
+  Passando o limite de n tendendo a infinito e aplicando o \hyperlink{monotone_convergence}{Teorema da Convergência Monótona}, segue que (2) vale para h e k. 
+
+  Agora, assuma que \(E_{n}\downarrow E\) e cada \(E_{n}\in \mathcal{C}.\) Procedendo como acima, mas usando o \hyperlink{dominated_convergence}{Teorema da Convergência Dominada} junto com a finitude de \(\nu\) e \(\mu \), obtemos o resultado. 
+Assim, \(\mathcal{C}\) é classe moonótona contendo \(\mathcal{C}_{0}\) e contido em \(\mathcal{A}\times \mathcal{B}\), tal que \(\mathcal{C} = \sigma (\mathcal{C}_{0})\), o qual é \(\mathcal{A}\times \mathcal{B}.\)
+
+  Suponha, agora, que \(\mu \) e \(\nu\) são \(\sigma \)-finitas. Existem \(F_{i}\uparrow X\) e \(G_{i}\uparrow Y\), cada \(F_{i}\) e \(G_{i}\) sendo \(\mathcal{A}, \mathcal{B}\)-mensuráveis e \(\mu (F_{i}), \nu(G_{i})< \infty\).
+Sejam \(\mu_{i}(A) = \mu (A\cap F_{i})\) para cada \(A\in \mathcal{A}\) e \(\nu_{i}(B) = \nu(B\cap G_{i})\) para cada \(B\in \mathcal{B}\). Seja 
+  \[
+    h_{i}(x) = \nu_{i}(s_x(E)) = \nu(s_x(E)\cap G_{i})
+  \]
+  e defina \(k_{i}(y)\) de forma análogo, donde segue que 
+    \[
+      \int_{}h_{i}(x)\mu_{i}( dx) = \int_{}h_{i}(x)\chi_{F_{i}}(x)\mu ( dx),
+    \]
+  sendo o análogo verdadeiro para \(k_{i}, G_{i}\) e \(\nu_{i}\).
+
+  Com o que vimos até agora, \(h_{i}\) é \(\mathcal{A}\)-mensurável e \(k_{i}\) é \(\mathcal{B}\)-mensurável, do que segue que (2) vale para h, k trocados por \(h_{i}, k_{i}\). Tomando, agora, 
+  \(h_{i}\uparrow h\) e \(k_{i}\uparrow k\), obtemos a mensurabilidade de h e k. Portanto, pelo TCM, concluímos a prova. \qedsymbol
+\end{proof*}
+  Vale uma observação. Defina \(\mu \times \nu\) pondo 
+    \[
+      \mu \times \nu (E) = \int_{}h(x)\mu ( dx) = \int_{}k(y)\nu( dy),
+    \]
+  em que \(h(x) =\nu(s_x(E)) \) e \(k(y) = \mu(t_y(E)).\) Para ver que isso é medida mesmo, temos \(\mu \times \nu(\emptyset ) = 0\). Se \(E_1, E_2, \dotsc , E_{n}\) são disjuntos em \(\mathcal{A}\times \mathcal{B}\) e \(E = \bigcup_{i=1}^{n}E_{i},\) então 
+    \[
+      \nu(s_x(E)) = \sum\limits_{i=1}^{n}\nu(s_x(E_{i})).
+    \]
+    Daí, 
+   \begin{align*}
+     \mu \times \nu(E) &= \int_{}\nu(s_x(E))\mu ( dx) = \sum\limits_{i=1}^{n}\int_{}\nu(s_x(E_{i})) \mu(dx) \\ 
+                       &= \sum\limits_{i=1}^{n}\mu \times \nu (E_{i}),
+   \end{align*}
+   provando a aditividade finita de \(\mu \times \nu\).
+
+   Se \(E_{n}\uparrow E\) com \(E_{n}\in \mathcal{A}\times \mathcal{B},\) defina \(h_{n}(x) = \nu(s_x(E_{n})),\) donde segue, pelo TCM, que \(h_{n}\uparrow h\) e 
+     \[
+       \mu \times \nu(E_{n})\uparrow \mu \times \nu(E).
+     \]
+  Portanto, \(\mu \times \nu\) é, de fato, medida. 
+
+  Note que, se \(E = A\times B\) é retângulo mensurável, então \(h(x) = \chi_{A}(x)\nu(B)\) e, assim, como na intuição, 
+    \[
+      \mu \times \nu(A\times B) = \mu (A) \nu(B).
+    \]
+    \hypertarget{fubini_tonelli}{
+   \begin{theorem*}
+     Suponha que \(f:X\times Y\rightarrow \mathbb{R}\) é mensurável com relação a \(\mathcal{A}\times \mathcal{B}\) e que \(\mu \) e \(\nu\) são medidas \(\sigma \)-finitas sobre X e Y, respectivamente. Se ocorrer que 
+    \begin{itemize}
+      \item[a)] \(f\geq 0\), ou 
+        \item[b)] \(\int_{}|f(x, y)| d(\mu\times \nu_{})(x, y) < \infty,\)
+    \end{itemize}
+    então 
+   \begin{itemize}
+     \item[1)] Para cada x, a função \(y\mapsto f(x, y)\) é mensurável com relação a \(\mathcal{B}\);
+       \item[2)] Para cada y, a função \(x\mapsto f(x, y)\) é mensurável com relação a \(\mathcal{A}\);
+         \item[3)] A função \(h(x) = \int_{}f(x, y)\nu( dy)\) é mensurável com relação a \(\mathcal{A}\);
+         \item[4)] A função \(k(x) = \int_{}f(x, y)\mu( dy)\) é mensurável com relação a \(\mathcal{B}\);
+           \item[5)] Vale 
+            \begin{align*}
+              \int_{}f(x, y) d(\mu\times \nu)(x, y)_{} &= \int_{}\biggl(\int_{}^{}f(x, y)\mu (dx)\biggr) \nu(dy)\\ 
+                                                       &= \int_{}^{}\biggl(\int_{}^{}f(x, y)\nu(dy)\biggr)\mu (dx).
+            \end{align*}
+   \end{itemize} 
+   \end{theorem*}}
+  A última integral deve ser interpretada como 
+    \[
+      \int_{}^{}\biggl(\int_{}^{}k(y)\nu(dy)\biggr)\mu (dx),
+    \]
+  analogamente para a outra integral. 
+ \begin{proof*}
+   Se \(f = \chi_{E}, E\subseteq \mathcal{A}\times \mathcal{B},\) então (1)-(5) são reescritas em resultados anteriores. 
+Por linearidade, vale para f simples. Sendo o limite de funções mensuráveis crescentes também mensurável, então, escrevendo uma função \(f\geq 0\) como um limite de funções crescentes de funções 
+simples, e usando o TCM, os itens (1)-(5) valem para \(f\geq 0\). No caso \(\int_{}|f| d(\mu\times\nu_{}) < \infty\), escrevendo \(f=f^{+}-f^{-}, f^{\pm}\geq 0\) e procedendo como no caso das não-negativas,
+as propriedades (1)-(5) valem. \qedsymbol
+ \end{proof*}
+ Suponha que 
+  \[
+    \int_{}^{}\int_{}^{}|f(x, y)|\mu (dx)\nu(dy) < \infty,
+  \]
+e, como \(|f(x, y)| \geq 0,\) o \hyperlink{fubini_tonelli}{Teorema de Fubini} nos diz que 
+  \[
+    \int_{}^{}|f(x, y)|d(\mu \times \nu) = \int_{}\int_{}^{}|f(x, y)|\mu (dx)\nu(dy) < \infty.
+  \]
+  Outra aplicação de \hyperlink{fubini_tonelli}{Fubini} fornece 
+    \[
+      \int_{}^{}f(x, y)d(\mu \times \nu) = \int_{}^{}\int_{}^{}f(x, y)\mu (dx)\nu(dy) = \int_{}^{}\int_{}^{}f(x, y)\nu (dy)\mu (dx) < \infty.
+    \]
+  Desta forma, na hipótese do Teorema, poderíamos supor 
+    \[
+      \int_{}^{}\int_{}^{}f(x, y)\mu (dx)\nu(dy) < \infty \quad \text{ou}\quad \int_{}^{}\int_{}^{}f(x, y)\nu(dy)\mu (dx) < \infty.
+    \]
+  Este teorema pode ser estendido para m medidas \(\mu_1, \mu _2, \dotsc , \mu_m\).
+
+  \underline{\textbf{Observação:}} Se \((X, \mathcal{A}, \mu )\) e \((Y, \mathcal{B}, \nu)\) são completos, não necessariamente \((X\times Y, \mathcal{A}\times \mathcal{B}, \mu \times \nu)\) será completo. 
+  Por exemplo, seja \((X, \mathcal{A}, \mu ) = (Y, \mathcal{B}, \nu)\) a medida de Lebesgue em \([0, 1]\) com \(\sigma \)-álgebra de Lebesgue. Tome A não mensurável em [0, 1] e seja 
+  \(E = A\times \biggl\{\frac{1}{2}\biggr\}\), tal que E é não mensurável com relação a \(\mathcal{A}\times \mathcal{B},\) ou que \(A = t_{1/2}(E)\) deveria estar em \(\mathcal{A}.\) Por outro lado, \(E\subseteq [0, 1]\times \biggl\{\frac{1}{2}\biggr\}\), 
+  que tem medida zero com relação a \(\mu \times \nu\). Assim, E tem medida nula e, em geral, \(\mathcal{A}\times \mathcal{B}\) não é completa. No entanto, poderíamos completar.
+
+  Em outra linha, vejamos um exemplo que ilustra a necessidade das hipóteses do Teorema de Fubini. 
+ \begin{example}
+   Existe um conjunto X munido com a ordem parcial, ``\(leq \)", tal que X é não enumerável, mas, para todo \(y\in X\), o conjunto \(\{x\in X: x \leq y\}\) é enumerável. (X pode ser um conjunto enumerável ordinal, tipo os naturais)). 
+   A \(\sigma \)-álgebra é a coleção de subconjuntos A de X tal que um dos dois A ou \(A ^{\complement}\) é enumerável. Defina \(\mu \) sobre X pondo \(\mu (A) = 0\) se A é enumerável e 1 se A é não enumerável. Defina f sobre \(X\times X\) como sendo 
+   \(f = \chi_{E}\), em que E é não um subconjunto de \(X\times X\) formado por pares \((x, y)\) com \(x\leq y\), contável sobre toda a reta horizontal com complemento contável sobre toda reta vertical, mas não mensurável, pois nem \(E \) e nem \(E ^{\complement}\) são enumeráveis. 
+   Então, fixado y, como na reta horizontal é contável, então \(\mu = 0\), ou seja, \(\int_{}^{}\int_{}^{}f(x, y)\mu (dx)\mu (dy) = 0, \) enquanto fixado x, todo ponto (x, y) está em E. Assim, \(f=1\) e \(\int_{}^{}\int_{}^{}f\mu (dy)\mu (dx) = 1.\)
+   Aqui, f não é mensurável no \(\sigma \)-produto. Poderíamos tomar f não mensurável, pelo axioma da escolha, mas, note que em \(X^{2} = [0, 1]^{2},\) a reta horizontal é contável na região \(x\leq y\) e a reta vertical não é contável, então o complementar deveria ser contável.
+ \end{example}
+ \begin{example}
+   Seja \(X = Y = [0, 1]\) com \(\mu, \nu\) sendo medida de Lebesgue. Sejam \(g_{i}\) funções com suporte em \(I_{i} = \biggl(\frac{1}{i+1}, \frac{1}{i}\biggr)\) tais que \(\int_{0}^{1}g_{i}(x)dx = 1, i = 1, 2, \dotsc .\)Seja 
+     \[
+       f(x, y) = \sum\limits_{i=1}^{\infty}[g_{i}(x)-g_{i+1}(x)]g_{i}(y).
+     \]
+  Para cada ponto \((x, y)\), no máximo dois termos da soma são não nulos, tornando-a finita. Note que 
+    \[
+      \int_{0}^{1}f(x, y)dy = \sum\limits_{i=1}^{\infty}(g_{i}(x)-g_{i+1}(x))
+    \]
+  é a série telescópica, sendo sua soma \(g_1(x).\) Assim, 
+    \[
+      \int_{0}^{1}\int_{0}^{1}f(x, y)dydx = \int_{0}^{1}g_1(x)dx = 1.
+    \]
+  Porém, integrando primeiro em x, chegamos em 0, tal que 
+    \[
+      \int_{0}^{1}\int_{0}^{1}f(x, y)dxdy = 0.
+    \]
+  Mas aqui, tome Q partição dada pela definição e, para simplificar, tome \(g_{i}\) tendo como gráfico um triângulo de base em \(I_{i}\) e altura \(\frac{2}{\frac{1}{i}-\frac{1}{i+1}}.\) Assim, 
+ \begin{align*}
+   \int_{}^{}\int_{}^{}|f(x, y)|dxdy &= \lim_{n\to \infty}\sum\limits_{i=1}^{n}|f(x_{i}, y_{i})|\mathrm{vol}(Q) \\ 
+                                     &= \lim_{n\to \infty}\sum\limits_{j=1}^{n}\biggl(\sum\limits_{i=1}^{\infty}\frac{2}{\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)}\frac{2}{\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)}\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)^{2}\biggr)\\
+                                     &+ \lim_{n\to \infty}\sum\limits_{j=1}^{n}\biggl(\sum\limits_{i=1}^{\infty}\frac{2}{\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)}\frac{2}{\biggl(\frac{1}{i+1}-\frac{1}{i+2}\biggr)}\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)\biggl(\frac{1}{i+1}-\frac{1}{i+2}\biggr)\biggr)\\
+                                     &= \infty.
+ \end{align*}
+ \end{example}
+\begin{example}
+  Coloque \(I=[0, 1]\) com \(\lambda , m\) medidas de Lebesgue e contador (não é \(\sigma \)-finita). Seja o fechado 
+    \[
+      \Delta = \{(x, x): x\in I\}
+    \]
+  e defina \(f=\chi_{\Delta }.\) segue que 
+    \[
+      \int_{}^{}\int_{}^{}fdmd\lambda = \int_{}^{}m(\{x\})d\lambda = \lambda (I) = 1
+    \]
+  e 
+    \[
+      \int_{}^{}\int_{}^{}fd\lambda dm = \int_{}^{}\lambda (\{x\})dm = 0.
+    \]
+\end{example}
+  Sejam \(X = Y\) inteiros positivos e \(\mu  = \nu\) medida contador. Escreva \(c_{ij}\) para \(f(i, j).\) Então, pelo \hyperlink{fubini_tonelli}{Teorema de Fubini}, temos 
+    \[
+      \sum\limits_{i=1}^{\infty}\sum\limits_{j=1}^{\infty}c_{ij} = \sum\limits_{j=1}^{\infty}\sum\limits_{i=1}^{\infty}c_{ij},
+    \]
+  sempre que \(c_{ij}\geq 0\) ou que \(\sum\limits_{i}^{}\sum\limits_{j}^{}|c_{ij}| < \infty\).
+\subsection{Medidas com Sinal}
+  Um tipo de medidas possui aplicações no estudo de cargas da física, mas cargas podem ser negativas e positivas, enquanto que as medidas que vimos até agora eram estritamente não-negativas. Para lidar melhor com essa situação, introduzimos a ideia de medidas 
+com sinal, que possuem a propriedade de aditividade enumerável, mas podendo tomas valores dos dois negativos e/ou positivos. Por exemplo,
+  \[
+    \nu(A) = \int_{A}f d\mu_{},\quad f \text{ integrável}
+  \]
+  toma valores positivos e negativos. Essencialmente, são dois resultados que usaremos para lidar com essas medidas - o \textit{Teorema de Hahn} e o \textit{Teorema de Decomposição de Jordan}. O primeiro diz que, 
+  dado uma medida com sinal \(\mu \), então \(X = P\cup N\), com \(P\cap N = \emptyset \), tal que \(\mu \) e \(-\mu \) são medidas positivas em P e N, respectivamente. O outro diz que \(\mu  = \mu ^{+} - \mu ^{-},\) em que \(\mu ^{\pm}\) são ambas positivas.
+ \begin{def*}
+   Seja \(\mathcal{A}\) uma \(\sigma \)-álgebra. Uma \textbf{medida com sinal} é uma função \(\mu : \mathcal{A}\rightarrow (-\infty, \infty]\) tal que \(\mu (\emptyset ) = 0\) e, se \(A_{1}, A_2, \dotsc \) são dois-a-dois disjuntos com \(A_{i}\in \mathcal{A}, i = 1, 2, \dotsc \), então 
+     \[
+       \mu \biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) = \sum\limits_{i=1}^{\infty}\mu (A_{i}),
+     \]
+  em que assume-se convergência absoluta da série se \(\mu (\bigcup_{i=1}^{\infty}A_{i})\) é finita. \(\square\)
+ \end{def*}
+ Como é requerida a convergência absoluta, a ordem no somatório não importa - lembrando que \(\mu :\mathcal{A}\rightarrow [0, \infty]\) denota uma medida positiva.
+\begin{def*}
+  Seja \(\mu \) uma medida com sinal. Um conjunto \(A\in \mathcal{A}\) é chamado \textbf{positivo} se \(\mu (B) \geq 0\) para todo \(B\subseteq A\) e \(B\in \mathcal{A}.\) Analogamente, \(A\in \mathcal{A}\) é chamada \textbf{negativa} se \(\mu (B)\leq 0\) para 
+todo \(B\subseteq A\) e \(B\in \mathcal{A}.\) Finalmente, um conjunto \(A\in \mathcal{A}\) é chamado \textbf{nulo}/\textbf{de medida nula} se \(\mu (B) = 0 \) para todo \(B\subseteq A\) e \(B\in \mathcal{A}.\quad \square\)
+\end{def*}
+  A antiga definição de conjunto nulo, para medida positiva, coincide com conjunto nulo como definido acima. Se \(\mu \) é uma medida com sinal, argumentando como no caso de medida positiva, temos 
+    \[
+      \mu \biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) = \lim_{n\to \infty}\mu \biggl(\bigcup_{i=1}^{n}A_{i}\biggr).
+    \]
+ \begin{example}
+   Suponha que m é a medida de Lebesgue e 
+     \[
+       \mu (A) = \int_{A}f dm,
+     \]
+  para algum f integrável. Se f muda de sinal, então \(\mu \) é uma medida com sinal.
+  Se \(P = \{x: f(x)\geq 0  \}\), então P é um conjunto positivo e, se \(N = \{x:f(x)<0\},\) então N é um conjunto negativo. A Decomposição de Hahn dará a decomposição de \(\mathbb{R}\) como união de P e N unicamente exceto no conjunto \(C = \{x: f(x) = 0\},\) que 
+poderia ser incluída em N ao invés de P, ou vice-versa, ou uma parte para cada um. A decomposição de Jordan será \(\mu  = \mu ^{+} - \mu ^{-}\), em que \(\mu ^{\pm}(A) = \int_{A}f^{\pm} dm.\)
+ \end{example}
+ \begin{prop*}
+   Seja \(\mu \) medida com sinal, tomando valores em \((-\infty, \infty].\) Seja E mensurável com \(\mu(E) < 0\). Então, existe um subconjunto mensurável \(F\subseteq E\) negativa com \(\mu (F) < 0.\)
+ \end{prop*}
+\begin{proof*}
+  Se E é um conjunto negativo, não há nada a provar. Caso contrário, existe um subconjunto mensurável com medida positiva. Seja \(n_1\) menor inteiro positivo tal que existe \(E_1\subseteq E\) mensurável com 
+  \(\mu (E_1)\geq \frac{1}{n_1}\). Construímos, assim, uma sequência \(E_2, E_3, \dotsc \) dois-a-dois disjuntos. Seja \(k\geq 2\) e suponha que \(E_1, \dotsc , E_{k-1}\) são subconjuntos dois-a-dois disjuntos de E com 
+  \(\mu (E_{i}) > 0\) para \(i=1, 2, \dotsc , k-1\). Se \(F_{k}=E\setminus{(E_1\cup E_2\cup \dotsc \cup E_{k-1})}\) é um conjunto negativo, então 
+    \[
+      \mu (F_{k}) = \mu (E) - \sum\limits_{i=1}^{k-1}\mu (E_{i}) \leq \mu (E) < 0
+    \]
+  e \(F_{k}\) é o conjunto desejado F do enunciado.
+
+  Se \(F_{k}\) não é negativa, tome \(n_{k}\) como o menor inteiro positivo tal que existe \(E_{k}\subseteq F_{k}\) mensurável com \(\mu (E_{k})\geq \frac{1}{n_{k}}\). 
+Paramos a construção quando existir k tal que \(F_{k}\) é negativa com \(\mu (F_{k}) < 0.\) Se não, continuamos a construção. Coloque 
+  \[
+    F= \bigcap_{i=k}^{}F_{k} = E\setminus{(\cup _k E_{k})}.
+  \]
+  Como \(0 > \mu (E) > -\infty\) e \(\mu (E_{k})\geq 0\), então 
+    \[
+      \mu (E) = \mu (F) + \sum\limits_{k=1}^{\infty}\mu (E_{k}).
+    \]
+  Ainda mais, \(\mu (F) \leq \mu (E) < 0\), tal que a soma converge. Isso implica que 
+    \[
+      \mu (E_{k})\to 0,\quad n_{k}\to \infty.
+    \]
+  Resta provar que F é negativa. Suponha que \(G\subseteq F\) é mensurável com \(\mu (G) > 0\). Então, \(\mu (G) \geq \frac{1}{N}\) para algum N. No entanto, isto vai contra a construção feita, pois, para algum k, \(n_{k}> N\), e poderíamos ter escolhido
+G ao invés de \(E_{k}\) no k-ésimo passo. Portanto, F deve ser conjunto negativo. \qedsymbol
+\end{proof*}
+ \hypertarget{hahn}{
+\begin{theorem*}
+ \begin{itemize}
+   \item[1)] Seja m medida com sinal tomando valores em \((-\infty, \infty]\). Existem conjuntos disjuntos e mensuráveis E e F em \(\mathcal{A}\) com \(X = E \cup F,\) tal que E é negativa e F é positiva.
+    \item[2)] Se \(E'\) e \(F'\) é outro par, então \(E\Delta E' = F\Delta F'\) é conjunto nulo com relação a \(\mu \);
+      \item[3)] Se \(\mu \) não é medida positiva, então \(\mu (E) < 0\). Se \(-\mu \) não é uma medida positiva, então \(\mu (F) > 0.\)
+ \end{itemize}
+\end{theorem*}}
+\begin{proof*}
+  (1) - Note que existe pelo menos um conjunto negativo - \(\emptyset \). Seja 
+    \[
+      L = \inf_{}\{\mu (A): A \text{ é um conjunto negativo}\}.
+    \]
+  Escolha conjuntos negativos \(A_{n}\) tal que \(\mu (A_{n})\to L.\)  Seja \(E = \bigcup_{n=1}^{\infty}A_{n}.\) Seja \(B_1 = A_1\) e seja \(B_{n} = A_{n}\setminus{(B_1\cup B_2\cup \dotsc \cup B_{n-1}}\) para cada n. Como \(A_{n}\) é um conjunto negativo, \(B_{n}\) também é, já que \(B_{n}\) é parte de \(A_{n}\). 
+Além disso, \(B_{n}\) são disjuntos e \(\cup _n B_{n} = \cup_{n}^{}A_{n} = E.\)
+
+  Se \(C\subseteq E\), então 
+    \[
+      \mu (C) = \lim_{n\to \infty}\mu \biggl(C\cap \biggl(\bigcup_{i=1}^{n}B_{i}\biggr)\biggr) = \lim_{n\to \infty}\sum\limits_{i=1}^{n}\mu (C\cap B_{i}) \leq 0.
+    \]
+  Assim, E é negativa, tal que 
+    \[
+      \mu (E) = \mu (A_{n}) + \mu (E\setminus{A_{n}}) \leq \mu (A_{n}) + \mu (E) \leq \mu (A_{n}).
+    \]
+  Fazendo n tender a infinito, temos \(\mu (E) = L,\) donde segue que \(L> -\infty.\) 
+
+  Seja \(F = E ^{\complement}.\) Se F não fosse positiva, existiria \(B\subseteq F\) com \(\mu (B) < 0\), de forma que existe um conjunto negativo \(C\subseteq B\) com \(\mu (C) < 0.\) No entanto, isto significaria que 
+ \(E\cup C\) deve ser negativo com \(\mu (E\cup C) < \mu (E) = L.\) Contradição. Portanto, F é positiva. \qedsymbol
+
+  (2) - Para provar a unicidade, se \(E', F'\) é outro par de conjuntos e \(A\subseteq E\setminus{E'}\subseteq E\), então \(\mu (A) \leq 0\). Mas, \(A\subseteq E\setminus{E'} = F\setminus{F'}\subseteq F'\), do que segue que \(\mu (A)\geq 0\) e, logo, 
+  \(\mu (A)=0.\) O mesmo argumento funciona se \(A\subseteq E'\setminus{E}\) e qualquer subconjunto de \(E\Delta E'\) pode ser escrita como a união de \(A_1, A_2\), em que \(A_1\subseteq E\setminus{E'}\) e \(A_2\subseteq E'\setminus{E}.\)
+
+  (3) - Suponha que \(\mu \) não seja positiva e que \(\mu (E) = 0\). Se \(A\in \mathcal{A},\) então 
+    \[
+      \mu (A) = \mu (A\cap E) + \mu (A\cap F) \geq \mu (E) + \mu (A\cap F)\geq 0,
+    \]
+  o que implica que \(\mu \) deve ser positiva, uma contradição. Usamos aqui que 
+    \[
+      \mu (E) = \mu (E\cap A) + \mu (E\cap A ^{\complement}) \leq \mu (E\cap A).
+    \]
+  Um argumento similar aplica-se para \(-\mu \). \qedsymbol
+\end{proof*}
+\begin{def*}
+  Dizemos que \(\mu \) e \(\nu\) são \textbf{mutualmente singulares} se existirem dois conjuntos E e F em \(\mathcal{A}\) tais que \(X = E\cup F\) e \(E\cap F = \emptyset \), com \(\mu (E) = \nu(F) = 0.\) Notação: \(\mu \perp \nu\) denota que \(\mu \) e \(\nu\) são mutualmente singulares. \(\square\)
+\end{def*}
+\begin{def*}
+  A medida 
+    \[
+      |\mu | = \mu ^{+} + \mu ^{-}
+    \]
+  é chamada \textbf{medida variação total} de \(\mu \), e \(|\mu |(X)\) é chamada \textbf{variação total de }\(\mu \). \(\square\)
+\end{def*}
+\begin{example}
+  Se \(\mu \) é medida de Lebesgue restrita a \(\biggl[0, \frac{1}{2}\biggr],\) tal que \(\mu (A) = m \biggl(A \cap \biggl[0, \frac{1}{2}\biggr]\biggr) \) e \(\nu\) é medida de Lebesgue restrita a \(\biggl[\frac{1}{2}, 1\biggr].\) Então, \(\mu \) e \(\nu\) são mutualmente singulares. Aqui, basta tomar \(E = \biggl(\frac{1}{2}, 1\biggr]\) e \(F = \biggl[0, \frac{1}{2}\biggr]\), o que funciona pois 
+  \(\biggl\{\frac{1}{2}\biggr\}\) tem medida de Lebesgue zero.
+\end{example}
+\begin{example}
+  Seja f a função de Cantor-Lebesgue, em que definimos 
+    \[
+      f(x) = \left\{\begin{array}{ll}
+          1,\quad x\geq 1 \\ 
+          0,\quad x < 0
+        \end{array}\right.
+    \]
+  e seja \(\nu\) a medida de Lebesgue-Stieltjes associada a f. Seja m a medida de Lebesgue. Então, \(m\perp \nu\).
+
+  De fato, seja \(E = C\), em que C é o conjunto de Cantor, e \(F= C ^{\complement}.\) Já sabemos que \(m(E) = 0\), necessitamos provar que 
+  \(\nu(F) = 0.\) Isto equivale a provar que \(\nu(I) = 0\) para todo intervalo aberto contido em F. Note que isso segue se verificarmos para intervalos abertos \(J = (a, b]\) contidos em F, pois, como 
+F é constante sobre tais intervalos, \(f(b) = f(a)\), e portanto, 
+  \[
+    \nu(J) = f(b)-f(a) = 0.
+  \]
+\end{example}
 \newpage
+
 \section{Aula 08 - 18/01/2024}
 \subsection{Motivações}
 \begin{itemize}
-	\item
+  \item Decomposição de Jordan;
+  \item Medidas Absolutamente Contínuas;
 \end{itemize}
+\subsection{Decompisção de Jordan}
+ \hypertarget{jordan_decomposition}{
+\begin{theorem*}
+  Se \(\mu \) é uma medida com sinal num espaço mensurável \((X, \mathcal{A})\), então existem medidas positivas \(\mu ^{\pm}\) tais que \(\mu = \mu ^{+} - \mu ^{-}\) e \(\mu ^{+}\perp \mu ^{-}.\) Esta decomposição é única.
+\end{theorem*}}
+\begin{proof*}
+  Sejam E e F conjuntos negativo e positivo, respectivamente, com relação a \(\mu \), tal que \(X = E\cup F\) e \(E\cap F = \emptyset \). Seja \(\mu ^{+}(A) = \mu (A\cap F)\) e \(\mu ^{-}(A)=-\mu (A\cap E).\) Isso 
+  fornece a decomposição desejada. Se \(\mu = \nu^{+}-\nu^{-}\) é outra decomposição com \(\nu^{+}\perp \nu^{-},\) seja \(E'\) tal que \(\nu^{+}(E') = 0\) e 
+  \(\nu^{-}((E')^{\complement}) = 0.\) Seja \(F'=(E')^{\complement}\), de modo que \(X = E' \cup F'\) e \(E'\cap F' = \emptyset \). Se \(A\subseteq F',\) então \(\nu^{-}(A)\leq \nu^{-}(F') = 0\) e, assim,
+    \[
+      \mu (A) = \nu ^{+}(A) - \nu ^{-}(A) \geq \nu ^{+}(A) \geq 0,
+    \]
+  do que segue que \(F'\) é positiva para \(\mu \). Analogamente, \(e'\) é negativa para \(\mu .\) 
+
+  Com isso, \(E', F'\) dá uma outra decomposição de Hahn sobre X. Pela unicidade do \hyperlink{hahn}{Teorema da Decomposição de Hahn}, \(F\Delta F'\) tem medida nula com relação a \(\mu \). Como \(\nu ^{+}(E') = 0\) e \(\nu^{-}(F') = 0\)
+se \(A\in \mathcal{A}\), temos 
+ \begin{align*}
+   \nu ^{+}(A) &= \nu ^{+}(A\cap F') = \nu ^{+}(A\cap F') - \nu ^{-}(A\cap F')\\ 
+               &= \mu (A\cap F') = \mu (A\cap F) = \mu ^{+}(A).
+ \end{align*}
+ Analogamente, \(\nu^{-}=\mu ^{-}.\) Portanto, \(\mu^{+}-\mu ^{-}= \nu^{+}-\nu ^{-}. \) \qedsymbol
+\end{proof*}
+   Suponha \(f\geq 0\) integrável com relação a \(\mu \). Defina \(\nu \) pondo 
+     \[
+       \nu (A) = \int_{A}f d\mu_{}.
+     \]
+    Afirmamos que \(\nu \) é uma medida. De fato, apenas precisamos chegar a aditividade contável. Sejam \(A_{n}\) conjuntos mensuráveis disjuntos. Então,
+      \[
+        \nu \biggl(\bigcup_{n}^{}A_{n}\biggr) = \int_{\bigcup_{n}^{}A_{n}}f d\mu_{} = \sum\limits_{i=1}^{\infty}\int_{A_{i}}f d\mu_{} = \sum\limits_{i=1}^{\infty}\nu (A_{i}).
+      \]
+    em que usamos que, como \(f\geq 0\), podemos trocar a integral com a soma. Note que \(\nu (A) = 0\) sempre que \(\mu (A) = 0\). 
+
+    Agora, fica a questão da ``recíproca'' - dads duas medidas \(\mu \) e \(\nu \), existe f tal que 
+      \[
+        \nu (A) = \int_{A}f d\mu_{}?
+      \]
+    Esta pergunta é respondida pelo Teorema de Radon-Nikodym. Sendo mais específico, se \(\nu (A) = 0\) sempre que \(\mu (A) = 0\), então existe f tal que 
+      \[
+        \nu (A) = \int_{A}f d\mu_{}.
+      \]
+    Medidas que possuem essa propriedade recebem uma definição própria.
+\begin{def*}
+  Uma medida \(\nu \) é dita ser \textbf{absolutamente contínua} com relação à medida \(\mu \) se 
+\(\nu (A) = 0\) sempre que \(\mu (A) = 0\). Denotamos isso por \(\nu <<\mu .\) \(\square\)
+\end{def*}
+\begin{prop*}
+  Seja \(\nu \) medida finita. Então, \(\nu \) é absolutamente contínua com relação a \(\mu \) se, e somente se, para todo \(\varepsilon \) existe \(\delta \) tal que \(\mu (A) < \delta \) implica que \(\nu (A) < \varepsilon .\)
+\end{prop*} 
+\begin{proof*}
+  Suponha que, para todo \(\varepsilon > 0\), existe \(\delta > 0\) tal que 
+    \[
+      \mu (A) < \delta \Rightarrow \nu (A) < \varepsilon .
+    \]
+  Se \(\mu (A) = 0\), então \(\nu (A) = 0\) para todo \(\varepsilon \) e, logo, \(\nu (A) = 0\), donde segue que \(\nu << \mu .\)
+
+  Por outro lado, assuma que \(\nu <<\mu .\) Se existe \(\varepsilon > 0\), então para todo \(\delta_{\varepsilon } > 0\), \(E_{\varepsilon }\) com \(\mu (E_{\varepsilon }) < \delta_{\varepsilon } \) e \(\nu (E_{\varepsilon })\geq \varepsilon \), podemos supo que existe 
+ \(E_{k}\) tal que \(\mu (E_{k}) < 2^{-k},\) mas \(\nu (E_{k})\geq \varepsilon .\) Seja \(F = \bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}E_{k}.\) Então,
+   \[
+     \mu (F)=\lim_{n\to \infty}\mu \biggl(\bigcup_{k=n}^{\infty}E_{k}\biggr)\leq \lim_{n\to \infty}\sum\limits_{k=n}^{\infty}2^{-k} = 0,
+   \]
+  mas 
+    \[
+      \nu (F) = \lim_{n\to \infty}\nu \biggl(\bigcup_{k=n}^{\infty}E_{k}\biggr)\geq \varepsilon .
+    \]
+  Aqui, utilizamos que \(\nu \) é finito para obter a igualdade acima. Com isso, obtivemos uma contradição à definição de continuidade absoluta.\qedsymbol
+\end{proof*}
+\begin{lemma*}
+  Sejam \(\mu \) e \(\nu \) medidas positivas finitas sobre o espaço mensurável \((X, \mathcal{A}).\) Então, \(\mu \perp \nu \), ou existe \(\varepsilon > 0\) e \(G\in \mathcal{A}\) tais que \(\mu (G) > 0\) e G é positiva para \(\nu - \varepsilon \mu .\)
+\end{lemma*}
+\begin{proof*}
+  Considere a decomposição de Hahn para \(\nu -\frac{1}{n}\mu .\) Existem, então, uma sequência de conjuntos negativos \(E_{n}\) e positivos \(F_{n}\) para essa medida, sendo \(E_{n}\) e \(F_{n}\) disjuntos, com \(E_{n}\cup F_{n} = X\) para todo n. 
+Coloque \(F = \cup _n F_{n}\) e \(E = \cap_{n} E_{n}\) e note que 
+  \[
+    E ^{\complement} = \bigcup_{n}^{}E_{n}^{\complement} = \bigcup_{n}^{}F_{n} = F.
+  \]
+Para cada n, \(E\subseteq E_{n}\), tal que 
+  \[
+    \nu (E) \leq \nu (E_{n}) \leq \frac{1}{n}\mu (E_{n})\leq \frac{1}{n}\mu (X).
+  \]
+Como \(\nu \) é uma medida positiva, \(\nu (E) = 0.\) 
+
+Uma das possibilidades é que \(\mu (E ^{\complement}) = 0\) no caso de \(\mu \perp \nu \). A outra, é que \(\mu (E ^{\complement})>0,\) no qual \(\mu (F_{n}) > 0\) para algum n. Seja \(\varepsilon  = \frac{1}{n}\) e \(G = F_{n}.\) Portanto, 
+pela definição de \(F_{n}\), G é positiva para \(\nu - \varepsilon \mu .\) \qedsymbol
+\end{proof*}
+   
 \newpage
 \section{Aula 09 - 22/01/2024}
 \subsection{Motivações}
