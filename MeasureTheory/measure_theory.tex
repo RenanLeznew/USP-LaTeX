@@ -43,7 +43,6 @@
  \rfoot{P\'agina \thepage \hspace{1pt} de \pageref{LastPage}}
 
 \begin{document}
-
 \begin{center}
 	\vspace{1cm}
 	\LARGE
@@ -2085,6 +2084,7 @@ o qual é enumerável e, consequentemente, de medida nula, então
 \end{proof*}
 
 \newpage
+
 \section{Aula 07 - 17/01/2024}
 \subsection{Motivações}
 \begin{itemize}
@@ -2152,7 +2152,7 @@ então \(y\in s_x(E ^{\complement})\) se, e somente se, \((x, y)\in E ^{\complem
     \[
       s_x \biggl( \bigcup_{i=1}^{\infty}E_{i}\biggr) = \bigcup_{i=1}^{\infty}s_x(E_{i}),
     \]
-    pois dado \(y\in s_x(\cup_i E_{i}\), isto significa que [SLIDE 15] \((x, y)\in \cup_i E_{i}\), ou seja, \((x, y)\in E_{i}\) para algum i. Logo, \(y\in s_x(E_{i})\) e \(y\in \bigcup_{i}^{}s_{x}(E_{i}).\)
+    pois dado \(y\in s_x(\cup_i E_{i}\), isto significa que \((x, y)\in \cup_i E_{i}\), ou seja, \((x, y)\in E_{i}\) para algum i. Logo, \(y\in s_x(E_{i})\) e \(y\in \bigcup_{i}^{}s_{x}(E_{i}).\)
   Assim, \(\mathcal{C}\) é fechado com relação à união contável. Logo, \(\mathcal{C}\) é uma \(\sigma \)-álgebra contendo retângulos mensuráveis, tal que 
     \[
       \mathcal{C} = \mathcal{A}\times \mathcal{B}.
@@ -2295,7 +2295,7 @@ Sejam \(\mu_{i}(A) = \mu (A\cap F_{i})\) para cada \(A\in \mathcal{A}\) e \(\nu_
   A última integral deve ser interpretada como 
     \[
       \int_{}^{}\biggl(\int_{}^{}k(y)\nu(dy)\biggr)\mu (dx),
-    \]
+  \]
   analogamente para a outra integral. 
  \begin{proof*}
    Se \(f = \chi_{E}, E\subseteq \mathcal{A}\times \mathcal{B},\) então (1)-(5) são reescritas em resultados anteriores. 
@@ -2515,10 +2515,11 @@ F é constante sobre tais intervalos, \(f(b) = f(a)\), e portanto,
 \newpage
 
 \newpage
-\section{Aula 09 - 22/01/2024}
+\section{Aula 08 - 22/01/2024}
 \subsection{Motivações}
 \begin{itemize}
-  \item Decomposição de Jordan
+  \item Decomposição de Jordan;
+  \item O Teorema de Radon-Nikodym.
 \end{itemize}
 \subsection{Decomposição de Jordan}
  \hypertarget{jordan_decomposition}{
@@ -2604,72 +2605,674 @@ Como \(\nu \) é uma medida positiva, \(\nu (E) = 0.\)
 Uma das possibilidades é que \(\mu (E ^{\complement}) = 0\) no caso de \(\mu \perp \nu \). A outra, é que \(\mu (E ^{\complement})>0,\) no qual \(\mu (F_{n}) > 0\) para algum n. Seja \(\varepsilon  = \frac{1}{n}\) e \(G = F_{n}.\) Portanto, 
 pela definição de \(F_{n}\), G é positiva para \(\nu - \varepsilon \mu .\) \qedsymbol
 \end{proof*}
+\subsection{O Teorema de Radon-Nikodym}
+ \hypertarget{radon_nikodym}{
+   \begin{theorem*}[Radon-Nikodym]
+    Suponha que \(\mu \) é uma medida \(\sigma \)-finita e positiva sobre o espaço mensurável \((X, \mathcal{A})\), e \(\nu \) é uma medida finita sobre o espaço mensurável \((X, \mathcal{A},)\) tal que \(\nu \) é absolutamente
+    contínua com relação a \(\mu \). Então, existe uma função \(\mu \)-integrável não negativa f mensurável com relação a \(\mathcal{A}\) tal que 
+      \[
+        \nu (A) = \int_{A}f d\mu_{},\quad \forall A\in \mathcal{A}.
+      \]
+    Além disso, se g for outra função satisfazendo a mesma coisa, então \(f = g\) quase sempre com relação a \(\mu \).
+  \end{theorem*}}
+  A função f é chamada \textbf{derivada de Radon-Nikodym} de \(\nu \) com relação a \(\mu \), ou também chamada de \textbf{densidade de }\(\nu \) \textbf{com relação a }\(\mu \), e escrevemos 
+    \[
+      f= \frac{d\nu }{d\mu },
+    \]
+  ou 
+    \[
+      d\nu = f\mu.
+    \]
+ \begin{proof*}
+   A ideia da prova é olhar para o conjunto de f tal que 
+     \[
+       \int_{A}f d\mu_{} \leq \nu(A),\quad \forall A\in \mathcal{A}.
+     \]
+    A partir disso, escolhe-se um dos conjuntos, X, tal que \(\int_{X}f d\mu_{}\) seja o maior deles. 
+
+  \textit{\underline{Unicidade}:} Suponha que f e g são duas funções tais que 
+    \[
+      \int_{A}f d\mu_{} = \nu (A) = \int_{A}g d\nu_{},\quad \forall A\in \mathcal{A}.
+    \]
+  Para todo \(A\in \mathcal{A},\) temos 
+    \[
+      \int_{A}(f-g) d\mu_{} = \nu (A) - \nu(A) = 0.
+    \]
+  Logo, \(f = g = 0\) quase sempre com relação a \(\mu \), provando a unicidade.
+
+  Agora, suponha que \(\mu \) seja uma medida finita. Vamos definir a f, já que sabemos que ela é única. Coloque 
+    \[
+      \mathcal{F} = \{g \text{ mensurável: } g\geq 0, \int_{A}g d\mu_{}\leq \nu (A), \forall A\in \mathcal{A}.\}
+    \]
+  Assim, \(\mathcal{F}\neq\emptyset\) pois \(0\in \mathcal{F}.\) Seja 
+    \[
+      L = \sup_{}\biggl\{\int_{}g d\mu_{}: g\in \mathcal{F}\biggr\},
+    \]
+  tal que \(L\leq \nu (X) < \infty\), e seja \(g_{n}\) sequência em \(\mathcal{F}\), tal que 
+    \[
+      \int_{}g_{n} d\mu_{}\to L.
+    \]
+    Tome \(h_{n} = \max_{}(g_1, \dotsc , g_{n})\) e \(B = \{x: g_1(x) \geq g_2(x)\}\). Escrevemos 
+   \begin{align*}
+     \int_{A}h_2 d\mu_{} &= \int_{A\cap B}h_2 d\mu_{} + \int_{A\cap B ^{\complement}}h_2 d\mu_{}\\ 
+                         &= \int_{A\cap }g_1 d\mu_{} + \int_{A\cap B ^{\complement}}g_2 d\mu_{}\\ 
+                         &\leq \nu (A\cap B) + \nu (A\cap B ^{\complement}) = \nu (A).
+   \end{align*}
+  Portanto, \(h_2=\max_{}(g_1, g_2)\in \mathcal{F}\). Repetindo o processo e aplicando indução, \(h_{n}\in \mathcal{F}.\) A função \(h_{n}\) cresce, digamos para f. Pelo \hyperlink{monotone_convergence}{Teorema da Convergência Monótona},
+    \[
+      \int_{A}f d\mu_{}\leq \nu (A), \quad \forall A\in \mathcal{A}
+    \]
+  e 
+    \[
+      \int_{}f d\mu_{} \geq \int_{}h_{n} d\mu_{}\geq \int_{}g_{n} d\mu_{},\quad \forall n\in \mathbb{N}.
+    \]
+  Com isto, 
+    \[
+      \int_{}f d\mu_{} = L,
+    \]
+  pois L é o supremo por hipótese. 
+
+  A seguir, mostramos que essa é a f que procuramos. Com efeito, defina a medida \(\lambda \) pondo 
+    \[
+      \lambda (A) = \nu (A) - \int_{A}f d\mu_{}.
+    \]
+  Note que \(\lambda \) é medida positiva, pois \(f\in \mathcal{F}.\) Suponha que \(\lambda \) não é mutualmente singular com \(\mu \). Então, existe \(\varepsilon >0\) e G tais que G é mensurável, \(\mu (G) > 0\)
+e G é positiva para a medida \(\lambda -\varepsilon \mu .\) Para todo \(A\in \mathcal{A},\)
+  \[
+    \nu (A) - \int_{A}f d\mu_{} = \lambda (A) \geq \lambda (A\cap G) \geq \varepsilon \mu (A\cap G) = \int_{A}\varepsilon \chi_{G} d\mu_{},
+  \]
+ou seja, 
+  \[
+    \nu (A) \geq \int_{A}(f+\varepsilon \chi_{G}) d\mu_{}.
+  \]
+  Logo, \(f+\varepsilon \chi_{G}\in \mathcal{F}.\) No entanto, 
+    \[
+      \int_{X}(f+\varepsilon \chi_{G}) d\mu_{} = L + \varepsilon \mu (G) > L.
+    \]
+  Contradição, pois L é o supremo. Destarte, \(\lambda \perp \mu ,\) tal que existe \(h\in \mathcal{A}\) tal que \(\mu (H) = 0\) e \(\lambda (H ^{\complement}) = 0\). Como \(\nu<<\mu \), então \(\nu (H) = 0\) e, portanto, 
+    \[
+      \lambda (H) = \nu (H) - \int_{H}f d\mu_{} = 0.
+    \]
+  Isto implica que \(\lambda  = 0\) ou que \(\nu (A) = \int_{A}f d\mu_{}\) para todo A.
+
+  Finalmente, mostramos que \(\mu \) é \(\sigma \)-finita. De fato, existe \(F_{i}\uparrow X\) tal que \(\mu (F_{i}) < \infty\) para todo i. Seja \(\mu_{i}\) a restrição de \(\mu \) em \(F_{i}\), ou seja, \(\mu_{i}(A) = \mu(A\cap F_{i})\).
+Coloque \(\nu_{i}\) analogamente para \(\nu \). Segue que \(\nu_{i}\) é absolutamente contínua com relação a \(\nu_{i}\), pois se \(\mu(A\cap F_{i}) = 0\), então \(\nu (A\cap F_{i})=0,\) o que equivale a \(\mu_{i}(A) = \nu_{i}(A) = 0.\) 
+
+  Se \(f_{i}\) é a função tal que \(d\nu_{i} = f_{i}d\mu_{i}\), então \(f_{i} = f_{j}\) para sobre \(F_{i}\) para todo \(j\leq i\) por unicidade. Defina f pondo \(f(x) = f_{i}(x)\) se \(x\in F_{i}.\) Com esta definição, para cada \(A\in \mathcal{A},\) 
+    \[
+      \nu (A\cap F_{i}) = \nu_{i}(A) = \int_{A}f_{i} d\mu_{i} = \int_{A\cap F_{i}} d\mu_{}.
+    \]
+  Portanto, fazendo \(i\to \infty\), encontrarmos a f procurada. \qedsymbol
+ \end{proof*}
+ A prova da decomposição de Lebesgue usa esses mesmos argumentos: 
+\begin{theorem*}
+  Suponha \(\mu \) uma medida \(\sigma \)-finita positiva e \(\nu \) uma medida finita positiva. Então, existem medidas positivas \(\lambda , \rho \) tais que \(\nu = \lambda + \rho \), com \(\rho \) absolutamente contínua com relação a \(\mu \), e \(\lambda \) e \(\mu \) mutualmente singulares.
+\end{theorem*}
+\begin{proof*}
+  Vamos reduzir \(\mu \) ao caso de medida finita e definir \(\mathcal{F}\) e L, assim como a construção de f, como na prova do Radon-Nikodym.
+
+  Seja \(\rho (A) = \int_{A}f d\mu_{}\) e seja \(\lambda = \nu - \rho\). Da construção, como na prova do Radon-Nikodym, 
+    \[
+      \int_{A}f d\mu_{}\leq \nu (A).
+    \]
+  Assim, \(\lambda (A) \geq 0\) para todo A. Temos, então, \(\rho + \lambda = \nu \). Resta provar a singularidade mútua. 
+
+  Se não fosse, então existe \(\varepsilon > 0\) e \(F\in \mathcal{A}\) tal que \(\mu (F) > 0\) e F é positiva para a medida \(\lambda -\varepsilon \mu .\) Obtemos uma contradição na prova do Radon-Nikodym. Portanto, \(\lambda \perp \mu \) e a decomposição é única. \qedsymbol
+\end{proof*}
+ Seja I um intervalo de \(\mathbb{R}.\) Uma função \(f:I\rightarrow \mathbb{R}\) é absolutamente contínua em I se, para cada \(\varepsilon  > 0\), existe um \(\delta > 0\) de modo que, sempre que uma sequência finita de subintervalos disjuntos aos pares \((x_{k}, y_{k})\in I\) com \(x_{k}, y_{k}\in I\) satisfazendo 
+   \[
+     \sum\limits_{k}^{}(y_{k}-x_{k}) < \delta \Rightarrow \sum\limits_{k}^{}|f(y_{k}) - f(x_{k})| < \varepsilon .
+   \]
+   A coleção de todas as funções absolutamente contínuas em I é denotado \(\mathbb{AC}(I).\) Esta definição é equivalente a 
+  \begin{itemize}
+    \item[i)] f é absolutamente contínua; 
+    \item[ii)] f tem uma derivada f'quase em todos os lugares, a derivada é Lebesgue integrável e \(f(x) = f(a) + \int_{a}^{x}f'(t)dt\) para todo \(x\in [a, b]\)
+    \item[iii)] Existe uma função integrável Lebesgue g em [a, b] tal que \(f(x) = f(a) + \int_{a}^{x}g'(t)dt\) quase para todo x em [a, b].
+  \end{itemize}
+ \begin{lemma*}
+   Denote m a medida de Lebesgue em \(\mathbb{R}^{n}.\) Suponha que \(E\subseteq \mathbb{R}^{n}\) seja coberta por uma coleção de bolas \(\{B_{\alpha }\} \) e existe \(R> 0\) tal que o diâmetro de cada bola \(\{B_{\alpha }\}\) é limitada por R. 
+  Então, existe uma sequência \(B_{1}, B_{2}, \dotsc \) de elementos de \(\{B_{\alpha }\}\), disjuntas, tal que 
+    \[
+      m(E) \leq 3^{n}\sum\limits_{k}^{}m(B_{k}).
+    \]
+ \end{lemma*}
+ \begin{proof*}
+   Seja \(d(B_{\alpha })\) diâmetro de \(B_{\alpha }.\) Escolha \(B_1\) tal que 
+     \[
+       d(B_{1}) \geq \frac{1}{2}\sup_{\alpha }d(B_{\alpha }).
+     \]
+    Uma vez escolhidos, \(B_1, B_2, \dotsc , B_{k},\) escolhemos \(B_{k+1}\) disjunto de todos os outros e tal que 
+      \[
+        d(B_{k+1}) \geq \frac{1}{2}\sup_{\alpha }\{d(B_{\alpha }): B_{\alpha } \text{ é disjunto de }B_1,\dotsc ,B_{k}\}.
+      \]
+    Se \(\sum\limits_{k}^{}m(B_{k}) = \infty,\) então acabou. Suponha que \(\sum\limits_{k}^{}m(B_{k}) < \infty\). Seja \(B_{k}^{*}\) uma bola com o mesmo centro de \(B_{k},\) mas com o triplo do raio. Afirmamos que 
+  \(E\subseteq \bigcup_{k}^{}B_{k}^{*}\). Assumindo a afirmação, temos 
+    \[
+      m(E) \leq m \biggl(\bigcup_{k}^{}B_{k}^{*}\biggr) \leq \sum\limits_{k}^{}m(B_{k}^{*}) = 3^{n}\sum\limits_{k}^{}m(B_{k}).
+    \]
+    Agora, provemos a afirmação. Basta provar que \(B_{\alpha }\subseteq \bigcup_{k}^{}B_{k}^{*}, \) já que \(\{B_{\alpha }\}\) cobrem E. Fixado \(\alpha \), se \(B_{\alpha }\) é um dos \(B_{k},\) estamos feitos. Caso contrário, 
+  se \(\sum\limits_{k}^{}m(B_{k}) < \infty,\) então \(d(B_{k})\to 0\). Seja k o menor inteiro tal que \(d(B_{k+1}) < \frac{1}{2}d(B_{\alpha ).}\) Então, \(B_{\alpha }\) deve interceptar um dos \(B_{i}, i = 1, 2, \dotsc, k\). Caso contrário, poderíamos escolher \(B_{k+1}\) como sendo \(B_{\alpha }.\)
+
+    Seja \(j_{0}\) o menor inteiro positivo menor ou igual a k tal que \(B_{j_{0}}\cap B_{\alpha }\neq\emptyset.\) Sabemos, da escolha e definição, que 
+      \[
+        \frac{1}{2}d(B_{\alpha }) \leq d(B_{j_{0}}),
+      \]
+  o que implica que \(B_{\alpha }\subseteq B_{j_{0}}^{*}\). Com efeito, seja \(x_{j_{0}}\) o centro de \(B_{j_{0}}\) e \(y\in B_{\alpha }\cap B_{j_{0}}.\) Se \(x\in B_{\alpha},\) então 
+    \[
+      |x-x_{0}|\leq |x-y| + |y-x_{0}| < d(B_{\alpha }) + d(B_{j_{0}})/2 \leq \frac{5}{2}d(B_{j_{0}}),
+    \]
+  ou \(x\in B_{j_{0}}^{*},\) em que usamos que \(d(B_\alpha ) \leq 2d(B_{j_{0}}).\) Portanto, \(B_{\alpha }\subseteq B_{j_{0}}^{*}.\) \qedsymbol
+ \end{proof*}
+ \begin{def*}
+  \begin{itemize}
+    \item[1)] f é \textbf{localmente integrável} se \(\int_{K}|f(x)| dx < \infty\) para todo K compacto.
+      \item[2)] Se f é localmente integrável, definimos a \textbf{função maximal de f} como
+        \[
+          Mf(x) = \sup_{r > 0}\frac{1}{m(B(x, r))}\int_{B(x, r)}|f(y)| dy.
+        \]
+  \end{itemize}
+ \end{def*}
+  Note que, sem o supremo, isto seria apenas a média do módulo de f sobre a bola \(B(x, r).\) A estratégia para provar que Mf é função mensurável é a seguinte: 
+
+  Se f é localmente integrável, então, para cada r, a função 
+    \[
+      x\mapsto \int_{B(x, r)}|f(y)| dy
+    \]
+  é contínua pelo \hyperlink{dominated_convergence}{Teorema da Convergência Dominada}, pois quando \(x_{n}\) tende a \(x_{0}\), 
+    \[
+      h(x_{n}) = \int_{R^{n}}\chi_{B(x_{n}, r)}|f(y)| dy.
+    \]
+  Decorre, então, que para cada r e cada A, o conjunto 
+    \[
+      \biggl\{x: \int_{B(x, r)}|f(y)| dy  > A\biggr\}
+    \]
+  é aberto. Como \(Mf(x) > a\), para algum r, acontecerá 
+    \[
+      \int_{B(x, r)}|f(y)| dy > am(B(x, r)),
+    \]
+  tal que 
+    \[
+      \{x: Mf(x) > a\} = \bigcup_{r>0}^{}\biggl\{x: \int_{B(x, r)}|f(y)| dy > am(B(x, r))\biggr\}
+    \]
+  e, assim, \(\{x: Mf(x) > a\}\) é a união de conjuntos abertos, logo um aberto. Portanto, Mf é mensurável.
+
+  Apesar disso, a M não leva funções integráveis em funções integráveis. Mas, Hardy e Littlewood provaram um resultado próximo: 
+ \begin{theorem*}
+   Se f é integrável, então, para todo \(\beta > 0,\) 
+     \[
+       m(\{x: Mf(x) > \beta \})\leq \frac{3^{n}}{\beta }\int_{}^{}|f(x)|dx.
+     \]
+ \end{theorem*}
+\begin{proof*}
+  Fixado \(\beta \), seja \(E_{\beta } = \{x: Mf(x) > \beta \}.\) Se \(x\in E_{\beta },\) então existe bola \(B_{x}\) centrada em x tal que 
+    \[
+      \int_{B_{x}}|f(y)| dy > \beta m (B_{x}).
+    \]
+  Então, 
+    \[
+      m(B_{x}) \leq \frac{\int_{}^{}|f|}{\beta }
+    \]
+  e, assim, \(\{B_{\alpha }\}\) é cobertura de \(E_{\beta }\) pelas bolas cujos diâmetros são limitados por um número independente de x. Extraindo uma sequência disjunta \(B_{1}, B_2, \dotsc \) tal que \(m(E_{\beta }) \leq 3^{n}\sum\limits_{k}^{}m(B_{k}),\) teremos 
+ \begin{align*}
+   m(E_{\beta }) &\leq 3^{n}\sum\limits_{k}^{}m(B_{k}) \leq \frac{3^{n}}{\beta }\sum\limits_{k}^{}\int_{B_{k}}|f|\\ 
+                 &= \frac{3^{n}}{\beta }\int_{\bigcup_{k}^{}B_{k}}|f| \leq \frac{3^{n}}{\beta }\int_{}^{}|f|,
+ \end{align*}
+  como desejado. \qedsymbol
+\end{proof*}
+ \begin{example}
+  Outro detalhe é que M \textbf{NÃO} leva funções integráveis em funções integráveis. Para ver isso, seja \(f = \chi_{B},\) em que B é a bola unitária. Então, \(Mf(x)\sim C|x|^{-n},\) x grande. Logo, Mf não é integrável, pois 
+    \[
+      Mf = \sup_{r}\frac{1}{w_{n}r^{n}}|B_1| = \frac{1}{r^{n}}.
+    \]
+ \end{example}
+ \begin{theorem*}
+   Seja 
+     \[
+       f_{r}(x) = \frac{1}{m(B(x, r))}\int_{B(x, r)}f(y)dy.
+     \]
+  Se f é localmente integrável, então 
+    \[
+      f_{r}(x)\to f(x)\quad \text{q. s. quando }r\to 0.
+    \]
+ \end{theorem*}
+\begin{proof*}
+  Basta provar que, para cada N, \(f_{r}(x)\to f(x)\) quase sempre para \(x\in B(0, N)\) quando \(r\to 0.\) Fixado N, suponha, sem perda de generalidade, que \(f = 0\) em \(B(0, 2N)^{\complement}\).
+Assim, podemos supor que f seja integrável, já que ela pode ser aproximada por funções simples ou de suporte compacto. 
+
+  Fixado \(\beta > 0\), seja \(\varepsilon > 0\). Vimos que podemos tomar g de suporte compacto tal que 
+    \[
+      \int_{}|f-g| dm < \varepsilon .
+    \]
+  Se \(g_r\), definida igual a \(f_r\) como uma medida, então 
+ \begin{align*}
+   |g_r(x) - g(x)| &= \biggl\vert \frac{1}{m(B(x, r))} \int_{B(x, r)}^{}|g(y) - g(x)||dy|\biggr\vert\\ 
+                   &\leq \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|g(y)-g(x)|dy\to 0.
+ \end{align*}
+ quando \(r\to 0\) pela continuidade de g. Temos, então, 
+\begin{align*}
+  \limsup_{r\to 0}|f_r(x) - f(x)| &\leq \limsup_{r\to 0}|f_r(x) - f(x)|\\ 
+                                  &+ \limsup_{r\to 0}|g_r(x) - g(x)| + |g(x) - f(x)|.
+\end{align*}
+O segundo termo do lado direito tende a zero pela estimativa feita, donde segue que podemos escrever 
+\begin{align*}
+  m(\{x:\limsup_{r\to 0}|f_r(x) - f(x)| > \beta \}) &\leq m(\{x:\limsup_{r\to 0}|f_r(x) - g_r(x)|>\beta /2\}) + m(\{x: |f(x)-g(x)| > \beta/2\})\\ 
+                                                    &\leq m(\{x: |M(f-g)(x)|>\beta /2\}) + \frac{\int_{}^{}|f-g|}{\beta/2}\\
+                                                    &\leq \frac{2(3^{n}+1)}{\beta }\int_{}^{}|f-g|\\ 
+                                                    &< \frac{2(3^{n}+1)\varepsilon }{\beta },
+\end{align*}
+em que utilizamos a definição de função maximal para estimar 
+  \[
+    |f_r(x) - g_r(x)| \leq M(f-g)(x),\quad \forall r,
+  \]
+o que é verdadeiro para todo \(\varepsilon \). Assim,
+  \[
+    m(\{x:\limsup_{r\to 0}|f_r(x) - f(x)| > \beta \}) = 0.
+  \]
+Aplicando com \(\beta  = 1/j\) para cada inteiro positivo j, concluímos que 
+\begin{align*}
+  m(\{x:\limsup_{r\to 0}|f_r(x)-f(x)| > 0\}) \leq \sum\limits_{j=1}^{\infty}m(\{x:\limsup_{r\to 0}|f_r(x) - f(x)| > 1/j\}) = 0.
+\end{align*}
+  Portanto,
+    \[
+      f_r(x)\to f(x),\quad \text{q.s. quando }r\to 0.\quad \text{\qedsymbol}
+    \]
+\end{proof*}
+  Temos, ainda, um resultado um pouco mais forte
+ \begin{theorem*}
+   Para quase todo x, 
+     \[
+       \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y) - f(x)|dy\to 0
+     \]
+  quando \(r\to 0\).
+ \end{theorem*}
+\begin{proof*}
+  Para cada racional c, existe um conjunto \(N_{c}\) de medida 0 tal que 
+    \[
+      \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y)-c|dy\to |f(x)-c|,
+    \]
+para \(x\not\in N_{c}.\) Seja \(N = \bigcup_{c\in \mathbb{Q}}^{}N_{c}\) e suponha que \(x\not\in N\). Tome \(\varepsilon > 0\) e escolha c racional tal que \(|f(x) - c| < \varepsilon .\)
+Com isso, 
+ \begin{align*}
+   \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y) - f(x)|dy &\leq \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y)-c|dy + \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(x)-c|dy\\ 
+                                                        &= \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y)-c|dy + |f(x) - c|
+ \end{align*}
+e, portanto, 
+  \[
+    \limsup_{r\to 0}\frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y) - f(x)|dy \leq 2|f(x)-c|< 2\varepsilon.
+  \]
+donde segue o resultado pela arbitrariedade do \(\varepsilon \). \qedsymbol
+\end{proof*}
+ Se \(f = \chi_{E},\) pelo resultado acima, para todo x em E, 
+   \[
+     \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}\chi_{E}dy = \frac{m(E\cap B(x, r))}{m(B(x, r))}\to 1
+   \]
+quando r tende a 0. Analogamente, para quase todo \(x\not\in E,\) o raio tende a 0. Os pontos em que o raio tende a 1 são chamados \textbf{pontos de densidade de E.}
 \newpage
+
 \section{Aula 10 - 23/01/2024}
 \subsection{Motivações}
 \begin{itemize}
-	\item
+  \item Relacionando ao Cálculo - Diferenciação;
+  \item Função de Variação Limitada.
 \end{itemize}
-\newpage
-\section{Aula 11 - 24/01/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
-\section{Aula 12 - 29/01/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
-\section{Aula 13 - 30/01/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
-\section{Aula 14 - 31/01/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
-\section{Aula 15 - 01/02/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
-\section{Aula 16 - 05/02/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
-\section{Aula 17 - 06/02/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
-\section{Aula 18 - 07/02/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
+\subsection{Diferenciação} 
+  Trabalharemos em \(\mathbb{R},\) com m sendo a medida Lebesgue e \(B(x, r) = (x-r, x+r).\)
+ \begin{def*}
+   Define-se a \textbf{antiderivada} ou \textbf{integral indefinida} de uma função integrável por 
+     \[
+       F(x) = \int_{a}^{x}f(t)dt.\quad \square
+     \]
+ \end{def*}
+ Relembremos, também, o \textit{Teorema Fundamental do Cálculo} 
+ \hypertarget{calculus}{\begin{theorem*}[Teorema Fundamental do Cálculo]
+    Seja \(f:\mathbb{R}\rightarrow \mathbb{R}\) integrável e \(a\in \mathbb{R}.\) Definimos 
+      \[
+        F(x) = \int_{a}^{x}f(t)dt.
+      \]
+   Então, F é derivável quase sempre e \(F'(x) = f(x)\) quase sempre.
+  \end{theorem*}}
+ \begin{proof*}
+   Se \(h > 0,\) temos 
+     \[
+       F(x+h) - F(x) = \int_{x}^{x+h}f(t)dt,
+     \]
+  tal que 
+ \begin{align*}
+   \biggl\vert \frac{F(x+h) - F(x)}{h} - f(x) \biggr\vert &= \frac{1}{h}\biggl\vert \int_{x}^{x+h}[f(y) - f(x)]dy \biggr\vert\\ 
+                                                          &\leq \frac{2}{m(B(x, h))}\int_{x-h}^{x+h}|f(y) - f(x)|dy.
+ \end{align*}
+  Sabemos que o lado direito vai a 0 quando h tende a 0 para quase todo x e, assim, a derivada de F à direita existe e é igual a f em quase toda parte. Analogamente, o lado esquerdo também vai a 0 quando h vai 0, ou seja, temos 
+  \(F'(x) = f(x)\) quase sempre. \qedsymbol
+ \end{proof*}
+  Mostraremos que funções crescentes são deriváveis quase sempre. 
+ \begin{lemma*}
+   Suponha que \(H:\mathbb{R}\rightarrow \mathbb{R}\) é crescente, contínua à direita e constante para \(x\geq 1\) e \(x\leq 0.\) Seja \(\lambda \) a medida de Lebesgue-Stieltjes definida usando H e suponha que \(\lambda \) e m são mutualmente singulares. Então,
+     \[
+       \lim_{r\to 0}\frac{\lambda (B(x, r))}{m(B(x, r))} = 0
+     \]
+    quase sempre, x com relação a m.
+ \end{lemma*}
+ \begin{proof*}
+   O primeiro passo é a mensurabilidade. Seja \(\tilde{H}(y) = \lim_{z\to y^{-}}H(z).\) Então, 
+     \[
+       \tilde{H}(y) = \lim_{z\to y^{-}}\lambda ([0, z])=\lambda ([0, y)).
+     \]
+    Como H e \(\tilde{H}\) são crescentes, elas são Borel mensuráveis. Note que 
+      \[
+        \lambda (B(x, r)) = \lambda ([0, x + r)) - \lambda ([0, x - r]) = \tilde{H}(x+r) - H(x-r).
+      \]
+   Assim, para cada r, a função \(x\mapsto \lambda (B(x, r))\) é Borel mensurável.
 
-\section{Aula 19 - 08/01/2024}
-\subsection{Motivações}
-\begin{itemize}
-	\item
-\end{itemize}
-\newpage
+   Seja \(r_{j} = 2^{-j}.\) Se \(2^{-j-1}\leq r < 2^{-j}, \) então 
+     \[
+       \frac{\lambda (B(x, r))}{m(B(x, r))} \leq \frac{\lambda (B(x, r_{j}))}{m(b(x, r_{j+1}))} = 2 \frac{\lambda (B(x, r_{j}))}{m(B(x, r_{j}))}.
+     \]
+    Para provar o resultado, agora, basta provar que 
+      \[
+        \lim_{j\to \infty}\frac{\lambda (B(x, r_{j}))}{m(B(x, r_{j}))} = 0,\quad \text{quase sempre para todo x.}
+      \]
 
+    \textbf{\underline{Afirmação}:} O resultado é claro se x é menor que 0 ou maior que 1. 
+    Com efeito, como \(\lambda \perp m\), existem conjuntos E e F mensuráveis tais que \(\lambda (F) = 0, m(E) = 0\) e \(F = E ^{\complement}.\) Seja \(\varepsilon > 0\). Agora, existe G aberto limitado tal que \(F\cap [0, 1]\subseteq G\) e \(\lambda (G) < \varepsilon .\)  
+    Consequentemente, existe G' aberto contendo F tal que \(\lambda (G') < \varepsilon .\) Como H é constante em \((-\infty, 0]\cup [1, \infty),\) tomamos G sendo \(G = G'\cap (-1, 2)\).
+
+    Seja \(\beta  > 0\) e 
+      \[
+      A_{\beta } = \biggl\{x\in F\cap [0, 1]: \limsup_{j\to \infty}\frac{\lambda (B(x, r_{j}))}{m(B(x, r_{j}))}\biggr\}.
+      \]
+    \textbf{\underline{Afirmação}:} A medida de \(A_{\beta }\) é nula. De fato, se \(x\in A_{\beta },\) então \(x\in F\subseteq G\) e existe uma bola aberta \(B_{x}\), centrada em x e de raio \(2^{-j}\) para algum j, tal que \(B_{x}\subseteq G\) e \(\frac{\lambda (B_x)}{m(B_x)}>\beta .\)
+Com isso, existe uma sequência disjunta \(B_1, B_2, \dotsc \) tal que 
+  \[
+    m(A_{\beta }) \leq 3\sum\limits_{i=1}^{\infty}m(B_{i}).
+  \]
+  Então, 
+    \[
+      m(A_{\beta }) \leq 3\sum\limits_{i=1}^{\infty}m(B_{i}) \leq \frac{3}{\beta }\sum\limits_{i=1}^{\infty}\lambda (B_{i}) \leq \frac{3}{\beta }\lambda (G) \leq \frac{3}{\beta }\varepsilon .
+    \]
+  Como \(\varepsilon \) é arbitrário, a construção de G não depende de \(\beta \), do que segue que \(m(A_{\beta }) = 0.\)
+
+  Finalmente, como \(m(A_{1/k}) = 0\) para todo k, então 
+    \[
+      m \biggl(\biggl\{x\in F\cap [0, 1]: \limsup_{j\to \infty}\frac{\lambda (B(x, r_{j}))}{m(B(x, r_{j}))} > 0\biggr\}\biggr) = 0.
+    \]
+    Portanto, como \(m(E) = 0\), segue o resultado. \qedsymbol
+ \end{proof*}
+\begin{prop*}
+  Seja \(F:\mathbb{R}\rightarrow \mathbb{R}\) crescente e contínua à direita. Então, F' existe quase sempre. Além disso, F' é localmente integrável e, para todo \(a< b\), 
+    \[
+      \int_{a}^{b}F'(x)dx \leq F(b) - F(a).
+    \]
+\end{prop*}
+\begin{proof*}
+  Provaremos que F é diferenciável quase sempre em [0, 1], o que pode ser generalizado pelo mesmo argumento para \([-N, N]\) para cada N, ou seja, será válido para \(\mathbb{R}.\)
+
+  Redefina F pondo 
+    \[
+      F(x) = \left\{\begin{array}{ll}
+          \lim_{y\to 0^{+}}F(y),\quad x \leq 0\\ 
+          F(1),\quad x > 1
+        \end{array}\right..
+    \]
+  Então, F ainda é contínua à direita e crescente, não afetando a diferenciabilidade em [0, 1] exceto possivelmente no extremos. 
+
+  Seja \(\nu \) a medida de Lebesgue-Stieltjes definida em termos de F. Da decomposição de Lebesgue, podemos escrever \(\nu = \lambda +\rho \), em que \(\lambda \perp m\) e \(\rho << m.\) Note que 
+    \[
+      \rho ([0, 1]) \leq \nu ([0,1]) = F(1) - F(0).
+    \]
+  Do \hyperlink{radon_nikodym}{Teorema de Radon-Nikodym}, existe uma função \(f\geq 0\) integrável tal qeu \(\rho (A) = \int_{A}^{}fdm\) para cada A mensurável. Seja 
+    \[
+      H(x) = \lambda ((0, x]) = \nu ((0, x]) - \rho ((0, x]) = F(x) - F(0) - \int_{0}^{x}f(y)dy.
+    \]
+  Mas, pode-se provar que a função \(x\mapsto \int_{0}^{x}f(y)dy\) é contínua, o que torna H contínua à direita, crescente e \(\lambda \) é a medida de Lebesgue-Stieltjes definida em termos de H. Com isso, 
+ \begin{align*}
+   \limsup_{h\to 0^{+}}\frac{H(x+h) - H(x)}{h} &\leq \limsup_{h\to 0^{+}}\frac{H(x+h) - H(x-h)}{h}\\ 
+                                               &=\limsup_{h\to 0^{+}}\frac{\lambda ((x-h), (x+h)])}{h}\\ 
+                                               &\leq 4\limsup_{h\to 0^{+}}\frac{\lambda (B(x, 2h))}{4h} = 0,\quad \text{q.s. para todo x.}
+ \end{align*}
+ O mesmo é verdadeiro para a derivada à esquerda. Assim, \(H'\) existe e é igual a 0 quase sempre para x. Vimos que a função \(x\mapsto \int_{a}^{x}f(y)dy\) é derivável quase sempre e concluímos que F é derivável quase sempre. Além disso, \(F'=f\) quase sempre. Para finalizar, se 
+ \(a < b\), 
+   \[
+     \int_{a}^{b}F'(x)dx = \int_{a}^{b}f(x)dx = \rho ((a, b])\leq \nu ((a, b]) = F(b) - F(a).
+   \]
+   Portanto, a prova está completa. \qedsymbol
+\end{proof*}
+  Podemos finalmente enunciar o resultado principal sobre diferenciabilidade de função crescente. 
+ \begin{theorem*}
+   Se \(F:\mathbb{R}\rightarrow \mathbb{R}\) é crescente, então \(F'\) existe quase sempre e 
+     \[
+       \int_{a}^{b}F'(x)dx \leq F(b) - F(a)
+     \]
+  sempre que \(a < b.\)
+ \end{theorem*}
+\begin{proof*}
+  Seja \(G(x) = \lim_{y\to x^{+}}F(y).\) Como F é crescente, existe no máximo um número enumerável de pontos x em que F não é contínua e, assim, F(x) = G(x) quase sempre.
+Como G é crescente e contínua à direita, G é derivável quase sempre. 
+
+Mostraremos, então, que se x é um ponto em que G é derivável e \(F(x) = G(x)\), então \(F'(x)\) existe e é igual a \(G'(x).\)
+
+Seja x um tal ponto e sejam \(L = G'(x)\), \(\varepsilon > 0.\) Sendo F e G crescentes, para todo \(h > 0\) existe ponto \(x_{h}\in (x+h, x + (1+\varepsilon )h\) no qual F e G coincidem e, assim, 
+  \[
+    F(x+h) \leq F(x_{h}) = G(x_{h}) \leq G(x+(1+\varepsilon )h).
+  \]
+Então, 
+\begin{align*}
+  \limsup_{h\to 0^{+}}\frac{F(x+h) - F(x)}{h} &\leq \limsup_{h\to 0^{+}}\frac{G(x+(1+\varepsilon )h)-G(x)}{h}\\ 
+                                              &= (1+\varepsilon )\limsup_{h\to 0^{+}}\frac{G(x+(1+\varepsilon )h - G(x)}{(1+\varepsilon )h}\\ 
+                                              &= (1+\varepsilon )L.
+\end{align*}
+Analogamente, \(\liminf_{h\to 0^{+}}\frac{F(x+h)-F(x)}{h}\geq (1+\varepsilon )L.\) Sendo \(\varepsilon \) arbitrário, a derivada à direita de F existe no ponto x e é igual a L. Similarmente, a derivada à esquerda é L. 
+
+Como \(F'=G'\) quase sempre, então F' é localmente integrável. Se \(a < b,\) tome \(a_{n}\downarrow a\) e \(b_{n}\uparrow b\), de modo que F e G coincidem em \(a_{n}\) e \(b_{n}\). Então, obtemos 
+\begin{align*}
+  F(b) - F(a) &\geq F(b_{n}) - F(a_{n})\\ 
+              &= G(b_{n}) - G(a_{n})\\ 
+              &\geq \int_{a_{n}}^{b_{n}}G'(x)dx\\ 
+              &= \int_{a_{n}}^{b_{n}}F'(x)dx.
+\end{align*}
+Portanto, tomando \(n\to \infty\) e pelo \hyperlink{monotone_convergence}{Teorema da Convergência Monótona}, temos o resultado. \qedsymbol
+\end{proof*}
+  Observe que, se F é a função de Cantor-Lebesgue, então \(F'(x) = 0\) quase sempre. De fato, isto ocorre em \(C ^{\complement}\), sendo C o conjunto de Cantor. Com isso, 
+    \[
+      1 = F(1) - F(0) > 0 = \int_{0}^{1}F'(x)dx.
+    \]
+  Isto mostra que, em geral, não temos igualdade no Teorema anterior.
+ \begin{def*}
+   Seja \(f:[a, b]\rightarrow \mathbb{R}\). Diremos que f é de \textbf{variação limitada} em [a, b] se 
+     \[
+       V_f[a, b] = \sup_{\mathcal{P}}\biggl\{\sum\limits_{i=1}^{k}|f(x_{i}) - f(x_{i-1})|\biggr\} < \infty,
+     \]
+  em que o supremo é tomado em todas as partições \(\mathcal{P}: a = x_{0} < x_1 < \dotsc <x_{k} = b\) de [a, b]. \(\square\)
+ \end{def*}
+ Se f é crescente, então 
+   \[
+     \sum\limits_{i=1}^{k} |f(x_{i}) - f(x_{i-1})| = \sum\limits_{i=1}^{k}f(x_{i}) - f(x_{i-1}) = f(x_{k}) - f(x_{0}) < \infty,
+   \]
+  mostrando que toda função crescente é de variação limitada. Além disso, se f e g são de variação limitada e \(c\in \mathbb{R},\) então \(f\pm g,\) \(cf\) e \(fg\) são de variação limitada. Também, se f for Lipschitz, então vale 
+    \[
+      \sum\limits_{i=1}^{k}|f(x_{i}) - f(x_{i-1})| \leq C \sum\limits_{i=1}^{k}|x_{i}-x_{i-1}| \leq C(b-a).
+    \]
+  Logo, f é de variação limitada. Finalmente, se f é continuamente derivável, então ela é de variação limitada.
+ \begin{example}
+  \begin{itemize}
+    \item[i)] A função \(f(x) = [x], x\in [0, 2]\), é de variação limitada e não é contínua;
+    \item[ii)] Se f é de variação limitada, então f é limitada;
+    \item[iii)] Seja 
+        \[
+          f(x) = \left\{\begin{array}{ll}
+              x\sin^{}{\biggl(\frac{\pi }{x}\biggr)},\quad &x\in (0 ,1)\\ 
+              0,&\quad x = 0
+            \end{array}\right..
+        \]
+    Esta f é contínua, mas não é de variação limitada, pois a série \(\sum\limits_{}^{}\frac{1}{2n+1}\) diverge. Então, a \(S_{n}\) soma parcial não é limitada. Para ver isto, considere a partição \(P = \biggl\{0, \frac{2}{2n+1}, \frac{2}{2n-1}, \dotsc , \frac{2}{5}, \frac{2}{3}, q\biggr\}.\) Segue que \(S_{n} = \sum\limits_{i=1}^{k}|f(x_{i}) - f(x_{i-1})|\) não 
+  é limitada.
+  \item[iv)] Seja 
+    \[
+      f(x) = \left\{\begin{array}{ll}
+          1,&\quad x\in \mathbb{Q}^{\complement}\\
+          0,&\quad x\in \mathbb{Q}
+        \end{array}\right..
+    \]
+    Como cada intervalo existe um irracional, se tomarmos uma partição com n subintervalos, tomemos um irracional e um racional em cada subintervalo. Daí, \(S_{n} = 1 + 1 +\dotsc +1\geq \frac{n}{2},\) em que \(S_{n}\) é ilimitada.
+  \end{itemize}
+ \end{example}
+  Toda função de variação limitada pode ser escrita como uma diferença de duas funções crescentes.
+ \begin{lemma*}
+   Se f é de variação limitada em \([a, b]\), então f pode ser escrita como \(f= f_1 - f_2,\) em que \(f_1, f_2\) são crescentes.
+ \end{lemma*}
+\begin{proof*}
+  Defina 
+    \[
+      f_1(y) = \sup_{\mathcal{P}}\biggl\{\sum\limits_{i=1}^{k}|f(x_{i})-f(x_{i-1})|^{+}\biggr\}
+    \]
+  e 
+    \[
+      f_2(y) = \sup_{\mathcal{P}}\biggl\{\sum\limits_{i=1}^{k}|f(x_{i})-f(x_{i-1})|^{-}\biggr\}
+    \]
+    em que o supremos é tomado em todas as partições \(\mathcal{P}: a = x_{0} < x_1 < \dotsc < x_{k} = y\) para \(y\in [a, b].\) Com isso, ambas \(f_1, f_2\) são mensuráveis por serem crescentes. 
+Como 
+  \[
+    \sum\limits_{i=1}^{k}|f(x_{i}) - f(x_{i-1})|^{+} = \sum\limits_{i=1}^{k}|f(x_{i}) - f(x_{i-1})|^{-} + f(y) - f(a),
+  \]
+  tomando o supremo sobre todas as partições \(a=x_{0} < x_1 <\dotsc <x_{k} = y\) com \(y\in [a, b]\), temos 
+    \[
+      f_1(y) = f_2(y) + f(y) - f(a).
+    \]
+    Portanto, notando que as duas \(f_1, f_2\) são crescentes em y e isolando f(y), segue o resultado. \qedsymbol
+\end{proof*}
+  Utilizando os resultados até o presente momento, obtivemos que toda função de variação limitada é derivável quase sempre. No entanto, a recíproca não é verdadeira. Basta notar que 
+    \[
+      f(x) = \sin^{}{\biggl(\frac{1}{x}\biggr)},\quad x\in [0, 1]
+    \]
+  é diferenciável quase sempre, mas não é de variação limitada.
+ \begin{lemma*}
+   Se \([c, d]\subseteq [a, b]\), então \(f_1(d) - f_1(c)\leq V_f[c, d]\), em que 
+     \[
+       V_f[a, b] = \sup_{\mathcal{P:a_{0}=x_1 < x_2 < \dotsc <x_{k}=b}}\biggl\{\sum\limits_{i=1}^{k}|f(x_{i}) - f(x_{i-1})|\biggr\}.
+     \]
+  O mesmo vale se trocarmos \(f_1\) por \(f_2\).
+ \end{lemma*}
+\begin{proof*}
+  Seja \(\mathcal{P}\) a partição de \([a, d]\) dada por \(a = x_{0} < x_1 < \dotsc < x_{k} = d\) em \([a, d].\) Seja \(\mathcal{P}_{0} = \mathcal{P}\cup \{c\},\) descrita por 
+  \(a = x_{0} < x_1 < \dotsc < x_{j-1}\leq c < x_{j} < \dotsc <x22 = b.\) Tome \(\mathcal{P}'\) como a partição \(a = x_{0} < x_1 <\dotsc x_{j-1}\leq c\). 
+  e \(\mathcal{P}'': x_{j} < \dotsc < x_{n}=b\).
+    
+Como \((r+s)^{+} \leq r^{+} + s^{+}, \) temos
+ \begin{align*}
+   \sum\limits_{\mathcal{P}}^{}|f(x_{i}) - f(x_{i-1})|^{+} &\leq \sum\limits_{\mathcal{P}_{0}}^{}|f(x_{i}) - f(x_{i-1})|^{+} \\ 
+                                                           &= \sum\limits_{\mathcal{P}'}^{}|f(x_{i}) - f(x_{i-1})|^{+}\sum\limits_{\mathcal{P}''}^{}|f(x_{i}) - f(x_{i-1})|^{+}\\ 
+                                                           &\leq \sum\limits_{\mathcal{P}'}^{}|f(x_{i})-f(x_{i-1})|^{+} + \sum\limits_{\mathcal{P}''}^{}|f(x_{i}) - f(x_{i-1})|\\ 
+                                                           &\leq f_1(c) + V_f[c, d].
+ \end{align*}
+  Aqui, usamos a notação \(\sum\limits_{\mathcal{P}}^{} = \sum\limits_{i=1}^{k}.\) Tomando o supremo em todas as partições \(\mathcal{P},\) temos 
+    \[
+      f_1(d) \leq f_1(c) + V_f[c, d]
+    \]
+  Portanto, 
+    \[
+      f_1(d) - f_1(c) \leq V_f[c, d].
+    \]
+  Para \(f_2,\), é similar. \qedsymbol
+\end{proof*}
+ \begin{def*}
+   Seja f de variação limitada. Coloque, \(f = f_1 - f_2\), em que \(f_1\) e \(f_2\) são crescentes. Então, a quantidade 
+     \[
+       f_1(b) + f_2(b) - (f_1(a) + f_2(a))
+     \]
+     é chamada \textbf{variação total de f em [a, b]}. A variação total f em \([a, b]\) e \([b, c]\), então, coincide com a variação total em \([a, c]. \quad \square\)
+ \end{def*}
+ Observe que, se f é crescente em [a, b] e contínua à direita, podemos escrever \(f = f_1 - f_2\), em que \(f_1\) é contínua à direita e \(f_2(x) = \sum\limits_{a < t < x}^{}(f(t) - f(t^{-})).\) No somatório, apenas um número enumerável é não-nulo. Cada termo da série é não-negativa e as oma é finita, já que ela é limitada por \(f(x)-f(a).\) Assim, podemos 
+decompor qualquer função de variação limitada que seja contínua à direita.
+ \begin{def*}
+   Seja \(f:[a, b]\rightarrow \mathbb{R}\). Dizemos que f é \textbf{absolutamente contínua em [a, b]} se dado \(\varepsilon  > 0\), existir \(\delta  > 0\) tal que 
+     \[
+       \sum\limits_{i=1}^{k}|f(b_{i}) - f(a_{i})| < \varepsilon 
+     \]
+  sempre que 
+    \[
+      \sum\limits_{i=1}^{k}|b_{i} - a_{i}|  < \delta,
+    \]
+  em que \(\{(a_{i}, b_{i})\}\) é uma coleção finita disjunta de intervalos. \(\square\)
+ \end{def*}
+  Toda função absolutamente contínua é contínua, mas a volta não é verdade. Para isso, utilize a função de Cantor: 
+ \begin{example}
+   A função de Cantor não é absolutamente contínua pois, tomando como partição no n-ésimo passo os extremos dos \(2^{n}\) subintervalos de comprimento \((1/3)^{n},\) então nos extremos, as funções de Cantor coincidem por serem constantes. Daí, lembrando que \(f(0) = 0 \) e \(f(1) = 1,\) temos 
+     \[
+       S_{n} f(a_1) - f(0) + f(a_2) - f(a_1) + \dotsc  1 = f(1) - f(a_{n-1}) = f(1) = 1. 
+     \]
+    Por outro lado, o comprimento total dos intervalos omitidos vale \(2^{n}\biggl(\frac{1}{3}\biggr)^{n} = \biggl(\frac{2}{3}\biggr)^{n},\) que vai a zero. Podemos fazer menor que \(\delta ,\) mas achamos \(S_{n} \geq \varepsilon \).
+ \end{example}
+ \begin{lemma*}
+   Se f é absolutamente contínua, então f é de variação limitada.
+ \end{lemma*}
+\begin{proof*}
+  Da definição com \(\varepsilon  = 1\), existe \(\delta  \) tal que 
+    \[
+      \sum\limits_{i=1}^{k}|f(b_{i}) - f(a_{i})| < 1
+    \]
+  sempre que \(\sum\limits_{i=1}^{k}(b_{i} - a_{i}) < \delta \) e que \((a_{i}, b_{i})\) são intervalos disjuntos. 
+
+  Portanto, para cada j, a variação total de f em \([a + j\delta, a + (j+1)]\) é menor ou igual a 1, donde segue que a variação total de f sobre [a, b] é finita e menor. \qedsymbol
+\end{proof*}
+\begin{lemma*}
+  Suponha f de variação limitada. Sabemos que \( f = f_1 - f_2\), em que \(f_1, f_2\) são crescentes. Se f é absolutamente contínua, então \(f_1, f_2\) também serão.
+\end{lemma*}
+ \begin{proof*}
+   Dado \(\varepsilon \), existe \(\delta \) tal que \(\sum\limits_{\ell =1}^{m}|f(B_{\ell }) - f(A_{\ell })|\) sempre que \(\sum\limits_{i=1}^{m}(b_{i}-a_{i}) < \delta .\) Precisamos provar que \(\sum\limits_{i=1}^{m}|f_1(b_{i}) - f_1(a_{i})|\leq \varepsilon ,\) com o mesmo válido para \(f_2\).
+   Seja a partição de \((a_{i}, b_{i})\) dada por \(a_{i} = s_{i0} < s_{i1} < \dotsc <s_{iJ_{i}} = b_{i}.\) Então, 
+     \[
+       \sum\limits_{i=1}^{k}\sum\limits_{j=0}^{J_{i}-1}(s_{i, j+1} - s_{ij}) = \sum\limits_{i=1}^{k}(b_{i}-a_{i})\leq \delta .
+     \]
+    Aplicando o primeiro parágrafo com a coleção 
+      \[
+        \{(s_{ij}, s_{i, j+1}), i = 1, 2, \dotsc , k\quad j = 0, \dotsc , J_{i}-1\},
+      \]
+    temos 
+      \[
+        \sum\limits_{i=1}^{k}\sum\limits_{j=0}^{J_{i}-1}|f(s_{i, j+1}) - f(s_{ij})|\leq \varepsilon .
+      \]
+    Mantendo \(a_{i}, b_{i}\) fixos e tomando o supremo sobre todas partições, temos 
+      \[
+        \sum\limits_{i=1}^{k}V_j[a_{i}, b_{i}] \leq \varepsilon .
+      \]
+    Portanto, segue a conclusão para \(f_1.\) Para \(f_2\), é similar. \qedsymbol
+ \end{proof*}
+\begin{theorem*}
+  Se F é absolutamente contínua, então \(F'\) existe quase sempre, é integrável e 
+    \[
+      \int_{a}^{b}F'(x)dx = F(b) - F(a).
+    \]
+\end{theorem*}
+ \begin{proof*}
+   Basta provarmos que F é crescente e absolutamente contínua. Seja \(\nu \) a medida de Lebesgue-Stieltjes definida em termos de F. Como F é contínua,
+     \[
+       F(d) - F(c) = \nu ((c, d)).
+     \]
+    Pela definição de absolutamente contínua, fazendo \(k\to \infty\), temos, para \(\varepsilon > 0\), a existência de \(\delta \) tal que 
+      \[
+        \sum\limits_{i=1}^{\infty}|F(b_{i}) - F(a_{i})| < \varepsilon 
+      \]
+    sempre que \(\sum\limits_{i=1}^{\infty}(b_{i}-a_{i})<\delta \) e que \((a_{i}, b_{i})\) forem intervalos disjuntos. Como qualquer aberto G pode ser escrito como união disjunta de intervalos abertos \((a_{i}, b_{i})\), podemos reescrever reordenando já que, 
+  dado \(\varepsilon > 0\) e garantida a existência de \(\delta > 0\), eles são tais que 
+    \[
+      \nu (G) = \sum\limits_{i=1}^{\infty}\nu ((a_{i}, b_{i})) = \sum\limits_{i=1}^{\infty}|F(b_{i}) - F(a_{i})| < \varepsilon 
+    \]
+  para todo G aberto e \(m(G) < \delta .\)
+
+  Se \(m(G) < \delta \) e A é Borel mensurável, existe aberto G, \(G\supseteq A\), tal que \(m(G) < \delta \) e, assim, \(\nu (A) \leq \nu (G) \leq \varepsilon .\) Concluímos disso que \(\nu << m.\) 
+Logo, existe uma função não-negativa integrável f, pelo \hyperlink{radon_nikodym}{Teorema de Radon-Nikodym}, tal que 
+  \[
+    \nu (A) = \int_{A}f dm,
+  \]
+  para todo conjunto A mensurável. Em particular, para cada \(x\in [a, b]\), 
+    \[
+      F(x) - F(a) = \nu ((a, x)) = \int_{a}^{x}f(y)dy.
+    \]
+    Portanto, fazendo \(x=b\), obtemos a existência de \(F'\) e igualdade a f quase sempre e, além disso, 
+      \[
+        F(b) - F(a) = \int_{a}^{b}F'(y)dy,
+      \]
+    como desejado. \qedsymbol
+ \end{proof*}
+ \newpage 
+%at class 7
 \end{document}
-
-
-
-\end{document}
-
