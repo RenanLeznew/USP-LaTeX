@@ -1,106 +1,106 @@
-\documentclass[./probability_notes.tex]{subfiles}
+\documentclass[Probability/probability_notes.tex]{subfiles}
 \begin{document}
 \section{Aula 12 - 16/11/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item Modelo de Probabilidade Associado a uma FGM;
-  \item Distribuição e Variável Aleatória de Bernoulli;
-  \item Distribuição Binomial.
+	\item Modelo de Probabilidade Associado a uma FGM;
+	\item Distribuição e Variável Aleatória de Bernoulli;
+	\item Distribuição Binomial.
 \end{itemize}
 \subsection{Modelo de Probabilidade}
 \begin{example}
-  Considere a variável aleatória X com função massa de probabilidade dada por 
-  \[
-    \mathbb{P}(X_{i}=x) = \frac{e^{-\lambda_{i} }\lambda_{i}^{x}}{x!},\quad \lambda_{i} > 0, x = 0, 1, 2, \dotsc.
-  \]
-  Tendo em mente que 
-  \[
-    M_{X_{i}} = e^{\lambda_{i} (e^{t}-1)},
-  \]
-  qual é a função geradora de momentos associada a \(Y = X_{1} + X_{2} + X_{3}\)? Além disso, qual modelo de probabilidade ela está associada?
+	Considere a variável aleatória X com função massa de probabilidade dada por
+	\[
+		\mathbb{P}(X_{i}=x) = \frac{e^{-\lambda_{i} }\lambda_{i}^{x}}{x!},\quad \lambda_{i} > 0, x = 0, 1, 2, \dotsc.
+	\]
+	Tendo em mente que
+	\[
+		M_{X_{i}} = e^{\lambda_{i} (e^{t}-1)},
+	\]
+	qual é a função geradora de momentos associada a \(Y = X_{1} + X_{2} + X_{3}\)? Além disso, qual modelo de probabilidade ela está associada?
 
-  Podemos aplicar a proposição da FGM da soma de variáveis para lidar com a primeira questão. Assim,
-  \begin{align*}
-    M_{X_{1}+X_{2}+X_{3}}(t) &= M_{X_{1}}(t)\cdot M_{X_{2}}(t)\cdot M_{X_{3}}(t)\\
-                             &= e^{\lambda_{1}(e^{t}-1)}e^{\lambda_{2}(e^{t}-1)}e^{\lambda_{3}(e^{t}-1)}\\
-                             &= e^{(e^{t}-1)(\lambda_{1}+\lambda_{2}+\lambda_{3})}.
-  \end{align*}
-  Além disso, o modelo de probabilidade ao qual a FGM está associada é 
-  \[
-    \mathbb{P}(Y=y) = \frac{e^{-(\lambda_{1}+\lambda_{2}+\lambda_{3})}(\lambda_{1}+\lambda_{2}+\lambda_{3})^{y}}{y!}
-  \]
+	Podemos aplicar a proposição da FGM da soma de variáveis para lidar com a primeira questão. Assim,
+	\begin{align*}
+		M_{X_{1}+X_{2}+X_{3}}(t) & = M_{X_{1}}(t)\cdot M_{X_{2}}(t)\cdot M_{X_{3}}(t)                         \\
+		                         & = e^{\lambda_{1}(e^{t}-1)}e^{\lambda_{2}(e^{t}-1)}e^{\lambda_{3}(e^{t}-1)} \\
+		                         & = e^{(e^{t}-1)(\lambda_{1}+\lambda_{2}+\lambda_{3})}.
+	\end{align*}
+	Além disso, o modelo de probabilidade ao qual a FGM está associada é
+	\[
+		\mathbb{P}(Y=y) = \frac{e^{-(\lambda_{1}+\lambda_{2}+\lambda_{3})}(\lambda_{1}+\lambda_{2}+\lambda_{3})^{y}}{y!}
+	\]
 \end{example}
 Este modelo é remetente a uma importante distribuição, muito comum na natureza, que estudaremos logo em seguida.
 \subsection{Distribuição de Bernoulli}
 \begin{def*}
-  Em um experimento aleatório com apenas dois resultados possíveis, definimos uma variável aleatória discreta X, que assume os valores 0 ou 1. Denotamos ela por 
-  \[
-    X = \mathrm{Bernoulli}(p)\quad\text{ou}\quad X = \mathrm{Ber}(p). \quad\square
-  \]
+	Em um experimento aleatório com apenas dois resultados possíveis, definimos uma variável aleatória discreta X, que assume os valores 0 ou 1. Denotamos ela por
+	\[
+		X = \mathrm{Bernoulli}(p)\quad\text{ou}\quad X = \mathrm{Ber}(p). \quad\square
+	\]
 \end{def*}
 \begin{example}
-  Se X é uma variável aleatória discreta associada ao lançamento de uma moeda e o valor de cara ou coroa, com distribuição de Bernoulli \(X\sim \biggl(\frac{1}{2}\biggr)\), então as probabilidades de X podem ser calculadas como
-  \begin{align*}
-   &\mathbb{P}(X=0) = \frac{1}{2}\\
-   &\mathbb{P}(X=1) = \frac{1}{2}\\
-   &\mathbb{P}(X\leq 0) = \frac{1}{2}\\
-   &\mathbb{P}(X\leq 1) = 1.
-  \end{align*}
-  Podemos calcular a esperança associada a X como sendo 
-  \[
-    \mathbb{E}(X) = 0 \cdot \frac{1}{2} + 1 \cdot \frac{1}{2} = \frac{1}{2},
-  \]
-  o que também nos dá acesso à Função Geradora de Momentos para esta variável aleatória:
-  \[
-    M_{X}(t) = \mathbb{E}(e^{tX}) = \frac{e^{t0}}{2} + \frac{e^{1t}}{2} = \frac{e^{t}}{2} + \frac{1}{2}.
-  \]
-  Vamos ver alguns momentos dessa função, agora.
-  \begin{itemize}
-    \item[\({1}^{\mathrm{o}}\)):] Segue que 
-      \[
-        M_{X}'(t)\biggl|_{t=0}^{}\biggr. = \frac{e^{t}}{2}\biggl|_{t=0}^{}\biggr. = \frac{1}{2};
-      \]
-    \item[\({2}^{\mathrm{o}}\)):] Analogamente, 
-      \[
-        M_{X}''(t)\biggl|_{t=0}^{}\biggr. = \frac{e^{t}}{2}\biggl|_{t=0}^{}\biggr. = \frac{1}{2};
-      \]
-    \item[\({3}^{\mathrm{o}}\)):] Seguindo a mesma lógica,
-      \[
-        M_{X}^{(3)}(t)\biggl|_{t=0}^{}\biggr. = \frac{e^{t}}{2}\biggl|_{t=0}^{}\biggr. = \frac{1}{2}.
-      \]
-  \end{itemize}
-  Com essas informações, segue que a variância de X é 
-  \[
-    \mathrm{Var}(X) = \frac{1}{2} - \biggl(\frac{1}{2}\biggr)^{2} = \frac{1}{4}.
-  \]
-  Podemos generalizar esse exemplo para um \(p < 1\) qualquer ao invés de apenas \(\frac{1}{2}.\) Com essa generalização, 
-  \[
-    \mathbb{E}(X) = p\quad\&\quad \mathrm{Var}(X) = p - p^{2} = p(p-1)\quad\&\quad M_{X}(t) = e^{t}p + 1 - p.
-  \]
-  O cálculo dos momentos, como esperado pela analogia, resulta em sempre os mesmos momentos - \(M_{X}'(t) = M_{X}''(t) = M_{X}^{(3)}(t)=\dotsc = p.\)
+	Se X é uma variável aleatória discreta associada ao lançamento de uma moeda e o valor de cara ou coroa, com distribuição de Bernoulli \(X\sim \biggl(\frac{1}{2}\biggr)\), então as probabilidades de X podem ser calculadas como
+	\begin{align*}
+		 & \mathbb{P}(X=0) = \frac{1}{2}     \\
+		 & \mathbb{P}(X=1) = \frac{1}{2}     \\
+		 & \mathbb{P}(X\leq 0) = \frac{1}{2} \\
+		 & \mathbb{P}(X\leq 1) = 1.
+	\end{align*}
+	Podemos calcular a esperança associada a X como sendo
+	\[
+		\mathbb{E}(X) = 0 \cdot \frac{1}{2} + 1 \cdot \frac{1}{2} = \frac{1}{2},
+	\]
+	o que também nos dá acesso à Função Geradora de Momentos para esta variável aleatória:
+	\[
+		M_{X}(t) = \mathbb{E}(e^{tX}) = \frac{e^{t0}}{2} + \frac{e^{1t}}{2} = \frac{e^{t}}{2} + \frac{1}{2}.
+	\]
+	Vamos ver alguns momentos dessa função, agora.
+	\begin{itemize}
+		\item[\({1}^{\mathrm{o}}\)):] Segue que
+		      \[
+			      M_{X}'(t)\biggl|_{t=0}^{}\biggr. = \frac{e^{t}}{2}\biggl|_{t=0}^{}\biggr. = \frac{1}{2};
+		      \]
+		\item[\({2}^{\mathrm{o}}\)):] Analogamente,
+		      \[
+			      M_{X}''(t)\biggl|_{t=0}^{}\biggr. = \frac{e^{t}}{2}\biggl|_{t=0}^{}\biggr. = \frac{1}{2};
+		      \]
+		\item[\({3}^{\mathrm{o}}\)):] Seguindo a mesma lógica,
+		      \[
+			      M_{X}^{(3)}(t)\biggl|_{t=0}^{}\biggr. = \frac{e^{t}}{2}\biggl|_{t=0}^{}\biggr. = \frac{1}{2}.
+		      \]
+	\end{itemize}
+	Com essas informações, segue que a variância de X é
+	\[
+		\mathrm{Var}(X) = \frac{1}{2} - \biggl(\frac{1}{2}\biggr)^{2} = \frac{1}{4}.
+	\]
+	Podemos generalizar esse exemplo para um \(p < 1\) qualquer ao invés de apenas \(\frac{1}{2}.\) Com essa generalização,
+	\[
+		\mathbb{E}(X) = p\quad\&\quad \mathrm{Var}(X) = p - p^{2} = p(p-1)\quad\&\quad M_{X}(t) = e^{t}p + 1 - p.
+	\]
+	O cálculo dos momentos, como esperado pela analogia, resulta em sempre os mesmos momentos - \(M_{X}'(t) = M_{X}''(t) = M_{X}^{(3)}(t)=\dotsc = p.\)
 \end{example}
 \begin{def*}
-  Definimos a função massa de probabilidade para variável aleatória X que assume os valores 0 ou 1 como
-  \[
-    \mathbb{P}(X=x) = p(1-p)^{x},\quad x=0, 1, \quad 0\leq p\leq 1.\quad \square
-  \]
+	Definimos a função massa de probabilidade para variável aleatória X que assume os valores 0 ou 1 como
+	\[
+		\mathbb{P}(X=x) = p(1-p)^{x},\quad x=0, 1, \quad 0\leq p\leq 1.\quad \square
+	\]
 \end{def*}
 
 \subsection{Distribuição Binomial}
 \begin{def*}
-  Considere um conjunto \(n=1, 2, \dotsc.\) experimentos independentes de Bernoulli, representados pelas variáveis aleatórias \(X_{1}, \dotsc, X_{n}\). A contagem de número de ``sucessos''
-  define uma nova variável aleatória \(Y = X_{1} + X_{2} + \dotsc + X_{n}\) que assume os valores \(0, 1, 2, \dotsc, n\). Denotamos:
-  \[
-    Y \sim \mathrm{Binomial}(n; p)\quad\&\quad Y \sim \mathrm{Bin}(n; p).\quad\square
-  \]
+	Considere um conjunto \(n=1, 2, \dotsc.\) experimentos independentes de Bernoulli, representados pelas variáveis aleatórias \(X_{1}, \dotsc, X_{n}\). A contagem de número de ``sucessos''
+	define uma nova variável aleatória \(Y = X_{1} + X_{2} + \dotsc + X_{n}\) que assume os valores \(0, 1, 2, \dotsc, n\). Denotamos:
+	\[
+		Y \sim \mathrm{Binomial}(n; p)\quad\&\quad Y \sim \mathrm{Bin}(n; p).\quad\square
+	\]
 \end{def*}
 Para uma função com distribuição binomial, \(Y\sim \mathrm{Bin}(n; p)\), podemos repetir o raciocínio feito para a de Bernoulli, encontrando a FGM associada a esta distribuição esperança, a esperança e a variância.
-Nesta ordem respectiva, 
+Nesta ordem respectiva,
 \[
-  M_{Y}(t) = (1+p(e^{t}-1))^{n},\quad \mathbb{E}(Y) = np,\quad\&\quad \mathrm{Var}(Y) = np(1-p).
+	M_{Y}(t) = (1+p(e^{t}-1))^{n},\quad \mathbb{E}(Y) = np,\quad\&\quad \mathrm{Var}(Y) = np(1-p).
 \]
-Para obter esses resultados, utilizamos o modelo de probabilidade dado por 
+Para obter esses resultados, utilizamos o modelo de probabilidade dado por
 \[
-  \mathbb{P}(Y=y) = \binom{n}{y}p^{y}(1-p)^{n-y}.
+	\mathbb{P}(Y=y) = \binom{n}{y}p^{y}(1-p)^{n-y}.
 \]
 \end{document}
