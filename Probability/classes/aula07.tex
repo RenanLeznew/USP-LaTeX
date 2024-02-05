@@ -1,0 +1,111 @@
+\documentclass[../probability_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 17/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Trabalhando com Esperança;
+	\item Introdução à Variância.
+\end{itemize}
+\subsection{Esperança}
+Antes de mais nada, afirmamos mais uma propriedade das esperanças
+\begin{lemma*}
+	Sejam X e Y variáveis aleatórias independentes cujos valores esperados existam. Então,
+	\[
+		\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y).
+	\]
+\end{lemma*}
+\begin{proof*}
+	Vamos provar o caso discreto. Sejam X, Y variáveis aleatórias independentes cujas esperanças são \(\mathbb{E}(X), \mathbb{E}(Y)\). Como elas são independentes,
+	\(\mathbb{P}(X)\mathbb{P}(Y) = \mathbb{P}(X\cap Y)\), o que equivale a \(\mathbb{P}(X\setminus{Y}) = \mathbb{P}(X)\). Por definição,
+	\[
+		\mathbb{E}(XY) = \sum\limits_{\omega \in \Omega }^{}(XY)(\omega )\mathbb{P}(\omega ) = \sum\limits_{\omega \in \Omega }^{}X(\omega)Y(\omega )\mathbb{P}(\omega )
+	\]
+	Utilizando o lema para expressá-la como a função de distribuição, sejam \(x_{i}, i=1, 2, \cdots\) os valores
+	com probabilidades \(\mathbb{P}[X = x_{i}]\) e \(y_{j}, j=1, 2, \cdots\) a mesma coisa com \(\mathbb{P}[Y=y_{j}]\) no lugar. Assim,
+	\[
+		\mathbb{E}(XY) = \sum\limits_{i=1}^{\infty}\sum\limits_{j=1}^{\infty}x_{i}y_{j}\mathbb{P}[X=x_{i}\cap Y=y_{j}] = \sum\limits_{i=1}^{\infty}\sum\limits_{j=1}^{\infty}x_{i}y_{j}\mathbb{P}[X=x_{i}]\mathbb{P}[Y=y_{j}] = \sum\limits_{i=1}^{\infty}x_{i}\mathbb{P}[X=x_{i}]\sum\limits_{j=1}^{\infty}y_{j}\mathbb{P}[Y=y_{j}]
+	\]
+	Note que, utilizando o lema novamente, as expressões das esperanças de X e Y são exatamente
+	\[
+		\sum\limits_{i=1}^{\infty}x_{i}\mathbb{P}[X=x_{i}]\quad\text{e}\quad \sum\limits_{j=1}^{\infty}y_{j}\mathbb{P}[Y=y_{j}],
+	\]
+	ou seja, obtivemos que, portanto,
+	\[
+		\mathbb{E}(XY) = \mathbb{E}(X)\mathbb{E}(Y).\text{\qedsymbol}
+	\]
+
+\end{proof*}
+\begin{example}
+	Considere a variável aleatória X que denota o tempo, em minutos, para o processamento de um produto. A função de probabilidade de X é
+	\begin{center}
+		\begin{table}[h!]
+			\centering
+			\begin{tabular}{| c | c c c c c c |}
+				\hline
+				\(x_{i}\)                 & 2   & 3   & 4   & 5   & 6   & 7   \\
+				\hline
+				\(\mathbb{P}(X = x_{i})\) & 0.1 & 0.1 & 0.3 & 0.2 & 0.2 & 0.1 \\
+				\hline
+			\end{tabular}
+		\end{table}
+	\end{center}
+	\begin{itemize}
+		\item[a)] Calcule o valor de \(\mathbb{E}(X).\)
+		\item[b)] Calcule o valor de \(\mathbb{E}(2 + X)\)
+	\end{itemize}
+
+	a) Utilizando a fórmula para esperança discreta, temos
+	\[
+		\mathbb{E}(X) = 2\times 0.1 + 3\times 0.1 + 4\times 0.3 + 5\times 0.2 + 6\times 0.2 + 7\times 0.1 = 0.2 + 0.3 + 1.2 + 1.0 + 1.2 + 0.7 = 4.6
+	\]
+
+	b) Como a esperança age de maneira linear, \(\mathbb{E}(2 + X) = 2 + \mathbb{E}(X).\) Calculamos \(\mathbb{E}(X)\) no item (a), tal que
+	\[
+		\mathbb{E}(2+x) = 2 + 4.6 = 6.6
+	\]
+\end{example}
+\begin{example}
+	A demanda diária de um supermercado (em centenas de quilos) pode ser descrita pela variável aleatória X com função densidade
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			\frac{2x}{3},\quad 0\leq x <1,    \\
+			\frac{-x}{3} + 1,\quad 1\leq x <3 \\
+			0,\quad \text{caso contrário}.
+		\end{array}\right.
+	\]
+	Calcule \(\mathbb{E}(X).\)
+
+	Utilizando a fórmula para a esperança contínua,
+	\[
+		\mathbb{E}(X) = \int_{0}^{1}\frac{2x}{3}xdx + \int_{1}^{3}\biggl(\frac{-x}{3} + 1\biggr)xdx = \frac{2}{9} + \frac{10}{9} = \frac{12}{9} = \frac{4}{3}
+	\]
+\end{example}
+\begin{example}
+	Uma máquina corta arames conforme um comprimento específico dado. Em virtude de certas imprecisões do mecanismo de corte, o comprimento
+	do arame cortado (em polegadas), X, pode ser considerado como uma variável aleatória uniformemente distribuída sobre \([11.5, 12.5].\) O
+	comprimento especificado é 12 polegadas.
+	\begin{itemize}
+		\item Se \(11.7\leq X < 12.2\), pode-se vender com um lucro de US\$0.25;
+		\item Se \(X\geq 12.2\), corta-se e vende-se com um lucro de US\$0.10;
+		\item Se \(X < 11.7\), o arame é refugado e perde-se US\$ 0.02.
+	\end{itemize}
+	Como podemos entender o lucro total por pedaço de arame cortado?
+
+	Para este exercício, coloquemos \(\mathbb{P}(X\leq x) = F(x) = \int_{-\infty}^{x}f(s)ds = \int_{11.5}^{x}1ds = x - 11.5\) se \(11.5 < s < 12.5\), sendo este o intervalo no qual
+	X é uma variável aleatória distribuída uniformemente. Com isso, coloque
+	\[
+		Y \left\{\begin{array}{ll}
+			-0.02,\quad \text{se está em prejuízo }(X < 11.7)     \\
+			0.25,\quad \text{se está no ideal }(11.7\leq X < 12.2 \\
+			0.1,\quad \text{se não há prejuízo nem é ideal }(x\geq 12.2).
+		\end{array}\right.
+	\]
+	Com estas informações, temos
+	\[
+		\mathbb{E}(Y) = -0.02\times \underbrace{F_{X}(11.7)}_{0.2} + 0.25\underbrace{(F_{X}(12.2)-F_{X}(11.7))}_{0.5} + 0.1\underbrace{(1-F_{X}(12.2))}_{0.3} = 0.151
+	\]
+\end{example}
+\subsection{Variância}
+Suponha que, associada à variável aleatória X, temos \(\mathbb{E}(X) = 2\). O que exatamente isso significa? Afinal, é importante que, qualitativamente,
+não atrelemos a isso um significado errado, seja isso exagerar ou diminuir a informação carregada.
+\end{document}

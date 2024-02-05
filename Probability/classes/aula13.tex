@@ -1,0 +1,83 @@
+\documentclass[../probability_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 21/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Assimetria e Curtose;
+	\item Distribuição Geométrica.
+\end{itemize}
+\subsection{Assimetria e Curtose}
+Os momentos centrais tercerio e quarto são importantes e têm nomes especiais
+\begin{def*}
+	Se X é uma variável aleatória com desvio padrão \(\sigma \), definimos o \textbf{coeficiente de assimetria} de X como
+	\[
+		\mathrm{Assim}(X) = \frac{\mathbb{E}((X-\mathbb{E}(X))^{3})}{\sigma^{3}}
+	\]
+	Definimos, também, a \textbf{curtose}\footnotemark[1]\footnotetext[1]{Vem do grego ``kúrtos'' - \(\kappa\nu\rho\tau\omega\sigma\iota\sigma\) - convexidade} de X como
+	\[
+		\mathrm{Curt}(X) = \frac{\mathbb{E}((X-\mathbb{E}(X))^{4})}{\sigma^{4}}
+	\]
+\end{def*}
+\subsection{Distribuição Geométrica}
+\begin{def*}
+	Considere uma sequência de experimentos independentes de Bernoulli. A contagem do número de fracassos até que se obtenha o primeiro
+	``sucesso'' define uma variável aleatória discreta X, com \textbf{distribuição geométrica}, que assume os valores \(X = 0, 1, 2, \dotsc\). Denotamos
+	\[
+		X\sim \mathrm{Geo}(\lambda )\quad \text{ou}\quad X~\text{Geométrica}(\lambda ).\quad\square
+	\]
+\end{def*}
+Para a distribuição geométrica, a função de probabilidade é \(\mathbb{P}(X-x) = p(1-p)^{x}.\) Assim, a esperança de X é dada por
+\begin{align*}
+	\mathbb{E}(X) = M_{X}'(t)\biggl|_{t=0}^{}\biggr. & = p(1-(1-p)e^{t})^{-2}(1-p)e^{t}\biggl|_{t=0}^{}\biggr. \\
+	                                                 & = \frac{p(1-p)e^{t}}{[1-(1-p)e^{t}]^{2}}                \\
+	                                                 & =\frac{(1-p)p}{p^{2}}                                   \\
+	                                                 & =\frac{1-p}{p}.
+\end{align*}
+Como vimos antes, isto não basta para inferir muito sobre algum dado estatístico. É necessário, também, uma medida de dispersão, ou seja, a variância.
+Começando pelo segundo momento,
+\begin{align*}
+	M_{X}''(t) & = \biggl[\frac{p(1-p)e^{t}}{[1-(1-p)e^{t}]^{2}}\biggr]'\biggl|_{t=0}^{}\biggr.                                                                              \\
+	           & = p(1-p)\biggl[\frac{e^{t}}{[1-(1-p)e^{t}]^{2}}\biggr]'\biggl|_{t=0}^{}\biggr.                                                                              \\
+	           & = p(1-p)\biggl[\frac{[1-(1-p)e^{t}]^{2}e^{t}}{[1-(1-p)e^{t}]^{4}} + \frac{2e^{t}[1-(1-p)e^{t}](1-p)e^{t}}{[1-(1-p)e^{t}]^{4}}\biggr]\biggl|_{t=0}^{}\biggr. \\
+	           & = p(1-p)\frac{p^{2}+2p(1-p)}{p^{4}} = \frac{p(1-p)+2p(1-p)}{p^{2}}                                                                                          \\
+	           & = (1-p)\frac{(p+2-2p)}{p^{2}} = \frac{(1-p)(2-p)}{p^{2}}.
+\end{align*}
+Agora que temos o segundo momento, calcula-se a variância como
+\begin{align*}
+	\mathrm{Var}(X) & = \frac{(-p+2)(1-p)}{p^{2}} - \biggl(\frac{1-p}{p}\biggr)^{2} \\
+	                & = \frac{(1-p)[-p+2-1+p]}{p^{2}}                               \\
+	                & = \frac{1-p}{p^{2}}.
+\end{align*}
+\subsection{Distribuição de Poisson}
+O modelo de Poisson é um caso particular do modelo Binominal, no qual \(n\longrightarrow \infty\) e \(p\longrightarrow 0\).
+\begin{def*}
+	O modelo de Poisson é muito utilizado quando desejamos contar as ocorrências num intervalo de tempo, numa área, volume ou qualquer unidade
+	de medidad de interesse prático. Denotamos
+	\[
+		X\sim \mathrm{Poisson}(\lambda )\quad \text{ou}\quad X\sim \mathrm{Poi}(\lambda ).\quad\square
+	\]
+\end{def*}
+Para este modelo, a probabilidade é dada por
+\[
+	\mathbb{P}(X=x) = \frac{e^{-\lambda }\lambda^{x}}{x!}.
+\]
+A esperança será \(\mathbb{E}(X) = \lambda \). Além disso, a função geradora de momentos pode ser calculada como
+\begin{align*}
+	M_{X}(t) & = \mathbb{E}(e^{tx})                                                   \\
+	         & = \sum\limits_{x=0}^{\infty}e^{tx}\frac{e^{-\lambda }\lambda ^{x}}{x!} \\
+	         & = e^{-\lambda }\sum\limits_{x=0}^{\infty}\frac{(e^{t}\lambda)^{x}}{x!} \\
+	         & = e^{(e^{t}-1)\lambda }.
+\end{align*}
+Assim, o segundo momento assume o valor
+\begin{align*}
+	M_{X}''(t) & = \frac{d^{2}}{dt^{2}}e^{(e^{t}-1)\lambda }\biggl|_{t=0}^{}\biggr.                                                          \\
+	           & = \frac{d}{dt}\biggl[\lambda e^{t}e^{(e^{t}-1)\lambda }\biggr]\biggl|_{t=0}^{}\biggr.                                       \\
+	           & = \biggl[\lambda e^{t}e^{(e^{t}-1)\lambda } + \lambda e^{t}e^{(e^{t}-1)\lambda }\lambda e^{t}\biggr]\biggl|_{t=0}^{}\biggr. \\
+	           & = \lambda + \lambda^{2}.
+\end{align*}
+Portanto, a variância é
+\[
+	\mathrm{Var}(X) = (\lambda + \lambda^{2})-\lambda^{2} = \lambda .
+\]
+Modelos nos quais a variância e a média/esperança coincidem são chamados de modelos com \textbf{equidispersão}.
+\end{document}

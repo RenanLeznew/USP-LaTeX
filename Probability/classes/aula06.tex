@@ -1,0 +1,152 @@
+\documentclass[../probability_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 06 - 10/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Esperança
+\end{itemize}
+\subsection{Esperança Discreta}
+A esperança matemática, ou apenas esperança, é uma quantidade associada às variáveis aleatórias e que representa,
+por exemplo, a média dos valores do resultado de um experimento repetido uma sequência muito grande de vezes, sempre com
+respeito aos extremos do intervalo. É um conceito essencial para estudar futuramente a noção de momento, de variância e de desvio padrão.
+Sem mais delongas, formalizaremos a seguir as bases dessa ideia, juntamente de exemplos de como calculá-la.
+
+\begin{def*}
+	A esperança de uma variável aleatória discreta X, definida num espaço amostral \(\Omega \) no qual está definida uma
+	probabilidade \(\mathbb{P},\) é definida por
+	\[
+		\mathbb{E}(X) = \sum\limits_{\omega \in \Omega }^{}X(\omega )\mathbb{P}(\omega ),
+	\]
+	desde que \(\sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) < \infty. \square\)
+\end{def*}
+Um resultado interessante é que a esperança pode ser expressa por meio da função de distribuição previamente vista:
+\begin{lemma*}
+	A esperança matemática de uma variável aleatória discreta X que assume os valores \(x_{i}\) para \(i = 1, 2, \cdots\), com
+	respectivas probabilidades \(\mathbb{P}[X=x_{i}],\) é dada por
+	\[
+		\mathbb{E}(X) = \sum\limits_{i=1}^{\infty}x_{i}\mathbb{P}[X=x_{i}].
+	\]
+\end{lemma*}
+\begin{proof*}
+	A ideia dessa prova é, a partir da definição da esperança, obtermos a expressão desejada e vice-versa.
+	Denote os pontos do espaço amostral por \(\omega_{j}, j=1, 2, \cdots\). Partindo do ponto de que a série
+	\(\sum\limits_{i=1}^{n}X(\omega_{j})\mathbb{P}(\omega_{j})\) é absolutamente convergente, um teorema de análise
+	matemática afirma que podemos reordenar seus termos como quisermos. Faremos isso da seguinte forma:
+	\begin{align*}
+		\mathbb{E}(X) & = \color{blue}\sum\limits_{j=1}^{\infty}X(\omega_{j})\mathbb{P}(\omega_{j}) = \color{red}\sum\limits_{i=1}^{\infty}\biggl[\sum\limits_{j:X(\omega_{j})=x_{i}}^{}X(\omega_{j})\mathbb{P}(X(\omega_{j}))\biggr]                              \\
+		              & = \color{green}\sum\limits_{i=1}^{\infty}\biggl[\sum\limits_{j:X(\omega_{j}) = x_{i}}^{}x_{i}\mathbb{P}(X(\omega_{j}))\biggr]=\sum\limits_{i=1}^{\infty}\biggl[x_{i}\sum\limits_{j:X(\omega_{j})=x_{i}}^{}\mathbb{P}(X(\omega_{j}))\biggr] \\
+		              & = \color{magenta}\sum\limits_{i=1}^{\infty}x_{i}\mathbb{P}[X = x_{i}].
+	\end{align*}
+	Vamos entender o que aconteceu por partes. Para facilitar a compreensão, há um guia por cor a seguir:
+	\begin{itemize}
+		\item[\textbf{Azul)}] Neste passo, escrevemos a definição da esperança.
+		\item[\textbf{Vermelho)}] Utilizamos a convergência absoluta da série (\(\sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) < \infty\) por definição) para
+		      fazer a seguinte reordenação: Somamos primeiramente os termos nos quais a variável aleatória, quando calculada em \(\omega_{j}\), vale \(x_{i}\). Isso resulta na mudança de índice de j
+		      para i, ou seja, após essa primeira soma, realizamos uma soma infinita em i ao invés de j.
+		\item[\textbf{Verde)}] Como os termos selecionados são os que \(X(\omega_{j})\) vale \(x_{i}\), trocamos a expressão \(X(\omega_{j})\mathbb{P}(X(\omega_{j}))\) por
+		      \(x_{i}\mathbb{P}(X(\omega_{j}))\) primeiro, fazendo com que \(x_{i}\) perca a dependência no índice j e possa ser retirado da primeira soma. Um processo similar será aplicado em
+		      \(\mathbb{P}(X(\omega_{j})),\) que é o próximo e último passo.
+		\item[\textbf{Magenta)}] Por estarmos considerando os termos onde\(X(\omega_{j})\) vale \(x_{i}\), trocamos a expressão \(\mathbb{P}(X(\omega_{j}))\) por \(\mathbb{P}(X = x_{i})\),
+		      obtendo justamente a expressão do enunciado.
+	\end{itemize}
+	Como foi mencionado previamente, basta fazer o caminho oposto, partindo de \(\mathbb{E}(X) = \sum\limits_{i=1}^{\infty}x_{i}\mathbb{P}[X=x_{i}]\) e, a partir de
+	reordenações, chegar em \(\sum\limits_{j=1}^{\infty}X(\omega_{j})\mathbb{P}(X(\omega_{j})) = \sum\limits_{\omega \in \Omega }^{}X(\omega )\mathbb{P}(\omega ).\) \qedsymbol
+\end{proof*}
+Outra propriedade muito importante tanto da esperança quanto das variáveis aleatórias é a linearidade. Não provaremos ela para
+as variáveis aleatórias, mas isso quer dizer que, para variáveis aleatórias X e Y, vale para qualquer \(\Omega \ni \omega \)
+\[
+	(X+Y)(\omega ) = X(\omega ) + Y(\omega )\quad\text{e}\quad (cX)(\omega ) = cX(\omega ).
+\]
+Precisamos disto para provas a mesma cosia para a esperança. De fato,
+\begin{lemma*}
+	Se as esperanças das variáveis aleatórias X e Y existem, então existe a esperança de X + Y. Além disso, se c é uma constante, temos
+	\begin{itemize}
+		\item[i)]\(\mathbb{E}(X+Y) = \mathbb{E}(X)+\mathbb{E}(Y)\);
+		\item[ii)] \(\mathbb{E}(cX) = c \mathbb{E}(X).\)
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	Começamos mostrando que \(\mathbb{E}(X+Y)\) existe. Isso baseia-se nas propriedades de somas infinitas e módulo. De fato,
+	\[
+		\mathbb{E}(X+Y) = \sum\limits_{\omega \in \Omega }^{}(X+Y)(\omega)\mathbb{P}(\omega) = \sum\limits_{\omega\in \Omega}^{}(X(\omega)+Y(\omega ))\mathbb{P}(\omega).
+	\]
+	Assim, para que \(\mathbb{E}(X+Y)\) existe, é preciso que essa série seja finita em módulo. De fato,
+	\[
+		\sum\limits_{\omega \in \Omega }^{}|X(\omega)+Y(\omega )|\mathbb{P}(\omega )\leq \sum\limits_{\omega \in \Omega }^{}(|X(\omega )| + |Y(\omega )|)\mathbb{P}(\omega ) = \sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) + \sum\limits_{\omega \in \Omega }^{}|Y(\omega )|\mathbb{P}(\omega ).
+	\]
+	Note que, como \(\mathbb{E}(X)\) e \(\mathbb{E}(Y)\) existem por hipótese, \(\sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) < \infty\) e \(\sum\limits_{\omega \in \Omega }^{}|Y(\omega )|\mathbb{P}(\omega ) < \infty\), ou seja,
+	\[
+		\sum\limits_{\omega \in \Omega }^{}|X(\omega)+Y(\omega )|\mathbb{P}(\omega )\leq \sum\limits_{\omega \in \Omega }^{}(|X(\omega )| + |Y(\omega )|)\mathbb{P}(\omega ) = \sum\limits_{\omega \in \Omega }^{}|X(\omega )|\mathbb{P}(\omega ) + \sum\limits_{\omega \in \Omega }^{}|Y(\omega )|\mathbb{P}(\omega ) < \infty.
+	\]
+	Logo, \(\mathbb{E}(X+Y)\) existe. Além disso, segue da primeira expressão, isto é,
+	\[
+		\mathbb{E}(X+Y) = \sum\limits_{\omega \in \Omega }^{}(X+Y)(\omega)\mathbb{P}(\omega) = \sum\limits_{\omega\in \Omega}^{}(X(\omega)+Y(\omega ))\mathbb{P}(\omega),
+	\]
+	que basta quebrar a série em duas para obter a expressão (i):
+	\[
+		\mathbb{E}(X+Y) = \sum\limits_{\omega\in \Omega}^{}(X(\omega)+Y(\omega ))\mathbb{P}(\omega) = \sum\limits_{\omega \in \Omega }^{}X(\omega )\mathbb{P}(\omega ) + \sum\limits_{\omega \in \Omega }^{}Y(\omega )\mathbb{P}(\omega ) = \mathbb{E}(X) + \mathbb{E}(Y),
+	\]
+	como queríamos. Por fim, tome c uma constante real. Então,
+	\[
+		\mathbb{E}(cX) = \sum\limits_{\omega \in \Omega }^{}(cX)(\omega )\mathbb{P}(\omega ) = \sum\limits_{\omega \in \Omega }^{}cX(\omega )\mathbb{P}(\omega ) = c \sum\limits_{\omega \in \Omega }^{}X(\omega )\mathbb{P}(\omega ).
+	\]
+	Portanto, \(\mathbb{E}(cx) = c \mathbb{E}(x)\). \qedsymbol
+\end{proof*}
+Vamos ver um exemplo antes de seguir para a esperança contínua.
+\begin{example}
+	Uma loteria vende 100 bilhetes, cada um valendo R\$ 1,20. O bilhete sorteado ganhará um prêmio de R\$100,00.
+	Qual é a esperança de seu ganho se você comprar um bilhete?
+
+	Vamos designar por X a variável aleatória que representa o ganho. Se seu bilhete estiver entre os 99 que não ganham,
+	você pagou 1,20, ou seja, X assume o valor -1,20 em \(\frac{99}{100} = 0.99\) dos casos. Caso tenha a sorte de comprar o
+	bilhete sorteado, X assume o valor \(100,00 - 1,20 = 98,80\), o que ocorre em \(\frac{1}{100} = 0.01\) dos casos. Assim,
+	a esperança de ganho é dada por
+	\[
+		\mathbb{E}(X) = -1,20\times 0,99 + 98,80\times 0.01 = -0,20
+	\]
+	Como a esperança representa uma ``média'' dos resultados, na versão do jogo da loteria, uma esperança negativa quer dizer que
+	haverá uma perda na maioria dos casos, ou seja, há uma tendência do jogador perder dinheiro a longo prazo.
+\end{example}
+\subsection{Esperança Contínua}
+Como no cálculo, faremos a passagem de quantidades discretas somadas para quantidades contínuas integradas. Em outras palavras,
+se a função de distribuição da variável aleatória X é contínua, a esperança será definida da seguinte forma:
+\begin{def*}
+	A esperança de uma variável aleatória X, com densidade de probabilidade f(x), será dada por
+	\[
+		\mathbb{E}(X) = \int_{-\infty}^{\infty}xf(x)dx.
+	\]
+\end{def*}
+Como a integral, assim como a soma, é linear, o lema provado que mostra a linearidade da esperança discreta permanece verdadeiro no caso contínuo. Vejamos, agora,
+um exemplo da esperança contínua
+\begin{example}
+	Calcule a esperança da variável aleatória X, cuja densidade de probabilidade é dada por
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			2x,\quad 0\leq x\leq 0.5,                         \\
+			-\frac{2}{3}x + \frac{4}{3},\quad 0.5\leq x\leq 2 \\
+			0,\quad \text{caso contrário}
+		\end{array}\right.
+	\]
+
+	Pela definição que vimos, segue que
+	\[
+		\mathbb{E}(X) = \int_{-\infty}^{\infty}xf(x)dx.
+	\]
+	Antes de fazer a conta, vamos ver os possíveis valores da integral de xf(x), com base na definição de f:
+	\[
+		\int_{-\infty}^{\infty}xf(x)dx = \left\{\begin{array}{ll}
+			\int_{0}^{0.5}x(2x)dx,\quad 0\leq x\leq 0.5                                       \\
+			\int_{0.5}^{2}x \biggl(-\frac{2}{3}x + \frac{4}{3}\biggr)dx,\quad 0.5\leq x\leq 2 \\
+			\int_{-\infty}^{a}x\times 0dx, a < 0, \text{ ou } \int_{b}^{\infty}x\times 0dx, b > 2.
+		\end{array}\right.
+	\]
+	Com base nisso, a esperança será dada pela soma dessas integrais:
+	\begin{align*}
+		\mathbb{E}(x) & = \int_{-\infty}^{a}x\times 0dx + \int_{0}^{0.5}x(2x)dx + \int_{0.5}^{2}x \biggl(-\frac{2}{3}x + \frac{4}{3}\biggr)dx + \int_{b}^{\infty}x\times0dx                   \\
+		              & = 0 + \int_{0}^{0.5}x(2x)dx + \int_{0.5}^{2}x \biggl(-\frac{2}{3}x + \frac{4}{3}\biggr)dx + 0                                                                         \\
+		              & = \frac{2}{3}x^{3}\biggl|_{0}^{0.5}\biggr. + \biggl(-\frac{2}{3}\biggr)\frac{1}{3}x^{3}\biggl|_{0.5}^{2}\biggr. + \frac{4}{3}\frac{1}{2}x^{2}\biggl|_{0.5}^{2}\biggr. \\
+		              & = \frac{1}{12} - \frac{63}{36} + \frac{2}{3}\biggl(4-\frac{1}{4}\biggr) = \frac{30}{36} = 0.8333\cdots,
+	\end{align*}
+	em que assume-se que \(a < 0\) e que \(b > 0.\)
+\end{example}
+\end{document}

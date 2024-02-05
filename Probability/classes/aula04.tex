@@ -1,0 +1,209 @@
+\documentclass[../probability_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 07/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Noções de Contagens e resultados iniciais;
+	\item Princípio Fundamental da Contagem;
+	\item Permutações, Arranjos e Combinações.
+\end{itemize}
+\subsection{Introdução}
+Começamos com o seguinte problema de motivação: Em um lote de 100 peças, das quais
+20 são defeituosas e 80 são perfeitas, escolhe-se ao acaso dez dessas peças, sem reposição.
+Qual é a probabilidade de que \textit{exatamente} metade das peças escolhidas seja defeituosa?
+
+A análise deste problema começa a partir do espaço amostral, \(\Omega \), em que cada elemento
+é constituído de dez possíveis peças do lote, sejam elas \((a_{1}, \cdots, a_{10})\). Quantos resultados
+desses existem? Dentre esses resultados, quais deles têm a característica desejada - exatamente metade das
+peças selecionadas são defeituosas?
+
+Problemas do tipo são comuns no mundo, então foram desenvolvidas ferramentas adequadas para tratar deles, as chamadas
+\textit{técnicas sistemáticas de enumeração}. Vamos conhecer algumas delas.
+\subsection{Princípios Fundamentais da Contagem}
+Suponha que um processo \(P_{1}\) possa ser executado de \(n\) maneiras diferentes e considere,
+também, que um segundo processo, \(P_{2}\), possa ser executado de m maneiras. Partindo da hipótese de que
+cada maneira de executar \(P_{1}\) possa ser seguida por uma outra para executar \(P_{2},\) o processo
+``\(P_{1}\) seguido de \(P_{2}\)'', denotado por P, pode ser executado de \(n=n \cdot m\) maneiras. Essa versão é
+a mais básica do \textit{princípio fundamental da contagem para a multiplicação}. Formalmente,
+\begin{theorem*}
+	Se existirem k processos e o i-ésimo puder ser executado de \(n_{i}\) maneiras, \(i=1, 2, \cdots, \), então
+	o procedimento P formado por \(P_{1},\) seguido por \(P_{2}\), seguido por \(P_{3}, \cdots,\) seguido pelo procedimento \(P_{k}\),
+	poderá ser executado de
+	\[
+		n = n_{1}\times n_{2}\times \cdots\times n_{k}
+	\]
+	maneiras.
+\end{theorem*}
+\begin{example}
+	Uma peça manufaturada deve passar por três estações de controle. Em cada estação, a peça é
+	infecionada para determinada característica e marcada adequadamente. Na primeira estação, três
+	classificações são possíveis, enquanto que nas duas últimas, quatro classificações são possíveis.
+	De quantas maneiras possíveis uma peça pode ser marcada?
+
+	Utilizando o princípio fundamental da contagem, segue que cada peça pode ser marcada de \(3\times 4\times 4 = 48\) maneiras.
+\end{example}
+Além da versão de multiplicação, há uma para a adição, relacionada ao termo ``realizar um OU outro''.
+Indo direto ao ponto, ele pode ser enunciado da seguinte forma:
+\begin{theorem*}
+	O \textit{princípio fundamental da contagem para a adição} afirma que, se existem k processos
+	e o i-ésimo procedimento puder ser realizado de \(n_{i}, i = 1, 2, \cdots, k\) maneiras, então
+	o número de maneiras pelas quais podemos realizar ou o processo \(P_1\), ou o processo \(P_{2}\),
+	\(\cdots,\) ou o processo \(P_{k}\), é dado por
+	\[
+		n = n_1 + n_{2} + \cdots + n_{k},
+	\]
+	em que supõe-se que dois processos quaisquer não podem ser realizados simultaneamente.
+\end{theorem*}
+\begin{example}
+	Suponha que estejamos planejando uma viagem e devamos escolher entre o transporte por ônibus ou por trem.
+	Se existirem três rodovias e duas ferrovias, quantos caminhos estão disponíveis para a viagem?
+
+	Como não é possível andar de ônibus e trem ao mesmo tempo, aplicamos o princípio fundamental da contagem para a adição.
+	Portanto, existirão 3 + 2 = 5 caminhos disponíveis para a viagem.
+\end{example}
+\subsection{Permutações, Arranjos e Combinações}
+Suponha que tenhamos n objetos diferentes. De quantas maneiras, \(_{n}P_{n}\), podemos dispor esses objetos?
+Vejamos um exemplo:
+\begin{example}
+	Se tivermos os objetos a, b e c, poderemos considerar as seguintes permutações:
+	\[
+		abc, acb, bac, bca, cab\quad\text{e}\quad cba.
+	\]
+	Portanto, a resposta é 6.
+\end{example}
+Utilizando o princípio fundamental da contagem para a multiplicação, o número de permutações
+de n objetos diferentes é dado por
+\[
+	_{n}P_{n} = n\times(n-1)\times(n-2)\times \cdots\times 1 = n!.
+\]
+Outras noções importantes são de arranjos e de combinações. Consideremos n objetos diferentes. Desejamos
+escolher r desses objetos, sendo r um número \(0\leq r\leq n\) e permutar os r
+escolhidos. Denotamos por \(_{n}A_{r}\) o número de maneiras de fazer esses arranjos.
+Como paramos no \((n-r+1)\)-ésimo elemento, o princípio fundamental da contagem para a multiplicação mostra que
+\[
+	_{n}A_{r} = n\times(n-1)\times(n-2)\times \cdots\times(n-r+1) = \frac{n!}{(n-r)!}
+\]
+\begin{example}
+	Temos os objetos a, b, c e d, e \(r=2\). Desejamos contar
+	\[
+		ab, ac, ad, bc, bd\quad\text{e}\quad cd,
+	\]
+	mas, como ab e ba são os mesmos objetos com a ordem inversa, não escreveremos eles. Assim,
+	\[
+		_{4}A_{2} = \frac{4!}{2!} = \frac{24}{2} = 12.
+	\]
+\end{example}
+Para obtermos o resultado geral, considere a expressão para o arranjo dos r objetos dentre n, ou seja,
+\[
+	_{n}A_{r} = \frac{n!}{(n-r)!}.
+\]
+Considerando \(_{n}C_{r}\) como o número de maneiras de escolher r objetos dentre os n, mas
+sem considerar a ordem. Uma vez que r objetos tenham sido escolhidos, existirão \(r!\) maneiras
+de permutá-los. Consequentemente, outra aplicação do princípio fundamental da contagem para a multiplicação
+fornece-nos
+\[
+	_{n}C_{r}\times r! = \frac{n!}{(n-r)!}.
+\]
+Portanto, o número de maneiras de escolher r dentre n objetos diferentes, desconsiderando
+a ordem deles, é dado por
+\[
+	_{n}C_{r} = \frac{n!}{r!(n-r)!} = \binom{n}{r}.
+\]
+Algumas propriedades dos números \(\binom{n}{r}\) valem ser mencionadas.
+\begin{prop*}
+	Os números \(\binom{n}{r}\) apresentam as seguintes propriedades:
+	\begin{itemize}
+		\item[i)]
+		      \[
+			      \binom{n}{r} = \binom{n}{n-r}.
+		      \]
+		\item[ii)]
+		      \[
+			      \binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}.
+		      \]
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	i) Quando escolhemos r dentre n coisas, estamos ao mesmo tempo deixando (n-r) coisas não escolhidas e, por isso
+	escolher r dentre n é equivalente a escolher (n-r) dentre n. Em outras palavras,
+
+	ii) Fixe um elemento qualquer dos n objetos, digamos a. Ao escolher r objetos, a estará incluído ou excluído entre eles,
+	mas nunca poderá estar e não estar ao mesmo tempo. Logo, ao contar o número de maneiras de escolher r objetos,
+	aplicamos o princípio fundamental da contagem para a adição.
+
+	Se a for excluindo, escolhemos os r objetos dentre os (n-1) restantes, e existem \(\binom{n-1}{r}\) maneiras de fazer isso.
+
+	Caso a seja incluso, somente (r-1) objetos devem ser escolhidos dentre os (n-1) restantes, resultando em \(\binom{n-1}{r-1}.\)
+
+	Portanto,
+	\[
+		\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r}.\text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{example}
+	Considerando oito pessoas, quantas comissões de três membros podem ser escohidas?
+
+	Desde que duas comissões sejam a mesma comissão se forem constituídas pelas mesmas pessoas
+	(não se levando em conta a ordem em que sejam escolhidas), teremos quantas comissões possíveis?
+	\[
+		_{8}C_{3} = \binom{8}{3} = \frac{8!}{3!(8-3)!} = \frac{40320}{6\times 120} = 56.
+	\]
+\end{example}
+\begin{example}
+	Com oito bandeiras diferentes, quantos sinais, feitos com três bandeiras podemos obter?
+
+	Este problema é próximo do anterior, entretanto, aqui a ordem acarreta diferença e, por isso, obteremos quantos sinais?
+
+	Teremos que utilizar o arranjo ao invés da combinação, tal que
+	\[
+		_{8}A_{3} = \frac{8!}{(8-3)!} = 336.
+	\]
+\end{example}
+\begin{example}
+	Voltemos à pergunta inicial sobre o lote. Temos nele 20 peças defeituosas e 80 peças perfeitas. Ao escolher
+	10 peças ao acaso, sem reposição, nos perguntamos - qual é a probabilidade de escolhermos exatamente 5 peças defeituosas
+	e 5 peças perfeitas entre as 10 escolhidas?
+
+	Primeiro, enumeramos o número de maneiras que podemos amostrar as peças dentre as 100, isto é,
+	\[
+		_{100}C_{10} = \binom{100}{10}.
+	\]
+	Em seguida, enumeramos o número de maneiras que podemos amostrar as 5 peças defeituosas dentre as 20 totais, ou seja
+	\[
+		_{20}C_{5} = \binom{20}{5},
+	\]
+	e, também, o número de maneiras que podemos amostrar as 5 peças perfeitas entre as 80,
+	\[
+		_{80}C_{5} = \binom{80}{5}.
+	\]
+	Com isso, a probabilidade desejada é dada por
+	\[
+		\frac{\binom{20}{5}\binom{80}{5}}{\binom{100}{10}} \approx 0,021 = 2,1\%
+	\]
+\end{example}
+A ideia deste exemplo pode ser generalizada da seguinte forma: dados N objetos, dos quais
+n são escolhidos ao acaso sem reposição,
+\begin{itemize}
+	\item[a)] Teremos \(\binom{N}{n}\) diferentes amostras possíveis;
+	\item[b)] Se as N peças forem formadas por \(r_{1}\) da classe A e \(r_{2}\) da classe B (com \(r_{1} + r_{2} = N\).
+\end{itemize}
+Então, a probabilidade de que as n peças escolhidos sejam exatamente \(s_{1}\) da classe A
+e \((n-s_{1})\) da classe B será dada por
+\[
+	\frac{\binom{r_{1}}{s_{1}}\binom{r_{2}}{n-s_{1}}}{\binom{N}{n}}.
+\]
+Essa expressão denomina-se \textbf{probabilidade hipergeométrica}.
+
+Em todas as técnicas vistas até agora, supomos que os objetos sejam diferentes entre si, mas isso nem sempre é possível.
+Forneceremos a ferramenta que permite lidar com isso agora.
+
+Suponha que temos n objetos, subdivididos em k grupos com
+\(n_{1}, n_{2}, \cdots, n_{k}\) elementos indistinguíveis entre si, dentro de seus respectivos grupos,
+e tais que \(n = n_{1} + n_{2} + \cdots + n_{k}\). Neste caso, o número de permutações possíveis desses n objetos é
+\[
+	\frac{_{n}P_{n}}{_{n_{1}}P_{n_{1}}\times _{n_{2}}P_{n_{2}}\times \cdots _{n_{k}}P_{n_{k}}} = \frac{n!}{n_{1}!\times n_{2}!\times \cdots\times n_{k}!}
+\]
+Note que, se todos os objetos fossem diferentes, \(n_{i} = 1\) para todo \(i=1, 2, \cdots, k\) e, consequentemente,
+a fórmula seria reduzida ao caso que vimos antes, ou seja, \(n!.\)
+
+\end{document}
