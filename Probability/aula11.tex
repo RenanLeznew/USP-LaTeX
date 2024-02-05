@@ -1,0 +1,120 @@
+\documentclass[./probability_notes.tex]{subfiles}
+\begin{document}
+  
+\section{Aula 11 - 14/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Continuação de Momentos;
+  \item Reparametrização;
+\end{itemize}
+\subsection{Momentos de Maiores Ordens}
+Considerando, por exemplo, o segundo momento de uma variável aleatória X,
+nota-se de cara que ele não representa a variância. No entanto, podemos fazer com que isso ocorra
+através de uma troca de variável \(Y = X - \mathbb{E}(X)\), tal que 
+\[
+  \frac{d^{2}}{dt^{2}}M_{Y}(t)\biggl|_{t=0}^{}\biggr. = \mathbb{E}(Y^{2}) = \mathbb{E}((X-\mathbb{E}(X))^{2}) = \mathrm{Var}(X).
+\]
+Isto remete a um conceito brevemente mencionado anteriormente - o de momento central. Com isso, a variância é o momento
+central de ordem 2.
+\begin{example}
+  Considere a variável aleatória X, tal que \(\mathbb{P}(X=x) = p(1-p)^{x},\) em que \(x=0,1,\dotsc\) e \(0 < p < 1.\)
+  Qual é a Função Geradora de Momentos associada a X?
+
+  Segue que 
+  \[
+    \mathcal{M}_{X}(t) = \mathbb{E}(e^{tx}) = \sum\limits_{x=0}^{\infty}e^{tx}\mathbb{P}(X=x) = \sum\limits_{x=0}^{\infty}e^{tx}p(1-p)^{x}.
+  \]
+  Calculando esta soma, obtemos 
+  \[
+    \mathcal{M}_{X}(t) = p\sum\limits_{x=0}^{\infty}[e^{t}(1-p)]^{x}.
+  \]
+  Caso \(e^{t}(1-p)\) seja menor que 1, esta expressão pode ser calculada por meio da série geométrica comum.
+  Então, determinamos a seguir quando que ocorre esta desigualdade com 1, pois, neste caso, seguirá que 
+  \[
+    \mathcal{M}_{X}(t) = \frac{p}{1-e^{t}(1-p)}.
+  \]
+  A priori, isto significa que \(|e^{t}(1-p)| < 1\) e \(t < -\ln^{}{(1-p)}\). No entanto, mais coisa pode ser dita 
+  sobre essa questão. Para isso, faremos uso de um truque comum da estatística, a \textbf{reparametrização}. Introduziremos uma função dependente de p para majorar a expressão.
+  O raciocínio para isto é o seguinte: 
+
+  Podemos ver p como a probabilidade de sucesso e 1-p como a probabilidade de fracasso após x tentativas. Se
+  este sucesso ocorre em x-1, então \(\mathbb{P}(X=x) = p(1-p)^{x-1}.\) Assim, a probabilidade de cima pode ser reescrita como 
+  \[
+    M_{X}(t) = \frac{pe^{t}}{1-(1-p)e^{t}}.
+  \]
+  Veremos isso com mais detalhe em breve.
+\end{example}
+\begin{example}
+  Considere a variável aleatória X, com função densidade de probabilidade dada por 
+  \[
+    f(x) = \frac{1}{\sqrt[]{2\pi }}e^{-\frac{x^{2}}{2}}
+  \]
+  Qual é a Função Geradora de Momentos associada a X?
+
+  Como X é contínua, segue de imediato que 
+  \[
+    M_{X}(t) = \mathbb{E}(e^{tx}) = \int_{-\infty}^{\infty}e^{tx}\frac{1}{\sqrt[]{2\pi }}e^{-\frac{x^{2}}{2}}dx = \frac{1}{\sqrt[]{2\pi }}\int_{-\infty}^{\infty}e^{x\bigl(t-\frac{x}{2}\bigr)}dx
+  \]
+  O expoente pode ser escrito como \(xt - \frac{x^{2}}{2}\). Completando este quadrado ao somar e subtrair \(\frac{t^{2}}{2},\) a expressão fica 
+  \[
+    M_{X}(t) = \frac{1}{\sqrt[]{2\pi }}\int_{-\infty}^{\infty}e^{-\bigl(\frac{t}{\sqrt[]{2}}-\frac{x}{\sqrt[]{2}}\bigr)^2 + \frac{t^{2}}{2}}dx = \frac{e^{\frac{t^{2}}{2}}}{\sqrt[]{2\pi }}\int_{-\infty}^{\infty}e^{-\bigl(\frac{t}{\sqrt[]{2}}-\frac{x}{\sqrt[]{2}}\bigr)^{2}}dx.
+  \]
+  Vamos colocar \(y = \frac{t}{\sqrt[]{2}}-\frac{x}{\sqrt[]{2}}, dy = -\frac{dx}{\sqrt[]{2}},\) tal que 
+  \[
+    M_{X}(t) = \frac{e^{\frac{t^{2}}{2}}}{\sqrt[]{\pi }}\underbrace{\biggl[\int_{\infty}^{-\infty}e^{-y^{2}}dy\biggr]}_{\sqrt[]{\pi }} = e^{\frac{t^{2}}{2}}.
+  \]
+\end{example}
+\begin{example}
+  Considere a variável aleatória X, tal que \(\mathbb{P}(X=x) = p(1-p)^{x}, x = 0, 1, \dotsc\) e \(0 < p < 1\).
+  Determine a esperança e a variância de X utilizando a FGM previamente encontrada, 
+  \[
+    M_{X}(t) = \frac{pe^{t}}{1-(1-p)e^{t}}.
+  \]
+
+  Derivando uma vez esta expressão, chegamos em 
+  \[
+    M_{X}'(t) = \frac{pe^{t}(1-(1-p)e^{t}) + (1-p)e^{t}pe^{t}}{[1-(1-p)e^{t}]^{2}} = \frac{pe^{t}}{[1-(1-p)e^{t}]^{2}}.
+  \]
+  Calculando em zero, 
+  \[
+    M_{X}'(0) = \frac{pe^{t}}{[1-(1-p)e^{t}]^{2}}\biggl|_{t=0}^{}\biggr. = \frac{1}{p}.
+  \] 
+  Por outro lado, se analisarmos para a probabilidade em termo do número de acertos ao invés do número de erros, ou seja, 
+  \[
+    \mathcal{M}_{X}(t) = \frac{p}{1-(1-p)e^{t}},
+  \]
+  a mesma conta mostra que 
+  \[
+    \mathcal{M}_{X}'(0) = \frac{p(1-p)e^{t}}{[1-(1-p)e^{t}]^{2}}\biggl|_{t=0}^{}\biggr. = \frac{1-p}{p}
+  \]
+
+  Com relação à variância, agora, derivamos novamente a expressão:
+  \[
+    M_{X}''(0) = p(1-p)\frac{e^{t}[1-(1-p)e^{t}]^{2}+2[1-(1-p)e^{t}]](1-p)e^{t}e^{t}}{[1-(1-p)e^{t}]^{4}}\biggl|_{t=0}^{}\biggr.
+  \]
+  Assim, 
+  \[
+    M_{X}''(0) = p(1-p)\frac{p^{2}+2p(1-p)}{p^{4}} = \frac{(1-p)(p+2(1-p))}{p^{2}} 
+  \]
+  Podemos, então, calcular a variância. 
+  \[
+    \mathrm{Var}(X) = \mathbb{E}(X^{2}) - [\mathbb{E}(X)]^{2} = \frac{(1-p)}{p^{2}}\biggl[2-p-1+p\biggr] = \frac{(1-p)}{p^{2}}.
+  \]
+\end{example}
+\subsection{Propriedades da Função Geradora de Momentos}
+\begin{prop*}
+  Suponha que a variável aleatória X tenha função geradora de momentos \(M_{X}\). Seja \(Y = aX + b,\) em que \(a, b\) são constantes.
+  Então, a FGM de Y é dada por 
+  \[
+    M_{Y}(t) = M_{aX + b}(t) = e^{bt}M_{X}(at).
+  \]
+\end{prop*}
+\begin{prop*}
+  Sejam \(X_{1}, X_{2}, \dotsc, X_{n}\) variáveis aleatórias independentes, com 
+  \(M_{X_{1}}, M_{X_{2}}, \dotsc, M_{X_{n}}\) sendo suas respectivas funções geradoras de momentos para t em alguma vizinhança de 0.
+  Seja  \(Y = \sum\limits_{i=1}^{n}X_{i}\). Então, a função geradora de momentos de Y é dada por 
+  \[
+    M_{Y}(t) = M_{\sum\limits_{i=1}^{n}X_{i}}(t) = \prod\limits_{i=1}^{n}M_{X_{i}}(t).
+  \]
+\end{prop*} 
+\end{document}

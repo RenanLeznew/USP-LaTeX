@@ -1,0 +1,128 @@
+\documentclass[./probability_notes.tex]{subfiles}
+\begin{document}
+  
+\section{Aula 09 - 31/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Desigualdade de Tchebycheff;
+  \item Momentos de Ordem Superior.
+\end{itemize}
+\subsection{Desigualdade de Thebycheff}
+O conhecimento da função de probabilidade de uma variável aleatória possibilita-nos calcular a esperança e a variância
+dela, desde que elas existam. No entanto, não somos capazes de fazer o oposto - ou seja, conhecer \(\mathbb{E}(X)\)
+e Var(X) não permite-nos reconstruir a função densidade nem a função de probabilidade de X.
+Embora isso seja impossível, o que podemos fazer é estabelecer limites superiores e inferiores muito úteis para estimá-las.
+Uma dessas formas está contida no que é conhecido como Desigualdade de Tchebycheff.
+
+A desigualdade de Tchebycheff é a seguinte: 
+\begin{theorem*}
+  Suponha que X é uma variável aleatória
+  com esperança \(\mathbb{E}(X) = \mu\) e seja c um número real qualquer. Então, se \(\mathbb{E}((X-c)^{2})\)
+  for finita e \(\varepsilon >0\) for um número positivo qualquer, teremos 
+  \[
+    \mathbb{P}(|X-c|\geq \varepsilon )\leq \frac{1}{\varepsilon ^{2}}\mathbb{E}((X-c)^{2}).
+  \]
+\end{theorem*}
+\begin{proof*}
+  Começamos analisando a primeira parte da expressão. Temos
+  \begin{align*}
+    \mathbb{P}(|X-c|\geq \varepsilon )& = 1 - \mathbb{P}(|X-c| < \varepsilon )\\
+                                      & = 1 - \mathbb{P}(-\varepsilon + c < X < \varepsilon + c)\\
+                                      & = 1 - \int_{c-\varepsilon }^{c+\varepsilon }f(x)dx\geq 1 - \int_{-\infty}^{\infty}f(x)dx.
+  \end{align*}
+  Note que  
+  \[
+    \mathbb{P}(|X-c|\geq \varepsilon ) = \int_{-\infty}^{c-\varepsilon }f(x)dx + \int_{c+\varepsilon }^{\infty}f(x)dx\leq \int_{-\infty}^{c-\varepsilon }f(x)dx + \int_{c+\varepsilon }^{\infty}\frac{(X-c)^{2}}{\varepsilon ^{2}}f(x)dx
+  \]
+  O mesmo vale para a integral imprópria de \(-\infty\) a \(c-\varepsilon \), pois elevamos \(-\varepsilon \) ao quadrado e chegamos no seguinte:
+  \begin{align*}
+    \mathbb{P}(|X-c|\geq \varepsilon )&\leq \int_{-\infty}^{c-\varepsilon }\frac{(X-c)^{2}}{\varepsilon ^{2}}f(x)dx + \int_{c+\varepsilon }^{\infty}\frac{(X-c)^{2}}{\varepsilon ^{2}}f(x)dx\\
+                                      &\leq \int_{-\infty}^{\infty}\frac{(X-c)^{2}}{\varepsilon ^{2}}f(x)dx = \frac{1}{\varepsilon ^{2}}\int_{-\infty}^{\infty}(X-c)^{2}f(x)dx\\
+                                      &= \frac{1}{\varepsilon ^{2}}\mathbb{E}[(X-c)^{2}].
+  \end{align*}
+  Portanto, obtemos a desigualdade desejada. \qedsymbol
+\end{proof*}
+Há algumas formas equivalentes de interpretarmos isso. 
+Considerando o evento complementar, temos 
+\[
+  \mathbb{P}(|X-c|< \varepsilon )\geq 1 - \frac{1}{\varepsilon ^{2}}\mathbb{E}((X-c)^{2})
+\]
+Se \(c = \mu,\) temos 
+\[
+  \mathbb{P}(|X-\mu|\geq \varepsilon )\leq \frac{\mathrm{Var}(X)}{\varepsilon ^{2}}.
+\]
+Se \(c=\mu\) e \(\varepsilon = k\sigma \), em que \(\sigma ^{2}=\mathrm{Var}(X) > 0\), obtemos 
+\[
+  \mathbb{P}(|X-\mu|\geq k\sigma )\leq k^{-2}.
+\]
+
+Uma das coisas importantes que são notáveis é que ele \textbf{não depende do modelo de probabilidade}. Em momento algum colocamos
+alguma hipótese sobre \(\mathbb{P}(\cdot )\)! Afinal, caso o modelo fosse conhecido, valeria mais a pena simplesmente fazer a conta
+\begin{example}
+  Considere a terceira forma equivalente da desigualdade de Tchebycheff, isto é, 
+  \[
+    \mathbb{P}(|X-\mu|\geq k\sigma )\leq k^{-2}.
+  \]
+  Para \(k=\frac{3}{2},\) o que podemos dizer sobre X? E se soubermos que X é uniformemente
+  distribuída em \(\biggl(1-\frac{1}{\sqrt[]{3}}, 1 + \frac{1}{\sqrt[]{3}}\biggr)\)?
+
+  Para a primeira parte, segue que 
+  \[
+    \mathbb{P}(|X-\mu|\geq 1,5\sigma )\leq \frac{4}{9}.
+  \] 
+  Quanto à segunda, dado que X é uma variável aleatória distribuída uniformemente em \(\biggl(1-\frac{1}{\sqrt[]{3}}, 1 + \frac{1}{\sqrt[]{3}}\biggr)\),
+  sabemos descrever a densidade de probabilidade dela como 
+  \[
+    f(X) = \frac{1}{1+\frac{1}{\sqrt[]{3}} - 1 + \frac{1}{\sqrt[]{3}}} = \frac{\sqrt[]{3}}{2}.
+  \]
+  Com isso, somos capazes de calcular a esperança de X 
+  \[
+    \mathbb{E}(X) = \int_{1-\frac{1}{\sqrt[]{3}}}^{1 + \frac{1}{\sqrt[]{3}}} \frac{\sqrt[]{3}}{2}xdx = \frac{\sqrt[]{3}}{2}\frac{x^{2}}{2}\biggl|_{1-\frac{1}{\sqrt[]{3}}}^{1+\frac{1}{\sqrt[]{3}}}\biggr. = \frac{\sqrt[]{3}}{4} \frac{4}{\sqrt[]{3}} = 1.
+  \]
+  Além disso, 
+  \[
+    \mathbb{E}(X^{2}) + \int_{1-\frac{1}{\sqrt[]{3}}}^{1 + \frac{1}{\sqrt[]{3}}} \frac{\sqrt[]{3}}{2}x^{2}dx = \frac{\sqrt[]{3}}{2}\frac{x^{3}}{3}\biggl|_{1-\frac{1}{\sqrt[]{3}}}^{1+\frac{1}{\sqrt[]{3}}}\biggr. = \frac{\sqrt[]{3}}{6}3,8 (????)
+  \]
+  Depois da confusão em aula, foi mostrada que a resposta é
+  \begin{align*}
+    \mathbb{P}\biggl(|X-1|\geq \frac{3}{2}\sqrt[]{\frac{1}{9}}\biggr) &= \mathbb{P}\biggl(|X-1|\geq \frac{1}{2}\biggr) \\
+                                                                      &= 1 - \frac{\sqrt[]{3}}{2} \approx 0,134.
+  \end{align*}
+
+\end{example}
+\subsection{Momentos de Ordem Superior}
+Podemos introduzir uma noção mais geral sobre as questões até o momento vistas introduzindo outros ``momentos'' - informações importantes que usamos 
+para caracterizar distribuições de probabilidade. Já vimos alguns deles - o primeiro momento é a esperança, o segundo é a dispersão e o terceiro, ainda não
+visto, fornece um coeficiente de assimetria da distribuição e o quarto diz respeito ao ``achatamento'' dela.
+\begin{def*}
+  Se X é uma variável aleatória discreta, com função de probabilidade \(p(x_{i}) = \mathbb{P}(X = x_{i}),\) então o \textbf{momento de ordem k}
+  é definido como 
+  \[
+    \mu_{k} = \mathbb{E}(X^{k}),
+  \]
+  em que 
+  \[
+    \mathbb{E}(X^{k}) = \sum\limits_{i=1}^{\infty}x_{i}^{k}p(x_{i}).
+  \]
+  Caso X seja uma variável aleatória contínua, a definição segue a mesma, mas 
+  \[
+    \mathbb{E}(X^{k}) = \int_{-\infty}^{\infty}X^{k}f(x)dx.\quad\square
+  \]
+\end{def*}
+Além dessa noção, podemos introduzir o momento central de ordem k como
+\begin{def*}
+  Se X for uma variável aleatória, com esperança finita, então o \textbf{momento central de ordem k} é definido como 
+  \[
+    \mu_{k}^{*} = \mathbb{E}\biggl([X-\mathbb{E}(X)]^{k}\biggr).\quad\square
+  \]
+\end{def*}
+Para evitar a expansão de altas ordens na integral, definimos a seguinte função:
+\begin{def*}
+  A \textbf{função geradora de momentos} da variável aleatória X é definida para \(t\in \mathbb{R}\) por 
+  \[
+    M_{X}(t) = \mathbb{E}(e^{tX}),
+  \]
+  desde que a esperança seja finita para \(t\in \mathbb{R}\) em algum intervalo \(-t_{0} < t < t_{0},\) com \(t_{0} > 0.\square\)
+\end{def*}
+É preciso mostrarmos que isso de fato coincide com a definição.
+\end{document}

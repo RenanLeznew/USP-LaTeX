@@ -1,0 +1,141 @@
+\documentclass[./probability_notes.tex]{subfiles}
+\begin{document}
+
+\section{Aula 15 - 30/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Distribuição Normal;
+	\item Variável t-Student;
+	\item Distribuição Chi-quadrado.
+\end{itemize}
+\subsection{O Modelo Normal}
+\begin{def*}
+	O \textit{modelo normal} de uma variável aleatória X que assume os valores no intervalo \((-\infty, \infty)\), com densidade de probabilidade dada por
+	\(f(x) = \frac{1}{\sqrt[]{2\pi \sigma^{2}}}e^{-\frac{1}{2}\biggl(\frac{x-\mu }{\sigma }\biggr)^{2}}\). Denotamos ele por
+	\[
+		X\sim \mathrm{Normal}(\mu, \sigma )\quad \text{ou}\quad X\sim \mathrm{NO}(0, 1). \quad \square
+	\]
+\end{def*}
+Essa distribuição é a \textbf{mais importante} na estatística, pois ela é a base para o futuo Teorema Central do Limite. Estudemos ela em um pouco mais de detalhe a seguir.
+O parâmetro \(\mu \) pode ser interpretado como o centro da curva de sino que essa distribuição forma, enquanto que o valor \(\sigma \) dita o quão longe do centro os valores caem.
+\begin{center}
+	\begin{tikzpicture}
+		\message{Cumulative probability^^J}
+
+		\def\B{11};
+		\def\Bs{3.0};
+		\def\xmax{\B+3.2*\Bs};
+		\def\ymin{{-0.1*gauss(\B,\B,\Bs)}};
+		\def\h{0.07*gauss(\B,\B,\Bs)};
+		\def\a{\B-0.8*\Bs};
+
+		\begin{axis}[every axis plot post/.append style={
+			mark=none,domain={-0.05*(\xmax)}:{1.08*\xmax},samples=\N,smooth},
+			xmin={-0.1*(\xmax)}, xmax=\xmax,
+			ymin=\ymin, ymax={1.1*gauss(\B,\B,\Bs)},
+			axis lines=middle,
+			axis line style=thick,
+			enlargelimits=upper, % extend the axes a bit to the right and top
+			ticks=none,
+			xlabel=$x$,
+			every axis x label/.style={at={(current axis.right of origin)},anchor=north},
+			width=0.7*\textwidth, height=0.55*\textwidth,
+			y=700pt,
+			clip=false
+			]
+			% PLOTS
+			\addplot[blue,thick,name path=B] {gauss(x,\B,\Bs)};
+			% FILL
+			\path[name path=xaxis]
+			(0,0) -- (\pgfkeysvalueof{/pgfplots/xmax},0);
+			\addplot[blue!25] fill between[of=xaxis and B, soft clip={domain=-1:{\a}}];
+			% LINES
+			\addplot[mydarkblue,dashed,thick]
+			coordinates {({\a},{1.2*gauss(\a,\B,\Bs)}) ({\a},{-\h})}
+			node[mydarkblue,below=-2pt] {$a$};
+			\node[mydarkblue,above right] at ({\B+\Bs},{1.2*gauss(\B+\Bs,\B,\Bs)}) {$f(x)$};
+			\node[blue!60!black,above left] at ({0.85*(\a)},{1.0*gauss(0.85*(\a),\B,\Bs)}) {$P(X\leq a)$};
+
+			\addplot[black,dashed,thick]
+			coordinates {({1.22*\a},{1.38*gauss(\a,\B,\Bs)}) ({1.22*\a},{-1.22*\h})}
+			node[mydarkblue,below=-2pt] {$\mu$};
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+Com relação à FGM, já fizemos ela previamente para \(\mu = 0, \sigma =1\) (vide: ). Assim, seja \(Y = \sigma X + \mu.\)
+Temos a regra
+\[
+	M_{Y}(t) = M_{\sigma X + \mu }(t) = e^{\mu t}M_{X}(\sigma t) = e^{\mu t}e^{\frac{(\sigma t)^{2}}{2}} = e^{\mu t + \frac{\sigma^{2}t^{2}}{2}}.
+\]
+Com isso, podemos descobrir a esperança e outras informações da distribuição normal:
+\begin{itemize}
+	\item[i)] Esperança: \(\mathbb{E}(Y) = \mu \)
+	\item[ii)] Variância: \(\mathrm{Var}(Y) = \sigma ^{2}\)
+	\item[iii)] Assimetria: \(\mathrm{Assim}(Y) = 0\)
+	\item[iv)] Curtose: \(\mathrm{Curtose}(Y) = 3\)
+\end{itemize}
+\subsection{Distribuições Além da Normal}
+\begin{def*}
+	Dizemos que uma variável aleatória X que assume os valores no intervalo \((-\infty, \infty)\) é \textbf{t-Student} se sua função de probabilidade é dada pela função
+	\[
+		f(x) = \frac{\Gamma \biggl(\frac{(\nu+1)}{2}\biggr)}{\sqrt[]{\nu\pi }\Gamma \biggl(\frac{\nu}{2}\biggr)}\biggl(1 + \frac{x^{2}}{\nu}\biggr)^{-\frac{(\nu+1)}{2}}, \quad \nu > 0.
+	\]
+	Denotamos
+	\[
+		X\sim t(\nu ). \quad \square
+	\]
+\end{def*}
+Não calcula-se a FGM dessa função de distribuição, porque ela é muito complicada. A esperança é nula para \(\nu > 1\),
+mas indefinida caso contrário. A variância é:
+\[
+	\mathrm{Var}(X) = \left\{\begin{array}{ll}
+		\frac{\nu}{\nu - 2},\quad \nu > 2 \\
+		\infty,\quad 1 < \nu              \\leq 2.
+	\end{array}\right.
+\]
+Caso contrário, é indefinida. A assimetria é dada por
+\[
+	\mathrm{Assim}(X) = 0,\quad \nu > 3
+\]
+e indefinida caso contrário. Finalmente, a curtose é
+\[
+	\mathrm{Curt}(X) = \left\{\begin{array}{ll}
+		\frac{6}{\nu-4},\quad \nu > 4 \\
+		\infty,\quad 2 < \nu          \\leq 4.
+	\end{array}\right.
+\]
+e indefinida, caso não esteja nessas situações.
+\begin{def*}
+	Uma variável aleatória X que assume os valores no intervalo \((0, \infty)\) é dita \textit{Chi-quadrado} se sua função de densidade de probabilidade é dada por
+	\[
+		f(x) = \frac{1}{2^{\frac{k}{2}}\Gamma \biggl(\frac{k}{2}\biggr)}x^{\frac{k}{2}-1}e^{-\frac{x}{2}},\quad k = 1, 2, 3, \dotsc.
+	\]
+	Denotamos
+	\[
+		X\sim \chi^{2}(k). \quad \square
+	\]
+\end{def*}
+Observe que a distribuição Chi-quadrado é, na verdade, \(X\sim \mathrm{Gama}\biggl(\frac{k}{2}, \frac{1}{2}\biggr)\)
+Assim, para este modelo, a FGM é
+\[
+	M_{X}(t) = \biggl(\frac{\frac{1}{2}}{\frac{1}{2}-t}\biggr)^{\frac{k}{2}}.
+\]
+Além disso, a esperança e a variância serão
+\[
+	\mathbb{E}(X) = \frac{\frac{k}{2}}{\frac{1}{2}} = k \quad\&\quad \mathrm{Var}(X) = \frac{\frac{k}{2}}{\frac{1}{4}} = 2k.
+\]
+Curiosamente, suponha que temos um conjunto de variáveis aleatórias com distribuições normais \(X_{1}, \dotsc , X_{n}\). Então,
+\[
+	X_{1}^{2} + \dotsc + X_{n}^{2}\sim \chi^{2}(n)
+\]
+\begin{def*}
+	Uma variável aleatória X que tem valores no intervalo (0, 1) tem distribuição beta se a função de densidade de probabilidade é
+	\[
+		f(x) = \frac{\Gamma (\alpha +\beta )}{\Gamma (\alpha )\Gamma (\beta )}x^{\alpha -1}(1-x)^{\beta -1}\quad \alpha , \beta > 0.
+	\]
+	Denotamos
+	\[
+		X\sim \mathrm{Beta}(\alpha , \beta )\quad \text{ou}\quad X\sim \mathrm{BE}(\alpha , \beta ). \quad \square
+	\]
+\end{def*}
+\end{document}
