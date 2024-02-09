@@ -1,0 +1,643 @@
+\documentclass[Calculus1/exercícios_de_cálculo.tex]{subfiles}
+\section{Propriedades dos Limites, Limites Laterais, Limites de Determinadas Funções, Funções Contínuas e Suas Propriedades}
+\subsection{Continuidade e Limite}
+\subsubsection{Exercício 1}
+\paragraph{} Parte 1 - Classifique como verdadeira ou falsa a seguinte afirmação e demonstre ou dê um contra-exemplo.
+``Se $f: \mathbb{R}\rightarrow\mathbb{R}$ é uma função, então
+$$
+	\lim_{x\to{1}}f(x) = f(1).\text{''}
+$$
+\begin{sol*}
+	Considere a seguinte função:
+	$$
+		f(x) = \left\{
+		\begin{array}{ll}
+			x, & \quad \text{se } x\neq{1} \\
+			9, & \quad \text{se } x=1.
+		\end{array}
+		\right.
+	$$
+
+	Seja $\epsilon > 0$ qualquer e analisemos a seguinte inequação para $|x|\neq 1$:
+	$$
+		|f(x) - 1| = |x - 1|.
+	$$
+	Com isso, tome $\delta = \epsilon$ e suponha que $0 < |x - 1| < \delta$, tal que x nunca será igual a 1. Com isso, segue que
+	$$
+		|f(x) - 1| = |x - 1| < \delta = \epsilon \Rightarrow |f(x) - 1| < \epsilon.
+	$$
+	Logo, $\lim_{x\to{1}}f(x) = 1$, mas f(1) = 9, mostrando que a afirmação é falsa.
+	\qedsymbol
+\end{sol*}
+\paragraph{} Parte 2 - é possível, dada uma função $f:\mathbb{R}-\{\pi\}\rightarrow \mathbb{R}$, não definida no ponto $x=\pi$, calcular
+$$
+	\lim_{x\to\pi}f(x)?
+$$
+Dê um exemplo e justifique.
+\begin{sol*}
+	Ao definir um limite no ponto p, utilizamos o fato de p ser, por hipótese, ponto de acumulação do domínio da função. Consequentemente, p n\~ao necessariamente precisa estar nesse dom\'inio para que possamos calcular o limite de f nele. Esse é o caso mais geral do que foi pedido no exerc\'icio, ent\~ao, para exemplificar, tome $f:\mathbb{R}-\{\pi\}\rightarrow\mathbb{R}$ como:
+	$$
+		f(x) = \left\{\begin{array}{ll}
+			\sin(x)  & \quad \text{se } x < \pi \\
+			\sin(-x) & \quad \text{se } \pi < x
+		\end{array}\right.
+	$$
+	Note que a função está definida em $\mathbb{R}-\{\pi\}.$ Com isso, seja $\epsilon > 0$ qualquer. Vamos calcular o limite por meio dos limites laterais, mostrando que eles são iguais quando x tende a $\pi$. Começando pelo limite lateral à esquerda, note que
+	$$
+		|f(x) - 0| = |\sin(x) - 0| = |\sin(x) - 0| = |\sin(x)|< \epsilon.
+	$$
+	O $\epsilon$ ali pode ser visto como um meio para encontrarmos o $\delta$, já que é o que precisamos fazer. Deixando isso de lado, manipularemos o módulo como segue:
+	$$
+		|\sin(x)| < \epsilon \Rightarrow -\epsilon < \sin(x) < \epsilon \Rightarrow \sin^{-1}(-\epsilon) < x < \sin^{-1}(\epsilon).
+	$$
+	Subtraindo $\pi$ dos dois lados, obtemos
+	$$
+		\sin^{-1}(-\epsilon) - \pi < x - \pi < \sin^{-1}(\epsilon) - \pi.
+	$$
+	Foquemos no lado à esquerda primeiro, tal que, definindo $\delta_1 = \sin^{-1}(\epsilon) + \pi$, vale que, quando $-\delta_1 < x - \pi < 0$,
+	$$
+		-\delta_1 = -\sin^{-1}(\epsilon) - \pi = \sin^{-1}(-\epsilon) - \pi < x - \pi.
+	$$
+	Pelo raciocínio acima, isso implica que
+	$$
+		|f(x) - 0| < \epsilon,
+	$$
+	ou seja,
+	$$
+		\lim_{x\to\pi^{-}}f(x) = 0.
+	$$
+	Por outro lado, quanto ao limite lateral à direita (isto é, $x > \pi$), observando a desigualdade obtida para o mesmo lado e definindo $\delta_2 = \sin^{-1}(\epsilon) - \pi $, se $0 < x - \pi < \delta_2$, temos:
+	$$
+		x - \pi < \delta_2 = \sin^{-1}(\epsilon) - \pi,
+	$$
+	donde segue que $|f(x) - 0| = |\sin(-x)| = |\sin(x)| < \epsilon$. Logo,
+	$$
+		\lim_{x\to\pi^{+}}f(x) = 0.
+	$$
+	Portanto, como os dois limites são iguais, segue que $\lim_{x\to\pi} f(x) = 0$, o que ilustre que é possível calcular o limite em um ponto fora do dom\'inio da função.
+	\qedsymbol
+\end{sol*}
+\paragraph{} Parte 3 - Escreva formalmente o que significa uma função ser con\'tinua em um ponto de seu domínio.
+\begin{sol*}
+	A ideia por trás da continuidade é a falta de quebras no gráfico da função (em termo popular: pode ser desenhada sem tirar o lápis do papel). A deifnição matemática por trás dele procura preservar essa noç\~ao através da ideia de que, n\~ao importa qu\~ao próximos sejam dois pontos, sempre é possível fazer o gráfico da funç\~ao neles igualmente próximos, ou seja, dados dois pontos da funç\~ao, o erro da aproximaç\~ao tende a zero quando calcula-se ela nesses dois pontos.
+
+	Rigorosamente falando, essas ideias são formuladas no jargão $\epsilon-\delta$, enunciado a seguir: Uma funç\~ao $f:\mathbb{R}\rightarrow\mathbb{R}$ é dita contínua no ponto $p\in{D_{f}}$ dado que, para cada $\epsilon > 0$, existe um $\delta > 0$ tal que se $|x - p| < \delta$ (note a diferença entre essa definiç\~ao e a de limite: Aqui, o ponto p em si faz parte da conta, ent\~ao n\~ao é preciso que $0 < |x - p|$), vale
+	$$
+		|f(x) - f(p)| < \epsilon.
+	$$
+	\qedsymbol
+\end{sol*}
+
+\paragraph{} Parte 4 - Aplique a definição $\epsilon-\delta$ de continuidade para garantir que f(x) = x - 2 é continua em p = 5. Repita o processo para p = 7 e, depois, para um $p\in{D_f}$ qualquer.
+\begin{proof*}
+	Em provas por $\epsilon-\delta$, o que significa "Para todo $\epsilon > 0$ existe um $\delta > 0$ tal que se $0 < |x - p| < \delta$, então $|f(x) - f(p)| < \epsilon$? Ou melhor, por onde começar? Pelo começo, claro, então definamos nossa funç\~ao f como sendo $f:D_f\rightarrow\mathbb{R}, f(x) = ax + b$
+
+	Ao fazer essas demonstrações, nós começamos com um $\epsilon$ qualquer, isto é, escrito formalmente:
+
+	\textbf{"Seja $\epsilon > 0.$''}
+
+	Agora, como temos um $\epsilon$, vamos considerar a desigualdade e ver o que obtemos a partir disso:
+
+	\textbf{"Considere a desigualdade $|f(x) - f(p)| = |(ax + b) - (ap - b)| = |a(x - p)| = |a||x - p|< \epsilon$.'' }
+
+	A partir disso, normalmente temos que chegar em $|x - p|$, já que é isso que determina o $\delta.$ De fato, apesar de estar omitido, $\delta$ pode ser visto como uma função de $\epsilon,$ no sentido $\delta := \delta(\epsilon).$
+	No caso desse exemplo, chegamos em $|f(x) - f(p)| = |a||x - p| < \epsilon \Rightarrow |x - p| < \frac{\epsilon}{|a|},$ ou seja, nosso $\delta$ será $\frac{\epsilon}{|a|}$. Ao continuar com a escrita, obtém-se
+
+	\textbf{``
+		Tome $\delta = \frac{\epsilon}{|a|}.$ Então, se $0 < |x - a| < \delta$, temos
+		$$
+			|f(x) - f(p)| = |a||x - p| < |a|\delta = |a|\frac{\epsilon}{|a|},
+		$$
+		ou seja, $|f(x) - f(p)| < \epsilon,$ provando que $\lim{x\to{a}} f(x) = f(p)$, o que significa que f é contínua em p qualquer.
+		''}
+
+	Juntando isso tudo, temos a demonstração:
+
+	Seja $\epsilon > 0$ qualquer e f(x) = ax + b, em que $a, b\in\mathbb{R}$. Considere a desigualdade
+	$$
+		|f(x) - f(p)| = |(ax + b) - (ap - b)| = |a(x - p)| = |a||x - p|< \epsilon.
+	$$
+	Como já temos $|x - p|$, podemos tomar $\delta = \frac{\epsilon}{|a|}.$ Desta forma, vamos conferir a definição: Suponha que $0 < |x - p| < \delta.$ Então,
+	$$
+		|f(x) - f(p)| = |a||x - p| < |a|\delta = |a|\frac{\epsilon}{|a|} = \epsilon.
+	$$
+	Assim, para todo $\epsilon > 0$, existe um $\delta > 0$ tal que se $0 < |x - p| < \delta$, então
+	$$
+		|f(x) - f(p)| < \epsilon.
+	$$
+	Em outras palavras, f é contínua em p. Assim, tomando a = 1 e b = -2, todos os casos são provados, pois mostramos que o geral 'e cont\'inuo, concluindo o exerc\'icio.
+	\qedsymbol
+\end{proof*}
+
+\subsection{DesContinuidade}
+\subsubsection{Exercício 2}
+\paragraph{} Identifique na função $f:\mathbb{R}\rightarrow\mathbb{R}$ dada por
+$$
+	f(x) = \left\{\begin{array}{ll}
+		2,     & \quad \text{se } x < 1,  \\
+		x + 5, & \quad \text{se } x\geq 1
+	\end{array}\right.
+$$
+quais são os pontos de $D_f$, em torno do ponto p = 1 para $\epsilon = 1$ que causam descontinuidade na função (``Caem fora do intervalo aberto $(f(1) - 1, f(1) + 1))$''). Esta funç\~ao é contínua em p = 1? Justifique.
+\begin{sol*}
+	Analisando a função acima no ponto 1, observa-se que ela tem valor f(1) = 6. Com isso, o intervalo desejado é equivalente a:
+	$$
+		(f(1) - 1, f(1) + 1) = (6 - 1, 6 + 1) = (5, 7).
+	$$
+	Pelo jeito que a f foi definida, todos os pontos em $\mathfrak{D}:=\{x\in{D_{f}}: x < 1\} \subset{D_{f}}$ caem fora desse intervalo, pois $f(x) = 2\notin{(5, 7)}$ para todo $x\in\mathfrak{D}.$ Em outras palavras, os pontos de $D_f$ que satisfazem o que foi pedido são aqueles que pertencem a $\mathfrak{D} = (-\infty, 1)\cap{D_{f}}$.
+
+	Dito isto, verifiquemos a continuidade da f em p = 1. Para mostrar que uma função não é contínua em um ponto, é precisa tomar a negaç\~ao da definiç\~ao de continuidade. Em outras palavras:
+
+	\textbf{ "Uma função f não é contínua no ponto p se existe um $\epsilon > 0$, tal que, para todo $\delta > 0$, se $0 < |x - p| < \delta$, vale $|f(x) - f(p)|\geq\epsilon$."}
+
+	Tentaremos aplicar isso nesse item do exercício. Note que, para f ser cont\'inua neste ponto, é preciso que, dado $\epsilon > 0$, ocorra:
+	$$
+		-\epsilon < f(x) - 6 < \epsilon \Rightarrow -\epsilon + 6 < f(x) < \epsilon + 6.
+	$$
+	Vamos olhar os casos da definição. Suponha, primeiramente, que $x\geq 1$. Nesta hipótese, segue que
+	$$
+		-\epsilon + 6 < f(x) < \epsilon + 6. \Leftrightarrow -\epsilon + 6 < x + 5 < \epsilon + 6 \Rightarrow -\epsilon < x - 1 < \epsilon,
+	$$
+	ou seja, podemos tomar $\delta = \epsilon$ neste caso e está tudo bem. Por outro lado, assuma que $x < 1$, tal que
+	$$
+		-\epsilon + 6 < 2 < \epsilon + 6.
+	$$
+	Note que, para $\epsilon = \frac{1}{2}$, se existisse um $\delta > 0$ tal que
+	$$
+		|x - 1| < \delta \Rightarrow |f(x) - 2| < \epsilon = \frac{1}{2},
+	$$
+	ocorreria uma contradição:
+	$$
+		\frac{11}{2} < 2 < \frac{13}{2}.
+	$$
+	De fato, tomando qualquer $0 < \epsilon \leq 4$, é possível chegar numa contradição similar, pois se existisse $\delta$ satisfazendo a condição, ent\~ao ter\'iamos
+	$$
+		-\epsilon + 6 \leq 2 < 2 < \epsilon + 6.
+	$$
+	Portanto, conclui-se que f não é contínua no ponto p = 1.
+	\qedsymbol
+\end{sol*}
+
+\subsubsection{Exercício 3}
+\paragraph{} Parte 1 - Mostre que uma função afim é contínua em qualquer ponto do seu dom\'inio e que f(x) = -5x + 2 é cont\'inua em qualquer ponto do seu dom\'inio.
+\begin{proof*}
+	Seja $\epsilon > 0$ qualquer e $f:\mathbb{R}\rightarrow\mathbb{R}$ com f(x) = ax + b a função afim, em que $a, b\in\mathbb{R}$. Considere a desigualdade
+	$$
+		|f(x) - f(p)| = |(ax + b) - (ap - b)| = |a(x - p)| = |a||x - p|< \epsilon.
+	$$
+	Como já temos $|x - p|$, podemos tomar $\delta = \frac{\epsilon}{|a|}.$ Desta forma, vamos conferir a definição: Suponha que $0 < |x - p| < \delta.$ Então,
+	$$
+		|f(x) - f(p)| = |a||x - p| < |a|\delta = |a|\frac{\epsilon}{|a|} = \epsilon.
+	$$
+	Assim, para todo $\epsilon > 0$, existe um $\delta > 0$ tal que se $0 < |x - p| < \delta$, então
+	$$
+		|f(x) - f(p)| < \epsilon.
+	$$
+	Em outras palavras, f é contínua em p. Como p é um p qualquer, é válido para todos os pontos do dom\'inio. Assim, tomando a = -5 e b = +2, f(x) = -5x + 2 é cont\'inua em todos os pontos do dom\'inio pois o caso geral também é.
+
+	\qedsymbol
+\end{proof*}
+
+\paragraph{} Parte 2 - Mostre que as funções $f(x) = x^3$ é contínua em p = 1 e que $f(x) = x^4$ é cont\'inua em p = 2. O $\epsilon$ é qualquer? Isso é um problema, uma vez que continuidade é uma análise local?
+\begin{sol*}
+	Comecemos pelo caso de $f(x) = x^3$. Seja $\epsilon > 0$ qualquer e considere a desigualdade
+	$$
+		-\epsilon < x^3 - 1^3 < \epsilon \Leftrightarrow -\epsilon < x^3 - 1 < \epsilon.
+	$$
+
+	Note que, como visto anteriormente, $x^3 - 1 = (x - 1)(x^2 + x + 1)$, tal que
+	$$
+		|x^3 - 1| = |x - 1||x^2 + x + 1| \leq |x - 1|(|x^2| + |x| + 1).
+	$$
+	Seja $\delta \leq 1$. Se $|x - 1| < \delta$, então $|x| = |x - 1 + 1| \leq |x - 1| + 1 < 1 + 1 = 2.$ Assim, temos
+	$$
+		|x^3 - 1| = |x - 1||x^2 + x + 1| \leq |x - 1|(|x^2| + |x| + 1) < |x-1|(|4| + |2| + 1) = 7|x - 1|.
+	$$
+	Em outras palavras, se definirmos $\delta = \min{1,\frac{\epsilon}{7}}$, segue o seguinte:
+
+	Dado $\epsilon > 0$, suponha que $\delta = \min{1, \frac{\epsilon}{7}}$. Então, se $|x - 1| < \delta,$ obtemos, \textbf{para qualquer} $\epsilon > 0$,
+	$$
+		|f(x) - f(1)| = |x^3 - 1| < 7|x - 1| < 7\delta \leq \epsilon \Rightarrow |f(x) - f(1)| < \epsilon.
+	$$
+	Portanto, $f(x) = x^3$ é contínua em p = 1.
+
+\end{sol*}
+
+\subsection{Limites: Mais prático}
+\subsubsection{Exercício 4}
+\paragraph{} Parte 1 - Explicite o domínio da função e exiba o passo a passo da fatoração polinomial da funç\~ao
+$$
+	f(x) = \frac{x^3 + 1}{x^2  + 4x + 3}.
+$$
+\begin{sol*}
+	Comecemos pelo domínio. Note que
+	$$
+		x^2 + 4x + 3 = 0 \iff x\in\{-1, -3\},
+	$$
+	tal que o domínio de f é $D_f = \mathbb{R}\slash\{-1, -3\} = \{x\in\mathbb{R}: x\neq{-1} \text{ e } x\neq{-3}\}.$ Como o polinômio possui duas ra\'izes, fica mais simples de fatorá-lo neste caso:
+	$$
+		x^2 + 4x + 3 = (x + 1)(x + 3),
+	$$
+	resta fatorar o numerador. Note que, no caso dele, -1 é uma raíz, já que $-1^3 + 1 = -1 + 1 = 0$, então vamos buscar fatorar (x + 1) dele. Com efeito, começamos dividindo o primeiro termo por x para reduzir seu grau a 1, multiplicar (x + 1) por x e subtrair do polinômio inicial:
+	$$
+		\frac{x^2}{x} = x \Rightarrow x^2 + 4x + 3 - x(x + 1) = x^2 + 4x + 3 - x^2 - x = 3x + 3.
+	$$
+	Repetiremos isso, agora para remover o x:
+	$$
+		\frac{3x}{x} = 3 \Rightarrow 3x + 3 - 3(x + 1) = 3x - 3x + 3 - 3 = 0.
+	$$
+	Somamos os dois números usados para dividir, isto é, x e 3 - este passo é preciso para obter o polinômio h(x) que aparece em $(x - a)h(x)$, neste caso sendo h(x) = x + 3 - e obtemos a fatoração:
+	$$
+		x^2 + 4x + 3 = (x + 1)(x + 3).
+	$$
+	Agora, simplifiquemos a fração:
+	$$
+		f(x) = \frac{x^3 + 1}{x^2  + 4x + 3} = \frac{(x + 1)(x + 3)}{(x + 1)(x + 3)} = 1.
+	$$
+	Logo, após fatorar a fração, chegamos na forma fatorada de f(x)=1.
+	\qedsymbol
+\end{sol*}
+
+\paragraph{} Parte 2 - Considere a mesma f do exercício anterior. A função g, definida tal que ela é igual a f em todos os pontos diferentes de menos 1, explicitamente
+$$
+	g(x) = \frac{x^2 - x + 1}{x + 3}
+$$
+é uma função igual a f ou uma simplificação de f?
+\begin{sol*}
+	Ela é uma simplificação de f, visto que
+	$$
+		g(x)\frac{x+1}{x+1} = \frac{x^2 - x + 1}{x + 3}\frac{x+1}{x+1} = \frac{x^3 - x^2 + x + x^2 - x - 1}{(x+1)(x+3)} = \frac{x^3 - 1}{x^2 + 4x + 3} = f(x).
+	$$
+	\qedsymbol
+\end{sol*}
+
+\paragraph{} Parte 3 - Qual é a técnica que pode ser aplicada quando numerador e denominador têm uma raíz em comum para calcular o limite de funções racionais em pontos onde elas não estão definidas? Por que ela funciona?
+\begin{sol*}
+	Quando ambos têm uma raíz comum, ela pode ser fatorada do polinômio, isto é, se q(x) for um polinômio com ra'iz a, ele pode ser escrito como o produto a diferença da variável e da ra\'iz por outro polinômio:
+	$$
+		q(x) = (x - a)h(x), a\in\mathbb{R}.
+	$$
+	Com base nisso, se o numerador e o denominador têm uma raíz comum, segue que a fração pode ser escrita como:
+	$$
+		f(x) = \frac{p(x)}{q(x)} = \frac{(x-a)h_1(x)}{(x-a)(h_2(x))} = \frac{h_1(x)}{h_2(x)}.
+	$$
+	Desta forma, pode-se reescrever a fração até que os pontos em que o denominador se torna problemático (q(x) = 0) sejam removidos. Por conta disso, calcular o limite se torna uma aplicação simples das propriedades vistas anteriormente, pois n\~ao haverá mais o problema do denominador que se anula.
+	\qedsymbol
+\end{sol*}
+
+\subsubsection{Exercício 5}
+\paragraph{} Parte 1 - Crie exemplos de cálculos de limite em que sejam aplicadas as técnicas da divisão, soma e produto de limites.
+\begin{sol*}
+	Vamos analisar cada caso separadamente.
+	Começando pela soma, considere a função $f_1(x) = ax$ e a função $f_2(x) = b$, para as quais, dado um $p\in{D_{f_1}}\cap{D_{f_2}}, \lim_{x\to{p}}f_1(x) = ap$ e $\lim_{x\to{p}}f_2(x) = b.$ Nessas condições, utilizando a propriedade da soma de limites, é possível encontrar o limite da funç\~ao afim ax + b quando x tende a p:
+	$$
+		\lim_{x\to{p}}ax + b = \lim_{x\to{p}}ax + \lim_{x\to{p}}b = ap + b.
+	$$
+
+	Um exemplo clássico de aplicação de produto é com as funções utiliza $f(x) = g(x) = x$ e $p\in{D_f\cap D_g}$. Como $\lim_{x\to{p}}f(x) = \lim_{x\to{p}} g(x) = p$, segue que
+	$$
+		\lim_{x\to{p}}x^2 = \lim_{x\to{p}}x\lim_{x\to{p}}x = \lim_{x\to{p}}f(x)\lim_{x\to{p}}g(x) = p\cdot{p} = p^2
+	$$
+
+	Por fim, quanto à divisão, sejam $f(x) = x^2 - 9$ e $g(x) = x + 3$. Então, $\lim_{x\to{p}}f(x) = p^2 - 9, \lim_{x\to{p}}g(x) = p + 3$
+	tal que
+	$$
+		\lim_{x\to{p}}x - 3 = \lim_{x\to{p}}\frac{(x - 3)(x + 3)}{x + 3} = \lim_{x\to{p}}\frac{x^2 - 9}{x + 3} = \lim_{x\to{p}}\frac{f(x)}{g(x)} = \frac{p^2 - 9}{p + 3} = p - 3.
+	$$
+	\qedsymbol
+\end{sol*}
+\paragraph{} Parte 2 - Explicite o domínio das funções racionais abaixo:
+$$
+	f(x) = \frac{x^2 - 5x + 6}{x - 2}, \hspace{0.5cm} g(x) = \frac{x^3 + x^2 - x - 1}{x - 1}, \hspace{0.5cm} h(x) = \frac{x^3 - x^2 - 21x + 45}{x^2 - 6x + 9}.
+$$
+\begin{sol*}
+	Para definir o domínio de cada função racional, é preciso analisar os pontos em que o denominador "dá problema", basicamente, os pontos em que seria igual a dividir por zero, o que corresponde às ra\'izes dos polinômios do denominador. Neste prisma, vamos analisar cada item acima e, com isso, definir o dom\'inio:
+	\begin{align*}
+		x - 2 = 0 \Leftrightarrow x = 2 \\
+		x - 1 = 0 \Leftrightarrow x = 1 \\
+		x^2 - 6x + 9 \Leftrightarrow x = 3
+	\end{align*}
+	Obtendo essas raízes, é poss\'ivel definir o dom\'inio das funções tomando o conjunto dos reais menos esses números. Assim, chegamos em:
+	$$
+		D_f = \mathbb{R}\slash\{2\}, D_g = \mathbb{R}\slash\{1\}, D_h = \mathbb{R}\slash\{3\},
+	$$
+	Concluindo a busca pelos domínios das funções.
+	\qedsymbol
+\end{sol*}
+\paragraph{} Parte 3 - Calcule cada um dos limites, deixando claro o passo a passo utilizado:
+$$
+	\lim_{x\to1} \frac{x^3 + x^2 - x - 1}{x - 1}, \hspace{0.5cm} \lim_{x\to3}\frac{x^3 - x^2 - 21x + 45}{x^2 - 6x + 9}.
+$$
+\begin{sol*}
+	A priori, utilizaremos o resultado de que, dada uma função racional com 0 em x = p tanto no numerador quanto no denominador, podemos fatorar (x - p) de ambos e simplificar a fração. Observando o denominador da primeira funç\~ao, é possível perceber que, de fato, 1 é um 0 dele, pois 1 - 1 = 0. Analogamente, 1 é um zero do numerador, pois $1^3 + 1^2 - 1 - 1 = 2 - 2 = 0$. Fatoremos do numerador o termo (x - 1):
+	$$
+		\frac{(x^3 + x^2 - x - 1)}{x - 1} = x^2 + 2x + 1.
+	$$
+	Deste modo, chegamos em:
+	$$
+		\lim_{x\to{1}}\frac{x^3 + x^2 - x - 1}{x - 1} = \lim_{x\to{1}}x^2 + 2x + 1 = 1 + 2 + 1 = 4.
+	$$
+
+	Vejamos o outro limite agora. O primeiro passo é conferir se o ponto no qual o limite está sendo tomado é uma raíz. Com efeito:
+	$$
+		3^3 - 3^2 - 21\cdot{3} + 45 = 27 - 9 - 63 + 45 = 72 - 72 = 0
+	$$
+	e
+	$$
+		3^2 - 6\cdot{3} + 9 = 9 + 9 - 18 = 0.
+	$$
+	Com isso, conseguimos fatorar (x - 3) dos polinômios, de forma a obter
+	$$
+		\frac{x^3 - x^2 - 21x + 45}{x-3} = x^2 + 2x - 15
+	$$
+	e
+	$$
+		\frac{x^2 - 6x + 9}{x - 3}  = (x - 3)^2
+	$$
+	Mas, note que $3^2 + 2\cdot{3} - 15 = 15 - 15 = 0$, tal que podemos fatorar novamente x - 3:
+	$$
+		\frac{x^2 + 2x - 15}{x - 3} = x + 5
+	$$
+	Desta forma, obtemos, juntando as três fatorações:
+	$$
+		\lim_{x\to3}\frac{x^3 - x^2 - 21x + 45}{x^2 - 6x + 9} = \lim_{x\to3}\frac{(x - 3)^2 (x+5)}{(x - 3)^2} = \lim_{x\to3}x + 5 = 8.
+	$$
+	\qedsymbol
+\end{sol*}
+
+\subsection{Pré Limites Infinitos}
+\paragraph{} Antes de começar os exercícios, é útil adicionar uma nota sobre como calcular limites infinitos ou no infinito. Na definição, há diferentes formas de manipular os $\epsilon's-\delta's$, de modo que há em torno de quatro definições diferentes. No entanto, há uma forma mais simples de lembrar como definir cada coisa e, para isso, comecemos com a hipótese de que "Para cada $\epsilon > 0$ existe um $\delta > 0$".
+
+Com isso em mente, o que determina o sinal de cada infinito que aparece? A resposta pode ser quebrada em quatro casos - $f(x) > \epsilon, f(x) < -\epsilon, x > \delta, x < -\delta$. Desta forma, para lembrar qual tipo de infinito será, pode-se pensar que o sinal do $\epsilon$ na desigualdade determina o sinal do limite infinito, ou seja, se a igualdade for do tipo $\lim f(x) = +\infty$, o sinal do $\epsilon$ será positivo ($f(x) > \epsilon$) e negativo se $\lim f(x) = -\infty$ ($f(x) < -\epsilon$).
+
+Analogamente, o sinal do $\delta$ na desigualdade determina o sinal do limite no infinito, isto é, se o limite for da forma
+$$
+	\lim_{x\to+\infty} f(x) = p,
+$$
+então a desigualdade do delta terá a forma $x > \delta$. Similarmente, se tiver a forma
+$$
+	\lim_{x\to-\infty} f(x) = p,
+$$
+a desigualdade assumirá o tipo $x < -\delta.$
+
+\subsection{Limites Infinitos}
+\subsubsection{Exercício 6}
+\paragraph{}Parte 1 - Utilizando limites já conhecidos e propriedades dos limites, ou via a definição, mostre que:
+$$
+	\text{a) }\lim_{x\to{0^{-}}}{\frac{1}{x}} = -\infty, \quad \text{b) }\lim_{x\to+\infty} -x^2 = -\infty
+$$
+\begin{sol*}
+	a) Precisamos mostrar que, dado $\epsilon > 0$, existe $\delta > 0$ tal que se $-\delta < x < 0$, então
+	$$
+		\frac{1}{x} < -\epsilon.
+	$$
+	Escrevendo a desigualdade do $\epsilon$ em outras palavras, $x > -\frac{1}{\epsilon}$, de forma que pondo $\delta = \frac{1}{\epsilon}$, segue o seguinte: Se $-\delta < x < 0$,
+	$$
+		-\delta  = -\frac{1}{\epsilon} < x \Rightarrow \frac{1}{x} < -\epsilon,
+	$$
+	de maneira que
+	$$
+		\lim_{x\to{0^{-}}}{\frac{1}{x}} = -\infty
+	$$
+
+	b) Agora, precisamos mostrar que, dado $\epsilon > 0$, existe $\delta > 0$ para o qual $x > \delta$ implica em
+	$$
+		-x^2 < -\epsilon.
+	$$
+	Com efeito, analisando a desigualdade acima, chegamos em sua forma equivalente:
+	$$
+		x^2 > \epsilon\Rightarrow x > \sqrt{\epsilon} > 0.
+	$$
+	Desta forma, colocando $\delta = \sqrt{\epsilon}$, segue o seguinte: Se $x > \delta$, então:
+	$$
+		-x^2 < -\delta^2 = -(\sqrt{\epsilon})^2 = -\epsilon.
+	$$
+	Portanto,
+	$$
+		\lim_{x\to+\infty} -x^2 = -\infty.
+	$$
+	\qedsymbol
+\end{sol*}
+
+\paragraph{}Parte 2 - Identifique cada igualdade abaixo como verdadeira ou falsa. Quando verdadeira, justifique e, quando falsa, explique ou mostre qual o valor real do limite.
+\begin{itemize}
+	\item [a)] $\lim_{x\to2}\frac{1}{|x - 2|}=+\infty$
+	\item [b)] $\lim_{x\to5^-}\frac{2}{x - 5}=+\infty$
+	\item [c)] $\lim_{x\to5^+}\frac{2}{x - 5}=+\infty$
+	\item [d)] $\lim_{x\to0}\frac{1}{x^2 - 5x + 3}=+\infty$
+	\item [e)] $\lim_{x\to\infty}\frac{2x^3 - 2}{x - 5}=0$
+\end{itemize}
+\begin{sol*}
+	a) O limite é verdadeiro. De fato, considere $\epsilon > 0$ qualquer. Segue que
+	$$
+		\frac{1}{|x - 2|} > \epsilon \Rightarrow |x - 2| < \frac{1}{\epsilon}
+	$$
+	Assim, definindo $\delta = \frac{1}{\epsilon}$, obtemos: Se $0 < |x - 2| < \delta$, então:
+	$$
+		\frac{1}{|x - 2|} > \frac{1}{\delta} = \epsilon,
+	$$
+	mostrando que
+	$$
+		\lim_{x\to2}\frac{1}{|x - 2|}=+\infty
+	$$
+
+	b)O limite é falso. De fato, segue que  $\lim_{x\to5^-}\frac{2}{x - 5} = 2\lim_{x\to5^-}\frac{1}{x - 5}.$ Demonstremos que $\lim_{x\to5^-}\frac{1}{x - 5} = -\infty:$ Dado $\epsilon > 0$, precisamos encontrar $\delta > 0$ tal que se $-\delta < x - 5< 0$, então
+	$$
+		\frac{1}{x - 5} < -\epsilon.
+	$$
+	Com efeito, seja $\delta = \frac{1}{\epsilon}.$ Assim, se $-\delta < x - 5< 0$, temos
+	$$
+		\frac{1}{x - 5} < -\frac{1}{\delta} = -\epsilon.
+	$$
+	Logo,
+	$$
+		2\lim_{x\to5^-}\frac{1}{x - 5} = -\infty.
+	$$
+
+	c) O limite é verdadeiro. Realmente, pois dado $\epsilon > 0$, considere a desigualdade
+	$$
+		\frac{1}{x - 5} > \epsilon \Rightarrow x - 5 < \frac{1}{\epsilon}.
+	$$
+	Assim, tomando $\delta = \frac{1}{\epsilon}$, segue que se $0 < x - 5 < \delta$,
+	$$
+		\frac{1}{x - 5} > \frac{1}{\delta} = \epsilon,
+	$$
+	tal que
+	$$
+		\lim_{x\to5^+}\frac{2}{x - 5} = 2\lim_{x\to5^-}\frac{1}{x - 5} = +\infty
+	$$
+
+	d)O limite é falso, pois, conforme x tende a zero, o termo $x^2 - 5x$ se torna 0. Deste modo, a fração e, consequentemente, o limite, ficam:
+	$$
+		\lim_{x\to0}\frac{1}{x^2 - 5x + 3} = \frac{1}{3}.
+	$$
+
+	e)O limite é falso. Com efeito, conforme visto na aula do dia 08 de Maio de 2022, é possível encontrar o limite no inifinito de polinômios da seguinte forma: Dados polinômios $p_n(x), p_m(x)$ com graus n e m respectivamente, então
+	$$
+		\lim_{x\to+\infty}\frac{p_n(x)}{p_m(x)} =
+		\left\{\begin{array}{ll}
+			+\infty,         & \quad n\geq{m} \\
+			0,               & \quad n < m    \\
+			\frac{p_0}{q_0}, & \quad n = m.   \\
+		\end{array}\right.
+	$$
+	Com isso, como $2x^3$, o termo líder do polinômio do numerador, tem grau maior que o termo l\'ider do denominador, $x$, obtemos
+	$$
+		\lim_{x\to+\infty}\frac{2x^3 - 2}{x-5} = +\infty.
+	$$
+	\qedsymbol
+\end{sol*}
+
+\subsection{Limites no Infinito}
+\subsubsection{Exercício 7}
+\paragraph{}Parte 1 - Utilizando o método de estimar o valor do limite testando números diferentes na conta, mostre que:
+$$
+	\text{a) }\lim_{x\to+\infty}\frac{1}{x + 5} = 0,\hspace{3.3cm}
+	\text{b) }\lim_{x\to+\infty}\frac{1}{5x} = 0,\hspace{3.3cm}
+	\text{c) }\lim_{x\to+\infty}3 = 3.
+$$
+\begin{sol*}
+	a) tome $x_1 = 9999999995$ e $x_2 = 5$, tal que $x_1 > x_2$. Comparemos os valores de $f(x_1), f(x_2):$
+	$$
+		\frac{1}{9999999995 + 5} =\frac{1}{10^10} < \frac{1}{10} = \frac{1}{5 + 5}.
+	$$
+	Assim, quanto maior o valor de x, menor será f(x), tal que 0 é o candidato a limite nessa situação. Mostremos que ele é realmente o valor esperado, isto é, seja $\epsilon > 0$. Então,
+	$$
+		\frac{1}{|x + 5|} < \epsilon \Rightarrow |x + 5| > \frac{1}{\epsilon}.
+	$$
+	Tome $\delta = \frac{1}{\epsilon}.$ Deste modo, se $x > \delta$, $x > 0$, tal que $|x + 5| = x + 5 > x > \delta$, obtemos:
+	$$
+		\frac{1}{|x + 5|} < \frac{1}{\delta} = \epsilon.
+	$$
+	Logo,
+	$$
+		\lim_{x\to+\infty}\frac{1}{x + 5} = 0.
+	$$
+
+	b)Tome $x_1 = 2\cdot{10^{1203478}}$ e $x_2 = 20.$ Novamente, vamos comparar $f(x_1), f(x_2)$:
+	$$
+		\frac{1}{5x_1} = \frac{1}{5\cdot2\cdot{10^{1203478}}} = \frac{1}{10^{1203479}} < \frac{1}{10^2}.
+	$$
+	Novamente, isso faz com que 0 seja um palpite para o valor do limite. Com efeito, tome $\epsilon > 0$. Temos:
+	$$
+		\frac{1}{5x} < \epsilon \Rightarrow x > \frac{5}{\epsilon}.
+	$$
+	Desta forma, seja $\delta = \frac{5}{\epsilon}.$ Então, se $x > \delta$, segue que
+	$$
+		\frac{1}{5x} < 5\frac{1}{\delta} = 5\frac{\epsilon}{5} = \epsilon.
+	$$
+	Destarte,
+	$$
+		\lim_{x\to+\infty}\frac{1}{5x} = 0.
+	$$
+
+	c)Considere agora $x_1 = 5$ e $x_2 = 9$. Então, $f(x_1) = f(x_2) = 3.$ Como a função é constante,
+	$$
+		\lim_{x\to+\infty}3 = 3.
+	$$
+	\qedsymbol
+\end{sol*}
+
+\paragraph{}Parte 2 - Através das propriedades dos limites, justifique:
+$$
+	\text{a) }\lim_{x\to+\infty}\frac{1}{x^5} = 0,\hspace{3.3cm}
+	\text{b) }\lim_{x\to+\infty}\frac{1}{x^n} = 0,\hspace{.3cm} n\in\mathbb{N}\slash\{0\}
+$$
+\begin{proof*}
+	Sabemos do vídeo e das aulas que
+	$$
+		\lim_{x\to+\infty}\frac{1}{x} = 0.
+	$$
+	A partir disso, sabe-se também que $\lim_{x\to{p}}f(x)g(x) = \lim_{x\to{p}}f(x)\lim_{x\to{p}}g(x)$, tal que:
+	a)
+	$$
+		\lim_{x\to+\infty}\frac{1}{x^5} = \lim_{x\to+\infty}\frac{1}{x}\lim_{x\to+\infty}\frac{1}{x}\lim_{x\to+\infty}\frac{1}{x}\lim_{x\to+\infty}\frac{1}{x}\lim_{x\to+\infty}\frac{1}{x} = 0\cdots0 = 0.
+	$$
+
+	b)
+	$$
+		\lim_{x\to+\infty}\frac{1}{x^n} = \lim_{x\to+\infty}\frac{1}{x}\lim_{x\to+\infty}\frac{1}{x}\cdots\underbrace{\cdots}_{\text{n vezes}}\lim_{x\to+\infty}\frac{1}{x} = 0\underbrace{\cdots}_{\text{n vezes}}0
+	$$
+	para qualquer n natural diferente de 0.
+	\qedsymbol
+\end{proof*}
+
+\paragraph{}Parte 3 - Utilizando a técnica de pôr em evidência, calcule os limites abaixo:
+$$
+	\text{a) }\lim_{x\to+\infty}\frac{x^3 - 3x + 2}{3x^3 + 1},\hspace{2.5cm}
+	\text{b) }\lim_{x\to+\infty}\frac{2x^5 + 3x^2 - x + 7}{-5x^2 + 2x - 9}
+$$
+
+$$
+	\text{c) }\lim_{x\to+\infty}\frac{5x^4 - 2x + 8}{x^5 + 2x^2 + 79},\hspace{2.5cm}
+	\text{d) }\lim_{x\to+\infty}\frac{x^3 + 1}{x^7 + 2}.
+$$
+\begin{sol*}
+	Vamos fatorar o termo líder do numerador e denominador de cada item e calcular os limites
+	a)Como tanto no denominador quanto no numerador o termo líder é $x^3$, é ele que vamos fatorar:
+	$$
+		\frac{x^3 - 3x + 2}{3x^3 + 1} = \frac{x^3 (1 - \frac{3}{x^2} + \frac{2}{x^3})}{x^3(3 + \frac{1}{x^3})} = \frac{1 - \frac{3}{x^2} + \frac{2}{x^3}}{3 + \frac{1}{x^3}},
+	$$
+	de maneira que chegamos em um terço ao tomar o limite porque todos os outros termos, que possuem x no denominador, irão a zero:
+	$$
+		\lim_{x\to+\infty}\frac{1 - \frac{3}{x^2} + \frac{2}{x^3}}{3 + \frac{1}{x^3}} = \frac{1}{3}.
+	$$
+
+	b)O termo líder no numerador é $x^5$, enquanto que no denominador é $x^2$. Com isso, vamos à fatoração:
+	$$
+		\frac{2x^5 + 3x^2 - x + 7}{-5x^2 + 2x - 9} = \frac{x^5(2 + \frac{3}{x^3} - \frac{1}{x^4} + \frac{7}{x^5})}{x^2(-5 + \frac{2}{x} - \frac{9}{x^2})} = x^3\frac{2 + \frac{3}{x^3} - \frac{1}{x^4} + \frac{7}{x^5}}{-5 + \frac{2}{x} - \frac{9}{x^2}}.
+	$$
+	Assim como antes, os termos que possuem alguma fração de $\frac{1}{x^n}$ se tornam 0 quando x tende a infinito. No entanto, note a existência de $x^3$ desta vez - Esse simples termo faz com que o limite seja alterado. Realmente, chegamos em:
+	$$
+		\lim_{x\to+\infty}x^3\frac{2 + \frac{3}{x^3} - \frac{1}{x^4} + \frac{7}{x^5}}{-5 + \frac{2}{x} - \frac{9}{x^2}} = \lim_{x\to+\infty}x^3\frac{2}{-5} = -1\lim_{x\to+\infty}x^3\frac{2}{5} = -\infty.
+	$$
+
+	c)Desta vez, o termo líder do numerador é $x^4$ e o do denominador é $x^5$, de forma que fatoramos:
+	$$
+		\frac{5x^4 - 2x + 8}{x^5 + 2x^2 + 79} = \frac{x^4(5 - \frac{2}{x^3} + \frac{8}{x^4})}{x^5(1 + \frac{2}{x^3} + \frac{79}{x^5})} = \frac{1}{x}\frac{5 - \frac{2}{x^3} + \frac{8}{x^4}}{1 + \frac{2}{x^3} + \frac{79}{x^5}}
+	$$.
+	Deste modo, como no exemplo b), todos os termos com $\frac{1}{x^n}$ se tornam 0, mas o fato de ter um $\frac{1}{x}$ multiplicando tudo, um termo que também tende a 0, faz com que o limite seja:
+	$$
+		\lim_{x\to+\infty}\frac{5x^4 - 2x + 8}{x^5 + 2x^2 + 79} = \lim_{x\to\infty}\frac{1}{x}\frac{5 - \frac{2}{x^3} + \frac{8}{x^4}}{1 + \frac{2}{x^3} + \frac{79}{x^5}} = 0.
+	$$.
+
+	d)Por fim, o termo dominante no numerador é $x^3$, mas no denominador é $x^7$. Fatorando,
+	$$
+		\frac{x^3 + 1}{x^7 + 2} = \frac{x^3(1 + \frac{1}{x^3})}{x^7(1 + \frac{2}{x^7})} = \frac{1}{x^4}\frac{1 + \frac{1}{x^3}}{1 + \frac{2}{x^7}.}
+	$$
+	Assim, como há uma fração de x quando o limite for tomado, o resultado será zero, pois será 0 multiplicando outro número. Explicitamente:
+	$$
+		\lim_{x\to+\infty}\frac{x^3 + 1}{x^7 + 2} = \lim_{x\to+\infty}\frac{1}{x^4}\lim_{x\to+\infty}\frac{1 + \frac{1}{x^3}}{1 + \frac{2}{x^7}} = 0\frac{1}{1} = 0.
+	$$
+	\qedsymbol
+\end{sol*}
+
+\subsection{Diferenças de Infinito}
+\subsubsection{Exercício 8}
+\paragraph{} Calcule, explicitando o passo-a-passo, os limites a seguir:
+$$
+	a) \lim_{x\to+\infty} \sqrt{x + 5} - \sqrt{x} \hspace{5cm} b)\lim_{x\to+\infty} \sqrt{x^3 + 1} - \sqrt{x^4 + 3}.
+$$
+\begin{sol*}
+	a) O princípio por trás da resolução de limites dessa forma é mover a ra\'iz para um denominador sem subtração, para que seja poss\'ivel obter um limite igualando a 0. Com base nisso e com a igualdade $a^2 - b^2 = (a + b)(a - b)$, multipliquemos a express\~ao dada por:
+	$$
+		(\sqrt{x + 5} - \sqrt{x})\underbrace{\biggl(\frac{\sqrt{x + 5} + \sqrt{x}}{\sqrt{x + 5} + \sqrt{x}}\biggr)}_{= 1} = \frac{x + 5 - x}{\sqrt{x + 5} + \sqrt{x}} = \frac{5}{\sqrt{x + 5} + \sqrt{x}}.
+	$$
+	Assim, ao calcular o limite, chegamos em:
+	$$
+		\lim_{x\to+\infty} \sqrt{x + 5} - \sqrt{x} = \lim_{x\to+\infty} \frac{5}{\sqrt{x + 5} + \sqrt{x}} = 0.
+	$$
+
+	b)O processo neste caso é análogo ao utilizado no item a, isto é, vamos multiplicar tudo para mudar as raízes do numerador para denominador:
+	$$
+		(\sqrt{x^3 + 1} - \sqrt{x^4 + 3})\underbrace{\biggl(\frac{\sqrt{x^3 + 1} + \sqrt{x^4 + 3}}{\sqrt{x^3 + 1} + \sqrt{x^4 + 3}}\biggr)}_{= 1} = \frac{x^3 + 1 - x^4 - 3}{\sqrt{x^3 + 1} + \sqrt{x^4 + 3}} = \frac{x^3 - x^4 - 2}{\sqrt{x^3 + 1} + \sqrt{x^4 + 3}} =
+	$$
+	$$
+		= \frac{x^4(\frac{1}{x} - 1 - \frac{2}{x^4})}{\sqrt{x^3 + 1} + \sqrt{x^4 + 3}}.
+	$$
+	Aplicando a estratégia do termo líder de denominador versus numerador e como $x^4$ é maior que o $x^2$ do denominador, chegamos em:
+	$$
+		\lim_{x\to+\infty} \sqrt{x^3 + 1} - \sqrt{x^4 + 3} = \lim_{x\to+\infty}x^4\lim_{x\to+\infty}\frac{\frac{1}{x} - 1 - \frac{2}{x^4}}{\sqrt{x^3 + 1} + \sqrt{x^4 + 3}} = -\infty.
+	$$
+	\qedsymbol
+\end{sol*}
