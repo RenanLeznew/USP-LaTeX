@@ -1,0 +1,242 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 20 - 15/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Teorema do Valor Médio;
+	\item Consequências do TVM;
+	\item Regra de L'Hospital;
+	\item Teorema de Taylor.
+\end{itemize}
+\subsection{Teorema do Valor Médio}
+O resultado a seguir não pode ser completado até o futuro, no entanto, pode
+ser útil já afirmá-lo.
+\hypertarget{incomplete_1}{\begin{crl*}
+		Se \(f:[a, b)\rightarrow \mathbb{R}\) é contínua e diferenciável à direita com
+		derivada à direita \(D^{+}f:[a, b]\rightarrow \mathbb{R}\) contínua, então f é de classe
+		\(C^{1}\).
+	\end{crl*}}
+\begin{proof*}
+	Seja \(g = D^{+}f\) e defina
+	\[
+		h(t) = f(a) + \int_{a}^{t} g(\tau )d\tau.
+	\]
+	A fun\c cão h é continuamente diferenciável em \([a, b)\). Se \(\varphi (t) = h(t)-f(t)\),
+	então \(\varphi (a) = 0\) e \(D^{+}\varphi (t) = 0\) em [a, b). Do teorema anterior,
+	\(\varphi (t)\leq 0\) em \([a, b)\).
+
+	Como \(-\varphi (t)\) também satisfaz as hipóteses do teorema anterior, \(\varphi (t)\geq 0\).
+	Portanto, \(\varphi = 0\), ou seja, f = h em \([a, b)\). \qedsymbol
+\end{proof*}
+O Teorema do Valor Médio é um dos teoremas fundamentais da análise. Segue sua formula\c cão segundo
+Cauchy
+\hypertarget{cauchy_mvt}{
+	\begin{theorem*}
+		Se \(f, g:[a, b]\rightarrow \mathbb{R}\) são fun\c cões contínuas que são
+		diferenciáveis em \((a, b)\), existe c em \((a, b)\) tal que
+		\[
+			[f(b)-f(a)]g'(c) = [g(b)-g(a)]f'(c).
+		\]
+	\end{theorem*}}
+Um de seus corolários é o teorema de Rolle
+\hypertarget{Rolle}{
+	\begin{crl*}
+		Se \(f:[a, b]\rightarrow \mathbb{R}\) é contínua em \([a, b]\) e diferenciável
+		em \((a, b)\) e \(f(a)=f(b),\) então existe um c em (a, b) tal que \(f'(c) = 0.\)
+	\end{crl*}}
+\begin{proof*}
+	Segue fazendo \(g(x) = 1\) no teorema anterior. \qedsymbol
+\end{proof*}
+Outro corolário é o Teorema do Valor Médio em sua versão mais simplificada e mais usada
+\hypertarget{mean_value}{
+	\begin{crl*}
+		Se \(f:[a, b]\rightarrow \mathbb{R}\) é contínua em \([a, b]\) e diferenciável em
+		\((a, b)\), então existe \(c\in (a, b)\) tla que
+		\[
+			f(b) - f(a) = f'(c)(b-a),
+		\]
+		ou seja,
+		\[
+			f'(c) = \frac{f(b)-f(a)}{b-a}.
+		\]
+	\end{crl*}}
+\begin{proof*}
+	Basta tomar \(g(x) = x\) no teorema anterior. \qedsymbol
+\end{proof*}
+Vamos provar o \hyperlink{cauchy_mvt}{teorema do valor médio de Cauchy}.
+\begin{proof*}
+	Se
+	\[
+		h(x) = [f(b)-f(a)]g(x) - [g(b)-g(a)]f(x),\quad (a\leq x\leq b),
+	\]
+	então h é contínua em \([a, b]\), diferenciável em \((a, b)\) e
+	\[
+		h(a) = f(b)g(a) - f(a)g(b) = h(b).\quad \text{(para verificar isso, basta abrir as contas)}
+	\]
+	Para provar o teorema, basta mostrarmos que \(h'(c) = 0\) para algum c em \((a, b)\).
+
+	Se h é constante, isto vale para todo c em \((a, b).\)
+	Se\(h(x) > h(a)\) para algum \( x\in (a, b),\) seja c um ponto de \([a, b]\)
+	no qual h atinge seu máximo. Como \(h(a) = h(b),\) segue que c pertence a \((a, b)\) e \(h'(c) = 0\).
+
+	Se \(h(x) < h(a)\) para algum x em \((a, b)\), escolhemos c em \([a, b]\)
+	para o qual h atinge seu mínimo. Portanto, assim como antes, \(c\in (a, b)\) e
+	\(f'(c) = 0.\) \qedsymbol
+\end{proof*}
+
+Algumas outras consequências do \hyperlink{mean_value}{TVM} são:
+\begin{crl*}
+	\begin{itemize}
+		\item[a)] Se \(f'(x)\geq  0,\) então f é não-decrescente em \((a, b)\);
+		\item[b)] Se \(f'(x) > 0,\) então f é crescente em \((a, b)\)
+		\item[c)]  Se \(f'(x) = 0,\) então f é constante em \((a, b)\)
+		\item[d)] Se \(f'(x)\leq  0,\) então f é não-crescente em \((a, b)\)
+		\item[e)] Se \(f'(x)\leq  0,\) então f é decrescente em \((a, b)\)
+	\end{itemize}
+\end{crl*}
+Uma observa\c cão, também, é o Teorema da Fun\c cão Inversa
+\begin{theorem*}
+	Se \(I\subseteq{\mathbb{R}}\) é um intervalo aberto, \(x_{0}\) um ponto de I,
+	\(f:I\rightarrow \mathbb{R}\) uma fun\c cão \(C^{1}\) e \(f'(x_{0})\neq 0\), então
+	existe \(\delta >0\) tal que \(f:(x_{0}-\delta, x_{0}+\delta )\rightarrow \mathbb{R}\)
+	é injetora, \(f((x_{0}-\delta ,x_{0}+\delta )) = J\) é um intervalo e \(f^{-1}:J\rightarrow I\)
+	é continuamente diferenciável com
+	\[
+		(f^{-1})'(x) = \frac{1}{f'(f^{-1}(x))}.
+	\]
+\end{theorem*}
+O resultado a seguir é conhecido como Regra de L'Hospital, um dos resultados
+mais úteis no cálculo de limites indeterminados de fun\c cões.
+\hypertarget{Lhospital}{
+	\begin{theorem*}
+		Sejam \(f, g\) diferenciáveis em \((a, b)\) e \(g'(x)\neq0\) para todo
+		x em \((a, b)\), em que \(-\infty\leq a < b\leq +\infty\) e
+		\[
+			\frac{f'(x)}{g'(x)}\overbracket[0pt]{\longrightarrow}^{x\to a}A.
+		\]
+		Se
+		\[
+			f(x)\overbracket[0pt]{\longrightarrow}^{x\to a}0\text{ e }g(x)\overbracket[0pt]{\longrightarrow}^{x\to a}0
+		\]
+		ou se
+		\[
+			g(x)\overbracket[0pt]{\longrightarrow}^{x\to a}+\infty,
+		\]
+		então
+		\[
+			\frac{f(x)}{g(x)}\overbracket[0pt]{\longrightarrow}^{x\to a}A.
+		\]
+		O resultado permanece válido se \(x\overbracket[0pt]{\longrightarrow}b\), ou se
+		\(g(x)\longrightarrow+\infty.\)
+	\end{theorem*}
+}
+\begin{proof*}
+	Primeiramente, consideramos o caso \(-\infty\leq A < +\infty\). Se \(q > r > A\),
+	existe c em \((a, b)\) tal que, se \(a < x < c\), então
+	\[
+		\frac{f'(x)}{g'(x)} < r.
+	\]
+	Se \(a < x < y < c,\) do \hyperlink{cauchy_mvt}{Teorema do Valor Médio de Cauchy}, existe
+	\(t\in (x, y)\) tal que
+	\[
+		\frac{f(x) - f(y)}{g(x) - g(y)} = \frac{f'(t)}{g'(t)} < r,
+	\]
+	visto que, se \(\lim_{x\to a}\frac{f'(x)}{g'(x)} = A\), fazendo \(q > r > A, q\in \mathbb{R},\)
+	deve existir \(c > a\) tal que, para todo x em \((a, c)\),
+	\[
+		\frac{f'(x)}{g'(x)} < r.
+	\]
+
+	Se a primeira condi\c cão vale, então, fazendo \(x\rightarrow a\) na desigualdade acima,
+	\[
+		\frac{f(y)}{g(y)}\leq r < q \quad (a < y < c),
+	\]
+
+	Caso a segunda condi\c cão seja verdadeira, mantendo y fixado na equa\c cão em que aplicamos o TVM de Cauchy anterior,
+	podemos escolher \(c_{1}\in (a, y)\) tal que \(g(x) > g(y) \) e \(g(x) > 0\) se
+	\(a < x < c_{1}.\) Multiplicando ela por \(\frac{g(x)-g(y)}{g(x)},\) obtemos
+	\[
+		\frac{f(x)}{g(x)} < r - r\frac{g(y)}{g(x)} + \frac{f(y)}{g(x)}\quad (a < x < c_{1})
+	\]
+	Fazendo x tender para a nesta desigualdade, segue que existe \(c_{2}\in (a, c_{1})\)
+	tal que
+	\[
+		\frac{f(x)}{g(x)} < q\quad (a < x < c_{2}).
+	\]
+	Assim, temos para qualquer \(q > A\), existe \(c_{2}\) tal que \(\frac{f(x)}{g(x)} < q\) se \(a < x < c_{2}.\)
+	\[
+		\lim_{x\to a^{+}} \frac{f(x)}{g(x)}\leq q \quad\forall q > A.
+	\]
+	Do mesmo modo, se \(-\infty < A\leq +\infty\) e \(p < A,\) podemos encontrar
+	\(c_{3}\) tal que
+	\[
+		p < \frac{f(x)}{g(x)}\quad (a < x < c_{3}).
+	\]
+	Disto segue o resultado. \qedsymbol
+\end{proof*}
+O próximo resultado é conhecido como Teorema de Taylor, e permite-nos quebrar
+uma fun\c cão com várias derivadas em um polinômio com derivadas mais simples.
+Ele pode ser visto como uma generaliza\c cão do \hyperlink{mean_value}{TVM}.
+\hypertarget{taylor}{
+	\begin{theorem*}
+		Se \(n\in \mathbb{N}^{\times}, f:[a, b]\rightarrow \mathbb{R}\) é uma fun\c cão
+		n-1 vezes diferenciável em \([a, b]\) e n-vezes diferenciável em \((a, b)\) com
+		\(f^{(n-1)}:[a, b]\rightarrow \mathbb{R}\) contínua. Sejam \(\alpha , \beta \in[a, b]\) diferentes
+		e
+		\[
+			P(t) = \sum\limits_{k=0}^{n-1}\frac{f^{(k)}(\alpha )}{k!}(t-\alpha )^{k}.
+		\]
+		Então, existe \(\xi\) entre \(\alpha  \) e \(\beta \) tal que
+		\[
+			f(\beta ) = P(\beta ) + \frac{f^{(n)}(\xi)}{n!}(\beta -\alpha )^{n}.
+		\]
+		Para n=1, este é o \hyperlink{mean_value}{TVM}. Em geral, o teorema mostra
+		como aproximar f por polinômios e fornece uma maneira de estimar o erro
+		se conhecermos limita\c cões para \(|f^{(n)}(\xi)|.\)
+	\end{theorem*}}
+\begin{proof*}
+	Seja M o número definido por
+	\[
+		f(\beta ) = P(\beta ) + M(\beta -\alpha )^{n}.
+	\]
+	Fazendo
+	\[
+		g(t) = f(t) - P(t) - M(t-\alpha )^{n}\quad (a\leq t\leq b).
+	\]
+	Precisamos mostrar que \(n!M = f^{(n)}(\xi)\) para algum \(\xi\) entre
+	\(\alpha \) e \(\beta \). Segue que
+	\[
+		g^{(n)}(t) = f^{(n)}(t) - n!M\quad (a < t < b).
+	\]
+	Resta mostrar que \(g^{(n)}(\xi) = 0\) para algum \(\alpha \leq \xi\leq \beta .\)
+	Como \(P^{(k)}(\alpha ) = f^{(k)}(\alpha ), k=0, \cdots, n-1,\) temos
+	\[
+		g(\alpha ) = g'(\alpha ) = \cdots = g^{(n-1)}(\alpha ) = 0.
+	\]
+	Nossa escolha de M implica que \(g(\beta ) = 0\) e, do \hyperlink{mean_value}{Teorema
+		do Valor Médio,} \(g'(x_{1}) = 0\) para algum \(x_{1}\) entre \(\alpha \) e \(\beta \).
+	Como \(g'(\alpha ) = 0\), de modo semelhante, \(g''(x_{2}) = 0\) para algum
+	\(x_{2}\) entre \(\alpha \) e \(x_{1} \). Portanto, depois de n, chegamos à conclusão
+	que \(g^{(n)}(x_{n}) = 0\) para algum \(x_{n}\) entre \(\alpha \) e \(x_{n-1}\), isto é,
+	entre \(\alpha \) e \(\beta \). \qedsymbol
+\end{proof*}
+\subsection{Fun\c cões Convexas}
+\begin{def*}
+	Seja I um intervalo. Uma fun\c cão \(f:I\rightarrow \mathbb{R}\) é convexa quando,
+	dados \(a < x < b\) em I, o ponto \((x, f(x))\) fica abaixo da reta que
+	liga os pontos \((a, f(a))\) e \((b, f(b))\). \(\square\)
+\end{def*}
+A equa\c cão da reta é
+\[
+	y = \frac{f(b)-f(a)}{b-a}(x-a)+f(a) \text{ ou } y = \frac{f(b)-f(a)}{b-a}(x-b)+f(b).
+\]
+Logo, \(f:I\rightarrow \mathbb{R}\) é convexa se uma das desigualdades
+\[
+	\frac{f(x) - f(a)}{x-a}\leq \frac{f(b) - f(a)}{b-a}\leq \frac{f(b)-f(x)}{b-x}
+\]
+está sempre satisfeita sempre que \(a < x < b\) em I.
+\hypertarget{convex_characterization}{ \begin{theorem*}
+		Seja \(I\subseteq{\mathbb{R}}\) um intervalo e \(f:I\rightarrow \mathbb{R}\) duas vezes diferenciável.
+		Então, f é convexa se, e somente se, \(f''(x)\geq 0\) para todo x em I.
+	\end{theorem*}}
+\end{document}

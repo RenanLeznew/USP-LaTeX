@@ -1,0 +1,95 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 29/03/2023}
+\begin{itemize}
+	\item Rela\c c\~ao entre limite superior (e inferior), limites normais e valores de ader\^encia;
+	\item Aproxima\c c\~oes sucessivas de valores.
+\end{itemize}
+\subsection{Limite Superior e Inferior}
+\begin{def*}
+	Seja $\{a_{n}\} $ uma sequ\^encia. Um n\'umero real a \'e um valor de ader\^encia de $\{a_{n}\} $ se a sequ\^encia $\{a_{n}\}$ possui
+	uma subsequ\^encia convergente para a.$\quad\square$
+\end{def*}
+\begin{def*}
+	Seja $\{a_{n}\} $  uma sequ\^encia limitada. Definimos o limite superior $\displaystyle\limsup_{n\to\infty}a_{n}(\text{ inferior }\liminf_{n\to\infty}a_{n})$ da
+	sequ\^encia $\{a_{n}\} $ por
+	\begin{align*}
+		 & \limsup_{n\to\infty}a_{n} = \lim_{n\to\infty}\sup_{k\geq{n}}a_{k} = \inf_{n\in \mathbb{N}}\sup_{k\geq{n}}a_{k}             \\
+		 & \liminf_{n\to\infty}a_{n} = \lim_{n\to\infty}\inf_{k\geq{n}}a_{k} = \sup_{n\in \mathbb{N}}\inf_{k\geq{n}}a_{k}\quad\square
+	\end{align*}
+\end{def*}
+Uma consequ\^encia direta do Teorema do Confronto que utiliza os conceitos acima nos permite dizer se uma sequ\^encia converge apenas
+utilizando as ideias de limite superior e inferior:
+\begin{theorem*}
+	Se $\{a_{n}\} $ \'e uma sequ\^encia limitada, ent\~ao $a = \liminf_{n\to\infty}a_{n}$ e $b = \limsup_{n\to\infty}a_{n}$
+	s\~ao valores de ader\^encia de $\{a_{n}\} $
+\end{theorem*}
+\begin{proof*}
+	A prova se baseia em verificar que, dada uma vizinhan\c ca $V_{a}$ de a, temos $a_{n}\in V_{a}$ para infinitos \'indices n.
+	Dado $\epsilon > 0$, existe N natural tal que, colocando $a =\displaystyle \liminf_{n\to\infty} = \lim_{n\to\infty}\inf_{k\geq{n}}a_{k} = \lim_{n\to\infty}i_{n},$
+	$$
+		a - \epsilon < i_{n} < a + \epsilon \quad \forall n \geq{N}.
+	$$
+	Assim, existe um $a_{\overline{k}}, \overline{k}\geq{N}$ em $(a-\epsilon, a+\epsilon).$ Assim, existe $\overline{n} > \overline{k}$ tal que
+	$$
+		a - \epsilon < i_{\overline{n}} < a + \epsilon.
+	$$
+	Repetindo o racioc\'icio, existe $a_{\overline{\overline{k}}}, \overline{\overline{k}} \geq{\overline{n}} > k$ em $(a - \epsilon, a + \epsilon).$
+	Dando continuidade a este racioc\'inio ad infinitum, o teorema est\'a provado. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se a \'e um valor de ader\^encia da sequ\^encia $\{a_{n}\} $, ent\~ao
+	$$
+		\liminf_{n\to\infty}a_{n}\leq{a}\leq{\limsup_{n\to\infty}a_{n}}.
+	$$
+	Al\'em disso, uma sequ\^encia \'e convergente se, e somente se, $\liminf_{n\to\infty}a_{n} = \limsup_{n\to\infty}a_{n}.$
+\end{theorem*}
+\begin{proof*}
+	Defina $i_{n} = \inf_{k\geq{n}}a_{k}$. Segue que $i_{s(n)}\leq{a_{s(n)}}\overbracket[0pt]{\longrightarrow}^{\to }a$, pois o conjunto
+	$\{a_{k}: k\geq{s(n)}\}$ cont\'em $a_{s(n)}$. Logo, como $i_{s(n)}$ converge para $\liminf_{n\to\infty}a_{n}$, segue do Teorema da compara\c c\~ao que
+	$$
+		\liminf_{n\to\infty}a_{n} \leq{\lim_{n\to\infty}a_{s(n)} = a}.
+	$$
+	Analogamente, como $a_{s(n)}\leq{\sup_{k\geq{s(n)}}{(a_{k})}} = s_{s(n)}$ e $\sup_{k\geq{s(n)}}{(a_{k})}\overbracket[0pt]{\longrightarrow}^{n\to\infty}a_{n}$,
+	pelo teorema da compara\c c\~ao, chegamos novamente em
+	$$
+		\lim_{n\to\infty}a_{s(n)} = a \leq{\limsup_{n\to\infty}a_{n}}.
+	$$
+	Portanto, juntando ambos, segue o resultado. \qedsymbol
+\end{proof*}
+A seguir, mostraremos um m\'etodo para aproximar n\'umeros por meio de sequ\^encias de Cauchy.
+\begin{theorem*}
+	Se $\kappa\in{[0, 1)},\{a_{n}\} $ \'e uma sequ\^encia tal que, para todo $n\in \mathbb{N}, |a_{n+2}-a_{n+1}|\leq{\lambda|a_{n+1}-a_{n}|}$,
+	ent\~ao $\{a_{n}\} $ \'e de Cauchy.
+\end{theorem*}
+\begin{proof*}
+	Se $m > n$ s\~ao naturais, m = n + p para algum natural n\~ao-nulo p. Assim, como
+	$$
+		|a_{n+p} - a_{n}| = |a_{n+p} - a_{n+p-1} + a_{n+p-1}+\cdots + a_{n+1} - a_{n}|,
+	$$
+	segue da desigualdade triangular que
+	\begin{align*}
+		|a_{n+p}-a_{n}| & \leq{\kappa|a_{n+p-1}-a_{n+p-2}|+\kappa|a_{n+p-2}-a_{n+p-3}|+\cdots+\kappa|a_{n}-a_{n-1}|}                \\
+		                & \leq{\kappa^{n+p-1}|a_{n+p} - a_{n+p-1}|}+\cdots+{\kappa^{n}|a_{p}-a_{p-1}|}                              \\
+		                & ={\kappa^{n}\biggl[\kappa^{p-1}+\cdots+1\biggr]}|a_{1}-a_{0}| < \frac{\kappa^{n}}{1-\kappa}|a_{1}-a_{0}|.
+	\end{align*}
+	Dado $\epsilon > 0,$ escolha N natural tal que $\displaystyle \frac{\kappa^{n}}{1-\kappa}|a_{1}-a_{0}| < \epsilon.$ Assim, segue que,
+	se $m, n\geq{N}, |a_{m}-a_{n}|<\epsilon$ e $\{a_{n}\} $ \'e de Cauchy. \qedsymbol
+\end{proof*}
+\begin{example}
+	Seja $a > 0$ e $\{a_{n}\}$ a sequ\^encia definida por $a_{0} = c > 0$ e $a_{n+1}=\displaystyle \frac{1}{2}\biggl(a_{n} + \frac{a}{a_{n}}\biggr)$. Mostre que
+	$\{a_{n}\}$ \'e convergente com limite $\sqrt{a}$.
+
+	Com efeito, observe que
+	$$
+		a_{n+2} - a_{n+1} = \frac{1}{2}(a_{n+1}-a_{n}) + \frac{a}{2}\biggl(\frac{1}{a_{n+1}}-\frac{1}{a_{n}}\biggr) = \biggl(\frac{1}{2} - \frac{a}{2a_{n}a_{n+1}}\biggr)(a_{n+1}-a_{n})
+	$$
+	e note que, para todo $t > 0, \frac{1}{2}(t + \frac{a}{t}) > \sqrt{\frac{a}{2}}.$ Logo, $a_{n} > \sqrt{\frac{a}{2}}$ para todo n maior ou igual que 1.
+	Disto segue que $2a_{n}a_{n+1} > a$ e que
+	$$
+		\biggl|\frac{1}{2} - \frac{a}{2a_{n}a_{n+1}}\biggr| < \frac{1}{2}.
+	$$
+	Portanto, segue do m\'etodo das aproxima\c c\~oes sucessivas que $\{a_{n}\}$ \'e convergente e seu limite l deve satisfazer
+	$l = \frac{1}{2}(l + \frac{a}{l})$, ou seja, $l^{2} = a.$ \qedsymbol
+\end{example}
+\end{document}

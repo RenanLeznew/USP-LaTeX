@@ -1,0 +1,362 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 17/04/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+	\item Limites e Continuidade de Fun\c c\~oes;
+	\item Limites laterais.
+\end{itemize}
+\subsection{Intui\c c\~ao e Exemplos Iniciais}
+Entender continuidade e limites é fundamental no cálculo. Aqui estão alguns exemplos que podem ajudar a esclarecer esses conceitos:
+
+\begin{enumerate}
+	\item Continuidade: \\
+	      Uma função é contínua em um ponto se o seu valor nesse ponto é igual ao limite da função quando se aproxima desse ponto. Em outras palavras, não há quebras ou saltos no gráfico da função. Um exemplo clássico de uma função contínua é a função quadrática:
+
+	      \begin{equation*}
+		      f(x) = x^2
+	      \end{equation*}
+
+	      Essa função é contínua para todos os números reais, pois não há quebras ou saltos no gráfico.
+
+	      \begin{center}
+		      \begin{tikzpicture}
+			      \begin{axis}[
+					      xlabel={$x$},
+					      ylabel={$f(x)=x^2$},
+					      domain=-3:3,
+					      samples=100,
+					      axis lines=middle
+				      ]
+				      \addplot[blue, thick] {x^2};
+			      \end{axis}
+		      \end{tikzpicture}
+	      \end{center}
+
+	\item Limites: \\
+	      Um limite é o valor que uma função se aproxima quando a entrada (valor x) se aproxima de um determinado valor. O conceito de limites nos ajuda a entender o comportamento das funções próximas aos pontos onde elas não são definidas ou não são contínuas.
+
+	      Exemplo 1: Limite simples \\
+	      Considere a função:
+
+	      \begin{equation*}
+		      g(x) = 3x + 2
+	      \end{equation*}
+
+	      Encontre o limite quando x se aproxima de 1:
+
+	      \begin{equation*}
+		      \lim_{x \to 1} (3x + 2)
+	      \end{equation*}
+
+	      Como essa é uma função linear e contínua em todos os lugares, o limite é o mesmo que o valor da função no ponto:
+
+	      \begin{align*}
+		      g(1) & = 3(1) + 2 \\
+		           & = 5
+	      \end{align*}
+
+	      Portanto, $\lim_{x \to 1} (3x + 2) = 5$.
+
+	      \begin{center}
+		      \begin{tikzpicture}
+			      \begin{axis}[
+					      xlabel={$x$},
+					      ylabel={$g(x)=3x+2$},
+					      domain=-2:3,
+					      samples=100,
+					      axis lines=middle
+				      ]
+				      \addplot[red, thick] {3*x+2};
+			      \end{axis}
+		      \end{tikzpicture}
+	      \end{center}
+
+	      Exemplo 2: Limite de uma função com descontinuidade \\
+	      Considere a função:
+
+	      \begin{equation*}
+		      h(x) = \frac{x^2 - 1}{x - 1}
+	      \end{equation*}
+
+	      Essa função não é definida para x = 1, mas ainda podemos encontrar o limite quando x se aproxima de 1:
+
+	      \begin{equation*}
+		      \lim_{x \to 1} \frac{x^2 - 1}{x - 1}
+	      \end{equation*}
+
+	      Observe que $(x^2 - 1)$ pode ser fatorado como $(x + 1)(x - 1)$. Então, obtemos:
+
+	      \begin{equation*}
+		      \lim_{x \to 1} \frac{(x + 1)(x - 1)}{x - 1}
+	      \end{equation*}
+
+	      Agora, podemos cancelar os termos $(x - 1)$:
+
+	      \begin{equation*}
+		      \lim_{x \to 1} (x + 1)
+	      \end{equation*}
+
+	      Neste ponto, podemos substituir x = 1:
+
+	      \begin{align*}
+		      1 + 1 & = 2
+	      \end{align*}
+
+	      Portanto, $\lim_{x \to 1} (h(x)) = 2$, embora a função em si não seja definida para x = 1.
+
+	      \begin{center}
+		      \begin{tikzpicture}
+			      \begin{axis}[
+					      xlabel={$x$},
+					      ylabel={$h(x)=\frac{x^2 - 1}{x - 1}$},
+					      domain=-3:3,
+					      ymin=-5, ymax=5,
+					      samples=100,
+					      axis lines=middle,
+					      restrict y to domain=-5:5
+				      ]
+				      \addplot[green, thick] {((x^2 - 1)/(x - 1))};
+				      \addplot[only marks, mark=o, mark options={scale=1.5}] coordinates {(1,2)};
+			      \end{axis}
+		      \end{tikzpicture}
+	      \end{center}
+\end{enumerate}
+
+Esses exemplos demonstram como a continuidade e os limites nos ajudam a analisar e entender o comportamento das funções, mesmo em pontos onde elas podem não ser definidas.
+A seguir, formalizaremos essas ideias e provaremos algumas propriedades.
+
+\subsection{Limites de Fun\c c\~oes}
+\begin{def*}
+	Seja D um subconjunto de $\mathbb{R}, f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao e p um ponto de acumula\c c\~ao de D. Diremos que
+	o limite de f(x) quando x tende a p \'e L se, dado $\varepsilon > 0,$ existe um $\delta > 0$ tal que
+	$$
+		x\in D\text{ e } 0 < |x-p| < \delta, \Rightarrow |f(x) - L | < \varepsilon.
+	$$
+	Em outras palavras, dado $\varepsilon > 0$, existe $\delta = \delta(\varepsilon, p) > 0$ tal que
+	$$
+		f(D\cap(p-\delta, p+\delta)/a)\subseteq{(L-\varepsilon, L+\varepsilon).} \square
+	$$
+\end{def*}
+Note que, se n\~ao existe um n\'umero real L tal que $\lim_{x\to p}= L,$ ent\~ao diremos que o limite n\~oa existe. Al\'em disso,
+o ponto p n\~ao precisa ser um ponto do dom\'inio D e, mesmo que perten\c ca, o valor de f em p n\~ao \'e importante para a defini\c c\~ao.
+Apenas os valores de f em pontos arbitrariamente pr\'oximos a p s\~ao importantes para a defini\c c\~ao.
+\begin{theorem*}
+	Seja $f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao e p um ponto de acumula\c c\~ao de D. O limite de f(x) quando x tende a p,
+	caso existe, \'e \'unico, e ser\'a dneotado por
+	$$
+		\lim_{x\to p}f(x) = L.
+	$$
+\end{theorem*}
+\begin{proof*}
+	De fato, se L e L' s\~ao limites de f(x) quando x tende a p, dado $\varepsilon > 0$, existe $\delta > 0$ tal que
+	$$
+		x\in D, 0 < |x-p| < \delta \Rightarrow |f(x)- L| < \varepsilon, |f(x) - L'|< \varepsilon.
+	$$
+	Logo, dado $\varepsilon > 0$, com a escolha de $\delta$ acima e x em D satisfazendo $0 <|x-p|<\delta$, temos
+	$$
+		|L - L'| = |L -f(x) + f(x) - L'| \leq{} |L - f(x)| + |f(x) - L'| < 2\varepsilon.
+	$$
+	Portanto, como $\varepsilon$ \'e arbitr\'ario, L = L'. \qedsymbol
+\end{proof*}
+Quando nos referimos a uma fun\c c\~ao, fica impl\'icito que ela tem um dom\'inio especificado. Dada a fun\c c\~ao
+$f:D\rightarrow \mathbb{R}$ e $D'\subseteq{D},$ denotaremos por $f_{|_{D'}}:D'\rightarrow \mathbb{R}$ a fun\c c\~ao
+definida por $f_{|_{D'}}(x) = f(x)$ para x em D'. Segue dessa defini\c c\~ao que
+\begin{theorem*}
+	Seja D um subconjunto dos reais, $f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao, D' um subconjunto de D e p um ponto de aucmula\c c\~ao de D'.
+	Se $\lim_{x\to p}f(x) = L,$ ent\~ao $\lim_{x\to p}f_{|_{D'}}(x) = L.$
+\end{theorem*}
+\begin{theorem*}
+	Seja $f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao, D' e D'' subconjuntos de D e p um n\'umero real que \'e ponto de acumula\c c\~ao
+	de D' e de D''.
+	\begin{itemize}
+		\item[i)] Se um dos limites $\lim_{x\to p}f_{|_{D'}}(x)$ ou $\lim_{x\to p}f_{|_{D''}}(x)$ n\~ao existe, ou ambos existem,
+		      mas s\~ao diferentes, ent\~ao o limite $\lim_{x\to p}f(x)$ n\~ao existe.
+		\item[ii)] Se $(D'\cup D'')/\{p\} = D/\{p\}$, o limite $\lim_{x\to p}f(x)$ existe se, e somente se, $\lim_{x\to p}f_{|_{D'}}(x)$ e
+		      $\lim_{x\to p}f_{|_{D''}}(x)$ existem e t\^em o mesmo valor.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	A prova da primeira parte segue direto. Para a segunda, existe $\lim_{x\to p }f(x) = L$ se, e somente se, dado $\varepsilon > 0$,
+	existe $\delta > 0$ tal que
+	$$
+		x\in D, 0 < |x-p| < \delta \Rightarrow |f(x)-L| < \varepsilon,
+	$$
+	o que equivale a dizer que, dado $\varepsilon > 0$, existe $\delta > 0$ tal que
+	$$
+		x\in D', 0 < |x-p| < \delta \Rightarrow |f(x) - L|< \varepsilon \Rightarrow |f(x)_{|_{D'}}|<\varepsilon
+	$$
+	e
+	$$
+		x\in D'', 0 < |x-p| < \delta \Rightarrow |f(x) - L|< \varepsilon \Rightarrow |f(x)_{|_{D''}}|<\varepsilon
+	$$
+	Portanto, $\lim_{x\to p}f_{|_{D''}}(x) = \lim_{x\to p}f_{|_{D'}}(x)$. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se D \'e um subconjunto de $\mathbb{R}$, diremos que p real \'e um ponto de acumula\c c\~ao \`a direita de D se \'e um ponto
+	de acumula\c c\~ao de $D_{p}^{+} = D\cap{(p, \infty)}$. Seja $f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao e p um ponto de
+	acumula\c c\~ao \`a direita de D. O limite de f(x) quando x tende a p pela direita \'e
+	$$
+		\lim_{x\to p^{+}}f(x)\coloneqq \lim_{x\to p}f_{|_{D_{p}^{+}}}(x).
+	$$
+	Define-se analogamente limite de f(x) quando x tende a pela esquerda e ponto de acumula\c c\~ao \`a esquerda.
+\end{def*}
+\begin{crl*}
+	Seja $f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao e p um ponto de acumula\c c\~ao \`a direita e \`a esquerda de D. Ent\~ao,
+	$$
+		\lim_{x\to p}f(x)
+	$$
+	existe se, e somente se, os limites laterais existem e s\~ao iguais.
+\end{crl*}
+\begin{theorem*}
+	Seja D subconjunto real e $f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao. Tome p como um ponto de acumula\c c\~ao de D. Se
+	existe $\lim_{x\to p}f(x) - L$, ent\~ao f \'e limitada em uma vizinha\c ca de p, i.e., existem $M>0$ e $\delta > 0$ tais que
+	se x pertence a D e $0 <|x-p| < \delta,$ ent\~ao $|f(x)|< M$
+\end{theorem*}
+\begin{proof*}
+	Existem $\delta > 0$ tal que se x pertence a D e $0<|x-p|<\delta,$ ent\~ao $|f(x)-L|<1.$ Logo,
+	$$
+		|f(x)| \leq{|f(x)-L| + |L|} \leq{1 + |L| = M},
+	$$
+\end{proof*}
+\begin{theorem*}
+	Seja $D\subseteq{\mathbb{R}}, f, g, h:D\rightarrow \mathbb{R}$ fun\c c\~oes e p um ponto de acumula\c c\~ao de D. Se
+	para todo x em D diferente de p, $f(x)\leq{g(x)}\leq{h(x)}$ e $\lim_{x\to p}f(x) = \lim_{x\to p }h(x) = L,$ ent\~ao $\lim_{x\to p}g(x) = L.$
+\end{theorem*}
+\begin{proof*}
+	Com efeito, dado $\varepsilon > 0$, existe $\delta > 0$ tal que se x pertence a D e $0 < |x-p| < \delta,$ ent\~ao
+	$|f(x)-L|<\varepsilon, |h(x)-L|<\varepsilon.$ Logo,
+	$$
+		L - \varepsilon < f(x) \leq{g(x)} \leq{h(x)} < L +\varepsilon, \quad \forall x\in D, 0<|x-p|<\delta.
+	$$
+	Segue que $L-\varepsilon < g(x) < L+\varepsilon,$ para todo x em D que satisfa\c ca a condi\c c\~ao. Em outras palavras,
+	$$
+		|g(x)-L| < \varepsilon, \quad \forall x\in D, 0<|x-p|<\delta.\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{theorem*}
+	Seja D subconjunto de $\mathbb{R}, f:D\rightarrow \mathbb{R}$ e p um ponto de acumula\c c\~ao de D. Se $\lim_{x\to p}f(x) = L > 0,$
+	ent\~ao existe $\delta > 0$ tal que $f(x) > 0$ para todo x em D com $0<|x-p|<\delta.$
+\end{theorem*}
+\begin{proof*}
+	Dado $\varepsilon = \frac{L}{2}$ tal que
+	$$
+		-\frac{L}{2} < f(x) - L < \frac{L}{2}
+	$$
+	para todo x em D, $0 < |x-p|<\delta.$ Logo, $0 <\frac{L}{2}<f(x)$ para todo x em D com $0 <|x-p|<\delta.$ \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja $D\subseteq{\mathbb{R}}, f, g:D\rightarrow \mathbb{R}<$ uma fun\c c\~ao e p um ponto de acumula\c c\~ao de D. Se existe $\delta > 0$
+	tal que $f(x)\leq{g(x)}$ para todo x em D com $0 <|x-p|<\delta$ e existe $\lim_{x\to p}f(x) = L_{g}$, ent\~ao $L_{f}\leq{L_{g}}.$
+\end{theorem*}
+\begin{proof*}
+	De fato, dado $\varepsilon > 0$, existe $\delta > 0$ tal que x pertence a D e satisfaz a propriedade, ent\~ao
+	$$
+		L_{f} - \frac{\varepsilon}{2} \leq{f(x)}\leq{g(x)}\leq{L_{g}+\frac{\varepsilon}{2}.}
+	$$
+	Portanto, $L_{f}-L_{g}\leq{\varepsilon}$ e, como $\varepsilon > 0$ \'e abritr\'ario, o resultado segue. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja D subconjunto real, $f:D\rightarrow \mathbb{R}$ e p ponto de acumula\c c\~ao. O limite $\lim_{x\to p}f(x)=L$ se, e s\'o se,
+	$\lim_{n\to\infty}f(x_{n})$ existe para toda sequ\^encia $\{x_{n}\}$ em $D/\{p\}$ que converge para p.
+\end{theorem*}
+\begin{proof*}
+	Se $\lim_{x\to p }f(x) = L$ e $\{x_{n}\}$ \'e uma sequ\^encia em $D/\{p\}$ com $x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}p$, dado
+	$\varepsilon > 0$, podemos encontrar $\delta > 0$ tal que $|f(x)-L|<\varepsilon$ para quaisquer $x\in D, 0<|x-p|<\delta.$
+
+	Seja N natural tal que $|x_{n}-p|<\delta$ para todo $n\geq{N}.$ Logo, $|f(x_{n})-L| < \varepsilon$ para todo $n\geq{N}.$
+	Portanto, $\lim_{n\to\infty}f(x_{n})=L.$
+
+	Por outro lado, note que, se $\lim_{n\to\infty}f(x_{n})$ existe para toda sequ\^encia $\{x_{n}\}$ em $D/\{p\}$ que converge
+	para p, todas as sequ\^encias $\{f(x_{n})\}$ t\^em o mesmo limite, visto que se elas n\~ao tivessem, construir\'iamos uma sequ\^encia
+	$\{x_{n}'\}$ em $D/\{p\}$ que converge para p, mas $\{f(x_{n}')\}$ n\~ao convergiria.
+
+	Agora, se $\lim_{x\to p}f(x)$ n\~ao \'e L, existe $\varepsilon > 0$ tal que para todo n natural n\~ao nulo, $x_{n}\in D, 0 <|x_{n}-p|<\frac{1}{n}$ tal
+	que $|f(x_{n})-L|\geq{\varepsilon}$. Logo, $\lim_{n\to\infty}f(x_{n})$ n\~ao \'e L.\qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja $D\subseteq{\mathbb{R}}, f, g:D\rightarrow \mathbb{R}$ fun\c c\~oes e p um ponto de acumula\c c\~ao de D e $\lambda\in \mathbb{R}.$
+	\begin{itemize}
+		\item[i)] Se existem M e $\delta$ positivos tais que $|f(x)|\leq{M}$ para todo x em D, $0 <|x-p|<\delta$ e $\lim_{x\to p}g(x)=0,$
+		      ent\~ao $\lim_{x\to p}(f \cdot g)(x) = 0.$
+		\item[ii)] Se $\lim_{x\to p}f(x) = L_{f}$ e $\lim_{x\to p}g(x) = L_{g},$ ent\~ao $\lim_{x\to p}(f + \lambda g)(x) = L_{f} + \lambda L_{g}.$
+		      e $\lim_{x\to p}(f \cdot g)(x) = L_{f}L_{g},$. Al\'em disso, se $L_{g}\neq0,$ ent\~ao $\lim_{x\to p}\frac{f}{g}(x) = \frac{L_{f}}{L_{g}}.$
+	\end{itemize}
+\end{theorem*}
+\begin{theorem*}
+	Seja $D\subseteq{\mathbb{R}}, f, g:D\rightarrow \mathbb{R}$ fun\c c\~oes e p um ponto de acumula\c c\~ao de D. O limite
+	$\lim_{x\to p}f(x)$ existe se, e somente se, f \'e de Cauchy em p, i.e., dado $\varepsilon > 0$, existe $\delta > 0$ tal que
+	para x, y em D, $0<|x-p|<\delta$ e $0<|y-p|<\delta$ implica em $|f(x)-f(y)|<\varepsilon.$
+\end{theorem*}
+\begin{proof*}
+	\'E claro que se $\lim_{x\to p}f(x) = L$, ent\~ao f \'e de Cauchy em p. De fato, dado $\varepsilon > 0$, existe $\delta > 0$
+	tal que se x \'e um elemento de D para o qual $0<|x-p|<\delta,$ ent\~ao $|f(x)-L|<\frac{\varepsilon}{2}.$ Assim, dados
+	x, y em D satisfazendo $0<|x-p|<\delta, 0<|y-p|<\delta,$ ent\~ao
+	$$
+		|f(x)-f(y)| = |f(x)-L+L-f(y)|\leq{|f(x)-L| + |f(y)-L|}< \frac{\varepsilon}{2}+\frac{\varepsilon}{2} = \varepsilon.
+	$$
+
+	Reciprocamente, se f \'e de Cauchy em p e $\{x_{n}\}$ \'e uma sequ\^encia em $D/\{p\}$ que converge para p,
+	$\{f(x_{n})\}$ \'e de Cauchy e portanto convergente. Detalhando, dado $\varepsilon > 0$, existe $\delta > 0$ tal que
+	se x, y s\~ao elementos de D, $0 < |x-p| <\delta$ e $0 < |x-p| <\delta$ implicar em $|f(x)-f(y)|<\varepsilon$,
+	seja $\{x_{n}\}$ uma sequ\^encia em $D/\{p\}, x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}p$. Dado $\varepsilon > 0$
+	tome $\delta$ da defini\c c\~ao de ``f \'e de Cauchy em p'' e N tal que $0<|x_{n}-p|<\delta$ para todo $n\geq{N}.$ Ent\~ao,
+	$$
+		|f(x_{n})-f(x_{m})| < \varepsilon\quad \forall n, m\geq{N}.
+	$$
+	Portanto, $\{f(x_{n})\}$ converge. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja D um subconjunto ilimitado superiormente de $\mathbb{R}$ e $f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao. Diremos que
+	o limite de f(x) quando x tende para infinito \'e L em $\mathbb{R}$ se, dado $\varepsilon > 0$, existe $M = M(\varepsilon) > 0$
+	tal que
+	$$
+		x\in D, x > M \Rightarrow |f(x)-L|<\varepsilon.
+	$$
+	Escreveremos
+	$$
+		\lim_{x\to\infty}f(x) = L.
+	$$
+	Analogamente, quando D \'e ilimitado inferiormente, definimos
+	$$
+		\lim_{x\to-\infty}f(x) = L.\square
+	$$
+\end{def*}
+O limite da sequ\^encia \'e um caso particular de limite infinito, especificamente o caso $D = \mathbb{N}.$
+\begin{def*}
+	Seja D um subconjunto de $\mathbb{R}$ e $f:D\rightarrow \mathbb{R}$ uma fun\c c\~ao. Se p \'e um ponto de acumula\c c\~ao de D,
+	diremos que f diverge para $+\infty$ quando x tende para p se, dado M positivo, existe $\varepsilon = \varepsilon(M) > 0$
+	tal que
+	$$
+		x\in D, 0<|x-p|<\varepsilon \Rightarrow f(x) > M.
+	$$
+	Escreveremos $\lim_{x\to p}f(x) = +\infty$. Analogamente, define-se $\lim_{x\to p}f(x) =-\infty$.
+
+	Se D \'e ilimitado superiormente(inferiormente), definimos tamb\'em
+	$$
+		\lim_{x\to+\infty}f(x) = \pm\infty\quad(\lim_{x\to-\infty}f(x)=\pm\infty.). \square
+	$$
+\end{def*}
+\begin{def*}
+	Seja D um subconjunto real e $f:D\rightarrow \mathbb{R}$. Se p \'e um ponto de acumula\c c\~ao de D, suponha que existe $\delta_{0} > 0$
+	tal que
+	$$
+		\sup{\{f(x):x\in D, 0<|x-p|<\delta_{0}\}} < \infty.
+	$$
+	Ent\~ao, existe (ou diverge para $-\infty$) o limite
+	$$
+		\limsup_{x\to p}f(x)\coloneqq \limsup_{\delta\to0}\{f(x):x\in D, 0<|x-p|<\delta\}.
+	$$
+	Escrevemos $\limsup_{x\to p}f(x) = +\infty$ quando f n\~ao \'e limitada superiormente em nenhuma vizinhan\c ca de p.
+
+	De maneira an\'aloga, se
+	$$
+		\inf{\{f(x):x\in D, 0<|x-p|<\delta\}} > -\infty,
+	$$
+	definimos (podendo ser $+\infty$)
+	$$
+		\liminf_{x\to p}f(x)\coloneqq \liminf_{\delta\to0}\{f(x):x\in D, 0<|x-p|<\delta\}.
+	$$
+	Escrevemos $\liminf_{x\to p}f(x) = -\infty$ quando f n\~ao for limitada inferiormente em uma vizinhan\c ca de p. $\square$
+\end{def*}
+\end{document}

@@ -1,0 +1,159 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 19 - 12/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Fun\c cões Deriváveis em Intervalos;
+	\item Teorema de Darboux;
+	\item Descontinuidades da Derivada.
+\end{itemize}
+
+\subsection{Fun\c cões Deriváveis em Intervalos}
+\begin{example}
+	Seja \(f:\mathbb{R}\rightarrow \mathbb{R}\) dada por \(f(x) = x^{3}\). Já
+	sabemos que f é contínua. Como
+	\begin{align*}
+		f(x) - f(y) & =(x-y)(x^{2}+xy+y^{2})                        \\
+		            & =(x-y)((x+\frac{y}{2})^{2}+\frac{3}{4}y^{2})  \\
+		            & =(x-y)((\frac{x}{2}+y)^{2}+\frac{3}{4}x^{2}).
+	\end{align*}
+	Segue que \(x\neq y\) implica \(f(x)\neq f(y)\) e f é injetora. Além disso,
+	\(\lim_{x\to \pm\infty}f(x)=\pm\infty\)e, pelo teorema do valor intermediário,
+	f é uma bije\c cão de \(\mathbb{R}\) em \(\mathbb{R}\). Além disso,
+	\(f^{-1}:\mathbb{R}\rightarrow \mathbb{R}\) é contínua pois ela é contínua em
+	qualquer intervalo compacto. A inversa de f é denotada \(f^{-1}(x) = x^{\frac{1}{3}} = \sqrt[3]{x}.\)
+	Do teorema sobre a derivada da inversa e do fato que \(f'(x) = 3x^{2}\)
+	deduzimos que \(f^{-1}:\mathbb{R}\rightarrow \mathbb{R}\) é diferenciável se,
+	e somente se, \(x\in \mathbb{R}\backslash\{0\}\) e, para estes valores de x.
+	\[
+		\overbrace{(\sqrt[3]{x})'}^{(f^{-1})'(x)} = \frac{1}{f'(f^{-1}(x))} = \frac{1}{3(\sqrt[3]{x})^{2}} = \frac{1}{3x^{\frac{2}{3}}}.
+	\]
+\end{example}
+\begin{def*}
+	Seja \(f:D\rightarrow \mathbb{R}\). Dizemos que f tem um máximo (mínimo) local no
+	ponto de em D se existe \(\delta >0\) tal que \(f(x)\leq f(d) (f(x)\geq f(d))\)
+	para todo x em D com \(|x-d| < \delta .\) Quando a desigualdade é estrita,
+	dizemos que f tem um máximo (mínimo) local estrito. Os máximos e mínimos locais
+	serão chamados de valores extremos e os pontos em que a fun\c cão assume valores máximos
+	ou mínimos são chamados de pontos de máximo ou de mínimo. \(\square\)
+\end{def*}
+Pela defini\c cão de derivada (à direita), segue que
+\begin{enumerate}
+	\item Se \(f:D\rightarrow \mathbb{R}\) é não-decrescente (não-crescente) e é
+	      diferenciável em um ponto d de D, então \(f'(d)\geq 0 (f'(d)\leq 0)\). Vale o mesmo
+	      para fun\c cões diferenciáveis à direita.
+	\item Se \(f:D\rightarrow \mathbb{R}\) é derivável à direita (esquerda) em um ponto
+	      \(d\in D\) e \(f'(d^{+}) > 0 (f'(d^{-}) > 0)\) então existe \(\delta >0\) tal que
+	      \(x\in D, x\in (d, d+\delta )(x\in (d-\delta , d)\) implica \(f(x) > f(d) (f(x) < f(d)).\)
+	\item Se \(f:D\rightarrow \mathbb{R}\) é derivável à direita (esquerda) em um
+	      ponto \(d\in D\) e \(f(d^{-}) < 0 (f'(d^{-}) < 0)\), então existe \(\delta >0\) tal que
+	      \(x\in D, x\in(d, d+\delta )(x\in (d-\delta, d))\) implica \(f(x) < f(d) (f(x) > f(d)).\)
+	\item Se \(f:D\rightarrow \mathbb{R}\) é derivável em um ponto \(d\in D\),
+	      d sendo ponto de acumula\c cão à direita e à esquerda e \(f'(d) > 0\), existe \(\delta  > 0\)
+	      tal que \(x\in D, d-\delta < x < d < y < d+\delta\) implica \(f(x) < f(d) < f(y).\)
+	\item \(f:D\rightarrow \mathbb{R}\) é derivável em um ponto d em D, d é um ponto
+	      de acumula\c cão à direita e à esquerda e f tem um valor extremo local em d, então \(f'(d) = 0.\)
+\end{enumerate}
+\begin{def*}
+	Seja I um intervalo e \(f:I\rightarrow \mathbb{R}\) uma fun\c cão diferenciável.
+	Se \(f':I\rightarrow \mathbb{R}\) for contínua diremos que f é continuamente diferenciável
+	em I, ou simplesmente f é de classe \(C^{1}\) em I.
+\end{def*}
+Note que existe fun\c cão diferenciável em um intervalo I que não é
+continuamente diferenciável.
+\begin{example}
+	Seja \(f:\mathbb{R}\rightarrow \mathbb{R}\) dada por
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			x^{2}\sin{(\frac{1}{x})},\quad x\neq0 \\
+			f(0) = 0.
+		\end{array}\right.
+	\]
+	Então, f é diferenciável, mas f' não é contínua em x = 0.
+\end{example}
+\hypertarget{darboux}{
+	\begin{theorem*}
+		Se \(f:[a, b]\rightarrow \mathbb{R}\) é diferenciável com \(f'(a)\neq f'(b)\), então,
+		para todo C entre \(f'(a)\) e \(f'(b)\), existe \(c\in (a, b)\) tal que
+		\(f'(c) = C\).
+	\end{theorem*}}
+\begin{proof*}
+	Suponha que \(f'(a) < 0 < f'(b)\). Segue que, para x próximo a a em \([a, b], f(x) < f(a)\)
+	e, para x próximo a b em \([a, b], f(x) < f(b).\) Logo, o ponto de mínimo (que existe pelo
+	\hyperlink{weierstrass}{Teorema de Weierstrass} c de f ocorre em \((a, b)\) e
+	portanto \(f'(c) = 0.\) Para o caso geral, consideramos
+	\begin{itemize}
+		\item Se \(f'(a) < C < f'(b), g(x) = f(x) - C \cdot x\)
+		\item Se \(f'(a) > C > f'(b), g(x) = C \cdot x - f(x).\)
+	\end{itemize}
+\end{proof*}
+\begin{theorem*}
+	Se I é um intervalo e \(f:I\rightarrow \mathbb{R}\) é diferenciável, então
+	f' não tem descontinuidades de primeira espécie.
+\end{theorem*}
+\begin{proof*}
+	Se a é um ponto de acumula\c cão à direita de I e \(L^{+}=\lim_{x\to a^{+}}f(x)\)
+	existe, mostremos que \(L^{+} = f'(a).\)
+
+	De modo análogo (exercício), se a é um ponto de acumula\c cão à esquerda de I
+	e \(L^{-}=\lim_{x\to a^{-}}f'(x)\) existe, mostre que \(f'(a) = L^{-}.\)
+
+	Se \(L^{+} > f'(a)\) e \(C\in(f'(a), L^{+})\), existe \(\delta >0\) tal que
+	\(f'(x) > C\) para todo \(x\in(a, a-\delta ).\) Escolhendo \(b\in(a, a+\delta )\),
+	temos \(f'(b) > C > f'(a)\), uma contradi\c cão com o \hyperlink{darboux}{Teorema de Darboux},
+	pois este implica a existência de \(c\in(a, b)\) tal que \(f'(c) = C.\) Logo,
+	\(f'(a)\geq L^{+}.\)
+
+	Se \(f'(a) > L^{+}\) e \(C\in(L^{+}, f'(a))\), existe \(\delta >0\) tal que
+	\(f'(x) < C\) para todo x em \((a, a+\delta )\). Escolhendo b em \((a, a+\delta )\),
+	temos \(f'(b) < C < f'(a)\), novamente contradizendo o \hyperlink{darboux}{Teorema de Darboux},
+	visto que ele implica que deve existir c em \((a, b)\) tal que \(f'(c) = C.\) Assim,
+	\(f'(a)\leq L^{+}.\) Portanto, \(L^{+} = f'(a).\) \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se \(f:[a, b)\rightarrow \mathbb{R}\) é contínua e diferenciável à direita com
+	derivada à direita, \(D^{+}f:[a, b)\rightarrow \mathbb{R}.\) Se \(D^{+}f(x)\leq 0 (D^{+}f(x)\geq 0)\)
+	para todo x em \([a, b)\) e \(f(a) = 0\), então \(f(x)\leq 0 (f(x)\geq 0)\) em \([a, b).\)
+\end{theorem*}
+\begin{proof*}
+	Suponha primeiramente que \(D^{+}f(x) < 0\) para todo \(x\in[a, b).\) Se o resultado
+	é falso, existe ao menos um \(x\in(a, b)\) tal que \(f(x) > 0.\) Seja
+	\(x_{0}=\inf\{x\in(a, b): f(x) > 0\}.\)
+
+	Da continuidade de f, \(f(x_{0}) = 0\) e da defini\c cão de \(x_{0}\) existe
+	uma sequência \(x_{n}\in(x_{0}, b)\) tal que \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x_{0}.\)
+	Assim,
+	\[
+		D^{+}f(x_{0}) = \lim_{n\to \infty}\frac{f(x_{n})-f(x_{0})}{x_{n}-x_{0}}\geq 0,
+	\]
+	uma contradi\c cão. Logo, \(f(x)\leq 0\) para todo x em \([a, b)\).
+
+	Agora, consideramos o caso geral \(D^{+}f(x)\leq 0\) para todo \(x\in[a, b).\)
+	Neste caso, consideramos a fun\c cão auxiliar \(f_{\varepsilon }(x) = f(x) - \varepsilon (x-a)\)
+	e temos \(f_{\varepsilon }(x)\leq 0\) para todo \(x\in[a, b)\) e \(\varepsilon >0.\)
+	Disto segue que, para todo \(x\in[a, b), f(x)\leq 0\). O outro caso será deixado como
+	exercício. \qedsymbol
+\end{proof*}
+\begin{example}
+	Encontre uma fun\c cão \(f:\mathbb{R}\rightarrow \mathbb{R}\) que é diferenciável
+	à direita, tal que \(D^{+}f(x) < 0\) para todo \(x\neq0, D^{+}f(0)=0,\) f é positiva
+	para \(x > 0\) e negativa para \(x < 0 (f(x)\overbracket[0pt]{\longrightarrow}^{x\to \pm\infty}\pm\infty.)\)
+\end{example}
+\begin{crl*}
+	Se \(f:[a, b)\rightarrow \mathbb{R}\) é contínua e diferenciável à direita com derivada
+	à direita \(D^{+}f:[a, b)\rightarrow \mathbb{R}.\) Se \(D^{+}f(x)\leq 0\) para todo x em \([a, b)\),
+	então f é não-crescente em \([a, b).\)
+\end{crl*}
+\begin{proof*}
+	Se \(a\leq c < d < b,\) seja \(g:[c, b)\rightarrow \mathbb{R}\) definida por
+	\(g(x) = f(x) - f(x)\) e \(D^{+}g(x)\leq 0\) para todo x em \([c, b)\). Segue do
+	teorema que \(g(x)\leq 0\) para todo x em \([c, b).\) Em particular, \(g(d) = f(d) - f(c)\leq 0\). \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se \(f:[a, b)\rightarrow \mathbb{R}\) é contínua e diferenciável à direita com
+	derivada à direita \(D^{+}f:[a, b)\rightarrow \mathbb{R}.\) Se \(D^{+}f(x)\geq 0\)
+	para todo x em \([a, b)\), então f é não-decrescente em \([a, b).\)
+\end{crl*}
+A prova deste exercício é deixada como exercício. Além disso, como exercício,
+enuncie e prove resultados semelhantes aos anteriores para a derivada à esquerda.
+\end{document}

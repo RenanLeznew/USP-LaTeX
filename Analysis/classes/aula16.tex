@@ -1,0 +1,105 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 03/05/2023}
+\subsection{O que esperar}
+\begin{itemize}
+	\item Continua\c c\~ao de Topologia da Reta - Compactos e Conexos.
+\end{itemize}
+\subsection{Topologia da Reta - Parte II}
+Para ver que a intersec\c c\~ao infinita de intervalos abertos n\~ao \'e necessariamente um conjunto aberto, note que
+\[
+	\bigcap_{n\in \mathbb{N}^{\times}}^{}{(a-\frac{1}{n}, b+\frac{1}{n})} = [a, b].
+\]
+No caso da uni\~ao infinita de conjuntos fechados, observe o seguinte:
+$$
+	\bigcup_{n\in \mathbb{N}^{\times}}^{}{[a+\frac{1}{n}, b - \frac{1}{n}]}=(a, b)
+$$
+Retomemos o teorema passado.
+\begin{theorem*}
+	Todo subconjunto aberto A de $\mathbb{R}$ se exprime, de maneira \'unica, como uni\~ao enumer\'avel de intervalos abertos disjuntos.
+\end{theorem*}
+\begin{proof*}
+	Primeiramente, note que se $\Lambda $ \'e um conjunto, para cada $\lambda, I_{\lambda }=(a_{\lambda }, b_{\lambda })$ \'e um intervalo
+	e $p\in\bigcap_{\lambda \in\Lambda }^{}{I_{\lambda }}$, ent\~ao $\bigcup_{\lambda \in\Lambda }^{}{I_{\lambda }}=(a, b),$ sendo
+	$a = \inf_{\lambda \in\Lambda }a_{\lambda }, b = \sup_{\lambda \in\Lambda }b_{\lambda }.$ De fato, \'e claro que $\bigcup_{\lambda \in\Lambda }^{}{I_{\lambda }}\subseteq{(a, b)}$.
+	Para provar a outra inclus\~ao, note que $p\in(a, b)$ e se $x\in(a, b), x\leq p ou x > p.$ Agora,
+	\begin{align*}
+		 & (1) \text{ Se }  x\leq p, a = \inf_{\lambda \in\Lambda }a_{\lambda } < x \Rightarrow \exists \mu_{1}\in\Lambda: a_{\mu_{1}}<x\leq p < b_{\mu_{1}} \\
+		 & (2) \text{ Se } x > p, b=\sup_{\lambda \in\Lambda }b_{\lambda } < x \Rightarrow \exists \mu_{2}\in\Lambda: a_{\mu_{2}} < p < x < b_{\mu_{2}}.
+	\end{align*}
+	Em qualquer caso,  $x\in \bigcup_{\lambda \in\Lambda }^{}{I_{\lambda }}.$
+
+	Para terminar, dado x em A, seja $I_{x}$ a uni\~ao de todos os abertos contidos em A que cont\'em x. Segue que
+	\begin{itemize}
+		\item[1)] $I_{x} = (a_{x}, b_{x})\subseteq{A};$
+		\item[2)] Se x, y s\~ao pontos de A, ou $I_{x}\cap I_{y}=I_{x} = I_{y},$ ou $I_{x}\cap I_{y} = \emptyset$;
+		\item[3)] $\bigcup_{x\in A}^{}{I_{x}} = A.$
+	\end{itemize}
+	Tomando para cada intervalo da decomposi\c c\~ao um \'unico racional, vemos que A pode ser escrito como uni\~ao enumer\'avel de
+	intervalos disjuntos. Para ver que esta decomposi\c c\~ao \'e \'unica, basta notar que cada intervalo aberto de uma tal decomposi\c c\~ao
+	est\'a contido em algum dos $I_{x}$ e n\~ao pode ser distinto de $I_{x}.$ \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se I \'e um intervalo aberto e $I = A\cup B,$ em que A e B s\~ao conjuntos abertos e disjuntos, ent\~ao um desses conjuntos \'e vazio.
+\end{crl*}
+\begin{def*}
+	Um conjunto I em $\mathbb{R}$ \'e dito conexo se ele s\'o ``tem um peda\c co'', ou seja, n\~ao existem conjuntos abertos e disjuntos A, B
+	n\~ao-vazios tais que $I = A\cup{B}.\square$
+\end{def*}
+\begin{def*}
+	Seja $A\subseteq{\mathbb{R}}$. Um ponto p real \'e aderente a A se existir uma sequ\^encia $\{x_{n}\}$ em A tal que $x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}p.\square$
+\end{def*}
+Sabemos que se p \'e um ponto de acumula\c c\~ao de A, ent\~ao p \'e aderente a A. Se p \'e aderente a A e p n\~ao \'e ponto de acumula\c c\~ao de A, ent\~ao
+p pertence a A. Todo ponto interior a A \'e aderente a A e \'e um ponto de acumula\c c\~ao de A.
+\begin{theorem*}
+	Um ponto p real \'e aderente a A se, e s\'o se, $A\cap{(p-\varepsilon , p+\varepsilon )}\neq\emptyset$ para todo $\varepsilon  > 0.$
+\end{theorem*}
+\begin{crl*}
+	Se $A\subseteq{\mathbb{R}}$ \'e limitado superiormente(inferiormente), ent\~o $\sup{A}(\inf{A})$ \'e aderente a A.
+\end{crl*}
+\begin{theorem*}
+	O fecho $A^{-}$ de $A\subseteq{\mathbb{R}}$ \'e o conjunto $A'$ dos pontos aderentes de A.
+\end{theorem*}
+\begin{proof*}
+	De fato, se $x\not\in A',$ existe $\varepsilon >0$ tal que $(x-\varepsilon ,x+\varepsilon )\cap{A}\neq\emptyset$. Segue que
+	$A'$ \'e fechado e $A^{-}\subseteq{A'}$. Se $x\not\in A^{-}$, existe $\varepsilon >0$ tal que $(x-\varepsilon ,x+\varepsilon )\cap{A}=\emptyset$
+	e $x\not\in A'.$ \qedsymbol
+\end{proof*}
+\begin{def*}
+	Sejam A e B subconjuntos de $\mathbb{R}$ com $A\subseteq{B}.$ Diremos que A \'e denso em B se $B\subseteq{A^{-}}\square$.
+\end{def*}
+\begin{theorem*}
+	Sejam A e B subconjuntos de $\mathbb{R}$ com $A\subseteq{B}$. S\~ao equivalentes:
+	\begin{itemize}
+		\item Todo ponto de B \'e aderente a A.
+		\item Todo ponto de B \'e limite de uma sequ\^encia de pontos de A.
+		\item Para todo $\varepsilon >0$ e b de B, $(b-\varepsilon , b+\varepsilon )\cap{A}\neq\emptyset.$
+	\end{itemize}
+\end{theorem*}
+\begin{theorem*}
+	Todo subconjunto B de $\mathbb{R}$ cont\'em um subconjunto A que \'e enumer\'avel e denso em B.
+\end{theorem*}
+\begin{proof*}
+	Dado $n\in \mathbb{N}^{\times}$, temos $\mathbb{R} = \displaystyle\bigcup_{p\in \mathbb{Z}}^{}{\biggl[\frac{p}{n}, \frac{p+1}{n}\biggr)}$. Para
+	cada p inteiro e $n\in \mathbb{N}^{\times}$, escolha $x_{np}\in\biggl[\frac{p}{n}, \frac{p+1}{n}\biggr)\cap{B}$ quando esta intersec\c c\~ao
+	for n\~ao-vazia. O conjunto A desses pontos \'e denso em B, j\'a que, para cada $n\in \mathbb{N}^{\times}$ e b em B, existe a em A
+	tal que $|a-b|<\frac{1}{n}$. Al\'em disso, A \'e enumer\'avel, visto que a cole\c c\~ao de intervalos $\biggl\{\biggl[\frac{p}{n}, \frac{p+1}{n}\biggr): p\in \mathbb{Z}, n\in \mathbb{N}^{\times}\biggr\}$
+	\'e enumer\'avel.\qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja $F\subseteq{\mathbb{R}}$ um conjunto fechado, n\~ao-vazio e sem pontos isolados. Ent\~ao F \'e n\~ao enumer\'avel.
+\end{theorem*}
+\begin{proof*}
+	Sejam x, y em F pontos distintos. Coloque $r = \frac{|x-y|}{2}$ e $F_{y}^{\sim} = F\cap{(x-r, x+r)}.$ Segue que $F_{y}^{\sim}$
+	\'e n\~ao-vazio e n\~ao cont\'em pontos isolados. Seja $F_{y}$ a uni\~ao de $F_{y}^{\sim}$ com os pontos de acumula\c c\~ao de
+	$F_{y}^{\sim}$ no conjunto $\{x-r,x+r\}.$ Note que $F_{y}$ \'e claramente fechado e n\~ao tem pontos isolados, \'e limitado e
+	$y\not\in F.$
+
+	Se $\{y_{1},y_{2},\cdots\},$ seja $F_{y_{1}}.$ Tendo escolhido $F_{y_{1}},\cdots, F_{y_{n-1}}$, ent\~ao caso $y_{n}\not\in F_{y_{n-1}},$
+	escolhemos $F_{y_{n}}=F_{y_{n-1}}.$ Se $y_{n}\in F_{y_{n-1}},$ escolhemos $F_{y_{n}}$ fechado e sem pontos isolados tal que
+	$y_{n}\not\in F_{y_{n}}\subseteq{F_{y_{n-1}}}.$ Para cada n natural, seja $x_{n}\in F_{y_{n}}.$ A sequ\^encia $\{x_{n}\}$ \'e limitada
+	e portanto tem uma subsequ\^encia $\{x_{\varphi(n)}\}$ convergente com limite $\overline{x}$. Observe que $\overline{x}\in \bigcap_{n\in \mathbb{N}}^{}{F_{y_{n}}}$
+	e $\overline{x}\neq y_{n}$ para todo natural n. Portanto, F \'e n\~ao-enumer\'avel, pois a sequ\^encia ``n\~ao enche F'' (N\~ao abrange
+	todos os pontos de F). \qedsymbol
+\end{proof*}
+\end{document}

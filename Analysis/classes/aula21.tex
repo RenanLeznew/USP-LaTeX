@@ -1,0 +1,153 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 21 - 17/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Fun\c cões convexas;
+	\item Séries de Taylor;
+	\item Fun\c cões analíticas;
+	\item Fun\c cões de varia\c cão limitada.
+\end{itemize}
+\subsection{Fun\c cões Convexas}
+Vamos relembrar o que foi visto na última aula sobre fun\c cões convexas antes de mais nada.
+\begin{def*}
+	Seja I um intervalo. Uma fun\c cão \(f:I\rightarrow \mathbb{R}\) é convexa quando,
+	dados \(a < x < b\) em I, o ponto \((x, f(x))\) fica abaixo da reta que
+	liga os pontos \((a, f(a))\) e \((b, f(b))\). \(\square\)
+\end{def*}
+A equa\c cão da reta é
+\[
+	y = \frac{f(b)-f(a)}{b-a}(x-a)+f(a) \text{ ou } y = \frac{f(b)-f(a)}{b-a}(x-b)+f(b).
+\]
+Logo, \(f:I\rightarrow \mathbb{R}\) é convexa se uma das desigualdades
+\[
+	\frac{f(x) - f(a)}{x-a}\leq \frac{f(b) - f(a)}{b-a}\leq \frac{f(b)-f(x)}{b-x}
+\]
+está sempre satisfeita sempre que \(a < x < b\) em I.
+\begin{theorem*}
+	Seja \(I\subseteq{\mathbb{R}}\) um intervalo e \(f:I\rightarrow \mathbb{R}\) duas vezes diferenciável.
+	Então, f é convexa se, e somente se, \(f''(x)\geq 0\) para todo x em I.
+\end{theorem*}
+Come\c camos agora por provar esse resultado.
+\begin{proof*}
+	Se \(f''(x)\geq 0\) para todo x em I, então dados a, a+h em I, existe
+	c entre a e a+h tal que \(f(a+h) = f(a) + f'(a)\cdot h + \frac{f''(c)}{2}\cdot h^{2}.\)
+	Como \(f''(c)\geq 0, f(a+h)\geq f(a) + f'(a)\cdot h.\) Disto segue que
+	\(\frac{f(a+h)-f(a)}{h}\leq f'(a)\) se \(h < 0\) e \(\frac{f(a+h)-f(a)}{h}\geq f'(a)\)
+	se \(h > 0.\) Em outras palavras, se \(a < x < b\) em I, então \(\frac{f(x)-f(a)}{x-a}\leq \frac{f(b)-f(x)}{b-x}\)
+	ou seja,
+	\[
+		(f(x)-f(a))(b-x)\leq (f(b)-f(x))(x-a).
+	\]
+	Deste modo,
+	\begin{align*}
+		(f(x)-f(a))(b-a-(x-a)) & \leq (f(b)-f(a)-(f(x)-f(a)))(x-a)\text{ e } \\
+		                       & (f(x)-f(a))(b-a)\leq (f(b)-f(a))(x-a).
+	\end{align*}
+	Com isso, provamos a convexidade de f.
+
+	Reciprocamente, se f é convexa, dados \(a < x < b\) em I, temos
+	\[
+		\frac{f(x)-f(a)}{x-a}\leq \frac{f(b)-f(a)}{b-a}\leq \frac{f(x) - f(b)}{x-b}.
+	\]
+	Fazendo \(x\rightarrow a\) e \(x\rightarrow b\),
+	\[
+		f'(a)\leq \frac{f(b)-f(a)}{b-a}\leq f'(b)
+	\]
+	e f é não-decrescente em I. Portanto, \(f''(x)\geq 0\) para todo x em I. \qedsymbol
+\end{proof*}
+Observe que, se f é diferenciável, então \(f'\) é crescente se, e somente se,
+f é convexa. Além disso, podemos mostrar analogamente que, se \(f''(x) > 0\) para
+todo x em I, então f é estritamente convexa em I. A recíproca é falsa, no entanto.
+Basta tomar \(f(x) = x^{4}\), a qual é estritamente convexa em \(\mathbb{R}\), mas
+\(f''(0) = 0.\)
+
+Seja \(f:I\rightarrow \mathbb{R}\) de classe \(C^{\infty}.\) Se \(a, x\in I^{o},\) então
+podemos escrever, para todo \(k\in \mathbb{N},\)
+\[
+	f(x) = f(a) - f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^{2} + \cdots + \frac{f^{(n-1)}(a)}{(n-1)!}(x-a)^{n-1} + r_{n}((x-a)),
+\]
+em que \(r_{n}((x-a))=\frac{f^{(n)}((1-\theta_{n})a+\theta_{n}x)}{n!}(x-a)^{n},\) com
+\(0 < \theta_{n} < 1.\) A série
+\[
+	\sum\limits_{n=0}^{\infty}\frac{f^{(n)}(a)}{n!}(x-a)^{n}
+\]
+chama-se a série de Taylor da fun\c cão f em torno do ponto a. Esta série
+pode ou não convergir e, mesmo que convirja, sua soma pode ser diferente
+de f(x).
+\begin{example}
+	Seja \(f:\mathbb{R}\rightarrow \mathbb{R}\) definida por \(f(0)=0\) e
+	\(f(x)=e^{-\frac{1}{x^{2}}}\) se \(x\neq0.\) Mostre que f é \(C^{\infty}, f^{(n)}(0)=0\)
+	para todo n natural e portanto a série de Taylor de f em \(x=0\) é convergente para
+	\(f(0)\), mas não coincide com f para nenhum \(x\neq0.\)
+\end{example}
+\begin{def*}
+	Se \(I\subseteq{\mathbb{R}}\) é um intervalo aberto e \(f:I\rightarrow \mathbb{R}\)
+	é uma fun\c cão, dizemos que f é analítica em I se, para cada \(a\in I\), existe
+	\(\varepsilon >0\) tal que a série de Taylor \(\sum\limits_{n=0}^{\infty}\frac{f^{(n)(a)}}{n!}\cdot (x-a)^{n}\)
+	é convergente com soma \(f(x)\) para todo x em \((a-\varepsilon, a+\varepsilon ).\square\)
+\end{def*}
+É claro que a série de Taylor \(\sum\limits_{}^{}\frac{f^{(n)}(a)}{n!}\cdot (x-a)^{n}\) converge
+para f(x) se, e somente se, \(\lim_{n\to a}r_{n}((x-a))=0.\)
+\begin{example}
+	A série de Taylor da fun\c cão seno é dada por
+	\[
+		\sin{(x)} = \sum\limits_{n=0}^{\infty}\frac{(-1)^{n}}{(2n+1)!}x^{2n+1}.
+	\]
+\end{example}
+Veremos mais tarde que, se a série de potências \(\sum\limits_{n=1}^{\infty}a_{n}(x-a)^{n}\)
+tem raio de convergência \(R>0\), então a fun\c cão definida por
+\[
+	f(x) = \sum\limits_{n=0}^{\infty}a_{n}(x-a)^{n}, \quad x\in(a-R, a+R)
+\]
+é analítica.
+\subsection{Fun\c cões de Varia\c cão Limitada (BV)}
+Se r é um número real, colocamos \(r^{+}=\max\{r, 0\}, r^{-}=\max\{-r, 0\}\).
+\begin{def*}
+	Uma cole\c cão \(\{a_{0}, \cdots, a_{k}\}\) de pontos em \([a, b]\) é chamada
+	uma parti\c cão do intervalo \([a, b]\) se \(a=a_{0} < a_{1} < a_{2} < \cdots<a_{k}=b.\)
+	Seja \(f:[a, b]\rightarrow \mathbb{R}\) e \(\{a_{0},\cdots,a_{k}\}\) uma parti\c cão
+	de \([a, b]\). Escrevemos
+	\begin{align*}
+		 & p=\sum\limits_{n=1}^{k}[f(a_{i})-f(a_{i-1})]^{+}, \\
+		 & n=\sum\limits_{i=1}^{k}[f(a_{i})-f(a_{i-1})]^{-}, \\
+		 & t=\sum\limits_{i-1}^{k}[f(a_{i})-f(a_{i-1})]=p+n, \\
+		 & f(b)-f(a)=p-n.
+	\end{align*}
+\end{def*}
+Sejam
+\begin{align*}
+	 & P_{a}^{b}=\sup\{p:k\in \mathbb{N}, a=a_{0} < a_{1} < \cdots < a_{k}=b\text{ parti\c cão de [a, b]}\}
+	 & N_{a}^{b}=\sup\{n:k\in \mathbb{N}, a=a_{0} < a_{1} < \cdots < a_{k}=b\text{ parti\c cão de [a, b]}\}
+	 & T_{a}^{b}=\sup\{t:k\in \mathbb{N}, a=a_{0} < a_{1} < \cdots < a_{k}=b\text{ parti\c cão de [a, b]}\}
+\end{align*}
+Dizemos que \(P_{a}^{b}, N_{a}^{b}\) e \(T_{a}^{b}\) são as varia\c cões positiva,
+negativa e total de f. É claro que
+\[
+	\max\{P_{a}^{b}, N_{a}^{b}\}\leq T_{a}^{b}\leq P_{a}^{b} + N_{a}^{b}\quad\text{ e } f(b)-f(a) = P_{a}^{b} - N_{a}^{b}.
+\]
+\begin{def*}
+	A fun\c cão \(f:[a, b]\rightarrow \mathbb{R}\) é de varia\c cão limitada se \(T_{a}^{b} < \infty.\) Denotamos
+	isso por \(f\in BV([a, b]). \square\)
+\end{def*}
+\begin{theorem*}
+	\begin{itemize}
+		\item[1)] Se \(f:[a, b]\rightarrow \mathbb{R}\) é Lipschitz contínua, então \(f:[a, b]\rightarrow \mathbb{R}\)
+		      é de varia\c cão limitada.
+		\item[2)] Se \(f:[a, b]\rightarrow \mathbb{R}\) é monótona, então \(f:[a, b]\rightarrow \mathbb{R}\) é
+		      de varia\c cão limitada.
+		\item[3)] Se \(f:[a, b]\rightarrow \mathbb{R}\) é de varia\c cão limitada, existem
+		      fun\c cões não-decrescente \(g, h:[a, b]\rightarrow \mathbb{R}\) tais que \(f(x) = g(x)-h(x).\)
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	\(1. \Rightarrow )\) Se f é Lipschitz, \(\max\{P_{a}^{b}, N_{a}^{b}\leq T_{a}^{b}\leq L(b-a) < \infty,\}\)
+	em que \(L > 0\) é a constante de Lipschitz.
+
+	\(2. \Rightarrow )\) Se f é monótona, então \(T_{a}^{b} = [f(b)-f(a)] < \infty.\)
+
+	\(3. \Rightarrow )\) Se \(T_{a}^{b} < \infty,\) defina \(g, h:[a, b]\rightarrow \mathbb{R}\) por
+	\(g(x) = f(a) + P_{a}^{x}\) e \(h(x) = N_{a}^{x}\) para cada x de \([a, b]\). Portanto,
+	\(g, h\) são não-decrescentes e \(f(x) = g(x) - h(x).\) \qedsymbol
+\end{proof*}
+\end{document}

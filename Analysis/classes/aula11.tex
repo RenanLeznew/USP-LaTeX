@@ -1,0 +1,156 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 12/04/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+	\item Teste da Raz\~ao;
+	\item Teoremas de Dirichlet, Abel e Leibniz;
+	\item S\'eries Rearranjadas.
+\end{itemize}
+\subsection{Teste da Ra\'iz e da Raz\~ao.}
+Comecemos revisitando o Teste da Ra\'iz.
+\begin{theorem*}
+	Se $\{a_{n}\}$ \'e uma sequ\^encia limitada e $\limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}} = c < 1$, ent\~ao $\sum\limits_{}^{}a_{n}$
+	\'e absolutamente convergente.
+\end{theorem*}
+\begin{proof*}
+	Existe N natural tal que $\sup_{k\geq{n}}|a_{k}|^{\frac{1}{k}} < r = \frac{c+1}{2} < 1$ para todo natural n. Logo, $|a_{n}|<r^{n}$ para
+	todo $n\geq{N}.$ Segue do Teorema da Compara\c c\~ao que $\sum\limits_{}^{}|a_{n}|$ \'e convergente, ou seja, $\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente. \qedsymbol
+\end{proof*}
+\begin{example}
+	Se p \'e natural, ent\~ao $\sum\limits_{}^{}n^{p}a^{n}$ \'e convergente para $|a|< 1$ e divergente para $|a_{n}| \geq{1}.$ De fato,
+	basta ver que $\limsup_{n\to\infty}|n^{p}a^{n}|^{\frac{1}{n}} = |a| < 1$ e aplicar o teste da ra\'iz. Para ver que a s\'erie \'e divergente
+	quando o m\'odulo de a \'e maior ou igual a 1, basta notar que a sequ\^encia dos termos da s\'erie n\~ao converge para zero neste caso. \qedsymbol
+\end{example}
+Como esperado, o resultado seguinte \'e o que conhecemos como Teste da Raz\~ao, e costuma ser mais simples de aplicar na maioria dos casos.
+\begin{theorem*}
+	Se $\sum\limits_{}^{}b_{n}$ \'e uma s\'erie convergente de termos positivos e $\sum\limits_{}^{}a_{n}$ \'e uma s\'erie de termos
+	n\~ao-nulos tais que existe $n_{0}\in \mathbb{N}$ satisfazendo
+	$$
+		\frac{|a_{n+1}|}{|a_{n}|} \leq{\frac{b_{n+1}}{b_{n}}},\quad \forall n\geq{n_{0}},
+	$$
+	ent\~ao $\sum\limits_{}^{}a_{n}$ converge absolutamente. Em particular, se $\limsup_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|} = c < 1,$
+	tamb\'em vale que $\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente.
+\end{theorem*}
+\begin{proof*}
+	De fato, segue que
+	$$
+		\frac{|a_{n_{0}+1}|}{|a_{n_{0}}|} \leq{\frac{b_{n_{0}+1}}{b_{n_{0}}}}, \frac{|a_{n_{0}+2}|}{|a_{n_{0}+1}|} \leq{ \frac{b_{n_{0}+2}}{b_{n_{0}+1}}}, \cdots
+	$$
+	Logo, $\frac{|a_{n_{0}+p}|}{|a_{n_{0}}|}\leq{\frac{b_{n_{0}+p}}{b_{n_{0}}}}$ e o resultado segue usando o Teorema da Compara\c c\~ao. Por
+	fim, o caso particular segue tomando $b_{n} = c^{n}$. \qedsymbol
+\end{proof*}
+\begin{example}
+	Provemos que $\sum\limits_{}^{}\frac{n!}{n^{n}}a^{n}$ \'e convergente para $|a|<e.$ Com efeito, note que, para a n\~ao-nulo,
+	$$
+		\frac{\biggl|\frac{(n+1)!}{(n+1)^{(n+1)}}a^{(n+1)}\biggr|}{|\frac{n!}{n^{n}}a^{n}|} = \frac{1}{(1+\frac{1}{n})^{n}}|a|\overbracket[0pt]{\longrightarrow}^{n\to \infty}\frac{|a|}{e}.
+	$$
+	O resultado agora segue do Teste da Raz\~ao.
+\end{example}
+\begin{example}
+	Considere a s\'erie $\sum\limits_{}^{}a_{n}$ com $a_{2n}=2a^{n-1}, a_{2n-1} = a^{2(n-1)}.$ Vamos aplicar o crit\'erio da ra\'iz
+	e o crit\'erio da raz\~ao para esta s\'erie. Caso n = 2k, temos
+	$$
+		\frac{|a_{2k+1}|}{|a_{2k}|} = \frac{|a^{2k}|}{2|a^{2k-1}|} = \frac{|a|}{2}.
+	$$
+	Agora, se n = 2k-1,
+	$$
+		\frac{|a_{2k}|}{|a_{2k-1}|} = \frac{2|a^{2k-1}|}{|a^{2(k-1)}|} = 2|a|.
+	$$
+	Segue que $\limsup_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|} = 2|a|.$ Por outro lado, $\sqrt[n]{a_{n}}\overbracket[0pt]{\longrightarrow}^{n\to \infty}|a|.$
+	Desta forma, o teste da ra\'iz nos d\'a converg\^encia para $|a|<1$, enquanto que o teste da raz\~ao nos d\'a converg\^encia apenas
+	para $|a|<\frac{1}{2}.$
+\end{example}
+O exemplo anterior indica uma diferen\c ca no n\'ivel de efic\'acia dos testes. De fato, o Teste da Ra\'iz \'e mais eficiente do que
+o teste da raz\~ao, como segue
+\begin{theorem*}
+	Seja $\{a_{n}\}$ uma sequ\^encia limitada de n\'umeros reais n\~ao-nulos. Ent\~ao,
+	$$
+		\liminf_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|}\leq{\liminf_{n\to\infty}}|a_{n}|^{\frac{1}{n}}\leq{\limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}}}\leq{\limsup_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|}}.
+	$$
+\end{theorem*}
+\begin{proof*}
+	Mostremos primeiramente que $\limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}}\leq{\limsup_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|}}.$
+	Se n\~ao, seja $c>0$ com $\limsup_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|}<c<\limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}}.$ Logo,
+	existe um natural N tal que
+	$$
+		\frac{|a_{n+1}|}{|a_{n}|}<c,\quad \forall n\geq{N}.
+	$$
+	Disto segue que $|a_{N+p}|<|a_{N}|c^{-N}c^{N+p}$ para todo p natural n\~ao-nulo. Sendo assim, $c < \limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}}\leq{c}$,
+	uma contradi\c c\~ao.
+
+	Para ver que $\liminf_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|}\leq{\liminf_{n\to\infty}|a_{n}|^{\frac{1}{n}}},$ procedemos de modo similar.
+	Comece supondo que existe um $c > 0$ tal que $\liminf_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|}> c > \liminf_{n\to\infty}|a_{n}|^{\frac{1}{n}}.$
+	Logo, existe N natural tal que $\frac{|a_{n+1}|}{|a_{n}|}>c$ para todo $n\geq{N},$ e $|a_{N+p}|>|a_{N}|c^{-N}c^{N+p}$ para todo
+	$p\in \mathbb{N}^{*}.$ Portanto, temos uma contradi\c c\~ao, pois $c > \liminf_{n\to\infty}|a_{n}|^{\frac{1}{n}} \geq{c}.$ \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Seja $\{a_{n}\}$ uma sequ\^encia limitada de n\'umeros reais n\~ao-nulos. Se existe o limite $\lim_{\to}\frac{|a_{n+1}|}{|a_{n}|}$,
+	ent\~ao o limite $\lim_{\to}|a_{n}|^{\frac{1}{n}}$ tamb\'em existe e ambos t\^em o mesmo valor.
+\end{crl*}
+\begin{example}
+	Vamos mostrar que
+	$$
+		\lim_{\to}\frac{n}{(n!)^{\frac{1}{n}}}=e.
+	$$
+	De fato, seja $a_{n}=\frac{n^{n}}{n!}$ e note que $(a_{n})^{\frac{1}{n}} = \frac{n}{(n!)^{\frac{1}{n}}}.$ Note tamb\'em que
+	$$
+		\frac{a_{n+1}}{a_{n}} = \frac{\frac{(n+1)^{n+1}}{(n+1)!}}{\frac{n^{n}}{n!}} = \frac{(n+1)^{n}}{n^{n}} = (1+\frac{1}{n})^{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}e.
+	$$
+\end{example}
+A seguir, apresentaremos tr\^es resultados, o Teorema de Dirichlet sobre o produto de s\'eries, o de Abel sobre o produto de
+uma s\'erie por uma sequ\^encia n\~ao-crescente, e o de Leibniz.
+\begin{theorem*}
+	Seja $\sum\limits_{}^{}a_{n}$ uma s\'erie e $s_{n} = a_{1} + \cdots + a_{n},$ sendo n um natural, as suas somas parciais.
+	Se $\{s_{n}\}$ \'e limitada e $\{b_{n}\}$ \'e uma sequ\^encia de n\'umeros reais positivos que \'e n\~ao-crescente e infinit\'esima,
+	ent\~ao $\sum\limits_{}^{}a_{n}b_{n}$ \'e convergente.
+\end{theorem*}
+\begin{proof*}
+	Segue por indu\c c\~ao que, se $s_{n} = a_{1}+\cdots+a_{n},$
+	\begin{align*}
+		\sum\limits_{k=1}^{n}a_{k}b_{k} & = a_{1}b_{1} + a_{2}b_{2}+\cdots + a_{n}b_{n}                                    \\
+		                                & = s_{1}(b_{1}-b_{2})+s_{2}(b_{2}-b_{3})+\cdots+s_{n-1}(b_{n-1}-b_{n})+s_{n}b_{n} \\
+		                                & =\sum\limits_{k=1}^{n-1}s_{k}(b_{k}-b_{k+1}) + s_{n}b_{n}.
+	\end{align*}
+	Seja $M=\sup{\{|s_{n}|:n\in \mathbb{N}\}}.$ Como $\sum\limits_{}^{}(b_{n}-b_{n+1})$ \'e uma s\'erie convergente de n\'umero reais n\~ao-negativos
+	e $s_{n}b_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0,$ temos
+	$$
+		|s_{k}(b_{k}-b_{k+1})| \leq{M(b_{k}-b_{k+1})},
+	$$
+	segue que $\sum\limits_{n=1}^{\infty}s_{n}(b_{n}-b_{n+1})$ \'e convergente e que $\sum\limits_{}^{}a_{n}b_{n}$ \'e convergente. \qedsymbol
+\end{proof*}
+\begin{example}
+	Para cada n\'umero real x que n\~ao \'e m\'ultiplo inteiro de $2\pi$, as s\'eries $\sum\limits_{}^{}\frac{\cos{(nx)}}{n}$ e $\sum\limits_{}^{}\frac{\sin{(nx)}}{n}$
+	s\~ao convergentes. De fato, vamos utilizar um resultado dos n\'umeros complexos, que afirma que
+	$$
+		e^{i\theta} = \cos{(\theta)} + i\sin{(\theta)},\quad i\text{ \'e tal que} i^{2} = -1.
+	$$
+	Sendo assim, para ver que $\{\sum\limits_{k=1}^{n}\cos{(nx)}\}(\text{ ou }\{\sum\limits_{k=1}^{n}\sin{(nx)}\}$ \'e limitada
+	utilizamos que
+	$$
+		1 + e^{ix} + e^{i2x} + \cdots + e^{inx} = \frac{1 - e^{i(n+1)x}}{1-e^{ix}},
+	$$
+	e tomamos parte real e a parte imagin\'aria. O resultado agora segue do Teorema de Dirichlet. \qedsymbol
+\end{example}
+\begin{theorem*}
+	Seja $\sum\limits_{}^{}a_{n}$ uma s\'erie convergente e $\{b_{n}\}$ uma sequ\^encia n\~ao crescente de n\'umeros positivos
+	(n\~ao necessariamente infinit\'esima). Ent\~ao, a s\'erie $\sum\limits_{}^{}a_{n}b_{n}$ \'e convergente.
+\end{theorem*}
+\begin{proof*}
+	Seja $c = \lim_{n\to\infty}b_{n} = \inf_{n\in \mathbb{N}}b_{n}$ e $s_{n} = a_{1} + \cdots + a_{n}.$ Note que
+	$$
+		\sum\limits_{k=1}^{n}a_{k}b_{k} = \sum\limits_{k=1}^{n}a_{k}(b_{k}-c) + c \sum\limits_{k=1}^{n}a_{k}.
+	$$
+	Agora, pelo Teorema de Dirichlet, $\sum\limits_{n=1}^{\infty}a_{n}(b_{n}-c)$ \'e convergente com soma s. Portanto,
+	$$
+		\sum\limits_{}^{}a_{n}b_{n} = s + c \sum\limits_{}^{}a_{n}.\quad\text{\qedsymbol}
+	$$
+\end{proof*}
+\begin{theorem*}
+	Seja $\{b_{n}\}$ uma sequ\^encia n\~ao crescente e infinit\'esima. Ent\~ao, a s\'erie $\sum\limits_{}^{}(-1)^{n}b_{n}$ \'e convergente.
+\end{theorem*}
+\begin{proof*}
+	Observe que, no caso em que $a_{n} = (-1)^{n}$ e $s_{n} = a_{1} + \cdots + a_{n},$ ent\~ao $\{s_{n}\}$ \'e limitada. Com isso,
+	utilizando o Teorema de Dirichlet, $\sum\limits_{}^{}(-1)^{n}b_{n}$ \'e, portanto, convergente. \qedsymbol
+\end{proof*}
+\end{document}

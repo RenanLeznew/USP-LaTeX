@@ -1,0 +1,206 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 14/04/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+	\item Entender s\'eries de pot\^encias;
+	\item Estudar s\'eries rearranjadas.
+\end{itemize}
+
+\subsection{Testes da Raz\~ao e Ra\'iz Modificados.}
+Come\c camos, antes, com outros exemplos com rela\c c\~ao \`a \'ultima aula. O primeiro \'e
+\begin{theorem*}
+	Seja $\{a_{n}\}$ uma sequ\^encia n\~ao-crescente de n\'umeros reais n\~ao-negativos. A S\'erie $\sum\limits_{}^{}a_{n}$ converge se, e somente se,
+	a s\'erie $\sum\limits_{}^{}2^{k}a_{2^{k}}$ \'e convergente.
+\end{theorem*}
+\begin{proof*}
+	Sejam $\{s_{n}\}, \{s_{n}^{*}\}$ as sequ\^encias das somas parciais de $\sum\limits_{}^{}a_{n}$ e $\sum\limits_{}^{}2^{k}a_{2^{k}}.$
+	Ent\~ao, para todo n natural,
+	\begin{align*}
+		s_{n} = a_{1} + a_{2} + \cdots + a_{n} \leq{}s_{2^{n}-1} & = a_{1} + (a_2 + a_{3}) + (a_{4}+a_{5}+a_{6}+a_{7})+\cdots+(a_{2^{n-1}}+\cdots+a_{2^{n}-1})
+		                                                         & \leq{s_{n-1}^{*}}\leq{s_{n}^{*}.}
+	\end{align*}
+	Logo, se $\{s_{n}^{*}\}$ \'e limitada, segue que $\{s_{n}\}$ \'e limitada.
+
+	Agora, note que, para todo n natural,
+	\begin{align*}
+		s_{2^{n}}=a_{1} + a_{2} + \cdots + a_{2^{n}} & \geq{} \frac{a_{1}}{2} + a_{2} + (a_{3}+a_{4}) + (a_{5}+a_{6}+a_{7}+a_{8})+\cdots+(a_{2^{n-1}+1}+\cdots+a_{2^{n}}) \\
+		                                             & \geq{}\frac{a_{1}}{2}+a_{2}+2a_{4} + 4a_{8}+\cdots+2^{n-1}a_{2^{n}}=\frac{1}{2}s_{n}^{*}.
+	\end{align*}
+	Portanto, se $\{s_{n}\}$ \'e limitada, segue que $\{s_{n}^{*}\}$ \'e limitada. \qedsymbol
+\end{proof*}
+\begin{example}
+	Do resultado anterior, a s\'erie $\sum\limits_{}^{}\frac{1}{n^{p}}$ \'e convergente se, e s\'o se, a s\'erie $\sum\limits_{}^{}\frac{2^{n}}{2^{np}} = \sum\limits_{}^{}2^{(1-p)n}$ \'e
+	se, somente se, $p>1.$
+\end{example}
+\begin{example}
+	A s\'erie $\sum\limits_{n=2}^{\infty}\frac{1}{n(\log{(n)})}^{p}$ \'e convergente se, e somente se, $p>1.$ Com efeito, segue do resultado anterior que
+	$$
+		\sum\limits_{n=1}^{\infty}\frac{2^{n}}{2^{n}(\log{(2^{n})})^{p}} = \sum\limits_{n=1}^{\infty}\frac{1}{\log{2}n^{p}}
+	$$
+	\'e convergente se, e somente se, $p>1$.
+\end{example}
+\begin{example}
+	Vamos provar que e n\~ao \'e racional. De fato, seja $s_{n} = 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \cdots + \frac{1}{n!}.$ Assim,
+	\begin{align*}
+		0 < e - s_{n} & = \frac{1}{(n+1)!}+\frac{1}{(n+2)!} + \frac{1}{(n+3)!} + \cdots                     \\
+		              & < \frac{1}{(n+1)!}[1+\frac{1}{n+1}+\frac{1}{(n+1)^{2}}+ \frac{1}{(n+1)^{3}}+\cdots]
+		              & = \frac{1}{(n+1)!}\frac{1}{1-\frac{1}{n+1}} = \frac{1}{nn!}.
+	\end{align*}
+	Agora, suponha que existem inteiros postivios p e q tais que $e = \frac{p}{q}$. Temos
+	$$
+		0 < q!(e-s_{q})<\frac{1}{q}\leq{1}.
+	$$
+	Por hip\'otese, $q!e$ \'e um inteiro e, como $q!s_{q}$ tamb\'em \'e inteiro, segue que $q!(e-s_{q})$ \'e inteiro em $(0,1)$ e temos
+	uma contradi\c c\~ao.
+\end{example}
+O exemplo a seguir ilustra um caso em que o teste da raz\~ao n\~ao se aplica, mas o teste da ra\'iz indica converg\^encia.
+\begin{example}
+	Considere a s\'erie $\{a_{n}\}$ com $a_{2n} = \frac{1}{2^{n}}$ e $a_{2n-1}= \frac{1}{3^{n}}.$ Note que
+	$$
+		\frac{a_{2n}}{a_{2n-1}} = \biggl(\frac{3}{2}\biggr)^{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}+\infty\quad\text{e}\quad \frac{a_{2n+1}}{a_{2n}} = \frac{1}{3}\biggl(\frac{2}{3}\biggr)^{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0.
+	$$
+	No entanto, fazendo o teste da ra\'iz,
+	$$
+		\sqrt[2n]{a_{2n}} = \frac{1}{\sqrt{2}}\overbracket[0pt]{\longrightarrow}^{n\to \infty}\frac{1}{\sqrt[]{2}}\quad\text{e}\quad \sqrt[2n-1]{a_{2n-1}}=\biggl(\frac{1}{3}\biggr)^{\frac{n}{2n-1}}\overbracket[0pt]{\longrightarrow}^{n\to \infty}\frac{1}{\sqrt[]{3}}.
+	$$
+	Portanto, $\limsup_{n\to\infty}\frac{a_{n+1}}{a_{n}} = +\infty$ e $\limsup_{n\to\infty}\sqrt[n]{a_{n}} = \frac{1}{\sqrt[]{2}}$. Em outras palavras,
+	o teste da ra\'iz se indica converg\^encia, mas o teste da raz\~ao \'e inconclusivo. \qedsymbol
+\end{example}
+Agora, vamos tornar o teste da ra\'iz mais completo.
+\begin{theorem*}
+	Se $\{a_{n}\}$ \'e uma sequ\^encia limitada e $\limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}} = c < 1$, ent\~ao $\sum\limits_{}^{}a_{n}$
+	\'e absolutamente convergente. Se $\limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}} = c > 1$, ent\~ao $\sum\limits_{}^{}a_{n}$ \'e divergente.
+	Se c = 1, nada podemos concluir.
+\end{theorem*}
+\begin{proof*}
+	Existe N natural tal que $\sup_{k\geq{n}}|a_{k}|^{\frac{1}{k}} < r = \frac{c+1}{2} < 1$ para todo natural n. Logo, $|a_{n}|<r^{n}$ para
+	todo $n\geq{N}.$ Segue do Teorema da Compara\c c\~ao que $\sum\limits_{}^{}|a_{n}|$ \'e convergente, ou seja, $\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente. \qedsymbol
+
+	Para mostrar que, se $\limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}} = c > 1$, a s\'erie diverge, considere a fun\c c\~ao $\varphi:\mathbb{N}\rightarrow \mathbb{N}$
+	estritamente crescente tal que $\{|a_{\varphi(n)}|^{\frac{1}{\varphi(n)}}\}$ converge para $c>1,$ tal que $\{|a_{\varphi(n)}|\}$
+	n\~ao converge para zero. Para ver que nada pode ser dito quando c = 1, tome as s\'eries $\sum\limits_{}^{}\frac{1}{n}, \sum\limits_{}^{}\frac{1}{n^{2}}.$
+\end{proof*}
+\begin{theorem*}
+	Se $\sum\limits_{}^{}a_{n}$ \'e uma s\'erie de termos n\~ao-nulos e $\limsup_{n\to\infty}\frac{|a_{n+1}|}{|a_{n}|} = c < 1,$ ent\~ao
+	$\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente. Por\'em, se $\frac{|a_{n+1}|}{|a_{n}|}\geq{1}$ para todo $n\geq{n_{0}}, n_{0}$ algum natural,
+	ent\~ao a s\'erie diverge.
+\end{theorem*}
+
+\subsection{S\'eries de Pot\^encias.}
+\begin{def*}
+	Dada uma sequ\^encia $\{a_{n}\}$ de n\'umeros reais, a s\'erie
+	$$
+		\sum\limits_{n=0}^{\infty}a_{n}x^{n}
+	$$
+	\'e chamada de S\'erie de Pot\^encia. Os n\'umeros $a_{n}$ s\~ao chamados de coeficientes da s\'eries e x \'e um n\'umero real.
+\end{def*}
+Dependendo da escolha de x, a s\'erie pode convergir ou divergir, como indica o reusltado a seguir.
+\begin{theorem*}
+	Ddada a s\'erie de pot\^encias $\sum\limits_{n=0}^{\infty}a_{n}x^{n},$ seja $\alpha = \limsup_{n\to\infty}\sqrt[n]{|a_{n}|}$ e defina
+	\begin{align*}
+		 & R = \frac{1}{\alpha}\text{ se } 0 < \alpha < \infty \\
+		 & R = 0 \text{ se } \alpha = \infty                   \\
+		 & R = \infty \text{ se } \alpha = 0.
+	\end{align*}
+\end{theorem*}
+Ent\~ao, $\sum\limits_{n-0}^{\infty}a_{n}x^{n}$ converge se $|x|<R$, diverge se $|x|>R$ e nada podemos afirmar de $|x|=R.$
+\begin{proof*}
+	Basta notar que $\limsup_{n\to\infty}\sqrt[n]{|a_{n}x^{n}|} = |x|\limsup_{n\to\infty}\sqrt[n]{|a_{n}|} = |x|\alpha$ e aplicar
+	o teste da ra\'iz. \qedsymbol
+\end{proof*}
+Vamos analisar a converg\^encia das s\'eries de pot\^encias.
+\begin{example}
+	\begin{itemize}
+		\item $\sum\limits_{}^{}n^{n}x^{n}, R = 0. $
+		\item $\sum\limits_{}^{}\frac{n^{n}}{n!}x^{n}, R = e^{-1}.$ Com efeito, segue de
+		      $$
+			      \sqrt[n]{\frac{n^{n}}{n!}} = \frac{n}{\sqrt[]{n!}}\overbracket[0pt]{\longrightarrow}^{n\to \infty}e.
+		      $$
+		\item $\sum\limits_{}^{}\frac{x^{n}}{n!}, R = \infty.$
+		\item $\sum\limits_{}^{}x^{n}, R=1.$
+		\item $\sum\limits_{}^{}\frac{x^{n}}{n^{p}}, p > 0, R = 1.$
+	\end{itemize}
+\end{example}
+
+\subsection{S\'eries Rearranjadas}
+Seja $\sum\limits_{}^{}a_{n}$ uma s\'erie. Defina as sequ\^encias
+\begin{itemize}
+	\item[+)] $\{a_{n}^{+}\}$ com $a_{n}^{+} = a_{n}$ se $a_{n} > 0$ e $a_{n}^{+}=0$ se $a_{n}\leq{0}.$
+	\item[-)] $\{a_{n}^{-}\}$ com $a_{n}^{-} = -a_{n}$ se $a_{n} < 0$ e $a_{n}^{-}=0$ se $a_{n}\geq{0}.$
+\end{itemize}
+As sequ\^encias $\{a_{n}^{+}\}$ e $\{a_{n}^{-}\}$ ser\~ao chamadas de parte positiva e parte negativa de $\{a_{n}\}$. Sendo assim,
+$|a_{n}|=a_{n}^{+}+a_{n}^{-}, a_{n} = a_{n}^{+}-a_{n}^{-}$ e $|a_{n}| = a_{n} + 2a_{n}^{-}.$
+
+Note que, se $\sum\limits_{}^{}a_{n}$ converge absolutamente, ent\~ao $\sum\limits_{}^{}a_{n}^{+}$ e $\sum\limits_{}^{}a_{n}^{-}$
+s\~ao convergentes. A rec\'iproca tamb\'em vale.
+
+Al\'em disso, se $\sum\limits_{}^{}a_{n}$ \'e convergente, mas n\~ao absolutamente, segue que ambas $\sum\limits_{}^{}a_{n}^{+}$ e $\sum\limits_{}^{}a_{n}^{-}$ divergem.
+\begin{def*}
+	Seja $\{a_{n}\}$ a sequ\^encia dos termos da s\'erie $\sum\limits_{}^{}a_{n}, \xi:\mathbb{N}\rightarrow \mathbb{N}$
+	uma bije\c c\~ao e $b_{n} = a_{\xi(n)}.$ A s\'erie $\sum\limits_{}^{}b_{n}$ \'e chamada uma s\'erie rearranjada de $\sum\limits_{}^{}a_{n}.$
+\end{def*}
+\begin{example}
+	Considere a s\'erie $\sum\limits_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}$. Mostraremos que esta s\'erie converge. Se s \'e a sua soma, temos
+	\begin{align*}
+		 & s = \sum\limits_{n=1}^{\infty}\frac{(-1)^{n+1}}{n} = 1 - \frac{1}{2} + \frac{1}{3} - \frac{1}{4} + \frac{1}{5} - \frac{1}{6} + \frac{1}{7} -\cdots                 \\
+		 & \frac{1}{2}s = \sum\limits_{n=1}^{\infty}\frac{(-1)^{n+1}}{2n} = 0 + \frac{1}{2} + 0 - \frac{1}{4} + 0 + \frac{1}{6} + 0 - \frac{1}{8} + 0 + \cdots                \\
+		 & \frac{3}{2}s = \sum\limits_{n=1}^{\infty}\frac{(-1)^{n+1}}{n} = 1 + 0 + \frac{1}{3} - \frac{1}{2} + \frac{1}{5} + 0 + \frac{1}{7}-\frac{1}{4}+\frac{1}{9}+0+\cdots
+	\end{align*}
+	Logo, uma s\'erie rearranjada pode ter soma distinta da s\'erie original.
+\end{example}
+\begin{theorem*}
+	Toda s\'erie rearranjada de uma s\'erie absolutamente convergente \'e convergente com mesma soma.
+\end{theorem*}
+\begin{proof*}
+	Se $a_{n}\geq{}0$, ent\~ao para todo n natural, $\xi:\mathbb{N}\rightarrow \mathbb{N}$ \'e uma bije\c c\~ao e $b_{n} = a_{\xi(n)}$.
+	Dado n natural, seja $m_{n} = \max{\{\xi(1), \cdots, \xi(n)\}}$, ent\~ao
+	$$
+		\sum\limits_{k=1}^{n}b_{k} \leq{\sum\limits_{k=1}^{m_{n}}a_{k}\leq{\sum\limits_{n=1}^{\infty}a_{n}}}
+	$$
+	e $\sum\limits_{}^{}b_{n}$ \'e convergente com $\sum\limits_{n=1}^{\infty}b_{n}\leq{\sum\limits_{n=1}^{\infty}a_{n}}$. Por outro lado,
+	dado um natural m, seja $n_{m}=\max{\{\xi^{-1}(1), \cdots, \xi^{-1}(m)\}}$. Sendo assim,
+	$$
+		\sum\limits_{k=1}^{m}a_{k}\leq{\sum\limits_{k=1}^{n_{m}}b_{k}\leq{\sum\limits_{n=1}^{\infty}b_{k}}}
+	$$
+	e $\sum\limits_{n=1}^{\infty}a_{n}\leq{\sum\limits_{n=1}^{\infty}b_{n}.}$ Para o caso geral, note que
+	$$
+		\sum\limits_{n=1}^{\infty}a_{n} = \sum\limits_{n=1}^{\infty}a_{n}^{+} - \sum\limits_{n=1}^{\infty}a_{n}^{-}
+	$$
+	de forma que
+	$$
+		\sum\limits_{n=1}^{\infty}a_{n} = \sum\limits_{n=1}^{\infty}a_{n}^{+} - \sum\limits_{n=1}^{\infty}a_{n}^{-} = \sum\limits_{n=1}^{\infty}b_{n}^{+}-\sum\limits_{n=1}^{\infty}b_{n}^{-} = \sum\limits_{n=1}^{\infty}b_{n}.
+	$$
+	Portanto, a s\'erie rearranjada converge para a soma da s\'erie original. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se $\sum\limits_{}^{}a_{n}$ \'e convergente e n\~ao \'e absolutamente convergente, ent\~ao
+	\begin{itemize}
+		\item[i)] Dado c real, existe bije\c c\~ao $\xi^{c}:\mathbb{N}\rightarrow \mathbb{N}$ tal que $\sum\limits_{n=1}^{\infty}a_{\xi^{c}(n)} = c$
+		\item[ii)] Existem bije\c c\~oes $\xi_{+}$ e $\xi_{-}$ tais que $\sum_{n=1}^{\infty}a_{\xi_{+}(n)}$ diverge para $+\infty$
+		      e $\sum\limits_{n=1}^{\infty}a_{\xi_{-}(n)}$ diverge para $-\infty.$
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Seja $\{p_{n}\}$ a sequ\^encia dos termos positivos de $\{a_{n}\}$ na ordem em que eles aparecem e $\{q_{n}\}$ a sequ\^encia dos termos
+	n\~ao positivos de $\{a_{n}\}$ na ordem em que eles aparecem. Sabemos que $\sum\limits_{}^{}p_{n}$ e $\sum\limits_{}^{}q_{n}$ divergem.
+	Dado c real, seja $n_{1}$ o primeiro inteiro tal que
+	$$
+		\sum\limits_{n=1}^{n_{1}}p_{n} > c.
+	$$
+	Em seguida escolha $n_{2}$ o menor inteiro tal que
+	$$
+		\sum\limits_{n=1}^{n_{1}}p_{n} + \sum\limits_{n=1}^{n_{2}}q_{n} < c
+	$$
+	e prossiga com este processo. Desta forma, para todo $k > 1,$
+	$$
+		0 < \sum\limits_{n=1}^{n_{1}}p_{n} - \sum\limits_{n=1}^{n_{2}}q_{n} + \cdots - \sum\limits_{n=1}^{n_{2k-2}}q_{n} + \sum\limits_{n=1}^{n_{2k-1}}p_{n} - c \leq{p_{n_{2k-1}}}
+	$$
+	e
+	$$
+		q_{n_{2k}}\leq{\sum\limits_{n-1}^{n_{1}}pn} - \sum\limits_{n=1}^{n_{2}}q_{n} + \cdots + \sum\limits_{n=1}^{n_{2k-1}}p_{n} - \sum\limits_{n=1}^{n_{2k}}q_{n} - c < 0.
+	$$
+	Agora, como $q_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0$ e $p_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0,$ o resultado segue.
+	Por fim, um processo an\'alogo prova a segunta parte do resultado. \qedsymbol
+\end{proof*}
+\end{document}

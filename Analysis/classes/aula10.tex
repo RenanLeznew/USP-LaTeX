@@ -1,0 +1,204 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 10/04/2023}
+\subsection{Motiva\c c\~oes}
+ \begin{itemize}
+ \item S\'eries;
+ \item S\'eries de n\'umeros positivos;
+ \item Testes da ra\'iz e da raz\~ao.
+ \end{itemize}
+
+\subsection{S\'eries de N\'umeros Reais}
+  S\'eries s\~ao tipos particulares de sequ\^encias que possuem suas pr\'oprias propriedades extras. Vamos come\c car com um exemplo, chamado s\'erie harm\^onica (nome derivado da m\'edia harm\^onica).
+ \begin{example}
+   Considere $s_{n} = 1 + \frac{1}{2} + \cdots + \frac{1}{n}.$ Provemos que $\{s_{n}\}\overbracket[0pt]{\longrightarrow}^{n\to \infty}\infty.$
+   Com efeito, como $\{s_{n}\} $ \'e crescente, basta mostrar que ela \'e ilimitada: 
+  \begin{align*}
+    &s_{1} = 1\\
+    &s_{2} = 1 + \frac{1}{2} = 3\frac{1}{2}\\
+    &s_{3} = 1 + \frac{1}{2} + \frac{1}{3}\\
+    &s_{4} = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} > 1 + \frac{1}{2} + \frac{1}{2} = 4\frac{1}{2}\\
+    &s_{8} = 1 + \frac{1}{2} + \underbrace{\frac{1}{3} + \frac{1}{4}}_{> \frac{1}{2}} + \underbrace{\frac{1}{5} + \frac{1}{6} + \frac{1}{7} + \frac{1}{8}}_{4\frac{1}{8}} > 1 + \frac{1}{2} + \frac{1}{2} + \frac{1}{2} = 5\frac{1}{2}\\
+    &s_{16} = s_{8} + \frac{1}{9} +\cdots + \frac{1}{16} > 5\frac{1}{2} + \frac{1}{2} = 6\frac{1}{2}.\\
+    \vdots
+  \end{align*}
+  Analisando o padr\~ao de repeti\c c\~ao desta s\'erie, chegamos em 
+    $$
+      s_{2^{n}} > (n+2)\frac{1}{2} \Rightarrow s_{2^{n+1}} > s_{2^n} + \frac{1}{2^{n}+1} + \cdots + \frac{1}{2^{n}+ 2^{n}} > (n+2)\frac{1}{2} + \frac{2^{n}}{2^{n+1}} = ((n+1)+2)\frac{1}{2}.
+    $$
+    Logo, por indu\c c\~ao, $s_{2^{k}} > (k+2)\frac{1}{2}$ para todo k natural, mostrando que $\{s_{n}\} $ n\~ao \'e limitada superiormente.
+  Portanto, $\lim_{n\to\infty}s_{n} = \infty.$ \qedsymbol
+ \end{example}
+ Consideremos a sequ\^encia $\{a_{n}\}$. A partir da sequ\^encia $\{a_{n}\} $, vamos construir a sequ\^encia das somas parciais da seguinte forma: 
+\begin{align*}
+  &s_{1} = a_{1}\\
+  &s_{2} = a_{1} + a_{2}\\
+  &s_{3} = a_{1} + a_{2} + a_{3}\\
+  &\vdots\\
+  &s_{n} = a_{1} + a_{2} + a_{3} + \cdots + a_{n}\\
+  &\cdots.
+\end{align*}
+ \begin{def*}
+  A sequ\^encia $\{s_{n}\}$ das somas paricais \'e chamada s\'erie associada a $\{a_{n}\}.$ Cada $s_{n}$ \'e chamado soma parcial da s\'erie, e cada
+ $a_{n}$ leva o nome de termo da s\'erie. As nota\c c\~oes s\~ao: 
+   $$
+   \sum\limits_{n\geq{1}}^{}a_{n},\quad \sum\limits_{}^{}a_{n},\quad \sum\limits_{n=1}^{\infty}a_{n},\quad\text{ ou } a_{1}+a_{2}+\cdots+a_{n}+\cdots.
+   $$
+ \end{def*}
+ Observe que, \`as vezes, consideraremos s\'eries que comecem em algum termo $n_{0}$ ao inv\'es do termo 1. Neste caso, escreveremos 
+ $\sum\limits_{n=n_{0}}^{\infty}a_{n}.$
+\begin{example}
+ \begin{align*}
+   &\{a_{n}\} = \{(-1)^{n+1}\}.\text{ A sequ\^encia das somas parciais ser\'a:}\\
+   &s_{1} = a_{1} = 1\\
+   &s_{2} = a_{1} + a_{2} = 1 - 1 = 0\\
+   &\vdots\\
+   &s_{n} = 0\text{ ou } 1.
+ \end{align*} 
+\end{example}
+\begin{example}
+  Construimos a s\'erie $\{a_{n}\} = \biggl\{\frac{1}{n}\biggr\}$ no exemplo anterior.
+\end{example}
+\begin{example}
+  $\{a_{n}\} = \biggl\{\frac{6}{10^{n}}\biggr\}$ \'e uma s\'erie que, quando constru\'ida, converge para $\frac{2}{3}.$
+\end{example}
+\begin{def*}
+  Diremos que uma s\'erie \'e convergente se a sequ\^encia das somas parciais \'e convergente. Caso contr\'ario, ser\'a dita divergente.
+  Se a sequ\^encia $\{s_{n}\} $ \'e convergente para S, dizemos que a s\'erie $\sum\limits_{1}^{\infty}a_{n}$ \'e convergente com soma S. $\square$
+\end{def*}
+  A soma, multiplica\c c\~ao, etc. De s\'eries \'e definida como no caso das sequ\^encias. Denotaremos s\'eries convergentes por 
+    $$
+      \sum\limits_{n=1}^{\infty}a_{n} = S = \lim_{n\to\infty}s_{n} = \lim_{n\to\infty}\biggl(\sum\limits_{k=1}^{n}a_{k}\biggr)
+    $$
+   \begin{example}
+     A s\'erie telesc\'opica \'e dada por 
+       $$
+         \sum\limits_{n=1}^{\infty}\frac{1}{n(n+1)} = 1.
+       $$
+     Observe que 
+     \begin{align*}
+       s_{n} &= \frac{1}{1.2} + \frac{1}{2.3} + \cdots + \frac{1}{n(n+1)}\\
+             &= (1-\frac{1}{2}) + (\frac{1}{2}-\frac{1}{3}) + \cdots + (\frac{1}{n} - \frac{1}{n+1})\\
+             &= 1 - \frac{1}{n+1}.
+      \end{align*}
+    Portanto, $\lim_{n\to\infty}s_{n} = \lim_{n\to\infty}(1 - \frac{1}{n+1}) = 1 - 0 = 1.$ \qedsymbol
+   \end{example}
+  \begin{example}
+   \begin{itemize}
+     \item[i)]$\sum\limits_{1}^{\infty}(-1)^{n}$ \'e divergente, visto que, para termos \'impares da soma parcial, ela vale 0, mas para termos pares,
+    ela vale 1.
+     \item[ii)]$\sum\limits_{1}^{\infty}2^{n}$ diverge, pois a soma parcial dos termos dela n\~ao \'e limitada.
+     \item[iii)]$\sum\limits_{n=1}^{\infty}\frac{1}{n}$ diverge, e recebe o nome de s\'erie harm\^onica. Aqui, $s_{n} = 1 + \frac{1}{2}+\cdots+\frac{1}{n}.$
+   \end{itemize}
+  \end{example}
+  Algumas s\'eries s\~ao importantes, pois podem ser utilizadas para obter informa\c c\~oes sobre outras atrav\'es da compara\c c\~ao, tais como a 
+  s\'erie telesc\'opica e a harm\^onica. Outra importante \'e a s\'erie geom\'etrica:
+ \begin{example}
+   Definimos ela como $\sum\limits_{n\geq{1}}^{}ar^{n-1} = a + ar + ar^{2} + \cdots$. Afirmamos que ela \'e convergente se, e s\'o se,
+  $|r| < 1$, convergindo para $\frac{a}{1-r}$. Assim, 
+    $$
+      a + ar + ar^{2} + \cdots + ar^{n} + \cdots = \frac{a}{1-r}, \quad |r| < 1.
+    $$
+    Com efeito, se r = 1, ent\~ao $s_{n} = a + a + a + \cdots + a = na,$ que tende a infinito ou menos infinito, dependendo do sinal de a, mostrando sua diverg\^encia.
+Agora, se r for diferente de 1, temos: 
+  $$
+    s_{n} = a + ar + ar^{2} + \cdots + ar^{n-1},\quad rs_{n} = ar + ar^{2} + ar^{3} + \cdots ar^{n}.
+  $$
+  Subtraindo membro a membro, obtemos 
+    $$
+      s_{n}(1-r) = a - ar^{n} = a(1-r^{n}).
+    $$
+    Portanto, $s_{n} = a \frac{1-r^{n}}{1-r} = \frac{a}{1-r} - \frac{a}{1-r}r^{n}.$ Se $|r|<1$, j\'a vimos anteriormente que
+  $r^{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0,$ tal que 
+    $$
+      \lim_{n\to\infty}s_{n} = \lim_{n\to\infty}\biggl(\frac{a}{1-r} - \frac{a}{1-r}r^{n}\biggr) = \frac{a}{1-r}.
+    $$
+    Caso $|r| > 1,$ ou r = -1, vimos anteriormente que $r^{n}$ \'e divergente, provando o que quer\'iamos. \qedsymbol
+ \end{example}
+\begin{theorem*}
+  Se $\sum\limits_{}^{}a_{n}$ \'e uma s\'erie convergente, ent\~ao $\lim_{n\to\infty}a_{n} = 0.$ A rec\'iproca \'e falsa.
+\end{theorem*}
+\begin{proof*}
+  Note que, se $\{s_{n}\}$ a sequ\^encia das somas parciais dos an's \'e convergente, temos 
+    $$
+      a_{n} = s_{n} - s_{n-1}\overbracket[0pt]{\longrightarrow}^{n\to \infty} s-s= 0,
+    $$
+    provando o resultado. Um contraexemplo da volta \'e a s\'erie harm\^onica. \qedsymbol
+\end{proof*}
+ \begin{example}
+   Exerc\'icio: $\sum\limits_{n=1}^{\infty}a_{n}$ \'e uma s\'erie convergente se, e somente se, $\sum\limits_{n=n_{0}}^{\infty}a_{n}$ \'e convergente.
+ \end{example}
+\begin{theorem*}
+  Se $a_{n}\geq{0}$ para todo n natural, $\sum\limits_{}^{}a_{n}$ \'e uma s\'erie convergente se, e somente se, a sequ\^encia das somas paricais \'e limitada.
+\end{theorem*}
+\begin{theorem*}
+  Sejam $\sum\limits_{}^{}a_{n}, \sum\limits_{}^{}b_{n}$ s\'eries de termos positivos. Se existem c positivo e $n_{0}$ natural tais que
+ $a_{n} \leq{cb_{n}}$ para todo $n\geq{n_{0}},$ ent\~ao 
+\begin{itemize}
+  \item[i)] Se $\sum\limits_{}^{}b_{n}$ \'e convergente, ent\~ao $\sum\limits_{}^{}a_{n}$ \'e convergente.
+    \item[ii)] Se $\sum\limits_{}^{}a_{n}$ \'e divergente, ent\~ao $\sum\limits_{}^{}b_{n}$ \'e divergente. 
+\end{itemize}
+\end{theorem*}
+\begin{example}
+  Se $r > 1, \sum\limits_{}^{}\frac{1}{n^{r}}$ \'e convergente. De fato, note que 
+  \begin{align*}
+    s_{2^{n}-1} &< 1 + \biggl(\frac{1}{2^{r}}+\frac{1}{3^{r}}\biggr) + \biggl(\frac{1}{4^{r}} + \frac{1}{5^{r}} + \frac{1}{6^{r}}+\frac{1}{7^{r}}\biggr) + \cdots\\
+                &+\Biggl(\frac{1}{2^{n}-2^{n-1}}+\cdots+\frac{1}{(2^{n}-2)^{r}} + \frac{1}{(2^{n}-1)^{r}}\Biggr) \\
+                &< 1 + \frac{2}{2^{r}} + \frac{4}{4^{r}} + \cdots + \frac{2^{n-1}}{2^{(n-1)r}} \\
+                &= 1 + \frac{1}{2^{r-1}} + \frac{1}{4^{r-1}} + \cdots + \frac{1}{2^{(n-1)(r-1)}}\leq{\frac{1}{1-2^{-r+1}}}.
+  \end{align*}
+\end{example}
+Como uma sequ\^encia convergente \'e equivalente a uma de Cauchy, vale o seguinte resultado:
+\begin{theorem*}
+  A s\'erie $\sum\limits_{}^{}a_{n}$ \'e convergente se, e somente se, dado $\epsilon > 0$, existe um natural N tal que 
+    $$
+      |s_{n+p} - s_{n}| = |a_{n} + \cdots + a_{n+p}| < \epsilon
+    $$
+    para todo $n\geq{N}$ e todo natural p.
+\end{theorem*}
+ \begin{def*}
+   Uma s\'erie $\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente quando $\sum\limits_{}^{}|a_{n}|$ \'e convergente.$\quad\square.$
+ \end{def*}
+ Segue do crit\'erio de Cauchy que 
+\begin{theorem*}
+  Se $\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente, ent\~ao $\sum\limits_{}^{}a_{n}$ \'e convergente. A volta n\~ao vale.
+\end{theorem*}
+  Com rela\c c\~ao a volta, considere a s\'erie $\sum\limits_{}^{}\frac{(-1)^{n+1}}{n}$ n\~ao \'e absolutamente convergente, mas converge. 
+  De fato, note que 
+    $$
+      s_{2} = 1 - \frac{1}{2}, s_{4} = (1-\frac{1}{2}) + (\frac{1}{3}-\frac{1}{4}), s_{6} = (1-\frac{1}{2}) + (\frac{1}{3}-\frac{1}{4}) + (\frac{1}{5}-\frac{1}{6}), \cdots
+    $$
+    Assim, $s_{2}<s_{4}<\cdots<s_{2n}<\cdots$ e $\{s_{2n}\}$ \'e crescente e limitada por 1, tal que ela converge. Por outro lado, 
+      $$
+        s_{1} = 1, s_{3} = 1 + (-\frac{1}{2} + \frac{1}{3}), s_{5} = 1 + (-\frac{1}{2}+\frac{1}{3}) + (-\frac{1}{4}+\frac{1}{5}), \cdots
+      $$ 
+      Deste forma, $s_{1} > s_{3} > s_{5} > \cdots > s_{2(n-1)} > \cdots$, ou seja, $\{s_{2(n-1)}\}$ \'e decrescente limitada, portanto convergente.
+
+      Por outro lado, $s_{2n+1}-s_{n} = \frac{1}{2n+1}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0,$ mostrando a converg\^encia da s\'erie.
+ \begin{example}
+   Exerc\'icio: Seja $\{a_{n}\}$ uma sequ\^encia infinit\'esima de termos n\~ao negativos que \'e decrescente. Mostre que $\sum\limits_{}^{}(-1)^{n}a_{n}$
+  \'e convergente.
+ \end{example}
+\begin{example}
+  Exerc\'icios: Seja $\sum\limits_{}^{}b_{n}$ uma s\'erie convergente de termos n\~ao-negativos. Se existem k positivo e $n_{0}$
+natural tais que $|a_{n}|\leq{kb_{n}}$ para todo $n\geq{n_{0}},$ ent\~ao a s\'erie $\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente.
+
+  Se existem $c\in(0, 1), k > 0$ e $n_{0}$ natural tais que $|a_{n}|\leq{kc^{n}}$ para todo $n\geq{n_{0}},$ ent\~ao a s\'erie 
+ $\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente.
+\end{example}
+
+\subsection{Testes da Raz\~ao e da Ra\'iz}
+ \begin{theorem*}
+   Se $\{a_{n}\}$ \'e uma sequ\^encia limitada e $\limsup_{n\to\infty}|a_{n}|^{\frac{1}{n}} = c < 1$, ent\~ao $\sum\limits_{}^{}a_{n}$
+  \'e absolutamente convergente.
+ \end{theorem*}
+\begin{proof*}
+  Existe N natural tal que $\sup_{k\geq{n}}|a_{k}|^{\frac{1}{k}} < r = \frac{c+1}{2} < 1$ para todo natural n. Logo, $|a_{n}|<r^{n}$ para
+todo $n\geq{N}.$ Segue do Teorema da Compara\c c\~ao que $\sum\limits_{}^{}|a_{n}|$ \'e convergente, ou seja, $\sum\limits_{}^{}a_{n}$ \'e absolutamente convergente. \qedsymbol
+\end{proof*}
+\begin{example}
+  Se p \'e natural, ent\~ao $\sum\limits_{}^{}n^{p}a^{n}$ \'e convergente para $|a|< 1$ e divergente para $|a_{n}| \geq{1}.$ De fato,
+basta ver que $\limsup_{n\to\infty}|n^{p}a^{n}|^{\frac{1}{n}} = |a| < 1$ e aplicar o teste da ra\'iz. Para ver que a s\'erie \'e divergente 
+quando o m\'odulo de a \'e maior ou igual a 1, basta notar que a sequ\^encia dos termos da s\'erie n\~ao converge para zero neste caso. \qedsymbol
+\end{example}
+\end{document}

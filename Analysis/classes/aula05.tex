@@ -1,0 +1,183 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 22/03/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+	\item Sequ\^encias de N\'umeros Reais;
+	\item Converg\^encia de Sequ\^encias;
+\end{itemize}
+\subsection{Sequ\^encias de N\'umeros Reais}
+\begin{def*}
+	Uma sequ\^encia \'e uma fun\c c\~ao definida no conjunto dos n\'umeros reais que, para cada n natural, associa um n\'umero real $a_{n}$.
+	\begin{align*}
+		\mathbb{N} & =\{0, 1, 2, \cdots\}               \\
+		           & f:\mathbb{N}\rightarrow \mathbb{R} \\
+		           & n\mapsto a_{n}.
+	\end{align*}
+	Denotamos a fun\c c\~ao por $\{a_{n}\}\square$
+\end{def*}
+\begin{example}
+	Sendo $a_{n}=\frac{f1}{n+1}$ para todo n natural, temos a sequ\^encia $\{1, \frac{1}{2}, \frac{1}{3}, \cdots\}$.
+\end{example}
+\begin{example}
+	Sendo $a_{n} = 6$ para todo n natural, temos a sequ\^encia constante
+	$$
+		\{6, 6, 6,\cdots\}.
+	$$
+\end{example}
+\begin{example}
+	Coloque $a_{2n+1} = 7, a_{2n}=4$ para todo n natural. Temos
+	$$
+		\{4, 7, 4, 7, \cdots\}
+	$$
+\end{example}
+Consideremos as sequ\^encias
+$$
+	\alpha_{n} = n, \quad \beta_{n} = (-1)^{n},\quad \text{ e } \gamma_{n} = \frac{1}{n}.
+$$
+Como fun\c c\~oes, elas podem ter os gr\'aficos tra\c cados, mas n\~ao s\~ao muito significativos, visto que consistem em
+colet\^aneas de pontos discretos. Ademais, note que a sequ\^encia $(\alpha_{n})$ ``diverge'' para infinito, a sequ\^encia
+$(\beta_{n})$ ``oscila'' e a sequ\^encia $(\gamma_{n})$ ``converge para 0''. Precisamente,
+\begin{def*}
+	A sequ\^encia $\{a_{n}\}$ \'e dita convergente com limite l se, para todo $\epsilon > 0$, existe um natural
+	N dependendo de $\epsilon (N = N(\epsilon)\in \mathbb{N})$ tal que $n > N$ implica em $|a_{n} - l|< \epsilon.$
+	Ou seja, a partir de um certo N, os $a_{n}$ est\~ao no intervalo $(l-\epsilon, l+\epsilon)$ e, como $\epsilon$
+	\'e arbitr\'ario, os $a_{n}$ se juntam em torno de l. Disto, segue que a condi\c c\~ao exigida equivale a
+	$$
+		l - \epsilon < a_{n} < l + \epsilon, \quad n\geq{N}.
+	$$
+	Denotamos esse fen\^omeno por $\displaystyle\lim_{n\to\infty}a_{n} = l$, ou $a_{n}\rightarrow l$, ou $a_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}a.\square$.
+\end{def*}
+\begin{example}
+	$\circ{}\frac{1}{n}\rightarrow0, n\rightarrow\infty$. De fato, dado $\epsilon > 0$, da propriedade arquimediana, segue que
+	existe um N natural tal que $N\epsilon > 1.$ Logo, para todo $n\geq{N},$ temos
+	$$
+		0 - \epsilon < \frac{1}{n}\leq{\frac{1}{N}} < 0 + \epsilon.
+	$$
+
+	$\circ \frac{n}{n+1}\rightarrow 1, n\rightarrow\infty$. Com efeito, dado $\epsilon > 0,$ queremos encontrar N natural n\~ao-nulo tal que
+	se n \'e maior que N, temos
+	$$
+		\biggl|\frac{n}{n+1} - 1\biggr| < \epsilon.
+	$$
+	No entanto, $|\frac{n}{n+1}-1| = \frac{1}{n+1}$ e, da propriedade Archimediana, existe N em $\mathbb{N}^{\times}$ tal que
+	$(N+1)\epsilon > 1$. Logo, se $n\geq{N},$
+	$$
+		1 - \epsilon < \frac{n}{n+1} < 1 + \epsilon.
+	$$
+\end{example}
+\begin{def*}
+	Uma sequ\^encia $\{a_{n}\}$ ser\'a divergente quando ela n\~ao for convergente.
+	\begin{itemize}
+		\item[I)] Sequ\^encia divergente para $+\infty:$ Este caso ocorre se dado $K > 0$, existe N natural tal que se $n > N,
+			      a_{n} > K.$
+		\item[II)] Sequ\^encia divergente para $-\infty:$ Acontece quando dado $K > 0$, existe N natural tal que se $n > N,
+			      a_{n} < -K.$
+		\item[III)]Sequ\^encia oscilante: Por fim, ocorre quando a sequ\^encia diverge, mas nem para $+\infty$ e nem para $-\infty.\square$
+	\end{itemize}
+\end{def*}
+Note que, como sequ\^encias s\~ao fun\c c\~oes, podemos multiplic\'a-las por constante, somar, dividir e multiplicar por outras sequ\^encia. De fato,
+\begin{def*}
+	Dadas sequ\^encias $\{a_{n}\}, \{b_{n}\}$ e um n\'umero real c, deifnimos
+	\begin{align*}
+		 & i) \{a_{n}\} + \{b_{n}\} = \{a_{n} + b_{n}\}                                                                               \\
+		 & ii) c\{a_{n}\} = \{c \cdot a_{n}\}                                                                                         \\
+		 & iii) \{a_{n}\}\{b_{n}\} = \{a_{n}b_{n}\}                                                                                   \\
+		 & iv) \text{ Se }b_{n}\neq0\forall n\in \mathbb{N}, \frac{\{a_{n}\}}{\{b_{n}\}} = \biggl\{\frac{a_{n}}{b_{n}}\biggr\}\square
+	\end{align*}
+\end{def*}
+\begin{def*}
+	Seja $\{a_{n}\}$ uma sequ\^encia de n\'umero reais. Diremos que $\{a_{n}\}$ \'e limitada se sua imagem for um subconjunto
+	limitado de $\mathbb{R}.\square$
+\end{def*}
+\begin{theorem*}
+	Seja $\{a_{n}\}$ uma sequ\^encia de n\'umeros reais.
+	\begin{itemize}
+		\item[a)] $a_{n}\overbracket[0pt]{\longrightarrow}^{n\rightarrow\infty}a$ se, e somente, toda vizinhan\c ca de a cont\'em todo, exceto uma poss\'ivel quantidade
+		      finita de $a_{n}$'s.
+		\item[b)] O limite \'e \'unico.
+		\item[c)] Se $\{a_{n}\}$ \'e convergente, ent\~ao $\{a_{n}\}$ \'e limitada
+		\item[d)] Se $a_{n}\overbracket[0pt]{\longrightarrow}^{n\rightarrow\infty}a$, exite N natural tal que $a_{n} > 0$ para todo $n\geq{N}.$
+		\item[e)] Se $A\subseteq{\mathbb{R}}$ e a \'e um ponto de acumula\c c\~ao de A, ent\~ao existe uma sequ\^encia $\{a_{n}\}$ de elementos
+		      de A que converge para a.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	O item a \'e trivial. Mostremos a unicidade do limite: Suponha que $a_{n}$ converge para a e para b, com a diferente de b. Ent\~ao,
+	dado $\epsilon > 0$, existem naturais $N_{1}, N_{2}$ tais que se $n\geq{N_{1}}, |a_{n}-a|<\epsilon$ e se $n\geq{N_{2}}, |a_{n} - b| < \epsilon.$
+	Tome $N = \min{N_{1}, N_{2}}$ e suponha que $n \geq{N}.$ Ent\~ao, temos
+	$$
+		|b - a| \leq{|b - a_{n}| + |a_{n} - a|} = |b - a_{n}| + |a - a_{n}| < 2\epsilon.
+	$$
+	(\textit{P.S.}: pode ser boa pr\'atica tomar $\frac{\epsilon}{2}$ ao inv\'es de $\epsilon$, pois assim obtemos $|b-a|<\frac{2\epsilon}{2}=\epsilon.$)
+
+	Como $\epsilon$ \'e abritr\'ario, podemos selecionar $\epsilon$ infinitamente pr\'oximo de 0. Portanto, b = a.
+
+	Para o item c, suponha que $a_{n}$ converge para a, isto \'e, dado $\epsilon > 0, \epsilon = 1$ em particular, existe
+	$N\in \mathbb{N}$ tal que se $n \geq{N}, |a_{n} - a| < 1$. Logo, $a_{n}\in(a - 1, a + 1)$ para n maior que N suficientemente grande.
+	Restam os N-1 primeiros elementos da sequ\^encia. Assim, tome $R = \max{\biggl\{|a_{1}|, \cdots, |a_{N-1}|, |a + 1|, |a - 1|\biggr\}}$. Deste modo,
+	$a_{n}\in[-R, R]$ para todo n natural.
+
+	Com rela\c c\~ao ao item d, basta tomar $\epsilon = \frac{a}{2} > 0.$
+
+	Por fim, quanto ao item e, suponha o que \'e dito no enunciado. Como a \'e ponto de acumula\c c\~ao, dado $\epsilon > 0,$ existe
+	$a'\in{A}, a'\neq a$ tal que
+	$$
+		a'\in V_{\epsilon}(a) = (a - \epsilon, a + \epsilon).
+	$$
+	Logo, tomadno $\epsilon = \frac{1}{n},$ podemos encontrar $a_{n}\in A, a_{n}\neq a$ tal que $a_{n}\in\biggl(a-\frac{1}{n}, a + \frac{1}{n}\biggr)$. A sequ\^encia
+	$\{a_{n}\}$ converge para a. De fato, dado $\epsilon > 0$, tome N natural tal que $N\epsilon > 1.$ Assim, se $n\geq{N}, a_{n}\in(a-\frac{1}{n}, a+\frac{1}{n})\subseteq{a-\epsilon}, a+\epsilon)$.
+	Portanto, $a_{n}\rightarrow a.$ \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja $a_{n}\overbracket[0pt]{\longrightarrow}^{n\to\infty}a, b_{n}\overbracket[0pt]{\rightarrow}^{n\to\infty}b$ e c um n\'umero real. Ent\~ao,
+	\begin{align*}
+		 & a) a_{n} + b_{n}\overbracket[0pt]{\longrightarrow}^{n\to\infty} a + b.                                                                \\
+		 & b) ca_{n}\overbracket[0pt]{\longrightarrow}^{n\to\infty} ca                                                                           \\
+		 & c) a_{n}b_{n}\overbracket[0pt]{\longrightarrow}^{n\to\infty} ab                                                                       \\
+		 & d)\text{Se} b\neq0, b_{n}\neq0\forall n\in \mathbb{N}, \frac{a_{n}}{b_{n}}\overbracket[0pt]{\longrightarrow}^{n\to\infty}\frac{a}{b}.
+	\end{align*}
+\end{theorem*}
+\begin{proof*}
+	Item c). Suponha $a_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}a, b_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}b$. Note que
+	$$
+		|a_{n}b_{n} - ab| = a_{n}b_{n} - a_{n}b + a_{n}b - ab \leq{|a_{n}||b_{n}-b| + |b||a_{n}-a|}
+	$$
+	Como $\{a_{n}\}$ \'e convergente, ela \'e limitada pelo teorema anterior. Assim, existe $M > 0$ tal que $|a_{n}|\leq{M}$ para todo n natural, tal que
+	Assim,
+	$$
+		|a_{n}b_{n} - ab| \leq{|a_{n}||b_{n} - b| + |b||a_{n} - a|} \leq{M|b_{n} - b| + (|b| + 1)|a_{n} - a|}.
+	$$
+	Agora, dado $\epsilon > 0,$ existem naturais $N_{1}, N_{2}$ tais que
+	\begin{align*}
+		 & |a_{n}-a| < \frac{\epsilon}{2(|b|+1)},\quad\forall n\geq{N_{1}} \\
+		 & |b_{n}-b| < \frac{\epsilon}{2M},\quad\forall n\geq{N_{2}}.
+	\end{align*}
+	Logo, tomando $N = \max\{N_{1}, N_{2}\},$ se $n\geq{N},$
+	$$
+		|a_{n}b_{n}-ab| < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+	$$
+	Portanto, $a_{n}b_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}ab.$ \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja $\{a_{n}\}$ uma sequ\^encia. Diremos que $\{b_{n}\}$ \'e uma subsequ\^encia de $\{a_{n}\}$ se existir uma fun\c c\~ao
+	estritamente crescente $s:\mathbb{N}\rightarrow \mathbb{N}$ tal que $b_{k} = a_{s(k)}$ para todo k natural. $\square$
+\end{def*}
+\begin{def*}
+	Seja $\{a_{n}\}$ uma sequ\^encia. Diremos que $\{a_{n}\}$ \'e de Cauchy se, dado $\epsilon > 0$, existe um natural
+	$N = N(\epsilon)$ tal que $|a_{n}-a_{m}| < \epsilon$ para todo $n, m\geq{N}.\square$
+\end{def*}
+\begin{theorem*}
+	\begin{itemize}
+		\item[a)]Uma sequ\^encia \'e convergente se, e somente se, toda subsequ\^encia dela converge para o mesmo limite.
+		\item[b)] Toda sequ\^encia convergente \'e de Cauchy;
+		\item[c)] Toda sequ\^encia limitada tem subsequ\^encia convergente;
+		\item[d)] Toda sequ\^encia de Cauchy \'e limitada;
+		\item[e)] Toda sequ\^encia de Cauchy que tem subsequ\^encia convergente \'e convergente.
+		\item[f)] Toda sequ\^encia de Cauchy \'e convergente;
+		\item[g)] Toda sequ\^encia crescente e limitada \'e convergente;
+		\item[h)] Toda sequ\^encia decrescente e limitada \'e convergente.
+	\end{itemize}
+\end{theorem*}
+\newpage
+\end{document}

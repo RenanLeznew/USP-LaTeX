@@ -1,0 +1,140 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 22 - 19/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Medida exterior;
+	\item Continuidade Lipschitz;
+\end{itemize}
+\subsection{Medida Exterior}
+\begin{def*}
+	Se \(I=(a, b)\), defina \(l(I) = b-a.\) Dado \(A\subseteq{\mathbb{R}}\), existe
+	uma família contável de intervalos abertos que cobrem A. Seja \(\mathcal{U}_{A}\)
+	a cole\c cão de todas as coberturas contáveis de intervalos abertos de A. Então,
+	definimos a medida exterior de A como
+	\[
+		m^{*}(A) = \inf\{\sum\limits_{}^{}l(I_{n}):\{I_{n}\}\in \mathcal{U}_{A}\}.\square
+	\]
+\end{def*}
+É claro que \(m^{*}(\emptyset) = 0, m^{*}((a, b))\leq b-a, m^{*}(\{x\}) = 0\) para todo
+x real e que, se \(A\subseteq{B}, m^{*}(A)\leq m^{*}(B).\)
+\begin{lemma*}
+	Temos \(m^{*}[a, b]=m^{*}(a, b]=m^{*}[a, b)=m^{*}(a, b) = b-a.\)
+\end{lemma*}
+\begin{proof*}
+	Como \([a, b]\subseteq{(a-\frac{\varepsilon }{2}, b+\frac{\varepsilon }{2})}\), para todo \(\varepsilon >0\), temos
+	\(m^{*}([a, b])\leq b-a.\) Por outro lado, se \(\{I_{n}\}\in \mathcal{U}_{[a, b]}\) existe
+	uma subcole\c cão finita \(\{I_{n_{1}}, \cdots, I_{n_{k}}\}\) de \(\{I_{n}\}\) tal que
+	\(\bigcup_{i=1}^{k}{I_{n_{i}}}\supseteq{[a, b]}\) e
+	\[
+		\sum\limits_{i=1}^{k}l(I_{n_{i}})\leq \sum\limits_{}^{}l(I_{n}).
+	\]
+	Podemos tomar uma subcobertura de \(\{I_{n_{1}}, \cdots, I_{n_{k}}\}\) de forma que
+	\(a\in I_{n_{j_{1}}} = (y_{1}, x_{1})\) e, recursivamente, se \(x_{j}\leq b, x_{j}\in I_{n_{i_{j+1}}} = (y_{j+1},x_{j+1})\)
+	parando para \(j_{0}\leq k\) tal que \(I_{n_{i_{j_{0}}}}\ni b\). Assim, como
+	\(y_{j} < x_{j-1} < x_{j},\)
+	\[
+		\sum\limits_{j=1}^{j_{0}}l(I_{n_{i_{j}}}) = \sum\limits_{}^{}(x_{j} - y_{j}) > x_{j_{0}} - y_{1} > b - a
+	\]
+	e \(m^{*}([a, b]) = b-a.\) \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Se \(\{A_{n}\}\) é uma família contável de subconjuntos de \(\mathbb{R}\), então
+	\[
+		m^{*}\biggl(\bigcup_{}^{}{A_{n}}\biggr)\leq \sum\limits_{}^{}m^{*}(A_{n}).
+	\]
+\end{lemma*}
+\begin{proof*}
+	Só temos que considerar o caso em que \(\sum\limits_{}^{}m^{*}(A_{n}) < \infty.\) Como
+	\(m^{*}(A_{n})\) é finita, dado \(\varepsilon  > 0\), seja \(\{I_{n, i}\}_{i}\in \mathcal{U}_{A_{n}}\) tal que
+	\(A_{n}\subseteq{\bigcup_{i}^{}{I_{n, i}}}\) e \(\sum\limits_{i}^{}l(I_{n, i}) < m^{*}(A_{n}) + 2^{-n}\varepsilon\)
+	Logo, \(\{I_{n, i}\}_{n, i}\in \mathcal{U}_{\bigcup_{}^{}{A_{n}}}\) e
+	\[
+		m^{*}\biggl(\bigcup_{n}^{}{A_{n}}\biggr)\leq \sum\limits_{n, i}^{}l(I_{n, i}) = \sum\limits_{n}^{}\sum\limits_{i}^{}l(I_{n, i}) < \sum\limits_{n}^{}(m^{*}(A_{n}) + \varepsilon 2^{-n}).
+	\]
+	Portanto, \(m^{*}\biggl(\bigcup_{n}^{}{A_{n}}\biggr) = \sum\limits_{}^{}m^{*}(A_{n}) + \varepsilon\) e, como \(\varepsilon \) é arbitrário, o resultado segue.
+\end{proof*}
+\begin{crl*}
+	\begin{itemize}
+		\item[1)] Se \(A\subseteq{\mathbb{R}}\) é enumerável, \(m^{*}(A) = 0.\)
+		\item[2)] Se \(\{A_{n}\}\) é uma família contável de subconjuntos de \(\mathbb{R}\) e
+		      \(m^{*}(A_{n}) = 0\) para todo n, então \(m^{*}(\bigcup_{n}^{}A_{n} = 0.\)
+	\end{itemize}
+\end{crl*}
+\begin{example}
+	Seja \(I_{j} = [a_{j}, b_{j}], 1\leq j\leq n\) com \(b_{j} < a_{j+1}, 1\leq j\leq n-1.\) Mostre que
+	\[
+		m^{*}\biggl(\bigcup_{j=1}^{n}{I_{j}}\biggr) = \sum\limits_{j=1}^{n}(b_{j}-a_{j}).
+	\]
+\end{example}
+Dado um conjunto E, uma cobertura de Vitali dele é uma cole\c cão de intervalos
+\(\mathcal{I}\) tal que para todo x em E e \(\varepsilon  > 0\), existe \(I\in \mathcal{I}\) tal que
+\(x\in I\) e \(m^{*}(I) < \varepsilon .\)
+\hypertarget{vitali_covering}{
+	\begin{lemma*}
+		Seja \(E\subseteq{[a, b]}\), tal que \(m^{*}(E)\leq b-a.\) Se \(\mathcal{I}\)
+		é uma cobertura de E por intervalos não degenerados (Não é um ponto só) e tal que, dados \(x\in E\) e
+		\(\varepsilon >0\), existe \(I\in \mathcal{I}\) tal que \(x\in I\) e \(l(I) < \varepsilon .\)
+		Então, dado \(\varepsilon  > 0\), exsite uma cole\c cão finita e disjunta \(\{I_{1}, \cdots, I_{N}\}\subseteq{\mathcal{I}}\)
+		tal que
+		\[
+			m^{*}\biggl(E\biggl\backslash\biggr. \bigcup_{n=1}^{N}{I_{n}}\biggr) < \varepsilon .
+		\]
+	\end{lemma*}}
+\begin{proof*}
+	Basta considerar o caso com cada intervalo de \(\mathcal{I}\) fechado. Podemos assumir que
+	\(\mathcal{I}\ni I \subseteq{\mathcal{O}=(b-1, b+1)}\) e que \(I\cap E \neq\emptyset\) para todo I
+	de \(\mathcal{I}\).
+
+	Escolhemos uma sequência \(\{I_{n}\}\) de intervalos disjuntos de \(\mathcal{I}\) da
+	seguinte forma: Seja \(I_{1}\in \mathcal{I}\) qualquer e se \(I_{1}, \cdots, I_{n}\) já foram
+	escolhidos, seja \(r_{n}\) o supremo dos comprimentos dos intervalos de \(\mathcal{I}\) que não interseptam
+	nenhum dos \(I_{1}, \cdots, I_{n}\). Claramente, \(r_{n} <  l(\mathcal{O}).\) Se
+	\(E\not\subseteq{\bigcup_{i=1}^{n}{I_{i}}},\) encontramos \(I_{n+1}\in \mathcal{I}\)
+	disjunto de \(I_{1}, \cdots, I_{n}\) e tal que \(l(I_{n+1} > \frac{1}{2}r_{n}\).
+
+	Assim, \(\{I_{n}\}\) é uma sequência disjunta de intervalos em \(\mathcal{I}\) e, como
+	\(\bigcup_{}^{}{I_{n}\subseteq{\mathcal{O}}}, \sum\limits_{}^{}l(I_{n})\leq l(\mathcal{O}).\) Logo,
+	existe \(N\in \mathbb{N}\) tal que
+	\[
+		\sum\limits_{N+1}^{\infty} l(I_{n}) < \frac{\varepsilon }{5}.
+	\]
+	Seja
+	\[
+		R = E\biggl\backslash\bigcup_{n=1}^{N}{I_{n}}\biggr.
+	\]
+	Mostraremos que \(m^{*}(R) < \varepsilon .\) Se \(x\in R,\) como \(F = \bigcup_{n=1}^{N}{I_{n}}\) é
+	fechado e \(x\not\in F,\) existe \(I\) em \(\mathcal{I}, x\in I\) e \(I\cap F=\emptyset.\)
+
+	Agora, se \(I\cap I_{i} = \emptyset\) para \(i\leq \kappa \), temos \(l(I)\leq r_{\kappa } < 2l(I_{\kappa +1}.\)
+	Como \(\lim_{\kappa \to \infty}l(I_{\kappa }) = 0,\) o intervalo I deve intersectar
+	pelo menos um dos intervalos \(I_{\kappa }.\)
+
+	Seja n o menor inteiro tal que \(I\cap I_{n} \neq\emptyset\). Claramente \(n > N\), e
+	\(l(I)\leq r_{n-1} < 2l(I_{n}).\) Como \(x\in I\) e \(I\cap I_{n} \neq\emptyset\), a distância de
+	x ao ponto médio de \(I_{n}\) é no máximo \(l(I) + \frac{1}{2}l(I_{n}) < \frac{5}{2} l(I_{n}).\)
+
+	Logo, x pertence ao intervalo \(J_{n}\) tendo o mesmo ponto médio que \(I_{n}\) e
+	o quíntuplo do comprimento. Desta forma,
+	\[
+		R\subseteq{\bigcup_{N+1}^{\infty}{J_{n}}}
+	\]
+	e, portanto,
+	\[
+		m^{*}(R)\leq \sum\limits_{n=N+1}^{\infty}l(J_{n}) = 5\sum\limits_{n=N+1}^{\infty}l(I_{n}) < \frac{5\varepsilon }{5} = \varepsilon .\text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{lemma*}
+	Se \(f:[a, b]\rightarrow \mathbb{R}\) é monótona, então f é diferenciável exceto
+	possivelmente em um conjunto \(E\subseteq{[a, b]}\) com \(m^{*}(E) = 0\).
+\end{lemma*}
+\begin{proof*}
+	Faremos apenas o caso f não-decrescente. Considere
+	\begin{align*}
+		 & \overline{d^{+}}f(x) = \limsup_{h\to 0^{+}} \frac{f(x+h)-f(x)}{h}\text{ e }\overline{d^{-}}f(x) = \limsup_{h\to 0^{+}}\frac{f(x) - f(x-h)}{h}   \\
+		 & \underline{d^{+}}f(x) = \liminf_{h\to 0^{+}} \frac{f(x+h)-f(x)}{h}\text{ e }\underline{d^{-}}f(x) = \liminf_{h\to 0^{+}}\frac{f(x) - f(x-h)}{h} \\
+	\end{align*}
+	Provemos que o conjunto dos \(x\in[a, b]\) tais que \(\underline{d^{-}}f(x) < \overline{d^{+}}f(x)\)
+	ou \(\overline{d^{-}}f(x) < \underline{d^{+}}f(x)\) tem medida exterior nula.
+\end{proof*}
+\end{document}

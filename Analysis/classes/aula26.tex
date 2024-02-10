@@ -1,0 +1,204 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 26 - 05/06/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Quais fun\c cões são Riemann-Stieltjes integráveis?
+	\item Propriedade de fun\c cões Riemann-Stieltjes integráveis.
+\end{itemize}
+\subsection{Classe de Fun\c cões Riemann-Stieltjes Integráveis}
+\begin{theorem*}
+	Toda fun\c cão contínua de um intervalo \([a, b]\) em \(\mathbb{R}\) é Riemann-Stieltjes
+	integrável. No entanto, a volta não vale - existem fun\c cões Riemann-Stieltjes integráveis que
+	não são contínuas. Matematicamente,
+	\[
+		C([a, b]; \mathbb{R})\subsetneq{\mathfrak{R}(\alpha , [a,b])}
+	\]
+\end{theorem*}
+\begin{proof*}
+	Dado \(\varepsilon >0\), escolhamos \(\eta >0\) de modo que
+	\[
+		\eta = \frac{\varepsilon }{\alpha (b) - \alpha (a)}
+	\]
+	e, como f é uniformemente contínua, seja \(\delta =\delta (\varepsilon ) > 0\) tal que
+	x, t pertencem a \([a, b], |x-t| < \delta \) implica \(|f(x)-f(t)| < \eta \).
+
+	Seja \(\mathcal{P} = \{a=x_{0}, \cdots, x_{n} =b \}\) tal que \(||\mathcal{P}||=\sup\{\Delta x_{i}: 1\leq i\leq n\} < \delta.\)
+	Como f é contínua, podemos escolher \(s_{i},t_{i}\in[x_{i-1}, x_{i}]\) tais que
+	\(m_{i}=f(t_{i})\) e \(M_{i}=f(s_{i})\). Logo, \(|t_{i}-s_{i}|\leq \Delta x_{i} < \delta \) e
+	\[
+		|M_{i}-m_{i}| = |f(x_{i}) - f(t_{i})| < \eta
+	\]
+	e
+	\[
+		U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha ) = \sum\limits_{i-1}^{n}(M_{i}-m_{i})\Delta \alpha_{i} < \eta \sum\limits_{i=1}^{n}\Delta \alpha_{i} = \varepsilon .
+	\]
+	Segue que \(f\in \mathfrak{R}(\alpha , [a, b]).\) \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se \(f:[a, b]\rightarrow \mathbb{R}\) é monótona em \([a, b]\) e \(\alpha :[a, b]\rightarrow \mathbb{R}\) é
+	contínua e não-decrescente. Então, \(f\in \mathfrak{R}(\alpha, [a,b]).\)
+\end{theorem*}
+\begin{proof*}
+	Dado \(\varepsilon >0\) e \(n\in \mathbb{N}^{\times},\) escolha uma parti\c cão \(\mathcal{P}\) tal que
+	\[
+		\Delta \alpha_{i} = \frac{\alpha (b) - \alpha (a)}{n},\quad 1\leq i\leq n.
+	\]
+	Isto é possível visto que \(\alpha \) satisfaz a propriedade do valor intermediário. Se
+	f é não-decrescente (o outro caso é análogo [exercício]). Então,
+	\[
+		M_{i}=f(x_{i}),\quad m_{i}=f(x_{i-1}) (i=1, \cdots, n)
+	\]
+	e, portanto,
+	\begin{align*}
+		U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha ) & = \frac{\alpha (b) - \alpha (a)}{n}\sum\limits_{i=1}^{n}[f(x_{i})-f(x_{i-1})] \\
+		                                                        & = \frac{\alpha (b) - \alpha (a)}{n}[f(b)-f(a)] < \varepsilon
+	\end{align*}
+	se n for suficientemente grande. Portanto \(f\in \mathfrak{R}(\alpha, [a,b])\). \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se \(f\in \mathfrak{B}([a, b], \mathbb{R})\) possui somente um número finito de pontos de
+	descontinuidade e \(\alpha :[a, b]\rightarrow \mathbb{R}\) uma fun\c cão não-decrescente que é
+	contínua nos pontos onde f é descontínua. Então, \(f\in \mathfrak{R}(\alpha , [a, b]).\)
+\end{theorem*}
+\begin{proof*}
+	Dado \(\varepsilon >0\), se \(M=\sup\{|f(x)|\}\) e \(E = \{y_{1}, \cdots, y_{k}\}\) o
+	conjunto (finito) das descontinuidades de f. Como \(\alpha \) é contínua em todos os
+	pontos de E, podem cobrir E por intervalos disjuntos \([a, b]\supseteq{[u_{j}, v_{j}]}\ni y_{j}, 1\leq j\leq k\)  tais que
+	\[
+		\sum\limits_{j=1}^{k}(\alpha (v_{j})-\alpha (u_{j})) < \varepsilon .
+	\]
+	Podemos escolher estes intervalos de modo que cada \(y_{j}\in E\cap{(a, b)}\) está em \(I_{j}=(u_{j}, v_{j})\)
+	(se \(y_{1}=a[y_{k}=b], I_{1}=[a, v_{1})[I_{k}=(u_{k}, b]].\)
+
+	O conjunto \(K=[a, b]\backslash{\bigcup_{j=1}^{k}{(u_{j},v_{j})}}\) é compacto e f é uniformemente
+	contínua em K. Logo, existe \(\delta >0\) tal que \(s, t\in K, |s-t| < \delta \) tal que
+	\(|f(s) - f(t)| < \varepsilon .\)
+
+	Agora, escolhemos uma parti\c cão \(\mathcal{P} = \{x_{0}, x_{1}, \cdots, x_{n}\}\) de \([a, b]\), da
+	seguinte forma: \(u_{j}, v_{j}\in \mathcal{P}, 1\leq j\leq k.\) Nenhum ponto
+	de \((u_{j}, v_{j})\) pertence a \(\mathcal{P}\). Se \(x_{i-1}\neq u_{j}\) para todo \(1\leq j\leq k\), então
+	\(\Delta x_{i} < \delta.\)
+
+	Note que \(M_{i}-m_{i}\leq 2M\) para todo i e \(M_{i} - m_{i}\leq \varepsilon \) exceto quando
+	\(x_{i-1}\) é algum dos \(u_{j}.\) Logo
+	\[
+		U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha )\leq [\alpha (b) - \alpha (a)]\varepsilon  + 2M\varepsilon.
+	\]
+	Como \(\varepsilon >0\) é arbitrário, segue que \(f\in \mathfrak{R}(\alpha , [a, b])\). \qedsymbol
+\end{proof*}
+Agora que entendemos um pouco melhor quais fun\c cões constituem essa classe, vamos
+analisar mais a fundo os benefícios deu ma fun\c cão ser Riemann-Stieltjes integrável.
+\subsection{Propriedades das Fun\c cões Riemann-Stieltjes Integráveis}
+\begin{theorem*}
+	Se \(f\in \mathfrak{R}(\alpha ,[a,b]), f([a, b])\subseteq{[m, M]}\) e \(\varphi :[m, M]\rightarrow \mathbb{R}\) é contínua,
+	então, \(h=\varphi\circ{f}\in \mathfrak{R}(\alpha , [a,b]).\)
+\end{theorem*}
+\begin{proof*}
+	Dado \(\varepsilon >0\), como \(\varphi \) é uniformemente contínua em \([m, M]\)(Por ser compacto),
+	existe \(0 < \delta  < \varepsilon \) tal que \(s, t\in[m, M], |s-t|\leq \delta \) implica em \(|\varphi (s)-\varphi (t)| < \varepsilon .\)
+	Como \(f\in \mathfrak{R}(\alpha , [a, b]),\) existe \(\mathcal{P} = \{x_{0}, x_{1}, \cdots, x_{n}\}\in \mathfrak{P}([a, b])\) tal que
+	\[
+		U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha ) < \delta^{2}.
+	\]
+	Se \(r\in \mathfrak{B}([a, b], \mathbb{R})\) e \(M_{i}^{r} = \sup_{x\in[x_{i-1}, x_{i}]}r(x), m_{i}^{r} = \inf_{x\in[x_{i-1}, x_{i}]r(x)},
+	A = \{i: 1\leq i\leq n\text{ e } M_{i}^{f}-m_{i}^{f} < \delta \}\) e \(B = \{i: 1\leq i\leq n\text{ e } M_{i}^{f}-m_{i}^{f}\geq \delta\},\) então,
+	para i em A, a escolha de \(\delta \) implica que \(M_{i}^{h} - m_{i}^{h}\leq \varepsilon .\) Agora, para i em B,
+	\(M_{i}^{h}-m_{i}^{h}\leq 2K,\) em que \(K=\sup_{t\in[m, M]}|\varphi (t)|\). Logo, da escolha de \(\mathcal{P},\)
+	\[
+		\delta \sum\limits_{i\in B}^{}\Delta \alpha_{i}\leq \sum\limits_{i\in B}^{}(M_{i}^{f}-m_{i}^{f})\Delta \alpha_{i} < \delta^{2}
+	\]
+	e \(\sum\limits_{i\in B}^{}\Delta\alpha_{i} < \delta <\varepsilon .\) Segue que
+	\begin{align*}
+		U(\mathcal{P}, h, \alpha ) - L(\mathcal{P}, h, \alpha ) & = \sum\limits_{i\in A}^{}(M_{i}^{h}-m_{i}^{h})\Delta \alpha_{i} + \sum\limits_{i\in B}^{}(M_{i}^{h}-m_{i}^{h})\Delta\alpha_{i} \\
+		                                                        & \leq \varepsilon [\alpha (b)-\alpha (a)]+2K\delta < \varepsilon [\alpha (b)-\alpha (a)+2K].
+	\end{align*}
+	Portanto, como \(\varepsilon >0\) é arbitrário, segue que \(h\in \mathfrak{R}(\alpha , [a, b]).\)\qedsymbol
+\end{proof*}
+\begin{theorem*}
+	\begin{itemize}
+		\item[a)] Se \(f_1\in \mathfrak{R}(\alpha , [a, b])\) e \(f_2\in \mathfrak{R}(\alpha , [a, b])\), então \(f_1 + f_2\in \mathfrak{R}(\alpha , [a, b])\),
+		      \(c \cdot f\in \mathfrak{R}(\alpha , [a, b])\) para todo c em \(\mathbb{R}\) e
+		      \begin{align*}
+			       & \int_{a}^{b} (f_1 + f_2)d\alpha = \int_{a}^{b}f_1d\alpha + \int_{a}^{b}f_2d\alpha \\
+			       & \int_{a}^{b}cfd\alpha = c \int_{a}^{b}fd\alpha .
+		      \end{align*}
+		\item[b)] Se \(f_{1}(x)\leq f_{2}(x)\) em \([a, b]\), então
+		      \[
+			      \int_{a}^{b}f_{1}d\alpha \leq \int_{a}^{b}f_{2}d\alpha .
+		      \]
+		\item[c)] Se \(f\in \mathfrak{R}(\alpha , [a, b])\) e \(c\in (a, b)\), então \(f\in \mathfrak{R}(\alpha , [a, c])\cap \mathfrak{R}(\alpha ,[c, b])\) e
+		      \[
+			      \int_{a}^{c}fd\alpha + \int_{c}^{b}f\alpha  = \int_{a}^{b}f\delta a.
+		      \]
+		\item[d)] Se \(f\in \mathfrak{R}(\alpha , [a, b])\) e se \(|f(x)|\leq M\), então
+		      \[
+			      \biggl\vert \int_{a}^{b}fd\alpha  \biggr\vert \leq  M[\alpha (b) - \alpha (a)]
+		      \]
+		\item[e)] Se \(f\in \mathfrak{R}(\alpha_1, [a, b])\) e \(f\in \mathfrak{R}(\alpha _2, [a, b])\), então \(f\in \mathfrak{R}(\alpha _1 + \alpha _2, [a, b])\) e
+		      \[
+			      \int_{a}^{b}fd(\alpha_1 + \alpha_2) = \int_{a}^{b}fd\alpha _1 + \int_{a}^{b}fd\alpha _2.
+		      \]
+		      Se \(f\in \mathfrak{R}(\alpha , [a,b])\) e \(c\in \mathbb{R}\) é positivo, então \(f\in \mathfrak{R}(c\alpha, [a, b] )\) e
+		      \[
+			      \int_{a}^{b}fd(c\alpha) = c \int_{a}^{b}fd\alpha .
+		      \]
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Se \(f_1 + f_2 = f\) e \(\mathcal{P}\) é uma partição qualquer de [a, b], temos
+	\[
+		L(\mathcal{P}, f_1, \alpha ) + L(\mathcal{P}, f_2, \alpha )\leq L(\mathcal{P}, f, \alpha ) \leq U(\mathcal{P}, f, \alpha ) \leq U(\mathcal{P}, f_1, \alpha ) + U(\mathcal{P}, f_2, \alpha ).
+	\]
+	Caso \(f_1\in \mathfrak{R}(\alpha , [a,b])\) e \(f_2\in \mathfrak{R}(\alpha , [a,b])\) e \(\varepsilon > 0\) existem \(\mathcal{P}_{j}\in \mathfrak{P}([a, b]), j = 1, 2\) tal que
+	\[
+		U(\mathcal{P}, f_{j}, \alpha ) - L(\mathcal{P}, f_{j}, \alpha )\leq U(\mathcal{P}_{j}, f_{j}, \alpha ) - L(\mathcal{P}_{j}, f_{j}, \alpha ) < \frac{\varepsilon }{2},
+	\]
+	sendo \(\mathcal{P}\) um refinamento comum a \(\mathcal{P}_1\) e \(\mathcal{P}_2\). Logo,
+	\[
+		U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha ) < \varepsilon .
+	\]
+	Segue que \(f\in \mathcal{R}(\alpha , [a, b])\).
+
+	Com esta mesma \(\mathcal{P},\) temos
+	\[
+		U(\mathcal{P}, f, \alpha ) < \int_{a}^{b} f_{j}d\alpha +\varepsilon (j = 1, 2)
+	\]
+	e
+	\[
+		\int_{a}^{b}fd\alpha \leq U(\mathcal{P}, f, \alpha ) < \int_{a}^{b} f_1d\alpha + \int_{a}^{b}f_2d\alpha + 2\varepsilon .
+	\]
+	Como \(\varepsilon \) é arbitrário, concluímos que
+	\[
+		\int_{a}^{b}fd\alpha \leq \int_{a}^{b}f_1d\alpha +\int_{a}^{b}f_2d\alpha .
+	\]
+	Por este mesmo resultado, mas para \(-f_1\) e \(-f_2\), a desigualdade reversa e a igualdade estão provadas.
+
+	As provas das demais afirmativas são semelhantes e deixadas como exercícios. Na parte (c), a estratégia é considerar
+	refinamentos que contêm o ponto c, na aproximação da integral. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se \(f\in \mathfrak{R}(\alpha , [a, b])\) e \(g\in \mathfrak{R}(\alpha , [a, b])\), então
+	\begin{itemize}
+		\item[a)] \(fg\in \mathcal{R}(\alpha , [a,b])\)
+		\item[b)] \(|f|\in \mathcal{R}(\alpha , [a,b])\) e \(\biggl\vert \int_{a}^{b}fd\alpha  \biggr\vert\leq \int_{a}^{b}|f|d\alpha .\)
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Se \(f\in \mathfrak{R}(\alpha , [a,b])\) e \(\varphi (t) = t^{2},\) então \(\varphi \circ f = f^{2}\in \mathfrak{R}(\alpha , [a,b])\). A identidade
+	\[
+		4fg = (f+g)^{2} - (f-g)^{2}
+	\]
+	completa a prova de (a).
+
+	Se \(\varphi (t) = |t|, \varphi \circ f = |f|\in \mathfrak{R}(\alpha , [a,b])\). Tome \(c = \pm 1\) tal que
+	\[
+		c \int_{}^{}fd\alpha \geq 0.
+	\]
+	Com isso,
+	\[
+		\biggl\vert fd\alpha  \biggr\vert = c \int_{}^{}fd\alpha = c \int_{}^{}fd\alpha \leq \int_{}^{}|f|d\alpha
+	\]
+	pois \(cf\leq |f|,\) provando (b). \qedsymbol
+\end{proof*}
+\end{document}

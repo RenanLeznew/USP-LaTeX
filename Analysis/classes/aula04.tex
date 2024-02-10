@@ -1,0 +1,225 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 20/02/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+	\item Definir multiplica\c c\~ao de cortes;
+	\item Definir conceito de dist\^ancia entre n\'umeros de $\mathbb{R}$
+\end{itemize}
+\subsection{Cortes - Multiplica\c c\~ao}
+\begin{def*}
+	Se $\alpha, \beta$ s\~ao cortes,
+	$$
+		\alpha\beta = \left\{\begin{array}{ll}
+			\alpha0^*, \quad\forall \alpha\in \mathbb{R}                                                            \\
+			\{p\in\mathbb{Q}: \exists0 < r\in\alpha \text{ e }0 < s\in\alpha: p \leq rs\},\quad \alpha, \beta > 0^* \\
+			(-\alpha)(-\beta), \quad \alpha, \beta < 0^*                                                            \\
+			-[(-\alpha)\beta], \quad \alpha < 0^* e \beta > 0^*                                                     \\
+			-[\alpha(-\beta)], \quad \alpha > 0^* e \beta < 0^*
+		\end{array}\right.
+	$$
+	Definimos, tamb\'em, $1^*\{s\in\mathbb{Q}: s < 1\}$.
+\end{def*}
+\newpage
+
+\subsection{$\mathbb{R}$ Como Corpo Ordenado Completo}
+Temos $\mathbb{Q}\subseteq{\mathbb{R}}$ e diremos que todo n\'umero que n\~ao \'e real \'e irracional.
+\begin{theorem*}
+	A qu\'adrupla $(\mathbb{R}, +, \cdot, \leq)$ satisfaz as condi\c c\~oes de corpo ordenado, de corpo e \'e completo.
+\end{theorem*}
+\begin{def*}
+	Seja $x\in \mathbb{R}.$ O m\'odulo, ou valor absoluto de x, \'e dado por
+	$$
+		|x| = \left\{\begin{array}{ll}
+			x, \quad x \geq 0 \\
+			-x, x < 0
+		\end{array}\right.
+	$$
+	Disto segue que $|x|\geq 0$ e $-|x|\leq x\leq |x|$ para todo x real.
+\end{def*}
+\begin{example}
+	Mostre que $|x|^2 = x^2$, ou seja, o quadrado de um n\'umero real n\~ao muda quando se troca seu sinal.
+\end{example}
+\begin{example}
+	A equa\c c\~ao $|x| = r$, com r maior que 0, tem como solu\c c\~oes apenas r e -r.
+\end{example}
+Sejam P e Q dois pontos da reta real de abscissas x e y. Ent\~ao, a dist\^ancia de P a Q \'e definida por $|x-y|$. Assim,
+$|x-y|$ \'e a medida do segmento PQ. Em particular, como $|x|=|x-0|, |x|$ \'e a dist\^ancia de x a 0.
+\begin{example}
+	Seja r maior que 0. Ent\~ao, $|x| < r$ se, e somente se, $-r < x < r.$ Logo, o intervalo (-r, r) \'e o conjunto dos pontos reais
+	cuja dis\^ancia de 0 \'e menor que r.
+\end{example}
+\begin{example}
+	Para quaisquer x, y reais, vale
+	$$
+		|xy| = |x||y|.
+	$$
+\end{example}
+\begin{example}
+	Para quaisquer x, y reais, temos
+	$$
+		|x+y| \leq |x| + |y|.
+	$$
+	Com efeito, somando $-|x|\leq{x}\leq{|x|}$ e $-|y|\leq{y}\leq{|y|},$ obtemos $-|x|-|y|\leq{x + y}\leq{|x|+|y|.}$\qedsymbol
+\end{example}
+\begin{def*}
+	Um intervalo em $\mathbb{R}$ \'e um subconjunto de $\mathbb{R}$ que tem uma das seguintes formas:
+	\begin{align*}
+		 & [a, b] = \{x\in \mathbb{R}: a\leq{x}\leq{b}\},\quad \text{ (Intervalo fechado.) } \\
+		 & (a, b) = \{x\in \mathbb{R}: a < x < b\},\quad \text{ (Intervalo aberto.) }        \\
+		 & [a, b) = \{x\in \mathbb{R}: a \leq{x} < b\}                                       \\
+		 & (a, b] = \{x\in \mathbb{R}: a < x \leq{b}\}                                       \\
+		 & (-\infty, b] = \{x\in \mathbb{R}: x\leq{b}\}                                      \\
+		 & (-\infty, b) = \{x\in \mathbb{R}: x > b\}                                         \\
+		 & [a, +\infty) = \{x\in \mathbb{R}: x\geq{a}\}                                      \\
+		 & (a, +\infty) = \{x\in \mathbb{R}: a < x\}                                         \\
+		 & (-\infty, +\infty) = \mathbb{R}.
+	\end{align*}
+\end{def*}
+\begin{def*}
+	Um conjunto A de $\mathbb{R}$ \'e dito limitado se existir L positivo tal que $|x| \leq L$ para todo x em A.
+\end{def*}
+\begin{prop*}
+	Um conjunto A de $\mathbb{R}$ \'e limitado se, e s\'o se, existir L positivo, tal que A est\'a contido em $[-L, L]$
+\end{prop*}
+\begin{example}
+	\begin{itemize}
+		\item[a)] $A = [0, 1]$ \'e limitado;
+		\item[b)] $\mathbb{N}$ n\~ao \'e limitado;
+		\item[c)] $B = \biggl\{\displaystyle \frac{2^n-1}{2^n}: n\in \mathbb{N}\biggr\}$ \'e limitado;
+		\item[d)] $C = \biggl\{\displaystyle \frac{2^n-1}{2^n}: n\in \mathbb{N}^{*}\biggr\}$ \'e limitado.
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Seja $A\subseteq{\mathbb{R}}$.
+	\begin{itemize}
+		\item A ser\'a dito limitado superiormente se existir um L real tal que $x\leq L$ para todo x de A. Diremos que L \'e o limitante superior de A.;
+		\item A ser\'a dito limitado inferiormente se existir um L real tal que $x\geq L$ para todo x de A. Diremos que L \'e o limitante inferior de A.;
+	\end{itemize}
+	Caso ambos ocorram, diremos que A \'e limitado.
+\end{def*}
+\begin{def*}
+	Seja A um subconjunto dos reais limitado superiormente e n\~ao-vazio. Diremos que $\overline{L}$ \'e o supremo de A se for um limitante superior
+	e para qualquer outro limitante superior L de A, tivermos $\overline{L}\leq L$. Quando o supremo pertencer ao conjunto, chamaremos ele de m\'aximo.
+\end{def*}
+Vimos que todo subconjunto n\~ao-vazio e limitado superiormente de $\mathbb{R}$ tem supremo.
+\begin{def*}
+	Seja A um subconjunto dos reais limitado inferiormente e n\~ao-vazio. Diremos que $\overline{l}$ \'e o \'infimo de A se for um limitante inferior
+	e para qualquer outro limitante inferior l de A, tivermos $\overline{l}\geq l$. Quando o \'infimo pertencer ao conjunto, chamaremos ele de m\'inimo.
+\end{def*}
+\begin{prop*}
+	Dado um subconjunto A dos reais n\~ao-vazio e limitado superiormente, $L = \sup{A}$ se, e somente se,
+	\begin{itemize}
+		\item[a)] L for limitante superior de A;
+		\item[b)] para todo $\epsilon > 0$, existe $a\in A$ tal que $a > L - \epsilon.$
+	\end{itemize}
+\end{prop*}
+\begin{theorem*}
+	O conjunto $A=\{nx: n\in\mathbb{N}\}$ ser\'a ilimitado para todo x n\~ao-nulo.
+\end{theorem*}
+\begin{proof*}
+	Se $x > 0$, suponhamos, por absurdo, que A seja limitado e seja L seu supremo. Como $x > 0$, deve existir um natural m tal que
+	$$
+		L - x < mx \quad\text{ e } L = \sup{A} < (m+1)x.
+	$$
+	Mas isso \'e uma contradi\c c\~ao.
+
+	A prova para $x < 0$ \'e an\'aloga e ser\'a deixada como exerc\'icio. \qedsymbol
+\end{proof*}
+\begin{example}
+	\begin{itemize}
+		\item[a)] Considere $A = [0, 1).$ Ent\~ao, -2 e 0 s\~ao limitantes inferiores de A enquanto $1, \pi, 101$ s\~ao limitantes
+		      superiores de A.
+		\item[b)] $\mathbb{N}$ n\~ao \'e limitado, mas \'e limitado inferiormente por 0, visto que $0\leq{x}$ para todo x natural.
+		\item[c)] $B=\{x\in \mathbb{Q}: x\leq{\sqrt{2}}\}$ n\~ao \'e limitado, mas \'e limitado superiormente por L, em que $L\geq{2}.$ \qedsymbol
+	\end{itemize}
+\end{example}
+\begin{crl*}
+	Para todo $\epsilon > 0$, existe um n natural tal que
+	$$
+		\frac{1}{n} < \epsilon, \quad \frac{1}{n\sqrt{2}}<\epsilon, \quad 2^{-n} < \epsilon.
+	$$
+\end{crl*}
+J\'a sabemos, por constru\c c\~ao, que entre dois n\'umeros reais distintos existe um n\'umero racional. O mesmo vale para irracionais.
+De fato, sejam a e b n\'umeros reais distintos. Se $a < b$ e $\epsilon = b - a > 0$, do corol\'ario, tome um natural n tal que
+$\displaystyle \frac{1}{n\sqrt{2}} < \frac{1}{n} < \epsilon.$ Se a \'e racional, $r = \displaystyle a + \frac{1}{n\sqrt{2}}$ \'e irracional e
+$a < r < b.$ Por outro lado, se a \'e irracional, $r =\displaystyle a + \frac{1}{n}$ tamb\'em \'e, tal que $a < r < b.$ Portanto,
+dados dois n\'umeros reais quaisquer, existe um n\'umero irracional.
+\begin{crl*}
+	Qualquer intervalo aberto e n\~ao-vazio cont\'em infinitos n\'umeros racionais e infinitos irracionais.
+\end{crl*}
+\begin{crl*}
+	Se $A = \biggr\{\displaystyle \frac{1}{n}: n\in \mathbb{N}^*\biggl\}$, ent\~ao $\inf A = 0.$
+\end{crl*}
+\begin{example}
+	\begin{align*}
+		 & (a) \text{ Seja }A = (0, 1]. \text{ Ent\~ao, } \inf{A} = 0, \max{A} = 1;                         \\
+		 & (b) \sqrt{2} = \{r\in\mathbb{Q}: r \leq 0\}\cup \{r\in\mathbb{Q}: r^2 < 2\}\text{ \'e um corte.}
+		 & (c) C = \{x\in\mathbb{Q}: x^2 < 2\} \Rightarrow \sqrt{2}=\sup{C}\text{ e }\inf{C} = -\sqrt{2}.
+	\end{align*}
+	Vamos analisar mais cautelosamente o item b e prov\'a-lo. De fato, se $0 < r\in \mathbb{Q}$ e $r^2 < 2,$ existe n natural tal que
+	$[2r + 1]\frac{1}{n} < 2 - r^2$ e $(r + \frac{1}{n})^2 < 2.$ As outras propriedades de cortes s\~ao triviais.
+
+	Olhando tamb\'em para o item C, como todos seus elementos s\~ao racionais saitsfazendo $x^2 < 2, \sqrt{2}$\'e um limitante superior de C.
+	Agora, se $0 < L < \sqrt{2}$, existe um racional $r\in(L, \sqrt{2})$ e $L^2 < r^2 < 2.$ Logo, r pertence a C e L n\~ao \'e limitante superior para C,
+	provando o resultado.
+\end{example}
+\begin{prop*}
+	Se A \'e um subconjunto n\~ao-vazio e limitado inferiormente, ent\~ao $-A = \{-x: x\in A\}$ ser\'a limitado superiormente e
+	$\inf{A} = -\sup{(-A)}$. Analogamente, se for limitado superiormente, o conjunto -A ser\'a limitado inferiormente, e $\sup{A}=-\inf{(-A)}$
+\end{prop*}
+\begin{proof*}
+	Se A for limitado inferiormente, $\inf{(A)} \leq{x}$ para todo x de A e, dado $\epsilon > 0$, deve existir a em A tal que
+	$a < \inf{(A)} + \epsilon$, ou, trocando o sinal, $-\inf{(A)} \geq{-x}$ para todo -x de -A e, dado $\epsilon > 0,$ deve existir
+	$b = -a$ em -A tal que $-a > -\inf{(A)} - \epsilon.$
+
+	Com isso, segue que -A ser\'a limitado superiormente, e $\sup{(-A)} = -\inf{(A)}.$ A outra prova fica como exerc\'icio. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Todo conjunto A n\~ao-vazio e limitado inferiormente de $\mathbb{R}$ tem \'infimo.
+\end{crl*}
+\begin{crl*}
+	Todo conjunto A n\~ao-vazio e limitado de $\mathbb{R}$ tem \'infimo e supremo.
+\end{crl*}
+\begin{def*}
+	Uma vizinhan\c ca de um n\'umero real a \'e qualquer intervalo aberto da reta contendo a.
+\end{def*}
+\begin{example}
+	Se $\delta > 0, V_{\delta}(a)\coloneqq(a - \delta, a + \delta)$ \'e uma vizinhan\c ca de a que ser\'a chamada de $\delta-$vizinhan\c ca de a.
+\end{example}
+\begin{def*}
+	Sejam A um subconjunto de $\mathbb{R}$ e b um n\'umero real. Se, para todo $\delta > 0$, existir $a\in V_{\delta}(b)\cap{A}, a\neq b,$
+	ent\~ao b ser\'a dito um ponto de acumula\c c\~ao de A.
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[a)]O conjunto dos pontos de acumula\c c\~ao de (a, b) \'e [a, b];
+		\item[b)]Seja $B = \mathbb{Z}.$ Ent\~ao, B n\~ao tem pontos de acumula\c c\~ao;
+		\item[c)] Subconjuntos finitos de $\mathbb{R}$ n\~ao t\^em pontos de acumula\c c\~ao;
+		\item[d)] O conjunto dos pontos de acumula\c c\~ao de $\mathbb{Q}$ \'e $\mathbb{R}$.
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Seja $B\subseteq{\mathbb{R}}$. Um ponto b de B ser\'a dito um ponto isolado de B, se existir $\delta > 0$ tal que $V_{\delta}(b)$
+	n\~ao cont\'em pontos de B distintos de b. $\square$
+\end{def*}
+\begin{example}
+	Seja $B=\{1, \frac{1}{2}, \frac{1}{3}, \cdots\}$. Ent\~ao, o conjunto dos pontos de acumula\c c\~ao de B \'e $\{0\}$ e o conjunto dos pontos
+	isolados de B \'e o pr\'oprio conjunto B.
+\end{example}
+Observe que existem conjuntos infinitos sem pontos de acumula\c c\~ao, tal como $\mathbb{Z}.$ Por outro lado, todo conjunto infinito e limitado possui
+pelo menos um ponto de acumula\c c\~ao.
+\begin{theorem*}
+	Se A \'e um subconjunto infinito e limitado de $\mathbb{R},$ ent\~ao A possui pelo menos um ponto de acumula\c c\~ao.
+\end{theorem*}
+\begin{proof*}
+	Se $A\subseteq{[-L, L]}$ e $[a_{n}, b_{n}], n\in \mathbb{N}$ s\~ao escolhidos tais que $[a_{n+1}, b_{n+1}]\subseteq{[a_{n}, b_{n}]}, b_{0} = -a_{0} = L,
+		b_{n} - a_{n} = \frac{2L}{2^{n}}, n\in \mathbb{N}^*$ e $[a_{n}, b_{n}]$ cont\'em infinitos elementos de A. Seja $a = \sup{\{a_{n}: n\in \mathbb{N}\}}$.
+
+	Note que $[a_{n}, b_{n}]\subseteq{a_{j}, b_{j}}, j\leq{n}$ e $[a_{j}, b_{j}]\subseteq{[a_{n}, b_{n}]}, j>n.$ Em qualquer um dos casos, $a_{n}\leq{b_{j}}$
+	para todo $j\in \mathbb{N}$. Logo, $a \leq{b_{j}}, j\in \mathbb{N}.$ Segue que $a_{n}\leq{a=\sup \{s_{n}: n\in \mathbb{N}\}}\leq{b_{n}}$ para todo
+	$n\in \mathbb{N}$ e $a\in\displaystyle\bigcap_{n\geq{1}}[a_{n}, b_{n}]$. Dado $\delta > 0,$ escolha $n\in \mathbb{N}$ tal que $\frac{2L}{2^{n}}<\delta.$ Segue
+	que $a\in[a_{n}, b_{n}]\subseteq{(a-\delta, a+\delta) = V_{\delta}(a)}$ e a \'e ponto de acumula\c c\~ao de A. \qedsymbol
+\end{proof*}
+\newpage
+\end{document}

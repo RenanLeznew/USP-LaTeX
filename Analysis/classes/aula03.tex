@@ -1,0 +1,92 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 17/03/2023}
+\subsection{Motiva\c c\~oes}
+\begin{itemize}
+	\item Finalizar a constru\c c\~ao de $\mathbb{R}$ por cortes;
+	\item Definir um corpo ordenado com base nos cortes;
+\end{itemize}
+\subsection{Cortes - Soma e Ordem}
+Coloquemos, para fins de conveni\^encia, $\mathbb{R}$ como a uni\~ao de todos os cortes.
+
+Vamos mostrar que os cortes racionais s\~ao, de fato, cortes. Considere, dado um racional q, $q^{*} = \{p\in \mathbb{Q}: p < q\}.$
+Ele n\~ao pode completar todos os racionais, pois q + 1 n\~ao pertence a $q^{*}$. Al\'em disso, ele \'e n\~ao vazio, visto que
+q-1 pertence a ele, mostrando a primeira propriedade dos cortes.
+
+Ademais, se r pertence a $q^{*}$ e p \'e um racional menor que r, segue da transitividade da ordem que p \'e menor que
+q, j\'a que r tamb\'em \'e. Assim, p pertence a $q^{*}$, mostrando a segunda propriedade dos cortes.
+
+Por fim, dado um r em $q^{*},$ seja $s = \displaystyle \frac{r + q}{2}$. Ent\~ao,
+$$
+	r - \frac{r+q}{2} = \frac{r - q}{2} < 0,
+$$
+tal que s \'e menor que r e, logo, pertence a $q^{*}$. Portanto, $q^{*}$ forma um corte.
+
+Daremos continuidade \`as atividades da aula anterior demonstrando a \'ultima proposi\c c\~ao vista.
+\begin{prop*}
+	Se $\alpha, \beta, \gamma$ s\~ao cortes,
+	\begin{itemize}
+		\item[i)] $\alpha < \beta$ e $\beta < \gamma$ implica que $\alpha < \gamma$;
+		\item[ii)] Exatamente uma das seguintes rela\c c\~oes \'e v\'alida: $\alpha < \beta$ ou $\alpha = \beta$ ou $\beta < \alpha$
+		\item[iii)] Todo subconjunto n\~ao-vazio e limitado superiormente de $\mathbb{R}$ tem supremo.
+	\end{itemize}
+\end{prop*}
+
+\begin{proof*}
+	As duas primeiras partes seguem automaticamente da forma que definimos a ordem $\leq{}$ para os cortes. Resta mostrar a \'ultima.
+
+	Vamos exibir o supremo explicitamente. Com efeito, seja $\mathcal{A}\subseteq{\mathbb{R}}$ um cole\c c\~ao de cortes
+	limitada superiormente, i.e., existe um l em $\mathbb{R}$ tal que $\alpha \leq{l}$ para todo $\alpha$ em $\mathcal{A}.$
+	Defina $\mathcal{S} = \bigcup_{\alpha\in \mathcal{A}}\alpha$. Mostremos que $\mathcal{S}$ \'e um corte. Com efeito,
+	que $\mathcal{S}$ \'e n\~ao-vazio e diferente de $\mathbb{Q}$ \'e autom\'atico. Al\'em disso, dado q em $\mathcal{S}$ e $r < q,$
+	segue que $r\in \alpha_{0}$ para algum $\alpha_{0}$ em $\mathcal{A}.$
+
+	Para ver que $\mathcal{S}$ \'e o supremo, suponha que $\mathcal{S}' < \mathcal{S}.$ Ent\~ao, existe r em $\mathcal{S}/\mathcal{S}'$.
+	Como r pertence a $\mathcal{S}$, r pertence a $\alpha_{0}$ para algum $\alpha_{0}\in \mathcal{A}.$ Logo, $\alpha_{0} > \mathcal{S}'.$ Portanto,
+	$\mathcal{S}$ \'e o menor limitante superior de $\mathcal{A},$ ou seja, seu supremo. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se $\alpha, \beta$ s\~ao cortes, definimos $\alpha + \beta$ como o conjunto de todos os racionais da forma $r + s$, com r em $\alpha$
+	e s em $\beta$. Ademais, tome $0^* = \{s\in \mathbb{Q}: s < 0\}.\square$
+\end{def*}
+Vamos conferir a defini\c c\~ao, i.e., que $\alpha + \beta$ \'e um corte. Com efeito, $\alpha + \beta\neq\emptyset$, pois $\alpha\neq\emptyset$
+e $\beta\neq\emptyset$. Al\'em disso, se p n\~ao pertence a $\alpha$ e q n\~ao pertence a $\beta$, mas r pertence a $\alpha$ e s a $\beta$,
+ent\~ao $r + s < p + q$, tal que $p + q$ n\~ao pertence a $\alpha + \beta.$
+
+Al\'em disso, tome $r + s$ em $\alpha + \beta$ e $p < r + s$. Escreva $p = r' + s' = \underbrace{p - r}_{\in \beta} + \underbrace{r}_{\in \alpha}.$ Assim,
+p pertence a $\alpha + \beta.$
+
+Por fim, tome $r + s$ em $\alpha + \beta$ e seja $r' > r$ (ambos em $\alpha$). Logo, $\underbrace{r' + s}_{\in \alpha + \beta} > r + s$. Portanto,
+$\alpha + \beta$ \'e um corte.
+
+Fica de exerc\'icio mostrar que $0^*$ \'e um corte. Agora, mostremos os axiomas de corpo.
+
+A comutatividade e associatividade da adi\c c\~ao s\~ao triviais. Al\'em disso, dado r em $\alpha$ e s em $0^*,$
+$$
+	r + s < r + 0 = r\Rightarrow r + s \in \alpha.
+$$
+Logo, $\alpha + 0^* \subseteq{\alpha}$. Por outro lado, dado r em $\alpha,$ existe $r'\text{ em } \alpha$ tal que $r' > r.$
+Assim, $r = \underbrace{r'}_{\alpha} + \underbrace{(r - r')}_{\in 0^*}$, pois $r - r' < 0.$ Portanto, $\alpha \subseteq{\alpha + 0^*}$ e
+$\alpha = \alpha + 0^*.$
+\begin{prop*}
+	Dado um corte $\alpha$, existe um \'unico corte $\beta$ tal que $\alpha + \beta = 0^*$, em que
+	$$
+		\beta = \{-p\in \mathbb{Q}: p - r\not\in \alpha \text{ para algum } r\in \mathbb{Q}, r > 0\}
+	$$
+	e \'e denotado por $-\alpha$.
+\end{prop*}
+\begin{proof*}
+	Come\c camos mostrando que $\beta$ \'e um corte. Feito isso, vamos mostrar que $\beta + \alpha = 0^*.$
+
+	Com efeito, dado -p em $\beta,$ segue que p n\~ao pertence a $\beta$. Caso $s = p + r$, -s pertence a $\beta$, tal que
+	$\beta$ \'e n\~ao-vazio. Ademais, se $p\in \alpha, -p\not\in \beta$, tal que $\beta$ \'e diferente de $\mathbb{Q}.$
+
+	Al\'em disso, se $-q < -p$ e $-p\in \beta$, ent\~ao $-q \in \beta$. Por fim, se -p pertencer a $\beta$, $\displaystyle -p + \frac{r}{2}\in \beta$.
+	Portanto, $\beta$ \'e um corte.
+
+	Agora, vamos conferir o outro item. De fato, se r pertence a $\alpha$ e s a $-\alpha,$ ent\~ao $-s\not\in \alpha$ e $r < -s$, i.e.,
+	$r + s < 0.$ Segue que $\alpha + (-\alpha) \subseteq{0^*}.$ Por outro lado, se $-2r\in 0^*$ com $r > 0,$ existe um inteiro n tal que
+	$nr\in \alpha$ e $(n+1)r\not\in \alpha$. Escolha $p = -(n+2)r\in -\alpha$ e escreva $-2r = nr + p.$ Portanto, $0^*\subseteq{\alpha + (-\alpha)}$ e os
+	conjuntos s\~ao iguais. \qedsymbol
+\end{proof*}
+\end{document}

@@ -1,0 +1,128 @@
+\documentclass[Analysis/analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 28 - 07/06/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Função Degrau;
+	\item Séries como Integrais;
+	\item Relação com a Integral de Riemann.
+\end{itemize}
+\begin{def*}
+	A função degrau unitário I é definida por
+	\[
+		I(x) = \left\{\begin{array}{ll}
+			0,\quad x\leq 0 \\
+			1,\quad x > 0.
+		\end{array}\right.\quad \square
+	\]
+\end{def*}
+\begin{theorem*}
+	Se \(a < s < b, f\in \mathcal{B}([a, b], \mathbb{R})\) é contínua em s e \(\alpha (x) = I(x-s)\), então
+	\[
+		\int_{a}^{b} f d\alpha = f(s)
+	\]
+\end{theorem*}
+\begin{proof*}
+	Considere as partições \(\mathcal{P} = \{x_{0}, x_1, x_2, x_3\},\) em que \(x_{0} = a\) e \(x_1 = s < x_2 < x_3 = b\). Então,
+	\[
+		U(\mathcal{P}, f, \alpha ) = M_{2}, \quad L(\mathcal{P}, f, \alpha ) = m_{2}.
+	\]
+	Como f é contínua em s, vemos que \(M_3\) e \(m_2\) convergem para f(s) quando \(x_2\to s.\) \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se \(c_{n}\geq 0, n = 1, 2, 3, \dotsc \), \(\sum\limits_{n=1}^{\infty}c_{n}\) é convergente, \(\{s_{n}\}\) é uma sequência de pontos distantes em (a, b),
+	\[
+		\alpha (x) = \sum\limits_{n=1}^{\infty}c_{n}I(x-s_{n})
+	\]
+	e f é contínua em [a, b], então
+	\[
+		\int_{a}^{b}f d\alpha  = \sum\limits_{n=1}^{\infty}c_{n}f(s_{n}).
+	\]
+\end{theorem*}
+\begin{proof*}
+	Por comparação, a série é convergente para cada x. Sua soma, \(\alpha (x)\), é monótona, \(\alpha (a) = 0\) e \(\beta (b) = \sum\limits_{n=1}^{\infty}c_{n}.\)
+
+	Com isto em mente, dado \(\varepsilon > 0\), escolha \(N\in \mathbb{N}\) tal que \(\sum\limits_{N+1}^{\infty} < \varepsilon \). Faça
+	\[
+		\alpha _1(x) = \sum\limits_{n=1}^{N}c_{n}I(x-s_{n}),\quad \alpha _2(x) = \sum\limits_{N+1}^{\infty}c_{n}I(x-s_{n}).
+	\]
+	Dos teoremas anteriores,
+	\[
+		\int_{a}^{b}fd\alpha_1 = \sum\limits_{i=1}^{N}c_{n}f(s_{n}).
+	\]
+	Como \(\alpha _2(b) - \alpha _2(a) = \sum\limits_{N+1}^{\infty}c_{n} < \varepsilon \), segue que
+	\[
+		\biggl\vert \int_{a}^{b}f d\alpha_2 \biggr\vert \leq m\varepsilon ,
+	\]
+	sendo \(M = \sup{|f(x)|}\). Como \(\alpha = \alpha _1 + \alpha _2, \) segue que
+	\[
+		\biggl\vert \int_{a}^{b}fd\alpha  - \sum\limits_{i=1}^{N}c_{n}f(s_{n}) \biggr\vert\leq M\varepsilon .
+	\]
+	Se fazemos \(N\to \infty,\) portanto, segue o resultado que
+	\[
+		\int_{a}^{b}f d\alpha = \sum\limits_{n=0}^{\infty}c_{n}f(s_{n}) = f(s).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{theorem*}
+	Sejam \(\alpha :[a, b]\rightarrow \mathbb{R}\) não-decrescente e diferenciável com \(\alpha '\in \mathfrak{R}([a, b])\) e \(f\in \mathcal{B}([a, b], \mathbb{R})\). Então, \(f\in \mathfrak{R}(\alpha , [a, b])\) se, e somente se,
+	\(f\alpha '\in \mathfrak{R}([a, b])\). Neste caso,
+	\[
+		\int_{a}^{b}fd\alpha = \int_{a}^{b}f(x)\alpha'(x) dx.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Dado \(\varepsilon > 0\), existe \(\mathcal{P} = \{x_{0},\dotsc ,x_{n}\}\in \mathfrak{P}([a, b])\) tal que
+	\[
+		U(\mathcal{P}, \alpha ') - L(\mathcal{P}, \alpha') < \varepsilon .
+	\]
+	Do \hypertarget{mean_value}{Teorema do Valor Médio} existe \(t_{i}\in [x_{i-1}, x_{i}]\) tal que
+	\[
+		\Delta \alpha_{i} = \alpha'(t_{i})\Delta x_{i},\quad 1\leq i\leq n.
+	\]
+	Se \(s_{i}\in [x_{i-1}, x_{i}]\), então
+	\[
+		\sum\limits_{i=1}^{n}|\alpha '(s_{i}) - \alpha '(t_{i})|\Delta x_{i} < \varepsilon .
+	\]
+	Seja \(M = \sup|f(x)|\). Como
+	\[
+		\sum\limits_{i=1}^{n}f(s_{i})\Delta \alpha_{i} = \sum\limits_{i=1}^{n}f(s_{i})\alpha'(t_{i})\Delta x_{i},
+	\]
+	segue que
+	\[
+		\biggl\vert \sum\limits_{i=1}^{n}f(s_{i})\Delta \alpha_{i} - \sum\limits_{i=1}^{n}f(s_{i})\alpha'(s_{i})\Delta x_{i} \biggr\vert \leq M\varepsilon .
+	\]
+	Em particular,
+	\[
+		\sum\limits_{i=1}^{n}f(s_{i})\Delta \alpha_{i} \leq U(\mathcal{P}, f\alpha') + M\varepsilon
+	\]
+	para todas as escolhas \(s_{i}\in [x_{i-1}, x_{i}],\) de modo que
+	\[
+		U(\mathcal{P}, f, \alpha )\leq U(\mathcal{P}, fa') + M\varepsilon .
+	\]
+	O mesmo argumento de antes nos leva a
+	\[
+		U(\mathcal{P}, f\alpha') \leq U(\mathcal{P}, f, \alpha ) + M\varepsilon
+	\]
+	e, logo,
+	\[
+		|U(\mathcal{P}, f, \alpha ) - U(\mathcal{P}, f\alpha ')| \leq M\varepsilon .
+	\]
+	Agora, note que
+	\[
+		U(\mathcal{P}, f, \alpha ) - L(\mathcal{P}, f, \alpha ) < \varepsilon
+	\]
+	permanece válida se \(\mathcal{P}\) for substituída por um refinamento, ou seja, as relações derivadas disso
+	também continuam válidas. Concluímos, então, que
+	\[
+		\biggl\vert \overline{\int_{a}^{b}}f d\alpha - \overline{\int_{a}^{b}}f(x)\alpha '(x)dx \biggr\vert\leq M\varepsilon .
+	\]
+	Como \(\varepsilon \) é arbitrário,
+	\[
+		\overline{\int_{a}^{b}}fd\alpha = \overline{\int_{a}^{b}}f(x)\alpha '(x)dx
+	\]
+	para qualquer \(f\in \mathcal{B}([a, b], \mathbb{R}).\) A igualdade para as integrais inferiores segue da mesma maneira. Portanto,
+	\[
+		\int_{a}^{b}fd\alpha = \int_{a}^{b}f(x)\alpha '(x)dx.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\end{document}
