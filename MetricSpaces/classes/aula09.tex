@@ -1,0 +1,175 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 19/09/2023}
+Essa aula e a próxima foram planejadas, apresentadas e ministradas pela Bruna, aluna da Thaís. Todos os créditos vão para ela.
+Além disso, por convenção, trocarei a ordem das aulas 09 e 10 para melhor compreensão das mesmas.
+\subsection{Motivações}
+\begin{itemize}
+	\item Breve revisão de continuidade;
+	\item Exemplos de funções continuas;
+	\item Continuidade da Transformação Linear.
+\end{itemize}
+\subsection{Uma breve revisão}
+\begin{def*}
+	Uma função \(f:X\rightarrow Y\) é contínua em \(p\in X\) se para todo \(\varepsilon >0\) existir um
+	\(\delta =\delta (p, \varepsilon)>0\) tal que \(B_{\delta }^{X}(p)\subseteq{f^{-1}(B_{\varepsilon }^{Y}(f(p))}.\)
+	Equivalentemente, \(f(B_{\delta }^{X}(p))\subseteq{B_{\varepsilon }^{Y}(f(p))}.\square\)
+\end{def*}
+\begin{def*}
+	Uma função \(f:(X, \rho )\rightarrow (Y, d)\) é uma imersão isométrica se \(d(f(x), f(y)) = \rho (x, y).\square\)
+\end{def*}
+Anteriormente, provamos que funções isométricas são contínuas.
+\subsection{Exemplos de Funções Contínuas}
+\subsubsection{Inclusão}
+Sejam \((X, \rho )\) um espaço métrico e \(M\subseteq{X}\) um subespaço de X. Definimos a função inclusão por
+\[
+	i:M\rightarrow X,\quad \underbrace{x}_{\text{Como elemento de M}}\longmapsto \underbrace{x}_{\text{Como elemento de X}}
+\]
+Note que \(\rho (i(x), i(y)) = \rho (x, y) = \rho_{M}(x, y)\) para todos \(x, y\in M\), tal que i é uma imersão isométrica
+e, portanto, é contínua.
+\subsubsection{Projeções}
+Sejam \((X_{i}, \rho_{i}), i\in \mathbb{N},\) espaços métricos. Definimos a i-ésima projeção como
+\(\pi :\prod\limits_{i=1}^{n}X_{i}\rightarrow X_{i}, \pi_{i}(x_1, x_2, \cdots, x_{n}) = x_{i}.\) A projeção
+é contínua. De fato, seja \(A\subseteq{X}\) um aberto, \(i=1, \cdots, n.\) Mostremos que \(\pi^{-1}(A)\) é aberto.
+Com efeito,
+\[
+	\pi_{i}^{-1}(A) = X_{1}\times X_{2}\times \cdots\times X_{i-1}\times A_{i}\times X_{i+1}\times \cdots\times X_{n}.
+\]
+Sendo o produto finito de abertos um aberto, portanto, \(\pi_{i}\) é contínua.
+\subsubsection{Contração Fraca}
+\begin{def*}
+	Uma contração fraca é uma aplicação \(f:(X, \rho )\rightarrow (Y, d)\) tal que
+	\[
+		d(f(x), f(y))\leq \rho(x, y),\quad \forall x,y \in X.\square
+	\]
+\end{def*}
+Toda contração fraca é contínua. Com efeito, dado \(\varepsilon > 0\), escolhemos \(\delta = \varepsilon\). A partir
+disso, obtemos
+\[
+	\rho (x, y) < \delta \Rightarrow d(f(x), f(y))\leq \rho (x, y) < \delta =\varepsilon .
+\]
+Portanto, f é contínua.
+\subsubsection{Soma}
+Sejam \(\mathbb{E}\) um espaço vetorial normado com a métrica induzida d, e considere
+\((\mathbb{E}\times \mathbb{E}, D_{1})\), em que \(D_{1}\) é a métrica da soma. Definimos a soma como
+\(s:\mathbb{E}\times \mathbb{E}\rightarrow \mathbb{E}, s(x, y) = x + y.\)
+\textbf{Afirmação:} A soma é uma contração fraca.
+
+Com efeito, sejam \((x_{1}, y_{1}), (x_{2}, y_{2})\in \mathbb{E}.\) Temos
+\begin{align*}
+	d(s(x_{1}, y_{1}), s(x_{2}, y_{2})) & = d(x_{1}+y_{1}, x_{2}+y_{2}) = ||(x_{1}+y_{1})-(x_{2}+y_{2})||            \\
+	                                    & \leq ||x_{1}-x_{2}|| + ||y_{1}-y_{2}|| = d(x_{1}, x_{2}) + d(y_{1}, y_{2}) \\
+	                                    & =D_{1}((x_{1}, y_{1}), (x_{2}, y_{2})).
+\end{align*}
+Portanto, s é uma contração fraca, ou seja, é contínua.
+\subsubsection{Norma}
+Sejam \(x, y\in \mathbb{E}, \mathbb{E}\) espaço vetorial normado. Temos, para \((\mathbb{R}, d)=(\mathbb{R}, |\cdot |),\)
+\[
+	|||x||-||y||| < ||x-y||.
+\]
+Como \(|||x||-||y||| = d(||x||, ||y||),\) isto equivale a
+\[
+	d(||x||, ||y||)\leq ||x-y||.
+\]
+Portanto, a norma é uma contração fraca, ou seja, contínua.
+\subsubsection{Multiplicação por Escalar}
+Seja \(\mathbb{E}\) um espaço vetorial normado com métrica d induzida pela norma, \((\mathbb{R}, |\cdot |)\) e \((\mathbb{R}\times \mathbb{E}, D_{1})\).
+Definimos a multiplicação por escalar como
+\[
+	m:\mathbb{R}\times \mathbb{E}\rightarrow \mathbb{E},\quad (\alpha ,x)\mapsto \alpha x
+\]
+\begin{def*}
+	Uma função \(f:X\rightarrow Y\) é localmente Lipschitz se, para todo x em X, existir \(r_{x}>0\) e \(\lambda_{x}>0\) tais que
+	\[
+		d(f(z), f(w))\leq \rho (x, w)\lambda_{x},\quad \forall z, w\in B_{r_{x}}^{X}(x).
+	\]
+\end{def*}
+Toda função localmente Lipschitz é contínua.
+
+\textbf{Afirmação:} m é localmente Lipschitz.
+
+Com efeito, seja \(x\in \mathbb{R}\times \mathbb{E}\). Consideramos a bola \(B\coloneqq B_{r_{x}}^{\mathbb{R}\times \mathbb{E}}\), em que \(r_{x}>0\)
+é tal que \(B\subseteq{\mathbb{R}\times \mathbb{E}}.\) Escolhemos \(\lambda_{x} = r_{x}+d(O, x),\) em que \(O = (0, 0)\) é a origem
+de \(\mathbb{R}\times \mathbb{E}.\) Dessa escolha, \(B_{1}=B_{\lambda_{x}}^{\mathbb{R}\times \mathbb{E}}(O)\). Sejam \((\alpha , x), (\beta, y)\in B\subseteq{B_{1}}.\)
+Então,
+\[
+	D_{1}(O, (\alpha , x)) < \lambda_{x}\quad\&\quad D_{1}(O, (\beta, y)) < \lambda_{x}.
+\]
+Pela definição da métrica da soma,
+\[
+	|\alpha - 0| + d(x, 0) < \lambda_{x}\quad\&\quad |\beta - 0| + d(y, 0) < \lambda_{x},
+\]
+ou seja, \(|\alpha | + ||x|| < \lambda_{x}\) e \(|\beta |+||y||<\lambda_{x}\). Em particular, \(||x|| < \lambda_{x}\) e \(||\beta || < \lambda_{x}\). Assim,
+\begin{align*}
+	d(m(\alpha, x), m(\beta, y)) & = d(\alpha x, \beta y) = ||\alpha x - \beta y|| = ||\alpha x-\beta _{x}+\beta _{x}-\beta _{y}|| \\
+	                             & =||x(\alpha -\beta ) + \beta (x-y)||\leq ||x(\alpha -\beta )|| + ||\beta (x-y)||                \\
+	                             & =|\alpha -\beta |||x||+|\beta |||x-y||\leq |\alpha -\beta |\lambda_{x} + \lambda_{x}||x-y||     \\
+	                             & =\lambda_{x}(|\alpha -\beta | + ||x-y||) = \lambda_{x}[D_{1}((\alpha , x), (\beta , y))].
+\end{align*}
+Então, \(d(m(\alpha , x), m(\beta , y))\leq \lambda_{x}[D_{1}((\alpha, x), (\beta , y))] \). Portanto, m é localmente Lipschitziana, logo, contínua.
+\subsection{Continuidade da Transformação Linear}
+Sejam X, Y espaços vetoriais sobre um corpo \(\mathbb{K}\).
+\begin{def*}
+	Uma transformação linear \(T:X\rightarrow Y\) é definida por:
+	\begin{itemize}
+		\item[a)] \(T(u+v)=T(u)+T(v),\quad \forall u, v\in X\)
+		\item[b)] \(T(\alpha u) = \alpha T(u),\quad \forall \alpha \in \mathbb{K}, u\in X.\quad\square\)
+	\end{itemize}
+\end{def*}
+Observe que, de (a) e (b), segue que \(T(0) = T(0u) = 0T(u) = 0, T(0) = T(u+(-u)) = T(u) + T(-u),\) ou seja,
+\(T(-u) = -T(u)\) e \(T(u-v) = T(u) + T(-v) = T(u) - T(v)\).
+\begin{example}
+	Para X = Y espaços vetoriais sobre \(\mathbb{R}\), um exemplo de transformação linear é
+	\[
+		T[x] = \alpha x,\quad T:\mathbb{R}\rightarrow \mathbb{R},
+	\]
+	pois \(T[x+y] = \alpha (x+y) = \alpha x + \alpha y = T[x] + T[y]\) e \(T[\beta x] = \beta \alpha x = \beta T[x].\)
+\end{example}
+\begin{theorem*}
+	Se X, Y são espaços vetoriais normados sobre \(\mathbb{R}\) e se \(T:X\rightarrow Y\) é uma transformação linear, então, são equivalentes:
+	\begin{itemize}
+		\item[a)] T é contínua;
+		\item[b)] T é contínua na origem;
+		\item[c)] Existe um \(k > 0\) tal que \(||T(u)|| < k||u||,\) para todo \(u\in X\);
+		\item[d)] T é Lipschitziana.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	(a) \(\Rightarrow \)(b) é automático.
+
+	(b) \(\Rightarrow \) (c): Se T é contínua na origem, tome \(\varepsilon = 1.\) Com isso, existe \(\delta > 0\) tal que
+	\[
+		||u-0|| = ||u|| < \delta \Rightarrow ||T(u)-T(0)|| = ||T(u)|| < 1.
+	\]
+	Escolha \(k > 0\) tal que \(\frac{1}{\delta } < k.\) Notemos que, para u em X, \(u\neq0\), o vetor
+	\(\frac{1}{k}\frac{u}{||u||}\) tem norma \(\frac{1}{k} < \delta .\) Com isso, \(||u|| < \delta \) implica que
+	\(||T(u)|| < 1\) e, em particular,
+	\begin{align*}
+		\biggl|\biggl|\frac{u}{k||u||}\biggr|\biggr| < \delta & \Rightarrow \biggl|\biggl|T \biggl(\frac{u}{k||u||}\biggr)\biggr|\biggr| = \biggl|\biggl|\frac{1}{k||u||}T(u)\biggr|\biggr| \\
+		                                                      & = \frac{1}{k||u||}||T(u)|| < 1                                                                                              \\
+		                                                      & \Rightarrow ||T(u)|| < k||u||.
+	\end{align*}
+	Além disso, caso \(u=0\), segue que \(0 = ||T(0)|| = 0k = ||u||k.\) Portanto, \(||T(u)||\leq k||u||\) para todo u em X.
+
+	(c) \(\Rightarrow \) (d): Segue que, para todos u, v em X,
+	\[
+		||T(u-v)||\leq k||u-v||.
+	\]
+	Como T é linear, isto equivale a
+	\[
+		||T(u)-T(v)||\leq k||u-v||.
+	\]
+	Portanto, T é Lipschitziana com constante k.
+
+	(d) \(\Rightarrow \) (a): Fixado \(\varepsilon > 0\), caso T seja Lipschitz, então, para todos u, v em X, existe uma constante \(k > 0\) tal que
+	\[
+		||T(u) - T(v)||\leq  k ||u-v||
+	\]
+	Assim, escolhendo \(\delta  = \frac{\varepsilon }{k} > 0,\) obtemos o seguinte: Caso \(||u-v|| < \delta \), então
+	\[
+		||T(u)-T(v)||\leq k||u-v|| < k \frac{\varepsilon }{k} = \varepsilon .
+	\]
+	Portanto, T é contínua. \qedsymbol
+
+\end{proof*}
+\end{document}

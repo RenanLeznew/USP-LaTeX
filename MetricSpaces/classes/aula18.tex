@@ -1,0 +1,187 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 16/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Continuando o Teorema;
+	\item Fechamento e Completude.
+\end{itemize}
+\subsection{As Faces da Compacidade}
+Vamos dar continuidade a prova.
+\begin{proof*}
+	\(1 + 2 \Rightarrow 3):\) Seja \(\{V_{\alpha }\}_{\alpha \in \Omega }\) uma cobertura aberta de E. A ideia
+	é assumir a existência de uma cobertura sem qualquer subcobertura finita e chegar em uma contradição.
+
+	\begin{claim*}Para todo x em E, existe \(r_{x}> 0\) tal que \(B_{r_{x}}(x)\cap E \neq\emptyset, \) então
+		\(B_{r_{x}}(x)\subseteq V_{\alpha }\) para algum \(\alpha \in \Omega \).
+	\end{claim*}
+
+	De fato, suponha que exista \(B_{r}\) uma bola tal que \(B_{r}\cap E \neq\emptyset\) e \(B_{r}\not\subseteq V_{\alpha },\) para todo
+	\(\alpha \in \Omega \). Para cada natural \(n,\) vale que
+	\[
+		B_{\frac{1}{2^{n}}}(x)\cap E \neq\emptyset\quad\&\quad B_{\frac{1}{2^{n}}}(x)\not\subseteq V_{\alpha }, \quad\alpha \in \Omega .
+	\]
+	Considere \(x_{n}\in B_{\frac{1}{2^{n}}}(x)\cap E\), \(n\in \mathbb{N}.\) Assim, uma sequência \(\{x_{n}\}\) em E é
+	de Cauchy. Agora, por hipótese, \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}y\) para algum \(y\in E\) por
+	E ser aberto. Como \(\{V_{\alpha }\}_{\alpha \in \Omega }\) é uma cobertura de E, existe \(\alpha_{y} \in \Omega \) tal que
+	\(y\in V_{\alpha_{y}}\). Sendo \(V_{\alpha_{y}}\) aberto, existe um raio \(r > 0\) tal que \(B_{r}(y)\subseteq V_{\alpha _{y}}.\)
+	Seja \(n\) satisfazendo \(\frac{1}{2^{n}} < \frac{r}{3}\), de forma que \(B_{\frac{1}{2^{n}}}(x)\subseteq B_{r}(y)\), o que
+	contraria a propriedade
+	\[
+		B_{\frac{1}{2^{n}}}(x)\not\subseteq V_{\alpha }, \quad\alpha \in \Omega .
+	\]
+	A seguir, extrairemos uma subcobertura finita a partir da encontrada. Para cada \(x\in E, \) considere
+	\(\varepsilon > 0\) da afirmação, a coleção \(\{B_{\varepsilon }(x)\}_{x\in E}\) cobre E. Observe que, com isso,
+	temos um refinamento da cobertura \(\{V_{\alpha }\}_{\alpha \in \Omega }\) e, além disso, existe \(\alpha_{x}\subseteq \Omega \)
+	tal que
+	\[
+		B_{\varepsilon }(x)\subseteq V_{\alpha_{x}}
+	\]
+	para algum \(\alpha_{x}\in \Omega \). Como E é totalmente limitado, existem \(x_{1}, \dotsc, x_{n}\) tal que
+	\[
+		E\subseteq \bigcup_{i=1}^{n}B_{\varepsilon }(x_{i})\subseteq \bigcup_{i=1}^{n}V_{\alpha_{x_{i}}}.
+	\]
+	Com isso, obtivemos a cobertura finita para E desejada. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Diremos que um subconjunto E de um espaço métrico M é \textbf{compacto} se toda cobertura aberta de E admite subcobertura finita. \(\square\)
+\end{def*}
+De imediato, podemos reescrever o teorema como
+\begin{crl*}
+	Seja \((X, \rho )\) um espaço métrico e \(E\subseteq X\). São equivalentes:
+	\begin{itemize}
+		\item[1)] E é completo e totalmente limitado;
+		\item[2)] Toda sequência em E possui uma subsequência convergente em E;
+		\item[3)] E é compacto.
+	\end{itemize}
+\end{crl*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] \([a, b]\) é compacto em \(\mathbb{R}\) com a métrica usual;
+		\item[2)] \([a, b)\) não é compacto em \(\mathbb{R}\) com a métrica usual;
+		\item[3)] \(M \neq\emptyset\) munido da métrica discreta é compacto se, e somente se,
+		      M finito não é compacto.
+
+		      Este segue do fato que, se M é infinito, então
+		      \[
+			      M = \bigcup_{x\in M}^{}B_{\frac{1}{2}}(x) = \bigcup_{x\in M}^{}\{x\}.
+		      \]
+		\item[4)] A esfera S em \(\ell_{\infty}\), dada por
+		      \[
+			      S = \{x\in \ell_{\infty}: \Vert x \Vert = 1\},
+		      \]
+		      não é compacta.
+
+		      De fato, da aula passada, se considerarmos
+		      \[
+			      e_{i} = \{a_{n}\}_{n},
+		      \]
+		      com \(a_{n} = 1\) e \(a_{i} = 0, i\neq n.\) Vimos que
+		      \[
+			      \Vert e_{i}-e_{n} \Vert_{\infty} = 1,\quad i\neq j\quad\&\quad \Vert e_{i} \Vert = 1.
+		      \]
+		      A coleção \(\{e_{n}\}_{n\in \mathbb{N}}\) é limitado e não é totalmente limitado em S.
+	\end{itemize}
+\end{example}
+\begin{theorem*}
+	Um subconjunto \(E\subseteq \mathbb{R}^{n}\) é compacto se, e somente se, E é fechado e limitado.
+\end{theorem*}
+\begin{proof*}
+	Pela carcterização de totalmente limitado no espaço euclidiano, vale que E é totalmente limitado se, e somente se, E é limitado.
+	A caracterização de compactos diz que E é compacto se, e somente se, E é completo e totalmente limitado.
+
+	Logo, se \(E\subseteq \mathbb{R}^{n}\) é compacto, então E é completo e, portanto, fechado. Caso E seja limitado no espaço euclidiano,
+	então E é totalmente limitado. Por outro lado, se E é fechado, como \(\mathbb{R}^{n}\) é completo, então E é completo. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Sejam \((X, \rho )\) e \((M, d)\) espaços métricos. Se X é compacto e \(f:X\rightarrow M\) é contínua e sobrejetora, então M é compacto.
+\end{theorem*}
+\begin{proof*}
+	Mostremos que M é compacto pela definição. Seja \(\{A_{\alpha }\}_{\alpha }\) uma cobertura aberta de M. Como f é contínua,
+	\(f^{-1}(A_{\alpha })\) é aberto. Além disso, como \(f(X) = M,\) e \(M = \bigcup_{\alpha \in A}^{}A_{\alpha },\)
+	\[
+		X \subseteq f^{-1}(M) = f^{-1}\biggl(\bigcup_{\alpha \in \Omega }^{}A_{\alpha }\biggr) = \bigcup_{\alpha \in A}^{}f^{-1}(A_{\alpha })
+	\]
+	Logo, a família \(\{f^{-1}(A_{\alpha })\}_{\alpha }\) é uma cobertura aberta de X. Como X é compacto, existem \(n_{1}, \dotsc, n_{k}\in \Omega \)
+	que satisfazem
+	\[
+		X\subseteq \bigcup_{i=1}^{k}f^{-1}(A_{n_{i}}).
+	\]
+	Segue que
+	\[
+		Y = f(X)\subseteq f \biggl(\bigcup_{i=1}^{k}f^{-1}(A_{n_{i}})\biggr)\subseteq \bigcup_{i=1}^{k}A_{n_{i}},
+	\]
+	e \(\{A_{n_{i}}\}_{i=1}^{k}\) é uma subcobertura finita da cobertura aberta \(\{A_{\alpha }\}_{\alpha \in \Omega }\). Portanto,
+	M é compacto. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se X e Y são compactos e \(f:X\rightarrow Y\) é contínua e inversível, então f é um homeomorfismo.
+\end{crl*}
+\begin{proof*}
+	Sendo f contínua e inversível, considere \(h:Y\rightarrow X\) sua inversa. Mostremos que h é contínua.
+	Com efeito, mostraremos que a pré-imagem de fechado é fechado. Considere F fechado de X. Então,
+	\(h^{-1}(F) = f(F)\) é fechado, pois como F é compacto, \(f(F)\) é compacto, que é completo e, portanto, é fechado. \qedsymbol
+\end{proof*}
+\subsection{Aplicações}
+Seja \((X, d)\) um espaço métrico e \(\mathbb{R}\) munido da métrica usual.
+\begin{theorem*}
+	Se X é compacto e \(f:X\rightarrow \mathbb{R}\) é contínua, então existem \(x, y\in X\) tais que
+	\[
+		f(x)\leq f(z)\leq f(y),\quad \forall z\in X.
+	\]
+	Neste caso, colocamos \(f(x)=\inf\{f(x):x\in X\}\) e \(f(x) = \sup\{f(x):x\in X\}\)
+\end{theorem*}
+\begin{proof*}
+	Pelo resultado anterior, \(f(X)\) é compacto em \(\mathbb{R},\) logo é fechado e limitado. Assim, estão bem definidos
+	\[
+		m\coloneqq \inf\{f(x):x\in X\}\quad\&\quad M\coloneqq \sup\{f(x):x\in X\}.
+	\]
+	Além disso, como \(m, M\in \overline{f(X)}\) e \(\overline{f(X)} = f(X),\) existem \(x, y\in X\) tais que
+	\[
+		f(x) = m\quad\&\quad M = f(y).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	Se \(C\subseteq X\) é compacto e \(A\subseteq X\), então existe \(p\in C\) tal que
+	\[
+		\rho (C, A) = \rho (p, A).
+	\]
+\end{crl*}
+\begin{proof*}
+	Sejam \(C, A\subseteq X\), C compacto e tome \(p\in C\). Considere \(h:C\rightarrow \mathbb{R}\) dada por
+	\[
+		h(x) = d(A, C) - d(A, x).
+	\]
+	Como h é contínua, C é compacto e existe \(p\in C\) tal que, portanto,
+	\begin{align*}
+		h(p) & = \sup\{h(x):x\in C\} \\
+		     & = 0.
+	\end{align*}
+\end{proof*}
+\begin{crl*}
+	Se \(X\) é compacto e \(f:X\rightarrow \mathbb{R}^{n}\) é contínua, então existem \(x, y\in X\) tais que
+	\[
+		\Vert f(x) \Vert\leq \Vert f(z) \Vert\leq \Vert f(y) \Vert,\quad \forall z\in X.
+	\]
+\end{crl*}
+\begin{prop*}
+	Se X é compacto, \((Y, \rho )\) é outro espaço métrico e \(f:X\rightarrow Y \) é contínua, então f é uniformemente contínua
+\end{prop*}
+\begin{proof*}
+	Suponha que X é compacto, \(f:X\rightarrow Y\) é contínua, mas não uniformemente contínua. Existe \(\varepsilon >0\) tal que
+	para todo \(n\in \mathbb{N}\), existem \(x_{n}, y_{n}\in X\) satisfazendo
+	\[
+		d(x_{n},y_{n}) < \frac{1}{n}\quad\&\quad \rho (f(x_{n}), f(y_{n}))\geq \varepsilon .
+	\]
+	Por compacidade, as duas sequências \(\{x_{n}\}\) e \(\{y_{n}\}\) possuem subsequências convergentes, que podem
+	ser consideradas tendo o mesmo limite (\textbf{exercício}). Neste caso, existem \(N\subseteq \mathbb{N}\) e \(x\in X\) tais que
+	\[
+		x_{n_{k}}, y_{n_{k}}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x,
+	\]
+	enquanto que \(\rho (f(x_{n_{k}}), f(y_{n_{k}}))\geq \varepsilon \) para todo \(n_{k}\in N\).
+	Mas isso é uma contradição, pois f ser contínua quer dizer que
+	\[
+		\rho (f(x_{n_{k}}), f(y_{n_{k}}))\overbracket[0pt]{\longrightarrow}^{k\to \infty}\rho(f(x), f(x)) = 0.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\end{document}

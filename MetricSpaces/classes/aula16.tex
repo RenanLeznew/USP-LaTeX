@@ -1,0 +1,95 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 07/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Completamento de Espaços Métricos;
+	\item Contrações;
+	\item Princípio da Contração de Banach.
+\end{itemize}
+\subsection{Completamento}
+Começamos com um exemplo já visto e já provado (vide Aula 8):
+\begin{example}
+	Todo espaço métrico \((X, \rho )\) pode ser imerso isometricamente no espaço vetorial normado \((\mathcal{B}(X;\mathbb{R}), \Vert \cdot \Vert_{\infty})\) das funções
+	limitadas com a norma do supremo, ou seja,
+	\[
+		\Vert f \Vert_{\infty} = \sup\{|f(x)|: x\in X\}
+	\]
+\end{example}
+Este exemplo foi utilizado pois faremos ideias similares ao estudar o \textit{completamento} de espaços métricos - estaremos ``mergulhando'' espaços métricos incompletos
+isometricamente de um jeito específico em espaços métricos completos, essencialmente ``completando'' ele.
+\begin{def*}
+	Um \textbf{completamento} de um espaço métrico (M, d) é um par \(((\hat{M}, \rho ), f)\) satisfazendo:
+	\begin{itemize}
+		\item[i)] \((\hat{M}, \rho )\) é um espaço métrico completo;
+		\item[ii)] \(f:M\rightarrow \hat{M}\) é uma imersão isométrica;
+		\item[iii)] \(f(M)\) é denso em \(\hat{M}\), ou seja, \(\overline{f(M)} = \hat{M}\).
+	\end{itemize}
+\end{def*}
+\begin{lemma*}
+	Sejam \((M, d), (N, \rho )\) espaços métricos, \(S\subseteq{M}\) e N completo. Se \(f:S\rightarrow N\) é contínua, então existe uma única extensão contínua de f a \(\overline{S}.\)
+\end{lemma*}
+\begin{proof*}
+	Seja \(x\in \overline{S}.\) Existe uma sequência \(\{x_{n}\}\in S\) tal que \(x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x\). A sequência \(\{f(x_{n})\}\subseteq{f(S)}\)
+	é de Cauchy (exercício) e, sendo M completo, existe uma função h tal que \(f(x_{n})\overbracket[0pt]{\longrightarrow}^{n\to \infty}h(x)\).
+
+	Precisamos checar a boa-definição de h. Se \(\{y_{n}\}\subseteq{S}\) é uma sequência tal que \(y_{n}\longrightarrow x, n\rightarrow \infty\), então \(d(x_{n}, y_{n})\longrightarrow 0, n\rightarrow \infty\).
+	Com isso, \(d(f(x_{n}), f(y_{n}))\longrightarrow 0, n\rightarrow \infty\) e a boa-definição de h é garantida. Definimos, então, \(h:\overline{S}\rightarrow N\) por
+	\(h(x) = \lim_{n\to \infty}f(x_{n}),\) em que \(\{x_{n}\}\subseteq{S}, x_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}x.\) Note que a sequência contínua
+	\(\{x_{n} = x\}\) cumpre \(h(x) = \lim_{n\to \infty}f(x) = f(x),\) tal que h estende a f. Portanto, provamos a existência e unicidade da extensão. \qedsymbol
+\end{proof*}
+\textit{Existir uma extensão} de \(f:S\rightarrow N\) a \(\overline{S}\) significa que existe uma função \(h:\overline{S}\rightarrow N\) tal que \(f = h |_S\), ou seja,
+\(h(x) = f(x)\) para todo \(x\in S\).
+\begin{theorem*}
+	Todo espaço métrico admite um completamento. Além disso, esse completamento é único, a menos de isometria.
+\end{theorem*}
+Quando dizemos que um completamento é único, a menos de isometria, queremos dizer que, se \(((\hat{M}, \rho ), f)\) e \(((\tilde{M}, \beta ), g)\) são completamentos de M,
+então \((\tilde{M}, \beta )\) e \((\hat{M}, \rho )\) são isométricos. Faz sentido falar em unicidade por isometria porque quando dois espaços métricos são isométricos, eles podem
+ser vistos com essencialmente a mesma estrutura métrica - os abertos, conexidade, etc.
+\begin{proof*}
+	Vimos que \(\mathcal{B}(M, \mathbb{R})\) é completo e que existe uma imersão isométrica \(T:M\rightarrow \mathcal{B}(M, \mathbb{R}).\) Considere o conjunto \(\hat{M} = \overline{T(M)}\)
+	e observe que \(\hat{M}\) é fechado (já que o fecho do fecho é o próprio fecho, tal que \(\overline{\hat{M}} = \overline{\overline{T(M)}} = \overline{T(M)} = \hat{M}\) e, portanto,
+	completo, pois conjuntos fechados dentro de completos são, também, completos. Assim, \(((\hat{M}, \Vert \cdot \Vert _{\infty}), T)\) é um completamento de M. Resta mostrarmos a unicidade e, para
+	isso, utilizaremos o lema.
+
+	Sejam \(\hat{M}, \tilde{M}\) espaços métricos completos e isometrias \(T:M\rightarrow \tilde{M}\) e \(S:M\rightarrow \hat{M},\) com imagens densas. Definimos a isometria
+	\(I:\tilde{M}\rightarrow \hat{M}\) como a única extensão contínua a \(\tilde{M} = \overline{T(M)}\) da isometria
+	\[
+		V = S \circ{T^{-1}}:T(M)\rightarrow S(M).
+	\]
+\end{proof*}
+\subsection{Contrações}
+\begin{def*}
+	Seja \((X, \rho )\) um espaço métrico completo. Uma aplicação \(T:X\rightarrow X\) é uma \textbf{contração} em X se existe \(0 < \kappa < 1,\) tal que
+	\[
+		\rho (T_{x}, T_{y})\leq \kappa \rho (x, y),\quad \forall x, y\in X.\quad\square
+	\]
+\end{def*}
+As contrações permitem-nos falar de um dos resultados mais fundamentais da matéria, com inúmeras aplicações - o \textit{Princípio da Contração de Banach}.
+\hypertarget{banach_contraction}{\begin{theorem*}[Princípio da Contração de Banach]
+		Se X é um espaço métrico completo e T é uma contração em X, então T possui um único ponto fixo em X, isto é, existe um único \(x_{0}\in X\) tal que \(T(x_{0}) = x_{0}.\)
+	\end{theorem*}}
+\begin{proof*}
+	Primeiramente, vamos mostrar que T tem no máximo um ponto fixo. Para isso, sejam x e y dois pontos fixos de T, de forma que
+	\[
+		\rho (x, y) = \rho (Tx, Ty)\leq \kappa \rho (x, y) < \rho (x, y).
+	\]
+	Logo, \(x=y.\) Agora, vamos provar a existência de um ponto fixo.
+
+	Seja \(x\in X\) e considere a sequência \(\{x, Tx, T^{2}x, \dotsc\}\) de X. Dados \(n, p\in \mathbb{N},\) vale
+	\begin{align*}
+		\rho (T^{n+p}x, T^{n}x) & \leq \kappa^{n}[\rho (T^{p}x, T^{p-1}x) + \dotsc + \rho (Tx, x)]                                       \\
+		                        & \leq \kappa^{n}[\kappa^{p-1}\rho (Tx, x) + \dotsc + \rho(Tx, x)]\quad \text{(Desigualdade Triangular)} \\
+		                        & = \kappa ^{n}\underbrace{[\kappa^{p-1} + \dotsc + 1]}_{\text{série geométrica}}\rho(Tx, x)             \\
+		                        & = \kappa ^{n}\frac{1}{1-\kappa }\rho (Tx, x).
+	\end{align*}
+	Como \(0 < \kappa < 1, \kappa ^{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0.\) Logo, \(\{T^{n}x\}\) é convergente para algum \(x_{0}\in X.\)
+	Para ver que \(x_{0}\) é ponto fixo de T, note que
+	\[
+		Tx_{0} = T \lim_{n\to \infty}T^{n}x = \lim_{n\to \infty}T^{n+1}x = x_{0}.
+	\]
+	Portanto, T tem um único ponto fixo. \qedsymbol
+\end{proof*}
+Um comentário do escritor: não apenas mostramos que a função tem um ponto fixo, como também provamos que \textbf{aplicações repetidas de T convergem muito rápido para o ponto fixo.}
+Isso pode ser visto no meio da prova de que \(\{T^{n}x\}\) é de Cauchy, já que, a cada aplicação de T a si mesma, multiplicou-se por \(\kappa \) o fator \(\kappa^{n}.\)
+\end{document}

@@ -1,0 +1,71 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 21/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Composta de Funções Contínuas;
+	\item Propriedades de Funções Contínuas.
+\end{itemize}
+\subsection{Composta de Funções Contínuas}
+\begin{prop*}
+	Sejam \(f:M\rightarrow N\) e \(g:N\rightarrow P\) são funções contínuas nos pontos p em M e f(p) em N,
+	respectivamente. Então, \(g\circ{f}:M\rightarrow P\) é contínua no ponto p em M.
+\end{prop*}
+\begin{proof*}
+	Seja \(\varepsilon >0.\) Considere a bola \(B_{\varepsilon }^{P}(g\overline{f}(p)) = B_{1}.\) Como g é contínua em f(p), então
+	existe \(\delta_{g}>0\) tal que \(B_{2}\coloneqq B_{\delta_{g}}^{N}(f(p))\subseteq{g^{-1}(B_{1}),}\) tal que
+	\[
+		f^{-1}(B_{2})\subseteq{f^{-1}(g^{-1}(B_{1}))} = (f^{-1}\circ{g^{-1}})(B_{1}) = (g\overline{f})^{-1}(B_{1}).
+	\]
+	Agora, por f ser contínua, existe \(\delta_{f}>0\) tal que
+	\[
+		B_{\delta_{f}^{M}(p)}\subseteq{f^{-1}(B_{2})}.
+	\]
+	Assim, juntando tudo,
+	\[
+		B_{\delta_{f}}^{M}(p)\subseteq{f^{-1}(B_{2})}\subseteq{(g\circ{f})^{-1}(B_{1})} = (g\circ{f})^{-1}(B_{\varepsilon }^{P}(g\circ{f}(p))).
+	\]
+	Portanto, \(g\circ{f}\) é contínua em p em M. \qedsymbol
+\end{proof*}
+\subsection{Propriedades de Funções Contínuas}
+\begin{def*}
+	Sejam \(\mathbb{E}\) um espaço vetorial normado e \(X \neq\emptyset, f:X\rightarrow \mathbb{E}, g:X\rightarrow \mathbb{E}.\)
+	Definimos \(f+g:X\rightarrow \mathbb{E}\) por \((f+g)(x)\coloneqq f(x)+g(x).\square\)
+\end{def*}
+\begin{prop*}
+	Se f e g são contínuas, então f + g é contínua.
+\end{prop*}
+\begin{proof*}
+	Definimos \(h:X\rightarrow \mathbb{E}\times \mathbb{E}\) por \(h(x) = (f(x), g(x))\), a qual é contínua. A função soma
+	\(s:\mathbb{E}\times \mathbb{E}\rightarrow \mathbb{E}\) dada por \(s(x, y) = x + y\), como vimos, é contínua. Com isso,
+	\[
+		f(x)+g(x)=s(f(x), g(x)) = s(h(x)) = (s\circ{h})(x).
+	\]
+	Portanto, (f+g)(x) é contínua.\qedsymbol
+\end{proof*}
+\begin{def*}
+	Sejam \(\mathbb{E}\) um espaço vetorial normado e \(X \neq\emptyset, f:X\rightarrow \mathbb{E}, g:X\rightarrow \mathbb{E}.\)
+	Definimos \(fg:X\rightarrow \mathbb{E}\) por \((fg)(x)\coloneqq f(x)g(x).\square\)
+\end{def*}
+\begin{prop*}
+	Se f e g são contínuas, então fg é contínua.
+\end{prop*}
+\begin{proof*}
+	Definimos \(h:X\rightarrow \mathbb{E}\times \mathbb{E}\) por \(h(x) = (f(x), g(x))\), a qual é contínua. A função multiplicação
+	\(m:\mathbb{E}\times \mathbb{E}\rightarrow \mathbb{E}\) dada por \(m(x, y) = xy\), como vimos, é contínua. Com isso,
+	\[
+		f(x)g(x)=m(f(x), g(x)) = m(h(x)) = (m\circ{h})(x).
+	\]
+	Portanto, (fg)(x) é contínua.\qedsymbol
+\end{proof*}
+\begin{prop*}
+	Se f e g são contínuas e \(g(x)\neq0\) para todo x em X, então \(\frac{f}{g}\) é contínua.
+\end{prop*}
+\begin{proof*}
+	Definimos \(h:\mathbb{R}^{\times}\rightarrow \mathbb{R}, h(t)=\frac{1}{t}\), a qual é contínua. Então,
+	\[
+		\frac{f(x)}{g(x)} = f(x)\frac{1}{g(x)} = f(x)h(g(x)) = f(x)(h\circ{g})(x).
+	\]
+	Portanto, como o produto de funções contínuas é contínua, \(\frac{f(x)}{g(x)}\) é contínua. \qedsymbol
+\end{proof*}
+\end{document}

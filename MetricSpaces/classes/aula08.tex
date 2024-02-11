@@ -1,0 +1,148 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 14/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Continuidade e suas diferentes formas;
+	\item Tipos de funções contínuas.
+\end{itemize}
+\subsection{Continuidade - Noções Prévias}
+Na reta real, as funções contínuas apresentam um papel importante tanto em análise quanto nos diferentes cálculos ao longo da graduação. Não apenas isso, mas
+pode-se dizer sem exagero que formam uma parte fundamental da matemática em muitos níveis, possuindo graus de generalização. Ao estudar cálculo I, a definição é
+a epsilon-delta comum:
+\begin{quote}
+	``\textit{Uma função} \(f:X\rightarrow Y, X, Y\subseteq{\mathbb{R}}\) \textit{é dita contínua em x se para todo} \(\varepsilon >0\), \textit{existe um} \(\delta >0\) \textit{tal que, para }\(t\in X,\)
+	\[
+		|t-x| < \delta \Rightarrow |f(x)-f(t)| < \varepsilon."
+	\]
+\end{quote}
+
+Ao entrar em cálculo de muitas variáveis, uma versão análoga de continuidade é apresentada:
+
+\begin{quote}
+	``\textit{Uma função} \(f:X\rightarrow Y, X\subseteq{\mathbb{R}^{n}}, Y\subseteq{\mathbb{R}^{m}}\) \textit{é dita contínua em x se, para todo} \(\varepsilon >0\), \textit{existe um }\(\delta >0\)
+	\textit{tal que, para todo} \(y\in X\),
+	\[
+		||x-y|| < \delta \Rightarrow ||f(x)-f(y)|| < \varepsilon,
+	\]
+	\textit{em que} \(||\cdot ||\) \textit{é a norma usual em} \(\mathbb{R}^{n}\) \textit{ou }\(\mathbb{R}^{m}.\)''
+\end{quote}
+Em ambos os casos, se levarmos em conta a relação entre módulo/norma e intervalos da reta, no sentido de uma norma ou um módulo descrevem as bolas abertas no conjunto, temos uma noção
+do que uma função contínua deve fazer - mapear intervalos abertos em abertos. Porém, observe que, na definição, a liberdade que temos é no \(\varepsilon \), ou seja, no aberto da imagem da função
+e, para cada \(\varepsilon \), é preciso encontrar um \(\delta \). Em outras palavras, ela mapeia intervalos abertos em outros abertos, mas de uma forma específica: Dado um aberto na imagem da função,
+é preciso encontrar um aberto em sua pré-imagem. Essa é, de fato, a caracterização que utilizaremos nesse curso.
+\subsection{Continuidade}
+Sejam \((X, \rho ), (Y, d)\) espaços métricos. Denotaremos as bolas abertas nos espaços respectivos por um superscript acima - \(B^{X}_{r}(x)\) é uma bola aberta
+em X e \(B_{r}^{Y}(x)\) uma em Y.
+\begin{def*}
+	Diremos que uma função \(f:X\rightarrow Y, (X, \rho ), (Y, d)\) espaços métricos, é contínua se para todo \(\varepsilon >0\) existir um \(\delta = \delta (\varepsilon, p) > 0\) tal que
+	\[
+		B_{\delta }^{X}(p)\subseteq{f^{-1}(B_{\delta }^{Y}(f(p))}.
+	\]
+	Equivalentemente, \(f(B_{\delta }^{X}(p))\subseteq{B_{\delta }^{Y}(f(p))}.\square\)
+\end{def*}
+Explicitamente, se \(\rho (x, p) < \delta \), então \(x\in B_{\delta }^{X}(p).\) Logo, x pertence a \(f^{-1}(B_{\varepsilon }^{Y}(f(p)))\) e
+\(f(x)\in B_{\varepsilon }^{Y}(f(p)).\) Por definição da bola, \(d(f(x), f(p)) < \varepsilon.\) Isso pode ser reescrito na seguinte proposição:
+\begin{prop*}
+	Uma função \(f:X\rightarrow Y\) é contínua em \(p\in X\) se, e somente se, para todo \(\varepsilon >0\) existe
+	\(\delta = \delta (\varepsilon , p) > 0\) tal que
+	\[
+		\rho (x, p)<\delta  \Rightarrow d(f(x), f(p)) <\varepsilon .
+	\]
+\end{prop*}
+
+A seguir, vamos apresentar algumas outras caracterizações de continuidade - a topológica e a por sequências.
+\begin{def*}
+	A caracterização topológica das funções contínuas é: \(f:X\rightarrow Y\) é continuas se, e somente se, \(f^{-1}(A)\) é aberto em X para todo aberto A em Y. \(\square\)
+\end{def*}
+Mostraremos que a caracterização topológica e a com bolas são equivalentes. Se f é contínua e U é um aberto de Y, se
+\(y\in f^{-1}(U)\) e \(\varepsilon > 0\) é tal que \(B_{\varepsilon }(f(y)) \subseteq{U},\) então existe \(\delta  > 0\)
+tal que \(f^{-1}(B_{\varepsilon }(f(y)))\supseteq{B_{\delta }(y)}.\) Logo, y é interior a \(f^{-1}(U).\) Como
+consequência, já que y era arbitrário, \(f^{-1}(U)\) é aberto.
+
+Por outro lado, se \(f^{-1}(U)\) é aberto em \((X, \rho )\) sempre que U é aberto em
+\((Y, d)\), segue que, para todo x em X e \(\varepsilon >0, f^{-1}(B(f(x)))\) é aberto e contém x.
+Logo, existe \(\delta  > 0\) tal que \(B_{\delta }(x)\subseteq{f^{-1}(B_{\varepsilon }(f(x)))}\) e f é contínua em x.
+Portanto, f é contínua para todo x em X.
+\begin{example}
+	A função constante \(f:X\rightarrow Y\) dada por \(f(x) = c,\) para todo x em X e algum c em Y, é contínua.
+	De fato, seja A um aberto de Y. Se c pertence a A, então \(f^{-1}(A) = X\), que é aberto em X. Por
+	outro lado, se c não pertence a A, então \(f^{-1}(A) = \emptyset,\) que também é aberto em X. Portanto, f é contínua.
+\end{example}
+\begin{example}
+	A função identidade \(f:X\rightarrow X\) é contínua para todo x em X. De fato, se A é um aberto de X,
+	como \(f^{-1}(A) = A, f^{-1}(A)\) é aberto em X.
+\end{example}
+\begin{def*}
+	A caracterização por sequências de uma função contínua é: \(f:X\rightarrow Y\) é contínua em \(x\in X\) se, e somente se, dada uma sequência \(\{x_{n}\}_{n\in \mathbb{N}}\) que
+	converge para x (\(x_{n}\longrightarrow x)\), vale \(f(x_{n})\overbracket[0pt]{\longrightarrow}^{n\to \infty}f(x).\square\)
+\end{def*}
+Vamos verificar que a noção de continuidade que fornecemos implica na definição de sequências. Note que, como \(\rho (x_{n}, x) < \delta \)(já que a sequência converge), vale que existe um \(n_{0}\in \mathbb{N}\) tal que
+\(x_{n}\in B_{\delta }^{X}(x)\) para todo \(n\geq n_{0}\). Com isso, como f é contínua, \(B_{\delta }^{X}(x)\subseteq{f^{-1}(B_{\varepsilon }^{Y}(f(x)))}\), ou seja, \(x_{n}\in f^{-1}(B_{\varepsilon }^{Y}(f(x)))\) para todo \(n\geq n_{0}.\)
+Assim, \(f(x_{n})\in B_{\varepsilon }^{Y}(f(x))\) para todo \(n\geq n_{0}\), o que equivale a \(d(f(x_{n}), f(x)) < \varepsilon,\) ou seja, \(f(x_{n})\overbracket[0pt]{\longrightarrow}^{n\to \infty}f(x)\)
+\subsection{Outras Classes de Continuidade}
+\begin{def*}
+	Diremos que uma função \(f:X\rightarrow Y\) é uniformemente contínua se, para todo \(\varepsilon >0\), existe \(\delta =\delta (\varepsilon )>0\) tal que
+	\[
+		\rho (x, y) < \delta \Rightarrow d(f(x), f(y)) < \varepsilon \quad \forall x, y\in X.\quad\square
+	\]
+\end{def*}
+A diferença entre uma função contínua e uniformemente é sutil - enquanto que, na continuidade normal, existe um \(\delta \) diferente para cada ponto x, isso não acontece
+na continuidade uniforme, ou seja, um \(\delta \) funciona para todos os pontos do espaço.
+\begin{def*}
+	Diremos que uma função \(f:X\rightarrow Y\) é Lipschitz contínua se, para algum \(\lambda >0\), vale
+	\[
+		d(f(x), f(y))\leq \lambda \rho (x, y).\quad \forall x, y\in X.
+	\]
+\end{def*}
+\begin{def*}
+	Uma função \(f:X\rightarrow Y\) é localmente Lipschitz se, para todo x em X, existir \(r_{x}>0\) e \(\lambda_{x}>0\) tais que
+	\[
+		d(f(z), f(w))\leq \rho (x, w)\lambda_{x},\quad \forall z, w\in B_{r_{x}}^{X}(x).
+	\]
+\end{def*}
+Tanto as funções Lipschitz quanto as localmente Lipschitz são contínuas.
+\begin{def*}
+	Uma função \(f:X\rightarrow Y\) é uma imersão isométrica de X em Y se
+	\[
+		d(f(x), f(y)) = \rho (x, y).
+	\]
+	Além disso, se \(f(X) = Y\), ou seja, f é sobrejetora, então f é uma isometria entre X e Y. \(\square\)
+\end{def*}
+Toda imersão isométrica é injetora, visto que
+\[
+	d(f(x), f(y)) = \rho (x, y) = 0
+\]
+é o mesmo que \(\rho (x, y) = 0\) que, como \(\rho \) é uma métrica, significa que \(x=y\).
+\begin{example}
+	Consideremos \(\mathbb{R}^{n}\) munido da métrica euclidiana e b em \(\mathbb{R}^{n}.\) A função translação por b,
+	\(f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}\) definida por \(f(x) = x + b\) é uma imersão isométrica.
+\end{example}
+\begin{example}
+	Se \(f:X\rightarrow Y\) for injetiva e definirmos em \(Y' = f(X)\) a métrica
+	\(d_{f}(y_{1}, y_{2}) = \rho (f^{-1}(y_{1}), f^{-1}(y_{2}))\) para todo \(y_{1}, y_{2}\in Y'\), então
+	\(f:X\rightarrow Y'\) é uma isometria.
+\end{example}
+\begin{example}
+	Se \(M\subseteq{X}\) e \(\rho _{M}:M\times M\rightarrow \mathbb{R}^{+}\) é a métrica induzida, a inclusão
+	\(i:M\rightarrow X\) definida por \(i(x) = x\), é uma imersão isométrica.
+\end{example}
+\begin{prop*}
+	Um espaço métrico \((X, \rho )\) pode ser imerso isometricamente no espaço vetorial normado \(\mathcal{B}(X, \mathbb{R})\) das funções limitadas \(f:X\rightarrow \mathbb{R}\), com a norma
+	\(||f||_{\infty}=\sup\{|f(x)|\}\)
+\end{prop*}
+\begin{proof*}
+	Considere \((X, \rho )\) e \((\mathcal{B}(X, \mathbb{R}), ||\cdot ||_{\infty}\) os espaços métricos no enunciado. Defina
+	\(f:X\rightarrow \mathcal{B}(X, \mathbb{R})\) por \(x\mapsto f(x):X\rightarrow \mathbb{R}\) dada por
+	\(f(x)(y) = \rho (x, y)-\rho (p, y).\) Note que:
+	\begin{itemize}
+		\item[i)] \(|f(x)(y) - f(z)(y)| = |\rho (x, y)-\rho (p, y)-\rho (z, y) + \rho (p, y)| = |\rho (x, y)-\rho (z, y)|\)
+		\item[ii)] \(|f(x)(z)-f(z)(z)| = |\rho (x, z) - \rho (p, z) - \rho (z, z) + \rho (p,z)| = |\rho (x, z)|.\)
+	\end{itemize}
+	Disto, conclui-se que
+	\[
+		||f(x)-f(z)||_{\infty} = \sup\{|f(x)(y) - f(z)(y)|\}\leq \rho (x, y)\quad\&\quad ||f(x)-f(z)||_{\infty} = \rho (x, z).
+	\]
+	Portanto, f é uma imersão isométrica. \qedsymbol
+\end{proof*}
+\end{document}

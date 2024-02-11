@@ -1,0 +1,136 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 10/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Exemplos de espaços métricos;
+	\item Similaridade entre métricas;
+	\item Produto de espaços métricos.
+\end{itemize}
+\subsection{Uma nota histórica}
+Algumas dessas informações podem ser vistas com mais detalhe do livro de espaços métricos
+de Jean Cerqueira, do IME.
+
+Para um contexto temporal, em 1906, Maurice Fréchet publicou sua tese de doutorado, nomeada
+``Sus quelques du calcul functionnel''. A seguir, em 1910, David Hilbert faz sua tentativa de axiomatizar
+as ideias vistas na tese de Fréchet e, dois anos depois, Felix Hausdorff, trabalhando no conceito de separação de pontos
+a partir do ponto de vista de conjuntos, acaba contribuindo com essa axiomatização. Antes disso, Henri Poincaré, havia sistematizado as ideias
+de forma prototípica. Outro nome mencionável é o de Pavel Urysohnn, responsável por aprofundar-se na parte da separação de pontos.
+
+\subsection{Exercício 1 da Lista 1}
+Considere \(d:\mathbb{R}^{2}\times \mathbb{R}^{2}\rightarrow [0, \infty) \) definida por
+\[
+	d((x_{1}, x_{2}), (y_{1}, y_{2})) = |x_{2}-y_{2}|.
+\]
+Então, d não é uma métrica. Chequemos este fato.
+
+Com efeito, considere x um número real qualquer. Assim,
+\[
+	d((1, x), (2, x)) = |x-x| = 0.
+\]
+No entanto, (1, x) não é igual a (2, x), ou seja, já falha logo na primeira condição de métrica!
+Portanto, conclui-se que d não pode ser métrica. Analogamente, definindo \(d':\mathbb{R}^{2}\times \mathbb{R}^{2}\rightarrow [0, \infty)\) por
+\(d'((x_{1}, x_{2}), (y_{1}, y_{2}))=|x_{1}-y_{1}|\), ela também não será métrica.
+
+\textbf{Obs.:} Definiremos, ainda essa aula, a métrica \(d_{s}:\mathbb{R}^{2}\times \mathbb{R}^{2}\rightarrow [0, \infty)\) por
+\[
+	d_{s}((x_{1}, x_{2}), (y_{1}, y_{2})) = |x_{1}-y_{1}|+|x_{2}-y_{2}|,
+\]
+a qual torna \((\mathbb{R}^{2}, d_{s})\) num espaço métrico. Mostremos isso. Os itens \hyperlink{def_metric}{(i), (ii) e (iii)}
+da definição de métrica estão trivialmente cumpridos. Para a desigualdade triangular, observe que
+\begin{align*}
+	d((x_{1}, x_{2}), (y_{1}, y_{2})) & = |x_{1}-y_{1}| + |x_{2}-y_{2}|                                        \\
+	                                  & \leq |x_{1}-z_{1}| + |z_{1}-y_{1}| + |x_{2}-z_{2}| + |x_{2}-y_{2}|     \\
+	                                  & =d((x_{1}, x_{2}), (z_{1}, z_{2})) + d((z_{1}, z_{2}), (y_{1}, y_{2}))
+\end{align*}
+\subsection{Espaço de funções contínuas}
+Considere o intervalo I=[0, 1] e tome o conjunto
+\[
+	\mathcal{C}(I, \mathbb{R})\coloneqq \{f:I\rightarrow \mathbb{R}: f \text{ contínua}\}.
+\]
+Então, são métrica em \(\mathcal{C}(I, \mathbb{R})\) as funções \(d:\mathcal{C}(I, \mathbb{R})\rightarrow [0, \infty), (f, g)\mapsto \sup_{x\in I}\{|f(x)-g(x)|\}\)
+e \(\rho :\mathcal{C}(I, \mathbb{R})\times \mathcal{C}(I, \mathbb{R})\rightarrow [0, +\infty)\) definida por
+\[
+	\rho(f, g) = \int_{0}^{1}|f(x)-g(x)|dx,\quad f, g\in \mathcal{C}(I, \mathbb{R}).
+\]
+Mostremos que elas são \hyperlink{def_metric}{métricas}, começando pela d.
+
+Observe que, se \(d(f, g) = 0,\), então
+\[
+	|f(y)-g(y)|\leq \sup_{x\in I}\{|f(x)-g(x)|\}\quad \forall y\in I.
+\]
+Logo, \(|f(y) - g(y)| = 0\) para todo y em I, garantindo que f e g são as mesmas.
+Para a desigualdade triangular, observe que, para qualquer y em I, e h em \(\mathcal{C}(I, \mathbb{R}),\) vale que
+\[
+	|f(y)\pm h(y) - g(y)|\leq |f(y) - h(y)| + |h(y) - g(y)|.
+\]
+Tomando o supremo, obtemos
+\[
+	d(f, g)\leq d(f, h) + d(h, g).
+\]
+Assim, \((\mathcal{C}(I, \mathbb{R}), d)\) é um espaço métrico.
+
+Agora, analisando a questão de \(\rho\), se \(\rho (f, g) = 0,\) então
+\[
+	\int_{0}^{1}|f(x)-g(x)|dx = 0
+\]
+Como o Teorema da Conservação de Sinal implicaria em \(\int_{0}^{1}|f(x)-g(x)|dx > 0\) se \(|f(x)-g(x)| > 0\) para algum x em I.
+Logo, \(|f(x)-g(x)|=0\) para todo x em I. Para mostrar a desigualdade triangular, considere \(f, g, h\in \mathcal{C}(I, \mathbb{R}).\)
+Temos, para todo \(x\in I\),
+\[
+	|f(\overbrace{x)-g(}^{\pm h(x)}x)|\leq |f(x) - h(x)| + |h(x) - g(x)|
+\]
+Integrando os dois lados da desigualdade,
+\[
+	\int_{0}^{1}|f(x)-g(x)|\leq \int_{0}^{1}|f(x) - h(x)|dx + \int_{0}^{1}|h(x) - g(x)|dx,
+\]
+de onde segue a desigualdade triangular. Portanto, \((\mathcal{C}(I, \mathbb{R}), \rho)\) é um espaço métrico.
+\subsection{Espaço euclidiano n-dimensional}
+Seja n um natural, \(n\geq 1.\) O espaço euclidiano é
+\[
+	\mathbb{R}^{n}\coloneqq \{(x_{1}, \cdots, x_{n}): x_{i}\in \mathbb{R}, i = 1, 2, \cdots, n\},
+\]
+munido da métrica usual/euclidiana, definida por
+\[
+	d(x, y) = \biggl(\sum\limits_{i=1}^{n}(x_{i}-y_{i})^{2}\biggr)^{\frac{1}{2}},
+\]
+em que \(x=(x_{1}, x_{2}, \cdots, x_{n})\) e \(y = (y_{1}, y_{2}, \cdots, y_{n}\) são elementos de \(\mathbb{R}^{n}.\)
+Sobre \(\mathbb{R}^{n}\), podemos considerar duas outras métricas, a métrica da soma e do máximo. Definimo-las, respectivamente, por
+\begin{align*}
+	 & d_{s}(x, y)\coloneqq \sum\limits_{i=1}^{n}|x_{i}-y_{i}|          \\
+	 & d_{m}(x, y)\coloneqq \max\{|x_{i}-y_{i}|, i = 1, 2, \cdots, n\},
+\end{align*}
+para  \(x=(x_{1}, x_{2}, \cdots, x_{n})\) e \(y = (y_{1}, y_{2}, \cdots, y_{n}\) são elementos de \(\mathbb{R}^{n}.\) Vamos mostrar que a primeira d é métrica.
+
+Pra começar, não é difícil ver que os itens \hyperlink{def_metric}{(i) e (ii)} da definição são satisfeitos. Para mostrar a desigualdade triangular, será necessário
+utilizar Cauchy-Schwarz:
+\begin{lemma*}[Desigualdade de Cauchy-Schwars]Dados \((x_{1}, \cdots, x_{n})\) e \((y_{1}, \cdots, y_{n})\), vale a desigualdade
+	\[
+		\hypertarget{cauchy_schwarz}{\sum\limits_{i=1}^{n}|x_{i}\cdot y_{i}|\leq \biggl(\sum\limits_{i=1}^{n}|x_{i}|^{2}\biggr)^{\frac{1}{2}}\biggl(\sum\limits_{i=1}^{n}|y_{i}|^{2}\biggr)^{\frac{1}{2}} }
+	\]
+\end{lemma*}
+\begin{proof*}
+	Observe que, dados \(x, y\in \mathbb{R}\), vale que \(2xy\leq x^{2} + y^{2}\).
+	Temos, para \(x=(\sum\limits_{i=1}^{n}|x_{i}|^{2})^{\frac{1}{2}}\) e \(y=(\sum\limits_{i=1}^{n}|y_{i}|^{2})^{\frac{1}{2}}\). Com isso, aplicando a desigualdade vista para
+	\(\frac{|x_{i}|}{x}\) e \(\frac{|y_{i}|}{y}\), ganhamos
+	\[
+		2\frac{|x_{i}||y_{i}|}{xy}\leq \frac{|x_{i}|^{2}}{x^{2}} + \frac{|y_{i}|^{2}}{y^{2}}.
+	\]
+	Somando de \(i=1, \cdots, n,\) obtemos
+	\[
+		\frac{2}{xy}\sum\limits_{i=1}^{n}|x_{i}||y_{i}| \leq \frac{1}{x^{2}}\sum\limits_{i=1}^{n}|x_{i}|^{2} + \frac{1}{y^{2}}\sum\limits_{i=1}^{n}|y_{i}|^{2} = 1 + 1 = 2.
+	\]
+	Portanto, isolando a soma à esquerda, temos
+	\[
+		\sum\limits_{i=1}^{n}|x_{i}||y_{i}|\leq \frac{2}{2}\cdot xy = xy.\text{\qedsymbol}
+	\]
+\end{proof*}
+A desigualdade triangular seguirá do seguinte
+\begin{align*}
+	\bigl[d(\overline{x}, \overline{y})\bigr]^{2} = \sum\limits_{i=1}^{n}(x_{i}-y_{i})^{2} & =\sum\limits_{i=1}^{n}(x_{i}-z_{i}+z_{i}-y_{i})^{2}                                                                                                                                                                          \\
+	                                                                                       & =\sum\limits_{i=1}^{n}(x_{i}-z_{i})^{2} + 2\sum\limits_{i=1}^{n}(x_{i}-z_{i})(z_{i}-y_{i}) + \sum\limits_{i=1}^{n}(z_{i}-y_{i})^{2}                                                                                          \\
+	                                                                                       & \leq \sum\limits_{i=1}^{n}(x_{i}-z_{i})^{2} + 2\biggl(\sum\limits_{i=1}^{n}|x_{i}-z_{i}|^{2}\biggr)^{\frac{1}{2}}\biggl(\sum\limits_{i=1}^{n}|z_{i}-y_{i}|^{2}\biggr)^{\frac{1}{2}} + \sum\limits_{i=1}^{n}(z_{i}-y_{i})^{2} \\
+	                                                                                       & =\bigl[d(\overline{x}, \overline{y})\bigl]^{2} + 2 d(\overline{x}, \overline{z})d(\overline{z}, \overline{y}) + \bigl[d(\overline{z}, \overline{y})\bigr]^{2}                                                                \\
+	                                                                                       & = (d(\overline{x}, \overline{z})+d(\overline{z}, \overline{y}))^{2}.
+\end{align*}
+\end{document}

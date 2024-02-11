@@ -1,0 +1,63 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 24/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Propriedades do diâmetro;
+	\item Exemplo de limitado;
+	\item Conjuntos abertos;
+	\item Propriedade dos abertos.
+\end{itemize}
+\subsection{Propriedades do Diâmetro}
+\begin{example}
+	A função
+	\[
+		\rho_{p}(x,y) = \frac{||x-y||_{p}}{1+||x-y||_{p}},\quad \forall x, y\in \mathbb{R}^{n}
+	\]
+	é uma métrica em \(\mathbb{R}^{n}\). Para ver isso, comece definindo \(f(t) = \frac{t}{1+t}\) e exiba que essa função é
+	crescente, de forma que \(f(||x-y||_{p}\leq f(||x-z||_{p}+||z-y||_{p})\). Com essa métrica, afirmamos que o seguinte ocorre:
+	\[
+		\mathbb{R}^{n} = B_{1}(0)\quad\&\quad diam(\mathbb{R}^{n})\leq 1.
+	\]
+	A inclusão \(B_{1}(0)\subseteq{\mathbb{R}^{n}}\) é automática. Por outro lado, seja \(y\in \mathbb{R}^{n}.\) Temos
+	\[
+		\rho_{p}(y, 0) = \frac{||y||_{p}}{1 + ||y||_{p}} < 1. \Rightarrow \mathbb{R}^{n}\subseteq{B_{1}(0)}.
+	\]
+	Portanto, \(\mathbb{R}^{n}\) é limitado no espaço métrico \((\mathbb{R}^{n}, \rho_{p}),\) mas não é limitado em \((\mathbb{R}^{n}, d_{p})\).
+\end{example}
+Vale uma observação - apesar dessa diferença entre \(\rho_{p}\) e \(d_{p}\), veremos futuramente que as duas métricas induzem a mesma
+estrutura de formato do espaço - em outras palavras, a mesma topologia.
+\begin{prop*}
+	Seja \((X, \rho )\) um espaço métrico.
+	\begin{itemize}
+		\item[1)] \(E\subseteq{X}\) é limitado se, e somente se, existe \(r>0\) tal que \(E\subseteq{B_{r}(x)}\) para todo \(x\in E\).
+		\item[2)] Se \(E\subseteq{X}\) é limitado e não-vazio, então
+		      \[
+			      diam(E) = \inf\{r > 0: E \subseteq{B_{r}(x)}, x \in E\}.
+		      \]
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	\(1 \Rightarrow )\) A volta é simples, segue das propriedades do supremo. Por outro lado, se E é limitado, então \(diam(E) < \infty\). Seja
+	\(r=2diam(E)\) e \(B_{r}(x)\supseteq{E}\) para todo x em E. De fato, se \(e\in E\), temos
+	\[
+		d(e, x)\leq diam(E) < r.
+	\]
+
+	\(2 \Rightarrow )\) Seja \(A = \{r>0: E \subseteq{B_{r}(x)}, x\in E\}\). Mostremos que \(diam(E) = \inf{(A)}.\) Se \(r > diam(E)\) e x
+	é um ponto de E, então
+	\[
+		d(x, y)\leq diam(E) < r\quad \forall y\in E,
+	\]
+	logo, \(E\subseteq{B_{r}(x)}\). Assim, o intervalo \((diam(E), \infty)\subseteq{A}.\) Deste modo, \(\inf{(A)}\leq diam(E).\)
+	Por outro lado, se \(r < diam(E),\) então existem \(x, y\in E\) tais que
+	\[
+		d(x, y) > r,\quad y\not\in B_{r}(x),\quad \&\quad r\not\in A.
+	\]
+	Consequentemente, \((0, diam(E))\cap A = \emptyset.\) Portanto, \(diam(E) = \inf{(A)}.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja \((X, d)\) um espaço métrico. Um subconjunto \(E\subseteq{X}\) é dito aberto em \((X, d)\) se, para cada
+	x em E, existir \(r_{x} > 0\) tal que \(B_{r_{x}}(x)\subseteq{E}.\quad\square\)
+\end{def*}
+\end{document}

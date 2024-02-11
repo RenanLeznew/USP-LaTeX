@@ -1,0 +1,121 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 28/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Homeomorfismos.
+\end{itemize}
+\subsection{Espaços Homeomorfos}
+\begin{def*}
+	Sejam M e N espaços métricos. Uma função \(f:M\rightarrow N\) é chamada homeomorfismo se
+	ela é bijetora e tanto ela quanto sua inversão são funções contínuas. Dizemos, neste caso, que M e N
+	são homeomorfos. \(\square\)
+\end{def*}
+Resumidamente: ``\textit{Função contínua com inversa contínua}''.
+\begin{example}
+	Considere \(\varphi :[0, 2\pi )\rightarrow \mathbb{S}^{1},\) com
+	\[
+		\mathbb{S}^{1}\coloneqq \{(x, y)\in \mathbb{R}^{2}: x^{2}+y^{2}=1\},
+	\]
+	e \(\varphi (t) = (\cos{(t)}, \sin{(t)}), t\in[0, 2\pi ).\) Para uma bola aberta em
+	\(\mathbb{S}^{1}\), \(\varphi ^{-1}(B)\) não é um aberto, ou seja, a inversa
+	de \(\varphi \) não é contínua.
+
+	Apesar disso, o hemisfério norte \(\mathbb{S}^{1}=\{(x, y)\in \mathbb{S}^{1}: y > 0\}\) é
+	homeomorfo à bola aberta \(B_{1}(0) = B(0, 1) = (-1, 1)\), uma vez que esse hemisfério é o gráfico
+	de \(f(x) = \sqrt[]{1-x^{2}}, x\in (-1, 1).\) De maneira geral, o hemisfério norte
+	da esfera
+	\[
+		\mathbb{S}_{+}^{n} = \{(x_{1}, \cdots, x_{n})\in \mathbb{S}^{n}: x_{n}>0\}
+	\]
+	é homeomorfo à bola aberta \(B(0, 1)\subseteq{\mathbb{R}^{n}}\).
+\end{example}
+\begin{example}
+	Seja \(p=(0, 0, 1)\) o polo norte da esfera \(\mathbb{S}^{2}=\{(x, y, z): x^{2}+y^{2}+z^{2}=1\}\). Então,
+	\(S^{2}\setminus\{p\}\) é homeomorfo a \(\mathbb{R}^{2}.\) A projeção estereográfica
+	\(\varphi :\mathbb{S}^{2}\setminus\{p\}\rightarrow \mathbb{R}^{2}\), definida por
+	\[
+		\varphi (x, y, z) = \biggl(\frac{x}{1-z}, \frac{y}{1-z}\biggr)
+	\]
+	é contínua, bem como sua inversa, \(\varphi ^{-1}:\mathbb{R}^{2}\rightarrow \mathbb{S}^{2}\setminus\{p\}\), dada por
+	\[
+		\varphi ^{-1}(x, y) = \biggl(\frac{2x}{x^{2}+y^{2}+1}, \frac{2y}{x^{2}+y^{2}+1}, \frac{x^{2}+y^{2}-1}{x^{2}+y^{2}+1}\biggr).
+	\]
+\end{example}
+\begin{example}
+	O círculo
+	\[
+		\mathbb{S}^{1}=\{(x, y)\in \mathbb{R}^{2}: x^{2}+y^{2}=1\}
+	\]
+	e o quadrado
+	\[
+		Q = \{(x, y)\in \mathbb{R}^{2}: |x|+|y|=1\}
+	\]
+	do espaço euclidiano \(\mathbb{R}^{2}\) são homeomorfos. A função \(f:Q\rightarrow \mathbb{S}^{1}\),
+	definida por
+	\[
+		f(x, y) = \biggl(\frac{x}{\sqrt[]{x^{2}+y^{2}}}, \frac{y}{\sqrt[]{x^{2}+y^{2}}}\biggr)
+	\]
+	é um homeomorfismo
+\end{example}
+\begin{example}
+	O plano perfurado
+	\[
+		X = \{(x, y)\in \mathbb{R}^{2}: (x, y)\neq(0, 0)\}
+	\]
+	e o cilindro circular reto
+	\[
+		Y = \{(x, y, z)\in \mathbb{R}^{3}: x^{2}+y^{2}=1\}
+	\]
+	são homeomorfos pelo homeomorfismo \(f:Y\rightarrow X\)
+	\[
+		f(x, y, z) = (x e^{z}, y e^{z}),\quad (x, y, z)\in Y.
+	\]
+\end{example}
+\begin{example}
+	Seja \(f:M\rightarrow N\) contínua. O gráfico de f,
+	\[
+		G(f)\coloneqq \{(x, f(x)): x\in M\},
+	\]
+	é naturalmente homeomorfo a M, o domínio da função. Para ver isso, define-se
+	\(F:G(f)\rightarrow M, G(x, f(x))=x\), que é contínua por ser a composta da projeção na primeira coordenada com a inclusão.
+	F é sobrejetora, claramente, e
+	\[
+		F(x, f(x)) = F(y, f(y)) \Longleftrightarrow x = y,
+	\]
+	tal que f é injetora e, destarte, bijetora. Sua inversa é contínua pois a função
+	\(F^{-1}:M\rightarrow G(f)\) dada por \(\pi_{1}\circ{f}\) também é contínua.
+\end{example}
+\begin{example}
+	Se E é um espaço vetorial normado, então toda bola aberta \(B_{\varepsilon }(p) = B(p, \varepsilon )\)
+	é homeomorfa ao espaço E. Mostraremos que E E é homeomorfo a \(B_{1}(0) = B(0, 1)\), pois \(B_{\varepsilon }(p)\)
+	é homeomorfa a \(B_{1}(0).\) De fato, defina \(f:E\rightarrow B_{1}(0)\) por
+	\[
+		f(u) = \frac{u}{1+||u||},\quad u\in E,
+	\]
+	e \(g:B_{1}(0)\rightarrow E\) por
+	\[
+		g(u) = \frac{u}{1-||u||},\quad u\in B_{1}(0),
+	\]
+	que são contínuas e inversas uma da outra.
+\end{example}
+\begin{prop*}
+	Sejam d e \(\rho \) métricas sobre um conjunto M. Para que d e \(\rho \) sejam equivalentes é
+	necessário e suficiente que a inclusão seja um homeomorfismo.
+\end{prop*}
+\begin{proof*}
+	Suponha que a inclusão \(i:(M, d)\rightarrow (M, \rho )\) é um homeomorfismo. Então,
+	\(i^{-1}(B_{\varepsilon }^{\rho }(x))\) é aberto em M. Logo, existe \(\delta > 0\) tal que
+	\(B_{\delta }^{d}(x) \subseteq{i^{-1}(B_{\varepsilon }^{\rho }(x))}\)
+	Além disso, \(i^{-1}:(M, \rho )\rightarrow (M, d)\) é contínua e então \((i^{-1})^{-1}(B_{\varepsilon }^{d}(x))\)
+	é aberto, logo, \(\delta >0\) existe satisfazendo \(B_{\delta }^{\rho }(x) \subseteq{B_{\varepsilon }^{d}(x)}\), o
+	que define, em conjunto com a primeira parte, duas métricas equivalentes.
+
+	Por outro lado, assuma d e \(\rho \) equivalentes. Neste caso, precisamos verificar
+	que \(i^{-1}(A)\) é aberto para todo aberto de \((M, \rho) \) e \((i^{-1})^{-1}(B)\) é aberto em \((M, d)\).
+	Com efeito, dado \(A\subseteq{M}\) aberto, seja \(x\in i^{-1}(A)\). Como x pertence a A, existe \(\delta >0\) de
+	maneira que \(B_{\delta }^{\rho }(x)\subseteq{A}.\) Seja \(r > 0\) tal que \(B_{r}^{d}(x)\subseteq{B_{\delta }^{r}}\subseteq{A}\),
+	o que garante a continuidade de i. O análogo pode ser feito para mostrar que \(i^{-1}\) é contínua (exercício).
+	Portanto, i é homeomorfismo. \qedsymbol
+\end{proof*}
+\end{document}

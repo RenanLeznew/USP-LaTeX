@@ -1,0 +1,186 @@
+\documentclass[MetricSpaces/metric_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 19/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Exemplos de Espaços Conexos;
+	\item Relação de continuidade e conexidade.
+\end{itemize}
+\subsection{Conexidade - Continuação}
+\begin{theorem*}[Alfândega]
+	Sejam Y, X subconjuntos de um espaço métrico M. Se Y é conexo e \(Y\cap X \neq\emptyset\) e \(Y\cap X^{c}\neq\emptyset\), então
+	\(Y\cap \partial X \neq\emptyset.\)
+\end{theorem*}
+\begin{proof*}
+	Como \(Y\cap X \neq\emptyset\) e \(Y\cap X^{c} \neq\emptyset\), o subconjunto \(Y \cap X\) do espaço métrico conexo
+	não é nem vazio e nem o espaço todo. Logo, existe algum c pertencente à fronteira de \(Y\cap X\) no subespaço Y. De fato,
+	na verdade, vamos mostrar que c pertence à fronteira de X em M. Com efeito, dado \(\varepsilon >0\), existe \(s\in Y\cap X\subseteq{X}\) e
+	\(t\in Y\setminus\{Y\cap X\} = Y\setminus{X}\subseteq{M\setminus\{X\}}\) com \(d(c, s) < \varepsilon \) e \(d(c, t) < \varepsilon \), tal que
+	\(c\in \partial X\). Portanto, \(Y\cap \partial X \neq\emptyset.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+	Um \textbf{caminho} num espaço métrico M é uma função contínua \(f:[0, 1]\rightarrow M.\) Os pontos \(a = f(0)\) e \(b = f(1)\) são os extremos
+	do caminho. Neste cado, f é dito ligar o ponto a ao ponto b em M e escreveremos \(x\thicksim a.\) Quando \(a = b,\) dizemos que f é um caminho fechado
+	em M. \(\square\)
+\end{def*}
+Essa relação é de equivalência.
+
+Para ver que é reflexiva, seja x em M e defina \(f:[0, 1]\rightarrow M\) por \(f(t) = x, t\in [0, 1],\) tal que temos \(x\thicksim x.\)
+
+Agora, para a simetria, sejam \(x, y\in M\) tais que \(x\thicksim y\) e \(f:[0, 1]\rightarrow M\) tal que \(f(0) = x\) e \(f(1) = y\). Definimos \(g:[0, 1]\rightarrow M\) por
+\(g(t) = f(1-t), t\in [0, 1],\) que é contínua por ser a composta de contínua e \(g(0) = f(1) = y\) e \(g(1) = x,\) de modo que \(y\thicksim x\).
+
+Finalmente, a transitividade segue do seguinte - sejam \(x, y, z\in M\) com \(x\thicksim y\) e \(y\thicksim z\). Seja f o caminho com ponto inicial x, final y e g o
+caminho com ponto inicial y e final z. Definimos \(h:[0, 1]\rightarrow M \) por
+\[
+	h(t) = \left\{\begin{array}{ll}
+		f(2t),\quad 0\leq t\leq \frac{1}{2} \\
+		g(2t-1),\quad \frac{1}{2}\leq t\leq 1.
+	\end{array}\right.
+\]
+Essa função h é chamada \textbf{caminho justaposto}.
+\begin{def*}
+	Um espaço métrico M é dito ser \textbf{conexo por caminho} se, para quaisquer a, b em M, \(a\thicksim b\), ou seja,
+	existe um caminho f em M que liga a a b, ou seja, \(f(0)=a\) e \(f(1)=b.\) Isto equivale a dizer que só há uma
+	classe de equivalência com respeito a ``\(\thicksim\)''. \(\square\)
+\end{def*}
+\begin{example}
+	Para todo \(n\geq 2, \mathbb{R}^{n}\setminus\{0\}\) é conexo por caminhos. De fato, sejam x, y em \(\mathbb{R}^{n}\setminus\{0\}\) e
+	consideremos dois casos.
+
+	(1) Se \(0\not\in[x, y]\coloneqq \{ty + (1-t)x: t\in[0, 1]\},\) então consideramos o caminho
+	\[
+		\gamma (t) = ty + (1-t)x,\quad t\in[0,1],
+	\]
+	que liga x a y em \(\mathbb{R}^{n}\setminus\{0\}.\)
+
+	(2) Se \(0 = t_{0}y + (1-t_{0})x\) para algum \(t_{0}\in (0, 1),\) então existe
+	\[
+		z\in \mathbb{R}^{n}\setminus\biggl\{t \biggl(x, \frac{yt_{0}}{(1-t_{0})}\biggr):t\in \mathbb{R}\biggr\}
+	\]
+\end{example}
+\begin{theorem*}
+	Seja \(h:M\rightarrow N\) um homeomorfismo. Então, M é conexo por caminho se, e somente se, N é conexo por caminhos.
+\end{theorem*}
+\begin{proof*}
+	Basta ver que, se M é conexo por caminho, dados \(f(x), f(y)\in N\), os elementos \(x, y\in M\) são ligados por um caminho \(\varphi \). Como h
+	é contínua, \(h\circ{\varphi }\) é contínua e sai de \([0, 1]\), provando que N é conexo por caminhos. A volta é análoga, mas com \(h^{-1}.\) \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se o espaço métrico M é conexo por caminhos, então M é conexo.
+\end{theorem*}
+\begin{proof*}
+	Se \(M = A \cup B\) fosse uma cisão não-trivial de M, dados \(a\in A\) e \(b\in B\), existiria um caminho
+	\(f:[0, 1]\rightarrow M\) tal que \(f(0) = a, f(1) = b\) e, assim, teríamos
+	\[
+		[0, 1] = f^{-1}(M) = f^{-1}(A)\cup f^{-1}(B),
+	\]
+	uma cisão de \([0, 1]\), já que \(0\in f^{-1}(A)\) e \(1\in f^{-1}(B)\), formando uma cisão do intervalo. Contradição.
+	Portanto, M é conexo. \qedsymbol
+\end{proof*}
+\begin{example}[Espaço Pente]
+	Seja \(P\subseteq{\mathbb{R}^{2}}, P\coloneqq \{0\}\times (0,1]\cup D\cup H,\) o espaço pente, com (dentes e haste)
+	\[
+		D = \bigcup_{n\in \mathbb{N}}^{}{\biggl\{\frac{1}{n}\biggr\}\times[0, 1]}\quad\text{e}\quad H = (0, 1]\times\{0\}.
+	\]
+	Esse espaço é conexo e não é conexo por caminhos. Suponha que existe f contínua, \(f:[0, 1]\rightarrow X\) tal que
+	\[
+		f(0) = (0, 1)\quad\text{e}\quad f(1) = (1,1).
+	\]
+	Defina \(\alpha  = \sup{\{x\in[0, 1]: f(0, x)\subseteq{B}\}}\). Então, \(f(\alpha )\) está bem-definida e vamos verificar o pertencimento de \(f(\alpha )\) a A ou a B.
+
+	\textbf{Caso \(f(\alpha )\in A\):}
+	Se isso acontece, então
+	\[
+		B_{r}^{f(\alpha )}\cap B = \emptyset,\quad r < d(f(\alpha ), B),
+	\]
+	ou seja, \(A\subseteq{\mathbb{R}^{2}}\setminus{(B\cup \{0, 0\})}\), mostrando que A é aberto. Por f ser contínua, existe \(\delta \) tal que
+	\(f(\delta -\alpha , \delta +\alpha ) \subseteq{B_{r}^{f(\alpha )}}.\) Tomemos \(y\in (\alpha -\delta , \alpha ),\) de forma que \(f(y)\cap B = \emptyset\).
+	Como \(y < \alpha \), então, \(f(y)\in B\), mas, pela definição de \(\alpha \), deve existir y em \((\alpha , \alpha +\delta )\) tal que não existe nenhum \(\delta \)
+	satisfazendo \(f(\alpha -\delta ,\alpha +\delta )\cap B = \emptyset \)
+
+	\textbf{Caso \(f(\alpha )\in B\):}
+	Analogamente, suponha que \(f(\alpha )\in B\). Sempre é possível obter \(\varepsilon >0\) tal que \((0, 0)\not\in B_{\varepsilon }(f(\alpha ))\) e, pela continuidade
+	de f em \(\alpha \), existe um intervalo aberto V tal que \(f(V)\subseteq{B_{\varepsilon }(f(\alpha ))}.\) Um argumento similar ao anterior mostra a existência de
+	um intervalo \((\alpha , \alpha +\delta ) \subseteq{V}\) para o qual \(f((\alpha , \alpha +\varepsilon ))\subseteq{B_{\varepsilon }(f(\alpha ))}.\) Assim, pela definição
+	de \(\alpha ,\) deve existir um \(\beta \in (\alpha , \alpha +\delta )\) tal que \(f(\beta)\in A\), já que, se não fosse o caso, \(\alpha \) não seria o supremo.
+	Com isso, no intervalo V, f assume valores em B e em A, o que impede que \(f(V)\) seja conexo, visto que \(f(V)\subseteq{B_{\varepsilon }(f(\alpha ))}\) e este conjunto
+	é composto por retas verticais.
+
+	Encontramos elementos tanto em B quanto em A. Isso é uma contradição ao fato de funções contínuas preservarem conexidade, ou seja, não pode existir tal função f. Portanto,
+	X não é conexo por caminhos, pois provamos que não há função contínua de \((0, 1)\) à \((1, 1)\).
+\end{example}
+\begin{prop*}
+	Um espaço métrico \((M, \rho )\) é conexo se, e somente se, quaisquer dois pontos de M estiverem contidos em algum subconjunto
+	conexo.
+\end{prop*}
+\begin{proof*}
+	Se \((M, \rho )\) é conexo, o resultado segue automaticamente. Para a recíproca, fixe \(x_{1}\in M\) e seja
+	\(C_{x}\) um conexo contendo \(\{x_{1}, x\}\). Temos \(M = \bigcup_{x\in M}^{}{C_{x}}\), que é conexo, já que \(\bigcap_{x\in M}^{}{C_{x}}\neq\emptyset.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja \((M, \rho )\) um espaço métrico e x um elemento de M. A \textbf{componente conexa} do ponto x em M é o subconjunto conexo maximal
+	\(C_{x}\) de M com x em \(C_{x}\).
+\end{def*}
+Entenda por maximal que, se \(D_{x}\) é qualquer conexo de M contendo x, vale \(D_{x}\subseteq{C_{x}}.\)
+\begin{example}
+	As componentes conexas de \(\mathbb{R}\setminus{\{0\}}\) se referem aos conexos \((-\infty, 0)\) e \((0, \infty).\)
+\end{example}
+\begin{example}
+	No espaço métrico \(\mathbb{Q},\) cada componente conexa reduz-se ao conjunto unitário formado por um ponto. Em outras palavras,
+	nenhum subconjunto conexo de \(\mathbb{Q}\) pode conter dois pontos distintos. Com efeito, seja \(A\subseteq{\mathbb{Q}}\) com \(A \neq\emptyset\)
+	e \(A\neq\{q\}.\) Sejam \(q_{1}, q_{2}\in A\) distintos e \(r\in(q_{1}, q_{2})\setminus{\mathbb{Q}}\). Temos
+	\[
+		A = \biggl((-\infty, r)\cap A\biggr)\bigcup_{}^{}{\biggl((r, +\infty)\cap A\biggr)},
+	\]
+	formando uma cisão não trivial de A. Portanto, os únicos conjuntos conexos de \(\mathbb{Q}\) são os unitários.
+\end{example}
+Em geral, a componente maximal tem a forma
+\[
+	C_{x} = \bigcup_{\alpha \in J}^{}{D_{\alpha }^{x}},
+\]
+em que \(\{D_{\alpha }^{x}: \alpha \in J\}\neq\emptyset\) é a família de todos os subconjuntos conexos de M contendo x.
+
+Além disso, se \(C_{x}\cap C_{y} \neq\emptyset\), então \(C_{x} = C_{y}.\) De fato,
+\[
+	C_{x} \subseteq\underbrace{{C_{x}\cup C_{y}}}_{\text{conexos}} \subseteq{C_{y}}
+\]
+e
+\[
+	C_{y}\subseteq{C_{x}\cup C_{y}}\subseteq{C_{x}}.
+\]
+
+Note também que a família \(\{C_{x}: x\in M\}\) das componentes conexas de M nos fornece uma partição de M
+em partes disjuntas da seguinte forma:
+\[
+	M = \bigcup_{x\in M}^{}{C_{x}}.
+\]
+Devido ao fato do fecho da componente conexa ser conexa, toda componente conexa é fechada. Ademais, se M tiver uma quantidade finita de componentes conexas,
+elas serão abertas. Com efeito, se \(M = \cup_{i=1}^{n}C_{i},\) com \(C_{i}, i = 1,\cdots,n\) componentes conexas, então
+\[
+	C_{i}^{\complement} = \cup_{j=1, j\neq i}^{n}C_{j}
+\]
+que é fechado, visto que cada \(C_{j}\) é fechado e, portanto, \(C_{i}\) é aberto.
+\begin{example}
+	Se M não tiver um número finito, as componentes podem não ser conjuntos abertos, vide o exemplo de \(M = \mathbb{Q}\), tal que a decomposição em suas componentes aberats é
+	\[
+		\mathbb{Q} = \bigcup_{q\in \mathbb{Q}}^{}{\{q\}}.
+	\]
+\end{example}
+\begin{theorem*}
+	Seja \(h:M\rightarrow N\) um homeomorfismo. Então, \(C_{x}\subseteq{M}\) é componente conexa de M se, e somente se,
+	\(h(C_{x})\) é uma componente conexa de N.
+\end{theorem*}
+\begin{proof*}
+	Se \(C_{x}\subseteq{M}\) é uma componente conexa em M e \(C_{y}\) é a componente conexa de \(y=h(x),\) então \(h(C_{x})\) é
+	um conexo contendo \(y = h(x)\) e, por isso, \(h(C_{x})\subseteq{C_{y}}\). Além disso, como \(h^{-1}\) é contínua,
+	\[
+		h^{-1}(C_{y})\subseteq{C_{x}},
+	\]
+	pois \(h^{-1}(C_{y})\) é um conexo contendo x. Segue que \(C_{y}\subseteq{h(C_{x})}\), donde segue que \(h(C_{x}) = C_{y}\) é
+	uma componente de N.
+
+	Analogamente, mostra-se que \(h(C)\) é uma componente conexa de N e \(C_{x}\) é a componente conexa e \(x=h^{-1}(y)\) para algum y em h(C), então
+	\(h^{-1}(C_{y})\) é uma componente de M. \qedsymbol
+\end{proof*}
+\end{document}
