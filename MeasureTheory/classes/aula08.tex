@@ -1,0 +1,395 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 22/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Decomposição de Jordan;
+	\item O Teorema de Radon-Nikodym.
+\end{itemize}
+\subsection{Decomposição de Jordan}
+\hypertarget{jordan_decomposition}{
+	\begin{theorem*}[Decomposição de Jordan]
+		Se \(\mu \) é uma medida com sinal num espaço mensurável \((X, \mathcal{A})\), então existem medidas positivas \(\mu ^{\pm}\) tais que \(\mu = \mu ^{+} - \mu ^{-}\) e \(\mu ^{+}\perp \mu ^{-}.\) Esta decomposição é única.
+	\end{theorem*}}
+\begin{proof*}
+	Sejam E e F conjuntos negativo e positivo, respectivamente, com relação a \(\mu \), tal que \(X = E\cup F\) e \(E\cap F = \emptyset \). Seja \(\mu ^{+}(A) = \mu (A\cap F)\) e \(\mu ^{-}(A)=-\mu (A\cap E).\) Isso
+	fornece a decomposição desejada. Se \(\mu = \nu^{+}-\nu^{-}\) é outra decomposição com \(\nu^{+}\perp \nu^{-},\) seja \(E'\) tal que \(\nu^{+}(E') = 0\) e
+	\(\nu^{-}((E')^{\complement}) = 0.\) Seja \(F'=(E')^{\complement}\), de modo que \(X = E' \cup F'\) e \(E'\cap F' = \emptyset \). Se \(A\subseteq F',\) então \(\nu^{-}(A)\leq \nu^{-}(F') = 0\) e, assim,
+	\[
+		\mu (A) = \nu ^{+}(A) - \nu ^{-}(A) \geq \nu ^{+}(A) \geq 0,
+	\]
+	do que segue que \(F'\) é positiva para \(\mu \). Analogamente, \(e'\) é negativa para \(\mu .\)
+
+	Com isso, \(E', F'\) dá uma outra decomposição de Hahn sobre X. Pela unicidade do \hyperlink{hahn}{\textit{Teorema da Decomposição de Hahn}}, \(F\Delta F'\) tem medida nula com relação a \(\mu \). Como \(\nu ^{+}(E') = 0\) e \(\nu^{-}(F') = 0\)
+	se \(A\in \mathcal{A}\), temos
+	\begin{align*}
+		\nu ^{+}(A) & = \nu ^{+}(A\cap F') = \nu ^{+}(A\cap F') - \nu ^{-}(A\cap F') \\
+		            & = \mu (A\cap F') = \mu (A\cap F) = \mu ^{+}(A).
+	\end{align*}
+	Analogamente, \(\nu^{-}=\mu ^{-}.\) Portanto, \(\mu^{+}-\mu ^{-}= \nu^{+}-\nu ^{-}. \) \qedsymbol
+\end{proof*}
+Suponha \(f\geq 0\) integrável com relação a \(\mu \). Defina \(\nu \) pondo
+\[
+	\nu (A) = \int_{A}f d\mu_{}.
+\]
+Afirmamos que \(\nu \) é uma medida. De fato, apenas precisamos chegar a aditividade contável. Sejam \(A_{n}\) conjuntos mensuráveis disjuntos. Então,
+\[
+	\nu \biggl(\bigcup_{n}^{}A_{n}\biggr) = \int_{\bigcup_{n}^{}A_{n}}f d\mu_{} = \sum\limits_{i=1}^{\infty}\int_{A_{i}}f d\mu_{} = \sum\limits_{i=1}^{\infty}\nu (A_{i}).
+\]
+em que usamos que, como \(f\geq 0\), podemos trocar a integral com a soma. Note que \(\nu (A) = 0\) sempre que \(\mu (A) = 0\).
+
+Agora, fica a questão da ``recíproca'' - dads duas medidas \(\mu \) e \(\nu \), existe f tal que
+\[
+	\nu (A) = \int_{A}f d\mu_{}?
+\]
+Esta pergunta é respondida pelo Teorema de Radon-Nikodym. Sendo mais específico, se \(\nu (A) = 0\) sempre que \(\mu (A) = 0\), então existe f tal que
+\[
+	\nu (A) = \int_{A}f d\mu_{}.
+\]
+Medidas que possuem essa propriedade recebem uma definição própria.
+\begin{def*}
+	Uma medida \(\nu \) é dita ser \textbf{absolutamente contínua} com relação à medida \(\mu \) se
+	\(\nu (A) = 0\) sempre que \(\mu (A) = 0\). Denotamos isso por \(\nu <<\mu .\) \(\square\)
+\end{def*}
+\begin{prop*}
+	Seja \(\nu \) medida finita. Então, \(\nu \) é absolutamente contínua com relação a \(\mu \) se, e somente se, para todo \(\varepsilon \) existe \(\delta \) tal que \(\mu (A) < \delta \) implica que \(\nu (A) < \varepsilon .\)
+\end{prop*}
+\begin{proof*}
+	Suponha que, para todo \(\varepsilon > 0\), existe \(\delta > 0\) tal que
+	\[
+		\mu (A) < \delta \Rightarrow \nu (A) < \varepsilon .
+	\]
+	Se \(\mu (A) = 0\), então \(\nu (A) = 0\) para todo \(\varepsilon \) e, logo, \(\nu (A) = 0\), donde segue que \(\nu << \mu .\)
+
+	Por outro lado, assuma que \(\nu <<\mu .\) Se existe \(\varepsilon > 0\), então para todo \(\delta_{\varepsilon } > 0\), \(E_{\varepsilon }\) com \(\mu (E_{\varepsilon }) < \delta_{\varepsilon } \) e \(\nu (E_{\varepsilon })\geq \varepsilon \), podemos supo que existe
+	\(E_{k}\) tal que \(\mu (E_{k}) < 2^{-k},\) mas \(\nu (E_{k})\geq \varepsilon .\) Seja \(F = \bigcap_{n=1}^{\infty}\bigcup_{k=n}^{\infty}E_{k}.\) Então,
+	\[
+		\mu (F)=\lim_{n\to \infty}\mu \biggl(\bigcup_{k=n}^{\infty}E_{k}\biggr)\leq \lim_{n\to \infty}\sum\limits_{k=n}^{\infty}2^{-k} = 0,
+	\]
+	mas
+	\[
+		\nu (F) = \lim_{n\to \infty}\nu \biggl(\bigcup_{k=n}^{\infty}E_{k}\biggr)\geq \varepsilon .
+	\]
+	Aqui, utilizamos que \(\nu \) é finito para obter a igualdade acima. Com isso, obtivemos uma contradição à definição de continuidade absoluta.\qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Sejam \(\mu \) e \(\nu \) medidas positivas finitas sobre o espaço mensurável \((X, \mathcal{A}).\) Então, \(\mu \perp \nu \), ou existe \(\varepsilon > 0\) e \(G\in \mathcal{A}\) tais que \(\mu (G) > 0\) e G é positiva para \(\nu - \varepsilon \mu .\)
+\end{lemma*}
+\begin{proof*}
+	Considere a decomposição de Hahn para \(\nu -\frac{1}{n}\mu .\) Existem, então, uma sequência de conjuntos negativos \(E_{n}\) e positivos \(F_{n}\) para essa medida, sendo \(E_{n}\) e \(F_{n}\) disjuntos, com \(E_{n}\cup F_{n} = X\) para todo n.
+	Coloque \(F = \cup _n F_{n}\) e \(E = \cap_{n} E_{n}\) e note que
+	\[
+		E ^{\complement} = \bigcup_{n}^{}E_{n}^{\complement} = \bigcup_{n}^{}F_{n} = F.
+	\]
+	Para cada n, \(E\subseteq E_{n}\), tal que
+	\[
+		\nu (E) \leq \nu (E_{n}) \leq \frac{1}{n}\mu (E_{n})\leq \frac{1}{n}\mu (X).
+	\]
+	Como \(\nu \) é uma medida positiva, \(\nu (E) = 0.\)
+
+	Uma das possibilidades é que \(\mu (E ^{\complement}) = 0\) no caso de \(\mu \perp \nu \). A outra, é que \(\mu (E ^{\complement})>0,\) no qual \(\mu (F_{n}) > 0\) para algum n. Seja \(\varepsilon  = \frac{1}{n}\) e \(G = F_{n}.\) Portanto,
+	pela definição de \(F_{n}\), G é positiva para \(\nu - \varepsilon \mu .\) \qedsymbol
+\end{proof*}
+\subsection{O Teorema de Radon-Nikodym}
+\hypertarget{radon_nikodym}{
+	\begin{theorem*}[Radon-Nikodym]
+		Suponha que \(\mu \) é uma medida \(\sigma \)-finita e positiva sobre o espaço mensurável \((X, \mathcal{A})\), e \(\nu \) é uma medida finita sobre o espaço mensurável \((X, \mathcal{A},)\) tal que \(\nu \) é absolutamente
+		contínua com relação a \(\mu \). Então, existe uma função \(\mu \)-integrável não negativa f mensurável com relação a \(\mathcal{A}\) tal que
+		\[
+			\nu (A) = \int_{A}f d\mu_{},\quad \forall A\in \mathcal{A}.
+		\]
+		Além disso, se g for outra função satisfazendo a mesma coisa, então \(f = g\) quase sempre com relação a \(\mu \).
+	\end{theorem*}}
+A função f é chamada \textbf{derivada de Radon-Nikodym} de \(\nu \) com relação a \(\mu \), ou também chamada de \textbf{densidade de }\(\nu \) \textbf{com relação a }\(\mu \), e escrevemos
+\[
+	f= \frac{d\nu }{d\mu },
+\]
+ou
+\[
+	d\nu = f\mu.
+\]
+\begin{proof*}
+	A ideia da prova é olhar para o conjunto de f tal que
+	\[
+		\int_{A}f d\mu_{} \leq \nu(A),\quad \forall A\in \mathcal{A}.
+	\]
+	A partir disso, escolhe-se um dos conjuntos, X, tal que \(\int_{X}f d\mu_{}\) seja o maior deles.
+
+	\textit{\underline{Unicidade}:} Suponha que f e g são duas funções tais que
+	\[
+		\int_{A}f d\mu_{} = \nu (A) = \int_{A}g d\nu_{},\quad \forall A\in \mathcal{A}.
+	\]
+	Para todo \(A\in \mathcal{A},\) temos
+	\[
+		\int_{A}(f-g) d\mu_{} = \nu (A) - \nu(A) = 0.
+	\]
+	Logo, \(f = g = 0\) quase sempre com relação a \(\mu \), provando a unicidade.
+
+	Agora, suponha que \(\mu \) seja uma medida finita. Vamos definir a f, já que sabemos que ela é única. Coloque
+	\[
+		\mathcal{F} = \{g \text{ mensurável: } g\geq 0, \int_{A}g d\mu_{}\leq \nu (A), \forall A\in \mathcal{A}.\}
+	\]
+	Assim, \(\mathcal{F}\neq\emptyset\) pois \(0\in \mathcal{F}.\) Seja
+	\[
+		L = \sup_{}\biggl\{\int_{}g d\mu_{}: g\in \mathcal{F}\biggr\},
+	\]
+	tal que \(L\leq \nu (X) < \infty\), e seja \(g_{n}\) sequência em \(\mathcal{F}\), tal que
+	\[
+		\int_{}g_{n} d\mu_{}\to L.
+	\]
+	Tome \(h_{n} = \max_{}(g_1, \dotsc , g_{n})\) e \(B = \{x: g_1(x) \geq g_2(x)\}\). Escrevemos
+	\begin{align*}
+		\int_{A}h_2 d\mu_{} & = \int_{A\cap B}h_2 d\mu_{} + \int_{A\cap B ^{\complement}}h_2 d\mu_{} \\
+		                    & = \int_{A\cap }g_1 d\mu_{} + \int_{A\cap B ^{\complement}}g_2 d\mu_{}  \\
+		                    & \leq \nu (A\cap B) + \nu (A\cap B ^{\complement}) = \nu (A).
+	\end{align*}
+	Portanto, \(h_2=\max_{}(g_1, g_2)\in \mathcal{F}\). Repetindo o processo e aplicando indução, \(h_{n}\in \mathcal{F}.\) A função \(h_{n}\) cresce, digamos para f. Pelo \hyperlink{monotone_convergence}{\textit{Teorema da Convergência Monótona}},
+	\[
+		\int_{A}f d\mu_{}\leq \nu (A), \quad \forall A\in \mathcal{A}
+	\]
+	e
+	\[
+		\int_{}f d\mu_{} \geq \int_{}h_{n} d\mu_{}\geq \int_{}g_{n} d\mu_{},\quad \forall n\in \mathbb{N}.
+	\]
+	Com isto,
+	\[
+		\int_{}f d\mu_{} = L,
+	\]
+	pois L é o supremo por hipótese.
+
+	A seguir, mostramos que essa é a f que procuramos. Com efeito, defina a medida \(\lambda \) pondo
+	\[
+		\lambda (A) = \nu (A) - \int_{A}f d\mu_{}.
+	\]
+	Note que \(\lambda \) é medida positiva, pois \(f\in \mathcal{F}.\) Suponha que \(\lambda \) não é mutualmente singular com \(\mu \). Então, existe \(\varepsilon >0\) e G tais que G é mensurável, \(\mu (G) > 0\)
+	e G é positiva para a medida \(\lambda -\varepsilon \mu .\) Para todo \(A\in \mathcal{A},\)
+	\[
+		\nu (A) - \int_{A}f d\mu_{} = \lambda (A) \geq \lambda (A\cap G) \geq \varepsilon \mu (A\cap G) = \int_{A}\varepsilon \chi_{G} d\mu_{},
+	\]
+	ou seja,
+	\[
+		\nu (A) \geq \int_{A}(f+\varepsilon \chi_{G}) d\mu_{}.
+	\]
+	Logo, \(f+\varepsilon \chi_{G}\in \mathcal{F}.\) No entanto,
+	\[
+		\int_{X}(f+\varepsilon \chi_{G}) d\mu_{} = L + \varepsilon \mu (G) > L.
+	\]
+	Contradição, pois L é o supremo. Destarte, \(\lambda \perp \mu ,\) tal que existe \(h\in \mathcal{A}\) tal que \(\mu (H) = 0\) e \(\lambda (H ^{\complement}) = 0\). Como \(\nu<<\mu \), então \(\nu (H) = 0\) e, portanto,
+	\[
+		\lambda (H) = \nu (H) - \int_{H}f d\mu_{} = 0.
+	\]
+	Isto implica que \(\lambda  = 0\) ou que \(\nu (A) = \int_{A}f d\mu_{}\) para todo A.
+
+	Finalmente, mostramos que \(\mu \) é \(\sigma \)-finita. De fato, existe \(F_{i}\uparrow X\) tal que \(\mu (F_{i}) < \infty\) para todo i. Seja \(\mu_{i}\) a restrição de \(\mu \) em \(F_{i}\), ou seja, \(\mu_{i}(A) = \mu(A\cap F_{i})\).
+	Coloque \(\nu_{i}\) analogamente para \(\nu \). Segue que \(\nu_{i}\) é absolutamente contínua com relação a \(\nu_{i}\), pois se \(\mu(A\cap F_{i}) = 0\), então \(\nu (A\cap F_{i})=0,\) o que equivale a \(\mu_{i}(A) = \nu_{i}(A) = 0.\)
+
+	Se \(f_{i}\) é a função tal que \(d\nu_{i} = f_{i}d\mu_{i}\), então \(f_{i} = f_{j}\) para sobre \(F_{i}\) para todo \(j\leq i\) por unicidade. Defina f pondo \(f(x) = f_{i}(x)\) se \(x\in F_{i}.\) Com esta definição, para cada \(A\in \mathcal{A},\)
+	\[
+		\nu (A\cap F_{i}) = \nu_{i}(A) = \int_{A}f_{i} d\mu_{i} = \int_{A\cap F_{i}} d\mu_{}.
+	\]
+	Portanto, fazendo \(i\to \infty\), encontrarmos a f procurada. \qedsymbol
+\end{proof*}
+A prova da decomposição de Lebesgue usa esses mesmos argumentos:
+\begin{theorem*}
+	Suponha \(\mu \) uma medida \(\sigma \)-finita positiva e \(\nu \) uma medida finita positiva. Então, existem medidas positivas \(\lambda , \rho \) tais que \(\nu = \lambda + \rho \), com \(\rho \) absolutamente contínua com relação a \(\mu \), e \(\lambda \) e \(\mu \) mutualmente singulares.
+\end{theorem*}
+\begin{proof*}
+	Vamos reduzir \(\mu \) ao caso de medida finita e definir \(\mathcal{F}\) e L, assim como a construção de f, como na prova do Radon-Nikodym.
+
+	Seja \(\rho (A) = \int_{A}f d\mu_{}\) e seja \(\lambda = \nu - \rho\). Da construção, como na prova do Radon-Nikodym,
+	\[
+		\int_{A}f d\mu_{}\leq \nu (A).
+	\]
+	Assim, \(\lambda (A) \geq 0\) para todo A. Temos, então, \(\rho + \lambda = \nu \). Resta provar a singularidade mútua.
+
+	Se não fosse, então existe \(\varepsilon > 0\) e \(F\in \mathcal{A}\) tal que \(\mu (F) > 0\) e F é positiva para a medida \(\lambda -\varepsilon \mu .\) Obtemos uma contradição na prova do Radon-Nikodym. Portanto, \(\lambda \perp \mu \) e a decomposição é única. \qedsymbol
+\end{proof*}
+Seja I um intervalo de \(\mathbb{R}.\) Uma função \(f:I\rightarrow \mathbb{R}\) é absolutamente contínua em I se, para cada \(\varepsilon  > 0\), existe um \(\delta > 0\) de modo que, sempre que uma sequência finita de subintervalos disjuntos aos pares \((x_{k}, y_{k})\in I\) com \(x_{k}, y_{k}\in I\) satisfazendo
+\[
+	\sum\limits_{k}^{}(y_{k}-x_{k}) < \delta \Rightarrow \sum\limits_{k}^{}|f(y_{k}) - f(x_{k})| < \varepsilon .
+\]
+A coleção de todas as funções absolutamente contínuas em I é denotado \(\mathbb{AC}(I).\) Esta definição é equivalente a
+\begin{itemize}
+	\item[i)] f é absolutamente contínua;
+	\item[ii)] f tem uma derivada f'quase em todos os lugares, a derivada é Lebesgue integrável e \(f(x) = f(a) + \int_{a}^{x}f'(t)dt\) para todo \(x\in [a, b]\)
+	\item[iii)] Existe uma função integrável Lebesgue g em [a, b] tal que \(f(x) = f(a) + \int_{a}^{x}g'(t)dt\) quase para todo x em [a, b].
+\end{itemize}
+\begin{lemma*}
+	Denote m a medida de Lebesgue em \(\mathbb{R}^{n}.\) Suponha que \(E\subseteq \mathbb{R}^{n}\) seja coberta por uma coleção de bolas \(\{B_{\alpha }\} \) e existe \(R> 0\) tal que o diâmetro de cada bola \(\{B_{\alpha }\}\) é limitada por R.
+	Então, existe uma sequência \(B_{1}, B_{2}, \dotsc \) de elementos de \(\{B_{\alpha }\}\), disjuntas, tal que
+	\[
+		m(E) \leq 3^{n}\sum\limits_{k}^{}m(B_{k}).
+	\]
+\end{lemma*}
+\begin{proof*}
+	Seja \(d(B_{\alpha })\) diâmetro de \(B_{\alpha }.\) Escolha \(B_1\) tal que
+	\[
+		d(B_{1}) \geq \frac{1}{2}\sup_{\alpha }d(B_{\alpha }).
+	\]
+	Uma vez escolhidos, \(B_1, B_2, \dotsc , B_{k},\) escolhemos \(B_{k+1}\) disjunto de todos os outros e tal que
+	\[
+		d(B_{k+1}) \geq \frac{1}{2}\sup_{\alpha }\{d(B_{\alpha }): B_{\alpha } \text{ é disjunto de }B_1,\dotsc ,B_{k}\}.
+	\]
+	Se \(\sum\limits_{k}^{}m(B_{k}) = \infty,\) então acabou. Suponha que \(\sum\limits_{k}^{}m(B_{k}) < \infty\). Seja \(B_{k}^{*}\) uma bola com o mesmo centro de \(B_{k},\) mas com o triplo do raio. Afirmamos que
+	\(E\subseteq \bigcup_{k}^{}B_{k}^{*}\). Assumindo a afirmação, temos
+	\[
+		m(E) \leq m \biggl(\bigcup_{k}^{}B_{k}^{*}\biggr) \leq \sum\limits_{k}^{}m(B_{k}^{*}) = 3^{n}\sum\limits_{k}^{}m(B_{k}).
+	\]
+	Agora, provemos a afirmação. Basta provar que \(B_{\alpha }\subseteq \bigcup_{k}^{}B_{k}^{*}, \) já que \(\{B_{\alpha }\}\) cobrem E. Fixado \(\alpha \), se \(B_{\alpha }\) é um dos \(B_{k},\) estamos feitos. Caso contrário,
+	se \(\sum\limits_{k}^{}m(B_{k}) < \infty,\) então \(d(B_{k})\to 0\). Seja k o menor inteiro tal que \(d(B_{k+1}) < \frac{1}{2}d(B_{\alpha ).}\) Então, \(B_{\alpha }\) deve interceptar um dos \(B_{i}, i = 1, 2, \dotsc, k\). Caso contrário, poderíamos escolher \(B_{k+1}\) como sendo \(B_{\alpha }.\)
+
+	Seja \(j_{0}\) o menor inteiro positivo menor ou igual a k tal que \(B_{j_{0}}\cap B_{\alpha }\neq\emptyset.\) Sabemos, da escolha e definição, que
+	\[
+		\frac{1}{2}d(B_{\alpha }) \leq d(B_{j_{0}}),
+	\]
+	o que implica que \(B_{\alpha }\subseteq B_{j_{0}}^{*}\). Com efeito, seja \(x_{j_{0}}\) o centro de \(B_{j_{0}}\) e \(y\in B_{\alpha }\cap B_{j_{0}}.\) Se \(x\in B_{\alpha},\) então
+	\[
+		|x-x_{0}|\leq |x-y| + |y-x_{0}| < d(B_{\alpha }) + d(B_{j_{0}})/2 \leq \frac{5}{2}d(B_{j_{0}}),
+	\]
+	ou \(x\in B_{j_{0}}^{*},\) em que usamos que \(d(B_\alpha ) \leq 2d(B_{j_{0}}).\) Portanto, \(B_{\alpha }\subseteq B_{j_{0}}^{*}.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+	\begin{itemize}
+		\item[1)] f é \textbf{localmente integrável} se \(\int_{K}|f(x)| dx < \infty\) para todo K compacto.
+		\item[2)] Se f é localmente integrável, definimos a \textbf{função maximal de f} como
+		      \[
+			      Mf(x) = \sup_{r > 0}\frac{1}{m(B(x, r))}\int_{B(x, r)}|f(y)| dy.
+		      \]
+	\end{itemize}
+\end{def*}
+Note que, sem o supremo, isto seria apenas a média do módulo de f sobre a bola \(B(x, r).\) A estratégia para provar que Mf é função mensurável é a seguinte:
+
+Se f é localmente integrável, então, para cada r, a função
+\[
+	x\mapsto \int_{B(x, r)}|f(y)| dy
+\]
+é contínua pelo \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}}, pois quando \(x_{n}\) tende a \(x_{0}\),
+\[
+	h(x_{n}) = \int_{R^{n}}\chi_{B(x_{n}, r)}|f(y)| dy.
+\]
+Decorre, então, que para cada r e cada A, o conjunto
+\[
+	\biggl\{x: \int_{B(x, r)}|f(y)| dy  > A\biggr\}
+\]
+é aberto. Como \(Mf(x) > a\), para algum r, acontecerá
+\[
+	\int_{B(x, r)}|f(y)| dy > am(B(x, r)),
+\]
+tal que
+\[
+	\{x: Mf(x) > a\} = \bigcup_{r>0}^{}\biggl\{x: \int_{B(x, r)}|f(y)| dy > am(B(x, r))\biggr\}
+\]
+e, assim, \(\{x: Mf(x) > a\}\) é a união de conjuntos abertos, logo um aberto. Portanto, Mf é mensurável.
+
+Apesar disso, a M não leva funções integráveis em funções integráveis. Mas, Hardy e Littlewood provaram um resultado próximo:
+\begin{theorem*}
+	Se f é integrável, então, para todo \(\beta > 0,\)
+	\[
+		m(\{x: Mf(x) > \beta \})\leq \frac{3^{n}}{\beta }\int_{}^{}|f(x)|dx.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Fixado \(\beta \), seja \(E_{\beta } = \{x: Mf(x) > \beta \}.\) Se \(x\in E_{\beta },\) então existe bola \(B_{x}\) centrada em x tal que
+	\[
+		\int_{B_{x}}|f(y)| dy > \beta m (B_{x}).
+	\]
+	Então,
+	\[
+		m(B_{x}) \leq \frac{\int_{}^{}|f|}{\beta }
+	\]
+	e, assim, \(\{B_{\alpha }\}\) é cobertura de \(E_{\beta }\) pelas bolas cujos diâmetros são limitados por um número independente de x. Extraindo uma sequência disjunta \(B_{1}, B_2, \dotsc \) tal que \(m(E_{\beta }) \leq 3^{n}\sum\limits_{k}^{}m(B_{k}),\) teremos
+	\begin{align*}
+		m(E_{\beta }) & \leq 3^{n}\sum\limits_{k}^{}m(B_{k}) \leq \frac{3^{n}}{\beta }\sum\limits_{k}^{}\int_{B_{k}}|f| \\
+		              & = \frac{3^{n}}{\beta }\int_{\bigcup_{k}^{}B_{k}}|f| \leq \frac{3^{n}}{\beta }\int_{}^{}|f|,
+	\end{align*}
+	como desejado. \qedsymbol
+\end{proof*}
+\begin{example}
+	Outro detalhe é que M \textbf{NÃO} leva funções integráveis em funções integráveis. Para ver isso, seja \(f = \chi_{B},\) em que B é a bola unitária. Então, \(Mf(x)\sim C|x|^{-n},\) x grande. Logo, Mf não é integrável, pois
+	\[
+		Mf = \sup_{r}\frac{1}{w_{n}r^{n}}|B_1| = \frac{1}{r^{n}}.
+	\]
+\end{example}
+\begin{theorem*}
+	Seja
+	\[
+		f_{r}(x) = \frac{1}{m(B(x, r))}\int_{B(x, r)}f(y)dy.
+	\]
+	Se f é localmente integrável, então
+	\[
+		f_{r}(x)\to f(x)\quad \text{q. s. quando }r\to 0.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Basta provar que, para cada N, \(f_{r}(x)\to f(x)\) quase sempre para \(x\in B(0, N)\) quando \(r\to 0.\) Fixado N, suponha, sem perda de generalidade, que \(f = 0\) em \(B(0, 2N)^{\complement}\).
+	Assim, podemos supor que f seja integrável, já que ela pode ser aproximada por funções simples ou de suporte compacto.
+
+	Fixado \(\beta > 0\), seja \(\varepsilon > 0\). Vimos que podemos tomar g de suporte compacto tal que
+	\[
+		\int_{}|f-g| dm < \varepsilon .
+	\]
+	Se \(g_r\), definida igual a \(f_r\) como uma medida, então
+	\begin{align*}
+		|g_r(x) - g(x)| & = \biggl\vert \frac{1}{m(B(x, r))} \int_{B(x, r)}^{}|g(y) - g(x)||dy|\biggr\vert \\
+		                & \leq \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|g(y)-g(x)|dy\to 0.
+	\end{align*}
+	quando \(r\to 0\) pela continuidade de g. Temos, então,
+	\begin{align*}
+		\limsup_{r\to 0}|f_r(x) - f(x)| & \leq \limsup_{r\to 0}|f_r(x) - f(x)|               \\
+		                                & + \limsup_{r\to 0}|g_r(x) - g(x)| + |g(x) - f(x)|.
+	\end{align*}
+	O segundo termo do lado direito tende a zero pela estimativa feita, donde segue que podemos escrever
+	\begin{align*}
+		m(\{x:\limsup_{r\to 0}|f_r(x) - f(x)| > \beta \}) & \leq m(\{x:\limsup_{r\to 0}|f_r(x) - g_r(x)|>\beta /2\}) + m(\{x: |f(x)-g(x)| > \beta/2\}) \\
+		                                                  & \leq m(\{x: |M(f-g)(x)|>\beta /2\}) + \frac{\int_{}^{}|f-g|}{\beta/2}                      \\
+		                                                  & \leq \frac{2(3^{n}+1)}{\beta }\int_{}^{}|f-g|                                              \\
+		                                                  & < \frac{2(3^{n}+1)\varepsilon }{\beta },
+	\end{align*}
+	em que utilizamos a definição de função maximal para estimar
+	\[
+		|f_r(x) - g_r(x)| \leq M(f-g)(x),\quad \forall r,
+	\]
+	o que é verdadeiro para todo \(\varepsilon \). Assim,
+	\[
+		m(\{x:\limsup_{r\to 0}|f_r(x) - f(x)| > \beta \}) = 0.
+	\]
+	Aplicando com \(\beta  = 1/j\) para cada inteiro positivo j, concluímos que
+	\begin{align*}
+		m(\{x:\limsup_{r\to 0}|f_r(x)-f(x)| > 0\}) \leq \sum\limits_{j=1}^{\infty}m(\{x:\limsup_{r\to 0}|f_r(x) - f(x)| > 1/j\}) = 0.
+	\end{align*}
+	Portanto,
+	\[
+		f_r(x)\to f(x),\quad \text{q.s. quando }r\to 0.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Temos, ainda, um resultado um pouco mais forte
+\begin{theorem*}
+	Para quase todo x,
+	\[
+		\frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y) - f(x)|dy\to 0
+	\]
+	quando \(r\to 0\).
+\end{theorem*}
+\begin{proof*}
+	Para cada racional c, existe um conjunto \(N_{c}\) de medida 0 tal que
+	\[
+		\frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y)-c|dy\to |f(x)-c|,
+	\]
+	para \(x\not\in N_{c}.\) Seja \(N = \bigcup_{c\in \mathbb{Q}}^{}N_{c}\) e suponha que \(x\not\in N\). Tome \(\varepsilon > 0\) e escolha c racional tal que \(|f(x) - c| < \varepsilon .\)
+	Com isso,
+	\begin{align*}
+		\frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y) - f(x)|dy & \leq \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y)-c|dy + \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(x)-c|dy \\
+		                                                     & = \frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y)-c|dy + |f(x) - c|
+	\end{align*}
+	e, portanto,
+	\[
+		\limsup_{r\to 0}\frac{1}{m(B(x, r))}\int_{B(x, r)}^{}|f(y) - f(x)|dy \leq 2|f(x)-c|< 2\varepsilon.
+	\]
+	donde segue o resultado pela arbitrariedade do \(\varepsilon \). \qedsymbol
+\end{proof*}
+Se \(f = \chi_{E},\) pelo resultado acima, para todo x em E,
+\[
+	\frac{1}{m(B(x, r))}\int_{B(x, r)}^{}\chi_{E}dy = \frac{m(E\cap B(x, r))}{m(B(x, r))}\to 1
+\]
+quando r tende a 0. Analogamente, para quase todo \(x\not\in E,\) o raio tende a 0. Os pontos em que o raio tende a 1 são chamados \textbf{pontos de densidade de E.}
+\end{document}

@@ -1,0 +1,430 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 17/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Produto de Medidas;
+	\item Teorema de Fubini-Tonelli;
+	\item Medidas com Sinais;
+	\item Teorema de Hahn.
+\end{itemize}
+\subsection{Produto de Medidas}
+\begin{def*}
+	Sejam \((X, \mathcal{A}, \mu )\) e \((Y, \mathcal{B}, \nu)\) dois espaços de medida. Um \textbf{retângulo mensurável} é um
+	conjunto da forma \(A\times B\), em que \(A\in \mathcal{A}\) e \(B\in \mathcal{B}.\quad \square\)
+\end{def*}
+Seja \(\mathcal{C}_{0}\) a coleção da união finita e disjunta de retângulos mensuráveis, ou seja, todo elemento de \(\mathcal{C}_{0}\) é da forma
+\[
+	\bigcup_{i=1}^{n}(A_{i}\times B_{i}),\quad A_{i}\in \mathcal{A}, B_{i}\in \mathcal{B}
+\]
+e
+\[
+	(A_{i}\times B_{i})\cap (A_{j}\times B_{j}) = \emptyset , i\neq j.
+\]
+Como
+\[
+	(A\times B)^{\complement} = (X\times B ^{\complement})\cup (A ^{\complement}\times Y)
+\]
+e a interseção de dois retângulos mensuráveis é um retângulo mensurável, então é fácil ver que \(\mathcal{C}_{0}\) é uma álgebra de conjunto. Definimos a \(\sigma \)-álgebra produto como sendo
+\[
+	\mathcal{A}\times \mathcal{B} = \sigma (\mathcal{C}_{0}).
+\]
+Se \(E\subseteq X\times Y\), definimos a x-seção de E por
+\[
+	s_x(E) = \{y\in Y: (x, y)\in E\},
+\]
+analogamente a y-seção de E por
+\[
+	t_y(E) = \{x\in X: (x, y)\in E\}.
+\]
+Dada \(f:X\times Y\rightarrow \mathbb{R},\) para cada x e y, definimos
+\[
+	S_{x}f :Y\rightarrow \mathbb{R}, \quad T_{y}f:X\rightarrow \mathbb{R}
+\]
+descritas por \(S_xf(y) = f(x, y)\) e \(T_yf(x) = f(x, y).\)
+\begin{lemma*}
+	\begin{itemize}
+		\item[1)] Se \(E\in \mathcal{A}\times \mathcal{B},\) então \(s_x(E)\in \mathcal{B}\) para cada x e \(t_y(E)\in \mathcal{A}\) para cada y.
+		\item[2)] Se f é \(\mathcal{A}\times \mathcal{B}\)-mensurável, então \(S_{x}f\) é \(\mathcal{B}\)-mensurável para cada x e \(T_yf\) é \(\mathcal{A}\)-mensurável para cada y.
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	Para o item 1, seja \(\mathcal{C}\) a coleção de conjuntos em \(\mathcal{A}\times \mathcal{B}\) tais que \(s_x(E)\in \mathcal{B}\) para cada x. Se
+	\[
+		E = A\times B \Rightarrow s_x(E)  = \left\{\begin{array}{ll}
+			B,\quad x\in A \\
+			\emptyset ,\quad x\not\in A.
+		\end{array}\right.
+	\]
+	Logo, \(s_x(E)\in \mathcal{B}\) para cada x quando E é um retângulo mensurável.
+
+	Se \(E\in \mathcal{C}\) e \(x\in X\), note que, caso \(s_x(E) = \emptyset \), então \(s_x(E ^{\complement}) = s_x(E)^{\complement} = Y.\) Por outro lado, caso \(s_x(E)\neq\emptyset\),
+	então \(y\in s_x(E ^{\complement})\) se, e somente se, \((x, y)\in E ^{\complement}\), ou seja, \(y\not\in s_x(E).\) Destarte,
+	\[
+		s_x(E ^{\complement}) = (s_x(E))^{\complement}.
+	\]
+	Além disso, \(\mathcal{C}\) é fechado com relação a complementos. Analogamente,
+	\[
+		s_x \biggl( \bigcup_{i=1}^{\infty}E_{i}\biggr) = \bigcup_{i=1}^{\infty}s_x(E_{i}),
+	\]
+	pois dado \(y\in s_x(\cup_i E_{i}\), isto significa que \((x, y)\in \cup_i E_{i}\), ou seja, \((x, y)\in E_{i}\) para algum i. Logo, \(y\in s_x(E_{i})\) e \(y\in \bigcup_{i}^{}s_{x}(E_{i}).\)
+	Assim, \(\mathcal{C}\) é fechado com relação à união contável. Logo, \(\mathcal{C}\) é uma \(\sigma \)-álgebra contendo retângulos mensuráveis, tal que
+	\[
+		\mathcal{C} = \mathcal{A}\times \mathcal{B}.
+	\]
+	Analogamente para \(t_y(E).\)
+
+	Para o item (2), fixe x. Se \(f=\chi_{E}\) para \(E\in \mathcal{A}\times \mathcal{B}.\) Note que
+	\[
+		S_xf(y) = \chi_{S_x(E)}(y),
+	\]
+	o qual é \(\mathcal{B}\)-mensurável. De fato, seja \(a\in \mathbb{R},\) \(x\in X\),
+	\[
+		\{y: S_{x}f(y) > a\} = \{y:f(x, y) > a\} = \{(x, y)\in A\times B: f(x, y) > a\}_{x}.
+	\]
+	Pela linearidade, \(S_{x}f\) é \(\mathcal{B}\)-mensurável, quando f é simples. Se \(f\geq 0\), uma sequência \(\mathcal{A}\times \mathcal{B}\)-mensurável simples, \(\{r_{n}\}, r_{n}\uparrow f\), e como
+	\[
+		S_xr_{n}\uparrow S_{x}f,
+	\]
+	conclui-se que \(S_xf\) é \(\mathcal{B}\)-mensurável. Escrevendo \(f=f^{+}-f^{-}\) e por meio da linearidade, mostra-se que \(S_{x}f\) é \(\mathcal{B}\)-mensurável. Analogamente, prova-se as mesmas coisas
+	para \(T_{y}f\). \qedsymbol
+\end{proof*}
+\begin{prop*}
+
+	Suponha \(\mu \) e \(\nu\) são medidas \(\sigma \)-finitas. Seja \(E\in \mathcal{A}\times \mathcal{B}\) e sejam
+	\[
+		h(x) = \nu(s_x(E)),\quad\&\quad k(y) = \mu (t_y(E)).
+	\]
+	Então,
+	\begin{itemize}
+		\item[i)] h é \(\mathcal{A}\)-mensurável e k é \(\mathcal{B}\)-mensurável
+		\item[ii)] Vale
+		      \[
+			      \int_{}h(x) \mu (dx) = \int_{}^{}k(y)\nu(dy),
+		      \]
+		      o qual é equivalente a
+		      \[
+			      \int_{}^{}\biggl(\int_{}^{}\chi_{E}(x, y)\nu(dy)\biggr)\mu (dx) = \int_{}^{}\biggl(\int_{}^{}\chi_{E}(x, y)\mu (dx)\biggr)\nu(dy).
+		      \]
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	A equivalência vem do seguinte: Note que
+	\[
+		h(x) = \nu(s_x(E)) =
+	\]
+	aqui usamos \(y\in s_x(E)\) e, e somente se, \((x, y)\in E\)
+
+	Suponha que \(\nu\) e \(\mu \) são finitas. Seja \(\mathcal{C}\) a coleção de conjuntos em \(\mathcal{A}\times \mathcal{B}\) para o qual (1)
+	e (2) valem. Sendo \(\mathcal{C}_{0}\) a coleção da união disjunta de retângulos, provaremos que \(\mathcal{C}\supseteq \mathcal{C}_{0}\) e monótona.
+	Com efeito, se \(E = A\times B\), com \(A\in \mathcal{A}\) e \(B\in \mathcal{B}\), então \(h(x) = \chi_{A}(x)\nu(B)\), o qual é \(\mathcal{A}\)-mensurável e
+	\[
+		\int_{}h(x) \mu (dx) = \mu (A)\nu(B).
+	\]
+	Aqui, \(h(x) = \nu(s_x(E)) = \nu(B),\) \(x\in A = \nu(B)\chi_{A},\) \(E = A\times B\), pois \(y\in s_x(E) \) equivale a \(x\in  A, y\in B\). Analogamente,
+	\[
+		k(y) = \mu (A)\chi_{B}(y)
+	\]
+	é \(\mathcal{B}\)-mensurável e
+	\[
+		\int_{}k(y)\nu( dy) = \mu (A)\nu(B).
+	\]
+	Com isso, provamos que 1 e 2 valem para retângulos mensuráveis. Se \(E = \bigcup_{i=1}^{n}E_{i},\) em que cada \(E_{i}\) é retângulo mensurável e \(E_{i}\) são disjuntos, então \(s_x(E) = \bigcup_{i=1}^{n}s_x(E_{i})\)
+	e, como \(s_x(E_{i})\) são disjuntos, temos
+	\[
+		h(x) = \nu(s_x(E)) = \nu \biggl(\bigcup_{i=1}^{n}s_x(E_{i})\biggr) = \sum\limits_{i=1}^{n}\nu(s_x(E_{i})).
+	\]
+	Isso prova que h é \(\mathcal{A}\)-mensurável e k é \(\mathcal{B}\)-mensurável, ambos por serem somas de funções mensuráveis. Se colocarmos \(h_{i}(x) = \nu(s_x(E_{i}))\) e k(y) similarmente, então
+	\[
+		\int_{}h_{i}(x)\mu ( dx) = \int_{}k_{i}(y)\nu( dy)
+	\]
+	provando que \(\mathcal{C}\) contém \(\mathcal{C}_{0}\). Agora, suponha que \(E_{n}\uparrow E\) e cada \(E_{n}\in \mathcal{C}\). Ponha \(h_{n}(x) = \nu(s_x(E_{n}))\) e \(k_{n}(y) = \mu (t_y(E_{n}))\), tal que
+	\(h_{n}\uparrow h\) e \(k_{n}\uparrow k\). Portanto, \(h_{n}\) é \(\mathcal{A}\)-mensurável e \(k_{n}\) é \(\mathcal{B}\)-mensurável, donde segue que (2) vale e
+	\[
+		\int_{}h_{n}(x)\mu ( dx) = \int_{}k_{n}(y)\nu( dy).
+	\]
+	Passando o limite de n tendendo a infinito e aplicando o \hyperlink{monotone_convergence}{\textit{Teorema da Convergência Monótona}}, segue que (2) vale para h e k.
+
+	Agora, assuma que \(E_{n}\downarrow E\) e cada \(E_{n}\in \mathcal{C}.\) Procedendo como acima, mas usando o \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}} junto com a finitude de \(\nu\) e \(\mu \), obtemos o resultado.
+	Assim, \(\mathcal{C}\) é classe moonótona contendo \(\mathcal{C}_{0}\) e contido em \(\mathcal{A}\times \mathcal{B}\), tal que \(\mathcal{C} = \sigma (\mathcal{C}_{0})\), o qual é \(\mathcal{A}\times \mathcal{B}.\)
+
+	Suponha, agora, que \(\mu \) e \(\nu\) são \(\sigma \)-finitas. Existem \(F_{i}\uparrow X\) e \(G_{i}\uparrow Y\), cada \(F_{i}\) e \(G_{i}\) sendo \(\mathcal{A}, \mathcal{B}\)-mensuráveis e \(\mu (F_{i}), \nu(G_{i})< \infty\).
+	Sejam \(\mu_{i}(A) = \mu (A\cap F_{i})\) para cada \(A\in \mathcal{A}\) e \(\nu_{i}(B) = \nu(B\cap G_{i})\) para cada \(B\in \mathcal{B}\). Seja
+	\[
+		h_{i}(x) = \nu_{i}(s_x(E)) = \nu(s_x(E)\cap G_{i})
+	\]
+	e defina \(k_{i}(y)\) de forma análogo, donde segue que
+	\[
+		\int_{}h_{i}(x)\mu_{i}( dx) = \int_{}h_{i}(x)\chi_{F_{i}}(x)\mu ( dx),
+	\]
+	sendo o análogo verdadeiro para \(k_{i}, G_{i}\) e \(\nu_{i}\).
+
+	Com o que vimos até agora, \(h_{i}\) é \(\mathcal{A}\)-mensurável e \(k_{i}\) é \(\mathcal{B}\)-mensurável, do que segue que (2) vale para h, k trocados por \(h_{i}, k_{i}\). Tomando, agora,
+	\(h_{i}\uparrow h\) e \(k_{i}\uparrow k\), obtemos a mensurabilidade de h e k. Portanto, pelo TCM, concluímos a prova. \qedsymbol
+\end{proof*}
+Vale uma observação. Defina \(\mu \times \nu\) pondo
+\[
+	\mu \times \nu (E) = \int_{}h(x)\mu ( dx) = \int_{}k(y)\nu( dy),
+\]
+em que \(h(x) =\nu(s_x(E)) \) e \(k(y) = \mu(t_y(E)).\) Para ver que isso é medida mesmo, temos \(\mu \times \nu(\emptyset ) = 0\). Se \(E_1, E_2, \dotsc , E_{n}\) são disjuntos em \(\mathcal{A}\times \mathcal{B}\) e \(E = \bigcup_{i=1}^{n}E_{i},\) então
+\[
+	\nu(s_x(E)) = \sum\limits_{i=1}^{n}\nu(s_x(E_{i})).
+\]
+Daí,
+\begin{align*}
+	\mu \times \nu(E) & = \int_{}\nu(s_x(E))\mu ( dx) = \sum\limits_{i=1}^{n}\int_{}\nu(s_x(E_{i})) \mu(dx) \\
+	                  & = \sum\limits_{i=1}^{n}\mu \times \nu (E_{i}),
+\end{align*}
+provando a aditividade finita de \(\mu \times \nu\).
+
+Se \(E_{n}\uparrow E\) com \(E_{n}\in \mathcal{A}\times \mathcal{B},\) defina \(h_{n}(x) = \nu(s_x(E_{n})),\) donde segue, pelo TCM, que \(h_{n}\uparrow h\) e
+\[
+	\mu \times \nu(E_{n})\uparrow \mu \times \nu(E).
+\]
+Portanto, \(\mu \times \nu\) é, de fato, medida.
+
+Note que, se \(E = A\times B\) é retângulo mensurável, então \(h(x) = \chi_{A}(x)\nu(B)\) e, assim, como na intuição,
+\[
+	\mu \times \nu(A\times B) = \mu (A) \nu(B).
+\]
+\hypertarget{fubini_tonelli}{
+	\begin{theorem*}
+		Suponha que \(f:X\times Y\rightarrow \mathbb{R}\) é mensurável com relação a \(\mathcal{A}\times \mathcal{B}\) e que \(\mu \) e \(\nu\) são medidas \(\sigma \)-finitas sobre X e Y, respectivamente. Se ocorrer que
+		\begin{itemize}
+			\item[a)] \(f\geq 0\), ou
+			\item[b)] \(\int_{}|f(x, y)| d(\mu\times \nu_{})(x, y) < \infty,\)
+		\end{itemize}
+		então
+		\begin{itemize}
+			\item[1)] Para cada x, a função \(y\mapsto f(x, y)\) é mensurável com relação a \(\mathcal{B}\);
+			\item[2)] Para cada y, a função \(x\mapsto f(x, y)\) é mensurável com relação a \(\mathcal{A}\);
+			\item[3)] A função \(h(x) = \int_{}f(x, y)\nu( dy)\) é mensurável com relação a \(\mathcal{A}\);
+			\item[4)] A função \(k(x) = \int_{}f(x, y)\mu( dy)\) é mensurável com relação a \(\mathcal{B}\);
+			\item[5)] Vale
+			      \begin{align*}
+				      \int_{}f(x, y) d(\mu\times \nu)(x, y)_{} & = \int_{}\biggl(\int_{}^{}f(x, y)\mu (dx)\biggr) \nu(dy)    \\
+				                                               & = \int_{}^{}\biggl(\int_{}^{}f(x, y)\nu(dy)\biggr)\mu (dx).
+			      \end{align*}
+		\end{itemize}
+	\end{theorem*}}
+A última integral deve ser interpretada como
+\[
+	\int_{}^{}\biggl(\int_{}^{}k(y)\nu(dy)\biggr)\mu (dx),
+\]
+analogamente para a outra integral.
+\begin{proof*}
+	Se \(f = \chi_{E}, E\subseteq \mathcal{A}\times \mathcal{B},\) então (1)-(5) são reescritas em resultados anteriores.
+	Por linearidade, vale para f simples. Sendo o limite de funções mensuráveis crescentes também mensurável, então, escrevendo uma função \(f\geq 0\) como um limite de funções crescentes de funções
+	simples, e usando o TCM, os itens (1)-(5) valem para \(f\geq 0\). No caso \(\int_{}|f| d(\mu\times\nu_{}) < \infty\), escrevendo \(f=f^{+}-f^{-}, f^{\pm}\geq 0\) e procedendo como no caso das não-negativas,
+	as propriedades (1)-(5) valem. \qedsymbol
+\end{proof*}
+Suponha que
+\[
+	\int_{}^{}\int_{}^{}|f(x, y)|\mu (dx)\nu(dy) < \infty,
+\]
+e, como \(|f(x, y)| \geq 0,\) o \hyperlink{fubini_tonelli}{\textit{Teorema de Fubini}} nos diz que
+\[
+	\int_{}^{}|f(x, y)|d(\mu \times \nu) = \int_{}\int_{}^{}|f(x, y)|\mu (dx)\nu(dy) < \infty.
+\]
+Outra aplicação de \hyperlink{fubini_tonelli}{\textit{Fubini}} fornece
+\[
+	\int_{}^{}f(x, y)d(\mu \times \nu) = \int_{}^{}\int_{}^{}f(x, y)\mu (dx)\nu(dy) = \int_{}^{}\int_{}^{}f(x, y)\nu (dy)\mu (dx) < \infty.
+\]
+Desta forma, na hipótese do Teorema, poderíamos supor
+\[
+	\int_{}^{}\int_{}^{}f(x, y)\mu (dx)\nu(dy) < \infty \quad \text{ou}\quad \int_{}^{}\int_{}^{}f(x, y)\nu(dy)\mu (dx) < \infty.
+\]
+Este teorema pode ser estendido para m medidas \(\mu_1, \mu _2, \dotsc , \mu_m\).
+
+\underline{\textbf{Observação:}} Se \((X, \mathcal{A}, \mu )\) e \((Y, \mathcal{B}, \nu)\) são completos, não necessariamente \((X\times Y, \mathcal{A}\times \mathcal{B}, \mu \times \nu)\) será completo.
+Por exemplo, seja \((X, \mathcal{A}, \mu ) = (Y, \mathcal{B}, \nu)\) a medida de Lebesgue em \([0, 1]\) com \(\sigma \)-álgebra de Lebesgue. Tome A não mensurável em [0, 1] e seja
+\(E = A\times \biggl\{\frac{1}{2}\biggr\}\), tal que E é não mensurável com relação a \(\mathcal{A}\times \mathcal{B},\) ou que \(A = t_{1/2}(E)\) deveria estar em \(\mathcal{A}.\) Por outro lado, \(E\subseteq [0, 1]\times \biggl\{\frac{1}{2}\biggr\}\),
+que tem medida zero com relação a \(\mu \times \nu\). Assim, E tem medida nula e, em geral, \(\mathcal{A}\times \mathcal{B}\) não é completa. No entanto, poderíamos completar.
+
+Em outra linha, vejamos um exemplo que ilustra a necessidade das hipóteses do Teorema de Fubini.
+\begin{example}
+	Existe um conjunto X munido com a ordem parcial, ``\(leq \)", tal que X é não enumerável, mas, para todo \(y\in X\), o conjunto \(\{x\in X: x \leq y\}\) é enumerável. (X pode ser um conjunto enumerável ordinal, tipo os naturais)).
+	A \(\sigma \)-álgebra é a coleção de subconjuntos A de X tal que um dos dois A ou \(A ^{\complement}\) é enumerável. Defina \(\mu \) sobre X pondo \(\mu (A) = 0\) se A é enumerável e 1 se A é não enumerável. Defina f sobre \(X\times X\) como sendo
+	\(f = \chi_{E}\), em que E é não um subconjunto de \(X\times X\) formado por pares \((x, y)\) com \(x\leq y\), contável sobre toda a reta horizontal com complemento contável sobre toda reta vertical, mas não mensurável, pois nem \(E \) e nem \(E ^{\complement}\) são enumeráveis.
+	Então, fixado y, como na reta horizontal é contável, então \(\mu = 0\), ou seja, \(\int_{}^{}\int_{}^{}f(x, y)\mu (dx)\mu (dy) = 0, \) enquanto fixado x, todo ponto (x, y) está em E. Assim, \(f=1\) e \(\int_{}^{}\int_{}^{}f\mu (dy)\mu (dx) = 1.\)
+	Aqui, f não é mensurável no \(\sigma \)-produto. Poderíamos tomar f não mensurável, pelo axioma da escolha, mas, note que em \(X^{2} = [0, 1]^{2},\) a reta horizontal é contável na região \(x\leq y\) e a reta vertical não é contável, então o complementar deveria ser contável.
+\end{example}
+\begin{example}
+	Seja \(X = Y = [0, 1]\) com \(\mu, \nu\) sendo medida de Lebesgue. Sejam \(g_{i}\) funções com suporte em \(I_{i} = \biggl(\frac{1}{i+1}, \frac{1}{i}\biggr)\) tais que \(\int_{0}^{1}g_{i}(x)dx = 1, i = 1, 2, \dotsc .\)Seja
+	\[
+		f(x, y) = \sum\limits_{i=1}^{\infty}[g_{i}(x)-g_{i+1}(x)]g_{i}(y).
+	\]
+	Para cada ponto \((x, y)\), no máximo dois termos da soma são não nulos, tornando-a finita. Note que
+	\[
+		\int_{0}^{1}f(x, y)dy = \sum\limits_{i=1}^{\infty}(g_{i}(x)-g_{i+1}(x))
+	\]
+	é a série telescópica, sendo sua soma \(g_1(x).\) Assim,
+	\[
+		\int_{0}^{1}\int_{0}^{1}f(x, y)dydx = \int_{0}^{1}g_1(x)dx = 1.
+	\]
+	Porém, integrando primeiro em x, chegamos em 0, tal que
+	\[
+		\int_{0}^{1}\int_{0}^{1}f(x, y)dxdy = 0.
+	\]
+	Mas aqui, tome Q partição dada pela definição e, para simplificar, tome \(g_{i}\) tendo como gráfico um triângulo de base em \(I_{i}\) e altura \(\frac{2}{\frac{1}{i}-\frac{1}{i+1}}.\) Assim,
+	\begin{align*}
+		\int_{}^{}\int_{}^{}|f(x, y)|dxdy & = \lim_{n\to \infty}\sum\limits_{i=1}^{n}|f(x_{i}, y_{i})|\mathrm{vol}(Q)                                                                                                                                                                                             \\
+		                                  & = \lim_{n\to \infty}\sum\limits_{j=1}^{n}\biggl(\sum\limits_{i=1}^{\infty}\frac{2}{\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)}\frac{2}{\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)}\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)^{2}\biggr)                                        \\
+		                                  & + \lim_{n\to \infty}\sum\limits_{j=1}^{n}\biggl(\sum\limits_{i=1}^{\infty}\frac{2}{\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)}\frac{2}{\biggl(\frac{1}{i+1}-\frac{1}{i+2}\biggr)}\biggl(\frac{1}{i}-\frac{1}{i+1}\biggr)\biggl(\frac{1}{i+1}-\frac{1}{i+2}\biggr)\biggr) \\
+		                                  & = \infty.
+	\end{align*}
+\end{example}
+\begin{example}
+	Coloque \(I=[0, 1]\) com \(\lambda , m\) medidas de Lebesgue e contador (não é \(\sigma \)-finita). Seja o fechado
+	\[
+		\Delta = \{(x, x): x\in I\}
+	\]
+	e defina \(f=\chi_{\Delta }.\) segue que
+	\[
+		\int_{}^{}\int_{}^{}fdmd\lambda = \int_{}^{}m(\{x\})d\lambda = \lambda (I) = 1
+	\]
+	e
+	\[
+		\int_{}^{}\int_{}^{}fd\lambda dm = \int_{}^{}\lambda (\{x\})dm = 0.
+	\]
+\end{example}
+Sejam \(X = Y\) inteiros positivos e \(\mu  = \nu\) medida contador. Escreva \(c_{ij}\) para \(f(i, j).\) Então, pelo \hyperlink{fubini_tonelli}{\textit{Teorema de Fubini}}, temos
+\[
+	\sum\limits_{i=1}^{\infty}\sum\limits_{j=1}^{\infty}c_{ij} = \sum\limits_{j=1}^{\infty}\sum\limits_{i=1}^{\infty}c_{ij},
+\]
+sempre que \(c_{ij}\geq 0\) ou que \(\sum\limits_{i}^{}\sum\limits_{j}^{}|c_{ij}| < \infty\).
+\subsection{Medidas com Sinal}
+Um tipo de medidas possui aplicações no estudo de cargas da física, mas cargas podem ser negativas e positivas, enquanto que as medidas que vimos até agora eram estritamente não-negativas. Para lidar melhor com essa situação, introduzimos a ideia de medidas
+com sinal, que possuem a propriedade de aditividade enumerável, mas podendo tomas valores dos dois negativos e/ou positivos. Por exemplo,
+\[
+	\nu(A) = \int_{A}f d\mu_{},\quad f \text{ integrável}
+\]
+toma valores positivos e negativos. Essencialmente, são dois resultados que usaremos para lidar com essas medidas - o \textit{Teorema de Hahn} e o \textit{Teorema de Decomposição de Jordan}. O primeiro diz que,
+dado uma medida com sinal \(\mu \), então \(X = P\cup N\), com \(P\cap N = \emptyset \), tal que \(\mu \) e \(-\mu \) são medidas positivas em P e N, respectivamente. O outro diz que \(\mu  = \mu ^{+} - \mu ^{-},\) em que \(\mu ^{\pm}\) são ambas positivas.
+\begin{def*}
+	Seja \(\mathcal{A}\) uma \(\sigma \)-álgebra. Uma \textbf{medida com sinal} é uma função \(\mu : \mathcal{A}\rightarrow (-\infty, \infty]\) tal que \(\mu (\emptyset ) = 0\) e, se \(A_{1}, A_2, \dotsc \) são dois-a-dois disjuntos com \(A_{i}\in \mathcal{A}, i = 1, 2, \dotsc \), então
+	\[
+		\mu \biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) = \sum\limits_{i=1}^{\infty}\mu (A_{i}),
+	\]
+	em que assume-se convergência absoluta da série se \(\mu (\bigcup_{i=1}^{\infty}A_{i})\) é finita. \(\square\)
+\end{def*}
+Como é requerida a convergência absoluta, a ordem no somatório não importa - lembrando que \(\mu :\mathcal{A}\rightarrow [0, \infty]\) denota uma medida positiva.
+\begin{def*}
+	Seja \(\mu \) uma medida com sinal. Um conjunto \(A\in \mathcal{A}\) é chamado \textbf{positivo} se \(\mu (B) \geq 0\) para todo \(B\subseteq A\) e \(B\in \mathcal{A}.\) Analogamente, \(A\in \mathcal{A}\) é chamada \textbf{negativa} se \(\mu (B)\leq 0\) para
+	todo \(B\subseteq A\) e \(B\in \mathcal{A}.\) Finalmente, um conjunto \(A\in \mathcal{A}\) é chamado \textbf{nulo}/\textbf{de medida nula} se \(\mu (B) = 0 \) para todo \(B\subseteq A\) e \(B\in \mathcal{A}.\quad \square\)
+\end{def*}
+A antiga definição de conjunto nulo, para medida positiva, coincide com conjunto nulo como definido acima. Se \(\mu \) é uma medida com sinal, argumentando como no caso de medida positiva, temos
+\[
+	\mu \biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) = \lim_{n\to \infty}\mu \biggl(\bigcup_{i=1}^{n}A_{i}\biggr).
+\]
+\begin{example}
+	Suponha que m é a medida de Lebesgue e
+	\[
+		\mu (A) = \int_{A}f dm,
+	\]
+	para algum f integrável. Se f muda de sinal, então \(\mu \) é uma medida com sinal.
+	Se \(P = \{x: f(x)\geq 0  \}\), então P é um conjunto positivo e, se \(N = \{x:f(x)<0\},\) então N é um conjunto negativo. A Decomposição de Hahn dará a decomposição de \(\mathbb{R}\) como união de P e N unicamente exceto no conjunto \(C = \{x: f(x) = 0\},\) que
+	poderia ser incluída em N ao invés de P, ou vice-versa, ou uma parte para cada um. A decomposição de Jordan será \(\mu  = \mu ^{+} - \mu ^{-}\), em que \(\mu ^{\pm}(A) = \int_{A}f^{\pm} dm.\)
+\end{example}
+\begin{prop*}
+	Seja \(\mu \) medida com sinal, tomando valores em \((-\infty, \infty].\) Seja E mensurável com \(\mu(E) < 0\). Então, existe um subconjunto mensurável \(F\subseteq E\) negativa com \(\mu (F) < 0.\)
+\end{prop*}
+\begin{proof*}
+	Se E é um conjunto negativo, não há nada a provar. Caso contrário, existe um subconjunto mensurável com medida positiva. Seja \(n_1\) menor inteiro positivo tal que existe \(E_1\subseteq E\) mensurável com
+	\(\mu (E_1)\geq \frac{1}{n_1}\). Construímos, assim, uma sequência \(E_2, E_3, \dotsc \) dois-a-dois disjuntos. Seja \(k\geq 2\) e suponha que \(E_1, \dotsc , E_{k-1}\) são subconjuntos dois-a-dois disjuntos de E com
+	\(\mu (E_{i}) > 0\) para \(i=1, 2, \dotsc , k-1\). Se \(F_{k}=E\setminus{(E_1\cup E_2\cup \dotsc \cup E_{k-1})}\) é um conjunto negativo, então
+	\[
+		\mu (F_{k}) = \mu (E) - \sum\limits_{i=1}^{k-1}\mu (E_{i}) \leq \mu (E) < 0
+	\]
+	e \(F_{k}\) é o conjunto desejado F do enunciado.
+
+	Se \(F_{k}\) não é negativa, tome \(n_{k}\) como o menor inteiro positivo tal que existe \(E_{k}\subseteq F_{k}\) mensurável com \(\mu (E_{k})\geq \frac{1}{n_{k}}\).
+	Paramos a construção quando existir k tal que \(F_{k}\) é negativa com \(\mu (F_{k}) < 0.\) Se não, continuamos a construção. Coloque
+	\[
+		F= \bigcap_{i=k}^{}F_{k} = E\setminus{(\cup _k E_{k})}.
+	\]
+	Como \(0 > \mu (E) > -\infty\) e \(\mu (E_{k})\geq 0\), então
+	\[
+		\mu (E) = \mu (F) + \sum\limits_{k=1}^{\infty}\mu (E_{k}).
+	\]
+	Ainda mais, \(\mu (F) \leq \mu (E) < 0\), tal que a soma converge. Isso implica que
+	\[
+		\mu (E_{k})\to 0,\quad n_{k}\to \infty.
+	\]
+	Resta provar que F é negativa. Suponha que \(G\subseteq F\) é mensurável com \(\mu (G) > 0\). Então, \(\mu (G) \geq \frac{1}{N}\) para algum N. No entanto, isto vai contra a construção feita, pois, para algum k, \(n_{k}> N\), e poderíamos ter escolhido
+	G ao invés de \(E_{k}\) no k-ésimo passo. Portanto, F deve ser conjunto negativo. \qedsymbol
+\end{proof*}
+\hypertarget{hahn}{
+	\begin{theorem*}
+		\begin{itemize}
+			\item[1)] Seja m medida com sinal tomando valores em \((-\infty, \infty]\). Existem conjuntos disjuntos e mensuráveis E e F em \(\mathcal{A}\) com \(X = E \cup F,\) tal que E é negativa e F é positiva.
+			\item[2)] Se \(E'\) e \(F'\) é outro par, então \(E\Delta E' = F\Delta F'\) é conjunto nulo com relação a \(\mu \);
+			\item[3)] Se \(\mu \) não é medida positiva, então \(\mu (E) < 0\). Se \(-\mu \) não é uma medida positiva, então \(\mu (F) > 0.\)
+		\end{itemize}
+	\end{theorem*}}
+\begin{proof*}
+	(1) - Note que existe pelo menos um conjunto negativo - \(\emptyset \). Seja
+	\[
+		L = \inf_{}\{\mu (A): A \text{ é um conjunto negativo}\}.
+	\]
+	Escolha conjuntos negativos \(A_{n}\) tal que \(\mu (A_{n})\to L.\)  Seja \(E = \bigcup_{n=1}^{\infty}A_{n}.\) Seja \(B_1 = A_1\) e seja \(B_{n} = A_{n}\setminus{(B_1\cup B_2\cup \dotsc \cup B_{n-1}}\) para cada n. Como \(A_{n}\) é um conjunto negativo, \(B_{n}\) também é, já que \(B_{n}\) é parte de \(A_{n}\).
+	Além disso, \(B_{n}\) são disjuntos e \(\cup _n B_{n} = \cup_{n}^{}A_{n} = E.\)
+
+	Se \(C\subseteq E\), então
+	\[
+		\mu (C) = \lim_{n\to \infty}\mu \biggl(C\cap \biggl(\bigcup_{i=1}^{n}B_{i}\biggr)\biggr) = \lim_{n\to \infty}\sum\limits_{i=1}^{n}\mu (C\cap B_{i}) \leq 0.
+	\]
+	Assim, E é negativa, tal que
+	\[
+		\mu (E) = \mu (A_{n}) + \mu (E\setminus{A_{n}}) \leq \mu (A_{n}) + \mu (E) \leq \mu (A_{n}).
+	\]
+	Fazendo n tender a infinito, temos \(\mu (E) = L,\) donde segue que \(L> -\infty.\)
+
+	Seja \(F = E ^{\complement}.\) Se F não fosse positiva, existiria \(B\subseteq F\) com \(\mu (B) < 0\), de forma que existe um conjunto negativo \(C\subseteq B\) com \(\mu (C) < 0.\) No entanto, isto significaria que
+	\(E\cup C\) deve ser negativo com \(\mu (E\cup C) < \mu (E) = L.\) Contradição. Portanto, F é positiva. \qedsymbol
+
+	(2) - Para provar a unicidade, se \(E', F'\) é outro par de conjuntos e \(A\subseteq E\setminus{E'}\subseteq E\), então \(\mu (A) \leq 0\). Mas, \(A\subseteq E\setminus{E'} = F\setminus{F'}\subseteq F'\), do que segue que \(\mu (A)\geq 0\) e, logo,
+	\(\mu (A)=0.\) O mesmo argumento funciona se \(A\subseteq E'\setminus{E}\) e qualquer subconjunto de \(E\Delta E'\) pode ser escrita como a união de \(A_1, A_2\), em que \(A_1\subseteq E\setminus{E'}\) e \(A_2\subseteq E'\setminus{E}.\)
+
+	(3) - Suponha que \(\mu \) não seja positiva e que \(\mu (E) = 0\). Se \(A\in \mathcal{A},\) então
+	\[
+		\mu (A) = \mu (A\cap E) + \mu (A\cap F) \geq \mu (E) + \mu (A\cap F)\geq 0,
+	\]
+	o que implica que \(\mu \) deve ser positiva, uma contradição. Usamos aqui que
+	\[
+		\mu (E) = \mu (E\cap A) + \mu (E\cap A ^{\complement}) \leq \mu (E\cap A).
+	\]
+	Um argumento similar aplica-se para \(-\mu \). \qedsymbol
+\end{proof*}
+\begin{def*}
+	Dizemos que \(\mu \) e \(\nu\) são \textbf{mutualmente singulares} se existirem dois conjuntos E e F em \(\mathcal{A}\) tais que \(X = E\cup F\) e \(E\cap F = \emptyset \), com \(\mu (E) = \nu(F) = 0.\) Notação: \(\mu \perp \nu\) denota que \(\mu \) e \(\nu\) são mutualmente singulares. \(\square\)
+\end{def*}
+\begin{def*}
+	A medida
+	\[
+		|\mu | = \mu ^{+} + \mu ^{-}
+	\]
+	é chamada \textbf{medida variação total} de \(\mu \), e \(|\mu |(X)\) é chamada \textbf{variação total de }\(\mu \). \(\square\)
+\end{def*}
+\begin{example}
+	Se \(\mu \) é medida de Lebesgue restrita a \(\biggl[0, \frac{1}{2}\biggr],\) tal que \(\mu (A) = m \biggl(A \cap \biggl[0, \frac{1}{2}\biggr]\biggr) \) e \(\nu\) é medida de Lebesgue restrita a \(\biggl[\frac{1}{2}, 1\biggr].\) Então, \(\mu \) e \(\nu\) são mutualmente singulares. Aqui, basta tomar \(E = \biggl(\frac{1}{2}, 1\biggr]\) e \(F = \biggl[0, \frac{1}{2}\biggr]\), o que funciona pois
+	\(\biggl\{\frac{1}{2}\biggr\}\) tem medida de Lebesgue zero.
+\end{example}
+\begin{example}
+	Seja f a função de Cantor-Lebesgue, em que definimos
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			1,\quad x\geq 1 \\
+			0,\quad x < 0
+		\end{array}\right.
+	\]
+	e seja \(\nu\) a medida de Lebesgue-Stieltjes associada a f. Seja m a medida de Lebesgue. Então, \(m\perp \nu\).
+
+	De fato, seja \(E = C\), em que C é o conjunto de Cantor, e \(F= C ^{\complement}.\) Já sabemos que \(m(E) = 0\), necessitamos provar que
+	\(\nu(F) = 0.\) Isto equivale a provar que \(\nu(I) = 0\) para todo intervalo aberto contido em F. Note que isso segue se verificarmos para intervalos abertos \(J = (a, b]\) contidos em F, pois, como
+	F é constante sobre tais intervalos, \(f(b) = f(a)\), e portanto,
+	\[
+		\nu(J) = f(b)-f(a) = 0.
+	\]
+\end{example}
+\end{document}

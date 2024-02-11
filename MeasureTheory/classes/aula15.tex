@@ -1,0 +1,289 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 05/02/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Espaços de Sobolev;
+	\item Distribuições;
+	\item Teoria Espectral.
+\end{itemize}
+\subsection{Hugo O. B. - Espaços de Sobolev}
+\subsection{Renan W. - Distribuições}
+As distribuições são ferramentas que aparecem em cada vez mais áreas. Dentre elas, cargas pontuais no eletromagnetismo são descritas por meio das distribuições,
+formulações de teoria quântica dos campos e processamento de sinais valem a pena serem mencionadas. Numa perspectiva mais voltada à matemática, elas são utilizadas especialmente
+para a solução de equações diferenciais, principalmente porque uma das suas utilidades é a definição e manipulação de derivadas de funções puramente contínuas, que não eram deriváveis antes.
+Entender estes objetos é o foco desta apresentação, assim como a descrição de alguns resultados fundamentais.
+
+
+Vamos nos restringir ao caso real, mas o conteúdo que será visto pode ser naturalmente estendido a \(\mathbb{R}^{n}.\) O primeiro passo é descrever um espaço legal de trabalharmos. Neste caso,
+denotaremos por \(C_{K}^{\infty}\), sendo ele o espaço das funções suaves com suporte - \(\mathrm{supp}(f) = \overline{\{x: f(x)\neq0\}}\) - compacto. Além de um espaço, é importante termos uma noção adequada de convergência e topologia
+para trabalharmos e, para isso, iremos definir a convergência no sentido \(C_{K}^{\infty}.\)
+\begin{def*}
+	Sejam \(f_{j}, f\in C_{K}^{\infty}\). Diremos que \(f_{j}\to f\) no sentido \(C_{K}^{\infty}\) se existe \(K\) compacto tal que
+	\begin{itemize}
+		\item Para todo j, \(\mathrm{supp}(f_{j})\subseteq K\);
+		\item Temos a convergência uniforme \(f_{j}\to f\);
+		\item As derivadas de \(f_{j}\) convergem uniformemente para as derivadas de f, i.e., \(D^{m}f_{j}\to Df_{j}\) para todo m. \(\square\)
+	\end{itemize}
+\end{def*}
+Estabelecemos a notação \(D^{k} = f^{(k)}\).
+Como não temos certeza se essa noção de convergência transforma \(C_{K}^{\infty}\) em um espaço de Banach, então não ganharíamos muito trabalhando com funcionais lineares limitados. Sendo assim, introduziremos
+os \textit{funcionais lineares contínuos}.
+\begin{def*}
+	Um mapa \(f:X\rightarrow \mathbb{C}\) é um \textbf{funcional linear contínuo} em X se:
+	\begin{itemize}
+		\item[i)] F é linear, ou seja, \(F(x+y) = Fx + Fy\) e \(F(cx) = cFx\)
+		\item[ii)] Sempre que \(f_{j}\to f\) em X, \(F(f_{j})\to F(f)\). \(\square\)
+	\end{itemize}
+\end{def*}
+Com isso, estamos prontos para a definição principal
+\begin{def*}
+	Uma \textbf{distribuição} é um funcional linear contínuo \(F:C_{K}^{\infty}\rightarrow \mathbb{C}\) com a noção de convergência de \(C_{K}^{\infty}.\) \(\square\)
+\end{def*}
+\begin{example}
+	Se g é uma função contínua, defina
+	\[
+		G_{g}(f) = \int_{\mathbb{R}}^{}f(x)g(x)dx,\quad f\in C_{K}^{\infty}.
+	\]
+	Então,
+	\begin{align*}
+		G_{g}(f + \varphi ) = \int_{\mathbb{R}}^{}(f(x)+\varphi (x))g(x)dx & = \int_{\mathbb{R}}^{}f(x)g(x) + \varphi (x)g(x)dx                       \\
+		                                                                   & = \int_{\mathbb{R}}^{}f(x)g(x)dx + \int_{\mathbb{R}}^{}\varphi (x)g(x)dx \\
+		                                                                   & = G_{g}(f) + G_{g}(\varphi ).
+	\end{align*}
+	Além disso, \(G_{g}(cf) = \int_{\mathbb{R}}^{}cf(x)g(x)dx = c \int_{\mathbb{R}}^{}f(x)g(x)dx = cG_{g}(f).\) Finalmente, suponha que \(f_{j}\) converge para f no sentido \(C_{K}^{\infty}.\) Em particular, isto significa que todas a função é suave e todas
+	as convergências são uniforme, permitindo a troca do limite da integral com o limite da função, o que fornece
+	\begin{align*}
+		\lim_{j\to \infty}G_{g}(f_{j}) = \lim_{\to \infty} \int_{\mathbb{R}}^{}f_{j}(x)g(x)dx & = \int_{\mathbb{R}}^{}f_{j}(x)g(x)dx         \\
+		                                                                                      & = \int_{\mathbb{R}}^{}f(x)g(x)dx = G_{g}(f).
+	\end{align*}
+\end{example}
+Este exemplo será corriqueiro ao longo do assunto, pois ele fornece a forma de relacionar assuntos das funções contínuas com distribuições. Além disso, saber o valor de \(G_{g}(f)\) para todas as funções \(f\in C_{K}^{\infty}\) caracteriza g
+de forma única (a menos de um conjunto de medida nula).
+\begin{example}
+	Coloque, para \(f\in C_{K}^{\infty},\)
+	\[
+		\delta (f) = \left\{\begin{array}{ll}
+			f(0), & \quad x=0     \\
+			0,    & \quad x\neq 0
+		\end{array}\right..
+	\]
+	As propriedades de linearidade seguem facilmente. Quanto à continuidade, suponha que \(f_{j}\to f\) no sentido \(C_{K}^{\infty}.\) Então,
+	\[
+		\delta (\lim_{j\to \infty}f_{j})  = \left\{\begin{array}{ll}
+			\lim_{j\to \infty}f_{j}(0), & x = 0   \\
+			0,                          & x\neq 0
+		\end{array}\right.  = \left\{\begin{array}{ll}
+			f(0), & x = 0   \\
+			0,    & x\neq 0
+		\end{array}\right. = \delta (f).
+	\]
+	Esta distribuição é de extrema relevância, levando o nome de \textbf{Delta de Dirac}.
+\end{example}
+\begin{example}
+	Se \(k\geq 1,\) defina \(F(f) = D^{k}f(0)\) para \(f\in C_{K}^{\infty}.\)
+\end{example}
+Por meio de distribuições conhecidas, podemos obter outras através de diversas operações. Veremos mais exemplos para ilustrar isso, mas a maioria não será elaborada na demonstração de ser uma distribuição.
+\begin{example}
+	Seja h uma função \(C^{\infty},\) não necessariamente com suporte compacto. Dada uma distribuição F, defina \(M_{h}(f)\) como
+	\[
+		M_{h}(F)(f) = F(fh),\quad f\in C^{\infty}.
+	\]
+	Este exemplo mostra que a distribuição do produto de funções \(C^{\infty}\) ainda é uma distribuição. Na verdade, \(M_{h}\) da forma que foi definida funciona como uma extensão do produto de uma função \(C^{0}\), f, com uma função suave (\(C^{\infty}\)), h.
+	Em particular, isto significa que este exemplo generaliza o primeiro que foi dado através de
+	\[
+		M_{h}(G_{g})(f) = G_{g}(fh) = \int_{\mathbb{R}}^{}(fh)gd\mu  = \int_{\mathbb{R}}^{}f(hg)d\mu = G_{hg}(f).
+	\]
+\end{example}
+\begin{example}
+	Se F é uma distribuição, defina \(D(F)\) como
+	\[
+		D(F)(f) = F(-Df),
+	\]
+	Este exemplo ilustra como podemos obter a derivada de funções contínuas \underline{quaisquer}. Para entender o que isso quer dizer, note que
+	\begin{align*}
+		D(G_{g})(f) = G_{g}(-Df) = \int_{\mathbb{R}}^{}(-Df)(x)g(x)dx & = - \int_{}^{}(Df)(x)g(x)dx            \\
+		                                                              & = \int_{\mathbb{R}}^{}f(x)(Dg)(x)dx    \\
+		                                                              & = G_{Dg}(f),\quad f\in C_{K}^{\infty}.
+	\end{align*}
+	Como mencionado previamente, conhecer \(G_{g}(f)\) para toda f suave de suporte compacto caracteriza, unicamente a menos de um conjunto nulo, a função g. Sendo assim, encontrar
+	\(G_{Dg}(f) = D(G_{g})(f) = G_{g}(-Df)\) para toda \(f\in C_{K}^{\infty}\) fornece uma caracterização única para \(Dg\) independente de g ser derivável ou não!.
+	Por exemplo, se \(g(x) = |x|,\) então
+	\[
+		D|x| = \int_{-\infty}^{\infty}|x|f'(x) = \int_{-\infty}^{0}xf'(x)dx - \int_{0}^{\infty}xf'(x)dx = - \int_{-\infty}^{0}f(x)dx + \int_{0}^{\infty}f(x)dx = \int_{\mathbb{R}}^{}\mathrm{sgn(x)}f(x)dx.
+	\]
+	Em outras palavras, \(|x|' = \mathrm{sgn}(x).\)
+\end{example}
+\begin{example}
+	Dado \(a\in \mathbb{R},\) coloque \(f_{-a}(x)\coloneqq f(x+a)\) e \(Rf(x)\coloneqq f(-x)\). Definimos, então, para \(f\in C_{K}^{\infty},\)
+	\begin{align*}
+		 & T_{a}(F)(f) = F(f_{-a}) \\
+		 & R(F)(f) = F(Rf).
+	\end{align*}
+	A primeira define uma translação por +a na origem para a distribuição F, enquanto que, a segunda, ilustra uma reflexão dela na origem.
+\end{example}
+\begin{example}
+	As distribuições fornecem, também, uma generalização da convolução por meio de uma função h com suporte compacto. Colocamos
+	\[
+		C_{h}(F)(f) = F(f*Rh),\quad f\in C_{K}^{\infty}\quad\&\quad Rh(x) = h(-x).
+	\]
+	Com isto, se \(F = G_{g},\)
+	\begin{align*}
+		C_{h}(G_{g})(f) = G_{g}(f*Rh) & =\int_{\mathbb{R}}^{}g(x)(f*Rh)(x)dx                   \\
+		                              & = \int_{}^{}\biggl(\int_{}^{}g(x)f(y)h(y-x)dy\biggr)dx \\
+		                              & = \int_{}^{}\biggl(\int_{}^{}f(y)g(x)h(y-x)dx\biggr)dy \\
+		                              & = \int_{}^{}f(y)(g*h)(y)dy = G_{g*h}(f),
+	\end{align*}
+	ou seja, \(C_{h}\) leva distribuição correspondente à função contínua g na correspondente à função contínua g*h.
+\end{example}
+Vamos, agora, olhar mais a fundo para um tipo específico de distribuições - aquelas com suporte pontual. Mostraremos também que todas as distribuições com suporte pontual são combinações lineares
+de derivadas da função delta (considere a função delta em si como a 0-ésima derivada). Antes, porém, é preciso dizer o que é uma distribuição suportada em um ponto.
+\begin{def*}
+	Seja G um aberto. Uma distribuição F é \textbf{nula} em G se \(F(f) = 0\) para todas as \(f\in C_{K}^{\infty}\) tais que \(\mathrm{supp}(f)\subseteq G\). \(\square\)
+\end{def*}
+\begin{lemma*}
+	Se F é nula em \(G_{1}\) e em \(G_{2},\) então F é nula em \(G_1\cup G_2\).
+\end{lemma*}
+\begin{proof*}
+	A partir do ponto que f tem suporte em \(G_{1}\cup G_{2},\) prova-se que \(f = f_{1} + f_{2}\) é uma decomposição possível, com \(f_{1}\) suportada em \(G_{1}\) e \(f_{2}\) em \(G_{2},\) de forma que
+	\[
+		F(f) = F(f_{1} + f_{2}) = F(f_{1}) + F(f_{2}) = 0 + 0 = 0,
+	\]
+	provando o resultado. \qedsymbol
+\end{proof*}
+A necessidade de tal lema é que, com ele, dada uma coleção \(\{G_{\alpha }\}\) de abertos tais que F é nula em todo \(G_{\alpha }\) e \(\mathrm{supp}(f)\subseteq \bigcup_{\alpha }^{}G_{\alpha }\), a compacidade fornece uma cobertura finita de
+\(\mathrm{supp}(f)\) por \(G_{\alpha }\)'s, isto é, por um número finito de abertos nos quais F é nula. Isto permite que nós apliquemos o lema sem medo de dar errado para concluir que a união de todos os conjuntos nos quais F é nula é, em si, um conjunto
+no qual F é nula. Logo, a proposta de definição a seguir está bem-definida:
+\begin{def*}
+	Se F é uma distribuição, definimos \textbf{o suporte de F} como o complemento do conjunto união de todos os abertos em que F é nula. \(\square\)
+\end{def*}
+Dita em outros termos, o suporte de uma distribuição é o complementar do maior conjunto no qual ela é nula, i.e.,
+\[
+	\mathrm{supp}(F) = \biggl(\bigcup_{\alpha \in A}^{}G_{\alpha }\biggr)^{\complement},
+\]
+em que F é nula em cada \(G_{\alpha }\).
+\begin{example}
+	Se \(\delta \) é o Delta de Dirac, então \(\mathrm{supp}(\delta ) = \{0\}\). Para ver isto, note que os conjuntos abertos nos quais \(\delta \) é nula são necessariamente todos os subconjuntos abertos de \(\mathbb{C}\) que não contêm a origem. Desta forma, denotando-os por \(G_{\alpha },\)
+	\[
+		\bigcup_{\alpha \in A}^{}G_{\alpha } = \mathbb{C}\setminus{\{0\}}.
+	\]
+	Portanto, \(\mathrm{supp}(\delta ) = \biggl(\mathbb{C}\setminus{\{0\}}\biggr)^{\complement} = \{0\}.\)
+\end{example}
+Nosso próximo passo será definir uma boa norma para obtermos o resultado que queremos. Colocamos
+\[
+	\Vert f \Vert_{C^{N}(K)} \coloneqq \max_{0\leq k\leq N}\sup_{x\in K}|D^{k}f(x)|.
+\]
+\begin{prop*}
+	Dada uma distribuição F e um compacto K fixo, existem \(N\coloneqq N(f, k)\) e \(c\coloneqq c(F, k)\) tais que, se f é uma função suave com suporte compacto contido em K, então
+	\[
+		|F(f)|\leq c\Vert f \Vert_{C^{N}(K)}.
+	\]
+\end{prop*}
+\begin{proof*}
+	A prova seguirá por contradição - ao assumir que o resultado não vale, mostraremos que F falha em ser uma distribuição. Sendo assim, suponha falso o resultado. Para cad m natural e c real, deve existir ao menos uma \(f_{m}\in C_{K}^{\infty}\) tal que
+	\[
+		|F(f_{m})| \geq c\Vert f \Vert_{C^{N}(K)}.
+	\]
+	Sem perda de generalidade, podemos assumir que \(|F(f_{m})| = 1\) para todo m. Se \(f_{m}\to f\), em particular, então \(|F(f)| = 1.\) No entanto,
+	\[
+		1 > c \Vert f \Vert_{C^{m}(K)}\Rightarrow 1 > c \max_{0 \leq k \leq m}\sup_{x\in X}|D^{k}f(x)|.
+	\]
+	Com isso, vale, para todo c,
+	\[
+		\frac{1}{m}\geq \max_{0 \leq k \leq m}\sup_{x\in X}|D^{k}f(x)|,\quad \forall m\in \mathbb{N}.
+	\]
+	Tomando o limite, obtemos
+	\[
+		0 = \lim_{m\to \infty}\frac{1}{m} \geq \lim_{m\to \infty}\max_{0\leq k\leq m}\sup_{x\in X}|D^{k}f(x)| \Rightarrow \lim_{m\to \infty}f_{m} = f = 0.
+	\]
+	Contradição, pois \(F(0) = 0\) e \(F(f) = 1\). \qedsymbol
+\end{proof*}
+Antes de provar o resultado principal, provaremos outro resultado que será usado.
+\begin{prop*}
+	Suponha que F seja uma distribuição com \(\mathrm{supp}(F) = \{0\}\). Então, existe N tal que, se \(f\in C_{K}^{\infty}\) cumpre que todas as derivadas antes da N-ésima, quando calculadas em 0, anulam-se, então F é nula em f. Matematicamente, se \(D^{j}f(0) = 0\) para
+	\(j\leq N\), então \(F(f) = 0\).
+\end{prop*}
+\begin{proof*}
+	Defina a função
+	\[
+		\varphi (x) = \left\{\begin{array}{ll}
+			0,\quad & x\in [-1, 1] \\
+			1,\quad & |x| > 2.
+		\end{array}\right.
+	\]
+	O intuito desta função é ``cortar'' parte da f e obtermos outra função \(g = (1-\varphi )f.\) Note que \(\mathrm{supp}(g) = \overline{\{x: (1-\varphi )f\neq 0\}}.\) Quanto a este conjunto de dentro, ele pode ser reescrito como
+	\begin{align*}
+		\{x: (1-\varphi )f\neq 0\} & = \{x:(1-\varphi)\neq0\}\cap \{x: f\neq 0\} \\
+		                           & = \{x: \varphi \neq 1\}\cap \{x: f\neq 0\}  \\
+		                           & = (-2, 2)\cap \{x:f\neq 0\}.
+	\end{align*}
+	Assim, para ter certeza de que \(\mathrm{supp}(g)\) estará contido em um compacto, escolha \(K = [-3, 3].\) Além disso,
+	\[
+		F(g) = F((1-\varphi )f) = F(f) - F(\varphi ),
+	\]
+	mas, para \(x\in [-1, 1], \varphi f = 0\), tal que \(F(\varphi f) = 0\), já que \(F\) tem suporte em \(\{0\}\) (isto significa que todos os valores não-nulos deveriam se concentrar em \(\{0\}\)), tal que, como \(\{0\}\subseteq [-1, 1]\), não há valores não-nulos para \(F(\varphi f).\)
+	Em conclusão, \(F(g) = F(f).\) Ademais, \(D^{j}g = [D^{j}f](1-\varphi ) + [D^{j}(1-\varphi )]f = (1-\varphi )D^{j}f,\) de modo que, calculando em 0, obtemos \(D^{j}g(0) = (1-\varphi )D^{j}f(0) = 0\) para todo \(j\leq N\). Com isso, podemos provar o teorema trabalhando com g ao invés de f e chegando em \(F(g) = 0.\)
+
+	Começamos observando que \(|F(g)|\leq c\Vert g \Vert_{C^{N}(K)},\) i.e., ele é limitado. Com base nisso, vamos criar uma sequência cuja função será ``afunilar'' a g até seu valor. Defina, então, \(g_{m}(x)=\varphi (mx)g(x).\) Vejamos dois casos, então.
+	1.) Se \(|mx| = m|x| > 2, \) então \(g_{m}(x) = 1 \cdot g(x) = g(x),\) ou seja, para \(3 > |x| >\frac{2}{m}\), a sequência é constante.
+
+	2.) Se \(m|x| \leq 2 \), olharemos com mais atenção. Sabendo o valor de \(D^{j}g(0)\) para todo \(j\leq N\), podemos expandir \(D^{j}g(x)\) em Taylor como segue:
+	\[
+		D^{j}g(x) = D^{j}g(0) + D^{j+1}g(0)(x-0) + \frac{1}{2!}D^{j+2}g(0)(x-0)^{2} + \dotsc + D^{j+N}g(0)\frac{(x-0)^{N-j}}{(N-j)!} + R = R,
+	\]
+	em que R é o resto que o próprio teorema fornece, satisfazendo
+	\[
+		|R|\leq \sup_{y\in \mathbb{R}}|D^{N+1}g(y)|\frac{|x|^{N+1-j}}{(N+1-j)!}.
+	\]
+	Como \(|x| < \frac{2}{m},\)
+	\[
+		|R|\leq \biggl[\frac{2^{N+1-j}}{(N+1-j)!}\sup_{y\in \mathbb{R}}|D^{N+1}g(y)|\biggr]m^{j-N-1} = c_{1}m^{j-N-1}.
+	\]
+	Além disso, de \(g_{m}(x) = \varphi (mx)g(x)\leq g(x)\), chegamos em
+	\[
+		|g_{m}(x)|\leq c_{2}|g(x)|\leq c_3m^{0 - N - 1} = c_{3}m^{-N-1},
+	\]
+	em que \(c_2, c_3\) são constante. Aplicando a Regra do Produto e a Regra da Cadeia, temos
+	\begin{align*}
+		|Dg_{m}(x)| = |[D\varphi (mx)]g(x) + [Dg(x)]\varphi (mx)| & = |mD\varphi(mx)g(x) + \varphi (mx)Dg(x)|                        \\
+		                                                          & \leq m|D\varphi (mx)||g(x)|+|\varphi (mx)||Dg(x)|                \\
+		                                                          & \leq m \cdot 0 \cdot |g(x)| + 1 \cdot c_4 m^{1-N-1} = c_4m^{-N}.
+	\end{align*}
+	Com este mesmo raciocínio repetido, obtemos, para \(k\leq N\),
+	\[
+		|D^{k}g_m(x)| \leq c_5m^{k-1-N}.
+	\]
+	Pela compacidade de K e por \(g_m(x) = g(x)\) se \(|x|>2/m\), segue a convergência uniforme
+	\[
+		\lim_{m\to \infty}D^{j}g_{m}(x) = D^{j}g(x),\quad j\leq N.
+	\]
+	No entanto, \(\lim_{m\to \infty}|D^{j}g_{m}(x)|\leq \lim_{m\to \infty}\frac{c_1}{m^{N+1-j}} = 0\), ou seja, \(g_m\) é 0 em uma vizinhança de 0. Consequentemente, \(F(g_m) = 0\). Portanto,
+	\[
+		0 = \lim_{m\to \infty}F(g-g_m) = \lim_{m\to \infty}F(g) - \lim_{m\to \infty}F(g_m) = F(g) - 0 = F(g).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Com esta proposição, encontramos uma propriedade presente em todas as distribuições com suporte \(\{0\}.\) Utilizando o exemplo da derivada da distribuição, observe que \(D^{j}\delta (f) = (-1)^{j}D^{j}(f(0)).\)
+Finalmente, então, podemos ver o último resultado.
+\begin{theorem*}
+	Suponha que F é uma distribuição com suporte em \(\{0\}.\) Então, existem N e constantes \(c_{i}\) tais que
+	\[
+		F = \sum\limits_{i=0}^{N}c_{i}D^{i}\delta .
+	\]
+\end{theorem*}
+\begin{proof*}
+	Seja \(P_{i}(x)\) uma função \(C_{K}^{\infty}\) que coincide com \(x^{i}\) perto de 0, tal que \(D^{j}P_{i}(0) = j!x^{i-j}\biggl|_{0}^{}\biggr. =0\) para \(i\neq j\) e \(i!\) se \(i= j\). Assim,
+	\(D^{j}\delta (P_{i}) = \delta (-D^{j}P_{i}) = (-1)^{j}D^{j}P_{i}(0) = \frac{(-1)^{i}}{i!}\) se \(i = j\). Caso contrário, \(D^{j}\delta (P_{i}) = 0.\)
+
+	Pela proposição anterior, podemos determinar o N. Começando por \(f\in C_{K}^{\infty}\) e aplicando Taylor,
+	\[
+		g(x) = \sum\limits_{i=0}^{N}\frac{D^{i}f(0)}{i!}P_{i}(x)
+	\]
+	coincide com f em 0, assim como suas N primeiras derivadas. Pela proposição,
+	\[
+		F \biggl(f - \sum\limits_{i=0}^{N}\frac{0^{i}f(0)}{i!}P_{i}\biggr) = 0 \Rightarrow F(f) = \sum\limits_{i=0}^{N}\frac{D^{i}f(0)}{i!}F(P_{i}) = \sum\limits_{i=0}^{N} \frac{(-1)^{i}}{i!}D^{i}\delta (f)F(P_{i}).
+	\]
+	Portanto, fazendo \(c_{i} = \frac{(-1)^{i}}{i!}F(P_{i}),\) o teorema está provado, já que f era arbitrária e \(c_{i}\) não dependem de f. \qedsymbol
+\end{proof*}
+
+\subsection{Kalel B. - Teoria Espectral}
+\end{document}

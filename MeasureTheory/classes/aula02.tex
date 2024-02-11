@@ -1,0 +1,352 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 09/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Classes Monótonas;
+	\item Medida, Medida Exterior e Medida de Lebesgue-Stieltjes;
+	\item Teorema de Caratheodory.
+\end{itemize}
+\subsection{Classes Monótonas}
+\begin{def*}
+	Uma \textbf{classe monótona} é uma coleção de sbuconjuntos \(\mathcal{M}\) de X tal que
+
+	\begin{itemize}
+		\item[1)] Se \(A_{i}\uparrow A\) e cada \(A_{i}\in \mathcal{M},\) então \(A\in \mathcal{M}\)
+		\item[2)] Se \(A_{i}\downarrow A\) e cada \(A_{i}\in \mathcal{M}\), então \(A\in \mathcal{M}\).
+	\end{itemize}\(\quad \square\)
+\end{def*}
+Observe que a interseção de classes monótonas é uma classe monótona e que a interseção de todas as classes monótonas contendo uma coleção de conjuntos é a menor
+classe monótona contendo esta coleção. Essa segunda observação nos leva a postular o seguinte teorema:
+\begin{theorem*}
+	Suponha que \(\mathcal{A}_{0}\) seja uma álgebra, \(\mathcal{A}\) a menor \(\sigma \)-álgebra contendo \(\mathcal{A}_{0}\) e \(\mathcal{M} \) a menor classe monótona contendo \(\mathcal{A}_{0}\). Então, \(\mathcal{A} = \mathcal{M}.\)
+\end{theorem*}
+\begin{proof*}
+	Uma \(\sigma \)-álgebra é uma classe monótona por definição. Assim, \(\mathcal{M}\subseteq \mathcal{A}\) pela observação feita. Mostraremos o outro lado. Primeiramente,
+	seja \(\mathcal{N}_{1} = \{A\in \mathcal{M}: A ^{\complement}\in \mathcal{M}\}\) e note que \(\mathcal{N}_{1} \subseteq \mathcal{M}\) e que \(\mathcal{A}_{0} \subseteq \mathcal{N}_1.\) Se \(A_{i}\uparrow A\) e cada \(A_{i}\in \mathcal{N}_1\),
+	então cada \(A_{i}\in \mathcal{M}\), e \(A_{i}^{\complement}\downarrow A ^{\complement}.\) Como \(\mathcal{M}\) é classe monótona, \(A ^{\complement}\in \mathcal{M}\), ou seja, \(A\in \mathcal{N}_{1}\)
+	Analogamente, se \(A_{i}\downarrow A,\) com cada \(A_{i}\in \mathcal{N}_1,\) então cada \(A\in \mathcal{N}_1.\) Com isto, concluímos que \(\mathcal{N}_{1}\) é classe monótona e, assim,
+	\(\mathcal{N}_1 = \mathcal{M}\). Desta forma, \(\mathcal{M}\) é fechado com relação à operação de tomar complementos.
+
+	Em seguida, vamos mostrar que, se \(A, B\in \mathcal{M},\) então \(A\cap B\in \mathcal{M}.\) De fato, seja \(\mathcal{N}_{2} = \{A\in \mathcal{M}:A\cap B\in \mathcal{M} \text{ para todo }B\in \mathcal{A}_{0}\}\).
+	Note que \(\mathcal{N}_2\subseteq \mathcal{M}\) e \(\mathcal{N}_2\supseteq \mathcal{A}_{0}\), pois \(\mathcal{A}_{0}\) é álgebra. Caso \(A_{i}\uparrow A,\) em que cada \(A_{i}\in \mathcal{N}_2\), então \(A\cap B = \bigcup_{i=1}^{\infty}(A_{i}\cap B).\)
+	O fato de \(\mathcal{M}\) ser classe monótona implica que \(A\cap B\in \mathcal{M},\) donde segue que \(A\cap B\in \mathcal{N}_2\). Analogamente, se \(A_{i}\downarrow A, A\in \mathcal{N}_2\) e, portanto, \(\mathcal{N}_2\) é classe monótona, do que segue que \(\mathcal{N}_2 = \mathcal{M}.\)
+	Em outras palavras, se \(B\in \mathcal{A}_{0}, \) então \(A\cap B\in \mathcal{M}.\)
+
+	Finalmente, seja \(\mathcal{N}_{3} = \{A\in \mathcal{M}: A\cap B\in \mathcal{M},\text{ para todo }B\in \mathcal{M}\}.\) Assim como antes, \(\mathcal{N}_3\)
+	é classe monótona contida em \(\mathcal{M},\) tal como \(\mathcal{N}_{3}\supseteq \mathcal{A}_{0},\) como no passo anterior. Disto, \(\mathcal{N}_3 = \mathcal{M}.\)
+	Dessa forma, \(\mathcal{M}\) é uma classe monótona fechada com relação à tomada de complementos e interseções. De fato, se \(A_1, A_2, \dotsc \in \mathcal{M}\), então por \(\mathcal{N}_3\) temos
+	\(B_{n} = \bigcap_{i=1}^{n}A_{i}\in \mathcal{M}\) para todo n e \(B_{n}\downarrow \bigcap_{i=1}^{\infty}A_{i}\).  Como \(\mathcal{M}\) é uma classe monótona, \(\bigcap_{i=1}^{\infty}A_{i}\in \mathcal{M}\).
+	Por outro lado, se \(A_1, A_2, \dotsc \in \mathcal{M}\), segue de \(\mathcal{N}_1\) que \(A_{1}^{\complement}, A_{2}^{\complement}, \dotsc \in \mathcal{M}\) e, logo, \(\bigcap_{i=1}^{\infty}A_{i}^{\complement}\in \mathcal{M}\), do que segue que
+	\(\bigcup_{i=1}^{\infty}A_{i}^{\complement}=\biggl(\bigcap_{i=1}^{\infty}A_{i}^{\complement}\biggr)^{\complement}\in \mathcal{M}.\)
+
+	Portanto, \(\mathcal{M}\) é uma \(\sigma \)-álgebra e, assim, \(\mathcal{A} \subseteq \mathcal{M}.\) \qedsymbol
+\end{proof*}
+\begin{example}[Exercícios]
+	\begin{itemize}
+		\item[1)] Ache um exemplo de um conjunto X e uma classe monótona \(\mathcal{M}\) consistindo de subconjuntos de X, junto com \(\emptyset , X\in \mathcal{M}\), mas \(\mathcal{M}\) não é uma \(\sigma \)-álgebra. [R: \(\mathcal{M} = \{\emptyset , X, A\}, A\subsetneq X\)
+		\item[2)] Seja \((Y, \mathcal{A})\) um espaço mensurável e \(f:X\rightarrow Y\) não injetora. Defina \(\mathcal{B} = \{f^{-1}(A): A\in \mathcal{A}\}.\) Prove que \(\mathcal{B}\) é uma \(\sigma \)-álgebra de subconjuntos de X.
+	\end{itemize}
+\end{example}
+Passaremos a definir o que é uma medida e apresentaremos algumas propriedades. A ideia da medida busca generalizar comprimento, área e volume em dimensões 1, 2 e 3, respectivamente. Uma propriedade desejada é a de decompor uniões em somas, ou seja,
+se \(A_{1}, A_2, \dotsc , A_{n}\) são dois-a-dois disjuntos, a medida da união deles será a soma da medida de cada componente.
+
+\subsection{Medida}
+\begin{def*}
+	Seja X um conjunto, \(\mathcal{A}\) uma \(\sigma \)-álgebra consistindo de subconjuntos de X. Uma \textbf{medida} sobre \((X, \mathcal{A})\) é uma função \(\mu:A\rightarrow [0, \infty) \) tal que
+	\begin{itemize}
+		\item[1)] \(\mu (\emptyset ) = 0\)
+		\item[2)] Se \(A_{i}\in \mathcal{A}, i = 1, 2, \dotsc \) são disjuntos dois-a-dois, então
+		      \[
+			      \mu \biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) = \sum\limits_{i=1}^{\infty}\mu (A_{i})\quad \text{\textbf{(aditividade enumerável) }} \square
+		      \]
+	\end{itemize}
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se X é um conjunto e \(\mathcal{A}\) uma coleção de subconjuntos de X, então \(\mu (A)\) é o número de elementos de A é uma medida (contador)
+		\item[2)] Se \(X = \mathbb{R}\), \(\mathcal{A}\) é uma coleção de subconjuntos de X, \(x_{1}, x_{2}, \dotsc \in \mathbb{R}\) e \(a_{1}, a_2, \dotsc \geq 0\), defina
+		      \[
+			      \mu (A) = \sum\limits_{\{i: x_{i}\in A\}}^{}a_{i}
+		      \]
+		      é medida
+		\item[3)] Seja \(\delta_x (A) = 1\) se \(x\in A\) e 0 caso contrário. Essa é a medida concentrada de no ponto x.
+
+	\end{itemize}
+\end{example}
+Valem as Propriedades:
+\begin{prop*}
+	Se \(A, B\in \mathcal{A}, A\subseteq B\), então \(\mu (A) \leq \mu (B)\)
+\end{prop*}
+\begin{proof*}
+	Tome \(A_{1} = A, A_{2} = B\setminus{A}, A_{3} = A_{4} = \dotsc  = \emptyset \). Pela aditividade,
+	\[
+		\mu (B) = \mu (A) + \mu(B\setminus{A}) + 0 +\dotsc  \geq \mu (A). \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Se \(A_{i}\in \mathcal{A}\) e \(A = \bigcup_{i=1}^{\infty}A_{i},\) então \(\mu (A) \leq \sum\limits_{i=1}^{\infty}\mu (A_{i})\)
+\end{prop*}
+\begin{proof*}
+	Faça \(B_{1} = A_{1}, B_2 = A_2\setminus{A_1}, B_3 = A_3\setminus{(A_1\cup A_2)}, B_4 = A_4\setminus{(A_1\cup A_2\cup A_3)}.\)  Em geral, \(B_{i} = A_{i}\setminus{\bigcup_{j=1}^{i-1}A_{j}}\).
+	Assim, \(B_{i}\) são dois-a-dois disjunto, \(B_{i}\subseteq A_{i}\) para cada i e \(\bigcup_{i=1}^{n}B_{i} = \bigcup_{i=1}^{n}A_{i}\) para cada n. Assim, \(\bigcup_{i=1}^{\infty}B_{i} = \bigcup_{i=1}^{\infty}A_{i}\) e, portanto,
+	\[
+		\mu(A) = \mu \biggl(\bigcup_{i=1}^{\infty}B_{i}\biggr) = \sum\limits_{i=1}^{\infty}\mu(B_{i}) \leq \sum\limits_{i=1}^{\infty}\mu (A_{i}).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Suponha \(A_{i}\in \mathcal{A}, A_{i}\uparrow A.\) Então, \(\mu (A) = \lim_{n\to \infty}\mu (A_{n})\).
+\end{prop*}
+\begin{proof*}
+	Defina \(B_{i} = A_{i}\setminus{(\bigcup_{j=1}^{i-1}A_{j})}\). Como a união coincide, temos
+	\begin{align*}
+		\mu (A) & = \mu \biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) = \mu \biggl(\bigcup_{i=1}^{\infty}B_{i}\biggr) \\
+		        & = \sum\limits_{i=1}^{\infty}\mu (B_{i}) = \lim_{n\to \infty}\sum\limits_{i=1}^{n}\mu (B_{i})    \\
+		        & = \lim_{n\to \infty}\mu \biggl(\bigcup_{i=1}^{n}B_{i}\biggr)                                    \\
+		        & = \lim_{n\to \infty}\mu \biggl(\bigcup_{i=1}^{n}A_{i}\biggr).\quad \text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{prop*}
+	Suponha \(A_{i}\in \mathcal{A}, A_{i}\downarrow A.\) Se \(\mu (A_1) < \infty\), então \(\mu (A) = \lim_{n\to \infty}\mu (A_{n})\).
+\end{prop*}
+\begin{proof*}
+	Aplicaremos a última proposição para \(A_1\setminus{A_{i}}, i = 1, \dotsc \). Note que \(A_1\setminus{A_{i}}\) cresce para \(A_1\setminus{A}\). Assim,
+	\[
+		\mu (A_1) - \mu (A) = \mu (A_1 - A) = \lim_{n\to \infty}(\mu (A_1) - \mu (A_{n})),
+	\]
+	pois, como \(A\subseteq A_1, \) então \(A_1 = (A_1\setminus{A})\cup A\) e \(A_1\setminus{A}\cap A = \emptyset \), tal que \(\mu (A_1) = \mu (A_1\setminus{A}) + \mu (A).\)
+	Portanto, basta subtrair \(\mu (A_1)\) de ambos os membros e multiplicar por -1. \qedsymbol
+
+\end{proof*}
+\begin{example}
+	A necessidade de \(\mu (A_1) < \infty\) segue pois, por exemplo, se \(X = 1, 2, \dotsc \) com medida contadora \(\mu \). Considere \(A_{i} = \{i, i+1, ..\}\), tal que \(A_{i}\) decresce,
+	\(\mu (A_{i}) = \infty\), mas \(\mu (\bigcap_{i}^{}A_{i}) = \mu (\emptyset ) = 0.\)
+\end{example}
+\begin{def*}
+	\begin{itemize}
+		\item[a)] Uma medida \(\mu \) é \textbf{finita sobre X} se \(\mu (X) < \infty\);
+		\item[b)] Uma medida \(\mu \) é \(\sigma \)\textbf{-finita} se existir uma sequência de conjuntos \(E_{i}\in \mathcal{A}\) para i = 1, 2, \(\dotsc \) tal que
+		      \(\mu (E_{i}) < \infty\) e \(X = \bigcup_{i=1}^{\infty}E_{i};\)
+		\item[c)] Se \(\mu \) é medida finita, então \((X, \mathcal{A}, \mu )\) é chamada \textbf{espaço de medida finita};
+		\item[d)] Se \(\mu \) é \(\sigma \)-finita, entào \((X, \mathcal{A}, \mu )\) é chamado \textbf{espaço de medida} \(\sigma \)\textbf{-finita.}
+	\end{itemize} \(\square\)
+
+\end{def*}
+Suponha que X seja \(\sigma \)-finita. Então, \(X = \bigcup_{i=1}^{\infty}E_{i}\) e \(E_{i}\in \mathcal{A}\), se \(F_{n} = \bigcup_{i=1}^{n}E_{i}\) com \(\mu (F_{n}) < \infty\) para cada n, \(F_{n}\uparrow X\), isso mostra
+que podemos exigir que \(E_{i}\) seja crescente.
+\begin{def*}
+	\begin{itemize}
+		\item[i)] Um conjunto \(A\subseteq X\) é \textbf{nulo}, ou tem \textbf{medida nula}, se existir um conjunto \(B\in \mathcal{A}\) com \(A\subseteq B\) e \(\mu (B) = 0.\)
+		\item[ii)] Dizemos que \((X, \mathcal{A}, \mu )\) é um \textbf{espaço de medida completa} se \(\mathcal{A}\) contém todos os conjuntos nulos.
+		\item[iii)] Um \textbf{completamento} de \(\mathcal{A}\) é a menor \(\sigma \)-álgebra \(\overline{\mathcal{A}}\) contedno \(\mathcal{A}\) tal que \((X, \overline{\mathcal{A}}, \overline{\mu })\) é completa,
+		      sendo \(\overline{\mu} \) uma medida sobre \(\overline{\mathcal{A}}\) que é uma extensão de \(\mu \), ou seja, \(\mu(B) = \overline{\mu }(B)\) para todo \(B\in \mathcal{A}.\)
+		\item[iv)] Uma \textbf{probabilidade} é uma medida \(\mu \) tal que \(\mu (X) = 1\). Escrevemos \((\Omega , \mathcal{F}, \mathbb{P})\) no lugar de \((X, \mathcal{A}, \mu )\) e \(\mathcal{F}\) é chamado de \(\sigma \)\textbf{-campo}.
+	\end{itemize}
+\end{def*}
+\subsection{Construindo uma Medida}
+Vamos construir uma medida. Para isso, utilizaremos da medida exterior. A mais conhecida é a medida de Lebesgue. Para construí-la, sendo \(m \) esta medida
+\[
+	m(I) = |I|,
+\]
+considere todo aberto da reta uma união enumerável de intervalos abertos disjuntos,
+\[
+	G = \bigcup_{i=1}^{\infty}(a_{i}, b_{i})
+\]
+Defina
+\[
+	m (E) = \inf_{}\{\lambda (G), G \text{ aberto }, E\subseteq G\}, \quad E\subseteq \mathbb{R}.
+\]
+Note que \(m \) n~ao é uma medida sobre \(\sigma \)-álgebra de todos os subconjuntos da reta. Isto será contornado definindo uma \(\sigma \)-álgebra estritamente menor a aplicando o teorema de Caratheodory
+\begin{def*}
+	Seja X um conjunto. Uma \textbf{medida exterior} é uma função \(\mu ^{*}\) definida na coleção de todos os subconjuntos de X tal que
+	\begin{itemize}
+		\item[a)] \(\mu ^{*}(\emptyset ) = 0\)
+		\item[b)] Se \(A\subseteq B\), então \(\mu ^{*}(A) \leq \mu ^{*}(B)\)
+		\item[c)] \(\mu ^{*}(\bigcup_{i=1}^{\infty}A_{i}) \leq \sum\limits_{i=1}^{\infty}\mu (A_{i})\) para todo subconjuntos de X.
+	\end{itemize}
+	Um conjnto N é nulo com relação a \(\mu ^{*}\) se \(\mu ^{*}(N) = 0\)
+\end{def*}
+\begin{prop*}
+	Seja \(\mathcal{C} \) uma coleção de subconjuntos de X tal que \(\emptyset \in \mathcal{C}\) e existem \(D_{1}, D_2, \dotsc \in \mathcal{C}\) tais que \(X = \bigcup_{i=1}^{\infty}D_{i}\).
+	Suponha que \(\ell :\mathcal{C}\rightarrow [0, \infty]\) com \(\ell (\emptyset )= 0\). Defina
+	\[
+		\mu ^{*}(E) = \inf_{}\biggl\{\sum\limits_{i=1}^{\infty}\ell (A_{i}): A_{i}\in \mathcal{C}, \forall i, E\subseteq \bigcup_{i=1}^{\infty}A_{i}\biggr\}.
+	\]
+	Então, \(\mu ^{*}\) é uma medida exterior.
+\end{prop*}
+\begin{proof*}
+	Que \(\mu ^{*}(\emptyset ) = 0\) é claro. Se \(A\subseteq B\), então \(\inf_{}A \leq \inf_{}V\), tal que
+	\[
+		\mu ^{*}(A) \leq \mu ^{*}(B).
+	\]
+	Além disso, sejam \(A_{1}, A_{2},\dotsc \) subconjuntos de X, \(\varepsilon > 0\) dado. para cada i, existem \(C_{i1}, C_{i2}, \dotsc \in \mathcal{A}\) tais que
+	\[
+		A_{i}\subseteq \bigcup_{j=1}^{\infty}C_{ij},\quad \sum\limits_{j=1}^{\infty}\ell (C_{ij})\leq \mu ^{*}(A_{i}) + \frac{\varepsilon }{2^{i}}
+	\]
+	Assim, \(\bigcup_{i=1}^{\infty}A_{i}\subseteq \bigcup_{i=1}^{\infty}\bigcup_{j=1}^{\infty}C_{ij}\) e
+	\[
+		\mu ^{*}\biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) \leq \sum\limits_{i=1}^{\infty}\ell (C_{ij}) = \sum\limits_{i}^{}\sum\limits_{j}^{}\ell (C_{ij}) \leq \sum\limits_{i=1}^{\infty}\mu ^{*}(A_{i}) + \varepsilon .
+	\]
+	Sendo \(\varepsilon \) arbitrário, temos
+	\[
+		\mu ^{*}\biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) \leq \sum\limits_{i=1}^{\infty}\mu ^{*}(A_{i}).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{example}
+	Seja \(X = \mathbb{R}\) e \(\mathcal{C}\) a coleção de intervalos da forma \((a, b]\). Seja \(\ell (I) = b- a\), em que \(I = (a, b]\). Defina \(\mu ^{*}\) pondo
+	\[
+		\mu ^{*} = \inf_{}\biggl\{\sum\limits_{i=1}^{\infty}\ell (A_{i}): A_{i}\in \mathcal{C}, E\subseteq \bigcup_{i=1}^{\infty}A_{i}\biggr\}.
+	\]
+	Da proposição anterior, \(\mu ^{*}\) é medida exterior. Apesar disso, \(\mu ^{*}\) não é medida sobre todos os subconjuntos de \(\mathbb{R}\), mas se for restrito à \(\lambda \)-álgebra \(\mathcal{L}\), que é estritamente
+	menor que a coleção de todos os subconjuntos, ela será medida sobre \(\mathcal{L}\), denominada medida de Lebesgue. \(\mathcal{L}\) é chamada \(\sigma \)-álgebra de Lebesgue.
+\end{example}
+\begin{example}
+	Seja \(X = \mathbb{R}\) e \(\mathcal{C}\) todos os subconjuntos da forma \((a, b]\). Seja \(\alpha : \mathbb{R}\rightarrow \mathbb{R}\) crescente, contínua à direita. Assim, para cada x,
+	\[
+		\alpha (x) = \lim_{y\to x}\alpha (y),\quad \alpha (x)< \alpha (y) \text{ se} x < y.
+	\]
+	Seja \(\ell (I) = \alpha (b) - \alpha (a)\) para \(I = (a, b]\). Defina \(\mu ^{*}\) como no último exemplo, que seraá medida exterior sobre a \(\sigma \)-álgebra \(\mathcal{L}\). Essa medida
+	é denominada medida de Lebesgue-Stieltjes em relação a \(\alpha \), coincidindo caso \(\alpha \) seja identidade.
+\end{example}
+Em geral, podemos restringir \(\mu ^{*}\) a uma \(\sigma \)-álgebra menor do que a coleção de todos os subconjuntos de \(\mathbb{R}\), mas nem sempre! Por exemplo,
+\[
+	\alpha (x)  = \left\{\begin{array}{ll}
+		0\quad x < 0 \\
+		1\quad x \geq 0
+	\end{array}\right.
+\]
+A medida de Lebesgue-Stieltjes é um ponto de massa em 0 e a correspondente \(\sigma \)=álgebra é a coleção de todos os subconjuntos de \(\mathbb{R}. \) De fato, se \(\ell (I) = \alpha (b) - \alpha (a)\), então, caso \(0\in I\),
+segue que \(a < 0, b> 0\) e \(\ell (I) = 1 - 0 = 1\). Caso \(0\not\in I\), então \(a, b\) são ambas positivas ou negativas e, assim, \(\ell (I) = 1 - 1 = 0\) ou \(\ell (I) = 0 - 0 = 0\), ou seja,
+\[
+	\ell (I) \equiv \delta_{x}(I)  = \left\{\begin{array}{ll}
+		1\quad x\in I \\
+		0\quad x\not\in I
+	\end{array}\right.
+\]
+é a medida denominada massa centrada em 0.
+\begin{def*}
+	Seja \(\mu ^{*}\) uma medida exterior. Dizemos que \(A\subseteq X\) é \(\mu ^{*}\)\textbf{-mensurável} se
+	\[
+		\mu ^{*}(E) = \mu ^{*}(E\cap A) + \mu ^{*}(E\cap A ^{\complement}),\quad \forall E\subseteq X.
+	\]
+\end{def*}
+\begin{theorem*}
+	Seja \(\mu ^{*}\) uma medida exterior. então, a coleção \(\mathcal{A}\) de conjuntos \(\mu ^{*}\)-mensuráveis é uma \(\sigma \)-álgebra. Se \(\mu \) é restrição de \(\mu ^{*}\) à \(\mathcal{A}\), então \(\mu \) é medida. Além disso,
+	\(\mathcal{A}\) é completa.
+\end{theorem*}
+\begin{proof*}
+	Da definição,
+	\[
+		\mu ^{*}(E) \leq \mu ^{*}(E\cap A) + \mu ^{*}(E\cap A ^{\complement}),\quad \forall E\subseteq X
+	\]
+	pois \(E = (E\cap A)\cup (E\cap A ^{\complement})\). Assim, basta provar a desigualdade reversa:
+	\[
+		\mu ^{*}(E) \geq \mu ^{*}(E\cap A) + \mu ^{*}(E\cap A ^{\complement}).
+	\]
+	Se \(\mu ^{*}(E) = \infty\), acabou. Caso contrário,
+
+	\textbf{\underline{Afirmação}:} \(\mathcal{A}\) é um álgebra.
+
+	Com efeito, \(\emptyset, X\in \mathcal{A}\) pois ambos são mensuráveis. Se \(A\in \mathcal{A}\), então \(A ^{\complement}\in \mathcal{A}\) por simetria. Se \(A, B\in \mathcal{A}\) e \(E\subseteq X\), temos
+	\begin{align*}
+		\mu ^{*}(E) & = \mu ^{*}(E\cap A) + \mu ^{*}(E\cap A ^{\complement})                                                                                                                \\
+		            & = \mu ^{*}(E\cap (A\cap B)) + \mu ^{*}(E\cap A \cap B ^{\complement}) +\mu ^{*}(E\cap A ^{\complement}\cap B) + \mu ^{*}(E\cap A ^{\complement}\cap B ^{\complement}) \\
+		            & \geq \mu ^{*}(E\cap (A\cup B)) + \mu ^{*}(E\cap (A\cup B)^{\complement})
+	\end{align*}
+	Em que usamos que \((A ^{\complement}\cap B ^{\complement}) = (A\cup B) ^{\complement}\) junto de
+	\[
+		E\cap (A\cup B)\subseteq E\cap (A\cap B)\cup (E\cap(A\cap B^{\complement}))\cup (E\cap(A ^{\complement}\cap B)),
+	\]
+	pois, sendo \(\mu ^{*}\) uma medida externa, isso resulta em
+	\[
+		\mu ^{*}(E\cap (A\cup B)) \leq \mu ^{*}(E\cap (A\cap B)) + \mu ^{*}(E\cap (A\cap B ^{\complement})) + \mu ^{*}(E\cap (A ^{\complement}\cap B)).
+	\]
+	Assim, \(A\cup B\in \mathcal{A}\), mostrando que \(\mathcal{A}\) é um álgebra.
+
+	\textbf{\underline{Afirmação}:} \(\mathcal{A}\) é uma \(\sigma \)-álgebra.
+
+	De fato, dados \(A_{1}, A_{2}, \dotsc \in \mathcal{A}\) dois-a-dois disjuntos e \(E\subseteq X\). Defina \(B_{n} = \bigcup_{i=1}^{n}A_{i}\) e \(B = \bigcup_{i=1}^{\infty}A.\) Temos
+	\begin{align*}
+		\mu ^{*}(E\cap B_{n}) & = \mu ^{*}(E\cap B_{n}\cap A_{n}) + \mu ^{*}(E\cap B_{n}\cap A_{n}^{\complement} \\
+		                      & = \mu ^{*}(E\cap A_{n}) + \mu ^{*}(E\cap B_{n-1}).
+	\end{align*}
+	Analogamente,
+	\[
+		\mu ^{*}(E\cap B_{n-1}) = \mu ^{*}(E\cap A_{n-1}) + \mu ^{*}(E\cap B_{n-2}),
+	\]
+	tal que
+	\[
+		\mu ^{*}(E\cap B_{n}) \geq \sum\limits_{i=1}^{n}\mu ^{*}(E\cap A).
+	\]
+	Fazendo \(n\to\infty\) e lembrando que \(\mu ^{*}\) é medida exterior,
+	\begin{align*}
+		\mu ^{*}(E) & \geq \sum\limits_{i=1}^{\infty}\mu ^{*}(E\cap A_{i}) + \mu ^{*}(E\cap B ^{\complement}) \\
+		            & \geq \mu ^{*}(E\cap B) + \mu ^{*}(E\cap B ^{\complement})                               \\
+		            & \geq \mu ^{*}(E),
+	\end{align*}
+	provando que \(B\in \mathcal{A}\). Tome, agora, \(C_{1}, C_{2}, \dotsc \in \mathcal{A}\). Provaremos que \(\bigcap_{i=1}^{\infty}C_{i}\in \mathcal{A}\).
+	Defina \(A_{i} = C_i\setminus{\bigcup_{j=1}^{i-1}A_{j}}\). Como cada \(C_{i}\in \mathcal{A}\) e \(\mathcal{A}\) é álgebra, então
+	\(A_{i} = C_{i}\cap (C_{1}\cup \dotsc \cup C_{i-1}) ^{\complement}\in \mathcal{A}.\) Da definição dos \(A_{i}\), eles são dois-a-dois
+	disjuntos e
+	\[
+		\bigcup_{i=1}^{\infty}C_{i} = \bigcup_{i=1}^{\infty}A_{i}.
+	\]
+	Por outro lado,
+	\[
+		\bigcap_{i=1}^{\infty}C_{i} = \biggl(\bigcup_{i=1}^{\infty}C_{i}\biggr)^{\complement}\in \mathcal{A},
+	\]
+	mostrando que \(\mathcal{A}\) é \(\sigma \)-álgebra.
+
+	Restra mostrar que a restrição de \(\mu ^{*}\) é medida. De fato, dados \(A_{1}, A_2, \dotsc \in \mathcal{A}\) dois-a-dois disjuntos,
+	temos
+	\[
+		\mu ^{*}(B) = \sum\limits_{i=1}^{\infty}\mu ^{*}(B\cap A_{i}) + \mu ^{*}(B\cap B ^{\complement}) = \sum\limits_{i=1}^{\infty}\mu ^{*}(A_{i}).
+	\]
+	Mas, \(B = \bigcup_{i=1}^{\infty}A_{i}\). Logo, \(\mu ^{*}\) é aditiva e contável sobre \(\mathcal{A}\). Finalmente, se \(\mu ^{*}(A) = 0\) e \(E\subseteq X\), então
+	\[
+		\mu ^{*}(E\cap A) + \mu ^{*}(E\cap A ^{\complement}) = \mu ^{*}(E\cap A ^{\complement}) \leq \mu ^{*}(E).
+	\]
+	Como a reversa sempre vale, temos \(A\in \mathcal{A}\), mostrando que \(\mathcal{A}\) contém todos os conjuntos nulos. \qedsymbol
+\end{proof*}
+Seja \(X = \mathbb{R}\) e \(\mathcal{C}\) a coleção de todos os intervalos da forma \((a, b]\) e seja \(\alpha: \mathbb{R}\Longleftrightarrow \mathbb{R}\) crescente e contínua à direita. Assim, para cada x,
+\[
+	\alpha (x) = \lim_{y\to x^{+}}\alpha (y),\quad \forall x \quad\&\quad \alpha (x) < \alpha (y)\text{ se }x < y.
+\]
+Seja \(\ell (I) = \alpha (b) - \alpha (a)\) e defina \(m^{*}\) como antes. Pela proposição de antes, \(m^{*}\) é medida exterior. Ainda mais, pelo Teorema de Caratheodory, \(m^{*}\) é medida sobre
+a coleção dos conjuntos \(m^{*}\)-mensuráveis. Note que, se K e L são adjacentes, digamos \(K = (a, b], L = (b, c]\), então \(K\cup L = (a, c]\) e
+\[
+	\ell (K) + \ell (L) = [\alpha (b) - \alpha (a)] + [\alpha (c) - \alpha (b)] = \alpha (c) - \alpha (a) = \ell (K\cup L).
+\]
+Provaremos que a medida de \((e, f]\) é, de fato, \(\alpha (f) - \alpha (e).\)
+\begin{lemma*}
+	Seja \(J_{k} = (a_{k}, b_{k}), k = 1, 2, \dotsc , n\) uma coleção finita de intervalos abertos limitados que cobrem \([C, D].\) Então,
+	\[
+		\sum\limits_{k=1}^{n}[\alpha (b_{k}) - \alpha (a_{k})] \geq \alpha (D) - \alpha (C).
+	\]
+\end{lemma*}
+\begin{proof*}
+	Sendo \(\{J_{k}\}\) uma cobertura de [C, D], existe pelo menos um intervalo, digamos \(J_{k_1} = (a_{k_{1}}, b_{k_{1}})\) tal que \(C\in J_{k_{1}}\). Caso \(J_{k_{1}}\) cubra [C, D],
+	não resta nada a ser provado.
+	Caso contrário, \(b_{k_{1}} \leq D\) e existe um intervalo, digamos \(J_{k_{2}} = (a_{k_{2}}, b_{k_{2}})\) tal que \(b_{k_{1}}\in J_{k_{2}}.\) Se \(J_{k_{1}}\cup J_{k_{2}}\)
+	cobrir [C, D], então acabamos novamente.
+	Caso contrário, \(b_{k_{1}} < b_{k_{2}} \leq D\) e existe um intervalo, digamos \(J_{k_{3}} = (a_{k_{3}}, b_{k_{3}})\) satisfazendo \(b_{k_{2}}\in J_{k_{3}}.\)
+	Se \(J_{k_{1}}\cup J_{k_{2}}\cup J_{k_{3}}\) cobrir o intervalo [C, D], acabamos.
+
+	Continuando este processo, existe \(J_{k_{m}}\) tal que \(b_{k_{m-1}}\in J_{k_{m}}\), tal que \(J_{k_{1}}\cup \dotsc \cup J_{k_{m}}\) cobrem [C, D]. Sendo \(\{J_{k}\} \) uma cobertura finita, paramos
+	o processo para \(m \leq n\).
+
+	Com esta construção, obtivemos
+	\[
+		a_{k_{1}} < C < b_{k_{1}},\quad a_{k_{m}} < D < b_{k_{m}}, \quad a_{k_{j}} < B_{k_{j-1}} < b_{k_{j}},\quad (j = 2, 3, \dotsc , m).
+	\]
+	Usando as desigualdades acima, chegamos em
+	\begin{align*}
+		\alpha (D) - \alpha (C) & \leq \alpha (b_{k_{m}}) - \alpha (a_{k_{1}})                                                          \\
+		                        & = \alpha (b_{k_{m}}) - \alpha (b_{k_{m-1}}) + \alpha (b_{k_{m-1}}) - \alpha (b_{k_{m-2}}) + \dotsc    \\
+		                        & \quad +\alpha (b_{k_{2}}) - \alpha (b_{k_{1}}) + \alpha (b_{k_{1}}) - \alpha (a_{k_{1}})              \\
+		                        & \leq [\alpha (b_{k_{m}} - \alpha (a_{k_{m}})] + [\alpha (b_{k_{m-1}} - \alpha (a_{k_{m-1}})] + \dotsc \\
+		                        & \quad + [\alpha (b_{k_{2}}) - \alpha (a_{k_{2}})] + [\alpha (b_{k_{1}}) - \alpha (a_{k_{1}})].
+	\end{align*}
+	Portanto, como \(\{J_{k_{1}},\dotsc ,J_{k_{m}}\}\subseteq \{J_{1},\dotsc ,J_{n}\}\), a prova da desigualdade desejada está completa. \qedsymbol
+\end{proof*}
+\end{document}

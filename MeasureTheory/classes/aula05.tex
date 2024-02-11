@@ -1,0 +1,336 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 15/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teoremas de Limites;
+	\item Relação entre Lebesgue e Riemann.
+\end{itemize}
+\subsection{Teoremas de Limites}
+Vimos que
+\[
+	\int_{}f d\mu_{} = \sup_{}\biggl\{\int_{}s d\mu_{}: 0 \leq s\leq f, \text{ s simples}\biggr\}.
+\]
+Isto elucida a seguinte definição:
+\begin{def*}
+	Se f é mensurável e \(\int_{}|f| d\mu_{} < \infty,\) diremos que \textbf{f é integrável.} \(\square\)
+\end{def*}
+\begin{prop*}
+	Suponha que f e g são integráveis.
+	\begin{itemize}
+		\item[a)] Se \(c \geq 0\) e \(f\geq 0\), \(\int_{}c\varphi  d\mu_{} = c \int_{}\varphi d\mu_{}\)
+		\item[b)] Se \(f\leq g\) com \(f, g \geq 0\), então \(\int_{}f d\mu_{} \leq \int_{}g d\mu_{}\)
+		\item[c)] Se \(0\leq a\leq f(x)\leq b\) para todo x e \(\mu (X) < \infty,\) então \(a\mu (X) \leq \int_{}f d\mu_{} \leq b\mu (X)\)
+		\item[d)] Se \(f\geq 0\) e \(\mu (A) = 0\), então \(\int_{A}f d\mu_{}\equiv \int_{}f \chi_{A} d\mu_{} = 0.\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	A linearidade e outras propriedades serão posteriormente vistas com outros teoremas.
+
+	1. Vimos que, se \(c \geq 0\) e \(\varphi \) é simples, então \(\int_{}c \varphi  d\mu_{} = c \int_{}\varphi  d\mu_{}\). O mesmo vale se \(\varphi \leq f,\) então vale a igualdade.
+
+	Para o item 2, vimos que, se \(\varphi, \psi\) são simples   \(\varphi \leq \psi,\) então \(\int_{}\varphi  d\mu_{} \leq \int_{}\psi d\mu_{}\). O mesmo vale se tomarmos \(\varphi \leq f\) e \(\psi \leq g\),
+	tal que
+	\[
+		\sup_{}\biggl\{\int_{}\varphi  d\mu_{}: \varphi \leq f\biggr\} \leq \sup_{}\biggl\{\int_{}\psi d\mu_{}: \psi \leq g\biggr\},
+	\]
+	donde segue que \(\int_{}f d\mu_{} \leq \int_{}g d\mu_{}.\)
+
+	O item 3 segue do item 2.
+
+	Por fim, o item 4 é feito tomando \(\varphi \) simples tal que \(\varphi  \leq f \chi_{A}.\) Note que, de fato, \(\varphi \) é simples em A. Tome \(A = \bigcup_{i=1}^{n}A_{i}.\)
+	Então,
+	\[
+		\varphi = \sum\limits_{i}^{}a_{i}A_{i} \quad\&\quad \int_{}\varphi  d\mu_{} = \sum\limits_{}^{}a_{i}\mu (A_{i}) \leq \sum\limits_{}^{}a_{i}\mu (A) = 0.
+	\]
+	Portanto, tomando supremos, temos \(\int_{}f \chi_{A} d\mu_{} = 0.\) \qedsymbol
+\end{proof*}
+Veremos alguns teoremas de limites que são fundamentais na teoria de medida. Em ordem que serão vistos, temos
+\begin{itemize}
+	\item Teorema da Convergência Monótona;
+	\item Lema de Fatou;
+	\item Teorema da Convergência Dominada;
+	\item Teorema de Fubini.
+\end{itemize}
+\hypertarget{monotone_convergence}{\begin{theorem*}[Teorema da Convergência Monótona]
+		Sejam \(f_{n}\geq 0\) mensuráveis, \(f_{1}(x) \leq f_2(x) \leq \dotsc \) para todo x em X e \(\lim_{n\to \infty}f_{n}(x) = f(x)\), também para todo x em X. Então,
+		\[
+			\int_{X}f_{n} d\mu_{}\longrightarrow \int_{X}f d\mu_{}
+		\]
+	\end{theorem*}}
+\begin{proof*}
+	Note que
+	\[
+		f_{n}\leq f_{n+1} \Rightarrow \int_{}^{}f_{n}\leq \int_{}^{}f_{n+1},
+	\]
+	ou seja, a sequência das integrais de \(f_{n}\) com respeito a \(\mu \) é uma crescente. Com isso, sabe-se que o limite f é mensurável. Por outro lado, como
+	\[
+		f_1(x)\leq f_2(x)\leq \dotsc \leq f,
+	\]
+	segue que f é limitada. Daí, se
+	\[
+		L\equiv \lim_{n\to \infty}\int_{}^{}f_{n}d\mu ,\quad f_{n}\leq f \Rightarrow L \leq \int_{}f d\mu_{}.
+	\]
+	Seja
+	\[
+		s = \sum\limits_{i=1}^{m}a_{i}\chi_{E_{i}},\quad a_{i}\geq 0, \text{ s simples, com } s\leq f.
+	\]
+	Com \(c\in (0, 1),\) defina
+	\[
+		A_{n} = \{x: f_{n}(x) \geq cs(x)\},
+	\]
+	de modo que, como \(f_{n}\leq f_{n+1}\) e \(c < 1,\) chegamos em
+	\[
+		A_{n}\uparrow X,\quad A_1\subseteq A_2\subseteq \dotsc \Rightarrow \mu (X) = \lim_{n\to \infty}\mu (A_{n}).
+	\]
+	Para cada n,
+	\[
+		\int_{}f_{n} d\mu_{} \geq \int_{A_{n}}f_{n} d\mu_{} \geq c \int_{A_{n}}s d\mu_{} = c \int_{}\sum\limits_{i=1}^{m}a_{i}\chi_{E_{i}} d\mu_{} = c \sum\limits_{i=1}^{m}a_{i}\mu (E_{i}\cap A_{i}).
+	\]
+	Fazendo \(n\to \infty\),
+	\[
+		L \geq c \sum\limits_{i=1}^{m}\mu (A_{i}) = c \int_{}^{}s d\mu .
+	\]
+	Por \(c\in (0, 1)\) ser arbitrário, podemos concluir que
+	\[
+		L \geq \int_{}^{}s d\mu,
+	\]
+	Portanto, tomando o supremo para \(s \leq f\),
+	\[
+		L \geq \int_{}f d\mu_{}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{example}
+	Coloque \(X = [0, \infty), f_{n}(x) = \frac{-1}{n}\) para todo x em X. Então,
+	\[
+		\int_{}^{}f_{n}d\mu = -\infty,
+	\]
+	mas \(f_{n}\uparrow f,\) em que \(f=0\) e \(\int_{}f d\mu_{} = 0.\) Conclui-se que não é aplicável o Teorema da Convergência Monótona, pois \(f_{n}\) não é não-negativa.
+\end{example}
+\begin{example}
+	Agora, coloque \(X = [0, \infty), f_{n} = n \chi_{(0, \frac{1}{n})}\) para x em X. Com isso,
+	\[
+		f_{n}\geq 0,\quad \int_{}^{}f_{n}d\mu = 1,
+	\]
+	mas \(f_{n}\) não converge para \(\int_{}^{}f d\mu = 0\), em que \(f=0\). Neste caso, o Teorema não aplica pois a sequência não é crescente.
+\end{example}
+\begin{theorem*}
+	Se \(f, g \geq 0\) são mensuráveis ou integráveis, então
+	\[
+		\int_{}(f+g) d\mu_{} = \int_{}f d\mu_{} + \int_{}g d\mu_{}.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Vimos que se f e g são simples, o resultado já é verificado. Agora, suponha que \(f, g \geq 0\) e tome sequências \(\{s_{n}\}\) e \(\{t_{n}\}\) simples tais que
+	\(s_{n}\uparrow f\) e \(t_{n}\uparrow g\), de modo que \(s_{n}+t_{n}\) são simples e \(s_{n}+t_{n}\uparrow f+g\). Portanto, pelo Teorema da Convergência Monótona,
+	\[
+		\int_{}(f+g) d\mu_{} = \lim_{n\to \infty}\int_{}(s_{n} + t_{n}) d\mu_{} = \lim_{n\to \infty}\int_{}s_{n} d\mu_{} + \lim_{n\to \infty}\int_{}t_{n} d\mu_{} = \int_{}f d\mu_{} + \int_{}g d\mu_{}
+	\]
+	Suponha, agora, que \(f = f^{+} - f^{-}\) e \(g = g^{+}-g^{-}.\) Observe que f + g é integrável, pois
+	\[
+		\int_{}|f+g| d\mu_{} \leq \int_{}|f| + |g| d\mu_{} = \int_{}|f| d\mu_{} + \int_{}|g| d\mu_{} < \infty.
+	\]
+	Note que
+	\[
+		(f+g)^{+} - (f+g)^{-} = f^{+} - f^{-} + g^{+}-g^{-} \Rightarrow (f+g)^{+} + f^{-} + g^{-} = f^{+} + g^{+} + (f+g)^{-}.
+	\]
+	Pelos resultados para funções não-negativas, segue que
+	\[
+		\int_{}(f+g)^{+} d\mu_{} + \int_{}f^{-} d\mu_{} + \int_{}g^{-} d\mu_{} = \int_{}f^{+} d\mu_{} + \int_{}g^{+} d\mu_{} + \int_{}(f+g)^{-} d\mu_{}.
+	\]
+	Rearranjando, chegamos em
+	\[
+		\int_{}(f+g) d\mu_{} = \int_{}f d\mu_{} + \int_{}g d\mu_{}.
+	\]
+	Caso f e g tenham valores complexos, aplica-se para a parte real e a parte imaginária. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Suponha f e g integráveis.
+	\begin{itemize}
+		\item[i)] Se \(c\geq 0\), então \(\int_{}cf d\mu_{} = c \int_{}f d\mu_{}\)
+		\item[ii)] Se \(f \leq g,\) então \(\int_{}f d\mu_{} \leq \int_{}g d\mu_{}\)
+		\item[iii)] Se \(a\leq f(x) \leq b\) para todo x e \(\mu (X) < \infty\), então \(a\mu (X) \leq \int_{}f d\mu_{} \leq b\mu (X)\)
+		\item[iv)] Se \(\mu (A) = 0\), então \(\int_{A}f d\mu_{}\equiv \int_{}f \chi_{A} d\mu_{} = 0\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Podemos considerar as funções reais.
+
+	Para a parte 1, é imediato, basta tomar \(\{s_{n}\}\) simples tal que \(s_{n}\uparrow f\), do que segue que \(cs_{n}\) é simples e \(cs_{n}\uparrow cf.\)
+	Pelo TCM, temos
+	\[
+		\int_{}cf d\mu_{} = \lim_{n\to \infty}\int_{}cs_{n} d\mu_{} = c \lim_{n\to \infty}\int_{}s_{n} d\mu_{} = c \int_{}f d\mu_{}
+	\]
+	Para o caso geral, basta separar f em parte positiva e negativa como antes. ]
+
+	2. Note que
+	\[
+		f = f^{+} - f^{-} \leq g^{+} - g^{-} = g \Rightarrow  0 \leq f^{+} + g^{-} \leq g^{+} + f^{-}
+	\]
+	Integrando, para o caso não negativo e usando linearidade, temos
+	\[
+		\int_{}(f^{+} + g^{-}) d\mu_{} \leq \int_{}(g^{+}+f^{-}) d\mu_{} \Rightarrow \int_{}f^{+} d\mu_{} + \int_{}g^{-} d\mu_{} \leq \int_{}g^{+} d\mu_{} + \int_{} f^{-} d\mu_{},
+	\]
+	donde conclui-se que
+	\[
+		\int_{}f d\mu_{} \leq \int_{}g d\mu_{}.
+	\]
+	O item 3 segue do item 2 e, por fim, para o item 4, como \(\int_{}f^{\pm}\chi_{A} d\mu_{} = 0\), segue da linearidade que
+	\[
+		\int_{}f \chi_{A} d\mu_{} = \int_{}f^{+}\chi_{A} d\mu_{} - \int_{}f^{-}\chi_{A} d\mu_{} = 0. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Suponha \(f_{n}\geq 0\) mensuráveis. Então,
+	\[
+		\int_{}\sum\limits_{i=1}^{\infty}f_{i} d\mu_{} = \sum\limits_{i=1}^{\infty}\int_{}f_{i} d\mu_{}
+	\]
+\end{prop*}
+\begin{proof*}
+	Seja \(F_{N} = \sum\limits_{i=1}^{N}f_{i}.\) Como \(0 \leq F_{n}(x)\uparrow \sum\limits_{i=1}^{\infty}f_{i}(x),\) temos
+	\begin{align*}
+		\int_{}\sum\limits_{i=1}^{\infty}f_{i} d\mu_{} & = \int_{}\lim_{N\to \infty} d\mu_{} \sum\limits_{i=1}^{N}f_{i}                                   \\
+		                                               & = \int_{}^{}\lim_{N\to \infty}F_{N}d\mu  = \lim_{N\to \infty}\int_{}F_{N} d\mu_{}.               \\
+		                                               & = \lim_{N\to \infty}\sum\limits_{i=1}^{N}\int_{}f_{n} d\mu_{} = \sum\limits_{i=1}^{\infty}f_{n},
+	\end{align*}
+	em que usamos tanto o Teorema da Convergência Monótona e a linearidade. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Se f é integrável, então
+	\[
+		\biggl\vert \int_{}f d\mu_{} \biggr\vert \leq \int_{}|f| d\mu_{}
+	\].
+\end{prop*}
+\begin{proof*}
+	No caso real, \(f \leq |f| \Rightarrow \int_{}f d\mu_{} \leq \int_{}|f| d\mu_{}\) e o análogo vale para -f. No caso complexo, \(\int_{}f d\mu_{}\in \mathbb{C}.\)
+
+	Se \(\int_{}f d\mu_{} = 0\), não há nada a fazer. Caso contrário, \(\int_{}f d\mu_{} = re^{i\theta }\) para algum r e \(\theta \). Com isso,
+	\[
+		\biggl\vert \int_{}f d\mu_{} \biggr\vert = r = e^{-i\theta }\int_{}f d\mu_{} = \int_{}e^{-i\theta }f d\mu_{}
+	\]
+	Agora, note que \(\mathrm{Re}(\int_{}f d\mu_{}) = \int_{}\mathrm{Re}(f) d\mu_{}.\) Como \(|\int_{}f d\mu_{}|\in \mathbb{R},\) temos o que queríamos:
+	\[
+		\biggl\vert \int_{}f d\mu_{}  \biggr\vert = \mathrm{Re}\biggl(\int_{}e^{-\theta }f d\mu_{}\biggr) = \int_{}\mathrm{Re}(e^{-\theta }f) d\mu_{} \leq \int_{}|f| d\mu_{}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\hypertarget{fatou}{
+	\begin{lemma*}[Fatou]
+		Sejam \(f_{n}\geq 0\) mensuráveis. Então,
+		\[
+			\int_{}\lim_{n\to \infty}f_{n} d\mu_{} \leq \liminf_{n\to \infty}\int_{}f_{n} d\mu_{}.
+		\]
+	\end{lemma*}}
+\begin{proof*}
+	Defina \(g_{n} = \inf_{i\geq n}f_{i},\) tal que \(g_{n}\geq 0\),  \(g_{n}\uparrow \liminf_{n\to \infty}f_{n}\). Obesrva-se de cada que, para \(i\geq n\),
+	\(g_{n}\leq f_{i}\), tal que \(\int_{}g_{n} d\mu_{} \leq \int_{}f_{i} d\mu_{}.\) Portanto,
+	\[
+		\int_{}g_{n} d\mu_{} \leq \inf_{i\geq n} \int_{}f_{i} d\mu_{}
+	\]
+	Fazendo n tender a infinito na desigualdade acima, o lado direito fica \(\liminf_{n\to \infty}\int_{}f_{n} d\mu_{},\) enquanto o lado esquerdo, via Teorema da Convergência Monótona, fornece
+	\[
+		\int_{}\liminf_{n\to \infty}f_{n} d\mu_{}.
+	\]
+	Portanto,
+	\[
+		\int_{}\liminf_{n\to \infty}f_{n} d\mu_{} \leq \liminf_{n\to \infty}\int_{}f_{n} d\mu_{}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{example}
+	Suponha \(f_{n}\longrightarrow f\) e \(\sup_{n}\int_{}|f_{n}| d\mu_{} \leq C < \infty.\) Então, \(|f_{n}|\to |f|,\) do que segue, pelo \hyperlink{fatou}{\textit{Lema de Fatou}}, que
+	\[
+		\int_{}|f| d\mu_{} \leq C.
+	\]
+\end{example}
+\hypertarget{dominated_convergence}{
+	\begin{theorem*}[Convergência Dominada de Lebesgue]
+		Suponha as seguintes coisas:
+		\begin{itemize}
+			\item \(f_{n}\) são funções reais mensuráveis
+			\item \(f_{n}(x)\to f(x)\) para cada x q.t.p.
+			\item Eosite \(g\geq 0\) integrável tal que \(|f_{n}(x)| \leq g(x)\) para todo x.
+		\end{itemize}
+		Então,
+		\[
+			\lim_{n\to \infty}\int_{}f_{n} d\mu_{} = \int_{}f d\mu_{}
+		\]
+	\end{theorem*}}
+\begin{proof*}
+	Como \(f_{n} +g \geq 0\), segue do \hyperlink{fatou}{\textit{Lema de Fatou}} que
+	\[
+		\int_{}f d\mu_{} + \int_{}g d\mu_{} = \int_{}(f+g) d\mu_{} \leq \liminf_{n\to \infty}\int_{}(f_{n}+g) d\mu_{} = \liminf_{n\to s8}\int_{}f_{n} d\mu_{} + \int_{}g d\mu_{}.
+	\]
+	Por g ser integrável,
+	\[
+		\int_{}f d\mu_{} \leq \liminf_{n\to \infty}\int_{}f_{n} d\mu_{}.
+	\]
+	Analogamente, \(g-f_{n}\geq 0\), tal que
+	\[
+		\int_{}g d\mu_{} - \int_{}f d\mu_{} = \int_{}(g-f) d\mu_{} \leq \liminf_{n\to \infty}\int_{}(g-f_{n}) d\mu_{} = \int_{}g d\mu_{} + \liminf_{n\to \infty}\int_{}(-f_{n}) d\mu_{}.
+	\]
+	Logo,
+	\[
+		-\int_{}f d\mu_{} \leq \liminf_{n\to \infty}\int_{}(-f_{n}) d\mu_{} = - \limsup_{n\to \infty}\int_{}f_{n} d\mu_{},
+	\]
+	donde
+	\[
+		\int_{}f d\mu_{} \geq \limsup_{n\to \infty}\int_{}f_{n} d\mu_{}.
+	\]
+	Portanto, ao juntar as duas desigualdades, obtemos o resultado. \qedsymbol
+\end{proof*}
+Vale uma observação - nos teoremas da convergência monótona ou dominada, a convergência \(f_{n}(x)\to f(x)\) pode ser quase sempre. De fato, defina \(A = \{x:f_{n}(x)\to f(x)\}.\) Feito isso,
+\(f_{n}\chi_{A}(x)\uparrow f \chi_{A}(x)\) para cada x. Como \(\mu (A ^{\complement}) = 0, \) uma aplicação do \hypertarget{dominated_convergence}{Teorema da Convergência Dominada} garante que
+\[
+	\lim_{n\to \infty}\int_{}f_{n} d\mu_{} = \lim_{n\to \infty}\biggl(\int_{}f_{n} \chi_{A} d\mu_{} + \int_{}f_{n}\chi_{A ^{\complement}} d\mu_{}\biggr) = \lim_{n\to \infty}\int_{}f_{n}\chi_{A} d\mu_{} = \int_{}f \chi_{A} d\mu_{} = \int_{}f d\mu_{}.
+\]
+\subsection{Integral de Lebesgue Relacionada à de Riemann}
+\begin{prop*}
+	Seja f não-negativa, mensurável e \(\int_{}f d\mu_{} = 0.\) Então, \(f=0\) quase sempre.
+\end{prop*}
+\begin{proof*}
+	Se f não fosse 0 quase sempre, existe n tal que \(\mu (A_{n}) > 0\), sendo \(A_{n} = \{s: f(x) > 1/n\}\). No entanto, \(f\geq 0\),
+	\[
+		0 = \int_{}f d\mu_{} \geq \int_{A_{n}}f d\mu_{} \geq \frac{1}{n}\mu (A_{n}),\quad n = 1, 2, \dotsc .
+	\]
+	Uma contradição. Portanto, f deve ser nula quase sempre. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja f com valores reais, integrável  e \(\int_{A}f d\mu_{} = 0\) para todo conjunto mensurável A. Então, \(f=0\) quase sempre.
+\end{prop*}
+\begin{proof*}
+	Seja \(A = \{x: f(x) > \varepsilon \}.\) Segue que
+	\[
+		0 = \int_{A}f d\mu_{} \geq \int_{A}\varepsilon  d\mu_{} = \varepsilon \mu (A),
+	\]
+	pois \(f \chi_{A} \geq \varepsilon \chi_{A}\). Logo, \(\mu (A) = 0\). Fazendo \(\varepsilon  = \frac{1}{n}, n = 1, 2, \dotsc ,\) temos
+	\begin{align*}
+		\mu (\{x:f(x) > 0\}) & = \mu \biggl(\bigcup_{i=1}^{\infty}\biggl\{x: f(x) > \frac{1}{n}\biggr\}\biggr)          \\
+		                     & \leq \sum\limits_{i=1}^{\infty}\mu \biggl(\biggl\{x:f(x)>\frac{1}{n}\biggr\}\biggr) = 0.
+	\end{align*}
+	Analogamente, \(\mu (\{x:f(x)<0\}) = 0.\) \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Seja m a medida de Lebesgue e \(a\in \mathbb{R}\). Suponha \(f:\mathbb{R}\rightarrow \mathbb{R}\) integrável e \(\int_{a}^{x}f(y)dy = 0\) para todo x. Então, \(f=0\) quase sempre.
+\end{crl*}
+\begin{proof*}
+	Para todo intervalo [c, d], temos
+	\[
+		\int_{c}^{d}f dm = \int_{a}^{d} fdm - \int_{a}^{c} fdm = 0.
+	\]
+	Por linearidade, se G é aberto, digamos \(G = \bigcup_{n=1}^{m}I_{n}\), sendo \(I_{n}\) intervalos disjuntos, então
+	\[
+		\int_{G}f dm = \int_{}f \chi_{G} dm = \int_{}f \chi_{\bigcup_{i}^{}I_{i}} dm = \sum\limits_{}^{}\int_{}f \chi_{I_{n}} dm = \sum\limits_{}^{}\int_{I_{n}}f dm = 0.
+	\]
+	Usando o \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}}, \(\int_{G}f dm = 0\) para qualquer aberto G que seja a união infinita de intervalos abertos.
+
+	Se \(I_{n}\) for uma sequência de abertos decrescentes para H, então o \hyperlink{dominated_convergence}{\textit{TCD}} implica que \(\int_{G}f dm = 0,\) pois note que
+	\(f_{n} = f \chi_{I_{n}}\to f \chi_{H}\) e \(|f \chi_{I_{n}}| \leq f.\) Com isso,
+	\[
+		\int_{H}f dm = \lim_{n\to } \int_{I_{n}}f dm = 0.
+	\]
+	Caso E seja um conjunto Borel mensurável, existe uma sequência de abertos \(G_{n}\) que decresce para H, sendo H = E quase sempre. Consequentemente,
+	\[
+		\int_{E}f dm = \int_{}^{}f \chi_{E} dm = \int_{}f \chi_{H} dm = \int_{H}f dm = 0.
+	\]
+	Portanto, \(f = 0\) quase sempre. \qedsymbol
+\end{proof*}
+\end{document}

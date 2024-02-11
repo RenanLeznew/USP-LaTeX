@@ -1,0 +1,315 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 11/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Consequências de Caratheodory;
+\end{itemize}
+\subsection{Funções Mensuráveis}
+\begin{def*}
+	Uma função \(f:X\rightarrow \mathbb{R}\) é \textbf{mensurável} ou \(\mathcal{A}\)\textbf{-mensurável} se \(\{x: f(x) > a\}\in \mathcal{A}\) para todo \(a\in \mathbb{R}.\) Uma função
+	a valores complexos é mensurável se a parte real e a imaginária assim forem. \(\square\)
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se \(f:X\rightarrow \mathbb{R}\) é dada por \(f(x) = c,\) então \(\{x: f(x) > a\}\) é igual a X ou \(\emptyset .\) Logo, f é mensurável
+		\item[2)] Defina
+		      \[
+			      f(x)  = \left\{\begin{array}{ll}
+				      1,\quad x\in A \\
+				      0,\quad x\not\in A
+			      \end{array}\right.\equiv \chi_{A}.
+		      \]
+		      Então, \(\{x: f(x) > a\}\) é igual a X, A ou \(\emptyset .\) Com isso, f é mensurável se, e somente se, \(A\in \mathcal{A}.\)
+		\item[3)] Suponha \(X = \mathbb{R}\) com \(\sigma \)-álgebra de Borel e \(f(x) = x\). Então, \(\{x: f(x) > a\} = (a, \infty),\) do que
+		      segue que f é mensurável.
+	\end{itemize}
+\end{example}
+\begin{prop*}
+	Seja \(f:X\rightarrow \mathbb{R}.\) As seguintes condições são equivalentes:
+	\begin{itemize}
+		\item[i)] \(\{x: f(x) > a\}\in \mathcal{A}\) para todo \(a\in \mathbb{R}.\)
+		\item[ii)] \(\{x: f(x) \leq  a\}\in \mathcal{A}\) para todo \(a\in \mathbb{R}.\)
+		\item[iii)] \(\{x: f(x) < a\}\in \mathcal{A}\) para todo \(a\in \mathbb{R}.\)
+		\item[iv)] \(\{x: f(x) \geq  a\}\in \mathcal{A}\) para todo \(a\in \mathbb{R}.\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	\((1) \Longleftrightarrow (2)\) Segue de \(\{x: f(x) \leq a\} = \{x: f(x) > a\}^{\complement}\) junto com as propriedades de \(\mathcal{A}\) como \(\sigma \)-álgebra.
+
+	\((3) \Longleftrightarrow (4)\) Decorre de \(\{x: f(x) \geq a\} = \{x: f(x) < a\}^{\complement}.\)
+
+	\((1) \Rightarrow (4)\) Ocorre pois \(\{x: f(x)\geq a\} = \bigcap_{i=1}^{\infty}\biggl\{x: f(x) > a - \frac{1}{n}\biggr\}\)
+
+	\((4) \Rightarrow (1)\)Finalmente, é análogo ao item anterior, pois \(\{x: f(x) > a\} = \bigcup_{i=1}^{\infty}\biggl\{x: f(x)\geq a + \frac{1}{n}\biggr\}\). \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja X um espaço métrico e suponha que \( \mathcal{A}\) contém todos abertos e \(f:X\rightarrow \mathbb{R}\) é contínua. Então, f é mensurável.
+\end{prop*}
+\begin{proof*}
+	Basta notar que \(\{x: f(x) > a\} = f^{-1}((a, \infty))\), o qual é aberto por continuidade. Portanto, \(\{x: f(x) > a\}\in \mathcal{A}\). \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja \(c\in \mathbb{R}.\) Se \(f, g:X\rightarrow \mathbb{R}\) são mensuráveis, então f + g, f, cf, fg, \(\max_{}(f, g)\) e \(\min_{}(f, g)\) são mensuráveis.
+\end{prop*}
+\begin{proof*}
+	Suponha que \(f(x) + g(x) < a,\) ou seja, \(f(x) < a - g(x)\), e que existe \(r\in \mathbb{Q}\) tal que \(f(x) < r < a-g(x).\) Logo,
+	\[
+		\{x: f(x) + g(x) < a\} = \bigcup_{r\in \mathbb{Q}}^{}(\{x: f(x) < r\}\cap \{x: g(x) < a -r\}),
+	\]
+	donde Conclui-se que f + g é mensurável.
+
+	Para -f, basta notar que \(\{x: -f(x) > a\} = \{x: f(x) < -a,\}\). Agora, dado \(c > 0\), então \(\{x: cf(x) > a\} = \{x: f(x) > \frac{a}{c}\},\) tal que cf é mensurável.
+	Caso \(c=0\), cf será uma função constante, que já vimos ser mensurável. Se \(c < 0\), segue que \(cf = -(|c|f),\) que é mensurável pelas propriedades anteriores.
+
+	Agora, observe que \(\{x: f^{2}(x) > a\} = X\) se \(a < 0\) e, para \(a \geq 0\),
+	\[
+		\{x: f^{2}(x) > a\} = \{x: f(x) > \sqrt[]{a}\}\cup \{x: f(x) < -\sqrt[]{a}\}.
+	\]
+	Em ambos os casos, f é mensurável, do que decorre, também, a mensurabilidade de fg via
+	\[
+		fg = \frac{1}{2}[(f+g)^{2} - f^{2}-g^{2}].
+	\]
+	A igualdade
+	\[
+		\{x:\max_{}(f(x), g(x)) > a\} = \{x: f(x) > a\}\cup \{x: g(x) > a\}
+	\]
+	e, para o mínimo, basta notar que \(\min_{}(f, g) = -\max_{}(-f, -g).\) Portanto, concluímos as propriedades. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Se \(f_{i}:X\rightarrow \mathbb{R} \) é mensurável para cada i, então \(F(x) = \sup_{i}f_{i}\), \(f(x) = \inf_{i}f_{i}, F^{*}(x) = \limsup_{i\to \infty}f_{i}\)
+	e \(f^{*}(x) = \liminf_{i\to \infty}f_{i} = \sup_{n\geq 1}\{\inf_{m\geq n}f_{m}(x)\}\) são todas mensuráveis, desde que sejam finita. [Se considerar \(f_{i}:X\rightarrow \overline{\mathbb{R}}=[-\infty, \infty]\), pode
+	ser infinita.].
+\end{prop*}
+\begin{proof*}
+	Comece por notar que
+	\begin{align*}
+		 & \{x\in X: f(x) \geq a\} = \bigcap_{n}^{}\{x\in X: f_{n}(x) \geq a\}  \\
+		 & \{x\in X: F(x) \geq a\} = \bigcup_{n}^{}\{x\in X: f_{n}(x) \geq a\}.
+	\end{align*}
+	Como cada \(f_{n}\) é mensurável, utilizando a propriedade do fechamento das \(\sigma \)-álgebras para uniões e interseções contáveis garante-nos que f e F são mensuráveis. Portanto, pela definição de
+	sup e inf, segue que \(f^{*}\) e \(F^{*}\) também são mensuráveis.
+\end{proof*}
+\begin{def*}
+	Dizemos que f = g \textbf{quase sempre}, ou \textbf{quase toda parte}, e denotamos \(f= g \mathrm{q.s.}\) ou \(f = g \mathrm{q.t.p.}\), se \(\{x: f(x)\neq g(x)\}\) tem \textit{medida nula.} Analogamente, dizemos que
+	\(f_{i}\) converge para f q.s., ou q.t.p., denotado \(f_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}f \mathrm{q.t.p.}/\mathrm{q.s.}\), se \(\{x: f_{n}(x) \text{ não converge para }f(x)\}\) tem \textit{medida nula}. \(\square\)
+\end{def*}
+\begin{def*}
+	Se X é um espaço métrico, \(\mathcal{B}\) é uma \(\sigma \)-álgebra de Borel, e \(f:X\rightarrow \mathbb{R}\) é mensurável com relação a \(\mathcal{B},\) dizemos que f é \textbf{Borel mensurável}. Caso \(f:X\rightarrow \mathbb{R}\) seja
+	mensurável com relação à Lebesgue \(\sigma \)-álgebra, dizemos que f é \textbf{Lebesgue mensurável.} \(\square\)
+\end{def*}
+Vimos que toda função contínua é Borel mensurável, assim como funções crescentes na reta também são.
+\begin{prop*}
+	Se \(f:X\rightarrow \mathbb{R}\) é monótona, então f é Borel mensurável.
+\end{prop*}
+\begin{proof*}
+	Suponha que f seja crescente. Caso contrário, faça -f. Dado \(a\in \mathbb{R},\) seja \(x_{0}=\sup_{}\{y:f(y) \leq a\}.\) Se \(f(x_{0}) \leq a\), então
+	\[
+		\{x: f(x) > a\} = (x_{0}, \infty).
+	\]
+	Se \(f(x_{0}) > a\), então
+	\[
+		\{x:f(x) > a\}  = [x_{0}, \infty).
+	\]
+	Em qualquer caso, \(\{x: f(x) > a\}\) é um conjunto de Borel. Portanto, \(f\) é Borel-mensurável. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja \((X, \mathcal{A})\) um espaço mensurável e seja \(f:X\rightarrow \mathbb{R}\) uma função \(\mathcal{A}\)-mensurável. Seja A um elemento de uma \(\sigma \)-álgebra de Borel em \(\mathbb{R}.\) Então, \(f^{-1}(A)\in \mathcal{A}.\)
+\end{prop*}
+\begin{proof*}
+	Seja \(\mathcal{B}\) a \(\sigma \)-álgebra de Borel sobre \(\mathbb{R}\) e \(\mathcal{C} = \{A\subseteq \mathbb{R}: f^{-1}(A)\in \mathcal{A}\}.\) Se \(A_{1}, A_2,\dotsc \in \mathcal{C},\) então, como
+	\[
+		f^{-1}\biggl(\bigcup_{i}^{}A_{i}\biggr) = \bigcup_{i}^{}f^{-1}(A_{i})\in \mathcal{A},
+	\]
+	segue que \(\mathcal{C}\) é fechado para a união. Analogamente, conclui-se que \(\mathcal{C}\) e fechado com relação à interseção e complementos, o que faz com que \(\mathcal{C}\) seja uma \(\sigma \)-álgebra.
+	Como f é mensurável, \(\mathcal{C}\) contém \((a, \infty),\) que é a pré-imagem sob f de algum conjunto, para todo \(a\in \mathbb{R}.\) Desta forma, \(\mathcal{C}\) contém a \(\sigma \)-álgebra gerada por esses intervalos,
+	ou seja, \(\mathcal{C}\) contém \(\mathcal{B}\). Portanto, toda pré-imagem de um conjunto de Borel é mensurável. \qedsymbol
+\end{proof*}
+Existem conjuntos que são Lebesgue mensuráveis, mas não são Borel mensuráveis. Vejamos um deles a seguir, baseado no conjunto de Cantor.
+\begin{example}
+	Seja f a função de Cantor-Lebesgue e defina
+	\[
+		F(x) = \inf_{}\{y: f(y)\geq x\}.
+	\]
+	Já vimos que F é estritamente crescente, apesar de não ser contínua. Lembre-se que f é constante nos intervalos omitidos na definição e deixa de ser contínua nos pontos de \(C\). Em particular, f é constante no intervalo
+	\(\biggl(\frac{1}{3}, \frac{2}{3}\biggr)\), intervalo no qual f fica menor que a identidade. Nesse intervalo, F é constante e dará um salto após isso, o que impede F de ser contínua. Além disso, ela é injetora, tal que, da definição de f, \(F([0, 1])\subseteq C,\) sendo C
+	o conjunto de Cantor. Como F é crescente, \(F^{-1}\) leva o conjunto Borel mensurável em um conjunto Borel mensurável.
+
+	Agora, seja m a medida de Lebesgue e A conjunto não mensurável construído previamente. Coloque \(B = F(A)\). Como \(F(A)\subseteq C\) e \(m(C) = 0\),
+	vale que \(m(F(A)) = 0\), fazendo com que F(A) seja Lebesgue mensurável. Por outro lado, F(A) não pode ser Borel mensurável, pois, se fosse, \(A = F^{-1}(F(A))\) seria Borel mensurável, donde sairia uma contradição.
+\end{example}
+\begin{def*}
+	Seja \((X, \mathcal{A})\) um espaço mensurável. Se \(E\in \mathcal{A},\) definimos a \textbf{função característica de E} como
+	\[
+		\chi_{E}(x)  = \left\{\begin{array}{ll}
+			1,\quad x\in E \\
+			0,\quad x\not\in E
+		\end{array}\right.\quad \square
+	\]
+\end{def*}
+\begin{def*}
+	Uma \textbf{função simples} s é uma função da forma
+	\[
+		s(x) = \sum\limits_{i=1}^{n}a_{i}\chi_{E_{i}}(x),
+	\]
+	em que \(a_{i}\in \mathbb{R}\) e \(E_{i}\) são conjuntos mensuráveis. \(\square\)
+\end{def*}
+\begin{prop*}
+	Suponha que f é não negativa e mensurável. Então, existe uma sequência de funções simples não negativas \(s_{n}\) crescendo para f \((s_1\leq s_2\leq \dotsc \leq f\).
+\end{prop*}
+\begin{proof*}
+	Seja
+	\[
+		A_{in} = \biggl\{x: \frac{(i-1)}{2^{n}} \leq f(x) \leq \frac{i}{2^{n}}\biggr\}
+	\]
+	e seja
+	\[
+		B_{n} = \{x: f(x) \geq n\}, n =1, 2,\dotsc , i = 1, 2, \dotsc n2^{n}.
+	\]
+	Defina
+	\[
+		s_{n} = \sum\limits_{i=1}^{n2^{n}}\frac{i-1}{2^{n}}\chi_{A_{in}} + n\chi_{B_{n}}.
+	\]
+	Com isso, \(s_{n}(x) = n \) se \(f(x)\geq n\) e, se \(f(x)\in \biggl(\frac{i-1}{2^{n}}, \frac{i}{2^{n}}\biggr)\) para \(\frac{i}{2^{n}} \leq n\), temos \(s_{n}(x) = \frac{(i-1)}{2^{n}}.\) Segue que
+	\begin{itemize}
+		\item \(s_{n} \leq s_{n+1}\)
+		\item \(S_{n} \leq f\) por definição.
+	\end{itemize}
+	Portanto, tomando o limite, segue que \(s_{n}(x)\overbracket[0pt]{\longrightarrow}^{n\to \infty}f_{n}(x)\).
+\end{proof*}
+Veremos agora o Teorema de Lusin, que, essencialmente, afirma que toda função mensurável é
+contínua a menos de um conjunto tão pequeno quanto se queira.
+\begin{theorem*}[Lusin]
+	Suponha que \(f:[0, 1]\rightarrow \mathbb{R}\) é Lebesgue mensurável, m é a medida de Lebesgue e \(\varepsilon > 0\) é dado. Então, existe um fechado \(F\subseteq [0, 1]\) tal que
+	\(m([0, 1]\setminus{F}) < \varepsilon \) e a restrição de f a F é uma função contínua sobre F.
+\end{theorem*}
+\begin{proof*}
+	Suponha, primeiro, que \(f = \chi_{A}, A\subseteq [0, 1]\) Lebesgue mensurável. Então, existem E fechado e G aberto tais que \(E\subseteq A\subseteq G\) e \(m(G\setminus{A}) < \frac{\varepsilon }{2}, m(A\setminus{E}) < \frac{\varepsilon }{2}\).
+	Seja \(\delta = \inf_{}\{|x-y|: x\in E, y\in G ^{\complement}\}.\) Como \(E\subseteq A\subseteq [0, 1],\) temos E como um compacto e \(\delta  > 0.\) Coloque
+	\[
+		g(x) = \biggl(1 - \frac{d(x, E)}{\delta }\biggr),
+	\]
+	sendo \(y = \max_{}(y, 0)\) e \(d(x, E) = \inf_{}\{|x-y|:y\in E\}.\) Então, g é contínua, assume valores em [0, 1] e é igual a 1 sobre E, mas 0 sobre \(G ^{\complement}.\) Tome
+	\(F = (E\cup G ^{\complement})\cap [0, 1].\) Então,
+	\[
+		m([0, 1]\setminus{F}) \leq m(G\setminus{E}) < \varepsilon,
+	\]
+	e f = g sobre F, pois \(([0, 1]\setminus{F})\subseteq (G\setminus{E}).\)
+
+	Agora, suponha que f é uma função simples \(f = \sum\limits_{i=1}^{\infty}a_{i}\chi_{A_{i}},\) sendo \(A_{i}\subseteq [0, 1]\) Lebesgue mensuráveis, \(a_{i} \geq 0.\) Da primeira parte, escolha
+	F fechado tal que \(m([0, 1]\setminus{F_{i}}) < \frac{\varepsilon }{M}\) e \(\chi_{A}\) restria à \(F_{i}\) é contínua para \(i=1,2,\dotsc , M.\) Faça \(F = \bigcap_{i=1}^{M}F_{i},\) de maneira que \(F\) é fechado, \(m([0,1]\setminus{F}) < \varepsilon \)
+	e f restrita a F será contínua.
+
+	Suponha, a seguir, que \(f\geq 0\), limitada por K e \(\mathrm{supp}(f)\subseteq [0, 1].\) Seja
+	\[
+		A_{in} = \biggl\{x: \frac{(i-1)}{2^{n}} \leq f(x) \leq \frac{i}{2^{n}}\biggr\}
+	\]
+	e defina
+	\[
+		f_{n}(x) = \sum\limits_{i=1}^{K2^{n}+1}\frac{i-1}{2^{n}}\chi_{A_{in}(x)},
+	\]
+	de maneira que cada \(f_{n}\) é simples e \(f_{n}\uparrow f.\)
+
+	Note que
+	\[
+		h_{n}(x) = f_{n-1}(x) - f_{n}(x)
+	\]
+	é simples e limitado por \(2^{-n}.\) Escolha \(F_{0}\) fechado, pois \(m([0, 1]\setminus{F_{0}}) < \frac{\varepsilon }{2}\) e \(f_{0}\) restrito a \(F_{0}\) será contínua pelo passo 2.
+	Para \(n\geq 1\), escolha \(F_{n}\) fechado tal que \(m([0, 1]\setminus{F_{n}}) < \frac{\varepsilon }{2^{n-1}}\) e \(h_{n}\) restrita a \(F_{n}\) é contínua. Coloque, então, \(F = \bigcap_{i=1}^{\infty}F_{n},\) o qual
+	será fechado pois a interseção arbitrária de fechados permanece fechado. Com isso,
+	\[
+		m([0,1]\setminus{F}) \leq \sum\limits_{n=1}^{\infty}m([0, 1]\setminus{F_{n}}) < \frac{\varepsilon }{2} < \varepsilon .
+	\]
+	Neste conjunto F, como \(h_{n} = f_{n+1}-f_{n},\) temos a convergência uniforme para f da função
+	\[
+		f_{0} + \sum\limits_{i=0}^{\infty}h_{n}(x),
+	\]
+	já que cada \(h_{n}\) é limitada por \(2^{-n}.\) Como convergência uniforme preserva continuidade, segue que f é contínua sobre F.
+
+	Em seguida, assuma que \(f\geq 0\) e seja \(B_{K} = \{x: f(x) \leq K\}.\) Como f é limitado, então \(B_{K}\uparrow [0, 1]\) quando \(K\to \infty,\) tal que
+	\[
+		m(B_{K}) > 1 - \frac{\varepsilon }{3}
+	\]
+	para K suficientemente grande. Escolha \(D\subseteq B_{K}\) tal que D é fechado e \(m(B_{K}\setminus{D}) < \frac{\varepsilon }{3}\) e \(E\subseteq [0, 1]\) fechado, de maneira que
+	\(f \cdot \chi_{D}\) restrita a E é contínua, com medida \(m([0, 1]\setminus{E}) < \frac{\varepsilon }{3}.\) Assim, \(F = D\cap E\) é fechado e \(m([0, 1]\setminus{F}) < \varepsilon ,\)
+	além de f restrita a F ser contínua. [Aqui, foi usado que \([0,1]\setminus{F}\subseteq B_{K}^{\complement}\cup (B_{K}\setminus{D})\cup ([0, 1]\setminus{E})]\)
+
+	Finalmente, para o caso geral, suponha f mensurável, escreva \(f = f^{+} - f^{-}, f^{\pm} \geq 0.\) Existem \(F^{+}\) fechados com \(m([0, 1]\setminus{F^{\pm}}) < \frac{\varepsilon }{2}\) e com a continuidade
+	de \(f^{+}\) restrita a \(F^{+}.\) Tome \(F = F^{+}\cap F^{-},\) nosso fechado procurado. Suponha, primeiramente, que \(f=\chi_{B},\) em que \(B = [0, 1]\cap \mathbb{Q}^{\complement}.\) Esta f é Borel mensurável, pois
+	\([0, 1]\setminus{B}\) é enumerável, sendo este conjunto a imagem inversa de \((0, a)\) para \(a < 1\). Assim, a união enumerável de pontos [fechados], f assume valores 0 e 1 na vizinhança de \(a\in [0, 1].\) Portanto,
+	todo ponto \(a\in [0, 1]\) é ponto de descontinuidade. Agora, se \(q_1, q_2, \dotsc \) é a enumeração dos racionais e \(I_{j}\) é vizinhança aberta de \(q_{j},\) então \(f=1\) no fechado \(A = [0, 1]\setminus{\bigcup_{i}^{}I_{i}.}\)
+	Logo, f é contínua neste conjunto. Portanto, provamos o Teorema de Lusin.
+\end{proof*}
+\subsection{Integral de Lebesgue}
+\begin{def*}
+	Seja \((X, \mathcal{A}, \mu )\) um espaço de medida.
+	\begin{itemize}
+		\item[1)] Se
+		      \[
+			      s=\sum\limits_{i=1}^{n}a_{i}\chi_{E_{i}}
+		      \]
+		      é uma função simples, não negativa e mensurável, define-se a integral de Lebesgue de s como sendo
+		      \[
+			      \int_{}^{}sd\mu = \sum\limits_{i=1}^{n}a_{i}\mu (E_{i}).
+		      \]
+		      Aqui, se \(a_{i} = 0\) e \(\mu (E_{i}) = \infty\), usamos a convenção \(a_{i}\cdot \mu (E_{i}) =0.\)
+		\item[2)] Se \(f\geq 0\) é uma função mensurável, define-se a integral de Lebesgue de f como sendo:
+		      \[
+			      \int_{}f d\mu_{} = \sup_{}\biggl\{\int_{}^{}s d\mu : 0 \leq s\leq f, s \text{ simples}\biggr\}
+		      \]
+		\item[3)] Se f é mensurável, seja \(f^{\pm} = \max_{}(\pm f, 0)\). Suponha que \(\int_{}^{}f^{\pm}d\mu \) não seja infinito simultaneamente. Define-se, então,
+		      \[
+			      \int_{}f d\mu_{} = \int_{}f^{+} d\mu_{} - \int_{}f^{-} d\mu_{}.
+		      \]
+		\item[4)] Se \(f = u + iv\) com valores complexos é mensurável, com \(\int_{}|u|+|v| d\mu_{} < \infty\), define-se
+		      \[
+			      \int_{}f d\mu_{} = \int_{}u d\mu_{} + i\int_{}v d\mu_{}. \quad \square
+		      \]
+	\end{itemize}
+\end{def*}
+Vale mencionar que as representações de uma função simples não são únicas.
+\begin{itemize}
+	\item \(s = \chi_{A\cup B} = \chi_{A} + \chi_{B}\) se \(A\cap B = \emptyset \)
+	\item \(s = \sum\limits_{i=1}^{m}a_{i}\chi_{A_{i}} = \sum\limits_{j=1}^{n}b_{j}\chi_{B_{j}} \Rightarrow \sum\limits_{i=1}^{m}a_{i}\mu (A_{i}) = \sum\limits_{j=1}^{n}b_{j}\mu (B_{j})\).
+\end{itemize}
+\begin{prop*}
+	\begin{itemize}
+		\item[1)] Se \(c\geq 0, \int_{}^{}c\varphi d\mu  = c\int_{}\varphi  d\mu_{}\);
+		\item[2)] \(\int_{}(\varphi + \psi) d\mu_{} = \int_{}^{}\varphi d\mu + \int_{}\psi d\mu_{}\);
+		\item[3)] Se \(\varphi \leq \psi\), então \(\int_{}\varphi  d\mu_{} \leq \int_{}\psi d\mu_{}\)
+		\item[4)] A aplicação \(A\mapsto \int_{A}\varphi  d\mu_{}\) é uma medida sobre X.
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	1 - Trivial.
+
+	2 - Sejam \(\varphi  = \sum\limits_{j=1}^{n}a_{i}\chi_{E_{i}}\) e \(\psi = \sum\limits_{k=1}^{m}b_{k}\chi_{F_{k}}\)  representações das funções simples. Como
+	\[
+		E_{i} = \bigcup_{k=1}^{m}(E_{j}\cap F_{k}), \quad F_{k} = \bigcup_{j=1}^{n}(E_{j}\cap F_{k}),
+	\]
+	em que a união é disjunta. Da aditividade finita, temos
+	\begin{align*}
+		\int_{}(\varphi +\psi) d\mu_{} & = \sum\limits_{j, k}^{}(a_{j} + b_{k})\mu (E_{j}\cap F_{k})                                                                                                   \\
+		                               & = \sum\limits_{j, k}^{}(a_{j} + b_{k})\mu \biggl(\biggl(\bigcup_{k=1}^{m}(E_{j}\cap F_{k})\biggr)\cap \biggl(\bigcup_{j=1}^{n}(E_{j}\cap F_{k})\biggr)\biggr) \\
+		                               & = \sum\limits_{j=1}^{n}\sum\limits_{k=1}^{m}a_{j}\mu (E_{j}\cap F_{k}) + \sum\limits_{j=1}^{n}\sum\limits_{k=1}^{m}b_{k}\mu (E_{j}\cap F_{k})                 \\
+		                               & = \sum\limits_{j}^{}a_{j}\mu (e_{j}) + \sum\limits_{k}^{}b_{k}\mu (F_{k})                                                                                     \\
+		                               & = \int_{}\varphi  d\mu_{} + \int_{}\psi d\mu_{},
+	\end{align*}
+	em que foi usado que \(\mu (E_{j}) = \sum\limits_{k=1}^{m}\mu (E_{j}\cap F_{k})\) e \(\mu (F_{k}) = \sum\limits_{j=1}^{n}\mu (E_{j}\cap F_{k})\).
+
+	3 - Se \(\varphi \leq \psi,\) então \(a_{j}\leq b_{k}\) sempre que \(E_{j}\cap F_{i}\neq\emptyset\) e, da aditividade, vem
+	\[
+		\int_{}\varphi  d\mu_{} = \sum\limits_{j}^{}a_{j}\mu (e_{j}) = \sum\limits_{j, k}^{}a_{j}\mu (E_{j}\cap F_{k}) \leq \sum\limits_{j, k}^{}b_{k}\mu (E_{j}\cap F_{k}) = \sum\limits_{k}^{}b_{k}\mu (F_{k}) = \int_{}\psi d\mu_{}
+	\]
+
+	4 - Defina \(\nu(A)\equiv \int_{A}^{}\varphi d\mu .\) Note que \(\nu(\emptyset )=0.\) Se \(\{A_{i}\}_{i=1}^{\infty}\) é uma sequência de conjuntos dois-a-dois disjunto e, se \(A = \bigcup_{k=1}^{\infty}A_{k},\) temos
+	\[
+		\int_{}\varphi  d\mu_{} = \sum\limits_{j}^{}a_{j}\mu (A\cap E_{j}) = \sum\limits_{j, k}^{}a_{j}\mu (A_{k}\cap E_{j}) = \sum\limits_{k}^{}\int_{A_{k}}\varphi  d\mu_{},
+	\]
+	mostrando que
+	\[
+		\mu \biggl(\bigcup_{j}^{}A_{j}\biggr) = \sum\limits_{j}^{}\nu(A_{j}).
+	\]
+	Portanto, \(\nu\) é uma medida. \qedsymbol
+\end{proof*}
+\end{document}

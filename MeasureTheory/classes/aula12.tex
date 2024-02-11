@@ -1,0 +1,351 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 31/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Transformada de Fourier e Teorema de Plancherel
+	\item Espaços de Banach.
+\end{itemize}
+\subsection{Luca Maciel Alexander - Transformada de Fourier}
+\begin{def*}
+	Se f é uma função a valores complexos e \(f\in L^{1}(\mathbb{R}^{n})\), defina a \textbf{Transformada de Fourier de f}, \(\hat{f}\), como a função \(\hat{f}:\mathbb{R}^{n}\rightarrow \mathbb{C}\) dada por
+	\[
+		\hat{f}(u) = \int_{\mathbb{R}^{n}}^{}e^{iu \cdot x}f(x)dx,\quad u\in \mathbb{R}^{n}.\quad \square
+	\]
+\end{def*}
+Neste capítulo, \(u \cdot x\) denota o \textit{produto interno} de \(\mathbb{R}^{n}\)
+\begin{prop*}
+	Suponha que \(f, g, f \cdot x_{j}\in L^{1}.\) Então,
+	\begin{itemize}
+		\item[1)] \(\frac{\partial \hat{f}}{\partial u_{j}}(u) = \widehat{(ix_{j}f(x))}(u)\)
+		\item[2)] Se \(f:\mathbb{R}\rightarrow \mathbb{R}\) é absolutamente contínua, então
+		      \[
+			      \hat{f'(x)}(u) = -iu_{j}\hat{f}(u)
+		      \]
+		\item[3)] Temos \(\widehat{(f*g)}(u) = \hat{f}\cdot \hat{g}(u)\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	A prova para a 1 segue da definição e do \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}}. Basta fazer
+	\[
+		\lim_{h\to 0}\frac{\hat{f}(u+he_{j}) - \hat{f}(u)}{h} = \lim_{h\to 0} \frac{1}{h}\int_{}^{}(e^{i(u+he_{j})x}-e^{iux})f(x)dx = \int_{}^{}e^{iux}\biggl(\frac{e^{ihx_{j}} -1}{h}\biggr)f(x)dx.
+	\]
+	Como
+	\[
+		\biggl\vert \frac{1}{h}\biggl(e^{ihx_{j}}-1\biggr) \biggr\vert\leq |x_{j}|,
+	\]
+	e como \(x_{j}f(x)\in L^{1},\) o lado direito converge para \(\int_{}^{}e^{iux}ix_{j}f(x)dx\). Portanto, o lado esquerdo converge e o limite é exatamente \(\frac{\partial \hat{f}}{\partial u_{j}}\).
+\end{proof*}
+\begin{lemma*}[Gaussiana Ponto Fixo]
+	Suponha que \(f_1:\mathbb{R}\rightarrow \mathbb{R}\) é definida como
+	\[
+		f_1(x) = \frac{1}{\sqrt[]{2\pi }}e^{-\frac{x^{2}}{2}}.
+	\]
+	Então, \(\hat{f}_{1}(u) = e^{-\frac{u^{2}}{2}}\).
+	Mais ainda, se \(f_{n}:\mathbb{R}^{n}\rightarrow \mathbb{R}\) é dada por
+	\[
+		f_{n}(x) = \frac{1}{(2\pi )^{\frac{n}{2}}}e^{\frac{-|x|^{2}}{2}}.
+	\]
+	Então,
+	\[
+		\hat{f}_{n}(u) = e^{\frac{-|u|^{2}}{2}}.
+	\]
+\end{lemma*}
+\begin{lemma*}
+	Suponha que \(\varphi \) pertence a \(L^{1}\) e que \(\int_{}^{}\varphi (x)dx = 1\). Coloque \(\varphi_{\delta }(x) = \delta ^{-n}\varphi \biggl(\frac{x}{\delta }\biggr)\)
+	\begin{itemize}
+		\item[1)] Se \(f\in L^{1}\), então \(\varphi_\delta * f\to f\) em \(L^{1}\)
+		\item[2)] Se \(f\in C_{K}^{0}\), então \(\varphi_{\delta }*f\to f\) para todo x.
+	\end{itemize}
+\end{lemma*}
+\hypertarget{inversion}{
+	\begin{theorem*}[Teorema da Inversão]
+		Suponha que \(f, \hat{f}\in L^{1}.\) Então,
+		\[
+			f(y) = \frac{1}{(2\pi )^{n}}\int_{}^{}e^{-iu \cdot y}\hat{f}(u)du \quad \text{q.s.}
+		\]
+	\end{theorem*}}
+\begin{proof*}
+	Seja \(g(x) = a^{-n}k \biggl(\frac{x}{a}\biggr).\) Então, a transformada de Fourier de g é \(\hat{k}(au),\) de modo que a transformada de Fourier de
+	\[
+		\frac{1}{a^{n}}\frac{1}{(2\pi )^{\frac{n}{2}}}e^{-\frac{x^{2}}{2a^{2}}}
+	\]
+	é simplesmente \(e^{-a^{2}\frac{u^{2}}{2}}\) pelo Lema do Ponto Fixo. Colocando
+	\[
+		H_{a}(x) = \frac{1}{(2\pi )^{n}}e^{-\frac{|x|^{2}}{2a^{2}}},
+	\]
+	obtemos
+	\[
+		\hat{H}_{a}(u) = (2\pi )^{-\frac{n}{2}}a^{n}e^{-a^{2}\frac{|u|^{2}}{2}}.
+	\]
+	Note que
+	\begin{align*}
+		\int_{}^{}\hat{f}(u)e^{-iu \cdot y}h_{a}(u)du & = \int_{}^{}\int_{}^{}e^{iu \cdot x}f(x)e^{-iu \cdot y}H_{a}(u)dxdu \\
+		                                              & = \int_{}^{}\int_{}^{}e^{iu \cdot (x-y)}H_{a}(u)duf(x)dx            \\
+		                                              & = \hat{H}_{a}(x-y)f(x)dx,
+	\end{align*}
+	em que pudemos trocar a ordem de integração pois \(|e^{iu \cdot x}| = 1\) e
+	\[
+		\int_{}^{}\int_{}^{}|f(x)||H_a(u)|dxdu < \infty.
+	\]
+	Temos a convergência
+	\[
+		\lim_{a\to \infty}\int_{}^{}\hat{f}(u)e^{-iu \cdot y}h_{a}(u)du =(2\pi )^{-n}\int_{}^{}\hat{f}(u)e^{-iu \cdot y}dy
+	\]
+	que ocorre devido ao \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}}, \(\hat{f}\in L^{1}\) e a \(H_{a}(u)\to (2\pi )^{-n}\). Como
+	\[
+		\int_{}^{}\hat{H}_{a}(y-x)f(x)dx = f*\hat{H}_{a}(y)
+	\]
+	por simetria de \(\hat{H}_{a}\), colocando \(\delta  = a^{-1},\) obtemos, portanto, que
+	\[
+		\lim_{a\to \infty, L^{1}}f*\hat{H}_{a} = f
+	\]
+\end{proof*}
+\hypertarget{plancherel}{
+	\begin{theorem*}[Teorema de Plancherel]
+		Suponha que f é contínua com suporte compacto. Então, \(\hat{f}\in L^{2}\) e
+		\[
+			\Vert f \Vert_{2} = (2\pi )^{-\frac{n}{2}}\Vert \hat{f} \Vert_{2}.
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	Primeiramente, note que
+	\[
+		\int_{}^{}\hat{f}(u)e^{iu \cdot y}H_{a}(u)du = f*\hat{H}_{a}(y).
+	\]
+	Tomando \(y=0\) e pela simetria de \(\hat{H}_{a},\) chegamos em
+	\[
+		\int_{}^{}\hat{f}(y)H_{a}(u)du = f* \hat{H}_{a}(0).
+	\]
+	Tome \(g(x) = \overline{f(-x)},\) sendo a barra a conjugação complexa de a. Como \(\overline{ab} = \overline{a}\overline{b},\)
+	\begin{align*}
+		\hat{g}(u) = \int_{}^{}e^{iu \cdot x}\overline{f(-x)}dx & = \overline{\int_{}^{}e^{-i u \cdot x}f(-x)dx}                       \\
+		                                                        & = \overline{\int_{}^{}e^{iu \cdot x}f(x)dx} = \overline{\hat{f}(u)}.
+	\end{align*}
+	Assim, trocando \(f\) por \(f*g\),
+	\[
+		\int_{}^{}\widehat{f*g}(u)H_{a}(u)du = f*g*\hat{H}_{a}(0).
+	\]
+	Note que \(\widehat{f*g}(u) = \hat{f}(u)\hat{g}(u) = |\hat{f}(u)|^{2}\). Pelo \hyperlink{monotone_convergence}{\textit{Teorema da Convergência Monótona},} então,
+	\[
+		\lim_{a\to \infty}\int_{}^{}\widehat{f*g}(u)H_{a}(u)du = (2\pi )^{-n}\int_{}^{}|\hat{f}(u)|^{2}du.
+	\]
+	Como tanto f quanto g são contínuas com suporte compacto, \(f*g\) também é e, consequentemente,
+	\[
+		\lim_{a\to \infty}f*g*\hat{H}_{a}(0) = f*g(0) = \int_{}^{}f(y)g(-y)dy = \int_{}^{}|f(y)|^{2}dy.
+	\]
+	Portanto,
+	\[
+		\Vert f \Vert_{2} = \hat{H}_{a}*f(0).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\subsection{Wagnysson Moura Luz - Espaços de Banach}
+\begin{def*}
+	X é um espaço normado linear sobre um corpo F se existe um mapa \(x\mapsto \Vert x \Vert\) tal que
+	\begin{itemize}
+		\item[1)] \(\Vert x \Vert \geq 0\) e \(\Vert x \Vert = 0\) se, e somente se \(x=\)
+		\item[2)] \(\Vert \alpha x \Vert = |\alpha |\Vert x \Vert\) para todos \(\alpha \in F\) e \(x\in X\)
+		\item[3)] \(\Vert x + y \Vert \leq \Vert x \Vert + \Vert y \Vert. \quad \square\)
+	\end{itemize}
+\end{def*}
+\begin{def*}
+	Um \textbf{Espaço de Banach} é um espaço linear normado no qual toda sequência de Cauchy converge, ou seja, que é completo. \(\square\)
+\end{def*}
+\begin{def*}
+	Um \textbf{mapa linear} é um mapa L de um espaço linear normado X par aum espaço linear normado Y satisfazendo
+	\[
+		L(x+y) = L(x) + L(y)\quad L(\alpha x) = \alpha L(x),\quad \forall x, y\in X, \alpha \in F
+	\]
+	Escrevemos \(L(x) = Lx. \quad \square\)
+\end{def*}
+\begin{def*}
+	Um mapa linear \(f:X\rightarrow \mathbb{R}\) é um \textbf{funcional linear real.} Se ele vai de X para \(\mathbb{C}\) no lugar, é um \textbf{funcional linear complexo}. Diremos que o funcional linear é \textbf{limitado } se
+	\[
+		\Vert f \Vert = \sup_{}\{|f(x):x\in X, \Vert x \Vert \leq 1\} < \infty. \quad \square
+	\]
+\end{def*}
+\begin{prop*}
+	As seguintes são equivalentes:
+	\begin{itemize}
+		\item[1)] O funcional linear é limitado
+		\item[2)] O funcional linear é contínuo
+		\item[1)] O funcional linear é contínuo em 0.
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Como
+	\[
+		|f(x) - f(y)| = |f(x-y)|\leq \Vert f \Vert\Vert x-y \Vert,
+	\]
+	1 implica 2. A implicação de 2 em 3 é automática. Para mostrar que 3 implica 1, suponha que f não é limitada. Existe \((x_{n})\in X\) tal que \(\Vert x_{n} \Vert = 1\) para cada n, mas \(|f(x_{n})|\to \infty.\) Se colocarmos \(y_{n} = \frac{x_{n}}{|f(x_{n})|},\) então \(y_{n}\to 0\), mas
+	\(|f(y_{n})| = 1\not\to 0\), contradizendo (3). Portanto, provamos as equivalências. \qedsymbol
+\end{proof*}
+Nosso objetivo é mostrar que existem muitos funcionais lineares. Utilizaremos o axioma da escolha/Lema de Zorn: Se tivermos um conjunto ordenado parcialmente \((Y, \leq )\), um \textbf{subconjunto linearmente ordenado} \(X\subseteq Y\) é tal que, se \(x, y\in X\), então ou \(x\leq y\), ou \(y \leq x\), ou ambos, é verdadeiro.
+Um subconjunto do tipo tem uma \textbf{cota superior} se existe \(z\in Y\) tal que \(x\leq z\) para todo x em X.  Um elemento z de Y é \textbf{maximal} se \(z \leq y\) para \(y\in Y\) implica que \(y = z.\)
+\hypertarget{zornn}{
+	\begin{lemma*}[Lema de Zornn]
+		Se Y é um conjunto parcialmente ordenado e todo subconjunto linearmente ordenado de Y tem cota superior, então Y tem um elemento maximal.
+	\end{lemma*}
+}
+Veremos agora o Teorema de Hahn-Banach Real.
+\hypertarget{real_hahn_banach}{
+	\begin{theorem*}[Hahn-Banach Real]
+		Se M é um subespaço de um espaço linear normado X e f é um funcional linear real limitado em M, então f pode ser estendido para um funcional linear limitado F em X, tal que \(\Vert F \Vert = \Vert f \Vert.\)
+	\end{theorem*}
+}
+Dizer que F é uma extensão de f significa que o domínio de F contém o de f e \(F(x) = f(x)\) para todo x no domínio de f.
+\begin{proof*}
+	Suponha que \(\Vert f \Vert = 0\). Então, para \(F\equiv 0\) completa o teorema. Suponha, então, que \(\Vert f \Vert\neq 0\). Multiplicar por uma constante faz com que \(\Vert f \Vert = 1\) possa ser assumido.
+
+	Agora, escolha \(x_{0}\in X\setminus{M}\) e tome \(M_1\) como um espaço vetorial gerado por M e \(x_{0}\), de forma que \(M_1\) consiste de todos os vetores da forma \(x+\lambda x_{0}\), em que \(x\in M\) e \(\lambda \) é real. Para todos \(x, y\in M\),
+	\[
+		f(x) - f(y) = f(x-y) \leq \Vert x-y \Vert \leq \Vert x-x_{0} \Vert + \Vert y - x_{0} \Vert.
+	\]
+	Logo,
+	\[
+		f(x)-\Vert x-x_{0} \Vert \leq f(y) + \Vert y-x_{0} \Vert,\quad \forall x, y\in M.
+	\]
+	Escolha \(\alpha \in \mathbb{R}\) tal que
+	\[
+		f(x) - \Vert x-x_{0} \Vert \leq \alpha \leq f(y) + \Vert y-x_{0} \Vert,\quad \forall x, y\in M.
+	\]
+	Defina \(f_1(x+\lambda x_{0}) = f(x) + \lambda \alpha \), a qual é uma extensão de f para \(M_1\). Dado \(x\in M \) e \(\lambda \in \mathbb{R},\) nossa escolha de \(\alpha\) garante que ou \(f(x) - \Vert x - x_{0} \Vert \leq \alpha \), ou \(f(x) - a \leq \Vert x-x_{0} \Vert\) e que
+	\(\alpha \leq f(x) + \Vert x-x_{0} \Vert\), ou \(f(x) - \alpha \geq -\Vert x-x_{0} \Vert\). Assim,
+	\[
+		|f(x) - \alpha | \leq \Vert x-x_{0} \Vert.
+	\]
+	Trocando x por \(-\frac{x}{\lambda }\) e multiplicando por \(|\lambda |\), chegamos em
+	\[
+		|\lambda ||-\frac{f(x)}{\lambda }-\alpha | \leq |\lambda | \Vert -\frac{x}{\lambda }-x_{0} \Vert,
+	\]
+	ou
+	\[
+		|f_1(x+\lambda x_{0})| = |f(x) + \lambda \alpha |\leq \Vert x + \lambda x_{0} \Vert,
+	\]
+	que é o que queríamos provar. Agora, para estabelecer que isso vale para uma extensão a todo X, tome \(\mathcal{F}\) como a coleção de todas as extensões lineares F de f satisfazendo \(\Vert F \Vert\leq 1\), que é parcialmente ordenada pela inclusão.
+	Como a união de uma família crescente de subespaços de X é um subespaço, a união de uma subfamília linearmente ordenada de \(\mathcal{F}\) continua em \(\mathcal{F}\) e, pelo \hyperlink{zornn}{\textit{Lema de Zorn}}, \(\mathcal{F}\) tem um elemento maximal.
+	Digamos que ele é \(F_1\). Então, pela construção, se o domínio de \(F_1\) não for todo o X, existe uma extensão maior pelo mesmo processo de antes. Contradição. Portanto, \(F_1\) prova o Teorema. \qedsymbol
+\end{proof*}
+Lembremos que \(f(x) = u(x) + iv(x)\) para qualquer função complexa.
+\hypertarget{complex_hahn_banach}{
+	\begin{theorem*}[Hahn-Banach Complexo]
+		Se M é um subespaço de um espaço linear normado X e f é um funcional linear complexo limitado em M, então f pode ser estendida a um funcional linear limitado F em X tal que \(\Vert F \Vert = \Vert f \Vert\).
+	\end{theorem*}
+}
+\begin{proof*}
+	Sem perda de generalidade, assuma que \(\Vert f \Vert = 1.\) tome \(u= \mathrm{Re}(f)\) e note que \(|u(x)|\leq |f(x)|\leq \Vert x \Vert.\) Utilizando a \hyperlink{real_hahn_banach}{\textit{Versão Real do Teorema de Hahn-Banach}}, encontramos uma extensão U de u para X tal que \(\Vert U \Vert \leq 1.\) Tome
+	\[
+		F(x) = U(x) - iU(ix).
+	\]
+	Resta provarmos que a norma de F é no máximo 1. Para isso, fixado x, escreva \(F(x) = re^{i\theta }.\) Então,
+	\[
+		|F(x)| = r = e^{-i\theta }F(x) = F(e^{-i\theta }x).
+	\]
+	Como este número é real e não-negativo,
+	\[
+		|F(x)| = U(e^{-i\theta }x)\leq \Vert U \Vert\Vert e^{-i\theta }x \Vert\leq \Vert x \Vert.
+	\]
+	Portanto, como isto vale para todo x, \(\Vert F \Vert \leq 1\). \qedsymbol
+\end{proof*}
+Uma aplicação de Hahn-Banach é que, dado um subespaço M e um elemento \(x_{0}\) fora de M tal que
+\[
+	\inf_{x\in M}\Vert x-x_{0} \Vert > 0,
+\]
+podemos definir \(f(x+\lambda x_{0}) = \lambda \) para \(x\in M\) e estender isto para todo o X. Assim, \(f\) será 0 em M, mas não-nula em \(x_{0}\). Outra aplicação é que, fixado \(x_{0}\neq 0\), tome
+\[
+	f(\lambda x_{0}) = \lambda \Vert x_{0} \Vert.
+\]
+Estendendo f para todo o X, encontramos um funcional linear f tal que \(f(x_{0}) = \Vert x_{0} \Vert \) e \(\Vert f \Vert = 1\).
+Veremos, agora, o Teorema Categórico de Baire.
+\hypertarget{baire_category}{
+	\begin{theorem*}[Teorema Categórico de Baire]
+		Seja X um espaço métrico completo.
+		\begin{itemize}
+			\item[1)] Se \(G_{n}\) são todos abertos densos em X, então \(\bigcap_{n}^{}G_{n}\) é denso em X;
+			\item[2)] X não pode ser escrito como a união contável de conjuntos densos em nenhum lugar.
+		\end{itemize}
+	\end{theorem*}
+}
+\begin{proof*}
+	Mostraremos primeiro que (1) implica (2). Suponha que possamos escrever X como a união contável de conjuntos nunca densos, ou seja, \(X = \bigcup_{n}^{}E_{n}\), em que \((\overline{E}_{n})^{\circ } = \emptyset .\) Coloque \(F_{n} = \overline{E}_{n}\), o qual é fechado, tal que
+	\(F_{n}^{\circ } = \emptyset \) e \(X = \bigcup_{n}^{}F_{n}.\) Escreva \(G_{n} = F_{n}^{\complement}\), que é um aberto. Como \(F_{n}^{\circ } = \emptyset \), vale que \(\overline{G}_{n} = X.\) Começando como \(X = \bigcup_{n}^{}F_{n}\) e tomando complementos, vimos que \(\emptyset = \bigcap_{n}^{}G_{n}\) contradiz (1).
+
+	Agora, precisamos apenas provar o item 1. Suponha que \(G_1, G_2, \dotsc \) são conjuntos abertos e densos em X. Seja H um aberto não-vazio de X e
+	\[
+		B(z, r) = \{y\in X: d(z, y) < r\},
+	\]
+	em que d é a métrica de X. Como \(G_{1}\) é denso em X, \(H\cap G_1\) é não-vazio e aberto, tal que podemos achar \(x_1\) e \(r_1\) para os quais \(\overline{B(x_1, r_1)}\subseteq H\cap G_1\) e \(0 < r_1 < 1.\) Suponha que escolhemos
+	\(x_{n-1}\) e \(r_{n-1}\) para algum \(n\geq 2\). Como \(G_{n}\) é denso, \(G_{n}\cap B(x_{n-1}, r_{n-1})\) é aberto e não-vazio, então existem \(x_{n}\) e \(r_{n}\) tais que \(\overline{B(x_{n}, r_{n})}\subseteq G_{n}\cap B(x_{n-1}, r_{n-1})\) e \(0< r_{n} < 2^{-n}.\) Continuando assim, encontramos uma sequência \(x_{n}\) em X.
+	Note que, se \(m, n > N\), então \(x_{m}\) e \(x_{n}\) ficam ambos em \(B(x_{N}, r_{N})\), tal que \(d(x_{m}, x_{n}) < 2r_{N} < 2^{-N+1}.\) Portanto, \(x_{n}\) é uma sequência de Cauchy e, por X ser completo, \(x_{n}\) deve convergir a um ponto \(x\in X\).
+
+	Resta provar que \(x\in H \cap (\bigcap_{n}^{}G_{n})\). Com efeito, como \(x_{n}\in \overline{B(x_{N}, r_{N})}\) se \(n > N\), então \(x\in \overline{B(X_{N}, r_{N})} \) e, consequentemente, em cada \(G_{N},\) o que equivale a \(x\in \bigcap_{n}^{}G_{n}\). Além disso,
+	\[
+		x\in \overline{B(x_{n}, r_{n})}\subseteq B(x_{n-1}, r_{n-1})\subseteq \dotsc \subseteq B(x_1, r_1)\subseteq H.
+	\]
+	Portanto, \(x\in H\cap (\bigcap_{n}^{}G_{n})\). \qedsymbol
+\end{proof*}
+\begin{def*}
+	Um conjunto \(A\subseteq X\) é dito \textbf{meager} (``mesquinho?"), ou de \textbf{primeira categoria}, se ele é a união enumerável de conjuntos nunca densos. Caso contrário, digamos que ele é de \textbf{segunda categoria}. \(\square\)
+\end{def*}
+Uma aplicação do Teorema Categórico de Baire é o Teorema de Banach-Steinhaus, também conhecido como Teorema da Limitação Uniforme.
+\hypertarget{banach_steinhauss}{
+	\begin{theorem*}[Teorema de Banach-Steinhaus]
+		Suponha que X é um espaço de Banach e que Y é um espaço linear normado. Seja A um conjunto de índices e \(\{L_{\alpha }: \alpha \in A \}\) uma coleção de mapas lineares limitados de X para Y. Então, ou existe
+		um número real positivo \(M<\infty\) tal que \(\Vert L_{\alpha } \Vert\leq M\) para todo \(\alpha \in A\), ou \(\sup_{\alpha }\Vert L_{\alpha }x \Vert = \infty\) para algum x.
+	\end{theorem*}
+}
+\begin{proof*}
+	Sejam \(\ell (x) = \sup_{\alpha \in A}\Vert L_{\alpha }x \Vert\) e \(G_{n} = \{x:\ell (x) > n\}\). O mapa \(x\mapsto \Vert L_{\alpha }x \Vert\) é uma função contínua para cada \(\alpha \), já que \(l_{\alpha }\) é um funcional linear limitado. Isto implica que, para cada \(\alpha \), o conjunto
+	\(\{x: \Vert L_{\alpha }x > n\Vert\}\) é aberto. Como \(x\in G_{n}\) se, e somente se \(\Vert L_{\alpha }x \Vert > n\) para algum \(\alpha \in A\), concluímos que \(G_{n}\) é a união de conjuntos abertos e, consequentemente, um aberto em si.
+
+	Agora, suponha que existe N tal que \(G_{N}\) não é denso em X. Então, existem \(x_{0}\) e r tais que \(\overline{B(x_{0}, r)}\cap G_{N} = \emptyset \), o que equivale a dizer que, se \(\Vert x-x_{0} \Vert\leq r\), então \(\Vert L_{\alpha }(x) \Vert\leq N\) para todo \(\alpha \in A\).
+	Se \(\Vert y \Vert, r,\) temos \(y=(x_{0}+y) - x_{0},\) tal que \(\Vert (x_{0}+y) - x_{0} \Vert = \Vert y \Vert\leq r\) e, assim, \(\Vert L_{\alpha }(x_{0} + y) \Vert\leq N\) para todo \(\alpha \). Além disto, \(\Vert x_{0}-x_{0} \Vert = 0 \leq r\), o que implica que \(\Vert L_{\alpha }(x_{0}) \Vert\leq N\) para todo \(\alpha \).
+	Concluímos, então, que, se \(\Vert y \Vert\leq r\) e \(\alpha \in A\),
+	\[
+		\Vert L_{\alpha }y \Vert = \Vert L_{\alpha }((x_{0}+y) - x_{0}) \Vert\leq \Vert L_{\alpha }(x_{0}-y) \Vert + \Vert L_{\alpha }x_{0} \Vert\leq 2N.
+	\]
+	Logo, \(\sup_{\alpha \in A}\Vert L_{\alpha } \Vert\leq M\) com \(M = \frac{2N}{r}\).
+
+	A outra possibilidade é que todo \(G_{n}\) seja denso em X. Neste, \(\bigcap_{n}^{}G_{n}\) é denso em X, mas \(\ell (x) = \infty\) para todo \(x\in \bigcap_{n}^{}G_{n}\). Portanto, a conclusão do Teorema permanece. \qedsymbol
+\end{proof*}
+Outro resultado fundamental destes estudos é o Teorema da Aplicação Aberta. Aqui, é importante que L seja sobrejetora.
+\begin{def*}
+	Uma aplicação \(L:X\rightarrow Y\) é \textbf{aberto} se \(L(U)\) é aberto em Y sempre que U for aberto em X. \(\square\)
+\end{def*}
+Para um conjunto mensurável A, colocamos \(L(A) = \{Lx: x \in A\}\).
+\hypertarget{open_mapping}{
+	\begin{theorem*}[Teorema da Aplicação Aberta]
+		Sejam X e Y espaços de Banach. Uma aplicação linear limitada L de X sobre Y, ou seja, \(L:X\rightarrow Y\) sobrejetora, é um mapa aberto.
+	\end{theorem*}
+}
+\begin{proof*}
+	Precisamos provar que se \(B(x, r)\subseteq X\), então \(L(B(x, r))\) contém uma bola em Y. Como L é sobrejetora, \(Y = \bigcup_{n=1}^{\infty}L(B(0, n))\). Pelo \hyperlink{baire_category}{\textit{Teorema Categórico de Baire}},
+	pelo menos um desses conjuntos \(L(B(0, n))\) não pode ser nunca-denso. Como L é linear, \(L(B(0, 1))\) é um conjunto que não pode ser denso nunca, tal que existem \(y_{0}\) e \(r\) tais que \(B(y_{0}, 4)\subseteq \overline{L(B(0, 1))}\).
+
+	Agora, escolha \(y_1\in l(B(0, 1))\) tal que \(\Vert y_1 - y_{0} \Vert < 2r\) e seja \(z_1\in B(0, 1)\) tal que \(y_1 = Lz_1.\) Então, \(B(y_1, 2r)\subseteq B(y_{0}, 4r)\subseteq \overline{L(B(0, 1))}.\) Assim, se \(\Vert y \Vert < 2r,\) então
+	\(y + y_1\in B(y_1, 2r)\), tal que
+	\[
+		y= -Lz_1 + (y + y_1)\in \overline{L(-z_1 + B(0, 1))}.
+	\]
+	Como \(z_1\in B(0, 1)\), segue que \(-z_1 + B(0, 1)\subseteq B(0, 2)\), implicando em
+	\[
+		y\in \overline{L(-z_1 + B(0, 1))}\subseteq \overline{L(B(0, 2))}.
+	\]
+	Por linearidade de L, se \(\Vert y \Vert < r\), então \(y\in \overline{L(B(0, 1))}.\) Segue por linearidade que, se \(\Vert y \Vert < r2^{-n},\) então \(y\in \overline{L(B(0, 2^{-n}))}.\) Equivalentemente,
+	se \(\Vert y \Vert < r2^{-n}\) e \(\varepsilon  > 0\), então existe x tal que \(\Vert x \Vert < 2^{-n} \) e \(\Vert y - Lx \Vert < \varepsilon .\)
+
+	Agora, suponha que \(\Vert y \Vert < \frac{r}{2}.\) Pelo primeiro passo, com \(\varepsilon  = \frac{r}{4}, \) podemos achar \(x_1\in B \biggl(0, \frac{1}{2}\biggr)\) tal que \(\Vert y - Lx_1 \Vert < \frac{r}{4}.\) Supondo que escolhemos \(x_1, \dotsc , x_{n-1}\) satisfazendo
+	\[
+		\biggl\Vert y - \sum\limits_{j=1}^{n-1}Lx_{j} \biggr\Vert < r2^{-n}.
+	\]
+	Seja \(\varepsilon  = r2^{-(n+1)}.\) Pela primeira parte, podemos achar \(x_{n}\) tal que \(\Vert x_{n} \Vert < 2^{-n}\) e
+	\[
+		\biggl\Vert y - \sum\limits_{j=1}^{n}Lx_{j} \biggr\Vert = \biggl\Vert \biggl(y - \sum\limits_{j=1}^{n-1}Lx_{j}\biggr) - Lx_{n} \biggr\Vert < r2^{-(n+1)}.
+	\]
+	Por indução, construímos uma sequência \(\{x_{j}\}\) com estes x's. Tome \(w_{n} = \sum\limits_{j=1}^{n}x_{j}.\) Como \(\Vert x_{j} \Vert < 2^{-j},\) vale que \(w_{n}\) é de Cauchy. Por completude de X, \(w_{n}\) converge para algum elemento, digamos x. Mas, assim, \(\Vert x \Vert <
+	\sum\limits_{j=1}^{\infty} 2^{-j} = 1\) e, por continuidade de L, \(y = Lx\). Em outras palavras, se \(y\in B \biggl(0, \frac{r}{2}\biggr)\), então \(y\in L(B(0, 1))\). Por linearidade de L, esta bola pode ser passada para uma genérica centrada em zero, \textit{i.e.}, \(L(B(0, r))\), a qual contém
+	uma bola centrada em 0 em Y. Portanto, \(L(B(x, r))\) é aberto e L é um mapa aberto. \qedsymbol
+\end{proof*}
+Quando \(Y = F\) (um corpo), então \(\mathcal{L}\coloneqq \{L:X\rightarrow Y: L \text{ é linear e limitado}\}\) é o conjunto dos funcionais lineares limitados de X. Neste caso, escrevemos \(X^{*}\) no lugar de \(\mathcal{L}\) e chamamos \(X^{*}\) de \textbf{espaço dual} de X.
+\end{document}

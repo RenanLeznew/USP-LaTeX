@@ -1,0 +1,340 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 06 - 16/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Aproximação por uma Função Contínua;
+	\item Relação Entre Lebesgue e Riemann, Parte 2;
+	\item Tipos de Convergências;
+	\item Lema de Chebyshev e Teorema de Egorov.
+\end{itemize}
+\subsection{Relação Entre Riemann e Lebesgue, Parte 2}
+\begin{theorem*}
+	Suponha f Lebesgue mensurável, função real e integrável sobre \(\mathbb{R}.\) Seja \(\varepsilon >0\).
+	Com isso, existe uma função contínua g com suporte compacto tal que
+	\[
+		\int_{}|f-g| dm < \varepsilon .
+	\]
+\end{theorem*}
+\begin{proof*}
+	Escrevemos \(f = f^{+} - f^{-}.\) Se existir \(g^{\pm} \) contínuas com suporte compacto satisfazendo \(\int_{}|f^{\pm} - g^{\pm}| dm < \varepsilon /2,\)
+	tomando \(g = g^{+} - g^{-},\) temos que g é contínua, com suporte compacto e \(\int_{}|f-g| dm < \varepsilon .\) Assim, podemos assumir que \(f\geq 0\) sem grandes problemas.
+
+	Por outro lado, pelo \hyperlink{monotone_convergence}{\textit{Teorema da Convergência Monótona}},
+	\[
+		\int_{}f \chi_{[-n, n]} dm \uparrow \int_{}f dm,
+	\]
+	o qual é finito. Assim, para n grande suficiente,
+	\[
+		\biggl\vert \int_{}f dm - \int_{}f \chi_{[-n, n]} dm \biggr\vert < \frac{\varepsilon }{2}.
+	\]
+	No entanto, como \(f - f \chi_{[-n, n]} \geq 0\), temos
+	\[
+		\int_{}|f - f \chi_{[-n, n]}| dm < \frac{\varepsilon }{2}.
+	\]
+	Se encontrarmos g contínua de suporte compacto tal que
+	\[
+		\int_{}|f \chi_{[-n, n]} - g| dm < \frac{\varepsilon }{2},
+	\]
+	concluímos que por um argumento de dois epsilons,
+	\[
+		\int_{}|f-g| dm < \varepsilon.
+	\]
+	Usando o \hyperlink{monotone_convergence}{\textit{TCD,}} pode-se concluir que \(h_{n} = |f \chi_{[-n, n]} - g|\to |f-g|\) quase sempre e \(|h_{n}| \leq |f-g|\) é, assim, integrável. Agora, ganhamos a liberdade de supor que \(f \geq 0\) e
+	f zero fora de um intervalo limitado.
+
+	Basta supor \(f=\chi_{A},\) sendo A um conjunto limitado Lebesgue mensurável. Escolha G aberto e F fechado tal que \(F\subseteq A\subseteq G\) e \(m(G\setminus{F}) < \varepsilon.\) Na realidade,
+	\(m(G\setminus{A}),\) \(m(A\setminus{F}) < \varepsilon /2.\) Use que \((G\setminus{A})\cup (A\setminus{F}).\) Podemos assumir G limitado, o que faz F compacto e, assim, existe uma distância mínima entre F e \(G^{\complement}\), digamos que ela é \(\delta \). Seja
+	\[
+		g(x) = \biggl(1 - \frac{\mathrm{dist}(x, F)}{\delta }\biggr)^{+}.
+	\]
+	Então, g é contínua, \(0\leq g \leq 1, \) g é 1 sobre F, 0 sobre \(G ^{\complement}\) e g tem suporte compacto. Com isso, já que \(F\subseteq A\),
+	\[
+		|g- \chi_{A}|\leq \chi_{G} - \chi_{F}.
+	\]
+	Além disso,
+	\[
+		\int_{}|g-\chi_{A}| dm \leq \int_{}(\chi_{G} - \chi_{F}) dm = m(G\setminus{F})<\varepsilon .
+	\]
+	Provamos, então, que o resultado é verdadeiro para funções características sobre conjuntos limitados. Faremos as provas para funções simples, não-negativas e gerais. Se
+	\[
+		f= \sum\limits_{i=1}^{p}a_{i}\chi_{A_{i}},
+	\]
+	em que \(A_{i}\subseteq I_{i}, I_{i}\) intervalo limitado e \(a_{i} > 0,\) então existe função contínua \(g_{i}\) de suporte compacto tal que
+	\[
+		\int_{}|\chi_{A_{i}} - g_{i}| dm < \frac{\varepsilon }{a_{i}p_{i}},
+	\]
+	de modo que \(g=\sum\limits_{i=1}^{p}g_{i}\) é a função procurada.
+
+	Para o caso geral, suponha f não-negativa e com suporte compacto. Existe uma sequência de funções simples \(s_{n}\) com suporte num intervalo limitado e crescendo
+	para f, \(s_{n}\leq f,\) cuja integral \(\int_{}s_{n} dm \uparrow \int_{}f dm.\) Podemos assumir
+	\[
+		\int_{}s_{n} dm \geq \int_{}f dm - \frac{\varepsilon }{2}.
+	\]
+	Tome g contínua com suporte compacto tal que \(\int_{}|s_{m} - g| dm < \frac{\varepsilon }{2}.\) Portanto, como \(f - s_{n}\geq 0,\)
+	\[
+		\int_{}|f-g| dm < \varepsilon .\quad \square
+	\]
+\end{proof*}
+A partir deste instante, denotaremos \(\int_{}f dm\) pra ser a integral de Lebesgue e \(R(f)\) como a integral de Riemann. Recordando a definição da integral de Riemann de \(f:[a, b]\rightarrow \mathbb{R}.\) Seja \(\mathcal{P} = \{x_{0} = a, x_1, \dotsc , x_{n} = b\}\) de [a, b].
+Defina
+\begin{align*}
+	 & U(\mathcal{P}, f) = \sum\limits_{i=1}^{n}\sup_{x_{i-1}\leq x \leq x_{i}}f(x)[x_{i} - x_{i-1}] \\
+	 & L(\mathcal{P}, f) = \sum\limits_{i=1}^{n}\inf_{x_{i-1}\leq x \leq x_{i}}f(x)[x_{i} - x_{i-1}] \\
+	 & \overline{R}(f) = \inf_{}\{U(\mathcal{P}, f): \mathcal{P} \text{ partição}\}
+	 & \underline{R}(f) = \inf_{}\{L(\mathcal{P}, f): \mathcal{P} \text{ partição}\}.
+\end{align*}
+Dizemos que a integral de Riemann existe se \(\overline{R}(f) = \underline{R}_{}(f)\), sendo o valor comum denotado por R(f).
+\begin{theorem*}
+	Seja \(f:[a, b]\rightarrow \mathbb{R}\) limitada. Então, f é Riemann integrável se, e somente se, \(m(D_f) = 0\), em que \(D_f = \{x: f \text{ é descontínua no ponto x}\}\) é o conjunto dos pontos
+	de descontinuidade de f
+
+	Neste caso, f é Lebesgue-mensurável e a integral de Riemann de f coincidindo com o integral, ou seja,
+	\[
+		\int_{}f dm = R(f),\quad \text{\qedsymbol}.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Passo 1. Mostraremos que se f é Riemann integrável, então f é contínua quase sempre e \(R(f) = \int_{}f dm.\) Se \(\mathcal{P}\) é uma partição, defina
+	\[
+		T_{\mathcal{P}}(x) = \sum\limits_{i=1}^{n}\chi_{[x_{i-1}, x_{i})}(x)\sup_{x_{i-1}\leq y\leq x_{i}}f(y) \quad\&\quad S_{\mathcal{P}}(x) = \sum\limits_{i=1}^{n}\chi_{[x_{i-1}, x_{i})}(x)\inf_{x_{i-1}\leq y\leq x_{i}}f(y).
+	\]
+	Note que
+	\[
+		\int_{}T_{\mathcal{P}} dm = U(\mathcal{P}, f) \quad\&\quad \int_{}S_{\mathcal{P}} dm = L(\mathcal{P}, f).
+	\]
+	Se f é Riemann integrável, existe uma sequência de partições \(Q_{i}\) tal que \(U(Q_{i}, f)\downarrow R(f)\) e uma sequência \(Q_{i}'\) tal que \(L(Q_{i}', f)\uparrow R(f).\) Note que, ao adicionar pontos a uma partição L, ela cresce e,
+	na partição U, ela decresce. Assim, seja \(P_{i} = \bigcup_{j\geq i}^{}(Q_{j}\cup Q_{j}')\), de modo que \(P_{i}\) é uma sequência crescente de partições tais que
+	\[
+		U(P_{i}, f)\downarrow R(f)\quad\&\quad L(P_{i}, f)\uparrow R(f)>
+	\]
+	Observe que existem T(x) e S(x) satisfazendo
+	\[
+		T_{P_{i}}(x)\downarrow T(x) \quad\&\quad S_{P_{i}}(x)\uparrow S(x),\quad T(x)\geq f(x)\geq S(x).
+	\]
+	Como f é limitada, pelo \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}}, temos
+	\[
+		\int_{}(T-S) dm = \lim_{i\to \infty}\int_{}(T_{P_{i}} - S_{P_{i}}) dm = \lim_{i\to \infty}(U(P_{i}, f) - L(P_{i}, f)) = 0.
+	\]
+	Consequentemente, \(T = S = f\) quase sempre.
+
+	Agora, note que T é limite de funções escada, o que a torna Borel mensurável e, para cada a,
+	\[
+		\{x:f(x)>a\}\quad\&\quad \{x:T(x)>a\}
+	\]
+	diferem somente num conjunto de medida nula, donde conclui-se que f é Lebesgue Mensurável. Se x não está no conjunto de medida nula em que \(T(x)\neq S(x)\) nem em \(U_{i}, P_{i}\),
+	o qual é enumerável e, consequentemente, de medida nula, então
+	\[
+		T_{P_{i}}(x)\downarrow f(x) \quad\&\quad S_{P_{i}}(x)\uparrow f(x).
+	\]
+	Dado \(\varepsilon \), escolha i suficientemente grande para que
+	\[
+		T_{P_{i}} - S_{P_{i}} < \varepsilon
+	\]
+	e escolha \(\delta \) pequeno tal que \((x-\delta , x+\delta )\) esteja contido num subintervalo de \(P_{i}\) contendo x. Aplicando o \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}} e notando que
+	\[
+		R(f) = \lim_{i\to \infty}U(P_{i}, f) = \lim_{i\to \infty}\int_{}T_{P_{i}} dm = \int_{}f dm,
+	\]
+	concluímos que as duas integrais são iguais.
+
+	Para o segundo passo, suponha que f seja contínua quase sempre e tome \(\varepsilon >0\) qualquer. Seja \(P_{i}\) partição que divide \([a, b]\) em \(2^{i}\) partes iguais. Se x não está no conjunto de medida nula onde f é descontínua, nem
+	em \(U_{i}, P_{i}\), então
+	\[
+		T_{P_{i}}(x)\downarrow f(x)\quad\&\quad S_{P_{i}}(x)\uparrow f(x).
+	\]
+	Assim como no passo 1, f é mensurável, e o TCD nos fornece
+	\[
+		U(P_{i}, f) = \int_{}T_{P_{i}} dm\to \int_{}f dm,\quad L(P_{i}, f) = \int_{}S_{P_{i}} dm\to \int_{}f. dm
+	\]
+	Portanto, \(\overline{R}(f) = \underline{R}(f) = R(f),\) ou seja, \(R(f)\) é integrável. \qedsymbol
+\end{proof*}
+\begin{example}
+	Considere
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			1,\quad x\in [0,1]\cap \mathbb{Q}^{\complement} \\
+			0,\quad x\in [0,1]\cap \mathbb{Q}.
+		\end{array}\right.
+	\]
+	Note que \(D_{f} = [0, 1]\) é o conjunto de descontinuidade da f e \(m(D_{f}) = 1,\) donde conclui-se que f não é Riemann integrável. No entanto,
+	\(f=1\) quase sempre, tal que
+	\[
+		\int_{}f dm = 1.
+	\]
+	Portanto, f é Lebesgue integrável, mas não é Riemann integrável.
+\end{example}
+\begin{example}
+	Coloque
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			1,\quad x\in \mathbb{R} \quad \&\quad x>0 \\
+			0,\quad x\in \mathbb{R} \quad \&\quad  x < 0.
+		\end{array}\right.
+	\]
+	Aqui, \(D_{f} = 0\), tal que \(m(D_{f}) = 0\) e, assim, f não é Riemann integrável, pois f tem domínio ilimitado. Além disso,
+	\[
+		\int_{}f dm = \int_{}1 \chi_{\mathbb{R}_{x > 0}} dm + \int_{}0\chi_{\mathbb{R}_{x < 0}} dm = \infty,
+	\]
+	tal que f não é Lebesgue integrável.
+\end{example}
+\begin{example}
+	Coloque
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			1,\quad x\in [0, 1]\cap \mathbb{Q}^{\complement} \\
+			\frac{1}{q},\quad x\in[0,1], x = \frac{p}{q}\text{ (irredutível)}
+		\end{array}\right..
+	\]
+	Observe que o domínio de descontinuidade de f é \(D_f = \mathbb{Q}\), tal que \(m(D_{f}) = 0\) e, portanto, f é Riemann Integrável. Obesrva-se que f = 0 quase sempre, tal que
+	\[
+		\int_{}f dm = 0,
+	\]
+	mostrando que ela também é Lebesgue integrável.
+
+	Vale uma obesrvação: Note que \(\lim_{x\to a}f(x) = 0\) para todo \(a\in \mathbb{R},\) de forma que f é contínua em \(a\in \mathbb{Q}^{\complement}\). Para ver que isso é verdade, se \(a\in \mathbb{R}\) e \(\varepsilon > 0\) for dado,
+	o conjunto \(A_{\varepsilon } = \{q: q \leq \varepsilon^{-1}\}\) é finito. Assim, tomando \(\delta  < \mathrm{dist}(a, A_{\varepsilon }),\) esse conjunto de tamanho \(\delta \) não contém \(x = \frac{p}{q}\) com \(q\in A_{\varepsilon },\) isto é,
+	\(q\not\in a_{\varepsilon }.\) Mais exatamente,
+	\[
+		q > \frac{1}{\varepsilon } \Longleftrightarrow \frac{1}{q} < \varepsilon .
+	\]
+\end{example}
+\subsection{Tipos de Medidas}
+Seja, ao longo dessa seção, \(\mu \) uma medida, \(f_{n}, f\) mensuráveis.
+\begin{def*}
+	Dizemos que \(f_{n}\) \textbf{converge quase sempre} para f se existir um conjunto de medida nula A tal que, se \(x\not\in A\), temos \(f_{n}(x)\to f(x).\) Notação: \(f_{n}\to f\) q.s. \(\square\)
+\end{def*}
+\begin{def*}
+	Dizemos que \(f_{n}\) \textbf{converge em medida} para f, se para cada \(\varepsilon  > 0\),
+	\[
+		\mu (\{x: |f_{n}(x) - f(x)| > \varepsilon \})\to 0,\quad n\to \infty.\quad \square
+	\]
+\end{def*}
+\begin{def*}
+	Seja \(1\leq p < \infty. f_{n}\)\textbf{ converge em }\(L^{p}\)\textbf{ para f}, se
+	\[
+		\int_{}|f_{n} - f|^{p} d\mu\to 0,\quad n\to \infty.
+	\]
+\end{def*}
+\begin{prop*}
+	\begin{itemize}
+		\item[i)]Suponha que \(\mu \) seja uma medida finita. Se \(f_{n}\to f\) q.s., então \(f_{n}\) converge para f em medida.
+		\item[ii)] Suponha que \(\mu \) é uma medida não necessariamente finita. Se \(f_{n}\to f\) em medida, então existe uma subsequência \(n_{j}\) tal que \(f_{n_{j}}\) converge para f q.s.
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Seja \(\varepsilon > 0\) e suponha que \(f_{n}\to f\) q.s. Se
+	\[
+		A_{n} = \mu (\{x: |f_{n}(x) - f(x)| > \varepsilon \}),
+	\]
+	então \(\chi_{A_{n}}\to 0\) q.s. e, pelo \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}},
+	\[
+		\mu (A_{n}) = \int_{}\chi_{A_{n}}(x) \mu_{}(dx)\to 0,
+	\]
+	provando (1).
+
+	Para o (2), suponha que \(f_{n}\to f\) em medida, seja \(n_1 = 1\) e escolha \(n_{j} > n_{j-1}\) por indução, tal que
+	\[
+		\mu (\{x: |f_{n_{j}}(x) - f(x)| > 1/j\} \leq 2^{-j}.
+	\]
+	Seja \(A_{j} = \{x: |f_{n_{j}}(x) - f(x)| > 1/j\}.\) Se colocarmos
+	\[
+		A = \bigcap_{k=1}^{\infty}\bigcup_{j=k}^{\infty}A_{j},
+	\]
+	teremos
+	\[
+		\mu (A) = \lim_{k\to \infty}\mu \biggl(\bigcup_{j=k}^{\infty}A_{j}\biggr) \leq \lim_{k\to \infty}\sum\limits_{j=k}^{\infty}\mu (A_{j}) \leq \lim_{k\to \infty}2^{-k+1} = 0.
+	\]
+	Logo, A tem medida nula. Se \(x\not\in A,\) então \(x\not\in \bigcup_{j=k}^{\infty}A_{j}\) para algum k e, assim,
+	\[
+		|f_{n}(x)-f(x)|\leq \frac{1}{j},\quad \forall j\geq k
+	\]
+	Portanto, \(f_{n}\to f\) sobre \(A ^{\complement}\). \qedsymbol
+\end{proof*}
+Notação: Se \(A = \bigcap_{k=1}^{\infty}\bigcup_{j=k}^{\infty}A_{j},\) então \(x\in A\) se, e somente se, \(x\in A_{j}\) para uma infinidade de j. Denotamos por \(A = \{A_{j}\mathrm{i.o.}\}.\)
+\begin{example}
+	Se \(\mu (X) = \infty\), não vale que ``Se \(f_{n}\to f\) q.s., então \(f_{n}\) converge para f em medida''. De fato, tome \(X = \mathbb{R}\) e seja \(f_{n} = \chi_{(n, n+1)}.\) Temos \(f_{n}\to 0\) quase sempre, mas \(f_{n}\) não converge em medida, pois
+	\[
+		\mu (\{x: |f_{n}(x) - f(x)|> \varepsilon \}) = \mu (\{x: |\chi_{(n, n+1)}| > \varepsilon \} = \mu (n, n+1)\not\to 0.
+	\]
+\end{example}
+\hypertarget{chebyshev}{
+	\begin{lemma*}[Chebyshev]
+		Se \(a\leq p < \infty\), então
+		\[
+			\mu (\{x: |f(x)| \geq a\}) \leq \frac{\int_{}|f|^{p} d\mu_{}}{a^{p}}.
+		\]
+	\end{lemma*}}
+\begin{proof*}
+	Seja \(A = \{x: |f(x)| \geq a\}.\) Como \(\chi_{A} \leq \frac{|f|^{p}\chi_{A}}{a^{p}},\) temos
+	\[
+		\mu (A) \leq \int_{A}\frac{|f|^{p}}{a^{p}} d\mu_{} \leq \frac{1}{a^{p}}\int_{}|f|^{p} d\mu_{}. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Se \(f_{n}\) converge para f em \(L^{p},\) então \(f_{n}\) converge para f em medida.
+\end{prop*}
+\begin{proof*}
+	Da \hyperlink{chebyshev}{\textit{desigualdade de Chebyshev}}, para \(\varepsilon >0\),
+	\[
+		\mu (\{x: |f_{n}(x) - f(x)| > \varepsilon \}) \leq \frac{1}{\varepsilon ^{p}}\int_{}|f_{n}-f|^{p} d\mu_{}\to 0,
+	\]
+	como desejado. \qedsymbol
+\end{proof*}
+\begin{example}
+	Seja \(f_{n} = n^{2}\chi_{(0, 1/n)}\) sobre \([0, 1]\) e seja \(\mu \) a medida de Lebesgue. Note que \(f_{n}\) converge a 0 quase sempre e em medida, mas não converge em \(L^{p}\) para \(p \geq 1\).
+
+	Com efeito, dado x, existe n tal que \(\frac{1}{n} < x\) e, então, \(f_{n}(x) = 0.\) Assim, \(f_{n}\) converge a 0 quase sempre. Agora,
+	\[
+		\mu (\{x: |f_{n}(x) - f(x)| > \varepsilon \} = \mu (\{x: |f_{n}(x)| > \varepsilon \}) \leq \mu \biggl(\biggl[0, \frac{1}{n}\biggr]\biggr)\to 0
+	\]
+	converge em medida. No entanto,
+	\[
+		\int_{}|f_{n}-0|^{p} d\mu_{} = \int_{0}^{\frac{1}{n}}n^{2p}dx = n^{2p-1}\to \infty,
+	\]
+	ou seja, não converge em \(L^{p}.\)
+\end{example}
+\begin{example}
+	Também podemos construir um exemplo em que a sequência converge em medida e em \(L^{p},\) mas não quase sempre.
+
+	De fato, tome \(S = \{e^{i\theta }: 0 \leq \theta < 2\pi \}\) como o círculo unitário no plano complexo e defina
+	\[
+		\mu (A) = m(\{\theta \in [0, 2\pi ): e^{i\theta }\in A\}
+	\]
+	como a medida do comprimento de arco sobre S, sendo m a medida de Lebesgue sobre \([0, 2\pi ).\) Seja \(X = S\) e \(f_{n}(x) = \chi_{F_{n}}(x),\) em que
+	\[
+		F_{n} = \biggl\{e^{i\theta }: \sum\limits_{j=1}^{n}\frac{1}{j} \leq \theta \leq \sum\limits_{j=1}^{n+1}\frac{1}{j}\biggr\} \Rightarrow \mu (F_{n}) \leq \frac{1}{n+1}\to 0,
+	\]
+	ou seja, \(f(e^{i\theta }) = 0\) para todo \(\theta \), do que concluímos que \(f_{n}\to f\) em medida. Além disto, como \(f_{n}\) é 1 ou 0,
+	\[
+		\int_{}|f_{n}-f|^{p} d\mu_{} = \int_{}\chi_{F_{n}} d\mu_{} = \mu (F_{n})\to 0.
+	\]
+	Porém, como \(\sum\limits_{j=1}^{\infty}\frac{1}{j} = \infty,\) cada ponto de S está infinitamente em \(F_{n}\), e cada ponto de S está em \(S\setminus{F_{n}}\) para uma infinidade de n. Assim,
+	\(f_{n}\) não converge para f em qualquer ponto, pois podemos construir duas subsequência \(fn_{j}(x) = 1, x\in F_{n}\) e \(fn_{k}(x) = 0, x\in S\setminus{F_{n}}.\) Logo, a subsequência não pode convergir.
+
+	Note que \(F_{n}\) são arcos cujos comprimentos tendem a 0, mas tais que \(\bigcup_{n\geq m}^{F_{n}}\) contém S para cada m.
+\end{example}
+\hypertarget{egorov}{
+	\begin{theorem*}[Teorema de Egorov]
+		Suponha \(\mu \) medida finita, \(\varepsilon > 0\) dado e \(f_{n}\to f\) q.s. Então, existe um conjunto enumerável A tal que \(\mu (A) < \varepsilon \) e \(f_{n}\to f\) uniformemente em \(A ^{\complement}\).
+	\end{theorem*}}
+\begin{proof*}
+	Seja
+	\[
+		A_{nk} = \bigcup_{m=n}^{\infty}\biggl\{x: |f_{m}(x) - f(x)| > \frac{1}{k}\biggr\}.
+	\]
+	Fixado k, \(A_{nk}\) decresce quando n cresce. A interseção \(\bigcap_{n}^{}A_{nk}\) tem medida 0 pois quase todo x satisfaz
+	\[
+		|f_{m}(x) - f(x)| \leq \frac{1}{k}
+	\]
+	para m suficientemente grande. Logo, \(\mu (X) < \infty\) e \(\lim_{} \mu (A_{nk}) = \mu (\bigcap_{n}^{}A_{nk}) = 0, \mu (A_{nk})\to 0\) quando \(n\to \infty\). Desta forma, existe \(n_{k}\) tal que
+	\(\mu (A_{n_kk}) < \varepsilon 2^{-k}. \) Coloque
+	\[
+		A = \bigcup_{k=1}^{\infty}A_{n_kk}.
+	\]
+	Com isso, \(\mu (A) < \varepsilon \) e, se \(x\not\in A\), então \(x\not\in A_{n_{k}k}\) e, assim,
+	\[
+		|f_{n}(x) - f(x)| \leq \frac{1}{k}
+	\]
+	se \(n \geq n_{k}.\) Portanto, \(f_{n}\to f\) uniformemente em \(A ^{\complement}.\) \qedsymbol
+\end{proof*}
+\end{document}

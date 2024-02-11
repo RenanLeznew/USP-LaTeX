@@ -1,0 +1,365 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 10/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item A Medida de Lebesgue-Stieltjes;
+	\item Conjunto de Cantor;
+	\item Conjuntos não-mensuráveis;
+	\item Teorema de Extensão de Caratheodory.
+\end{itemize}
+\subsection{Medida de Lebesgue-Stieltjes}
+Ao fim da aula passada, provamos o seguinte lema:
+\begin{lemma*}
+	Seja \(J_{k} = (a_{k}, b_{k}), k = 1, 2, \dotsc , n\) uma coleção finita de intervalos abertos limitados que cobrem \([C, D].\) Então,
+	\[
+		\sum\limits_{k=1}^{n}[\alpha (b_{k}) - \alpha (a_{k})] \geq \alpha (D) - \alpha (C).
+	\]
+\end{lemma*}
+Porém, umas das nossas afirmações era que a medida exterior de um intervalo é dada pela medida de Lebesgue-Stieltjes do mesmo:
+\begin{prop*}
+	Se \(I = (e, f]\) é um intervalo limitado, então
+	\[
+		m^{*}(I) = \ell (I).
+	\]
+\end{prop*}
+\begin{proof*}
+	Mostraremos primeiro a parte fácil, ou seja, \(m^{*}(I) \leq \ell (I)\). Seja \(A_{1} = I\) e \(A_2 = A_3 = \dotsc = \emptyset .\) Então, \(I\subseteq \bigcup_{i=1}^{\infty}A_{i}\) e
+	\[
+		m^{*}(I) \leq \sum\limits_{i=1}^{\infty}\ell (A_{i}) = \ell (A_1) = \ell (I).
+	\]
+	Para o outro lado, suponha \(I\subseteq \bigcup_{i=1}^{\infty}A_{i},\) em que \(A_{i} = (c_{i}, d_{i}].\) Dado \(\varepsilon > 0\), da continuidade à direita de \(\alpha \), podemos escolher
+	\(C\in (e, f)\) tal que \(\alpha (C) - \alpha (e) < \frac{\varepsilon }{2}.\) Seja \(D = f\) e, para cada i, escolha \(d_{i}^\prime > d_{i}\) tal que \(\alpha (d_{i}^\prime) - \alpha (d_{i}) < \frac{\varepsilon }{2^{i+1}}.\) Defina
+	\(B_{i} = (c_{i}, d_{i}^\prime).\) Assim, \(\{B_{i}\}\) é uma cobertura por abertos para o compacto [C, D]. Logo, podemos escolher uma cobertura por abertos finitos, digamos \(\{J_{1}, \dotsc , J_{n}\}\) de \(\{B_{i}\}\).
+
+	Ao aplicar o Lema anterior, obtemos
+	\begin{align*}
+		\ell (I) \leq \alpha (D) - \alpha (C) + \frac{\varepsilon }{2} & \leq \sum\limits_{k=1}^{n}(\alpha (d_{k}\prime) - \alpha (c_{k})) + \frac{\varepsilon }{2} \\
+		                                                               & \leq \sum\limits_{k=1}^{\infty}\ell (A_{k}) + \varepsilon,
+	\end{align*}
+	em que utilizamos a seguinte relação: Se \(I = (e, f]\), então \(\ell (I) = \alpha (f) - \alpha (e) = \alpha (D) - \alpha (e) = \alpha (D) - \alpha (C) + \alpha (C) - \alpha (e)\) e \(A = (c_{i}, d_{i}),\) tal que
+	\(\ell (A_{i}) = \alpha (d_{i}) - \alpha (c_{i})\), tal que \([\alpha (d_{k}^\prime) - \alpha (c_{k})]  = [\alpha (d_{k}^{\prime}) - \alpha (d_{k})] + [ \alpha (d_{k}) - \alpha (c_{k})] .\)
+
+	Tomando o ínfimo sobre todas as coleções contáveis \(\{A_{i}\}\) que cobrem I, obtemos
+	\[
+		\ell (I) \leq m^{*}(I) + \varepsilon .
+	\]
+	Portanto, como \(\varepsilon \) é arbitrário, chegamos em
+	\[
+		\ell (I) \leq m^{*}(I).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Na construção de medida de Lebesgue-Stieltjes com relação a \(\alpha \), há um passo muito importante que vale ser mencionado.
+\begin{prop*}
+	Todo conjunto em \(\sigma \)-álgebra de Borel em \(\mathbb{R}\) é \(m^{*}\)-mensurável.
+\end{prop*}
+\begin{proof*}
+	Sendo a coleção dos conjuntos \(m^{*}\)-mensuráveis uma \(\sigma\)-álgebra, basta mostrar que todo intervalo J da forma (c, d] é \(m^{*}\)-mensurável, ou seja,
+	\[
+		m^{*}(E) = m^{*}(E\cap J) + m^{*}(E\cap J ^{\complement}),\quad E\subseteq X.
+	\]
+	Para isso, precisamos provar apenas um laad da desigualdade, o lado
+	\[
+		m^{*}(E) \geq m^{*}(E\cap J) + m^{*}(E\cap J ^{\complement}).
+	\]
+	Além disso, isto é trivialmente verdade para \(m^{*}(E) = \infty\), então podemos tomar \(E\subseteq X\) com \(m^{*}(E) < \infty\). Escola \(I_{1}, I_2, \dotsc \), da forma
+	\(I_{i} = (a_{i}, b_{i}], i = 1, 2, \dotsc \), tal que \(E \subseteq \bigcup_{i=1}^{\infty}I_{i}.\) Da definição de ínfimo,
+	\[
+		m^{*}(E) \geq \sum\limits_{i=1}^{\infty}(\alpha (b_{i}) - \alpha (a_{i})) - \varepsilon .
+	\]
+	Como \(E \subseteq \bigcup_{i=1}^{\infty}I_{i},\) temos
+	\[
+		m^{*}(E\cap J) \leq \sum\limits_{i=1}^{\infty}m^{*}(I_{i}\cap J)\quad\&\quad m^{*}(E\cap J ^{\complement}) \leq \sum\limits_{i=1}^{\infty}m^{*}(I_{i}\cap J ^{\complement}).
+	\]
+	Somando, temos
+	\[
+		m^{*}(E\cap J) + m^{*}(E\cap J ^{\complement}) \leq \sum\limits_{k=1}^{\infty}[m^{*}(I_{i}\cap J) + m^{*}(I_{i}\cap J ^{\complement})]
+	\]
+	Como \(J = (c, d],\) temos \(J ^{\complement} = K_1 \cup K_2,\) em que \(K_1 = (-\infty, c]\) e \(K_2 = (d, \infty).\) Além disso, \(I_{i}\cap J, I_{i}\cap K_1\) e \(I_{i}\cap K_2\) são intervalos
+	abertos à esquerda e fechados à direita, eventualmente vazios. Usando que \(\ell (K\cup L) = \ell (K) + \ell (L),\) Temos
+	\begin{align*}
+		m^{*}(I_{i}\cap J) + m^{*}(I_{i}\cap J ^{\complement}) & \leq m^{*}(I_{i}\cap K_1) + m^{*}(I_{i}\cap J) + m^{*}(I_{i}\cap K_2) \\
+		                                                       & = \ell (I_{i}\cap K_1) + \ell (I_{i}\cap J) + \ell(I_{i}\cap K_2)     \\
+		                                                       & \leq \ell (I_{i}) = m^{*}(I_{i}).
+	\end{align*}
+	Assim,
+	\[
+		m^{*}(E\cap J) + m^{*}(E\cap J ^{\complement}) \leq \sum\limits_{i=1}^{\infty}m^{*}(I_{i}) \leq m^{*}(E) + \varepsilon .
+	\]
+	Portanto, como \(\varepsilon \) é arbitrário, a prova está acabada. \qedsymbol
+\end{proof*}
+Valem algumas observações. Primeiramente, para Lebesgue-Stieltjes, denotaremos por apenas \(m\) ao invés de \(m^{*}.\) Quando \(\alpha (x) = x,\) m é medida de Lebesgue, e os conjuntos
+\(m^{*}-\)mensuráveis serão chamados de Lebesgue \(\sigma \)-álgebra, de forma que um conjunto é Lebesgue mensurável se ele é um elementos da \(\sigma \)-álgebra de Lebesgue. Finalmente,
+dada uma medida \(\mu \) sobre \(\mathbb{R}\) tal que \(\mu (K) < \infty\) para K compacto, defina \(\alpha (x) = \mu ((0, x])\) se \(x \geq 0\) e \(\alpha (x) = -\mu ((x, 0])\) se \(x < 0\). Então,
+\(\alpha \) é crescente e contínua à direita. Pode-se provar que essa medida \(\mu \) é medida de Lebesgue-Stieltjes.
+\begin{example}
+	Seja m mediad de Lebesgue. Se \(x\in \mathbb{R}\), então \(\{x\}\) é fechado, logo Borel Mensurável. Além disso,
+	\[
+		m(\{x\}) = \lim_{n\to \infty}m \biggl(\biggl(x - \frac{1}{n}, x\biggr]\biggr) = \lim_{n\to \infty}\biggl(x - x + \frac{1}{n}\biggr) = 0,
+	\]
+	o que implica que
+	\[
+		m([a, b]) = m((a, b])) + m(\{a\}) = b-a + 0 = b-a
+	\]
+	e
+	\[
+		m((a, b)) = m((a, b]) - m(\{b\}) = b-a - 0 = b-a.
+	\]
+	Conclui-se, por este raciocínio, que \(m(A) = 0\) sempre que A é um conjunto enumerável.
+\end{example}
+Apesar de contra-intuitivo, existem conjuntos não enumeráveis com medida de Lebesgue NULA. Um exemplo clássico disso é o \textbf{Conjunto de Cantor}.
+\begin{example}[Conjunto de Cantor]
+	O conjunto de Cantor é construído da seguinte maneira: Sejam
+	\begin{align*}
+		 & F_{0} = [0, 1]                                                                                                                                                                                  \\
+		 & F_{1} = F_{0}\setminus{\biggl(\frac{1}{3}, \frac{2}{3}\biggr)}\quad \text{Removido o terço médio}                                                                                               \\
+		 & F_{2} = F_{1}\setminus{\biggl[\biggl(\frac{1}{3^{2}}, \frac{2}{3^{2}}\biggr)\cup \biggl(\frac{7}{3^{2}}, \frac{8}{3^{2}}\biggr)\biggr]}\quad \text{Removido o terço médio de cada subintervalo} \\
+		 & \vdots
+	\end{align*}
+	Então, o conjunto \(C\equiv \bigcap_{n=0}^{\infty}F_{n}\) é o chamado \textbf{conjunto de Cantor}. Ele é fechado, não-enumerável, ele não contém intervalos e todo ponto deste conjunto é ponto de acumulação.
+	Note que a medida de \(F_{1}\) é
+	\[
+		\mu (F_{1}) = \mu \biggl([0, 1]\setminus{\biggl(\frac{1}{3}, \frac{2}{3}\biggr)}\biggr) = \mu \biggl([0, \frac{1}{3})\cup (\frac{2}{3}, 1]\biggr) = \mu \biggl([0, \frac{1}{3}]\biggr) + \mu \biggl(\frac{2}{3}, 1]\biggr) = 1-\frac{1}{3} = \frac{2}{3}.
+	\]
+	A medida de \(F_{2}\) é \(\frac{2^{2}}{3^{2}},\) a de \(F_{3}\) é \(\frac{2^{3}}{3^{3}}\) e a medida de \(F_{n}\) é, por indução, \(\frac{2^{n}}{3^{n}} = \biggl(\frac{2}{3}\biggr)^{n}.\) Sendo C a interseção de todos eles, segue que
+	\[
+		\mu (C) = \mu \biggl(\lim_{n\to \infty}\bigcap_{i=1}^{n}F_{i}\biggr) = 0.
+	\]
+	Outra forma de construir este conjunto é por meio das \textbf{funções de Cantor}. Vamos definí-las.
+
+	Comece colocando \(f_{0} = \frac{1}{2}\) em \(\biggl(\frac{1}{3}, \frac{2}{3}\biggr)\). Continuamos definindo como \(f_{0} = \frac{1}{2^{3}}\) em \(\biggl(\frac{1}{3^{2}}, \frac{2}{3^{2}}\biggr)\), \(f_{0}=\frac{3}{2^{2}}\) em \(\biggl(\frac{7}{3^{2}}, \frac{8}{3^{2}}\biggr),\)
+	\(f_{0} = \frac{1}{2^{3}}\) em \(\biggl(\frac{1}{3^{3}}, \frac{2}{3^{3}}\biggr)\), \(f_{0} = \frac{3}{2^{3}}\) em \(\biggl(\frac{7}{3^{3}}, \frac{8}{3^{3}}\biggr)\), \(f_{0} = \frac{5}{2^{3}}\) em \(\biggl(\frac{19}{3^{2}}, \frac{20}{3^{3}}\biggr),\) \(f_{0} = \frac{7}{2^{3}}\)
+	em \(\biggl(\frac{25}{3^{3}}, \frac{26}{3^{3}}\biggr), \dotsc \) e constante nos intervalos omitidos.
+
+	Agora, defina
+	\[
+		f(x) = \inf_{}\{f_{0}(y): y \geq x, y\not\in C\},\quad x < 1.
+	\]
+	Esta f é crescente, \(f = f_{0}\) nos intervalos omitidos, \(f(1) = 1\) e f tem saltos pelo menos fora de C. Vemos que f é crescente no conjunto de Cantor C, que tem medida nula e
+	constante fora de \(C(f_{0})\), tal que f é contínua, onde definimos f nos pontos de \(x\in C\) como senod o limite dos valores laterais \(f(y)\) quando \(y\in C ^{\complement},y\to x\). De fato,
+	se \(f(x^{-}) < f(x^{+})\) denotam os limites laterais em x, então existe um racional \(\frac{k}{2^{n}}, k \leq 2^{n}\) que não está na imagem de f, mas, por construção, cada valor da forma \(\biggl\{\frac{k}{2^{n}}: k \leq 2^{n}\biggr\}\) é
+	assumido por \(f_{0}\), provando a continuidade de f.
+\end{example}
+\begin{example}[Conjunto de Cantor Generalizado]
+	Esse conjunto tem a propriedade de ter medida \(\frac{1}{2}.\) Ao invés de retirar um terço médio, retira-se um quarto médio. No primeiro passo, é retirado um intervalo de tamanho \(\frac{1}{4}\), no segundo dois de \(\frac{1}{4^{2}}\) de tamanho, no
+	terceiro passo retira-se quatro de tamanho \(\frac{1}{4^{3}},\) etc. Tal que o comprimento total dos intervalos será
+	\[
+		\sum\limits_{n=1}^{\infty}\frac{2^{n-1}}{4^{n}} = \frac{1}{2}
+	\]
+\end{example}
+\begin{example}
+	Sejam \(q_1, q_2, \dotsc \) enumeração dos racionais e \(\varepsilon > 0\) dado. Coloque \(I_{i} = \biggl(q_{i} - \frac{\varepsilon }{2^{i}}, q_{i} + \frac{\varepsilon }{2^{i}}\biggr)\), tal que \(|I_{i}| = \frac{\varepsilon }{2^{i-1}}.\)
+	A medida de \(\bigcup_{i}^{}I_{i}\) é no máximo \(2\varepsilon\). Assim, \(A = [0, 1]\setminus{\bigcup_{i}^{}I_{i}}\) é maior que \(1 - 2\varepsilon \) e não contém racionais.
+\end{example}
+\begin{prop*}
+	Suponha \(A\subseteq [0, 1]\) e que A é Lebesgue-mensurável. Seja m a medida de Lebesgue.
+	\begin{itemize}
+		\item[1)] Dado \(\varepsilon > 0\), existe um aberto G tal que \(m(G\setminus{A}) < \varepsilon \) e \(A\subseteq G\);
+		\item[2)] Dado \(\varepsilon > 0\), existe um fechado F tal que \(m(A\setminus{F}) < \varepsilon \) e \(A\subseteq G\);
+		\item[3)] Existe um conjunto \(H \supseteq A\) que é uma interseção enumerável de uma sequência de abertos decrescentes e \(m(H\setminus{A}) = 0\). Denotamos eles por \(G_\delta \);
+		\item[4)] Existe um conjunto \(F\subseteq A\) que é união enumerável de uma sequência crescente de fechados e \(m(A\setminus{F}) = 0\). Denotamos por \(F_{\sigma }\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	A 1 segue da deifnição de m. Existe \(E = \bigcup_{j=1}^{\infty}(a_{j}, b_{j}]\) tal que \(A\subseteq E\) e \(m(E\setminus{A}) < \frac{\varepsilon }{2},\) em que usamos que \(m(E) = m(E\setminus{A}) + m(A),\) sendo m(A) o ínifmo de m(E),
+	\(m(A)\sim m(E).\) Seja \(G = \bigcup_{j=1}^{\infty}(a_{j}, b_{j}+\varepsilon 2^{-j-1}.\) Então, G é aberto e contém A, e
+	\[
+		m(G\setminus{A}) < \sum\limits_{j=1}^{\infty}\varepsilon 2^{-j-1} = \frac{\varepsilon }{2}.
+	\]
+	Portanto,
+	\[
+		m(G\setminus{A})\leq m(G\setminus{E}) + m(E\setminus{A}) < \varepsilon .
+	\]
+
+	A 2 segue, usando a primeira parte, tomando G aperto tal que \(m(G\setminus{A}^{\prime}) < \varepsilon \) e \(A\prime \subseteq G\), em que \(A\prime = [0, 1]\setminus{A}.\) Seja \(F = [0, 1]\setminus{G}\), tal que F é fechado, \(F\subseteq A\)
+	e
+	\[
+		m(A\setminus{F}) \leq m(G\setminus{A}^{\prime}) < \varepsilon .
+	\]
+	Aqui, foi usado que \(A\setminus{F})\subseteq (G\setminus{A}^{\prime})\).
+
+	Quanto aos itens 3 e 4, usando a primeira parte, tome um aberto \(G_{i}\) par acada i tal que \(m(G_{i}\setminus{A}) < 2^{-i}\) e \(A\subseteq G_{i}\). Então, \(H_{i} = \bigcap_{j=1}^{i}G_{j}\supseteq A\), é aberto, é contido em \(G_{i}\) e
+	\[
+		m(H_{i}\setminus{A}) < 2^{-i}.
+	\]
+	Tome \(H = \bigcap_{i=1}^{\infty}H_{i},\) sendo H não necessariamente aberto, mas interseção enumerável deles. O conjunto H é um conjunto de Borel que contém A e que satisfaz
+	\[
+		m(H\setminus{A}) \leq m(H_{i}\setminus{A}) < 2^{-i}
+	\]
+	para cada i e, portanto,
+	\[
+		m(H\setminus{A}) = 0.
+	\]
+	Isto basta para o item 3. Finalmente, se \(A^{\prime} = [0, 1]\setminus{A}\), aplique 3 para \(A^{\prime}\) para obter H contendo \(A^{\prime}\), que é a interseção enumerável de sequências decrescentes de abertos tais que
+	\(m(H\setminus{A^{\prime}}) = 0.\) Seja \(J = [0, 1]\setminus{H}\) fechado tal que \(J = [0, 1]\cap H ^{\complement} = \cup ([0,1]\cap H_{i}^{\complement}) \subseteq A\). Então,
+	\[
+		m(A\setminus{J}) \leq m(H\setminus{A^{\prime}}),
+	\]
+	pois \(A\setminus{J} \subseteq H\setminus{A^{\prime}.}\) Portanto, tomando \(J = F\) finaliza a prova. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Seja \(\mu \) uma medida de Lebesgue-Stieltjes sobre a reta \(\mathbb{R}\). Então, as conclusões das propsições anteriores valem para \(\mu \) no lugar de m.
+\end{crl*}
+\begin{proof*}
+	Sejam A e \(E = \bigcup_{j}^{}(a_{j}, b_{j}]\) escolhidos na prova do primeiro item, com m trocado por \(\mu \). Podemos escolher \(c_{j} > b_{j}\) tal que
+	\[
+		\mu ((a_{j}, c_{j})) \leq \mu ((a_{j}, b_{j}]) + \varepsilon 2^{-j-1}.
+	\]
+	Tome \(G = \bigcup_{j=1}^{\infty}(a_{j}, c_{j})\) e, da construção, \(E\subseteq G\), além de que
+	\[
+		\mu (G\setminus{E}) \leq \sum\limits_{j=1}^{\infty}(\mu ((a_{j}, c_{j})) - \mu ((a_{j}, b_{j}]) \leq \sum\limits_{j=1}^{\infty}\varepsilon 2^{-j-1} = \frac{\varepsilon }{2}.
+	\]
+	Como na prova do item 1, temos \(A\subseteq E\) e \(\mu (E\setminus{A}) < \frac{\varepsilon }{2}\) e, da inclusão, \((G\setminus{A})\subseteq (G\setminus{E})\cup (E\setminus{A}),\) donde segue que
+	\[
+		\mu (G\setminus{A}) < \frac{\varepsilon }{2}.
+	\]
+	Por fim, basta proceder como na prova da proposição. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja \(m^{*}\) definida por
+	\[
+		\mu ^{*}(E) = \inf_{}\biggl\{\sum\limits_{i=1}^{\infty}\ell (A_{i}): A_{i}\in \mathcal{C}, E \subseteq \bigcup_{i=1}^{\infty}A_{i}\biggr\},
+	\]
+	em que \(\mathcal{C}\) é a coleção de intervalos da forma (a, b] e \(\ell ((a, b]) = b-a\). Então, \(m^{*}\) não é uma medida sobre a coleção dos subconjuntos de \(\mathbb{R}.\)
+\end{theorem*}
+\begin{proof*}
+	Suponha que \(m^{*}\) seja medida e defina a relação
+	\[
+		x\sim y \text{ se } x-y\in \mathbb{Q}.
+	\]
+	Então, \(\sim\) é relação de equivalência em [0, 1]. Para cada classe de equivalência, escolha um representante chamado A. Mostraremos que A não é \(m^{*}\)-mensurável.
+
+	Dado B, defina
+	\[
+		B + x = \{y + x: y\in B\}.
+	\]
+	Note que
+	\[
+		\ell ((a+q, b+q)) = b-a = \ell ((a, b]),\quad \forall a, b, q.
+	\]
+	Da definição de \(m^{*}\),
+	\[
+		m^{*}(A + q) = m^{*}(A),\quad \forall A, q.
+	\]
+	Note que os conjuntos A + q são disjuntos para diferentes racionais q. De fato, se \(x = a + q = a'+ q',\) então \(a, a'\in A,\) ou seja, \(a - a'= q'-q\in \mathbb{Q}, \) o que significa que
+	\(a \sim a'\) e \(q = q'\). Agora,
+	\[
+		[0, 1]\subseteq \bigcup_{q\in \mathbb{Q}\cap [-1, 1]}^{}(A+q),
+	\]
+	pois dado \(x\in [0,1]\) com x equivalente a a, então \(x-a = q\in \mathbb{Q}\). Da inclusão, temos
+	\[
+		1 \leq \sum\limits_{q\in [-1, 1]\cap \mathbb{Q}}^{}m^{*}(A+q),
+	\]
+	tal que \(m^{*}(A) = m^{*}(A+q) > 0\), mas
+	\[
+		\bigcup_{q\in [-1, 1]\cap \mathbb{Q}}^{}(A+q)\subseteq [-1, 2] \Rightarrow 3 \geq \sum\limits_{q\in [-1, 1]\cap \mathbb{Q}}^{}m^{*}(A+q),
+	\]
+	do que segue que
+	\[
+		m^{*}(A) = 0
+	\]
+	pois a série converge. Absurdo. \qedsymbol
+\end{proof*}
+\subsection{Teorema de Extensão de Caratheodory}
+Essa ferramente abstrata permite a construção de novas medidas. Seja \(\mathcal{A}_{0}\) uma álgebra (não necessariamente \(\sigma \)-álgebra). Seja \(\ell \) uma medida sobre \(\mathcal{A}_{0}\), chamada de \textbf{pré-medida}, satisfazendo
+quase todas as propriedades de medida:
+\begin{itemize}
+	\item[1)]\(\ell (\emptyset ) = 0\)
+	\item[2)] Se \(A_1, A_2, \dotsc \) são elementos de \(\mathcal{A}_{0}\) dois-a-dois disjuntos e \(\bigcup_{i}^{}A_{i}\in \mathcal{A}_{0}\), então
+	      \[
+		      \ell (\bigcup_{i=1}^{\infty}A_{i}) =\sum\limits_{i=1}^{\infty}\ell (A_{i}).
+	      \]
+\end{itemize}
+Denotamos por \(\sigma (\mathcal{A}_{0})\) a \(\sigma \)-álgebra gerada por \(\mathcal{A}_{0}.\)
+\begin{theorem*}
+	Suponha \(\mathcal{A}_{0}\) uma álgebra e \(\ell :\mathcal{A}_{0}\rightarrow [0, \infty]\) é uma medida sobre \(\mathcal{A}_{0}\), defina
+	\[
+		\mu ^{*}(E) = \inf_{}\biggl\{\sum\limits_{i=1}^{\infty}\ell (A_{i}): A_{i}\in \mathcal{A}_{0}, E\subseteq \bigcup_{i=1}^{\infty}A_{i}\biggr\}, \quad E\subseteq X,
+	\]
+	então
+	\begin{itemize}
+		\item[i)] \(m^{*}\) é medida exterior
+		\item[ii)] \(\mu ^{*}(A) = \ell (A)\) se \(A\in \mathcal{A}_{0}\)
+		\item[iii)] Para todo conjunto em \(\mathcal{A}_{0}\) e todo conjunto de \(\mu^{*}\)-medida não nula, eles são mensuráveis.
+		\item[iv)] Se \(\ell \) é \(\sigma \)-finita, então existe uma única extensão a \(\sigma (\mathcal{A}_{0}).\)
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	O item (1) já foi feito. Para o 2, suponha que \(E\in \mathcal{A}_{0}\). Tomando \(A_1 = E, A_2 = A_3 = \dotsc = \emptyset \), da definição de \(\mu ^{*}\) segue que
+	\[
+		\mu ^{*}(E) \leq \ell (E).
+	\]
+	Se \(E\subseteq \bigcup_{i=1}^{\infty}A_{i},\) com \(A_{i}\in \mathcal{A}_{0}\), seja
+	\[
+		B_{n} = E\cap (A_{n}\setminus{(\bigcup_{i=1}^{\infty}A_{i}})).
+	\]
+	Como \(B_{n} = E\cap (A_{n}\cap (\bigcup_{j=1}^{i=1}A_{j})^{\complement})\), segue que \(B_{n}\in \mathcal{A}_{0}\) e são dois a dois disjuntos. Além disso, \(E = \bigcup_{i=1}^{\infty}B_{i}.\) Logo,
+	como \(B_{n}\subseteq A_{n}\), temos
+	\[
+		\ell (E) = \sum\limits_{i=1}^{\infty}\ell (B_{i}) \leq \sum\limits_{i=1}^{\infty}\ell (A_{i}).
+	\]
+	Tomando o ínfimo sobre toda sequência \(A_1, A_2, \dotsc \), obtemos
+	\[
+		\ell (E) \leq \mu ^{*}(E).
+	\]
+
+	Quanto ao item 3, suponha \(A\in \mathcal{A}_{0}\) e sejam \(\varepsilon > 0\), \(E\subseteq X\). Tome \(B_1, B_2, \dotsc \in \mathcal{A}_{0}\) tal que \(E\subseteq \bigcup_{i=1}^{\infty}B_{i}\) e \(\sum\limits_{i}^{}\ell (B_{i}) \leq \mu ^{*}(E) + \varepsilon .\) Então,
+	\begin{align*}
+		\mu ^{*}(E) \geq \sum\limits_{i}^{}\ell (B_{i}) & = \sum\limits_{i}^{}\ell (B_{i}\cap A) + \sum\limits_{i}^{}\ell (B_{i}\cap A ^{\complement}) \\
+		                                                & \geq \mu ^{*}(E\cap A) + \mu ^{*}(E\cap A ^{\complement}).
+	\end{align*}
+	Sendo \(\varepsilon \) arbitrário, temos
+	\[
+		\mu^{*}(E) \geq \mu ^{*}(E\cap A) + \mu ^{*}(E\cap A ^{\complement}).
+	\]
+	Assim, \(A\) é \(\mu ^{*}\)-mensurável. Agora, da definição, \(A\subseteq B\) implica que \(\mu ^{*}(A) \leq \mu ^{*}(B)\) e, se \(\mu ^{*}(A) = 0\) com \(E\subseteq X\),
+	temos
+	\[
+		0 \leq \mu ^{*}(E) \leq \mu ^{*}(E\cap A) + \mu ^{*}(E\cap A ^{\complement}) = \mu ^{*}(E\cap A) \leq \mu ^{*}(A) = 0,
+	\]
+	ou seja, vale a igualdade e \(A\) é \(\mu ^{*}\)-mensurável.
+
+	Finalmente, quanto ao item 4, suponha que existam duas extensões \(\mu ^{*}\) e \(\nu \) para \(\sigma (\mathcal{A}_{0}),\) a menor \(\sigma \)-álgebra contendo \(\mathcal{A}_{0}.\) Suponha que
+	\(\mu ^{*}\) é medida finita. Pela definição dela, podemos supor que \(\ell \) é finita, de forma que o conjunto \(\mu ^{*}\)-mensuráveis formam uma \(\sigma \)-álgebra contendo \(\mathcal{A}_{0},\) pois, se \(E \in \sigma (\mathcal{A}_{0}),\) então E deve ser \(\mu ^{*}\)-mensurável.
+	Como \(\ell \) é finita, podemos definir
+	\[
+		\mu ^{*}(E) = \inf_{}\biggl\{\sum\limits_{i=1}^{\infty}\ell (A_{i}), A_{i}\in \mathcal{A}_{0}, E\subseteq \bigcup_{i=1}^{\infty}A_{i}\biggr\}.
+	\]
+	Pelo item 2, \(\ell = \nu\) sobre \(\mathcal{A}_{0}\), de forma que
+	\[
+		\sum\limits_{i}^{}\ell (A_{i}) = \sum\limits_{i}^{}\nu(A_{i}).
+	\]
+	Logo, se \(E\subseteq \bigcup_{i=1}^{\infty}A_{i}\), \(A_{i}\in \mathcal{A}_{0}\), tal que
+	\[
+		\nu(E) \leq \sum\limits_{i}^{}\nu(A_{i}) = \sum\limits_{i}^{}\ell (A_{i}),
+	\]
+	resultando em
+	\[
+		\nu(E) \leq \mu ^{*}(E).
+	\]
+	Para provar a desigualdade reversa, seja \(\varepsilon > 0\) e escolha \(A_{i}\in \mathcal{A}_{0}\) tal que
+	\[
+		\mu ^{*}(E) + \varepsilon  \geq \sum\limits_{i}^{}\ell (A_{i})\text{ e } E\subseteq \bigcup_{i}^{}A_{i}.
+	\]
+	Seja \(A = \bigcup_{i=1}^{\infty}A_{i}\) e \(B_{k} = \bigcup_{i=1}^{k}A_{i}.\) Observe que
+	\[
+		\mu ^{*}(E) + \varepsilon  \geq \sum\limits_{i}^{}\ell (A_{i}) = \sum\limits_{i}^{}\mu ^{*}(A_{i}) \geq \mu ^{*}(\bigcup_{i}^{}A_{i}) = \mu ^{*}(A).
+	\]
+	Consequentemente, \(\mu ^{*}(A\setminus{E}) < \varepsilon ,\) pois \(A = (A\setminus{E})\cup E\). Agora, a partir do segundo item do teorema, temos
+	\[
+		\mu ^{*}(A) = \lim_{k\to \infty}\mu ^{*}(B_{k}) = \lim_{k\to \infty}\nu^{*}(B_{k}) = \eta (A).
+	\]
+	Como \(E\subseteq A\),
+	\begin{align*}
+		\mu ^{*}(E) \leq \mu ^{*}(A) = \nu(A) & =\nu(E) + \nu(A\setminus{E})          \\
+		                                      & \leq \nu(E) + \mu ^{*}(A\setminus{E}) \\
+		                                      & \leq \nu(E) + \varepsilon .
+	\end{align*}
+	Como \(\varepsilon \) é arbitrário, a prova está completa. Resta o caso em que \(\ell \) é \(\sigma \)-finita. Escreva \(X = \bigcup_{i}^{}K_{i}, \) em que \(K_{i}\uparrow X\) e
+	\(\ell (K_{i}) < \infty\)  para todo i. No passo anterior, temos unicidade para a medida restrita a \(\ell_{i} = \ell (A\cap K_{i}). \) Se \(\mu \) e \(\nu\) são duas extensões de \(\ell \) e \(A\in \sigma (\mathcal{A}_{0}),\) então
+	\[
+		\mu (A) = \lim_{i\to \infty}\mu (A\cap K_{i}) = \lim_{i\to \infty}\ell_{i}(A) = \lim_{i\to \infty}\nu(A\cap K_{i}) = \nu(A).
+	\]
+	Portanto, \(\mu = \nu.\) \qedsymbol
+\end{proof*}
+\end{document}

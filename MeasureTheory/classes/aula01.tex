@@ -1,0 +1,294 @@
+\documentclass[MeasureTheory/measure_theory.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 08/01/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Noções Iniciais e Notação;
+	\item Álgebras e \(\sigma \)-álgebras;
+	\item Álgebra de Borel.
+\end{itemize}
+\subsection{Notações}
+\begin{itemize}
+	\item \(A ^{\complement} = \{x\in X: x\not\in A\}\)
+	\item \(A\backslash B = A\cap B ^{\complement}\)
+	\item \(A\triangle B = (A\setminus{B})\cup (B\setminus{A})\)
+	\item \(A_{i}\uparrow \) se \(A_{1}\subseteq A_{2}\subseteq \dotsc \)
+	\item \(A_{i}\uparrow A\) se \(A_{1}\subseteq A_{2}\subseteq \dotsc \) e \(\bigcup_{i\geq 1}^{}A_{i} = A\)
+	\item \(A_{i} \downarrow \) se \(A_{1}\supseteq A_{2}\supseteq \dotsc \)
+	\item \(A_{i} \downarrow A\) se \(A_{1}\supseteq A_{2}\supseteq \dotsc \) e \(\bigcap_{i\geq 1}^{}A_{i} = A\)
+	\item \(x\vee y = \max(x, y)\) e \(x\wedge y = \min(x, y), x^{\pm} = (\pm x)\vee 0\)
+	\item \(f(x^{\pm}) = \lim_{y\to x^{\pm}}f(y)\)
+	\item \(\limsup_{y\to x}f(y) = \inf_{\delta > 0}\sup_{|x-y|<\delta }f(y)\)
+\end{itemize}
+
+Suponha que X é um espaço métrico, \(r > 0\) e \(A\subseteq X\)
+\begin{itemize}
+	\item \(B(x, r) = \{y\in X: d(x, y) < r\}\)
+	\item \(A^{\mathrm{o}} = \{x\in X: \exists r_{x} > 0: B(x, r_{x})\subseteq A\}\)
+	\item \(\overline{a} = \{x\in X: B(x, r)\cap X \neq\emptyset\}\)
+	\item  \(A = A ^{\mathrm{o}}\) aberto e \(A = \overline{A} \) fechado
+	\item \(f:X\rightarrow \mathbb{R},\quad \mathrm{supp}(f)\coloneqq \overline{\{x: f(x)\neq 0\}}\)
+\end{itemize}
+\subsection{Compactos, Normas e Propriedades}
+\begin{def*}
+	Um espaço normado é um par \((X, \Vert \cdot  \Vert)\) tal que existe uma aplicação \(x \mapsto \Vert x \Vert\) tal que
+	\begin{itemize}
+		\item[i)] \(\Vert x \Vert > 0,\quad \Vert x \Vert = 0 \Longleftrightarrow x = 0\)
+		\item[ii)] \(\Vert cx \Vert = |c|\Vert x \Vert, \quad c\in \mathfrak{F} = \{\mathbb{R}, \mathbb{C}\}, x\in X\)
+		\item[iii)] \(\Vert x + y \Vert \leq \Vert x \Vert + \Vert y \Vert,\quad \forall x, y\in X.\quad \square\)
+	\end{itemize}
+\end{def*}
+Todo espaço normado é métrico por meio de \(d(x, y) = \Vert x - y \Vert\).
+
+A ordem em \(X = \mathcal{P}(A) = \{B\subseteq A\}\) (partes de A) é dada por
+\[
+	B\leq C,\quad \text{se } B, C\in X \quad\&\quad B\subseteq C.
+\]
+\begin{prop*}
+	Se K é compacto, \(F\subseteq K\) e F é fechado, então F é compacto.
+\end{prop*}
+\begin{proof*}
+	Seja \(F\subseteq \bigcup_{i=1}^{\infty}G_{i}.\) Então, \(F ^{\complement}\) é aberto e \(\bigcup_{i=1}^{n}G_{i}\cup F ^{\complement}\) é cobertura de K.
+	Assim, existem \(F ^{\complement}, G_{1}, G_{2}, \dotsc , G_{n}\in \{G_{\alpha }\}_{\alpha \in I}\) que formam uma subcobertura finita de F. Note que \(F ^{\complement}\) pode ser
+	descartado, pois é uma cobertura trivial de \(F ^{\complement}\). Portanto, \(G_{1}, \dotsc , G_{n}\) é uma cobertura finita por abertos de F. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Se K é compacto e f é contínua em K, então existem \(x_{1}, x_{2}\in K\) tais que
+	\[
+		f(x_{1}) = \inf_{x\in K}f(x)\quad\&\quad f(x_{2}) = \sup_{x\in K}f(x).
+	\]
+\end{prop*}
+\begin{proof*}
+	Seja \(M = \sup_{x\in K}f(x)\) e suponha que \(f(x) < M\) para todo x em K. Para \(y\in K\), seja
+	\[
+		L_{y} = \frac{f(y) + M}{2}
+	\]
+	e seja
+	\[
+		\varepsilon_y = \frac{(M-f(y))}{2}.
+	\]
+	Pela continuidade da f, para \(\varepsilon_y\), existe \(\delta _y\) tal que \(|f(y) - f(z)| < \varepsilon_{y}\) se \(d(y, z)< \delta_y.\)
+	Logo, \(G_{y} = B(y, \delta_y)\) é uma bola aberta contendo y, sendo f limitada superiormente por \(L_y\).
+
+	Desta forma, \(\{G_y\}\) é uma cobertura por abertos de K. Seja, agora, \(\{G_{y_{i}}, i = 1, 2, \dotsc , n\}\) cobertura finita de K e \(L = \max\{L_{y_1}, \dotsc , L_{y_{n}}\}\),
+	tal que \(L < M\). Caso \(x\in K\), então \(x\in G_{y_{i}}\) para algum \(y_{i}\) e, portanto, \(f(x) \leq L_{y_{i}} \leq L.\) Assim, L é limitante superior de \(\{f(x):x \in K\}\), uma
+	contradição com a definição de M. Portanto, \(f(x) < M\) para todo x em K não pode valer. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Se \(K\subseteq \mathbb{R}\) é fechado e K está contido no intervalo finito, então K é compacto
+\end{prop*}
+\begin{proof*}
+	Basta provar que se \(K\subseteq [a, b]\) e \([a, b]\) é compacto, uma aplicação da última proposição garante o resultado.
+	Para provar a compacidade de [a, b], é preciso usar o axioma enunciado abaixo. \qedsymbol
+\end{proof*}
+
+\underline{\textbf{Axioma}}: Se \(A\subseteq \mathbb{R}\) é limitado superiormente, então o supremo \(\sup_{x\in A}\) existe.
+
+\begin{prop*}
+	Suponha \(I_{1}\supseteq I_{2}\supseteq \dotsc \) são intervalos limitados, \(I_{i}\subseteq \mathbb{R}\) para todo j. Então,
+	\[
+		\bigcap_{i\geq 1}^{}I_{i}\neq\emptyset.
+	\]
+\end{prop*}
+\begin{proof*}
+	Escreva \(I_{i} = [a_{i}, b_{i}]\). Como \(I_{1}\supseteq I_{2}\supseteq \dotsc \), temos
+	\[
+		a_{1} \leq a_{2} \leq \dotsc \quad\&\quad b_{1} \geq b_{2} \geq  \dotsc .
+	\]
+	Como \(I_{i}\subseteq I_{1}\) para todo \(i \geq 1\), segue que \(a_{i} \leq b_{1}\) para todo \(i\geq 1,\) donde segue que \(A = \{a_{i}\}\subseteq \mathbb{R}\) é limitada superiormente.
+	Pelo axioma, \(x = \sup_{i\geq 1}A\) existe. Suponha que \(x > b_{i_{0}}\) para algum \(i_{0}\). Para cada \(i \geq i_{0},\) temos \(a_{i}\leq b_{i} \leq b_{i_{0}}\) e, para
+	\(i < i_{0}\), também temos \(a_{i}\leq a_{i_{0}}\leq b_{i_{0}}\). Logo, \(b_{i_{0}}\) é uma cota superior para A. Uma contradição, pois \(x\) é o supremo. Portanto,
+	\(x\leq b_{i}\) para todo i e, sendo x o supremo de A, temos \(x \geq a_{i}\) para todo i, o que significa que \(x\in [a_{i}, b_{i}]\), finalizando a prova, já que \(x\in \bigcap_{i\geq 1}^{}I_{i}.\) \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Se \(-\infty< a < b < \infty,\) então \([a, b]\) é um conjunto compacto.
+\end{prop*}
+\begin{proof*}
+	Seja \(I_{1} = [a, b]\) , defina \(a_{1} = a \) e \(b_{1} = b\). Seja \(\mathcal{G} = \{G_{\alpha }\}\) uma cobertura por abertos de \(I_{1}\) e suponha
+	que \(\mathcal{G}\) não admita uma subcobertura finita. Divida o intervalo \(I_{1}\) em \(I_{1} = [a_{1}, c_{1}]\cup [c_{1}, b_{1}]\), sendo \(c_{1} = \frac{a_{1}+b_{1}}{2}\). Pelo menos
+	um dos subintervalos não possui subcobertura finita, digamos que \(I_{2} = [a_{2}, b_{2}]\), sendo \(a_{2} = a_{1}\) e \(b_{2} = c_{1}.\) Divida o intervalo \(I_{2}\) em \(I_{2} = [a_{2}, c_{2}]\cup [c_{2}, b_{2}]\), sendo
+	\(c_{2}\) o ponto médio do intervalo. Pelo menos um dos subintervalos não possui uma cobertura finita, digamos \(I_{2} = [a_{3}, b_{3}],\) em que \(a_{3} = a_{2}\) e \(b_{3} = c_{2}.\)
+
+	Continuando, obtemos intervalos
+	\[
+		I_{1}\supseteq I_{2}\supseteq \dotsc ,\quad I_{j} = [a_{j}, b_{j}], |I_{j}| = 2^{-(j-1)}(b-a).
+	\]
+	Existe apenas um ponto \(x\in \bigcap_{i\geq 1}^{}I_{i}\). Agora, \(x\in I_{1}\) e \(\mathcal{G}\) é uma cobertura para \(I_{1}.\) Existe um aberto \(G_{\alpha_{0}}\in \mathcal{G}\) tal que
+	\(x\in G_{\alpha_{0}}.\) Sendo \(G_{\alpha_{0}}\) aberto, existe n tal que \(x - 2^{-(n-1)}(b-a), x+2^{-(n-1)}(b-a))\subseteq G_{\alpha_{0}}.\) Mas, \(x\in I_{n}\) para todo n e o comprimento
+	é \(|I_{n}| = 2^{-(n-1)}(b-a)\), o que implica que \(I_{n}\subseteq G_{\alpha_{0}}\). Mas, então, a cobertura com um único conjunto \(\{G_{\alpha_{0}}\} \) é uma cobertura finita de \(\mathcal{G}\) cobrindo
+	\(I_{n},\) um absurdo. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Suponha que \(G\subseteq \mathbb{R}\) é um aberto. Então, G pode ser escrito como uma união enumerável de intervalos abertos disjuntos.
+\end{prop*}
+\begin{proof*}
+	Seja \(G\subseteq \mathbb{R}\) um aberto. Para cada \(x\in G\), defina
+	\[
+		A_{x} = \inf_{}\{a: \exists b\mid x\in (a, b)\subseteq G\}
+	\]
+	e
+	\[
+		B_{x} = \sup_{}\{d: \exists c\mid x\in (c, d)\subseteq G\}.
+	\]
+	Seja \(I_{x} = (A_{x}, B_{x}).\) Provaremos que \(x\in I_{x}\subseteq G\). Se \(y\in I_{x},\) então
+	\begin{itemize}
+		\item \(y > A_{x} \Rightarrow \) existem a, b tais que \(A_{x} < a < y\) e \(x\in (a, b)\subseteq G\)
+		\item \(y < B_{x} \Rightarrow \) existem \(c, d\) tais que \(y < d < B_{x}\) e \(x\in (c, d)\subseteq G\).
+	\end{itemize}
+	Consequentemente, \(x\in (a, b)\cup (c, d) = (a\wedge b, c\vee d)\equiv J.\) Note que \(J\subseteq G\) e é um aberto. Além disso, ambos x, y são maiores
+	do que \(a > A_{x}\) e menores do que \(d < B_{x}\), donde segue que \(x\in I_{x}\) e \(y\in J\subseteq G\). Logo, \(I_{x}\subseteq G.\)
+
+	Provaremos, agora, que se \(x\neq y,\) então \(I_{x}\cap I_{y} = \emptyset \) ou \(I_{x} = I_{y}.\) Assuma que \(I_{x}\cap I_{y}\neq\emptyset.\) Então,
+	\(H = I_{x}\cup I_{y}\) é um intervalo aberto, \(H \subseteq G\) e \(H = (A_{x}\wedge A_{y}, B_{x}\vee B_{y}).\) Agora, se \(x\in I_{x}\subseteq J = H \subseteq G,\) segue da definição que
+	\[
+		A_{x} \leq A_{x}\wedge A_{y} \Rightarrow A_{x} \leq A_{y}
+	\]
+	e, analogamente,
+	\[
+		B_{x} \geq B_{x}\vee B_{y}\Rightarrow B_{x}\geq B_{y}.
+	\]
+	Então, \(I_{y}\subseteq I_x\). Trocando x por y, prova-se que \(I_x \subseteq I_y,\) ou seja, \(I_{x} = I_{y}\).
+
+	Disto, concluímos que, para \(I_{x}\) abertos dois-a-dois disjuntos, \(G = \cup_{x\in G}I_{x}.\) Finalmente, para \(x\in G\), escolha \(r_{x}\in \mathbb{Q}\) tal que \(r_{x}\in I_x\). Então,
+	se \(x\neq y\), temos \(r_{x}\neq r_y,\) pois \(I_{x}\cap I_{y} = \emptyset \), ou seja,
+	\begin{align*}
+		\varphi : & G = \bigcup_{x\in G}^{}I_{x}\rightarrow \mathbb{Q} \\
+		          & x \mapsto r_{x}
+	\end{align*}
+	é injetora. Portanto, G é enumerável, pois \(\mathbb{Q}\) é enumerável. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja \(f:\mathbb{R}\rightarrow \mathbb{R}\) uma função crescente. Então, ambos \(\lim_{y\to x^{\pm}}f(y)\) existem para todo x. Além disso, o conjunto
+	\[
+		\{x\in \mathbb{R}: f \text{ não é contínua no ponto x}\}
+	\]
+	é enumerável.
+\end{prop*}
+\begin{proof*}
+	Suponha que f seja crescente e fixe \(x_{0}\in \mathbb{R}.\) Defina
+	\[
+		A = \{f(x): x < x_{0}\},
+	\]
+	de modo que A é limitado superiormente por \(f(x_{0})\). Seja \(M = \sup_{x\in A}f(x).\) Então, dado \(\varepsilon > 0, M - \varepsilon \) não é supremo, ou seja,
+	existe \(x_{1} < x_{0}\) tal que \(f(x_{1}) > M - \varepsilon .\) Seja \(\delta  = x_{0} - x_{1}.\) Caso x seja tal que \(x_{0} - \delta < x < x_{0},\) então \(f(x) \leq M\), pois
+	M é supremo. Por outro lado, \(f(x) > M - \varepsilon \), visto que \(f(x) \geq f(x_{1}) > M - \varepsilon .\) Assim, para todo \(\varepsilon > 0\) e para todo \(x\in (x_{0}-\delta , x_{0}),\) temos
+	\[
+		M - \varepsilon \leq f(x) \leq M,
+	\]
+	ou seja, \(\lim_{x\to x_{0}^{-}}f(x)\) existe.
+	Agora, se B é limitado inferiormente, então \(A = \{-x: x\in B\}\) é limitado superiormente e, se \(M = \sup_{}A,\) então \(-M = \inf_{}B.\) Procedendo como antes, chegamos na conclusão
+	que \(\lim_{x\to x_{0}^{+}}f(x)\) existe.
+
+	Finalmente, para cada x tal que \(f(x^{-}) < f(x^{+}),\) existe \(r_{x}\in \mathbb{Q}\) tal que \(r_{x}\in (f(x^{-}), f(x^{+}))\equiv I_{x}.\) Sendo f crescente, se \(x < y\), temos
+	\(I_{x}\cap I_{y} = \emptyset.\) Denote por D o conjunto dos pontos de descontinuidade de f. Com isso,
+	\begin{align*}
+		\varphi : & D\rightarrow \mathbb{Q} \\
+		          & x \mapsto r_{x}
+	\end{align*}
+	é injetora. Portanto, D é enumerável. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja X espaço métrico compacto, \(\mathcal{A}\) uma coleção de \(f:X\rightarrow \mathbb{C}\) contínuas satisfazendo
+	\begin{itemize}
+		\item[i)] Se \(f, g\in \mathcal{A}\), então \(f + g, fg, cf\in \mathcal{A}\)
+		\item[ii)] Se \(f\in \mathcal{A}\), então \(\overline{f}\in \mathcal{A}\)
+		\item[iii)] Se x pertence a X, existe \(f\in \mathcal{A}\) tal que \(f(x)\neq 0\)
+		\item[iv)] Se \(x, y\in X\), então existe \(f\in \mathcal{A}\) tal que \(f(x)\neq f(y)\)
+	\end{itemize}
+	Então, \(\overline{\mathcal{A}}\) é uma coleção de funções contínuas em X.
+\end{prop*}
+Observe que, se f é contínua em X e \(\varepsilon > 0\), existe \(g\in \mathcal{A}\) tal que
+\[
+	\sup_{x\in X}|f(x) - g(x)| < \varepsilon.
+\]
+\subsection{Introdução a Conjuntos Mensuráveis e Álgebra de Borel}
+\begin{def*}
+	Seja X um conjunto. Uma \textbf{álgebra} é uma coleção \(\mathcal{A}\) de subconjuntos de X tal que
+	\begin{itemize}
+		\item[1)] \(\emptyset \in \mathcal{A}, X\in \mathcal{A}\)
+		\item[2)] Se \(A\in \mathcal{A},\) então \(A ^{\complement}\in \mathcal{A}\)
+		\item[3)] Se \(A_{1}, A_{2}, \dotsc , A_{n}\in \mathcal{A}\), então \(\bigcup_{i=1}^{n}A_{i}\in \mathcal{A}\)
+		\item[4)] Diremos que \(\mathcal{A}\) é \textbf{\(\sigma \)-álgebra} se
+		      \[
+			      A_{1}, \dotsc \in \mathcal{A} \Rightarrow  \bigcup_{i=1}^{\infty}A_{n}\in \mathcal{A}.
+		      \]
+	\end{itemize}
+	O par \((X, \mathcal{A})\) é chamado \textbf{espaço mensurável}, e A é \textbf{mensurável} ou \(\sigma \)\textbf{-mensurável} se \(A\in \mathcal{A}.\)
+\end{def*}
+Como \(\bigcap_{}^{}A_{i} = \biggl(\bigcup_{}^{}A_{i}\biggr) ^{\complement}\), álgebras e \(\sigma \)-álgebras são fechadas pela interseção também.
+\begin{example}
+	\item[1)] \(X = \mathbb{R}, \mathcal{A}\) coleção de subconjuntos de \(\mathbb{R}\) é \(\sigma \)-álgebra.
+	\item[2)] \(X = [0, 1], \mathcal{A} = \{\emptyset , X, [0, \frac{1}{2}], (\frac{1}{2}, 1]\}\) é \(\sigma \)-álgebra.
+	\item[3)] \(X = \{1, 2, 3\}, \mathcal{A} = \{\emptyset , X, \{1\}, \{2, 3\}\}\) é \(\sigma\)-álgebra.
+	\item[4)] \(X = [0, 1], B_{1}, B_{2}, \dotsc , B_{8}\subseteq X\) dois-a-dois disjuntos e \(\bigcup_{i=1}^{8}B_{i} = X.\) Seja \(\mathcal{A}\) a coleção de
+	união finita de \(B_{i}\) junto com \(\emptyset \) e X. Então, \(\mathcal{A}\) é \(\sigma \)-álgebra.
+	\item[5)] Se \(X = \mathbb{R}, \mathcal{A} = \{A\subseteq \mathbb{R}: \text{A é enumerável ou }A ^{\complement} \text{ é enumerável}\} \) é uma \(\sigma \)-álgebra. De fato,
+	basta ver que, se \(A_{1}, \dotsc \in \mathcal{A}\) é enumerável para todo i, então \(\bigcup_{}^{}A_{i}\) é enumerável. Então,
+	\[
+		\biggl(\bigcup_{}^{}A_{i}\biggr) ^{\complement} = \bigcap_{}^{}A_{i}^{\complement} \subseteq A_{i_{0}}^{\complement}
+	\]
+	é enumerável. Portanto, em qualquer caso, \(\bigcup_{}^{}A_{i}\in \mathcal{A}.\) Notando que \(\bigcap_{}^{}A_{i} = (\bigcup_{}^{}A_{i}^{\complement})^{\complement}\), segue que \(\bigcap_{}^{}A_{i}\in \mathcal{A}.\)
+\end{example}
+\begin{lemma*}
+	Se \(\mathcal{A}_{\alpha }\) é \(\sigma \)-álgebra, para cada \(\alpha \in I \neq\emptyset\), então \(\mathcal{B} = \bigcap_{\alpha \in I}^{}A_{\alpha }\) é \(\sigma \)-álgebra.
+\end{lemma*}
+\begin{proof*}
+	Segue da definição: \(\emptyset , X\in \mathcal{B}\) é claro. Se \(A\in \mathcal{B}, \) então \(A ^{\complement}\in \mathcal{B}\) segue pois, se \(A\in \bigcap_{}^{}A_{\alpha }\), então
+	\(A\in \mathcal{A}_{\alpha }\) para todo \(\alpha \in I.\) Logo, \(A ^{\complement}\in \mathcal{A}_{\alpha }\) para todo \(\alpha \) em I. Portanto, \(A ^{\complement}\in \bigcap_{}^{}\mathcal{A}_{\alpha }\).
+	Os outros caso são análogos. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja \(\mathcal{C}\) a coleção de subconjuntos de X. Defina a \(\sigma \)-álgebra gerada por \(\mathcal{C}\) como
+	\[
+		\sigma (C) = \bigcap_{}^{}\biggl\{\mathcal{A}_{\alpha }: A_{\alpha }\text{ é }\alpha \text{-álgebra e } \mathcal{C}\subseteq \mathcal{A}_{\alpha }\biggr\}.\quad \square
+	\]
+\end{def*}
+Note que \(\sigma (C)\neq\emptyset\), \(\sigma (C) \) é \(\sigma \)-álgebra, \(\sigma (\sigma (\mathcal{C})) = \sigma (\mathcal{C})\), pois isto indica que \(\sigma (\mathcal{C})\) gera \(\sigma (\sigma (\mathcal{C}))\), ou seja, \(\sigma (\mathcal{C}) \subseteq \sigma (\sigma (\mathcal{C}))\). Por outro lado, \(\sigma (\mathcal{C})\) é \(\sigma \)-álgebras, tal que a interseção
+está \(\sigma (\sigma (\mathcal{C}))\) está contida em \(\sigma (\mathcal{C}).\) Finalmente, se \(\mathcal{C}_{1}\subseteq \mathcal{C}_{2},\) então
+\(\sigma (\mathcal{C}_{1}) \subseteq \sigma (\mathcal{C}_{2})\).
+\begin{def*}
+	Seja X espaço métrico e \(\mathcal{G}\) a coleção de abertos de X. Denote a \(\sigma \)\textbf{-álgebras de Borel em X} por \(\mathcal{B}\equiv \sigma (\mathcal{G}).\) Os elementos de \(\mathcal{B}\) são
+	chamados de \textbf{conjuntos de Borel}, ou seja, \textbf{Borel-mensurável}.
+\end{def*}
+Veremos que, se \(X = \mathbb{R}, \) então \(\mathcal{B}\) não é igual a todos os subconjuntos de X.
+\begin{prop*}
+	Seja \(X = \mathbb{R}.\) Então, \(\mathcal{B}\) é gerada por cada uma dos seguintes coleções:
+	\begin{itemize}
+		\item[a)] \(\mathcal{C}_{1} = \{(a, b):a, b\in \mathbb{R}\}\)
+		\item[b)] \(\mathcal{C}_{2} = \{[a, b]:a, b\in \mathbb{R}\}\)
+		\item[c)] \(\mathcal{C}_{3} = \{(a, b]:a, b\in \mathbb{R}\}\)
+		\item[d)] \(\mathcal{C}_{4} = \{[a, \infty):a\in \mathbb{R}\}\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	a) Seja \(\mathcal{G}\) a coleção de abertos. Então, \(\sigma (\mathcal{G})\) é a \(\sigma \)-álgebra de Borel. Como cada elemento de \(\mathcal{C}_{1}\) é aberto, então \(\mathcal{C}_{1}\subseteq \mathcal{G}.\) Logo,
+	\(\sigma(\mathcal{C}_{1}) = \sigma (\mathcal{G}) = \mathcal{B}.\)
+
+	Reciprocamente, se G é aberto, então \(G = \bigcup_{}^{}I_{j}\) em que \(I_{j}\) são intervalos abertos. Se for intervalo finito, terminamos. Caso contrário, como \((a, \infty) = \bigcup_{n=1}^{\infty}(a, a + n)\), então
+	\((a, \infty)\in \sigma (\mathcal{C}_{1})\). Analogamente, \((-\infty, a)\in \sigma (\mathcal{C}_{1}).\) Com isso, se G é aberto, então \(G\in \sigma (\mathcal{C}_{1})\). Portanto, \(\mathcal{G}\subseteq \sigma (\mathcal{C}_{1})\), ou seja,
+	\(\mathcal{B} = \sigma (\mathcal{G})\subseteq \sigma (\sigma (\mathcal{C}_{1})) = \sigma (\mathcal{C}_{1}).\)
+
+	b) Se \([a, b]\) pertence a \(\mathcal{C}_{2},\) então \([a, b] = \bigcap_{i=1}^{\infty}(a-\frac{1}{n}, b+\frac{1}{n})\in \sigma (\mathcal{G}),\) donde segue que \(\mathcal{C}_{2}\subseteq \sigma (\mathcal{G}),\)
+	ou seja, \(\sigma (\mathcal{C}_{2})\subseteq \sigma (\sigma (\mathcal{G})) = \sigma (\mathcal{G}) = \mathcal{B}.\) Caso \((a, b)\in \mathcal{C}_{1},\) escolha \(n_{0} > 2/(b-a).\) Basta notar que faz sentido porque
+	\[
+		\biggl(\biggl(b-\frac{1}{n}\biggr) - \biggl(a + \frac{1}{n}\biggr)\biggr) > 0 \Rightarrow b - a >2/n.
+	\]
+	Com isso, \((a, b) = \bigcup_{n=n_{0}}^{\infty}\biggl[a+\frac{1}{n}, b-\frac{1}{n}\biggr]\in \sigma (\mathcal{C}_{2}).\) Portanto, \(\mathcal{C}_{1}\subseteq \sigma (\mathcal{C}_{2})\) e
+	segue que \(\mathcal{B} = \sigma (\mathcal{C}_{1})\subseteq \sigma (\sigma (\mathcal{C}_{2})) = \sigma (\mathcal{C}_{2})\).
+
+	c) Como
+	\[
+		(a, b] = \bigcap_{n=1}^{\infty}\biggl(a, b+\frac{1}{n}\biggr),
+	\]
+	segue que \(\mathcal{C}_3 \subseteq \sigma (\mathcal{C}_1)\). Logo, \(\sigma (\mathcal{C}_3)\subseteq \sigma (\sigma (\mathcal{C}_1)) = \mathcal{B}.\) Usando que \((a, b) = \bigcup_{n=n_{0}}^{\infty}\biggl[a, b-\frac{1}{n}\biggr]\) para \(n_{0}\) grande,
+	obtemos \(\mathcal{C}_{1} \subseteq \sigma (\mathcal{C}_{3}) \Rightarrow \mathcal{B} \subseteq \sigma (\mathcal{C}_3)\)
+
+	d) Como
+	\[
+		(a, b] = (a, \infty)\setminus{(b, \infty)} \subseteq (a, \infty),
+	\]
+	temos \(\mathcal{C}_{3}\subseteq \sigma (\mathcal{C}_{4})\), o que implica, como antes, que \(\mathcal{C}_{3}\supseteq  \mathcal{B} = \sigma (\sigma (\mathcal{C}_{3}))\). Por outro lado, já que \((a, \infty) = \bigcup_{n=1}^{\infty}(a, a + n]\), chegamos em
+	\(\mathcal{C}_{4} \subseteq \sigma (\mathcal{C}_{3}).\) Portanto, \(\sigma (\mathcal{C}_{4})\subseteq \mathcal{B}\) e \(\sigma (\mathcal{C}_{4}) = \mathcal{B}.\) \qedsymbol
+\end{proof*}
+
+\end{document}
