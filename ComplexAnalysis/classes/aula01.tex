@@ -1,0 +1,227 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 03/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Definir o corpos dos complexos
+	\item Definir a topologia no corpo dos complexos
+	\item Esfera de Riemann
+\end{itemize}
+
+\subsection{Definições Básicas}
+\begin{def*}
+	Um \textbf{corpo} f é um conjunto não vazio em que definem-se duas operações $+:F\times{F}\rightarrow F, \cdot:F\times{F}\rightarrow F$ satisfazendo:
+	\begin{itemize}
+		\item[i)] w + z = z + w
+		\item[ii)] w + (z+ u) = (w + z) + u
+		\item[iii)] Existe 0 em F tal que w + 0 = w
+		\item[iv)] Para cada $w\in F$, existe $-w \in F$ tal que w + (-w) = 0
+		\item[v)] $w\cdot z = z\cdot w$
+		\item[vi)] $w\cdot(z\cdot u) = (w\cdot z)\cdot u$
+		\item[vii)] Existe $e\in \mathbb{F}$ tal que $w\cdot{e} = w$
+		\item[viii)] Para cada $w\in{F-\{0\}}$, existe $w ^{-1}\in{F}$ tal que $w\cdot w ^{-1} = e$
+		\item[ix)] $(w+z)\cdot{u} = w\cdot u + z\cdot u,$
+	\end{itemize}
+	em que w, z, u pertencem a F.
+\end{def*}
+Considere F um corpo contendo $\mathbb{R}$ e tal que
+$$
+	x ^{2} + 1 = 0
+$$
+tenha solução. Seja i esta solução. Segue que -i é solução dela também, -1.z = z e 0.z = 0 para z em F. Definimos
+$$
+	\mathbb{C}\coloneqq  \{a + bi: a, b\in \mathbb{R}\,
+$$
+de maneira que os elementos de $\mathbb{C}$ são unicmaente determinados, $\mathbb{C}$ é subcorpo de F e a estrutura
+algébrica de $\mathbb{C}$ não depende de F. Além disso, este corpo existe.
+
+Com efeito,
+Sejam a, b, c, d $\in \mathbb{R}$ tais que
+$$
+	a + bi = c + di.
+$$
+Assim, $a-c = i(d-b)\Rightarrow (a-c)^{2} = (d-b)^{2}$, donde segue a unicidade a = c e d = b
+
+Que é subcorpo, fica como exercício.
+
+Seja F\ outro corpo contendo $\mathbb{R}$ em que $x ^{2} + 1 = 0$ possui solução. Considere $\mathbb{C}' = \mathbb{R} + j \mathbb{R},$
+em que j é a solução da equação em F'. Definimos $T:\mathbb{C}\rightarrow \mathbb{C}'$ por
+$$
+	T(a + bi) = a + bj
+$$
+e, neste caso, T(z + w) = T(z) + T(w), T(zw) = T(z)T(w) para todos $z, w\in \mathbb{C}.$ (Exercício.)
+
+Seja $F = \{(a, b):a, b\in \mathbb{R}\}$ munido das operações $+:F\times{F}\rightarrow F, \cdot:F\times{F}\rightarrow F$ dadas por
+\begin{align*}
+	+((a, b), (c,d)) = (a + c, b + d) \\
+	\cdot((a, b), (c, d)) = (ac - bd, ad + bc).
+\end{align*}
+Note que $(0, 1)^{2} = (-1, 0)$. Assim, (F, +, .) é um corpo contendo $\mathbb{R}.$ (Exercício).
+
+Algumas propriedades(Exercícios):
+\begin{itemize}
+	\item[a)] $Re(z)\leq{|z|}$ e $Im(z)\leq{|z|}$
+	\item[b)] $\overline{z+w} = \overline{z}+\overline{w}$ e $\overline{z\cdot w} = \overline{z}\cdot\overline{w}$
+	\item[c)] $\overline{\frac{1}{z}} = \frac{1}{\overline{z}}$
+	\item[d)] $|z| = |\overline{z}|$ e $|z|^{2} = z\cdot\overline{z}$
+	\item[e)] $z + \overline{z} = 2Re(z), z - \overline{z} = 2iIm(z)$ e $\frac{1}{z} = \frac{\overline{z}}{|z|^{2}}$
+\end{itemize}
+
+Dado $z\in \mathbb{C}$, temos
+$$
+	z = |z|(\cos{\theta} + i\sin{\theta}), \quad \theta = \arg z.
+$$
+Neste caso, temos, para z não-nulo,
+$$
+	z ^{-1} = |z|^{-1}(\cos{-\theta} + i\sin{-\theta}) = |z|^{-1}(\cos{\theta}-i\sin{-\theta})
+$$
+Para $z _{1}, z _{2}\in \mathbb{C},$ temos
+$$
+	z _{1}\cdot z _{2} = |z _{1}||z _{2}|(\cos(\theta _{1} + \theta _{2}) + i\sin(\theta _{1} + \theta _{2}))
+$$
+com $\theta _{1} = \arg z _{1}, \theta _{2} = z _{2}.$ Mais geralmente,
+$$
+	\prod_{k=1}^{n}z _{k} = \prod_{k=1}^{n} |z _{k}|(\cos(\sum_{k=1}^{n}\theta _{k}) + i\sin(\sum_{k=1}^{n}\theta _{k})),
+$$
+com $\theta _{k} = \arg z _{k}$. Em particular,
+$$
+	z ^{n} = |z|^{n}(\cos(n\theta)+i\sin(n \theta)), \quad n\in \mathbb{N}.
+$$
+Buscando w tal que $w ^{n} = z$ para dado z não-nulo,
+$$
+	w = |z|^{\frac{1}{n}}(\cos(\frac{\theta + 2k\pi}{n}) + i\sin(\frac{\theta + 2k\pi}{n})), \quad k = 0, 1, \cdots, n.
+$$
+
+\subsection{A Esfera de Riemann}
+Considere $\mathbb{S}^{2}\subset{\mathbb{R}^{3}}$ a esfera
+$$
+	\mathbb{S}^{2}\coloneqq  \{(x, y, z): x ^{2} + y ^{2} + z ^{2}\leq{1}\}.
+$$
+Chame N=\{0, 0, 1\} de polo norte. Fazemos uma associação entre $\mathbb{S}^{2}-\{N\}$ e o plano z=0 de $\mathbb{R}^{3}$,
+chamada de projeção estereográfica. Nessa associação, o ponto $z(=x + iy)\in\mathbb{C}$ é associado a (x, y, 0), e
+definimos uma reta por N e z como r: N + t(x, y, -1), $t\in \mathbb{R}$. Assim,
+$$
+	r\cap{\mathbb{S}^{2}} \Rightarrow S _{z} = \biggl(\frac{2x}{|z|^{2}+1}, \frac{2y}{|z|^{2}+1}, \frac{|z|^{2}-1}{|z|^{2}+1}\biggr)\in \mathbb{S}^{2}
+$$
+Reciprocramente, o ponto (x, y, z) de $\mathbb{S}^{2}$ pode ser associado ao considerar a reta r: N + t(x, y, s-1), em que
+s é um número real. Com isso, a intersecção $r\cap \{(x, y, 0): x, y \in \mathbb{R}\}\Rightarrow t=\frac{1}{1-s}$ mostra que
+$z = \biggl(\frac{x}{1-s}, \frac{y}{1-s}, 0\biggr)$ corresponde ao ponto z de $\mathbb{C}$.
+
+Associando N ao infinito, obtemos o plano estendido $\mathbb{C}_{\infty} = \mathbb{C}\cup \{\infty\}$, chamado de Esfera de Riemann. Se $\phi:\mathbb{C}_{\infty}\rightarrow \mathbb{S}^{2}$
+é dada por $\phi(\infty) = N$ e, para $z\neq{\infty},$
+$$
+	\phi(z) = (\frac{z + \overline{z}}{|z|^{2} + 1}, \frac{z - \overline{z}}{|z|^{2}+1}, \frac{|z|^{2}-1}{|z|^{2}+1}),
+$$
+então dados $z, w\in \mathbb{C}_{\infty},$ definimos a métrica
+$$
+	d(z, w)=\left\{
+	\begin{array}{ll}
+		||\phi(z) - \phi(w)||, & \quad z, w\neq{\infty}       \\
+		0,                     & \quad z = w = \infty         \\
+		\infty,                & \quad \text{ caso contrário}
+	\end{array}\right.
+$$
+\begin{example}
+	Se $z, w\neq{\infty}$, então
+	$$
+		d(z, w) = d(\phi(z), \phi(w)) = \frac{2|z - w|}{[(1+|z|^{2})(1+|w|^{2})]^{\frac{1}{2}}}
+	$$
+	e, se $z\neq\infty$,
+	$$
+		d(z, \infty) = ||\phi(z) - N|| = \frac{2}{(1+|z|^{2})^{\frac{1}{2}}}
+	$$
+\end{example}
+
+\subsection{Topologia de $\mathbb{C}$}
+\begin{def*}
+	Sejam X um conjunto e $d:X\times{X}\rightarrow X$ uma função. Dizemos que d é uma \textbf{métrica} se
+	\begin{itemize}
+		\item[i)] $d(x, y) \geq{0}, d(x, y) = 0\Longleftrightarrow x=y$
+		\item[ii)] $d(x, y) = d(y, x)$
+		\item[iii)] $d(x, z) \leq d(x, y) + d(y, z)$,
+	\end{itemize}
+	em que x, y, z pertencem a X. Neste caso, chamamos a terna (X, d) de espaço métrico.
+\end{def*}
+Considere (X, d) um espaço métrico. Dado x em X e $r > 0$,
+$$
+	B(x, r)\coloneqq  \{y\in{X}: d(x, y)< r\}
+$$
+é a bola aberta, seu fecho é
+$$
+	B_c(x, r)\coloneqq  \{y\in{X}: d(x, y) = r\}
+$$
+e a bola fechada é a união deles, ou seja,
+$$
+	\overline{B(x, r)}\coloneqq  \{y\in{X}: d(x, y) \leq{r}\}
+$$
+\begin{example}
+	Considere X não-nulo e d(x, y) = $\delta _{x,y}.$ (X, d) é metrico e
+	$$
+		B\biggl(x, \frac{1}{2}\biggr) = \{x\} = \overline{B\biggl(x, \frac{1}{2}\biggr)} = B\biggl(x, \frac{1}{333}\biggr), x\in{X}
+	$$
+	$$
+		B(x, 2) = X = B(x, 1001), x\in{X}
+	$$
+\end{example}
+Utilizando bolas, definimos que um conjunto $A\subset{X}$ é aberto se para todo x em A, existe $r > 0$ tal que
+B(x, r) está contido em A. Por outro lado, um conjunto é fechado se seu complemenetar é aberto. A união infinita
+de abertos é aberta e, pelas Leis de DeMorgan, a intersecção infinita de fechados é fechada. Além disso, intersecções
+finitas de abertos é aberta e união finita de fechados é fechado.
+
+Definimos, também, o interior de A como $\mathrm{Int}(A) = A^{\circ}\coloneqq  \cup_{B} \{B\subset{A}: B \text{ aberto}\}$, o fecho de A
+como $\mathrm{Cl(A)} = \overline{A} \coloneqq  \cap_{F} \{A\subseteq{F}: F \text{ fechado}\}$ e o bordo de A como $\partial{A} = \overline{A}\cap\overline{A^c}.$
+Diremos que A é denso quando $\overline{A} = X.$
+\begin{prop*}
+	Seja (X, d) um espaço métrico e A um subconjunto. Então,
+	\begin{itemize}
+		\item[i)] A é aberto se, e só se, $A = A^{\circ}$
+		\item[ii)] A é fechado se, e só se, $A = \overline{A}$
+		\item[iii)] Se x pertence a $A^{\circ}$, então existe $\epsilon>0$ tal que $B(x, \epsilon)\subseteq{A}$.
+		\item[iv)] Se x pertence a $\overline{A}$, então para todo $\epsilon > 0$ tal que $B(x, \epsilon)\cap{A}\neq\emptyset$.
+	\end{itemize}
+\end{prop*}
+
+Um espaço métrico (X, d) é conexo se os únicos subconjuntos abertos e fechados de X são X e vazio. Caso contrário,
+X é dito ser desconexo, ou seja, existem abertos disjunto não-vazios cuja união dá o espaço todo. Um exercício é mostrar
+mostrar que um conjunto é conexo se, e só se, ele é um intervalo.
+
+Dados z, w em $\mathbb{C}$, o segmento [z, w] é o conjunto
+$$
+	[z, w]\coloneqq  \{tw + (1-t)z: t\in[0, 1]\}
+$$
+Além disso, dados $z _{1}, \cdots, z _{n}$, a poligonal com esses vértices é
+$$
+	[z _{1}, \cdots, z _{n}] = \bigcup _{k=1}^{n-1}[z _{k}, z _{k+1}]
+$$
+\begin{prop*}
+	Seja G um subconjunto de $\mathbb{C}$ aberto. Então, G é conexo se, e só se para todo z, w em G, existe uma poligonal
+	$[z, z _{1}, \cdots, z _{n}, w]\subseteq{G}.$
+\end{prop*}
+\begin{proof*}
+	$\Leftarrow)$ Assumindo que G satisfaz a propriedade da poligonal, suponha também que G não é conexo. Assim,
+	podemos escrever $G = B\cup{C}$ com $B\cap{C}=\emptyset$ e B, C não-vazios. Pela propriedade de G, existe
+	$[b, z _{1}, \cdots, z _{n}, c]\subseteq{G}$. Neste caso, existe k tal que $z _{k}\in{B}$ e $z _{k+1}\in{C}.$ Agora,
+	considere os conjuntos
+	\begin{align*}
+		 & B' = \{t\in[0, 1]: tz _{k} + (1 - t)z _{k+1}\in{B}\} \\
+		 & C' = \{t\in[0, 1]: tz _{k} + (1 - t)z _{k+1}\in{C}\}
+	\end{align*}
+	e note que $B'\neq{\emptyset}$ pois $z _{k}\in{B}$ e $1\in{B'}$. Analogamente, C' é não-vazio. No entanto, isso é um absurdo,
+	pois [0, 1] seria conexo e $B'\cup{C'}$ seria uma cisão não trivial
+
+	$\Rightarrow)$ Suponha, agora, que G é conexo e seja z um elemento dele. Defina
+	$$
+		C = \{w\in{G}: \text{Existe } [z, z _{1}, \cdots, z _{n}, w]\subseteq{G}\}
+	$$
+	Observe que C é não-vazio, z pertence a G e [z] é subconjunto de G. Mostremos que C é aberto e fechado (pois implicará em C = G).
+	Com efeito, se $w\in{C}\subseteq{G}$, existe $r>0$ tal que B(w, r) está contigo em G, pois G é aberto.
+	Assim, para todo $s\in B(w, r)$, temos $[s, w]\subseteq{B(w, r)}$ e, com isso, existe uma poligonal ligando s a z com $s\in{C},$ mostrando
+	que C é aberto.
+
+	Mostrar que o complementar de C é aberto é análogo. Com efeito, se $C ^{c} = \emptyset,$ o resultado está provado. Por outro
+	lado, se $C ^{c}\neq\emptyset$, seja $w\in{C ^{c}}$ = G - C. Logo, existe $r > 0$ tal que $B(w, r)\subseteq{G}$. Afirmamos
+	que $B(w, r)\subseteq{G-C}$. Caso contrário, existe s em B(w, r) contido, também, em C. Neste caso, existe uma poligonal
+	ligando s a z e s a w, uma contradição, pois isso conectaria w a z, mesmo com w no complementar de z. Portanto, o complementar
+	é aberto e C é aberto e fechado. \qedsymbol
+\end{proof*}
+\end{document}

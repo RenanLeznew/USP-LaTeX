@@ -1,0 +1,216 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 16/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Integração Complexa em Curvas;
+	\item Propriedades das Integrais de Linha;
+	\item Primeira Fórmula Integral de Cauchy.
+\end{itemize}
+\subsection{Finalizando Funções BV's}
+\begin{prop*}
+	Se $\gamma$ é suave, então $\gamma$ é BV e $V(\gamma) = \int_{a}^{b}|\gamma'(t)|dt.$
+\end{prop*}
+\begin{proof*}
+	Seja $P=\{t_{0}, \cdots, t_n\} $ partição de [a, b],
+	\begin{align*}
+		v(\gamma, P) & = \sum\limits_{k=1}^{n}|\gamma(t_{k}) - \gamma(t_{k-1})|                                    \\
+		             & = \sum\limits_{k=1}^{n}\biggl|\int_{t_{k-1}}^{t_{k}}\gamma'(t)dt\biggr|                     \\
+		             & \leq \sum\limits_{k=1}^{n}\int_{t_{k-1}}^{t_{k}}|\gamma'(t)|dt = \int_{a}^{b}|\gamma'(t)|dt
+	\end{align*}
+	Agora, dado $\epsilon > 0$, buscamos $\delta > 0$ tal que $|P| < \delta$ resulta em
+	$$
+		v(\gamma) - \epsilon < v(\gamma, P)
+	$$
+	Seja $\delta > 0$ tal que $|\gamma'(s) - \gamma'(t)| < \epsilon$ para $|s - t| < \delta$. Agora, se $|P| < \delta,$ então
+	$$
+		\biggl|\int_{a}^{b}|\gamma'(t)|dt - \sum\limits_{k=1}^{n}|\gamma'(s_{k})||t_{k}-t_{k-1}|\biggr| < \epsilon
+	$$
+	Com isso, o que queríamos está satisfeito e $s_{k}\in{[t_{k}, t_{k-1}]}$, o que implica em
+	$$
+		0 < \sum\limits_{k=1}^{n}\int_{t_{k-1}}^{t_{k}}|\gamma'(s_{k}) - \gamma'(s_{k-1}) + |\gamma'(t)| dt + \epsilon < (b-a)\epsilon +
+		\int_{a}^{b}|\gamma'(t)|dt + \epsilon. \text{ \qedsymbol}
+	$$
+\end{proof*}
+\subsection{Integrais de Linha}
+\begin{def*}
+	Seja $\gamma$ BV e $f:[a, b]\rightarrow \mathbb{C}$ limitada. Se existir I complexo tal que para todo $\epsilon > 0$ existe $\delta > 0$
+	de forma que $|P| < \delta$ implica
+	$$
+		\biggl|I - \sum\limits_{k=1}^{n}f(s_{k})|\gamma(t_{k}) - \gamma(t_{k-1})\biggr| < \epsilon,
+	$$
+	para qualquer escolha de $s_{k}\in{[t_{k}, t_{k-1}]},$ dizemos que \textbf{I é a integral de f sobre a curva }$\gamma$, denotado por
+	$\int_{\gamma}^{}f\text{ ou } \int_{a}^{b}f(t)d\gamma(t)$
+\end{def*}
+\begin{theorem*}
+	Se $\gamma$ é BV e f é contínua, então f é integrável sobre $\gamma.$
+\end{theorem*}
+\begin{proof*}
+	Usaremos o Teorema de Cantor.
+	\begin{itemize}
+		\item[1)] Dado $\epsilon > 0,$ seja $\delta > 0$ tal que $|s-t| < \delta.$ Então, $|f(s) - f(t) < \epsilon$
+		\item[2)] Para cada n natural, seja $\delta_{n} > 0$ tal que $|f(s) - f(t)| < \frac{1}{n}$, em que $\{\delta_{n}\}$ pode ser
+		      considerado decrescente.
+	\end{itemize}
+
+	Definimos
+	$$
+		\mathcal{F}_{n} = \{s(f, p): |P| < \delta_{n}\}, \quad n\in \mathbb{N}
+	$$
+	Observamos que  $\overline{\mathcal{F}_{n}}\supseteq\overline{\mathcal{F}_{n+1}}$. Se $\mathrm{diam} \mathcal{F}_{n}\to{0},$ então
+	o Teorema de Cantor garante que $\bigcap_{n=0}^{\infty} = \{I\}.$ Neste caso, $\int_{\gamma}^{}f.$ Fica de exercício mostrar que
+	$\mathrm{diam} \mathcal{F}_{n}\leq \frac{c}{n}.$
+\end{proof*}
+\begin{prop*}
+	Sejam $f, g:[a, b]\rightarrow \mathbb{C}$ contínuas, $\gamma_{1}, \gamma_2$ BV em [a, b] e $\alpha, \beta\in{\mathbb{C}}.$
+	Temos:
+	\begin{itemize}
+		\item[i)] $\int_{}^{}\alpha f + \beta g d;g = \alpha \int_{}^{}fd \gamma + \beta \int_{}^{}gd \gamma$;
+		\item[ii)] $\int_{}^{}f d(\alpha \gamma_1 + \beta \gamma_2) = \alpha\int_{}^{}f d \gamma_1 + \beta \int_{}^{}f d \gamma_2;$
+		\item[iii)] $\int_{a}^{b}f(t)d \gamma(t) - \int_{a}^{c}f(t)d \gamma(t) + \int_{c}^{b}f(t) d \gamma(t), \quad c\in{[a, b]}.$
+	\end{itemize}
+\end{prop*}
+\begin{theorem*}
+	Seja $\gamma$ suave (ou suave por partes) e f con\t'inua. Então,
+	$$
+		\int_{}^{}f d \gamma = \int_{a}^{b}f(t)\gamma'(t)dt.
+	$$
+\end{theorem*}
+$\gamma$ ser suave por partes significa que existe $P =\{a=t_{0}, t_1, \cdots, t_{n} = b\} $ tal que
+$$
+	\int_{a}^{b}f(t)d\gamma(t) = \sum\limits_{k=1}^{n}\int_{t_{k-1}}^{t_{k}}f(t)d\gamma(t)
+$$
+\begin{exer*}
+	Mostre que para a fórmula acima, também vale a igualdade com $\int_{t_{k-1}}^{t_{k}}f(t)\gamma'(t)dt.$
+\end{exer*}
+\begin{def*}
+	Seja $\gamma$ uma curva em [a, b]. Escreveremos $\{\gamma\} $ para o \textbf{traço} de $\gamma$ dado por
+	$$
+		\{\gamma\}\coloneqq  \{\gamma(t): t\in{[a, b]}\}.
+	$$
+	Note que $\{\gamma\} $ é conexo e compacto. Chamaremos de comprimento de $\gamma$ o valor $v(\gamma)$ caso $\gamma$ seja BV.
+	Também chamaremos $\gamma$ de retificável se $\gamma$ é curva BV.
+\end{def*}
+\begin{def*}
+	Seja $f:G\rightarrow \mathbb{C}$, $\gamma:[a, b]\rightarrow \mathbb{C}$ retificável e $\{\gamma\}\subseteq{G}.$ A \textbf{integral de
+		linha de f} ao longo de $\gamma$ é
+	$$
+		\int_{\gamma}^{}f \coloneqq  \int_{a}^{b}f(\gamma(t))d\gamma(t).
+	$$
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[i)] Seja $f(z) = z^n, \quad n\in{\mathbb{N}}$, sejam $\alpha, \beta\in \mathbb{C}$ e $\gamma:[0, 1]\rightarrow \mathbb{C}$
+		      dada por $\gamma(t) = t \beta + (1-t)\alpha.$
+		      $$
+			      \int_{\gamma}^{}=\int_{0}^{1}(t\beta + (1-t)\alpha)^n(\beta - \alpha)dt = \frac{(t\beta + (1-t)\alpha)^{n+1}}{n+1}\biggl|_0^1\biggr.
+		      $$
+		\item[ii)] Tome $f(z) = z^{-n}, \quad n\neq1, \quad \gamma(t) = e^{-it}, t\in[-\pi, \pi].$ Então,
+		      $$
+			      \int_{\gamma}^{}f = \int_{-\pi}^{\pi}e^{nit}(-i)e^{-it}dt = -i \int_{-\pi}^{\pi}e^{ti(n-1)}dt = 0.
+		      $$
+		\item[iii)] Considere $f(z) = \frac{1}{z}, \quad \gamma(t) = e^{-it}, t\in[-\pi, \pi].$ Assim,
+		      $$
+			      \int_{\gamma}^{}f = \int_{-\pi}^{\pi}e^{it}(-i)e^{-it} = -2\pi i.
+		      $$
+	\end{itemize}
+\end{example}
+\begin{prop*}
+	Seja $\gamma:[a, b]\rightarrow \mathbb{C}$ retificável e $\phi:[c, d]\rightarrow [a, b]$crescente é contínua. Se $f:G\rightarrow \mathbb{C}$
+	é contínua em $\{\gamma\} $, então
+	$$
+		\int_{\gamma}^{}f = \int_{\gamma\circ{\phi}}^{}f
+	$$
+\end{prop*}
+\begin{proof*}
+	\begin{exer*}
+		Note que $\gamma\circ{\phi}$ é BV, $\{\gamma\}=\{\phi\} $ e $v(\gamma\circ{\phi}) = v(\gamma).$
+	\end{exer*}
+\end{proof*}
+Se dadas $\gamma, \sigma$, existir $\phi:[c, d]\rightarrow [a, b]$ com $\gamma:[a, b]\rightarrow \mathbb{C}\text{ e }\sigma:[c, d]\rightarrow \mathbb{C},
+	\sigma = \gamma\circ{\phi}, \phi$ conínua estritamente crescente, dizemos que $\gamma $ é equivalente à $\sigma$, denotado por $\gamma~\sigma.$
+Segue da proposição que $\gamma~\gamma$ implica
+$$
+	\int_{\gamma}^{}f = \int_{\sigma}^{}f.
+$$
+\begin{exer*}
+	é verdade que $\{\gamma\}=\{\sigma\}\Rightarrow \int_{\gamma}^{}f = \int_{\sigma}^{}f?$
+\end{exer*}
+Seja $\gamma:[a, b]\rightarrow \mathbb{C}$ retificável. Para cada $t\in{[a, b]},$ considere $\gamma_t\coloneqq \gamma|_[a, t]$ e
+note que $t\mapsto{v(\gamma_t)}$ é crescente e, portatno, BV. Para f contínua sobre $\{\gamma\},$ definimos
+$$
+	\int_{\gamma}^{}f|dz|\coloneqq  \int_{a}^{b}f(\gamma(t))d|\gamma|(t)
+$$
+com $|\gamma|:[a, b]\rightarrow \mathbb{R}$ dada por $|\gamma|(t) = v(\gamma_t)$. Fixemos a notação $\gamma_{-}:[-b, -a]\rightarrow \mathbb{C}$
+para $\gamma_{-}(t) = \gamma(-t)$ e $\gamma+c:[a, b]\rightarrow \mathbb{C}$ para $(\gamma + c)(t) = \gamma(t) + c, c\in \mathbb{C}.$
+\begin{prop*}
+	Se $\gamma$ é reificável com $\{\gamma\}\subseteq{A}\subseteq{\mathbb{C}} $ e $f:A\rightarrow \mathbb{C}$ é contínua sobre
+	$\{\gamma\} $, então,
+	\begin{itemize}
+		\item[i)] $\int_{\gamma_{-}}^{}f = - \int_{\gamma}^{}f$
+		\item[ii)] $\int_{\gamma+c}^{}f(z-c)dz = \int_{\gamma}^{}f$
+		\item[iii)] $\biggl|\int_{\gamma}^{}f\biggr|\leq \int_{\gamma}^{}|f||dz|\leq v(\gamma)\max_{z\in \{\gamma\} }|f(z)|$
+	\end{itemize}
+\end{prop*}
+\begin{lmm*}
+	Seja $A\subseteq{\mathbb{C}}$ aberto e $\gamma:[a, b]\rightarrow A$ retificável com $\{\gamma\}\subseteq{A}$. Para todo $\epsilon > 0,$
+	existe $\Gamma$ poligonal em A tal que
+	$$
+		\biggl|\int_{\gamma}^{}f - \int_{\Gamma}^{}f\biggr| < \epsilon.
+	$$
+\end{lmm*}
+A seguir, vemos o Teorema Fundamental das Funções de Variável Complexa.
+\begin{theorem*}
+	Seja $A\subseteq{\mathbb{C}}$ aberto, $\gamma$ retificável, $\{\gamma\}\subseteq{A}\text{ e }f:A\rightarrow \mathbb{C} $ com f
+	con\t'inua em $\{\gamma\} $. Se existe $F:A\rightarrow \mathbb{C}$ tal que $F' = f,$ então
+	$$
+		\int_{\gamma}^{}f = F(\gamma(b)) - F(\gamma(a)).
+	$$
+\end{theorem*}
+\begin{proof*}
+	\begin{itemize}
+		\item[i)] Vamos assumir $\gamma$ suave por partes. Sem perda de generalidade, podemos assumir suave. Neste caso,
+		      $$
+			      \int_{\gamma}^{}f = \int_{a}^{b} f(\gamma(t))\gamma'(t)dt = (F\circ{\gamma})(t)\biggl|_a^b\biggr. = F(\gamma(b)) - F(\gamma(a)).
+		      $$
+		\item[ii)] No caso geral, considere $\epsilon > 0$ e $\Gamma$ a plligonal dada pelo Lema. Temos
+		      $$
+			      \biggl|\int_{\gamma}^{}f - \int_{\Gamma}^{}f\biggr| < \epsilon, \quad\text{ \qedsymbol}
+		      $$
+	\end{itemize}
+\end{proof*}
+\begin{exer*}
+	Mostre que $f(z) = |z|^2$ é contínua, mas não possui primitiva.
+\end{exer*}
+\begin{crl*}
+	Nas condições e notações de TFVC, se $\gamma$ é fechada, então $\int\limits_{\gamma}f = 0.$
+\end{crl*}
+
+\subsection{Versão Introdutória da Fórmula Integral de Cauchy}
+Um resultado que será usado de forma recorrente é o Lema de Leibniz, como enunciado a seguir
+\begin{lmm*}
+	Seja $\phi:[a, b]x[c, d]\rightarrow \mathbb{C}$ contínua e
+	$$
+		g(t)\coloneqq  \int_{a}^{b}\phi(s, t)ds.
+	$$
+	Então, g é contínua. Adicionalmente, se $\frac{\partial{\phi}}{\partial{t}}$ é contínua, então g é suave e temos
+	$$
+		g'(t) = \int_{a}^{b}\frac{\partial{\phi}}{\partial{t}}(s, t)ds.
+	$$
+\end{lmm*}
+\begin{example}
+	Se $|z| < 1,$
+	$$
+		I\coloneqq  \int_{0}^{2\pi}\frac{e^{is}}{e^{is}-z}ds = 2\pi.
+	$$
+	Definimos $\phi:[0, 2\pi]x[0, 1]\rightarrow \mathbb{C}$ por
+	$$
+		\phi(s, t) = \frac{e^{is}}{e^{is} - tz}, \quad t\in[0, 1], \quad s\in[0, 2\pi].
+	$$
+	Considere g como no lema e observe que $g(1) = I, g(0) = 2\pi.$ Além disso,
+	$$
+		g'(t) = \int_{0}^{2\pi}\frac{e^{is}}{(e^{is} - tz)^{2}}ds = \frac{1}{i}\biggl(\frac{1}{e^{is}-tz}\biggr)\biggl|_0^{2\pi}\biggr. = 0
+	$$
+\end{example}
+
+\end{document}

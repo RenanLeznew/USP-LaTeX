@@ -1,0 +1,272 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 06/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item[i)] Introdução às séries de potência e raio de convergência;
+	\item[ii)] Funções analíticas e diferenciáveis em $\mathbb{C}$;
+	\item[iii)] Definição da exponencial complexa;
+	\item[iv)] Ramos de funções inversas.
+\end{itemize}
+\subsection{Séries de Potências}
+\begin{def*}
+	Considere $\{a_{n}\}$ uma sequência em $\mathbb{C}$. A série de potência em $\{a_n\}$, denotada
+	por $\sum\limits_{n=0}^{\infty}$, é dita \textbf{convergente} se para todo $\epsilon > 0$, existe $n_0\in\mathbb{N}$
+	tal que $|\sum\limits_{n=0}^{k} - a|, k\geq{n_0}$, para algum $a\in\mathbb{C}$. Denotamos isso por
+	$$
+		a = \sum_{n=0}^{\infty} a_n < \infty,
+	$$
+	A série $\sum\limits_{n=0}^{\infty}a_n$ é \textbf{absolutamente convergente} se $\sum\limits_{n=0}^{\infty}|a_n|<\infty$.
+\end{def*}
+\begin{exer*}
+	Mostre que se uma soma converge absolutamente, ela também converge normalmente.
+\end{exer*}
+\begin{def*}
+	Uma \textbf{série de potências} é uma série da forma
+	$$
+		\sum_{n=0}^{\infty}a_n(z-a)^n, \quad z\in\mathbb{C},
+	$$
+	em que $\{a_n\}$ é uma sequência de $\mathbb{C}$ e a é um número complexo.
+\end{def*}
+\begin{example}
+	No caso da série geométrica $\sum\limits_{n=0}^{\infty}z^n, z\in\mathbb{C}$, considere
+	a soma parcial $s_n = \sum\limits_{k=0}^{n} = \frac{1 - z^{n+1}}{1-z}, z\neq{1}.$ Se
+	$|z| < 1,$ então $z^{n+1}\to{0}$ e $\sum\limits_{n=0}^{\infty}z^n = \frac{1}{1-z}, |z| < 1.$
+	Caso $|z|\geq{1},$ a série geométrica diverge.
+\end{example}
+Denotamos por $\limsup_{n\to\infty}\{b_n\}$ a expressão $\lim_{n\to\infty}\sup_{k\geq{n}}\{b_k\}$.
+\begin{theorem*}
+	Considere a série de potências $\sum\limits_{n=0}^{\infty}(z-a)^n$ e $\frac{1}{R}\coloneqq \limsup_{n\to\infty}\{\sqrt[n]{|a_n|}\}$.
+	Então,
+	\begin{itemize}
+		\item[1)] A série converge absolutamente em B(a, R)
+		\item[2)] A série diverge se $|z-a| > R$
+		\item[3)] A série converge uniformemente em B(a, r) para $0 < r < R.$
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Sem perda de generalidade, suponha a = 0.
+	1.) Seja $z\in{B(0, R)}.$ Existe $|z| < r < R$ e $n_0\in\mathbb{N}$ tal que $|a_n^{\frac{1}{n}}| < \frac{1}{r},
+		n\geq{n_0}.$ Daí, temos
+	$$
+		\sum_{k=n_0}^{\infty}|a_n||z^n|\leq \sum_{k=n_0}^{\infty}\frac{|z^n|}{r^n} < \infty.
+	$$
+	Como essa fração é menor que um, o resultado está provado.
+
+	2.) Seja $|z| > R$ e r tal que $|z|> r > R$. Existe $\{a_{n_k}\}_k$ tal que $|a_{n_k}|^{\frac{1}{n_k}} > \frac{1}{r},
+		k = 0, 1, \cdots.$ Assim, temos
+	$$
+		|a_{n_k}||z|^{n_k} > \biggl(\frac{|z|}{r}\biggr)^{n_k}\to\infty
+	$$
+	Conforme k tende a infinito.
+
+	3.) Seja $0 < r < R \text{ e } r < \rho < R.$ Se z pertence a uma bola B(0, r), então
+	$$
+		|a_n||z|^n < \biggl(\frac{r}{\rho}\biggr)^n, \quad n\geq{n_0}, n_0\in\mathbb{N}.
+	$$
+	Como consequência do teste M de Weierstrass, já que $\frac{r}{\rho}$ é um número, segue
+	o resultado.
+	\qedsymbol
+\end{proof*}
+\begin{exer*}
+	Mostre que o R do teorema acima é único.
+\end{exer*}
+\begin{example}
+	Considere a série que define a exponencial de z:
+	$$
+		\sum_{n=0}^{\infty}\frac{z^n}{n!}, R = \infty.\quad e^z\coloneqq \sum_{n=0}^{\infty}\frac{z^n}{n!}, z\in\mathbb{C}.
+	$$
+	Este série é convergente pelo teste da razão. Com efeito,
+	$$
+		R = \lim_{n\to\infty}\biggl|\frac{a_n}{a_{n+1}}\biggr| = \lim_{n\to\infty}\biggl(\frac{(n+1)!}{n!}\biggr) = \infty.
+	$$
+	Com isso, a série converge para todos os valores possíveis, pois seu raio de convergência
+	é infinito.
+\end{example}
+\begin{prop*}
+	Nas notações da proposição anterior, se $R < \infty$, então
+	$$
+		R = \lim_{n\to\infty}\biggl|\frac{a_n}{a_{n+1}}\biggr|.
+	$$
+\end{prop*}
+
+\subsection{Funções Analíticas}
+\begin{def*}
+	Seja G um aberto de $\mathbb{C}$ e $f:G\rightarrow\mathbb{C}$ uma função. Dizemos que ela é \textbf{diferenciável}
+	em $z\in{G}$ se
+	$$
+		\lim_{h\to{0}}\frac{f(z+h) - f(z)}{h} = \lim_{w\to{z}}\frac{f(z)-f(w)}{z-w}
+	$$
+	existe. Neste caso, o denotamos por f'(z). Diremos que f é diferenciável se f'(z) existe para todo z de G.
+\end{def*}
+\begin{def*}
+	Se $f:G\rightarrow\mathbb{C}$ é diferenciável e $f':G\rightarrow\mathbb{C}(z\mapsto{f'(z)})$ é contínua,
+	então dizemos que f é \textbf{continuamente diferenciável}.
+
+	Analogamente, se $f':G\rightarrow\mathbb{C}$ é diferenciável e $f'':G\rightarrow\mathbb{C}$ (f'' = (f')') é
+	contínua, então f é \textbf{duas vezes continuamente diferenciável}. Nesta linha, diremos que uma função é
+	\textbf{analítica} se ela é continuamente diferenciável em G.
+\end{def*}
+
+\begin{prop*}
+	Seja G um aberto de $\mathbb{C}$. Então,
+	\begin{itemize}
+		\item[i)] Se $f:G\rightarrow\mathbb{C}$ é diferenciável em $a\in{G}$, então f é contínua em a;
+		\item[ii)] Se f e g são analíticas em G, então f+g e f.g são analíticas em G. Se $G' = G - \{0\}$,
+		      então f/g é analítica em G'. Valem as regras clássicas de derivação.
+		\item[iii)] Sejam f e g analíticos em $G_f, G_g$, respectivamente, com $f(G_f)\subseteq{f(G_g)}$. Então,
+		      $g\circ f$ é analítica em $G_f$ e
+		      $$
+			      (g\circ f)'(z) = g'(f(z))f'(z), \quad z\in{G}.
+		      $$
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Exercício.
+	\qedsymbol
+\end{proof*}
+
+\begin{prop*}
+	Seja $f(z) = \sum\limits_{n=0}^{\infty}a_n(z-a)^n$ com raio de convergência R. Então,
+	f é infinitamente diferenciável em B(a, R). Além disso, a derivada de ordem k é
+	$$
+		f^{(k)}(z) = \sum_{n=k}^{\infty}a_n\frac{n!}{(n-k)!}(z-a)^{n-k}, k\in\mathbb{N}
+	$$
+	com mesmo raio de convergência de f.
+\end{prop*}
+\begin{proof*}
+	A última afirmação fica como exercício.
+
+	Consideremos
+	\begin{align*}
+		 & s_n(z) = \sum_{k=0}^{n}a_k(z-a)^k, \quad R_n(z)= f(z) - s_n(z),                 \\
+		 & g(z) = \sum_{n=1}^{\infty}a_nn(z-a)^{n-1}, \quad z\in{B(a, R)}, n\in\mathbb{N}.
+	\end{align*}
+	Seja $\delta > 0$ tal que $B(z, \delta)\subseteq{B(a, r)}$ com $|z| < r < R.$ Assim, para
+	w em $B(z, \delta)$
+	$$
+		\frac{f(z)-f(w)}{z-w} - g(z) = \frac{s_n(z) - s_n(w)}{z-w} + \frac{R_n(z) - R_n(w)}{z-w} - g(z) =
+		= \biggl[\frac{s_n(z) - s_n(w)}{z-w} - s_n'(z)\biggr] + \biggl[\frac{R_n(z) - R_n(w)}{z-w}\biggr] - (g(z) - s_n'(z)).
+	$$
+	Note que
+	$$
+		\biggl|\frac{R_n(z) - R_n(w)}{z-w}\biggr| = \biggl|\frac{1}{z-w}\sum_{k=n+1}^{\infty}a_k\frac{[(z-a)^k - (w-a)^k]}{(z-a)-(w-a)}\biggr|
+		= \biggl|\sum_{k=n+1}^{\infty}a_k\biggl((z-a)^{k-1} + \cdots + (w-a)^{k-1}\biggr)\biggr|
+		\leq \sum_{k=n+1}^{\infty}|a_k|kr^{k-1}\to{0},
+	$$
+	pois $g(r) < \infty,$ em que n tende a infinito.
+	Como as duas expressões em chaves tendem a 0 quando w tende a z, concluímos que
+	$$
+		\lim_{z\to{w}}\frac{f(z)-f(w)}{z-w} = g(z)
+	$$
+	e a afirmação segue.
+	\qedsymbol
+\end{proof*}
+\begin{crl*}
+	Nas notações e condições da proposição anterior, f é analítica em
+	B(a, R) e
+	$$
+		a_n = \frac{f^{(n)}(a)}{n!}, n\in\mathbb{N}
+	$$
+\end{crl*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+\begin{prop*}
+	Seja G aberto e conexo. Se $f:G\rightarrow\mathbb{C}$ é tal que $f'(z) = 0, z\in{G},$
+	então f é constante.
+\end{prop*}
+\begin{proof*}
+	Seja $z_0\in{G}$ e considere $C = f^{-1}(\{f(z_0)\}),$ tal que C é não-vazio e fechado.
+	Mostremos que C é, também, aberto.
+	Seja z um elemento de C e $r > 0$ tal que $B(z, r)\subseteq{G}$. Para todo $w\in{B(z, w)}$,
+	definimos $g:[0, 1]\rightarrow\mathbb{C}$ por g(t) = f(tz + (1-t)w). Neste caso,
+	$$
+		g'(t) = f'(tz + (1-t)w)(z-w) = 0.
+	$$
+	Como g é real, segue que ela é constante. Com isso, note que $f(w) = g(0) = g(1) =
+		f(z) = f(z_0)$, tal que $w\in{C}$.
+	\qedsymbol
+\end{proof*}
+\begin{example}
+	$e^z = \sum_{n=0}^{\infty}\frac{z^n}{n!}, R = \infty$
+\end{example}
+Coloque $g(z) = e^ze^{z-w}, w\in\mathbb{C}$ fixo. Temos $g'(z) = (e^z)'e^{w-z} + e^z(e^{w-z})' - 0.$
+Assim, g é constante e, como $g(0) = e^w$, concluímos que $e^w = e^ze^{w-z}$ para todo
+$z, w\in\mathbb{C}$.
+\begin{exer*}
+	Prove que, para $z, w\in\mathbb{C},$:
+	\begin{itemize}
+		\item[1)] $e^{z+w} = e^ze^w;$
+		\item[2)] $e^ze^{-z} = 1;$
+		\item[3)] $e^{\overline{z}} = \overline{(e^z)}$;
+		\item[4)] $|e^z| = e^{Re(z)}.$
+	\end{itemize}
+\end{exer*}
+\begin{example}
+	Defina, para z complexo,
+	\begin{align*}
+		 & \cos{(z)} = \sum_{n=0}^{\infty}(-1)^n\frac{z^{2n}}{(2n)!}      \\
+		 & \sin{(z)} = \sum_{n=0}^{\infty}(-1)^n\frac{z^{2n+1}}{(2n+1)!}.
+	\end{align*}
+\end{example}
+\begin{exer*}
+	Dado z complexo, mostre que
+	\begin{itemize}
+		\item[i)] $(\sin{(z)}' = \cos{(z)}, \quad (\cos{(z)})' = -\sin{(z)};$
+		\item[ii)] $\cos{(z)} = \frac{1}{2}\biggl(e^{iz} + e^{-iz}\biggr), \quad \sin{(z)} = \frac{1}{2}
+			      \biggl(e^{iz} - e^{-iz}\biggr)$;
+		\item[iii)] $\cos^2{(z)} + \sin^2{(z)} = 1$;
+		\item[iv)] $e^{iz} = \cos{(z)} + i\sin{(z)}.$
+	\end{itemize}
+\end{exer*}
+
+\subsection{Ramos de Funções Inversas}
+Seja $z\in \mathbb{C}.$ Buscamos $w\in \mathbb{C}$ tal que $e^{w} = z, z\neq0.$ Logo, w deve satisfazer $|e^{w}|
+	= e^{Re(w)} = |z|\Rightarrow Re(w) = \ln{|z|}.$ Se w = x + iy, então
+$$
+	e^{w} = e^{x}e^{iy} = e^{x}\biggl(\cos{(y)} + i\sin{(y)}\biggr) = z = |z|\biggl(\cos{(\theta)} + i\sin{(\theta)}\biggr)
+$$
+com $\theta = \arg{z}.$ Assim, $y = \theta + 2k\pi$ para algum k. Portanto, $w = \ln{|z|} + i(\arg{z} + 2k\pi), k\in \mathbb{Z}.$
+\begin{def*}
+	Seja G um aberto conexo de $\mathbb{C} e f:G\rightarrow \mathbb{C}$ contínua. Diremos que \textbf{f é um ramo de logarítmo}
+	em G se $e^{f(z)} = z, z\in{G}.$
+\end{def*}
+\begin{prop*}
+	Se G é um aberto conexo e f, g são ramos de logarítmos em G, então $f(z) = g(z) + 2k\pi i$ para algum
+	$k\in \mathbb{Z}$.
+\end{prop*}
+\begin{proof*}
+	Seja z em G. Mostraremos que
+	$$
+		\frac{f(z) - g(z)}{2\pi i}\in \mathbb{Z}.
+	$$
+	Observe que $e^{f(z) - g(z)} = \frac{e^{f(z)}}{e^{g(z)}} = \frac{z}{z} = 1.$ Daí, $f(z) = g(z) + 2k\pi i$ para algum
+	inteiro k, pois
+	$$
+		f(z) - g(z) = \ln{|1|} + i(\arg{1} + 2k\pi)
+	$$
+	Definimos $h:G\rightarrow \mathbb{C}$ por
+	$$
+		h(w) = \frac{f(w) - g(w)}{2 \pi i}, \quad \in{G}.
+	$$
+	De forma análoga ao anterior, concluímos $Im(h)\subseteq{\mathbb{Z}}$ deve ser conexo, pois h é contínua. Assim,
+	h é constante, pois os únicos conexos de $\mathbb{Z}$ são o vazio e conjuntos unitários, provando o resultado. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Sejam $G, \Omega$ abertos e $f:G\rightarrow \mathbb{C}\text{ e }g:\Omega\rightarrow \mathbb{C}$ contínuas com $f(G)\subseteq{\Omega}$
+	e satisfazendo $f(g(z)) = z, z\in{G}.$ Se g é diferenciável em z e $g'(f(z))\neq0,$ então
+	$$
+		f'(z) = \frac{1}{g'(f(z))}.
+	$$
+	Caso g seja analítica, f também o é.
+\end{prop*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+Considere G um aberto conexo. Chamamos a função $f:G\rightarrow \mathbb{C} $ dada por
+$$
+	f(z) = \ln{|z|} + i \theta, \quad \theta=\arg{(z)}\in{(-\pi, \pi)}
+$$
+de ramo principal do logarítimo.
+\end{document}

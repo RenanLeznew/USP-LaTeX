@@ -1,0 +1,130 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 02/02/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema dos Resíduos.
+\end{itemize}
+\subsection{Resíduos}
+Seja f uma função com singularidade isolada a e \(\gamma \) uma curva fechada homotópica a 0 tal que \(a\not\in\{\gamma \}.\)
+Se a é uma singularidade removível, então existe uma função analítica \(g:B(a, \delta )\rightarrow \mathbb{C}\) tal que
+\(\{\gamma \}\subseteq B(a, \delta )\) e \(g(z) = f(z)\) para \(0 < |z-a| < \delta \), de modo que
+\[
+	\int_{\gamma }^{}f(z)dz = \int_{\gamma }^{}g(z)dz = 0.
+\]
+Mas e quando a é um polo ou uma singularidade esssencial? O que acontece com \(\int_{\gamma }^{}f\)?
+
+Antes de responder esta pergunta, definiremos o que é um resíduo.
+\begin{def*}
+	Seja f uma função que admite singularidade isolada em z=a e
+	\[
+		f(z) = \sum\limits_{n=-\infty}^{\infty}b_{n}(z-a)^{n}
+	\]
+	a sua expansão de Laurente sobre a. Dizemos que o coeficiente \(b_{-1}\) é chamado \textbf{resíduo de f em a},
+	denotado por \(\mathrm{Res}(f; a).\quad \square\)
+\end{def*}
+\begin{example}
+	Consideramos a função \(f(z) = e^{\frac{1}{z}}.\) Sabe-se que \(e^{z}\) é analítica e admite expansão em série
+	de Taylor, tal que
+	\[
+		e^{z} = 1 + z + \frac{1}{2}z^{2} + \frac{1}{3!}z^{3} + \dotsc
+	\]
+	Dessa forma, temos a expansão de Laurent de f em torno de 0, dada por
+	\[
+		e^{\frac{1}{z}} = 1 + \frac{1}{z} + \frac{1}{2}\frac{1}{z^{2}}+\dotsc  = \sum\limits_{n=-\infty}^{-1}\underbrace{\frac{1}{n!}}_{b_{n}}(z-0)^{n}
+	\]
+	Logo, \(\mathrm{Res}(f; 0) = b_{-1} = 1.\)
+\end{example}
+\hypertarget{residue}{ \begin{theorem*}
+		Seja f uma função analítica na região G com exceção das singularidades isoladas \(a_{n},\dotsc ,a_{n}.\) Se \(\gamma \) é uma curva fechada e retificável
+		em G com \(a_{k}\not\in\{\gamma \}\) para \(k=1, \dotsc , n\) e tal que \(\gamma \sim 0,\) então
+		\[
+			\frac{1}{2\pi i}\int_{\gamma }^{}f(z)dz = \sum\limits_{k=1}^{n}n(\gamma; a_{k})\mathrm{Res}(f; a_{k}).
+		\]
+	\end{theorem*}}
+\begin{proof*}
+	Seja \(m_{k} = n(\gamma ; a_{k}).\) Podemos tomar \(r_{k}>0\) de modo que \(\overline{B(a_{k}, r_{k})}\subseteq G, B(a_{k}, r_{k})\cap\{\gamma \}=\emptyset \) e
+	\(B(a_{k}, r_{k})\cap B(a_{j}, r_{j}) = \emptyset \) se \(k\neq j\).
+
+	Considere a curva \(\gamma_{k}(t) = a_{k} + r_{k}e^{-2\pi i m_{k}t},t\in[0, 1].\) Com isso,
+	\[
+		n(\gamma ; a_{j}) + \sum\limits_{k=1}^{n}n(\gamma_{k}, a_{j}) = 0.
+	\]
+	Como \(\gamma \sim 0\) e \(\overline{B(a_{k}, r_{k})}\subseteq G\), se \(a\not\in G\setminus{\{a_{1},\dotsc ,a_{n}\}}\),
+	\[
+		n(\gamma ; a) + \sum\limits_{k=1}^{n}n(\gamma_{k}, a) = 0
+	\]
+	e segue, do Teorema de Cauchy, que
+	\[
+		\int_{\gamma }^{}f(z)dz + \sum\limits_{k=1}^{n}\int_{\gamma_{k}}^{}f(z)dz = 0.
+	\]
+	Caso \(f(z) = \sum\limits_{n=-\infty}^{\infty}b_{n}(z-a_{k})^{n}\) seja a expansão de Laurent de f sobre \(a_{k}\), então a série converge uniformemente
+	em \(\overline{B(a_{k}, r_{k})}.\) Logo,
+	\begin{align*}
+		\int_{\gamma_{k}}^{}f(z)dz & = \sum\limits_{n=-\infty}^{\infty}b_{n}\int_{\gamma_{k}}^{}(z-a_{k})^{n}dz \\
+		                           & = b_{-1}\int_{\gamma_{k}}^{}(z-a_{k})^{-1}dz                               \\
+		                           & = \mathrm{Res}(f; a_{k})\cdot 2\pi i \cdot n(\gamma_{k}; a_{k})            \\
+		                           & = -2\pi i n(\gamma ; a_{k})\cdot \mathrm{Res}(f; a_{k}).
+	\end{align*}
+	Portanto,
+	\[
+		\int_{\gamma }^{}f(z)dz + \sum\limits_{k=1}^{n}\int_{\gamma_{k}}^{}f(z)dz = \int_{\gamma }^{}f(z)dz - 2\pi i \sum\limits_{k=1}^{n}\mathrm{Res}(f; a_{k})n(\gamma ; a_{k}) = 0,
+	\]
+	o que equivale a
+	\[
+		\frac{1}{2\pi i}\int_{\gamma }^{}f(z)dz = \sum\limits_{k=1}^{n}n(\gamma ; a_{k})\mathrm{Res}(f; a_{k}).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Suponha que \(f:G\rightarrow \mathbb{C}\) tem um polo de ordem \(m \geq 1\) em a e seja \(g(z) = (z-a)^{m}f(z).\) Então,
+	\[
+		\mathrm{Res}(f; a) = \frac{1}{(m-1)!}g^{(m-1)}(a).
+	\]
+\end{prop*}
+\begin{proof*}
+	Sabemos que g(z) é analítico em torno de a e satisfaz \(g(a)\neq 0.\) Considere a expansão em Taylor de g(z) em torno de a:
+	\[
+		g(z) = \sum\limits_{k=0}^{\infty}b_{k}(z-a)^{k}.
+	\]
+	Pela definição de g(z), temos
+	\[
+		f(z) = \frac{g(z)}{(z-a)^{m}} = \frac{b_{0}}{(z-a)^{m}} + \dotsc + \frac{b_{m-1}}{z-a} + \sum\limits_{k=0}^{\infty}b_{m+k}(z-a)^{k}.
+	\]
+	Portanto,
+	\[
+		\mathrm{Res}(f; a) = b_{m-1} = \frac{g^{(m-1)(a)}}{(n-1)!}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{exer*}
+	Seja \(f(z) = \tan^{}{(z)}.\) Calcule \(\mathrm{Res}(f; \frac{\pi }{2})\) utilizando a proposição anterior.
+\end{exer*}
+\begin{example}
+	Consderando f uma função com um polo simples em a, sabemos que a expansão de f em sua série de Laurent é
+	\[
+		f(z) = \frac{b_{-1}}{z-a} + \sum\limits_{n=0}^{\infty}b_{n}(z-a).
+	\]
+	Dessa forma,
+	\begin{align*}
+		\lim_{z\to a}(z-a)f(z) = \lim_{z\to a}(z-a)\sum\limits_{n=-1}^{\infty}b_{n}(z-a)^{n} & = \lim_{z\to a}\sum\limits_{n=-1}^{\infty}b_{n}(z-a)^{n+1}    \\
+		                                                                                     & = \lim_{z\to a}b_{-1} + \sum\limits_{n=0}^{\infty}(z-a)^{n+1} \\
+		                                                                                     & = \mathrm{Res}(f; a).
+	\end{align*}
+	Assim, dado que g é analítica em um aberto contendo a, segue que \(f \cdot g\) tem uma singularidade isolada em a do tipo polo simples
+	ou removível \textbf{[Exercício]} e, consequentemente,
+	\[
+		\mathrm{Res}(fg; a) = \lim_{z\to a}(z-a)f(z)g(z) = \lim_{z\to a}(z-a)f(z)\lim_{z\to a}g(z).
+	\]
+	Portanto,
+	\[
+		\mathrm{Res}(fg; a) = \mathrm{Res}(f; a)\cdot g(a).
+	\]
+\end{example}
+\begin{example}
+	Seja f uma função analítica na região G com exceção das singularidades isoladas \(a_{1}, a_{2}, \dotsc , a_{n}\), que são polos simples.
+	Se \(\gamma \) é uma curva fechada retificável em G tal que \(a_{k}\not\in \{\gamma \}\) com \(k=1,\dotsc ,n \) e \(\gamma \) homotópica a 0,
+	segue do \hyperlink{residue}{Teorema do Resíduo} q pelo exemplo anterior que, se g é analítica em G, teremos
+	\[
+		\frac{1}{2\pi i}\int_{\gamma }^{}f(z)g(z)dz = \sum\limits_{k=1}^{n}n(\gamma ; a_{k})\mathrm{Res}(fg; a_{k}) = \sum\limits_{k=1}^{n}n(\gamma ; a_{k})g(a_{k})\mathrm{Res}(f; a_{k}).
+	\]
+\end{example}
+\end{document}

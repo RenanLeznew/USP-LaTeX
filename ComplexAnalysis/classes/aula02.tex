@@ -1,0 +1,268 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 05/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Sequências e suas convergências;
+	\item Teorema de Cantor para espaços completos;
+	\item Compacidade e Heine-Borel;
+	\item Continuidade e convergência de funções.
+\end{itemize}
+
+\subsection{Fim de Conexos}
+\begin{theorem*}
+	Seja $G\subseteq{\mathbb{C}}$ um aberto e conexo, então existe uma poligonal ligando qualquer z, w em G cujos segmentos
+	sejam paralelos ao eixo real ou imaginário.
+\end{theorem*}
+
+\begin{def*}
+	Um subconjunto de um espaço métrico (M, d) é uma \textbf{componente conexa} se é um conexo maximal
+\end{def*}
+
+\begin{example}
+	Coloque $A = \{1, 2, 3\}. \{1\}$ é componente conexa de A, mas $\{1, 2\}$ não é.
+\end{example}
+
+\begin{theorem*}
+	Seja (M, d) um espaço métrico. Então,
+	\begin{itemize}
+		\item[1)] Para x em M, existe $C _{x}$ uma componente conexa de M com $x\text{ em }C _{x}; $
+		\item[2)] As componentes são disjuntas.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	1) \par Seja x em M e tomemos
+	$$
+		C _{x} = \bigcup _{D\subseteq{M}} \{D: D \text{ conexos com } x\in{D}\}
+	$$
+	Mostremos que $C _{x}$ é conexo, pois a maximalidade segue da definição dada a ele. Note que $C _{x}\neq\emptyset$, visto que
+	qualquer conjunto unitário é conexo. Seja $A\subseteq{C _{x}}$ aberto, fechado e não-nulo. Existe $D _{x}\in C _{x}$ tal
+	que $D _{x}\cap{A}\neq\emptyset$, o que implica que $D _{x}\subseteq{A}.$
+
+	Finalmente, considere $D\in C _{x}$, de modo que $D _{x}\cup{D}$ é conexo e $(D _{x}\cup{D})\cap{A}\neq\emptyset$ o que garante
+	que $D\subseteq{A}. \text{ Assim, } A = C _{x}.$
+	\qedsymbol.
+\end{proof*}
+\begin{exer*}
+	\begin{itemize}
+		\item[1)] Prove a segunda afirmação do teorema;
+		\item[2)] Se D e conexo e $D\subseteq{A}\subseteq{\overline{D}}$, então A é conexo.
+	\end{itemize}
+\end{exer*}
+
+\begin{theorem*}
+	Seja G um subconjunto aberto de $\mathbb{C}.$ As componentes conexas são abertas e há no máximo uma quantidade enumerável
+	delas.
+\end{theorem*}
+\begin{proof*}
+	Seja D uma componente conexa de G. Tome $x\in{D}$, tal que existe $r > 0 \text{ com } B(x, r)\subseteq{G}$, já que G é aberto.
+	Suponha que $B(x, r)\not\subseteq{D}.$ Neste caso, $B(x, r)\cup{D}$ seria um conexo contendo D propriamente. Logo,
+	$B(x, r)\subseteq{D}$ e D é aberto.
+
+	Para a segunda afirmação, considere
+	$$
+		\Omega = \mathbb{Q} + i\mathbb{Q} (\overline{\Omega} = \mathbb{C})
+	$$
+	Para cada componente conexa C de G, como G é aberto, existe $z\in{\Omega\cap{C}}$, o que é suficiente para garantir a enumerabilidade
+	das componentes de G.
+	\qedsymbol.
+\end{proof*}
+
+\subsection{Sequências e Completude}
+\begin{def*}
+	Seja (M, d) um espaço métrico. Uma sequência $\{x _{n}\}$ de M é \textbf{convergente} se existe x em M tal que
+	para todo $\epsilon > 0$, existe $n_{0}$ natural tal que
+	$$
+		d(x _{n}, x) < \epsilon, \quad n\geq n_{0}.
+	$$
+	Escrevemos, neste caso, $x _{n}\to x$. Dizemos que uma sequência é de Cauchy se para todo $\epsilon > 0$, existe
+	$n_{0}$ natural satisfazendo
+	$$
+		d(x _{n}, x _{m}) < \epsilon, \quad n, m \geq n_{0}.
+	$$
+\end{def*}
+
+\begin{exer*}
+	\begin{itemize}
+		\item[i)] Se $\{x _{n}\}$ é convergente, então $\{x_n\}$ é de Cauchy, mas a recíproca é só válida
+		      quando a sequência possui uma subsequência convergente.
+		\item[ii)] Se $\{x_{n}\}$ é de Cauchy, então $x_{n}$ é limitada.
+		\item[iii)] $F\subseteq{M}$ é fechado se e só se toda $x_{n}$ de F com $x_{n}\to x$ é tal que x pertence a F.
+	\end{itemize}
+\end{exer*}
+
+Dizemos que um espaço métrico é completo se toda sequência de Cauchy for convergente.
+\begin{exer*}
+	\begin{itemize}
+		\item[i)] Mostre que $\mathbb{R}, \mathbb{C}$ são espaços métricos completos;
+		\item[ii)] Se (M,d) é um espaço métrico e $S\subseteq{M}$, mostre que se (S,d) for completo, ele é fechado em M.
+		      Mostre e recíproca no caso em que (M, d) é completo.
+	\end{itemize}
+\end{exer*}
+O resultado a seguir é conhecido como Teorema de Cantor.
+\begin{theorem*}
+	Um espaço métrico é completo se e só se toda cadeia descendente de fechado $\{F_{n}\} $ satisfazendo
+	$$
+		diam F_{n}\to{0}, \quad n\to\infty
+	$$
+	é tal que $\bigcap_{n\in \mathbb{N}}F_{n}$ é unitário. Aqui, $\mathrm{diam} A\coloneqq sup\{d(x, y): x, y\in{A}\}.$
+\end{theorem*}
+\begin{proof*}
+	Suponha que M é um espaço métrico completo. Se $\bigcap\limits _{n\in \mathbb{N}}F\neq\emptyset,$ então ele é unitário.
+	De fato, se $x, y\in{\cap_n{F}}$,
+	$$
+		d(x, y)\leq \mathrm{diam} F _{n} (\mathrm{diam} F _{n+1}\leq \mathrm{diam} F _{n}),
+	$$
+	mas $\mathrm{diam} F _{n}\to{0}$ e d(x, y) = 0, de modo que x = y.
+
+	Agora, seja $x _{n}\in F _{n}, n\in \mathbb{N}$ e observe que
+	$$
+		d(x _{n}, x _{n+1})\leq \mathrm{diam} F _{n},
+	$$
+	pois $F _{n+1}\subseteq{F _{n}}$. Isto garante que $\{x_{n}\}$ é de Cauchy e, como M é completo, existe x com $x_{n}\to{x}$.
+	Neste caso, $x\in{F_{n}}$ para todo n e $\bigcap _{n\in \mathbb{N}}F_{n}=\{x\}.$
+
+	Reciprocramente, seja $\{a_{n}\}$ de Cauchy em M. Construímos
+	$$
+		F_{n} = \overline{\{a_{k}: k\geq{n}\}}
+	$$
+	que são fechados satisfazendo $F_{n+1}\subseteq{F_{n}}.$ Assim, $\bigcap\limits _{n\in \mathbb{N}}F_{n} = \{x\}$ para algum
+	x de M. Como
+	$$
+		d(x, a_{n})\leq \mathrm{diam}F_{n}\to{0},
+	$$
+	temos, portanto, $a_{n}\to{x}.$
+	\qedsymbol
+\end{proof*}
+Um exercício que fica é mostrar que se $\{a_{n}\}$ é de Cauchy, então $\mathrm{diam}F_{n}\to{0}$
+\subsection{Compactos}
+\begin{def*}
+	Seja (M, d) um espaço métrico. Um subconjunto $S\subseteq{M}$ é \textbf{compacto} se para toda coleção $\mathcal{A}$
+	de abertos de M cobrindo S existe $A_1, \cdots, A_{n}\in \mathcal{A}$ tal que
+	$$
+		S\subseteq\bigcup_{k=1}^{n}A_{k}
+	$$
+\end{def*}
+Dado um espaço métrico (M, d), M é dito sequencialmente completo se todas as sequências de M possuem subse
+quência convergente. Também diremos que ele é totalmente limitado se para todo $\epsilon > 0$, existe $n\in \mathbb{N},
+	x_{1}, \cdots, x_{n}\in{M}$ com
+$$
+	M = \bigcup_{i=1}^{n}B(x_{i}, \epsilon).
+$$
+Um conjunto A é dito limitado se seu diametro é finito.
+\begin{exer*}
+	\begin{itemize}
+		\item[i)] Se A é totalmente limitado, então A é limitado, mas a recíproca não é necessariamente verdade.
+		\item[ii)] Se A é compacto, então A é limitado, mas a recíproca não é necessariamente verdade.
+	\end{itemize}
+\end{exer*}
+\begin{prop*}
+	Seja (M, d) um espaço métrico e K um subconjutno de M. Então, K é compacto se esó se toda família de fechados com PIF tem
+	interseção não-vazia.
+\end{prop*}
+A PIF é a Propriedade da Intersecção Finita, que afirma que dados conjuntos $F _{1}, \cdots, F_{n}\Rightarrow \bigcap\limits_{k=1}^{n}F_{k}\neq\emptyset$
+\begin{theorem*}
+	Seja (M, d) um espaço métrico. As seugintes afirmações são equivalentes:
+	\begin{itemize}
+		\item[i)]M é compacto;
+		\item[ii)] Para todo conjunto ininito S de M, existe x em S tal que para todo $\epsilon > 0, B(x, \epsilon)\cap{S-\{x\}}\neq\emptyset$;
+		\item[iii)] M é sequencialmente compacto;
+		\item[iv)] M é completo e totalmente limitado.
+	\end{itemize}
+\end{theorem*}
+\begin{theorem*}
+	Um conjunto K de $\mathbb{R}^{n}$ é compacto se e só se ele é fechado e limitado.
+\end{theorem*}
+Segue um esboço da prova.
+\begin{proof*}
+	Se K é compacto, ele é completo (logo, fechado) e totalmente limitado (logo, limitado). Por outro lado, se K é fechado
+	e limitado, então K é completo porque $\mathbb{R}^{n}$ é completo. Além disso, pela propriedade Arquimediana da reta,
+	para todo $\epsilon > 0$, existem $x_1, \cdots, n_{n}\in{K}$ com
+	$$
+		K\subseteq{\bigcup_{i=1}^{n}B(x_{i}, \epsilon)}
+	$$
+\end{proof*}
+
+\subsection{Continuidade}
+\begin{def*}
+	Sejam (X, d), (Y, d') espaços métricos. $f:X\rightarrow Y$ é \textbf{contínua em x} de X se para todo $\epsilon > 0$, existir
+	$\delta > 0$ tal que
+	$$
+		d(x, y) < \delta\Rightarrow d'(f(x), f(y)) < \epsilon
+	$$
+	f é dita contínua se isso ocorre para todos os pontos de M.
+\end{def*}
+\begin{exer*}
+	Mostre que equivalem à definição de contínua:
+	\begin{itemize}
+		\item[i)] $f^{-1}(B(x, \epsilon))$ contém uma bola aberta centrada em x, para todo $\epsilon > 0$;
+		\item[ii)] $x_{n}\to{x}$ implica $f(x_{n})\to{f(x)}$
+		\item[iii)] $F ^{-1}(A)$ é aberta em $X$ para todo aberto A com $x\in{A}$
+	\end{itemize}
+\end{exer*}
+\begin{prop*}
+	Sejam $f, g:X\rightarrow \mathbb{C}$ funções contínuas. Então,
+	\begin{itemize}
+		\item[1)] $\alpha f + \beta g$ é contínua, $\alpha, \beta\in \mathbb{C};$
+		\item[2)] fg é conínua;
+		\item[3)] Se $x\neq{0},$ então f/g é contínua em x;
+		\item[4)] Se $h:Y\rightarrow X$ é con\'tinua, então $f\circ{h}:Y\rightarrow \mathbb{C}$ é contínua.
+	\end{itemize}
+\end{prop*}
+\begin{def*}
+	Uma função $f:(X, d)\rightarrow (Y, d')$ é \textbf{uniformemente contínua} se para todo $\epsilon > 0$, existe $\delta > 0$
+	tal que
+	$$
+		d(x, y) < \delta\Rightarrow d'(f(x), f(y)) < \epsilon.
+	$$
+	Uma função $f:(X, d)\rightarrow (Y, d')$ é \textbf{Lipschitz} se existe $c > 0$ tal que
+	$$
+		d'(f(x), f(y)) \leq cd(x, y)
+	$$
+\end{def*}
+\begin{theorem*}
+	Seja $f:(X, d)\rightarrow (Y, d')$ uma função. Então,
+	\begin{itemize}
+		\item[i)] Se X é compacto, então f(X) é compacto;
+		\item[ii)] Se X é conexo, então f(X) é conexo. Adicionalmente, se Y = $\mathbb{R}$, então f(X) é um intervalo.
+	\end{itemize}
+\end{theorem*}
+\begin{crl*}
+	Se $f:X\rightarrow \mathbb{R}$ é contínua, então para todo $K \subseteq{X}$ compacto, existem $x _{m}, x _{M}\in{K}$
+	tais que
+	$$
+		f(x _{m}) = \inf _{x\in{K}} \{f(x)\}, \quad f(x _{M}) = \sup _{x\in{K}} \{f(x)\}
+	$$
+\end{crl*}
+\begin{crl*}
+	Nas mesmas condições, mas f uma função complexa, temos
+	$$
+		|f(x _{m})| = \inf _{x\in{K}} \{|f(x)|\}, \quad |f(x _{M})| = \sup _{x\in{K}} \{|f(x)|\}
+	$$
+\end{crl*}
+\begin{theorem*}
+	Seja $f:X\rightarrow Y$ con\'tinua. Se X é compacto, então f é uniformemente contínua.
+\end{theorem*}
+
+\subsection{Convergência Uniforme}
+\begin{def*}
+	Uma sequência de funções $\{f_{n}\}$ de X em Y \textbf{converge pontualmente} para $f:X\rightarrow Y$ se
+	$$
+		f_{n}(x)\to f(x), \quad n\to\infty, \forall{x\in{X}}
+	$$
+	$\{f_{n}\}$ \textbf{converge uniformemente} para f se para todo $\epsilon > 0$, existe $n_{0}\in \mathbb{N}$ tal que
+	$$
+		\sup _{x\in{X}} \{d'(f_{n}(x), f(x))\} < \epsilon, n\geq{n_{0}}
+	$$
+\end{def*}
+\begin{theorem*}
+	Se $\{f_{n}\}$ é uma sequência de funções con\'tinuas e $f_{n}\to{f}$ uniformemente, então f é contínua.
+\end{theorem*}
+\begin{theorem*}
+	Seja $u_{n}:X\rightarrow \mathbb{C}$ uma sequência de funções satisfazendo
+	$$
+		|u_{n}(x)|\leq c_{n}, n\in \mathbb{N}.
+	$$
+	Se $\sum\limits_{n=0}^{\infty}c_{n} < \infty,$ então $\sum\limits_{k=1}^{n}u_{k}\to \sum\limits_{n=0}^{\infty}u_{n}$ uniformemente.
+\end{theorem*}
+\end{document}

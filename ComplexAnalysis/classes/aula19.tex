@@ -1,0 +1,271 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{center}
+	\section{Aula 19 - 06/02/2023 - Edson Cidral, Eduardo Zago, Ester Beatriz e Francisco Jonatã}
+	\subsection{Motivações}
+	\begin{itemize}
+		\item Princípio do Argumento;
+		\item Teoremas de Rouché.
+	\end{itemize}
+	\subsection{O Princípio do Argumento}
+	\begin{def*}
+		Se G é um aberto e f uma função definida e analítica em G, exceto em seus polos, então dizemos que f é uma \textbf{função meromorfa} em G. \(\square\)
+	\end{def*}
+	Observe que se P é o conjunto de polos de uma função f meromorfa em G, podemos definir uma outra função \(\tilde{f}:G\rightarrow \mathbb{C}_{\infty}\) tal que
+	\(\tilde{f}(z) = f(z)\) para \(z\in G\setminus{P}\) e \(\tilde{f}(z) = \infty\) para \(z\in P\). Note que \(\tilde{f}\) é contínua em toda G, mas não é analítica,
+	o que nos impede de obter uma função analítica com o mesmo comportamento de f em torno de polos.
+
+	\hypertarget{argument-principle}{\begin{theorem*}[Princípio do Argumento]
+			Seja f uma função meromorfa em uma região G com zeros \(z_{1},\dotsc ,z_{n}\) e polos \(p_{1},\dotsc , p_{n} \) contados
+			de acordo com suas multiplicidades. Se \(\gamma \) é uma curva fechada retificável em G e homotópica a zero que não passa nem por polos
+			nem por zeros, então
+			\[
+				\frac{1}{2\pi i}\int_{\gamma }^{}\frac{f'(z)}{f(z)}dz = \sum\limits_{k=1}^{n}n(\gamma ; z_{k}) - \sum\limits_{j=1}^{m}n(\gamma ; p_{j}).
+			\]
+		\end{theorem*}}
+	\begin{proof*}
+		Precisamos de duas afirmações para demonstrar o que queremos:
+
+		\textbf{\underline{Afirmação}:} Se f tem zero de ordem n em \(z=a\) e g é função analítica perto de a tal que \(f(z) = (z-a)^{n}g(z),\) então
+		\[
+			\frac{f'(z)}{f(z)} = \frac{n}{z-a} + \frac{g'(z)}{g(z)}.
+		\]
+
+		\textbf{\underline{Afirmação}:} Se f tem polo de ordem m em \(z=p\) e g é função analítica perto de p tal que \(f(z) = (z-p)^{-m}g(z),\) então
+		\[
+			\frac{f'(z)}{f(z)} = -\frac{m}{z-p} + \frac{g'(z)}{g(z)}.
+		\]
+		Vamos mostrar apenas a segunda, pois as provas são análogas. Temos
+		\[
+			f'(z) = ((z-p)^{-m}g(z))' = -m(z-p)^{-m-1}g(z) + (z-p)^{-m}g'(z).
+		\]
+		Logo,
+		\[
+			\frac{f'(z)}{f(z)} = \frac{-m(z-p)^{-m-1}g(z) + (z-p)^{-m}g'(z)}{(z-p)^{-m}g(z)} = -\frac{m}{z-p} + \frac{g'(z)}{g(z)}.
+		\]
+		Aplicando ambas as propriedades para cada zero e polo de f, é possível verificar (\textbf{[exercício]}) que existe uma função g analítica em G tal que
+		\[
+			\frac{f'(z)}{f(z)} = \sum\limits_{k=1}^{n}\frac{1}{z-z_{k}} - \sum\limits_{j=1}^{m}\frac{1}{z-p_{j}} + \frac{g'(z)}{g(z)}.
+		\]
+		Agora, integrando ambos os lados da equação sobre a curva \(\gamma \), obtemos
+		\[
+			\int_{\gamma }^{}\frac{f'(z)}{f(z)}dz = \sum\limits_{k=1}^{n}\int_{\gamma }^{}\frac{1}{z-z_{k}} - \sum\limits_{j=1}^{m}\int_{\gamma }^{}\frac{1}{z-p_{j}} + \int_{\gamma }^{}\frac{g'(z)}{g(z)}.
+		\]
+		Visto que \(\frac{g'}{g}\) é analítica e \(\gamma \sim 0\), temos \(\int_{\gamma }^{}\biggl(\frac{g'}{g}\biggr) = 0\). Portanto, obtemos a forma equivalente do resultado
+		\[
+			\int_{\gamma }^{}\frac{f'(z)}{f(z)}dz = \sum\limits_{k=1}^{n}\int_{\gamma }^{}\frac{1}{z-z_{k}} - \sum\limits_{j=1}^{m}\int_{\gamma }^{}\frac{1}{z-p_{j}} = \sum\limits_{k=1}^{n}2\pi i n(\gamma ; z_{k}) - \sum\limits_{j=1}^{m}2\pi i n(\gamma ; p_{j}).\quad \text{\qedsymbol}
+		\]
+	\end{proof*}
+	Agora, buscamos dar um significado a este raciocínio por meio de um exemplo:
+	\begin{example}
+		Considere \(\log^{}{(f(z))}\) definido em G, a qual seria uma primitiva para \(\frac{f'}{f}.\) No entanto, isso não é verdade, pois, caso fosse,
+		\(\int_{\gamma }^{}\frac{f'}{f} = 0\), mas sabemos que, para cada \(a\in\{\gamma \}\), existe \(r > 0\) tal que \(B(a, r)\) não contém zeros e nem polos de f, ou seja,
+		conseguimos uma cobertura aberta para \(\{\gamma \}\) e, por meio do Lema do Recobrimento de Lebesgue,\footnotemark[1]\footnotetext[1]{Dada uma cobertura aberta \(\{U_{\alpha }\}_{\alpha \in \Omega }\) de X, se \(\varepsilon_{U}>0\) for tal que cada \(A\subseteq X\) com \(\mathrm{diam}(A) < \varepsilon_{U} \) estiver contido
+		dentro em \(U_{\alpha }\) para algum \(\alpha \in \Omega \), \(\varepsilon_{U} \) será chamado um \textbf{número de Lebesgue} para \(\{U_{\alpha }\}_{\alpha \in \Omega }\). O Lema do Recobrimento afirma que toda cobertura aberta tem um número de Lebesgue.} sabemos que há \(\varepsilon > 0\) tal que, para todo \(a\in\{\gamma \}, B(a, \varepsilon )\) não
+		contém zeros ou polos, o que permite-nos definir ramo de logarítmo em cada bola.
+
+		Através do fato de que \(\gamma \) é uniformemente contínua, podemos tomar uma partição \(0 = t_{0} < \dotsc < t_{k} = 1\) satisfazendo \(\gamma (t)\in B(\gamma (t_{j-1}, \varepsilon )\) para \(t_{j-1}\leq t\leq t_{j}\) e obtemos o ramo de logarítmo
+		\(l_{j}\) em \(B(\gamma (t_{j-1}), \varepsilon )\) satisfazendo \(l_{j-1}(\gamma (t_{j-1})) = l_{j}(\gamma (t_{j-1}))\). Assim, se \(\gamma_{j} = \gamma|_[t_{j-1}, t_{j}]\), temos
+		\[
+			\int_{\gamma_{j}}^{}\frac{f'(z)}{f(z)}dz = l_{j}(\gamma(t_{j})) - l_{j}(\gamma(t_{j-1})).
+		\]
+		Consequentemente,
+		\[
+			2k\pi i = \int_{\gamma }^{}\frac{f'(z)}{f(z)}dz = l_{k}(a) - l_{1}(a),\quad \text{em que }a=\gamma (0)=\gamma (1).
+		\]
+		Portanto, \(\mathrm{Im}(l_{k}(a)) - \mathrm{Im}(l_{1}(a)) = 2k\pi ,\) então podemos interpretar esse valor obtido pelo Princípio do Argumento como o quanto \(\mathrm{arg}(f(z))\) muda
+		conforme z caminha por \(\gamma .\)
+	\end{example}
+	\begin{example}
+		Seja \(f(z) = z^{2} + z.\) Encontre os índices de \(f\circ \gamma \) em torno do zero das seguintes curvas:
+		\begin{itemize}
+			\item[1)] \(\gamma_{1} = \{z: |z| = 2\}\);
+			\item[2)] \(\gamma_{1} = \{z: |z| = \frac{1}{2}\}\);
+			\item[3)] \(\gamma_{1} = \{z: |z| = 1\}\).
+		\end{itemize}
+		Note que \(f(z)\) possui zeros em 0, -1 e não tem polo algum. Como f não tem polos e tem dois zeros dentro de \(\gamma_{1},\) o Princípio do Argumenot
+		diz que
+		\[
+			\frac{1}{2\pi i}\int_{\gamma }^{}\frac{f'(z)}{f(z)}dz = 2.
+		\]
+		Dentro de \(\gamma_{2},\) no entanto, temos apenas um zero de f, ou seja,
+		\[
+			\frac{1}{2\pi i}\int_{\gamma }^{}\frac{f'(z)}{f(z)}dz = 1.
+		\]
+		No entanto, para \(\gamma_{3},\) o zero de f está \textbf{na} curva (destaque à importância do português aqui: o zero está NA curva, não dentro dela!), pois \(f(-1) = 0\) e \(|-1| = 1.\) Com isto, o Princípio do Argumento
+		não se aplica.
+	\end{example}
+	\begin{theorem*}
+		Seja f meromorfa em uma região G com zeros \(z_{1},\dotsc , z_{n}\) e polos \(p_{1},\dotsc p_{m}\)
+		contadas de acordo com as multiplicidades. Caso g seja analítica em G e \(\gamma \) seja um curva fechada retificável em G
+		com \(\gamma \sim 0\) sem passar por cima dos pontos \(z_{i}\)'s e \(p_{i}\)'s, então
+		\[
+			\frac{1}{2\pi i}\int_{\gamma }^{}\frac{g(z)f'(z)}{f(z)}dz = \sum\limits_{k=1}^{n}g(z_{k})n(\gamma , z_{k}) - \sum\limits_{k=1}^{m}g(p_{k})n(\gamma , p_{k}).
+		\]
+	\end{theorem*}
+	\begin{proof*}
+		Aplicando resultados de zeros e polos de funções analíticas, podemos escrever
+		\[
+			\frac{f'}{f} = \sum\limits_{k=1}^{n}\frac{1}{z-z_{k}} - \sum\limits_{k=1}^{m}\frac{1}{z-p_{k}} + \frac{h'}{h}
+		\]
+		em que h é analítica em G. Daí,
+		\[
+			\frac{gf'}{f} = \sum\limits_{k=1}^{n}\frac{g}{z-z_{k}} - \sum\limits_{k=1}^{m}\frac{g}{z-p_{k}} + \frac{gh'}{h}.
+		\]
+		Integrando dos dois lados, chegamos em
+		\[
+			\int_{\gamma }^{}\frac{g(z)f'(z)}{f(z)}dz = \sum\limits_{k=1}^{n}\int_{\gamma }^{}\frac{g(z)}{z-z_{k}}dz - \sum\limits_{k=1}^{m}\int_{\gamma }^{}\frac{g(z)}{z-p_{k}} + \int_{\gamma }^{}\frac{g(z)h'(z)}{h(z)}.
+		\]
+		Com isso, pelo Teorema de Cauchy e pelo Teorema de Fórmula Integral de Cauchy,
+		\[
+			\int_{\gamma }^{}\frac{g(z)f'(z)}{f(z)}dz = \sum\limits_{k=1}^{n}g(z_{k})n(\gamma , z_{k})2\pi i - \sum\limits_{k=1}^{m}g(p_{k})n(\gamma , p_{k})2\pi i\\
+		\]
+		Portanto,
+		\[
+			\frac{1}{2\pi i}\int_{\gamma }^{}\frac{g(z)f'(z)}{f(z)}dz = \sum\limits_{k=1}^{n}g(z_{k})n(\gamma , z_{k}) - \sum\limits_{k=1}^{m}g(p_{k})n(\gamma , p_{k}).\quad \text{\qedsymbol}
+		\]
+	\end{proof*}
+	\begin{prop*}
+		Seja f analítica em um aberto contendo \(\overline{B(a, R)}\) e suponha que f é injetora em \(\overline{B(a, R)}.\) Se \(\Omega = f[B(a, R)]\) e \(\gamma \) é o círculo
+		\(|z-a| = R,\) então \(f^{-1}(w)\) está definida para cada \(w\in \Omega \) pela fórmula
+		\[
+			f^{-1}(w) = \frac{1}{2\pi i}\int_{\gamma }^{}\frac{zf'(z)}{f(z)-w}dz.
+		\]
+	\end{prop*}
+	\begin{proof*}
+		Como \(\overline{B(a, R)}\) está contida em um aberto, existe uma região G que contém \(\overline{B(a, R)}.\) Agora, seja \(w_{0}\in\Omega .\) Então,
+		existe um único \(z_{0}\in \overline{B(a, R)}\) de modo que
+		\[
+			f(z_{0}) - w_{0}.
+		\]
+		Deifnindo
+		\[
+			F(z) = f(z)-w_{0},\quad \forall z\in G,
+		\]
+		segue que há uma única raíz em \(\overline{B(a, R)}\), com a raíz no interior do conjunto. A partir disso, definindo \(g(z) = z\) para todo z na região, segue do último teorema
+		aplicado a F e g que, se \(z_{0},\dotsc , z_{n}\) são os zeros de F, teremos
+		\[
+			\frac{1}{2\pi i}\int_{\gamma }^{}\frac{zf'(z)}{f(z) - w_{0}}dz = \frac{1}{2\pi i}\int_{\gamma }^{}\frac{g(z)F'(z)}{F(z)}dz = \sum\limits_{k=0}^{n}g(z_{k})n(\gamma , z_{k}) - 0 = g(z_{0})n(\gamma , z_{0}) = z_{0} = f^{-1}(w_{0}).
+		\]
+		Portanto, como \(w_{0}\in \Omega \) foi arbitrário, o resultado segue. \qedsymbol
+	\end{proof*}
+	\hypertarget{rouche}{\begin{theorem*}[Teorema de Rouché]
+			Sejam f e g meromorfas em uma vizinhança de \(\overline{B(a, R)}\) para um \(a\in \mathbb{C}\) e \(R > 0\) sem zeros ou polos no círculo \(\gamma = \{z: |z-a| = R\}.\)
+			Se \(Z_{f}, Z_{g}\) são os números de zeros dentro do círculo \(\gamma \) considerando as multiplicidades e \(P_{f}, P_{g}\) são os números de polos dentro do círculo \(\gamma \) também
+			considerando as multiplicidades, se
+			\[
+				|f(z) + g(z)| < |f(z)| + |g(z)|
+			\]
+			para \(z\in \gamma ,\) então
+			\[
+				Z_{f} - P_{f} = Z_{g} - P_{g}.
+			\]
+		\end{theorem*}}
+	\begin{proof*}
+		Da hipótese, obtemos:
+		\[
+			\biggl\vert \frac{f(z)}{g(z)} + 1 \biggr\vert < \biggl\vert \frac{f(z)}{g(z)} \biggr\vert + 1
+		\]
+		para \(z\in \{\gamma \}\). Agora, suponha que \(\lambda = \frac{f(z)}{g(z)}\in [0, \infty).\) Então,
+		\[
+			\lambda + 1 < \lambda  = 1,
+		\]
+		o que é um absurdo. Logo, a função \(\frac{f}{g}\) está bem-definida em uma vizinhança de \(\{\gamma \}\) e é meromorfa tal que
+		\[
+			\frac{f}{g}\biggl|_{\{\gamma \}}\biggr.:\{\gamma \}\rightarrow \mathbb{C}\setminus{[0, \infty)}
+		\]
+		Dessa forma, sendo log o ramo principal do logarítimo, segue que \(\log^{}{\biggl(-\frac{f(z)}{g(z)}\biggr)}\) está bem-definido. Como consequência,
+		\(\biggl(-\frac{f(z)}{g(z)}\biggr)'\biggl(-\frac{f(z)}{g(z)}\biggr)^{-1}\) possui uma primitiva em uma vizinhança de \(\{\gamma \}.\) Dessa forma, por \(\gamma \)
+		ser fechada, segue do Teorema Fundamental das Variáveis Complexas que
+		\begin{align*}
+			0 = \frac{1}{2\pi i}\int_{\gamma }^{}\biggl(-\frac{f(z)}{g(z)}\biggr)'\biggl(-\frac{f(z)}{g(z)}\biggr)^{-1}dz & = \frac{1}{2\pi i}\int_{\gamma }^{}\biggl(\frac{-f'(z)g(z) + g'(z)f(z)}{g(z)^{2}}dz\biggr)\biggl(-\frac{g(z)}{f(z)}dz\biggr) \\
+			                                                                                                              & = \frac{1}{2\pi i}\int_{\gamma }^{}\biggl(\frac{f'(z)g(z) - g'(z)f(z)}{f(z)g(z)}\biggr)dz                                    \\
+			                                                                                                              & = \frac{1}{2\pi i}\int_{\gamma }^{}\frac{f'(z)}{f(z)} - \frac{g'(z)}{g(z)}dz.
+		\end{align*}
+		Note que, aqui, estamos nas condições do \hyperlink{argument-principle}{Princípio do Argumento,} pois \(\gamma \) não passa pelos zeros nem pelos polos, e \(\gamma \sim 0\), já que estamos no domínio das funções. Por fim:
+		\begin{align*}
+			0 & = \frac{1}{2\pi i}\int_{\gamma }^{}\frac{f'(z)}{f(z)}dz - \frac{1}{2\pi i}\int_{\gamma }^{}\frac{g'(z)}{g(z)}dz                                                                                                   \\
+			  & = \biggl[\sum\limits_{k=1}^{n}n(\gamma , z_{k}^{f}) - \sum\limits_{k=1}^{m}n(\gamma , p_{k}^{f})\biggr] - \biggl[\sum\limits_{k=1}^{n'}n(\gamma , z_{k}^{g}) - \sum\limits_{k=1}^{m'}n(\gamma , p_{k}^{g})\biggr] \\
+			  & = [Z_{f} - P_{f}] - [Z_{g} - P_{g}],
+		\end{align*}
+		sendo \(z_{k}^{f}, p_{k}^{f}\) os zeros e polos de f e, similarmente, o superíndice contendo g indica o mesmo para eles. Note que a última igualdade segue do fato que polos e zeros fora da curva terão índice zero, enquanto
+		que os que estão dentro da curva terão índice zero. \qedsymbol
+	\end{proof*}
+	Observe que \(\gamma \) pode ser qualquer curva retificável, fechada e homotópica a zero, mas escolhemos o círculo por conveniência, sendo necessário
+	corrigir para os índices da curva nos respectivos pontos.
+
+	Com o próximo resultado,a interpretação do Teorema de Rouché fica mais clara como uma ``continuidade'' sobre o número de zeros das funções meromorfas,
+	visto que perturbações na função original mantêm a quantidade de zeros.
+	\begin{theorem*}[Versão Fraca do Teorema de Rouché]
+		Sejam f e g analíticas numa vizinhança de \(\gamma \), em que \(\gamma \) é uma curva retificável homotópica a 0, e, em seu interior,
+		f e g são tais que \(|g(z)| < |f(z)|\) para todo ponto \(z\in \gamma .\) Então, \(f(z)\) e \(f(z) + g(z)\) têm a mesma quantidade (a contar eventual multiplicidade) de zeros no interior de \(\gamma \).
+	\end{theorem*}
+	\begin{proof*}
+		Das hipóteses, temos
+		\begin{align*}
+			 & |g(z)| < |f(z)|                \\
+			 & |f(z)| > |g(z) + f(z) - f(z)|.
+		\end{align*}
+		Definindo \(h(z) = f(z) + g(z),\) obtém-se o seguinte:
+		\begin{align*}
+			 & |f(z)| > |h(z) - f(z)|            \\
+			 & |h(z) - f(z)| < |-f(z)|           \\
+			 & |h(z) - f(z)| < |-f(z)| + |h(z)|.
+		\end{align*}
+		Por ser a soma de duas funções analíticas, h(z) é analítica e, com isso, meromorfa. O mesmo ocorre com -f(z), visto que f(z) é analítica por hipótese.
+		Assim, pela verão ``forte'' do teorema, temos
+		\[
+			Z_{-f} - P_{-f} = Z_{h} - P_{h}.
+		\]
+		Porém, \(P_{-f} = P_{h} = 0,\) pois funções analíticas não têm polos. Disso,
+		\[
+			Z_{-f} = Z_{h}.
+		\]
+		Se -f(z) se anula para algum \(z_{0}\) do domínio, então \(f(z_{0}) = 0, \) valendo a recíproca. Consequentemente,
+		\[
+			Z_{f} = Z_{h}
+		\]
+		e, portanto,
+		\[
+			Z_{f} = Z_{f+g}.\quad \text{\qedsymbol}
+		\]
+	\end{proof*}
+	Finalizamos essa parte com algumas aplicações da teoria desenvolvida.
+	\hypertarget{fundamental-theorem-algebra}{\begin{theorem*}[Teorema Fundamental da Álgebra]
+			Seja \(p(z)\coloneqq a_{n}z^{n} + a_{n-1}z^{n-1} + \dotsc + a_{0}\) um polinômio em \(\mathbb{C}.\) Então, p(z) possui exatamente n raízes, contando
+			eventuais multiplicidades em \(\mathbb{C}.\)
+		\end{theorem*}}
+	\begin{proof*}
+		Seja \(f(z) = a_{n}z^{n}\) e \(g(z) = a_{n-1}z^{n-1}+a_{n-2}z^{n-2}+\dotsc +a_{0}\), avaliaremos o valor de \(\frac{|g(z)|}{|f(z)|}\) num círculo de raio \(R > 0\) determinada por \(|z| = R:\)
+		\begin{align*}
+			 & \frac{|g(z)|}{|f(z)|} = \frac{|a_{n-1}z^{n-1} + a_{n-2}z^{n-2}+\dotsc +a_{0}|}{|a_{n}z^{n}|}              \\
+			 & \frac{|g(z)|}{|f(z)|} \leq \frac{|a_{n-1}||z|^{n-1} + |a_{n-2}||z|^{n-2}+\dotsc +|a_{0}|}{|a_{n}||z|^{n}} \\
+			 & \frac{|g(z)|}{|f(z)|} \leq \frac{|a_{n-1}|R^{n-1}+|a_{n-2}|R^{n-2}+\dotsc +|a_{0}|}{|a_{n}|R^{n}}.
+		\end{align*}
+		Logo, o limite de \(\frac{|g(z)|}{|f(z)|}\) quando R tende a \(\infty\) é 0. Considerando isso, já que \(\frac{|g(z)|}{|f(z)|}\) é simplesmente um quociente de polinômios, ou seja,
+		uma função contínua, o que implica que existe R suficientemente grande para que possamos escolher uma constante real \(k > 0\) qualquer tal que
+		\[
+			0\leq \frac{|g(z)|}{|f(z)|}\leq k,
+		\]
+		tal que, com \(k=1\), temos
+		\[
+			0 \leq \frac{|g(z)|}{|f(z)|}\leq 1.
+		\]
+		Destarte,
+		\[
+			|f(z)| > |g(z)|.
+		\]
+		Disto segue que não há solução para \(p(z) = 0\) em \(\mathbb{C}\setminus{B(0, R)}\) para algum \(R > 0.\) A partir desse resultado, observamos que f(z) tem um único zero em \(B(0, R)\), sendo ele o ponto
+		\(z=0\) com multiplicidade n. Por obedecerem as condições da versão mais fraca do Teorema de Rouché, é possível afirmar que \(f(z)\) e \(f(z) + g(z)\) têm o mesmo número de zeros em \(B(0, R)\). Portanto,
+		contando eventuais multiplicidades, p(z) tem exatamente n zeros em \(\mathbb{C}.\) \qedsymbol
+	\end{proof*}
+	\begin{example}
+		O polinômio \(p(z) = z^{4} - z^{2} - 2z + 2\) possui todas as raízes dentro da bola \(B(0, 3).\)
+
+		Com efeito, o polinômio \(-z^{2} - 2z + 2\) possui raízes \(z_{1}, z_{2} = 1\pm \sqrt[]{3}\) e \(z^{4}\) zera apenas na origem. Logo, a curva \(\gamma  = \{z: |z| = 3\}\) não passa pelas raízes, tomando
+		\(z\in \gamma ,\) obtemos
+		\[
+			|-z^{2} - 2z + 2| \leq |z|^{2} + 2|z| + 2 = 17 < 81 = |z|^{4}.
+		\]
+		Assim, como temos 4 zeros de \(|z|^{4}\) dentro de \(B(0, 3)\), por Rouché concluímos que todos os zeros de \(z^{4}-z^{2}-2z + 2\) estão, também, na bola.
+	\end{example}
+\end{center}

@@ -1,0 +1,80 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 27/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Versão de Múltiplos Zeros da Integral de Cauchy;
+	\item Teorema da Aplicação Aberta.
+\end{itemize}
+
+\subsection{Teorema Integral de Cauchy com Vários Zeros}
+\hypertarget{zeros_cauchy}{\begin{theorem*}
+		Seja f analítica na região G com zeros $a_{1}, \cdots, a_{m}.$ Se $\gamma$ é retificável e fechada é tal que $\gamma\sim0$
+		e $a_{i}\not\in \{\gamma\}, i = 1, \cdots, m, $ então
+		$$
+			\sum\limits_{k=1}^{m}n(\gamma, a_{k}) = \frac{1}{2\pi i}\int_{\gamma}^{}\frac{f'(z)}{f(z)}dz
+		$$
+	\end{theorem*}}
+\begin{proof*}
+	Podemos escrever
+	$$
+		f(z) = (z-a_{1})\cdots(z-a_{m})g(z),
+	$$
+	para alguma g analítica tal que $g(z)\neq0$ para qualquer z em G. Com isso, $\displaystyle \frac{g'(z)}{g(z)}$ analítica em G;
+	ja que $\gamma\approx0$, o Teorema de Cauchy faz com que
+	$$
+		\int_{\gamma}^{}\frac{g'(z)}{g(z)}dz = 0.
+	$$
+	Assim, segue de
+	$$
+		\frac{f'(z)}{f(z)} = \frac{1}{z-a_{1}} + \frac{1}{z-a_{2}} + \cdots + \frac{1}{z-a_{m}} + \frac{g'(z)}{g(z)},\quad z\neq a_{1}, \cdots, a_{m},
+	$$
+	que
+	$$
+		\int_{\gamma}^{}\frac{g'(z)}{g(z)}dz = \int_{\gamma}^{}\frac{1}{z-a_{1}} + \int_{\gamma}^{}\frac{1}{z-a_{2}} + \cdots + \int_{\gamma}^{}\frac{1}{z-a_{m}} - \int_{\gamma}^{}\frac{f'(z)}{f(z)}.
+	$$
+	Portanto,
+	$$
+		\frac{1}{2\pi i}\int_{\gamma}^{}\frac{f'(z)}{f(z)} = \int_{\gamma}^{}\frac{1}{z-a_{1}} + \int_{\gamma}^{}\frac{1}{z-a_{2}} + \cdots + \int_{\gamma}^{}\frac{1}{z-a_{m}} = \sum\limits_{k=1}^{m}n(\gamma, a_{k}).\text{\qedsymbol}
+	$$
+\end{proof*}
+\begin{prop*}
+	Seja f analítica na região G, $\gamma$ retificável e fechado em G com $n(\gamma, z)\in \{0, 1\}, z\in{G}.$ Se $n(\gamma, a) = 1$
+	e $\alpha\coloneqq  f(a)\not\in \{\sigma\coloneqq  f\circ{\gamma}\} $, então $f-\beta$ possui pelo menos uma raíz para todo $\beta$ na mesma componente
+	de $\alpha$ em $f(G)\cap{\mathbb{C}-\{\sigma\}}$.
+\end{prop*}
+\begin{proof*}
+	Seja $\beta$ como na proposição. Então,
+	$$
+		n(\sigma, \alpha) = n(\sigma, \beta).
+	$$
+	Vamos assumir que $\gamma\in{C^{1}}$. Neste caso, temos duas igualdades relevantes:
+	\begin{align*}
+		 & n(\sigma, \alpha) = \frac{1}{2\pi i}\int_{\sigma=f\circ{\gamma}}^{}\frac{1}{w-\alpha}dw = \frac{1}{2\pi i}\int_{0}^{1}\frac{1}{f(\gamma(t))-\alpha}f'(\gamma(t))d\gamma(t) = \sum\limits_{k=1}^{m}n(\gamma, a_{k}(\alpha)). \\
+		 & n(\sigma, \alpha) = n(\sigma, \beta) = \sum\limits_{k=1}^{m}n(\sigma, a_{k}(\beta)),
+	\end{align*}
+	em que $a_{k}(\alpha)$ é zero de $f-\alpha.$ \qedsymbol
+\end{proof*}
+\subsection{Teorema da Aplicação Aberta}
+\begin{theorem*}
+	Seja G região e f analítica em G. Então, f é aberat, ou seja, f(A) é aberto para todo aberto em G.
+\end{theorem*}
+\begin{proof*}
+	Seja $A\subseteq{G}, \alpha\coloneqq f(a)\in{f(A)}.$ Afirmamos que se $f:B(a, r)\rightarrow \mathbb{C}$ e $\alpha\coloneqq f(a)$ é zero de
+	multiplicidade m de f-a, então existem $\epsilon, \delta > 0$ tais que
+	$$
+		\beta\in{B(\alpha, \delta)- \{\alpha\} }\Rightarrow f-\beta\text{ possui m zeros simples em }B(a, \epsilon).
+	$$
+	Com esta afirmação, tome $\epsilon > 0$ tal que $B(a, \epsilon)\subseteq{A}$ e seja $\delta > 0$ como na afirmação.
+	Note que
+	$$
+		B(\alpha, \delta)\subseteq{f(B(a, \epsilon))}\subseteq{f(A)}.
+	$$
+	Para provar a afirmação, suponha que existe $\epsilon > 0$ tal que $f - \alpha$ não possua zeros em $B(a, \epsilon)$. Considere
+	$\gamma(t) = a + \epsilon e^{2\pi it}, t\in[0, 1].$ Além disso, existe $\gamma > 0$ tal que $B(\alpha, \delta)\cap \{\sigma\coloneqq f\circ{\gamma}\}=\emptyset$.
+	Dado $\beta\in{B(a, \delta)}$ pela proposição anterior
+	$$
+		n(\gamma, \beta) = n(\gamma, \alpha) = \sum\limits_{k=1}^{m}n(\gamma, a_{k}(\alpha)) = m.\quad\text{ \qedsymbol}
+	$$
+\end{proof*}
+\end{document}

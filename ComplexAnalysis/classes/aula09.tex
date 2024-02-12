@@ -1,0 +1,162 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 17/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Fórmula Integral de Cauchy para círculos;
+	\item Toda função analítica pode ser representada em série de potência;
+	\item Zeros de funções
+\end{itemize}
+\subsection{Exercício de Hoje}
+\subsubsection{Edson}
+Tome $\gamma = [1, i], \sigma = [1, 1+i, i], f(z) = |z|^2$ como as poligonais. Além disso, coloque
+$\gamma(t) = (1-t) + it, \gamma'(t) = -1 + i, t\in[0,1]$ e
+$$
+	\sigma(t) = \left\{\begin{array}{ll}
+		it + 1, \quad t\in[0, 1] \\
+		2 + i - t, \quad t\in[1, 2]
+	\end{array}\right., \quad
+	\sigma'(t) = \left\{\begin{array}{ll}
+		i, \quad t\in(0, 1) \\
+		-1, \quad t\in(1, 2).
+	\end{array}\right.
+$$
+Assim,
+$$
+	\int_{\gamma}^{}f = \int_{0}^{1}f(\gamma(t))\gamma'(t)dt = \int_{0}^{1}|it + (1-t)|^2(i-1)dt =
+	=(i-1)\int_{0}^{1}(2t^2 - 2t + 1)dt = \frac{2}{3}(i-1)
+$$
+Além disso,
+$$
+	\int_{\sigma}^{}f = \int_{0}^{2}f(\sigma(t))\sigma'(t)dt = i \int_{0}^{1}|it + 1|^2 dt - \int_{1}^{2}|2 + i - t|^2dt =
+	=i \int_{0}^{1}(t^2 + 1) - \int_{1}^{2}((2-t)^2 + 1)dt = 1 - \frac{7}{3} + i \frac{4}{3}.
+$$
+
+\subsection{Fórmula Integral de Cauchy - Versão Introdutória}
+\begin{prop*}
+	Seja $f:G\rightarrow \mathbb{C}$ e $\overline{B(a, r)}\subseteq{G}.$ Se $\gamma(t) = a + r e^{it}, t\in[0, \pi],$ então
+	$$
+		f(z) = \frac{1}{2i\pi}\int_{\gamma}^{}\frac{f(w)}{w-z}dw, \quad |z-a| < r.
+	$$
+\end{prop*}
+\begin{proof*}
+	Suponha $\sigma(t) = e^{it}, t\in[0, 2\pi],$ então $\gamma = a + r\sigma.$ Note que a fórmula buscada equivale a
+	$$
+		\frac{1}{2\pi i}\int_{\gamma}^{}\frac{f(w)}{w-z}dw - f(z) = 0,
+	$$
+	ou seja,
+	$$
+		\frac{1}{2\pi}\int_{0}^{2\pi}\frac{e^{it}f(e^{it})}{e^{it}-z} - f(z) dt = 0.
+	$$
+	Considere $\phi(s, t) = \frac{e^{is}f(e^{is}+t(e^{is}-z))}{e^{is}-z} - f(z), t\in[0, 1], s\in[0, 2\pi]$. Tome, também,
+	$g(t) = \int\limits_{0}^{2\pi}\phi(s, t)dt$. Com isso, observe que
+	\begin{align*}
+		 & g(1) = \frac{1}{2\pi}\int_{0}^{2\pi}\frac{e^{it}f(e^{it})}{e^{it}-z} - f(z)dz                                       \\
+		 & g(0) = \int_{0}^{2\pi}\frac{e^{is}f(z)}{e^{is}-z} - f(z) ds = f(z)\int_{0}^{2\pi}\frac{e^{is}}{e^{is}-z} - 1ds = 0.
+	\end{align*}
+	Temos
+	$$
+		g'(t) = \int_{0}^{2\pi}\frac{e^{is}}{e^{is}-z}f'(z + t(e^{is}-z))ds = \int_{0}^{2\pi}e^{is}f'(z + t(e^{is}-z)) =
+		\frac{1}{it}f(z + t(e^{is}-z)) \biggl|_{0}^{2\pi}\biggr. = 0.
+	$$
+	Portanto, g é constante, garantindo a proposição. \qedsymbol
+\end{proof*}
+\begin{lmm*}
+	Seja $\gamma$ retificável em $\mathbb{C},\{f_{n}\} $ sequência contínua sobre $\{\gamma\} $ e f contínua sobre
+	$\{\gamma\}$. Se $f_{n}\to{f}$ em $\{\gamma\}$, então
+	$$
+		\int_{\gamma}^{}f = \lim_{n\to\infty}\int_{\gamma}^{}f_{n}.
+	$$
+\end{lmm*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+\begin{theorem*}
+	Seja f analítica em B(a, r). Então,
+	$$
+		f(z) = \sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n}, \quad |z-a| < r,
+	$$
+	em que $a_{n} = \frac{f^{(n)}(a)}{n!}, n = 0, 1, \cdots.$ Além disso, f tem raio de convergência $R\geq{r}.$
+\end{theorem*}
+\begin{proof*}
+	Considere $0<\rho<r$ e suponha f analítica em $\overline{B(a, \rho)}$. Pela proposição, $f(z) =\displaystyle \frac{1}{2\pi i}\int_{\gamma}^{}\frac{f(w)}{w-z}dw,
+		\gamma_{\rho} = a + r e^{it}.$ Vamos mostrar que
+	$$
+		f(z) = \sum\limits_{n=0}^{\infty}(z-a)^n\biggl(\frac{1}{2i \pi}\int_{\gamma_{\rho}}^{}\frac{f(w)}{(w-a)^{n+1}}dw.\biggr)
+	$$
+	Com efeito, considere
+	$$
+		g_{n}(z) = \sum\limits_{k=0}^{n}\underbrace{\frac{f(w)(z-a)^{k}}{(w-a)^{k+1}}}_{f_{n}(z)}
+	$$
+	Mostremos, agora, que $\sum\limits_{k=0}^{n}f_{n}(z)$ converge uniformemente. Para $w\in{\{\gamma_{\rho}\}},$
+	$$
+		|f_{k}(w)| = \frac{|f(w)||(z-a)^{k}|}{|w-a|^{k+1}} < |f(w)|\frac{|z-a|^{k}}{\rho^{k+1}}\leq \max_{w\in \{\gamma\}}|f(w)|\frac{1}{\rho}\biggl(\frac{|z-a|^k}{\rho^k}\biggr)^{k}.
+	$$
+	Pelo working finee M de Weierstras,
+	$$
+		g(z)\coloneqq \sum\limits_{n=0}^{\infty}\frac{f(w)(z-a)^{n}}{(w-a)^{n+1}}
+	$$
+	é contínua. Assim,
+	$$
+		g(z) = \frac{f(w)}{w - a}\sum\limits_{n=0}^{\infty}\biggl(\frac{z-a}{w-a}\biggr)^{n} = \frac{f(w)}{w-a}\frac{1}{1-\frac{z-a}{w-a}} = \frac{f(w)}{w-z}
+	$$
+	Como consequência, conseguimos calcular a integral de g na curva:
+	\begin{align*}
+		\frac{1}{2i \pi}\int_{\gamma_{\rho}}^{}g(w)dw & = \frac{1}{2i \pi}\int_{\gamma_{\rho}}^{}\frac{f(w)}{w-z}dw = \frac{1}{2i \pi}\lim_{n\to\infty}\int_{\gamma_{\rho}}\frac{f(w)(z-a)^{n}}{(w-a)^{n+1}}dw \\
+		                                              & = \frac{1}{2\pi}\sum\limits_{n=0}^{\infty}(z-a)^{n}\underbrace{\int_{\gamma_{\rho}}^{}\frac{f(w)}{(w-a)^{n+1}}dw}_{b_{n}}
+	\end{align*}
+\end{proof*}
+\begin{crl*}
+	Se f é analítica em B(a, R) e $\gamma$ é retificável, $\{\gamma\}\subseteq{B(a, R)}$ e fechada, então
+	$$
+		\int_{\gamma}^{}f = 0.
+	$$
+\end{crl*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+
+\subsection{Zeros de Funções Analíticas}
+\begin{def*}
+	Diremos que f é \textbf{inteira} se f é analítica em $\mathbb{C}$.
+\end{def*}
+\begin{example}
+	Polin\^omios são funções inteiras.
+\end{example}
+\begin{def*}
+	Se $f:G\rightarrow \mathbb{C}$ é uma função analítica com f(a) = 0 e que existe $m\in \mathbb{N}$ tal que
+	$$
+		f(z) = (z-a)^{m}g(z),
+	$$
+	com g analítica e não-nula em a, diremos que a é um \textbf{zero de multiplicidade m de f}.
+\end{def*}
+Um teorema muito relevante em FVC é o Teorema de Liouville:
+\begin{theorem*}
+	Se f é inteira e limitada, então f é constante.
+\end{theorem*}
+\begin{proof*}
+	Seja $0 < \rho < r$ e sendo f analítica em $B(a, r)$. Então,
+	$$
+		|f^{(n)}(a)| = \frac{n!}{2 \pi}\biggl|\int_{\gamma_{\rho}}^{}\frac{f(w)}{(w-a)^{n+1}}dw\biggr|
+		\leq \frac{n!}{2\pi}\int_{\gamma_{\rho}}^{}\frac{|f(w)|}{\rho^{n+1}}|dw| \leq \frac{n!}{2\pi}\frac{Mv(\gamma_{\rho})}{\rho^{n+1}} = \frac{n!M}{\rho^{n+1}}.
+	$$
+	Fazendo $\rho$ tender a infinito, concluímos que $|f^{(n)}(a)|\leq0,$ ou seja, $f^{(n)}(a) = 0.$
+\end{proof*}
+Uma consequência simples e trivial dessa discussão toda é o Teorema Fundamental da álgebra.
+\begin{theorem*}
+	Todo polin\^omio complexo de grau maior que 1 possui raíz complexa.
+\end{theorem*}
+\begin{proof*}
+	Se p não possui zeros, $\frac{1}{p}$ é inteira e limitada, visto que $\lim_{z\to\infty}p(z) = \infty$ e $\lim_{z\to\infty}\frac{1}{p(z)} = 0$,
+	o que implica na limitação e, por Liouville, $\frac{1}{p}$ é constante, fazendo com que p seja constante, uma contradição.
+	Portanto, p possui ao menos uma raíz. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se p é um polin\^omio não identicamente nulo com zeros $a_1, \cdots, a_{n}$ de multiplicidade $m_1, \cdots, m_{n}$ respectivamente. Então,
+	existe uma constante tal que
+	$$
+		p(z) = (z-a_1)^{m_1}\cdots(z-a_{n})^{m_{n}}c
+	$$
+	e que o grau de p é $\sum\limits_{i=1}^{n}m_{i}$.
+\end{crl*}
+\end{document}

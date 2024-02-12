@@ -1,0 +1,80 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 24/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Consequências da Fórmula Integral de Cauchy;
+	\item Teorema de Morera (mais uma versão do Teorema de Cauchy);
+	\item Teorema de Goursat.
+\end{itemize}
+\subsection{Exercícios de Hoje}
+\subsubsection{João}
+\begin{align*}
+	f(a)\sum\limits_{k=1}^{n}n(\gamma_{k}, a) & = \sum\limits_{k=1}^{n}f(a)n(\gamma_{k}, a)                                   \\
+	                                          & = \sum\limits_{k=1}^{n}\frac{1}{2\pi i}\int_{\gamma_{k}}^{}\frac{f(z)}{z-a}dz \\
+	                                          & = \frac{1}{2\pi i}\int_{\gamma}^{}\frac{f(z)}{z-a}dz.
+\end{align*}
+
+\subsection{Consequências da Fórmula Integral de Cauchy}
+Começamos esta aula com os respectivos Teorema de Morera e Teorema de Goursat.
+\hypertarget{morera}{\begin{theorem*}
+		Seja $f:G\rightarrow \mathbb{C}$, G aberto. Se $\int_{\Delta}^{}f = 0$ para $\Delta = [a, b, c, a]\subseteq{G},$ então
+		f é analítica.
+	\end{theorem*}}\begin{proof*}
+	Sejam z um elemento de G e $r > 0$ tal que $B(a, r)\subseteq{G}.$ Defina
+	$F_{z}:B(z, r)\rightarrow \mathbb{C}$ por $F_{z}(u) = \int_{[z, u]}^{}f dw.$
+	Temos,
+	$$
+		\frac{F_{z}(a) - F_{z}(b)}{a - b} - f(a) = \frac{1}{a-b}\biggl(\int_{[z, a]}^{}fdw + \int_{[z, b]}^{}fdw\biggr) - f(a),
+	$$
+	de onde segue
+	\begin{align*}
+		\biggl|\frac{F_{z}(a) - F_{z}(b)}{a-b} - f(a)\biggr| & = \frac{1}{|a-b|}\biggl|\int_{[b, a]}f(w) - f(a)\biggr|                                      \\
+		                                                     & \leq \frac{1}{|a-b|}\int_{[b, a]}^{}|f(w) - f(a)||dw|                                        \\
+		                                                     & \leq \frac{1}{|a-b|}\sup_{w\in[b, a]}|f(w) - f(a)|v([b, a)]) = \sup_{w\in[b, a]}|f(w)-f(a)|.
+	\end{align*}
+	Como $\sup\limits_{w\in[b, a]}|f(w) - f(a)|\to0, b\to{a},$ segue a prova. \qedsymbol
+\end{proof*}
+\hypertarget{goursat}{\begin{theorem*}
+		Seja $f:G\rightarrow \mathbb{C}$ aberto. Se f é diferenciável, então f é analítica.
+	\end{theorem*}}
+\begin{proof*}
+	Verificamos que f satisfaz as hipóteses do Teorema de Morera.
+	Sem perda de generalidade, suponha que G = B(w, r) e seja $\Delta=[a, b, c, a].$
+	Queremos verificar que $\int_{\Delta}^{}f = 0.$
+
+	Com efeito, considere $\epsilon > 0$ e mostraremos que $|\int_{\Delta}^{}f| < \epsilon.$ Se
+	$m_{ab}, m_{ba}, m_{ca}$ são os pontos médios de [a, b], [b, c], [c, a], respectivamente,
+	então
+	$$
+		\int_{\Delta}^{}f = \sum\limits_{j=1}^{a}\int_{\Delta_{j}}^{}f.
+	$$
+	Além disso, assumiremos que $|\int_{\Delta_j}^{}f|$ é o máximo de
+	$|\int_{\Delta_{j}}^{}f|, j = 1, \cdots, 4$. Assim, segue que
+	$$
+		\biggl|\int_{\Delta}^{}f\biggr|\leq4 \biggl|\int_{\Delta_{1}}^{}f.\biggr|
+	$$
+	Seja $l(\Delta)$ o perímetro de $\Delta$ e $\mathrm{diam} \Delta$. Note que
+	$$
+		l(\Delta_{1}) = \frac{1}{2}l(\Delta)\quad\text{ e } \mathrm{diam} \Delta_{1} = \frac{1}{2}\mathrm{diam }\Delta.
+	$$
+	Indutivamente, consideramos $\Delta_{n}, n = 1, 2, \cdots$ tais que
+	\begin{itemize}
+		\item[1)] $l(\Delta_{n}) = \frac{1}{2^n}l(\Delta)\to0, n\to\infty;$
+		\item[2)] $\mathrm{diam}(\Delta_{n}) = \frac{1}{2^n}\mathrm{diam} \Delta;$
+		\item[3)] $\biggl|\int_{\Delta}^{}f\biggr|\leq 4^n\biggl|\int_{\Delta_{n}}^{}f\biggr|.$
+	\end{itemize}
+	Considere, agora, $F_{n}$ sendo o fecho do triângulo fechado. Temos
+	$F_{n+1}\subseteq{F_{n}}, n=1, 2, \cdots.$ Logo, pelo Teorema de Cantor, $\bigcap_{n=1}^{\infty}F_{n}=\{u\}. $
+	Dado $\epsilon > 0,$ seja $\delta > 0$ tais que
+	$$
+		|f(w) - f(u) - f'(u)(w-u)| < \epsilon|w-u|.
+	$$
+	Se n é tal que $\mathrm{diam} \Delta_{n} < \delta,$ então
+	$$
+		\int_{\Delta_{n}}^{}f = \int_{\Delta_{n}}^{}(f(z) - f(u)) - f'(u)(z-u)dz.
+	$$
+	Assim, $|\int_{\Delta_{n}}^{}f|\leq \int_{\Delta_{n}}^{}\epsilon|z-u|dz\leq \epsilon\sup_{z\in{\Delta_{n}}}|z-u|l(\Delta_{n}).$
+	Portanto, $|\int_{\Delta}^{}f \leq \epsilon l(\Delta) \mathrm{diam}(\Delta).|$ \qedsymbol
+\end{proof*}
+\end{document}

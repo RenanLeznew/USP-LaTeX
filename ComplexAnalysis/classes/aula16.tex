@@ -1,0 +1,447 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 31/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Séries de Laurent e Bi-infinitas;
+	\item Relação Entre Séries e Singularidades;
+	\item Teorema de Casorati-Weierstrass.
+\end{itemize}
+\subsection{Série Bi-infinitas, Ânulos}
+\begin{def*}
+	Se \(\{z_{n}:n = 0, \pm1, \pm2, \dotsc \}\) é uma sequência duplamente infinita de números ocmplexos, diremos
+	que a série \(\sum\limits_{n=-\infty}^{\infty}z_{n}\) é \textbf{absolutamente convergente} se
+	\[
+		\sum\limits_{n=0}^{\infty}z_{n}\quad\&\quad \sum\limits_{n=1}^{\infty}z_{-n}
+	\]
+	são absolutamente convergentes. \(\square\)
+\end{def*}
+No caso de uma série duplamente infinita que é, também, absolutamente convergente, vale que
+\[
+	\sum\limits_{n=-\infty}^{\infty}z_{n} = \sum\limits_{n=1}^{\infty}z_{-n} + \sum\limits_{n=0}^{\infty}z_{n}.
+\]
+\begin{def*}
+	Se \(u_{n}\) é uma função em um conjunto S para \(n=0, \pm1, \pm2, \dotsc \) e \( \sum\limits_{n=-\infty}^{\infty}u_{n}(s)\) é absolutamente convergente
+	para cada \(s\in S\), então a convergência é \textbf{uniforme} sobre S se
+	\[
+		\sum\limits_{n=0}^{\infty}u_{n}\quad\&\quad \sum\limits_{n=1}^{\infty}u_{-n}
+	\]
+	convergem uniformemente em S. \(\square\)
+\end{def*}
+Observe que nos limitamos à convergência absoluta porque esse tipo de convergência é a que mais nos importa
+para o que faremos.
+\begin{def*}
+	Se \(0\leq r_{1}<r_{2}\leq \infty\) e a é um número complexo qualquer, definimos
+	o \textbf{ânulo (ou anel) de centro em a, raio maior \(r_{2}\) e raio menor \(r_{1}\)} como o conjunto
+	\[
+		\mathrm{an}(a; r_{1}, r_{2}) = \{z: r_{1} < |z-a| < r_{2}\}.\quad \square
+	\]
+\end{def*}
+Note que \(\mathrm{an}(a; 0, r_{2})\) consiste num disco perfurado.
+\subsection{Séries de Laurent}
+Antes de definí-las formalmente, vale mencionar a utilidade dele. Quando tentamos expandir em Taylor uma função f que
+deixa de ser analítica em um ponto, chegamos em uma falha na teoria. Além disso, outra utilidade muito grande delas é de classificar singularidades
+isoladas apenas olhando para os coeficientes da expansão em Laurent. Tendo isto em mente, enunciamos a expansão em Série de Laurent:
+\hypertarget{laurent}{
+	\begin{theorem*}
+		Seja f analítica no anel \(\mathrm{an}(a; r_{1}, r_{2})\). Então,
+		\[
+			f(z) = \sum\limits_{n=-\infty}^{\infty}a_{n}(z-a)^{n},
+		\]
+		em que a convergência é absoluta e uniforme sobre \(\overline{a_{n}(a; r_{1}, r_{2})}\) se
+		\(R_{1} < r_{1} < r_{2} < R_{2}.\) Os coeficientes \(a_{n}\) são dados pela fórmula
+		\[
+			a_{n} = \frac{1}{2\pi i}\int_{\gamma }^{}\frac{f(z)}{(z-a)^{n+1}}dz,
+		\]
+		sendo \(\gamma \) o círculo \(|z-a|=r\) para todo \(r\in (r_{1}, r_{2}).\) Além disso, esta série é única.
+	\end{theorem*}}
+\begin{proof*}
+	Suponha que \(R_{1} < r_{1} < r_{2} < R_{2}\) e defina \(\gamma_{1} = \{w \in \mathbb{C}:|w -a| = r_{1}\}\) e \(\gamma_{2} = \{w \in \mathbb{C}:|w -a|=r_{2}\}\).
+	Então, \(\gamma_{1}\sim \gamma _{2}\) em \(\mathrm{an}(a; r_{1}, r_{2})\). \textbf{[Exercício.]}
+
+	Considere a função \(f_{2}:B(a, R_{2})\rightarrow \mathbb{C}\) dada por
+	\[
+		f_{2}(z) = \frac{1}{2\pi i} \int_{\gamma_{2}}^{}\frac{f(w)}{w-z}dz,
+	\]
+	em que \(|z-a| < r_{2}.\) Como \(\sigma = \{w: |w - a| = r_{2}\}\) é um caminho retificável e
+	\[
+		F(w) = \frac{f(w)}{w-z}
+	\]
+	está definida e é contínua em \(\{\sigma \},\) segue \(f_{2}\) está bem-definida.
+
+	Note que, por \(\sigma \) ser retificável e f estar definida e ser contínua em \(\{\sigma \},\) a integral
+	\[
+		\int_{\sigma }^{}\frac{f(w)}{w-z}dw
+	\]
+	é analítica em \(\mathbb{C}\setminus{\{\sigma \}}\). Conclui-se, assim, que f é analítica em \(B(a, r_{2})\)
+
+	De maneira analoga, se \(G = \{z: |z-a| > R_{1}\},\) então a função \(f_{1}:G\rightarrow \mathbb{C}\) deifnida por
+	\[
+		f_{1}(z) = -\frac{1}{2\pi i}\int_{\gamma_{1}}^{}\frac{f(w)}{w-z}dw,
+	\]
+	em que \(|z-a| > r_{1},\) é analítica em G.
+
+	O próximo passo será mostrar que a f do enunciado pode ser escrita como a soma de \(f_{1}\) e \(f_{2}\) para pontos no ânulo que estão
+	foras da curva \(\gamma \). Para tal, suponha que \(R_{1} < |z-a| < R_{2}\) e tome \(r_1\) e \(r_{2}\) tais que
+	\[
+		R_{1} < r_{1} < |z-a| < r_{2} < R_{2}.
+	\]
+	Parametrizamos \(\gamma_{1}\) e \(\gamma_{2}\) da seguinte forma:
+	\[
+		\gamma _{1}(t) = a + r_{1}e^{it}\quad\&\quad \gamma_{2}(t) = a + r_{2}e^{it},\quad 0\leq t\leq 2\pi .
+	\]
+	Escolha uma linha reta \(\lambda \) indo de umm ponto de \(\gamma_{1}\) radialmente a \(\gamma _{2}\) e que não passa por z.
+	Como \(\gamma _{1}\sim \gamma _{2}\) em \(\mathrm{an}(a; R_{1}, R_{2}),\) a curva fechada \(\gamma  = \gamma_{2} - \lambda -\gamma _{1} + \lambda \) é homotópica
+	a zero. Além disso, por \(\gamma _{1}\) e \(\gamma _{2}\) serem fechadas e retificáveis, vale que
+	\begin{itemize}
+		\item[a)] \(n(\gamma_{1}, z) = 0\)
+		\item[b)]
+		      \begin{align*}
+			      n(\gamma_{2}, z) = n(\gamma_{2}, a) & = \frac{1}{2\pi i}\int_{\gamma_{2}}^{}\frac{1}{z-a}dz                             \\
+			                                          & = \frac{1}{2\pi i}\int_{0}^{1}\frac{1}{r_{2}e^{2\pi it}}2\pi ir_{2}e^{2\pi it }dt \\
+			                                          & = \int_{0}^{1}1dt = 1.
+		      \end{align*}
+	\end{itemize}
+	No entanto, como \(-\lambda -\gamma _{1}+\lambda \) e \(\gamma _{2}\) são curvas fechadas e retificáveis começando no mesmo ponto,
+	vale que
+	\begin{align*}
+		n(\gamma , z) & = n(\gamma_{2}, z) + n (-\lambda -\gamma _{1} + \lambda , z) \\
+		              & = n(\gamma_{2}, z) + n(-\gamma_{1}, z)                       \\
+		              & = n(\gamma_{2}, z) - n(\gamma_{1}, z) = 1.
+	\end{align*}
+	Por \(\gamma \) ser retificável e fechada em \(\mathrm{an}(a; R_{1}, R_{2})\) e por \(\gamma \sim 0\), segue que, para
+	qualquer \(w\in \mathbb{C}\setminus{\mathrm{an}(a; R_{1}, R_{2})}\), temos \(n(\gamma, w) = 0.\) Assim, pela Fórmula Integral de Cauchy,
+	para \(z\in \mathrm{an}(a; R_{1}, R_{2})\setminus{\{\gamma \}}\), vale:
+	\begin{align*}
+		1 = f(z)n(\gamma , z) & = \frac{1}{2\pi i}\int_{\gamma }^{}\frac{f(w)}{w-z}dw                                                               \\
+		                      & = \frac{1}{2\pi i}\int_{\gamma _{2}}^{}\frac{f(w)}{w-z}dw - \frac{1}{2\pi i}\int_{\gamma _{1}}^{}\frac{f(w)}{w-z}dw \\
+		                      & = f_{2}(z) + f_{1}(z),
+	\end{align*}
+	isto é,
+	\[
+		f(z) = f_{2}(z) + f_{1}(z).
+	\]
+	Agora, podemos expandir em série de potências \(f_{1}\) e \(f_{2},\) separando \(f_{1}\) para potências negativas de (z-a), o que nos possibilitará obter
+	o desenvolvimento da série de Laurent de f(z).
+
+	Já provamos antes que \(f_{2}\) é analítica em \(B(a, R_{2})\), ou seja, ela admite expansão em Série de Potência da forma
+	\[
+		f_{2}(z) = \sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n},\quad |z-a| < R_{2},
+	\]
+	em que \(a_{n} = \frac{1}{n!}f_{2}^{(n)}(a).\) Como
+	\[
+		f_{2}(z) = \frac{1}{2\pi i}\int_{\gamma _{1}}^{}\frac{f(w)}{w-z}dw,
+	\]
+	\(\gamma _{2}\) é retifićavel e f é definida e contínua em \(\{\gamma_{2}\},\) o que permite-nos afirmar que
+	\[
+		f_{2}'(z) = \frac{1}{2\pi i}\int_{\gamma_{2}}^{}\frac{f(w)}{(w-z)^{2}}dw.
+	\]
+	De fato, um processo indutivo fornece para nós a seguinte fórmula para a derivada n-ésima de \(f_{2}\),
+	\[
+		f_{2}^{(n)}(z) = \frac{n!}{2\pi i}\int_{\gamma _{2}}^{}\frac{f(w)}{(w-z)^{n+1}}dw.
+	\]
+	Logo,sabemos a formas dos coeficientes como
+	\[
+		a_{n} = \frac{1}{2\pi i}\int_{\gamma _{2}}^{}\frac{f(w)}{(w-a)^{n+1}}dw.
+	\]
+	Agora, defina a função auxiliar
+	\[
+		g(z) = f_{1}\biggl(a + \frac{1}{z}\biggr),\quad 0 < |z| < \frac{1}{R_{1}}
+	\]
+	e note que \(z=0\) é uma singularidade isolada. Mais ainda, se \(r > R_{1},\) tome \(\rho (z) = d(z, C),\)
+	em que \(C = \{w: |w-a| = r\}\) e considere
+	\[
+		M = \max\{|f(w)|: w\in C\}.
+	\]
+	Como \(r_{1} >  R_{1},\) se \(|z-a| > r_{1},\) teremos
+	\begin{align*}
+		|g(z)| = \biggl|-\frac{1}{2\pi i}\int_{\gamma _{1}}^{}\frac{f(w)}{w-\bigl(a + \frac{1}{z}\bigr)}\biggr| & \leq \frac{1}{2\pi }\int_{\gamma _{1}}^{}\frac{|f(w)|}{|w - (a+1/z)|}|dw| \\
+		                                                                                                        & \leq \frac{M}{2\pi }\int_{\gamma _{1}}^{}\frac{1}{|w-(a+1/z)|}|dw|        \\
+		                                                                                                        & \leq \frac{M}{2\pi \rho \bigl(a+\frac{1}{z}\bigr)}V(\gamma _{1})          \\
+		                                                                                                        & = \frac{Mr_{1}}{\rho \bigl(a + \frac{1}{z}\bigr)},
+	\end{align*}
+	já que
+	\[
+		\rho \biggl(a + \frac{1}{z}\biggr) = d \biggl(a + \frac{1}{z}, \gamma _{1}\biggr) \leq \biggl\vert w-\biggl(a + \frac{1}{z}\biggr)\biggr\vert.
+	\]
+	Assim,
+	\[
+		\lim_{z\to 0}|g(z)|\leq \lim_{z\to 0}\frac{Mr_{1}}{\rho \bigl(a + \frac{1}{z}\bigr)} = \lim_{v\to \infty}\frac{Mr_{1}}{\rho (v)}=0.
+	\]
+	Logo, \(\lim_{z\to 0}g(z) = 0\) e, além disso, \(\lim_{z\to 0}(z-0)g(z)=\lim_{z\to 0}zg(z) = 0\), o que significa que \(z=0\) é uma singularidade
+	removível. Assim, g admite extensão analítica em \(B \biggl(0, \frac{1}{R_{1}}\biggr)\) e definiremos \(g(0) = 0.\) Com isso,
+	\[
+		f_{1}\biggl(a + \frac{1}{z}\biggr)=g(z) = \sum\limits_{n=1}^{\infty}b_{n}z^{n}
+	\]
+	para \(|z| < \frac{1}{R_{1}},\) em que \(b_{n} = \frac{1}{n!}g^{(n)}(0).\) Logo,
+	\[
+		f_{1}(z) = \sum\limits_{n=1}^{\infty}b_{n}(z-a)^{-n}
+	\]
+	para \(|z-a| > R_{1}.\)
+
+	O passo restante é encontrar quem são os \(b_{n}\)'s exatamente. Para isso, observe, primeiramente, que
+	\begin{align*}
+		f_{1}\biggl(a + \frac{1}{z}\biggr) = -\frac{1}{2\pi i}\int_{\gamma _{1}}^{}\frac{f(w)}{w-(a+1/z)}dw & = \underbrace{-\frac{1}{2\pi i}\int_{\gamma_{1}^{*}}^{}\frac{f(a+1/u}{(a+1/u)-(a+1/z)}(-u^{-2})du}_{\text{mudança de variável } w = a + 1/u}       \\
+		                                                                                                    & = \frac{1}{2\pi i}\int_{\gamma_{1}^{*}}^{}\frac{f(a+1/u)}{u^{2}(1/u-1/z)}du = \frac{1}{2\pi i}\int_{\gamma _{1}^{*}}^{}\frac{f(a+1/u)}{u(1-u/z)}du \\
+		                                                                                                    & = \frac{z}{2\pi i}\int_{-\gamma _{1}^{*}}^{}\frac{f(a+1/u)}{u(u-z)}du                                                                              \\
+		                                                                                                    & = \frac{z}{2\pi i}\int_{-\gamma _{1}^{*}}^{}\frac{1}{u}\frac{f(a+1/z)}{u-z}du = g(z).
+	\end{align*}
+	em que foi usado o Teorema da Integral de Cauchy na última igualdade. Com esta última forma assumida por g, junto com a regra do produto, temos
+	\[
+		g'(z) = \frac{1}{2\pi i}\int_{-\gamma _{1}^{*}}^{}\frac{f(a+1/w)}{w-z}\frac{1}{w}dw + \frac{z}{2\pi i}\int_{-\gamma _{1}^{*}}^{}\frac{f(a+1/w)}{(w-z)^{2}}\frac{1}{w}dw.
+	\]
+	Por indução,
+	\[
+		g^{(n)}(z) = \frac{n!}{2\pi i}\int_{-\gamma _{1}^{*}}^{}\frac{f(a+1/w)}{(w-z)^{n}}\frac{1}{w}dw + \frac{n!z}{2\pi i}\int_{-\gamma _{1}^{*}}^{}\frac{f(a+1/w)}{(w-z)^{n+1}}\frac{1}{w}dw
+	\]
+	Assim,
+	\[
+		b_{n} = g^{(n)}(0) = \frac{1}{n!}\frac{n!}{2\pi i}\int_{-\gamma _{1}^{*}}^{}\frac{f(a+1/w)}{w^{n+1}}dw = \frac{1}{2\pi i}\int_{-\gamma _{1}^{*}}^{}\frac{f(a+1/w)}{w^{n+1}}dw.
+	\]
+	Desfazendo a mudança de variáveis, chegamos em
+	\begin{align*}
+		b_{n} & = \frac{1}{2\pi i}\int_{-\gamma _{1}}^{}\frac{f(v)}{\biggl(\frac{1}{v-a}\biggr)^{n+1}}\biggl[-\frac{1}{(v-a)^{2}}\biggr]dv \\
+		      & = -\frac{1}{2\pi i}\int_{-\gamma _{1}}^{}\frac{f(v)}{(v-a)^{-n+1}}dv                                                       \\
+		      & = \frac{1}{2\pi i}\int_{\gamma _{1}}^{}\frac{f(v)}{(v-a)^{-n+1}}dv.
+	\end{align*}
+	Defina \(a_{-n}=b_{n}\), tal que
+	\[
+		a_{-n} = \frac{1}{2\pi i}\int_{\gamma _{1}}^{}\frac{f(w)}{(w-a)^{-n+1}}dw.
+	\]
+	Dess forma,
+	\[
+		f_{1}(z) = \sum\limits_{n=1}^{\infty}b_{n}(z-a)^{-n}=\sum\limits_{n=1}^{\infty}a_{-n}(z-a)^{-n}=\sum\limits_{n=-\infty}^{-1}a_{n}(z-a)^{n}
+	\]
+	e, juntando com a expressão de \(f_{2}(z)\) obtida previamente, chegamos em
+	\begin{align*}
+		f(z) & = f_{1}(z) + f_{2}(z)                                                                                                                                                   \\
+		     & = \underbrace{\sum\limits_{n=-\infty}^{-1}a_{n}(z-a)^{n}}_{\text{para }|z-a|>R_{1}} + \underbrace{\sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n}}_{\text{para }|z-a| < R_{2}} \\
+		     & = \sum\limits_{n=-\infty}^{\infty}a_{n}(z-a)^{n}
+	\end{align*}
+	para \(z\in \mathrm{an}(a; R_{1}, R_{2}).\) Finalmente, como \(\gamma_{i}\sim\Gamma ,\) em que \(\Gamma =\{z\in \mathbb{C}:|z-a| = r\}, r\in (R_{1}, R_{2}),\) segue
+	do Teorema de Cauchy que
+	\[
+		\int_{\gamma }^{}\frac{f(z)}{(z-a)^{n+1}}dz = \int_{\Gamma }^{}\frac{f(z)}{(z-a)^{n+1}}dz.
+	\]
+	Logo, os coeficientes \(a_{n}\) são dados por
+	\[
+		a_{n} = \frac{1}{2\pi i}\int_{\Gamma }^{}\frac{f(z)}{(z-a)^{n+1}}dz,\quad \Gamma = \{z\in \mathbb{C}:|z-a|=r\},r\in(R_{1},R_{2}).
+	\]
+	Provaremos, também, que a série converge absoluta e uniformemente em \(\overline{\mathrm{an}(a; r_{1}, r_{2})}\). Como \(f_2(z) = \sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n}\) para \(z\in B(a, R_{2})\),
+	a série converge absolutamente para \(|z-a| < R_{2}\) e converge uniformemente para \(|z-a|\leq r_{2},\) em que \(0 < r_{2} < R_{2}.\)
+	Analogamente, podemos aplicar este processo a \(g(z) = \sum\limits_{n=1}^{\infty}b_{n}z^{n}\) para concluir que a série converge absolutamente para
+	\(|z-a| < \frac{1}{R_{1}}\) e uniformemente para \(|z-a|\leq \frac{1}{r_{1}}\), em que \(r_{1} > R_{1}.\) Com isso, conseguimos concluir que a função
+	\(f_{1}(z) = \sum\limits_{n=1}^{\infty}a_{-n}(z-a)^{-n}\) converge absolutamente para \(|z-a| > R_{1}\) e uniformemente para \(|z-a| \geq r_{1}.\) Logo,
+	\(f(z) = \sum\limits_{n=-\infty}^{\infty}a_{n}(z-a)^{n}\) converge absoluta e uniformemente em \(\overline{\mathrm{an}(a; r_{1}, r_{2})}\) se \(R_{1} < r_{1} < r_{2} < R_{2}.\)
+
+	Finalmente, vejamos que a representação em série de Laurent é única. Para tal, suponha que a gente possa escrever
+	\[
+		\sum\limits_{n=-\infty}^{\infty}a_{n}(z-a)^{n} = f(z) = \sum\limits_{n=-\infty}^{\infty}c_{n}(z-a)^{n}
+	\]
+	em \(\mathrm{an}(a; r_{1}, r_{2}),\) com \(R_{1} < r_{1} < r_{2} < R_{2}.\) Seja \(m\in \mathbb{Z},\)
+	\[
+		\sum\limits_{n=-\infty}^{\infty}a_{n}(z-a)^{n-m-1} = \sum\limits_{n=-\infty}^{\infty}c_{n}(z-a)^{n-m-1}.
+	\]
+	Como as séries convergem uniformemente, podemos integrar termo-a-termo sem problemas, de modo que
+	\[
+		\sum\limits_{n=-\infty}^{\infty}a_{n}(z-a)^{n-m-1}dz = \sum\limits_{n=-\infty}^{\infty}c_{n}\int_{\Gamma }^{}(z-a)^{n-m-1}dz,
+	\]
+	com \(\Gamma = a + r e^{it}, t\in [0, 2\pi ], r\in (r_{1}, r_{2}).\) No entanto,
+	\[
+		\int_{\Gamma }^{}(z-a)^{n-m-1}dz = \int_{0}^{2\pi }r^{n-m}e^{(n-m)it}idt  = \left\{\begin{array}{ll}
+			2\pi i,\quad \text{se } n =m \\
+			0,\quad \text{se } n\neq m.
+		\end{array}\right.
+	\]
+	Logo, concluimos que \(2\pi i a_{m} = 2\pi i c_{m}\), ou seja, \(a_{m}=c_{m}.\) Por m ter sido escolhido arbitrariamente,
+	isto vale para todo número natural n. Portanto, a representação da série de Laurent é única. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Seja \(z=a\) uma singularidade isolada de f e
+	\[
+		f(z) = \sum\limits_{n=-\infty}^{\infty}a_{n}(z-a)^{n}
+	\]
+	sua expansão de Laurent em \(\mathrm{an}(a; 0, R).\) Então,
+	\begin{itemize}
+		\item[a)] \(z=a\) é uma singularidade removível se, e somente se, \(a_{n} = 0\) para \(n\leq -1.\);
+		\item[b)] \(z=a\) é um polo de ordem m se, e somente se, \(a_{-m}\neq0\) e \(a_{n}=0\) para \(n\leq -(m+1)\);
+		\item[c)] \(z=a\) é uma singularidade essencial se, e somente se, \(a_{-n}\neq0\) para todo \(n\in \mathbb{N}.\)
+	\end{itemize}
+\end{crl*}
+\begin{proof*}
+	(a) \(\Rightarrow )\) Seja \(z=a\) uma singularidade removível. Então, existe \(g:B(a, R)\rightarrow \mathbb{C}\) analítica tal que
+	\[
+		f(z) = g(z),\quad 0<|z-a|<R.
+	\]
+	Como g é analítica, podemos escrever
+	\[
+		g(z) = \sum\limits_{n=0}^{\infty}b_{n}(z-a)^{n},\quad |z-a| < r.
+	\]
+	Logo,
+	\[
+		\sum\limits_{n=-\infty}^{\infty}a_{n}(z-a)^{n} = \sum\limits_{n=0}^{\infty}b_{n}(z-a)^{n}
+	\]
+	e, assim, \(a_{n}=0\) para todo \(n\leq -1.\)
+
+	\(\Leftarrow )\) Se \(a_{n}=0\) para \(n\leq -1,\) então tome \(g(z)\) definida em \(B(a, R)\) dada por
+	\[
+		g(z) = \sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n}.
+	\]
+	Note que g é analítica e \(g(z) = f(z),\) em que \(0 < |z-a| < R.\) Portanto, \(z=a\) é uma singularidade removível.
+
+	(b) \(\Rightarrow )\) Seja \(z=a\) um polo de ordem m, o que equivale a dizer que \(f(z)(z-a)^{m}\) tem singularidade removível em \(z=a\).
+	Assim, pelo item (a) e observando que
+	\[
+		f(z)(z-a)^{m} = \sum\limits_{n=0}^{\infty}b_{n}(z-a)^{n},
+	\]
+	podemos escrever
+	\[
+		f(z) = \sum\limits_{n=0}^{\infty}b_{n}(z-a)^{n-m} = \sum\limits_{k=-m}^{\infty}b_{n}(z-a)^{k}.
+	\]
+	Pela unicidade da série, isto implica necessariamente que \(a_{n}=0\) para \(n\leq -(m+1)\) e, além disso, \(a_{-m}\neq0\) porque
+	m é a ordem do polo.
+
+	\(\Leftarrow )\) Suponha que \(a_{n} = 0\) para \(n\leq -(m+1)\) e tome \(g(z)\) definida em \(B(a, R)\) dada por
+	\[
+		g(z) = \sum\limits_{n=-m}^{\infty}a_{n}(z-a)^{n}.
+	\]
+	Note que g é analítica e \(g(z) = f(z), 0 < |z-a| < R.\) Então,
+	\[
+		f(z) = \sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n-m} = \frac{1}{(z-a)^{m}}\sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n}.
+	\]
+	Reescrevendo isso, obtivemos
+	\[
+		(z-a)^{m}f(z) = \sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n},
+	\]
+	o que, pelo item (a), quer dizer que \(f(z)(z-a)^{m}\) tem singularidade removível em \(z=a.\) Por definição, isto quer dizer que
+	\(z=a\) é um polo de ordem m.
+
+	(c) Segue dos itens (a) e (b). \qedsymbol
+\end{proof*}
+\begin{example}
+	Calcule a série de Laurent de \(f(z) = \frac{1}{(z-i)^{2}}.\)
+
+	Para isso, note que f é analítica em \(\mathbb{C}\setminus{\{i\}}.\) Pelo Teorema de Laurent, temos
+	\[
+		f(z) = \sum\limits_{n=-\infty}^{\infty}a_{n}(z-i)^{n}.
+	\]
+	Note que \(f(z) = (z-i)^{-2}\) é um termo da série acima. Assim, pela unicidade da série,
+	\[
+		a_{n} = \left\{\begin{array}{ll}
+			0,\quad n\neq-2 \\
+			1,\quad n = -2.
+		\end{array}\right.
+	\]
+	Em conclusão, \(f(z) = (z-i)^{-2}\) é a própria representação da Série de Laurent.
+\end{example}
+\begin{example}
+	Calcule a série de Laurent da função
+	\[
+		f(z) = -\frac{1}{(z-1)(z-2)}.
+	\]
+
+	Neste caso, \(f(z)\) é analítica em \(\mathbb{C}\setminus{\{1, 2\}}.\) Defina
+	\[
+		D_{1} = \{z:|z| < 1\}.
+	\]
+	e observe que f é analítica em \(D_{1}.\) Além disso, note que, pelo método das frações parciais,
+	\[
+		f(z) = -\frac{1}{(z-1)}\frac{1}{(z-2)} = \frac{1}{z-1} = \frac{1}{z-2} = -\frac{1}{1-z} + \frac{1}{2}\frac{1}{1-\bigl(\frac{z}{2}\bigr)}
+	\]
+	Utilizando a séire geométrica, podemos expressar os dois termos na forma de séries de potências com as formas
+	\[
+		f(z) = -\frac{1}{1-z} + \frac{1}{2}\frac{1}{1-\bigl(\frac{z}{2}\bigr)} = -\sum\limits_{n=0}^{\infty}z^{n} + \frac{1}{2}\sum\limits_{n=0}^{\infty}\biggl(\frac{z}{2}\biggr)^{n},
+	\]
+	contanto que \(|z| < 1\) e \(\biggl\vert \frac{z}{2}\biggr\vert < 1.\) Em conclusão,
+	\[
+		f(z) = \sum\limits_{n=0}^{\infty}\biggl(-1 + \frac{1}{2^{n+1}}\biggr)z^{n},\quad |z|<1.
+	\]
+	A ideia aqui é que precisamos estudar os diferentes casos para o valor absoluto de z, repetindo o raciocínio acima. Nesta lógica, defina
+	\[
+		D_{2} = \{z: 1 < |z| < 2\}\quad\&\quad D_{3} = \{z: |z| > 2\}.
+	\]
+	Em \(D_{2},\) a Série de Laurent de f pode ser encontrada começando por notar que
+	\[
+		f(z) = \frac{1}{z-1} - \frac{1}{z-2} = \frac{1}{z}\frac{1}{1-\bigl(\frac{1}{z}\bigr)} + \frac{1}{2}\frac{1}{1-\bigl(\frac{z}{2}\bigr)} = \frac{1}{z}\sum\limits_{n=0}^{\infty}\biggl(\frac{1}{z}\biggr)^{n} + \frac{1}{2}\sum\limits_{n=0}^{\infty}\biggl(\frac{z}{2}\biggr)^{n}
+	\]
+	quando \(\biggl\vert\frac{1}{z}\biggr\vert < 1\) e \(\biggl\vert \frac{z}{2}\biggr\vert < 1.\) Logo, se \(1 < |z| < 2,\)
+	\[
+		f(z) = \sum\limits_{n=0}^{\infty}\frac{1}{z^{n+1}} + \sum\limits_{n=0}^{\infty}\biggl(\frac{1}{2}\biggr)^{n+1}z^{n} = \sum\limits_{n=-\infty}^{\infty}a_{n}z^{n},
+	\]
+	no qual
+	\[
+		a_{n} = \left\{\begin{array}{ll}
+			1,\quad n = -1, -2, -3, \dotsc \\
+			\frac{1}{2^{n+1}},\quad n=0, 1, 2, 3,\dotsc .
+		\end{array}\right.
+	\]
+	Para \(D_{3},\) um processo similar fornece
+	\[
+		f(z) = \frac{1}{z-1} - \frac{1}{z-2} = \frac{1}{z}\frac{1}{1-\bigl(\frac{1}{z}\bigr)} - \frac{1}{z}\frac{1}{1-\bigl(\frac{2}{z}\bigr)} = \frac{1}{z}\sum\limits_{n=0}^{\infty}\biggl(\frac{1}{z}\biggr)^{n} - \frac{1}{z}\sum\limits_{n=0}^{\infty}\biggl(\frac{2}{z}\biggr)^{n}
+	\]
+	sempre que \(\biggl\vert\frac{1}{z}\biggr\vert < 1\) e \(\biggl\vert \frac{2}{z}\biggr\vert < 1.\)
+
+	Em conclusão, para \(|z| > 2,\)
+	\[
+		f(z) = \sum\limits_{n=0}^{\infty}(1-2^{n})\frac{1}{z^{n+1}}.
+	\]
+\end{example}
+\begin{example}
+	Calcule a série de Laurent de \(f(z) = e^{\frac{1}{z}}.\)
+
+	Para este exemplo, já sabemos que f(z) é analítica em \(\mathbb{C}\setminus{\{0\}},\) garantindo que f possui série de Laurent.
+	Como \(e^{w}\) é uma função inteira e
+	\[
+		e^{w} = \sum\limits_{n=0}^{\infty}\frac{w^{n}}{n!},\quad \forall w\in \mathbb{C},
+	\]
+	segue que, para \(w = \frac{1}{z},\) temos
+	\[
+		e^{\frac{1}{z}}=\sum\limits_{n=0}^{\infty}\frac{1}{n!}\biggl(\frac{1}{z}\biggr)^{n} = \sum\limits_{n=0}^{\infty}\frac{1}{n!}z^{-n} = \sum\limits_{n=-\infty}^{0}\frac{1}{(-n)!}z^{n} = \sum\limits_{n=-\infty}^{\infty}a_{n}z^{n},
+	\]
+	em que \(0 < |z| < \infty\) com
+	\[
+		a_{n}  = \left\{\begin{array}{ll}
+			0,\quad n=1, 2, 3,\dotsc \\
+			\frac{1}{(-n)!},\quad n = 0, -1, -2, -3, \dotsc
+		\end{array}\right. .
+	\]
+\end{example}
+\hypertarget{casorati-weierstrass}{
+	\begin{theorem*}
+		Se f tem uma singularidade essencial em \(z=a\), então
+		\[
+			\overline{f(\mathrm{an}(a; 0, \delta ))} = \mathbb{C},\quad \forall \delta > 0.
+		\]
+	\end{theorem*}}
+\begin{proof*}
+	Suponha que f é analítica em \(\mathrm{an}(a; 0, R).\) Precisamos provar que, dados \(\varepsilon > 0\) e \(c\in \mathbb{C},\) então, para todo \(\delta >0\),
+	podemos encontrar \(z\in \mathrm{an}(a; 0, \delta )\) tal que \(|z-a| < \delta \) e \(|f(z) - c| < \varepsilon .\) Para tanto, suponha que isto seja falso, ou seja, assuma que existam
+	\(c\in \mathbb{C}\) e \(\varepsilon > 0\) tal que
+	\[
+		|f(z) - c| \geq \varepsilon
+	\]
+	para todo \(z\in \mathrm{an}(a; 0, \delta )\). Com isto,
+	\[
+		\lim_{z\to a}\frac{|f(z)-c|}{|z-a|} = \infty,
+	\]
+	ou seja, \((z-a)^{-1}(f(z)-c)\) tem um polo em \(z=a.\) Caso m seja a ordem do polo, então
+	\[
+		(z-a)^{m}(z-a)^{-1}(f(z)-c) = (z-a)^{m-1}(f(z)-c)
+	\]
+	tem singularidade removível em \(z=a.\) Logo,
+	\[
+		\lim_{z\to a}|z-a|^{m}|f(z)-c| = 0.
+	\]
+	Consequentemente,
+	\[
+		|z-a|^{m}|f(z)|\leq |z-a|^{m}|f(z)-c| + |z-a|^{m}|c|
+	\]
+	e, assim,
+	\[
+		\lim_{z\to a}|z-a|^{m}|f(z)| = 0,
+	\]
+	já que \(m\geq 1.\) No entanto, \((z-a)^{m-1}f(z)\) possui uma singularidade removível em \(z=a\), o que significa dizer que
+	f tem um polo em \(z=a\) de ordem \(m-1,\) o que é uma contradição com a nossa hipótese. Portanto, para todo \(\varepsilon >0\) e \(c\in \mathbb{C},\)
+	existe \(\delta > 0\) tal que, dado \(z\in \mathrm{an}(a; 0, R)\) com \(|z-a| < \delta \), teremos \(|f(z) - c| < \varepsilon .\) \qedsymbol
+\end{proof*}
+\end{document}

@@ -1,0 +1,106 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 23/01/2023 [Gravada (ft. AraMat)]}
+\subsection{índice de Curva Fechada - Continuando}
+\begin{def*}
+	Escrevemos, para o índice de uma curva $\gamma$ fechada e retificável em a,
+	$$
+		n(\gamma, a)\coloneqq  \frac{1}{2\pi}\int_{\gamma}^{}\frac{1}{z-a}dz, \quad a\not\in \{\gamma\}.
+	$$
+\end{def*}
+\begin{prop*}
+	Dadas curvas $\gamma, \sigma$ tais que
+	$$
+		\sigma + \gamma(t)  = \left\{\begin{array}{ll}
+			\gamma(2t), \quad t\in[0, \frac{1}{2}] \\
+			\gamma(2t-1), \quad t\in[\frac{1}{2}, 1],
+		\end{array}\right.
+	$$
+	segue que o índice das curvas satisfaz as seguintes propriedades
+	\begin{itemize}
+		\item[i)] $n(\gamma, a) = -n(\gamma_{-}, a)$
+		\item[ii)] $n(\sigma+\gamma, a) = n(\sigma, a) + n(\gamma, a), a\not\in \{\gamma\}\cup \{\sigma\}$
+	\end{itemize}
+\end{prop*}
+\begin{prop*}
+	Seja $\gamma$ retificável e fechada. Então, $n(\gamma, \cdot):\mathbb{C}-\{\gamma\} \rightarrow \mathbb{Z}$ é contínua.
+\end{prop*}
+\begin{proof*}
+	Tome a fora de $\mathbb{C}-\{\gamma\}$ e $r > 0\text{ tal que } B(a, r)\subseteq{\mathbb{C}-\{\gamma\}}$. Então,
+	\begin{align*}
+		 & n(\gamma, a) - n(\gamma, b) = \frac{1}{2\pi i}\int_{\gamma}^{}\frac{a - b}{(z-a)(z-b)}dz                                                                                       \\
+		 & \Rightarrow|n(\gamma, a) - n(\gamma, b)| = \frac{1}{2\pi}\biggl|\int_{\gamma}^{}\frac{a-b}{(z-a)(z-b)}dz\biggr|\leq \frac{1}{2\pi}\int_{\gamma}^{}\frac{|a-b|}{|z-a||z-b|}|dz| \\
+		 & \leq\frac{1}{2\pi}\sup_{\{\gamma\} }\frac{|a-b|}{|z-a||z-b|}v(\gamma)\overbrace{\to}^{b-a}0
+	\end{align*}
+\end{proof*}
+\begin{theorem*}
+	Seja $\gamma$ retificável e fechada. A função índice é constante em cada componente conexa de $\mathbb{C}-\{\gamma\}.$
+	Em particular, anula na componente conexa ilimitada de $\mathbb{C}-\{\gamma\} $.
+\end{theorem*}
+\begin{proof*}
+	Seja $r > 0$ tal que $\{\gamma\}\subseteq{B(0, \frac{r}{2})}.$ Se $|a| > r,$
+	$$
+		|n(\gamma, a)|\leq \frac{1}{2\pi}\max_{\{\gamma\}}|z-a|^{-1}v(\gamma)\overbrace{\to}^{r\to\infty}0. \quad\text{\qedsymbol}
+	$$
+\end{proof*}
+
+\subsection{Teorema e Fórmulas Integrais de Cauchy}
+\begin{lmm*}
+	Seja $\gamma$ retificável, $\phi$ contínua em $\{\gamma\} $ e
+	$$
+		F_{m}(z)\coloneqq  \int_{\gamma}^{}\frac{\phi(w)}{(w-z)^{m}}dw, \quad z\in \mathbb{C}-\{\gamma\}, m=1, 2, \cdots
+	$$
+	Então, $F_{m}$ é analítica com $F_{m} = mF_{m+1}, m = 1, 2, \cdots$.
+\end{lmm*}
+\begin{proof*}
+	Note que
+	\begin{align*}
+		F_{m}(a) - F_{m}(b) & = \int_{\gamma}^{}\frac{\phi(w)}{(w-a)^{m}} - \frac{\phi(w)}{(w-b)^{m}}dw                                                                        \\
+		                    & = \int_{\gamma}^{}\phi(w)\underbrace{\biggl[\frac{1}{(w-a)^{m}} - \frac{1}{(w-b)^{m}}\biggr]}_{\sum\limits_{n=1}^{m}(w-a)^{-n}(w-b)^{-m-1+n}}dw.
+	\end{align*}
+	Assim,
+	$$
+		F_{m}'(a) = \lim_{b\to{a}}\sum\limits_{n=1}^{m}\int_{\gamma}^{}\frac{\phi(w)}{(w-a)^{n}(w-b)^{m+1-n}}dw = mF_{m+1}(a).
+	$$
+\end{proof*}
+\begin{theorem*}
+	Seja $f:G\rightarrow \mathbb{C}$ analítica, $\gamma$ retificável e fechada tal que $n(\gamma, a) = 0$ para todo $a\in \mathbb{C}-G.$
+	Então,
+	$$
+		f(b)n(\gamma, b) = \frac{1}{2\pi i}\int_{\gamma}^{}\frac{f(w)}{w-b}dw, \quad b\in{G-\{\gamma\}}.
+	$$
+\end{theorem*}
+\begin{proof*}
+	Considere $\phi:GxG\rightarrow \mathbb{C}$ dada por
+	$$
+		\phi(z, w) = \left\{\begin{array}{ll}
+			\frac{f(w)-f(z)}{w-z}, \quad z\neq{w} \\
+			f'(z), \quad \ = w.
+		\end{array}\right.
+	$$
+	Observe que $\phi(\cdot, w):G\rightarrow \mathbb{C}$ é analítica (Exercício.). Além disso, defina
+	$H\coloneqq \{w\in{\mathbb{C}-\{\gamma\}}: n(\gamma, w) = 0\}$. Assim, $\mathbb{C}-G\subseteq{H}\text{ e } \mathbb{C} = G\cup{H}$.
+	Coloque $g:\mathbb{C}\rightarrow \mathbb{C}$ da forma
+	$$
+		g(z) = \left\{\begin{array}{ll}
+			\int_{\gamma}^{}\phi(z, w)dw, \quad z\in{G} \\
+			\int_{\gamma}^{}\frac{f(w)}{w-z}dw, \quad z\in{H}.
+		\end{array}\right.
+	$$
+	Vamos mostrar que essa g está bem-definida, tomando z em $H\cap{G}.$ Então,
+	$$
+		\int_{\gamma}^{}\phi(z, w)dw = \int_{\gamma}^{}\frac{f(w)-f(z)}{w-z}dw = \int_{\gamma}^{}\frac{f(w)}{w-z}dw - f(z)n(\gamma, z)
+	$$
+	Um exercício é mostrar que o lema garante que g é analítica e, logo, inteira. Além disso, mostre que g é limitada em
+	bolas de $\mathbb{C}-G$ como $B(a, r)\subseteq{G}\Rightarrow |g(z)|\leq \int\limits_{\gamma}|\phi(z, w)||dw|\leq \sup\limits_{B(a, r)x \{\gamma\} }|\phi|v(\gamma)$.
+	Portanto, g é limitada. Como consequência de Liouville, g é constante. Mostre, por fim, que g é identicamente nula tal que, dado b em
+	$G-\{\gamma\}$,
+	$$
+		g(b) = 0 = \int_{\gamma}^{}\frac{f(w) - f(b)}{w-b} = \int_{\gamma}^{}\frac{f(w)}{w-b}dw - f(b) \int_{\gamma}^{}\frac{1}{w-b}dw
+	$$
+	Portanto,
+	$$
+		2\pi if(b)n(\gamma, b) = \int_{\gamma}^{}\frac{f(w)}{w-b}dw. \quad\text{\qedsymbol}
+	$$
+\end{proof*}
+\end{document}

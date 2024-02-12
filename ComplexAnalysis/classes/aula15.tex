@@ -1,0 +1,195 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 30/01/2023 - Pedro Rangel, Renan Wenzel, Roberta Agnes Mendes Melo.}
+\subsection{Motivações}
+\begin{itemize}
+	\item Singularidades removíveis e essenciais;
+	\item Polos;
+	\item Fatoração de uma Função com Singularidades.
+\end{itemize}
+\subsection{Classificação de Singularidades}
+Examinaremos as funções analíticas em um disco furado - um disco aberto com o centro removido. A partir de informações sobre
+o comportamento da função próximo ao centro do disco, podemos tirar conclusões interessantes. Em particular, pode-se utilizar estes resultados
+para calcular integrais definidas sobre a reta real que não são avaliadas por métodos comuns do Cálculo.
+Começamos estudando a singularidade mais ``comportada'' - as do tipo \textit{removível}.
+\begin{def*}
+	Uma função \(f:\mathbb{C}\rightarrow \mathbb{C}\) tem \textbf{singularidade isolada} em \(z = a\) se existe um \(r > 0\)
+	tal que f é definida e analítica em \(B(a, r)\setminus{\{a\}},\) mas não em \(B(a, r).\)
+
+	Além disso, dizemos que a é uma \textbf{singularidade removível} se existe uma extensão analítica de f dentro do raio r.
+	Em outras palavras, existe \(g:B(a, r)\rightarrow \mathbb{C}\) analítica tal que \(g(z) = f(z)\) para \(0 < |z-a| < r.\quad \square\)
+\end{def*}
+\begin{example}
+	A função \(f:\mathbb{C}\setminus{\{0\}}\rightarrow \mathbb{C}\) dada por \(f(z) = z^{n}\cdot \sin^{}{\biggl(\frac{1}{z}\biggr)}\) para todo \(n \geq 2\) tem
+	\(z=0\) como singularidade removível.
+
+	Com efeito, defina \(g:B(0, r)\rightarrow \mathbb{C}\) por
+	\[
+		g(z) = \left\{\begin{array}{ll}
+			f(z),\quad \text{se }z\neq 0 \\
+			0,\quad \text{se } z = 0.
+		\end{array}\right.
+	\]
+	Para \(g(z) = f(z), 0 < |z| < r,\) temos
+	\begin{align*}
+		\lim_{z\to 0}\frac{g(z)-g(0)}{z-0} & = \lim_{z\to 0}\frac{g(z)}{z}                                    \\
+		                                   & = \lim_{z\to 0}\frac{f(z)}{z}                                    \\
+		                                   & = \lim_{z\to 0}\frac{z^{n}\sin^{}{\biggl(\frac{1}{z}\biggr)}}{z} \\
+		                                   & = \lim_{z\to 0} z^{n-1}\sin^{}{\biggl(\frac{1}{z}\biggr)} = 0.
+	\end{align*}
+	Pelo \hyperlink{goursat}{Teorema de Goursat}, como \(B(a, r)\subseteq \mathbb{C}\) é aberto e g é diferenciável, segue que g é analítica.
+	Portanto, 0 é singularidade removível.
+\end{example}
+De imediato, surge a questão de determinar quando uma singularidade é removível. Para chegar nisso, primeiro provaremos um lema.
+\begin{lmm*}
+	Seja \(f:B(a, r)\setminus{\{a\}}\rightarrow \mathbb{C}\) uma função com singularidade removível em \(z = a\). Então, o \(\lim_{z\to a}f(z)\) existe.
+\end{lmm*}
+\begin{proof*}
+	Como a é singularidade removível por hipótese, existe \(g:B(a, r)\rightarrow \mathbb{C}\) analítica
+	tal que \(g(z) = f(z)\) para \(0 < |z| < r.\) Daí, g pode ser escrita como série de potência
+	\[
+		g(z) = \sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n}.
+	\]
+	Portanto,
+	\[
+		\lim_{z\to a}f(z) = \lim_{z\to a} g(z) = \lim_{z\to a}\sum\limits_{n=0}^{\infty}a_{n}(z-a)^{n} = a_{0}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{theorem*}
+	Se \(f:B(a, r)\setminus{\{a\}}\rightarrow \) tem singularidade isolada em a, então o ponto \(z=a\) é uma singularidade removível se, e somente se,
+	\(\lim_{z\to a} (z-a)f(z) = 0.\)
+\end{theorem*}
+\begin{proof*}
+	\(\Rightarrow )\) Suponha que \(z=a\) é uma singularidade removível. Então, segue do lema anterior que existe l tal que \(\lim_{z\to a}f(z) = l.\) Disto, segue que
+	\[
+		\lim_{z\to a}(z-a)f(z) = \lim_{z\to a}(z-a)\lim_{z\to a}f(z) = 0 \cdot l = 0.
+	\]
+	\(\Leftarrow )\) Suponh que f é analítica em \(0 < |z-a| < r.\) Defina \(g:B(a, r)\rightarrow \mathbb{C}\) dada por
+	\[
+		g(z) = \left\{\begin{array}{ll}
+			(z-a)f(z),\quad \text{se }z\neq a \\
+			0,\quad \text{se }z=a.
+		\end{array}\right.
+	\]
+	Suponha que \(\lim_{z\to a}(z-a)f(z) = 0\). Queremos mostrar que \(z = a\) é uma singularidade removível.
+	Observe que g é uma função contínua, pois
+	\[
+		\lim_{z\to a}g(z) = g(a) = 0 = \lim_{z\to a}(z-a)f(z).
+	\]
+	Falta mostramos que g é analítica em \(B(a, r)\). Para tal, usaremos o \hyperlink{morera}{Teorema de Morera}.
+	Seja T um triângulo em \(B(a, r)\) e \(\Delta = T\cup \mathrm{Int}(T)\).
+
+	\textbf{\underline{Primeiro Caso}:} Se \(a\not\in \Delta \), então \(g(z) = (z-a)f(z)\) e, assim, g é analítica, pois
+	será o produto de duas funções analíticas. Como \(T\sim 0\) em \(B(a, r)\setminus{\{a\}}\), segue que \(\int_{T}^{}g\equiv 0\) pelo
+	Teorema de Cauchy.
+
+	\textbf{\underline{Segundo Caso}:} Se a é um vértice de T, então \(T = [a, b, c, a].\) Seja \(x\in [a, b]\) e \(y\in [c, a]\), tal que
+	podemos tomar \(T_{1} = [a, x, y, a].\) Se P é o polígono \([x, b, c, y, x],\) então \(\int_{T}^{}g = \int_{T_{1}}^{}g + \int_{P}^{}g\) e, como g
+	é contínua e g(a) = 0, temos, para todo \(\varepsilon > 0\), dois pontos x e y que podem ser escolhidos tal que \(|g(z)| \leq \frac{\varepsilon }{l(T)}\)
+	para todo \(z\in T_{1},\) em que \(l(T)\) é o comprimento de T.
+
+	Como \(p\sim 0\) em \(B(a, r)\setminus{\{a\}}\) e g é analítica, segue que \(\int_{P}^{}g = 0\) pelo Teorema de Cauchy. Logo,
+	\[
+		\int_{T}^{}g = \int_{T_{1}}^{} g \leq \int_{T_{1}}^{}|g| \leq \sup_{z\in T_{1}}\{|g(z)|\}\cdot l(T) \leq \frac{\varepsilon }{l(T)}l(T) = \varepsilon .
+	\]
+	Já que \(\varepsilon \) foi escolhido de forma arbitrária, temos \(\int_{T}^{}g = 0.\)
+
+	\textbf{\underline{Terceiro Caso}:} Caso \(a\in \Delta \) e \(T = [x, y, z, x],\) considere \(T_{1} = [x, y, a, x], T_{2} = [y, z, a, y]\) e \(T_{3} = [z, x, a, z].\)
+	Analogamente ao caso anterior, de \(T_{j}\sim 0\), obtemos \(\int_{T_{j}}^{}g = 0\) para todo \(j = 1, 2, 3\) e, além disso,
+	\[
+		\int_{T}^{}g = \int_{T_{1}}^{}g + \int_{T_{2}}^{} g + \int_{T_{3}}^{}g = 0.
+	\]
+
+	Em conclusão, g é analítica em \(B(a, r).\) Note que, \(g(a) = 0,\) ou seja, existe uma função \(h:B(a, r)\rightarrow \mathbb{C}\) tal que \(h(a)\neq0\) e \(g(z) = (z-a)h(z)\)
+	para quaisquer \(z\in B(a, r).\) Portanto, \(h(z) = f(z)\) para \(0 < |z-a| < r,\) de forma que a é uma singularidade removível. \qedsymbol
+\end{proof*}
+\begin{example}
+	A função \(\frac{\sin^{}{(z)}}{z}\) tem singularidade isolada em z=0. Além disso, essa singularidade é removível.
+
+	Com efeito, seja
+	\begin{align*}
+		\varphi : & \mathbb{C}\setminus{\{0\}}\rightarrow \mathbb{C} \\
+		          & z\mapsto \frac{\sin{(z)}}{z}.
+	\end{align*}
+	Sabemos que f tem uma singularidade isolada em 0, pois existe um \(r > 0\) tal que \(B(0, r)\subseteq \mathbb{C}\setminus{\{0\}}\), isto é, está bem-definida. Ademais, \(B(0, r)\) é aberto
+	e f é diferenciável, do que segue, pelo \hyperlink{goursat}{Teorema de Goursat}, que f é analítica. Finalmente, de acordo com o Teorema, z=0 é uma singularidade removível, pois
+	\[
+		\lim_{z\to 0}(z-0)\frac{\sin^{}{(z)}}{z} = \lim_{z\to 0}\frac{z\sin^{}{(z)}}{z} = \lim_{z\to 0}\sin^{}{(z)} = \sin^{}{(0)} = 0.
+	\]
+\end{example}
+\begin{def*}
+	Se z=a é uma singularidade isolada de f, então a é um \textbf{polo de f} se \(\lim_{z\to a}|f(z)| = \infty.\) Em outras palavras,
+	para qualquer \(M > 0\), existe \(\varepsilon > 0\) tal que \(|f(z)| > M\) sempre que \(0 < |z-a| < \varepsilon .\quad \square\)
+\end{def*}
+\begin{def*}
+	Uma singularidade isolada que não é polo nem removível chama-se \textbf{singularidade essencial.} \(\square\)
+\end{def*}
+\begin{example}
+	A função \(f(z) = (z-a)^{-m}\) tem um polo em z=a para \(m\geq 1\).
+
+	De fato, dado \(M > 0\), suponha que \(\varepsilon  = \frac{1}{m \frac{1}{m}}\), tal que, se \(0 < |z-a| < \varepsilon ,\)
+	\[
+		|f(z)| = \frac{1}{|z-a|^{m}}> \frac{1}{\varepsilon ^{m}} = M^{\frac{m}{m}} = M.
+	\]
+	Portanto, a função possui um polo em z=a.
+\end{example}
+\begin{example}
+	Para a função \(f(z) = e^{z^{-1}} = e^{\frac{1}{z}},\) o ponto z=0 é uma singularidade isolada que é essencial, ou seja, não é polo e nem removível. Neste caso, estudamos o comportamento do limite
+	da função em diferentes eixos:
+	\begin{itemize}
+		\item \(\lim_{z\to 0^{+}}e^{\frac{1}{z}} = \infty\);
+		\item \(\lim_{z\to 0^{-}}e^{\frac{1}{z}} = 0\);
+		\item \(\lim_{z \uparrow 0}e^{-\frac{1}{iy}} \Rightarrow \text{oscila}\)
+		\item \(\lim_{z \downarrow 0}e^{\frac{1}{iy}} \Rightarrow \text{oscila}\)
+	\end{itemize}
+	Em outras palavras, o limite da função não existe e, portanto, a singularidade é essencial.
+\end{example}
+\begin{example}
+	Seja \(f(z) = \tan^{}{(z)} = \frac{\sin^{}{(z)}}{\cos^{}{(z)}}.\) Então, para \(k\in \mathbb{Z}, z = \frac{(2k+1)\pi }{2}\) é polo da função.
+
+	Realmente, pois, começando com o caso k=0, temos
+	\[
+		\lim_{z\to \frac{\pi }{2}}|\tan^{}{(z)}| = \lim_{z\to \frac{\pi }{2}}\frac{|\sin^{}{(z)}|}{|\cos^{}{(z)}|} = \lim_{z\to \frac{\pi }{2}} \frac{1}{|\cos^{}{(z)}|} = \infty.
+	\]
+	Os outros casos seguem por periodicdade das funções trigonométricas.
+\end{example}
+\begin{prop*}
+	Se G é uma região com \(a\in G\) e f é analítica em \(G\setminus{\{a\}}\) com um polo em z=a, então existem \(m\in \mathbb{N}\) único e uma função
+	analítica \(g:G\rightarrow \mathbb{C}\) tais que
+	\[
+		f(z) = \frac{g(z)}{(z-a)^{m}} = g(z)(z-m)^{-m}.
+	\]
+\end{prop*}
+\begin{proof*}
+	Como f tem um polo em z=a, a função \(\frac{1}{f}\) é analítica na vizinhaça que o contém. Assim,
+	\[
+		\frac{1}{f(z)} = (z-a)^{m}g(z),
+	\]
+	em que \(m\in \mathbb{N}\) e \(h\) é analítica. Logo,
+	\[
+		f(z) = \frac{1}{(z-a)^{n}h(z)}.
+	\]
+	Portanto, colocando \(g(z) = \frac{1}{h(z)},\) temos \(f(z) = \frac{g(z)}{(z-a)^{m}}.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se f tem um polo no z=a e m é o menor natural tal que \(f((z)(z-a)^{m}\) tem uma singularidade removível no \(z=a\), então f é dita ter
+	um \textbf{polo de ordem m} no z=a. Caso \(m=1\) seja o menor natural satisfazendo isso, ou seja, caso a seja um polo de ordem 1, diremos que a é um \textbf{polo simples} de f.\(\square\)
+\end{def*}
+\begin{example}
+	A função \(f(z) = (z-a)^{-m}\) tem um polo de ordem \(m\geq 1.\)
+
+	Com efeito, \((z-a)^{m}f(z) = (z-a)^{m}(z-a)^{-m} = 1.\) Aplicando o Teorema das singularidades removíveis,
+	\[
+		\lim_{z\to a}(z-a)g(z)=\lim_{z\to a}(z-a)[(z-a)^{m}f(z)] = \lim_{z\to a}(z-a)=0,
+	\]
+	tal que temos uma singularidade removível para f em z=a.
+\end{example}
+\begin{def*}
+	Se f tem um polo de ordem m no z=a e f satisfaz
+	\[
+		f(z) = \frac{A_{m}}{(z-a)^{m}}+\dotsc +\frac{A_{1}}{(z-a)} + g_{1}(z),
+	\]
+	em que \(g_{1}\) é analítica no B(a, r) e \(A_{m}\neq0\). A soma \(A_{m}(z-a)^{-m}+\dotsc +A_{1}(z-a)\) é chamado
+	\textbf{parte singular de f em z=a.} \(\square\)
+\end{def*}
+\end{document}

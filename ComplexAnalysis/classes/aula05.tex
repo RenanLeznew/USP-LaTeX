@@ -1,0 +1,163 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 10/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Transformações de M\"{o}bius elementares;
+	\item Consequências Geométricas da Transformação de M\"{o}bius;
+\end{itemize}
+\subsection{Transformações de M\"{o}bius}
+\begin{def*}
+	Uma \textbf{fração linear} é $\frac{az + b}{cz + d}, z\in \mathbb{C}, a, b, c, d\in \mathbb{C}$ fixos.
+\end{def*}
+\begin{def*}
+	Uma fração linear tal que $ad-bc\neq0$ define uma transformação
+	$$
+		T(z) = \frac{az + b}{cz + d}, \quad z\in \mathbb{C},
+	$$
+	chamada \textbf{tranformação de M\"{o}bius}.
+\end{def*}
+Consideraremos a tranformação como sendo $T:\mathbb{C}_{\infty}\rightarrow \mathbb{C}_{\infty}$ da seguinte
+maneira:
+\begin{align*}
+	 & T(z) = \frac{az + b}{cz + d}, \quad z\neq -\frac{d}{c}                             \\
+	 & T\biggl(-\frac{d}{c}\biggr) = \infty \quad\text{ e }\quad T(\infty) = \frac{a}{c}.
+\end{align*}
+Neste caso, $T ^{-1}(z) = \displaystyle\frac{dz - b}{-cz + a}, \quad z\in \mathbb{C}_{\infty}.$ Note, também, que os coeficientes
+de uma Transformação de M\"{o}bius são unicamente determinados, pois
+$$
+	\frac{az + b}{cz + d} = \frac{(\lambda a)z + (\lambda b)}{(\lambda c)z + (\lambda d)}, \quad \lambda\neq0.
+$$
+Denotaremos por TM a coleção de transformações de M\"{o}buis.
+\begin{example}
+	As TM's elementares, dado $a\in \mathbb{C}$, são
+	\begin{itemize}
+		\item[-] Translação: $T(z) = z + a, z\in \mathbb{C}_{\infty},$
+		\item[-] Rotação: $R(z) = e^{i \theta}z, \theta\in \mathbb{R},$
+		\item[-] Inversão: $I(z) = \frac{1}{z},$
+		\item[-] Homotetia: $H(z) = az.$
+	\end{itemize}
+\end{example}
+\begin{prop*}
+	Toda TM é composição de TM's elementares.
+\end{prop*}
+\begin{proof*}
+	Seja $T\in{TM}$ dada por $T(z) = \displaystyle\frac{az + b}{cz + d}.$
+
+	Caso 1) Se c = 0, então $T(z) = \frac{az}{d} + \frac{b}{d}.$ Neste caso, $H(z) = \frac{a}{d}z \text{ e } S(z) = z + \frac{b}{d},$
+	tal que $T(z) = S\circ{H(z)}$
+
+	Caso 2) Se $c\neq0$, então tome
+	$$
+		T_1(z) = z + \frac{d}{c}, I(z) = \frac{1}{z}, H(z) = \frac{(bc - ad)z}{c^2}, \text{ e } T_2(z) = z + \frac{a}{c}.
+	$$
+	Com isso, temos
+	$$
+		t_2\circ{H}\circ{I}\circ{T_1} = t. \quad \text{\qedsymbol}
+	$$
+\end{proof*}
+\begin{exer*}
+	\begin{itemize}
+		\item[1)]Mostre que $(TM, \circ)$ é um grupo.
+		\item[2)] Se $T\in{TM}$ é tal que $T(z_{i}) = z_{i}, i = 1, 2, 3, z_{i}\neq z_{j}, i\neq{j},$ então $T = Id_{\mathbb{C}_{\infty}}.$
+	\end{itemize}
+\end{exer*}
+\begin{prop*}
+	Sejam $z_1, z_2, z_3\in \mathbb{C}_{\infty}, $ distintos. Existe uma única $T\in{TM}$ tal que
+	$$
+		T(z_1) = 1, T(z_2) = 0, T(z_3) = \infty.
+	$$
+\end{prop*}
+\begin{proof*}
+	\underline{Unicidade}:
+
+	Se existem $T, S\in{TM}$ satisfazendo a hipótese, então $S^{-1}(T(z_i)) = z_{i}, i=1, 2, 3$. Logo,
+	$S^{-1}\circ{T} = Id_{\mathbb{C}_{\infty}} \text{ e } S = T.$
+
+	\underline{Existência}: Defina $T:\mathbb{C}_{\infty}\rightarrow \mathbb{C}_{\infty}$ por
+	$$
+		T(z) = \left\{\begin{array}{ll}
+			\displaystyle\frac{\frac{z-z_2}{z-z_3}}{\frac{z_1-z_2}{z_1-z_3}}, \quad z_{i}\in \mathbb{C}, i=1, 2, 3; \\\
+			\displaystyle\frac{z-z_2}{z-z_3}, \quad z_1 = \infty;                                                   \\\
+			\displaystyle\frac{z_1 - z_3}{z - z_3}, \quad z_2 = \infty;                                             \\\
+			\displaystyle\frac{z - z_2}{z_1 - z_2}, \quad z_3 = \infty.
+		\end{array}\right.,
+	$$
+	tal que $T\in{TM}$ satisfazendo a hipótese. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Dados $z_1, z_2, z_3, w_1, w_2, w_3$ distintos em $\mathbb{C}_{\infty}$, existe uma única $T\in{TM}$ tal que
+	$$
+		T(z_{i}) = w_{i}, \quad i=1, 2, 3.
+	$$
+\end{crl*}
+\begin{proof*}
+	Exercício. \qedsymbol
+\end{proof*}
+Observe que se $z_{i}\in \mathbb{C}_{\infty}, i = 1, 2, 3,$ distintos e $T\in{TM}$ é tal que a proposição
+seja satisfeita, denotaremos T(z) por  $T(z) \coloneqq  [z, z_1, z_2, z_3].$
+\begin{example}
+	Se $[z, 1, 0, \infty] = z, z\in \mathbb{C}_{\infty}, z_1, z_2, z_3\in \mathbb{C}_{\infty}$ distintos, então
+	\begin{align*}
+		 & [z_1, z_1, z_2, z_3] = 1;      \\
+		 & [z_2, z_1, z_2, z_3] = 0;      \\
+		 & [z_3, z_1, z_2, z_3] = \infty.
+	\end{align*}
+\end{example}
+\begin{prop*}
+	Sejam $z_1, z_2, z_3\in \mathbb{C}_{\infty}$ distintos e $S\in{TM}.$ Então,
+	$$
+		[z, z_1, z_2, z_3] = [S(z), S(z_1), S(z_2), S(z_3)], \quad z\in \mathbb{C}_{\infty}.
+	$$
+\end{prop*}
+\begin{proof*}
+	Seja $T(z) = [z, z_1, z_2, z_3]$ e tome $M = T\circ{S^{-1}}.$ Note que
+	\begin{align*}
+		 & M(S(z_1)) = 1, \\
+		 & M(S(z_2)) = 0, \\
+		M(S(z_3)) = \infty.
+	\end{align*}
+	Assim,
+	$$
+		M(z) = [S(z), S(z_1), S(z_2), S(z_3)]
+	$$
+	e $T(z) = M(S(z)) = [S(z), S(z_1), S(z_2), S(z_3)]$. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Sejam $z_1, z_2, z_3, z_4\in \mathbb{C}_{\infty}$ distintos. Então, $[z_1, z_2, z_3, z_4]\in \mathbb{R}$ se e só se
+	$z_{i}\in{C}$ para algum círculo.
+\end{prop*}
+\begin{proof*}
+	$\Rightarrow)$ Se $z_{i}\in{C}, i=1, 2, 3, 4,$ então $z_1\in{D},$ em que D é o único círculo determinado por $z_2, z_3, z_4.$
+	\begin{exer*}
+		Mostre que $[z_1, z_2, z_3, z_4]\in \mathbb{R}$
+	\end{exer*}
+
+	$\Leftarrow)$ Definimos $S(z) = [z, z_2, z_3, z_4], z\in \mathbb{C}_{\infty}$. Mostraremos que $S^{-1}(\mathbb{R})\subseteq{\mathbb{R}}$ e $S^{-1}(\mathbb{R}_{\infty})$ é um círculo.
+	\underline{Caso 1}: Seja $w\in{S^{-1}(\mathbb{R})}$ e sejam a, b, c, d números complexos tais que
+	$$
+		S(z) = \frac{az + b}{cz + d}.
+	$$
+	como S(w) pertence a $\mathbb{R}$, temos $S(w) = \overline{S(w)},$ donde segue que
+	$$
+		\frac{aw + b}{cw + d} = \frac{\bar{a}\bar{w} + \bar{b}}{\bar{c}\bar{w} + \bar{d}},
+	$$
+	o que implica em $(cw + d)(\bar{a}\bar{w} + \bar{b}) = (aw + b)(\bar{c}\bar{w} + \bar{d}).$ Logo,
+	\begin{equation}\label{MTSF}
+		(c\bar{a} - a\bar{c})|w|^2 + (c\bar{b} - a\bar{d})w + (d\bar{a} - b\bar{c})\bar{w} + (d\bar{b} - b\bar{d}) =
+		2iIm(a\bar{c}) + 2i(Im(w(-\bar{b}c + a\bar{d})) + 2iIm(b\bar{d})) = 0.
+	\end{equation}
+
+	\underline{Caso 1.1}: $Im(\bar{a}c) = 0$, seja $\alpha = bc - ad.$ Segue de \ref{MTSF} que
+	$$
+		2i(Im(w \alpha) + Im(d\bar{b})) = 0.
+	$$
+	Logo, $Im(\alpha w + \beta) = 0, \beta = Im(d\bar{b})$. Assim, $\alpha w + \beta\in r,$ em que $r: \frac{-\beta t}{\alpha}, t\in \mathbb{R}.$
+
+	\underline{Caso 1.2}: $\rho = Im(\bar{a}c)\neq{0}$. Seja $\gamma = c\bar{b} - a\bar{d}.$ Então, dividindo \ref{MTSF} por $2i\rho$, temos
+	\begin{align*}
+		 & |w|^{2} + Im(\frac{\gamma}{\rho})w + Im(\frac{d\bar{b}}{\rho}) = 0 \\
+		 & |w - \gamma|^2 = (|\gamma|^2 - \beta)^{\frac{1}{2}} = r > 0.
+	\end{align*}
+\end{proof*}
+\end{document}

@@ -1,0 +1,100 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 19/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema do Máximo Módulo;
+	\item índice de Curvas Fechadas e Dando Voltas em Círculos;
+\end{itemize}
+
+\subsection{Continuação de Zeros de Funções Analíticas}
+\begin{prop*}
+	Suponha $f:G\rightarrow \mathbb{C}$ analítica na região G. São equivalentes:
+	\begin{itemize}
+		\item[i)] $f\equiv0$;
+		\item[ii)] Existe um a de G tal que $f^{(n)}(a) = 0, n = 0, 1, \cdots;$
+		\item[iii)] O conjunto $\{z\in{G}: f(z) = 0\} = F_{0} $ possui ponto de acumulação.
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	$iii)\Rightarrow ii)$ Seja a ponto de acumulação de $F_{0}$. Considere $\{a_{n}\} $ em $F_{0}$ tal que $a_{n}\to{a}$, f contínua em a.
+
+	Afirmamos que $f^{(n)}(a) = 0.$  Seja m tal que $f^{(m)}(a)\neq 0 $ e $f^{(n)}(a) = 0, n = 0, 1, \cdots, m-1 $. Seja r positivo
+	e, para z em B(a, r), temos
+	$$
+		f(z) = \sum\limits_{n=m}^{\infty}a_{n}(z-a)^{n} = (z-a)^{m}\underbrace{\sum\limits_{n=m}^{\infty}a_{n}(z-a)^{n-m}}_{g(z)\text{ analítica.}}.
+	$$
+	Temos g analítica e g(a) não-nulo. Logo, existe $0 < \delta < r$ tal que g(z) é não-nulo para z em $B(a, \delta)$. Portanto,
+	$f(z)\neq0$ para z em $B(a, r) - \{a\} $, uma contradição, donde segue que a terceira afirmação deve implicar na segunda. \qedsymbol
+
+	$ii)\Rightarrow i)$ Considere a tal que $f^{(n)}(a) = 0, n = 0, 1, \cdots$. Seja $A=\{z\in{G}: f^{(n)}(z) = 0, n=0, 1, \cdots\} $. Note que
+	a pertence a A e, além disso,
+	$$
+		A = \bigcap_{n=0}^{\infty}\{z\in{G}: f^{(n)}(z) = 0\}
+	$$
+	é fechado. Mostremos que A é aberto. Tome b em A e r positivo, tal que $B(b, r)\subseteq{G}.$ Observe que
+	$$
+		f(z) = \sum\limits_{n=0}^{\infty}b_{n}(z-b)^{n}, \quad z\in{B(b, r)}.
+	$$
+	Portanto, A = G e segue a prova. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Com as hipóteses do Teorema, se f(a) = 0, entõ existe $n_a\in \mathbb{Z}_{+}$ tal que $f(z) = (z-a)^{n_a}g(z), z\in{G},$
+	com g analítica em g e $g(a)\neq0$ Em particular, os zeros de f são isolados.
+\end{crl*}
+\begin{theorem*}
+	Seja f analítica numa região G. Se existe a em G tal que
+	$$
+		|f(z)|\leq|f(a)|, \quad z\in{G},
+	$$
+	então f é constante.
+\end{theorem*}
+\begin{proof*}
+	Seja $r > 0$ tal que $B(a, r)\subseteq{G}.$ Mostraremos que $|f|:B(a, r)\rightarrow \mathbb{R}$ é constante na bola, mas $|f|\equiv|f(a)|\neq0.$
+	Mostrado isso, se $f = u + iv$, então, para z em B(a, r), vale
+	$$
+		f(a) = \frac{1}{2\pi i}\int_{\gamma_{v}}^{}\frac{f(w)}{w-a}dw,
+	$$
+	$\gamma_{v}(t) = a + re^{it}, t\in[0, 2\pi].$
+	$$
+		|f(a)|\leq \frac{1}{2\pi}\biggl|\int_{0}^{2\pi}\frac{f(a + re^{it})}{re^{it}}rie^{it}dt\biggr|\leq \frac{1}{2\pi}\int_{0}^{2\pi}|f(a + re^{it})|dt
+		\leq |f(a)|.
+	$$
+	Assim, $|f(a+re^{it})| = |f(a)|.$ Como r é qualquer tal que $B(a, r)\subseteq{G},$ a afirmação segue.
+
+	Agora, se f = u + iv, z em B(a, r),
+	$$
+		|f(z)| = u^{2} + v^{2} = |f(a)|\neq 0.
+	$$
+	\begin{exer*}
+		Mostre que
+		$$
+			\frac{\partial{u}}{\partial{x}} = \frac{\partial{v}}{\partial{y}} = 0,
+		$$
+		o que implicará f'(z) = 0. \qedsymbol.
+	\end{exer*}
+\end{proof*}
+\subsection{índice de Curvas Fechadas}
+\begin{example}
+	Tome $\gamma(t) = a + re^{nit}, t\in[0, 2\pi], n=1, 2, \cdots$. Então,
+	$$
+		\frac{1}{2\pi i}\int_{\gamma_{n}}^{}\frac{1}{w-a}dw = \frac{1}{2\pi  i}\int_{0}^{2\pi}\frac{1}{re^{nit}}rine^{rint}dt = \frac{1}{2\pi i}\int_{0}^{2\pi} indt = n.
+	$$
+\end{example}
+\begin{prop*}
+	Considere $\gamma$ retificável e fechada. Então,
+	$$
+		\frac{1}{2\pi i}\int_{\gamma}^{}\frac{1}{w-a}dw\in \mathbb{Z}, \quad a\not\in \{\gamma\}.
+	$$
+\end{prop*}
+\begin{proof*}
+	Seja $\gamma$ curva $C^{1}$ por partes definida em [0, 1]. Considere $g(t) = \int_{0}^{t}\frac{\gamma'(s)}{\gamma(s) - a}ds, t\in[0, 1].$
+	Note que g(0) = 0 e $g(1) = \int_{\gamma}^{}\frac{1}{w-a}dw.$ Defina $h(t) = e^{-g(t)}(\gamma(t) - a), t\in[0, 1]$ e observe que
+	$h(0) = (\gamma(0) - a)\neq0.$ Derivando h:
+	$$
+		h'(t) = -g'(t)e^{-g(t)}(\gamma(t) - a) + e^{-g(t)}\gamma'(t) = 0, t\in[0, 1].
+	$$
+	Assim, $h\equiv{(\gamma(0) - a)}$. Neste caso, $h(1) = e^{-g(1)}(\gamma(0)-a) = \gamma(0) - a.$ Com isso, $e^{-g(1)} = 1.$ Portanto,
+	$g(1) = 2\pi ki,$ para algum $k\in \mathbb{Z}.$ Portanto, a fórmula está provada. \qedsymbol
+\end{proof*}
+\end{document}

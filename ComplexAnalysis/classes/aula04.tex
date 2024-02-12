@@ -1,0 +1,135 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 09/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Equações de Cauchy-Riemann;
+	\item Funções Harm\^onicas e suas Relações com as Analíticas.
+	\item Funções Conformes e Transformações de M\"{o}bius
+\end{itemize}
+\subsection{Equações de Cauchy-Riemann}
+\begin{def*}
+	Uma \textbf{região} G do plano complexo é um aberto conexo dele.
+\end{def*}
+Considere uma função $f:G\rightarrow \mathbb{C}$ analítica sobre a região G e defina
+$$
+	u(x, y) = Re(f(z)), \quad v(x, y) = Im(f(z)), \quad z=x+iy, x, y\in \mathbb{R}
+$$
+Assim, $f(z) = u(x, y) + iv(x, y), z=x+iy\in \mathbb{C}.$ Observe que
+\begin{align*}
+	f'(z) & = \lim _{h\to{0}}\frac{f(z+h) - f(z)}{h} = \lim _{ih\to{0}}\frac{f(z+ih) - f(z)}{ih}            \\
+	      & = \lim _{h\to{0}}\biggl(\frac{u(x+h, y) - u(x, y)}{h} + i\frac{v(x + h, y) - v(x, y)}{h}\biggr)
+\end{align*}
+\begin{equation}
+	= \frac{du}{dx}(x, y) + i \frac{dv}{dx}(x, y), \quad z = x + iy
+\end{equation}
+\begin{align}
+	 & = \lim _{ih\to{0}}\biggl(\frac{u(x, y+h) - u(x, y)}{ih} + i\biggl(\frac{v(x, y+h) - v(x, y)}{ih}\biggr)\biggr) \nonumber \\
+	 & = \frac{1}{i}\frac{du}{dy}(x, y) + \frac{dv}{dy}(x, y) = \frac{dv}{dy}(x, y) - i \frac{du}{dy}(x, y).
+\end{align}
+A partir de (1) e (2), derivamos as equações de Cauchy-Riemann:
+$$
+	\boxed{\frac{du}{dx}=\frac{dv}{dy} \quad \text{ e } \frac{dv}{dx} = -\frac{du}{dy}}
+$$
+\subsection{Funções Harm\^onicas}
+Além disso, se u e v possuem derivadas de segunda ordem, temos
+$$
+	\frac{d}{dy}\biggl(\frac{du}{dx}\biggr) = \frac{d^2v}{dy^2}, \quad \frac{d}{dy}\biggl(\frac{dv}{dx}\biggr), \quad \frac{d^2v}{dx^2} = -\frac{dy}{dxdy}
+$$
+de onde segue que
+$$
+	\frac{d^2v}{dx^2} + \frac{d^2v}{dy^2} = 0
+$$
+e, de forma análoga, u é harm\^onica. Nesta lógica, diremos que f é harm\^onica
+se $\Delta f = \frac{d^2f}{dx^2} + \frac{d^2f}{dy^2} = 0.$
+
+Seja $u:G\rightarrow \mathbb{R}$ harm\^onica, a busca por $v:G\rightarrow \mathbb{R}$ harm\^onica
+satisfazendo Cauchy-Riemman é um questão. Um exercício é mostrar que a existência de v
+depende de G e que, em geral, não encontra-se v harm\^onica satisfazendo Cauchy-Riemann.
+(Por exemplo, $G = G - \{0\}, \quad u(x, y) = \ln{(x ^{2} + y ^{2})}^{\frac{1}{2}}$)
+\begin{theorem*}
+	Sejam $u, v:G\rightarrow \mathbb{R}$ harm\^onicas de classe $C^1$. Então, $f = u + iv$
+	é analítica se e só se u e v satisfazem Cauchy-Riemann.
+\end{theorem*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+Dada $u:G\rightarrow \mathbb{R}$ harm\^onica, uma função $v:G\rightarrow \mathbb{R}$
+tal que f = u + iv seja analítica é dita ser a função harm\^onica conjugada de u.
+\begin{exer*}
+	\item[1)] Seja $f:G\rightarrow \mathbb{C}$  um ramo e n um natural. Então, $z ^{n} = e ^{nf(z)}, z\in{G}.$
+	\item[2)] Mostre que $Re(z ^{\frac{1}{2}}) > 0;$
+	\item[3)] tome $G = \mathbb{C} - \{z: z\leq{0}\}.$ Ache todos as funções analíticas
+	tais que $z = (f(z))^{n}.$
+	\item[4)] Seja $f:G\rightarrow \mathbb{C}$, G conexo e f anaítica. Se, para todo
+	z de G, f(z) é real, então f é constante.
+\end{exer*}
+\begin{theorem*}
+	Considere $G = \mathbb{C} \text{ ou } G = B(0, r), r > 0.$ Se $u:G\rightarrow \mathbb{R}$,
+	então u admite harm\^onico conjugado.
+\end{theorem*}
+\begin{proof*}
+	Buscamos $v:G\rightarrow \mathbb{R}$ satisfazendo Cauchy-Riemann. Coloque
+	$$
+		v(x, y) = \int_{0}^{y}\frac{du}{dx}(x, t)dt + \phi(x)
+	$$
+	em que $\phi(x) = -\int\limits_{0}^{x}\frac{du}{dy}(t, 0)dt.$
+
+	Portanto,
+	$$
+		f = u(x, y) + i\biggl(\int_{0}^{y}\frac{du}{dx}(x, t)dt - \int_{0}^{x}\frac{du}{dy}(t, 0)dt.\biggr).\quad\text{\qedsymbol}
+	$$
+\end{proof*}
+
+\subsection{Transformações Conformes}
+\begin{exer*}
+	Mostre que $e^{z}$ leva retas ortogonais em curvas ortogonais.
+\end{exer*}
+\begin{def*}
+	Uma $\gamma$ é uma \textbf{curva numa região G} se $\gamma:[a, b]\rightarrow G$ é contínua.
+\end{def*}
+Sejam $\gamma _{1}, \gamma_2$ curvas em G tais que $\gamma_1'(t_1)\neq{0}, \gamma_2'(t_2)\neq{0}, \gamma_1(t_1) = \gamma_2(t_2) = z_{0}\in{G}.$
+O ângulo entre $\gamma _{1}\text{ e }\gamma_2$ em $z_{0}$ é dado por
+$$
+	\arg(\gamma_1'(t_1)) - \arg(\gamma_2'(t_2)).
+$$
+Observe que se $\gamma$ é uma curva em G e $f:G\rightarrow \mathbb{C}$ é analítica,
+$\sigma = f\circ\gamma$ é uma curva em $\mathbb{C}.$ Assumimos $\gamma\in{C^1}.$ Neste
+caso, $[a, b] = Dom(\gamma),$ ou seja, temos
+$$
+	\gamma'(t) = f'(\gamma(t))\gamma'(t), \quad t\in{[a, b]},
+$$
+donde segue que
+$$
+	\arg(\gamma'(t)) = \arg(f'(\gamma(t))) + \arg(\gamma'(t))
+$$
+\begin{theorem*}
+	Seja $f:G\rightarrow \mathbb{C}$ analítica. Então, f preserva ângulos para todo
+	z em G tal que $f'(z)\neq{0}$.
+\end{theorem*}
+\begin{proof*}
+	Seja $z_{0}\in{G}$ tal que $f'(z_{0})\neq{0}$. Considere curvas $\gamma_1, \gamma_2$
+	tais que $\gamma_1(t_1) = \gamma_2(t_2) = z_{0}.$ Se $\theta$ é ângulo entre $\gamma_1\text{ e }\gamma_2\text{ em }z_{0},$
+	então
+	$$
+		\theta = \arg(\gamma_1'(t_1)) - \arg(\gamma_2'(t_2))
+	$$
+	Agora, note que o ângulo entre $\sigma_1 = f\circ{\gamma_1}$ e $\sigma_2 = f\circ{\gamma_2}$ em
+	$f(z_{0})$ é
+	$$
+		\arg \sigma_1'(t_1) - \arg \sigma_2'(t_2) = \theta.
+	$$
+	Portanto, f preserva ângulos. \qedsymbol.
+\end{proof*}
+Seja $f:G\rightarrow \mathbb{C}$ que preserva ângulo e
+$$
+	\lim_{w\to{z}} \frac{|f(z) - f(w)|}{|z-w|}
+$$
+existe. Então, f é dita aplicação conforme. Por exemplo, $f(z) = e^z$ é injetora
+em qualquer faixa horizontal de largura menor que $2\pi.$
+\begin{crl*}
+	$e ^{G} = \mathbb{C} - \{z: z\leq{0}\}.$
+\end{crl*}
+Se G é uma faixa aberta de comprimento $2\pi$, o ramo de log faz o caminho inverso. Adicionalmente,
+$\frac{1}{z}$ é a sua derivada.
+\end{document}

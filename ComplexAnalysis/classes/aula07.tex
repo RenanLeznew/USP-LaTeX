@@ -1,0 +1,173 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 13/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Simetrias e Transformações d M\"{o}bius;
+	\item Orientação;
+	\item Funções de Variação Limitada.
+\end{itemize}
+\subsection{Exercícios de Hoje}
+\subsubsection{Ana Lídia}
+Dado z em C, temos $\bar{z}$ em C também, tal que $|z|^2 = z\bar{z} = 1$. Como queremos T(C) = C, $|T(z)| = 1$ e
+$T(z)\overline{T(z)} = 1\forall z\in{C}$. Note que
+\begin{align*}
+	T(z)\overline{T(z)} & = 1\Longleftrightarrow \frac{az + b}{cz + d}\frac{\overline{az}+\overline{b}}{\overline{cz} + \overline{d}} = 1\Longleftrightarrow                                                         \\
+	                    & 0 = z\overline{z}\biggl(a\overline{a} - c\overline{c}\biggr) + \overline{z}\biggl(b\overline{a} - d\overline{c}\biggr) + z(\overline{b}a - \overline{d}c) + b\overline{b} - d\overline{d}.
+\end{align*}
+Como $z\bar{z} - 1 = 0$, temos
+$$
+	\left\{\begin{array}{ll}
+		a\bar{a} - c\bar{c} = 1           \\
+		b\overline{a} - d\overline{c} = 0 \\
+		a\overline{b} - c\overline{d} = 0 \\
+		b\overline{b} - d\overline{d} = -1
+	\end{array}\right.
+$$
+Daí,
+\begin{align*}
+	|a|^2 - |c|^2 = 1, |b|^2 - |d|^2 = -1\Rightarrow|a|^2 - |c|^2 = -|b|^2 + |d|^2\Rightarrow |a|^2 + |b|^2 = |c|^2 + |d|^2.
+\end{align*}
+Assim, as condições suficientes para o sistema são
+$$
+	a\overline{b} - c\overline{d} = 0, \quad \text{ e } |a|^2 + |b|^2 = |c|^2 + |d|^2.
+$$
+Para a condição necessária, suponha $c = \lambda\overline{b}.$ Então,
+$$
+	a\overline{b} - \lambda\overline{b}\overline{d} = 0\Rightarrow (a - \lambda\overline{d})\overline{b} = 0\Rightarrow a = \lambda\overline{d}\Longleftrightarrow d = \frac{\overline{a}}{\lambda}
+$$
+\subsubsection{João Vitor Occhiucci}
+Do Teorema 3.14, sabemos transformações de M\"{o}bius levam círculos em círculos, portanto
+$T(\mathbb{R}_\infty) = \mathbb{R}_\infty$ é equivalente a $Tz = (z, z_2, z_3, z_4)$ com $z_2, z_3, z_4 \in \mathbb{R}_\infty$ distintos. Ademais, do
+exercício 3.7, temos
+\begin{align*}
+	z_2 = \frac{d - b}{a - c} \\
+	z_3 = -\frac{b}{a}        \\
+	z_4 = -\frac{d}{c}
+\end{align*}
+Portanto, é imediato que se existirem a, b, c e d reais para T, então $z_2, z_3, z_4$ estarão em $\mathbb{R}_\infty$
+e, consequentemente, $T(\mathbb{R}_\infty) = \mathbb{R}_\infty.$
+Por outro lado, se tivermos uma transformação de M\"{o}bius T, tal que $T(\mathbb{R}_\infty) = \mathbb{R}_\infty$, então
+$T(z) = (z, z_2, z_3, z_4)$ com $z_2, z_3, z_4 \in \mathbb{R}_\infty$ distintos. Daí, tome
+$$
+	a = \frac{1}{z_2 - \_3}, b = \frac{z_3}{z_2 - z_3}, c = \frac{1}{z_2 - z_4}\text{ e }d = \frac{z_4}{z_2 - \_4}
+$$
+e
+$$
+	Uz = \frac{az + b}{cz + d}
+$$
+Veja que $Uz_2 = 1, Uz_3 = 0 \text{ e } Uz_4 = \infty$, portanto, pela proposição 3.9, U = T, ou seja, podemos
+escolher a, b, c e d reais tais que $Tz =\displaystyle \frac{az + b}{cz + d}$ .
+\subsection{Continuando Simetrias}
+\begin{prop*}
+	Transformações de M\"{o}bius levam pontos simétricos em pontos simétricos.
+\end{prop*}
+\begin{proof*}
+	Seja l uma circunferência e z e z* simétricos com relação à $\Omega.$  Devemos mostrar que T(z), T(z*) são simétricos
+	com relação a $T(\Omega)$. Em outras palavras, queremos
+	$$
+		[T(z), T(z_{1}), T(z_2), T(z_3)] = \overline{[T(z^*), T(z_1), T(z_2), T(z_3)]}.
+	$$
+	(Fica como exercício mostrar que $[T(z), T(z_{1}), T(z_2), T(z_3)] = [\bar{z}, \bar{z_1}, \bar{z_2}, \bar{z_3}]$).
+\end{proof*}
+\begin{def*}
+	Dada uma circunferência $\Omega$ e uma tripla $z_{i}\in \Omega, i = 1, 2, 3,$ dizemos que esta tripla é uma \textbf{orientação}.
+	Definimos o conjunto
+	$$
+		D_{l} = \{z: Im[z, z_1, z_2, z_3] > 0\}
+	$$
+	como o \textbf{lado direito de l}. O \textbf{lado esquerdo}, por outro lado, é
+	$$
+		E_{l} = \{z: Im[z, z_1, z_2, z_3] < 0\}.
+	$$
+\end{def*}
+\begin{example}
+	Um circuito passando por $\infty < z_1, z_2, z_3\text{ em }\mathbb{R}_\infty.$ Seja $T(z) = [z, z_1, z_2, z_3], z\in \mathbb{R}_\infty$.
+	Neste caso, $T(z) = \frac{az + b}{cz + d}, a, b, c, d\in \mathbb{R}_\infty$. Assim,
+	$$
+		\frac{az + b}{cz + d}\frac{c\bar{z} + d}{c\bar{z} + d} = \frac{ac|z|^2 + adz + cb\bar{z} + bd}{|cz+d|^2}.
+	$$
+	Logo, $Im(T(z)) > 0\Longleftrightarrow Im\biggl[(ad-bc)z\biggr] > 0.$ Portanto, se $\Omega$ é o círculo,
+	$$
+		D_{\Omega} = \{z: (ad - bc)Im(z) > 0.\}
+	$$
+\end{example}
+\begin{prop*}
+	Sejam $\Omega_1, \Omega_2$ circunferências em $\mathbb{C}_\infty$ e T uma TM com $T(\Omega_1) = \Omega_2.$ Então, T preserva
+	orientação.
+\end{prop*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+\begin{example}
+	Seja $D = \{z: Re z > 0\}, D^U = \{z: |z| < 1\} $. Seja $\Omega_1$ o círculo e $\Omega_2$ dados por
+	\begin{align*}
+		\Omega_1 = \{z: z = iy, y\in \mathbb{R}\} \\
+		\Omega_2 = \{e^{iy}, y\in \mathbb{R}.\}
+	\end{align*}
+	Assim,
+	\begin{align*}
+		D_{\Omega_1} = \{z: Im[z, -i, 0, i] > 0\} = \{z: Im(iz) > 0\} = \{z: Re(z) > 0\}. \\
+		D_{\Omega_2} = \{z: Im[z, -i, -1, i] > 0\} = \{z: |z| < 1\}.
+	\end{align*}
+	A TM que leva $\Omega_1\text{ em }\Omega_2$ é dada por
+	$$
+		T(z) = \frac{z-1}{z+1},
+	$$
+	e $M(z) = \frac{e^{z} - 1}{e^{z} + 1}$ é tal que $M(D) = D^U.$
+\end{example}
+
+\subsection{Integração Complexa}
+\subsubsection{Funções de Variação Limitada (BV - Bounded Variation)}
+\begin{def*}
+	Seja $\gamma:[a, b]\rightarrow \mathbb{C}$ uma função. Diremos que $\gamma$ tem \textbf{variação limitada} se
+	$$
+		v(\gamma, P) = \sum\limits_{k=1}^{n}|\gamma(t_{k}) - \gamma(t_{k+1})| < M, \quad M > 0,
+	$$
+	com $P = \{a=t_{0}, t_1, \cdots, t_n = b\} $ partição de [a, b]. Se $\gamma$ é BV, a quantia
+	$$
+		V(\gamma) = \sup_p v(\gamma, P)
+	$$
+	é chamada variação de $\gamma$.
+\end{def*}
+\begin{exer*}
+	Se $P\subseteq{Q}, $ então $V(\gamma, P)\leq{V(\gamma, Q)}$. Se $\gamma_1, \gamma_2$ são BV, então $\alpha \gamma_1 + \beta \gamma_2$
+	é BV para $\alpha, \beta\in \mathbb{C}.$ Além disso,
+	$$
+		V(\alpha \gamma_1 + \beta \gamma_2) \leq |\alpha|V(\gamma_1) + |\beta|V(\gamma_2)
+	$$
+\end{exer*}
+\begin{exer*}
+	Se $\gamma$ é BV, então ela é limitada, mas a recíproca não vale.
+\end{exer*}
+\begin{example}
+	Tome $\gamma:[a, b]\rightarrow \mathbb{C}, Im(\gamma) = 0$ e $\gamma$ crescente. Neste caso, $\gamma$ é BV. Com efeito, para
+	toda partição P de [a, b], temos
+	$$
+		v(\gamma, P) = \sum\limits_{k=1}^{n}|\gamma(t_{k}) - \gamma(t_{k+1})| = \gamma(b) - \gamma(a)
+	$$
+	De fato, dada uma $\gamma$ com as duas características acima, ela é BV se, e só se, $\gamma = \gamma_1 - \gamma_2$, com
+	$\gamma_1, \gamma_2$ monótonas crescentes.
+	\begin{exer*}
+		$$
+			\gamma(t) = \left\{\begin{array}{ll}
+				t\sin{(\frac{1}{t})}, \quad t\in[0, 2\pi] \\
+				0, t= 0
+			\end{array}\right.
+		$$
+		não é bv, apesar de ser con\'tinua.
+
+		\underline{Dica: } Tome $t_{n} =\displaystyle \frac{1}{n\pi + \frac{\pi}{2}}\Rightarrow \gamma(t_{n}) =\displaystyle \frac{(-1)^n}{n\pi + \frac{\pi}{2}}\Rightarrow
+			v(\gamma, P) \geq c \sum\limits_{k=1}^{n}\frac{1}{k}.$
+	\end{exer*}
+\end{example}
+Dada $\gamma$ BV em [a, b], considere
+$$
+	\gamma_t:[a, t]\rightarrow \mathbb{R}
+$$
+a restrição de $\gamma.$ Então, considerando a aplicação $v(\gamma_t), t\in[a, b]$, crescente e BV, defina $
+	g(t) = \gamma(t) + v(\gamma_t)$, de modo que
+$$
+	\gamma(t) = -g(t) _ v(\gamma_t).
+$$
+\end{document}

@@ -1,0 +1,261 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 03/02/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Exercícios.
+\end{itemize}
+\subsection{Exercícios}
+\begin{exer*}
+	Mostre que \(\int_{-\infty}^{\infty}\frac{t^{2}}{1+t^{4}}dt = \frac{\pi }{\sqrt[]{2}}\).
+
+	Seja \(f(z) = \frac{z^{2}}{1+z^{4}}.\) As singularidades isoladas de f ocorrem em
+	\[
+		1 + z^{4} = 0 \Rightarrow z^{4} = -1 \Rightarrow z = \sqrt[4]{-1}.
+	\]
+	Como \(\mathrm{arg}(-1) = \pi \), as raízes de -1 são obtidas fazendo
+	\[
+		a_{k} = |-1|^{\frac{1}{n}}\biggl(\cos^{}{\biggl(\frac{\pi + 2(k-1)\pi }{4}\biggr)} + i\sin^{}{\biggl(\frac{\pi + 2(k-1)\pi }{4}\biggr)}\biggr),\quad k=1, 2, 3, 4.
+	\]
+	Assim, utilizando a fórmula de Euler, isto equivale a dizer que as singularidades isoladas de f são
+	\[
+		a_{1} = e^{i \frac{\pi }{4}},\quad a_{2} = e^{i \frac{3\pi }{4}},\quad a_3=e^{i \frac{5\pi }{4}},\quad\&\quad a_{4}=e^{i \frac{7\pi }{4}}.
+	\]
+
+	\textbf{\underline{Afirmação}:} \(a_{1}\) é um polo de ordem 1.
+
+	Com efeito, note que
+	\[
+		\lim_{z\to a_{1}}\biggl\vert \frac{z^{2}}{1+z^{4}} \biggr\vert = \infty,
+	\]
+	pois \(1 + z^{4}\to 0\). Assim, \(a_{1}\) é um polo. Além disso, observe que
+	\[
+		f(z)(z-a_1) = \frac{z^{2}(z-a_{1})}{1 + z^{4}}.
+	\]
+	desta forma,
+	\[
+		\lim_{z\to a_{1}}\frac{z^{2}(z-a_{1})^{2}}{1+z^{4}}=\lim_{z\to a_{1}}\frac{z^{2}(z-a_{1})^{2}}{(z-a_{1})\cdot \dotsc \cdot (z-a_{4})} = \lim_{z\to a_{1}}\frac{z^{2}(z-a_{1})}{(z-a_{2})\cdot \dotsc \cdot (z-a_{4})} = 0.
+	\]
+	Isto conclui a prova da afirmação.
+
+	O mesmo raciocínio prova a mesma coisa para \(a_{2}, a_3\) e \(a_{4}\). O próximo passo é calcular o resíduo de f em \(a_{1}.\) Para isso, sabendo a ordem
+	do polo, basta fazermos
+	\begin{align*}
+		\mathrm{Res}(f , a_{1}) & = \lim_{z\to a_{1}}(z-a_{1})\frac{z^{2}}{1+z^{4}}                               \\
+		                        & = \lim_{z\to a_{1}}\frac{(z-a_{1})z^{2}}{(z-a_{1})\cdot \dotsc \cdot (z-a_{4})} \\
+		                        & = \dotsc = \frac{1-i}{4\sqrt[]{2}}.
+	\end{align*}
+	O próximo passo é definir a curva na qual integraremos. Seja \(r > 1\) e defina
+	\[
+		\gamma (t) = \left\{\begin{array}{ll}
+			\gamma_{1}(2t),\quad t\in \biggl[0, \frac{1}{2}\biggr], \\
+			\gamma_{2}(2t-1),\quad t\in \biggl[\frac{1}{2}, 1\biggr].
+		\end{array}\right.
+	\]
+	Pelo Teorema de Resíduo, temos
+	\begin{align*}
+		\frac{1}{2\pi i}\int_{\gamma }^{}f dz & = n(\gamma , a_{1})\mathrm{Res}(f, a_{1}) + n(\gamma , a_{2})\mathrm{Res}(f, a_{2}) \\
+		                                      & = 1 - \frac{1-i}{4\sqrt[]{2}} + 1 - \frac{-1-i}{4\sqrt[]{2}}                        \\
+		                                      & = \frac{-2i}{4\sqrt[]{2}} = \frac{-i}{2\sqrt[]{2}}.
+	\end{align*}
+	Por outro lado, pela definição da integral de linha, obtemos
+	\begin{align*}
+		\frac{1}{2\pi i}\int_{\gamma }^{}f dz & = \frac{1}{2\pi i}\biggl(\int_{-r}^{r}\frac{t^{2}}{1+t^{4}}dt + \int_{0}^{\pi }\frac{(\pi e^{it})^{2}}{1 + (re^{it})^{4}}ire^{it}dt\biggr)   \\
+		                                      & = \frac{1}{2\pi i}\int_{-r}^{r}\frac{t^{2}}{1+t^{4}}dt + \frac{1}{2\pi i}\int_{0}^{\pi }\frac{r^{2}e^{2it} - i r e^{it}}{1 + r^{4}e^{4it}}dt \\
+		                                      & = \frac{1}{2\pi i}\int_{-r}^{r}\frac{t^{2}}{1+t^{4}}dt + \frac{1}{2\pi i}\int_{0}^{\pi }\frac{ir^{3}e^{3it}}{1 + r^{4}e^{4it}}dt             \\
+		                                      & = \frac{1}{2\pi i}\int_{-r}^{r}\frac{t^{2}}{1+t^{4}}dt + \frac{ir^{3}}{2\pi i}\int_{0}^{\pi }\frac{e^{3it}}{1 + r^{4}e^{4it}}dt.
+	\end{align*}
+	Juntando ambos os resultados, chegamos em
+	\[
+		\frac{-i}{2\sqrt[]{2}} = \frac{1}{2\pi i}\int_{-r}^{r}\frac{t^{2}}{1+t^{4}}ddt + \frac{r^{3}}{2\pi }\int_{0}^{\pi }\frac{e^{3it}}{1 + r^{4}e^{4it}}dt.
+	\]
+	Isolando isso para a integral de -r até r, obtemos
+	\begin{align*}
+		\int_{-r}^{r}\frac{t^{2}}{1+t^{4}}dt & = 2\pi i \biggl(\frac{-i}{2\sqrt[]{2}} - \frac{r^{3}}{2\pi }\int_{0}^{\pi }\frac{e^{3it}}{1 + r^{4}e^{4it}}dt\biggr) \\
+		                                     & = \frac{2\pi }{2\sqrt[]{2}} - \frac{2\pi ir^{3}}{2\pi }\int_{0}^{\pi }\frac{e^{3it}}{1 + r^{4}e^{4it}}dt             \\
+		                                     & = \frac{\pi }{\sqrt[]{2}} - ir^{3}\int_{0}^{\pi }\frac{e^{3it}}{1+r^{4}e^{4it}}dt.
+	\end{align*}
+	\textbf{\underline{Afirmação}:} Afirmamos que
+	\[
+		|ir^{3}|\biggl\vert \int_{0}^{\pi }\frac{e^{3it}}{1+ r^{4}e^{4it}}dt \biggr\vert \leq \frac{\pi r^{3}}{r^{4}-1}.
+	\]
+	De fato, note que, para \(0\leq t\leq \pi ,\) o ponto com coordenada \(1 + r^{4}e^{4it}\) encontra-se no círculo centrado em 1 de raio \(r^{4},\) do que
+	segue que \(1 + r^{4}e^{4it} \geq r^{4}-1.\) Assim,
+	\begin{align*}
+		|ir^{3}|\biggl\vert \int_{0}^{\pi }\frac{e^{3it}}{1+r^{4}e^{4it}}dt \biggr\vert & \leq |r^{3}|\int_{0}^{\pi }\biggl\vert \frac{e^{3it}}{1+r^{4}e^{4it}} \biggr\vert|dt| \\
+		                                                                                & \leq r^{3}\int_{0}^{\pi }\frac{|e^{3it}|}{r^{4}-1}dt                                  \\
+		                                                                                & = \frac{r^{3}}{r^{4}-1}\int_{0}^{\pi }1dt = \frac{\pi r^{3}}{r^{4} - 1}.              \\
+	\end{align*}
+	Tome \(t^{2}, t^{4}\geq 0\), tal que \(\frac{t^{2}}{1 + t^{4}} \geq 0\) para todo \(t\in \mathbb{R}.\) Portanto,
+	\[
+		\int_{-\infty}^{\infty}\frac{t^{2}}{1+t^{4}}=\lim_{r\to \infty}\frac{\pi }{\sqrt[]{2}} + \underbrace{\lim_{r\to \infty}-ir^{3}\int_{0}^{\pi }\frac{e^{3it}}{1 + r^{4}e^{2\pi i4}}dt}_{= 0, \text{ pelas afirmações}} = \frac{\pi }{\sqrt[]{2}}.
+	\]
+\end{exer*}
+\begin{exer*}
+	Mostre que \(\int_{0}^{\infty}\frac{\sin^{}{(x)}}{x}dx = \frac{\pi }{2}\)
+
+	Note que
+	\begin{align*}
+		\int_{r}^{R}\frac{\sin^{}{(x)}}{x}dx & = \frac{1}{2i}\int_{r}^{R}\frac{e^{ix}-e^{-ix}}{x}dx                                                                                                     \\
+		                                     & = \frac{1}{2i}\int_{r}^{R}\frac{e^{ix}}{x}dx - \underbrace{\frac{1}{2i}\int_{r}^{R}\frac{e^{-ix}}{x}dx}_{= \frac{1}{2i}\int_{-R}^{-r}\frac{e^{ix}}{x}dx}
+	\end{align*}
+	Agora, considere \(\gamma \) a curva ``arco-íris'' de -R a -r e de r a R e coloque \(f(z) = \frac{e^{iz}}{z}.\) Então,
+	\[
+		\int_{\gamma }^{}f dz = 0 = \int_{r}^{R}\frac{e^{ix}}{x}dx + \int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz + \int_{-R}^{-r}\frac{e^{ix}}{x}dx + \int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz,
+	\]
+	em que \(\gamma_{R} = Re^{it}\) e \(\gamma_{r} = r e^{-it},\quad t\in [0,\pi ].\) Observe que
+	\[
+		\underbrace{\int_{r}^{R}\frac{e^{ix}}{x}dx + \int_{-R}^{-r}\frac{e^{ix}}{x}dx}_{2i \int_{r}^{R}\frac{\sin^{}{(x)}}{x}dx} + \int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz + \int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz = 0,
+	\]
+	tal que
+	\[
+		\int_{r}^{R}\frac{\sin^{}{(x)}}{x}dx = - \int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz - \int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz.
+	\]
+	Para chegar na integral desejada, tomamos \(r\to 0 \) e \(R\to \infty.\) Começamos estudando \(\lim_{R\to \infty}\int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz\).
+
+	Observe que \(\int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz = \int_{0}^{\pi }\frac{e^{iRe^{it}}}{R e^{it}}i R e^{it}dt,\) tal que
+	\[
+		\biggl\vert \int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz \biggr\vert \leq \int_{0}^{\pi }e^{-R\sin^{}{(t)}}dt
+	\]
+	e que \(z\in[\varepsilon , \pi -\varepsilon ]\) significa, em particular, que \(\sin^{}{(t)}\in(0, 1].\) Além disso, seja
+	\(f(x) = e^{-x}, f(0) = 0\). Então, \(f'(x) = -e^{-x}<0\) para todo \(x\in [0, \infty]\), de forma que f(x) é decrescente e \(e^{-x}<1\) para
+	todo x em \((0, \infty).\) Assim, para todo \(t\in[\varepsilon , \pi -\varepsilon ],\) vale que \(\sin^{}{(t)}\in(0, 1],\) de tal modo
+	que \(e^{-\sin^{}{(t)}} < 1\) para estes t's. Logo, \(\lim_{R\to \infty}(e^{-\sin^{}{(t)}})^{R} = 0\) para todos os \(t\in[\varepsilon , \pi -\varepsilon ],\) i.e.,
+	o limite é uniforme, já que não depende da variável. Então,
+	\[
+		\int_{0}^{\pi }e^{-R\sin^{}{(t)}}dt = \int_{0}^{\frac{\varepsilon }{3}}e^{-R\sin^{}{(t)}}dt + \int_{\frac{\varepsilon }{3}}^{\pi - \frac{\varepsilon }{3}}e^{-R\sin^{}{(t)}}dt + \int_{\pi - \frac{\varepsilon }{3}}^{\pi }e^{-R\sin^{}{(t)}}dt.
+	\]
+	Como \(\max{(e^{-R\sin^{}{(t)}})} = 1\) em \(\biggl[0, \frac{\varepsilon }{3}\biggr],\) temos
+	\[
+		\int_{0}^{\pi }e^{-R\sin^{}{(t)}}dt \leq \frac{\varepsilon }{3} + \int_{\frac{\varepsilon }{3}}^{\pi - \frac{\varepsilon }{3}}e^{-R\sin^{}{(t)}}dt + \frac{\varepsilon }{3}.
+	\]
+	Além disso, \(\lim_{R\to \infty}\int_{\frac{\varepsilon }{3}}^{\pi - \frac{\varepsilon }{3}}e^{-R\sin^{}{(t)}}dt = \int_{\frac{\varepsilon }{3}}^{\pi -\frac{\varepsilon }{3}}\lim_{R\to \infty}e^{-R\sin^{}{(t)}}dt = 0.\)
+	Logo, dado \(R \geq R_{0},\) temos \(\int_{\varepsilon }^{\pi -\varepsilon }e^{-R\sin^{}{(t)}}dt < \frac{\varepsilon }{3},\) donde tiramos que, para \(R\geq R_{0}\),
+	\[
+		\int_{0}^{\pi }e^{-R\sin^{}{(t)}}dt < \frac{\varepsilon }{3}+\frac{\varepsilon }{3}+\frac{\varepsilon }{3} = \varepsilon .
+	\]
+	Consequentemente, para \(R\geq R_{0},\)
+	\[
+		\biggl\vert \int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz \biggr\vert < \varepsilon
+	\]
+	A seguir, estudaremos \(\int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz,\) sendo \(\gamma_{r} = re^{-it}, t\in[0, \pi ].\)
+	Seja \(g(z) = \frac{e^{iz}-1}{z},\) de forma que ele possua singularidade isolada em z=0. Ainda mais, \(\lim_{z\to 0}zg(z)=\lim_{z\to 0}e^{iz}-1 = 0.\)
+	Consequentemente, a singularidade é removível e, para \(|z|\leq 1,\) teremos
+	\[
+		\biggl\vert \frac{e^{iz}-1}{z} \biggr\vert \leq M,
+	\]
+	já que existe \(h(z)\) analítica tal que \(h(z)=f(z)\) para \(z\neq0\). Como h é analítica em \(|z|\leq 1,\) ela possui máximo, ou seja,
+	\(|h(z)|\leq M\) para \(|z|\leq 1.\) Logo, \(|f(z)| < M\) para \(|z|\leq 1,\) já que o máximo de h pode ser em z=0. A partir disto, obtemos
+	\[
+		\biggl\vert \int_{\gamma_{r}}^{}\frac{e^{iz}-1}{z}dz \biggr\vert \leq M\pi r \Rightarrow \lim_{r\to 0}\biggl\vert \int_{\gamma_{r}}^{}\frac{e^{iz}-1}{z}dz \biggr\vert = 0.
+	\]
+	Como \(\int_{\gamma_{r}}^{}\frac{1}{z}dz = -\pi i  \) para cada \(r > 0,\) temos \(\lim_{r\to 0}\int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz = -\pi i.\)
+	Portanto,
+	\begin{align*}
+		2i \int_{r}^{R}\frac{\sin^{}{(x)}}{x}dx & = -\int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz - \int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz                                                                          \\
+		\Rightarrow                             & 2i \int_{0}^{\infty}\frac{\sin^{}{(x)}}{x}dx= -\lim_{r\to 0}\int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz - \lim_{R\to \infty}\int_{\gamma_R}^{}\frac{e^{iz}}{z}dz \\
+		                                        & =\pi i - 0                                                                                                                                                  \\
+		\Rightarrow                             & \int_{0}^{\infty}\frac{\sin^{}{(x)}}{x}dx = \pi .\quad \text{\qedsymbol}
+	\end{align*}
+	Observe que não utilizamos o Teorema dos Resíduos nessa demonstração, mas poderíamos. Para isso, considere a curva \(\gamma \)
+	que forma um arco de -R até R, mas deformada em forma de um arco menor de \(-r > -R\) até \(r < R\), contornando a origem por baixo. Pelo Teorema
+	dos Resíduos, temos
+	\[
+		\frac{1}{2\pi i}\int_{\gamma }^{}f dz = \mathrm{Res}(f, 0)\underbrace{n(\gamma , 0)}_{1}.
+	\]
+	Como \(f(z) = \frac{e^{iz}}{z}\) possui um polo simples em z=0, segue que
+	\[
+		\mathrm{Res}(f, 0) = g(0) = \lim_{z\to 0}zf(z) = \lim_{z\to 0}e^{iz}-1.
+	\]
+	Então, \(\int_{\gamma }^{}f dz = 2\pi i.\) Ainda mais,
+	\[
+		\int_{\gamma }^{}f dz = \int_{r}^{R}\frac{e^{ix}}{x}dx + \int_{\gamma _{R}}^{}\frac{e^{iz}}{z}dz + \int_{-R}^{-r}\frac{e^{ix}}{x}dx + \int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz = 2\pi i,
+	\]
+	sendo \(\gamma _{R} = R e^{it}, \gamma_{r} = r e^{it}, t\in[0, \pi ].\) Com isto,
+	\begin{align*}
+		            & 2i \int_{r}^{R}\frac{\sin^{}{(x)}}{x}dx =2\pi i - \int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz - \int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz                                       \\
+		\Rightarrow & 2i \int_{0}^{\infty}\frac{\sin^{}{(x)}}{x}dx = 2\pi i - \lim_{r\to 0}\int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz - \lim_{R\to \infty}\int_{\gamma_{R}}^{}\frac{e^{iz}}{z}dz.
+	\end{align*}
+	Como a orientação de \(\gamma_r \) está invertida, temos \(\lim_{r\to 0}\int_{\gamma_{r}}^{}\frac{e^{iz}}{z}dz = \pi i.\) Portanto,
+	\[
+		2i \int_{0}^{\infty}\frac{\sin^{}{(x)}}{x}dx = 2\pi i - \pi i \Rightarrow \int_{0}^{\infty}\frac{\sin^{}{(x)}}{x} = \frac{\pi }{2}.\quad \text{\qedsymbol}
+	\]
+\end{exer*}
+\begin{exer*}
+	Mostre que \(\int_{0}^{\infty}\frac{\ln^{}{(x)}}{x^{2}+1}dx = 0\)
+
+	Para resolvermos esta questão, transformaremos \(\ln^{}{(x)}\) para incluir valores complexos, mas não tomaremos o ramo principal do logaritmo.
+	Seja \(G = \{z\in \mathbb{C}: z\neq0\text{ e }\frac{\pi }{2}\leq \mathrm{arg}(z)\leq \frac{3\pi }{2}\}.\) Dessa forma, se \(z\in G,\) definimos a função
+	\(l(z) = \log^{}{(z)} + i\theta .\)
+
+	Seja \(0 < r < R\) e \(R > 1\). Tome \(\gamma \) como a curva de -R a R, novamente com um arco menor de \(-r > -R\) a \(r < R\) acima da origem. Então,
+	pela soma de curvas, segue que
+	\begin{align*}
+		\int_{\gamma }^{}\frac{l(z)}{1 + z^{2}}dz & = \int_{r}^{R}\frac{\ln^{}{(x)}}{1 + x^{2}}dx + iR \int_{0}^{\pi }\frac{\log^{}{(R)}+i\theta }{1 + R^{2}e^{2i\theta }}e^{i\theta }d\theta            \\
+		                                          & + \int_{-R}^{-r}\frac{\ln^{}{|x|}+i\pi }{1 + x^{2}}dx + ir \int_{\pi }^{0}\frac{\log^{}{(r)} + i\theta }{1 + r^{2}e^{2i\theta }}e^{i\theta }d\theta.
+	\end{align*}
+	Para calcular a integral, veremos antes qual tipo de singularidade isolada que temos. É Possível observar que elas são
+	\(z=i\) e \(z=-i,\) mas apenas \(z=i\) está no interior da curva \(\gamma \), já que ela exclui números no meio-plano abaixo de zero. Por isso,
+	iremos apenas considerar ele. Perceba que a função \(\frac{l(z)}{z+1}\) é analítica em \(\gamma ,\) o que implica nela ter uma série de Taylor
+	centrada em i. Daí, a série de Laurent para \(\frac{l(z)}{z+1}\) possui \(a_{-1}\neq0\) e \(a_{-n} = 0, n > 1,\) ou seja,
+	\(z=i\) é um polo simples. Logo, o resíduo de \(\frac{l(z)}{1+z^{2}}\) é \(\frac{1}{2i}(\log^{}{(|i|)} + \frac{\pi }{2}i) = \frac{\pi }{4}.\)
+	Pelo Teorema do Resíduo, então,
+	\[
+		\int_{\gamma }^{}\frac{l(z)}{1+z^{2}}dz = \frac{i\pi ^{2}}{2}n(\gamma, i) = \frac{\pi^{2}i}{2}.
+	\]
+	Além disso,
+	\[
+		\int_{r}^{R}\frac{\ln^{}{(x)}}{1+x^{2}}dx + \int_{-R}^{-r}\frac{\log^{}{(|x|)} + i\theta }{1 + x^{2}}dx = 2 \int_{r}^{R}\frac{\ln^{}{(x)}}{1 + x^{2}}dx + i\pi \int_{r}^{R}\frac{1}{1+x^{2}}dx.
+	\]
+	Aplicando \(r\to 0^{+}\) e \(R\to \infty\) juntamente do fato de \(\int_{0}^{\infty}\frac{1}{1+x^{2}}dx = \frac{\pi }{2},\) segue que
+	\[
+		\int_{0}^{\infty}\frac{\ln^{}{(x)}}{1 + x^{2}}dx = \frac{1}{2}\lim_{r\to 0^{+}}ir \int_{0}^{\pi }\frac{\log^{}{(r)} + i\theta }{1 + r^{2}e^{2i\theta }}e^{i\theta }d\theta - \frac{1}{2}\lim_{R\to \infty}iR \int_{0}^{\pi }\frac{\ln^{}{(R)} + i\theta }{1 + R^{2}e^{2i\theta }}e^{i\theta }d\theta .
+	\]
+	Assim, vamos mostrar que ambos vão para zero. Para isso, tome \(\rho > 0\). Então,
+	\begin{align*}
+		\biggl\vert \rho \int_{0}^{\pi }\frac{\ln^{}{(\theta )} + i\theta }{1 + \rho ^{2}e^{2i\theta }}e^{i\theta }d\theta  \biggr\vert & \leq \frac{\rho |\ln^{}{(r)}|}{1-e^{2}}\int_{0}^{\pi }d\theta + \frac{\rho }{|1-\rho ^{2}|}\int_{0}^{\pi }\theta d\theta \\
+		                                                                                                                                & = \frac{\pi \rho |\ln^{}{(\rho )}|}{|1-\rho ^{2}|} + \frac{\rho \pi ^{2}}{2|1-e^{2}|}.
+	\end{align*}
+	Note que, se \(\rho\to 0^{+},\) não há problemas no denominador e obtemos o limite igual a 0 naturalmente. Por outro lado, tomando
+	\(\rho \to \infty\) e aplicando L'Hopital, o limite da expressão também vai pra zero, como queríamos. Portanto,
+	\[
+		\int_{0}^{\infty}\frac{\ln^{}{(x)}}{1 + x^{2}}dx = 0.\quad \text{\qedsymbol }
+	\]
+\end{exer*}
+\begin{exer*}
+	Mostre que \(\int_{0}^{\infty}\frac{x^{-c}}{1+x}dx = \frac{\pi }{\sin^{}{(\pi c)}}\) se \(0 \leq c\leq 1.\)
+
+	Para calcular essa integral, devemos escolher um ramo de \(x^{-c}.\) Para isso, definamos \(f(z) = e^{-c l(z)}, l(z) = \log^{}{(r)} + i\theta ,\) com
+	\(0 < \theta <2\pi ,\) em que l é um ramo de logaritmo em \(\mathbb{C}\setminus{\{z: z\geq 0\}}\) e f é um ramo de \(x^{-c}\) em \(\mathbb{C}\setminus{\{z: z \geq 0\}}.\)
+	Defina uma curva sobre o domínio de f para auxiliar no cálculo da integral, composta pelas componentes \(L_{1} = [r+i\delta , R+i\delta ], L_{2} = [r-i\delta , R+i\delta ],\gamma_{R}\)
+	é parte do crículo \(|z| = R\) anti-horário de \(R+i\delta \) até \(R-i\delta \) e \(\gamma_{r}\) é parte do círculo \(|z| = r\) horário de \(r-i\delta \) até \(r+i\delta \).
+
+	Para \(\delta > 0\) pequeno, colocamos \(\gamma  = L_{1} + \gamma _{R} + L_{2} + \gamma_{r}\). Note que \(\gamma \sim 0\) e \(\mathrm{Res}(f(z)(1+z)^{-1}, -1) = f(-1) = e^{-i\pi c}\) e, então, pelo Teorema de
+	Resíduo, temos
+	\[
+		\int_{\gamma }^{}\frac{f(z)}{1+z}dz = 2\pi i e^{-i\pi c}.
+	\]
+	Como \(\frac{f(t+i\delta )}{1+t+i\delta }\to \frac{t^{-c}}{1+t}\) uniformemente para \(t\in[r, R]\) quando \(\delta \to 0^{+},\) temos
+	\[
+		\int_{r}^{R}\frac{t^{-c}}{1+t}dt = \lim_{\delta \to 0^{+}}\int_{L_{2}}^{}\frac{f(z)}{1+z}dz.
+	\]
+	Analogamente, usando que \(f(z) = \overline{l(z)}+2\pi i,\) segue que
+	\[
+		2\pi ie^{-i\pi c}\int_{r}^{R}\frac{t^{-c}}{1+t}dt = \lim_{\delta \to 0^{+}} \int_{L_{2}}^{}\frac{f(z)}{1+z}dz.
+	\]
+	Combinando isso com o resultado anterior que vimos, teremos
+	\[
+		2\pi i e^{-i\pi c} - (1 - e^{-2\pi ic})\int_{r}^{R}\frac{t^{c}}{1+t}dt = \lim_{\delta \to 0^{+}}\biggl[\int_{\gamma_{r}}^{}\frac{f(z)}{1+z}dz + \int_{\gamma_R}^{}\frac{f(z)}{1+z}dz\biggr].
+	\]
+	Veja agora que \(\biggl\vert \int_{\gamma_{R}}^{}\frac{f(z)}{1+z}dz \biggr\vert \leq \frac{\rho ^{-c}}{|1-\rho |}2\pi \rho \) e note que \(\frac{\rho^{-c} }{|1-\rho |}2\pi \rho \to 0\) quando \(\rho \to 0\) ou \(\rho \to \infty.\)
+
+	Portanto, fazendo \(r\to0\) e \(R\to\infty,\) obtemos
+	\[
+		2\pi i e^{-i\pi c} = (1-e^{-2\pi ic})\int_{0}^{\infty}\frac{t^{-c}}{1+t}dt
+	\]
+	e, manipulando, chegamos em
+	\[
+		\int_{0}^{\infty}\frac{t^{-c}}{1+t}dt = \frac{\pi }{\sin^{}{(\pi c)}}.
+	\]
+\end{exer*}
+\end{document}

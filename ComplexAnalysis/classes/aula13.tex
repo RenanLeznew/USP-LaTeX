@@ -1,0 +1,140 @@
+\documentclass[ComplexAnalysis/complex.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 26/01/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Homotopia e curvas;
+	\item Versão Homotópica do Teorema de Cauchy;
+	\item Existência de Primitivas para Funções Analíticas
+\end{itemize}
+
+\subsection{Exercícios do Dia}
+\subsubsection{Francisco Jonatã}
+Seja P(z) de grau n e considere $\{z:|z|\geq R\}, \gamma(t) = Re^{it}.$ Então, P(z) pode ser escrito como
+$$
+	P(z) = c(z-r_{1})(z-r_2)\cdots(z-r_{n}),\quad P'(z) = c(z-r_2)\cdots(z-r_{n}) + c(z-r_{1})\cdots(z-r_{n}) + \cdots + c(z-r_1)\cdots(z-r_{n-1})
+$$
+Assim,
+$$
+	\int_{\gamma}^{}\frac{P'(z)}{P(z)}dz = \int_{\gamma}^{}\sum\limits_{k=1}^{n}\frac{1}{z-r_{k}}dz = \sum\limits_{k=1}^{n}\int_{\gamma}^{}\frac{1}{z-r_{k}}dz = \sum\limits_{k=1}^{n}n(\gamma, r_{k})2\pi i = n2\pi i.\quad\text{ \qedsymbol}
+$$
+
+\subsubsection{Gabriel Passareli}
+Seja $\gamma:[0, 1]\rightarrow \mathbb{C}, \gamma(0) = 1, \gamma(1) = w.$ Existe um k inteiro tal que $\int_{\gamma}^{}\frac{1}{z}dz = \ln{(r)} + i\theta + 2k\pi i, w=re^{i\theta}.$
+Considere
+$$
+	\{\tilde\gamma\} = \{\gamma\}\cup{[w, 1]}.
+$$
+Da definição,
+$$
+	2\pi i = n(\tilde \gamma, 0) = \int_{\gamma}^{}\frac{1}{z}dz = \int_{\gamma}^{}\frac{1}{z}dz + \int_{[w, 1]}^{}\frac{1}{z}dz.
+$$
+Tome
+$$
+	G = \{z\in \mathbb{C}: d(z, [w, 1]) < \epsilon\}.
+$$
+Sobre G, tome também
+$$
+	\ln{(re^{i \theta})} = \ln{(r)} + i \theta, \quad -\pi < \theta < \pi.
+$$
+Então, pelo TFVC,
+$$
+	\int_{\gamma}^{}\frac{1}{z}dz = -k\pi i + \int_{[w, 1]}^{}\frac{1}{z}dz. \quad\text{ \qedsymbol}
+$$
+
+\subsection{Versão Homotópica do Teorema de Cauchy}
+Escreveremos I = [0, 1] para o intervalo mencionado. Seja G uma região e $\gamma_{1}, \gamma_{2}$ curvas tais que existe
+\(\Gamma:I^{2}\rightarrow G\) contínuo tal que
+$$
+	\left\{\begin{array}{ll}
+		\Gamma(s, 0) = \gamma_{1}(s)                 \\
+		\Gamma(s, 1) = \gamma_{2}(s)                 \\
+		\Gamma(0, t) = \gamma_{1}(0) = \gamma_{2}(0) \\
+		\Gamma(1, t) = \gamma_{1}(1) = \gamma_{2}(1).
+	\end{array}\right.
+$$
+Então, diremos que $\gamma_{1}$ é homotópica à $\gamma_{2}$ e escreveremos $\gamma_{1}\sim\gamma_{2}.$ Fica de exercício
+mostrar que $\sim$ é uma relação de equivalência.
+\begin{theorem*}
+	Sejam $\gamma_{1}, \gamma_{2}$ retificáveis na região G. Se $\gamma_{1}\sim \gamma_{2},$ então
+	$$
+		\int_{\gamma_{1}}f = \int_{\gamma_{2}}f
+	$$
+	para toda f analítica em G.
+\end{theorem*}
+\begin{proof*}
+	O caso em que as duas curvas são não fechadas fica como exercício. Destarte, suponha $\gamma_{1}, \gamma_{2}$ fechadas.
+	Supondo que $\Gamma\in{C^{2}}$, temos
+	$$
+		\int_{\gamma_{1}}^{}f = \int_{0}^{1}f(\Gamma(s, 0))\frac{\partial{\Gamma}}{\partial{s}}(s, 0)dS
+	$$
+	e
+	$$
+		\int_{\gamma_{t}}^{}f = g(t), t\in[0, 1], \quad \gamma_{t}(s) = \Gamma(s, t).
+	$$
+	Temos
+	$$
+		g'(t) = \frac{\partial{}}{\partial{t}}\biggl(\int_{0}^{1}f(\Gamma(s, t))\frac{\partial{\Gamma}}{\partial{s}}(s, t)ds\biggr) = \biggl(f(\Gamma(s,t ))\frac{\partial{\Gamma}}{\partial{t}}(s, t)\biggr)\biggl|_0^1\biggr. = 0.
+	$$
+	Agora, no caso geral, suponha $\Gamma(I^2)$ completo, $\Gamma$ é uniformemente contínua. Coloque $\gamma_{t}(s)\coloneqq  \Gamma(s, t), s\in{I}.$
+	\begin{itemize}
+		\item[1)] Existe $\epsilon > 0$ tal que $B(z, 13 \epsilon)\subseteq{G},\forall z\in{\Gamma(I^2)};$
+		\item[2)] Existe $\gamma > 0$ tal que $|s_1 - s_2| < \delta\Rightarrow |\Gamma(s_1, t) - \Gamma(s_2, t)| < 2 \epsilon.$
+	\end{itemize}
+	Mostremos que $\int\limits_{\Gamma(\cdot, s_1)}^{}f = \int_{\Gamma(\cdot, s_2)}^{}f.$ Fica como exercício, também, particionar
+	I como $P=\{s_{0}, \cdots, s_{n}\}.$ de forma que $|P| < \delta.$ Com efeito, considere $z_{0}, \cdots, z_{n}, w_{1}, \cdots, w_{n}$ e bolas
+	$B_{i}, i = 1, 2, \cdots, n$ centradas em $\Gamma(I^2)$ de raio $\epsilon$ com $z_{i}, w_{i}, z_{i+1}, w_{i+1}\in{B_{i}}, i = 1, \cdots, n-1.$
+	Temos
+	$$
+		g'(t) = \frac{\partial{}}{\partial{t}}\biggl(\int_{0}^{1}f(\Gamma(s, t))\frac{\partial{}}{\partial{t}}(s, t)ds\biggr) = \biggl(f(\Gamma(s, t))\frac{\partial{\Gamma}}{\partial{t}}(s, t)\biggr)\biggl|_0^1\biggr. = 0.
+	$$
+	Para cada i, f é primitivável em $B_{i}.$ Neste caso, se $F_{i}$ é a primitiva de f em $B_{i}$, então
+	$$
+		F_{i} - F_{i+1} = c \in B_{i}\cap{B_{i+1}}, \quad c\in \mathbb{C}, i=1, \cdots, n=1.
+	$$
+	Logo,
+	$$
+		F_{i}(z_{i+1}) - F_{i+1}(z_{i+1}) = F_{i}(w_{i+1}) - F_{i+1}(w_{i+1}).
+	$$
+	Consequentemente,
+	$$
+		F_{i}(z_{i+1}) - F_{i}(w_{i+1}) = F_{i+1}(z_{i}) - F_{i+1}(w_{i+1}).
+	$$
+	Finalmente,
+	\begin{itemize}
+		\item[I)] $\int\limits_{\Gamma(\cdot, s_{1})}^{}f = \sum\limits_{i=1}^{n-1}F_{i}(z)\biggl|_{z_{i}}^{z_{i+1}}\biggr.$
+		\item[II)] $\int\limits_{\Gamma(\cdot, s_2)}^{}f = \sum\limits_{i=1}^{n-1}F_{i}(z)\biggl|_{w_{i}}^{w_{i+1}}\biggr.$
+	\end{itemize}
+	Subtraindo, obtemos
+	$$
+		\sum\limits_{i=1}^{n-1}\biggl[F_{i}(z_{i+1}) - F_{i}(z_{i}) - \biggl(F_{i}(w_{i+1}) - F_{i}(w_{i})\biggr)\biggr] = 0.\quad\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{exer*}
+	Sejam $\gamma_{1}(t) = e^{2\pi it}, \gamma_{2}(t) = e^{-2\pi it}, t\in[0, 1]$. Mostre que $\gamma_{1}\sim \gamma_{2}.$
+\end{exer*}
+Escrevemos $\gamma\sim0$ se $\gamma$ é homotópica a uma curva constante. Além disso, dada uma região G, diremos que
+G é simplesmente conexa se $\gamma\sim0$ para toda curva em G.
+\begin{exer*}
+	A região G = B(a, r) é simplesmente conexa.
+\end{exer*}
+\begin{theorem*}
+	Toda função analítica em uma região simplesmente conexa possui uma primitiva.
+\end{theorem*}
+\begin{proof*}
+	Seja $a\in{G}$ e, para cada z em G, seja $\gamma_{z}$ retificável tal que $\gamma_{z}(0) = a, \gamma_{z}(1) = z.$ Defina
+	$F:G\rightarrow \mathbb{C}$ por
+	$$
+		F(z) = \int_{\gamma_{z}}^{}fdw.
+	$$
+	Note que se $\sigma_{2}$ é outra curva tal que $\sigma_{z}(0) = a$ e $\sigma_{z}(1) = z$, então $\sigma_{z} - \gamma_{z}$
+	é fechada, fazendo com que sejam homotópicas a 0 e
+	$$
+		\int_{\sigma_{z}-\gamma_{z}}^{}f = 0\Rightarrow \int_{\gamma_{z}}^{}f = \int_{\sigma_{z}}^{}f.
+	$$
+	Observe que
+	$$
+		\frac{F(z+h) - F(z)}{h} = \frac{1}{h}\int_{\gamma_{z+h}}^{}f - \int_{\gamma_{z}}^{}f = \frac{1}{h}\int_{[z, z+h]}^{}f = \frac{1}{h}\int_{0}^{1}f(zt + (1-t)(z+h))-hdt
+	$$
+\end{proof*}
+\end{document}
