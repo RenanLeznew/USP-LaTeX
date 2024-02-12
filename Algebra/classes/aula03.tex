@@ -1,0 +1,150 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 21/03/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Outros exemplos de subgrupos;
+	\item Subgrupos gerado por subconjuntos;
+	\item Grupo cíclico e ordem de elementos.
+\end{itemize}
+\subsection{Subgrupos - Outras Propriedades}
+Quando o conjunto candidato a subgrupo é não-vazio, não é necessario exigir que a identidade seja parte dele. De fato,
+\begin{prop*}
+	Se G é um grupo e $H\subseteq{G}, H \neq\emptyset$, então $H\leq{G}$ se, e somente se,
+	\begin{align*}
+		 & 1) ab\in H, \quad a, b\in H   \\
+		 & 2) a^{-1}\in H, \quad a\in H.
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	$\Rightarrow$ Segue da definição de subgrupo (ab e $a^{-1}$ pertencem a H por definição);
+
+	$\Leftarrow$ Sendo H não-vazio, existe $a\in H$. Através de (2), $a^{-1}\in H$ e, por (1), $aa^{-1} = 1\in H.$ Portanto,
+	H é subgrupo de G. \qedsymbol
+\end{proof*}
+Outra formulação de subgrupo requer apenas uma condição:
+\begin{prop*}
+	Se G é um grupo e $H\subseteq{G}, H \neq\emptyset$, então $H\leq{G}$ se, e só se, $ab^{-1}\in H$ para todos $a, b\in H.$
+\end{prop*}
+\begin{proof*}
+	$\Rightarrow$ Suponha que H é um subgrupo de G e sejam $a, b\in H$. Então, por definição, $a^{-1}, b^{-1}\in H$. Assim,
+	segue da definição de subgrupo que $ab^{-1}\in H$.
+
+	$\Leftarrow$ Se $H \neq\emptyset$, existe ao menos um a em H. Por hipótese, $1 = aa^{-1}\in H$. Assim, $a^{-1} = 1a^{-1}\in H$.
+	Por fim, se a, b são membros de H, então $b^{-1}\in H$, tal que $ab = a(b^{-1})^{-1}\in H$. Portanto, H é subgrupo de G. \qedsymbol
+\end{proof*}
+
+\begin{def*}
+	Se G é um grupo, então $Z(G) = \{g\in G: ga = ag\forall a\in{G}\} $ é um subgrupo de G chamado centro de G.
+\end{def*}
+Provemos que Z(G) é de fato um subgrupo. De fato, $1\in Z(G)$ pela definição de elemento neutro. Além disso, se $g, h\in Z(G),$
+então gha = gah = agh, tal que $gh\in Z(G).$ Além disso, $g^{-1}\in Z(G),$ pois $g^{-1}a = (a^{-1}g)^{-1} = (ga^{-1})^{-1} = ag^{-1}.$
+Uma propriedade interessante é que G será um grupo abeliano se, e somente se, $Z(G) = G.$
+\begin{example*}
+	Exercício: Dados $G_{1}, G_{2}$ grupo, defina o grupo produto como $G_{1}\times G_{2} = \{(g_{1}, g_{2}): g_{i}\in G_{i}\}$. Encontre
+	uma operação que torne este conjunto um grupo de fato.
+\end{example*}
+\begin{example*}
+	\begin{itemize}
+		\item[1)]  Se V é um subespaço vetorial de um corpo qualquer $\mathbb{K}$, então $V<\leq{\mathbb{K}}$.
+		\item[2)] O conjunto
+		      $$
+			      SU_{2}(\mathbb{C}) = \biggl\{ \begin{bmatrix}
+				      \alpha & -\overline{\beta} \\
+				      \beta  & \overline{\alpha}
+			      \end{bmatrix}: \alpha, \beta \in \mathbb{C}, |\alpha|^{2} + |\beta|^{2} = 1\biggr\}
+		      $$
+		      é um subgrupo de $GL_{2}(\mathbb{C})$.
+		\item[3)] O conjunto
+		      $$
+			      SO_{2}(\mathbb{R}) = \biggl\{\begin{bmatrix}
+				      \cos{(\theta)} & \sin{(\theta)} \\
+				      \sin{(\theta)} & \cos{(\theta)}
+			      \end{bmatrix}: \theta\in \mathbb{R}\biggr\} \leq{GL_{2}(\mathbb{R})}
+		      $$
+	\end{itemize}
+\end{example*}
+\begin{prop*}
+	Se G é um grupo abeliano, então todo subgrupo de G é também abeliano
+\end{prop*}
+\begin{proof*}
+	Se $H\leq{G}, a, b\in H$, em particular a, b também pertencem a G, tal que $ab = ba.$ \qedsymbol
+\end{proof*}
+Observe que a recíproca e falsa. Com efeito, o subgrupo
+$$
+	\biggl\{\begin{bmatrix}
+		1 & a \\
+		0 & 1
+	\end{bmatrix}\in GL_{2}(\mathbb{R}): a\in \mathbb{R}\biggr\}
+$$
+é subgrupo abeliano de $GL_{2}(\mathbb{R}).$ Além disso, a recíproca não vale nem mesmo se todo subgrupo próprio de um
+grupo for abeliano, visto que todo subgrupo de $S_{3}$ é abeliano, mas o próprio $S_{3}$ não é.
+
+\begin{def*}
+	Seja G um grupo e $S\subseteq{G}$ um subconjunto não-vazio. Definimos o conjunto gerado por S como
+	$$
+		<S>\coloneqq \biggl\{a_{1}\cdots a_{n}: a_{i}\in S\text{ ou }a_{i}^{-1}\in{S}\biggr\}, \quad n\in \mathbb{N}\square.
+	$$
+\end{def*}
+\begin{prop*}
+	$<S>$ é um subgrupo de G.
+\end{prop*}
+\begin{proof*}
+	é claro que $<S> \neq\emptyset$. Agora, se $a_{1}\cdots a_{n} (= x), b_{1}\cdots b_{m}(= y)\in <S>$, então
+	$$
+		xy^{-1} = a_{1} \cdots a_{n}(b_{1}\cdots b_{m})^{-1} = a_{1}\cdots a_{n}b_{m}^{-1}\cdots b_{1}^{-1}\in <S>.
+	$$
+	Portanto, pela segunda definição equivalente de subgrupo, $<S>\leq{G}.$ \qedsymbol
+\end{proof*}
+\begin{def*}
+	Nas condições da propsição, $<S>$ é o subgrupo gerado por S. Caso S seja finito, digamos $S=\{g_{1},\cdots, g_{n}\}$, denotamos
+	$<S>$ por $<g_{1}, \cdots, g_{n}>.\square$
+\end{def*}
+\begin{def*}
+	Sejam G um grupo e g um elemento seu. Se $G=<g>$, diremos que G é um grupo cíclico. $\square$
+\end{def*}
+\begin{def*}
+	Se G é um grupo e g seu elemento, definimos a ordem de g (notação: $|g|$ ou ord(g)) como a ordem de $<g>$.
+\end{def*}
+\begin{example*}
+	$\mathbb{Z} = (1)$ é um grupo cíclico infinito, $S_{2}$ é um grupo cíclico finito e $S_{3}$ não é cíclico. \qedsymbol
+\end{example*}
+Atente-se ao fato de que $<g>\coloneqq\{\cdots, g^{-2}, g^{-1}, g^{0}=1, g, g^{2}, \cdots\} = \{g^{\mathbb{Z}}\} $
+\begin{example*}
+	Exercício: Calcule as ordens dos elementos de $S_{2}, S_{3}.$
+\end{example*}
+Note que todo subgrupo de $\mathbb{Z}$ é cíclico. Além disso, se $|G|<\infty,$ segue que $|g|<\infty$. Em particular,
+$|g|\leq{|G|}$. Vale mencionar também que mesmo se o grupo tem ordem infinita, o grupo cíclico pode ter ordem finita. De fato,
+se $(G, \cdot) = (\mathbb{R}^{\times}, \cdot)$, tome g = 1. Então, $<g> = \{-1, 1\}$, que é finito de ordem 2.
+\begin{prop*}
+	Sejam G um grupo e g um elemento seu. Denotemos por S o conjunto dos inteiros n tais que $g^{n} = 1.$ Então,
+	\begin{itemize}
+		\item[i)]$S\leq{\mathbb{Z}}$;
+		\item[ii)]As potências $g^{m}, g^{n}, m\geq{n}$ são iguais se, e somente se, $g^{m-n} = 1(i.e. m-n\in S);$
+		\item[iii)] Se $S\neq0 \mathbb{Z},$ então $S=n\mathbb{Z}$ e as potências $1, g, g^{2}, \cdots, g^{n-1}$ são distintas e
+		      são todos os elementos em $<g>.$ Em particular, $|g|=n.$
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	$(i)\Rightarrow$ Se m, n pertence a S, então $g^{m-n} = g^{m}(g^{n})^{-1} = 1$, logo m-n pertence a S. é claro que S é não-vazio, pois 0 sempre é um elemento seu.
+
+	$(ii)\Rightarrow$ é a lei do cancelamento.
+
+	$(iii)\Rightarrow$ Se $S = \{0\}$, é automático. Como $S\leq{\mathbb{Z}}$, pela classificação dos subgrupos de $\mathbb{Z},$
+	existe n em $\mathbb{Z}$ tal que $S = n \mathbb{Z}$. Agora, seja k um inteiro qualquer. Segue da divisão Euclidiana que
+	$k = nq + r, 0\leq{r}<n$. Assim, $g^{k} = g^{nq}g^{r} = 1g^{r},$ tal que $<g> \subseteq{\{g^{0}=1, \cdots, g^{n-1}\}}$. Finalmente, pelo
+	item (ii) e da minimalidade de n. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	$<g> = \{1, g, g^{2}, \cdots, g^{n-1}\} $
+\end{crl*}
+\begin{crl*}
+	Se a ordem de g é diferente de zero, então ela é o menor inteiro positivo n tal que $g^{n} = 1$.
+\end{crl*}
+\begin{crl*}
+	Se a ordem de g é $n>{0}$, então $g^{k} = 1,$ se, e somente se, $n|k.$
+\end{crl*}
+\begin{crl*}
+	Se a ordem de g é $n>0, k\in \mathbb{Z}$, então $|g^{k}|=\displaystyle \frac{n}{mdc(n, k)}$.
+\end{crl*}
+\end{document}

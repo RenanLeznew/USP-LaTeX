@@ -1,0 +1,273 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 23/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Fórmula de Burnside;
+	\item Teorema de Colty;
+	\item Teorema de Equação de Classe;
+	\item p-Grupos.
+\end{itemize}
+\subsection{Motivações}
+
+\par\textbf{Fórmula de Burnside}
+
+A Fórmula de Burnside é uma ferramenta importante na teoria dos grupos, usada para contar o número de órbitas de uma ação de grupo. Seja $G$ um grupo finito que atua em um conjunto $X$, a fórmula de Burnside é dada por:
+\[
+	|X/G| = \frac{1}{|G|} \sum_{g \in G} |X^g|
+\]
+onde $X/G$ é o conjunto de órbitas de $X$ sob a ação de $G$, e $X^g$ é o conjunto de pontos fixos do elemento $g$ em $G$.
+
+Por exemplo, podemos usar a fórmula de Burnside para contar o número de
+maneiras de colorir um cubo com três cores diferentes, considerando rotações
+como iguais.
+
+Ou seja, a fórmula de Burnside é usada para contar coisas em situações onde certas transformações
+(como rotação ou reflexão) não mudam a "essência" do que estamos contando.
+
+\textbf{Teorema de Colty}
+
+O Teorema de Colty é um resultado importante na teoria dos grupos, que se aplica a grupos $p$-nilpotentes. Ele afirma que se $G$ é um grupo $p$-nilpotente finito e $H$ é um subgrupo normal de $G$, então o conjunto $N_G(p)$ de elementos de ordem $p$ em $G$ que normalizam $H$ é também um subgrupo normal de $G$.
+
+Em outras palavras, o Teorema de Colty é uma propriedade interessante que certos
+tipos de grupos possuem. Ele nos dá uma maneira de encontrar novos subgrupos
+normais em um grupo, o que é útil para entender a estrutura do grupo.
+
+\textbf{Teorema da Equação de Classe}
+
+O Teorema da Equação de Classe é um resultado fundamental na teoria dos grupos que relaciona o tamanho de um grupo com o tamanho de suas classes de conjugação. Dado um grupo finito $G$, o teorema afirma que:
+\[
+	|G| = |Z(G)| + \sum_{i=1}^r [G : C_G(x_i)]
+\]
+onde $Z(G)$ é o centro de $G$, $C_G(x_i)$ é o centralizador de $x_i$ em $G$, e a soma é sobre todas as classes de conjugação não-trivial de $G$.
+
+Uma forma de visualizar isso é que o Teorema da Equação de Classe nos dá uma
+maneira de "dividir" um grupo em peças menores, chamadas classes de conjugação.
+
+\textbf{p-Grupos}
+
+Os $p$-grupos são um tipo especial de grupo que é especialmente importante na
+teoria dos grupos. Um grupo finito é um $p$-grupo se e somente se sua ordem
+(o número de seus elementos) é uma potência de $p$. Dado um grupo finito $G$,
+os teoremas de Sylow garantem a existência de um subgrupo de $G$ de ordem
+$p^n$ para cada potência do primo $p^n$ que divide a ordem de $G$.
+Os $p$-grupos da mesma ordem não são necessariamente isomórficos;
+por exemplo, o grupo cíclico $C_4$ e o grupo de Klein $V_4$ são ambos
+$2$-grupos de ordem $4$, mas eles não são isomórficos
+Intuitivamente, $p$-grupos são grupos cujo número de elementos é uma potência
+de um número primo. Eles têm algumas propriedades interessantes e são uma área
+ativa de pesquisa na teoria dos grupos.
+
+\subsection{Fórmula de Burnside}
+\begin{lemma*}
+	Sejam X um conjunto finito e G um grupo finito agindo em X. Se \(X^{g}\coloneqq \{x\in X: gx=x\}, g\in G\).
+	Então,
+	\[
+		\sum\limits_{x\in X}^{}|E(x)| = \sum\limits_{g\in G}^{}|X^{g}|.
+	\]
+\end{lemma*}
+\begin{proof*}
+	Temos
+	\[
+		\sum\limits_{g\in G}^{}|X^{g}| = \#\{(g, x)\in G\times X: gx=x\} = \sum\limits_{x\in X}^{}|E(x)|.\text{ \qedsymbol}
+	\]
+\end{proof*}
+Esse lema será usado para provarmos o resultado conhecido como Fórmula Burnside.
+\hypertarget{burnside}{
+	\begin{prop*}
+		Com as notações do lema anterior,
+		\[
+			|G|\cdot |X/G| = \sum\limits_{g\in G}^{}|X^{g}|,
+		\]
+		em que \(X/G\) é o conjunto das orbitas distintas com respeito à ação de \(G \curvearrowright X\).
+	\end{prop*}
+}
+\begin{proof*}
+	Suponha \(X/G=\{\mathcal{O}(x_{1}), \cdots, \mathcal{O}(x_{n})\}\), isto é, \(X=\bigcup_{i=1}^{n}{\mathcal{O}(x_{i})}\)
+	e \(|X/G| = n\). Assim,
+	\[
+		\sum\limits_{g\in G}^{}|X^{g}| = \sum\limits_{x\in X}^{}|E(x)| = \sum\limits_{x\in X}^{}\frac{|G|}{|\mathcal{O}(x)|}.
+	\]
+	Pelo lema, portanto,
+	\[
+		\sum\limits_{g\in G}^{}|X^{g}| = |G|\cdot \biggl(\sum\limits_{x\in \mathcal{O}(x_{1})}^{}\frac{1}{|\mathcal{O}(x_{1})|} + \cdots + \sum\limits_{x\in \mathcal{O}(x_{n})}^{}\frac{1}{|\mathcal{O}(x_{n})|}\biggr) = |G|\cdot |X/G|.\text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{example*}
+	\(D_{3}\) age em \(X=\{1, 2, 3\}\) o conjunto de vértices do triângulo equilátero
+	\[
+		D_{3} = \{1, (123), (132), (12), (13), (23)\}
+	\]
+	Com a notação utilizada,
+	\[
+		X^{1} = X,\quad X^{(123)}=\emptyset,\quad X^{(132)}=\emptyset,\quad X^{(12)}=\{3\}, X^{(13)}=\{2\}, X^{(23)}=\{1\}.
+	\]
+	Logo, pela \hyperlink{burnside}{Fórmula Burnside},
+	\[
+		\sum\limits_{g\in D_{3}}^{}|X^{g}| = G = |D_{3}||X/G|.
+	\]
+\end{example*}
+Vamos considerar o seguinte mapa para a próxima discussão:
+\[
+	G\times{G}\rightarrow G,\quad (g, x)\mapsto gx.
+\]
+Como exercício, mostre que ele satisfaz os axiomas da ação de G em G.
+\begin{lemma*}
+	\(G \curvearrowright G\) fielmente por multiplicação à esquerda.
+\end{lemma*}
+\begin{proof*}
+	Segue de
+	\[
+		E(x) = \{g\in G: gx = x\} = \{1\}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+Com isso, estudemos o teorema de Colty
+\hypertarget{colty}{\begin{theorem*}
+		Todo grupo G é um subgrupo do grupo de permutações de algum conjunto. Em particular,
+		se \(|G| = n,\) então G é subgrupo de \(S_{n}\).
+	\end{theorem*}}
+\begin{proof*}
+	Como \(G \curvearrowright G\) fielmente por multiplicação à esquerda, então
+	\[
+		\varphi :G\rightarrow Perm(G),\quad g\mapsto m_{g}:G\rightarrow G, x\mapsto gx
+	\]
+	sendo \(\varphi \) injetora. Se \(|G|=n\), então \(Perm(G) = S_{n}\) e o teorema
+	segue pelo Teorema do Isomorfismo.
+\end{proof*}
+\begin{example*}
+	Defina \(G\times{G}\rightarrow G, \quad (g, x)\mapsto gxg^{-1}\). O mapa acima satisfaz
+	os axiomas de ação de G.
+\end{example*}
+\begin{def*}
+	Dado x em G, seja \(Z(x)\coloneqq \{g\in G: gx=xg\}\) é o centralizador de x. \(\square\)
+\end{def*}
+\begin{example*}
+	Exercício: \(Z(x)\leq G\).
+\end{example*}
+\begin{prop*}
+	Se \(G \curvearrowright G\) por conjugação, então \(E(x) = Z(x)\).
+\end{prop*}
+\begin{proof*}
+	\begin{align*}
+		E(x) & = \{g\in G: g * x = x\}                         \\
+		     & = \{g\in G: gxg^{-1} = x\}                      \\
+		     & = \{g\in G: gx = xg\} = Z(x).\text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{def*}
+	Se \(G \curvearrowright G\) por conjugação, definimos a classe de conjugação
+	de x em G por ser a órbita \(\mathcal{O}(x)\). Além disso, denotamos \(\mathcal{O}(x)\) por
+	\(C(x).\) Assim,
+	\[
+		C(x)\coloneqq \{gxg^{-1}: g\in G\}. \square
+	\]
+\end{def*}
+\begin{prop*}
+	\begin{itemize}
+		\item[1)] \(|G| = |Z(x)||C(x)|,\quad \forall x\in G\);
+		\item[2)] \(x\in Z(x), Z(G)\subseteq{Z(x)}, \quad \forall x\in G\);
+		\item[3)] \(x\in Z(G) \Longleftrightarrow Z(x) = G \Longleftrightarrow C(x) = \{x\}\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	A prova de (1) segue pelo Teorema Órbita-Estabilizador.
+
+	Para 2, note que, como \(xx = x^{2} = xx,\) então x está em \(Z(x).\) Além disso,
+	se g pertence a \(Z(G)\), então \(gh = hg\) para todo h de G. Em particular, \(gx = xg\),
+	ou seja, \(g\in Z(x)\).
+
+	Por fim, para 3, se \(x\in Z(G)\), temos
+	\begin{align*}
+		x\in Z(g) & \Longleftrightarrow xg=gx \forall g\in G                \\
+		          & \Longleftrightarrow g\in Z(x) \forall g\in G            \\
+		          & \Longleftrightarrow Z(x) = G                            \\
+		          & \Longleftrightarrow C(x) = \{x\}.\quad\text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+Podemos agora entender o Teorema da Equação de Classe:
+\hypertarget{class_eqn}{
+	\begin{theorem*}
+		Sejam \(C(x_{1}), \cdots, C(x_{n})\) as órbitas que particionam G com respeito
+		à ação por conjugação \(G \curvearrowright G\), então
+		\begin{align*}
+			|G| & = \sum\limits_{i=1}^{n}|C(x_{i})|                        \\
+			    & = |Z(G)| + \sum\limits_{x_{i}\not\in Z(G)}^{}|C(x_{i})|.
+		\end{align*}
+	\end{theorem*}}
+\begin{example*}
+	\(S_{3} \curvearrowright S_{3}\) por conjugação. Escreva \(S_{3} = \langle x, y \rangle\)
+	em que \(x^{2} = 1\) e \(y^{3}=1.\) Assim, \(Z(y)\leq S_{3},\) logo \(|Z(y)| = 1, 2, 3,\) ou 6.
+	Agora se y pertence a Z(y), então \(|Z(y)| = 3\) ou 6. Mas, \(xy=y^{2}x\neq yx.\) Desta forma,
+	\(|Z(y)|=3\) e, assim, \(|C(y)|=2.\) De exercício, mostre que \(|C(x)| = 3.\)
+	Portanto, a equação de classe para \(S_{3}\) é
+	\[
+		G = 2 + 3 + 1
+	\]
+\end{example*}
+\begin{def*}
+	Seja p um número primo. G é um p-grupo se \(|G| = p^{n}\) para algum n. \(\square\)
+\end{def*}
+\begin{prop*}
+	O centro de um p-grupo é não trivial.
+\end{prop*}
+\begin{proof*}
+	Seja G um p-grupo. Da equação de classes,
+	\[
+		|G| = |Z(G)| + \sum\limits_{x_{i}\not\in Z(G)}^{}|C(x_{i})|
+	\]
+	em que \(G = \bigsqcup_{i=1}^{n}{C(x_{i})}\sqcup Z(g).\)
+
+	Agora, do Teorema Órbita-Estabilizador, \(|C(x_{i})|\biggl|\biggr. p^{n}\) Logo,
+	\(|C(x_{i})| = p^{n_{i}}\) para algum \(n_{i}\geq 0\). Como \(x_{i}\not\in Z(G),\) segue
+	que \(|C(x_{i})| > 1\), ou seja, \(n_{i} > 0.\) Portanto,
+	\begin{align*}
+		 & p\biggl|\biggr. |G| - \sum\limits_{}^{}|C(x_{i})| = |Z(G)|           \\
+		 & p\biggl|\biggr. |Z(G)| \Rightarrow |Z(G)| > 1.\quad\text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+A seguir, veremos um teorema de ponto fixo, resultados que sempre fornecem implicações
+agradáveis na matemática.
+\hypertarget{fixed_point}{
+	\begin{theorem*}
+		Sejam G um p-grupo e X um conjunto finito com \(G \curvearrowright X.\) Se p
+		não divide \(|X|,\) então existe \(x\in X\) tal que \(E(x) = G.\)
+	\end{theorem*}}
+\begin{proof*}
+	Escreva \(X = \bigsqcup_{i=1}^{n}{\mathcal{O}(x_{i}).}\) Então,
+	\[
+		|X| = \sum\limits_{}^{}|\mathcal{O}(x_{i})|.
+	\]
+	Do Teorema Órbita-Estabilizador, \(|\mathcal{O}(x_{i})|\biggl|\biggr. |G|= p^{n}.\)
+	Então, existem \(n_{i}\geq 0\) tais que \(|\mathcal{O}(x_{i})| = p^{n_{i}}.\)
+	Se \(n_{i} > 0\) para todo i, então \(p\bigl|\bigr. \sum\limits_{}^{}|\mathcal{O}(x_{i})| = |X|.\)
+	Logo, existe j tal que \(n_{j}=0\). Portanto,
+	\[
+		|\mathcal{O}(x_{j})| = 1 \Rightarrow |E(x_{j})| = |G| \Rightarrow E(x_{j}) = G.\text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Se \(|G| = p^{2}\), p primo, então G é abeliano.
+\end{prop*}
+\begin{proof*}
+	Da proposição anterior, \(|Z(G)| = p\) ou \(p^{2}.\) Se \(|Z(G)|=p^{2},\) está ok.
+	Caso \(|Z(G)| = p\), então existe x fora de Z(G). Assim, \(Z(x)\supsetneq{Z(G)}\) e, assim,
+	\[
+		|Z(x)| = p^{2} \Rightarrow x\in Z(G)\backslash X.
+	\]
+	Portanto, \(Z(G) = G.\) \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Um grupo de ordem \(p^{2}\) é cíclico ou o produto de dois grupos cíclicos de ordem p, sendo p primo.
+\end{crl*}
+\begin{proof*}
+	Se \(|G| = p^{2},\) se G tem elemento de ordem \(p^{2},\) está ok.
+
+	Caso contrário, todo elemento não-identidade de G tem ordem p. Assim, existem
+	\(x, y\in G\) com \(|x|=|y| = p\) e \(y\not\in\langle x\rangle\). Portanto,
+	\[
+		\langle x\rangle \times\langle y\rangle\rightarrow G, \quad (x^{m}, y^{n})\mapsto x^{m}y^{n}
+	\]
+	é um isomorfismo. \qedsymbol
+\end{proof*}
+\newpage
+\end{document}

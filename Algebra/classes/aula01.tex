@@ -1,0 +1,138 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 14/03/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Compreender o que será estudado ao longo do curso;
+\end{itemize}
+\subsection{Introdução ao Curso}
+Este curso é sobre teoria de grupos, a qual possui origem no estudo de simetrias, sejam elas de figuras ou de objetos algébricos.
+Um exemplo de grupo seria o seguinte:
+
+Considere um triângulo equilátero. Existem algumas formas de olharmos para as simetrias
+do triângulo, como rotacionando-o, refletindo-o com relação a um ponto médio e um vértice fixo. Contabilizando todas as possíveis
+formas delas acontecerem, há seis simetrias deste retângulo. Ademais, compondo simetrias resulta em outra, i.e., rotacionar e refletir
+um certo vértice continuará sendo uma simetria do triângulo. Além disto, é um fato (futuramente visto) que essas seis simetrias
+totalizam todas as possíveis simetrias de um triângulo equilátero. De fato, dado um polígono regular de n lados, ele possui
+n! simetrias.
+
+\subsection{Grupos e Operações}
+\begin{def*}
+	Seja S um conjunto não-vazio. Uma operação em S é um mapa
+	\begin{align*}
+		\mu: & S \times S\rightarrow S  \\
+		     & (a, b)\mapsto{\mu(a, b)}
+	\end{align*}
+\end{def*}
+\begin{example*}
+	A operação soma em $\mathbb{Z}, +:\mathbb{Z}\times{\mathbb{Z}}\rightarrow \mathbb{Z}, (a, b)\mapsto a + b$ é uma operação.
+\end{example*}
+\begin{example*}
+	Uma operação em $\mathbb{R}$ é a multiplicação $.:\mathbb{R}\times{\mathbb{R}}\rightarrow \mathbb{R}, (a, b)\mapsto ab.$
+\end{example*}
+\begin{example*}
+	Um exemplo do que não é operação seria a subtração dos naturais, $-:\mathbb{N}\times{\mathbb{N}}\rightarrow \mathbb{N}, (a, b)\mapsto a - b.$ (Consegue responder por que não é?)
+\end{example*}
+\begin{example*}
+	Se S é o conjunto de simetrias de um triângulo equilátero, então a composição
+	\begin{align*}
+		\circ: & S\times{S}\rightarrow S                \\
+		       & (\sigma, \tau)\mapsto \sigma\circ \tau
+	\end{align*}
+	é uma operação binária.
+\end{example*}
+Faremos a convenção de denotar $\mu(a, b)$ por $a.b$ ou $a + b$, com base no contexto.
+\begin{def*}
+	Uma operação $\mu$ em S não-vazio, denotada pelo produto, é dita associativa se, para todos a, b, c em S,
+	$$
+		(a.b).c = a.(b.c), \quad \biggl(\mu(a, \mu(b, c)) = \mu(\mu(a, b), c)\biggr).
+	$$
+	Por outro lado, será dita comutativa se
+	$$
+		a.b = b.a, \quad \biggl(\mu(a, b) = \mu(b, a)\biggr).
+	$$
+	Diremos, também, que ela tem elemento neutro (ou identidade) se existe um elemento e em S tal que
+	$$
+		a.e = e.a = a,\forall a\in{S}.
+	$$
+	Neste caso, diremos que e é o elemento neutro, ou a identidade, para $\mu$.
+\end{def*}
+Utilizaremos a notação 1 para a identidade no caso em que $\mu$ é denotada por um produto e 0 pro caso em que é denotada por adição.
+
+\begin{example*}
+	A multiplicação de matrizes é associativa, não é comutativa e possui identidade.
+\end{example*}
+\begin{example*}
+	A soma de números inteiros é associativa, comutativa e possui identidade.
+\end{example*}
+\begin{example*}
+	A potência nos números reais é não associativa, nem comutativa, mas possui identidade: $a^{(b^{c})} \neq (a^{b})^{c} = a^{bc}$
+\end{example*}
+
+\begin{prop*}
+	Seja S um conjunto não-vazio e $\mu$ uma operação em S denotada pelo produto. Então, existe um único jeito de definir o
+	produto (denotado temporariamente por $[a_{1}, \cdots, a_{n}]$) de n elementos em S tal que
+	\begin{align*}
+		 & (i)\quad [a_{1}] = a_{1};                                                                              \\
+		 & (ii)\quad [a_{1}, a_{2}] = \mu(a_{1}, a_{2}) = a_{1}a_{2};                                             \\
+		 & (iii)\quad\forall 1\leq{i}<n, [a_{1}, \cdots, a_{n}] = [a_{1}, \cdots, a_{i}][a_{i+1}, \cdots, a_{n}].
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	(iii)$\Rightarrow$ Para o caso $n\leq{2}$ é ok. Agora, suponha o produto bem-definido de r elementos em S, $r\leq{n=1}$. Então,
+	defina $[a_{1}, \cdots, a_{n}]\coloneqq [a_{1}, \cdots, a_{n-1}][a_{n}]. $ Como a definição acima satisfaz a condição (iii) para
+	i=n-1, se ela estiver bem-definida, ela será única. Com efeito, seja $1\leq{i}<n-1$, tal que
+	\begin{align*}
+		[a_{1}, \cdots, a_{n}] & = [a_{1}, \cdots, a_{n-1}][a_{n}] = [a_{1}, \cdots, a_{i}][a_{i+1}, \cdots, a_{n-1}][a_{n}] \\
+		                       & = \biggl([a_{1}, \cdots, a_{i}]\biggr)\biggl([a_{i+1}, \cdots, a_{n-1}][a_{n}]\biggr)       \\
+		                       & = [a_{1}, \cdots, a_{i}][a_{i+1}, \cdots, a_{n}].\text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{def*}
+	Seja S não-vazio e $\mu$ uma operação em S com identidade 1. Um elemento a de S é dito inversível se existe b em S tal que
+	$ab = ba = 1.$ Neste caso, b é o inverso de a, denotado por $b\coloneqq a^{-1}$.
+\end{def*}
+Note que tanto o elemento inverso quanto o elemento neutro, se existirem, são únicos (c.f. Lema abaixo). Além disso, o inverso da adição é
+denotad por -a.
+\begin{lemma*}
+	Seja S não-vazio, $\mu$ uma operação associativa denotada pelo produto. Então,
+	\begin{itemize}
+		\item[i)] Existe no máximo um elemento neutro para S e $\mu$;
+		\item[ii)] Se o elemento neutro existe, então para cada elemento de S, existe no máximo um inverso;
+		\item[iii)] Se um elemento a de S tem inverso \`a esquerda l e \`a direita r, i.e. $l.a = 1 \text{ e } a.r = 1$, então
+		      a é inversível com inverso l = r.
+		\item[iv)] Se a, b em S são inversíveis, então o produto ab é inversível, com inverso $b^{-1}a^{-1}.$
+	\end{itemize}
+\end{lemma*}
+Antes de provar, observe que a existência de um elemento inverso \`a esquerda ou \`a direita não garante que um elemento
+seja inversível (exercício), eles devem coincidir.
+\begin{proof*}
+	$(i)\Rightarrow)$ Suponha que existem 1, 1' em S como seus elementos neutros. Basta mostramos que eles coincidem. Com efeito,
+	$$
+		1 = 1.1' = 1'.1 = 1'.
+	$$
+	Portanto, o elemento neutro é único.
+
+	$(ii)\Rightarrow)$ Assuma a existência de dois elementos inversos em S para um elemento a, denotados por b, b'. Então, como
+	ab = ba = 1, temos
+	$$
+		b = b1 = b(ab') = (ba)b' = 1b' = b'.
+	$$
+	Portanto, o elemento inverso é único. Os itens (iii) e (iv) são exercícios. \qedsymbol
+\end{proof*}
+
+\begin{def*}
+	Um monoide é um par (G, $\mu$), em que G é um conjunto não-vazio e $\mu$ uma operação associativa e com elemento neutro em G.
+	Se, ainda por cima, $\mu$ for comutativa, (G, $\mu$) \' e um monoide abeliano (ou comutativo).
+\end{def*}
+\begin{def*}
+	Um grupo é um par (G, $\mu$) é um monoide (G, $\mu$) com a condição extra que todo elemento de G possui inverso. Caso
+	$\mu$ seja comutativa, chamamos G de grupo abeliano.
+\end{def*}
+\begin{example*}
+	Os inteiros com a soma, $(\mathbb{Z}, +)$, é um grupo comutativo, enquanto $(\mathbb{Z}, .)$ não é um grupo, mas sim um monoide.
+\end{example*}
+\begin{example*}
+	O grupo das matrizes com entradas reais e sua multiplicação, $(\mathbb{M}_{n}(\mathbb{R}), .)$, é um grupo não-abeliano.
+\end{example*}
+\end{document}

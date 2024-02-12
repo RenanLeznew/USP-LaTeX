@@ -1,0 +1,131 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 18/04/2023}
+\subsection{O Que Esperar}
+\begin{itemize}
+	\item Grupos quocientes;
+	\item Primeiro Teorema do Isomorfismo;
+	\item Teorema de Classificação de Grupos Abelianos Finitamente Gerados.
+\end{itemize}
+
+\subsection{Motivação para a Aula}
+\begin{center}
+	(Seção teste. Se gostarem, me avisem pra fazer nas outras).
+\end{center}
+
+Os grupos quociente, o primeiro teorema do isomorfismo para grupos e o teorema de classifica\c{c}\~{a}o dos grupos abelianos
+finitamente gerados s\~{a}o conceitos fundamentais na teoria dos grupos, um ramo importante da matem\'{a}tica que estuda a
+estrutura e propriedades dos grupos. Esses conceitos e teoremas nos ajudam a entender melhor as rela\c{c}\~{o}es entre
+diferentes grupos e suas subestruturas.
+
+A motiva\c{c}\~{a}o por tr\'{a}s desses conceitos e teoremas \'{e} simplificar e classificar grupos em categorias mais f\'{a}ceis
+de entender e manipular. Ao estudar grupos quociente, podemos analisar propriedades de grupos maiores e mais complexos por meio
+de seus subgrupos normais. O primeiro teorema do isomorfismo nos permite estabelecer conex\~{o}es entre diferentes grupos e
+suas subestruturas, enquanto o teorema de classifica\c{c}\~{a}o dos grupos abelianos finitamente gerados nos fornece uma
+maneira sistem\'{a}tica de descrever e classificar esse tipo espec\'{i}fico de grupo.
+
+Uma analogia que pode ser usada imagine que voc\^{e} tem um grupo de amigos e quer dividi-los em equipes para um jogo. Os grupos
+quociente s\~{a}o como as equipes formadas, o primeiro teorema do isomorfismo mostra como as habilidades dos jogadores se
+relacionam entre as equipes, e o teorema de classifica\c{c}\~{a}o dos grupos abelianos finitamente gerados ajuda a entender os
+diferentes tipos de amigos que voc\^{e} tem. Isso torna mais f\'{a}cil entender como seus amigos se organizam e trabalham juntos.
+
+Resumindo, os grupos quociente s\~{a}o uma maneira de "reduzir" um grupo dividindo-o por um subgrupo normal. O primeiro teorema
+do isomorfismo relaciona a estrutura de um grupo e seus subgrupos normais aos grupos quocientes, mostrando que certas
+propriedades s\~{a}o preservadas no processo. O teorema de classifica\c{c}\~{a}o dos grupos abelianos finitamente gerados
+fornece uma descri\c{c}\~{a}o \'{u}nica para cada grupo abeliano finitamente gerado, permitindo-nos classific\'{a}-los de
+maneira eficiente.
+
+\subsection{Grupos Quociente}
+\begin{def*}
+	Se $N\leq{G},$ então $G/N\coloneqq\{aN: a\in G\}=\{\overline{a}: a\in G\}$ é o Grupo Quociente de G por N. $\square$
+\end{def*}
+\begin{def*}
+	Se A, B são subconjuntos de um grupo G, então $AB\coloneqq\{x\in G: x=ab, a\in A, b\in B\}.\square$
+\end{def*}
+\begin{lemma*}
+	Se N é um subgrupo normal de G, então aNbN = abN para todos a, b elementos de G.
+\end{lemma*}
+\begin{proof*}
+	Como $N\leq{G}, N \cdot N = N.$ Além disso, já que $N\trianglelefteq{G}, bN = Nb.$ Portanto,
+	$$
+		aNbN = a(Nb)N = abNN = abN. \text{\qedsymbol}
+	$$
+\end{proof*}
+\begin{lemma*}
+	Seja G grupo e $\mathcal{L}$ um conjunto com uma operação. Se $\varphi:G\rightarrow \mathcal{L}$ é uma função
+	sobrejetora tal que $\varphi(ab)=\varphi(a)\varphi(b)$ para todo a, b em G. Então, $\mathcal{L}$ é um grupo e $\varphi$ é
+	um morfismo.
+\end{lemma*}
+\begin{proof*}
+	Dados x, y em $\mathcal{L}$, existem a, b em G tais que $\varphi(a)=x, \varphi(b)=y$ e $xy = \varphi(a)\varphi(b)=\varphi(ab).$
+	Seja $1_{\mathcal{L}}=\varphi(1),$ então $1_{\mathcal{L}}\cdot x=\varphi(1)\cdot \varphi(a) = \varphi(1 \cdot a) = \varphi(a)=x.$
+	Vamos provar a associatividade a seguir.
+
+	Se $z\in \mathcal{L}, z=\varphi(c),$ então
+	$$
+		x(yz)=\varphi(a)(\varphi(b)\varphi(c)) = \varphi(abc)=\varphi(ab)\varphi(c)=(\varphi(a)\varphi(b))\varphi(c) = (xy)z.
+	$$
+	A demonstração da existência de inverso fica como exercício. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se $N\trianglelefteq{G},$ então $G/N$ é um grupo e $\pi:G\rightarrow G/N$ (O morfismo projeção can\^onica) é um morfismo
+	sobrejetor com $\ker{\pi}=N.$
+\end{theorem*}
+\begin{proof*}
+	Segue que
+	$$
+		G/N\times G/N\rightarrow G/N,\quad (\overline{a}, \overline{b})\mapsto \overline{ab}
+	$$
+	está bem-definido. Ademais,
+	$$
+		\pi:G\rightarrow G/N
+	$$
+	satisfaz $\pi(a)\pi(b) = \overline{a}\cdot \overline{b}=\overline{ab}=\pi(ab).$ Pelo segundo lema, $G/N$ é um grupo
+	e $\pi$ um morfimso sobrejetor. Além disso, se $\pi(a) = \overline{a} = \overline{1} - N$ se, e somente se, a pertence a N.
+	Portanto, $\ker{\pi} = N.$ \qedsymbol
+\end{proof*}
+\subsection{Primeiro Teorema do Isomorfismo}
+\begin{theorem*}
+	Se $\varphi:G\rightarrow H$ é um morfismo sobrejetor de grupos, então $G/\ker{\varphi}\cong H.$ Mais precisamente, se
+	$\pi:G\rightarrow G/\ker{\varphi}$ é o mapa can\^onico, então
+	$$
+		\overline{\varphi}:G/\ker{\varphi}\rightarrow H,\quad \overline{a}\mapsto \varphi(a)
+	$$
+	e está bem-definido um isomorfismo tal que
+
+	\begin{center}
+		\begin{tikzcd}
+			G \arrow[rd, "\pi"] \arrow[r, "\varphi"] & H \\
+			& G/\ker{\varphi} \arrow[u, "\overline{\varphi}"]
+		\end{tikzcd}
+	\end{center}
+	comuta.
+\end{theorem*}
+\begin{proof*}
+	Começamos mostrando que $\overline{\varphi}$ está bem-definida. Se $\overline{a}=\overline{b}, ab^{-1}\in\ker{\varphi}$, tal que
+	existe g em $\ker{\varphi}$ para o qual $ab^{-1}=g.$ Assim, $\varphi(ab^{-1})=\varphi(g)=1,$ logo $\varphi(a)=\varphi(b).$
+
+	A seguir, mostremos que $\overline{\varphi}$ é morfismo. De fato, $\overline{\varphi}(\overline{a})\overline{\varphi}(\overline{b})
+		= \varphi(a)\cdot \varphi(b) = \varphi(ab)=\overline{\varphi}(\overline{ab}).$
+
+	Observe que $\overline{\varphi}$ é sobrejetora porque $\varphi$ o é. Finalmente, a injetividade de $\overline{\varphi}$ segue de
+	$$
+		\varphi(\overline{a})=1 \Longleftrightarrow \varphi(a)=1 \Longleftrightarrow a\in\ker{\varphi} \Longleftrightarrow \overline{a}=\ker{\varphi} = 1.
+	$$
+
+	Portanto, $\overline{\varphi}$ é isomorfismo. \qedsymbol
+\end{proof*}
+
+\begin{crl*}
+	Se $\varphi:G\rightarrow H$ é um morfismo, então $G/\ker{\varphi}\cong im\varphi.$
+\end{crl*}
+
+O resultado a seguir mostra que todo grupo abeliano pode ser escrito apenas com números inteiros que satisfazem certa propriedade.
+\begin{theorem*}
+	Seja G um grupo abeliano finitamente gerado. Então,
+	$$
+		G\cong{} \mathbb{Z}\times \cdots\times \mathbb{Z}\times \frac{\mathbb{Z}}{d_{1}\mathbb{Z}}\times \cdots\times \frac{\mathbb{Z}}{d_{r} \mathbb{Z}}.
+	$$
+	com $d_{i} > 1$ e $d_{i}\bigl|\bigr. d_{i+1}, i=1,\cdots,r-1.$
+\end{theorem*}
+\end{document}

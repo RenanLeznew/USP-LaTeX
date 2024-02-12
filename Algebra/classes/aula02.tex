@@ -1,0 +1,165 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 16/03/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Outras estruturas algébricas e exemplos;
+	\item Tamanho de um grupo;
+	\item Subgrupos
+\end{itemize}
+\subsection{Usos de Grupos}
+Podemos usar grupos para definir outras construções algébricas, como segue.
+\begin{def*}
+	Um anel é uma terna $(A, \mu, \varphi)$, em que $(A, \mu)$ é um grupo abeliano e $(A, \varphi)$ é um monoide. Além disso,
+	vale a distributiva.
+	$$
+		\varphi(a, \mu(c, d)) = \varphi(\mu(a, c), \mu(a, d)), \quad (a(b + c) = ab + ac).
+	$$
+	Usualmente, escrevemos $(A, \mu, \varphi) = (A, +, \cdot).\square$
+\end{def*}
+\begin{def*}
+	Um corpo é um anel $(A, +, \cdot)$ tal que $(A-\{0\}, .)$ é um grupo abeliano. $\square$
+\end{def*}
+Deste ponto em diante, abandonaremos as letras gregas para usar apenas os símbolos ``+'' ou ``.'' para um grupo com adição
+ou com multiplicação. Vejamos alguns exemplos.
+\begin{example*}
+	\begin{center}
+		\begin{tabular}{||c c c c c||}
+			\hline
+			Conjunto                                    & Monoide & Monoide Comutativo & Grupo & Grupo Comutativo \\ [1ex]
+			\hline\hline
+			$(GL_{n}, \cdot)$                           & Sim     & Não                & Sim   & Não              \\
+			\hline
+			$(SL_{n}, \cdot)$                           & Sim     & Não                & Sim   & Não              \\
+			\hline
+			$(\mathbb{Z}, +)$                           & Sim     & Sim                & Sim   & Sim              \\
+			\hline
+			$(\mathbb{Z}, \cdot)$                       & Sim     & Sim                & Não   & Não              \\
+			\hline
+			$(\mathbb{Q}, +)$                           & Sim     & Sim                & Sim   & Sim              \\ [1ex]
+			\hline
+			$(\mathbb{Q}, \cdot)$                       & Sim     & Sim                & Não   & Não              \\ [1ex]
+			\hline
+			$(S = \{z\in \mathbb{C}: |z| = 1\}, \cdot)$ & Sim     & Sim                & Sim   & Sim              \\ [1ex]
+			\hline
+			$(\mathbb{M}_{n}(\mathbb{R}), +)$           & Sim     & Sim                & Sim   & Sim              \\ [1ex]
+			\hline
+			$(\mathbb{M}_{n}(\mathbb{R}), .)$           & Sim     & Não                & Não   & Não              \\ [1ex]
+		\end{tabular}
+		\qedsymbol
+	\end{center}
+\end{example*}
+\begin{example*}
+	Seja T um conjunto qualquer e
+	$$
+		G = \{f:T\rightarrow T: f \text{ bijetora.}\}
+	$$
+	Então, $(G, \circ)$ é um grupo, chamado grupo das permutações ou simetrias de T. Se T é um conjunto finito, e.g.
+	$T = \{1, \cdots, n\}, $ então denotamos $(G, \circ)$ por $(S_{n}, \circ).$ \qedsymbol
+\end{example*}
+\begin{def*}
+	A ordem de um grupo $(G, \cdot)$ é a cardinalidade de G: $|G|$. Caso $|G| < \infty,$ dizemos que $(G, \cdot)$ é um grupo finito. $\square$
+\end{def*}
+\begin{example*}
+	A ordem de $|\mathbb{Z}| = \infty$ e $|S_{n}| = n!$ \qedsymbol
+\end{example*}
+\begin{prop*}
+	Se $(G, \cdot)$ é um grupo e a, b, c são elementos de G tais que ab = ac ou ba = ca, então b = c. Além disso, se ab = a ou
+	ba = a, então b = 1.
+\end{prop*}
+\begin{proof*}
+	Seja $a^{-1}$ o inverso de a, então $a^{-1}(ab) = a^{-1}(ac).$ Mais ainda, se ab = a, então $b = (a^{-1}a)b = a^{-1}(ab) = a^{-1}a = 1.$
+\end{proof*}
+Fica de exercício mostrar que só existe um grupo de ordem 2 e que $S_{3}$ é um grupo não-comutativo.
+\subsection{Subgrupos}
+\begin{def*}
+	Um subgrupo H de um grupo $(G, \cdot)$ é um subconjunto H de contido em G tal que
+	\begin{align*}
+		 & 1) 1\in H;                        \\
+		 & 2) a, b\in H\Rightarrow ab \in H; \\
+		 & 3) a\in H\Rightarrow a^{-1}\in H.
+	\end{align*}
+	Denotaremos subrupos por $H \leq{G}$ ou $(H, \cdot) \leq{(G, \cdot)}. \square$
+\end{def*}
+\begin{prop*}
+	Com operação induzida pela multiplicação de G restrita a H, $(H, \cdot)$ é um grupo.
+\end{prop*}
+\begin{proof*}
+	Como H está contido em G, podemos restringir o produto de G a H para
+	$$
+		._H:H \times H\rightarrow H.
+	$$
+	Afirmamos que $(H, \cdot)$ é um grupo. Com efeito, a restrição de . a H está bem-definida pelo segundo item da definição
+	de subgrupo. Mais ainda, ela é associativa em H por ser em G e todo elemento em H tem inverso pela condição 3. Por fim,
+	ela tem elemento neutro pela primeira requisição ao definir subgrupo. Portanto, $(H, \cdot)$ é um grupo.
+\end{proof*}
+Observe que todo grupo tem ao menos dois subgrupos, chamados triviais, sendo eles $\{1\}$ e ele mesmo. Qualquer outro leva o nome de
+subgrupo próprio.
+\begin{example*}
+	$(SL_{n}, \cdot) \leq{(GL_{n}, \cdot)}$ e $(\mathbb{Z}, +) \leq{(\mathbb{Q}, +)}.$ \qedsymbol
+\end{example*}
+\begin{example*}
+	Seja n um inteiro, então $n\mathbb{Z}\coloneqq \{nk: k\in \mathbb{Z}\}$ é um subgrupo dos inteiros. De fato, 0 = n0 pertence
+	a $n\mathbb{Z}.$ Além disso, se nk e nk' pertencem a $n\mathbb{Z},$ então
+	$$
+		nk + nk' = n(k + k')\in n \mathbb{Z}.
+	$$
+	Por fim, se nk pertence a $ n\mathbb{Z}$, então n(-k) também pertence a $n \mathbb{Z}$ e nk + n(-k) = 0. \qedsymbol
+\end{example*}
+\begin{prop*}
+	Todo subgrupo de $(\mathbb{Z}, +)$ é da forma $n \mathbb{Z}$ para algum n inteiro.
+\end{prop*}
+\begin{proof*}
+	Caso n seja 1, $n \mathbb{Z} = \mathbb{Z}$ e, se n = 0, então $n \mathbb{Z} = \{0\}. $ Agora, seja H um subgrupo próprio dos
+	inteiros e n o menor inteiro positivo em H. Afirmamos que $n \mathbb{Z} = H$.
+
+	De fato, $n \mathbb{Z} \leq{H}$, pois n é um elemento de H, então $nk = \underbrace{n + \ldots + n}_{\text{k-vezes}} \in H$. Além disso, $-n\in H,$ de forma
+	que $-nk = \underbrace{(-n) + \ldots + (-n)}_{\text{k-vezes}}\in H.$ Portanto, $n \mathbb{Z}\in H.$
+
+	Por outro lado, seja m um inteiro de H e considere $m = nq + r, 0 \leq{r} < n, q\in \mathbb{Z}.$ Pelo algoritmo de divisão de Euclides,
+	$$
+		m - nq = r \Rightarrow r\in H\Rightarrow r = 0.
+	$$
+	e, assim, m = nq pertence a $n\mathbb{Z}$. Portanto, $H = n \mathbb{Z}$. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	\begin{itemize}
+		\item[1)] $n \mathbb{Z} + m \mathbb{Z}$ é subgrupo de $\mathbb{Z};$
+		\item[2)] $n \mathbb{Z} + m \mathbb{Z} = d \mathbb{Z}$, em que d é tal que
+		\item[2.1)] $d | n$ e $d | m$;
+		\item[2.2)] Se $l | n$ e $l | m$, então $l | d;$
+		\item[2.3)] Existem r, s inteiros tais que $rn + sm = d.$
+	\end{itemize}
+	Definimos $d = \gcd{(n, m)}$ como o máximo divisor comum de m e n.
+\end{prop*}
+\begin{proof*}
+	A prova do item 1 fica como exercício.
+
+	$2.1)\Rightarrow n \mathbb{Z} + m \mathbb{Z} = d \mathbb{Z}.$ Em particular, se n, m pertencem a $d \mathbb{Z}$, então
+	$d | n \text{ e } d | m.$
+
+	$2.2)\Rightarrow$ Suponha que $n = lq_{1}, m = lq_{2} $. Se x pertence a $n \mathbb{Z} + m \mathbb{Z},$ então
+	\begin{align*}
+		 & x = nk_{1} + mk_{2} = lq_{1}k_{1} + lk_{2}q_{2} \in l \mathbb{Z}                   \\
+		 & \Rightarrow n \mathbb{Z} + m \mathbb{Z} \subseteq{l \mathbb{Z}} \Rightarrow l | d.
+	\end{align*}
+	também é possível mostrar isso usando o item 3 da proposição.
+
+	$2.3)\Rightarrow$ imediato. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	\begin{itemize}
+		\item[1)] $m \mathbb{Z}\cap n \mathbb{Z}$ é subgrupo dos inteiros;
+		\item[2)] $m \mathbb{Z}\cap n \mathbb{Z} = l \mathbb{Z}$, em que l é tal que
+		\item[2.1)] $m | l, n | l;$
+		\item[2.2)] Se $m | l'$ e $n | l'$, então $l | l'.$
+	\end{itemize}
+	Definimos $l = mmc(m, n)$ o mínimo múltiplo comum de m e n.
+\end{prop*}
+\begin{proof*}
+	Fica como exercício.
+\end{proof*}
+\begin{crl*}
+	Se m, n são inteiros, então $mn = mmc(m, n)\gcd{(m, n)}$.
+\end{crl*}
+\end{document}

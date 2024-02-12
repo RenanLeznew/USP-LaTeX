@@ -1,0 +1,199 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 23/03/2023}
+\begin{itemize}
+	\item Ciclos e Grupo de Permutações
+	\item Morfismo de Grupos
+	\item Classes laterais
+\end{itemize}
+\subsection{Ciclos e Grupos de Permutação}
+Introduzimos a seguir o grupo das permutações, denotado $S_{n}.$
+\begin{def*}
+	Uma permutação $\sigma\in S_{n}$ é um r-ciclo se existem $a_{1},\cdots, a_{r}\in\{1,\cdots, n\}$ tais que $\sigma(a_{1})=a_{2},
+		\sigma(a_{2})=a_{3}, \cdots, \sigma(a_{r-1})=a_{r}, \sigma(a_{r}) = a_{1}$ e, além disso, $\sigma(j) = j$ para todo j em $\{1,\cdots, n\}/\{a_{1},\cdots,a_{r}\}$.
+	Dizemos que r é o comprimento de r, e denotamos $\sigma$ por $\sigma=(a_{1}\cdots a_{r}).\square$
+\end{def*}
+\begin{def*}
+	Um 2-ciclo é chamado transposição. $\square$
+\end{def*}
+\begin{example*}
+	Seja $\sigma\in S_{5}.$ Um 5-ciclo é , por exemplo, $\sigma(1)=2, \sigma(2)=3, \sigma(3)=4, \sigma(4)=5, \sigma(5)=1,$ ou $\sigma=(12345)=(34512).$
+	Um 3-ciclo seria $\sigma(1)=4, \sigma(2)=2, \sigma(3)=1, \sigma(4)=3, \sigma(5)=5$ e uma transposição seria $\sigma(1)=2, \sigma(2)=1, \sigma(3)=3, \sigma(4)=4, \sigma(5)=5.$
+\end{example*}
+\begin{def*}
+	Duas permutações $\sigma, \tau\in S_{n}$ são disjuntas se para todo $j\in\{1, \cdots, n\}, \sigma(j) = j$ ou $\tau(j) = j.$
+\end{def*}
+\begin{example*}
+	$\tau\in S_{5}, \tau=(34), \sigma(12) \Rightarrow \tau, \sigma$ são disjuntas.
+\end{example*}
+Observe que nem toda permutação é um r-ciclo. De fato, $\sigma\in S_{5}$ dada por $\sigma(1)=3, \sigma(2) = 4, \sigma(3) = 5, \sigma(4) = 2$
+e $\sigma(5)=1$ não é um r-ciclo. O fato é que toda permutação é o produto de ciclos disjuntos de comprimento maior ou igual a 2.
+Assim, $\sigma = (135)(24)$ descreve a permutação enviando 1 pra 3, 2 pra 4, 3 pra 5, 4 pra 2 e 5 pra 1.
+\begin{example*}
+	Seja $\sigma\in S_{5}, \sigma=(12)(13)(15) = (1532)$. Note que lê-se o produto de permutações como a composição de funções, isto é,
+	começa-se pela direita e termina na esquerda (afinal, é a composição de permutações, que são, particularmente, funções!). Deste produtório, vimos que o número 1 é o único que será alterado, i.e., uma permutação após o 1 demarca o fim da ação. Assim, este
+	exemplo indica que 1 se torna 5 e permanece assim (a primeira ação torna 1 no elemento 5). 5 se torna 1, depois 3 e permanece assim ($1->5->3->3$), 2 se torna 1
+	no final ($2->2->2->1$), 3 se torna eventualmente 2 ($3->2->1->2$) e 4 permanece constante. (P.S. Se essa parte ficar confusa, me chamem no celular pra eu explicar melhor).
+\end{example*}
+\begin{prop*}
+	Toda permutação em $S_{n}$ é um produto de transposições (2-ciclos). Isto é, $S_{n}=\langle\text{transposições}\rangle$.
+	Além disso, se $\sigma\in S_{n}, \sigma=\tau_{1}\cdots\tau_{r} = \rho_{1}\cdots\rho_{s}$ fatorações em transposições, então $2|r-s.$
+\end{prop*}
+\begin{proof*}
+	Observe que $Id = (12)(21)\in\langle\text{ transposições }\rangle$. Se $\sigma\in S_{n}$ é uma permutação qualquer, então $\sigma$ é
+	o produto de ciclos. Logo, basta verificar a proposição para um r-ciclo $\sigma.$ Suponha, assim, que $\sigma = (a_{1}\cdots a_{r}$ é um r-ciclo.
+	Com isso, $r=(a_{1}a_{r})(a_{1}a_{r-1})\cdots(a_{1}a_{2}).$ \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Exercício: Mostre que qualquer fatoração de um r-ciclo em transposições tem mesma paridade.
+\end{prop*}
+\begin{def*}
+	Seja $\sigma\in S_{n}$. Então, a matriz de permutação $\sigma$ é
+	$$
+		U(\sigma)\coloneqq \begin{pmatrix}
+			e_{\sigma(1)} \\
+			\vdots        \\
+			e_{\sigma(n)}
+		\end{pmatrix}
+	$$
+	em que $e_{i}$ é o i-ésimo vetor can\^onico de $\mathbb{R}^{n}.\square$
+\end{def*}
+\begin{example*}
+	Seja $\sigma = (135)(24)\in S_{5}.$ Para esta permutação, a matriz é
+	$$
+		U(\sigma) =
+		\begin{pmatrix}
+			e_{3} \\
+			e_{4} \\
+			e_{5} \\
+			e_{2} \\
+			e_{1}
+		\end{pmatrix} =
+		\begin{pmatrix}
+			0 & 0 & 1 & 0 & 0 \\
+			0 & 0 & 0 & 1 & 0 \\
+			0 & 0 & 0 & 0 & 1 \\
+			0 & 1 & 0 & 0 & 0 \\
+			1 & 0 & 0 & 0 & 0
+		\end{pmatrix}
+	$$
+	Note que
+	$$
+		U(\sigma) = \begin{pmatrix}
+			1 \\
+			2 \\
+			3 \\
+			4 \\
+			5
+		\end{pmatrix} =
+		\begin{pmatrix}
+			5 \\
+			4 \\
+			3 \\
+			2 \\
+			1
+		\end{pmatrix}
+	$$
+\end{example*}
+\begin{prop*}
+	Sejam $\sigma, \tau\in S_{n}$ e $U(\sigma), U(\tau)$ as matrizes associadas respectivas. Então,
+	\begin{itemize}
+		\item[1)] $U(\sigma)(12 \cdots n)^{T} = a_{1}e_{1} + \cdots + a_{n}e_{n} \Longleftrightarrow \sigma(j) = a_{j},\quad j = 1, \cdots, n.$
+		\item[2)] $U(\sigma)$ sempre tem um único 1 em cada linha e em cada coluna. Reciprocamente, toda matriz desse tipo
+		      é uma matriz de alguma permutação.
+		\item[3)] $\det{U(\sigma)}\in\{-1, 1\}.$
+		\item[4)] A matriz de permutação de $\tau\sigma$ é $U(\tau)\cdot U(\sigma)$.
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+\begin{def*}
+	Se $\sigma\in S_{n}$ e $U(\sigma)$ é a matriz associada, definimos o sinal de $\sigma (sgn(\sigma))$ como sendo o
+	$\det{(U(\sigma)}.$Além disso, diremos que $\sigma$ é uma permutação par quando $sgn(\sigma) = 1$ e ímpar quando
+	$sgn(\sigma) = -1.\quad\square$
+\end{def*}
+Observe que é possível demonstrar que $sgn(\sigma) = (-1)^{r},$ em que r é o número de transposições que aparecem
+na decomposição de $\sigma.$
+
+\subsection{Morfismos de Grupos}
+Morfismos de grupos funcionam como funções entre conjuntos, mas que levam em conta a operação existente nos grupos.
+\begin{def*}
+	Sejam G, G' dois grupos. Um morfismo de grupos é um mapa $\varphi:G\rightarrow G'$ tal que $\varphi(gh)=\varphi(g)\varphi(h)$ para todo
+	g, h em G. $\quad\square$
+\end{def*}
+\begin{example*}
+	São morfismos:
+	\begin{align*}
+		 & 1) sgn:S_{n}\rightarrow \{+1, -1\}, \sigma\mapsto sgn(\sigma),\quad sgn(\sigma\tau) = \det(U(\sigma)U(\tau)) = \det(U(\sigma))\det(U(\tau)) = sgn(\sigma)sgn(\tau) \\
+		 & 2) \det:GL_{n}\rightarrow \mathbb{R}^{\times}, A\mapsto\det(A)                                                                                                     \\
+		 & 3) \exp:(\mathbb{R}, +)\rightarrow (\mathbb{R}, \cdot), x\mapsto e^{x}                                                                                             \\
+		 & 3) \varphi:G\rightarrow G', g\mapsto 1', \quad\text{ em que }1'\text{ é o elemento neutro de G'.}                                                                  \\
+		 & 3) \text{ Se }H\leq{G}, \text{ então a inclusão} i:H\rightarrow G, h\mapsto h\text{ é um morfismo.}                                                                \\
+		 & \quad3.1) \text{ Em particular, } U:S_{n}\rightarrow GL_{n}, \sigma\mapsto U(\sigma)                                                                               \\
+		 & 3) \mathbb{Z}\rightarrow G, n\mapsto g^{n}, g\in G\text{ fixo.}
+	\end{align*}
+\end{example*}
+\begin{prop*}
+	Seja $\varphi:G\rightarrow G'$ um morfismo. Então,
+	\begin{align*}
+		 & 1)g_{1}\cdots g_{n}\in G, \varphi(g_{1}\cdots g_{n}) = \varphi(g_{1})\cdots\varphi(g_{n}). \\
+		 & 2)\text{ Se 1 é o elemento neutro de G e 1' o elemento neutro de G', } \varphi(1)=1'.      \\
+		 & 3)\varphi(g^{-1}) = \varphi(g)^{-1}.
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	1.) Os casos 1 e 2 são ok. Assim, vamos mostrar por indução. Suponha que vale para
+	n-1. Então,
+	$$
+		\varphi(g_{1}\cdots\varphi_{n})=\varphi((g_{1}\cdots g_{n-1})g_{n}) = \varphi(g_{1}\cdots g_{n-1})\varphi(g_{n}) = \varphi(g_{1})\cdots\varphi(g_{n-1})\varphi(g_{n}).
+	$$
+
+	2.) $\varphi(1) = \varphi(1.1)\coloneqq \varphi(1)\varphi(1) \Rightarrow 1' = \varphi(1)\varphi(1)^{-1} = \varphi(1)$
+
+	3.) $1' = \varphi(1) = \varphi(gg^{-1}) = \varphi(g)\varphi(g^{-1}) \Rightarrow \varphi(g)^{-1} = \varphi(g^{-1}).$ \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se $\varphi:G\rightarrow G'$ é um morfismo, defina a imagem de $\varphi$ por $Im \varphi\coloneqq\{u\in G': \exists x\in G, \varphi(x)=y\}$
+	e o núcleo (ou kernel) de $\varphi$ por $\ker{(\varphi)}\coloneqq\{x\in G: \varphi(x) = 1'\} $, em que 1' é o elemento neutro de G'.
+\end{def*}
+\begin{prop*}
+	A imagem de um morfismo $\varphi:G\rightarrow G'$ é um subgrupo de G' e o kernel de $\varphi$ é um de G.
+\end{prop*}
+\begin{proof*}
+	Se y, y' pertencem a $Im\varphi$, então existem x, x' em G tais que $\varphi(x) = y, \varphi(x')=y'.$ Assim,
+	$$
+		yy' = \varphi(x)\varphi(x') = \varphi(xx') \Rightarrow yy'\in Im\varphi.
+	$$
+	Além disso, é claro que $\varphi(1) = 1'\in Im\varphi.$ Finalmente, se y pertence a $Im \varphi,$ então
+	$\varphi(x^{-1}) = \varphi(x)^{-1} = y^{-1} \Rightarrow y^{-1}\in Im \varphi.$ A prova de que $\ker\varphi\leq{G}$ fica como
+	exercício. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja $sgn:S_{n}\rightarrow \{+1, -1\}$. Definimos $A_{n} = \ker{(sgn)}$ como o grupo alternado. $\quad\square$
+\end{def*}
+\begin{def*}
+	Se H é um subgrupo de G e g um elemento de G, defina a classe lateral \`a esquerda de G em H como
+	$$
+		gH\coloneqq \{gh: h\in H\}.\quad\square
+	$$
+\end{def*}
+\begin{prop*}
+	Seja $\varphi:G\rightarrow G'$ um morfismo e K $= \ker{(\varphi)}.$ Se a, b são elementos de G, são equivalentes:
+	\begin{align*}
+		 & 1) \varphi(a) = \varphi(b) \\
+		 & 2) a^{-1}b\in K            \\
+		 & 3) b\in aH                 \\
+		 & 4) aK = bK.
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	\begin{align*}
+		 & 1)\Rightarrow2): \varphi(a) = \varphi(b) \Rightarrow \varphi(a^{-1}b) = 1' \Rightarrow a^{-1}b\in K;             \\
+		 & 2)\Rightarrow1): a^{-1}b\in K \Rightarrow \varphi(a^{-1}b) = 1' \Rightarrow \varphi(a)=\varphi(b);               \\
+		 & 1)\Rightarrow3): a^{-1}b\in K \text{ se } \exists h\in K \text{ tais que } a^{-1}h = bh \Rightarrow b\in aK;     \\
+		 & 3)\Rightarrow1): \text{ Suponha que }b\in aH, b = ah \Rightarrow \varphi(b) = \varphi(a)\varphi(h) = \varphi(a); \\
+		 & (1)\Longleftrightarrow(4): \text{Exercício. \qedsymbol}
+	\end{align*}
+\end{proof*}
+\end{document}

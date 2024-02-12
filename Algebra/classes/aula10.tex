@@ -1,0 +1,170 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 27/04/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Tipos de Isometrias Principais.
+\end{itemize}
+\subsection{Principais Isometrias em $\mathbb{R}^{n}$}
+\begin{lemma*}
+	Sejam $\eta, f\in M_{n}, x, y\in \mathbb{R}^{n}$ tais que f(x) = y. Suponha que $\eta(x) = x', \eta(y) = y'.$
+	Considere $f'\in M_{n}$ tal que $f'(x')=y'$ para todos x, y em $\mathbb{R}^{n}.$ Então, $f' = \eta f\eta^{-1}$.
+	Em outras palavras, o diagrama abaixo comuta:
+	\begin{center}
+		\begin{tikzcd}
+			\mathbb{R}^{n} \arrow[d, "\eta "] \arrow[r, "f"] & \mathbb{R}^{n}\arrow[d,"\eta =t_{v}"]\\
+			\mathbb{R}^{n} \arrow[r, "f'"] & \mathbb{R}^{n}
+		\end{tikzcd}
+	\end{center}
+\end{lemma*}
+\begin{proof*}
+	Se f(x) = y, então $f\eta ^{-1}(u') = \eta ^{-1}(y')$, ou seja, $\eta f\eta ^{-1}(x')=y'$. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	O morfismo $\pi :M_{n}\rightarrow O_{n}$ não muda por translação de origem
+\end{crl*}
+\begin{proof*}
+	Sejam $t_{a}$ uma translação em $\mathbb{R}^{n}, a\in \mathbb{R}^{n}, f\in M_{n}$. Então, do lema anterior, f,
+	após a mudança de coordenadas por $t_{a}$, é dado por
+	$$
+		f'=t_{a}f(ta)^{-1} = t_{a}ft_{-a}.
+	$$
+	Então, $\pi (f') = \pi (t_{a}ft_{-a}) = \pi (t_{a})\pi (f)\varphi (t_{-a}) = \pi (f).$ \qedsymbol
+\end{proof*}
+Lembre-se que se $\varphi \in \mathcal{O}_{n}$ e $M_{\varphi }$ é sua matriz, então $M_{\varphi }$ é uma matriz ortogonal e,
+assim, $M_{\varphi }^{-1} = M_{\varphi }^{t}.$ Logo,
+$$
+	1 = \det{(M_{\varphi }M_{\varphi }^{-1})} = \det{M_{\varphi }^{2}} \Rightarrow \det{M_{\varphi }} = Id.
+$$
+\begin{def*}
+	Um operador ortogonal $\varphi \in \mathcal{O}_{n}$ preserva orientação se o determinante de sua matriz vale 1. Analogamente,
+	diremos que ele reverte orientação se seu determinante vale -1. $\square$.
+\end{def*}
+\begin{def*}
+	Uma função $f\in M_{n}$ preserva orientação se $f=t_{a}\varphi $, sendo $a\in \mathbb{R}^{n}$ e $\det{(M_{\varphi })} = 1.$
+	Caso contrário, diremos que f reverte orientação. $\square$
+\end{def*}
+\begin{lemma*}
+	O mapa $\sigma :M_{n}\rightarrow \{\pm1\}, \sigma =t_{a}\varphi\mapsto \det{(M_{\varphi })}$ é um morfismo de grupos.
+\end{lemma*}
+\begin{proof*}
+	Sejam $f, g\in M_{n}, f = t_{a}\varphi , g = t_{b}\psi$ com $a, b\in \mathbb{R}^{n}$. Então,
+	$$
+		\sigma (f\circ{}g) = \sigma (t_{a}\varphi t_{b}\psi) = \sigma (t_{a}t_{b'}\sigma \psi),
+	$$
+	sendo b'=$\varphi (b).$ Portanto,
+	$$
+		\det{(M_{\varphi \psi})} = \det{(M_{\varphi }M_{\psi})} = \det{M_{\varphi }}\det{M_{\psi}}=\sigma (f)\sigma (g).\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{def*}
+	Define-se $M_{2}$ o grupo das isometrias no plano $\mathbb{R}^{2}.\square$
+\end{def*}
+Considere
+\begin{itemize}
+	\item[1)] Translação: $t_{a}:\mathbb{R}^{2}\rightarrow \mathbb{R}^{2}, x\mapsto x+a, a\in \mathbb{R}^{2}.$
+	\item[2)] Rotação: $\rho_{\theta }:\mathbb{R}^{2}\rightarrow \mathbb{R}^{2}, (x,y)\mapsto \begin{pmatrix}
+			      \cos{\theta } & -\sin{\theta } \\
+			      \sin{\theta } & \cos{\theta }
+		      \end{pmatrix} \begin{pmatrix}
+			      x \\
+			      y
+		      \end{pmatrix}$
+	\item[3)] Reflexão em Torno do Eixo -x: $\sigma :\mathbb{R}^{2}\rightarrow \mathbb{R}^{2}, (x,y)\mapsto \begin{pmatrix}
+			      1 & 0  \\
+			      0 & -1
+		      \end{pmatrix}\begin{pmatrix}
+			      x \\
+			      y
+		      \end{pmatrix}$
+\end{itemize}
+É preciso, no entanto, conferir que essas funções pertencem a $M_{2}.$
+\begin{lemma*}
+	$t_{a},\rho_{\theta },\sigma \in M_{2}$
+\end{lemma*}
+\begin{proof*}
+	Imediato. \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Este lema será um exercício de álgebra linear.
+	\begin{itemize}
+		\item[1)] Uma matriz ortogonal cujo determinante vale 1 é da forma
+		      $$
+			      \rho_{\theta } = \begin{pmatrix}
+				      \cos{\theta } & -\sin{\theta } \\
+				      \sin{\theta } & \cos{\theta }
+			      \end{pmatrix}
+		      $$
+		      para algum $\theta \in[0,2\pi )$ único.
+		\item[2)] Uma matriz ortogonal de determinante -1 é da forma $\rho_{\theta }\sigma ,$ em que $\theta \in[0, 2\pi)$ é único e
+		      $$
+			      \sigma \in \begin{pmatrix}
+				      1 & 0  \\
+				      0 & -1
+			      \end{pmatrix}.
+		      $$
+	\end{itemize}
+\end{lemma*}
+\begin{theorem*}
+	Se $f\in M_{2},$ então $f=t_{a}\rho_{\theta },$ ou $f = t_{a}\rho_{\theta }\sigma  $ para únicos $a\in \mathbb{R}^{2},\theta \in[0,2\pi)$
+	e $\sigma = \begin{pmatrix}
+			1 & 0  \\
+			0 & -1
+		\end{pmatrix}$. Em outras palavras, $M_{2} = \langle t_{a}, \rho_{\theta }, \sigma \rangle, a \in \mathbb{R}^{2}, \theta \in[0,2\pi).$
+\end{theorem*}
+Antes de demonstrar, um comentário sobre este teorema: Segundo ele, \textbf{qualquer} isometria no plano $\mathbb{R}^{2}$ é
+descrita por uma composição de isometrias elementares - translação, reflexão e rotação!
+\begin{proof*}
+	Seja $f\in M_{2}.$ Já sabemos que $f = t_{a}\varphi $, sendo $\varphi \in \mathcal{O}_{2}, a\in \mathbb{R}^{2}.$ Logo, segue do lema
+	anterior que
+	$$
+		f = t_{a}\rho _{\theta }\quad\text{ ou } f = t_{a}\rho_{\theta }\sigma . \text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{crl*}
+	Isometrias $t_{a}\rho_{\theta }$ preservam orientação, enquanto $t_{a}\rho_{\theta }\sigma $ revertem orientação.
+\end{crl*}
+\begin{proof*}
+	Seja $f=t_{a}\rho_{\theta }.$ Então, como $\det{\rho_{\theta }} =1,$ f preserva orientação. Por outro lado, se $f=t_{a}\rho_{\theta }\sigma ,$
+	então $\det{(\rho_{\theta }\sigma )} = \det{\rho_{\theta }}\det{\sigma } = 1 \cdot (-1) = -1.$ Portanto, f reverte orientação. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Em $M_{2},$
+	\begin{align*}
+		 & 1)\quad \rho_{\theta }t_{a} = t_{a'}\rho_{\theta },\quad a'=\rho_{\theta }(a); \\
+		 & 2)\quad \sigma t_{a} = t_{a'}\sigma , \quad a'= \sigma(a);                     \\
+		 & 3)\quad \sigma \rho_{\theta } = \rho_{-\theta }\sigma;                         \\
+		 & 4)\quad t_{a}t_{b} = t_{a+b};                                                  \\
+		 & 5)\quad \rho_{\theta }\rho_{\theta '} = \rho_{\theta +\theta '};               \\
+		 & 6)\quad \sigma \sigma = \begin{pmatrix}
+			                           1 & 0 \\
+			                           0 & 1
+		                           \end{pmatrix}\text{ i.e. } ord(\sigma ) = 2.
+	\end{align*}
+\end{crl*}
+\begin{proof*}
+
+	1) $\rho_{\theta }t_{a}(t_{a'}\rho_{\theta })^{-1} = \rho_{\theta }t_{a}\rho_{\theta }^{-1}t_{a'}^{-1} = \rho_{\theta }\rho_{\theta }^{-1}t_{\rho_{\theta }^{-1}(a)}t_{-\theta '}
+		= t_{a'}t_{-a'} = t_{a'-a'} = Id.$
+
+	2) $(rta)(ta'\sigma )^{-1} = \sigma t_{a}r^{-1}t_{-a'} = \sigma \sigma^{-1}t_{r^{-1}(a)}t_{-a'} = t_{a'}t_{-a'} = Id.$
+
+	3) $\sigma \rho_{\theta } = \begin{pmatrix}
+			1 & 0  \\
+			0 & -1
+		\end{pmatrix}\begin{pmatrix}
+			\cos{\theta }   & -\sin{\theta }  \\
+			\sin{(\theta )} & \cos{(\theta )}
+		\end{pmatrix} = \begin{pmatrix}
+			\cos{(\theta )}  & -\sin{(\theta )} \\
+			-\sin{(\theta )} & -\cos{(\theta )}
+		\end{pmatrix} = \begin{pmatrix}
+			\cos{(\theta )} & -\sin{(-\theta )} \\
+			\sin{(\theta )} & \cos{(\theta )}
+		\end{pmatrix}\begin{pmatrix}
+			1 & 0  \\
+			0 & -1
+		\end{pmatrix} = \rho_{-\theta }\sigma.$ \qedsymbol
+\end{proof*}
+\newpage
+\end{document}

@@ -1,0 +1,199 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 11/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Estabilizadores e Teorema da Orbita-Estabilizador;
+	\item Representação por Permutação;
+	\item Ações Fiéis.
+\end{itemize}
+\subsection{Motivação}
+Nesta introdução, discutiremos a intuição por trás dos estabilizadores de grupos e do Teorema da Órbita-Estabilizador. Também comentaremos sobre a
+Representação por Permutação e suas aplicações na vida real.
+
+Um estabilizador de um grupo é um conceito fundamental na teoria dos grupos. Dado um grupo de ação $G$ em um conjunto $X$, o estabilizador de um elemento
+$x$ em $X$ é o conjunto de todos os elementos em $G$ que fixam $x$.
+
+O Teorema da Órbita-Estabilizador é um resultado fundamental na teoria dos grupos que relaciona o tamanho de uma órbita de um elemento sob a ação de um grupo
+com o tamanho do estabilizador desse elemento. O teorema é enunciado da seguinte forma:
+\begin{quote}
+	Seja $G$ um grupo finito que age em um conjunto $X$ e seja $x$ um elemento de $X$. Então, o tamanho da órbita de $x$ sob a ação de $G$ é igual ao
+	índice do estabilizador de $x$ em $G$.
+\end{quote}
+
+A representação por permutação é uma maneira de representar os elementos de um grupo como permutações de um conjunto, o que é útil para visualizar e entender
+a estrutura do grupo.
+
+Os conceitos de estabilizadores de grupos, o Teorema da Órbita-Estabilizador e a representação por permutação têm aplicações em várias áreas, incluindo
+física, química, ciência da computação e matemática.
+Na física, eles são usados para descrever simetrias em sistemas físicos. Por exemplo, as simetrias de rotação e translação em física são exemplos de ações de grupo, onde o estabilizador de um ponto no espaço é o conjunto de todas as rotações e translações que deixam o ponto inalterado.
+Na química, eles são usados para descrever a simetria de moléculas. A título de exemplo, a molécula de água tem uma simetria de rotação, onde a rotação em torno do eixo que passa pelo átomo de oxigênio e o centro da linha entre os dois átomos de hidrogênio deixa a molécula inalterada. Esta é uma ação de grupo, e o estabilizador é o conjunto de todas as rotações que deixam a molécula inalterada.
+Na ciência da computação, eles são usados em algoritmos de busca e ordenação. Por exemplo, o algoritmo de ordenação por permutação é baseado na ideia de representar as permutações de um conjunto como um grupo.
+
+Intuitivamente, imagine que você tem um conjunto de objetos e um conjunto de operações que você pode realizar nesses objetos. Um grupo é apenas um
+conjunto de tais operações. Um estabilizador é o conjunto de operações que deixam um objeto específico inalterado. A órbita de um objeto é o conjunto de
+todos os estados que esse objeto pode alcançar através das operações do grupo. Para ilustrar, imagine que você tem um cubo e as operações são rotações do cubo.
+O estabilizador de uma face do cubo é o conjunto de rotações que deixam essa face no mesmo lugar.
+A órbita de uma face é o conjunto de todas as posições que essa face pode ocupar através das rotações do cubo. O Teorema da Órbita-Estabilizador nos diz que
+o número de estados possíveis (a órbita) é igual ao número de operações, dividido pelo número de operações que deixam o objeto inalterado (o estabilizador).
+A representação por permutação é uma maneira de visualizar essas operações como rearranjos dos objetos. Assim, se você tem três objetos e uma operação que troca
+o primeiro e o segundo objeto, isso pode ser representado como uma permutação (2,1,3).
+\subsection{Estabilizadores}
+\begin{prop*}
+	Se \(G \curvearrowright X\), o conjunto das órbitas dessa ação são classes de equivalência para a seguinte relação:
+	\[
+		x\sim y \Longleftrightarrow \exists g\in G: y = gx.
+	\]
+	Em particular, se \(x\sim y\), então \(\mathcal{O}(x) = \mathcal{O}(y)\) e X é particionado pelas órbitas.
+\end{prop*}
+\begin{proof*}
+	Se x pertence a X, \(Cl(x)\coloneqq \{y\in X: y\sim x\} = \{y\in X: y=gx, g\in G\} = \{gx: g\in G\}= \mathcal{O}(x)\). \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja \(G \curvearrowright X\). Dado \(x\in X\), definimos
+	\[
+		E(x)\coloneqq \{g\in G: gx = x\}
+	\]
+	como o estabilizador de x. \(\square\).
+\end{def*}
+\begin{example*}
+	Se x pertence a X é um ponto fixo para \(G \curvearrowright X\), então \(E(x) = G.\)
+\end{example*}
+\begin{prop*}
+	\(E(x)\leq G\).
+\end{prop*}
+\begin{proof*}
+	Como 1x = x, \(1\in E(x)\). Sejam \(a, b\in E(x)\), então \((ab)x = a(bx) = ax = x\). Logo, \(ab\in E(x)\). Agora, \(ax = x \) implica que \( x = a^{-1}x \),
+	tal que \(a^{-1}\in E(x)\). Portanto, \(E(x)\leq G.\) \qedsymbol
+\end{proof*}
+\begin{example*}
+	\begin{itemize}
+		\item[1)] \(S_{n} \curvearrowright \{1, \cdots, n\}, E(n) = S_{n-1};\)
+		\item[2)] \(M_{2} \curvearrowright \mathbb{R}^{2}, E((a, 0)) = \mathcal{O}_{2}.\)
+	\end{itemize}
+\end{example*}
+\begin{prop*}
+	Seja \(G \curvearrowright X, x\in X, H\coloneqq E(x)\). Então,
+	\begin{itemize}
+		\item[i)] Se a, b pertencem a G, então ax = bx se, e somente se, \(ab^{-1}\in H\) se, e somente se, \(b\in aH\);
+		\item[ii)] Se ax=y, então \(E(y) = aHa^{-1}\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	(i) Se \(ax = bx,\) então \(b^{-1}ax = x\), ou seja, \(b^{-1}a\in H, b\in aH\) e existe h em H tal que \(b^{-1}a = h\) e \(b = ah^{-1}\).
+
+	(ii) Seja \(b\in E(y)\), i.e., \(by=y.\) Segue que
+	\[
+		bax = ax \Longleftrightarrow a^{-1}bax = x \Longleftrightarrow a^{-1}ba\in H \Longleftrightarrow b\in aHa^{-1}.
+	\]
+	Logo, \(E(y)\subseteq{aHa^{-1}}\).
+
+	Por outro lado, se \(b\in aHa^{-1}\), existe h em H tal que \(b = aha^{-1}\), de forma que
+	\[
+		by = (aha^{-1})y = (ah)x = ax = y,
+	\]
+	ou seja, b pertence a E(y) e \(aHa^{-1}\subseteq{E(y)}\). Portanto, \(E(y) = aHa^{-1}.\) \qedsymbol
+\end{proof*}
+\begin{example*}
+	Se \(H\leq G\) e \(G/H = \{aH: a \in G\}\), então \(G \curvearrowright  G/H\) por \(g(aH) = gaH.\) Fica como exercício mostrar que essa ação
+	é transitiva e \(E(1 \cdot H) = 1 \cdot H\).
+\end{example*}
+\begin{example*}
+	Sejam \(G = S_{3}\) e \(H = \{1, y\}, y = (23).\). Se \(x=(123)\),
+	\[
+		G/H = \{H, \underbrace{xH}_{\{x, xy\}}, \underbrace{x^{2}H}_{x^{2}, x^{2}y}\} = \{[1], [x], [x^{2}]\} = \{\overline{1}, \overline{2}, \overline{3}\}.
+	\]
+	Temos \(S_{3} \curvearrowright S_{3}/H\) como acima e, para \(y\in S_{3}\),
+	\begin{align*}
+		m_{g}: & G/H\rightarrow G/H                    \\
+		       & [1]\mapsto[1]                         \\
+		       & [x]\mapsto\{x^{2}y, x^{2}\} = [x^{2}] \\
+		       & [x^{2}]\mapsto[x].
+	\end{align*}
+	Logo, y age em \(G/H\) como age em \(\{1, 2, 3\}\) (Verifique que o mesmo acontece para x).
+\end{example*}
+O resultado a seguir relaciona a órbita com o estabilizador, conhecido como Teorema Órbita-Estabilizador.
+\hypertarget{orbit_stabilizer}{
+	\begin{theorem*}
+		Se \(G \curvearrowright X, x\in X\) temos uma bijeção \(\varepsilon :G/E(x)\rightarrow \mathcal{O}(x), [aE(x)]\mapsto ax\). Além disso,
+		\(\varepsilon (g*aE(x)) = g\varepsilon (aE(x))\).
+	\end{theorem*}
+}
+\begin{proof*}
+	Vamos começar mostrando que \(\varepsilon \) está bem-definida. De fato, seja \(H = E(x)\). Note que \(\varepsilon (aH) = ax\in \mathcal{O}(x)\).
+	Ainda se \(aH = bH\), então \(b^{-1}a\in H.\) Logo, existe \(h\in H\) tal que a = bh e, assim, \(ax = bhx = bx.\) Por isso, \(\varepsilon (aH) = \varepsilon (bH)\).
+
+	Note que \(\varepsilon  \) é sobrejetora diretamente. Para ver que \(\varepsilon \) é injetora, seja \(\varepsilon (aH) = \varepsilon (bH)\). Segue que
+	\[
+		ax = bx \Longleftrightarrow b^{-1}ax = x \Longleftrightarrow b^{-1}a\in H.
+	\]
+	Portanto, \(b\in aH\) é equivalente a \(aH = bH\). \qedsymbol
+\end{proof*}
+\begin{example*}
+	Temos \(M_{2} \curvearrowright \mathbb{R}^{2}\) transitiva e \(E((0, 0)) = \mathcal{O}_{2}\). Logo, do \hyperlink{orbit_stabilizer}{Teorema Órbita-Estabilizador},
+	\(|\cdot |:M_{2}/\mathcal{O}_{2}\rightarrow \mathbb{R}^{2}\).
+\end{example*}
+\begin{crl*}
+	Se X é um conjunto finito e \(G \curvearrowright X, x\in X\), então
+	\[
+		|G| = |E(x)|\cdot |\mathcal{O}(x)|.
+	\]
+\end{crl*}
+\begin{proof*}
+	Segue de
+	\[
+		|G| = |E(x)|\cdot [G:E(x)] = \underbrace{|E(x)|\cdot |\mathcal{O}(x)|}_{\hyperlink{orbit_stabilizer}{\text{Teorema Órbita-Estabilizador}}}.\text{ \qedsymbol}
+	\]
+\end{proof*}
+Algumas observações devem ser feitas. Primeiramente, se \(G \curvearrowright X\) e \(H\leq G\), então \(H \curvearrowright X\).
+Além disso, se \(G \curvearrowright X\) e \(X'\subseteq{X}, |X'| = r\), então
+\[
+	gX' = \{gy: y\in X'\}
+\]
+também tem ordem r. Logo, G age no conjunto dos subconjuntos de ordem r de X.
+\subsection{Representações por Permutações}
+\begin{def*}
+	Uma representação por permutação do grupo G é um morfismo \(\varphi :G\rightarrow S_{n}. \square\)
+\end{def*}
+\begin{prop*}
+	Se \(X = \{1, \cdots, n\}\), então temos
+	\[
+		|\cdot |:\biggl\{\text{Ações de G em X}\biggr\}\rightarrow \biggl\{\text{Representação por Permutação}\biggr\}
+	\]
+	uma bijeção.
+\end{prop*}
+\begin{proof*}
+	Dado \(G \curvearrowright X\), para cada g de G, temos
+	\[
+		m_{g}:X\rightarrow X,\quad x\mapsto gx.
+	\]
+	Logo, temos \(\varphi :G\rightarrow S_{n}, g\mapsto m_{g}.\) Por outro lado, dado um morfismo \(\varphi :G\rightarrow S_{n}\), temos
+	\[
+		G\times{}X\rightarrow X,\quad (g, x)\mapsto gx = \varphi (g)x.\text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{example*}
+	Segue que \(D_{n}\curvearrowright \{v_{1}, \cdots, v_{n}\}\) equivale aos vértices de um polígono regular de n-lados. Com isso, temos um morfismo
+	\(D_{n}\rightarrow S_{n}\).
+\end{example*}
+\begin{prop*}
+	Se X é um conjunto qualquer e Perm(X) = \(\{f:X\rightarrow X: f \text{ é bijeção}\}\) é o grupo das permutações de X, então temos
+	\[
+		|\cdot |:\biggl\{\text{Ações de G em X}\biggr\}\rightarrow\biggl\{\text{Morfismos de G em Perm(X)}\biggr\}
+	\]
+\end{prop*}
+\begin{def*}
+	A ação \(G \curvearrowright X\) é dita fiel se o morfismo correspondente de G em Perm(X) é injetor. \(\square\)
+\end{def*}
+\begin{example*}
+	(Exercícios: )Mostre que \(G = GL_{2}(\mathbb{Z}/2 \mathbb{Z})\cong{S_{3}}\).
+
+	Se \(e_{1}=(1, 0), e_{2} = (0, 1), e_{1}+e_{2} = (1, 1) = e_{3}\), mostre que \(G \curvearrowright \{e_{1}, e_{2}, e_{3}\}\) fielmente, de maneira que
+	\[
+		G\hookrightarrow S_{3}\text{ é injetora}
+	\]
+	e, como \(|G| = |S_{3}|\), vale que \(G\cong{S_{3}.}\)
+
+	\(G \curvearrowright X\) é fiel se \(gx=x\) para todo x em X implica em g = 1.
+\end{example*}
+\end{document}

@@ -1,0 +1,188 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 25/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Grupos Simples;
+	\item Normalizadores;
+	\item Teoremas de Sylow.
+\end{itemize}
+\subsection{Grupos Simples}
+\begin{def*}
+	Um grupo G é simples se \(G\neq\{1\}\) e não tem subgrupo normal próprio (Não
+	existe subgrupo normal de G diferente de \(\{1\}\) ou G.) \(\square\)
+\end{def*}
+\begin{example*}
+	\begin{itemize}
+		\item Todo p-grupo é um grupo simples;
+		\item \(A_{2}=\{1\}\), ou seja, não é simples;
+		\item \(A_{3} = \mathbb{Z}/3 \mathbb{Z}\) é cíclico de ordem 3, logo simples;
+		\item \(A_{4}\) não é simples, pois \(H = \{Id, (12)(34), (13)(24), (14)(23)\}\)
+		      é um subgrupo normal de \(S_{4}\) e \(H\leq A_{4}.\)
+		\item \(A_{n}\) é simples para \(n\geq 5\)
+	\end{itemize}
+\end{example*}
+\begin{def*}
+	Seja X o conjunto de todos os subgrupos de um grupo G. Então,
+	\[
+		G\times X\rightarrow X,\quad (g, H)\mapsto gHg^{-1}
+	\]
+	é a ação por conjugação e, dado \(H\in X\), seu estabilizador é
+	\[
+		N(H) = \{g\in G: gHg^{-1}=H\}
+	\]
+	chamado de normalizador de H. \(\square\)
+\end{def*}
+Observe que \(N(H)\leq G\) e \(H\leq N(G)\). Além disso, pelo Teorema da Órbita-Estabilizador,
+\begin{align*}
+	|G| & = |N(H)|\cdot (\#\text{subgrupos de G conjugados por H}) \\
+	    & = |N(H)|[G:N(H)].
+\end{align*}
+\begin{prop*}
+	Sejam \(H\leq G, N = N(H)\) normalizador.
+	\begin{itemize}
+		\item[1)] \(H \trianglelefteq N\);
+		\item[2)] \(H \trianglelefteq{G} \Longleftrightarrow N = G.\)
+		\item[3)] \(|H|\bigl|\bigr.|G|\) e \(|N|\bigl|\bigr.|G|\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	1) Dado g em N, então \(gHg^{-1}=H\) por definição de \(N = N(H)\), logo
+	\(H \trianglelefteq{N}.\)
+
+	2) Para todo g de G, \(H \trianglelefteq{G} \Longleftrightarrow gHg^{-1} = H\) .
+	Consequentemente, \(H \trianglelefteq{G}\) se, e somente se, \(g\in N\) para todo g em G.
+	Logo, se, e somente se, \(N = G.\)
+
+	3) Ok. \qedsymbol
+\end{proof*}
+\begin{example*}
+	Em \(S_{3}, |C((123))| = 2,\) logo, se \(H = \langle(123)\rangle\), então \(|\mathcal{O}(H)| = 2\) e
+	\(|N(H)| = \frac{6}{2} = 3.\)
+\end{example*}
+\subsection{Teoremas de Sylow}
+Adotaremos a seguinte convenção: Se G é um grupo de ordem \(n=p^{varepsilon}m\),
+sendo p um número primo e \(mdc(p^{varepsilon}, m) = 1.\)
+\begin{def*}
+	Se \(|G| = p^{varepsilon}m = n\), um subgrupo \(H\leq G\) é um p-subgrupo de Sylow (ou p-Sylow) se
+	\(|H| = p^{varepsilon}.\square\)
+\end{def*}
+Observe que H é p-subgrupo de Sylow se \(p\nmid [G:H].\)
+\begin{example*}
+	Em \(S_{3}, \langle (12) \rangle\) é um 2-Sylow e \(\langle (123) \rangle\) é um 3-Sylow.
+\end{example*}
+Uma pergunta é: quando existem p-subgrupos de Sylow? Por exemplo, \(A_{4}\) tem
+ordem 12, mas não tem subgrupo de ordem 6.
+\begin{lemma*}
+	Seja X o conjunto de todos os subconjuntos de um grupo G. Então, \(G \curvearrowright X\) por multiplicação
+	à esquerda e com respeito a esta ação, se \(\mathcal{U}\in X,\)
+	\[
+		|E(\mathcal{U})|\biggl|\biggr.|G|\quad\text{ e } |E(\mathcal{U})|\biggl|\biggr.|\mathcal{U}|
+	\]
+\end{lemma*}
+\begin{proof*}
+	Se \(H\leq G\), temos
+	\[
+		H\times G\rightarrow G\quad (h, g)\mapsto hg.
+	\]
+	Observe que \(\mathcal{O}(g) = Hg\). Agora, se \(H = E(\mathcal{U}), \mathcal{U}\in X,\) então
+	\[
+		H\times \mathcal{U}\rightarrow \mathcal{U} \quad (h, u)\mapsto hu
+	\]
+	é uma ação de \(\mathcal{U}\) bem-definida. Logo, todas as órbitas dessa ação particionam \(\mathcal{U},\) ou seja,
+	existem \(u_{1}, \cdots, u_{n}\in \mathcal{U}\) tais que
+	\[
+		\mathcal{U} = \bigsqcup_{i=1}^{n}{Hu_{i}}.
+	\]
+	Logo, \(|\mathcal{U}| = \sum\limits_{i=1}^{n}|Hu_{i}| = \sum\limits_{}^{n}|H| = n|H|.\)
+	Portanto, \(|H|\biggl|\biggr.|\mathcal{U}|.\) \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Seja \(n=p^{\varepsilon }m, \varepsilon >0\), p primo, \(p\nmid m.\) Então,
+	o número N de subconjuntos de ordem \(p^{\varepsilon }\) de um conjunto de ordem n não
+	é divisível por p, isto é, \(p\nmid N\).
+\end{lemma*}
+\begin{proof*}
+	Exercício. \(\biggl(N = \begin{pmatrix}
+		n \\
+		p^{\varepsilon }
+	\end{pmatrix}\biggr)\)
+\end{proof*}
+O resultado a seguir é o primeiro dos três teoremas de Sylow.
+\hypertarget{sylow_one}{
+	\begin{theorem*}
+		Seja G um grupo finito e \(p\mid |G|,\) p primo. Então, existe um p-subgrupo de Sylow.
+	\end{theorem*}
+}
+\begin{proof*}
+	Seja \(|G| = n = p^{\varepsilon }m, (p^{\varepsilon }, m) = 1\) e considere
+	\[
+		X = \{\mathcal{U}\subseteq{G}: |\mathcal{U}| = p^{\varepsilon }\}.
+	\]
+	Temos \(G \curvearrowright X\) por multiplicação à esquerda. Logo, existem
+	\(\mathcal{U}_{1}, \cdots, \mathcal{U}_{n}\) em X tais que \(X = \bigsqcup_{}^{}{\mathcal{O}(\mathcal{U}_{i})}\).
+	Logo, \(N = |X| = \sum\limits_{}^{}|\mathcal{O}(\mathcal{U}_{i})|\), tal que do segundo lema,
+	\(p\nmid N.\) Então, existe j tal que \(p\nmid|\mathcal{O}(\mathcal{U}_{j})|\).
+	Agora, considere \(H = E(\mathcal{U}_{j}).\) Do lema 1, também,
+	\[
+		|H|\biggl|\biggr. |\mathcal{U}_{j}| = p^{\varepsilon }.
+	\]
+	Então, \(|H| = p^{r}\) para algum \(r\geq 0\). Pelo Teorema Órbita-Estabilizador,
+	\[
+		|G| = p^{\varepsilon }m = |H||\mathcal{O}(\mathcal{U}_{j})|,
+	\]
+	mas, como \(p\nmid|\mathcal{O}(\mathcal{U}_{j})|,\) segue que \(|H| = p^{\varepsilon }\)(i.e. \(r=\varepsilon \)). \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se \(p\mid |G|,\) então existe g em G tal que \(|g| = p.\)
+\end{crl*}
+\begin{proof*}
+	Escreva \(|G| = p^{\varepsilon }m\) \((p^{\varepsilon }, m) = 1\) e seja \(H\leq G\),
+	\(|H| = p^{\varepsilon }\) (Aqui, foi usado o \hyperlink{sylow_one}{Primeiro Teorema de Sylow})
+	Seja h em H diferente da identidade. Logo, \(|h| = p^{r}.\) Assim, \(g = h^{p^{r}-1}\)
+	tem ordem p, pois
+	\[
+		g^{p} = (h^{p^{r}-1})^{p} = h^{p^{r}} = 1.\quad\text{ \qedsymbol}
+	\]
+\end{proof*}
+Em seguida, temos o segundo dos três teoremas de Sylow.
+\hypertarget{sylow_two}{
+	\begin{theorem*}
+		Seja \(|G| = p^{\varepsilon }m, \varepsilon >0\).
+		\begin{itemize}
+			\item[1)] Os p-subgrupos de Sylow são conjugados entre si.
+			\item[2)] Todo p-subgrupo de G está contido em algum p-subgrupo de Sylow.
+		\end{itemize}
+	\end{theorem*}}
+Observação - No item (1), se H é p-subgrupo de Sylow, então qualquer outro é um elemento de
+\(\mathcal{O}(H) = \{gHg^{-1}: g\in G\}\).
+\begin{proof*}
+	Seja \(X\coloneqq \{xH: x\in G\},\) em que H é um p-subgrupo de Sylow de G. Observe que
+	\(|X| = m.\) Agora, considere \(G \curvearrowright X\) por
+	\[
+		G\times X\rightarrow X,\quad (g, xH)\mapsto gxH.
+	\]
+	Seja \(K\leq G\) um p-subgrupo e restrinja a ação anterior a K, isto é,
+	\[
+		K\times X\rightarrow X,\quad (k, xH)\mapsto kxH.
+	\]
+	Como K é um p-grupo e p não divide \(|X|,\) do \hyperlink{fixed_point}{Teorema do Ponto Fixo,} existe
+	\(x\in G\) tal que \(k \cdot xH = xH\) para todo k de K. Logo, dados \(k\in K\) e
+	\(h_{1}\in H,\) existe \(h_{2}\in H\) tal que
+	\[
+		kxh_{1} = xh_{2} \Longleftrightarrow k = xh_{2}h_{1}^{-1}x^{-1}\in xHx^{-1}.
+	\]
+	Portanto, \(K\subseteq{xHx^{-1}}\) e (2) está provado. Em particular, se K é um p-subgrupo de Sylow,
+	então \(K\leq xHx^{-1}, |K|^{\varepsilon } = |xHx^{-1}|\). Portanto, \(K = xHx^{-1}.\) \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se \(n_{p}\) é o número de p-subgrupos de Sylow distintos, então \(n_{p} = [G:N(H)]\), em
+	que H é um algum p-Sylow.
+\end{crl*}
+\begin{proof*}
+	Segue diretamente de
+	\[
+		n_{p} = |\mathcal{O}(H)| = \frac{|G|}{|N(H)|} = [G:N(G)].\quad\text{ \qedsymbol}
+	\]
+\end{proof*}
+\end{document}

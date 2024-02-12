@@ -1,0 +1,118 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 04/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Outra Caracterização das Isometrias em $\mathbb{R}^{2}$
+\end{itemize}
+\subsection{Isometrias em $\mathbb{R}^{2}$ - Relação com a Geometria.}
+\begin{theorem*}
+	Toda isometria do plano é da forma:
+	\begin{enumerate}
+		\item Isometrias que preservam orientação:
+		      \begin{enumerate}
+			      \item Translações;
+			      \item Rotação do plano por ângulo $\theta $ em torno de algum ponto;
+		      \end{enumerate}
+		\item Isometrias que não preservam orientação são:
+		      \begin{enumerate}
+			      \item[(c)] Reflexão com respeito a uma reta l;
+			      \item[(d)] Reflexão com respeito a uma reta l seguida de uma translação por um vetor não-nulo e
+			            paralelo a l.
+		      \end{enumerate}
+	\end{enumerate}
+\end{theorem*}
+\begin{proof*}
+	(i) Seja $f\in M_{2}$ que preserva orientação e que não é translação, então
+	$$
+		f = t_{a}\rho_{\theta }
+	$$
+	para algum $a\in \mathbb{R}^{2}$ e $\theta \neq0.$ Logo, queremos mostrar que existe $p\in \mathbb{R}^{2}$
+	tal que $t_{p}^{-1}ft_{p}=\rho_{\theta }.$
+
+	No entanto, $t_{p}^{-1}ft_{p}=t_{-t}t_{a}\rho _{\theta }t_{p} = t_{a-p+\rho (p)}\rho _{\theta }.$
+	Então, queremos $p\in \mathbb{R}^{2}$ tal que $a - p + \rho (p) = (Id - \rho )(p).$ Considere o operador linear
+	$$
+		Id - \rho _{\theta } = \begin{pmatrix}
+			1 - \cos{(\theta )} & \sin{(\theta )}   \\
+			-\sin{(\theta )}    & 1-\cos{(\theta )}
+		\end{pmatrix}
+	$$
+	e observe que $\det{(Id-\rho _{\theta })} = (1-\cos{(\theta )})^{2} +\sin{(\theta )}^{2} = 2-2\cos{(\theta )}.$
+	Além disso, $2-2\cos{(\theta )} = 0$ equivale $\cos{(\theta )}=1,$ ou seja, $\theta =0.$ Portanto, existe
+	$p\in \mathbb{R}^{2}$ tal que $t_{p}^{-1}ft_{p}=t_{\theta },$ ou seja,
+	$$
+		f = t_{p}\rho _{\theta }t_{p}^{-1}.
+	$$
+
+	(ii) Seja $f\in M_{2}$ que reverte orientação. Então,
+	$$
+		f = t_a\rho _{\theta }\sigma.
+	$$
+	Note que $\rho _{\theta }\sigma $ é a reflexão por uma reta passando pela origem. Assim, a menos de mudança de coordenada,
+	podemos supor $\theta =0$, isto é, $f = t_{a}\sigma .$
+
+	Agora, seja $(x, y)\in \mathbb{R}^{2}.$ Logo, $f(x,y) = t_{a}(x, -y)=(x+a_{1}, -y+a_{2}),$ sendo $a = (a_{1}, a_{2})$.
+	Se $a_{1}=0,$ então $f(x, y) = (x, -y+a_{2}),$ tal que f é uma reflexão com respeito à reta $l=\{y=\frac{1}{2}a_{2}\}.$
+
+	Por outro lado, se $a_{1}\neq0,$ então f é reflexão com respeito à reta l com uma translação por $(a_{1}, 0).$ \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se $f\in M_{2}$ é como na demonstração do Teorema(i)(b). Então, o p como na demonstração é um ponto fixo de f.
+\end{crl*}
+\begin{proof*}
+	$f(p)=t_{a}\rho _{\theta }(p) = t_{a}(p-a) = p.$ \qedsymbol
+\end{proof*}
+\begin{crl*}
+	A composição de rotações por (possivelmente) pontos diferentes é ainda uma rotação por (possivelmente) um terceiro ponto,
+	a menos que tal composição seja uma translação.
+\end{crl*}
+\begin{proof*}
+	Composição de isomorfismo que possuem orientação é uma isometria que preserva orientação.
+\end{proof*}
+\begin{example*}
+	Se $\rho _{1}$ é a rotação centrada em (1, 0) com $\theta = \pi $ e se $\rho _{2}$ é a rotação centrada em (3,0) com
+	$\gamma =\pi ,$ então $\rho _{2}\rho _{1}=t_{a}, a = (4, 0)$ \qedsymbol
+\end{example*}
+\begin{crl*}
+	A composição de composição de reflexões $\sigma _{1}, \sigma _{2}$ por retas não paralelas $l_{1}, l_{2}$ é uma rotação no ponto
+	$p=l_{1}\cap l_{2}.$
+\end{crl*}
+\begin{proof*}
+	$\sigma_{1}\sigma _{2}$ preserva orientação. Do teorema,
+	$$
+		\sigma _{1}\sigma _{2} = ta\text{ ou } \rho _{\theta }.
+	$$
+	No entanto, $\sigma _{1}\sigma _{2}(p) = p.$ Portanto, $\sigma _{1}\sigma _{2} = \rho _{\theta }$ centrada em p. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	A composição de reflexões $\sigma _{1}$ e $\sigma _{2}$ por retas paralelas distintas é uma translação por um vetor ortogonal
+	às retas paralelas.
+\end{crl*}
+\begin{proof*}
+	Do teorema, $\sigma _{1}\sigma _{2} = t_{a},$ ou $\sigma _{1}\sigma _{2} = \rho _{\theta }.$ Como $\sigma _{1}, \sigma _{2}$
+	não têm ponto fixo, então $\sigma _{1}\sigma _{2} = t_{a}.$
+
+	A menos de mudança de coordenada, podemos supor $\sigma _{2}$ reflexão no eixo x e $\sigma _{1}$ reflexão $l=\{y=\frac{b}{2}\}.$ Assim,
+	$\sigma _{2}(x, y) = (x, -y), \sigma _{1}(x,y) = (x, -y+b)$ e $\sigma _{1}\sigma _{2}(x, y)=\sigma _{1}(x, -y) = (x, y+b).$ Portanto,
+	$$
+		\sigma _{1}\sigma _{2}(x,y) = t_{(0, b)}(x,y)\quad\text{ e }(0,b)\perp l.\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{prop*}
+	Seja $\mathcal{O}_{2}$ o grupo dos operadores ortogonais. Escolha um sistema de coordenadas. Então,
+	\begin{itemize}
+		\item[a)] $\mathcal{O}_{2}\leq M_{2}$ é o subgrupo das isometrias que fixam a origem.
+		\item[b)] Se $H\leq M_{2}$ das isometrias que fixam um ponto p de $\mathbb{R}^{2},$ então $H = t_{p}\mathcal{O}_{2}t_{p}^{-1}.$
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	a) Ok.
+
+	b) Seja $f\in H, f(p) = p.$ Então,
+	$$
+		\underbrace{t_{p}^{-1}ft_{p}(0)}_{\in \mathcal{O}_{2}} = t_{p}^{-1}f(p) = t_{p}^{-1}(p) = 0.
+	$$
+	Logo, existe $g\in \mathcal{O}_{2}$ tal que $t_{p}^{-1}ft_{p} = g.$ Portanto, $f = t_{p}gt_{p}^{-1}.$ \qedsymbol
+\end{proof*}
+\end{document}

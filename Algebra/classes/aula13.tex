@@ -1,0 +1,208 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 09/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Grupos diedrais;
+	\item Subgrupos discretos;
+	\item Ação de grupo;
+	\item Teorema do Ponto Fixo.
+\end{itemize}
+\subsection{Grupos Diedrais}
+\begin{def*}
+	Seja \(D_{n}\) o subgrupo de \(M_{2}\) gerado por \(\rho _{\theta }\) e r,
+	em que \(\theta =\frac{2\pi }{n}\) e \(r = \begin{bmatrix}
+		1 & 0  \\
+		0 & -1
+	\end{bmatrix}\), i.e., \(D_{n}=\left< \rho _{\theta }, r \right>.\) Chamamos
+	\(D_{n}\) de grupo diedral. \(\square\)
+\end{def*}
+\begin{prop*}
+	Vale que \(|D_{n}|=2n\) e \(D_{n}\cong{\left< x, y \right>}\), em que \(x^{n} = y^2=1\) e
+	\(xy=x^{-1}y\).
+\end{prop*}
+\begin{proof*}
+	Observe que \(\rho _{\theta }^{n} = Id\) e \(r^2 = id\). Além disso, \(\rho _{\theta }r = r\rho_{\theta }^{-1}\), ou seja,
+	\[
+		\begin{pmatrix}
+			\cos{(\theta )} & -\sin{(\theta )} \\
+			\sin{(\theta )} & \cos{(\theta )}
+		\end{pmatrix}\begin{pmatrix}
+			1 & 0  \\
+			0 & -1
+		\end{pmatrix} = \begin{pmatrix}
+			1 & 0  \\
+			0 & -1
+		\end{pmatrix}\begin{pmatrix}
+			\cos{(\theta )}  & \sin{(\theta )}  \\
+			-\sin{(\theta )} & \cos{(\theta )}.
+		\end{pmatrix}
+	\]
+	Logo, os elementos de \(D_{n}\) são \(Id, \rho _{\theta }, \rho _{\theta }^2, \cdots, \rho _{\theta }^{n-1},
+	r, r\rho _{\theta }, r\rho _{t}^{2}, \cdots, r\rho _{\theta }^{n-1}\). Portanto,
+	\(|D_{n}| = 2n\). Fica como exercício mostrar que \(D_{n}\cong{\left< x, y \right>}\) utilizando
+	\[
+		\rho \mapsto x, \quad r\mapsto y.\text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{example*}
+	\begin{itemize}
+		\item[1)] \(D_{1}\cong{\mathbb{Z}/2 \mathbb{Z}}\);
+		\item[2)] \(D_{2} = \left< Id, r, \rho , r\rho  \right>\), em que \(\rho = \rho _{\theta }, \theta =\pi \).
+		\item[3)] \(D_{3}\cong{S_{3}} = \left< (12), (123) \right>\)\text{ (Exercício).}
+	\end{itemize}
+\end{example*}
+Observe que \(D_{n}\) é o grupo de simetrias do polígono regular de n-lados.
+Além disso, \(D_{n}\neq S_{n}, n >3\).
+\begin{def*}
+	Um subgrupo \(\Gamma\leq (\mathbb{R}, +)\) é chamado subgrupo discreto se existe
+	\(\varepsilon  \in \mathbb{R}_{\geq 0}\) tal que para todo \(x\in\Gamma/\{0\}, |x| > \varepsilon .\)
+\end{def*}
+\begin{lemma*}
+	Suponha que \(\Gamma\leq (\mathbb{R}, +)\) é discreto. Então, \(\Gamma =\{0\}, \Gamma =a \mathbb{Z}\)
+	para algum a real.
+\end{lemma*}
+\begin{proof*}
+	Sejam x, y em \(\Gamma \) distintos. Como \(\Gamma\leq (\mathbb{R}, +)\),
+	\[
+		x - y\in \Gamma  \text{ i.e. }  |x-y| > \varepsilon
+	\]
+	Logo, um intervalo limitado de \(\mathbb{R}\) só pode conter uma quantidade finita
+	de elementos de \(\Gamma \).
+	\[
+		\biggl((an)\subseteq{(a,b)\subseteq{\mathbb{R}}}, a_{n}\in \Gamma \Rightarrow \text{ se } a_{n_{0}} < a_{n}\text{ e se } a_{n_{+}} > a_{n}\text{ para todo } n \text{, então } |a_{n_{0}}-a_{n_{+}}| > |b-a| \biggr)
+	\]
+	Suponha \(\Gamma \neq\{0\}\), então existe \(b\in \Gamma , b\neq0\). Como
+	\(\Gamma\leq (\mathbb{R}, +)\), então \(-b\in \Gamma \). Logo, \(\Gamma \) contém
+	algum número real positivo. Seja \(a\in\Gamma \) o menor elemento positivo.
+
+	\textbf{Afirmativo: } \(\Gamma =a \mathbb{Z}\).
+
+	De fato, se é claro que \(a \mathbb{Z} \subseteq{\Gamma }\). Para \(\Gamma \subseteq{a \mathbb{Z}}\),
+	seja \(b\in \Gamma.\) Existe r real tal que \(b=ar\). Agora, sejam m em \(\mathbb{Z}\)
+	e \(0\leq r_{0} < 1\) tais que \(r = m + r_{0}\). Logo,
+	\[
+		b = am + ar_{0} \Rightarrow b-am = ar_{0}\in\Gamma.
+	\]
+	Pela escolha de a, temos \(r_{0} = 0\), ou seja, \(b=am\in a \mathbb{Z}\). \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja \(G\leq O_{2}, |G| < \infty\). Então, existe um \(n\in \mathbb{Z}_{\geq 0}\) tal que
+	\begin{itemize}
+		\item[a)] \(G\cong{\mathbb{Z}/n \mathbb{Z}}, G = <\rho >, \rho = \rho _{\theta }, \theta =\frac{2\pi }{n}\);
+		\item[b)] \(G\cong{D_{n} = <r, \rho >}, \rho  = \rho _{\theta }, \theta =\frac{2\pi }{n}\).
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Lembre-se que \(\mathcal{O}_{2} = \left< r, \rho _{\theta } \right>\). Vamos separar em casos.
+
+	\textbf{Caso 1 - G só contém rotações:}
+
+	Seja \(H\coloneqq \{\theta \in \mathbb{R}: \rho _{\theta }\in G\}\). Como
+	\(G\leq \mathcal{O}_{2}\) e \(|G| < \infty,\) então \(H\leq (\mathbb{R}, +)\)
+	é discreto. Do lema anterior, \(H = a \mathbb{Z}\) para algum a real.
+
+	Logo, G é o grupo das rotações por ângulos múltiplos inteiros de a. Em
+	particular, G é cíclico.
+
+	Por fim, observe que \(2\pi \in H,\) logo existe n inteiro tal que \(2\pi =an\),
+	ou seja, \(a = \frac{2\pi }{n}.\) Portanto, \(G = <\rho_{0}>, \theta =\frac{2\pi }{n}\).
+
+	\textbf{Caso 2 - r pertence a G:}
+
+	Seja \(H\leq G\) das rotações em G. Do caso 1, \(H = <\rho >, \rho = \rho _{\theta }, \theta =\frac{2\pi }{n}, n\in \mathbb{Z}\).
+	Assim, \(r\rho^{j}\in G\) para todo \(j=0, \cdots, n-1.\) Isto é, \(D_{n}\subseteq{G}\).
+
+	Afirmamos que \(G=D_{n}\). De fato, seja g em G. Se g é uma rotação, então
+	g pertence a H, mas como \(H\subseteq{D_{n}}\), então g pertence a \(D_{n}\).
+	Se g é uma reflexão, então \(g=\rho^{j}r\) para algum j. Mas, \(r\in G,\) então
+	\(gr = \rho^{j}\in G,\) então \(\rho ^{j}=\rho _{\theta }^{i}\) para algum i,
+	e assim \(g=\rho _{\theta }^{i}r\in D_{n}\). \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Seja \(S = \left< s_{1}, \cdots, s_{n} \right>\subseteq{\mathbb{R^{2}}}\) e
+	p o seu centroide, isto é, \(p=\frac{1}{n}(s_{1} + \cdots + s_{n})\). Seja \(f\in M_{2}\)
+	e \(h_{i}=f(s_{i}), q=f(p), i = 1,\cdots,n.\) Então q é o centroide de
+	\(\{h_{1}, \cdots, h_{n}\}\).
+\end{lemma*}
+\begin{proof*}
+	Seja \(f\in M_{2}\), podemos escrever \(f=t_{a}\varphi \) para \(a\in \mathbb{R}^{2}, \varphi \in O_{2}\).
+
+	Se \(f=t_{a}\), então
+	\begin{align*}
+		q = p + a & =\frac{1}{n}(s_{1}+\cdots+s_{n})+a                                              \\
+		          & =\frac{1}{n}((h_{1}-a)+\cdots+(h_{n}-a)) + a = \frac{1}{n}(h_{1}+\cdots+h_{n}).
+	\end{align*}
+	Se \(f=\varphi \),
+	\begin{align*}
+		q = \varphi (p) & = \varphi \biggl(\frac{1}{n}(s_{1}+\cdots+s_{n})\biggr)                                                               \\
+		                & =\frac{1}{n}\biggl(\varphi (s_{1})+\cdots+\varphi (s_{n})\biggr) = \frac{1}{n}(h_{1}+\cdots+h_{n}).\text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{crl*}
+	Seja \(G\leq M_{2}, |G| < \infty,\) então existe n em \(\mathbb{Z}_{\geq 0}\) tal que
+	\begin{itemize}
+		\item[a)] \(G\cong{\mathbb{Z}/n \mathbb{Z}}, G = <\rho >, \rho =\rho _{\theta }, \theta =\frac{2\pi }{n}\);
+		\item[b)] \(G\cong{D_{n}}=\left< r, \rho  \right>, \rho =\rho _{\theta }, \theta =\frac{2\pi }{n}\).
+	\end{itemize}
+\end{crl*}
+\subsection{Ações de Grupos}
+\begin{def*}
+	Seja G um grupo e X um conjunto. Uma ação de G em X é um mapa
+	\[
+		G\times{X}\rightarrow X, (g,x)\mapsto g \cdot x
+	\]
+	satisfazendo
+	\begin{itemize}
+		\item[i)] \(1 \cdot x = x;\)
+		\item[ii)] \((gh)\cdot x= g \cdot (h \cdot x). \square\)
+	\end{itemize}
+\end{def*}
+Denotamos a frase `` G é um grupo agindo em X'' por \(G \curvearrowright X\).
+\begin{example*}
+	\begin{itemize}
+		\item[i)] \(M_{2} \curvearrowright \mathbb{R}^{2}, \mathcal{O}_{2} \curvearrowright \mathbb{R}^{2}\);
+		\item[ii)] \(S_{n}\curvearrowright \{1, \cdots, n\}\);
+		\item[iii)] \(G \curvearrowright G\).
+	\end{itemize}
+\end{example*}
+Observe que, dado \(G \curvearrowright X\), temos
+\[
+	m_{g}:X\rightarrow X, x\mapsto gx
+\]
+como uma bijeção cuja inversa é \(m_{g^{-1}}\).
+\begin{def*}
+	Dada uma ação \(G \curvearrowright X\) e \(x\in X\), defina
+	\[
+		\mathcal{O}(x)\coloneqq \{x'\in X: x'=gx, g\in G\}
+	\]
+	como a orbita de x sob a ação \(G \curvearrowright X.\square\)
+\end{def*}
+\hypertarget{fixed_pt}{
+	\begin{theorem*}
+		Seja \(G\leq M_{2}\) finito. Então, existe p em \(\mathbb{R}^{2}\) tal que
+		\(g(p)=p\) para todo g em G.
+	\end{theorem*}
+}
+\begin{proof*}
+	Seja a em \(\mathbb{R}^{2}\) e
+	\[
+		\mathcal{O}(a)\coloneqq \{g(a):g\in G\}
+	\]
+	Como \(|G| < \infty,\) podemos escrever
+	\[
+		\mathcal{}(a) = \{s_{1},\cdots, s_{n}\}\subseteq{\mathbb{R}^{2}}.
+	\]
+	Além disso, se g pertence a G, então
+	\[
+		m_{g}:\mathcal{O}(a)\rightarrow \mathcal{O}(a), \quad s_{i}\mapsto g(s_{i})
+	\]
+	Com isso, se p é o centroide de \(\mathcal{O}(a)\),
+	\begin{align*}
+		g(p) & = g(\frac{1}{n}(s_{1}+\cdots+s_{n}))    \\
+		     & = \frac{1}{n}(g(s_{1})+\cdots+g(s_{n})) \\
+		     & = \frac{1}{n}(s_{1}+\cdots+s_{n}) = p.
+	\end{align*}
+	Portanto, \(g(p)=p\) para todo g em G. \qedsymbol
+\end{proof*}
+\end{document}

@@ -1,0 +1,214 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 06 - 11/04/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Classes de equivalência;
+	\item índice de um grupo;
+	\item Teorema de Lagrange.
+\end{itemize}
+
+\subsection{Classe de Equivalência de Partições}
+\begin{theorem*}
+	Uma partição em um conjunto S define uma relação de equivalência em S. Reciprocamente, uma relação de
+	equivalência define uma partição em S.
+\end{theorem*}
+\begin{proof*}
+	Seja $S = \bigsqcup_{i\in I}S$ uma partição, tal que
+	$$
+		R = \{(a,b)\in S\times S: \exists i\in I, a ,b\in S_{i}\}
+	$$
+	é uma definição de equivalência em S.
+
+	Reciprocamente, dada uma relação de equivalência em S, temos $[a]$ como a classe de equivalência de um elemento a de S.
+	Por reflexividade, $a\in[a],$ ou seja, $[a]$ é não-vazio e
+	$$
+		S = \bigcup_{a\in S}[a].
+	$$
+	\textbf{Afirmação:} Se $[a]\cap[b]\neq\emptyset,$ então $[a]=[b].$
+	Com efeito, seja c um elemento na intersecção das classes [a] e [b]. Segue que $a\sim c$ e $b\sim c$. Por simetria,
+	$c\sim b$, logo, por transitividade, $a\sim c\sim b$, ou seja, $c\sim b$. Tome x em [b], ou seja, $b\sim x.$ Novamente,
+	por transitividade, $a\sim x,$ isto é, $x\in[a].$ Provamos, então, que $[a]\subseteq{[b]}$ e $[b]\subseteq{[a]}$, ou seja,
+	$[a]=[b].$ \qedsymbol
+\end{proof*}
+\begin{example*}
+	A ordem de um elemento define uma relação de equivalência em um grupo. Particularmente, no caso de $S_{3},$ as classes
+	de equivalência são
+	\begin{align*}
+		 & (i)\quad [(12)]  = \{(12), (13), (23)\} \\
+		 & (ii)\quad [(123)] = \{(123), (132)\}    \\
+		 & (iii)\quad [id] = \{id\}.
+	\end{align*}
+	Assim, $S_{3}=[(12)]\bigsqcup{}[(123)]\bigcup{[id]}.$ \qedsymbol
+\end{example*}
+\begin{def*}
+	Se $S = \bigsqcup{S_{i}}_{i\in I}$ é uma partição, denotamos $\overline{S}\coloneqq\{[S_{i}]\} $ o conjunto das classes
+	de equivalência dadas por $S_{i}.$
+\end{def*}
+\begin{example*}
+	Se $\mathbb{Z}=\{\text{números pares}\}\bigsqcup{\{\text{números ímpares}\}}$, então $\overline{\mathbb{Z}} =\{[\text{pares}], [\text{ímpares}]\}
+		\{\overline{0}, \overline{1}\}.$
+\end{example*}
+Observe que, se S tem uma relação de equivalência, é possível ``projetarmos'' um elemento de S em sua classe de equivalência através de
+$$
+	\pi:S\rightarrow \overline{S},\quad a\mapsto[a]=\overline{a}.
+$$
+\begin{example*}
+	Fixe um inteiro n. Dados a, b também inteiros, dizemos que $a\sim b$ módulo n (ou $a\equiv b\mod n$) se $n|a-b.$ Mostre que
+	a congruência mod n é de fato uma relação de equivalência em $\mathbb{Z}.$ Além disso, $\overline{\mathbb{Z}}^{n} = \mathbb{Z}/n\mathbb{Z} = \{\overline{0}, \cdots, \overline{n-1}\}.$
+\end{example*}
+\begin{def*}
+	Se $\varphi:S\rightarrow T$ é um mapa entre conjuntos, então $\varphi$ define uma relação de equivalência em S dada por
+	$$
+		a\sim b\quad \Longleftrightarrow \varphi(a) = \varphi(b).
+	$$
+	Além disso, [a] é definida como a fibra por $\varphi$ de $\varphi(a) = t,$ ou seja,
+	$$
+		\varphi^{-1}(t) = \{s\in S: \varphi(s) = t\}.
+	$$
+	Em outras palavras, se $\varphi(a) = t$, então $\overline{a} = [a] = \varphi^{-1}(t).$ Em partícular,
+	$$
+		S = \bigsqcup_{t\in Im\varphi}{\varphi^{-1}(t)}.
+	$$
+\end{def*}
+
+\subsection{Classes Laterias e índices.}
+\begin{prop*}
+	Sejam $\varphi:G\rightarrow G'$ morfismos de grupos e K = $\ker{\varphi}$. Então, a fibr de $\varphi$ que contém o elemento a
+	a de G é a classe lateral $aK$. Além disso, essas classes particionam G e correspondem aos elementos da imagem de $\varphi.$
+\end{prop*}
+\begin{proof*}
+	Segue que, dado b em aK, $\varphi(a) = \varphi(b) = t$. Disto segue que a, b pertencem \`a pré-imagem de $\varphi, \varphi^{-1}(t).$
+\end{proof*}
+\begin{prop*}
+	As classes laterais \`a esquerda de H em G são as classes de equivalência da seguinte relação
+	$$
+		a\cong{b} \Longleftrightarrow b = ah, \quad h\in H.
+	$$
+	Denotamos $a\cong{b}$ por $a\equiv b.$
+\end{prop*}
+\begin{proof*}
+	Observe que a = 1a, $1\in H.$ Logo, $a\cong{a}.$ Se $a\cong{b},$ existe h em H tal que b = ah, ou seja, $a = bh^{-1}, h^{-1}\in H$
+	de modo que $b\cong{a}.$
+
+	Se $a\cong{b}, b\cong{c},$ existem $h_{1}, h_{2}\in H$ tais que $b = ah_{1}, c = bh_{2},$ de forma que $c = ah_{1}h_{2},$ i.e.,
+	$a\cong{c}.$
+
+	Por fim,
+	\begin{align*}
+		[a] & = \{b\in G: a\cong{b}\}                            \\
+		    & = \{b\in G: \exists h\in H\text{ tal que }b = ah\} \\
+		    & = \{ah: h \in H\} = aH.\text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{crl*}
+	G = $\bigsqcup_{a\in G\text{distintos}}^{}{aH}.$
+\end{crl*}
+\begin{example*}
+	Em $S_{3} = <(12), (123)>$, seja $H = <(12)>.$ Temos
+	\begin{align*}
+		 & (i)id H = H = \{id, (12)\} = (12)H                               \\
+		 & (ii)(123)H = \{(123), (123)(12)\} = (123)(12)H                   \\
+		 & (iii)(123)^{2}H = \{(123)^{2}, (123)^{2}(12)\} = (123)^{2}(12)H.
+	\end{align*}
+	De fato, $S_{3} = H\bigsqcup_{}^{}{(123)H}\bigsqcup_{}^{}{(123)^{2}H}$ \qedsymbol
+\end{example*}
+\begin{def*}
+	O número de classes laterais (\`a esquerda) de H em G é chamado o índice de H em G, denotado por $[G:H].\square$
+\end{def*}
+\begin{example*}
+	No exemplo anterior, $[S_{3} : H]=3, |H| = 2.$
+\end{example*}
+\begin{lemma*}
+	Todas as classes laterais aH de H em G têm mesma ordem.
+\end{lemma*}
+\begin{proof*}
+	O mapa $m_{a}:H\rightarrow H_{a}, h\mapsto ah$ é um mapa bijetor com inversa $m_{a^{-1}}.$ \qedsymbol
+\end{proof*}
+Este lema será usado para demonstrar um resultado extremamente importante em Teoria de Grupos. Essencialmente falando,
+ele afirma que a ordem de um grupo é um múltiplo da ordem dos seus subgrupos. Mas por que isso importa? Além de ser um
+resultado intrigante por si só, ele pode ser usado para mostrar que grupos não são isomórficos, quantidade de elementos de
+uma dada ordem dentro de um grupo, entre outras coisas. Segue seu enunciado.
+\begin{theorem*}
+	Se G é um grupo finito e H um subgrupo de G, então
+	$$
+		|G| = |H|[G:H].
+	$$
+	Em particular, $|H|$ divide $|G|.$
+\end{theorem*}
+\begin{proof*}
+	Da proposição anterior, sabemos que $G = \bigsqcup_{a\in{G}\text{diferentes}}^{}{aH}.$ Portanto,
+	$$
+		|G| = \sum\limits_{a\in{G}\text{diferentes}}^{}|aH| = |H|[G:H]\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{crl*}
+	Se a pertence a G, então $|a|\biggl|\biggr.|G|$
+\end{crl*}
+\begin{proof*}
+	Segue do Teorema de Lagrange que
+	$$
+		|a|=|<a>|\biggl|_{}^{}\biggr.|G|\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{crl*}
+	Se $|G|=p$ número primo e a é um elemento de G diferente do elemento neutro, então
+	$$
+		G = <a>.
+	$$
+\end{crl*}
+\begin{proof*}
+	Se |a| divide p, então $|a|=1$ ou p, mas, como $a\neq 1, |a| = p,$ segue que
+	$$
+		G = <a>\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{crl*}
+	Se $\varphi:G\rightarrow G'$ é um morfismo de grupos finitos, segue que
+	\begin{align*}
+		 & 1)\quad |G| = |\ker{\varphi}||im\varphi|              \\
+		 & 2)\quad |\ker{\varphi}| \biggl|_{}^{}\biggr. |G|      \\
+		 & 3)\quad |im\varphi|\text{ divide } |G|\text{ e }|G'|.
+	\end{align*}
+\end{crl*}
+\begin{proof*}
+	$1\Rightarrow)$ Temos
+	\begin{align*}
+		G & = \bigsqcup_{}^{}{a\ker{\varphi}}                                              \\
+		  & \Rightarrow |G| = |im\varphi||\ker{\varphi}|                                   \\
+		  & \Rightarrow |G| = |\ker\varphi|[G:\ker{\varphi}] = |\ker{\varphi}||im\varphi|.
+	\end{align*}
+	Os outros itens ficam como exercício para os estudantes. \qedsymbol
+\end{proof*}
+\begin{example*}
+	Considere $sgn:S_{n}\rightarrow \{\pm 1\}.$ Temos
+	$$
+		|im(sgn)| = 2,
+	$$
+	de modo que
+	$$
+		|A_{n}| = |\ker{sgn}| = \frac{|S_{n}|}{2} = \frac{n!}{2}.
+	$$
+\end{example*}
+\begin{prop*}
+	Se $K\leq{H}\leq{G},$ então
+	$$
+		[G:K] = [G:H][H:K]
+	$$
+\end{prop*}
+\begin{proof*}
+	Suponha que $[G:H] = n$ e $[H:K]=m$. Então,
+	$$
+		G = g_{1}H\bigsqcup_{}^{}{\cdots}\bigsqcup_{}^{}{g_{n}H} = \bigsqcup_{i=1}^{n}{g_{i}H}\quad\text{e}\quad H = \bigsqcup_{j=1}^{m}{h_{j}K}.
+	$$
+	A multliplicação por $g_{i}$ é uma bijeção
+	$$
+		m_{g_{i}}:h_{j}K\rightarrow g_{i}h_{j}K,\quad x\mapsto g_{i}x.
+	$$
+	Assim, $g_{i}H = \bigsqcup_{j=1}^{m}{g_{i}h_{j}K}.$ Portanto,
+	$$
+		G = \bigsqcup_{i=1}^{n}{\biggl[\bigsqcup_{j=1}^{m}{g_{i}g_{j}K}\biggr]},
+	$$
+	de onde concluí-se que $[G:K]=mn.$ \qedsymbol
+\end{proof*}
+\end{document}

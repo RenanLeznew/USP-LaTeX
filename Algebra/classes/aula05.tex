@@ -1,0 +1,186 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 30/03/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Subgrupos Normais;
+	\item Isomorfismos e Automorfismos;
+	\item Partições e relações de equivalência.
+\end{itemize}
+\subsection*{Errata última Aula}
+Seja $P_{ij}\in \mathbb{M}_{n}(\mathbb{R})$ tal que se $P_{ij}=(a_{kl})$, então $a_{kl} = 1$ se k = i, l = j e 0 caso contrário.
+Assim, se $\sigma\in S_{n},$
+$$
+	U(\sigma) = (e_{\sigma(1)}\cdots e_{\sigma(n)}) = \sum\limits_{}^{}P_{\sigma(i), i},
+$$
+em que $e_{j}$ é o vetor em $\mathbb{R}^{n}$ com 1 na j-ésima entrada e zero nos demais. De fato, $U(\sigma)$ é a matriz
+da tansformação linear $\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}, e_{j}\mapsto e_{\sigma(j)}.$
+\subsection{Subgrupos Normais}
+Começamos com um corolário \`a última aula:
+\begin{crl*}
+	Uma $\varphi$ é injetora se, e somente se, $\ker{(\varphi)} =\{0\}.$
+\end{crl*}
+\begin{proof*}
+	$ \Rightarrow)$ Seja a um elemento do kernel de $\varphi$. Então,
+	$$
+		\varphi(a) = 1' = \varphi(1).
+	$$
+	Mas, como $\varphi$ é injetora, segue que a = 1 é o único elemento no kernel.
+
+	$ \Leftarrow)$ Suponha que $\varphi$ tem kernel trivial, i.e., $\ker{(\varphi)} =\{0\}.$ Então,
+	$$
+		\varphi(a)\varphi(b)^{-1} = 1' \Rightarrow 1 = \varphi(a)\varphi(b^{-1}) = \varphi(ab^{-1}) \Rightarrow ab^{-1}\in\ker{\varphi} = {1}.
+	$$
+	Portanto, $ab^{-1} = 1$ e, assim, $a = b.$ \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se G é um gurpo e a, g seus elementos, dizemos que $gag^{-1}\in G$ é um conjugado de a com respeito a g. Dois elementos a, b
+	de G são conjugados se existe um g no grupo tal que $a = g b g^{-1}.\square$
+\end{def*}
+\begin{def*}
+	Sejam G um grupo e $H\leq{G}$. Dizemos que H é um subgrupo normal a G ($H\trianglelefteq G$) se para todos $h\in H$ e $g\in G$,
+	$ghg^{-1}\in H$, i.e., H absorve os conjugados de seus elementos. $\square$
+\end{def*}
+Em outras palavras, um subgroup é normal se ele é fechado pela conjugação, o que pode ser denotado por $gHg^{-1}\subseteq{H},$ para todo
+g de G.
+\begin{prop*}
+	Se $H\leq{g},$ são equivalente
+	\begin{align*}
+		 & i)\quad H\trianglelefteq{G} \\
+		 & ii)\quad gHg^{-1} = H       \\
+		 & iii)\quad gH = Hg.
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	(1) $ \Rightarrow$ (2): Obviamente, $gHg^{-1}\leq{H}$ por definição. Sejam h em H e g em G. Então, $ghg^{-1}\in gHg^{-1}\subseteq{H},$
+	tal que existe x em H que satisfaz $ghg^{-1} = x \Rightarrow h = \underbrace{(g^{-1})x(g^{-1})^{-1}}_{\in gHg^{-1}}$
+
+	(2) $ \Rightarrow$ (1): Ok.
+
+	(1) $ \Rightarrow$ (3): Se x pertence a gH, x = gh para algum h de H. Por hipótese, $gHg^{-1}\subseteq{H}$, de maneira que
+	$ghg^{-1} = y\in H$, ou seja, $gh = yg.$ Como x = gh, $x = yg\in Hg$. Portanto, $gH\subseteq{Hg}.$ O outro lado da inclusão fica como exercício.
+
+	(3) $\Rightarrow$ (1): Se $x\in gHg^{-1}, x = ghg^{-1}, h\in H$, segue da hipótese que $gh = h'g$ para algum h' em H. Assim,
+	$x = h'\in H.$ \qedsymbol
+\end{proof*}
+\begin{example*}
+	\begin{itemize}
+		\item[1)] Se G é um grupo, são subgrupos normais: G, $\{e\}$, Z(g).
+		\item[2)] Se G é um grupo abeliano, todo subgrupo é normal, mas não vale a volta.
+	\end{itemize}
+\end{example*}
+\begin{example*}
+	Exercício: Seja $Q = \{\pm1, \pm i, \pm j, \pm k: -1^{2} = 1, i^{2} = j^{2} = k^{2} = -1\}.$ Mostre que Q é um grupo
+	não abeliano, mas que todo subgrupo é normal.
+\end{example*}
+\begin{example*}
+	$<(12)> = <id, (12)>\not\trianglelefteq{S_{3}}$, visto que
+	$$
+		(123)(12)(123)^{-1} = (32)\not\in <(12)>\\
+	$$
+	Portanto, $<(12)>$ não é um subgrupo normal de $S_{3}.$
+\end{example*}
+\begin{prop*}
+	Se $\varphi:G\rightarrow G'$ é um morfismo, então $\ker{\varphi}\trianglelefteq{G}.$
+\end{prop*}
+\begin{proof*}
+	Sejam g um elemento de G e h um elemento de $\ker{\varphi}$. Então,
+	$$
+		\varphi(ghg^{-1}) = \varphi(g)\varphi(h)\varphi(g^{-1}) = \varphi(g)1'\varphi(g)^{-1} = \varphi(g)\varphi(g)^{-1} = 1'.
+	$$
+	Portanto, $ghg^{-1}\in\ker{\varphi}$ e, portanto, $\ker{\varphi}\trianglelefteq{G}.$ \qedsymbol
+\end{proof*}
+\begin{example*}
+	\begin{itemize}
+		\item[1)] $SL_{n}\trianglelefteq{GL_{n}}, \quad SL_{n} = \ker{det}.$
+		\item[2)] $A_{n} = \ker{sgn}\trianglelefteq{S_{n}}, \quad sgn:S_{n}\rightarrow\{\pm 1\}, \sigma\mapsto \det{U(\sigma)}.$
+	\end{itemize}
+\end{example*}
+Lembre-se que, dado $\sigma\in S_{n}, \sigma = \tau_{1}\cdots\tau_{r}$ são 2-ciclos, então $sgn(\sigma) = (-1)^{r}.$
+\begin{def*}
+	Sejam G, G' grupos. Um isomorfismo $\varphi$ é um morfismo $\sigma:G\rightarrow G'$ bijetor. Se G = G', $\varphi$ é chamado automorfismo.
+	Por fim, se existe um isomorfismo entre dois grupos, dizemos que eles são isomorfos, escrevendo $G\cong G'$
+\end{def*}
+\textbf{(Nota ao leitor)} Mas o que há de útil em isomorfismo? Por que nos importamos?
+
+Em álgebra linear, estudamos os isomorfismos entre espaços vetoriais, e como eles preservavam algumas propriedades. Essencialmente,
+o mesmo ocorrerá aqui, ou seja, se há um isomorfismo entre dois grupos, essencialmente estamos estudando o mesmo grupo, mas sob uma ótica diferente.
+Os elementos de um grupo podem ser escritos utilizando os do outro, eles terão os mesmos tamanhos, a propriedade abeliana será preservada, etc.
+Com isso, caso encontre um grupo aparentemente muito difícil de trabalhar, é possível simplificar o problema encontrando um outro grupo
+isomorfo e que facilitará seu serviço. Veremos exemplos a seguir.
+\begin{example*}
+	\begin{itemize}
+		\item[1)] Todo subgrupo de ordem 2 é isomorfo a $S_{2}$.
+		\item[2)] Há um isomorfismo entre o grupo aditivo dos reais e o multiplicativo positivo dado por $exp:(\mathbb{R}, +)\rightarrow (\mathbb{R}_{>0}, \cdot), x\mapsto e^{x}.$'
+		\item[3)] Se g é um elemento de G de ordem infinita, então $\mathbb{Z}\rightarrow <g>\leq{G}, n\mapsto g^{n}$ é um isomorfismo.
+		\item[4)] Seja $P\leq{GL_{n}}$ o conjunto das matrizes com somente um 1 em cada linha e cada coluna, tendo entrada 0 nos demais. Então,
+		      $P\leq{GL_{n}}$ e $S_{n}\rightarrow P, \sigma\mapsto U(\sigma)$ é isomorfismo.
+		\item[5)] $id:G\rightarrow G'$ é um isomorfismo.
+		\item[6)] Se g pertence a G, $\varphi_{g}:G\rightarrow G, x\mapsto gxg^{-1}$ é isomorfismo.
+	\end{itemize}
+\end{example*}
+\begin{prop*}
+	Se $\varphi$ é isomorfismo, então $|g| = |\varphi(g)|$. Em partícular, $|g| = |aga^{-1}|$ para todo a de G.
+\end{prop*}
+\begin{proof*}
+	No caso em que $|g| = \infty,$ se $|\varphi(g)| = g < \infty$. Assim,
+	$$
+		1' = \varphi(g)^{m} = \varphi(g^{m}) \Rightarrow g^{m}\in\ker{\varphi} = \{1\} \Rightarrow g^{m} = 1.
+	$$
+
+	Agora, se $|g| = n <\infty$. Seja $m = |\varphi(g)|$, então
+	$$
+		1' = \varphi(g)^{m} = \varphi(g^{m}) \Rightarrow g^{m} = 1 \Rightarrow n|m.
+	$$
+	Por outro lado, como $g^{n} = 1,$
+	$$
+		1' = \varphi(g^{n}) = \varphi(g)^{n} \Rightarrow m|n.
+	$$
+	Portanto, m = n. \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Se $\varphi:G\rightarrow G'$ é um isomorfismo, então $\varphi^{-1}:G'\rightarrow G$ também é isomorfismo.
+\end{lemma*}
+\begin{proof*}
+	Segue que $\varphi^{-1}$ está bem-definida e é uma bijeção pois $\varphi$ é bijeção. Sejam x, y elementos de G'.
+	Sendo $\varphi$ uma bijeção, existem a, b em G tais que
+	$$
+		x = \varphi(a)\quad\text{e}\quad y = \varphi(b).
+	$$
+	Desta forma, $\varphi^{-1}(xy) = \varphi^{-1}(\varphi(a)\varphi(b)) = \varphi^{-1}(\varphi(ab)) = ab = \varphi^{-1}(x)\varphi^{-1}(y).$ \qedsymbol
+\end{proof*}
+\begin{def*}
+	Dado S um conjunto, uma partição para S é uma cobertura por subconjuntos não-vazios e disjuntos. Em outras palavras,
+	existe $U_{j}\subseteq{S}, U_{j}\neq\emptyset$ e $U_{j}\cap U_{i} = \emptyset$ se $i\neq j$ tal que
+	$$
+		S = \bigsqcup_{j\in I}U_{j}.
+	$$
+\end{def*}
+\begin{def*}
+	Uma relação de equivalência em um conjunto S é um subconjunto R de $S\times S$ tal que
+	\begin{itemize}
+		\item[-]$\overbrace{(a, a)}^{a\sim a}\in R, \forall a\in S$ (Reflexiva);
+		\item[-]$(a, b)\in R \Rightarrow (b, a)\in R (a\sim b \Rightarrow b\sim a)$ (Simétrica);
+		\item[-]$(a, b)(b, c)\in R \Rightarrow (a, c)\in R (a\sim b, b\sim c \Rightarrow a\sim c)$ (Transitiva).
+	\end{itemize}
+	Denotamos $(a, b)\in R$ por $a~b$, e lê-se ``a está relacionado com b''. $\square$
+\end{def*}
+\begin{def*}
+	Se R é uma relação de equivalência em S, denotamos por $[a], a\in S$ o conjunto dos elementos de S que se relacionam com a. Em outras palavras,
+	$$
+		[a]\coloneqq\{b\in S: a~b\} = \{b\in S: (a, b)\in R\}
+	$$
+	e chamamos $[a]$ de classe de equivalência de a. $\square$
+\end{def*}
+\begin{example*}
+	\begin{itemize}
+		\item[1)] A ordem em um grupo define uma relação de equivalência;
+		\item[2)] A conjugação define uma relação de equivalência em um grupo G. $(a~b \Longleftrightarrow \exists g\in G: a = gbg^{-1})$
+		      Neste caso, denotamos $[a] = Cl(a)$ como a classe de conjugação de a.
+	\end{itemize}
+\end{example*}
+\begin{theorem*}
+	Uma partição em um conjunto S define uma relação de equivalência em S. Reciprocamente, uma relação de
+	equivalência define uma partição em S.
+\end{theorem*}
+\end{document}

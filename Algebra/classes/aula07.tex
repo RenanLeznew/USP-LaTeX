@@ -1,0 +1,182 @@
+\documentclass[Algebra/algebra_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 13/04/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Relacionando morfismos com as estruturas de subgrupos;
+	\item Teorema da Correspondência.
+\end{itemize}
+
+\subsection{Mais Sobre Morfismos}
+\begin{prop*}
+	Se $\varphi:G\rightarrow G'$ é um morfismo de grupos finitos e $H\leq{G}$ é tal que  $\gcd{(|H|, |G'|)} = 1$, então $\ker{\varphi}\supseteq{H}.$
+\end{prop*}
+\begin{proof*}
+	Tome $\varphi_{H}:H\rightarrow G'$. Pela propriedade da aula passada,
+	$$
+		|im{\varphi_{H}}|\biggl|_{}^{}\biggr. |H|\text{ e } |G'|.
+	$$
+	Por hipótese, $|im(\varphi_{H})|=1$, i.e., $im \varphi_{H} = \{1'\}$. Assim, $\varphi(H)\subseteq{\{1'\}}.$
+	Portanto, $H\subseteq{\ker{\varphi}}.$ \qedsymbol
+\end{proof*}
+\begin{example*}
+	Se $H\leq{S_{n}}, |H| = 2k+1,$ então $H\subseteq{A_{n}}.$ Considere $sgn:S_{n}\rightarrow \{\pm1\}$. Pela proposição,
+	$H\subseteq{\ker{sgn}}=A_{n}.$
+\end{example*}
+\begin{prop*}
+	Seja $\varphi:G\rightarrow G'$ um morfismo de grupos, $K=\ker{\varphi}, H'\leq{G'}$ e $H = \varphi^{-1}(H').$ Então,
+	$H\leq{G}$ e $K\leq{H}.$ Além disso, se $H'\trianglelefteq{G'}$, então $H\trianglelefteq{G}$. Por fim, se $\varphi$ for
+	sobrejetora e $H\trianglelefteq{G}$, temos $\varphi(H) = H'\trianglelefteq{G'}.$
+\end{prop*}
+\begin{proof*}
+	Vamos começar mostrando que H é um subgrupo de G. Com efeito, como H' é subgrupo de G', então 1' é um de seus elementos.
+	Assim, $\varphi^{-1}(1')\subseteq{H}$ e, em particular, 1 pertence a H e $K\leq{H}.$ Agora, sejam x, y elementos de H. Então,
+	$\varphi(x), \varphi(y)\in H'$, ou seja, $\varphi(x)\varphi(y)^{-1}\in H'$. Assim, $\varphi(xy^{-1})\in H'$ e $xy^{-1}\in H.$
+	Portanto, H é subgrupo de G.
+
+	Daremos continuidade provando a segunda parte do resultado. Suponha que $H'\trianglelefteq{G'}$ e sejam $x\in gHg^{-1}, x = ghg^{-1}$
+	para algum h em H.
+	$$
+		\varphi(x) = \varphi(ghg^{-1}) = \varphi(g)\varphi(h)\varphi(g)^{-1}\in H' \Rightarrow ghg^{-1}\in H.
+	$$
+	Portanto, $H\trianglelefteq{G}.$
+
+	Finalmente, mostremos que $\varphi(H)\trianglelefteq{G'}.$ Tome g' em G e $y\in\gamma(H).$ Como $\varphi$ é sobrejetora, existe
+	x em H e g em G tal que $\varphi(g)=g', \varphi(x) = y.$ Portanto,
+	$$
+		g'y(g')^{-1} = \varphi(g)\varphi(x)\varphi(g)^{-1} = \varphi(gxg^{-1})\in \varphi(H).\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{example*}
+	Segue que $GL_{n}(\mathbb{R})^{+}\trianglelefteq{GL_{n}(\mathbb{R})}$. De fato, note que, se definirmos
+	$$
+		\det:GL_{n}(\mathbb{R})\rightarrow \mathbb{R}^{\times},
+	$$
+	então $GL_{n}(\mathbb{R})^{+} = \det^{-1}(\mathbb{R}_{>0})\trianglelefteq{GL_{n}(\mathbb{R})}$. \qedsymbol
+\end{example*}
+\subsection{Teorema da Correspondência}
+O resultado a seguir é conhecido como Teorema da Correspondência.
+\begin{theorem*}
+	Seja $\varphi:G\rightarrow G'$ sobrejetora e $K=\ker{\varphi}.$ Então,
+	\begin{align*}
+		 & \{H\leq{G}: K \subseteq{H}\} \longleftrightarrow \{N: N\leq{G'}\} \\
+		 & \quad\quad\quad\quad H\mapsto \varphi(H)                          \\
+		 & \quad\quad\quad\quad \varphi^{-1}(N)\mapsfrom N.
+	\end{align*}
+	Além diso, se $H\leftrightarrow N$', então $H\trianglelefteq{G} \Longleftrightarrow N\trianglelefteq{G'}$ e
+	$|H| = |N|\cdot|K|.$
+\end{theorem*}
+\begin{proof*}
+	Vamos mostrar as seguintes coisas - $H = \varphi^{-1}\varphi(H) N = \varphi \varphi^{-1}(N), |H|=|N||K|.$
+
+	Nesta ordem, começamos observando que $H\leq{\varphi^{-1}\varphi(H)}$ é sempre verdadeira. Seja x em $\varphi^{-1}\varphi(H).$
+	Então, $\varphi(x)\in\varphi(H),$ isto é, existe h em H tal que $\varphi(x) = \varphi(h)$. Disto, temos
+	$$
+		\varphi(xh^{-1}) = 1' \Longleftrightarrow xh^{-1}\in K\subseteq{H} \Rightarrow x\in H,
+	$$
+	concluindo o que desejávamos mostrar.
+
+	Para a segunda parte, fica como exercício.
+
+	Por fim, considere $\varphi_{|_{H}}:H\rightarrow \gamma(H) = N$. Pela aula anterior, portanto,
+	$$
+		|H| = |\ker{\varphi_{|_{H}}}||Im(\varphi_{|_{H}})| = |K||N|.\text{ \qedsymbol}
+	$$
+\end{proof*}
+\begin{def*}
+	Dados G e G' grupos, defina o quociente de G por G' como
+	$$
+		G\times{G'} = \{(g, g'): g\in G, g'\in G'\}\quad\square
+	$$
+\end{def*}
+Afirmamos que $G\times{G'}$ com a operação $(g_{1}, g_{1}')(g_{2}, g_{2}') = (g_{1}g_{1}', g_{2}g_{2}')$ é um grupo.
+Além disso, temos os seguintes morfismos:
+\begin{align*}
+	 & \pi:G\times{G'}\rightarrow G,\quad \pi':G\times{G'}\rightarrow G' \\
+	 & i:G\rightarrow G\times{G'},\quad i':G'\rightarrow G\times{G'},
+\end{align*}
+Sendo eles chamados, respectivamente, de projeções e injeções. Ademais, $(1, 1')$ é o elemento neutro de $G\times{G'}.$
+\begin{prop*}
+	Se $\gcd{(r, s)} = 1$, então o grupo cíclico de ordem rs é o produto $C_{r}\times{C_{s}}$, sendo $C_{r}$ o grupo
+	cíclico de ordem r (E $C_{s}$ o cíclico de ordem s).
+\end{prop*}
+\begin{proof*}
+	Seja $C_{rs}$ o grupo cíclico de ordem rs. Se $C_{r}=<x>, C_{s} = <y>.$ Então, $C_{r}\times{C_{s}} = <(x, y)>.$ De fato,
+	$$
+		(x, y)^{rs} = (x^{rs}, y^{rs}) = ((x^{r})^{s}, (y^{s})^{r}) = (1, 1'),
+	$$
+	tal que $k = ord(xy)\biggl|_{}^{}\biggr.rs.$ Como $(r, s) = 1,$ existem $a, b\in \mathbb{Z}$ tais que
+	\begin{align*}
+		 & 1 = ar + bs    \\
+		 & k = ark + bsk.
+	\end{align*}
+	Observe que $(x, y)^{k} = (x^{k}, y^{k}) = (1, 1')$, o que implica que $r \biggl|_{}^{}\biggr.k$ e $s \biggl|_{}^{}\biggr.k$, ou seja,
+	$k = rr'$ e $k = ss'.$ Substituindo isso na segunda fórmula, temos $k = rsar' + rsbs' = rs(\text{outros termos})$. Portanto,
+	$rs \biggl|_{}^{}\biggr.k.$ \qedsymbol
+\end{proof*}
+\begin{example*}
+	Segue que $C_{2}\times C_{2}\neq C_{4}$ (Verifique!).
+\end{example*}
+\begin{prop*}
+	Sejam $H, K \subseteq{G}$ e $f:H\times{K}\rightarrow G, (h,k)\mapsto hk$ com $im F = HK\coloneqq\{hk: h\in H, k\in K\}.$ Então,
+	\begin{itemize}
+		\item[a)] f é injetora se, e somente se, $H\cap{K} = \{1\};$
+		\item[b)] f é morfismo se, e somente se, $hk=kh$ para todo $h\in H, k\in K;$
+		\item[c)] Se $H\trianglelefteq{G},$ então $HK\leq{G};$
+		\item[d)] f é isomorfismo se, e somente se, $H\cap{K}=\{1\}, HK = G\text{ e }H, K\trianglelefteq{G}.$
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	a) $(\Rightarrow)$ Se $H\cap{K}\neq\{1\}$, então existe x em $H\cap{K}, x\neq 1$, ou seja,
+	$$
+		f(xx^{-1}) = xx^{-1} = 1 f(1.1),
+	$$
+	o que implica que f não é injetora, uma contradição.
+
+	$(\Leftarrow)$ Se $f(h_{1},k_{1})=h_{1}k_{1}=h_{2}k_{2} = f(h_{2}k_{2}) \Longleftrightarrow h_{2}^{-1}h_{1} = k_{2}k_{1}^{-1}\in H\cap K$. Logo,
+	$h_{2}^{-1}h_{1} = 1$ e $k_{2}k_{1}^{-1} = 1,$ ou seja, f é injetora.
+
+	b) $(\Leftarrow)$ Segue que $f((h_{1},k_{1})(h_{2},k_{2})) = f(h_{1}h_{2}, k_{1}k_{2}) = h_{1}h_{2}k_{1}k_{2} = h_{1}k_{1}h_{2}k_{2} =
+		f(h_{1}, k_{1})f(h_{2},k_{2}).$
+
+	$(\Rightarrow)$ Se f é um morfismo, então $h_{1}h_{2}k_{1}k_{2} = h_{1}k_{1}h_{2}k_{2}$ para todos $h_{1},h_{2}\in H, k_{1},k_{2}\in K.$
+	Em partícular, para $h_{1}=k_{2}=1,$ temos $h_{2}k_{1} = k_{1}h_{2}$ para todos $h_{1}\in H, k_{2}\in K.$
+
+	c) Sejam $h_{1}, h_{2}\in H$ e $k_{1}, k_{2}\in K$. Então,
+	$$
+		(h_{1}k_{1})(h_{2}k_{2})^{-1} = h_{1}k_{1}k_{2}^{-1}h_{2}^{-1} = h_{1}h_{2}'h_{1}k_{1}^{-1}\in HK
+	$$
+
+	d) $(\Leftarrow)$ Por $H\cap K = \{1\}$ e $HK = G,$ f é bijetora. Assim, basta mostrar que f é morfismo.
+	Sejam $h_{2}, h_{1}\in H$ e $k_{1}, k_{2}\in K$. Segue que
+	$$
+		f((h_{1},k_{1})(h_{2}, k_{2})) = f((h_{1}h_{2}, k_{1}k_{2})) = h_{1}h_{2}k_{1}k_{2}k = h_{1}k_{1}h_{2}k_{2} = f(h_{1}, k_{1})f(h_{2}, k_{2}).
+	$$
+	Sejam, também, $h\in H, k\in K$
+	$$
+		hkh^{-1}k^{-1} = hk(kh)^{-1}.
+	$$
+	Como $H\trianglelefteq{G},$ segue que
+	$$
+		hh'kk^{-1} = hh'\in H
+	$$
+	Como $K\trianglelefteq{G},$ temos também
+	$$
+		hkh^{-1}k^{-1} = hh^{-1}k'k^{-1}\in K.
+	$$
+	Portanto, $hkh^{-1}k^{-1}\in H\cap K=\{1\}$ \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Os grupos de ordem 4 são $C_{4}$ ou $C_{2}\times C_{2}.$
+\end{prop*}
+\begin{proof*}
+	Seja G um grupo de ordem 4 dado por $G=\{1, g_{1}, g_{2}, g_{3}\}$. Pelo teorema de Lagrange, $ord(g_{i})\biggl|_{}^{}\biggr.4$,
+	ou seja, $ord g_{i} = 2$ ou 4. Se existe $g_{i}\in G$ tal que $ord(g_{i}) = 4,$ então $G\cong C_{4}.$
+
+	Caso contrário, todo $g_{i}$ é tal que $|g_{i}|=2.$ Assim, defina
+	$$
+		f:<g_{1}>\times<g_{2}>\rightarrow G,\quad (x,y)\mapsto xy.
+	$$
+	Pelo item d da proposição anterior, f é isomorfismo. \qedsymbol
+\end{proof*}
+\end{document}
