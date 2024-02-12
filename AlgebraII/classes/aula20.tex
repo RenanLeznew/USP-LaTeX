@@ -1,0 +1,207 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 20 - 06/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Domínios de Fatoração e primos;
+	\item Primos de \(\mathcal{O}_{-3}\);
+	\item M.D.C. e M.M.C.
+\end{itemize}
+\subsection{D.F.U.'s e Exemplos}
+\begin{theorem*}
+	Se A é um D.I.P., então A é D.F.U.
+\end{theorem*}
+\begin{proof*}
+	Como um D.I.P. é noetheriano, basta mostrar que elementos irredutíveis são primos.
+	Seja \(\pi \in A\) irredutível e seja \(\pi \mid ab.\) Suponha que \(\pi\) não divide a e considere
+	o ideal \(\langle \pi , a \rangle.\) Seja
+	\[
+		\langle \pi , a \rangle = \langle d \rangle.
+	\]
+	Temos
+	\[
+		\pi \in \langle d \rangle \Rightarrow \exists d'\in A: \pi  = dd'.
+	\]
+	Assim, \(d\in A^{*},\) ou \(d'\in A^{*}\), tal que \(d'^{-1}\pi  = d\), do que segue que \(\pi \mid d\) e,
+	como \(d\mid a,\) temos \(\pi \mid a.\) Contradição. Logo, a única possibilidade é \(d\in A^{*}\), donde segue que
+	\[
+		\langle \pi , a \rangle = \langle d \rangle = \langle 1 \rangle = A.
+	\]
+	Já que \(1\in A, 1\in \langle \pi , a \rangle\), ou seja, existem r e s tais que
+	\[
+		1 = r\pi +sa.
+	\]
+	Desta forma,
+	\begin{align*}
+		b = b \cdot 1 & = b(r\pi + sa)   \\
+		\Rightarrow   & b = br\pi + sab.
+	\end{align*}
+	Como \(\pi \mid ab\) e \(\pi \mid \pi ,\) portanto,
+	\[
+		\pi \mid(rb\pi +sab) = b.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Sabe-se que \(\mathbb{Z}\) é D.F.U;
+		\item[2)] Se F é um corpo, \(F[x]\) é um D.F.U.;
+		\item[3)] Domínio Euclidianos são D.F.U.;
+		\item[4)] Domínios quasi-euclidianos são D.F.U. (em particular, \(\mathcal{O}_{-19})\);
+		\item[5)] Seja A um D.I.P. Se \(0\neq\mathfrak{p}\in \mathrm{Spec}(A)\), então \(A/\mathfrak{p}\) é D.I.P. e é um corpo;
+		\item[6)] Se A é um D.I.P. e \(S\subseteq{A}\) é um conjunto multiplicativo, então \(S^{-1}A\) é um D.I.P. e, assim, um D.F.U. Seja \(\mathfrak{p}\in \mathrm{Spec}(A), \mathfrak{p} = \langle \pi  \rangle, \pi\) primo. Considere o conjunto
+		      \[
+			      A_{\mathfrak{p}} = \biggl\{\frac{a}{b}: a, b \in A, \pi \text{ não divide } b\biggr\}.\quad \text{(\textbf{``Discrete Valuation Ring'' - Anel de Avaliação Discreta})}
+		      \]
+		      Então, se \(\mathfrak{p} = (0),\) segue que \(A_{\mathfrak{p}} = \mathrm{Frac}(A)\) e, se \(\mathfrak{p}\neq (0),\) então
+		      \(A_{\mathfrak{p}}\) é anel local com ideal maximal
+		      \[
+			      \mathfrak{p}A_{\mathfrak{p}} = \biggl\{\frac{a}{b}: a,b\in A, \pi \mid a, \pi \text{ não divide } b\biggr\}
+		      \]
+		      Assim, \(\mathrm{Spec}(A_{\mathfrak{p}}) = \{(0), \mathfrak{p}A_{\mathfrak{p}}\}\) e os elementos irredutíveis primos de \(A_{\mathfrak{p}}\)
+		      são associados com \(\pi \). Além disso, dado \(\mathfrak{j}\trianglelefteq{A_{\mathfrak{p}}}, \mathfrak{j} = \langle x \rangle, x\in A,\) então
+		      \(x = \pi ^{n}\) para algum n, pois só temos um elemento irredutível. Com isso, \(\mathfrak{j} = \langle \pi ^{n} \rangle = \langle \pi  \rangle^{n} = (\mathfrak{p}A_{\mathfrak{p}})^{n} = \mathfrak{p}^{n}A_{\mathfrak{p}}\).
+		\item[7)] Tome \(p\in A\) primo, A D.I.P. e coloque
+		      \[
+			      S = \{p^{n}: n\in \mathbb{N}\cup \{0\}\} = \{1, p, p^{2}, p^{3}, \cdots\}.
+		      \]
+		      O conjunto \(A \biggl[\frac{1}{p}\biggr] = S^{-1}A\) é um D.I.P. e, além disso,
+		      \[
+			      S^{-1}A = \biggl\{\frac{a}{p^{n}}:a\in A, n\in \mathbb{N}\cup\{0\}\biggr\}.
+		      \]
+		      Se \(\mathcal{P}\) é o conjunto dos primos de A, então o conjunto dos primos de \(A \biggl[\frac{1}{p}\biggr]\) é
+		      \(\mathcal{P}\setminus{\{p\}}\).
+	\end{itemize}
+\end{example}
+É importante notar que \textbf{nem todo D.F.U.} é D.I.P. Antes disso, porém, vamos ver como encontrar
+todos os ideais primos dos inteiros de Gauss:
+\begin{example}
+	Considere \(\mathcal{O}_{-1} = \mathbb{Z}[i] = \{a + ib: a, b\in \mathbb{Z}\}\subseteq{\mathbb{C}}\) e considere o elemento \(13\in \mathbb{Z}\subseteq{\mathbb{Z}[i]}\).
+	Em \(\mathbb{Z},\) 13 é primo, mas em \(\mathbb{Z}[i]\), temos
+	\[
+		13 = 9 + 4 = (3+2i)(3-2i).
+	\]
+	Como \(\mathbb{Z}[i]^{*} = \{\pm1, \pm i,\}\) temos \(3-2i, 2+2i\not\in \mathbb{Z}[i]^{*}\) e, assim,
+	13 é o produto de dois elementos não invertíveis, fazendo com que 13 não seja primo nos inteiros de Gauss.
+\end{example}
+\begin{example}
+	Seja \(\mathcal{O}_{-3} = \{a + b\theta : a, b\in \mathbb{Z}\} \subseteq{\mathbb{C}}, \theta  = \frac{1 + \sqrt[]{-3}}{2}\). Vimos que
+	\[
+		\mathcal{O}_{-3} = \biggl\{\pm 1, \frac{\pm1 \pm \sqrt[]{-3}}{2}\biggr\}.
+	\]
+	Então,
+
+	\begin{center}
+		\begin{table}[h!]
+			\caption{Casos dos elementos}
+			\centering
+			\begin{tabular}{| c | c |}
+				\hline
+				Produtos de \(\mathcal{O}_{-3}^{*}\) & Resultado                                                                                                                                                                                                                   \\
+				\hline
+				\(\theta ^{2} - \theta  + 1 = 0\)    & \(\mathbb{Z} \subseteq{}\mathcal{O}_{-3}\)                                                                                                                                                                                  \\
+				\hline
+				\(\theta (\theta -1)=-1\)            & \(-2\in \mathbb{Z}\) é primo                                                                                                                                                                                                \\
+				\hline
+				\(-\theta (\theta -1) = 1\)          & \(-2\in \mathcal{O}_{-3}, 2 = (1-\sqrt[]{-3})\underbrace{\biggl(\frac{1+\sqrt[]{-3}}{2}\biggr)}_{\in \mathcal{O}_{-3}^{*}} = (1+\sqrt[]{-3})\underbrace{\biggl(\frac{1-\sqrt[]{-3}}{2}\biggr)}_{\in \mathcal{O}_{-3}^{*}}\) \\
+				\hline
+			\end{tabular}
+		\end{table}
+	\end{center}
+
+	Assim, vemos que \(2\) e \((1\pm\sqrt[]{-3})\) são associados. Como \(2\in \mathcal{O}_{-3}\) é primo, \(1\pm\sqrt[]{-3}\) são primos também. Logo,
+	\(\langle 2 \rangle = \langle 1 + \sqrt[]{-3} \rangle = \langle 1 - \sqrt[]{-3} \rangle.\) Para ver isso,
+	utiliza-se a norma induzida dos complexos em \(\mathcal{O}_{-3}\) e escreve-se 2 e 4 como elementos de \(\mathcal{O}_{-3}\).
+\end{example}
+\subsection{Máximo Divisor Comum e Mínimo Múltiplo Comum}
+\begin{def*}
+	Sejam A um domínio e \(a_{1}, \cdots, a_{n}\in A\setminus{\{0\}}\). O \textbf{maior divisor comum (m.d.c)} de \(a_{1}, \cdots, a_{n}\)
+	é um elemento \(d = \mathrm{mdc}(a_{1}, \cdots, a_{n})\in A\setminus{\{0\}}\) tal que
+	\begin{itemize}
+		\item[i)] \(d\mid a_{i}\) para todo \(i = 1, \cdots, n;\)
+		\item[ii)] Se \(a\in A\setminus{\{0\}}\) e \(a\mid a_{i}\) para todo \(i=1, \cdots, n\), então \(a\mid d.\quad\square\)
+	\end{itemize}
+\end{def*}
+\begin{def*}
+	Sejam A um domínio e \(a_{1}, . ., a_{n}\in A\setminus{\{0\}}\). O \textbf{menor múltiplo comum} de \(a_{1}, \cdots, a_{n}\) é um elemento
+	\(m = \mathrm{mmc}(a_{1}, \cdots, a_{n})\in A\setminus{\{0\}}\) tal que
+	\begin{itemize}
+		\item[i)] \(a_{i}\mid m\) para todo \(i=1, \cdots, n\);
+		\item[ii)] Se \(m'\in A\setminus{\{0\}}\) e \(a_{i}\mid m'\) para todo \(i=1, \cdots, n\), então \(m\mid m'.\quad\square\)
+	\end{itemize}
+\end{def*}
+\begin{prop*}
+	\begin{itemize}
+		\item[1)] Se \(d, d'\) são maiores divisores comuns de \(a_{1}, \cdots, a_{n}\in A\), então eles são associados (existe \(s\in A^{*}: d = d's\));
+		\item[2)] Se \(m, m'\) são menores múltiplos comuns de \(a_{1}, \cdots, a_{n}\in A\), então eles são associados (existe \(s\in A^{*}: m = m's\)).
+	\end{itemize}
+\end{prop*}
+\begin{example}
+	Considere \(2, 3\in \mathbb{Z}.\) Então, \(\mathrm{mdc}(2, 3) = \pm1\)
+\end{example}
+\begin{theorem*}[Exercício]
+	Sejam A um D.F.U. e \(a_{1}, \cdots, a_{n}\in A\setminus{\{0\}}.\) Suponha que
+	\[
+		a_{j} = a_{j}\pi_{1}^{e_{j1}}\cdot\dotsc \cdot \pi_{n}^{e_{jn}} \quad (e_{ji} = 0 \text{ se } \pi_{j} \text{ não divide } a_{j}),
+	\]
+	em que \(\pi_{i}\) são irredutíveis e dois-a-dois distintos. Com isso,
+	\begin{align*}
+		 & i)\quad\mathrm{mdc}(a_{1},\cdots,a_{n}) = \prod\limits_{i=1}^{n}\pi_{i}^{\min\{e_{1i}, \cdots, e_{nj}\}};                            \\
+		 & ii)\quad \mathrm{mmc}(a_{1}, \cdots, a_{n}) = \prod\limits_{i=1}^{n}\pi_{i}^{\max\{e_{1i}, \cdots, e_{ni}\}};                        \\
+		 & iii)\quad a_{1}\cdot \dotsc \cdot  a_{n} = \mathrm{mdc}(a_{1}, \cdots, a_{n})\cdot \mathrm{mmc}(a_{1}, \cdots, a_{n});               \\
+		 & iv)\quad \text{Se A é um D.I.P., então }  \langle a_{1}, \cdots, a_{n} \rangle = \langle \mathrm{mdc}(a_{1}, \cdots, a_{n}) \rangle.
+	\end{align*}
+\end{theorem*}
+\begin{prop*}
+	Os primos de \(\mathcal{O}_{-1} = \mathbb{Z}[i]\), a menos de associação, são:
+	\begin{itemize}
+		\item[1)] Primo \(p\in \mathbb{Z}\) tal que \(p\equiv 3 \mod 4\)
+		\item[2)] \(a+ib\in \mathbb{Z}[i]\) tais que \(a^{2} + b^{2} = p, p\) primo com \(p = 2\) ou \(p\equiv 1 \mod 4\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Seja \(p\equiv 3\mod 4\) e seja
+	\[
+		p = \alpha \cdot \beta , \alpha , \beta \in \mathbb{Z}[i].
+	\]
+	Temos \(N(p) = N(\alpha )\cdot N(\beta )\), tal que \(p^{2} = N(\alpha )\cdot N(\beta )\). Logo,
+	\(N(\alpha ) = 1, p, ^{2},\) a partir donde analisamos casos.
+	\begin{itemize}
+		\item Se \(N(\alpha ) = 1\), então \(\alpha \in \mathbb{Z}[i]^{*}\);
+		\item Se \(N(\alpha ) = p^{2},\) então \(N(\beta ) = 1\) e \(\beta \in \mathbb{Z}[i]^{*}\);
+	\end{itemize}
+	Resta o caso \(N(\alpha ) = N(\beta ) = p.\) Com este caso, segue que
+	\[
+		\alpha = a + ib \Rightarrow N(\alpha ) = a^{2} + b^{2} = p,
+	\]
+	tal que \(\overline{a}^{2} + \overline{b}^{2} = 0\) em \(\mathbb{F}_{p} = \mathbb{Z}/\{p\}\). Consequentemente,
+	\(p^{2}\mid a^{2}+b^{2} = p\), um absurdo. Logo, \(\overline{a}\neq \overline{0}\) e \(\overline{b}\neq \overline{0}\), o que implica que
+	\[
+		\biggl(\frac{\overline{a}}{\overline{b}}\biggr)^{2} + 1 = 0 \text{ em } \mathbb{F}_{p}.
+	\]
+	Logo, \(x^{2} + 1 = 0\) tem uma raiz em \(\mathbb{F}_{p},\) o que ocorre apenas se \(p\equiv 1 \mod 4,\) que também
+	é um absurdo. Conclui-se, assim, que o caso \(N(\alpha ) = p\) é impossível, restando apenas as outras opções.
+
+	Agora, seja \(a+ib\in \mathbb{Z}[i]\) primo tal que \(a^{2} + b^{2} = p, p\) um primo de \(\mathbb{Z}.\)
+	Vamos mostrar que \(p = 2\) ou \(p\equiv 1\mod 4\). Com efeito, considerando \(\pi  = \alpha \cdot \beta \), vale
+	\[
+		N(\pi ) = N(\alpha )\cdot N(\beta ).
+	\]
+	Com isto,
+	\[
+		p = a^{2} + b^{2} = N(\pi) = N(\alpha )\cdot N(\beta ) \Rightarrow N(\alpha ) = 1 \text{ ou } N(\beta ) = 1,
+	\]
+	do que segue o fato de \(\pi \) ser um primo. Analogamente ao argumento acima, se \(N(\alpha ) = p\), então \(x^{2} + 1\) tem raiz em \(\mathbb{F}_{p}\),
+	tal que \(p\equiv 1 \mod 4\) ou \(p = 2\).
+
+	Fica como exercício mostrar que não há outros primos além destes. \qedsymbol
+\end{proof*}
+\begin{example}
+	Os elementos \(3, 7, 11, 19, 23, \dotsc\) são primos, assim como \(1\pm i, 1\pm 2i, 2\pm i, 3\pm 2i, 4\pm i, 5\pm 2i, \dotsc\)
+\end{example}
+\begin{example}[Exercício]
+	Encontre todos os primos de \(\mathcal{O}_{-3}\). (Dica: \(x^{2}+x+1\) tem taíz em
+	\(\mathbb{F}_{p} \Longleftrightarrow p = 3\) ou \(p\equiv 1\mod 3.\) Além disso, \(N(a + b\theta )
+	= a^{2} + ab + b^{2} = p \Rightarrow \overline{a}^{2} + \overline{a}\overline{b} + \overline{b}^{2} = \overline{0}\)
+	em \(\mathbb{F}_{p},\) e então \((\overline{a}/\overline{b})^{2} + (\overline{a}/\overline{b}) + 1 = \overline{0}.\))
+\end{example}
+\end{document}

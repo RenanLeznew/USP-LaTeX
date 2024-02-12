@@ -1,0 +1,166 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 19 - 01/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema de Dedekind;
+	\item Anéis quasi-euclidianos;
+	\item Domínios de Fatoração Única.
+\end{itemize}
+\subsection{O Teorema de Dedekind}
+\begin{theorem*}
+	\(\mathcal{O}_{-19}\) não é euclidiano.
+\end{theorem*}
+\begin{proof*}
+	Suponha que exista \(N':\mathcal{O}_{-19}\setminus{\{0\}}\rightarrow \mathbb{N}\) tal que \(\mathcal{O}_{-19}\) é um domínio euclidiano com norma \(N'.\) Seja \(m\in \mathcal{O}_{-19}, m\neq \pm1, 0,\)
+	tal que
+	\[
+		N'(m) = \min\{N'(a): a\in \mathcal{O}_{-19}, a\neq \pm1, 0\}.
+	\]
+	Pelo algoritmo da divisão, existem \(q, r\) tais que \(2 = mq + r\), com \(N'(r) < N'(m)\)
+	ou \(r=0\).
+
+	Como m tem menor norma dentre os elementos diferentes de \(0\) e \(\pm 1\), então \(r=0, \pm1\). Se \(r=1\), temos
+	\(mq = 1\) implica que \(m\in \mathcal{O}_{-19}^{*},\) um absurdo. Assim, \(r=0, -1\) e,
+	logo, \(mq = 2, 3\) e, já que \(2, 3\) são irredutíveis, \(q\in \mathcal{O}_{-19}^{*} = \{\pm1\}.\) Com isso,
+	\(m=\pm2, \pm 3\in \mathbb{Z}.\)
+
+	Agora, seja \(\theta = \frac{1 + \sqrt[]{-19}}{2}.\) Então, existem \(q', r'\) tais que \(\theta  = mq'+r'.\) Usando o mesmo
+	argumento que o feito acima, temos \(r'=0, \pm1.\) Destarte, \(mq'=\theta - r', r'=0, \pm1.\) Seja \(q'= a + b\theta ,\)
+	em que \(a, b\in \mathbb{Z}.\) Logo,
+	\[
+		m(a + b\theta ) = -r + \theta  \Rightarrow ma + mb\theta = -r + \theta  \Rightarrow mb = 1,
+	\]
+	mas, note que, como \(m = \pm2, \pm3\), temos \(b\not\in \mathbb{Z}\), ou seja, não existe \(q'\) que satisfaça \(\theta  = mq' + r'\) e, portanto,
+	\(\mathcal{O}_{-19}\) não é euclidiano. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Um domínio A é dito \textbf{quasi-euclidiano} se existe uma aplicação \(d:A\setminus{\{0\}}\rightarrow \mathbb{N}\) tal que para todos \(a, b\in A, b\neq0\),
+	existem \(p, q, r\in A\) com \(p\neq0\) tais que:
+	\[
+		ap = bq + r\quad\&\quad d(r) < d(b) \text{ ou } (p=1 e r=0).\quad\square
+	\]
+\end{def*}
+\begin{lemma*}
+	Todo domínio quasi-euclidiano é D.I.P.
+\end{lemma*}
+\begin{proof*}
+	Seja \((0)\neq \mathfrak{i}\trianglelefteq{A}\) e \(b\in \mathfrak{i}\) tal que \(d(b) = \min\{d(x):x\in \mathfrak{i}\setminus{\{\}}\}\).
+	Tome \(a\in \mathfrak{i}.\) Então, existem \(p, q, r\in A\) tais que \(p\neq 0\) e \(pa = bq + r\), com \(d(r) < d(b)\) ou \(p=1, r=0.\)
+	Caso \(r\neq 0,\) então \(r = pa-bq\in \mathfrak{i}\) e, assim, \(d(r) < d(b),\) um absurdo com a minimalidade de b em \(\mathfrak{i}.\)
+
+	Com isso, \(r=0\) e, então, \(a = ap = bq\), tal que \(a\in \langle b \rangle.\) Além disso, segue que \(\mathfrak{i}\subseteq{\langle b \rangle}.\)
+	Por outro lado, como temos \(b\in \mathfrak{i}, \mathfrak{I} = \langle b \rangle\). Portanto, todo ideal de A é principal, ou seja, A é D.I.P. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	\(\mathcal{O}_{-19}\) é quasi-euclidiano. (Em particular, é D.I.P).
+\end{theorem*}
+\begin{proof*}
+	Considere a norma \(N:\mathcal{O}_{-19}\rightarrow \mathbb{N}\) definida por \(N(a+b\theta ) = a^{2} + ab + 5b^{2}.\) Essa norma é a
+	restrição dos complexos em \(\mathcal{O}_{-19}.\) De fato,
+	\begin{align*}
+		a + b\theta & = a +b \biggl(\frac{1+\sqrt[]{-19}}{2}\biggr) = \biggl(a + \frac{b}{2}\biggr) + \frac{\sqrt[]{19}}{2}ib. \\
+		            & = a' + b'i\in \mathbb{C}.
+	\end{align*}
+	Representando \(a + b\theta \) desta forma, conseguimos calcular a norma como
+	\begin{align*}
+		|a+b\theta |^{2} & = \biggl(a + \frac{b}{2}\biggr)^{2} + \biggl(\frac{\sqrt[]{19}}{b}\biggr)^{2} \\
+		                 & = a^{2} + ab + \frac{b^{2}}{4} + \frac{19}{4}b^{2}                            \\
+		                 & = a^{2} + ab + 5b^{2} = N(a + b\theta ).
+	\end{align*}
+	Sejam \(a, b\in a, b\neq0.\) Se \(a\in \langle b \rangle, a = bq\) para algum \(q\in A\) (ou seja, \(p=1, r = 0\)).
+	Caso \(a\not\in \langle b \rangle\), a existência de \(p, q, r\in A\) com \(p\neq 1\) e \(r\neq 0\) depende da condição
+	a seguir:
+	\begin{align*}
+		N(r)                & = N(ap-bq) < N(p)                                          \\
+		\Longleftrightarrow & N(b)N \biggl(\frac{a}{b}p - q\biggr) < N(b)                \\
+		\Longleftrightarrow & N \biggl(\frac{a}{b}p - q\biggr) < 1                       \\
+		\Longleftrightarrow & \biggl|\frac{a}{b}p - q\biggr| < 1. \quad\text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{lemma*}
+	Para todo \(a, b\in A = \mathcal{O}_{-19},\) com \(b\neq0, a\not\in \langle b \rangle,\) existem \(p, q\in A\) tais que
+	\(\biggl|\frac{a}{b}p - q\biggr| < 1.\)
+\end{lemma*}
+\subsection{Domínios de Fatoração Única}
+\begin{def*}
+	Seja A um domínio e sejam \(a, b\in A\).
+	\begin{itemize}
+		\item[1)] Dizemos que a \textbf{divide} b (ou b é \textbf{múltiplo} de x), e escrevemos \(a\mid b,\) se existe \(c\in A\) tal que \(b = ac.\)
+		\item[2)] Dizemos que a, b são \textbf{associados} se existe \(c\in A^{*}\) tal que a = bc. \(\square\)
+	\end{itemize}
+\end{def*}
+\begin{prop*}[Exercício]
+	\begin{itemize}
+		\item[1)] \(a\mid b \Longleftrightarrow \langle b \rangle \subseteq{\langle a \rangle}\);
+		\item[2)] a, b são associados se, e somente se, \(\langle b \rangle = \langle a \rangle\);
+		\item[3)] a é irredutível se, e somente se, todo divisor de a é associado, ou a 1, ou a a.
+	\end{itemize}
+\end{prop*}
+\begin{def*}
+	Dizemos que \(0\neq a\in A\setminus{A^{*}}\) é \textbf{primo} se \(a\mid xy \Rightarrow a\mid x\) ou \(a\mid y.\quad\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+	Um elemento \(a\in A\) é primo se, e somente se, \(\langle a \rangle\in \mathrm{Spec}(A).\)
+\end{prop*}
+\begin{lemma*}
+	Elementos primos são irredutíveis.
+\end{lemma*}
+\begin{proof*}
+	Seja \(a\in A\) e \(a = xy, x, y\in A.\) Como \(a\mid a, a\mid xy\) e \(a\mid x\) ou \(a\mid y\).
+
+	Suponha, sem perda de generalidade, que \(a\mid x\). Então, existe \(c\in A\) tal que \(x=ac\) e, assim, \(a=xy=acy\), de forma que \(cy = 1\), ou seja,
+	\(y\in A^{*}.\) Portanto, a é irredutível. \qedsymbol
+\end{proof*}
+\begin{example}[Exercício]
+	Seja \(A = \mathbb{Z}\) ou \(A = F[x]\), em que F é um corpo. Mostre que os elementos irredutíveis de A são primos.
+\end{example}
+\begin{def*}
+	Um domínio A é chamado \textbf{Domínio de Fatoração Única (D.F.U.)} ou \textbf{Domínio Fatorial} se
+	todo elemento não nulo \(a\in A\) pode ser escrito como produto de elementos irredutíveis de maneira única a menos
+	da ordem dos fatores e de elementos associados. Mais explicitamente, dado \(a\in A\setminus{\{0\}},\)
+	\begin{itemize}
+		\item[1)] Existem \(\pi_{1}, \cdots, \pi_{r}\) irredutíveis em A tais que \(a = \pi_{1}\cdot \dotsc \cdot \pi_{r}.\)
+		\item[2)] Se \(a = \rho_{1}\cdot\dotsc \cdot \rho_{m} = \pi_{1}\cdot \dotsc \cdot \pi_{r}\), com \(\pi_{i}, \rho_{j}\) irredutíves em A, então \(r = m\)
+		      e existe \(b\in S_{r}\) permutação tal que \(\pi_{i}\) é associado com \(\rho_{b(i)}\) para todo \(i=1, \cdots, r. \quad\square\)
+	\end{itemize}
+\end{def*}
+\begin{prop*}
+	Num D.F.U., elementos irredutíveis são primos.
+\end{prop*}
+\begin{proof*}
+	Seja a irredutível e \(a\mid xy\). Então, existe \(c\in A\) tal que \(ac = xy.\) Coloque
+	\[
+		x = \pi_{1} \cdot \dotsc \cdot \pi_{n},\quad y = \pi_{n+1}\cdot \dotsc \cdot \pi_{n+m}\quad\&\quad c=\rho_{1}\cdot \dotsc \rho_{r}.
+	\]
+	Temos \(a\mid ac = xy = \pi_{1}\cdot \dotsc \cdot \pi_{n+m},\) tal qual existe \(d\in A\) satisfazendo \(a = d\pi_{1}\cdot \dotsc \cdot \pi_{n+m}.\) Como a é
+	irredutível e cada \(\pi_{i}\) é irredutível, \(d\in A^{*}.\) Assim, a é associado a \(\pi_{i}\) para algum \(i.\) Se \(i\leq n, a\mid x\) e, se \(n < i\leq m + n, a \mid y.\)
+	Portanto, a é primo. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Se A é um domínio Noetheriano e todo elemento irredutível é primo, então A é D.F.U.
+\end{prop*}
+\begin{proof*}
+	Sabemos que, se A é noetheriano, todo elemento de A é produto de elementos irredutíveis. Precisamos, então, provar apenas que essa representação é única.
+
+	Seja \(a\in A\setminus{\{0\}}\) e \(a = \pi_{1}\cdot \dotsc \cdot \pi_{n} = \rho_{1}\cdot \dotsc \cdot \rho_{m},\) em que \(\rho_{j}, \pi_{i}\) são elementos
+	irredutíveis em A. Faremos essa prova por indução. Se n = 1, então \(a = \pi_{1}\) e, como \(a\mid a\), \(\pi_{1}\mid\rho_{1}\cdot \dotsc \cdot \rho_{m}\). Já que
+	\(\pi_{1}\) é primo, temos \(\pi_{1}\mid\rho_{j}\) para algum \(1\leq j\leq m.\) Sem perda de generalidade, podemos supor \(j=1\) (basta reordenar via permutação). Então, existe \(c\in A\) tal que \(\rho _{1} = c\pi_{1}.\) Como \(\rho_{j}\) é irredutível,
+	\(c\in A^{*},\) pois \(\pi_{1}\) é irredutível, ou seja, \(\pi_{1}\not\in A^{*}\).
+
+	Suponha que \(m > 1,\) então
+	\[
+		\pi_{1} = \rho_{1}\cdot \dotsc \cdot \rho_{m} \Rightarrow c\pi_{1}\cdot \rho_{2}\cdot \dotsc \cdot \rho_{m} = \pi_{1} \Rightarrow c\rho_{2} \cdot \dotsc \cdot \rho_{m} = 1.
+	\]
+	Assim, temos \(\rho_{2}\in A^{*},\) um absurdo. Logo, \(m=1\) e \(\pi_{1} = \rho_{1}\).
+
+	Agora, seja \(n > 1\). Segue que \(\pi_{1}\mid \rho_{1}\cdot \dotsc \cdot \rho_{m}\) e existe j tal que \(\pi_{1}\mid\rho_{j}.\) Podemos supor novamente
+	que j=1, tal que, pelo mesmo argumento anterior, existe \(c\in A^{*}\) tal que \(\pi_{1} = c\rho_{1}\) e, assim,
+	\[
+		\pi_{1}\cdot \dotsc \cdot \pi_{n} = c\rho_{1}\cdot \rho_{2} \cdot \dotsc \cdot \rho_{m} \Rightarrow \pi_{2}\cdot \dotsc \pi_{n} = \rho_{2}\cdot \dotsc \cdot \rho_{m}
+	\]
+	Renumerando os termos da última igualdade tal que eles vão de 1 até n-1 do lado esquerdo e de 1 até m-1 do lado direito, pela hipótese de indução, existe \(b\in S_{m-1}\)
+	tal que \(\pi_{i} = c_{i}\rho_{b(i)}\) e \(n-1 = m-1.\) Portanto, n = m e os termos são associados. \qedsymbol
+\end{proof*}
+
+\end{document}

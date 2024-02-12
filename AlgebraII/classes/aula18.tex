@@ -1,0 +1,75 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 30/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Aneis Noetherianos;
+	\item Anel de Inteiros Algébricos.
+\end{itemize}
+\subsection{Aneis Noetherianos}
+\begin{prop*}
+	Todo elemento de um anel quadrático é produto de elementos irredutíveis.
+\end{prop*}
+\begin{proof*}
+	Seja \(\mathbb{Z}[\alpha ] = \{c + d\alpha : c, d\in \mathbb{Z}\}, \alpha \) raiz de \(x^{2} + ax + b\in \mathbb{Z}[x]\) irredutível.
+	Tome \(x\in \mathbb{Z}[\alpha ]\) tal que x não é o produto dos elementos irredutível com menor norma \(N(c+d\alpha ) = [c^{2}-acd + bd^{2}]\).
+	Como x não é irredutível, \(x=yz\), com \(y,z\not\in \mathbb{Z}[\alpha ]^{*},\) em que um deles não é o produto de elementos
+	irredutíveis.
+
+	Agora, note que \(N(y)\neq1\) e \(N(z)\neq1\). De fato, se \(N(y)=1, y\in \mathbb{Z}[\alpha ]^{*}\) e então \(x=yz\) seria irredutível.
+	Pela propriedade \(N(x) = N(y)N(z)\) e \(N(y) > 1, N(z) > 1\), temos \(N(y) < N(x)\) e \(N(z) < N(x)\).
+	Pelo menos um deles não é produto de irredutíveis, contrariando a minimalidade de x. Portanto, x deve ser o produto
+	de elementos irredutíveis. \qedsymbol
+\end{proof*}
+\begin{example}
+	2 é elemento irredutível em \(\mathbb{Z}[\sqrt[]{-5}].\)
+
+	De fato, suponha que 2 possa ser escrito como \(2 = (a + b\sqrt[]{-5})(c+d\sqrt[]{-5}).\) Então,
+	\begin{align*}
+		 & N(2) = N(a+b\sqrt[]{-5})N(c+d\sqrt[]{-5}) \\
+		 & 4 = (a^{2} + 5b^{2})(c^{2}+5d^{2}).
+	\end{align*}
+	Então, \(c^{2} + 5d^{2}\mid 4\), tal que \(c^{2} + 5d^{2} = 1, 2, 4.\). Caso \(a^{2}+5b^{2} = 1, b = 0 e a = \pm 1\in \mathbb{Z}[\sqrt[]{-5}]^{*}.\)
+	Com isso, \(a^{2} + 5b^{2} = 4\) e \(a = \pm 2\) e \(d=0.\) Assim, \(2=(\pm1)(\pm2).\)
+	O caso \(c^{2} + 5d^{2} = 2\) não tem soluções e o caso \(c^{2} + 5d^{2} = 4\) é simétrico ao primeiro caso.
+\end{example}
+\begin{def*}
+	Dizemos que um anel A é \textbf{noetheriano} se todo ideal de A é finitamente gerado. \(\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+	As propriedades a seguir são equivalentes:
+	\begin{itemize}
+		\item[1)] A é noetheriano;
+		\item[2)] Toda cadeia de ideais de A: \(\mathfrak{i}_{1}\subseteq{}\mathfrak{i}_{2}\subseteq{}\mathfrak{i}_{3}\subseteq{\cdots}\) estabiliza, i.e.,
+		      existe \(n\in \mathbb{N}\) tal que \(\mathfrak{i}_{n} = \mathfrak{i}_{n+1} = \cdots.\)
+		\item[3)] Todo conjunto S de ideias de A tem um elemento maximal.
+	\end{itemize}
+\end{prop*}
+\begin{theorem*}[Base de Hilbert]
+	Se A é noetheriano, então \(A[x]\) também é noetheriano.
+\end{theorem*}
+\begin{prop*}[Exercícios]
+	\begin{itemize}
+		\item[1)] Seja A noetheriano e \(\mathfrak{i}\trianglelefteq{A}.\) Então, \(A/\mathfrak{i}\) é noetheriano.
+		\item[2)] Seja A um domínio noetheriano. Então, todo elemento de A é produto de irredutíveis
+	\end{itemize}
+\end{prop*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Mostre que \(\mathbb{Z}[\sqrt[]{-3}]\) não é D.I.P. (Mostre que \(\langle 2, 1 + \sqrt[]{-3} \rangle\) não é principal);
+		\item[2)] Seja \(F\subseteq{\mathbb{C}}\) subcorpo. Então, \(\mathbb{Q}\subseteq{F}.\);
+		\item[3)] Seja F um subcorpo de \(\mathbb{C}\) tal que \([F:\mathbb{Q}]<\infty\). (Chamamos estes corpo de \textbf{corpos globais});
+		\item[4)] Seja \(\mathcal{O}_{F}\coloneqq \{\alpha \in F: \exists f(x)\in \mathbb{Z}[x]\} \text{ mônico irredutível e } f(\alpha ) = 0\). Mostre que
+		      \(\mathcal{O}_{F}\) é um anel. (Chamamos este anel de \textbf{anel de inteiros algébricos} de F). Além disso, \(\mathrm{Frac}(\mathcal{O}_{F}) = F.\);
+		\item[5)] Se \(F = \mathbb{Q}[\sqrt[]{d}],\) d livre de quadrados, então \(\mathcal{O}_{F} = \mathcal{O}_{d}.\)
+	\end{itemize}
+\end{example}
+\begin{example}
+	\begin{itemize}
+		\item[1)] \(\mathcal{O}_{-3} = \{\pm1, \pm \frac{1\pm \sqrt[]{-3}}{2}\}\);
+		\item[2)] \(\mathcal{O}_{-1} = \{\pm1, \pm i\}\);
+		\item[3)] \(2, 3\in \mathcal{O}_{-19}\) são irredutíveis;
+		\item[4)] Seja p primo. Se \(p\equiv 1 \mod 4,\) então \(p\in \mathbb{Z}[i]\) não é irredutível.
+	\end{itemize}
+\end{example}
+\end{document}

@@ -1,0 +1,116 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 20/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Corolários do Algoritmo da Divisão;
+	\item Decomposição de polinômios.
+\end{itemize}
+\subsection{Corolários do Algoritmo da Divisão}
+\begin{prop*}
+	Se F é um corpo, então \(F[x]\) é um Domínio de Ideais Principais.
+\end{prop*}
+\begin{proof*}
+	Seja \(\mathfrak{i} \trianglelefteq{F[x]}\) e seja
+	\[
+		n = \min\{\deg{f(x)}: f(x)\in \mathfrak{i}\setminus{\{0\}}\}.
+	\]
+	Se \(n=0,\) então existe um polinômio constante \(f(x) = a\neq 0, a\in F.\) Logo,
+	\[
+		1 = \frac{1}{a}\cdot a = \frac{1}{a}f(x)\in \mathfrak{I}.
+	\]
+	Assim,
+	\[
+		I = F[x] = \langle 1 \rangle.
+	\]
+	Então, podemos assumir que \(n > 0\). Seja \(g(x)\in \mathfrak{i}\) com \(\deg{g} = n\) e observe que
+	\(\deg{g}\geq 1\) e \(\ell_{g}\in F^{*}\). Se \(f(x)\in \mathfrak{i},\) pelo algoritmo da divisão, existem
+	\(g(x), r(x)\in F[x]\) tais que \(f(x) = q(x)g(x) + r(x),\) com \(\deg{r(x)} < \deg{g(x)}.\) Se \(r(x)\neq0, r(x) = f(x)
+	- q(x)g(x)\in \mathfrak{i}\) e, junto com \(\deg{r} < \deg{g},\) obtemos um absurdo, pois g deveria ser o polinômio de
+	grau mínimo.
+
+	Logo, \(r(x) = 0\) e, assim, \(f(x) = q(x)g(x)\) para algum polinômio \(q(x)\in F[x]\), tal que \(f(x)\in \langle g(x) \rangle.\)
+	Portanto, \(\mathfrak{i} = \langle g(x) \rangle.\) \qedsymbol
+\end{proof*}
+\begin{example}[Exercício]
+	\begin{itemize}
+		\item[1)] \(\mathbb{Z}[x]\) não é D.I.P: O ideal gerado \(\mathfrak{i} = \langle 2, x \rangle\) não é principal, mas é primo.
+		\item[2)] Mostre que \(\langle 3, x^{2}-2 \rangle \trianglelefteq{\mathbb{Z}[x]}\) é ideal maximal e não é principal. (Dica:
+		      mostre que
+		      \[
+			      \frac{\mathbb{Z}[x]}{\langle 3, x^{2}-2 \rangle}\cong{\frac{\mathbb{Z}_{3}[x]}{\langle x^{2}-2 \rangle}}.
+		      \]
+	\end{itemize}
+\end{example}
+\begin{crl*}
+	Seja F um corpo e \(f, g, h\in F[x]\) tais que f(x) é mônico e irredutível.
+	Se \(f(x)\mid g(x)h(x),\) então \(f(x)\mid g(x)\) ou \(f(x)\mid h(x).\)
+\end{crl*}
+\begin{proof*}
+	Faremos indução no grau de f.
+
+	Se \(\deg{f(x)} = 1,\) como f é mônico, \(f(x) = x-a\) para algum a em F. Por hipótese, existe \(p(x)\) tal que
+	\(g(x)h(x) = (x-a)p(x).\) Aplicando em \(x=a,\) segue que \(g(a)h(a) = 0.\) Como f é domínio, é preciso que
+	\(g(a) = 0\) ou \(h(a) = 0\). Em outras palavras, \((x-a)\mid g(x)\) ou \((x-a)\mid h(x),\) como desejado.
+
+	Suponha agora que o resultado vale grau menor que n, \(\deg{f} = n\) e \(f\mid g\) e \(f\mid h.\) Assim, existem
+	\(q, r, q', r'\in A[x]\) tais que \(g(x) = f(x)q(x) + r(x)\) e \(h(x) = q'(x)f(x) + r'(x),\) satisfazendo
+	\(\deg{r'} < \deg{g'}, \deg{r} < \deg{g}\) e \(r, r'\neq 0.\) Assim,
+	\begin{align*}
+		g(x)h(x)    & = (qf + r)(q'f + r')                \\
+		            & = qq'f^{2} + (qr' + q'r)f + rr'     \\
+		\Rightarrow & rr' = gh - qq'f^{2} - (qr' + rq')f.
+	\end{align*}
+	Sabemos que f divide \(gh, qq'f^{2}\) e \((qr' + q'r)f.\) Com isso, \(f\mid rr'\) e, então,
+	existe \(p(x)\in F[x]\) tal que \(fp = rr'.\) Note também que \(\deg{p} < \deg{r} \) e \(\deg{r'}.\) De fato,
+	caso contrário, teríamos \(\deg{p}\geq \deg{r}\) e como \(\deg{f} > \deg{r'},\) temos
+	\[
+		\deg{p}\geq \deg{r} \Rightarrow \deg{f} + \deg{p} > \deg{r'} + \deg{r} \Rightarrow \deg{fp} > \deg{rr'},
+	\]
+	o que é um absurdo. O mesmo vale para \(\deg{p}\geq r'.\) Escrevamos \(p = \alpha p_{1}^{\alpha_{1}}\cdot \dotsc \cdot p_{r}^{\alpha_{r}},\)
+	em que \(p_{1}, \cdots, p_{r}\) são irredutíveis (isso é possível pois F é corpo). Assim, \(p_{i}\mid fp = rr'.\)
+	Como \(\deg{p} < \deg{r} < \deg{f}\) e \(\deg{p_{i}}\leq \deg{p},\) podemos aplicar a hipótese de indução em \(p_{i}\) e então
+	\(p_{i}\mid r\) ou \(p_{i}\mid r'\) para cada \(i=1, \cdots, r\). Suponha, sem perda de generalidade, que \(p_{1}\mid r,\) tal que
+	\(r=p_{1}r_{1}\). Consequentemente,
+	\[
+		fp = rr' \Rightarrow fp_{1}^{\alpha_{1}}\cdot \dotsc \cdot p_{r}^{\alpha_{r}} = p_{1}rr' \Rightarrow fp_{1}^{\alpha_{1} -1}\cdot \cdots \cdot p_{r}^{\alpha_{r}} = r_{1}r.
+	\]
+	Pode-se continuar esse processo até sobrarem os termos \(p_{i}\)'s, chegando em
+	\(f = r_{t}r_{t}'\) com \(\deg{r_{t}}\geq 1\) e \(\deg{r_{t}'}\geq 1\) (pois \(\deg{p} < \deg{r}, \deg{r'}\)). Isso é uma contradição
+	com o fato de r ser irredutível.
+\end{proof*}
+\begin{example}[Exercício]
+	Seja A um domínio, \(a\in A\) e \((x-a)\mid f(x)g(x).\) Mostre que \((x-a)\mid f(x)\) e \((x-a)\mid g(x).\)
+\end{example}
+\begin{prop*}
+	Seja F um corpo e \(f(x)\in F[x]\). Então, temos uma decomposição única
+	\[
+		f(x) = af_{1}^{\alpha_{1}}(x)\cdot \dotsc \cdot f_{r}^{\alpha_{r}}(x),
+	\]
+	com \(a\in F\) e \(f_{1}, \cdots, f_{r}\in F[x]\) polinômios irredutíveis e mônicos.
+\end{prop*}
+\begin{proof*}
+	Já provamos a existência da decomposição para polinômios mônicos. Como F é corpo, existe \(b\in F\) tal que
+	\(bf(x)\) é mônico (basta tomarmos \(b=a^{-1},\) em que a é o coeficiente líder de f). Então, \(bf(x) = f_{1}^{\alpha_{1}}\cdot \dotsc \cdot f_{r}^{\alpha_{r}}\)
+	e assim \(f(x) =af_{1}^{\alpha_{1}}\cdot \dotsc \cdot f_{r}^{\alpha_{r}}.\)
+
+	Provemos agora a unicidade. Seja
+	\[
+		f(x)=af_{1}^{\alpha_{1}} \cdot \dotsc \cdot f_{r}^{\alpha_{r}} = bg_{1}^{\beta_{1}} \cdot \cdots \cdot g_{s}^{\beta_{s}}.
+	\]
+	Mostraremos que \(\{f_{1}, \cdots, f_{r}\} = \{g_{1}, \cdots, g_{s}\}\) e \(\{\alpha_{1}, \cdots, \alpha_{r}\} = \{\beta_{1}, \cdots, \beta_{s}\}\).
+	Se \(\deg{f} = 1, f = a(x-\alpha ) = b(x-\beta )\) e \(ax -a\alpha =bx - b\beta,\) tal que \(a=b\) e \(\alpha =\beta .\)
+
+	Agora, suponha que o resultado vale para grau menor que n e \(\deg{f} = n.\) Então:
+	\[
+		f_{1}\mid f(x) \Rightarrow f_{1}\mid bg_{1}^{\beta_{1}}\cdot \dotsc g_{s}^{\beta_{s}} \Rightarrow \exists j: f_{1}\mid g_{j}.
+	\]
+	Como \(g_{j}\) é irredutível e mônico, se \(g_{j}=f_{1}\), existe \(h_{j}\) tal que \(g_{j} = h_{j}f_{1}.\) Se \(\deg{(h_{j})}\geq 1, g_{j}\) não seria
+	irredutível e, então, \(h_{j} = a\in F.\) Mas, se \(a\neq1,\) como \(f_{1}\) é mônico, \(g_{j}\) não seria mônico. Logo, \(h_{j} = 1\) e \(g_{j} = f_{1}.\)
+	Podemos reordenar tal que \(f_{1} = g_{1}. \) Assim,
+	\[
+		af_{2}^{\alpha_{2}}\cdot \dotsc \cdot f_{r}^{\alpha_{r}} = bg_{2}^{\beta_{2}} \cdot \dotsc \cdot g_{s}^{\beta_{s}}.
+	\]
+	Portanto, pela hipótese indutiva, o resultado segue. \qedsymbol
+\end{proof*}
+\end{document}

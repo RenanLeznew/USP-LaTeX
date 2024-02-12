@@ -1,0 +1,225 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 13/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Caracterizações da Localização;
+	\item Corpo das Frações.
+\end{itemize}
+\subsection{Caracterizando a Localização}
+\begin{prop*}
+	Sejam A um domínio, S multiplicativo e \((S^{-1}A, \rho )\) localização de A por S.
+	\begin{itemize}
+		\item[1)] Se \(\mathfrak{i}\trianglelefteq{A},\) então \(S^{-1}\mathfrak{i} = \{a/s: a\in \mathfrak{i}, s\in S\}\trianglelefteq{S^{-1}A};\)
+		\item[2)] Se \(\mathfrak{j}\trianglelefteq{S^{-1}A}\), existe \(\mathfrak{i}\trianglelefteq{A}\) tal que \(\mathfrak{j} = S^{-1}\mathfrak{i};\)
+		\item[3)] Se \(\mathfrak{i}\trianglelefteq{A}\), então \(\mathfrak{i}\cap S \neq\emptyset\) se, e somente se, \(S^{-1}\mathfrak{i} = S^{-1}A;\)
+		\item[4)] Vale que \(\mathrm{Spec}(S^{-1}A) = \{S^{-1}\mathfrak{p}:\mathfrak{p}\in \mathrm{Spec}(A) \text{ e } S\cap \mathfrak{p}=\emptyset\}\). Além disso, se considerarmos A como subanel de \(S^{-1}A\),
+		      então \(S^{-1}\mathfrak{p}\cap A = \mathfrak{p}\) para todo \(\mathfrak{p}\in \mathrm{Spec}(A).\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	1.) Seja \(a/s\in S^{-1}A\) e \(b/t\in S^{-1}\mathfrak{i}.\) Assim, \(a\in A\) e \(b\in \mathfrak{i}\) implicam
+	que \(ab\in \mathfrak{i},\) e S ser fechado por multiplicação implica que \(st\in S.\) Então, \(a/s \cdot b/t = ab/st\in S^{-1}\mathfrak{i}.\)
+	Agora, considere \(b/t, b'/t'\in S^{-1}\mathfrak{i}.\) Como \(t, t'\in S\subseteq A\) e \(\mathfrak{i}\) é ideal, \(bt'+b't\in \mathfrak{i}\) e,
+	com isso, \(b/t + b'/t' = (bt'+b't)/t t'\in S^{-1}\mathfrak{i}.\)
+
+	2.) Seja \(\mathfrak{j}\trianglelefteq{S^{-1}A}.\) Tome \(\mathfrak{i} = \rho^{-1}(\mathfrak{j})\trianglelefteq{A}.\) Observe que o
+	\(\mathfrak{i} = \{a\in A:\exists s\in S, a/s\in \mathfrak{j}\}\). Seja \(a/s\in S^{-1}\mathfrak{i},\) e então
+	\(a\in \mathfrak{i}\) e \(\rho (a)\in \mathfrak{j}.\) Já que \(a/s = 1/s \cdot a/1, 1/s\in S^{-1}A\) e \(a/1\in \mathfrak{j}\),
+	junto do fato de \(\mathfrak{j}\) ser ideal, conclui-se que \(a/s\in \mathfrak{j}.\)
+
+	Por outro lado, considere \(x=a/s\in \mathfrak{j}.\) Como \(s/1\in S^{-1}A, a/1 = s/1 \cdot a/s\in \mathfrak{j}.\) Logo,
+	como \(\rho (a) = a/1,\) temos \(a\in \mathfrak{i}\) e \(a/s\in S^{-1}\mathfrak{i}.\)
+
+	3.) Suponha, primeiro, que \(S\cap \mathfrak{i} \neq\emptyset\) e seja \(s\in S\cap \mathfrak{i}.\) Então,
+	\(1 = s/s\in S^{-1}\mathfrak{i}.\) Já que \(S^{-1}\mathfrak{i}\) é ideal e contém 1, \(S^{-1}\mathfrak{i} = S^{-1}A.\)
+
+	Agora, suponha que \(S^{-1}\mathfrak{i} = S^{-1}A.\) Segue que \(s/s\in S^{-1}\mathfrak{i},\) o que implica que \(s\in \mathfrak{i}\) para algum
+	\(s\in S\) ou \(1\in \mathfrak{i}.\) Portanto, \(1\in S\), e o resultado segue.
+
+	4.) Se \(\mathfrak{p}\in \mathrm{Spec}(A)\) e \(\mathfrak{p}\cap S = \emptyset,\) então \(S^{-1}\mathfrak{p}\vartriangleleft S^{-1}A.\)
+	Considere elementos \(a/s, b/t\in S^{-1}A\) tais que \(a/s \cdot b/t\in S^{-1}\mathfrak{p}.\) Então, \(ab/st\in S^{-1}\mathfrak{p}\) e \(ab\in \mathfrak{p}.\)
+	Utilizando que \(\mathfrak{p}\) é primo, \(a\in \mathfrak{p}\) ou \(b\in \mathfrak{p}\) implica que \(a/s\in S^{-1}\mathfrak{p}\) ou \(b/t\in S^{-1}\mathfrak{p}.\)
+	Logo, \(S^{-1}\mathfrak{p}\in \mathrm{Spec}(S^{-1}A).\)
+
+	Por outro lado, suponha que \(\mathfrak{q}\in \mathrm{Spec}(S^{-1}A).\) tome \(\mathfrak{p}\coloneqq \rho^{-1}(\mathfrak{q})\) e
+	sabemos que, como a imagem inversa de um morfismo de um ideal primo é um ideal primo, o item 2 fornece \(\mathfrak{q} = S^{-1}\mathfrak{p}.\)
+	Quanto à última parte da afirmação, considere \(\rho :A\hookrightarrow S^{-1}A\) e então \(S^{-1}\mathfrak{p}\cap A = \rho^{-1}(S^{-1}\mathfrak{p}) = \mathfrak{p} \trianglelefteq{A}.\) \qedsymbol
+\end{proof*}
+\begin{prop*}[Exercício]
+	\begin{itemize}
+		\item[1)] Se \(f:A\rightarrow B\) é morfismo de domínios, \(S\subseteq A\) tal que \(S\cap\ker{(f)} = \emptyset\), então
+		      \(f(S)\subseteq B\) é multiplicativo sem o 0, no modelo em que precisamos para realizar a localização. Além disso, \(f|_S:S\rightarrow S\)
+		      é injetivo.
+		\item[2)] Se \(\mathfrak{p}\in \mathrm{Spec}(A)\) e \(\mathfrak{p}\cap S = \emptyset,\) então \(\overline{S} = \pi (S)\) é multiplicativo sem o 0, com
+		      morfismo quociente. Além disso, os morfismos
+		      \begin{align*}
+			       & \varphi :\frac{S^{-1}A}{S^{-1}\mathfrak{p}}\rightarrow \overline{S}^{-1}\biggl(\frac{A}{\mathfrak{p}}\biggr) \\
+			       & \frac{a}{s}+S^{-1}\mathfrak{p}\mapsto \frac{\pi (a)}{\pi (s)}.
+		      \end{align*}
+		      e
+		      \begin{align*}
+			       & \psi:\overline{S}^{-1}\biggl(\frac{A}{\mathfrak{p}}\biggr)\rightarrow \frac{S^{-1}A}{S^{-1}\mathfrak{p}} \\
+			       & \frac{\pi (a)}{\pi (s)}\mapsto \frac{a}{s} + S^{-1}\mathfrak{p}
+		      \end{align*}
+		      estão bem definidos e são um o inverso do outro, ou seja, obtivemos um isomorfismo
+		      \[
+			      \frac{S^{-1}A}{S^{-1}\mathfrak{p}}\cong{\overline{S}^{-1}\biggl(\frac{A}{\mathfrak{p}}\biggr)}.
+		      \]
+	\end{itemize}
+\end{prop*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se \(t\in A, t\neq0,\) temos o conjunto multiplicativo \(S=\{1, t, t^{2}, \dotsc\}\).
+		      Denotaremos \(S^{-1}A\coloneqq A[1/t] = \{a/t^{i}: a\in A \text{ e } i\geq 0\}\). Além disso,
+		      \(\mathrm{Spec}(A[1/t]) = \{S^{-1}\mathfrak{p}:\mathfrak{p}\in \mathrm{Spec}(A) \text{ e }t\not\in \mathfrak{p}\}.\)
+		\item[2)] Se \(t_{1}, \dotsc, t_{n}\in A\setminus{\{0\}},\) podemos considerar o conjunto multiplicativo \(S = \{t_{1}^{r_{1}}\cdot \dotsc \cdot t_{n}^{r_{n}}: r_{i}\geq 0\}.\)
+		      Como \textbf{exercício}, encontre todos os ideais primos de \(S^{-1}A.\)
+		\item[3)] Se \(\mathfrak{p}\in \mathrm{Spec}(A),\) considere \(S = A\setminus{\mathfrak{p}}.\) Neste caso, denotaremos
+		      \(S^{-1}A\coloneqq A_{\mathfrak{p}} = \{a/s: a\in A, s\in A\setminus{\mathfrak{p}}.\}\) Em particular, se \(\mathfrak{p}=(0), A_{(0)}\)
+		      é um corpo. De fato, se \(a/s\in A_{(0)},\) com \(a/s\neq0/1,\) temos \(a\neq0\) e \(s\neq0.\) Com isso, o elemento
+		      \(s/a\in A_{(0)}\) e é o inverso multiplicativo de \(a/s\). Chamamos \(A_{(0)}\) de \textbf{corpo de frações} de A,
+		      denotado por \(\mathrm{Frac}(A).\) Em geral, se S é multiplicativo, \(S^{-1}A\hookrightarrow \mathrm{Frac}(A).\)
+	\end{itemize}
+\end{example}
+\begin{prop*}[Exercício]
+	\begin{itemize}
+		\item[1)] Se \(S\subseteq A^{*},\) mostre que o morfismo localização \(\rho :A\hookrightarrow S^{-1}A\) é um isomorfismo;
+		\item[2)] Se A é corpo, mostre que \(\mathrm{Frac}(A)\cong{A;}\)
+		\item[3)] Observe que \(\mathrm{Frac}(A)\) é o menor corpo que contém A;
+	\end{itemize}
+\end{prop*}
+\begin{example}[Exercício]
+	\begin{itemize}
+		\item[1)] Mostre que \(\mathbb{Z}\) não possui subanéis próprios;
+		\item[2)] Seja K um corpo. Se K não possui subcorpo próprio, mostre que \(K\cong{\mathbb{Q}}\) ou
+		      \(K\cong{\mathbb{Z}/p \mathbb{Z}}\) para algum primo p.
+	\end{itemize}
+\end{example}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Seja \(S = \{2^{n}: n\in \mathbb{N}\cup\{0\}\}\subseteq \mathbb{Z}\).
+		      Neste caso, o anel de localização com o conjunto multiplicativo S é
+		      \[
+			      S^{-1}\mathbb{Z} = \mathbb{Z}\biggl[\frac{1}{2}\biggr] = \biggl\{\frac{a}{2^{n}}: a\in \mathbb{Z}, n \geq  0\biggr\}.
+		      \]
+		      Considere um ideal \(\mathfrak{j}\trianglelefteq \mathbb{Z}\biggl[\frac{1}{2}\biggr] = S^{-1}\mathfrak{i}, \) em que \(\mathfrak{i} = n \mathbb{Z}\).
+		      Assim,
+		      \[
+			      \mathfrak{j} = \biggl\{\frac{nr}{2^{r}}:r\geq 0, x\in \mathbb{Z}\biggr\} = \langle n \rangle = \langle \frac{n}{2} \rangle = n \mathbb{Z}\biggl[\frac{1}{2}\biggr].
+		      \]
+		      Disto, conclui-se que \(\mathbb{Z}\biggl[\frac{1}{2}\biggr]\) é um domínio de ideais principais. Podemos ir mais a fundo e analisar os ideais primos e maximais
+		      de \(\mathbb{Z}\biggl[\frac{1}{2}\biggr].\) Para isso, observe que
+		      \[
+			      \mathrm{Spec}(\mathbb{Z}) = \{(0), p \mathbb{Z}: p \text{ é primo}\} \quad\&\quad \mathrm{Specm}(\mathbb{Z}) = \{p \mathbb{Z}: p \text{ é primo}\}.
+		      \]
+		      Desta forma,
+		      \begin{align*}
+			      \mathrm{Spec}\biggl(\mathbb{Z}\biggl[\frac{1}{2}\biggr]\biggr) & = \{S^{-1}p: p\in \mathrm{Spec}(\mathbb{Z}), p\cap S = \emptyset \} \\
+			                                                                     & = \{(0), \langle \frac{p}{2} \rangle: p\text{ primo}, p \neq 2\}    \\
+			                                                                     & = \{(0), \langle p \rangle: p \text{ primo}, p\neq 2\}.
+		      \end{align*}
+		      Note que, se \(p \mathbb{Z}\cap S = \emptyset \), então \(p\neq 2\). Da mesma forma que vimos no exemplo anterior desses conjuntos,
+		      o raciocínio feito para \(\mathrm{Spec}\biggl(\mathbb{Z}\biggl[\frac{1}{6}\biggr]\biggr),\) de modo que
+		      \[
+			      \mathrm{Spec}\biggl(\mathbb{Z}\biggl[\frac{1}{6}\biggr]\biggr) = \{(0), \langle p \rangle: p \text{ é primo}, p\neq 2, 3\}.
+		      \]
+		      É possível estender esse raciocínio de modo que
+		      \[
+			      \mathbb{Z}\biggl[\frac{1}{3}\biggr]\subseteq \mathbb{Z}\biggl[\frac{1}{3}, \frac{1}{5}\biggr]\subseteq \mathbb{Z}\biggl[\frac{1}{3}, \frac{1}{5}, \frac{1}{7}\biggr]\subseteq \dotsc \subseteq \mathbb{Q}.
+		      \]
+		      Com isso,
+		      \[
+			      A = \bigcup_{p \text{ primo}, p\neq 2}^{}\mathbb{Z}\biggl[\frac{1}{3}, \dotsc , \frac{1}{p}\biggr] = \mathbb{Z}_{(2)} = \biggl\{\frac{a}{b}\in \mathbb{Q}: a, b\in \mathbb{Z}, \text{2 não divide b}\biggr\}.
+		      \]
+		      Da mesma forma que estudamos os primos de \(\mathbb{Z}\biggl[\frac{1}{2}\biggr],\) faremos isso com os primos de A. Considere o conjunto mulitplicativo
+		      \(S = A\setminus{\mathfrak{p}}\) e o anel de localização \(A_{\mathfrak{p}}\coloneqq S^{-1}A.\) Se \(A = \mathbb{Z}\) e \(p = (2),\) então
+		      \[
+			      A_{p} = \mathbb{Z}_{(2)} = \biggl\{\frac{a}{s}: a\in \mathbb{Z}, s\in \mathbb{Z}\setminus{2 \mathbb{Z}}\biggr\} \Rightarrow \mathbb{Z}_{(2)}\text{ é D.I.P.}.
+		      \]
+		      Para todo primo diferente de 2, \(p\in S = \mathbb{Z}\setminus{2 \mathbb{Z}}.\) Logo, p tem inverso em \(\mathbb{Z}_{(2)}\) dado por \(\frac{1}{p}\). Consequentemente,
+		      \[
+			      \mathrm{Spec}(\mathbb{Z}_{(2)}) = \biggl\{S^{-1}\mathfrak{p}: \mathfrak{p}\in \mathrm{Spec}(\mathbb{Z}), p\cap S = \emptyset \biggr\} = \{(0), \langle \frac{2}{1} \rangle\}.
+		      \]
+		      Analogamente, \(\mathrm{Spec}(\mathbb{Z}_{(p)}) = \{(0), \langle \frac{p}{1} \rangle\}, \mathrm{Specm}(\mathbb{Z}_{(p)}) = \{\langle p \rangle\}\).
+	\end{itemize}
+\end{example}
+\begin{example}
+	Seja F um corpo e \(A = F[x]\). Dado um ideal \(\mathfrak{i}\trianglelefteq F[x]\), sabe-se que F[x] é D.I.P. e que
+	\[
+		\mathfrak{i} = \langle f(x) \rangle = \{f(x)\cdot h(x):h(x)\in F[x]\}.
+	\]
+	Segue que \(\mathrm{Spec}(F[x]) = \{(0), \langle f(x) \rangle: f \text{ é irredutível}\}\) e que \(\mathrm{Specm}(F[x]) = \{\langle f(x) \rangle: f \text{ é irredutível}\}\).
+	Fazendo \(\mathfrak{p} = \langle f(x) \rangle\in \mathrm{Spec}(F[x]),\) temos
+	\[
+		A_{\mathfrak{p}} = F[x]_{p} = \biggl\{\frac{g(x)}{h(x)}: g(x)\in F[x], h(x)\in F[x]\setminus{\mathfrak{p}}\biggr\} = \biggl\{\frac{g(x)}{h(x)}: g(x)\in F[x], f(x)\text{ não divide }h(x)\biggr\}.
+	\]
+	Com isto, \(\mathrm{Spec}(F[x]_{\mathfrak{p}}) = \{(0), \langle \frac{f(x)}{1} \rangle\}\), ou seja, \(F[x]_{\mathfrak{p}}\) é um ideal local com ideal maximal \(\langle \frac{f(x)}{1} \rangle.\)
+\end{example}
+\begin{prop*}
+	Seja \(\mathfrak{p}\in \mathrm{Spec}(A)\). Então, o domínio \(A_{\mathfrak{p}}\) é um anel local
+	com ideal maximal \(\mathfrak{p}A_{\mathfrak{p}}\coloneqq \{a/s: a\in \mathfrak{p}\text{ e }s\not\in \mathfrak{p}\}.\) Além disso,
+	\[
+		\frac{A_{\mathfrak{p}}}{\mathfrak{p}A_{\mathfrak{p}}}\cong{\mathrm{Frac}\biggl(\frac{A}{\mathfrak{p}}\biggr).}
+	\]
+	Em particular, se \(\mathfrak{m}\in \mathrm{Specm}(A),\) então:
+	\[
+		\frac{A_{\mathfrak{m}}}{\mathfrak{m}A_{\mathfrak{m}}}\cong{\mathrm{Frac}\biggl(\frac{A}{\mathfrak{m}}\biggr)} \cong{\frac{A}{\mathfrak{m}}}
+	\]
+\end{prop*}
+\begin{proof*}
+	Observe que \(A_{\mathfrak{p}}=S^{-1}A,\) com \(S=A\setminus{\mathfrak{p}}.\) É claro que \(\mathfrak{p}A_{\mathfrak{p}} = S^{-1}\mathfrak{p}\), e então
+	\(\mathfrak{p}A_{\mathfrak{p}}\in \mathrm{Spec}(A_{\mathfrak{p}}).\) Provemos que este ideal é maximal e é o único.
+
+	Seja \(\mathfrak{p}a_{\mathfrak{p}}\subsetneq \mathfrak{j}\trianglelefteq{A_{\mathfrak{p}}}. \) Então, \(\mathfrak{j} = S^{-1}\mathfrak{i}\) para algum \(\mathfrak{i}\trianglelefteq{A}\) e
+	\(\mathfrak{p}A_{\mathfrak{p}} = S^{-1}\mathfrak{p}\subsetneq S^{-1}\mathfrak{i}\subseteq S^{-1}A \), tal que \(\mathfrak{p}\subsetneq \mathfrak{i}\subseteq A. \)
+	Como \(\mathfrak{p}\neq \mathfrak{i}, \mathfrak{i}\cap A\setminus{\mathfrak{p}} = \mathfrak{i}\cap S \neq\emptyset\). Logo,
+	\(S^{-1}\mathfrak{i} = \mathfrak{j} = A_{\mathfrak{p}}.\) Assim, provamos que \(\mathfrak{p}A_{\mathfrak{p}}\) é maximal em \(S^{-1}A.\)
+
+	Agora, considere \(\mathfrak{k}\in \mathrm{Specm}(S^{-1}A)\). Então, \(\mathfrak{k} = S^{-1}\mathfrak{i}\) para algum ideal
+	\(\mathfrak{i}\trianglelefteq{A}.\) Suponha que \(\mathfrak{k}\neq \mathfrak{p}A_{\mathfrak{p}}.\) Então, \(\mathfrak{i}\neq \mathfrak{p}\) e
+	\(\mathfrak{i}\cap A\setminus{\mathfrak{p}}\neq\emptyset.\) Com isso, \(S^{-1}\mathfrak{i} = S^{-1}A = A_{\mathfrak{p}},\) o que é um absurdo com a
+	suposição de que \(\mathfrak{k}\) é maximal e, então, próprio.
+
+	Como \(\mathfrak{p}A_{\mathfrak{p}}\in \mathrm{Spec}(A_{\mathfrak{p}}), A_{\mathfrak{p}}/\mathfrak{p}A_{\mathfrak{p}}\) é um corpo. Além disso,
+	note que os mapas
+	\begin{align*}
+		 & \rho :\frac{A_{\mathfrak{p}}}{\mathfrak{p}A_{\mathfrak{p}}}\rightarrow \mathrm{Frac}\biggl(\frac{A}{\mathfrak{p}}\biggr) \\
+		 & \frac{a}{s} + \mathfrak{p}A_{\mathfrak{p}}\mapsto \frac{\pi (a)}{\pi (s)}
+	\end{align*}
+	e
+	\begin{align*}
+		 & \psi:\mathrm{Frac}\biggl(\frac{A}{\mathfrak{p}}\biggr)\rightarrow \frac{A_{\mathfrak{p}}}{\mathfrak{p}A_{\mathfrak{p}}} \\
+		 & \frac{\pi (a)}{\pi (s)}\mapsto \frac{a}{s} + \mathfrak{p}A_{\mathfrak{p}}
+	\end{align*}
+	estão bem definido e são um o inverso do outro, provando o teorema (fica de exercício mostrar isso). \qedsymbol
+\end{proof*}
+\begin{example}
+	Sejam F um corpo, \(A = F[x, y], \mathfrak{p} = \langle x \rangle\). Tome dois elementos \(f = f(x, y), g = g(x, y)\in A\) tais que
+	\(f, g\in \langle x \rangle.\) Equivalentemente, \(x\mid fg\), ou seja, \(x\mid f\) ou \(x\mid g\). Quando fazemos o quociente, obtemos
+	\[
+		\frac{A}{\langle x \rangle} = \frac{F[x, y]}{\langle x \rangle}\cong F[y], \quad \frac{F[x, y]}{\langle x, y \rangle}\cong F.
+	\]
+	Considerando, então, \(A_{\mathfrak{p}},\) chegamos em
+	\[
+		A_{\langle x \rangle}= \biggl\{\frac{f}{g}: f\in A, g\in A\setminus{\langle x \rangle}\biggr\} = \biggl\{\frac{f}{g}: f\in A, \text{x não divide }g(x)\biggr\}.
+	\]
+	Em particular, para todo f(y) em F[x] tal que x não divide f(y), segue que \(\frac{1}{f(y)}\in A_{\langle x \rangle}.\) Com isso,
+	\[
+		F(y)[x]_{\langle x \rangle}\subseteq A_{\langle x \rangle}
+	\]
+	e, portanto, \(A_{\langle x \rangle} = F(y)[x]_{\langle x \rangle}\). Ademais,
+	\[
+		\frac{A_{\langle x \rangle}}{\langle x \rangle A_{\langle x \rangle}} \cong \mathrm{Frac}\biggl(\frac{F[x, y]}{\langle x \rangle}\biggr) \cong \mathrm{Frac}(F[y]) = F[y].
+	\]
+	Podemos concluir, então, que \(\mathrm{Spec}(A_{\langle x \rangle}) = \{S^{-1}\mathfrak{p}:\mathfrak{p}\in \mathrm{Spec}(A), \mathfrak{p}\subseteq \langle x \rangle\} = \{(0), \langle x \rangle A_{\langle x \rangle}\}\).
+\end{example}
+\begin{example}
+	Para \(A = F[x, y]\) novamente, considere \(\mathfrak{p} = \langle x, y \rangle\). O Anel local \(A_{\mathfrak{p}} = F[x, y]_{\langle x, y \rangle} = \biggl\{\frac{f}{g}: g, f\in F[x, y], g\not\in \langle x, y \rangle\biggr\}.\)
+	Neste caso, \(\mathrm{Spec}(A_{\mathfrak{p}}) = \{S^{-1}Q: Q\subseteq \langle x, y \rangle\} = \{(0), \langle \frac{x}{1} \rangle, \langle \frac{y}{1} \rangle, \underbrace{\langle \frac{x}{1}, \frac{y}{1} \rangle}_{\text{maximal}}\}\).
+\end{example}
+\begin{prop*}[Exercício]
+	Sejam \(\mathfrak{p}_{1}, \dotsc, \mathfrak{p}_{n}\in \mathrm{Spec}(A)\) tais que \(\mathfrak{p}_{i}\subsetneq \mathfrak{p}_{j} \) para todo
+	\(i\neq j\). Se \(S = A\setminus{\bigcup_{}^{}\mathfrak{p}_{i}}\), então \(S^{-1}A\) é um anel semilocal, com \(\mathrm{Specm}(S^{-1}A) = \{S^{-1}\mathfrak{p}_{1}, \dotsc, S^{-1}\mathfrak{p}_{n}\}\).
+\end{prop*}
+\end{document}

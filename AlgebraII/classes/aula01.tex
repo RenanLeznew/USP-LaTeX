@@ -1,0 +1,153 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 09/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Anéis e Anéis Comutativos;
+	\item Exemplos de Anéis;
+	\item Grupo Multiplicativo e Elemento Inversível.
+\end{itemize}
+\subsection{Anéis - Nosso Objeto de Estudo no Curso}
+\begin{def*}
+	Um \textbf{anel} é um conjunto A munido de duas operações, \(+, \cdot \), tais que:
+	\begin{itemize}
+		\item[1)] \((A, +)\) é um grupo abeliano;
+		\item[2)] \((A, \cdot )\) é associativo, com unidade \(1_{A}\);
+		\item[3)] Para todos a, b, c em A, temos
+		      \[
+			      (a+b)\cdot c = a \cdot c + b \cdot c \quad\&\quad a \cdot (b+c) = a \cdot b + a \cdot c.\quad\square
+		      \]
+	\end{itemize}
+\end{def*}
+\begin{def*}
+	Dado um anel \((A, +, \cdot )\), diremos que A é um \textbf{anel comutativo} se o grupo \((A, \cdot )\) é abeliano. \(\square\)
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Com as operações usuais, \(\mathbb{Z}, \mathbb{R}, \mathbb{C}\) são todos anéis (comutativos).
+		\item[2)] Os anéis de polinômios na variável X com coeficientes inteiros ou complexos são anéis, i.e.,
+		      \[
+			      \mathbb{Z}[x]\coloneqq \biggl\{\sum\limits_{i=0}^{n}a_{i}x^{i}: n\in \mathbb{N}, a_{i}\in \mathbb{Z}\biggr\}\quad\&\quad \mathbb{C}[x]\coloneqq \biggl\{\sum\limits_{i=0}^{n}a_{i}x^{i}:n\in \mathbb{N}, a_{i}\in \mathbb{C}\biggr\};
+		      \]
+
+	\end{itemize}
+\end{example}
+\textbf{\underline{Observação 1}:} A unidade é única - Se \(1_{A}, e\) são duas unidades de \((A, \cdot ),\) então
+\[
+	1_{A}\cdot e = e = e \cdot 1_{A} = 1_{A} \Rightarrow e = 1_{A}.
+\]
+
+\textbf{\underline{Observação 2}:} Se A é um anel e \(0\in A\) é o elemento neutro da soma, temos, para todo \(a\in A\),
+\[
+	a0 = a(0+0) = a0 + a0 \Rightarrow a0 = 0.
+\]
+\begin{def*}
+	Seja \((A, +, \cdot )\) um anel. Um subconjunto \(B\subseteq{A}\) é um \textbf{subanel} de A se \((B, +, \cdot )\) é um anel e \(1_{A} = 1_{B}.\quad\square\)
+\end{def*}
+A segunda condição é importante para evitar casos como o seguinte: Considere \(\mathbb{Z}\times \{0\}\subseteq{\mathbb{Z}\times \mathbb{Z}}.\) Note que a restrição
+das operações de \(\mathbb{Z}\times \mathbb{Z}\) faria de \(\mathbb{Z}\times \{0\}\) um subanel, mas \(1_{\mathbb{Z}\times \mathbb{Z}} = (1, 1)\) e \(1_{\mathbb{Z}\times\{0\}}=(1, 0).\)
+\begin{example}
+	\begin{itemize}
+		\item[i)] Temos a seguinte cadeia de subanéis: \(\mathbb{Z}\subseteq{\mathbb{Q}}\subseteq{\mathbb{R}}\subseteq{\mathbb{C}}.\)
+		\item[ii)] Analogamente, temos a seguinte cadeia de subanéis de polinômios: \(\mathbb{Z}[x]\subseteq{\mathbb{Q}[x]}\subseteq{\mathbb{R}[x]}\subseteq{\mathbb{C}[x]}\).
+		\item[iii)]\texttt{(Anel zero)} Seja S um conjunto unitário \(S = \{a\}.\) Podemos definir as operações \(a + a\coloneqq a\) e \(a \cdot a\coloneqq a\). Com estas operações,
+		      S torna-se um anel, o \textbf{Anel Zero}, no qual \(1_{S} = 0_{S}\). Este anel é especial não só porque podemos brincar que ``1 = 0'', como também porque ele é \textit{único}.
+
+		      Com efeito, seja A um anel qualquer no qual \(1_{A} = 0_{A}\). Para \(a\in A\), vale \(a = a \cdot 1_{A} = a \cdot 0_{A} = 0.\) Assim, \(a = 0\) e \(A = \{0\}\) é
+		      um anel zero.
+
+		      Portanto, denotaremos o único anel zero por \(\{0_{A}\} = (0).\)
+		\item[iv)] \(\mathbb{Z}[\sqrt[]{d}]\) é subanel de \(\mathbb{Q}[\sqrt[]{d}]\);
+		\item[v)] Se A é um anel, então
+		      \[
+			      A\subseteq A[x] \subseteq A[x, y] \subseteq A[x, y, z].
+		      \]
+	\end{itemize}
+\end{example}
+\begin{example}[Exercícios]
+	Mostre que os seguintes conjuntos, com suas operações usuais, são anéis:
+	\begin{itemize}
+		\item[a)] \(\mathbb{Z}[i] \subseteq{\mathbb{C}}, \mathbb{Z}[\sqrt[]{p}]\subseteq{\mathbb{R}},\) em que p é primo;
+		\item[b)] \(\mathbb{Z}\biggl[\frac{1}{p}\biggr]\coloneqq \biggl\{\frac{a}{p^{r}}: a\in \mathbb{Z}, r\in \mathbb{N}\biggr\}\subseteq{\mathbb{Q}}\);
+		\item[c)] \(\mathbb{Z}_{(p)}\coloneqq \biggl\{\frac{a}{b}: a, b\in \mathbb{Z}\quad \text{e}\quad \text{p não divide b} \biggr\}\subseteq{\mathbb{Q}}\).
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Seja A um anel. Um elemento \(a\in A\) é dito \textbf{invertível} (ou \textbf{unitário}) se existe \(b\in B\) tal que \(ab = 1_{A}.\) O \textbf{grupo multiplicativo} de A
+	é o conjunto
+	\[
+		A^{*}\coloneqq \{a\in A: \text{a é invertível}\}.\quad\square
+	\]
+\end{def*}
+Vale observar que, caso exista o inverso, ele é único.
+\begin{prop*}
+	O grupo multiplicativo de um anel \((A, +, \cdot )\) é, de fato, um grupo.
+\end{prop*}
+\begin{proof*}
+	Primeiro, note que \(1_{A}\in A^{*},\) pois \(1_{A} \cdot 1_{A} = 1_{A}.\)
+
+	Além disso, todo elemento \(a\in A^{*}\) possui inverso \(a^{-1}\in A^{*}.\) A operação herda a associatividade do anel.
+
+	Finalmente, basta provarmos que A é fechado por multiplicação. Com efeito, se \(a, b\in A^{*},\) considere \(x = b^{-1}a^{-1}\) e note que \(abx = abb^{-1}a^{-1} =
+	a 1_{A} a^{-1} = aa^{-1} = 1_{A}\) e, assim, \(ab\in A^{*}.\)
+
+	Portanto, \(A^{*}\) é um grupo. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se A é um anel, dizemos que A é um \textbf{corpo} se todo elemento não nulo de A possui um elemento inverso também em A. Em outras palavras, se \(A = A^{*}.\quad\square\)
+\end{def*}
+\begin{example}
+	Os anéis \(\mathbb{Q}, \mathbb{R}, \mathbb{C}\) são todos corpos. Para \(\mathbb{Q}\), basta notar que, dado \(0\neq \frac{p}{q}\in \mathbb{Q}\), seu inverso
+	\(\frac{q}{p} = \biggl(\frac{p}{q}\biggr)^{-1}\) é um elemento de \(\mathbb{Q}\) também. Para \(\mathbb{R},\) dado \(a\in \mathbb{R},\) segue que \(a^{-1} = \frac{1}{a}\in \mathbb{R}\).
+	Finalmente, para \(\mathbb{C},\) considere \(z = a + ib\in \mathbb{C}.\) Como
+	\[
+		z\overline{z} = a^{2} + b^{2} = \Vert Z \Vert^{2},
+	\]
+	segue que \(z^{-1}=\frac{\overline{z}}{\Vert z \Vert^{2}}.\)
+
+	Os inteiros de Gauss, \(\mathbb{Z}[i]\), não formam um corpo, mas \(\mathbb{Q}[i]\) forma um corpo.
+\end{example}
+\begin{example}[Exercício]
+	Seja \(d\in \mathbb{Z}\) livre de quadrados. Mostre que \(\mathbb{Q}[\sqrt[]{d}]\) é um corpo.
+\end{example}
+\begin{theorem*}
+	O conjunto \(\mathbb{Z}_{n} = \{m\mod n: m\in \mathbb{Z}\} = \{\overline{0}, \overline{1}, \dotsc , \overline{n}\}\) é um corpo se, e somente se, n é primo.
+\end{theorem*}
+Caso p seja primo, denotamos
+\[
+	\mathbb{Z}_{p} = \mathbb{F}_{p},
+\]
+representando o corpo finito de característica (``tamanho'') p.
+
+Seja \(\mathbb{C}_{p}\coloneqq \mathbb{F}_{p}\times \mathbb{F}_{p}\) e defina, neste conjunto, as operações
+\[
+	(\overline{a}, \overline{b}) + (\overline{c}, \overline{d}) = (\overline{a}+\overline{c}, \overline{b}+\overline{d})
+\]
+e
+\[
+	(\overline{a}, \overline{b})\cdot (\overline{c}, \overline{d}) = (\overline{a}\overline{c} - \overline{b}\overline{d}, \overline{a}\overline{d}+\overline{b}\overline{c}).
+\]
+Fica de exercício mostrar que \((\mathbb{C}_{p}, +, \cdot )\) é um anel com unidade multiplicativa \(1_{\mathbb{C}_{p}} = (1, 0).\) e aditiva \(0_{\mathbb{C}_{p}} = (0, 0).\)
+Além disso, dado \(a\neq 0\) em \(\mathbb{C}_{p},\) note que \(y = -\frac{b}{a}x\) implica que
+\begin{align*}
+	            & ax - b(\frac{-b}{a}x) = 1                                          \\
+	\Rightarrow & ax + \frac{b^{2}}{a}x = 1.                                         \\
+	\Rightarrow & (a^{2} + b^{2})x = a                                               \\
+	\Rightarrow & x = \frac{a}{a^{2}+b^{2}} \quad\&\quad y = \frac{-b}{a^{2}+b^{2}}.
+\end{align*}
+Disto segue que \(a^{2} + b^{2}\neq 0\), ou, equivalentemente, \(1 + \biggl(\frac{b}{a}\biggr)^{2}\neq 0\). Conclui-se que \(x^{2}+1\in \mathbb{F}_{p}[x]\) não tem que ter raíz.
+\begin{prop*}
+	O conjunto \(\mathbb{C}_{p}\) é um corpo com \(p^{2}\) elementos se, e somente se, o polinômio \(x^{2}-1 \) em \(\mathbb{F}_{p}[x]\) não tem raíz em \(\mathbb{F}_{p}.\)
+\end{prop*}
+\begin{example}[Exercício]
+	Prove que os grupos multiplicativos dos anéis a seguir são estes:
+	\begin{itemize}
+		\item[1)] \((\mathbb{Z}/n \mathbb{Z})^{*} = \{\overline{r}: (n, r) = 1\}\), em que \((n, r)\) denota o \textit{maior divisor comum} entre n e r;
+		\item[2)] \((\mathbb{Z}[i])^{*}=\{\pm1, \pm i\}\);
+		\item[3)] \((\mathbb{Z}[\sqrt[]{p}])^{*} = \{\pm1\}\);
+		\item[4)] \((\mathbb{Z}[1/p])^{*} = \{\pm p^{r}: r\in \mathbb{Z}\}\);
+		\item[5)] \((\mathbb{Z}_{(p)})^{*} = \biggl\{\frac{a}{b}: a, b\in \mathbb{Z}, \text{ em que p não divide a e nem b}\biggr\}\);
+		\item[6)] Se A é um anel comutativo, \(M_{n}(A)^{*} = \{A\in M_{n}(A): \det{(A)}\in A^{*}\}\).
+	\end{itemize}
+\end{example}
+\end{document}

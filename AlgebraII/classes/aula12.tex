@@ -1,0 +1,107 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 25/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Corpos de Elementos Finitos;
+	\item Característica de um Corpo.
+\end{itemize}
+\subsection{Corpos Finitos}
+Seja F um corpo. Definimos o homomorfismo de anéis
+\begin{align*}
+	 & \varphi :\mathbb{Z}\rightarrow F                                                      \\
+	 & n\mapsto n \cdot 1_{F}\coloneqq \underbrace{1_{F} + \cdots + 1_{F}}_{\text{n-vezes}}.
+\end{align*}
+Já vimos que \(\overline{\varphi }:\frac{\mathbb{Z}}{\ker{(\varphi )}}\rightarrow F, \overline{n}\mapsto \varphi (n)=n \cdot 1_{F}\) é um monomorfismo. Como F é um
+domínio, \(\mathbb{Z}/\ker{(\varphi )}\) é um domínio. Logo, \(\ker{(\varphi )}\in \mathrm{Spec}(\mathbb{Z}).\) Então,
+\[
+	\ker{(\varphi )} = (0)\quad\text{ou}\quad \ker{(\varphi )}=\langle p \rangle,\text{ p primo.}
+\]
+Olhando mais atentamente a estes casos, se \(\ker{(\varphi )} = (0),\) então \(\varphi \) é um monomorfismo. Agora,
+o mapa
+\begin{align*}
+	 & \overline{\varphi }:\mathbb{Q}\rightarrow F                                  \\
+	 & \frac{m}{n}\mapsto m \cdot 1_{F} \cdot (n \cdot 1_{F})^{-1} = m \cdot n^{-1}
+\end{align*}
+é um homomorfismo de corpos que é injetivo.
+
+Por outro lado, se \(\ker{(\varphi )} = \langle p \rangle,\) p um primo, então
+\[
+	\overline{\varphi }:\mathbb{F}_{p}=\mathbb{Z}_{p}\hookrightarrow F,
+\]
+logo \(\overline{\varphi }:\mathbb{F}_{p}\rightarrow F\) é um homomorfismo de corpos que é injetivo.
+\begin{def*}
+	Dizemos que um corpo F \textbf{é de característica} 0 se pudermos mergulhar \(\mathbb{Q}\) em F e diremos que \textbf{é de característica positiva} p, p
+	um primo, se pudemos mergulhar \(\mathbb{F}_{p} em \mathbb{F}.\) Neste caso,
+	\[
+		\mathrm{char}{(F)} = \left\{\begin{array}{ll}
+			0,\quad \mathbb{Q}\hookrightarrow F \\
+			p,\quad \mathbb{F}_{p}\hookrightarrow \mathbb{F}_{p}.
+		\end{array}\right.\quad\square
+	\]
+\end{def*}
+Algumas observações devem ser feitas.
+\begin{itemize}
+	\item[1)] \(\mathbb{Q}\) e \(\mathbb{F}_{p}\) não têm subcorpos próprios. Por isso, são chamados corpos primos.
+	\item[2)] Se F é um corpo finito, então \(\mathrm{char}(F) = p\) por um primo p.
+	\item[3)] Se F é um subcorpo do corpo E, então \(\mathrm{char}(E) = \mathrm{char}(F).\)
+\end{itemize}
+\begin{example}
+	\begin{itemize}
+		\item[1)] \(\mathrm{char}(\mathbb{Q}) = 0,\quad \mathrm{char}(\mathbb{R})=0 = \mathrm{char}(\mathbb{C})\)
+		\item[2)] Seja \(\mathbb{Q}(\sqrt[]{2})\coloneqq \{a + b\sqrt[]{2}: a, b\in \mathbb{Q}\}\supseteq{\mathbb{Q}}.\) Segue que
+		      \[
+			      \mathbb{Q}(\sqrt[]{2})\cong{\frac{\mathbb{Q}[x]}{\langle x^{2}-2 \rangle}},
+		      \]
+		      em que \(x^{2}-2\) é irracional. Assim, o mapa \(\mathbb{Q}\hookrightarrow \mathbb{Q}[x]/\langle x^{2}-2 \rangle,\quad a\mapsto \overline{a}\) é vazio.
+		      Com isso, tomando \(f(x)\in \mathbb{Q}[x]\) irracional e colocando \(F = \frac{\mathbb{Q}[x]}{\langle f(x) \rangle},\)
+		      segue que \(\mathrm{char}(F) = 0.\)
+		\item[3)] Coloque \(A = \mathbb{Q}[x]\) e
+		      \[
+			      F = Q(A)\coloneqq \biggl\{\frac{f(x)}{g(x)}: f, g\in \mathbb{Q}[x], g(x)\neq0\biggr\}.
+		      \]
+		      Segue que \(\mathbb{Q}\subseteq{F}\), tal que \(\mathrm{char}(F) = 0\). Em particular,
+		      \[
+			      E = Q(\mathbb{Z}[x]) = \biggl\{\frac{f(x)}{g(x)}:f, g\in \mathbb{Z}[x], g(x)\neq0\biggr\} = F.
+		      \]
+		\item[4)] Colocando \(K = Q(\mathbb{R}[x]),\) segue que \(\mathbb{Q} \subseteq{\mathbb{R}}\subseteq{K}\) e, logo, \(\mathrm{char}(K) = 0.\)
+		\item[5)] Temos \(\mathrm{char}(\mathbb{F}_{p}) = p > 0.\) Além disso, colocando
+		      \[
+			      \mathbb{F}_{p}[\sqrt[]{2}]\coloneqq \frac{\mathbb{F}_{p}[x]}{\langle x^{2}-2 \rangle},\quad p\neq2,
+		      \]
+		      se chamarmos de \(F = \mathbb{F}_{3}[\sqrt[]{2}]\) e \(K = \mathbb{F}_{5}[\sqrt[]{5}],\) então
+		      F é um corpo com \(\mathrm{char}(F) = 3\) e K é um corpo com \(\mathrm{char}(F) = 5.\) No entanto, para p = 7,
+		      \(x^{2}-2\) tem uma raiz em \(\mathbb{F}_{7}\) e, logo, não é irracional. Portanto, \(\mathbb{F}_{7}[\sqrt[]{2}]\) não é um
+		      corpo.
+		\item[6)] Defina
+		      \[
+			      \mathbb{Q}(\mathbb{F}_{p}[x])\coloneqq \biggl\{\frac{f}{g}: f, g\in \mathbb{F}_{p}[x], g\neq 0\biggr\}.
+		      \]
+		      Então, \(\mathbb{F}_{p}[x]\) é infinito, logo F é infinito. Apesar disso, \(\mathrm{char}(F) = p > 0.\)
+	\end{itemize}
+\end{example}
+Seja K um corpo finito tal que \(\mathrm{char}(K) = p > 0.\) Então, \(\mathbb{F}_{p}\hookrightarrow K\) e
+\[
+	n = [K:\mathbb{F}_{p}] = \dim_{\mathbb{F}_{p}}K < \infty.
+\]
+Isto implica que \(|K| = p^{n}\). Como \(\mathbb{F}_{p}\)-espaço vetorial, temos
+\[
+	K\cong{\mathbb{F}_{p}^{n}} = \underbrace{\mathbb{F}_{p}\times \cdots\times \mathbb{F}_{p}}_{\text{n-vezes}}
+\]
+Como um fato geral, se F é um corpo e olhamos para V como um F-espaço vetorial com dimensão \(n = \dim_{F}V < \infty\), então
+\[
+	V\cong{F^{n}}.
+\]
+\begin{theorem*}
+	\begin{itemize}
+		\item[1)] Para todo primo p e todo número natural \(n > 0,\) temos um corpo com \(p^{n}\) elementos;
+		\item[2)] Quaisquer dois corpos com \(p^{n}\) elementos são isomorfos.
+	\end{itemize}
+\end{theorem*}
+\begin{def*}
+	Denotamos um corpo finito com \(p^{n}\) elementos por \(\mathbb{F}_{p^{n}}.\square\)
+\end{def*}
+\begin{theorem*}
+	Seja p um primo e \(m, n\in \mathbb{N}\) com \(m\leq n.\) Então, podemos mergulhar \(\mathbb{F}_{p^{m}}\) em \(\mathbb{F}_{p^{n}}\) se, e somente se, \(m\mid n.\)
+\end{theorem*}
+\end{document}

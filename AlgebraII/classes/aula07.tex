@@ -1,0 +1,164 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 30/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item O Teorema Chinês dos Restos;
+	\item Anel Quociente de Polinômios Complexos.
+\end{itemize}
+\subsection{Teorema Chinês dos Restos}
+Antes de mais nada, relembramos a noção de ideais coprimos:
+\begin{quote}
+	``Dois ideais \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A}\) são ditos \textbf{coprimos} se \(\mathfrak{i}+\mathfrak{j} = A,\) ou seja,
+	se \(1\in \mathfrak{i}+\mathfrak{j}.\)''
+\end{quote}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se m, n são números inteiros tais que \(\mathrm{mdc}(m, n) = 1,\) então \(m \mathbb{Z} + n \mathbb{Z} = \mathbb{Z}\).
+		\item[2)] Seja k um corpo e \(f(x), g(x)\in k[X].\) Se \(\mathrm{mdc}(f(x), g(x)) = 1\), i.e.,
+		      existe \(h(x)\in k[X]\) com \(\deg(h(x))\geq 1\) tal que \(h(x)\mid f(x)\) e \(h(x)\mid g(x)\), então os ideais
+		      \(\langle f(x) \rangle, \langle g(x) \rangle\) são coprimos.
+		\item[3)] Seja A anel tal que \(\mathfrak{m}_{1}, \mathfrak{m}_{2}\in \mathrm{Specm}(A), \mathfrak{m}_{1}\neq \mathfrak{m}_{2}.\) Então,
+		      \(\mathfrak{m}_{1} + \mathfrak{m}_{2} \trianglelefteq{A},\) mas \(\mathfrak{m}_1\subseteq \mathfrak{m}_{1}+\mathfrak{m}_{2}.\)
+		      Como \(\mathfrak{m}_{1}\) é maximal e \(\mathfrak{m}_{1}\neq \mathfrak{m}_{2},\) resta a opção \(\mathfrak{m}_{1} + \mathfrak{m}_{2} = A.\)
+	\end{itemize}
+\end{example}
+\begin{prop*}
+	Sejam \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A}\) com \(\mathfrak{i}+\mathfrak{j} = A.\) Então, para todo \(n\geq 1, m\geq 1,\) os ideais
+	\(\mathfrak{i}^{m}\) e \(\mathfrak{j}^{n}\) são coprimos.
+\end{prop*}
+\begin{proof*}
+	Se \(\mathfrak{i}, \mathfrak{j}\) são coprimos, existem \(x\in \mathfrak{i}, y\in \mathfrak{j}\) com \(x+y = 1.\)
+	Assim, \(1 = 1^{m+n} = (x+y)^{m+n}.\) Expandindo o binômio, obtemos
+	\begin{align*}
+		 & 1 = \sum\limits_{k=0}^{m+n}\binom{m+n}{k}x^{k}y^{m+n-k}                                                                                            \\
+		 & 1 = \sum\limits_{k=0}^{m}\binom{m+n}{k}x^{k}y^{m+n-k} + \sum\limits_{k=m+1}^{m+n}\binom{m+n}{k}x^{k}y^{m+n-k}                                      \\
+		 & 1 = \biggl(\sum\limits_{k=0}^{m}\binom{m+n}{k}x^{k}y^{m-k}\biggr)y^{n}+\biggl(\sum\limits_{k=m+1}^{m+n}\binom{m+n}{k}x^{k-m}y^{m+n-k}\biggr)x^{m.}
+	\end{align*}
+	Assim, escrevemos \(1 = ay^{n}+bx^{m}\), isto é, como a soma de elementos de \(\mathfrak{i}^{m}\) e \(\mathfrak{j}^{n}.\) Portanto,
+	\(\mathfrak{i}^{m}\) e \(\mathfrak{j}^{n}\) são coprimos. \qedsymbol
+\end{proof*}
+\hypertarget{chinese_remainder}{
+	\begin{theorem*}[Teorema Chinês dos Restos]
+		Seja A um anel e \(\mathfrak{i}_{1},\dotsc,\mathfrak{i}_{n}\trianglelefteq{A}\) ideais de A dois a dois coprimos, ou seja,
+		\(\mathfrak{i}_{i}+\mathfrak{i}_{j}=A, i\neq j.\) Então:
+		\begin{itemize}
+			\item[1)] \(\mathfrak{i}_{1}\cdot \dotsc \cdot \mathfrak{i}_{n} = \mathfrak{i}_{1}\cap \dotsc\cap \mathfrak{i}_{n};\)
+			\item[2)] Existe um isomorfismo
+			      \begin{align*}
+				       & \varphi :\frac{A}{\bigcap_{i=1}^{n}\mathfrak{i}_{i}}\rightarrow \frac{A}{\mathfrak{i}_{1}}\times \dotsc\times \frac{A}{\mathfrak{i}_{n}} \\
+				       & a+\bigcap_{i=1}^{n}\mathfrak{i}_{i}\mapsto(a+\mathfrak{i}_{1}, \dotsc, a+\mathfrak{i}_{n}).
+			      \end{align*}
+		\end{itemize}
+	\end{theorem*}}
+\begin{proof*}
+	Provaremos os dois fatos juntos utilizando a indução a partir do primeiro caso n=2.
+
+	Já sabemos que 1 vale para este caso, então iremos encontrar o morfismo. Para tanto, considere \(\varphi :A/(\mathfrak{i}_{1}\cap \mathfrak{i}_{2})\rightarrow A/\mathfrak{i}_{1}\times A/\mathfrak{i}_{2}.\)
+	Observe que \(\varphi \) está bem-definido, dado que, se \(a+\mathfrak{i}_{1}\cap \mathfrak{i}_{2} = b + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}, a-b\in \mathfrak{i}_{1}\cap \mathfrak{i}_2\),
+	então \(a+\mathfrak{i}_{1} = b + \mathfrak{i}_{1}\) e \(a + \mathfrak{i}_{2} = b + \mathfrak{i}_{2}.\) Então, \(\varphi(a+\mathfrak{i}_{1}\cap \mathfrak{i}_{2}) = \varphi(b+\mathfrak{i}_{1}\cap \mathfrak{i}_{2}).\)
+	Resta provar a injetividade, que é homomorfismo e a sobrejetividade. Faremos nesta ordem
+
+	Suponha \(a+\mathfrak{i}_{1}\cap \mathfrak{i}_{2}\in\ker{(\varphi )}\). Então, \(\varphi (a + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}) = (\mathfrak{i}_{1}, \mathfrak{i}_{2})\),
+	isto é, \(a\in \mathfrak{i}_{1}\) e \(a\in \mathfrak{i}_{2}.\) Assim, \(a\in \mathfrak{i}_{1}\cap \mathfrak{i}_{2}\), tal que \(\ker{(\varphi )} = \{0_{A/(\mathfrak{i}_{1}\cap \mathfrak{i}_{2})\} = \mathfrak{i}_{1}\cap \mathfrak{i}_{2}}\)
+	e \(\varphi \) é injetora.
+
+	Além disso, \(\varphi (a + b + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}) = (a+b+\mathfrak{i}_{1}, a + b + \mathfrak{i}_{2}) =
+	(a + \mathfrak{i}_{1}, a + \mathfrak{i}_{2}) + (b+\mathfrak{i}_{1}, b + \mathfrak{i}_{2}) = \varphi(a + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}) + \varphi(b + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}).\)
+	Além disso, \(\varphi (ab + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}) = (ab + \mathfrak{i}_{1}, ab+ \mathfrak{i}_{2}) = (a+\mathfrak{i}_{1}, a+\mathfrak{i}_{2}).\)
+
+	Finalmente, para ver que \(\varphi \) é sobrejetora, tome um elemento genérico \((a+\mathfrak{i}_{1}, b+\mathfrak{i}_{2})\in A/\mathfrak{i}_{1}\times A/\mathfrak{i}_{2}.\)
+	Note que essa \(\varphi \) só atinge elementos da forma \((z + \mathfrak{i}_{1}, z + \mathfrak{i}_{2})\) e que
+	\begin{align*}
+		(a+\mathfrak{i}_{1}, b+\mathfrak{i}_{2}) & = (a+\mathfrak{i}_{1}, \mathfrak{i}_{2}) + (\mathfrak{i}_{1}, b + \mathfrak{i}_{2})                                                                                         \\
+		                                         & = (a+\mathfrak{i}_{1}, a + \mathfrak{i}_{2})(1+\mathfrak{i}_{1}, 0 + \mathfrak{i}_{2}) + (b+\mathfrak{i}_{1}, b+\mathfrak{i}_{2})(0+\mathfrak{i}_{1}, 1 + \mathfrak{i}_{2}) \\
+		                                         & = \varphi(a)(1+\mathfrak{i}_{1}, 0 + \mathfrak{i}_{2}) + \varphi(b)(0+\mathfrak{i}_{1}, 1 + \mathfrak{i}_{2}).
+	\end{align*}
+	Com isso, resolvemos nosso problema se encontrarmos \(x_{1}, x_{2}\) tais que \(\varphi (x_{1}+\mathfrak{i}_{1}\cap \mathfrak{i}_{2}) = (0 +\mathfrak{i}_{1}, 1 +\mathfrak{i}_{2})\) e
+	\(\varphi (x_{2} + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}) = (1+\mathfrak{i}_{1}, 0+\mathfrak{i}_{2}).\) Considere
+	\(x_{1}\in \mathfrak{i}_{1}, x_{2}\in \mathfrak{i}_{2}\) tais que \(x_{1} + x_{2} = 1.\) Temos:
+	\begin{align*}
+		\varphi (x_{1}+\mathfrak{i}_{1}\cap \mathfrak{i}_{2}) & = (x_{1}+\mathfrak{i}_{1}, x_{1}+\mathfrak{i}_{2}) \\
+		                                                      & = (\mathfrak{i}_{1}, 1 - x_{2} + \mathfrak{i}_{2}) \\
+		                                                      & = (\mathfrak{i}_{1}, 1+\mathfrak{i}_{2}).
+	\end{align*}
+	Usando o mesmo raciocínio,
+	\begin{align*}
+		\varphi (x_{2} + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}) & = (x_{2}+\mathfrak{i}_{1}, x_{2}+\mathfrak{i}_{2}) \\
+		                                                        & = (1-x_{1}+\mathfrak{i}_{1}, \mathfrak{i}_{2})     \\
+		                                                        & = (\mathfrak{i}_{1}, 1 + \mathfrak{i}_{2}).
+	\end{align*}
+	Temos todos os elementos que precisávamos. Basta tomarmos \(\varphi (bx_{1} + ax_{2} + \mathfrak{i}_{1}\cap \mathfrak{i}_{2}) = (a+\mathfrak{i}_{1}, b+\mathfrak{i}_{2})\) e, pelos resultados anteriores,
+	\(\varphi \) é um isomorfismo de anéis.
+
+	Agora, utilizaremos este caso base para conseguir a hipótese indutiva. Suponha que o resultado vale para \(n-1\) e provemos para n.
+	Sejam \(\mathfrak{i}_{1}, \dotsc, \mathfrak{i}_{n}\) ideais de A dois a dois coprimos. Primeiro, note que,
+	se \(\mathfrak{j}\coloneqq \mathfrak{i}_{2}\cdot \dotsc \cdot \mathfrak{i}_{n}\), \(\mathfrak{i}_{1}\) e \(\mathfrak{j}\) são coprimos.
+
+	De fato, por hipótese, vale \(\mathfrak{i}_{1}+\mathfrak{i}_{i} = A\) para \(i=2, \dotsc, n.\) Então, existem
+	\(x_{1, i}\in \mathfrak{i}_{1}\) e \(y_{i}\in \mathfrak{i}_{i}\) tais que \(x_{1, i}+y_{i} = 1.\) Assim, o produto:
+	\[
+		1 = (x_{1, 2} + y_{2})(x_{1, 3}+y_{3})\dotsc(x_{1, n}+y_{n}) = y_{2}\cdot \dotsc \cdot y_{n}+z,
+	\]
+	em que z é o resto da expansão do produto e está em \(\mathfrak{i}_{1},\) porque será uma soma de produtos de termos \(x_{1, i}\in \mathfrak{i}_{1}\) com alguns
+	termos \(y_{},\) que estão no anel, e \(\mathfrak{i}_{1}\) é ideal. Como \(y_{2}\cdot \dotsc \cdot y_{n}\in \mathfrak{j},\) segue que  \(\mathfrak{i}_{1} + \mathfrak{j} = A.\)
+	Supondo, por indução, que \(\mathfrak{i}_{2}\cdot \dotsc \cdot \mathfrak{i}_{n} = \mathfrak{i}_{2}\cap \dotsc \cap \mathfrak{i}_{n},\) donde tiramos
+	\(\mathfrak{i}_{1}\cdot (\mathfrak{i}_{2}\cdot \dotsc \cdot \mathfrak{i}_{n}) = \mathfrak{i}_{1}\cap (\mathfrak{i}_{2}\cap \dotsc\cap \mathfrak{i}_{n})\) pelo caso \(n=2\).
+	Ademais, para a segunda parte do teorema, note que
+	\begin{align*}
+		\frac{A}{\mathfrak{i}_{1}\cap(\bigcap_{i=2}^{n}\mathfrak{i}_{i})} = \frac{A}{\mathfrak{i}_{1}\cap \prod\limits_{i=2}^{n}\mathfrak{i}_{i}}\cong \frac{A}{\mathfrak{i}_{1}}\times \frac{A}{\prod\limits_{i=2}^{n}\mathfrak{i}_{i}} & =\frac{A}{\mathfrak{i}_{1}}\times \frac{A}{\bigcap_{i=2}^{n}\mathfrak{i}_{i}}   \\
+		                                                                                                                                                                                                                                 & \cong \frac{A}{\mathfrak{i}_{1}}\times \dotsc\times \frac{A}{\mathfrak{i}_{i}}.
+	\end{align*}
+	Portanto, o isomorfismo definido existe. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Sejam \(x_{1}, \dotsc, x_{r}\in \mathbb{Z}\) e \(n_{1}, \dotsc, n_{r}\in \mathbb{N}\) dois a dois coprimos. Então,
+	o sistema
+	\begin{equation*}
+		\left\{\begin{array}{ll}
+			x\equiv x_{1}\mod n_{1} \\
+			\vdots                  \\
+			x\equiv x_{r}\mod n_{r}
+		\end{array}\right.
+	\end{equation*}
+	possui uma única solução mod \(n_{1}\cdot \dotsc n_{r}.\)
+\end{crl*}
+\begin{example}
+	Seja \(f(x)\in \mathbb{C}[x].\) Pelo teorema fundamental da álgebra, podemos escrever \(f(x) = a(x-a_{1})^{r_{1}}\cdot \dotsc \cdot (x-a_{r})^{r_{n}},\)
+	em que \(a_{i}\) são raízes distintas de ordem \(r_{1}, \dotsc, r_{n}\) respectivamente, com \(\deg{(g)} = \sum\limits_{}^{}r_{i}.\) Temos
+	\(\langle x-a_{i} \rangle \trianglelefteq{\mathbb{C}[x]}\) é ideal maximal para \(i=1, \dotsc, n.\) Além disso, se \(i\neq j\), os ideais
+	\(\langle x-a_{i} \rangle^{r_{i}}\) e \(\langle x-a_{j} \rangle^{r_{j}}\) são coprimos. Aplicando o Teorema Chinês dos Restos, obtemos o isomorfismo:
+	\[
+		\frac{\mathbb{C}[x]}{\langle f(x) \rangle}\cong \frac{\mathbb{C}[x]}{\langle x-a_{1} \rangle^{r_{1}}}\times \dotsc\times \frac{\mathbb{C}[x]}{\langle x-a_{n} \rangle^{r_{n}}}.
+	\]
+	Se temos o caso especial em que f(x) é irredutível, isto é, \(r_{1} = \dotsc = r_{n} = 1\), então:
+	\[
+		\frac{\mathbb{C}[x]}{\langle x-a_{i} \rangle}\cong{\mathbb{C}},
+	\]
+	e, assim,
+	\[
+		\frac{\mathbb{C}[x]}{\langle f(x) \rangle}\cong{\mathbb{C}^{n}}.
+	\]
+	Em particular, note que isto significa que
+	\[
+		\frac{\mathbb{C}[x]}{\langle x^{2}+1 \rangle}\cong \mathbb{C}.
+	\]
+\end{example}
+\begin{example}[Exercícios]
+	Sejam A, B anéis. Mostre que:
+	\begin{itemize}
+		\item[1)] \(\mathrm{Specm}(A\times B) = \{A\times \mathfrak{j}:\mathfrak{j}\in \mathrm{Specm}(B)\}\cup\{\mathfrak{i}\times B:\mathfrak{i}\in \mathrm{Specm}(A)\}.\)
+		\item[2)] Encontre todos os ideais maximais de \(A_{1}\times \dotsc\times A_{n}\), em que cada
+		      \(A_{i}\) é um anel.
+		\item[3)] Prove que \(\mathrm{Specm}(\mathbb{C}^{n}) = \mathrm{Spec}(\mathbb{C}^{n}).\) Anéis que satisfazem essa propriedade
+		      são chamados \textbf{anéis artinianos.}
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Um anel A é dito \textbf{semilocal} se \(\mathrm{Specm}(A)\) é finito. \(\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+	Mostre que para todo polinômio \(f(x)\in \mathbb{C}[x]\) tal que f(x) é não-constante e irredutível, o anel
+	\(\mathbb{C}[x]/\langle f(x) \rangle\) é semilocal.
+\end{prop*}
+\end{document}

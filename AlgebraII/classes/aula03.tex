@@ -1,0 +1,211 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 16/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Ideais Primos e Ideais Maximais;
+	\item Espectro de um Anel;
+	\item Anéis Locais e Elementos Nilpotentes.
+\end{itemize}
+\subsection{Ideais Primos e  Maximais}
+\begin{def*}
+	Uma ideal \(\mathfrak{i} \trianglelefteq{A}\) é dito \textbf{primo} se \(\mathfrak{i}\neq A\) e \(ab\in \mathfrak{i}\)
+	implica \(a\in \mathfrak{i}\) ou \(b\in \mathfrak{i}.\)
+
+	Um ideal \(\mathfrak{i}\trianglelefteq{A}\) é dito maximal se \(\mathfrak{i}\neq A\) e se, dado \(\mathfrak{j}\trianglelefteq{A}\)
+	com \(\mathfrak{i}\subseteq{\mathfrak{j}}\), então
+	\[
+		\mathfrak{i} = \mathfrak{j}\text{ ou } \mathfrak{j} = A.\quad\square
+	\]
+\end{def*}
+Diremos que uma \textbf{cadeia} \(K\subseteq{S}\) de um conjunto parcialmente ordenado é um subconjunto totalmente
+ordenado do mesmo.
+\begin{prop*}
+	\begin{itemize}
+		\item[1)] Os ideais maximais são primos;
+		\item[2)] Todo anel não nulo tem um ideal maximal e logo tem um ideal primo;
+		\item[3)] Todo ideal próprio de A está contido em algum ideal maximal de A.
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	1. Seja M maximal e \(ab\in M.\) Mostremos \(a\in M\) ou \(b\in M\). Suponha
+	\(a\not\in M\). Considere o anel:
+	\[
+		M + \langle a \rangle = \{x+ra: x\in M\text{ e }r\in A\} \trianglelefteq{A}.
+	\]
+	Note que \(M\subsetneq{M + \langle a \rangle},\) pois \(a\not\in M.\) Como M é maximal, segue que
+	\(M + \langle a \rangle = A.\) Assim, \(1\in M + \langle a \rangle\) e existe \(x\in M\), \(r\in A\)
+	tais que \(x + ra = 1\) e, então,
+	\[
+		b = b1 = b(x+ra) = bx + rab.
+	\]
+	Como M é ideal, \(ab\in M\), o que implica em \(rab\in M\), e \(x\in M\) implica em \(bx\in M\).
+	Assim, \(b = bx + rab\in M\).
+
+	2. Para obtermos o ideal maximal, usaremos o Lema de Zorn. Construiremos o conjunto parcialmente ordenado
+	dado por \(S\coloneqq \{\mathfrak{i}\trianglelefteq{A}: \mathfrak{i}\neq A\}\), sendo a ordem dada por \(\subseteq{}.\)
+	Sabemos que \(S \neq\emptyset\), pois \((0)\in S.\) Considere, agora, uma cadeia \(\{\mathfrak{i}_{l}\}_{l\in L}\) de elementos
+	de S. Por indução, a união destes ideais é um ideal e, além disso, é um ideal próprio
+	\[
+		\mathfrak{i}\coloneqq \bigcup_{l\in L}^{}{\mathfrak{i}_{l}}\vartriangleleft{A},
+	\]
+	pois para cada \(l\in L, 1\not\in \mathfrak{i}_{l}\), já que, se \(1\in \mathfrak{i}_{l}\) para algum \(l\in L\), teríamos
+	\(\mathfrak{i} = A\). Então, a união é um elemento de S e é uma cota superior da cadeia, no sentido de \(\mathfrak{i}_{l}\subseteq{\mathfrak{i}}\)
+	para cada \(l\in L.\) Pelo Lema de Zorn, segue que existe um elemento maximal no conjunto S, que será o ideal maximal por definição.
+
+	3. Considere \(\mathfrak{i}\) um ideal próprio de A e defina o conjunto \(S_{\mathfrak{i}}\coloneqq \{\mathfrak{j}\vartriangleleft{A}:\mathfrak{i}\subseteq{\mathfrak{j}}\}\).
+	Como \(\mathfrak{i}\in S_{\mathfrak{i}}, S_{\mathfrak{i}}\neq\emptyset.\) Seja \(\{\mathfrak{j}_{l}\}_{l\in L}\) uma cadeia de \(S_{\mathfrak{i}}.\)
+	Assim como no item 2, a união de elementos da cadeia é cota superior para ela e, aplicando o Lema de Zorn, temos um elemento
+	maximal dessa família - um anel maximal que contém \(\mathfrak{i}.\)
+	\qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja A um anel. Definimos o \textbf{espectro primo} de A por \(\mathrm{Spec}(A) = \{\mathfrak{p}\trianglelefteq{A}: \mathfrak{p}\text{ é ideal primo de } A\}\)
+	e o \textbf{espectro maximal} de A como \(\mathrm{Specm}(A) = \{\mathfrak{m}\trianglelefteq{A}:\mathfrak{m} \text{ é ideal maximal de } A\}.\quad\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+	\begin{itemize}
+		\item[1)] A é domínio se, e somente se, \((0)\in \mathrm{Spec}(A)\)
+		\item[2)] Dado um ideal \(\mathfrak{i} = n \mathbb{Z},\) então \(\mathfrak{i}\in \mathrm{Spec}(\mathbb{Z})\) se, e somente se,
+		      n é primo ou n = 0. Assim, \(\mathrm{Spec}(\mathbb{Z}) = \{p \mathbb{Z}: p \text{ é primo}\}\cup \{(0)\}\).
+		\item[3)] Dado um ideal \(\mathfrak{i} = n \mathbb{Z}\), então \(\mathfrak{i}\in \mathrm{Specm}(\mathbb{Z})\) se, e somente se,
+		      n é primo. Logo, \(\mathrm{Specm}(\mathbb{Z}) = \{p \mathbb{Z}:p \text{ é primo}\}\).
+		\item[4)] Mostre que \(\mathfrak{i}\trianglelefteq A\) é primo se, e somente se, para \(\mathfrak{j}, \mathfrak{k}\trianglelefteq A\) são tais que \(\mathfrak{j}\mathfrak{k}\subseteq \mathfrak{i}\), então
+		      \(\mathfrak{j}\subseteq \mathfrak{i}\) ou \(\mathfrak{k}\subseteq \mathfrak{i}\).
+	\end{itemize}
+\end{prop*}
+\begin{def*}
+	Um anel é dito \textbf{local} se tem só um ideal maximal. \(\square\)
+\end{def*}
+\begin{lemma*}
+	Seja \(\mathfrak{m}\in \mathrm{Specm}(A)\). Então, A é local se, e somente se, \(A^{*} = A\setminus{\mathfrak{m}}\).
+\end{lemma*}
+\begin{proof*}
+	\(\Rightarrow )\) Suponha que \(\mathfrak{m}\) seja o único ideal maximal de A. Como \(\mathfrak{m} \neq\emptyset, A^{*}\cap \mathfrak{m} = \emptyset\).
+	Assim, \(A^{*}\subseteq{A\setminus{\mathfrak{m}}}.\) Tome \(a\in A\setminus{\mathfrak{m}}\) e considere o ideal principal \(\langle a \rangle \trianglelefteq{A}.\)
+	Se \(\langle a \rangle\neq A,\) então \(\langle a \rangle \subseteq{\mathfrak{m}},\) pois todo ideal próprio está contido num maximal, que supomos ser unicamente \(\mathfrak{m}\).
+	Logo, \(a\in \mathfrak{m}\), o que é um absurdo. Então, \(\langle a \rangle = A\) e existe \(r\in A\) tal que \(ra = 1,\) i.e., \(a\in A^{*}.\)
+
+	\(\Leftarrow )\) Suponha que existe outro ideal maximal \(\mathfrak{m}'\neq \mathfrak{m}.\) Então, existe \(a\in \mathfrak{m}'\)
+	tal que \(a\in A\setminus{\mathfrak{m}} = A^{*}.\) Portanto, \(\mathfrak{m}'\cap A^{*} \neq\emptyset\) e, assim, \(\mathfrak{m}' = A,\)
+	contrariando a maximalidade de \(\mathfrak{m}.\) \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja A um anel não-nulo. Então, todo ideal próprio de A está contido num ideal maximal. Em particular, todo anel
+	não nulo tem pelo menos um ideal maximal.
+\end{theorem*}
+\begin{proof*}
+	Seja \(\mathfrak{i}\trianglelefteq A\) e defina a coleção
+	\[
+		\mathcal{A} \coloneqq \{\mathfrak{j}\trianglelefteq A: \mathfrak{j} \text{ é um ideal próprio de A que contém }\mathfrak{i}\}.
+	\]
+	Por definição, \(\mathfrak{i}\in \mathcal{A},\) tal que \(\mathcal{A}\neq\emptyset.\) Seja, agora, \(\{\mathfrak{j}_{l}\}_{l\in L}\) uma cadeia
+	dos ideais de A que estão em \(\mathcal{A}\) de modo tal que, para todo \(l, l'\in L\),
+	\(\mathfrak{j}_{l}\subseteq \mathfrak{j}_{l'}\) ou \(\mathfrak{j}_{l'}\subseteq \mathfrak{j}\). Temos
+	\[
+		\mathfrak{m}\coloneqq \bigcup_{l\in L}^{}\mathfrak{j}_{l}\trianglelefteq A
+	\]
+	e
+	\[
+		\mathfrak{i}\subseteq \bigcup_{l\in L}^{}\mathfrak{j}_{l}\neq A.
+	\]
+	De fato, dados \(a, b\in \mathfrak{m}\), existem \(l, l'\in L\) tais que \(a\in \mathfrak{j}_{l}, b\in \mathfrak{j}_{l'}\).
+	Caso \(\mathfrak{j}_{l}\subseteq \mathfrak{j}_{l'},\) então ambos \(a, b\) pertencem a \(\mathfrak{j}_{l'},\) ou seja, \(a + b, ra\in \mathfrak{j}_{l'}.\) Caso
+	seja o oposto e \(\mathfrak{j}_{l'}\subseteq \mathfrak{j}_{l}\), o raciocínio aplica-se para \(a + b, ra\in \mathfrak{j}_{l}\). Logo, \(\mathfrak{m}\trianglelefteq A.\)
+
+	Com relação à segunda propriedade, é claro que \(\mathfrak{i}\subseteq \bigcup_{l\in L}^{}\mathfrak{j}_{l}.\) Assim, se
+	\(\mathfrak{m} = A,\) então \(1\in \mathfrak{m}.\) Logo, existe \(l\in L\) tal que \(1\in \mathfrak{j}_{l'},\) donde segue que
+	\(\mathfrak{j}_{l} = A.\) Contradição.
+
+	Em outras palavras, temos um candidato para ideal maximal. Agora, utilizando o \textbf{Lema de Zorn}\footnotemark{1} \footnotetext{Relembre o enunciado do \textbf{Lema de Kuratowski-Zorn: Suponha que um conjunto parcialmente ordenado P tem a propriedade de que toda
+			cadeia em P tem um limitante superior. Então, o conjunto P contém ao menos um elemento maximal.} Ele é equivalente ao axioma da escolha e ao princípio da boa-ordenação.}, \(\mathcal{A}\) tem
+	ao menos um elemento maximal - \(\mathfrak{m}\). Para ver que este elemento maximal é, de fato, um ideal maximal, suponha que ele não é. Então, existe \(\mathfrak{j}_{i} \trianglelefteq A\) tal que
+	\(\mathfrak{m}\subsetneq \mathfrak{j}_{i} \subsetneq A\). Como \(\mathfrak{i}\subseteq \mathfrak{j}_{i}\neq A,\) segue que \(\mathfrak{j}_{i}\in \mathcal{A}.\) Mas isto é uma contradição,
+	pois \(\mathfrak{m}\) é o elemento maximal de \(\mathcal{A}.\) Portanto, \(\mathfrak{m}\) é um ideal maximal de A. \qedsymbol
+\end{proof*}
+\begin{example}
+	Segue que \(n \mathbb{Z}\) é primo se, e somente se, n é primo ou n = 0 (isso está em um dos exercício).
+	De fato, suponha que p é primo e tome \(ab\in p \mathbb{Z}.\) Então, p divide ab e, como p é primo, p divide a ou p divide b.
+	Isto significa exatamente que \(a\in p\mathbb{Z}\) ou \(b\in p \mathbb{Z}.\) Caso p = 0, se \(ab\in (0),\) então
+	\(ab=0\). Sendo \(\mathbb{Z}\) um domínio, isto significa que ou a = 0, ou b = 0, tal que \(a\in (0)\) ou \(b\in (0)\).
+
+	Por outro lado, seja \(n \mathbb{Z}\) primo. Caso  n = 0, não há nada para provar, então suponha que \(n\neq 0\).
+	Neste caso, suponha que n não é primo, ou seja, existem \(l, k\) diferentes de 1 e de n tais que \(n = lk\). Note que
+	\(n = lk\in n\mathbb{Z}\), mas \(l\not\in n \mathbb{Z}\) e \(k\not\in n \mathbb{Z}.\) Contradição. Portanto, n tem que ser primo.
+\end{example}
+\begin{example}
+	Vamos olhar o caso de \(\mathbb{Z}_{(n)} = \mathbb{Z}/n \mathbb{Z}.\) Se n for primo, então \(\mathbb{Z}_{(n)}\) é um corpo, ou seja, tem apenas \((\overline{0})\) como
+	ideal maximal. Por outro lado, se n não é primo, existem l, k diferentes de 1 e de n tais que \(n = lk\). Em particular, isto significa que
+	\[
+		\overline{0} = \overline{n} = \overline{lk} = \overline{l}\overline{k}\in (\overline{0}),
+	\]
+	mas tanto \(\overline{l}\) quanto \(\overline{k}\) são diferentes de \(\overline{0}\) por serem diferentes de n. Logo, conclui-se que \((\overline{0})\) não é
+	um ideal primo neste caso. Qual seria, então, a cara dos ideais primos de \(\mathbb{Z}_{n}\) para n não sendo primo?
+
+	Para responder isso, seja p um primo tal que \(p\mid n\). Como \(p\leq n, \langle \overline{p} \rangle\subseteq n \mathbb{Z}\) e p é primo, segue que
+	\(\langle \overline{p} \rangle\) é um ideal primo. Além disso, suponha que n é tal que \(n = pl\). Isso nos permite explicitar a cara do ideal gerado pela classe
+	de equivalência de p:
+	\[
+		\langle \overline{p} \rangle = \{\overline{0}, \overline{p}, 2\overline{p}, \dotsc , (l-1)\overline{p}\}.
+	\]
+\end{example}
+\begin{example}[Exercício]
+	\begin{itemize}
+		\item[1)] Mostre que todo corpo é um anel local.
+		\item[2)] Mostre que \(\mathbb{Z}_{(p)},\) para p primo, é um anel local.
+		\item[3)] Seja \(\mathbb{K}\) um corpo e seja \(f(x)\in \mathbb{K}[x]\) um polinômio não nulo irredutível.
+		      Defina o seguinte conjunto:
+		      \[
+			      \mathbb{K}[x]_{(f(x))} = \biggl\{\frac{h(x)}{g(x)}: h(x), g(x)\in \mathbb{K}[x] \text{ e f(x) não divide g(x)}\biggr\}.
+		      \]
+		      Mostre que este é um anel local de \(\mathbb{K}[x].\)
+	\end{itemize}
+\end{example}
+\begin{example}
+	Sejam F um corpo e seja \(A = F[x]\). Vamos mostrar que todo ideal de A é formado por um polinômio em x.
+	Começando pelo caso trivial, se \(\mathfrak{i} = (0),\) então \(\mathfrak{i} = \langle 0 \rangle.\) Assim, suponha que \(\mathfrak{i}\neq (0)\)
+	e seja \(f(x)\in \mathfrak{i}\) um polinômio com menor grau em \(\mathfrak{i}.\) Por um lado, é claro que \(\langle f((x) \rangle\subseteq \mathfrak{i},\)
+	afinal \(f(x)\) é um elemento de \(\mathfrak{i}.\) Por outro lado, seja \(h(x)\in \mathfrak{i},\) de modo que, pelo algoritmo da divisão, existem \(q(x), r(x)\in F[x]\) tais que
+	\[
+		h(x) = q(x)f(x) + r(x),\quad 0\leq \deg{(r)}<\deg{(f)}.
+	\]
+	Note que, em particular, \(r(x) = h(x)-q(x)f(x)\in \mathfrak{i},\) tal que \(r(x)\in \mathfrak{i}\) e \(\deg{(r)} <\deg{(f)}\)
+	imlicam que \(r(x) = 0\). Com isso, \(h(x) = q(x)f(x),\) ou seja, \(h(x)\in \langle f(x) \rangle,\) mostrando que \(\mathfrak{i}\subseteq \langle f(x) \rangle.\)
+	Portanto, \(\mathfrak{i} = \langle f(x) \rangle.\)
+\end{example}
+\begin{lemma*}[Exercício]
+	Seja \(\mathfrak{i}\in F[x]\), em que F é um corpo. Então,
+	\begin{itemize}
+		\item[1)] \(\mathfrak{i}\) é primo se \(\mathfrak{i} = 0\) ou \(\mathfrak{i} = \langle f(x) \rangle,\) com f(x) irredutível;
+		\item[2)] \(\mathfrak{i}\) é maximal se \(\mathfrak{i} = \langle f(x) \rangle,\) f(x) irredutível
+	\end{itemize}
+\end{lemma*}
+\begin{def*}
+	Para um anel A, os ideais a seguir:
+	\[
+		\mathrm{nil}(A) = \bigcap_{\mathfrak{p}\in \mathrm{Spec}(A)}^{}{\mathfrak{p}}\quad \& \quad J(A)\coloneqq \bigcap_{\mathfrak{m}\in \mathrm{Specm}(A)}^{}{\mathfrak{m}}
+	\]
+	são chamados nil-radical e radical Jacobson de A. \(\square\)
+\end{def*}
+\begin{prop*}
+	Temos \(\mathrm{nil}(A) \subseteq{J(A)}.\)
+\end{prop*}
+\begin{proof*}
+	De fato, como sabemos que os ideais maximais são primos, vale que \(\mathrm{Specm}(A)\subseteq{\mathrm{Spec}(A)}.\) Assim, se
+	\(x\in \mathrm{nil}(A),x\in \mathfrak{p}\) para todo \(\mathfrak{p}\in \mathrm{Spec}(A).\) Em particular, \(x\in \mathfrak{p}\) para todo \(\mathfrak{p}\in \mathrm{Specm}(A)\)
+	e então \(x\in J(A)\). Portanto, \(\mathrm{nil}(A) \subseteq{J(A)}.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+	Um elemento \(a\in A\) é dito \textbf{nilpotente} se existir um inteiro \(n\geq 1\) tal que \(a^{n} = 0.\) Um ideal
+	\(\mathfrak{i}\) é dito \textbf{nilpotente} se existir um inteiro \(n\geq 1\) tal que \(\mathfrak{i}^{n} = (0).\)
+\end{def*}
+\begin{prop*}[Exercício]
+	\begin{itemize}
+		\item[1)] Mostre que \(\mathrm{nil}(A)\) é o conjunto de todos os elementos nilpotentes de A;
+		\item[2)] Mostre que se \(\mathrm{nil}(A)\) é finitamente gerado, ele é um ideal nilpotente;
+		\item[3)] Se A é domínio, \((0)\in \mathrm{Spec}(A)\) e, logo, \(\mathrm{nil}(A) = (0);\)
+		\item[4)] Se A é local com ideal maximal \(\mathfrak{m}\), então \(J(A) = \mathfrak{m}.\)
+	\end{itemize}
+\end{prop*}
+
+\end{document}

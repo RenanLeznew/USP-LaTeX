@@ -1,0 +1,163 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 21 - 08/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Polinômios Primitivos;
+	\item O Lema de Gauss;
+	\item O Critério de Eisenstein;
+\end{itemize}
+\subsection{O Lema de Gauss}
+\begin{def*}
+	Seja A um D.F.U. Um polinômio não nulo \(f(x)\in A[x]\) com coeficientes não nulos \(a_{i_{1}},\dotsc, a_{i_{k}}\in A\) é dito
+	\textbf{primitivo} se \(\mathrm{mdc}(a_{1}, \dotsc, a_{k})\) é associado a 1. \(\square\)
+\end{def*}
+\begin{example}
+	Todo polnômio mônico é primitivo.
+\end{example}
+\begin{lemma*}
+	Seja A um D.F.U. e \(K = \mathrm{Frac}(A)\).
+	\begin{itemize}
+		\item[1)] Sejam \(a, b\in A\) e \(f(x), g(x)\in A[x].\) Se \(f(x)\) é primitivo e \(af(x) = bg(x),\)
+		      então \(b\mid a.\)
+		\item[2)] Se \(f(x)\in K[x], f(x)\neq 0\), então \(f(x)\) é associado (em K[x]) a um polinômio primitivo em \(A[x]\).
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	\(1.):\) Seja \(b = u\pi_{1}^{r_{1}}\cdot \dotsc \cdot \pi_{n}^{r_{n}}\), com \(\pi_{i}\) irredutíveis e distintos, \(u\in A^{*},\)
+	e seja \(f(x) = \sum\limits_{i=1}^{m}c_{i}x^{i}.\) Como \(f(x)\) é primitivo, dado \(\pi_{j}\), existe \(c_{ij}\) tal que \(\pi_{j}\)
+	não divide \(c_{ij}.\) Da igualdade \(af(x) = bg(x),\) segue que \(b\mid ac_{i}\), pois b divide os coeficientes
+	de bg, que é iguais aos de af. Como \(\pi_{j}^{r_{j}}\mid b\) e \(\pi_{j}\) não divide \(c_{ij},\) resta que \(\pi_{j}^{r_{j}}\mid a.\)
+	Como isso vale para todo j, temos \(b\mid a.\)
+
+	\(2.):\) Seja \(f(x)\in K[x],\) ou seja,
+	\[
+		f(x) = \sum\limits_{i=0}^{n}\frac{a_{i}}{b_{i}}x_{i},
+	\]
+	em que \(a_{i}, b_{i}\in A.\) Coloque \(c = b_{n}\cdot \dotsc \cdot b_{0}.\) Então,
+	\(f(x) = \frac{1}{c} \cdot cf(x),\) tal que
+	\[
+		f(x) = \frac{1}{c}\biggl(d_{n}x^{n}+ \dotsc +d_{0},\biggr)
+	\]
+	em que \(d_{i} = a_{i}b_{n} \cdot \dotsc \cdot \hat{b_{i}}\cdot \dotsc \cdot b_{0}.\) Note que o polinômio
+	\(d_{n}x^{n} + \dotsc  + d_{0}\in A[x]\).
+	Caso \(e = \mathrm{mdc}(d_{i1}, \dotsc , d_{ik},\) em que \(d_{ij}\) são os não nulos, então
+	\[
+		f(x) = \frac{3}{c}\biggl(\frac{d_{n}}{e}x^{n} + \dotsc + \frac{d_{0}}{e}\biggr)\coloneqq \frac{e}{c}f_{0}(x).
+	\]
+	Por definição, \(f_{0}\in A[x]\) e, além disso, \(\mathrm{mdc}(d_{n}/e, \dotsc , d_{0}/e) = 1,\) ou seja, \(f_{0}\) é primitivo.
+	Caso \(\alpha\coloneqq e/c \in K^{*},\) segue que \(f = \alpha f_{0}.\) Portanto, \(f\) e \(f_{0}\) estão associados, como queríamos demonstrar. \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Seja A um D.F.U. Se \(f, g\in A[x]\) são primitivos, então \(f(x)g(x)\) também é primitivo.
+\end{lemma*}
+\begin{proof*}
+	Seja \(\pi \in A\) um primo. Então, \(\mathfrak{p} = \langle \pi  \rangle\in \mathrm{Spec}(A).\) Como f, g
+	são primitivos, seus coeficientes não são todos múltiplos de \(\pi \), i.e., \(\overline{f(x)}\neq 0\) e
+	\(\overline{g(x)}\neq 0\) em \((A/\mathfrak{p})[x].\)
+
+	Sabemos que \((A/\mathfrak{p})[x]\) é domínio, já que A é D.F.U. Assim, \(\overline{f(x)g(x)} = \overline{f(x)}\overline{g(x)}\neq0.\) Fazendo este processo para
+	todo elemento \(\pi \in A\) primo, segue que \(f(x)g(x)\) é primitivo. \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Seja A um D.F.U., \(f(x)\in A[x]\) primitivo e \(g(x)\in A[x].\) Caso \(K = \mathrm{Frac}(A)\) e se \(f(x)\mid g(x)\) em \(K[x]\), então
+	\(f(x)\mid g(x)\) em A[x].
+\end{lemma*}
+\begin{proof*}
+	Como \(f(x)\mid g(x)\) em \(K[x]\), existe \(h(x)\in K[x]\) tal que \(g(x) = f(x)h(x).\) Pelos últimos lemas,
+	h é associado a um polinômio primitivo em A[x], digamos \(h_{0}\), por meio de \(h(x) = \frac{a}{b}h_{0}(x),\) em que \(a, b\in A\) e
+	\(h_{0}(x)\) é primitivo em A[x].
+
+	Além disso, vimos também que o produto de polinômios primitivos é um polinômio primitivo, ou seja, \(f(x)h_{0}(x)\) é primitivo. Com isso,
+	aplicando um deles em \(bg(x) = a(f(x)h_{0}(x)),\) temos \(b\mid a\) em A. Então, \(b/a\in A\) e, assim, \(h(x)\in A[x].\)
+	Portanto, \(f(x)\mid g(x)\) em A[x]. \qedsymbol
+\end{proof*}
+Com estas ferramentas em mãos, vemos o (Teolema) Lema de Gauss:
+\begin{theorem*}[Lema de Gauss]
+	Seja A um D.F.U. e \(K = \mathrm{Frac}(A).\) Se \(f(x)\in A[x]\) é primitivo, então:
+	\[
+		f(x) \text{ é irredutível em }A[x] \Longleftrightarrow f(x) \text{ é irredutível em }K[x].
+	\]
+\end{theorem*}
+\begin{proof*}
+	\(\Leftarrow ):\) Assuma que f(x) é irredutível em K[x], mas não é irredutível em A[x]. Então, \(f(x) = g(x)h(x),\) com
+	\(g(x), h(x)\in A[x]\setminus{A[x]^{*}}\). Se um dos dois tem grau nulo, por exemplo, \(\deg{g} = 0, \) então
+	\(g(x) = a\in A\setminus{A^{*}},\) e, assim, \(f(x) = ah(x),\) o que é um absurdo, já que isso significaria que
+	a dividiria todos os coeficientes de f(x), contrariando a condição de f(x) ser primitivo.
+
+	Conclui-se, assim, que \(\deg{g(x)} > 0\) e \(\deg{h(x)} > 0,\) ou seja, \(f(x) = g(x)h(x)\) é uma fatoração de
+	f(x) em K[x], um absurdo.
+
+	\(\Rightarrow ):\) Suponha que \(f(x)\) é irredutível em \(A[x]\), mas não em \(K[x]\). Como \(K[x]^{*} = K^{*},\) temos uma
+	fatoração não trivial dada por
+	\[
+		f(x) = g_{1}(x)h_{1}(x),\quad g_{1}, h_{1}\in K[x],\quad \deg{g_{1}}, \deg{h_{1}} > 0.
+	\]
+	Agora, usamos os lemas anteriores. Podemos escrever \(g_{1}(x) = \alpha g(x)\) e \(h_{1}(x) = \beta h_{0}(x),\) em que \(\alpha , \beta \in K^{*}\)
+	e \(g, h_{0}\) são polinômios primitivos de \(A[x].\) Logo, definindo \(h(x) = \alpha \beta h_{0}(x), f(x) = g(x)h(x).\) Como g(x) é primitivo e
+	\(g(x)\mid f(x)\) em \(K[x],\) e, pelo lema, \(g(x)\mid f(x)\) em A[x]. Portanto, \(h(x)\in A[x]\) e \(f(x) = g(x)h(x)\) é uma fatoração de f(x) em A[x],
+	um absurdo. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se A é um D.F.U., então \(A[x]\) também é D.F.U. Em particular, \(A[x_{1}, \dotsc , x_{n}], n\geq 1\) é D.F.U.
+\end{theorem*}
+\begin{proof*}
+	A ideia desta prova é mostrar que todo irredutível é primo em A[x] e que todo elemento de A[x] possui uma fatoração, não necessariamente
+	única, em elementos irredutíveis.
+
+	Para ver que todo elemento irredutível é primo em A[x], seja \(f(x)\in A[x]\) irredutível. Caso \(\deg{f} = 0,\) segue que \(f(x) = a\in A.\) Já
+	que A é D.F.U., a é primo em A, ou seja, a é primo em A[x]. Assumma, agora, que \(\deg{f} = n > 0.\) Vamos mostrar que \(f(x)\) é primitivo. Suponha que
+	\(a\coloneqq \mathrm{mdc}(a_{0}, \dotsc , a_{n}), a_{i}\neq 0\), ou seja, a é o mdc dos coeficientes não nulos de f(x) com \(a\in A\setminus{A^{*}} \) e
+	\(f(x) = ag(x),\) em que \(g(x)\in A[x].\) Logo, f(x) não é irredutível, o que seria um absurdo. A única opção que resta é que \(a\in A^{*},\) o que equivale a dizer
+	que a é associado com 1.
+
+	Agora, pelo Lema de Gauss, \(f(x)\) é irredutível em \(K[x], K = \mathrm{Frac}(A).\) Como \(K[x]\) é D.I.P. e, em D.I.P., elementos irredutíveis são primos,
+	conclui-se que \(f(x)\) é primo em K[x]. Caso \(f(x)\mid g(x)h(x)\) em A[x], então, \(f(x)\mid g(x)h(x)\) em K[x]. Por ser primo, isto quer dizer que ou
+	\(f(x)\mid g(x)\), ou \(f(x)\mid h(x)\), ambos em K[x]. Consequentemente, ou \(f(x)\mid g(x)\) em A[x] ou \(f(x)\mid h(x)\) em A[x], isto é, f(x) é primo em A[x].
+
+	A seguir, mostraremos a existência de fatoração em elementos irredutíveis em A[x]. Para isto, considere \(f(x)\in A[x]\) não nulo. Como \(f(x)\in K[x],\)
+	podemos fatorar f(x) em K[x], pois \(K[x]\) é D.F.U. Digamos que essa fatoração é \(f(x) = a\tilde{f}_{1}\cdot \dotsc \cdot \tilde{f}_{n}\in K[x],\) sendo cada
+	\(\tilde{f}_{i}\in K[x]\) irredutíveis. Sabemos, pelos lemas de antes, que existem \(\alpha_{i}\in K^{*}\) e \(f_{i}\in A[x]\) primitivos tais que \(\tilde{f}_{i} =
+	\alpha_{i}f_{i}(x).\) Assim, \(f(x) = \alpha_{1}\cdot \dotsc \cdot \alpha_{n}f_{1}\cdot \dotsc \cdot f_{n}\). Além disso, pelo Lema de Gauss, \(f_{i}\) são irredutíveis
+	em A[x]. Como o produto finito de primitivos é primitivo, segue que \(f_{1}\cdot \dotsc \cdot f_{n}\) é primitivo. Destarte, \(f_{1}\cdot \dotsc \cdot f_{r}\mid f(x)\)
+	em K[x] implica que \(f_{1}\cdot \dotsc \cdot f_{r}\mid f(x)\) também em A[x]. Considere \(\alpha = \alpha _{1}\cdot \dotsc \cdot \alpha_{n}\in A.\) Visto que A é
+	D.F.U., \(\alpha = a_{1}\cdot \dotsc \cdot a_{s}, a_{i}\) irredutível em A. Logo,
+	\[
+		f(x) = a_{1}\cdot \dotsc a_{s}\cdot f_{1}(x)\cdot \dotsc \cdot f_{n}(x)
+	\]
+	é uma fatoração de f(x) em \(A[x]\) em elementos irredutíveis. Portanto, \(A[x]\) é D.F.U. \qedsymbol
+\end{proof*}
+\begin{theorem*}[Critério de Eisenstein]
+	Seja A um D.F.U. e \(f(x) = a_{n}x^{n} + \dotsc + a_{0}, f(x)\in A[x]\setminus{A}.\) Suponha que exista um primo \(\pi \in A\) tal que
+	\(\pi \) não divide \(a_{n}, \pi \mid a_{i}\) para todo \(i=0, \dotsc , n-1\) e \(\pi^{2}\) não divide \(a_{0}\). Então, f(x) é irredutível em
+	A[x].
+\end{theorem*}
+\begin{proof*}
+	Podemos assumir que f(x) é primitivo. Caso contraŕio, se \(d = \mathrm{mdc}(a_{1}, \dotsc ,a_{n}),\) então
+	\(\frac{1}{d}f(x) = \frac{a_{n}}{d}x^{n} + \dotsc + \frac{a_{0}}{d}\in A[x]\) satisfaz as hipóteses do teorema (\textbf{Exercício}).
+
+	Seja, então, f(x) primitivo e suponha que f não seja irredutível em \(A[x]\setminus{\{0\}}\) e coloque
+	\(f(x) = g(x)h(x), g, h\in A[x], g = b_{r}x^{r} + \dotsc  + b_{0}\) e \(h = c_{s}x^{s} + \dotsc +c_{0},\) em que
+	\(g,h\not\in A^{*}\) e \(r+s = n.\) Note que nenhum dos dois pode ter grau 0, visto que, caso um deles tenha, digamos que seja g ( \(\deg{g} = 0\) ), então
+	\(g(x)=a\in A\setminus{A^{*}}\) e \(f(x) = ah(x),\) o que é um absurdo com o fato de f ser primitivo, já que isso significaria que a dividiria todos os coeficientes
+	de f. Com isso, \(\deg{g}, \deg{h} > 0.\)
+
+	Agora, considere \(\mathfrak{p} = \langle \pi  \rangle.\) Como \(\mathfrak{p}\) é ideal primo, sabemos que
+	\((A/\mathfrak{p})[x]\) é domínio. Além disso, por \(\pi \) não dividir \(a_{n}\) e \(\pi \mid a_{i}\) para todo \(i=0, \dotsc , n-1,\) então:
+	\[
+		0\neq \overline{f(x)} = \overline{a_{n}x^{n}} = \overline{a_{n}}x^{n} = \overline{g(x)h(x)}
+	\]
+	em \(A/\mathfrak{p}[x].\) Suponha que \(s'\) seja o menor grau com coeficiente não nulo em \(\overline{h(x)}\) e r' o análogo em \(\overline{g}.\)
+	Com essas condições, \(\overline{g(x)} = \overline{b_{r}}x^{r} + \dotsc + \overline{b_{r'}x^{r'}} + \overline{0}x^{r'-1} + \dotsc + \overline{0}\) e
+	\(\overline{h(x)} = \overline{c_{s}}x^{s} + \dotsc + \overline{c_{s'}x^{s'}}.\) Logo,
+	\[
+		\overline{g(x)h(x)} = \overline{c_{s}b_{r}}x^{n} + \dotsc + \overline{b_{r'}c_{s'}}x^{r'+s'} = \overline{f(x)} = \overline{a_{n}}x^{n}.
+	\]
+	Em seguida, mostremos que \(\overline{b_{0}} = \overline{c_{0}} = \overline{0}.\) Assuma que \(\overline{c_{0}}\neq \overline{0},\) tal que \(\overline{b_{0}}=\overline{0}\), pois
+	\(\overline{b_{0}c_{0}} = \overline{0}\) e \((A/\mathfrak{p})[x]\) é domínio. No entanto, observe que \(\overline{0} = \overline{a_{1}} = \overline{b_{0}c_{1}} + \overline{b_{1}c_{0}} = \overline{b_{1}c_{0}},\)
+	donde segue que \(\overline{b_{1}} = \overline{0}.\) Analogamente, para \(\overline{0} = \overline{a_{2}} = \overline{b_{0}c_{2}}+\overline{b_{1}c_{1}}+\overline{b_{2}c_{0}} = \overline{b_{2}c_{0}}\),
+	de modo que \(\overline{b_{2}} = \overline{0}.\) Assim, em r passos, chegarmoes que \(\overline{b_{0}} = \dotsc = \overline{b_{r}} = \overline{r} = \overline{0},\) uma contradição.
+	Logo, \(\overline{c_{0}} = \overline{0}\) e segue que \(\pi \) divide \(b_{0}\) e \(c_{0}\) o que ipmlica que \(\pi^{2}\) divide \(b_{0}c_{0} = a_{0}.\) Novamente,
+	contradição. Portanto, f(x) é irredutível e o resultado segue. \qedsymbol
+\end{proof*}
+\end{document}

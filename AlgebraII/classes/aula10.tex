@@ -1,0 +1,206 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 18/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Polinômios em Anéis;
+	\item Algoritmo de Divisão;
+	\item Exemplos.
+\end{itemize}
+\subsection{Anéis de Polinômios}
+\begin{def*}
+	Seja A um anel. O \textbf{anel de polinômios com coeficientes em A}, \(A[x]\), é definido como
+	\[
+		A[x]\coloneqq \{a_{n}x^{n}+\cdots+a_{1}x + a_{0}: a_{i}\in A, i = 1, \cdots, n\},
+	\]
+	em que x é chamado de variável. \(\square\)
+\end{def*}
+Nestes estudos, assumiremos sempre algumas coisas:
+\begin{itemize}
+	\item[i)] \(ax = xa\) para todo a em A;
+	\item[ii)] \(a_{n}x^{n} + \cdots + a_{0} = 0\) se, e somente se, \(a_{i} = 0\) para todo \(i=1, \cdots, n.\)
+	\item[iii)] \(a_{n}x^{n} + \cdots + a_{1}x + a_{0} = b_{m}x^{m} + \cdots + b_{1}x + b_{0}\) se, e somente se, \(n=m\) e \(a_{i} = b_{i}\) para todo \(i=1, \cdots, n\).
+\end{itemize}
+
+\begin{def*}
+	Seja \(f(x) = a_{n}x^{n} + \cdots + a_{0}\in A[x]\). Definimos
+	\begin{itemize}
+		\item[1)] Se \(a_{n}\neq0, a_{n}\) é chamado o \textbf{coeficiente líder} de f(x). Denotamos o coeficiente líder
+		      de f(x) por \(\ell_{f}\) ou \(\ell_{f(x)}\)
+		\item[2)] Se \(a_{n}\neq0\), n é chamado o \textbf{grau} de f(x), denotado por \(\deg(f(x))\)
+		\item[3)] \(a_{0}\) é chamado o \textbf{coeficiente constante} de f(x)
+		\item[4)] Diz-se que \(\alpha\in A\) é uma raiz de \(f(x)\in A[x]\) se \(f(\alpha ) = 0.\quad\square\)
+	\end{itemize}
+\end{def*}
+Algumas propriedades simples que temos são:
+\begin{itemize}
+	\item[i)] \(\deg{(f(x) + g(x))}\leq \max\{\deg{f(x)}, \deg{g(x)}\}\). A igualdade ocorre se, e somente se,
+	      \(\deg{f(x)}\neq \deg{g(x)}\) ou \(\deg{f(x)}=\deg{g(x)},\) mas \(\ell_{f} + \ell_{g}\neq0.\)
+	\item[2)] \(\deg{(f(x)\cdot g(x))}\leq \deg{f(x)} + \deg{g(x)}.\) A igualdade ocorre se, e somente se,
+	      \(\ell_{f}\cdot \ell_{g} \neq0\)
+\end{itemize}
+Fica como um bom exercício prová-las.
+\begin{example}
+	Se A é um domínio, então
+	\[
+		\deg{(f \cdot g)} = \deg{f} + \deg{g},
+	\]
+	para todo \(f, g\neq0.\)
+\end{example}
+\begin{example}
+	Em \(\biggl(\mathbb{Z}/4\biggr)[x],\) temos
+	\[
+		2x \cdot 2x = 0,
+	\]
+	tal que \(\deg{2x \cdot 2x} = 0 < 2 = \deg{2x} + \deg{2x}.\)
+\end{example}
+\begin{def*}
+	Um polinômio \(f(x)\in A[x]\) é dito \textbf{mônico} se \(\ell_{f} = 1.\) Em outras palavras,
+	\[
+		f(x) = x^{n} + a_{n-1}x^{n-1} + \cdots + a_{0}.
+	\]
+	Um polinômio mônico \(f(x)\) é dito \textbf{irredutível} se não existem polinômios mônicos
+	\(g(x), h(x)\) tais que
+	\[
+		f(x) = g(x)\cdot h(x).\square
+	\]
+\end{def*}
+\begin{example}
+	Em \(\mathbb{R}[x]\), o polinômio mônico \(x^{2} + 1\) é irredutível. De fato, suponha que existam
+	\(h(x), g(x)\) tais que
+	\[
+		x^{2} + 1 = h(x)g(x).
+	\]
+	Então,
+	\[
+		x^{2} + 1 = h(x)g(x) = (x-a)(x-b) = x^{2} - (a+b)x +ab.
+	\]
+	Podemos reescrever isso em forma de sistema de equações
+	\[
+		\left\{\begin{array}{ll}
+			a + b = 0 \\
+			ab = 1
+		\end{array}\right.
+		\Rightarrow
+		\left\{\begin{array}{ll}
+			a = -b \\
+			a(-a) = 1
+		\end{array}\right.
+		\Rightarrow
+		a^{2} = -1,
+	\]
+	mas isso não é possível para coeficientes reais. Portanto, não existe tal redução de \(x^{2} + 1.\)
+\end{example}
+Se \(f(x)\in \mathbb{R}[x]\) é irredutível, então
+\[
+	1\leq \deg{f(x)}\leq 2.
+\]
+Suponha, por outro lado, que \(f(x)\in \mathbb{R}[x]\) tem grau n, isto é, \(\deg{f(x)} = n.\) Então, \(f(x)\) tem n raízes complexas,
+digamos \(\alpha_{1}, \cdots, \alpha_{n}\). Assim,
+\[
+	f(x) = (x-\alpha_{1})\cdots(x-\alpha_{n}).
+\]
+Vamos separar essas raízes nas puramente reais e nas puramente complexas. Sejam \(\alpha_{1}, \cdots, \alpha_{h}\in \mathbb{R}\) e
+\(\alpha_{h+1}, \cdots, \alpha_{n}\in \mathbb{C}\setminus{\mathbb{R}}.\) Com isso,
+\[
+	f(x) = g(x)h(x),
+\]
+em que \(g(x) = (x-\alpha_{1})\cdots(x-\alpha_{h})\) e \(h(x) = (x-\alpha_{h+1})\cdots(x-\alpha_{n}).\)
+Se \(z = a + ib\in \mathbb{C}\) é uma raiz de \(h(x),\) então \(\overline{z} = a - ib\) também é uma raiz de h, ou seja,
+\[
+	(x-z)(x-\overline{z})\mid h(x).
+\]
+Se \(h(x) = (x-z)(x-\overline{z})h_{1}(x) = (x^{2}-2a + (a^{2}+b^{2}))h_{1}(x)\), o termo
+\(x^{2}-2a + (a^{2}+b^{2})\) é irredutível em \(\mathbb{R}[x]\). Continuando assim, podemos ver que
+\[
+	f(x) = (x-a)\cdots(x-a_{n})(x^{2}+a_{h+1}x + b_{h+1})(x^{2}+a_{h+2}x+b_{h+2})\cdots(x^{2}+a_{n}x + b_{n}),\quad n = h = 2m.
+\]
+Uma consequência deste raciocínio é que um polinômio complexo \(f(x)\in \mathbb{C}[x]\) é irredutível se, e somente se, \(\deg{f(x)} = 1.\)
+\begin{example}
+	Em \(\mathbb{Q}[x]\), os polinômios irredutíveis podem ter qualquer grau. Polinômios irredutíveis em \(\mathbb{Q}[x]\)
+	são, por exemplo,
+	\begin{align*}
+		 & x-a,\quad a\in \mathbb{Q}                                 \\
+		 & x^{2}-2ax + (a^{2}+b^{2}),\quad a, b\in \mathbb{Q}        \\
+		 & x^{2} - p,\quad p\in \mathbb{Z}\text{ livre de quadrados} \\
+		 & x^{n} - 2.
+	\end{align*}
+\end{example}
+\begin{def*}
+	Dados \(f, g\in A[x]\), dizemos que \textbf{f divide g,} denotado \(f\mid g\), se existe \(h\in A[x]\) tal que
+	\[
+		g(x) = f(x)h(x).\quad\square
+	\]
+\end{def*}
+\begin{lemma*}
+	Se \(f(x)\in A[x]\) é mônico, então existem polinômios mônicos irredutíveis \(f_{1}, \cdots, f_{m}\in A[x]\) tais que
+	\[
+		f(x) = f_{1}(x)^{r_{1}}\cdot \dotsc \cdot f_{m}(x)^{r_{m}}.
+	\]
+\end{lemma*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+Agora, vejamos o \textbf{Algoritmo da Divisão:}
+\begin{theorem*}
+	Sejam \(f(x), g(x)\in A[x], \deg{g(x)}\geq 1\) e \(\ell_{g}\in A^{*}.\) Então,
+	existem polinômios únicos \(q(x)\) e \(r(x)\) em \(A[x]\) satisfazendo
+	\[
+		f(x) = q(x)g(x) + r(x),
+	\]
+	com \(\deg{r(x)} < \deg{g(x)}.\)
+\end{theorem*}
+\begin{proof*}
+	A prova é por indução no grau de f.
+
+	Se \(\deg{f}=0,\) f é constante. Como \(\deg{g}\geq 1, 0 = \deg{f} < \deg{g},\) g não é constante.
+	Tome \(q(x) = 0\) e \(r(x) = f(x).\) Então, \(f(x) = 0g(x) + f(x)\) e \(\deg{r} < \deg{g}.\)
+
+	Suponha agora que o resultado seja válido para polinômios de grau menor que n e sejam \(f(x) = \sum\limits_{i=0}^{n+1}a_{i}x^{i}, g(x) = \sum\limits_{i=0}^{m}b_{i}x^{i}, b_{m}\in A^{*}\).
+	Se \(\deg{f(x)} < \deg{g(x)},\) basta copiarmos o caso em que f era constante, colocando \(q(x) = 0\) e \(r(x) = f(x)\).
+	Assim, podemos assumir que \(\deg{f(x)}\geq \deg{g(x)}.\) Neste caso, o polinômio
+	\[
+		f_{1}(x)\coloneqq f(x) - a_{n+1}b_{m}^{-1}x^{n+1-m}g(x) = c_{n}x^{n} + \cdots + c_{0}
+	\]
+	é de grau menor ou igual que n. Aplicando a hipótese de indução, existem \(q_{1}(x), r_{1}(x)\)
+	com \(\deg{r_{1}(x)} < \deg{g(x)},\) de forma que \(f_{1} = gq_{1} + r_{1}.\) Temos:
+	\begin{align*}
+		f(x) & = f(x)-a_{n}b_{m}^{1}x^{n+1-m}g(x) = q_{1}(x)g(x) + r_{1}(x) \\
+		     & = (a_{n}b_{m}^{-1}x^{n+1-m}+q_{1}(x))g(x) + r_{1}(x).
+	\end{align*}
+	Definindo \(q(x) = a_{n}b_{m}^{-1}x^{n+1-m}+q_{1}(x), r = r_{1},\) temos o resultado. Pela hipótese
+	de indução, ele vale para todo \(n\in \mathbb{N},\) restando apenas provar que os polinômios são únicos.
+
+	Destarte, suponha que existem \(q_{1}, r_{1}, q_{2}, r_{2}\in A[x]\) tais que
+	\[
+		f(x) = q_{1}g+r_{1} = q_{2}g+r_{2},
+	\]
+	com \(\deg{r_{1}}, \deg{r_{2}} < \deg{g}.\) Temos \(r_{1}-r_{2} = (q_{2}-q_{1})g.\) Suponha que \(q_{2}\neq q_{1},\)]
+	de modo que \(q_{2}-q_{1}\neq0\) e
+	\[
+		\deg{(r_{1}-r_{2})} = \deg{(q_{2}-q_{1})}g = \deg{(q_{2}-q_{1})} + \deg{g},
+	\]
+	em que a igualdade do produto dos graus ocorre pois, se \(f, g\in A[x]\) e o coeficiente líder de g é \(b\in A^{*}\),
+	então \(\deg{fg} = \deg{f} + \deg{g}.\) De fato, \(f(x)g(x) = a_{n}b_{m}x^{n+m} + \cdots + a_{0}b_{0}\) com
+	\(a_{n}b_{m}\neq0\), já que, se \(a_{n}b_{m} = 0, a_{n} = 0.\) Assim, o grau do produto é \(n+m\).
+
+	Logo, da igualdade, segue que \(\deg{(r_{1}-r_{2})} = \deg{(q_{2}-q_{1})g}\geq \deg{g}.\) Como
+	\(\deg{(r_{1}-r_{2})}\leq \max\{\deg{r_{1}}, \deg{r_{2}}\}\leq \deg{g},\) temos um absurdo. Portanto,
+	\(q_{2} = q_{1}.\) \qedsymbol
+\end{proof*}
+\begin{example}
+	Em \(\mathbb{Z}[x],\) considere \(f(x) = 2x^{3} + x^{2} + x + 1\)  e \(g(x) = -x + 1.\)
+	Podemos aplicar o algoritmo da divisão da seguinte forma:
+	\begin{align*}
+		 & 2x^{3} + x^{2} + x + 1\quad \text{(Polinômio original)}                                                                                             \\
+		 & 2x^{3} + x^{2} + x + 1 \underbrace{- 2x^{3} + 2x^{2}}_{-2x^{2}g(x)} \quad (-2x^{2}g(x)\text{ pois é o que falta para g ``alcançar'' o grau de f)}   \\
+		 & 3x^{2} + x + 1 - 3x^{2} \underbrace{- 3x^{2} + 3x}_{-3xg(x)} \quad (\text{Novamente, faltava multiplicar g(x) por } -3x \text{ a fim de cancelar).} \\
+		 & 4x + 1 \underbrace{- 4x + 4}_{-4g(x)} \quad\text{(Mesma coisa, multiplicamos g(x) para cancelar o } 4x)                                             \\
+		 & 5\quad\text{(Finaliza-se com um polinômio de grau 0 (constante)).}
+	\end{align*}
+	Coletamos os termos que não foram usados para cancelar os maiores graus, ou seja, \(2x^{2}, 3x\) e \(4\), multiplicamos eles por -1 e, assim, o algoritmo da divisão nos dá
+	\[
+		f(x) = g(x)(-2x^{2} -3x -4) + 5 = (-x+1)(-2x^{2}-3x-4)+5.
+	\]
+\end{example}
+\end{document}

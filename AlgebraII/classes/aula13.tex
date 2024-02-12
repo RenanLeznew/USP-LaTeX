@@ -1,0 +1,113 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 27/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Espectro e Maximais de um Corpo de Polinômios;
+	\item Extensões e Quocientes.
+\end{itemize}
+\subsection{Espectro de Polinômios}
+\begin{prop*}
+	Se F é um corpo, então o espectro de \(F[x]\) é o conjunto \(\mathrm{Spec}(F[x]) = \{0\}\cup\{\langle f(x) \rangle: f\text{ é irredutível}\}\) e o espectro maximal de
+	\(F[x]\) é \(\mathrm{Specm}(F[x]) = \{\langle f(x) \rangle: f\text{ é irredutível}\}\).
+\end{prop*}
+\begin{proof*}
+	Como \(F[x]\) é um domínio, \((0)\in \mathrm{Spec(F[x])}.\) Seja \( \mathfrak{p} = \langle f(x) \rangle\in \mathrm{Spec}(F[x])\) e seja
+	f(x) não irredutível. Então, \(f(x) = g(x)h(x),\) em que \(\deg{g}, \deg{h} < \deg{f}.\) Temos
+	\[
+		gh = f\in \langle f(x) \rangle = \mathfrak{p} \Rightarrow g\in \mathfrak{p}\text{ ou } h\in \mathfrak{p}.
+	\]
+	Contradição. Logo, f(x) é irredutível. Agora, suponhamos que \(f(x)\) é irredutível, de forma que nosso objetivo será mostrar que
+	\(\langle f(x) \rangle\) é primo. Sejam \(g, h \in \langle f(x) \rangle,\) tal que \(f\mid gh.\) Como f é irredutível, vale que
+	ou \(f\mid g\), ou \(f\mid h\), ou seja, \(g\in \langle f(x) \rangle\) ou \(h\in \langle f \rangle\), o que significa, exatamente,
+	que \(\langle f \rangle\) é primo, isto é, \(\langle f \rangle\in \mathrm{Spec}(F[x]).\)
+
+	Agora, tome \(\mathfrak{m}\in \mathrm{Specm}(F[x]).\) Duas possibilidades surgem - ou \(\mathfrak{m}\) é \(\langle f(x) \rangle\) com f irredutível,
+	ou \((0)\), ou seja, \(\mathrm{Specm}(F[x]) \subseteq{\{\langle f(x) \rangle: f\text{ é irredutível}\}}\). Por outro lado,
+	seja f(x) irredutível. Pela primeira parte, \(\langle f(x) \rangle\) é primo. Considere
+	\[
+		\langle f(x) \rangle \subseteq{\mathfrak{j}}\subsetneq{F[x]}
+	\]
+	e coloque \(\mathfrak{j} = \langle g(x) \rangle.\) Temos
+	\[
+		\langle f(x) \rangle \subseteq{\langle g(x) \rangle} \Rightarrow f(x)\in \langle g(x) \rangle,
+	\]
+	ou seja, \(g\mid f,\) mas f é irredutível, donde segue que \(g=1\) ou \(g = f.\) Se \(g=1,\) então \(\mathfrak{j} = F[x],\)
+	uma contradição. Logo, \(g=f\) e \(\langle f \rangle = \mathfrak{j}.\) Portanto, \(\langle f \rangle\) é maximal, provando que
+	\(\mathrm{Specm}(F[x]) = \{\langle f(x) \rangle: f\text{ é irredutível}\}\). \qedsymbol
+\end{proof*}
+\subsection{Corpos}
+\begin{def*}
+	Sejam F e K dois corpos tais que \(F\subseteq{K}.\) Neste caso, dizemos que K é uma \textbf{extensão} de F e denotaremos por
+	\(K/F.\) Se \(K/F\) é uma extensão de corpos, K pode ser visto como espaço vetorial sobre F, e a dimensão de K
+	como F-espaço vetorial (\(\dim_{F}K\) é denotada por \([K:F]\) e chamada o \textbf{grau} da extensão. \(\square\)
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] \([\mathbb{C}:\mathbb{R}] = 2,\) com base \(\{1, i\}\);
+		\item[2)] \([\mathbb{R}:\mathbb{Q}] = \infty\) (não enumerável);
+		\item[3)] Se F é um corpo, \([F:f]=1\);
+		\item[4)] \([\mathbb{Q}[\sqrt[]{2}]:\mathbb{Q}] = 2,\) com base \(\{1, \sqrt[]{p}\}\).
+	\end{itemize}
+\end{example}
+\begin{crl*}
+	Se \(f(x)\in F[x]\) é irredutível e mônico, então \(K\coloneqq \frac{F[x]}{\langle f(x) \rangle}\) é um corpo.
+\end{crl*}
+\begin{proof*}
+	Segue automaticamente de \(\langle f(x) \rangle \) ser maximal e o quociente de um corpo por um maximal ser outro corpo. \qedsymbol
+\end{proof*}
+Podemos definir o mapa
+\begin{align*}
+	 & \varphi :F\rightarrow K=\frac{F[x]}{\langle f(x) \rangle} \\
+	 & a\mapsto \overline{a} = a + \langle f(x) \rangle.
+\end{align*}
+Observe que \(\varphi \) é um morfismo de corpos injetor, já que \(\ker{\varphi } \trianglelefteq{F}\) e,
+sendo F um corpo, os únicos ideais são \((0)\) ou \(F\). Sabendo que \(\varphi(1) = \overline{1}\neq\overline{0}, \ker{\varphi }\neq F\) e,
+assim, \(\ker{\varphi } = (0).\)
+
+Com isso, podemos pensar em F como subcorpo de K usando a injeção dada por \(\varphi \), e denotaremos \(\overline{a}\) simplesmente por a.
+\begin{prop*}
+	Seja \(f(x)\in F[x]\) irredutível e mônico e \(K = \frac{F[x]}{\langle f(x) \rangle}.\) Então, \([K:F] = \deg{f(x)}.\)
+\end{prop*}
+\begin{proof*}
+	Seja \(\alpha  = \overline{x}\), tal que \(K = F(\alpha ) = \{g(\alpha ): g(x)\in F[x]\}.\) Tome \(\beta \in K.\) Então,
+	\(\beta = \overline{g(x)} = g(\overline{x}) = g(\alpha ).\) Mostraremos que \(B = \{1, \alpha , \cdots, \alpha ^{n-1},\}\) em que
+	\(n=\deg{f}\), é base de \(K/F.\)
+
+	Começamos provando que B gera todo o espaço. Pelo algoritmo da divisão, \(g(x) = q(x)f(x) + r(x),\) com \(\deg{r} < \deg{g}.\)
+	Assim, \(\beta  = g(\alpha ) = \underbrace{\overline{q(x)f(x)}}_{=\overline{0}} + \overline{r(x)} = \overline{r(x)}\).
+	Então, se \(r(x) = b_{m}x^{m} + \cdots + b_{0}, m < n,\) segue que
+	\[
+		\beta = 0\alpha ^{n-1} + \cdots + 0\alpha ^{m+1} + b_{m}\alpha ^{m} + \cdots + b_{0}.
+	\]
+
+	Agora, vamos mostrar que B é linearmente independente. Seja \(c_{0}1 + c_{1}\alpha + \cdots + c_{n-1}\alpha ^{n-1} = 0\) com coeficientes
+	\(c_{i}\in F.\) Se \(h(x) = c_{n-1}x^{n-1} + \cdots + c_{1}x + c_{0},\) então \(\overline{h(x)} = \overline{0}\in K\) e, assim,
+	\(h(x)\in \langle f(x) \rangle,\) ou seja, \(f(x)\mid h(x).\) Como \(\deg{h} < \deg{f}, \) isso é possível se, e somente se, \(h(x) = 0,\) o
+	que implica que \(c_{i} = 0\) para todo \(i=0, \cdots, n-1\).
+
+	Portanto, B é um conjunto gerador linearmente independente de K, ou seja, uma base. \qedsymbol
+\end{proof*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Como \([\mathbb{C}:\mathbb{R}]=2, \mathbb{C}\cong{\frac{\mathbb{R}}{\langle x^{2} + 1 \rangle}}\)
+		\item[2)] Seja F um corpo qualquer. Como \([F:F] = 1, F\cong{\frac{F[x]}{\langle x-a \rangle}}\)
+		\item[3)] Para \(\mathbb{Q}[\sqrt[]{p}],\) tal que \([\mathbb{Q}[\sqrt[]{p}]:\mathbb{Q}]=2, \mathbb{Q}[\sqrt[]{p}]\cong{\mathbb{Q}/\langle x^{2}-p \rangle}\)
+		\item[4)] Seja \(f(x) = x^{2} + x + 1\in \mathbb{F}_{2}[x].\) Note que \(f(0) = 1\neq0\) e \(f(1) = 1^{2} + 1 + 1 = 1\neq0\), ou seja,
+		      f não tem raízes em \(\mathbb{F}_{2}\), o que significa que ele é irredutível. Assim, \(K = \mathbb{F}_{2}[x]/\langle x^{2}+x+1 \rangle = \mathbb{F}_{2}(\alpha )\)
+		      e, pelo resultado acima, \([K:\mathbb{F}_{2}] = \deg{f} = 2,\) tal que \(K = \{\overline{0}, \overline{1}, \overline{x}, \overline{x+1}: \overline{x}^{2} = \overline{x} + \overline{1}\}\)
+		      e \(|K| = 4.\) Construímos, assim, um corpo com 4 elementos.
+		\item[5)] Se \(K = \frac{\mathbb{F}_{2}[x]}{\langle x^{3} + x + 1 \rangle}\) e \(L = \mathbb{F}_{2}[x]/\langle x^{3}+x^{2}+1 \rangle,\) então \([K:\mathbb{F}_{2}] = 3, [L:\mathbb{F}_{2}]=3\).
+		      Assim, \(|K| = 2^{3} = 8\) e \(|L| = 2^{3} = 8\).
+	\end{itemize}
+\end{example}
+\begin{example}[Exercícios]
+	\begin{itemize}
+		\item[1)] Se E é um corpo com 4 elementos, mostre que \(E\cong{\frac{\mathbb{F}_{2}[x]}{\langle x^{2}+x+1 \rangle}}\)
+		\item[2)] Se E é um corpo com 8 elementos, então \(E\cong{K}\cong{L}.\) Denotaremos um corpo com 8 elementos por \(\mathbb{F}_{8}.\)
+		\item[3)] Mostre que não existe monomorfismo \(\mathbb{F}_{4}\hookrightarrow \mathbb{F}_{8}.\)
+		\item[4)] Seja F corpo e \(f(x)\in F[x]\) tal que \(2\leq \deg{f}\leq 3\). Mostre que f é irredutível se, e somente se, f noa possui raízes em F.
+		\item[5)] Mostre que \(\mathbb{F}_{4}^{*}\cong{\mathbb{Z}/3}, \mathbb{F}_{8}^{*}\)
+	\end{itemize}
+\end{example}
+\end{document}

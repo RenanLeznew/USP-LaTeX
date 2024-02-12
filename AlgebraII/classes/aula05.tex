@@ -1,0 +1,198 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 23/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Anel Quociente.
+\end{itemize}
+\subsection{Anel Quociente}
+\begin{def*}
+	Seja A um anel e \(\mathfrak{i}\trianglelefteq{A}.\) Como \((\mathfrak{i}, +)\leq (A, +)\) como grupos e
+	como é um subgrupo normal, podemos considerar o \textbf{grupo quociente} \((A/\mathfrak{i}, +)\), em que
+	\[
+		A/\mathfrak{i} = \{a + \mathfrak{i}: a \in A\}.\quad\square
+	\]
+\end{def*}
+A operação de soma no grupo quociente é definida pela regra
+\[
+	(a+\mathfrak{i})+(b+\mathfrak{i})\coloneqq (a+b)+\mathfrak{i}.
+\]
+Definamos, também, uma nova operação neste grupo - a multiplicação, dada por
+\[
+	(a+\mathfrak{i})\cdot (b+\mathfrak{i})\coloneqq ab + \mathfrak{i}.
+\]
+Precisamos mostrar que esta operação está bem definida. Com efeito, suponha que
+\(a+\mathfrak{i} = a'+\mathfrak{i}\) e \(b+\mathfrak{i} = b'+\mathfrak{i},\) ou seja,
+\(a'-a\in \mathfrak{i}\) e \(b-b'\in \mathfrak{i}.\) Vamos provar que
+\[
+	(a+\mathfrak{i})(b+\mathfrak{i}) = (a'+\mathfrak{i})(b'+\mathfrak{i}) \Longleftrightarrow ab - a'b'\in \mathfrak{i}.
+\]
+Note que podemos somar \(0=a'b-a'b\), a fim de obter
+\[
+	ab - a'b + a'b - a'b' = b(a-a') + a'(b-b')\in \mathfrak{i}.
+\]
+Como \(b(a-a') + a'(b-b') = ba - a'b',\) mostramos o que queríamos. Por fim,
+defina a identidade do produto por \(1 + \mathfrak{i}.\) A partir dessa construção,
+definimos o \textbf{anel quociente A por \(\mathfrak{i}\)} como \((A/\mathfrak{i}, +, \cdot )\)
+\begin{example}
+	Tome o ideal \(3 \mathbb{Z}\) de \(\mathbb{Z}.\) Neste caso,
+	\[
+		\mathbb{Z}/3 \mathbb{Z} = \{\overline{r} = r + 3 \mathbb{Z}:r\in \mathbb{Z}\} = \{\overline{0}, \overline{1}, \overline{2}\}.
+	\]
+	Note que \(2\not\in \mathbb{Z}^{*},\) mas \(\overline{2}\cdot \overline{2} = \overline{1}\) e, portanto, \(\overline{2} = (\overline{2})^{-1},\) ou seja,
+	\(\overline{2}\in (\mathbb{Z}/3 \mathbb{Z})^{*}.\)
+
+	Vamos olhar para este exemplo com uma visão mais ampla. Considere, para \(n\in \mathbb{Z},\) o anel quociente
+	\[
+		\mathbb{Z}/n \mathbb{Z} = \{\overline{0}, \overline{1}, \overline{2}, \dotsc , \overline{n-1}\}.
+	\]
+	Com isso, o mapa
+	\begin{align*}
+		\varphi : & \mathbb{Z}/n \mathbb{Z}\rightarrow \mathbb{Z}_{1} \\
+		          & r + n\mathbb{Z}\mapsto \overline{r}
+	\end{align*}
+	é um isomorfismo de anéis.
+\end{example}
+\begin{example}
+	Considere o anel de polinômios \(\mathbb{R}[x]\) e seu ideal \(\langle x^{2}+1 \rangle\trianglelefteq \mathbb{R}[x]\).
+	Como \(x^{2}+1\) é irredutível (afinal, não tem solução em \(\mathbb{R}\)), ele é um ideal primo, cuja forma é
+	\[
+		\langle x^{2}+1 \rangle = \{g(x)\cdot (x^{2}+1):g(x)\in \mathbb{R}[x]\}.
+	\]
+	Neste exemplo, estudaremos o anel quociente
+	\[
+		\frac{\mathbb{R}[x]}{\langle x^{2}+1 \rangle} = \{\overline{a} + \overline{b}x: a, b\in \mathbb{R}\}.
+	\]
+	Dado \(f(x)\in \mathbb{R}[x],\) o algoritmo da divisão garante que existem \(q(x), r(x)\in \mathbb{R}[x]\) tais que
+	\(f(x) = q(x)(x^{2}+1) + r(x),\) em que \(0 \leq \deg{(r(x))} < \deg{(x^{2}+1)} = 2,\) tal que r tem forma \(r(x) = ax + b\).
+	Com isso,
+	\begin{align*}
+		\overline{f(x)} & = \overline{q(x)}\cdot \overline{(x^{2}+1)} + \overline{r(x)} \\
+		                & = \overline{r(x)} = \overline{a}+\overline{b}x.
+	\end{align*}
+	Em particular, como consquência disso, colocando r(x) = 0 e q(x) = 1, segue que
+	\[
+		\overline{x^{2}+1} = \overline{0} \Rightarrow \overline{x}^{2} + \overline{1} = \overline{0} \Rightarrow \overline{x}^{2} = -\overline{1}.
+	\]
+	Isso induz a existência de um isomorfismo entre o corpo dos complexos e o quociente \(\mathbb{R}[x]/\langle x^{2}+1 \rangle\), explicitado como (exercício)
+	\begin{align*}
+		\varphi : & \mathbb{C}\rightarrow \mathbb{R}[x]/\langle x^{2}+1 \rangle \\
+		          & a + bi\mapsto \overline{a} + \overline{b}x.
+	\end{align*}
+\end{example}
+\begin{prop*}[Exercício]
+	Seja F um corpo, \(A\neq 0\) um anel e \(\varphi : F\rightarrow A\) um homomorfismo. Então, \(\varphi \) é monomorfismo.
+\end{prop*}
+\begin{example}
+	Vejamos uma construção parecida com a do exemplo anterior. Desta vez, considere o anel quociente
+	\[
+		\frac{\mathbb{R}[x]}{\langle x^{2}-1 \rangle} = \{\overline{a}+\overline{b}x:a, b\in \mathbb{R}\}.
+	\]
+	Mostraremos que \(\mathbb{R}[x]/\langle x^{2}-1 \rangle\cong{\mathbb{R}\times \mathbb{R}}\), com as operações definidas por
+	\[
+		\left\{\begin{array}{ll}
+			(a, b) + (c, d) = (a + c, b + d) \\
+			(a, b) \cdot (c, d) = (ac, bd).
+		\end{array}\right.
+	\]
+	Para isso, definiremos a função \(\varphi :\mathbb{R}[x]/\langle x^{2}-1 \rangle\rightarrow \mathbb{R}\times \mathbb{R}\) dada por \(\overline{f(x)}\mapsto (f(1), f(-1)).\)
+
+	\underline{ \(\varphi \)\textbf{ está bem-definido}:} Tome dois elementos com classes de equivalência iguais, ou seja,
+	\(\overline{f}(x) = \overline{g}(x)\). Então, \(f(1) = g(1) \) e \(f(-1) = g(-1)\). Com isso,
+	\(f(x) - g(x)\in \langle x^{2} - 1 \rangle,\) tal que \(f(x) - g(x) = q(x)(x^{2}-1)\). Logo,
+	\[
+		f(1) - g(1) = q(1)(1-1) = 0
+	\]
+	e
+	\[
+		f(-1)-g(-1) = 0.
+	\]
+
+	\underline{\(\varphi\) \textbf{ é homomorfismo}:} Para isso, basta perceber que
+	\begin{align*}
+		\varphi (\overline{f(x)} + \overline{g(x)}) & = \varphi (\overline{f(x)+g(x)})                         \\
+		                                            & = (f(1) + g(1), f(-1)+g(-1))                             \\
+		                                            & = (f(1), f(-1)) + (g(1), g(-1))                          \\
+		                                            & = \varphi (\overline{f(x)}) + \varphi (\overline{g(x)}).
+	\end{align*}
+
+	\underline{\(\varphi \)\textbf{ é epimorfismo}:} Dado \((a, b)\in \mathbb{R}\times \mathbb{R},\) temos
+	\[
+		f(x) = \frac{(a-b)}{2}x + \frac{a+b}{2}.
+	\]
+
+	\underline{\(\varphi \)\textbf{ é monomorfismo}:} Observe que
+	\[
+		\varphi (\overline{f}(x)) = 0 = (0, 0) \Rightarrow (f(1), f(-1)) = (0, 0) \Rightarrow f(1) = f(-1) = 0.
+	\]
+	Disto, segue que
+	\[
+		\left.\begin{array}{ll}
+			f(1) = 0 \Rightarrow x-1\mid f(x) \\
+			f(-1) = 0 \Rightarrow x+1\mid f(x)
+		\end{array}\right\{ \Rightarrow x^{2}-1 = (x-1)(x+1)\mid f(x).
+	\]
+	Portanto, \(f(x)\in \langle x^{2}-1 \rangle,\) ou seja, \(\overline{f(x)} = 0.\)
+\end{example}
+\begin{example}[Exercícios]
+	Mostre que \(\langle x^{2} + 1 \rangle \trianglelefteq \mathbb{R}[x]\) é maximal e que \(\langle x^{2}-1 \rangle \trianglelefteq \mathbb{R}[x]\) não é primo.
+\end{example}
+
+Vale observe que, junto dessa construção, obtemos acesso canônico à definição do \textbf{mapa quociente} \(\pi :A\rightarrow A/\mathfrak{i},\)
+dado por \(\pi(a) = a + \mathfrak{i}.\) Este mapa é um morfismo de anéis sobrejetor - um epimorfismo.
+Com efeito, a sobrejetividade ocorre pois, se \(a+\mathfrak{i}\in A/\mathfrak{i}\), sabemos que \(\pi(a)= a + \mathfrak{i}.\)
+Sobre a parte do morfismo, se \(a, b\in A, \pi (a+b) = (a+b)+\mathfrak{i} = (a+\mathfrak{i})+(b+\mathfrak{i}) = \pi(a) + \pi(b)\).
+Além disso, \(\pi (ab) = ab + \mathfrak{i} = (a+\mathfrak{i})(b+\mathfrak{i}) = \pi (a)\pi (b).\)
+\begin{prop*}
+	Seja \(\mathfrak{i}\trianglelefteq{A}\) um ideal de A.
+	\begin{itemize}
+		\item[1)] Se \(\mathfrak{j}\trianglelefteq{A}\) e \(\mathfrak{i}\subseteq{\mathfrak{j}}, \) então \(\mathfrak{j}/\mathfrak{i}\trianglelefteq{A/\mathfrak{i}},\) em que
+		      \(\mathfrak{j}/\mathfrak{i}=\{a+\mathfrak{i}\}\);
+		\item[2)] Se \(\mathfrak{k}\trianglelefteq{A/\mathfrak{i}},\) então \(\mathfrak{k}=\mathfrak{j}/\mathfrak{i}\) para algum \(\mathfrak{j}\trianglelefteq{A};\)
+		\item[3)] Exite uma correspondência biunívoca entre os conjuntos:
+		      \[
+			      \biggl\{\mathfrak{j}\trianglelefteq{A}: \mathfrak{i}\subseteq{\mathfrak{j}}\biggr\}\longleftrightarrow \biggl\{\mathfrak{k}\trianglelefteq{A/\mathfrak{i}}\biggr\};
+		      \]
+		\item[4)] Se \(\mathfrak{k}\in \mathrm{Spec}(A/\mathfrak{i}),\) então \(\mathfrak{k} = \mathfrak{p}/\mathfrak{i}\) para algum \(\mathfrak{p}\in \mathrm{Spec}(A).\)
+		      Assim, \(\mathrm{Spec}(A/\mathfrak{i}) = \{\mathfrak{p}/\mathfrak{i}:\mathfrak{i}\subseteq{\mathfrak{p}}\in \mathrm{Spec}(A)\}\);
+		\item[5)] Se \(\mathfrak{k}\in \mathrm{Specm}(A/\mathfrak{i}),\) então \(\mathfrak{k} = \mathfrak{m}/\mathfrak{i}\) para algum \(\mathfrak{m}\in \mathrm{Specm}(A).\)
+		      Com isso, \(\mathrm{Specm}(A/\mathfrak{i}) = \{\mathfrak{m}/\mathfrak{i}: \mathfrak{i}\subseteq{\mathfrak{m}}\in \mathrm{Specm}(A)\}.\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	1.) Se \(a+\mathfrak{i}, b+\mathfrak{i}\in \mathfrak{j}/\mathfrak{i}\) e \(r+\mathfrak{i}\in A/\mathfrak{i},\) temos
+	\(a, b\in \mathfrak{j}.\) Como \(\mathfrak{j}\) é ideal, \(a+b\in \mathfrak{j}\) e assim \((a+\mathfrak{i}) + (b+\mathfrak{i}) = (a+b)
+	+\mathfrak{i}\in \mathfrak{j}/\mathfrak{i}.\) Além disso, \(ar\in \mathfrak{j}\), tal que \((a+\mathfrak{i})(r+\mathfrak{i})=ar + \mathfrak{i}\in
+	\mathfrak{j}/\mathfrak{i}.\)
+
+	2.) Tome \(\mathfrak{j} = \pi^{-1}(\mathfrak{k})\trianglelefteq{A}.\) Se \(\mathfrak{k}\trianglelefteq{A/\mathfrak{i}}, 0_{A/\mathfrak{i}}\in \mathfrak{k}\)
+	implica que \(\mathfrak{i}\subseteq{\mathfrak{j}}.\) Como \(\pi \) é sobrejetora, podemos escrever
+	\(\mathfrak{k} = \pi(\mathfrak{j}) = \{a+\mathfrak{i}: a\in \mathfrak{j}\} = \mathfrak{j}/\mathfrak{i}.\)
+
+	3.) Segue usando 1 e 2.
+
+	4.) Dado \(\mathfrak{k}\in \mathrm{Spec}(A/\mathfrak{i})\), temos \(\mathfrak{k} = \mathfrak{p}/\mathfrak{i},\)
+	para \(\mathfrak{i}\subseteq{\mathfrak{p}}\trianglelefteq{A}.\) Vamos, então, provar que \(\mathfrak{p}\) é primo.
+	De fato, se \(ab\in \mathfrak{p},\) então \(\pi (ab)=\pi(a)\pi(b)\in \mathfrak{k}\). Como \(\mathfrak{k}\) é primo,
+	isto significa que \(\pi(a)\in \mathfrak{k}\) ou \(\pi(b)\in \mathfrak{k}\). Logo, \(a\in \mathfrak{p}\) ou \(b\in \mathfrak{p},\) do que
+	segue que \(\mathfrak{p}\) é primo.
+
+	5.) Suponha que \(\mathfrak{k}\in \mathrm{Specm}(A/\mathfrak{i}).\) Com isso, \(\mathfrak{k} = \mathfrak{m}/\mathfrak{i}\)
+	para algum \(\mathfrak{m}\subseteq{\mathfrak{i}}.\) Assuma que \(\mathfrak{j}/\mathfrak{i}\) é outro ideal tal que \(\mathfrak{m}/\mathfrak{i}\subseteq{\mathfrak{j}/\mathfrak{i}}.\)
+	Então, \(\mathfrak{j}/\mathfrak{i} = \mathfrak{m}/\mathfrak{i}\) ou \(\mathfrak{j}/\mathfrak{i} = A/\mathfrak{i}\), isto é,
+	\(\mathfrak{j} = \mathfrak{m}\) ou \(\mathfrak{j} = A\). Portanto, \(\mathfrak{m} \) é maximal. \qedsymbol
+\end{proof*}
+\begin{example}
+	Considere o ideal \(n \mathbb{Z}\subseteq \mathbb{Z}\) e o anel quociente \(\mathbb{Z}/n \mathbb{Z}.\)
+	Um ideal \(\mathfrak{j}\trianglelefteq \mathbb{Z}/n \mathbb{Z}\) do anel quociente terá a forma
+	\[
+		\mathfrak{j} = \mathfrak{i}/n \mathbb{Z},\quad n \mathbb{Z}\subseteq \mathfrak{i}\subseteq \mathbb{Z}
+	\]
+	Seja \(\mathfrak{i} = l \mathbb{Z}\) satisfazendo essa condição. Consequentemente, \(l\mid n\). Assim, os ideais de
+	\(\mathbb{Z}/n \mathbb{Z}\) são da forma \(\frac{l \mathbb{Z}}{n \mathbb{Z}},\) em que \(l\mid n\). Por exemplo, os ideais
+	de \(\mathbb{Z}_{20} = \mathbb{Z}/20 \mathbb{Z}\) serão
+	\[
+		(0) = \frac{20 \mathbb{Z}}{20 \mathbb{Z}},\quad \frac{10 \mathbb{Z}}{20 \mathbb{Z}}, \quad \frac{5 \mathbb{Z}}{20 \mathbb{Z}},\quad \frac{4 \mathbb{Z}}{20 \mathbb{Z}}, \quad \frac{2 \mathbb{Z}}{20 \mathbb{Z}}, \quad\&\quad \frac{\mathbb{Z}}{20 \mathbb{Z}}.
+	\]
+\end{example}
+\end{document}

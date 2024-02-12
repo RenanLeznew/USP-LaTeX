@@ -1,0 +1,92 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 18/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Nullstelensatz de Hilbert;
+	\item Fecho Algébrico.
+\end{itemize}
+\subsection{Nullstelensatzs}
+\begin{theorem*}[Nullstelensatz Algébrico]
+	Seja K um corpo algebricamente fechado. Então,
+	\[
+		\mathrm{Specm}(K[x_{1}, \cdots, x_{n}]) = \{\langle x-a_{1}, \cdots, x-a_{n} \rangle: a_{1}, \cdots, a_{n}\in K\}
+	\]
+\end{theorem*}
+\begin{proof*}
+	Vamos provar para o caso \(K = \mathbb{C}.\) Tome \(M\in \mathrm{Specm}(K[x_{1}, \cdots, x_{n}])\) e considere o quociente \(F \coloneq K[x_{1}, \cdots, x_{n}]/M\). Como M é maximal
+	este quociente é um corpo. É claro que \(F\hookrightarrow K\) e que \(S=\{\overline{x_{1}}^{i_{1}}\cdot \dotsc \cdot \overline{x_{n}}^{i_{n}}: i_{j}\in \mathbb{N}\} \subseteq{F}\)
+	gera F como K-espaço vetorial e é enumerável. Em outras palavras, \(\dim_{K}F\) é enumerável e, como K é não enumerável, a extensão
+	\(K/F\) é algébrico, do que segue que \(K\cong{F}.\)
+
+	Seja \(\overline{x_{i}} = \overline{a_{i}}, a_{i}\in \mathbb{C}\). Então, \(\overline{x_{i} - a_{i}} = \overline{0}\) e, assim, \(x_{i}-a_{i}\in M\) para cada \(i=1, \cdots, n.\)
+	Sabemos que \(\langle x_{1}-a_{1}, \cdots, x_{n}-a_{n} \rangle\) é maximal e \(\langle x_{1}-a_{1}, \cdots, x_{n}-a_{n} \rangle \subseteq{M}\) implica, portanto, que
+	\(M = \langle x_{1}-a_{1}, \cdots, x_{n}-a_{n} \rangle\). \qedsymbol
+\end{proof*}
+\begin{theorem*}[Nullstelensatz Geométrico]
+	Seja \(S \subseteq{K[x_{1}, \cdots, x_{n}]}\) tal que \(\langle S \rangle\neq K[x_{1}, \cdots, x_{n}].\) Então, existe \(a=(a_{1}, \cdots, a_{n})\in K^{n}\)
+	tal que, para todo \(f(x_{1}, \cdots, x_{n})\in K[x_{1}, \cdots, x_{n}], f(a_{1}, \cdots, a_{n}) = 0.\)
+\end{theorem*}
+\begin{proof*}
+	Tome \(M\in \mathrm{Specm}(K[x_{1}, \cdots, x_{n}])\) tal que \(\langle S \rangle \subseteq{M}.\) Pelo Teorema
+	Nullstelensatz Algébrico, sabemos que \(M = \langle x_{1}-a_{1}, \cdots, x_{n}-a_{n} \rangle\), para \(a_{i}\in \mathbb{C}.\)
+
+	Pelo isomorfismo \(\varphi :K[x_{1}, \cdots, x_{n}]/M\rightarrow \mathbb{C},\) definido por \(\varphi (\overline{x_{i}}) = a_{i}\) temos
+	um polinômio genérico \(\varphi (\overline{g(x_{1}, \cdots, x_{n})}) = g(a_{1}, \cdots, a_{n}).\) Como \(\langle S \rangle \subseteq{M},\)
+	dado \(f(x_{1}, \cdots, x_{n})\in S, \varphi (\overline{f(x_{1}, \cdots, x_{n})})=\varphi (\overline{0}) = 0\) e, por outro, \(\varphi (\overline{f(x_{1}, \cdots, x_{n})}) =
+	f(a_{1}, \cdots, a_{n}).\) Assim, o ponto \((a_{1}, \cdots, a_{n})\) é raiz de todo polinômio \(f\in M\). Portanto,
+	é raiz de \(f\in S.\) \qedsymbol
+\end{proof*}
+\subsection{Fecho Algébrico}
+\begin{def*}
+	Um corpo K é dito \textbf{algebricamente fechado} se todo polinômio não constante \(f(x)\in K[x]\) tem
+	uma raiz em K. \(\square\)
+\end{def*}
+\begin{lemma*}
+	Se K é algebricamente fechado, então todo \(f(x)\in K[x]\) fatora-se na forma
+	\[
+		f(x) = (x-a_{1})^{r_{1}}\cdot \dotsc \cdot (x-a_{n})^{r_{n}},
+	\]
+	em que \(a_{1}, \cdots, a_{n}\in K\).
+\end{lemma*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] \(\mathbb{C}\) é algebricamente fechado pelo Teorema Fundamental da Álgebra;
+		\item[2)] \(\overline{\mathbb{Q}} = \{\alpha \in \mathbb{C}: f(\alpha ) = 0, f(x)\in \mathbb{Q}[x]\}\) é algebricamente fechado
+	\end{itemize}
+\end{example}
+Todo corpo pode ser mergulhado em um outro algebricamente fechado.
+\begin{def*}
+	Seja F um corpo e e K um corpo algebricamente fechado que é uma extensão de F. Chamamos de
+	\textbf{fecho algébrico de F} o conjunto
+	\[
+		\overline{F} = \{\alpha \in K: \exists f(x)\in F[x], f(\alpha ) = 0\}.\quad\square
+	\]
+\end{def*}
+\begin{prop*}
+	Seja F um corpo e K um corpo algebricamente fechado tal que \(F \subseteq{K}.\) Então,
+	\[
+		\overline{F} = \{\alpha \in K: \exists f(x)\in F[x], f(\alpha ) = 0\}
+	\]
+	é um corpo algebricamente fechado.
+\end{prop*}
+Vale notar que o fecho algébrico de um corpo é único a menos de isomorfismo.
+\subsection{Parte Extra - Construindo a Topologia de Zariski sobre \(\mathbb{C}\)}
+Para \(\mathfrak{i}\trianglelefteq{\mathbb{C}[x_{1}, \cdots, x_{n}]},\) defina \(V(I) = \{a\in \mathbb{C}^{n}: f(a) = 0 \forall f\in \mathfrak{i}\}\).
+Mostre que:
+\begin{itemize}
+	\item[1)] \(\bigcap_{k\in K}^{}{V(\mathfrak{i}_{k})} = V(\sum\limits_{k\in K}^{}\mathfrak{i}_{k})\);
+	\item[2)] \(\bigcup_{i=1}^{n}{V(\mathfrak{i_{k}})} = V(\bigcap_{i=1}^{n}{\mathfrak{i}_{k}}) = V(\mathfrak{i}_{1}\cdot \dotsc \mathfrak{i}_{k})\);
+	\item[3)] \(V(\mathbb{C}[x_{1}, \cdots, x_{n}]) = \emptyset\) e \(V((0)) = \mathbb{C}^{n}\);
+	\item[4)] \(\mathfrak{i}\subseteq{\mathfrak{j}} \Rightarrow V(\mathfrak{j}) \subseteq{} V(\mathfrak{i})\);
+	\item[5)] \(V(\mathfrak{i}) = V(\sqrt[]{\mathfrak{i}}),\) em que \(\sqrt[]{\mathfrak{i}}\coloneqq \{g\in A: \exists n, g^{n}\in \mathfrak{i}\}\)
+\end{itemize}
+As propriedade 1, 2 e 3 fornece-nos uma topologia sobre \(\mathbb{C}^{n}\) gerada pelos fechados \(V(\mathfrak{i}),\) chamada \textbf{topologia de Zariski.} Se
+\(f\in \mathbb{C}[x_{1}, \cdots, x_{n}],\) definimos \(V(f) = V(\langle f \rangle)\).
+\begin{itemize}
+	\item[1)] Mostre que \(S^{1}\coloneqq \{z=(a, b)\in \mathbb{C}^{2}: |a|^{2} + |b|^{2}=1\}\) é fechado na topologia usual em
+	      \(\mathbb{C}^{2},\) mas não é fechado na topologia de Zariski.
+	\item[2)] Mostre que \(\{V(f): f\in \mathbb{C}[x_{1}, \cdots, x_{n}]\}\) é uma base para a topologia de Zariski em \(\mathbb{C}^{n}.\)
+	\item[3)] Mostre que \(\mathbb{C}^{n}\) é compacto com a topologia de Zariski.
+\end{itemize}
+\end{document}

@@ -1,0 +1,276 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 14/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Domínios;
+	\item Ideais, Ideais Principais e Ideais Finitamente Gerados;
+	\item Corpos;
+	\item Operações com Ideais e Ideais em \(\mathbb{Z}\).
+\end{itemize}
+\subsection{Domínios e Ideais}
+\begin{def*}
+	Seja A um anel. Um elemento não nulo \(a\in A\) é dito \textbf{divisor de zero} se existe \(b\in A\setminus{\{0\}}\) tal que
+	\(ab = 0.\) Caso A não possua divisores de zero, A é chamado \textbf{domínio.} \(\square\)
+\end{def*}
+\begin{example}
+	O anel \(\mathbb{Z}/4\) não é um domínio, pois \(\overline{2}\cdot \overline{2} = \overline{4} = \overline{0}.\)
+\end{example}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se A é um anel, \(A\times A\) não é um domínio. Basta notar que \((1, 0)\cdot (0, 1) = (0, 0).\)
+		\item[2)] O conjunto \(A = \mathbb{Q} + \mathbb{Q}x \subseteq{\mathbb{Q}[x]}\) (apenas como um subconjunto) com operação de soma usual e um
+		      produto diferente definido por
+		      \[
+			      (a+bx)(c+dx) = ac + (bc+ad)x.
+		      \]
+		      Neste caso, \(x \cdot x = 0.\) Essa construção será futuramente conhecida como o anel quociente \(\mathbb{Q}/(x^{2}).\)
+		\item[3)] Como \(\mathbb{C}\) é um domínio, qualquer subanel de \(\mathbb{C}\) é um domínio, ou seja, \(\mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{Z}[i]\) e \(\mathbb{Q}[i]\)
+		      são todos domínio.
+		\item[4)] Se \(d\in \mathbb{Z}\setminus{\{0\}}\) é livre de quadrados, então \(\mathbb{Z}[\sqrt[]{\alpha }]\leq \mathbb{Q}[\sqrt[]{\alpha }] \) são domínio.
+		\item[5)] O anel nulo é um domínio.
+	\end{itemize}
+\end{example}
+\begin{example}[Exercício]
+	\begin{itemize}
+		\item[1)] Temos \(\mathbb{Z}/n \mathbb{Z}\) é um domínio se, e somente se, n é primo;
+		\item[2)] A é domínio se, e somente se, \(A[x]\) é domínio. Em particular, \(A[x_{1}, \dotsc , x_{n}]\) é um domínio.
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Seja A um anel. Um subconjunto \(\mathfrak{i}\subseteq{A}\) é um \textbf{ideal} se:
+	\begin{itemize}
+		\item[1)] Para todos \(a, b\in \mathfrak{i}, a + b\in \mathfrak{i}\), ou seja, \textbf{um ideal é fechado pela soma};
+		\item[2)] Para \(a\in \mathfrak{i}\) e \(r\in A, r \cdot a\in \mathfrak{i}\), ou seja, \textbf{um ideal absorve produtos}.
+	\end{itemize}
+	Ideais serão denotados por letras em \textit{Old English Script} - letras frescas, como \(\mathfrak{i}, \mathfrak{j}, \mathfrak{o}, \mathfrak{a}, \dotsc\).
+	Além disso, para dizer que um subconjunto é um ideal, escrevemos \(\mathfrak{i} \trianglelefteq{A}.\quad\square\)
+\end{def*}
+\begin{prop*}
+	Todo ideal \(\mathfrak{i}\trianglelefteq{A}\) é um subgrupo pela soma de A, ou seja, \((\mathfrak{i}, +)\leq (A, +).\)
+\end{prop*}
+\begin{proof*}
+	Já vimos que, por definição, os ideais são fechados pela soma. Além disso, como \(0\in A,\)
+	tome \(a\in \mathfrak{i}\) qualquer. Teremos \(0 = 0a\in \mathfrak{i},\) fornecendo o elemento neutro do grupo.
+	Finalmente, \(-a = (-1)a\in \mathfrak{i}\). Portanto, \((\mathfrak{i}, +)\) é um subgrupo de \((A, +).\) \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se \((M, +)\) é um grupo abeliano munido de uma aplicação \(A\times \mathfrak{i}\longrightarrow \mathfrak{i}\) com \((r, a)\mapsto r \cdot a\)
+	e satisfazendo
+	\begin{itemize}
+		\item \((r + r')a = ra + r'a\);
+		\item \(r(a + a') = ra + ra'\);
+		\item \(r(r'a) = (rr')a\);
+		\item \(1 \cdot a = a,\)
+	\end{itemize}
+	dizemos que M é um \textbf{A-módulo.} \(\square\)
+\end{def*}
+Em particular, se \(\mathfrak{i} \trianglelefteq{A},\) então \(\mathfrak{i}\) é um A-módulo.
+\begin{example}
+	\begin{itemize}
+		\item[i)] Seja A um anel. Então, \(\{0\}\) e A são ideais de A.
+		\item[ii)] Um conjunto \(\mathfrak{i}\) é um ideal de \(\mathbb{Z}\) se, e somente se, existe n inteiro tal que \(\mathfrak{i} = n \mathbb{Z}\coloneqq \{nr:r\in \mathbb{Z}\}\).
+		      Com efeito, suponha que \(\mathfrak{i}\) é um ideal de \(\mathbb{Z}.\) Caso \(\mathfrak{i} = \{0\},\) então \(\mathfrak{i} = 0 \mathbb{Z},\) ou seja, podemos supor que \(\mathfrak{i}\neq \{0\}.\) Seja
+		      \[
+			      n = \min\{x\in \mathfrak{i}: x > 0\}.
+		      \]
+		      Temos \(n \mathbb{Z} = \{nr:r\in \mathbb{Z}\}\subseteq \mathfrak{i}\). Por outro lado, seja \(x\in \mathfrak{i}.\) Pelo algoritmo de divisão, existem
+		      \(q, rzin \mathbb{Z}\) tais que \(x = nq + r,\) em que \( 0 \leq r \leq n\). Assim, \(r = x-nq = x + (-q)n\in \mathfrak{i}\).
+		      Porém, \(r\in \mathfrak{i}\) implica que \(0\leq r < n,\) tal que \( r = 0\). Logo,
+		      \(x = nq \), que pertence a \(n \mathbb{Z}.\) Conclui-se que \(\mathfrak{i}\subseteq n \mathbb{Z}\) e, portanto, \(\mathfrak{i} = n \mathbb{Z}\). O outro lado da
+		      afirmação é automático.
+		\item[iii)] Se \(a\in A,\) então \(\langle a \rangle\coloneqq aA = \{ra: r\in A\}\trianglelefteq{A}.\) De fato,
+		      verifiquemos os axiomas de ideal para este caso.
+
+		      Caso \(ra, r'a\in \langle a \rangle\), então \(ra + r'a = (r+r')a\in \langle a \rangle\), já que \(r + r'\in A.\)
+		      Além disso, se \(r'\in A\) e \(ra\in \langle a \rangle\), temos \(r'(ra) = (r'r)a\in \langle a \rangle\), pois \(rr'\in A.\)
+
+		      Portanto, \(\langle a \rangle \trianglelefteq{A}\). Em particular, \((0) = \langle 0 \rangle\) e \(\langle 1 \rangle = A.\)
+	\end{itemize}
+\end{example}
+Vale observar que subaneis próprios de um anel, i.e., \(B\subsetneq A\), \textbf{não} são ideais, pois, se fossem então para todo \(a\in A,\)
+\[
+	a = a \cdot 1_{A} = a \cdot 1_{B}\in B,
+\]
+o que resultaria em \(A\subseteq B\), uma contradição.
+
+Em particular, o último tipo do exemplo compõe uma classe importante de ideais, definida a seguir
+\begin{def*}
+	Seja A um anel. Um ideal \(\mathfrak{i}\trianglelefteq{A}\) é \textbf{principal} se existe \(a\in A\) tal que \(\langle a \rangle = \mathfrak{i}.\quad\square\)
+\end{def*}
+\begin{lemma*}
+	Seja \(\{\mathfrak{i}_{k}\}_{k\in K}\) uma família qualquer de ideais de um anel A. Então,
+	\[
+		\bigcap_{k\in K}^{}{\mathfrak{i}_{k}}\trianglelefteq{A}.\quad \text{(Em outras palavras, a interseção de ideais é um ideal)}
+	\]
+\end{lemma*}
+\begin{proof*}
+	Para não carregar a notação, coloque \(\mathfrak{i} = \bigcap_{k\in K}^{}{\mathfrak{i_{k}}}.\) Seja \(a, a'\in \mathfrak{i}\) e \(r\in A\).
+	Para \(k\in K, a, a'\in \mathfrak{i}_{k}\). Como cada \(\mathfrak{i}_{k}\) é um ideal, \(a + a'\in \mathfrak{i}_{k}\) e, assim,
+	\(a + a'\in \mathfrak{i}.\) Além disso, como \(ra\in \mathfrak{i}_{k}\) para todo \(k\in K\), temos também \(ra \in \mathfrak{i}.\)
+
+	Portanto, \(\mathfrak{i}\) é um ideal. \qedsymbol
+\end{proof*}
+\begin{prop*}[Exercício]
+	Seja A um anel. Se \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A},\) mostre que \(\mathfrak{i}\cup \mathfrak{j}\trianglelefteq{A}\) se, e somente se,
+	\(\mathfrak{i}\subseteq{\mathfrak{j}}\) ou \(\mathfrak{j}\subseteq{\mathfrak{i}}.\)
+\end{prop*}
+Como contra exemplo de que é preciso a hipótese de estarem pelo menos um contido no outro, tome os ideais \(2 \mathbb{Z}\) e \(3 \mathbb{Z}\) dos inteiros.
+Então, \(2\mathbb{Z}\cup 3 \mathbb{Z} = \{2r, 3s: r, s \in \mathbb{Z}\},\) tal que é possível ver que esse conjunto não é um ideal de \(\mathbb{Z}\) usando o exemplo
+fornecido previamente que dita a forma dos ideais dos inteiros.
+\begin{def*}
+	Se \(S\subseteq{A}\) é um subconjunto, o ideal gerado por S é o ideal
+	\[
+		\langle S \rangle\coloneqq \bigcap_{S\subseteq{\mathfrak{i}}\trianglelefteq{A}}^{}{\mathfrak{i}} \trianglelefteq{A}.\quad\square
+	\]
+\end{def*}
+Esta definição passa a noção de \textit{menor ideal que contém o conjunto S.}
+\begin{lemma*}
+	Vale a igualdade \(\langle S \rangle = \{\sum\limits_{i=1}^{n}a_{i}s_{i}: a_{i}\in A, s_{i}\in S, n\in \mathbb{N}\}.\)
+\end{lemma*}
+\begin{proof*}
+	Novamente, a fim de não carregar a notação, seja \(\mathfrak{i} = \{\sum\limits_{i=1}^{n}a_{i}s_{i}: a_{i}\in A, s_{i}\in S, n\in \mathbb{N}\}\). Note que
+	\(\mathfrak{i}\) é um ideal, pois a soma de dois elementos de \(\mathfrak{i}\) está em \(\mathfrak{i}\) e o produto por um elemento do anel é absorvido.
+	A soma segue por definição, e a absorção segue de, se \(r\in A,\)
+	\[
+		r \sum\limits_{i=1}^{n}a_{i}s_{i} = \sum\limits_{i=1}^{n}(ra_{i})s_{i}\in \mathfrak{i}.
+	\]
+	Para ver que \(\langle S \rangle \subseteq{\mathfrak{i}}.\) Para isso, note que \(S\subseteq{\mathfrak{i}},\) bastando tomar \(a_{1} = 1\) para todo
+	\(s\in S\). Assim, \(\langle S \rangle\) é a interseção de todos os ideais que contém S e, como \(\mathfrak{i}\) é um deles, a inclusão segue.
+
+	Por outro lado, mostremos que \(\mathfrak{i}\subseteq{\langle S \rangle}.\) Se \(\mathfrak{j}\) é um ideal que contém S, pela definição de ideal,
+	temos \(s_{1}, \dotsc, s_{n}\in S\) implica que \(s_{1} + \dotsc + s_{n}\in \mathfrak{j}\) e, se \(s\in S, r\in A\), então \(rs\in \mathfrak{j}.\)
+	Temos, assim, que se \(r_{1}, \dotsc, r_{n}\in A\) e \(s_{1}, \dotsc, s_{n}\in S\), então \(r_{i}s_{i}\in \mathfrak{j}\) e \(\sum\limits_{}^{}r_{i}s_{i}\in \mathfrak{j}.\)
+	Com isso, \(\mathfrak{i}\subseteq{\mathfrak{j}}.\) Repetindo isso para todo \(\mathfrak{j}\) que contém S, temos \(\mathfrak{i}\subseteq{\langle S \rangle}.\)
+
+	Portanto, \(\langle S \rangle = \mathfrak{i}.\) \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja A um anel. Dizemos que \(\mathfrak{i} \trianglelefteq{A}\) é \textbf{finitamente gerado (f.g.)} se existe um conjunto finito
+	\(S = \{s_{1}, \dotsc, s_{n}\}\) tal que \(\mathfrak{i} = \langle S \rangle.\quad\square\)
+\end{def*}
+Em particular, todo ideal principal é finitamente gerado.
+\begin{def*}
+	Dizemos que um domínio A é um \textbf{domínio de ideais principais (D.I.P.)} se todo ideal é principal. \(\square\)
+\end{def*}
+\begin{def*}
+	Dizemos que um anel A é um \textbf{corpo} se \((0)\) e A são os únicos ideais principais. \(\square\)
+\end{def*}
+\begin{example}[Exercício]
+	\begin{itemize}
+		\item[1)] Se \(\mathfrak{i}\trianglelefteq{A}\) e \(\mathfrak{i}\cap A^{*}\neq\emptyset\), então \(\mathfrak{i} = A\);
+		\item[2)] Todo corpo é um domínio;
+		\item[3)] Todo domínio finito é um corpo;
+		\item[4)] A é um corpo se, e somente se, \(A^{*} = A \setminus{\{0\}}\);
+		\item[5)] \(\mathbb{Q}[i]\) é um corpo.
+	\end{itemize}
+\end{example}
+\begin{lemma*}
+	Vale que \(\mathbb{Z}\) e \(\mathbb{Z}/n \mathbb{Z}\) são domínio de ideais principais.
+\end{lemma*}
+\begin{proof*}
+	Seja \(\mathfrak{i} \trianglelefteq{Z}.\) Então, \((\mathfrak{i}, +)\leq (\mathbb{Z}, +)\). Usando o resultado
+	de classificação de subgrupos de \((\mathbb{Z}, +)\), que afirma que todo subgrupo é da forma \(n \mathbb{Z}\) para
+	algum \(n\in \mathbb{N},\) segue que \(\mathfrak{i} = n \mathbb{Z}\) para algum n e, assim, \(\mathfrak{i} = \langle n \rangle\)
+	é principal.
+
+	O caso \(\mathbb{Z}/n \mathbb{Z}\) fica de exercício. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja A um anel. Se \(\mathfrak{i}, \mathfrak{j} \trianglelefteq{A},\) podemos definir os ideais \(\mathfrak{i} + \mathfrak{j}\coloneqq \{x+y:x\in \mathfrak{i}\text{ e } y\in \mathfrak{j}\}\)
+	e \(\mathfrak{i} \cdot \mathfrak{j}\coloneqq \{x_{1}y_{1}+\dotsc+x_{n}y_{n}: x_{i}\in \mathfrak{i}, y_{i}\in \mathfrak{j}, \text{ e } n\in \mathbb{N}\}.\quad\square\)
+\end{def*}
+Vamos mostrar que esses conjuntos são, de fato, ideais. No primeiro caso, sejam \(a, a'\in \mathfrak{i} + \mathfrak{j}.\)
+Assim, eles podem ser escritos como \(a = x + y\) e \(a'= x'+ y'\) para \(x, x'\in \mathfrak{i}\) e \(y, y'\in \mathfrak{j}.\)
+Então, \(a + a' = (x + x') + (y + y')\in \mathfrak{i} + \mathfrak{j}.\) Considere agora \(r\in A\), tal que
+\[
+	ra = r(x'+y') = rx' + ry'.
+\]
+Como \(\mathfrak{i}, \mathfrak{j}\) são ideais, cada parcela destas está no seu ideal respectivo.
+Logo, \(ra \in \mathfrak{i} + \mathfrak{j}.\)
+
+No segundo caso, se \(a, b\in \mathfrak{i}\cdot \mathfrak{j},\) temos
+\[
+	a = \sum\limits_{}^{}x_{i}y_{i}\quad\&\quad b = \sum\limits_{}^{}u_{j}v_{j},
+\]
+com \(x_{i}, u_{j}\in \mathfrak{i}\) e \(y_{i}, v_{j}\in \mathfrak{j}.\) Reorganizando os termos, podemos ver
+\(a+b\) como a soma finita de termos da forma \(x_{k}y_{k}, x_{k}\in \mathfrak{i}, y_{k}\in \mathfrak{j}\), ou seja,
+\(a+b\in \mathfrak{i}\cdot \mathfrak{j}\). Além disso, se \(r\in A,\) temos
+\[
+	ra = r \sum\limits_{}^{}x_{i}y_{i} = \sum\limits_{}^{}(rx_{i})y_{i}\in \mathfrak{i}\cdot \mathfrak{j},
+\]
+pois \(rx_{i}\in \mathfrak{i},\) já que \(\mathfrak{i}\) é ideal, provando, assim, que ambos os conjuntos definidos são ideais.
+\begin{lemma*}
+	Se A é um anel e \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A},\) então \(\mathfrak{i}\cdot \mathfrak{j}=\langle \{xy: x\in \mathfrak{i}, y\in \mathfrak{j}\} \rangle\) e
+	\(\mathfrak{i}+\mathfrak{j} = \langle \mathfrak{i}\cup \mathfrak{j} \rangle\).
+\end{lemma*}
+\begin{proof*}
+	Denotemos por \(\mathfrak{b}\) o conjunto
+	\[
+		\mathfrak{b}\coloneqq \langle \{xy:x\in \mathfrak{i}, y\in \mathfrak{j}\} \rangle.
+	\]
+	Primeiramente, note que \(\mathfrak{i}\cdot \mathfrak{j}\subseteq{\mathfrak{b}}.\) De fato, seja \(\mathfrak{k}\) um ideal tal que \(\{xy:x\in \mathfrak{i}, y\in \mathfrak{j}\}\subseteq{\mathfrak{k}}.\)
+	Como \(\mathfrak{k}\) é fechado pela soma, se \(x_{1}, \dotsc, x_{n}\in \mathfrak{i}\) e \(y_{1},\dotsc,y_{n}\in \mathfrak{j},\) temos
+	\(\sum\limits_{}^{}x_{i}y_{i}\in \mathfrak{k}.\) Logo, \(\mathfrak{i}\cdot \mathfrak{j}\subseteq{\mathfrak{k}}\) e \(\mathfrak{i}\cdot \mathfrak{j}\) está
+	na intersecção \(\langle \{xy: x\in \mathfrak{i}, y\in \mathfrak{j}\} \rangle.\)
+
+	Por outro lado, por definição, elementos da forma \(xy\) tal que \(x\in \mathfrak{i}, y\in \mathfrak{j}\) são elementos
+	de \(\mathfrak{i}\cdot \mathfrak{j}.\) Assim, \(\{xy:x\in \mathfrak{i}, y\in \mathfrak{j}\}\subseteq{\mathfrak{i}\cdot \mathfrak{j}}.\) Como
+	\(\mathfrak{i}\cdot \mathfrak{j}\) é ideal, a intersecção de ideais com ele está contido nele, ou seja, \(\mathfrak{b}\subseteq{\mathfrak{i}\cdot \mathfrak{j}}\).
+	Logo, \(\mathfrak{b} = \mathfrak{i}\cdot \mathfrak{j}.\)
+
+	Com relação à segunda parte, começamos por mostrar que \(\mathfrak{i}+\mathfrak{j}\subseteq{\langle \mathfrak{i}\cup \mathfrak{j} \rangle}.\) De fato,
+	seja \(\mathfrak{k}\) um ideal tal que \(\mathfrak{i}\cup \mathfrak{j}\subseteq{\mathfrak{k}}.\) Como \(\mathfrak{k}\) é fechado pela soma,
+	se \(x\in \mathfrak{i}\) e \(y\in \mathfrak{j},\) temos \(x+y\in \mathfrak{k}\) tal que, assim, \(\mathfrak{i} + \mathfrak{j}\subseteq{\mathfrak{k}}\).
+	Finalmente, como \(\mathfrak{k}\) é qualquer, \(\mathfrak{i}+\mathfrak{j}\subseteq{\langle \mathfrak{i}\cup \mathfrak{j} \rangle}.\)
+
+	Em contrapartida, pela definição de \(\mathfrak{i} + \mathfrak{j},\) conseguimos
+	que \(\mathfrak{i}\cup \mathfrak{j}\subseteq{\mathfrak{i}+\mathfrak{j}}\) (basta tomar 0 + y ou x + 0).
+	Como \(\mathfrak{i} + \mathfrak{j}\) é ideal e contém \(\mathfrak{i}\cup \mathfrak{j},\) segue que \(\langle \mathfrak{i}\cup \mathfrak{j} \rangle\subseteq{\mathfrak{i}+\mathfrak{j}}\).
+	Portanto, \(\mathfrak{i}+\mathfrak{j} = \langle \mathfrak{i}\cup \mathfrak{j} \rangle.\) \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja \(\{\mathfrak{i}_{k}\}_{k\in K}\) uma família de ideais de A. Então,
+	\begin{itemize}
+		\item[1)] O conjunto
+		      \[
+			      \sum\limits_{k\in K}^{}\mathfrak{i}_{k}\coloneqq \biggl\{\sum\limits_{\text{finita}}^{}a_{i}: a_{i}\in \mathfrak{i}\biggr\},
+		      \]
+		      é um ideal e, além disso,
+		      \[
+			      \sum\limits_{k\in K}^{}\mathfrak{i}_{k}\coloneqq \biggl\langle \bigcup_{k\in K}^{}{\mathfrak{i}_{k}} \biggr\rangle
+		      \]
+		\item[2)] Se \((K,\leq )\) é um conjunto totalmente ordenado e a família satisfaz a propriedade que
+		      \textbf{para todos k, k' em K tais que} \(k\leq k'\), \textbf{temos} \(\mathfrak{i}_{k}\subseteq{\mathfrak{i}_{k'}}\). Então,
+		      \[
+			      \bigcup_{k\in K}^{}{\mathfrak{i}_{k}}\trianglelefteq{A}.
+		      \]
+	\end{itemize}
+	\begin{proof*}
+		Provar que \(\sum\limits_{}^{}\mathfrak{i}_{k}\) é um ideal e que é igual ao gerado pela união é análogo ao caso finito.
+
+		Para o item dois, sejam \(a, a'\in \cup \mathfrak{i}_{k}.\) Assim, existem \(k, k'\) tais que \(a\in \mathfrak{i}_{k}\) e \(a'\in \mathfrak{i}_{k'}\).
+		Como K é totalmente ordenado, podemos supor, sem perda de generalidade, que \(k\leq k'.\) Pela propriedade que K possui,
+		\(\mathfrak{i}_{k}\subseteq{\mathfrak{i}_{k'}}\) e \(a, a'\in \mathfrak{i}_{k'}.\) Como \(\mathfrak{i}_{k'}\) é ideal, a soma
+		\(a + a'\in \mathfrak{i}_{k}\) e, assim, \(a + a'\in\cup \mathfrak{i}_{k}.\) Agora, considere \(r\in A\)
+		e \(a\in \cup \mathfrak{i}_{k}.\) Então, existe \(k\in K\) tal que \(a\in \mathfrak{i}_{k}\). Já que \(\mathfrak{i}_{k}\)
+		é ideal, \(ra\in \mathfrak{i}_{k}\), tal que \(ra\in \cup \mathfrak{i}_{k}.\) Portanto, \(\bigcup_{k\in K}^{}{\mathfrak{i}_{k}}\) é um
+		ideal de A. \qedsymbol
+	\end{proof*}
+\end{prop*}
+\begin{example}[Exercício]
+	Se \(n \mathbb{Z}\) e \(m \mathbb{Z}\) são ideais de \(\mathbb{Z},\) prove que:
+	\begin{itemize}
+		\item[1)] \(n \mathbb{Z}\cdot m \mathbb{Z} = nm \mathbb{Z};\)
+		\item[2)] \(n \mathbb{Z} + m \mathbb{Z} = \mathrm{mdc}(n, m) \mathbb{Z};\)
+		\item[3)] \(n \mathbb{Z}\cap m \mathbb{Z} = \mathrm{mmc}(n, m) \mathbb{Z}.\)
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Seja A um anel e \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A}.\) Dizemos que \(\mathfrak{i}, \mathfrak{j}\) são \textbf{coprimos}
+	se \(\mathfrak{i} + \mathfrak{j} = A.\quad\square\)
+\end{def*}
+\begin{prop*}[Exercício]
+	Sejam \(\mathfrak{i}, \mathfrak{j}\trianglelefteq{A}\). Se \(\mathfrak{i}, \mathfrak{j}\) são coprimos, então \(\mathfrak{i}\cdot \mathfrak{j} = \mathfrak{i}\cap \mathfrak{j}.\)
+\end{prop*}
+\end{document}

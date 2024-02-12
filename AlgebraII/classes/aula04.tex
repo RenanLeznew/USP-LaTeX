@@ -1,0 +1,192 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 21/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Morfismos entre Anéis;
+	\item Núcleo e Imagem;
+	\item Morfismos que Preservam Estruturas.
+\end{itemize}
+\subsection{Morfismos de Anéis}
+\begin{def*}
+	Sejam \((A, +_{A}, \cdot_{A})\) e \(B, +_{B}, \cdot_{B})\) anéis. Um mapa \(f:A\rightarrow B\) é chamado um \textbf{homomorfismo de anéis}
+	(ou, neste texto, apenas morfismo), se:
+	\begin{itemize}
+		\item[i)] \(f(a +_{A} a') = f(a) +_{B} f(a')\) para todo \(a, a'\in A;\)
+		\item[ii)] \(f(a \cdot_{A} a') = f(a)\cdot_{B}f(a')\) para todo \(a, a'\in A;\)
+		\item[iii)] \(f(1_{A}) = 1_{B}.\quad\square\)
+	\end{itemize}
+\end{def*}
+\begin{example}
+	A função \(f:\mathbb{Z}\rightarrow \mathbb{Z}_{n}\) dada por \(f(r) = \overline{r}\) é um homomorfismo de anéis. No entanto, não existe homomorfismo
+	\(g:\mathbb{Z}_{n}\rightarrow \mathbb{Z},\) pois, caso existisse, então
+	\[
+		g(\overline{1}) = 1 \Rightarrow g(n\overline{1}) = g(\overline{0}) = 0,
+	\]
+	mas \(g(n\overline{1}) = \underbrace{g(\overline{1}) + \dotsc + g(\overline{1})}_{\text{n-vezes}} = 1 + \dotsc + 1 = n\). Contradição, pois isso
+	significaria que 0 = n se g fosse um homomorfismo.
+\end{example}
+\begin{lemma*}
+	Um homomorfismo possui as seguintes propriedades:
+	\begin{itemize}
+		\item[1)] \(f(0_{A}) = 0_{B}\)
+		\item[2)] Se \(a\in A\) é inversível, então \(f(a)\) é inversível e \(f(a)^{-1} = f(a^{-1})\)
+		\item[3)] \(f(-1_{A}) = -1_{B}\)
+		\item[4)] \(f(n1_{A}) = n1_{B}\)
+		\item[5)] \(f(a_{1} + \dotsc + a_{n}) = f(a_{1})+\dotsc +f(a_{n})\) e \(f(a_{1}\cdot \dotsc \cdot a_{n}) = f(a_{1})\dotsc f(a_{n}).\)
+	\end{itemize}
+\end{lemma*}
+\begin{example}
+	Para todo anel A, \(i_{A}:A\rightarrow A,\) dada por \(i_{A}(a) = a\), é um homomorfismo.
+\end{example}
+\begin{def*}
+	Dizemos que um homomorfismo de anéis \(f:A\rightarrow B\) é:
+	\begin{itemize}
+		\item[1)] \textbf{monomorfismo} se f é um morfismo injetor;
+		\item[2)] \textbf{epimorfismo} se f é um morfismo sobrejetor;
+		\item[3)] \textbf{isomorfismo} se f é um morfismo bijetor.
+	\end{itemize}
+	Caso exista um isomorfismo entre dois anéis, dizemos que eles são \textbf{isomorfos}. \(\square\)
+\end{def*}
+\begin{example}
+	A função de antes, \(f:\mathbb{Z}\rightarrow \mathbb{Z}_{n}, r \mapsto \overline{r},\) é um epimorfismo, mas não é mono (note que 0, n e qualquer múltiplo de n
+	são mapeados para o mesmo elemento).
+\end{example}
+\begin{prop*}[Exercício]
+	\begin{itemize}
+		\item[1)] A identidade \(id_{A}:A\rightarrow A\) é um isomorfismo;
+		\item[2)] Se A é subanel de B, então a inclusão \(i:A\rightarrow B\), \(i(a) = a\), é
+		      um monomorfismo.
+	\end{itemize}
+\end{prop*}
+\begin{example}[Exercício]
+	\begin{itemize}
+		\item[1)] Se A é um anel qualquer, então:
+		      \begin{align*}
+			      \varphi: & \mathbb{Z}\rightarrow A \\
+			               & n\mapsto n1_{A},
+		      \end{align*}
+		      é um morfismo.
+		\item[2)] Se \(B=(0), f:A\rightarrow (0)\) é um morfismo.
+		\item[3)] Se A é um anel, então:
+		      \begin{align*}
+			      \varphi_{a}: & A[x]\rightarrow A \\
+			                   & f(x)\mapsto f(a).
+		      \end{align*}
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Seja \(f:A\rightarrow B\) um homomorfismo. O conjunto \(\ker{(f)}\coloneqq \{a\in A: f(a) = 0\}\)
+	é chamado \textbf{núcleo} ou \textbf{kernel} de f. O conjunto \(\mathrm{Im}(f)\coloneqq f(A)\) é chamado
+	\textbf{imagem} de f. \(\square\)
+\end{def*}
+\begin{lemma*}
+	O kernel de um homomorfismo é um ideal do Anel domínio e a imagem de um homomorfismo é subanel do codomínio. Em outras palavras,
+	\[
+		\ker{(f)}\trianglelefteq{A}\quad\&\quad \mathrm{Im}(f)\text{ é subanel de }B.
+	\]
+\end{lemma*}
+\begin{proof*}
+	1.) Da Álgebra I, sabemos que \((\ker{(f)}, +)\leq (A, +).\) Seja \(a\in A\) e
+	considere \(x\in\ker{(f)}.\) Note que \(f(ax) = f(a)f(x) = f(a)0 = 0\) e, então, \(ax\in\ker{(f)}.\)
+
+	2.) Para provar este, basta usarmos as propriedades de morfismo de anéis. Segue que
+	\(f(a), f(b)\in \mathrm{Im}(f),\quad f(a) + f(b) = f(a+b)\in \mathrm{Im}(f).\) Além disso,
+	\(f(a)f(b) = f(ab)\in \mathrm{Im}(f)\) e \(1_{A}f(a) = f(1)f(a) = f(1a) = f(a).\) \qedsymbol
+\end{proof*}
+\begin{example}
+	Seja A um anel e considere \(A[x].\) Dado \(a\in A\), defina o mapa
+	\begin{align*}
+		\varphi_{a}: & A[x]\rightarrow A \\
+		             & f(x)\mapsto f(a).
+	\end{align*}
+	Note que, assim, \(\ker{(\varphi_{a})} = \{f(x)\in A[x]: f(a) = 0\} \trianglelefteq F[x].\) Ainda mais, esse ideal é principal, sendo gerado por
+	\[
+		\ker{\varphi_{a}} = \langle (x-a) \rangle = \{g(x)\in F[x]: (x-a)\mid g(x)\}.
+	\]
+\end{example}
+\begin{lemma*}
+	As seguintes propriedades são equivalentes:
+	\begin{itemize}
+		\item[1)] f é monomorfismo;
+		\item[2)] \(\ker{(f)} = (0);\)
+		\item[3)] Se \(f(a) = 0\), então \(a=0.\)
+	\end{itemize}
+\end{lemma*}
+A prova é análoga ao caso de grupos, então será omitida.
+\begin{example}[Exercício]
+	\begin{itemize}
+		\item[1)] Os anéis com um elemento são todos isomorfos;
+		\item[2)] Todo anel com p elementos, sendo p um primo, é isomorfo à \(\mathbb{Z}/p \mathbb{Z};\)
+		\item[3)] Os anéis A e B são isomorfos se, e somente se, existirem homomorfismos
+		      \(f:A\rightarrow B\) e \(g:A\rightarrow B\) tais que \(f\circ{g}=id_{B}\) e \(g\circ{f} = id_{A}.\)
+	\end{itemize}
+\end{example}
+\begin{prop*}
+	Seja \(f:A\rightarrow B\) um homomorfismo de anéis.
+	\begin{itemize}
+		\item[1)] Se \(\mathfrak{j}\trianglelefteq{B}\), então \(f^{-1}(\mathfrak{j})\trianglelefteq{A}.\) Em particular, \(\ker{(f)} = f^{-1}((0))\trianglelefteq{A};\)
+		\item[2)] Se \(\mathfrak{q}\in \mathrm{Spec}(B)\), então \(f^{-1}(\mathfrak{q})\in \mathrm{Spec}(A).\)
+		\item[3)] Se A é subanel de B e \(\mathfrak{j}\trianglelefteq{B},\) então \(\mathfrak{j}\cap A \trianglelefteq{A}.\) Se \(i:A\hookrightarrow B\),
+		      então \(i^{-1}(\mathfrak{j})=\mathfrak{j}\cap A.\)
+	\end{itemize}
+	\begin{proof*}
+		1.) De fato, já sabemos que \(f^{-1}(\mathfrak{j})\leq A\) como grupo. Porém, sejam \(x\in f^{-1}(\mathfrak{j})\)
+		e \(y\in A\) tais que \(f(x) = a\in \mathfrak{j}.\) Como \(\mathfrak{j}\) é ideal, \(af(y)\in \mathfrak{j},\)
+		ou seja, \(f(x)f(y) = f(xy)\in \mathfrak{j}\). Logo, \(xy\in f^{-1}(\mathfrak{j})\).
+
+		2.) Se \(xy\in f^{-1}(\mathfrak{q}),\) temos \(f(xy) = f(x)f(y)\in \mathfrak{q}.\) Como \(\mathfrak{q}\) é primo,
+		então \(f(x)\in \mathfrak{q}\) ou \(f(y)\in \mathfrak{q}.\) Assim, \(x\in f^{-1}(\mathfrak{q})\) ou \(y\in f^{-1}(\mathfrak{q}).\)
+
+		3.) A primeira parte segue do fato de que subanel é um subconjunto fechado pelas operações restritas. Além disso,
+		\(i^{-1}(\mathfrak{j}) = \mathfrak{j}\cap A.\) \qedsymbol
+	\end{proof*}
+\end{prop*}
+\begin{example}[Exercício]
+	Seja A um anel. Se \(\mathfrak{p}\trianglelefteq A\) é um ideal primo de A, então
+	\[
+		\mathfrak{p}[x] = \{a_{0} + a_{1}x + \dotsc + a_{n}x^{n}:p\mid a_{i}\}
+	\]
+	é um ideal primo de A[x].
+\end{example}
+\begin{example}
+	Defina \(\alpha :\mathbb{Z}[x]\rightarrow \mathbb{F}_{p}[x]\) por
+	\[
+		\alpha \biggl(\sum\limits_{j=0}^{n}a_{j}x^{j}\biggr) = \overline{f(x)}\coloneqq \sum\limits_{j=0}^{n}\overline{a}_{j}x^{n}.
+	\]
+	Com isso, \(\ker{(\alpha )} = p \mathbb{Z}[x] = \{a_{0} + a_1x + \dotsc +a_{n}x^{n}: p\mid a_{i}\}\). Note que
+	\(\ker{(\alpha )} = f^{-1}((0))\) e, como \(\mathbb{F}_{p}[x]\) é um domínio, segue que \((0)\trianglelefteq \mathbb{F}_{p}[x]\) é um ideal primo.
+	Pela proposição recém-provada, isso quer dizer que \(\ker{(\alpha )}\) é um ideal primo. No entanto, ele não é maximal, pois
+	\[
+		(p \mathbb{Z})[x] \subsetneq \langle p \mathbb{Z}, x \rangle = p \mathbb{Z} + \langle x \rangle \subsetneq \mathbb{Z}[x].
+	\]
+\end{example}
+Note que a imagem inversa de um ideal maximal não é necessariamente maximal.
+Basta considerar a inclusão \(i:\mathbb{Z}\hookrightarrow \mathbb{Q}, (0)\in \mathrm{Specm}(\mathbb{Q}),\)
+mas \(i^{-1}((0)) = (0)\not\in \mathrm{Specm}(\mathbb{Z}).\)
+
+Além disso, a imagem de um ideal não é, em geral, um ideal. Para ver isso, basta considerar \(\varphi_{0}:A[x]\rightarrow A[x].\)
+Assim, \(\mathrm{Im}(\varphi_{0}) = A\subseteq A[x],\) tal que
+\[
+	f(\mathfrak{i}) = \mathrm{Im}(\varphi_{0}) = A
+\]
+não é um ideal de A[x]. No entanto, é possível pôr uma condição em f para que ocorra o desejado:
+\begin{lemma*}
+	Seja \(f:A\rightarrow B\) um epimorfismo de anéis.
+	\begin{itemize}
+		\item[1)] Se \(\mathfrak{i}\trianglelefteq{A},\) então \(f(\mathfrak{i})\trianglelefteq{B}.\) De fato, sabemos que a imagem
+		      de grupo é um grupo.
+		\item[2)] Todo ideal \(\mathfrak{j}\) de B é da forma \(f(\mathfrak{i})\) para algum ideal \(\mathfrak{i}\trianglelefteq{A}.\)
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	1.) Já sabemos que a imagem é grupo. Seja \(y\in B.\) Como f é epimorfismo, existe
+	\(a\in A\) tal que \(f(a) = y.\) Assim, se \(f(x)\in f(\mathfrak{i}), x\in \mathfrak{i}\) e
+	\(ax\in \mathfrak{i}.\) Então, \(f(ax) = f(a)f(x) = y f(x)\in f(\mathfrak{i}).\)
+
+	2.) Seja \(\mathfrak{j}\trianglelefteq{B}.\) Com isso, \(f^{-1}(\mathfrak{j})\) é ideal de A, pelo lema anterior.
+	Como f é epimorfismo, \(f(f^{-1}(\mathfrak{j})) = \mathfrak{j}.\) Assim, \(\mathfrak{j}\) é imagem de um ideal
+	\(f^{-1}(\mathfrak{j})\) de A. \qedsymbol
+\end{proof*}
+
+\end{document}

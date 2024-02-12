@@ -1,0 +1,119 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 09/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Números Algébricos e Transcendentes;
+	\item Extensões Algébricas;
+\end{itemize}
+\subsection{Números Algébricos e Transcendentes}
+\begin{def*}
+	Seja \(K/F\) uma extensão de corpos e seja \(a\in K\). Definimos o \textbf{mapa de evaluação em} \(\alpha \) por:
+	\begin{align*}
+		 & e_{\alpha }:F[x]\rightarrow K       \\
+		 & f(x)\mapsto f(\alpha ).\quad\square
+	\end{align*}
+	Note que \(e_{\alpha }\) é um morfismo de anéis. Dizemos que um elemento \(\alpha \in K\) é
+	\begin{itemize}
+		\item[1)] \textbf{algébrico} sobre F se \(\ker{(e_{\alpha })}\neq(0)\)
+		\item[2)] \textbf{transcendente} sobre F se \(\ker{(e_{\alpha })}=(0).\)
+	\end{itemize}
+\end{def*}
+\begin{example}[Exercícios]
+	\begin{itemize}
+		\item[1)] Mostre que \(\alpha \in K\) é algébrico sobre F se, e somente se, existe \(f(x)\neq 0\) em \(F[x]\) tal que
+		      \(f(\alpha ) = 0.\)
+		\item[2)] Mostre que \(\alpha \in K\) é transcendente sobre F se, e somente se, para todo
+		      \(f(x)\in F[x]\) não nulo, \(f(\alpha)\neq0.\)
+	\end{itemize}
+\end{example}
+Podemos observar algumas coisas. A primeira delas é que \(\ker{e_{\alpha }}\neq(0).\) Como
+F[x] é D.I.P., existe f(x) tal que \(\ker{e_{\alpha }} = \langle f(x) \rangle.\) Já que \((0)\in \mathrm{Spec(K)}, \ker{e_{\alpha }}=e_{\alpha }^{-1}((0))\in \mathrm{Spec(F[x])}.\)
+Assim, \(f(x)\) é irredutível e \(\ker{e_{a}}\in \mathrm{Specm(F[x])},\) donde obtemos a injeção de corpos:
+\[
+	\overline{e}_{\alpha }:\frac{F[x]}{\langle f(x) \rangle}\rightarrow K.
+\]
+Denotaremos \(Im(e_{\alpha }) = F(\alpha ).\) Desta forma, \(F(\alpha )\subseteq{K}\) e \([F(\alpha ): F]=\deg{f}\) pela última aula.
+
+Além disso, note que se \(e_{\alpha }\) é injetor, então \(F[x]\cong{F[\alpha ]}\) (isomorfismo de anéis).
+\begin{def*}
+	Dizemos que uma extensão \(K/F\) é \textbf{algébrica} se todo elemento de K é algébrico. \(\square\)
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se \([K:F]\) é finita, então \(K/F\) é algébrica. De fato, seja \(n=[K:F]\) e \(\alpha \in K\) um elemento qualquer.
+		      Considere o conjunto \(S = \{1, \cdots, \alpha ^{n}\}\subseteq{K};\) Como \(\dim_{F}K = n,\) S é necessariamente um conjunto linearmente
+		      dependente. Então, existe \(a_{0}, \cdots, a_{n}\in F\) não todos nulos tais que \(a_{0} + a_{1}\alpha + \cdots + a_{n}\alpha^{n} = 0.\)
+
+		      Considere o polinômio \(f(x) = a_{0}+a_{1}x + \cdots + a_{n}x^{n}.\) Ele é não nulo, pois nem todos os \(a_{i}\) são nulos,
+		      e \(f(\alpha ) = 0\). Logo, \(\alpha \) é algébrico sobre F.
+
+		\item[2)] Seja \(K/\mathbb{C}\) uma extensão algébrica sobre \(\mathbb{C}.\) Então, \(K = \mathbb{C}.\) Com efeito, seja \(\alpha \in K\)
+		      e \(f(x)\in \mathbb{C}[x]\) não nulo e mônico tal que \(f(\alpha ) = 0\). Pelo Teorema Fundamental da Álgebra, podemos escrever
+		      \[
+			      f(x) = a(x-\alpha_{1})\cdot \dotsc \cdot (x-\alpha_{n}),
+		      \]
+		      para algum \(a\in \mathbb{C}\setminus{\{0\}},\alpha_{i}\in \mathbb{C}\) e \(n = \deg{f}.\) Assim, \(0 = f(\alpha ) = a(\alpha -\alpha_{1})\cdot \dotsc(\alpha -\alpha_{n})\)
+		      e, como K é domínio, existe i tal que \((\alpha -\alpha_{i})=0,\) o que significa que \(\alpha=\alpha_{i}\in \mathbb{C}.\) Logo, \(\ker{e_{\alpha }}=\langle x-a \rangle\) e \([K:\mathbb{C}] = 1.\)
+	\end{itemize}
+\end{example}
+\begin{prop*}
+	Seja \(K/F\) uma extensão de corpos. Suponha que F é não enumerável e \([K:F]=\dim_{F}K\) é enumerável. Então,
+	\(K/F\) é algébrica.
+\end{prop*}
+\begin{proof*}
+	Suponha que \(K/F\) não seja algébrica. Escolha \(\alpha \in K/F\) que não é
+	algébrico sobre F. Mostraremos que
+	\[
+		S = \biggl\{\frac{1}{\alpha - a}: a\in F\biggr\}\subseteq{K}
+	\]
+	é linearmente independente, e assim teremos um absurdo, pois \(|S| = |F|\) e teríamos
+	\(\dim_{F}K\geq |S|.\)
+
+	Com efeito, seja uma combinação linear finita:
+	\begin{align*}
+		                                                  & \frac{c_{1}}{\alpha - a_{1}} + \cdots + \frac{c_{n}}{\alpha - a_{n}} = 0                                          \\
+		\underbrace{\Rightarrow}_{\times (\alpha -a_{1})} & c_{1} + \frac{c_{2}(\alpha - a_{1})}{\alpha - a_{2}} + \cdots + \frac{c_{n}(\alpha - a_{1})}{\alpha - a_{n}} = 0.
+	\end{align*}
+	Como \(\alpha \) é transcendente, temos \(F[x]\cong{F(\alpha )}\) e então \(\mathrm{Frac}(F[x])\cong{\mathrm{Frac}(F(\alpha ))}\).
+	Assim, aplicando o isomorfismo, substituindo \(\alpha \) por x, obtemos a mesma igualdade com 0:
+	\[
+		c_{1} + \frac{c_{2}(x-a_{1})}{x-a_{2}} + \cdots + \frac{c_{n}(x-a_{1})}{x-a_{n}} = 0.
+	\]
+	Como a igualdade vale para todo x, substituindo \(x=a_{1}, c_{1} = 0.\) Podemos fazer esse processo para
+	todo \(i=1, \cdots, n\) e conseguindo, assim, \(c_{i} = 0\) para \(i=1, \cdots, n.\) Então, o conjunto é linearmente independente
+	e temos o que queríamos demonstrar. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja \(A = F[x_{1}, \cdots, x_{n}],\) F corpo. Então, \(\mathfrak{i} = \langle x_{1}-a_{1}, \cdots, x_{n}-a_{n}\rangle \trianglelefteq{A}\)
+	é maximal, para \(a_{1}, \cdots, a_{n}\in F\).
+\end{theorem*}
+\begin{proof*}
+
+	A prova segue da indução sobre o número de variáveis
+
+	\textbf{\underline{Caso Base}:} Sejam \(\mathfrak{i} = \langle x - a_{1} \rangle, 0\neq \overline{f(x)}\in A/\mathfrak{i}.\)
+	Existem \(q(x), r(x)\) tais que \(f(x) = q(x)(x-a_{1})+r(x),\) com \(\deg{r}\leq \deg{(x-a)}=1.\) Com isso,
+	r(x) é constante, digamos \(r(x) = a\). Então, \(\overline{f(x)}=\overline{a}\) é constante e
+	\(g(x) = \overline{a^{-1}}\) é o inverso de f(x) em \(A/\mathfrak{i}.\) Assim, \(A/\mathfrak{i}\) é um corpo isomorfo a F por meio
+	de \(f(x)\mapsto a.\)
+
+	\textbf{\underline{Hipótese Indutiva}:} Suponha que o resultado vale para \(k < n\). Agora, \(\mathfrak{i} = \langle x-a_{1}, x-a_{2}, \cdots, x-a_{n} \rangle\) e tomemos
+	\(0\neq \overline{f(x_{1}, \cdots, x_{n})}\in A/\mathfrak{i}\). Podemos escrever
+	\(f(x_{1}, \cdots, x_{n})\) como um elemento de \(F[x_{2}, \cdots, x_{n}][x_{1}]\) da seguinte forma:
+	\[
+		f(x_{1}, \cdots, f_{n}) = f_{m}x_{1}^{m} + f_{m-1}x_{1}^{m-1} + \cdots + f_{0},
+	\]
+	em que \(f_{i}\in F[x_{2}, \cdots, x_{n}].\) Pelo algoritmo de Euclides, existem \(q, r\in A\) com
+	\[
+		f(x_{1}, \cdots, x_{n}) = q(x_{1} - a_{1} ) + r,
+	\]
+	com \(r\neq0\) e \(\deg_{x_{1}}{r} = 0, r \in F[x_{2}, \cdots, x_{n}].\) Por indução, \(\frac{F[x_{2}, \cdots, x_{n}]}{\langle x_{2}-a_{2}, \cdots, x_{n}-a_{n} \rangle}\cong{F}\) e
+	então \(\overline{r} = \overline{b}\in F, r = b+g, g\in \langle x_{2}-a_{2}, \cdots, x_{n}-a_{n} \rangle\). Logo,
+	\[
+		f(x_{1}, \cdots, x_{n}) = q(x_{1}-a_{1}) + g + b \Rightarrow \overline{f(x_{1}, \cdots, x_{n})} = \overline{b}.
+	\]
+	Assim, \(\overline{f(x_{1}, \cdots, x_{n})}\) corresponde a um polinômio constante \(\overline{b}\in F.\)
+	Portanto, \(\mathfrak{i}\) é maximal. \qedsymbol
+\end{proof*}
+\end{document}

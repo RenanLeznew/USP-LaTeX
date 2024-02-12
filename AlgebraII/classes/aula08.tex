@@ -1,0 +1,157 @@
+\documentclass[AlgebraII/algebraII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 11/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Anéis Multiplicativos;
+	\item Anel e Mapa de Localização.
+\end{itemize}
+\subsection{Anéis Multiplicativos}
+Começamos esta seção com exemplo de base. Considere o conjunto \(\mathbb{Q}=\biggl\{\frac{a}{b}: a, b\in \mathbb{Z}, b\neq 0\biggr\}.\)
+Segue que \(\mathbb{Q}\) é um corpo com apenas dois ideais - \((0), \mathbb{Q}.\) Além disso,
+\(\mathbb{Z}\subseteq \mathbb{Q}\) é subanel e \(\mathbb{Z}\) não tem subanel próprio. Como consequência, se
+A é um subanel de \(\mathbb{Q},\) então obrigatoriamente \(\mathbb{Z}\subseteq A\subseteq \mathbb{Q}\). Vamos ver alguns subanéis de \(\mathbb{Q}.\)
+\begin{example}
+	\begin{itemize}
+		\item[1)] Um subanel é \(\mathbb{Z}\);
+		\item[2)] Outro é, para p primo, o conjunto
+		      \[
+			      \mathbb{Z}_{(p)} = \biggl\{\frac{a}{b}\in \mathbb{Q}:\text{ p não divide b}\biggr\},\quad \mathbb{Z}\subseteq \mathbb{Z}_{(p)}\subseteq \mathbb{Q}.
+		      \]
+		      Em particular, vimos que este anel é local e tem apenas dois ideais primos: (0) e \(\mathfrak{i}_{(p)}\);
+		\item[3)] \(2\mathbb{Z}\) é subanel de \(\mathbb{Q}\);
+		\item[4)] \(\mathbb{Z}[\sqrt[]{2}]=\{a + b\sqrt[]{2}: a, b\in \mathbb{Z}\}\subseteq \mathbb{R}\) não é ideal de \(\mathbb{Q}\) pois \(\sqrt[]{2}\) não é racional;
+		\item[5)] O conjunto \(\mathbb{Z}\biggl[\frac{1}{2}\biggr]=\biggl\{a + \frac{b}{2}: a, b\in \mathbb{Z}\biggr\}\) \textbf{não} é ideal de \(\mathbb{Q}\). De fato,
+		      \begin{align*}
+			       & \biggl(a+\frac{b}{2}\biggr)+\biggl(a'+\frac{b'}{2}\biggr) = (a+a') + \frac{(b+b')}{2}                                                          \\
+			       & \biggl(a+\frac{b}{2}\biggr)\biggl(\frac{a'+b'}{2}\biggr) = aa' + \frac{ab'+a'b}{2} + \frac{bb'}{4}\not\in \mathbb{Z}\biggl[\frac{1}{2}\biggr].
+		      \end{align*}
+	\end{itemize}
+\end{example}
+Este último exemplo possui outras formas alternativas de definí-lo:
+\[
+	\mathbb{Z}\biggl[\frac{1}{2}\biggr] = \biggl\{\frac{a}{2^{r}}: r\in \mathbb{Z}, a\in \mathbb{Z}\biggr\} = \biggl\{f \biggl(\frac{1}{2}\biggr): f(x)\in \mathbb{Z}[x].\biggr\}
+\]
+Em particular, a forma de potência fonece uma propriedade interessante de que \(\biggl(\mathbb{Z}\biggl[\frac{1}{2}\biggr]\biggr)^{*} = \{2^{r}: r\in \mathbb{Z}\}.\) Isso pode ser observado
+em anéis parecidos, como em
+\[
+	\mathbb{Z}\biggl[\frac{1}{6}\biggr] = \biggl\{\frac{a}{6^{r}}: r\in \mathbb{Z}, a\in \mathbb{Z}\biggr\} \Rightarrow \biggl(\mathbb{Z}\biggl[\frac{1}{6}\biggr]\biggr)^{*}=\{2^{\alpha }3^{\beta }:\alpha , \beta \in \mathbb{Z}\}.
+\]
+Com base nessas coisas, definimos, para \(\frac{a}{b}\in \mathbb{Q}\) com \(\mathrm{mdc}(a, b) = 1\) e b livre de quadrados, o anel
+\[
+	\mathbb{Z}\biggl[\frac{a}{b}\biggr] = \biggl\{f \biggl(\frac{a}{b}\biggr): f(x)\in \mathbb{Z}[x]\biggr\} \eqqcolon \mathbb{Z}\biggl[\frac{1}{b}\biggr] = \biggl\{\frac{a}{b^{r}}: a\in \mathbb{Z}, r\in \mathbb{Z}\biggr\}.
+\]
+\begin{def*}
+	Seja A um anel. Um subconjunto \(S\subseteq A\) é dito \textbf{multiplicativo} se:
+	\begin{itemize}
+		\item[1)] \(1\in S;\)
+		\item[2)] S é fechado pela multiplicação, i.e., \(s, s'\in S\) implica que \(s \cdot s'\in S.\)
+	\end{itemize}
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se \(a\in A,\) com \(a\neq 0,\) o conjunto \(S = \{a^{i}: i\geq 0\}\) é multiplicativo;
+		\item[2)] Se \(\mathfrak{p}\in \mathrm{Spec}(A),\) então \(S\coloneqq A\setminus{\mathfrak{p}}\) é multiplicativo. De fato, como
+		      \(\mathfrak{p}\vartriangleleft A, 1\not\in \mathfrak{p}\) e \(1\in A\setminus{\mathfrak{p}}.\)
+		      Além disso, S é fechado pelo produto. De fato, suponha, por hipótese de absurdo, que existam \(s, s'\in S\) tais que \(s, s'\not\in S.\) Então,
+		      \(s \cdot s'\in \mathfrak{p}\) e, como \(\mathfrak{p}\) é primo, segue que \(s\in \mathfrak{p}\) ou \(s'\in \mathfrak{p}.\) Mas, então, \(s\not\in S\) ou
+		      \(s'\not\in S,\) o que é um absurdo. Logo, S é multiplicativo. Em particular, se A for um domínio, temos \((0)\in \mathrm{Spec}(A)\) e, assim,
+		      \(S=A\setminus{\{0\}}\) é multiplicativo.
+		\item[3)] Se \(\mathfrak{p}_{1}, \dotsc , \mathfrak{p}_{n}\in \mathrm{Spec}(A)\) então o conjunto:
+		      \[
+			      S = A\setminus{\bigcup_{i=1}^{n}\mathfrak{p}_{i}}
+		      \]
+		      é multiplicativo.
+		\item[4)] Se \(a, b\in A \setminus{\{0\}},\) então \(S = \{a^{i}\cdot b^{j}: i, j\geq 0\}\) é multiplicativo (o mesmo vale para número finito de
+		      elementos do anel).
+		\item[5)] Se \(f:A\rightarrow B\) é um morfismo de anéis e \(S\subseteq A\) e \(S\cap \ker{(f)} = \emptyset\) é um conjunto multiplicativo,
+		      então \(f(S)\) é multiplicativo.
+
+		      De fato, como \(1_{A}\in S\) e f é morfismo, \(f(1_{A}) = 1_{B}\in f(S).\) Se \(x, y\in f(S),\) existem
+		      \(a, b\in S\) tais que \(x=f(a)\) e \(y=f(b).\) Como S é multiplicativo, \(a \cdot b\in S\) e, então, \(f(a \cdot b) = f(a)f(b)\in S.\)
+		\item[6)] O conjunto das unidades \(S = A^{*}\subseteq A\) é multiplicativo.
+	\end{itemize}
+\end{example}
+Seja A um domínio e \(S\subseteq A\) um conjunto multiplicativo com \(0\not\in S.\) Definiremos uma relação de equivalência no conjunto
+\(A\times S:\) Se \((a, s), (a', s')\in A\times S\), então defina
+\[
+	(a, s)\sim (a', s') \Longleftrightarrow as' = sa'.
+\]
+Provemos que esta relação é de equivalência. É reflexiva, já que, para todo
+\((a, s)\in A\times S, as = sa,\) ou seja, \((a, s)\sim (a, s).\) É simétrica, pois,
+se \((a, s)\sim (a'\Sigma s')\) vale \(as' = sa'\) e, então, \(a's = s'a, \) por comutatividade.
+Logo, \((a', s')\sim (a, s).\) A transitividade segue do fato de que, se \((a, b), (c, d), (x, y)\in A\times S\) são
+tais que \((a, b)\sim (c, d)\) e \((c, d)\sim (x, y)\), então valem \(ad = bc\) e \(cy = dx.\) Queremos provar
+que \((a, b)\sim (x, y)\). No entanto, note que:
+\[
+	bcy = bcy \Rightarrow (da)y = b(xd) \Rightarrow ay = bx.
+\]
+Na última linha, foi utilizada a propriedade dos cancelamentos dos domínios para podermos cancelar d. De fato, se \(d\in S, d\neq 0.\)
+Vale a seguinte propriedade: Se \(Ad = Bd,\) vale \(a = B.\) Caso contrário, teríamos \(A\neq B\) e \(A - B\neq 0,\) mas \(Ad = Bd\) implica que
+\(d(A-B) = 0\) e então d seria um divisor de zero, o que é um absurdo.
+
+\begin{def*}
+	A classe de equivalência de um elemento \((a, s)\in A\times S\) será denotada por
+	\[
+		\frac{a}{s} = \{(a', s')\in A\times S: (a, s)\sim (a', s')\}.\quad\square
+	\]
+	Denotaremos o conjunto de todas as classes \(S^{-1}A\) o conjunto de todas essas classes de equivalência.
+\end{def*}
+Podemos caracterizar as classes fazendo:
+\[
+	\frac{a}{s} = \frac{a'}{s'} \Longleftrightarrow as'=a's.
+\]
+Em \(S^{-1}A\), podemos definir as operações soma e multiplicação como segue:
+\[
+	\frac{a}{s}+\frac{b}{t}\coloneqq \frac{at+bs}{st}\quad\&\quad \frac{a}{s}\frac{b}{t}\coloneqq \frac{ab}{st}.
+\]
+Precisamos mostrar que essas operações estão bem definidas. Quanto à soma,
+\begin{align*}
+	\frac{a}{s} + \frac{b}{t} = \frac{a'}{s'} + \frac{b'}{t'} & \Longleftrightarrow \frac{at+bs}{st} = \frac{a't' + b's'}{s't'} \\
+	                                                          & \Longleftrightarrow (at+bs)(s't') = (a't'+b's')(st)             \\
+	                                                          & \Longleftrightarrow as't t'+bt'ss' = a'st t' + b'tss'.
+\end{align*}
+Note que \((as')t t' = (a's)t t'\) e \((bt')ss' = (b't)ss',\) o que faz com que valam as igualdades acima.
+
+Agora, para o produto,
+\begin{align*}
+	\frac{a}{s}\frac{b}{t} = \frac{a'}{s'}\frac{b'}{t'} & \Longleftrightarrow \frac{ab}{st}=\frac{a'b'}{s't'} \\
+	                                                    & \Longleftrightarrow as'bt' = a'sb't.
+\end{align*}
+Portanto, as operações estão bem-definidas.
+\begin{prop*}
+	O conjunto \(S^{-1}A\) com as operações definidas acima é um anel comutativo e com unidade.
+\end{prop*}
+\begin{proof*}
+	Note que a classe \(0/s = 0/1\) para todo \(s\in S\). Além disso, se \(a/s\in S^{-1}A,\) temos:
+	\[
+		\frac{a}{s}+\frac{0}{1} = \frac{a1 + 0s}{s1} = \frac{a}{s}.
+	\]
+	Então, \(0/1\) é o elemento neutro da soma neste conjunto. Dado um elemento genérico \(a/s\in S^{-1}A,\) podemos tomar seu inverso \((-a)/s:\)
+	\[
+		\frac{a}{s}+\frac{-a}{s} = \frac{as + (-a)s}{s^{2}} = \frac{0}{s^{2}} = \frac{0}{1}.
+	\]
+	A associatividade fica como exercício, assim como a distributiva. A unidade \(1_{S^{-1}A} = 1/1 = s/s \) para todo \(s\in S\). De fato,
+	\(a/b \cdot s/s = as/bs = a/b\). A comutatividade fica como exercício também. \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	O mapa \(\rho :A\rightarrow S^{-1}A,\) definido por \(\rho (a) = a/1\) é um morfismo de anéis e é injetor, chamado \textbf{mapa de localização}.
+\end{lemma*}
+\begin{proof*}
+	Vamos provar, primeiro, que é morfismo. Se \(a, b\in A,\) então \(\rho (ab) = ab/1 = a/1 \cdot b/1 = \rho (a)\rho (b)\) e \(\rho (a+b) = (a1+b1)/1 = a/1 + b/1 = \rho (a) + \rho (b).\)
+	Além disso, \(\rho (1) = 1/1 = 1_{S^{-1}A}.\)
+
+	Agora, se \(a\in\ker{(\rho )},\) segue que \(\rho (a) = a/1 = 0/1.\) Isso implica que \(a1 = 0\) e, então, \(a = 0.\) Portanto,
+	\(\rho \) é um morfismo injetor. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	O anel \(S^{-1}A\) é um domínio. Além disso, \(S^{-1}A = \biggl\{\frac{a}{b}: a, b\in A, b\neq 0\biggr\}\).
+\end{prop*}
+\begin{proof*}
+	Se \(a/s, b/t\in S^{-1}A\) tais que \(a/s \cdot b/t = 0_{S^{-1}A}\), temos \(ab/st = 0/1\) e, assim,
+	\(ab = 0.\) Como A é domínio, \(a = 0\) ou \(b = 0\). Portanto,
+	\[
+		a/s = 0/1\quad\&\quad b/t = 0/1.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\end{document}
