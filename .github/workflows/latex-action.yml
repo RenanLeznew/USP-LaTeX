@@ -27,17 +27,18 @@ jobs:
       - name: Compile LaTeX document Algebra
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: Algebra/algebra_notes.tex
       - name: Upload Algebra file
         uses: actions/upload-artifact@v3
         with:
           name: Algebra
-          path: algebra_notes.pdf
+          path: Algebra/algebra_notes.pdf
           if-no-files-found: error
       - name: Upload Algebra to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: algebra_notes.pdf
+          target: Algebra/algebra_notes.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -49,17 +50,18 @@ jobs:
       - name: Compile LaTeX document AlgebraII
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: AlgebraII/algebraII_notes.tex
       - name: Upload Algebra II file
         uses: actions/upload-artifact@v3
         with:
-          name: AlgebraII
-          path: algebraII_notes.pdf
+          name: Algebra II
+          path: AlgebraII/algebraII_notes.pdf
           if-no-files-found: error
       - name: Upload Algebra II to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: algebraII_notes.pdf
+          target: AlgebraII/algebraII_notes.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -71,17 +73,18 @@ jobs:
       - name: Compile LaTeX document Analysis
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: Analysis/analysis_notes.tex
       - name: Upload Analysis file
         uses: actions/upload-artifact@v3
         with:
-          name: Analise
-          path: analysis_notes.pdf
+          name: Analysis
+          path: Analysis/analysis_notes.pdf
           if-no-files-found: error
       - name: Upload Analysis to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: analysis_notes.pdf
+          target: Analysis/analysis_notes.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -93,17 +96,18 @@ jobs:
       - name: Compile LaTeX document PhysicsI
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: PhysicsI/physics_notes.tex
       - name: Upload Physics I file
         uses: actions/upload-artifact@v3
         with:
-          name: Fisica I
-          path: physics_notes.pdf
+          name: Physics I
+          path: PhysicsI/physics_notes.pdf
           if-no-files-found: error
       - name: Upload Physics I to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: physics_notes.pdf
+          target: PhysicsI/physics_notes.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -115,17 +119,18 @@ jobs:
       - name: Compile LaTeX document PhysicsII
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: PhysicsII/physicsII_notes.tex
       - name: Upload Physics II file
         uses: actions/upload-artifact@v3
         with:
-          name: Física II
-          path: physicsII_notes.pdf
+          name: Physics II
+          path: PhysicsII/physicsII_notes.pdf
           if-no-files-found: error
-      - name: Upload PhysicsII to Google Drive
+      - name: Upload Physics II to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: physicsII_notes.pdf
+          target: PhysicsII/physicsII_notes.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -137,17 +142,18 @@ jobs:
       - name: Compile LaTeX document ComplexAnalysis
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: ComplexAnalysis/complex.tex
       - name: Upload Complex Analysis file
         uses: actions/upload-artifact@v3
         with:
-          name: Funções de Variável Complexa
-          path: complex.pdf
+          name: Complex Analysis
+          path: ComplexAnalysis/complex.pdf
           if-no-files-found: error
-      - name: Upload Complex Variables to Google Drive
+      - name: Upload Complex Analysis to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: complex.pdf
+          target: ComplexAnalysis/complex.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -159,41 +165,18 @@ jobs:
       - name: Compile LaTeX document Calculus1
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: |
-            Calculus1/exercícios_de_cálculo.tex
+          work_in_root_file_dir: true
+          root_file: Calculus1/exercícios_de_cálculo.tex
       - name: Upload Calculus I file
         uses: actions/upload-artifact@v3
         with:
-          name: Calculo I
-          path: exercícios_de_cálculo.pdf
+          name: Calculus I
+          path: Calculus1/exercícios_de_cálculo.pdf
           if-no-files-found: error
       - name: Upload Calculus I to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: exercícios_de_cálculo.pdf
-          credentials: ${{ secrets.DRIVESHHHH }}
-          parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
-
-  build_latex_LinearAlgebra:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v3
-      - name: Compile LaTeX document LinearAlgebra
-        uses: xu-cheng/latex-action@v3
-        with:
-          work_in_root_file_dir: true
-          root_file: LinearAlgebra/linear_algebra_notes.tex
-      - name: Upload Linear Algebra file
-        uses: actions/upload-artifact@v3
-        with:
-          name: Algebra Linear
-          path: LinearAlgebra/linear_algebra_notes.pdf
-          if-no-files-found: error
-      - name: Upload Linear Algebra to Google Drive
-        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
-        with:
-          target: linear_algebra_notes.pdf
+          target: Calculus1/exercícios_de_cálculo.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -205,17 +188,18 @@ jobs:
       - name: Compile LaTeX document MetricSpaces
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: MetricSpaces/metric_notes.tex
-      - name: Upload Metrics file
+      - name: Upload Metric Spaces file
         uses: actions/upload-artifact@v3
         with:
-          name: Espaços Metricos
-          path: metric_notes.pdf
+          name: Metric Spaces
+          path: MetricSpaces/metric_notes.pdf
           if-no-files-found: error
       - name: Upload Metric Spaces to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: metric_notes.pdf
+          target: MetricSpaces/metric_notes.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -227,17 +211,18 @@ jobs:
       - name: Compile LaTeX document MeasureTheory
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: MeasureTheory/measure_theory.tex
-      - name: Upload Measure file
+      - name: Upload Measure Theory file
         uses: actions/upload-artifact@v3
         with:
-          name: Medida
-          path: measure_theory.pdf
+          name: Measure Theory
+          path: MeasureTheory/measure_theory.pdf
           if-no-files-found: error
-      - name: Upload Measure to Google Drive
+      - name: Upload Measure Theory to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: measure_theory.pdf
+          target: MeasureTheory/measure_theory.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -249,16 +234,39 @@ jobs:
       - name: Compile LaTeX document Probability
         uses: xu-cheng/latex-action@v3
         with:
+          work_in_root_file_dir: true
           root_file: "Probability/*.tex"
       - name: Upload Probability file
         uses: actions/upload-artifact@v3
         with:
-          name: Probabilidade
-          path: probability_notes.pdf
+          name: Probability
+          path: Probability/probability_notes.pdf
           if-no-files-found: error
       - name: Upload Probability to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: probability_notes.pdf
+          target: Probability/probability_notes.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+    build_latex_LinearAlgebra:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Set up Git repository
+          uses: actions/checkout@v3
+        - name: Compile LaTeX document LinearAlgebra
+          uses: xu-cheng/latex-action@v3
+          with:
+            work_in_root_file_dir: true
+            root_file: LinearAlgebra/linear_algebra_notes.tex
+        - name: Upload Linear Algebra file
+          uses: actions/upload-artifact@v3
+          with:
+            name: Algebra Linear
+            path: LinearAlgebra/linear_algebra_notes.pdf
+            if-no-files-found: error
+        - name: Upload Linear Algebra to Google Drive
+          uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+          with:
+            target: LinearAlgebra/linear_algebra_notes.pdf
+            credentials: ${{ secrets.DRIVESHHHH }}
+            parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
