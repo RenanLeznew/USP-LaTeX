@@ -1,0 +1,152 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 19 - 04/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Tipos de Osciladores Harmônicos Amortecidos;
+	\item Oscilador Harmônico Subamortecido;
+	\item Oscilador Harmônico Amortecido Forçado.
+\end{itemize}
+\subsection{Oscilador Harmônico Amortecido}
+Olhando para o caso estudado na última aula, chegamos à conclusão de que, num sistema
+de oscilador harmônico amortecido, a velocidade angular é dada por
+\[
+	\omega  = \omega_{0} \sqrt[]{1-\biggl(\frac{b}{2m\omega_{0}}\biggr)^{2}}.
+\]
+
+Em particular, se o termo ao quadrado é muito menor que 1, pode-se aproximar \(\omega \) puramente
+por \(\omega_{0}\). Este tipo de oscilador é chamado ``\textit{Oscilador Harmônico Subamortecido} ''.
+Novas ferramentas como geladeiras e ares-condicionados implementam esse tipo de oscilador harmônico por meio
+dos \textit{inverters}.
+
+Caso \(\frac{b}{2m\omega_{0}} = 1,\) ou seja, \(b = 2m\omega_{0}\), dizemos que o oscilador é um
+``\textit{Oscilador Harmônico Criticamente Amortecido}'', e denotaremos esse b específico por \(b_{c}.\)
+Um sistema que funciona dessa forma é o amortecedor de um carro.
+
+O caso restante é quando \(\frac{b}{2m\omega_{0}} > 1\), mas este caso \textbf{NÃO CAI NA PROVA}. Nestes casos,
+o valor de \(\omega \) é complexo. Para lidar com ele, recordemos a fórmula de Euler:
+\[
+	e^{i \theta } = \cos^{}{(\theta )} + i\sin^{}{(\theta )},
+\]
+donde segue que
+\[
+	\cos^{}{(\theta )} = \frac{e^{i\theta }+e^{-i\theta }}{2}\quad\&\quad \sin^{}{(\theta )} = \frac{e^{i\theta }-e^{-i\theta }}{2i}.
+\]
+Assim, \(\omega = \pm \lambda i,\) e o caso é conhecido como ``\textit{Oscilador Harmônico Superamortecido}''.
+
+Nosso enfoque será no caso subamortecido. Nestes casos, \(A(t) = A_{0}e^{-\gamma t}.\) Como
+a energia mecânica é dada por \(E_{mec} = \frac{1}{2}kA^{2},\) colocando \(k=m\omega_{0}^{2}\), temos
+\[
+	E_{mec} = \frac{1}{2}m\omega_{0}^{2}A_{0}^{2}e^{-2\gamma t}.
+\]
+Chamando de \(E_{0} = \frac{1}{2}m\omega_{0}^{2}A_{0}^{2},\) a energia mecânica torna-se
+\[
+	E_{mec} = E_{0}e^{-\frac{b}{m}t} = E_{0}e^{-\frac{t}{\tau }}.
+\]
+Chamamos este \(\tau \) de \textit{tempo característico}. Derivando esta energia mecânica em relação ao tempo,
+\[
+	\frac{dE_{mec}}{dt} = -\frac{1}{\tau }E_{0} e^{-\frac{t}{\tau }} = -\frac{E}{\tau }.
+\]
+Equivalentemente,
+\[
+	\frac{dE}{E} = -\frac{dt}{\tau }.
+\]
+Antes de prosseguir, definimos o \textit{fator de qualidade} como \(Q = \omega_{0}\tau \). Para
+oscilações muito pequenas, podemos escrever
+\[
+	\biggl(\frac{\Delta E}{E}\biggr)_{1\text{período}} = -\frac{T}{\tau } = -\frac{2\pi }{\omega_{0}\tau } = -\frac{2\pi }{Q}.
+\]
+Ainda mais, note que
+\[
+	\frac{b}{2m\omega_{0}} = \frac{1}{2\tau \omega_{0}} = \frac{1}{2Q},
+\]
+tal que \(\omega = \omega_{0}\sqrt[]{1 - \frac{1}{4Q^{2}}}\).
+\begin{example}
+	Considere um amortecedor de massa \(m=1100kg\) e frequência \(f = 1Hz\). Qual é o valor de b para que o amortecedor
+	seja criticamente amortecido?
+
+	Pelo que vimos,
+	\[
+		b_{c} = 2m\omega_{0} = 2\times(1100)\times 2\pi \frac{kg}{s}.
+	\]
+\end{example}
+\begin{example}
+	Suponha que uma corda que reproduz a nota Dó/C no piano tem uma frequência \(f = 262Hz\). Ela perde metade
+	da energia em 4 segundos. Qual é o \(\tau \), o Q e o \(\biggl(\frac{\Delta E}{E}\biggr)_{\text{ciclo}}\) do sistema?
+
+	Como houve uma perda de metade da energia, tem-se
+	\[
+		\frac{E_{0}}{2} = E_{0}e^{-\frac{t}{\tau }},
+	\]
+	donde segue que
+	\[
+		\ln \biggl(\frac{1}{2}\biggr) = \frac{-t}{\tau } \Rightarrow \tau \approx 5.7s.
+	\]
+	A partir disso, lembrando que \(Q = \omega_{0}\tau  = 2\pi f \tau \), segue que \(Q = 9.5\times 10^{3}.\) Finalmente,
+	\[
+		\biggl(\frac{\Delta E}{E}\biggr) = \frac{2\pi }{Q} = \frac{1}{f\tau }\approx 6.6\times 10^{-4}.
+	\]
+\end{example}
+\subsection{Oscilador Harmônico Amortecido Forçado}
+Prenda uma mola com constante elástica k a uma roda que fica subindo e descendo ela. Coloque um corpo de massa m na sua ponta e
+suponha que está tudo submerso em um líquido. A equação deste sistema é
+\[
+	m \frac{d^{2}x}{dt^{2}} + b \frac{dx}{dt} + kx = F_{0}\cos^{}{(\omega t)}.
+\]
+Propomos uma solução
+\[
+	x(t) = A(\omega ) \cos^{}{(\omega t - \delta )}.
+\]
+Derivando essa equação,
+\begin{align*}
+	 & \dot x = -A\omega \sin^{}{(\omega t - \delta )}       \\
+	 & \ddot x = -A\omega ^{2}\cos^{}{(\omega t - \delta )}.
+\end{align*}
+Expandindo o cosseno, obtemos as seguintes equações
+\begin{center}
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{| c | c |}
+			\hline
+			Funções     & Expansões                                                                                                 \\
+			\hline
+			x           & \(A\cos^{}{(\omega t )}\cos^{}{(\delta )} + A \sin^{}{(\omega t)}\sin^{}{(\delta )}\)                     \\
+			\(\dot x\)  & \(-A\omega \sin^{}{(\omega t)}\cos^{}{(\delta )} + A\omega \cos^{}{(\omega t)}\sin^{}{(\delta )}\)        \\
+			\(\ddot x\) & \(-A\omega^{2}\cos^{}{(\omega t)}\cos^{}{(\delta )} - A\omega ^{2}\sin^{}{(\omega t)}\sin^{}{(\delta )}\) \\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{center}
+
+Analisemos separadamente os termos em cosseno e em seno.
+
+\underline{\textbf{Termos em \(\cos^{}{(\omega t)}\)}}:
+\begin{align*}
+	 & -mA\omega ^{2}\cos^{}{(\delta )} + b A\omega \sin^{}{(\delta )} + kA \cos^{}{(\delta )} = F_{0} \\
+	 & A\cos^{}{(\delta )}\biggl[-m\omega ^{2} + b \tan^{}{(\delta )} + m\omega_{0}^{2}\biggr] = F_{0}
+\end{align*}
+
+\underline{\textbf{Termos em \(\sin^{}{(\omega t)}\)}}:
+\begin{align*}
+	 & -mA\omega ^{2}\sin^{}{(\delta )} - bA\omega\cos^{}{(\delta )} + m\omega_{0}^{2}A\sin^{}{(\delta )} = 0             \\
+	 & m(\omega_{0}^{2}-\omega ^{2})\sin^{}{(\delta )}=b\omega^{2}\cos^{}{(\delta )}                                      \\
+	 & \tan^{}{(\delta )}=\frac{-b\omega}{m(\omega ^{2}-\omega_{0}^{2})} = \frac{b\omega}{m(\omega_{0}^{2}-\omega ^{2})}.
+\end{align*}
+
+Agora, como \(\sin^{2}{(\delta )} + \cos^{2}{(\delta )} = 1\), vale que
+\[
+	\biggl(\frac{\sin^{}{(\delta )}}{\cos^{}{(\delta )}}\biggr)^{2} + 1 = \frac{1}{\cos^{2}{(\delta )}} \Rightarrow \cos^{2}{(\delta )} = \frac{1}{1+\tan^{2}{(\delta )}} = \frac{1}{1+\frac{b^{2}\omega ^{2}}{m(\omega_{0}^{2}-\omega ^{2})^{2}}},
+\]
+ou seja,
+\[
+	\cos^{2}{(\delta )} = \frac{m(\omega_{0}^{2}-\omega ^{2})^{2}}{m(\omega_{0}^{2}-\omega ^{2})^{2}+b^{2}\omega ^{2}.}
+\]
+Disto, encontramos o valor de A usando a separação dos termos em cosseno como sendo
+\[
+	A = \frac{F_{0}}{\cos^{}{(\delta )}\biggl[m(\omega_{0}^{2}-\omega ^{2})+\frac{b^{2}\omega ^{2}}{m(\omega_{0}^{2}-\omega ^\{2\})}\biggr]} = \frac{F_{0}}{\frac{m(\omega_{0}^{2}-\omega ^{2})}{\sqrt[]{m(\omega_{0}^{2}-\omega ^{2})^{2}+b^{2}\omega ^{2}}}\biggl[m(\omega_{0}^{2}-\omega ^{2})+\frac{b^{2}\omega ^{2}}{m(\omega_{0}^{2}-\omega ^\{2\})}\biggr]}m(\omega_{0}^{2}-\omega ^{2})
+\]
+Simplificando e cortando termos,
+\[
+	A = \frac{F_{0}}{\biggl[m(\omega_{0}^{2}-\omega ^{2})^{2}+b^{2}\omega ^{2}\biggr]^{\frac{1}{2}}}
+\]
+\end{document}

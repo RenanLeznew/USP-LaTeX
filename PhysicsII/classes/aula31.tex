@@ -1,0 +1,108 @@
+\documentclass[PhysicsII/phsyicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 31 - 22/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Processos Adiabáticos;
+	\item A Segunda Lei da Termodinâmica.
+\end{itemize}
+\subsection{Processos Adiabáticos}
+Como previamente visto, um processo adiabático é um no qual a troca de calor é nula. Consequentemente,
+sendo essa outra forma de caracterizar esse tipo de processo, a variação da Energia Interna num processo
+adiabático é totalmente governado pelo trabalho:
+\[
+	\Delta E_{int} = W.
+\]
+Recorde que \(W=c_{V}\Delta T = c_{V}(T_{f}-T_{i})\). Assim, usando a \hyperlink{pvnrt}{Lei dos Gases Ideais},
+\[
+	W = c_{V}\biggl(\frac{P_{f}V_{f}-P_{i}V_{i}}{nR}\biggr) = \frac{(P_{f}V_{f}-P_{i}V_{i})}{\gamma -1}
+\]
+\begin{example}
+	Dado um pneu de bicicleta inflado com uma bomba, assuma que o gás está a uma pressão inicial de 1atm e que o pneu tem o mesmo volume
+	inicial e final de 1L. A temperatura inicial no exterior é de \(20^{\mathrm{o}}\) e a pressão final manométrica\footnotemark[1]\footnotetext[1]{Pressão relativa à pressão atmosférica - tem que somar 101,3KPa}é de 482KPa. Quanto
+	vale o trabalho, sabendo que o processo é adiabático? Considere que o gás é diatômico.
+	Como o gás é diatômico, de cara temos
+	\[
+		W = \Delta E_{int} = c_{V}(T_{f}-T_{i}) = \frac{5}{2}nR(T_{f}-T_{i}).
+	\]
+	Além disso,
+	\begin{align*}
+		 & \frac{T_{i}^{\gamma }}{P_{i}^{\gamma -1}}=\frac{T_{f}^{\gamma }}{P_{f}^{\gamma -1}} \\
+		 & \biggl(\frac{P_{f}}{P_{i}}\biggr)^{\gamma -1}T_{i}^{\gamma } = T_{f}^{\gamma }      \\
+		 & T_{f}=T_{i}\biggl(\frac{P_{f}}{P_{i}}\biggr)^{\frac{\gamma -1}{\gamma }}.
+	\end{align*}
+	Sabendo que \(\gamma  = \frac{c_{P}}{c_{V}}\) e que o gás é diatômico, conseguimos estimar que
+	\[
+		\gamma  = \frac{c_{P}}{c_{V}} = \frac{\frac{7}{2}nR}{\frac{5}{2}nR} = \frac{7}{5} = 1,4.
+	\]
+	(Se o gás fosse monoatômico, seria \(\gamma = \frac{5}{3}\approx 1,66)\). Logo,
+	\[
+		T_{f} = 293 \biggl(\frac{482 + 101,3}{101,3}\biggr)^{\frac{0,4}{1,4}}\approx 432K.
+	\]
+	Utilizando \(n_{f}R = \frac{P_{f}V_{f}}{T_{f}}\), portanto,
+	\[
+		W = \frac{5}{2}\frac{P_{f}V_{f}}{T_{f}}(T_{f}-T_{i})\approx 634J.
+	\]
+\end{example}
+\subsection{A Segunda Lei da Termodinâmica}
+A primeira lei da termodinâmica afirma que a energia interna varia de acordo com a soma do trabalho e do calor, ou seja, que a
+energia interna deve ser conservada. Distintamente, a segunda lei da termodinâmica diz como a energia interna pode ser utilizada.
+Ela possui alguns enunciados diferentes, mas que levam ao mesmo ponto, e começaremos pelo do Lorde Kelvin:
+\begin{quote}
+	``\textit{Nenhum sistema pode absorver calor de um único reservatório e convertê-lo totalmente em trabalho sem alterar o sistema ou as redondezas.}''
+\end{quote}
+Outro enunciado é o de Clausius, que afirma que
+\begin{quote}
+	``\textit{Um processo não pode tirar uma quantidade de calor de um reservatório frio e entregar a mesma quantidade em um reservatório quente.}''
+\end{quote}
+Ao estudar as ideias da segunda lei, é preciso ter em mente o conceito de uma \textbf{máquina térmica}, que são dispositivos cíclicos
+que convertem o máximo possível de calor em trabalho. Exemplos incluem máquinas a vapor, termoelétricas, usinas nucleares e motores a combustão.
+Máquinas térmicas costumam ser representadas por diagramas, que possuem as componentes
+\begin{itemize}
+	\item[1)] \textbf{Reservatório Quente:} Representa a origem do calor que será introduzido no sistema;
+	\item[2)] \textbf{Reservatório Frio:} Representa o local em que o calor é dispensado pelo sistema;
+	\item[3)] \textbf{Conexões:} As conexões conectam as componentes, permitindo o fluxo do fluído de trabalho.
+\end{itemize}
+Um ciclo completo de funcionamento da máquina possui \(\Delta E_{int} = 0.\) Definimos, também, a ideia de \textbf{eficiência} como uma
+razão entre o trabalho e o calor transferido:
+\[
+	\varepsilon  = \frac{W}{Q_{q}} = \frac{Q_{q}-Q_{f}}{Q_{q}} = 1 - \frac{Q_{f}}{Q_{q}}.
+\]
+Observe que, para uma máquina à vapor, \(\varepsilon = 0,4\approx 40\%\). Existem motores à combustão com \(\varepsilon = 0,5 = 50\%\).
+
+Agora, se um gás é permitido expandir, empurrando um embulo, qual é a eficiência desse processo? Como esse sistema não volta à sua condição
+inicial, ele não caracteriza uma máquina térmica, pois é de uso único - uma vez usado, o gás fica rarefeito e frio, sem voltar a ser como era.
+\begin{example}
+	Num sistema, há uma máquina térmica operando com quantidade de calor quente inicial de \(Q_{q} = 200J\). O reservatório frio
+	tem uma quantidade de calor de \(Q_{f} = 160J.\) Neste caso, o trabalho é
+	\[
+		W = Q_{q} - Q_{f} = 40J
+	\]
+	e a eficiência tem valor
+	\[
+		\varepsilon = \frac{W}{Q} = \frac{40}{200} = 0,2 = 20\%.
+	\]
+\end{example}
+O \textbf{Ciclo de Otto} representa um processo de compressão adiabática, uma centelha e uma expansão. Começa-se comprimindo a amostra de fluído de um ponto a, com \(V_{a}\) até um ponto b, com \(V_{b} < V_{a}.\)
+No ponto b, explode-se a mistura, fazendo com que ela expanda de volta a \(V_{a}.\) Neste esquema, como é adiabático, sabemos que
+\[
+	Q_{q} = c_{V}(T_{c}-t_{b})\quad\&\quad Q_{f} = c_{V}(T_{d}-T_{a}),
+\]
+o que nos permite afirmar que a eficiência de um Ciclo de Otto é
+\[
+	\varepsilon  = 1 - \frac{Q_{f}}{Q_{q}} = 1 - \frac{T_{d} - T_{a}}{T_{c} - T_{b}}.
+\]
+Sabemos que, num processo adiabático, as temperatura finais e iniciais são relacionáveis por
+\[
+	T_{a}V_{a}^{\gamma -1} = T_{b}V_{b}^{\gamma -1} \Rightarrow T_{b} = T_{a}\biggl(\frac{V_{a}}{V_{b}}\biggr)^{\gamma -1}
+\]
+Coloque r para representar quanto o sistema foi comprimido, ou seja, \(r = \frac{V_{a}}{V_{b}}\). Com isso,
+\[
+	T_{b} = T_{a}r^{\gamma -1}\quad\&\quad T_{d} = T_{c}r^{\gamma -1}
+\]
+Assim, a eficiência de um Ciclo de Otto é de
+\[
+	\varepsilon = 1 - \frac{T_{d}-T_{a}}{(T_{d}-T_{a})r^{\gamma -1}}= 1 - r^{1-\varphi }.
+\]
+
+\end{document}

@@ -1,0 +1,119 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 16/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Disco com buraco;
+	\item Rodando disco e cilindro em torno do plano.
+\end{itemize}
+\subsection{Momento de Inércia em um Disco}
+Vamos considerar um disco de raio \(R_{2}\) que contém dentro de si um buraco de
+raio \(R_{1}\). Nisso, consideramos o momento de inércia do disco inteiro como
+\[
+	I = I^{+} + I^{-}.
+\]
+Aqui, \(I^{+}\) desconsidera a existência do buraco, ou seja, tem valor
+\[
+	I^{+} = \frac{\pi R_{2}^{2}\sigma R_{2}^{2}}{2} = \frac{1}{2}M^{+}R_{2}^{2}
+\]
+e o valor de \(I^{-}\) vale
+\[
+	I^{-} = \frac{1}{2}M^{-}R_{1}^{2} = \frac{\pi R_{1}^{2}}{2}\sigma R_{1}^{2}.
+\]
+Assim, considerando o valor total, obtivemos o mesmo resultado que o de antes:
+\[
+	I = \frac{\pi \sigma }{2}(R_{2}^{4} - R_{1}^{4}).
+\]
+Em particular, a densidade de massa após o buraco ser feito, \(\sigma^{*} \), valerá
+\[
+	\sigma ^{*} = \frac{M}{\pi(R_{2}^{2} - R_{1}^{2})},
+\]
+de forma que, através de \(I = \frac{\pi \sigma^{*}}{2}(R_{2}^{4} - R_{1}^{4}\), obtemos
+\[
+	I = \frac{\pi M}{2} \frac{(R_{2}^{2}-R_{1}^{2})(R_{2}^{2}+R_{1}^{2})}{\pi (R_{2}^{2}-R_{1}^{2})} = \frac{M}{2}(R_{2}^{2}+R_{1}^{2}).
+\]
+
+Agora, suponha que deixamos um disco girar em torno de um eixo com velocidade \(\omega \). Como podemos descrever esse sistema e seu momento de inércia?
+Faremos uso do Teorema dos Eixos Paralelos. Apesar de não conhecermos o momento de inércia, sabemos que em algum ponto, encontra-se o centro
+de massa do objeto, estando a uma distância h do eixo. Este centro de massa move-se com velocidade \(\vec{v}_{cm}\). Como a energia cinética total
+tem valor \(\mathbb{K}_{T} = \frac{1}{2}Mv_{cm}^{2} + \mathbb{K}_{relcm}\), utilizamos que \(\mathbb{K} = \frac{1}{2}I\omega^{2}\) e que \(\mathbb{K}_{relcm}=\frac{1}{2}I_{cm}\omega ^{2}\).
+Logo, como \(v_{cm} = h\omega ,\)
+\begin{align*}
+	\frac{1}{2}I\omega^{2} & = \frac{1}{2} Mv_{cm}^{2} + \frac{1}{2}I_{cm}\omega^{2} \\
+	                       & = Mh^{2}\omega^{2} + I_{cm}\omega ^{2}                  \\
+	                       & \Rightarrow I = Mh^{2} + I_{cm}.
+\end{align*}
+\begin{example}
+	Considerando uma barra em a uma distância de \(\frac{L}{2}\) do eixo de rotação e com momento de inércia
+	\(I = \frac{1}{3}ML^{2},\) podemos utilizar a fórmula para obter
+	\begin{align*}
+		 & I = Mh^{2} + I_{cm}                            \\
+		 & \frac{1}{3}ML^{2} = M \frac{L^{2}}{4} + I_{cm} \\
+		 & I_{cm} = \frac{1}{12}ML^{2}.
+	\end{align*}
+\end{example}
+Mas, o que aconteceria se o disco rodasse em eixos x, y contidos no plano do disco? O que sabemos é que
+\[
+	I_{z} = \sum\limits_{}^{}m_{i}r_{i}^{2}.
+\]
+Além disso, \(r_{i}^{2} = (x_{i}^{2} + y_{i}^{2})\), ou seja,
+\begin{align*}
+	I_{z} & = \sum\limits_{}^{}m_{i}x_{i}^{2} + \sum\limits_{}^{}m_{i}y_{i}^{2} \\
+	      & = I_{x} + I_{y}.
+\end{align*}
+Este resultado é conhecido como teorema dos eixos perpendiculares, mas vale apenas para corpos bidimensionais.
+Em particular, no caso do cilindro, em que \(I_{x} = I_{y},\)
+\[
+	I_{x} = I_{y} \Rightarrow 2I_{x} = I_{z} \Rightarrow I_{x} = \frac{1}{4}MR^{2}.
+\]
+Além disso, considerando que \(dI_{x} = \frac{1}{4}dm R^{2} + dm z^{2}\), obtemos
+\[
+	I_{x} = \frac{1}{4}R^{2} \int_{}^{}dm + \int_{}^{}dm z^{2}.
+\]
+Como \(dm = \lambda dz = \frac{M}{L}dz\), em que L é o comprimento, segue o seguinte resultado
+\[
+	I_{x} = \frac{1}{4}R^{2}\int_{-\frac{L}{2}}^{\frac{L}{2}}\frac{M}{L}dz + \int_{-\frac{L}{2}}^{\frac{L}{2}}\frac{M}{L}z^{2}dz
+\]
+Assim, fazendo as contas,
+\[
+	I_{x} = \frac{1}{4}MR^{2} + \frac{ML^{2}}{12}
+\]
+
+\begin{example}
+	Considere uma barra de tamanho L e massa M e deixe-a descer em um pivô. Qual é a força que ele terá que fazer?
+
+	Sabe-se que há uma força peso com módulo Mg agindo e que \(E_{mec_{i}} = E_{mec_{f}},\) tal que \(\mathbb{K}_{i} + U_{i} = \mathbb{K}_{f} + U_{f}\).
+	Mas, \(\mathbb{K}_{i} = U_{i} = 0\) e \(\mathbb{K}_{f} = \frac{1}{2}I\omega_{f}^{2}, U_{f} = Mg(\frac{-L}{2}).\) Assim,
+	\[
+		\frac{1}{2}I\omega_{f}^{2} - Mg \frac{L}{2} = 0 \Rightarrow \omega_{f}^{2} = \frac{MgL}{I} = \frac{MgL}{\frac{1}{3}ML^{2}} = \frac{3g}{L}.
+	\]
+	Assim, usando que \(a_{cm} = r\omega_{f}^{2},\)
+	\begin{align*}
+		F- Mg & = Ma_{cm} \Rightarrow F = Mg + M \frac{L}{2}\omega_{f}^{2} \\
+		      & = Mg + \frac{ML}{2}\frac{3g}{L}                            \\
+		      & =Mg + \frac{3}{2}Mg = \frac{5}{2}Mg.
+	\end{align*}
+\end{example}
+\begin{example}
+	Considere uma roldana de raio R e massa \(m_{r}\). Atrele a ela, com uma corda de massa \(m_{c}\) e tamanho L, um balde de massa \(m_{b}\).
+	Em seguida, solte-o para cair uma distância d. Qual é a velocidade do sistema?
+
+	Sabemos que \(E_{mec_i} = E_{mec_f}\), ou seja,
+	\[
+		\mathbb{K}_{i} + U_{i} = \mathbb{K}_{f} + U_{f}.
+	\]
+	Suponha que \(\mathbb{K}_{i} = U_{i} = 0.\) Quando o balde descer, sendo \(m_{c}^{*} = \frac{d}{L}m_{c}\) a massa da fração de corda que desceu, a potencial final passará a valer
+	\(U_{f} = m_{b}(-d)g + m_{c}^{*}(\frac{-d}{2})g = -m_{b}gd - \frac{1}{2}m_{c}^{*}gd.\) Com relação à cinética,
+	\[
+		\mathbb{K}_{f} = \frac{1}{2}m_{r}v^{2} + \frac{1}{2}m_{c}v^{2} + \frac{1}{2}m_{b}v^{2}.
+	\]
+	Utilizando as relações de energia que vimos, segue que
+	\begin{align*}
+		 & \mathbb{K}_{f} + U_{f} = 0                                                         \\
+		 & \Rightarrow \frac{1}{2}(m_{c}+m_{r}+m_{b})v^{2} = m_{b}gd + \frac{1}{2}m_{c}^{*}gd \\
+		 & \Rightarrow (m_{r}+m_{c}+m_{b})v^{2} = 2m_{b}gd + m_{c}g \frac{d^{2}}{L}           \\
+		 & \Rightarrow v^{2} = \frac{(2m_{b}L + m_{c}d)}{m_{r}+m_{c}+m_{b}}\frac{gd}{L}       \\
+		 & \Rightarrow v = \sqrt[]{\frac{(2m_{b}L + m_{c}d)}{m_{r}+m_{c}+m_{b}}\frac{gd}{L}}.
+	\end{align*}
+\end{example}
+\end{document}

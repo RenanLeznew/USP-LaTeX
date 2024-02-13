@@ -1,0 +1,131 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 22 - 16/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Ondas Periódicas;
+	\item Superposição de Ondas;
+	\item Interferência e Batimento.
+\end{itemize}
+\subsection{Ondas Periódicas}
+Suponhamos que \(y(x, t) = A\sin^{}{(kx - \omega t)}\). Derivando essa equação com respeito a t e a x, temos
+\begin{align*}
+	 & \frac{\partial^{}y}{\partial t^{}} = -\omega A \cos^{}{(kx-\omega t)}      \\
+	 & \frac{\partial^{2}y}{\partial t^{2}} = -\omega^{2}A \sin^{}{(kx-\omega t)} \\
+	 & \frac{\partial^{}y}{\partial x^{}} = k A \cos^{}{(kx-\omega t)}            \\
+	 & \frac{\partial^{2}y}{\partial x^{2}} = -k A \sin^{}{(kx-\omega t)}
+\end{align*}
+Pela \hyperlink{wave_eqn}{\textbf{equação da onda}}, obtemos
+\[
+	-k^{2} = \frac{1}{v^{2}}(-\omega^{2}) \Rightarrow \omega = kv.
+\]
+Chamamos k de vetor de onda. Ao analisarmos o gráfico de uma onda, vemos que o seu período
+é dado por \(T = \frac{\lambda }{v}\), ou seja, \(v = \frac{\lambda }{T} = \lambda f\). Colocando isso na equação que descreve \(\omega \),
+\[
+	k = \frac{\omega }{v} = \frac{2\pi f}{v} = \frac{2\pi }{\lambda },
+\]
+o que nos permite escrevermos
+\[
+	y(x, t=0) = A \sin^{}{(kx + \delta )} = A\sin^{}{(\frac{2\pi }{\lambda }x + \delta )}
+\]
+e
+\[
+	y(x, t) = A \sin^{}{(kx-kvt)} = A\sin^{}{(k[x-vt])}
+\]
+Assim, as derivadas em t tornam-se
+\begin{align*}
+	 & \frac{\partial^{}y}{\partial t^{}} = v_{y} = -Akv\cos^{}{([k(x-vt)])} = -A\omega \cos^{}{([k(x-vt)])}             \\
+	 & \frac{\partial^{2}y}{\partial t^{2}} = a_{y} = -A(kv)^{2}\sin^{}{([k(x-vt)])} = -A\omega^{2}\sin^{}{([k(x-vt)])}.
+\end{align*}
+\begin{example}
+	Dada uma onda \(y = 0,03\sin^{}{(2,2x - 3,5t)}\), sabe-se que a sua amplitude é 0,03, o vetor de onda é 2,2\(\frac{1}{m}\) e \(\omega = 3,5\frac{rad}{s}\). A partir disso,
+	conseguimos encontrar \(\lambda \) a partir de
+	\[
+		k = \frac{2\pi }{\lambda } = 2,2 \Rightarrow \lambda = 2,9m
+	\]
+	e o período T por
+	\[
+		T = \frac{2\pi }{\omega }\approx 1,8s.
+	\]
+	Assim, a velocidade máxima que essa corda pode atingir é dada por
+	\[
+		v_{y_{max}} = A\omega = 0,03\times 3,5\approx 0,11\frac{m}{s}.
+	\]
+\end{example}
+\begin{example}
+	Pegue uma corda sendo puxada para baixo por uma força \(F_{T}\), que faz um ângulo \(\theta << 1\) com a horizontal, na sua extremidade no eixo x negativo. Isso resulta
+	na velocidade que ela é puxada pra baixo assumindo um valor \(v_{y}\). A potência dessa onda, então, será dada por
+	\[
+		P = \vec{F}\cdot \vec{v} = F_{T}\sin^{}{(\theta )}v_{y} = F_{T}\tan^{}{(\theta )}v_{y} = F_{T}\frac{\partial^{}y}{\partial x^{}}\frac{\partial^{}y}{\partial t^{}}
+	\]
+	Como \(y = A\cos^{}{(kx - \omega t)}\), encontramos
+	\[
+		P = F_{T}\biggl[-Ak\sin^{}{(kx - \omega t)}\biggr]\biggl[A\omega \sin^{}{(kx - \omega t)}\biggr],
+	\]
+	que, em módulo, tem valor \(|P|=F_{T}A^{2}k\omega \sin^{}{(kx-\omega t)}\) . Assim, a potência média dessa onda com essa forçá é
+	\[
+		\left< P \right> = \frac{F_{T}A^{2}k\omega }{2}.
+	\]
+	Utilizando \(F_{T} = \mu v^{2}\) e \(v^{2} = \frac{\omega ^{2}}{k^{2}},\) temos \(F_{T} = \mu \frac{\omega^{2}}{k^{2}},\) donde segue que
+	\[
+		\left< P \right> = \mu \frac{\omega^{2}}{k^{2}}\frac{A^{2}k\omega }{2} = \frac{\mu\omega^{3}A^{2}}{2k} = \frac{\mu v \omega^{2}A^{2}}{2}.
+	\]
+	Utilizando que \(\biggl(\Delta E\biggr)_{med} = \left< P \right> \Delta t,\) portanto,
+	\[
+		\frac{\mu v \omega ^{2}A^{2}}{2}\Delta t = \frac{\mu\Delta x\omega^{2}A^{2}}{2}
+	\]
+\end{example}
+\begin{example}
+	Considere uma corda de comprimento \(L = 60m\) e que há um objeto de massa \(m =320g\) preso à ela sob a ação de uma força de tração
+	\(T = 12N\). Dados que \(\lambda = 25cm, A = 1,2cm, \Delta x = 15cm\) para a onda que origina-se nesta corda, encontramos
+	\[
+		v = \sqrt[]{\frac{T}{\mu}} = \sqrt[]{\frac{TL}{m}} = \sqrt[]{\frac{12\times 60}{0,32}}\approx 47\frac{m}{s}.
+	\]
+	Além disso, \(\omega = 2\pi f = 2\pi \frac{v}{\lambda } = 1190\frac{rad}{s}.\) Assim, podemos encontrar a variação da energia nesta onda:
+	\[
+		\Delta E = \frac{\mu\omega ^{2}A^{2}}{2}\Delta x = \frac{m}{L}\frac{\omega ^{2}A^{2}}{2}\Delta x\approx 8,25.
+	\]
+\end{example}
+\subsection{Ondas Sonoras e Superposição de Ondas}
+Suponha que há um sistema de várias massas-molas acopladas. Quando uma onda sonora passa por elas, as massas vibrarão em torno de uma posição de equilíbrio.
+Moldaremos nosso gás por meio desse sistema. Antes de estudá-las, precisamos ver outros conceitos básicos das ondas.
+
+Vimos que a \hyperlink{wave_eqn}{equação de onda} tem a forma
+\[
+	\frac{\partial^{2}y}{\partial x^{2}} = \frac{1}{v^{2}}\frac{\partial^{2}y}{\partial t^{2}}.
+\]
+Suponha que existem soluções \(y_{1}\) e \(y_{2}\) dessa equação de onda. Então, uma combinação linear delas também é uma solução, chame-a de
+\[
+	y = c_{1}y_{1} + c_{2}y_{2}.
+\]
+Quando as duas ondas chocam-se, elas entram em um estado que chamamos de superposição de ondas, durante o qual as ondas interagem umas com as outras,
+resultando numa combinação. Quando elas duas ondas colidem, ocorre um fenômeno chamado interferência - descreveremos ele a seguir.
+
+Dadas duas ondas \(y_{1} = A\sin^{}{(kx - \omega t)}, y_{2} = A\sin^{}{(kx - \omega t + \delta )}\), a onda superposta delas será
+\[
+	y_{T} = y_{1} + y_{2} = A \biggl[\sin^{}{(kx-\omega t)} + \sin^{}{(kx-\omega t+\delta )}\biggr] = 2A\cos^{}{(\frac{\delta }{2})}\sin^{}{(kx-\omega t+\frac{\delta }{2})},
+\]
+em que usamos \(\sin^{}{(\theta_{1})}+\sin^{}{(\theta_{2})} = 2\cos^{}{(\frac{\theta_{1}-\theta_{2}}{2})}\sin^{}{(\frac{\theta_{1}+\theta_{2}}{2})}\). Em particular, a onda continua
+oscilando com \(kx-\omega t\), mas sua amplitude está diferente - Agora, ela vale \(2A\cos^{}{(\frac{\delta }{2})}\). Podemos analisar alguns casos a partir disso.
+\begin{itemize}
+	\item[\(\delta = 0\text{ ou } 2\pi \):] \(A' = 2A\cos^{}{(\frac{\delta }{2})} = 2A;\)
+	\item[\(\delta = \pi \):] \(A' = 2A\cos^{}{(\frac{\delta }{2})} = 0.\)
+\end{itemize}
+O primeiro dos casos mostrados é chamado \textbf{interferência construtiva}, enquanto que, o segundo, é chamado \textbf{interferência destrutiva.}
+
+Outro fenômeno que ocorre com as ondas é conhecido como \textbf{batimento}. Considere ondas \(y_{1} = A\sin^{}{(\omega_{1}t)}, y_{2} = A\sin^{}{(\omega_{2}t)}\) e a combinação
+delas
+\[
+	y_{T} = y_{1}+y_{2} = 2A\cos^{}{(\frac{\omega_{1}-\omega_{2}}{2}t)}\sin^{}{(\frac{\omega_{1}+\omega_{2}}{2}t)}.
+\]
+vamos supor que \(\Delta \omega = \omega_{1} - \omega_{2} <<\omega_{1}, \omega_{2}\), tal que podemos escrever, para
+\(\omega _{m} = \frac{\omega_{1}+\omega_{2}}{2}\)
+\[
+	y_{T} = 2A\cos^{}{(\frac{\Delta \omega }{2})t}\sin^{}{(\omega_{m}t)}
+\]
+Para os ouvidos, o que interessa das ondas sonoras são os máximos, tal que a frequência, que seria \(\frac{\Delta \omega }{2},\) leva um fator de correção
+que é multiplicá-la por 2, deixando apenas \(\Delta \omega .\) Com isso, a \textbf{frequência de batimento} é descrita como
+\[
+	f_{bat} = \Delta \omega = \frac{1}{2\pi }(\omega_{1}-\omega _{2}) = f_{1}-f_{2}.
+\]
+\end{document}

@@ -1,0 +1,88 @@
+\documentclass[PhysicsI/physics_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 17/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Forças Conservativas;
+\end{itemize}
+\subsection{Trabalho da Força Peso}
+De forma geral, qual é o trabalho da força peso? Temos
+\[
+	\vec{r}(t) = x(t)\hat{i} + y(t)\hat{j} + z(t)\hat{k},\quad \vec{dr} = dx \hat{i} + dy \hat{j} + dz \hat{k}.
+\]
+Considerando pontos \(\vec{r}_{1} = (x_{1}, y_{1}, z_{1})\) inicial e \(\vec{r}_{2} = (x_{2}, y_{2}, z_{2})\) final, o trabalho da força peso será
+\[
+	W_{P}^{C} = \int_{C}^{} \vec{P} \vec{dr} = \int_{C}^{}(-mg \vec{k})\cdot (dx \hat{i} + dy \hat{j} + dz \hat{k}) = - \int_{C}^{}mgdz = -mg\Delta z.
+\]
+Em outras palavras, a força peso não depende do caminho!
+
+Esse raciocínio acima é um exemplo de um tipo de força conhecida como ``Força Conservativa'', aquelas para as quais o trabalho realizado entre dois pontos
+não depende do caminho e apenas das posições deles.  Outro conceito importante é o de caminho fechado, que consiste na classe de caminhos nos quais o ponto inicial
+e final coincidem (Por exemplo, um círculo fechado). A importância destes dois conceitos está em sua união, pois eles permitem deduzir que a força conservativa em
+um caminho fechado sempre realizará um trabalho nulo. Matematicamente,
+\[
+	\hypertarget{neccessary_conservative}{W_{P}^{C} = \oint_{C}\vec{F}\cdot \vec{dr} = 0}
+\]
+Exemplos de forças conservativas incluem a força gravitacional, a força elástica, uma força constante, entre outras.
+Em uma dimensão, F = F(x) é conservativa.
+\begin{example}
+	Exemplo 7.1 do Tipler - Integral em um caminho fechado.
+
+	a) Calcule o trabalho realizado por \(\vec{F} = Ax \hat{i}\).
+
+	Existem quatro possíveis caminhos. O primeiro, definiremos por \(\vec{r}_{1} = x\hat{i} + 0\hat{j}, dr_{1} = dx\hat{i}\). Para o segundo, consideraremos
+	\(\vec{r}_{2} = x_{m}\hat{i} + y\hat{j}, dr_{2} = dy\hat{j}.\) No terceiro, faremos \(\vec{r}_{3} = x\hat{i} + y_{m}\hat{j}\). Finalmente, para o quarto,
+	tomaremos \(\vec{r}_{4} = 0\hat{i} + y\hat{j}, dr_{4} = dy\hat{j}.\) Assim,
+	\begin{align*}
+		W_{C} & = \oint_{C}\vec{F}\cdot \vec{dr} = \int_{c_{1}}^{}Ax\hat{i}\cdot dx\hat{i} + \int_{c_{2}}^{}Ax\hat{i}\cdot dy\hat{j} + \int_{c_{3}}^{}Ax\hat{i}\cdot dx\hat{i}+ \int_{c_{4}}^{}Ax\hat{i}\cdot dy\hat{j} \\
+		      & = A \frac{x^{2}}{2}\biggl|_{0}^{x_{m}}\biggr. + \frac{Ax^{2}}{2}\biggl|_{x_{m}}^{0}\biggr.                                                                                                              \\
+		      & = \frac{Ax_{m}^{2}}{2} - 0 + 0 - \frac{Ax_{m}^{2}}{2} = 0.
+	\end{align*}
+
+	v) Faça o mesmo para \(\vec{F} = Bxy\hat{i}\).
+
+	Com o mesmo raciocínio de antes,
+	\[
+		W_{C} = \int_{c_{1}}^{}Bxy\hat{i}\cdot dx\hat{i} + \int_{c_{3}}^{}Bxy\hat{i}\cdot dx\hat{i} = \frac{Byx^{2}}{2}\biggl|_{c_{1}}^{}\biggr. + \frac{byx^{2}}{2}\biggl|_{c_{3}}^{}\biggr. .
+	\]
+	Assim, concluimos que, como \(c_{1} \coloneqq (0, 0)->(x_{m}, 0)\) e \(c_{3} = (x_{m}, y_{m})->(0, y_{m})\),
+	\[
+		W_{C} = \frac{-By_{m}x_{m}^{2}}{2}\neq0,
+	\]
+	ou seja, a força nõa é conesrvativa!!
+\end{example}
+\begin{example}
+	Seja \(\vec{F} = (\frac{F_{0}}{r}(y\hat{i}-x\hat{j}\). a) Qual é o valor de \(|\vec{F}|\)? b) Mostre que a direção de F é perpendicular à \(\vec{r}\).
+	c) Quanto vale \(W_{F}\) ao longo de um círculo?
+
+	A priori, note que
+	\begin{align*}
+		|\vec{F}| & = [F_{x}^{2} + F_{y}^{2}]^{\frac{1}{2}} = \biggl[\biggl(\frac{F_{0}}{x}\biggr)^{2}y^{2} + \biggl(\frac{-F_{0}}{r}x\biggr)^{2}\biggr]^{2} \\
+		          & = \frac{F_{0}}{r}(y^{2}+x^{2})^{\frac{1}{2}} = F_{0}.
+	\end{align*}
+	Em outras palavras, F tem módulo constante.
+
+	Por outro lado, considere o produto escalar entre \(\vec{F}\) e \(\vec{r}\):
+	\[
+		\vec{F}\cdot \vec{r} = |\vec{F}||\vec{r}|\cos{(\theta )}.
+	\]
+	Temos que mostrar que \(\theta = 90^{\circ}\), pois ser perpendicular significa que o produto interno anula-se. Segue que
+	\[
+		\vec{F}\cdot \vec{r} = F_{x}x + F_{y}y = (\frac{F_{0}}{r})yx - \frac{(F_{0}}{r})xy = 0.
+	\]
+	Portanto, \(\cos{(\theta )} = 0 \Rightarrow \theta =90^{\circ}\).
+
+	Por fim, colocamos \(\vec{r}(t) = R\cos{(\theta (t))}\hat{i} + R\sin{(\theta (t))}\hat{j}, 0\leq \theta \leq 2\pi \) para descrever um caminho circular
+	no plano xy num caminho que depende de apenas uma variável \(\theta (t)\). Com isso,
+	\[
+		\vec{dr} = R(-\sin{(\theta )})d\theta \hat{i} + R\cos{(\theta )}d\theta \hat{j}.
+	\]
+	Portanto,
+	\begin{align*}
+		W_{C} = \oint_{C}\vec{F}\cdot \vec{dr} & = \oint_{C}[(\frac{f_{0}}{r})(y\hat{i}-x\hat{j})]\cdot [-R\sin{(\theta )}d\theta \hat{i} + R\cos{(\theta )}d\theta \hat{j}]                       \\
+		                                       & = \int_{0}^{2\pi }\biggl(\frac{F_{0}}{R}\biggr)y(-R\sin{(\theta )d\theta } + \biggl(\frac{F_{0}}{R}\biggr)(-x)R\cos{(\theta )}d\theta             \\
+		                                       & = \int_{0}^{2\pi }-\biggl(\frac{F_{0}}{R}\biggr)R^{2}\sin^{2}{(\theta )}d\theta  + \biggl(\frac{F_{0}}{R}\biggr)(-R^{2}\cos^{2}{(\theta )}d\theta \\
+		                                       & = -F_{0}R \int_{}^{}(\sin^{2}{(\theta )} + \cos^{2}{(\theta )})d\theta  = -F_{0}R\theta \biggl|_{0}^{2\pi }\biggr. = -F_{0}2\pi R.
+	\end{align*}
+\end{example}
+\end{document}

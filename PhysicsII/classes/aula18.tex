@@ -1,0 +1,186 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 02/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Continuando o Pêndulo Simples;
+	\item Outros tipos de pêndulo;
+	\item Caminhadas.
+\end{itemize}
+Começamos por relembrar o conteúdo prévio:
+\begin{quote}``Faça uma corda de tamanho L, presa ao teto e com uma massa na ponta, oscilar após puxar essa massa em um ângulo \(\theta \).
+	Caso \(s\) denote o deslocamento com relação ao ponto de equilíbrio, então segue que
+	\[
+		m \frac{d^{2}s}{dt^{2}} = -mg\sin^{}{(\theta )}.
+	\]
+	Como \(s = L\theta \), vale que
+	\[
+		\frac{d^{2}\theta }{dt^{2}}=-\frac{g}{L}\sin^{}{(\theta )}.
+	\]
+	Para pequenas oscilações (\(\theta < 15^{\circ})\), nas quais \(\sin^{}{(\theta )}\approx \theta \), obtemos
+	\[
+		\frac{d^{2}\theta }{dt^{2}} = -\frac{g}{L}\theta .''
+	\]
+\end{quote}
+A partir disto, como o movimento harmônico é descrito por
+\[
+	\frac{d^{2}x}{dt^{2}}=-\omega^{2}x,
+\]
+segue que, no pêndulo, \(\omega^{2}=\frac{g}{l},\) ou seja, \(\omega = \sqrt[]{\frac{g}{l}}.\)
+Em particular, isso permite com que calculemos o \textbf{período} do pêndulo:
+\[
+	\frac{2\pi }{T} = \sqrt[]{\frac{g}{l}} \Rightarrow T = 2\pi \sqrt[]{\frac{l}{g}}.
+\]
+
+Agora, vamos resolver o pêndulo utilizando energia. Começamos por notar que a energia mecânica do sistema é dada por
+\[
+	E_{mec} = \frac{1}{2}mv^{2} + mgl(1-\cos^{}{(\theta )}
+\]
+Vamos usar que, para ângulos pequenos, \(\cos^{}{(\theta )}\approx 1-\frac{\theta ^{2}}{2} \), chegamos em
+\[
+	E_{mec} = \frac{1}{2}mv^{2}+\frac{mgl\theta ^{2}}{2}.
+\]
+Para \(v=\frac{ds}{dt} = l\dot \theta ,\) reescrevemo a equação acima como
+\[
+	E_{mec} = \frac{1}{2}ml^{2}\dot\theta ^{2} + \frac{mgl}{2}\theta^{2} = \frac{1}{2}m'\theta ^{2} + \frac{1}{2}k'\theta ^{2},
+\]
+ou seja, encontramos uma equação análoga à da mola, o que nos permite calcular o valor da velocidade angular como \(\omega^{2}=\frac{k'}{m} = \frac{g}{l}.\)
+\subsection{Pêndulo de Torção}
+Um pêndulo de torção é um no qual o peso preso à ponta é um disco em movimento rotacional. Utilizando as relações de torque e momento de inércia, isto é,
+\[
+	\tau = -k\theta, \quad \tau = I\alpha, \Rightarrow -k\theta = I \frac{d^{2}\theta }{dt^{2}},
+\]
+tiramos disso que
+\[
+	\frac{d^{2}\theta }{dt^{2}} = - \frac{k}{I}\theta \Rightarrow \omega^{2} = \frac{k}{I}.
+\]
+\subsection{Pêndulo físico}
+Para um corpo qualquer atuando como pêndulo, dado que seu centro de massa é cm, sofrendo um peso \(mg\), se ele for segurado por um ponto que está a uma distância
+D desse centro de massa tal que o ângulo com o eixo vertical é \(\theta \) e seu momento de inércia é I, segue que
+\[
+	\tau  = -mgD\sin^{}{(\theta )}.
+\]
+Além disso, como \(\tau = I \frac{d^{2}\theta }{dt^{2}},\) juntamos as duas informações a fim de obter
+\[
+	-mgD\sin^{}{(\theta )} = I \frac{d^{2}\theta }{dt^{2}}.
+\]
+Com a aproximação de pequenos ângulos de \(\sin^{}{(\theta )}\approx \theta \),
+\[
+	\frac{d^{2}\theta }{dt^{2}} = -\frac{mgD}{I}\theta \Rightarrow \omega^{2}= \frac{mgD}{I}.
+\]
+\subsection{Caminhar}
+\paragraph{} Quando caminhamos, o movimento antagonista das pernas funciona como um pêndulo. A partir disso, pode-se imaginar que caminhar próximo
+a uma ``frequência natural'' pode ser mais confortável. Vamos tentar descrever esse sistema.
+
+Considere que as pernas são barras uniformes com centros de massa CM, tamanho l, massa m e momento de inércia I. Considere
+que o ponto pivô está a uma distância \(\frac{l}{2}\) do centro de massa. Então,
+\[
+	\frac{2\pi }{T} = \sqrt[]{\frac{mgD}{I}} \Rightarrow 2\pi \sqrt[]{\frac{I}{mgD}}.
+\]
+Como \(I = \frac{1}{3}ml^{2}\) e \(D = \frac{l}{2},\) o período que encontramos é
+\[
+	2\pi \sqrt[]{\frac{2ml^{2}}{3mgl}} = 2\pi \sqrt[]{\frac{2l}{3g}}
+\]
+Curiosamente, descobrimos experimentalmente que, para humanos, 5 períodos vale 6.7s. No entanto,
+calculando pelo modelo, encontra-se \(5T=7.8s,\) que é um pouco maior que o dado empírico. Isso dá-se
+devido ao fato de que as pernas humanas não são realmente uniformes - a massa da coxa é maior que do joelho.
+
+Deixando de lado o contexto da caminhada, considere simplesmente uma barra (não uma perna) como antes. Desta vez,
+tome um ponto a uma distância x qualquer do centro de massa. Vamos calcular o período dele.
+Usualmente, o período é dado por
+\[
+	T = 2\pi \sqrt[]{\frac{I}{mgD}}
+\]
+que, para o nosso caso, torna-se
+\[
+	T = 2\pi \sqrt[]{\frac{I_{cm}+mx^{2}}{mgx}}
+\]
+Utilizando que \(I_{cm}= \frac{1}{12}ml^{2},\)
+\[
+	T = 2\pi \sqrt[]{\frac{1}{gx}\biggl[\frac{1}{12}l^{2}+x^{2}\biggr]}
+\]
+Analisando o comportamento dessa função em extremos, deduz-se que ela deve possuir um mínimo. Vamos buscá-lo.
+Coloque \(z = \frac{1}{x}\biggl(\frac{1}{12}l^{2}+x^{2},\biggr)\) tal que
+\[
+	T = 2\pi \sqrt[]{\frac{z}{g}}.
+\]
+Então, \(\frac{dT}{dx}=0\). Pela Regra da Cadeia, \(\frac{dT}{dx} = \frac{dT}{dz}\frac{dZ}{dx} = 0\), o que equivale a
+\[
+	\frac{1}{\sqrt[]{z}}\biggl(-\frac{1}{12}\frac{l^{2}}{x^{2}}+1\biggr) = 0,
+\]
+em que as constantes sumiram porque cancelamos elas com 0. Assim, como z não pode zerar, a única forma desse sistemas ser verdade é que
+\[
+	-\frac{1}{12}\frac{l^{2}}{x^{2}}+1 = 0 \Rightarrow 1 = \frac{l^{2}}{12x^{2}}.
+\]
+\subsection{Oscilador Harmônico Amortecido}
+O oscilador harmônico é uma idealização da natureza. Nele, não há perdas de energia e ele essencialmente
+oscila para sempre. Para uma simulação mais realista do mundo, utilizamos o \textbf{Oscilador Harmônico Amortecido}.
+
+Considere uma mola presa a um telhado com constante elástica k e com uma massa m presa à sua ponta. Além disso, suponha que
+esse sistema está imerso em um fluído com viscosidade. Para descrever esse sistema, há uma equação diferencial
+\[
+	m \frac{d^{2}x}{dt^{2}} = -kx - b \frac{dx}{dt}.
+\]
+A energia do sistema, inicialmente, é dada por
+\[
+	E = \frac{1}{2}kA^{2}.
+\]
+Ao tratar de atrito, vimos que
+\[
+	\frac{dE}{dt} = - P = - Fv,
+\]
+e que isto é proporcional ao quadrado da velocidade. Analogamente, no caso do pêndulo, a velocidade é proporcional à amplitude, pois x
+é proporcional a ela. Assim,
+\[
+	\frac{dE}{dt}\propto -A^{2} \Rightarrow \frac{dE}{dt}\propto -E.
+\]
+Conhecemos uma função cuja derivada é proporcional a ela mesma - a exponencial. Com isso,
+\[
+	E = E_{0} e^{\frac{-t}{\tau }}
+\]
+e
+\[
+	A = A_{0} e^{\frac{-t}{2\tau }}.
+\]
+Feito isso, podemos propor uma solução para o oscilador harmônico:
+\[
+	x(t) = A_{0}e^{-\gamma t}\cos^{}{(\omega t + \delta )}.
+\]
+Confiramos a solução. De fato, derivando com relação a t,
+\begin{align*}
+	 & \frac{dx}{dt} = -A_{0}\gamma e^{-\gamma t}\cos^{}{(\omega t + \delta )}-A_{0}\omega e^{-\gamma t}\sin^{}{(\omega t + \delta )}                     \\
+	 & \frac{d^{2}x}{dt^{2}} = A_{0}\gamma ^{2}e^{-\gamma t}\cos^{}{(\omega t + \delta )} + A_{0}\gamma \omega e^{-\gamma t}\sin^{}{(\omega t + \delta )} \\
+	 & +A_{0}\gamma\omega e^{-\gamma t}\sin^{}{(\omega t+\delta )}-A_{0}\omega ^{2}e^{-\gamma t}\cos^{}{(\omega t + \delta )}.
+\end{align*}
+
+Para facilitar, vamos coletar os termos com base em cosseno e seno na equação original.
+
+\textbf{\underline{Termos com Cosseno:}}
+\paragraph{}  Manipulando algebricamente - cancelando os \(A_{0}\) e os cossenos com exponenciais - obtemos
+\[
+	m\gamma ^{2} - m\omega^{2} = -k + b\gamma
+\]
+\newpage
+\textbf{\underline{Termos com Seno:}}
+\paragraph{}  Manipulando algebricamente - cancelando os \(A_{0}\) e os cossenos com exponenciais - obtemos
+\[
+	m\gamma \omega  + m\omega \gamma  = b\omega \Rightarrow 2m\gamma  = b \Rightarrow \gamma = \frac{b}{2m}
+\]
+
+Utilizando essas duas coisas, a equação torna-se
+\[
+	m\gamma ^{2} - b\gamma + k = m\omega ^{2} \Rightarrow \omega ^{2} = \gamma ^{2}-\frac{b\gamma }{m}+\frac{k}{m}\omega_{0}^{2}.
+\]
+Com isso, encontramos o valor de \(\omega\) - supondo que \(\frac{b}{2m\omega_{0}} <<1\):
+\begin{align*}
+	 & \omega ^{2} = \omega_{0}^{2} + \gamma ^{2}\biggl(1 - \frac{b}{m\gamma }\biggr)                        \\
+	 & \omega ^{2} = \omega_{0}^{2} + \biggl(\frac{b}{2m}\biggr)^{2}\biggl(1-\frac{b}{m \frac{b}{2m}}\biggr) \\
+	 & \omega ^{2} = \omega_{0}^{2} - \biggl(\frac{b}{2m}\biggr)^{2}                                         \\
+	 & \omega  = \omega_{0}\sqrt[]{1-\biggl(\frac{b}{2m\omega_{0}}\biggr)^{2}}.
+\end{align*}
+Agora que temos tanto \(\omega \) quanto \(\gamma \), a equação original torna-se
+\[
+	\boxed{x(t) = A_{0}e^{-\frac{b}{2m}t}\cos^{}{\biggl(t\omega_{0}\sqrt[]{1-\biggl(\frac{b}{2m\omega_{0}}\biggr)^{2}}+\delta \biggr)}}
+\]
+
+\end{document}

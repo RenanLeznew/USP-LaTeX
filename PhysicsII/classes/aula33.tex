@@ -1,0 +1,171 @@
+\documentclass[PhysicsII/phsyicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 33 - 27/11/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Máquina de Carnot;
+	\item Ciclo de Carnot.
+\end{itemize}
+\subsection{Máquina de Carnot}
+Vimos previamente que a eficiência de uma máquina térmica é dada por
+\[
+	\varepsilon = 1 - \frac{Q_{f}}{Q_{q}}.
+\]
+Qual seria o valor máximo da eficiência de uma máquina? Para isso, foi inventada a ideia da \textbf{máquina de Carnot}, baseado no postulado de Carnot:
+\begin{quote}
+	``Nenhuma máquina operando entre dois reservatórios é mais eficiente que uma máquina reversível.''
+\end{quote}
+Entenda por \textit{máquina reversível} uma na qual todos os processos podem ser revertidos. Por exemplo,
+
+\begin{center}
+	\begin{table}[h!]
+		\caption{Reversível vs Irreversível}
+		\centering
+		\begin{tabular}{| c | c | c |}
+			\hline
+			Tipos        & \multicolumn{2}{c |}{Processos}                                                 \\
+			\hline
+			Reversível   & Expansão adiabática quase estática      & Compressão quase estática isotérmica  \\
+			\hline
+			Irreversível & Passagem de calor do quente para o frio & Transformar atrito em Energia Térmica \\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{center}
+
+Isto indica que há condições para que a máquina reversível exista. De fato, a energia mecânica não pode ser transformada
+em energia térmica por atrito, a troca de calor deve ser feita entre corpos com diferença de temperatura infinitesimal e o processo
+deve ser quase estático, para que o sistema esteja sempre em equilíbrio. Vejamos, em diagrama, o ciclo de Carnot.
+
+\begin{center}
+	\begin{tikzpicture}
+		\def\Th{1.20}
+		\def\Tc{0.45}
+		\def\Ch{0.4}
+		\def\Cc{1.9}
+		\def\N{40}
+		\def\gam{2.2}
+		\def\isotherm#1#2{{ #2/(#1) }}
+		\def\adiabatic#1#2{{ #2/(#1)^(\gam) }}
+		\def\xA{ (\Th/\Ch)^(1/(1-\gam)) }
+		\def\xB{ (\Th/\Cc)^(1/(1-\gam)) }
+		\def\xC{ (\Tc/\Cc)^(1/(1-\gam)) }
+		\def\xD{ (\Tc/\Ch)^(1/(1-\gam)) }
+		\def\N{40} % number of plot samples
+		\def\xmax{3}
+		\def\ymax{2.5}
+		\coordinate (A) at ({\xA},{\isotherm{\xA}{\Th}});
+		\coordinate (B) at ({\xB},{\isotherm{\xB}{\Th}});
+		\coordinate (C) at ({\xC},{\isotherm{\xC}{\Tc}});
+		\coordinate (D) at ({\xD},{\isotherm{\xD}{\Tc}});
+
+		%\clip (-0.1*\xmax,-0.12*\ymax) rectangle (1.05*\xmax,1.1*\ymax);
+
+		% WORK
+		\fill[mylightblue,samples=\N]
+		plot[domain={\xA:\xB}] (\x,\isotherm{\x}{\Th}) --
+		plot[domain={\xB:\xC}] (\x,\adiabatic{\x}{\Cc}) --
+		plot[domain={\xC:\xD}] (\x,\isotherm{\x}{\Tc}) --
+		plot[domain={\xD:\xA}] (\x,\adiabatic{\x}{\Ch});
+		\node[blue,scale=.9] at ($(B)!.5!(D)$) {$W$};
+
+		% ADIABATIC & ISOTHERMIC TRANSFORMATIONS
+		\draw[myred,thick,midarr=.60,domain={\xA:\xB},samples=\N]
+		plot (\x,\isotherm{\x}{\Th}); % hot
+		\draw[blue,thick,midarr=.45,domain={\xB:\xC},samples=\N]
+		plot (\x,\adiabatic{\x}{\Cc}); % cold
+		\draw[blue,thick,midarr=.65,domain={\xC:\xD},samples=\N]
+		plot (\x,\isotherm{\x}{\Tc}); % cold
+		\draw[myred,thick,midarr=.40,domain={\xD:\xA},samples=\N]
+		plot(\x,\adiabatic{\x}{\Ch}); % hot
+
+		% POINTS
+		\fill[mydarkblue]
+		(A) circle(0.05) node[above=1,scale=.8] {I}
+		(B) circle(0.05) node[above right,scale=.8] {II}
+		(C) circle(0.05) node[above=1,scale=.8] {III}
+		(D) circle(0.05) node[below left,scale=.8] {IV};
+
+		% AXIS
+		\draw[->,thick] (0,-0.1*\ymax) -- (0,\ymax+0.1)
+		node[anchor=north east,inner sep=4,scale=1] {$P$};
+		\draw[->,thick] (-0.1*\xmax,0) -- (\xmax+0.1,0)
+		node[anchor=north east,inner sep=4,scale=1] {$V$};
+
+	\end{tikzpicture}
+\end{center}
+
+O processo (I) é uma expansão quase estática isotérmica, o (II) é uma expansão quase estática adiabática,
+o (III) uma compressão quase estática isotérmica e, o (IV), uma compressão quase estática adiabática.
+
+Note que processos (I) e (III) implicam que \(\Delta E_{int} = 0.\) Como \(\Delta E_{int} = W + Q,\) em particular,
+\(Q_{q} = W_{I}\) e \(Q_{f} = W_{III}.\) Além disso,
+\begin{align*}
+	W = - \int_{}^{}PdV & = \int_{V_{1}}^{V_{2}}PdV                                \\
+	                    & = \int_{V_{1}}^{V_{2}}\frac{nRT}{V}dV                    \\
+	                    & = nRT \ln^{}{\biggl(\frac{V_{2}}{V_{1}}\biggr)} = Q_{q}.
+\end{align*}
+Analogamente,
+\begin{align*}
+	W_{I} = nRT\ln^{}{\biggl(\frac{V_{3}}{V_{4}}\biggr)} = Q_{f}.
+\end{align*}
+Consequentemente,
+\begin{align*}
+	\varepsilon = 1 - \frac{Q_{f}}{Q_{q}} & = 1 - \frac{nRT_{f}\ln^{}{\biggl(\frac{V_{3}}{V_{4}}\biggr)}}{nRT_{q}\ln^{}{\biggl(\frac{V_{2}}{V_{1}}\biggr)}}      \\
+	                                      & = 1 - \frac{\ln^{}{\biggl(\frac{V_{3}}{V_{4}}\biggr)}}{\ln^{}{\biggl(\frac{V_{2}}{V_{1}}\biggr)}}\frac{T_{f}}{T_{q}}
+\end{align*}
+Analisando os processos adiabáticos (II) e (IV), note que
+\begin{itemize}
+	\item[II)] \(T_{q}V_{2}^{\gamma -1} = T_{f}V_{3}^{\gamma -1}\)
+	\item[IV)] \(T_{f}V_{4}^{\gamma -1} = T_{f}V_{4}^{\gamma -1}\)
+\end{itemize}
+Dividindo uma igualdade pela outra, segue que
+\[
+	\biggl(\frac{V_{2}}{V_{1}}\biggr)^{\gamma -1} = \biggl(\frac{V_{3}}{V_{4}}\biggr)^{\gamma -1} \Rightarrow \frac{V_{2}}{V_{1}} = \frac{V_{3}}{V_{4}}.
+\]
+Assim,
+\[
+	\varepsilon  = 1 - \frac{\ln^{}{\biggl(\frac{V_{3}}{V_{4}}\biggr)}}{\ln^{}{\biggl(\frac{V_{3}}{V_{4}}\biggr)}}\frac{T_{f}}{T_{q}} = 1 - \frac{T_{f}}{T_{q}}.
+\]
+\begin{example}
+	Uma máquina a vapor trabalha entre um reservatório quente a \(T_{q}={100}^{\mathrm{o}}C (373K)\) e um
+	reservatório frio a \(T_{f}={0}^{\mathrm{o}}C (273K).\) Para uma máquina deste tipo, a eficiência será
+	\[
+		\varepsilon  = 1 - \frac{273}{373}\approx 0.268 = 26,8\%
+	\]
+	Como refrigerador, usando \(CD = \frac{Q_{f}}{W} = \frac{Q_{f}}{Q_{q}-Q_{f}} = \frac{1}{\frac{T_{q}}{T_{f}}-1},\) segue que
+	\[
+		CD = \frac{1}{\frac{T_{q}}{T_{f}}-1} = 2,73.
+	\]
+\end{example}
+\begin{example}
+	Uma máquina térmica opera entre dois reservatório, retirando 200J do reservatório quente e entregando 48J de Trabalho. Ao fazer isso, libera, ao reservatório frio, 152J.
+	Quanto desse trabalho foi feito por processos irreversíveis, como atrito?
+
+	Sabemos que o trabalho máximo dessa máquina será
+	\[
+		\varepsilon_{max} = \frac{W_{max}}{Q_{q}} \Rightarrow W_{max} = \varepsilon_{max}Q_{q}
+	\]
+	e que o trabalho geral, analogamente, é
+	\[
+		\varepsilon_{\text{real}}  = \frac{W_{\text{real}}}{Q}.
+	\]
+	Com isso, o trabalho perdido será \(W_{p} = W_{max} - W_{\text{realizado}}\), ou seja,
+	\[
+		W_{p} = \biggl(1 - \frac{T_{f}}{T_{q}}\biggr)Q_{q} - W_{\text{realizado}}
+	\]
+	Portanto,
+	\[
+		W_{p} = 0,268\times 200 - 48 = 5,6J.
+	\]
+\end{example}
+Na máquina de Carnot, vimos que
+\[
+	\varepsilon  = 1 - \frac{T_{f}}{T_{q}}.
+\]
+Poderíamos definir uma \textit{temperatura termodinâmica}, fazendo uma escala na qual
+\[
+	\frac{T_{f}}{T_{q}} = \frac{Q_{f}}{Q_{q}}.
+\]
+Apesar disso, ela não é utilizada de maneira prática.
+\end{document}

@@ -1,0 +1,228 @@
+\documentclass[PhysicsI/physics_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 08/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Força de Atrito;
+	\item Diferença entre atrito estático e dinâmico.
+\end{itemize}
+\subsection{Força de Atrito.}
+A força de atrito ocorre como uma forma de resistência ao movimento, é uma interação que precisa ser superada para que ocorra
+o movimento de dado objeto. Uma de suas característica é que ela será sempre tangencial à superfície de contato.
+Por experiência na vida real, é mais fácil mover um objeto que está em movimento do que um parado, o que sugere dois tipos diferentes
+de forças de atrito. De fato, ela pode ser categorizada em ``Força de Atrito Estático'' e ``Força de Atrito Cinético''.
+\begin{center}
+	\begin{tikzpicture}[scale=1, transform shape]
+
+		% Draw surface
+		\draw[thick] (0,0) -- (10,0) node[right] {$\mu_e \text{ é igual nos dois blocos.}$};
+
+		% Draw the first block (smaller base, taller)
+		\draw[fill=blue!30] (2,0) rectangle (4,4);
+		\node at (3,2) {Bloco 1};
+
+		% Draw the second block (larger base, shorter)
+		\draw[fill=red!30] (6,0) rectangle (9,3);
+		\node at (7.5,1.5) {Bloco 2};
+
+		% Draw weight forces (W1 and W2)
+		\draw[-{Latex[length=3mm]}, thick] (3,2) -- (3,-1) node[midway, left] {$\vec{P_1}$};
+		\draw[-{Latex[length=3mm]}, thick] (7.5,1.5) -- (7.5,-1) node[midway, left] {$\vec{P_2}$};
+
+		% Draw normal forces (N1 and N2)
+		\draw[-{Latex[length=3mm]}, thick] (3,4) -- (3,6) node[midway, right] {$\vec{N_1}$};
+		\draw[-{Latex[length=3mm]}, thick] (7.5,3) -- (7.5,5) node[midway, right] {$\vec{N_2}$};
+
+	\end{tikzpicture}
+\end{center}
+
+\subsubsection{Força de Atrito Estático}
+Esta forma de atrito surge em objetos que têm resistência ao começo do movimento. Numericamente, segue que
+$$
+	F_{e} = \mu_{e}|\vec{N}|,
+$$
+em que $\mu_{e} < 1$ é um coeficiente chamado ``coeficiente de atrito estático'', um valo que altera com base na natureza
+dos materiais de contato. Note que a força de atrito independe da área de contato! Além disso, o coeficiente é um valor
+puramente numérico. Observemos essas situações mais a fundo.
+
+Considere um bloco em contato com uma superfície tal que há uma força $\vec{F}$ agindo sobre ele. Além disso,
+suponha que essa força tem um valor em módulo menor que a força de atrito estático $\vec{F}_{e}.$ Vamos analisar as forças:
+\begin{align*}
+	 & y:\quad -P + n = 0 \Rightarrow N = P           \\
+	 & x:\quad F - F_{at} = 0 \Rightarrow F_{at} = F.
+\end{align*}
+Quando $|\vec{F}|<F_{e},$ o bloco mantém-se ausente de movimento, mas, quando $|\vec{F}| > F_{e},$ o bloco anda!
+\subsubsection{Força de Atrito Cinético}
+Essa versão da força surge para objetos que já estão em movimento, mas continuam em contato com uma superfície. Neste caso,
+novamente, a descrição dessa interação é dada por um coeficiente adimensional, dessa vez conhecido como ``coeficiente de atrito
+cinético'', $\mu_{c} < 1$. A força será dada por
+$$
+	F_{at}^{c} = \mu_{c}|\vec{N}|.
+$$
+O fenômeno previamente mencionado de haver uma facilidade maior para mover algo que já estava em movimento é explicado observando
+que $\mu_{c} < \mu_{e}!$
+
+\begin{example}
+	Considere um bloco em um plano inclinado que tenha ângulo $\theta $ com a superfície. Qual é o ângulo máximo para que não haja movimento?
+
+	Começamos decompondo as forças do bloco:
+	\begin{align*}
+		 & y:\quad -P_{y} + N = 0 \Rightarrow -P\cos{(\theta )} = N            \\
+		 & x: P_{x} - F_{at} = 0 \Rightarrow F_{at} = P\sin{(\theta )} = F_{e}
+	\end{align*}
+	Para resolver o problema, podemos escrever $F_{e} = P\sin{(\theta_{max} )}$, visto que o movimento ocorrerá
+	apenas se a a força em x for maior que o atrito estático. Com isso,
+	\begin{align*}
+		\mu_{e}N & = P\sin{(\theta_{max})} \Rightarrow \mu_{e}P\cos{(\theta_{max})} = P\sin{(\theta_{max})} \\
+		         & \Rightarrow \tan{(\theta_{max})} = \mu_{e}.
+	\end{align*}
+\end{example}
+\begin{example}
+	Considere um piso escorregadio e um trenó em cima dele com massa m. Ele é puxado com força $\vec{F}$ por uma pessoa utilizando uma corda,
+	a qual faz um ângulo horizontal $\theta $. Para qual valor de $\vec{F}$ o trenó começa a andar?
+	\begin{center}
+		\begin{tikzpicture}[scale=1, transform shape]
+
+			% Draw slippery floor
+			\draw[thick] (0,0) -- (10,0);
+
+			% Draw sled
+			\draw[fill=blue!30] (4,0) rectangle (7,2);
+			\node at (5.5,1) {$m$};
+
+			% Draw force vector and rope
+			\coordinate (A) at (7,2);
+			\draw[dashed] (A) -- ++(30:4);
+			\draw[-{Latex[length=3mm]}, thick] (A) -- ++(30:3) node[midway, above] {$\vec{F}$};
+
+			% Draw angle theta
+			\draw[-{Latex[length=2mm]}, thick] (A) -- ++(0:2);
+			\draw (A) ++(30:1) arc (30:0:1);
+			\node[anchor=west] at (7.9,2.3) {$\theta$};
+
+		\end{tikzpicture}
+	\end{center}
+
+	Novamente decompondo o problema em suas forças componentes, temos
+	\begin{align*}
+		 & y: -P + N + F_{y} = 0 \Rightarrow N = P - F_{y} = P - F\sin{(\theta )}                        \\
+		 & x: -F_{at} + F_{x} = 0 \Rightarrow F_{x} = F_{at} \text{ (Até que } F_{at}=\mu_{e}|\vec{N}|).
+	\end{align*}
+	Para que o movimento aconteça, é preciso que $F_{x} > F_{at}^{e} = F_{e}$, ou seja,
+	$$
+		F\cos{(\theta )} > \mu_{e}(P-F\sin{(\theta )}) \Rightarrow  F > \frac{\mu_{e}P}{\cos{(\theta )}+\mu_{e}\sin{(\theta )}}.
+	$$
+	Agora podemos calcular, dados os valores m=50kg, $\mu_{e}=0.20, \mu_{c}=0.15, \theta =40^{\circ}$, podemos encontrar
+	$|\vec{F}_{at}|$ e a aceleração do trenó nos casos
+
+	\begin{itemize}
+		\item[a)] $|\vec{F}|=100N;$
+		\item[b)] $|\vec{F}|=140N$
+	\end{itemize}
+
+	Antes de mais nada, observe que, com a fórmula que encontramos, para que haja movimento é preciso que
+	$$
+		F_{c} > \frac{0.20 \cdot 50 \cdot 9.8}{0.766+0.20 \cdot 0.693} \cong{109N}
+	$$
+
+	a) $|\vec{F}|= 100N < F_{c}$, ou seja, o bloco está parado! Assim, sua aceleração será 0 e o valor da força de atrito será
+	$$
+		-F_{at} + F_{x} = 0 \Rightarrow  F_{at} = 100\cos{(\theta )} = 77N.
+	$$
+
+	b) $|\vec{F}| = 140N > F_{c}$, tal que o bloco, neste caso, anda. Com isso, ele terá aceleração não-nula e força de atrito com valor
+	$$
+		F_{at} = F_{at}^{c} = \mu_{c}|\vec{N}| = \mu_{c}(|P-F_{y}|) = \mu_{c}(|P-F\sin{(\theta )}|) = 0.15(50 \cdot 9.8 - 140\sin{(40^{\circ})}) = 60N.
+	$$
+	Em particular, note o valor da força de atrito inferior ao do item (a). Para encontrarmos a aceleração, segue que, no eixo x,
+	\begin{align*}
+		x:\quad -F_{at}^{c} + F_{x} & = ma\neq0 \Rightarrow a = -\frac{F_{at}^{c}+F_{x}}{m} = \\
+		                            & \frac{-60+140\cos{(40^{\circ})}}{50} = 0.94m/s^{2}.
+	\end{align*}
+
+	\begin{example}
+		Considere um sistema de caixas dentro de um trem em movimento, sua velocidade inicial sendo $v_{0}$. Passado um tempo,
+		o trem passa a desacelerar constantemente com aceleração a. Qual é a menor distância para parar o trem sem mover as caixas? Tome
+		$\mu_{e}=0.25, v_{0}=48km/h.$
+
+		Para as caixas continuarem paradas, é preciso que a força $F$ atuando numa caixa satisfaça $F\leq F_{at}^{e} = \mu_{e}N$.
+		Quebrando a situação em eixos x e y,
+		\begin{align*}
+			 & y: N = P       \\
+			 & x: F_{at} = F.
+		\end{align*}
+		Utilizando essas informações, obtemos que a condição torna-se $F\leq \mu_{e}mg.$ Elaborando mais, segue que
+		$$
+			ma\leq \mu_{e}mg \Rightarrow  a\leq \mu_{e}g.
+		$$
+		Através da Equação de Torricelli,
+		$$
+			v_{f}^{2} = v_{0}^{2} + 2a\Delta x \Rightarrow 0 = v_{0}^{2} - 2|\vec{A}|\Delta x \Rightarrow \Delta x = \frac{v_{0}^{2}}{2|\vec{A}|}.
+		$$
+		Portanto,
+		$$
+			\Delta x^{(min)} = \frac{v_{0}^{2}}{2\mu_{e}g} = 36m.
+		$$
+	\end{example}
+	\begin{example}
+		Considere um chão com coeficiente de atrito estático $\mu_{e}.$ Nele, há dois blocos, A e B, cujas massas são
+		$m_{A}, m_{B}$. Eles estão presos por uma corda e sendo puxados por outra corda com força $\vec{F}.$ Qual é a força
+		cinética $F_{c}$ para entrar em movimento?
+		\begin{center}
+			\begin{tikzpicture}[scale=1, transform shape]
+
+				% Draw ground
+				\draw[thick, pattern=north east lines] (0,0) rectangle (12,0.25);
+				\node at (6,-0.5) {$\mu_e$};
+
+				% Draw block A
+				\draw[fill=blue!30] (3,0.25) rectangle (5,2.25);
+				\node at (4,1.25) {$m_A$};
+
+				% Draw block B
+				\draw[fill=red!30] (7,0.25) rectangle (9,3.25);
+				\node at (8,1.75) {$m_B$};
+
+				% Draw ropes
+				\draw (5,1.25) -- (7,1.25);
+				\draw[-{Latex[length=3mm]}, thick] (9,1.75) -- ++(0:2) node[midway, above] {$\vec{F}$};
+
+				% Draw normal force and weight for block A
+				\draw[-{Latex[length=3mm]}, thick] (4,2.25) -- ++(90:1.5) node[midway, left] {$\vec{N_A}$};
+				\draw[-{Latex[length=3mm]}, thick] (4,0.25) -- ++(270:1.5) node[midway, left] {$\vec{P_A}$};
+
+				% Draw normal force and weight for block B
+				\draw[-{Latex[length=3mm]}, thick] (8,3.25) -- ++(90:1.5) node[midway, left] {$\vec{N_B}$};
+				\draw[-{Latex[length=3mm]}, thick] (8,0.25) -- ++(270:1.5) node[midway, left] {$\vec{P_B}$};
+
+				% Draw force F_c for block A
+				\draw[-{Latex[length=3mm]}, thick] (3,1.25) -- ++(180:1.5) node[midway, above] {$\vec{F_c}$};
+
+				% Draw force F_c for block B
+				\draw[-{Latex[length=3mm]}, thick] (7,1.75) -- ++(180:1.5) node[midway, above] {$\vec{F_c}$};
+
+			\end{tikzpicture}
+		\end{center}
+
+		Analisaremos as forças para cada um dos blocos, decompondo-as em coordenadas.
+
+		\textbf{Bloco A:}
+		\begin{align*}
+			 & y: N_{A} = P_{A}                                                                              \\
+			 & x: T - F_{at}^{A} = 0 \Rightarrow F_{at}^{A} = T \Rightarrow T_{e} = F_{at}^{a}=\mu_{e}m_{A}g
+		\end{align*}
+
+		\textbf{Bloco B:}
+		\begin{align*}
+			 & y: N_{B} = P_{B}                                                                                     \\
+			 & x: F - T - F_{at}^{B} = 0 \Rightarrow F_{c} = T_{c} + F_{at}^{e(B)} = \mu_{e}m_{A}g + \mu_{e}m_{B}g.
+		\end{align*}
+		Portanto,
+		$$
+			F_{c} =\mu_{e}g(m_{A}+m_{B}).
+		$$
+		Em particular, note como seria possível tratar os dois blocos como um só com massa $m_{A}+m_{B}!$
+	\end{example}
+\end{example}
+
+\end{document}

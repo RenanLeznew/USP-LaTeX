@@ -1,0 +1,94 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+  \section{Aula 09 - 30/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+  \item Giroscópio;
+  \item Conservação de Momento Angular.
+\end{itemize}
+
+\subsection{O Giroscópio}
+Considere uma barra apoiado a uma haste e passando por um disco de grande massa. Uma das forças atuando nele é a normal, atuando na barra, o peso, com valor M \(\vec{g}\) no centro de massa do disco
+e considere \(\vec{r}_{cm}\) o raio da barra até o centro de massa. Considere que o disco tem um momento de inércia \(I_{s}\) e roda com velocidade angular \(\omega_{s}\). Por ele estar rodando,
+há um momento angular \(\vec{L}\)
+Calculando o torque nesse sistema, 
+\[
+  \vec{\tau } = \vec{r}_{cm}\times M \vec{g},\quad |\vec{r}_{cm}| = D,
+\]
+observa-se que ele faz um ângulo \(\theta\) que vale 90 graus com o momento angular. Passado um tempo \(\Delta t\), o torque estará
+em \(\vec{\tau }\Delta t\) e L irá para \(L'\), mas, como o torque não pode mudá-lo em valor absoluto, \(|\vec{L}|=|\vec{L}'|\). Com isso, \(\vec{L}' = \vec{L} + \vec{dL}\),
+em que \(\vec{dL} = \vec{\tau} dt\). No entanto, sabemos, nesse caso, quanto vale o torque, tal que 
+\[
+  dL = MgDdt.
+\]
+O ângulo \(d\varphi \) entre L e L', também, será dado por \(d\varphi = \frac{dL}{L} = \frac{MgD}{L}dt = \frac{MgD}{I_{s}\omega_{s}}.\) A partir disso,
+chamamos de velocidade de precessão o valor 
+\[
+  \frac{d\varphi }{dt}= \omega_{p} = \frac{MgD}{I_{s}\omega_{s}}.
+\]
+``Velocidade de precessão'' é o nome dado ao fenômeno responsável por fazer o momento angular ``seguir'' o torque quando o giroscópio está rodando - o movimento circular do eixo de rotação. Com isso,
+vimos que o torque resultante externo é dado por 
+\[
+  \vec{\tau }_{res_{ext}} = \frac{d \vec{L}}{dt},
+\]
+ou seja, quando não há torque externo, o momento angular é constante!
+
+Agora, assuma dois corpos de massas \(m_{1}, m_{2}\) que exercem forças \(\vec{F}_{12}\) e \(\vec{F}_{21}\) uma na outra. Além disso, coloque-as
+a distâncias \(\vec{r}_{1}\) e \(\vec{r}_{2}\) de um referencial 0 (O desenho forma um triângulo). O torque total dessas forças será 
+\[
+  \vec{\tau}_{T} = \vec{r}_{1}\times \vec{F}_{12} + \vec{r}_{2}\times \vec{F}_{21} = \vec{r}_{1}\times \vec{F}_{12}- \vec{r}_{2}\times \vec{F}_{12} = (\vec{r}_{1}-\vec{r}_{2})\times \vec{F}_{12},
+\]
+mas \(\vec{r}_{1}-\vec{r}_{2}\) é exatamente a distância entre os dois corpos, ou seja, a força é paralela a essa distância: \(\vec{r}_{1}-\vec{r}_{2}\parallel \vec{F}_{12}.\) 
+
+\begin{example}
+  Suponha uma colisão inelástica entre corpos e imagine que o primeiro corpo tem momento de inércia \(I_{1}\), velocidade angular inicial \(\omega_i = \omega_{0}\),
+  enquanto o segundo tem \(I_{2}, \omega _{i} = 0\). Após a colisão, quais são o momento de inércia e a velocidade angular finais?
+
+  Aqui, o momento angular deve ser conservado - \(L_{i} = L_{f}\). Assim,
+  \[
+    I_{1}\omega_{0} = (I_{1}+I_{2})\omega_{f} \Rightarrow \omega_{f} = \frac{I_{1}}{I_{1}+I_{2}}\omega_{0}
+  \]
+  Quanto à energia cinética, 
+  \[
+    \mathbb{K} = \frac{1}{2}mv^{2} = \frac{m^{2}v^{2}}{2m} = \frac{p^{2}}{2m}
+  \]
+  Analogamente,
+  \[
+    \mathbb{K} = \frac{1}{2}I\omega^{2} = \frac{I^{2}\omega^{2}}{2I} = \frac{L^{2}}{2I}\\
+  \]
+  Aplicando isso aos corpos do exercício, 
+  \begin{align*}
+   &\mathbb{K}_{i} = \frac{1}{2}\frac{L^{2}}{I_{1}}\\
+   &\mathbb{K}_{f} = \frac{1}{2}\frac{L^{2}}{I_{1}+I_{2}}\\
+    \Rightarrow& \frac{\mathbb{K}_{i}}{\mathbb{K}_{f}} = \frac{I_{1}+I_{2}}{I_{1}} = 1 + \frac{I_{2}}{I_{1}}
+  \end{align*}
+\end{example}
+\begin{example}
+  Dado um disco preso a um ponto em seu centro, faça uma colisão inelástica dele com um objeto de massa m e velocidade v. O momento de inércia do disco é I, sua massa é M e seu raio é R.
+  Após a colisão, a massa gruda bem na borda do disco, passando a rodar com velocidade \(\omega \). Quanto vale essa velocidade e qual é a razão entre as energias cinéticas?
+
+  Novamente, usando a conservação de momento angular, \(L_{i} = L_{f}\). Aqui, 
+  \begin{align*}
+   &L_{i} = mvR\\
+   &L_{f} = (I+mR^{2})\omega\\
+    \Rightarrow& mvR = (I+mR^{2})\omega\\
+    \Rightarrow& \omega = \frac{mvR}{I+mR^{2}} = \frac{mRv}{mR^{2}(1+\frac{I}{mR^{2}})} = \frac{v}{R(1+\frac{I}{mR^{2}})}
+  \end{align*}
+  Sabemos de antes que 
+  \begin{align*}
+   &\mathbb{K}_{f}=\frac{L^{2}}{2I_{f}}\\
+   &\mathbb{K}_{i} = \frac{1}{2}mv^{2}\\
+    \Rightarrow& \frac{\mathbb{K}_{i}}{\mathbb{K}_{f}} = \frac{1}{2}\frac{mv^{2}}{\frac{1}{2}\frac{m^{2}v^{2}R^{2}}{I+mR^{2}}} = \frac{1}{mR^{2}}(I+mR^{2}) = 1 + \frac{I}{mR^{2}}
+  \end{align*}
+\end{example}
+
+Suponha que temos um eixo xyz, um objeto em movimento circular no plano xy com velocidade v e massa m, a uma distância \(\vec{R}\) do centro.
+Escolhendo o centro das coordenadas, o momento angular \(\vec{L}\) será na direção z, já que 
+\[
+  \vec{L} = \vec{R}\times m \vec{v} = \vec{R}\times \vec{p}.
+\]
+Considerando, por outro lado, um ponto abaixo do plano xy, formando um comprimento \(\vec{R}'\) até o círculo de antes, seguirá que \(\vec{L}'\), perpendicular a 
+\(\vec{R}'\), não será na direção z. Além disso, conforme a partícula precessiona, ele também moverá-se, formando um cone. Num sistema em que há uma outra partícula diametralmente
+oposta fazendo a mesma coisa, a soma dos dois momentos angulares apontaria, sim, para o eixo z.
+
+\end{document}

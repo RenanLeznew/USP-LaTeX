@@ -1,0 +1,63 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 20 - 05/10/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Potência em Osciladores Harmônicos
+	\item Exemplos de Osciladores e Sistemas Harmônicos.
+\end{itemize}
+\subsection{Potência em Osciladores Harmônicos}
+Como vimos nos casos de sistemas anteriores, é possível associar a cada força uma potência, definida como
+\[
+	P = \vec{F}\cdot \vec{v},
+\]
+\(\vec{v}\) a velocidade com que o objeto sofrendo a força moverá-se. No caso dos osciladores, já possuímos conhecimento
+de ambas as quantidades, o que leva-nos a calcular a potência para esse caso:
+\begin{align*}
+	P           & = \vec{F}\cdot \vec{v} = F_{0}\cos^{}{(\omega t)}[\omega A(\omega )\cos^{}{(\omega t-\delta )}]                                                 \\
+	            & =F_{0}A\omega \cos^{}{(\omega t)}[\cos^{}{(\omega t)}\cos^{}{(\delta )} + \sin^{}{(\omega t)}\sin^{}{(\delta )}]                                \\
+	\Rightarrow & \left< P\right> = \frac{F_{0}A\omega \cos^{}{(\delta )}}{2} = \frac{F_{0}^{2}\omega^{2}b}{2[m^{2}(\omega_{0}^{2}-\omega^{2})+b^{2}\omega^{2}]}.
+\end{align*}
+Com relação a \(\left< P \right>,\) podemos usar que \(b = 2m\gamma \) para calcular
+\[
+	\left< P \right> = \frac{F_{0}^{2}}{2}\frac{2m\gamma \omega^{2}}{[m^{2}(\omega_{0}^{2}-\omega^{2}) + 4m^{2}\gamma^{2}\omega^{2}]} = \frac{F_{0}^{2}}{4m\gamma }\frac{(2\gamma \omega )^{2}}{(\omega_{0}^{2}-\omega ^{2})^{2}+4\gamma^{2}\omega^{2}}.
+\]
+Assim, podemos fazer uma análise de como a média da potência varia com relação a \(\omega \). Começamos notando que
+\[
+	\left< P(\omega \pm \Delta \omega ) \right> = \frac{\left< P_{max} \right>}{2},
+\]
+donde segue que
+\begin{align*}
+	            & \frac{(2\gamma \omega )^{2}}{(\omega_{0}^{2}-\omega ^{2})^{2}+(2\gamma \omega )^{2}} = \frac{1}{2} \\
+	\Rightarrow & 2(2\gamma \omega )^{2} = (\omega_{0}^{2}-\omega ^{2})^{2}+(2\gamma \omega )^{2}                    \\
+	\Rightarrow & (2\gamma \omega )^{2}=(\omega_{0}^{2}-\omega ^{2})^{2}.
+\end{align*}
+Como \(\omega = \omega \pm \Delta \omega \), \(\omega^{2} = \omega_{0}^{2}\biggl(1\pm \frac{\Delta \omega }{\omega_{0}}\biggr)^{2},\) tal que, para \(\frac{\Delta \omega }{\omega_{0}} <<1,\)
+vale \(\omega ^{2} = \omega_{0}^{2}\biggl(1 \pm \frac{2\Delta \omega }{\omega_{0}}\biggr).\) Destarte, juntando isso com a equação de cima,
+\begin{align*}
+	            & (\omega_{0}^{2}-\omega_{0}^{2}\pm 2\Delta \omega \omega_{0})^{2} = (2\gamma \omega_{0})^{2} \\
+	\Rightarrow & \pm 2\Delta \omega \omega_{0} = 2\gamma \omega_{0}                                          \\
+	\Rightarrow & \Delta \omega = \pm\gamma .
+\end{align*}
+Sobre \(\gamma \), por sua definição,
+\[
+	\gamma = \frac{b}{2m} = \frac{\omega_{0}}{2\frac{m}{b}\omega 00} = \frac{\omega_{0}}{2\tau \omega_{0}} = \frac{\omega_{0}}{2Q},
+\]
+tal que obtemos a expressão
+\[
+	\left< P(\omega_{0}) \right> = \frac{F_{0}^{2}2m\gamma \omega_{0}^{2}}{8m^{2}\gamma^{2}\omega_{0}^{2}} = \frac{F_{0}^{2}}{4m\gamma } = \frac{F_{0}^{2}}{4m}\frac{2Q}{\omega_{0}}.
+\]
+\begin{example}
+	Considere um sistema em que uma mola, com constante elástica \(k = 600 \frac{N}{m}\), tem atrelada à sua ponta um objeto de massa m=1,5Kg, sofrendo uma força de
+	\(F=0,5N\). Suponha, também, que, num ciclo, \(\biggl(\frac{\Delta E}{E}\biggr)_{ciclo}=0,03\). Quanto vale o fator de qualidade Q, a variação \(\delta \omega ,\) b e a amplitude em \(\omega_{0}\) nesse caso?
+
+	Temos \(\omega_{0}^{2} = \frac{k}{m} \Rightarrow \omega_{0} = 2rad/s\). Além disso,
+	\[
+		Q = \frac{2\pi }{\biggl(\frac{\Delta E}{E}\biggr)} = 210.
+	\]
+	Assim, obtemos
+	\[
+		\Delta \omega  = \frac{\omega_{0}}{Q} = 0,096\frac{rad}{s},\quad b = \frac{m\omega_{0}}{Q} = 0,144 Kg\dot{}s,\quad A(\omega_{0}) = \frac{F_{0}}{b\omega_{0}} =17cm.
+	\]
+\end{example}
+\end{document}

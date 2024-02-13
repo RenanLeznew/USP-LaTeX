@@ -1,0 +1,242 @@
+\documentclass[PhysicsI/physics_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 15/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Continuação de Energia Cinética e Trabalho;
+	\item Exemplo de trabalho com molas;
+	\item Movimento tridimensional.
+\end{itemize}
+\subsection{Trabalho e Energia Cinética}
+Na aula passada, vimos o Teorema da Energia Cinética, escrito como
+\[
+	\hypertarget{kin_en_theo}{W_{1\rightarrow 2} = \int_{x_1}^{x_2}Fdx = \Delta E_{\text{cin}}}
+\]
+e que afirma que o trabalho realizado por uma interação é calculado segundo a variação
+da energia cinética. Caso a força seja constante, note que
+\[
+	\hypertarget{fcon_kin}{W_{1\rightarrow 2} = \int_{x_1}^{x_2} Fdx = F\int_{x_1}^{x_2}dx = F\Delta x.}
+\]
+Por outro lado, se F for uma força variável, como a integral representa a área
+abaixo da curva da função, o Trabalho será dado pela área debaixo da curva do
+gráfico de F(x)
+
+\begin{tikzpicture}
+	\begin{axis}[
+			axis lines = left,
+			xlabel = $x$,
+			ylabel = {$f(x)$},
+		]
+
+		\addplot [
+			domain=2:4,
+			samples=100,
+			color=red,
+			pattern=north east lines,
+			pattern color=red,
+		] {x^3} \closedcycle;
+
+		\addplot[domain=0:5, samples=100, color=black]{x^3};
+
+		\draw [dashed, thick] (axis cs: 2,0) -- (axis cs:2,{2^3});
+		\draw [dashed, thick] (axis cs: 4,0) -- (axis cs:4,{4^3});
+
+		\node at (axis cs: 3,30) {$W_{1\rightarrow 2}$};
+
+	\end{axis}
+\end{tikzpicture}
+
+\begin{example}
+	Considere um bloquinho preso a uma parede por uma mola. A posição de equilíbrio
+	desta mola é \(x_{0}=0\) e a força resultante é, também, 0. Qual é o trabalho
+	da força restauradora quando puxamos o bloco até uma posição \(x_{1}\) para ela
+	voltar até um ponto \(x_{2}\)?
+
+	Temos
+	\[
+		W_{1\rightarrow 2} = \int_{x_1}^{x_2}F_{\text{mola}}dx = \int_{x_1}^{x_2} -kxdx =
+		k \int_{x_1}^{x_2}xdx = -k \frac{x^{2}}{2}\biggl|_{x_1}^{x_2}\biggr. = -\frac{k}{2}(x_{2}^{2} - x_{1}^{2}.)
+	\]
+	Em particular, se \(|x_{1} > |x_{2}|,\) a deformação da mola irá aumentar e o trabalho será negativo.
+	Por outro lado, se \(|x_{1}| < |x_{2}|, \) o trabalho é positivo.
+
+	\begin{tikzpicture}
+		\begin{axis}[
+				axis lines = middle,
+				xlabel = $x$,
+				ylabel = {$F_{\text{mola}}$},
+				xmin=-5, xmax=5,
+				ymin=-5, ymax=5,
+			]
+
+			\addplot [
+				domain=-4:-2,
+				samples=100,
+				color=yellow,
+				pattern=north east lines,
+				pattern color=yellow,
+			] {-x} \closedcycle;
+
+			\addplot [
+				domain=2:4,
+				samples=100,
+				color=orange,
+				pattern=north east lines,
+				pattern color=orange,
+			] {-x} \closedcycle;
+
+			\addplot[domain=-5:5, samples=100, color=black]{-x};
+
+			\draw [dashed, thick] (axis cs: -4,0) -- (axis cs:-4,4);
+			\draw [dashed, thick] (axis cs: -2,0) -- (axis cs:-2,2);
+			\draw [dashed, thick] (axis cs: 2,0) -- (axis cs:2,-2);
+			\draw [dashed, thick] (axis cs: 4,0) -- (axis cs:4,-4);
+
+			\node at (axis cs: -3,2) {$F_{\text{mola}}$};
+			\node at (axis cs: 3,-2) {$F_{\text{mola}}$};
+
+		\end{axis}
+	\end{tikzpicture}
+	Neste gráfico, a parte amarela demonstra um momento em que o trabalho é positivo,
+	tal que há uma compressão da mola. A parte laranja, por outro lado, representa um
+	trabalho negativo e, assim, uma distenção da mola.
+\end{example}
+
+\subsection{Movimento Tridimensional.}
+O objetivo desta seção é estudar os conceitos de trabalho, energia cinética,
+etc. Num contexto de eixos x, y e z. Aqui, vamos utilizar deslocamentos infinitesimais
+ao longo de um caminho \(C\), denotado \(\vec{dr}\), mais rigorosamente dado por
+\[
+	\vec{dr} = dx\hat{i} + dy\hat{j} + dz\hat{k}.
+\]
+Em três dimensões, a força será dada por
+\[
+	\vec{F} = F_{x}\hat{i} + F_{y}\hat{j} + F_{z}\hat{k}.
+\]
+Vejamos como o trabalho funciona neste caso:
+\begin{align*}
+	W_{1\rightarrow 2} & = \int_{\vec{r_{1}}}^{\vec{r_{2}}}\underbrace{\vec{F}\cdot \vec{dr}}_{\text{produto escalar}} \\
+	                   & \left\{\begin{array}{ll}
+		                            \vec{F}\cdot \vec{dr} = f_{x}dx + F_{y}dy + F_{z}dz \\
+		                            \vec{F}\cdot \vec{dr} = |\vec{F}||\vec{dr}|\cos{(\theta )}
+	                            \end{array}\right.
+\end{align*}
+Então,
+\[
+	W_{1\rightarrow 2} = \int_{\vec{r_{1}}}^{\vec{r_{2}}}(F_{x}dx + F_{y}d_{y} + F_{z}dz) = \int_{\vec{r_{1}}}^{\vec{r_{2}}}|\vec{F}|\cos{(\theta )}|\vec{dr}|.
+\]
+Este tipo de integral é conhecido como integral de linha, pois ela é restrita ao caminho
+C
+
+\begin{center}
+	\tdplotsetmaincoords{70}{110}
+	\begin{tikzpicture}[scale=3,tdplot_main_coords]
+		\draw[thick,->] (0,0,0) -- (1,0,0) node[anchor=north east]{$x$};
+		\draw[thick,->] (0,0,0) -- (0,1,0) node[anchor=north west]{$y$};
+		\draw[thick,->] (0,0,0) -- (0,0,1) node[anchor=south]{$z$};
+
+		\tdplotsetcoord{P}{1.414213}{54.735610}{45}
+
+		\draw[-stealth,color=red] (O) -- (P) node[above right] {$C$};
+
+		\draw[dashed, color=red] (O) -- (Pxy);
+		\draw[dashed, color=red] (P) -- (Pxy);
+
+		\draw (1,0,0) arc (0:45:1);
+		\tdplotdrawarc{(O)}{0.2}{0}{54.735610}{anchor=north}{$\theta$}
+
+		\tdplotsetthetaplanecoords{45}
+		\tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.5}{0}{54.735610}{anchor=south west}{$\phi$}
+
+	\end{tikzpicture}
+\end{center}
+
+\begin{example}
+	Um exemplo simples é o de uma partícula que move-se apenas no eixo z, ou seja,
+	\(x = y = 0.\) Neste caso, o deslocamento será \(\vec{dr} = dz \hat{k}\). Suponha,
+	também, que a força é constante e que \(\theta \) seja constante. Então, o
+	trabalho realizado por esta força será
+	\[
+		W_{1\rightarrow2} = \int_{\vec{r_{1}}}^{\vec{r_{2}}}\vec{F}\cdot \vec{dr} = \int_{z_{1}}^{z_{2}}|\vec{F}|\cos{(\theta )}|dz| = |\vec{F}|\cos{(\theta )}\Delta z.
+	\]
+\end{example}
+Quando fazemos o produto escalar, essencialmente estamos fazendo a projeção de um
+vetor no outro. Por isso que há o termo cosseno, estamos projetando a força F
+no eixo desejado.
+
+Além disso, note que, sempre que a força e \(\vec{dr}\) forem perpendiculares,
+o trabalho será 0, pois o cosseno será nulo! Em particular, com relação
+ao eixo y sem movimento, então \(\vec{P}, \vec{N}\) são perpendiculares a \(\vec{v}, \vec{dr}\), tal que
+o trabalho vale 0. No eixo x, \(F_{r} = F_{x} = |\vec{F}|\cos{(\theta )} = ma,\)
+de modo que \(F_{x}\) é paralelo a \(\vec{v}, \vec{dr}\). Assim,
+\[
+	W_{1\rightarrow 2} = \int_{x_{1}}^{x_{2}}F_{x}dx = \int_{x_{1}}^{x_{2}}|\vec{F}|\cos{(\theta )}dx.
+\]
+
+No quesito da energia cinética, o trabalho resultante num caminho C será
+\[
+	W_{R_{1\rightarrow 2}} = \int_{\vec{r}_{1}}^{\vec{r}_{2}}\vec{F}_{R}\cdot \vec{dr} = \int_{\vec{r}_{1}}^{\vec{r}_{2}}m \frac{\vec{dv}}{dt}\cdot \vec{dr}.
+\]
+Note o uso da \hyperlink{second_law}{segunda lei de newton} para decompor a resultante em \(m \frac{\vec{dv}}{dt}.\)
+Agora, ``multiplicando'' a parte de dentro da integral por \(\frac{dt}{dt},\)
+\[
+	W_{1\rightarrow 2} = \int_{\vec{r}_{1}}^{\vec{r}_{2}}m \frac{\vec{dv}}{dt}\cdot \frac{\vec{dr}}{dt}dt = \int_{\vec{v}_{1}}^{\vec{v}_{2}}m \vec{dv}\vec{v(t)}.
+\]
+Logo,
+\[
+	W_{1\rightarrow 2} = \int_{\vec{v}_{1}}^{\vec{v}_{2}}m \vec{dv}\vec{v} = \int_{\vec{v}_{1}}^{\vec{v}_{2}}m \vec{v}\vec{dv}.
+\]
+No entanto, observe que
+\[
+	\left\{\begin{array}{ll}
+		\vec{v} = v_{x}\hat{i} + v_{y}\hat{j} + v_{z}\hat{k} \\
+		\vec{dv} = dv_{x}\hat{i} + dv_{y}\hat{j} + dv_{z}\hat{k}.
+	\end{array}\right.
+\]
+Reescrevendo o trabalho utilizando isso, obtemos
+\begin{align*}
+	W_{1\rightarrow 2} & = \int_{\vec{v}_{1}}^{\vec{v}_{2}}m\biggl[v_{x}dv_{x} + v_{y}dv_{y}+v_{z}dv_{z}\biggr]                                                                                     \\
+	                   & = \int_{\vec{v}_{1}}^{\vec{v}_{2}}mv_{x}dv_{x} + \int_{\vec{v}_{1}}^{\vec{v}_{2}}mv_{y}dv_{y} + \int_{\vec{v}_{1}}^{\vec{v}_{2}}mv_{z}dv_{z}                               \\
+	                   & = m\biggl[\int_{\vec{v}_{1}}^{\vec{v}_{2}}v_{x}dv_{x}+v_{y}dv_{y}+v_{z}dv_{z}\biggr]                                                                                       \\
+	                   & = m\biggl[\frac{v_{x}^{2}}{2}\biggl|_{v_{1}}^{v_{2}}\biggr. + \frac{v_{y}^{2}}{2}\biggl|_{v_{1}}^{v_{2}}\biggr. + \frac{v_{z}^{2}}{2}\biggl|_{v_{1}}^{v_{2}}\biggr.\biggr] \\
+	                   & = \frac{m}{2}\biggl[(v_{x_{2}}^{2} + v_{y_{2}}^{2} + v_{z_{2}}^{2}) - (v_{x_{1}}^{2} + v_{y_{1}}^{2} + v_{z_{1}}^{2})\biggr]                                               \\
+	                   & = \frac{m}{2}|\vec{v}_{2}|^{2} - \frac{m}{2}|\vec{v_{1}}^{2}| = \Delta E_{cin}
+\end{align*}
+Em outras palavras,
+\begin{quote}
+	\hypertarget{work_kin_3d}{``O trabalho realizado pela força resultante em um corpo é igual à variação da sua energia cinética''.}
+\end{quote}
+\begin{example}
+	Vamos ver um exemplo de integral de linha. Considere uma bolinha caindo de um ponto I até
+	outro ponto II. Primeiro, ela começa caindo até o chão e depois empurrada até o ponto. Na segunda opção de caminho, ela cai em linha diagonal até o ponto. No terceiro,
+	ela é lançada de forma parabólica. Estudemos o trabalho em cada caso.
+
+	Para o primeiro, decomponha o caminho todo em \(C_{I} = c_{1} + c_{2}\), sendo
+	\(c_{1}\) a queda até o chão e \(c_{2}\) a empurrada até o ponto. Temos
+	\[
+		W_{1\rightarrow 2 }^{C_{I}} = \int_{c_{1}}^{}\vec{F}\vec{dr} + \int_{c_{2}}^{}\vec{F}\vec{dr} = \int_{c_{1}}^{}\vec{F}dy \hat{j} + \int_{c_{2}}^{}\vec{F}dx \hat{i}
+	\]
+	Calculando, segue que
+	\begin{align*}
+		W_{1\rightarrow 2} & = \int_{c_{1}}^{}-mg \hat{j}\cdot dy \hat{j} + \int_{c_{2}}^{}-mg \hat{j}\cdot dx \hat{i}. \\
+		                   & = \int_{c_{1}}^{}-mg dy + 0 = -mg y\biggl|_{c_{1}(1)}^{c_{2}(2)}\biggr. = -mg(0-h)mgh.
+	\end{align*}
+
+	Para o segundo, precisamos descrever a trajetória do caminho \(C_{II}\). Com isso,
+	podemos definir \(y(x) = a + bx\), já que é uma diagonal. Sabemos que
+	\[
+		y(0) = h\quad\text{ e } y(d) = 0.
+	\]
+	Com isso, segue que \(a = h\) e \(h + bd = 0\), tal que \(b = \frac{-h}{d}.\) Utilizando estes dados,
+	reescrevemos y como \(y(x) = h - \frac{h}{d}x\). Assim,
+	\[
+		W_{1\rightarrow 2}^{C_{II}} = \int_{\vec{r}_{1}}^{\vec{r}_{2}}\vec{F} \cdot \vec{dr}.
+	\]
+	Note também que \(dy = -\frac{h}{d}dx\). Destarte,
+	\begin{align*}
+		W_{1\rightarrow 2}^{C_{II}} & = \int_{\vec{r}_{1}}^{\vec{r}_{2}}-mg \hat{j}\cdot (dx \hat{i} - \frac{h}{d}dx \hat{j})                                           \\
+		                            & = \int_{\vec{r}_{1}}^{\vec{r}_{2}}-mg \hat{j}dx \hat{i} + mg \hat{j}\frac{h}{d}dx \hat{j}                                         \\
+		                            & = \int_{\vec{r}_{1}}^{\vec{r}_{2}}mg \frac{h}{d} dx = mg \frac{h}{d}x \biggl|_{x_{1}}^{x_{2}}\biggr. = mg \frac{h}{d}(d-0) = mgh.
+	\end{align*}
+\end{example}
+\end{document}

@@ -1,0 +1,131 @@
+\documentclass[PhysicsI/physics_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 10/05/2023}
+\subsection{O que esperar?}
+\begin{itemize}
+	\item Força de Arrasto;
+	\item Resistência do Ar.
+\end{itemize}
+\subsection{Força de Arrasto}
+Imagina um objeto se movendo por um fluído. Para o objeto mover-se, ele deve deslocar-se o fluído também. O que influencia na dificuldade para fazer isso?
+Por experiências cotidianas, sabemos que a forma do objeto afetará nisso. Além disso, a rapidez com que o objeto anda também é um fator que influencia, junto com o próprio tipo de fluído.
+Assim, a forma de arraste é oposta ao movimento! Podemos definí-la com melhor precisão agora:
+\[
+	|\vec{F}_{a}| \varpropto v^{n}.
+\]
+Para baixas velocidades, n =1, enquanto que, para altas velocidades, normalmente n=2. Uma das mais conhecidas formas de força de arrasto é a resistência do ar:
+\[
+	|\vec{F}_{a}| = b |\vec{v}|^{2}.
+\]
+Temos
+\[
+	P - F_{a} = ma_{y} \Rightarrow a_{y} = \frac{mg - bv^{2}}{m}.
+\]
+Observe que, por conta da diferença de forças na fórmula da aceleração, pode chegar um momento em que ela passa a valer zero. Ao chegar neste momento,
+diremos que o objeto atingiu sua velocidade terminal. Definimos ela como
+\[
+	\hypertarget{terminal_velocity}{\boxed{v_{T}=\sqrt[]{\frac{mg}{b}}}}
+\]
+Mas o que é essa constante b que está aparecendo? Explicitamente, ela vale
+\[
+	b=\frac{1}{2}C_{a}\rho_{f}A,
+\]
+em que \(C_{a}\) é o coeficiente de arrasto, \(\rho_{f}\) é a densidade do fluído e A é a seção de área transversal do objeto. Disso, conseguimos tirar
+algumas conclusões. Por exemplo, quanto mais denso o fluído ou quanto maior o objeto, mais ele terá resistência ao movimento e menor será sua velocidade terminal.
+
+\begin{example}
+	Considere uma gotinha de chuva perfeitamente esférica. Consideremos seu raio como aproximadamente 1 milímetro.
+	Sua massa será dada por \(m_{\text{gota}}=\rho_{\text{água}}V_{\text{gota}}\), e vale aproximadamente \(4 \cdot 10^{-6}kg\). Assuma o coeficiente de arrasto como
+	1 e a densidade do ar como \(\rho_{\text{ar}}=1.27kg/m^3\) e a área de seção transversal da gota valendo \(A_{\text{gota}=\pi r^2\approx3 \cdot 10^{-6}m^2}\).
+
+	Com esses dados, segue que
+	\[
+		b = \frac{1}{2}C_{A}\rho_{\text{ar}}A_{\text{gota}}\approx 1.9 \cdot 10^{-6} \Rightarrow v_{T} = \sqrt[]{\frac{mg}{b}}\approx 4m/s.
+	\]
+\end{example}
+\begin{example}
+	Exepmlo 58 Tipler. Considere uma pessoa caindo com um paraquedas. Sabe-se que sua massa é de 64kg e que a velocidade terminal vale \(v_{T}=180km/h\). Qual é
+	\(|\vec{F}_{a}|\)? Quanto vale b?
+
+	Com efeito,
+	\[
+		F_{R}^{y} = 0 = P-F_{a} \Rightarrow F_{a} = P = mg = 628N.
+	\]
+
+	Quanto ao item  b, temos
+	\[
+		|\vec{F}_{a}| = b |\vec{v}| \Rightarrow  b = \frac{|\vec{F}_{a}|}{|\vec{v_{T}}^2|} \Rightarrow b = \frac{628}{50^2} = 0.251 \frac{kg}{m}.
+	\]
+\end{example}
+O próximo exemplo é o de uma outra força de arrasto.
+\begin{example}
+	Suponha um barco na água. Como evolui a velocidade dele com o tempo?
+
+	Como ele está se movendo no fluído água, a força responsável por movê-lo para
+	a frente resulta no surgimento de uma força resposta, justamente a de arrasto.
+	Pela segunda \hyperlink{second_newton}{lei de Newton},
+	\[
+		F_{R} = F_{a} = -bv = m \cdot a = m \frac{dv}{dt}.
+	\]
+	Assim,
+	\[
+		-b dt = m \frac{dv}{v} \Rightarrow \int_{0}^{t}-\frac{b}{m}dt = \int_{v_{0}}^{v(t)}\frac{dv}{v}
+		\Rightarrow -\frac{b}{m}\int_{0}^{t}dt = \ln{(v)}\biggl|_{v_{0}}^{v(t)}\biggr. = \ln{(v(t))} - \ln{v_{0}} = \ln{\frac{v(t)}{v_{0}}}
+	\]
+	(Nota: A integral \(\int_{}^{}\frac{1}{x}dx = \ln{(x)}\) é definida assim.)
+
+	Faremos as contas a seguir:
+	\begin{align*}
+		 & -\frac{b}{m}t \biggl|_{0}^{t}\biggr. = \ln{(\frac{v(t)}{v_{0}})} \\
+		 & -\frac{b}{m}t = \ln{(\frac{v(t)}{v_{0}})}                        \\
+		 & e^{-\frac{b}{m}t} = \frac{v(t)}{v_{0}}                           \\
+		 & v(t) = v_{0}e^{-\frac{b}{m}t}
+	\end{align*}
+
+	Dados os valores \(v_{f}=44km/h, v_{0} = 97km/h, m=900kg, b=68\), por exemplo,
+	o tempo para o barco parar será
+	\[
+		t_{f} = -\frac{m}{b}\ln{(\frac{v(t_{f})}{v_{0}})} = \frac{900}{68}\ln{(\frac{12}{2t})}.
+	\]
+\end{example}
+
+\subsection{Movimentos Curvos}
+Quando um objeto realiza um movimento de curva, ele tem uma tendência
+a ter uma rota restrita. Essa tendência pode ser descrita pro uma força ``imaginária´´
+que surge da restrição da trajetória do objeto, conhecida como
+força centrípeta, a qual foi estudada previamente, sendo ela descrita como
+\[
+	\vec{F}_{cp} = m \vec{a}_{cp}.
+\]
+A direção da variação da velocidade em dois pontos do movimento curvo
+é paralelo à aceleração centrípeta mencionada.
+\begin{example}
+	Considere uma bolinha que gira e está presa por duas cordas a uma haste.
+	As forças atuando sobre ela incluem a Peso P, a tensão da corda 1 \(T_{1}\)
+	e a tensão da corda 2 \(T_{2}\). Como a bolinha realiza um movimento circular,
+	há uma aceleração resultante que aponta para o centro do raio que a bolinha faz,
+	a chamada aceleração centípeta. Sendo o comprimento das cordas L e L, o ângulo
+	da bolinha com a horizontal da haste \(\theta \), descreva sua dinâmica.
+
+	Vamos descrever essa situação para cada eixo. Com efeito, segue que
+
+	\textbf{Eixo x:}
+	\begin{align*}
+		 & -T_{1}\cos{(\theta )} - T_{2}\cos{(\theta )} = F_{R}^{x} = m(-a_{cp})   \\
+		 & \Rightarrow (T_{1}+T_{2})\cos{(\theta )}=m \frac{v^2}{R} = mR\omega ^2.
+	\end{align*}
+	\textbf{Eixo y:}
+	\begin{align*}
+		 & -P + T_{1}\sin{(\theta )}-T_{2}\sin{(\theta )}=F_{R}^y = 0     \\
+		 & \Rightarrow T_{2} = T_{1} - \frac{mg}{\sin{(\theta )}} = 9.5N.
+	\end{align*}
+
+	Além disso,
+	\[
+		\omega ^2 = \frac{(T_{1}+T_{2})}{mR}\cos{(\theta )}\approx 20 \Rightarrow \omega \approx 4.5rad/s.
+	\]
+
+
+\end{example}
+
+\end{document}

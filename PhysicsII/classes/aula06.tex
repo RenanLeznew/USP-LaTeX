@@ -1,0 +1,116 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 06 - 23/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Planos inclinados;
+	\item Refrigerante VS Cilindro;
+	\item Bola deslizando.
+\end{itemize}
+\subsection{Objeto Rolante em Plano Inclinado}
+Coloque uma bola de massa M, momento de inércia I e raio R em um plano inclinado a uma ângulo \(\theta \).
+Analisando as forças presentes, estão inclusas a da gravidade, a normal e uma força de atrito. Considerando x a direção em que a bola
+está indo para. Nessa direção, as relações das forças serão
+\[
+	Mg\sin{(\theta )} - f_{at} = Ma_{cm}.
+\]
+Quanto à rotação, temos
+\[
+	f_{at}R = I_{cm}\alpha.
+\]
+Utilizando \(a_{cm} = R\alpha \), relacionamos as duas como segue:
+\begin{align*}
+	 & f_{at} = Mg\sin{(\theta )} - Ma_{cm}                               \\
+	 & Mg\sin{(\theta )} - Ma_{cm} = \frac{I_{cm}}{R}\frac{a_{cm}}{R}     \\
+	 & Mg\sin{(\theta )} = a_{cm}\biggl[M + \frac{I_{cm}}{R^{2}}\biggr]   \\
+	 & Mg\sin{(\theta )} = Ma_{cm}\biggl[1 + \frac{I_{cm}}{MR^{2}}\biggr] \\
+	 & a_{cm} = \frac{g\sin{(\theta )}}{1 + \frac{I_{cm}}{MR^{2}}}.
+\end{align*}
+Com isso, conseguimos descrever a força de atrito utilizando que, na esfera, \(I = \frac{2}{5}MR^{2}\). Logo,
+\begin{align*}
+	 & a_{cm} = \frac{5}{7}g\sin{(\theta )}                                                                \\
+	 & f_{at} = \frac{2}{5}\frac{MR^{2}}{R^{2}}\frac{5}{7}g\sin{(\theta )} = \frac{2}{7}Mg\sin{(\theta )}.
+\end{align*}
+\subsubsection{Simetrias}
+Se um corpo tem simetria esférica ou cilíndrica, então \(I = \beta mR^{2}\). Em particular, podemos usar isso para
+generalizar o raciocínio realizado acima. De fato, tanto \(a_{cm}\) quanto \(f_{at}\) podem ser reescritos como segue:
+\begin{align*}
+	                                                  & a_{cm} = \frac{g\sin{(\theta )}}{1+\beta }                                                       \\
+	f_{at} = \frac{\beta Mg\sin{(\theta )}}{1+\beta } & = \frac{Mg\sin{(\theta )}}{\frac{1}{\beta }(1+\beta )} = \frac{Mg\sin{(\theta )}}{\beta^{-1}+1}.
+\end{align*}
+Observa-se, assim, que entre uma esfera, um cilindro e um aro num plano inclinado (de mesmo raio), a esfera chegará primeiro ao chão,
+visto que ela tem um \(\beta \) menor.
+
+Agora, considere um cilindro de massa M e raio R iguais aos de uma lata de refrigerante e coloque os dois juntos para descer um plano inclinado. Quem chegará primeiro?
+A resposta (por incrível que pareça) é o refrigerante, pois o liquido dentro não possui momento de inércia, ou seja, soltar ela com líquido ou vazia resultará no mesmo! Analisando a energia
+desse sistema, temos
+\[
+	E_{mec_{i}} = mgh\quad \&\quad E_{mec_{f}} = \frac{1}{2}mv_{cm}^{2} + \frac{1}{2}I_{cm}\omega^{2},
+\]
+em que \(\omega = \frac{v_{cm}}{R}\). Assim,
+\[
+	E_{mec_{f}}=\frac{1}{2}mv_{cm}^{2} + \frac{1}{2}\beta mR^{2}\frac{v_{cm}^{2}}{R^{2}}.
+\]
+Juntando ambas,
+\[
+	\frac{1}{2}mv_{cm}^{2}[1+\beta ] = mgh \Rightarrow v_{cm}^{2} = \frac{2gh}{1+\beta }
+\]
+Como a latinha é considerada um aro, ela ganha!
+
+Vamos voltar nossa atenção à força de atrito. Vimos antes que
+\[
+	f_{at} = \frac{mg\sin{(\theta )}}{1 + \beta^{-1}}.
+\]
+Sabe-se que a força de atrito tem um valor máximo, dado por \(f_{at_{max}} = \mu_{e}N\), ou seja,
+\(f_{at}\leq f_{at_{max}}\). Em outras palavras,
+\[
+	\frac{mg\sin{(\theta )}}{1+\beta^{-1}}\leq \mu_{e}mg\cos{(\theta )} \Longleftrightarrow \tan{(\theta )}\leq \mu_{e}(1+\beta^{-1}).
+\]
+Com isso, obtemos um ângulo máximo no qual o plano inclinado pode estar sem que a bola comece a rolar deslizando.
+\begin{example}
+	Para uma esfera, em que \(\beta =\frac{2}{5}\), o ângulo máximo é
+	\[
+		\tan{(\theta )}\leq 3.5\mu_{e}.
+	\]
+	Para um cilindro, com \(\beta = \frac{1}{2}\), tem-se
+	\[
+		\tan{(\theta )}\leq 3\mu_{e}.
+	\]
+	Por fim, para um aro, no qual \(\beta =1\),
+	\[
+		\tan{(\theta )}\leq 2\mu_{e}.
+	\]
+\end{example}
+
+\subsection{Bola Deslizando}
+Agora, suponha que colocamos uma bola de massa m deslizando (apenas movimento translacional) com velocidade v em uma superfície com atrito. Note que as forças agindo são
+a peso, a normal e a força de atrito. Em termos de translação, então, temos
+\[
+	-f_{at} = ma_{cm} \Rightarrow a_{cm} = -\frac{f_{at}}{m} = -\frac{\mu_{c}N}{m} = -\mu_{c}g.
+\]
+Por outro lado, quanto à rotação, começamos notando que o torque vale \(\tau = I_{cm}\alpha \). Assim,
+\[
+	f_{at}R = I_{cm}\alpha \Longleftrightarrow a_{c}mgR = \frac{2}{5}mR^{2}\alpha
+\]
+Portanto,
+\[
+	\alpha = \frac{5}{2}\frac{\mu_{c}g}{R}.
+\]
+A velocidade do centro de massa, então, pode ser obtida com \(v_{cm} = v - a_{cm}t = v - \mu_{c}gt\). Nota-se, então,
+que há uma redução na velocidade, até que, eventualmente, ela para de deslizar e passa a rotacionar, fazendo com que \(v_{cm} = \omega R\).
+Nesse instante, tem-se
+\[
+	v-\mu_{c}gt = R\frac{5}{2}\frac{\mu_{c}g}{R}t \Rightarrow v = \mu_{c}gt\biggl[1+\frac{5}{2}\biggr] = \mu_{c}gt \frac{7}{2}.
+\]
+Portanto, o tempo parar ela parar de deslizar é
+\[
+	\boxed{t^{*} = \frac{2v}{7\mu_{c}g}.}
+\]
+A partir disso, podemos também encontrar a distância percorrida:
+\begin{align*}
+	x(t^{*}) & = vt^{*} - \frac{\mu_{c}gt^{*^{2}}}{2}                                                               \\
+	         & = \frac{v2v}{7\mu_{c}g} - \frac{\mu_{c}g}{2}\frac{4v^{2}}{49\mu_{c}^{2}g^{2}}                        \\
+	         & = \frac{2v^{2}}{7\mu_{c}g} - \frac{2}{49}\frac{v^{2}}{\mu_{c}g}                                      \\
+	         & = \frac{v^{2}}{\mu_{c}g}\biggl[\frac{14-2}{49}\biggr] = \boxed{\frac{12}{49}\frac{v^{2}}{\mu_{c}g}.}
+\end{align*}
+\end{document}

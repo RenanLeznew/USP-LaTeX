@@ -1,0 +1,144 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 28/08/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Momento Angular;
+	\item Torque em termos do produto vetorial.
+\end{itemize}
+\subsection{Um pouco mais de produto vetorial.}
+\begin{example}
+	Considere que \(A = 2 \hat{j}\) e \(B = 5\hat{i} + 2 \hat{j}\). Então,
+	\[
+		\vec{A} \times{\vec{B}} = 2\hat{j} \times (5\hat{i} + 2\hat{j}) = 2\hat{i}\times 5\hat{j} = -10\hat{k}.
+	\]
+	Além disso, \(|\vec{A}\times \vec{B}|^{2} = |\vec{A}|^{2}|\vec{B}|^{2} - (\vec{A}\cdot \vec{B})^{2} = 100.\) Note que
+	\(|\vec{A}|^{2}|\vec{B}|^{2} = 4 (25+4) = 29\times 4\) e que \(\vec{A}\cdot \vec{B} = 4, \) ou seja,
+	\[
+		|\vec{A}|^{2}|\vec{B}|^{2} - (\vec{A}\cdot \vec{B})^{2} = 4\times 25 + 16 - 16 = 100.
+	\]
+\end{example}
+\begin{example}
+	Com os mesmos A e B de antes, coloque \(\vec{C} = 3\hat{j} + 2 \hat{k}.\) Vamos calcular \(\vec{A}\times(\vec{B} + \vec{C}):\)
+	\begin{align*}
+		\vec{a}\times(\vec{B}+\vec{C}) & = 2\hat{j} \times [5\hat{i} + 5\hat{j} + 2\hat{k}] \\
+		                               & = - 10\hat{k} + 4\hat{i} = 4\hat{i} - 10\hat{k}.
+	\end{align*}
+	Por outro lado,
+	\begin{align*}
+		\vec{A} \times \vec{B} + \vec{A} \times \vec{C} & = 2\hat{j}\times(5\hat{i} + 2\hat{j}) + 2\hat{j}\times(3\hat{j}+2\hat{k}) \\
+		                                                & = 4\hat{i} - 10\hat{k}.
+	\end{align*}
+	Ou seja, os dois de fato coincidem.
+\end{example}
+\begin{example}
+	Agora, olhemos para \(\vec{A}\times(\vec{B}\times \vec{C}) = (\vec{A}\cdot \vec{C})\vec{B} - (\vec{A}\cdot \vec{B})\vec{C}\):
+	\begin{align*}
+		\vec{A}\times(\vec{B}\times \vec{C}) & = 2\hat{j}\times \biggl[(5\hat{i} + 2\hat{j})\times(3\hat{j}+2\hat{k})\biggr] \\
+		                                     & = 2\hat{j}\times [15\hat{k} - 10\hat{j} + 4\hat{i}] = 30\hat{i} - 8\hat{k}.
+	\end{align*}
+	Quanto ao lado direito da igualdade,
+	\begin{align*}
+		                                & (\vec{A}\cdot \vec{C})\vec{B} = (2\hat{j}\cdot (3\hat{j}+2\hat{k}))(5\hat{i}+2\hat{j}) = 30\hat{i} + 12\hat{j}    \\
+		                                & (\vec{A}\cdot \vec{B})\vec{C} = (2\hat{j}\cdot (5\hat{i} + 2\hat{j}))(3\hat{j} + 2\hat{k}) = 12\hat{j} + 8\hat{k} \\
+		(\vec{A}\cdot \vec{C})\vec{B} - & (\vec{A}\cdot \vec{B})\vec{C} = 30\hat{i} + 12\hat{j} - 12\hat{j} - 8\hat{k} = 30\hat{i} - 8\hat{k}.
+	\end{align*}
+\end{example}
+A seguir, vamos considerar um exemplo mais aplicado.
+\begin{example}
+	Considere que o movimento de uma partícula em duas dimensões é descrito por \(\vec{r}(t) = v_{0}t\hat{i} + y_{0}\hat{j}\), sendo \(y_{0}\) o tanto que ela se moveu no eixo y.
+	Temos \(\frac{d \vec{r}}{dt} = v_{0}\hat{i} = \vec{v}\) e, considerando \(\vec{B} = B_{0}t \hat{j}\), segue que
+	\begin{align*}
+		\vec{r}\times \vec{B} & = (v_{0}t\hat{i} + y_{0}\hat{j})\times(B_{0}t\hat{j}) \\
+		                      & = v_{0}t^{2}B_{0}\hat{k}.
+	\end{align*}
+	Em particular,
+	\[
+		\frac{d(\vec{r}\times \vec{B})}{dt} = 2v_{0}tB_{0}\hat{k}.
+	\]
+	De fato, em geral, temos uma versão da regra do produto para produtos escalares:
+	\[
+		\hypertarget{vector_product_rule}{\boxed{\frac{d(\vec{r}\times \vec{B})}{dt} = \frac{d \vec{r}}{dt}\times \vec{B} + \vec{r}\times \frac{d \vec{B}}{dt}.}}
+	\]
+\end{example}
+Essas formas que lidamos com produtos escalares até agora funcionam bem para vetores mais simples. No entanto, quando mais termos começam a surgir, pode tornar-se algo explicado
+muito rapidamente. Para isso, é útil ter em mente a forma que o produto escalar realmente toma - a de um determinante de uma matriz.
+\[
+	\hypertarget{vector_product}{    \vec{A}\times \vec{B} = \det \begin{pmatrix}
+			\hat{i} & \hat{j} & \hat{k} \\
+			A_{x}   & A_{y}   & A_{z}   \\
+			B_{x}   & B_{y}   & B_{z}
+		\end{pmatrix} = \boxed{\hat{i}(A_{y}B_{z} - A_{z}B_{y}) + \hat{j}(A_{z}B_{x} - A_{x}B_{z}) + \hat{k} (A_{x}B_{y}-A_{y}B_{x}).}}
+\]
+Estamos, agora, habilitados para aplicar esses conceitos na física.
+\subsection{Momento Angular}
+Considere um sistema xyz e um vetor \(\vec{r}\) contido no plano xy. Aplica-se uma força \(\vec{F}\), também contida no plano xy.
+Definimos, sendo \(\vec{p} = m \vec{v}\) o momento linear, o momento angular da partícula como
+\[
+	\hypertarget{angular_momentum}{\boxed{\vec{L} = \vec{r}\times \vec{p}}.}
+\]
+Equivalentemente, \(\vec{L} = \vec{r}\times m \vec{v} = m(\vec{r}\times \vec{v}) = mrv\hat{k}.\) Fazendo
+\(v = r\omega,\) segue que \(\vec{L} = mr^{2}\omega \hat{k} = I\omega \hat{k} = I \vec{\omega }\).
+
+Com relação ao torque, sabe-se que \(\vec{\tau} = \vec{r}\times \vec{F}\). Além disso,
+\[
+	\frac{d \vec{L}}{dt} = \frac{d \vec{r}}{dt}\times \vec{p} + \vec{r} \times \frac{d \vec{p}}{dt} = \vec{v}\times m \vec{v} + \vec{r}\times \frac{d \vec{p}}{dt}
+\]
+Mas, \(\frac{d \vec{p}}{dt} = \vec{F}\), tal que
+\[
+	\vec{r} \times \frac{d \vec{p}}{dt} = \vec{r}\times \vec{F} = \tau.
+\]
+Em outras palavras,
+\[
+	\vec{\tau } = \frac{d \vec{L}}{dt} = I \frac{d \vec{\omega }}{dt} = I \vec{\alpha }.
+\]
+Quando lidamos com movimento linear, havíamos definido a quantidade ``Impulso'' como a variação do momento linear. Fazemos o análogo aqui:
+\[
+	\Delta \vec{L} = \int_{t_{1}}^{t_{2}}\vec{\tau }dt.
+\]
+Com a partícula do início da seção, segue que
+\[
+	\vec{L} = m(v_{0}t\hat{i} + y_{0}\hat{j})\times v_{0}\hat{i} = -my_{0}v_{0}\hat{k}.
+\]
+Para uma partícula com movimento descrito por \(\vec{r}(t)\) no plano xyz, decompomos esse vetor como sendo
+\[
+	\vec{r} = \vec{r}_{rad} + \vec{r}_{z}.
+\]
+Aplicando uma força \(\vec{F}\), na mesma lógica, faremos
+\[
+	\vec{F} = \vec{F}_{xy} + \vec{F}_{z}
+\]
+Com isso, o torque é dado por
+\[
+	\vec{\tau } = \vec{r}\times \vec{F} = (\vec{r}_{rad} + \vec{r}_{z})\times(\vec{F}_{xy} + \vec{F}_{z})
+\]
+A componente na direção z do torque, \(\vec{\tau }_{z}\), pode ser encontrada no termo
+\[
+	\vec{\tau }_{z} = \vec{r}_{rad} + \vec{F}_{xy}.
+\]
+No entanto, observe que \(\vec{L} = \vec{r}\times (\vec{p}_{xy} + \vec{p}_{z}) = (\vec{r}_{rad} + \vec{r}_{z}) + (\vec{p}_{xy}+\vec{p}_{z})\), tal que,
+chamando de \(\vec{L}_{z} = \vec{r}_{rad}\times \vec{p}_{xy}\) a componente z do momento angular, chegamos em
+\[
+	\vec{\tau }_{z} = \frac{d \vec{L}_{z}}{dt}.
+\]
+\begin{example}
+	Considere a máquina de Atwood com dois corpos tais que \(m_{1} > m_{2}\). Sendo I o momento de inércia da polia, M sua massa e R seu raio, o momento angular total na direção z desse sistema será
+	\[
+		L_{total_z} = m_{1}vR + m_{2}vR + I\omega.
+	\]
+	O torque em z desse sistema é
+	\[
+		\tau_{z} = m_{1}gR - m_{2}gR = (m_{1}-m_{2})gR = \frac{dL_{z}}{dt}.
+	\]
+	Com isso, sendo \(I = \frac{1}{2}mR^{2}\) e \(a  = R\alpha \),
+	\begin{align*}
+		(m_{1}-m_{2})gR & = m_{1}aR + m_{2}aR + I\alpha        \\
+		                & = (m_{1}+m_{2}+\frac{1}{2}MR^{2})aR. \\
+	\end{align*}
+	Portanto,
+	\begin{align*}
+		 & a = \frac{(m_{1}-m_{2})g}{m_{1}+m_{2}+\frac{M}{2}}                   \\
+		 & \alpha = \frac{1}{R}\frac{(m_{1}-m_{2})g}{m_{1}+m_{2}+\frac{M}{2}}.\
+	\end{align*}
+\end{example}
+\end{document}

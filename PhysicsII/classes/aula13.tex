@@ -1,0 +1,147 @@
+\documentclass[PhysicsII/physicsII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 20/09/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Pressão em Fluídos e Paradoxo Hidrostático;
+	\item Variação de Pressão;
+	\item Princípio de Arquimedes.
+\end{itemize}
+\subsection{Pressão}
+\begin{example}
+	Considere uma barragem de tamanho L e pressão inicial de 1 atm. Essa barragem impede um líquido com distância da terra até ele sendo h.
+	Qual é a variação da força com a profundidade z?
+
+	Sabemos da aula anterior a fórmula da \textit{\hyperlink{pressure_submerging}{pressão com profundidade}}. Vimos, também, a relação da pressão com a força
+	como sendo \(P(z)dA = dF\). Unindo-as, tem-se
+	\[
+		dF = (P_{0}+\rho gz)Ldz \Rightarrow F = \int_{0}^{h}P_{0}Ldz + \rho gL \int_{0}^{h}z dz.
+	\]
+	Portanto,
+	\[
+		F = P_{0}Lh + \rho gL \frac{z^{2}}{2}\biggl|_{0}^{h}\biggr. = P_{0}Lh + \rho gL \frac{h^{2}}{2}.
+	\]
+	Usualmente, barragens no mundo real não são simplesmente retas, possuindo uma curvatura na base conforme aprofunda-se. Podemos descrever
+	a força que essa base curvada sofrerá fazendo \(\vec{dF}' = dS L P_{0}\). Como essa forçá faz um ângulo \(\theta \) com a horizontal, vale também
+	\(dF'_{x} = dF'\cos{(\theta )} = LP_{0}ds\cos{(\theta )} = LP_{0}dl.\) Podemos integrar com respeito ao tamanho para chegar em
+	\[
+		F_{x}' = \int_{0}^{h}LP_{0}dl = LP_{0}h.
+	\]
+	Assim, a força que o fluído exerce nessa barreira é dado pela diferença dos dois resultados
+	\[
+		F - F_{x}' = \rho g \frac{h^{2}}{2}L.
+	\]
+\end{example}
+\begin{example}
+	Considerando uma caverna subaquática com um ponto \(P_{1}\) próximo ao topo da coluna d'água,
+	outro \(P_{2}\) na reta vertical de \(P_{1}\), mas mais profundo e \(P_{3}\) na reta horizontal de \(P_{2}\)
+	(formam um triângulo), como as diferentes pressões relacionam-se?
+
+	Para os pontos 1 e 2, note que, por estarem na mesma vertical, a força atuando neles é a gravitacional apenas, ou seja,
+	\[
+		P_{2} - P_{1} = \frac{mg}{A} = \frac{\rho Ahg}{A} = \rho hg.
+	\]
+	Para os pontos 2 e 3, eles estão na mesma altura, então não há forças a serem compensadas, ou seja, \(P_{2} = P_{3}\).
+\end{example}
+O fenômeno da pressão em um fluído não depender do formato do recipiente que o contém é conhecido como paradoxo da hidrostática (recomendo pesquisar na internet pra ver uma imagem).
+
+\subsection{Medindo Pressões}
+\subsubsection{Pressão Barométrica}
+Considere um recipiente sob pressão P conectado uma mangueira com um fluído dentro e uma diferença entre as colunas d'água
+do topo da mangueira ao ponto que o líquido para dada por h. Suponha, também, que, fora do sistema, há uma pressão atmosférica \(P_{atm}\).
+Então, a pressão do recipiente será dada por
+\[
+	P = P_{atm} + \rho gh
+\]
+\subsubsection{Barômetro de Mercúrio}
+Tome um tubo de vidro submerso em mercúrio líquido, fazendo com que o mercúrio desça. A parte que o mercúrio não alcança fica um vácuo, ou seja, com pressão 0.
+Com isso, é possível calcular a pressão do exterior do vidro utilizando o tamanho da coluna de mercúrio, h:
+\[
+	P = \rho_{Hg}gh.
+\]
+Utilizando este método no nível do mar, foi possível estimar que \(1atm = 760mmHg\).
+
+\subsection{A Pressão Variando com Altura}
+Vamos chamar de z uma certa altura de atmosfera. Consideramos uma parte dela, sofrendo pressão P(z) por baixo e P(z+dz) por cima. Essa parte tem área A, espessura dz e sofre
+da força gravitacional por mg. Analisando esse sistema,
+\[
+	[P(z) - P(z+dz)]A = mg.
+\]
+Utilizando \(m = Adz\rho \), temos
+\[
+	-[P(z+dz)-P(z)]A = Adz\rho g \Rightarrow dP = -\rho g dz.
+\]
+Relembrando o caso dos gases,
+\[
+	Pv = NkT \Rightarrow P = \rho kT \Rightarrow \frac{\rho }{P} = \frac{1}{kT} \Rightarrow \frac{\rho }{P}=\frac{\rho_{0}}{P_{0}},
+\]
+em que \(\rho_{0}\) e \(P_{0}\) são os valore no nível do mar. Assim, \(\rho = \rho_{0} \frac{P}{P_{0}}\) e, utilizando a relação descoberta,
+\[
+	dP = -\frac{\rho_{0}}{P_{0}}gPdz.
+\]
+Integrando esse resultado,
+\[
+	\int_{P_{0}}^{P}\frac{dP}{P} = \frac{\rho_{0}}{P_{0}}\int_{0}^{z}gdz \Rightarrow \ln{(P)}-\ln{(P_{0})} = -\frac{\rho_{0}}{P_{0}}gz.
+\]
+Manipulando e resolvendo para P, chega-se em
+\[
+	\hypertarget{pressure_decay}{\boxed{P = P_{0}e^{-\frac{\rho_{0}gz}{P_{0}}}}}
+\]
+Em outras palavras, o decaimento da pressão com a altura é exponencial.
+\begin{example}
+	Dado que \(\rho_{0} = 1.23\frac{kg}{m^{3}}\) é a densidade do ar e \(P_{0} = 1atm\), a altura necessária para a pressão valer metade do valor de \(P_{0}\) é \(h = 5.5km\)
+	Numa altura de um avião comercial, isto é, \(h=10km\), a pressão é \(P = \frac{P_{0}}{4}\).
+\end{example}
+
+\subsection{Princípio de Arquimedes}
+Ao entrar na água, nota-se que uma pessoa com um peso \(\vec{P}\) registrará numa balança um valor \(\vec{P}'\) menor que o registrado em terra. Isto deve-se graças ao empuxo,
+a reação que o líquido gera à força gravitacional. Para calcular este empuxo, toma-se a diferença entre a força peso e o peso aparente:
+\[
+	\vec{E} = \vec{F}_{g}-\vec{F}_{gap}.
+\]
+Quando não tem-se uma balança, podemos descrever o empuxo levando em conta, primeiramente, que o empuxo age em sentido oposto ao peso. Assim,
+\[
+	\vec{E} = \vec{P} = mg.
+\]
+Na expressão inicial, o peso aparente recebe o valor de \(\vec{F}_{gap}=\vec{F}_{g} - E\).
+\begin{example}
+	Para um anel de ouro com peso \(F_{g} = 0.158N\), após ser submerso, aparentou um peso aparente de \(\vec{F}_{gap}=0.15N\). Considerando que
+	\(\rho_{Au} = 19.3\frac{g}{cm^{3}},\) determine se o material do anel é realmente ouro.
+
+	Segue que, sendo \(m_{f}, \rho_{f}\) massa e densidade do fluído
+	\[
+		\frac{E}{F_{g}} = \frac{m_{f}g}{m_{A}g} = \frac{\rho_{f}V}{\rho_{Au}V} = \frac{\rho_{f}}{\rho_{Au}}.
+	\]
+	Com isso,
+	\[
+		\rho_{Au} = \rho_{f}\frac{F_{g}}{E} = \rho_{H_{2}O}\frac{F_{g}}{F_{g}-F_{gap}}=\rho_{H_{2}O}\frac{0.158}{0.158-0.15}\approx 20\frac{g}{cm^{3}}.
+	\]
+\end{example}
+\begin{example}
+	Após submergir uma pessoa, seu peso aparente é \(5\%\) do peso original. Considerando que a densidade da gordura é de
+	\(\rho_{g} = 0.9 \frac{g}{cm^{3}}\) e a densidade do resto é \(\rho_{r} = 1.1 \frac{g}{cm^{3}}\), qual é a massa de gordura da pessoa?
+
+	Temos
+	\[
+		\frac{\rho }{\rho_{H_{2}O}} = \frac{F_{g}}{F_{g}-F_{gap}} = \frac{F_{g}}{(1-0.05)F_{g}}\approx 1.05.
+	\]
+	Considerando que o volume total é a soma do volume da gordura com o do resto, segue que
+	\[
+		\frac{m_{T}}{\rho }= \frac{m_{g}}{\rho_{g}}+\frac{m_{r}}{\rho_{r}}.
+	\]
+	Como
+	\[
+		\left.\begin{array}{ll}
+			m_{g} = f_{g}m_{T} \\
+			m_{r} = f_{r}m_{T}
+		\end{array}\right\},
+	\]
+	obtemos \((m_{g}+m_{r}) = (f_{g}+f_{r})m_{T}.\) Desta forma, \(f_{g}+f_{r}=1\) e
+	\begin{align*}
+		 & \frac{m_{T}}{\rho } = \frac{f_{g}m_{T}}{\rho_{g}} + \frac{f_{r}m_{T}}{\rho_{r}}                                                                     \\
+		 & \frac{1}{\rho }=\frac{1}{\rho_{g}}f_{g} + \frac{(1-f_{g})}{\rho_{r}}                                                                                \\
+		 & \frac{1}{\rho }-\frac{1}{\rho_{r}}=\biggl(\frac{1}{\rho_{g}}-\frac{1}{\rho_{r}}\biggr)f_{g}                                                         \\
+		 & \frac{\frac{1}{\rho_{r}}\biggl(\frac{\rho_{r}}{\rho }-1\biggr)}{\frac{1}{\rho_{r}}\biggl(\frac{\rho_{r}}{\rho_{g}}-1\biggr)} = \rho_{g}\approx0,21.
+	\end{align*}
+\end{example}
+\end{document}
