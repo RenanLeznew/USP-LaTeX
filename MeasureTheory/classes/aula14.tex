@@ -7,5 +7,204 @@
 	\item Topologia.
 \end{itemize}
 \subsection{Felipe W. S. C. - Representação de Riesz}
+A ideia por trás deste seminário é construir medidas em espaços topológicos mais gerais. Inspiraremos-nos na construção da \(\sigma \)-álgebra de Borel para isso.
+Com efeito, denote por \(\mathcal{B}\) a \(\sigma \)-álgebra de Borel e suponha que \(\mu \) seja uma medida \(\sigma \)-finita em \((X, \mathcal{B})\). Se f é contínua em X, defina
+\[
+	L(f) = \int_{X}^{}fd\mu,
+\]
+a qual é linear e não-negativa se f for não-negativa. Nosso objetivo é mostrar a volta dessa afirmação.
+
+Para conseguirmos fazer isto, precisamos de mais hipótese sobre X. Começamos pedindo que X sempre seja tomado como espaço métrico compacto. Denotemos por
+\(\mathcal{C}(X)\) a coleção de funções contínuas, tal que \(f:X\rightarrow \mathbb{R}\). Também, coloque \(\mathcal{F}_{G}\), em que G é aberto, como o conjunto
+\[
+	\mathcal{F}_{G} = \{f\in \mathcal{C}(X): 0 \leq f \leq 1, \mathrm{supp}(f)\subseteq G\}.
+\]
+
+\begin{example}
+	Se X = [-2, 2], G = (-1, 1) e \(f(x) = (1-x^{2})^{+},\) então \(0 \leq f \leq \chi_{G},\) mas \(\mathrm{supp}(f) = [-1, 1]\not\subseteq G.\)
+\end{example}
+O motivo de pedir que X seja métrico é para que, se \(K\subseteq G\subseteq X\), em que K é compacto e G é aberto, então irá existir \(f\in \mathcal{F}_{G}\) tal que f é 1 em K. Além disso, se
+\[
+	f(x) = \biggl(1 - \frac{d(x, K)}{\delta/2}\biggr)^{+},\quad \delta  = \inf_{k\in K, g\in G ^{\complement}}\{d(k, g)\},
+\]
+então f terá o resultado esperado. Vale observar que, se X é um espaço de Hausdorff compacto no lugar um espaço métrico compacto, ainda podemos encontrar uma função f tal que \(f\in \mathcal{F}_{G}\) com \(f\geq \chi_{X}\) quando \(K\subseteq G,\) K é compacto e G é aberto. A existência desas função
+é consequência do \textit{Teorema de Urysohn}.
+\begin{prop*}
+	Suponha que K é compacto e \(K\subseteq G_1\cup \dotsc \cup G_{n},\) em que \(G_{i}\) são conjuntos abertos. Existem \(g_{i}\in \mathcal{F}_{G_{i}}\) para \(i= 1, 2, \dotsc , n\) tais que
+	\[
+		\sum\limits_{i=1}^{n}g_{i}(x) = 1
+	\]
+	se \(x\in K\). A coleção \(\{g_{i}\}\) é chamada de \textbf{partição da unidade} em K subordinada à cobertura \(\{G_{i}\}\).
+\end{prop*}
+\begin{proof*}
+	Seja \(x\in K.\) Então, x estará em pelo menos um \(G_{i}\). Conjunto feitos por um ponto sempre são compactos, o que implica que existe \(h_{x}\in \mathcal{F}_{G_{i}}\) tal que \(h_{x}(x) = 1.\) Seja \(N_{x} = \{y: h_{x}(y) > 0\}.\) Por continuidade de \(h_{x},\) \(N_{x}\) é aberto, x pertence a \(N_{x}\) e \(\overline{N}_{x}\subseteq G_{i}.\)
+	Consequentemente, a coleção \(\{N_{x}\}\) é uma cobertura aberta para o conjunto compacto K, ou seja, por compacidade, existe uma subcobertura finita \(\{N_{x_{1}},\dotsc ,N_{x_{m}}\}\). Para cada i, seja
+	\[
+		F_{i} = \bigcup_{j}^{}\{\overline{N_{x_{j}}}: \overline{N_{x_{j}}}\subseteq G_{i}\}
+	\]
+	Sendo a união finita de fechados, cada \(F_{i}\) é fechado e, por X ser compacto, \(F_{i}\) é compacto também. Temos \(F_{i}\subseteq G_{i}\). Vamos escolher \(f_{i}\in \mathcal{F}_{G_{i}}\) tal que \(f_{i}\) é 1 em \(F_{i}.\) Iremos, agora, definir funções \(g_{i}\in \mathcal{F}_{G_{i}}\) que satisfarão
+	a condição desejada. Coloque
+	\begin{align*}
+		 & g_1 = f_1                                    \\
+		 & g_2 = (1-f_1)f_2                             \\
+		 & \vdots                                       \\
+		 & g_n = (1-f_1)(1-f_2)\dotsc (1-f_{n-1})f_{n}.
+	\end{align*}
+	Note que \(g_1 + g_2 = 1 - (1-f_1)(1-f_2)\) e, por indução,
+	\[
+		g_1 + \dotsc + g_{n} =1 - (1-f_1)(1-f_2)\dotsc (1-f_{n}).
+	\]
+	Se \(x\in K\), então \(x\in N_{x_{j}}\) para algum j e, logo, \(x\in F_{i}\) para algum i. Portanto, \(f_{i}(x) = 1\), que implica que \(\sum\limits_{k=1}^{n}g_{k}(x) = 1\). \qedsymbol
+\end{proof*}
+\hypertarget{riesz_representation}{
+	\begin{theorem*}[Representação de Riesz]
+		Seja X um espaço métrico compacto e L uma função linear positiva em \(\mathcal{C}(X).\) Então, existe uma medida \(\mu \) em \((X, \mathcal{B})\) tal que
+		\[
+			L(f) = \int_{}^{}f(y)\mu (dy),\quad f\in \mathcal{C}(X).
+		\]
+	\end{theorem*}}
+Como X é compacto, tomando f identicamente igual 1 no teorema mostra que \(\mu \) é uma medida finita. Vejamos sua demonstração.
+\begin{proof*}
+	Se G é aberto, coloque
+	\[
+		\ell (G) = \sup_{}\{Lf: f\in \mathcal{F}_{G}\}
+	\]
+	e, para \(E\subseteq X\), seja
+	\[
+		\mu ^{*}(E) = \inf_{}\{\ell (G): E\subseteq G, G \text{ aberto}\}.
+	\]
+	\textbf{\underline{Afirmação}:} \(\mu ^{*}\) é uma medida exterior.
+
+	Com efeito, a única função em \(\mathcal{F}_{\emptyset }\) é a função zero, tal que \(\ell (\emptyset ) = 0\) e, consequentemente, \(\mu ^{*}(\emptyset ) = 0\). Além disso, se \(A\subseteq B\), por propriedades do ínfimo, temos
+	\[
+		\mu ^{*}(A) \leq \mu ^{*}(B).
+	\]
+	Para a subaditividade contável de \(\mu ^{*},\) primeiramente, consideramos os conjuntos abertos \(G_1, G_2, \dotsc \). Para qualquer conjunto aberto H, temos \(\mu ^{*}(H) = \ell (H).\) Agora, defina
+	\(G = \cup_{i}G_{i}\) e tome f como um elemento de \(\mathcal{F}_{G}.\) Denotando o suporte de f por K, teremos a compacidade de K, uma cobertura aberta para K dada por \(\{G_{i}\}\) e, desta forma, um n tal que \(K \subseteq \bigcup_{i=1}^{n}G_{i}.\)
+	Seja, então, \(\{g_{i}\}\) uma partição da unidade para K subordinado a \(\{G_{i}\}_{i=1}^{n}.\) Por K ser o suporte de f, temos \(f = \sum\limits_{i=1}^{n}fg_{i}\) e, como \(g_{i}\in \mathcal{F}_{G_{i}}\) e f é limitada por 1, vale que \(fg_{i}\in \mathcal{F}_{G_{i}}.\) Logo,
+	\[
+		Lf = \sum\limits_{i=1}^{n}L(fg_{i}) \leq \sum\limits_{i=1}^{n}\mu ^{*}(G_{i})\leq \sum\limits_{i=1}^{\infty}\mu^{*}(G_{i}).
+	\]
+	Tomando o supremo sobre \(f\in \mathcal{F}_{G},\)
+	\[
+		\mu ^{*}(G) = \ell (G) \leq \sum\limits_{i=1}^{\infty}\mu^{*}(G_{i}).
+	\]
+	Sendo assim, se \(A_1, A_2, \dotsc \) são subconjuntos de X, seja \(\varepsilon > 0\) e \(G_{i}\) aberto tal que \(\ell (G_{i})\leq \mu ^{*}(A_{i}) + \varepsilon 2^{-i}.\) Então,
+	\[
+		\mu ^{*}\biggl(\bigcup_{i=1}^{\infty}A_{i}\biggr) \leq \mu ^{*}\biggl(\bigcup_{i=1}^{\infty}G_{i}\biggr) \leq \sum\limits_{i=1}^{\infty}\mu ^{*}(G_{i}) \leq \sum\limits_{i=1}^{\infty}\mu ^{*}(A_{i}) + \varepsilon .
+	\]
+	Como \(\varepsilon \) é arbitrário, segue que \(\mu ^{*}\) é medida exterior.
+
+	\textbf{\underline{Afirmação}:} Todo conjunto aberto é \(\mu^{*} \)-mensurável.
+	De fato, suponha G aberto e \(E\subseteq X.\) É suficiente mostrar que
+	\[
+		\mu ^{*}(E) \geq \mu ^{*}(E\cap G) + \mu ^{*}(E\cap G ^{\complement}),
+	\]
+	já que o outro lado da desigualdade vale pela subaditividade contável de \(\mu ^{*}\). Primeiramente, suponha que E é aberto e escolha \(f\in \mathcal{F}_{E\cap G}\) tal que
+	\[
+		L(f) > \ell (E\cap G) - \frac{\varepsilon }{2}.
+	\]
+	Seja \(K = \mathrm{supp}(f).\) Como \(K ^{\complement}\) é aberto, podemos escolher \(g\in \mathcal{F}_{E\cap K ^{\complement}}\) tal que \(L(g) > \ell (E\cap K ^{\complement}) - \frac{\varepsilon }{2}.\) Então, \(f+ g\in \mathcal{F}_{E}\) e
+	\begin{align*}
+		\ell (E) \geq L(f+g) = Lf + Lg \geq & \ell (E\cap G) + \ell (E\cap K ^{\complement}) - \varepsilon             \\
+		                                    & = \mu ^{*}(E\cap G) + \mu ^{*}(E\cap K ^{\complement}) - \varepsilon     \\
+		                                    & \geq \mu^{*}(E\cap G) + \mu ^{*}(E\cap G ^{\complement}) - \varepsilon .
+	\end{align*}
+	Como \(\varepsilon \) é arbitrário, então, provamos que a desigualdade é verdadeira quando E é aberto. Para ver que ela também ocorre para um conjunto qualquer do conjunto, seja \(\varepsilon > 0\) e
+	escolha H aberto tal que \(E\subseteq H\) e \(\ell (G) < \mu ^{*}(E) + \varepsilon .\) Então,
+	\begin{align*}
+		\mu ^{*}(E) + \varepsilon \geq \ell (H) = \mu ^{*}(H) & \geq \mu ^{*}(H\cap G) + \mu ^{*}(H\cap G ^{\complement})  \\
+		                                                      & \geq \mu ^{*}(E\cap G) + \mu ^{*}(E\cap G ^{\complement}).
+	\end{align*}
+	Novamente, como \(\varepsilon \) foi escolhido arbitrariamente, a desigualdade é, então, válida.
+
+	\textbf{\underline{Afirmação}:} Existe uma medida \(\mu \) construída a partir de \(\mu ^{*}\) que satisfaça o teorema.
+	Para isso, relembremos o resultado do \hyperlink{caratheodory}{\textit{Teorema de Caratheodory}}. A partir dele, segue que
+	a restrição de \(\mu ^{*}\) à coleção de conjuntos \(\mu ^{*}\)-mensuráveis é uma medida, \(\mu \). Além disso, \(\mathcal{A}\) contém todos os conjuntos nulos.
+	Assim, se \(\mathcal{B}\) denota uma Borel \(\sigma \)-álgebra em X, a restrição \(\mu \coloneqq \mu ^{*}|_{\mathcal{B}}\) é a medida em \(\mathcal{B}\). Em particular,
+	para qualquer aberto G, \(\mu (G) = \mu ^{*}(G) = \ell (G).\) \qedsymbol
+
+	\textbf{\underline{Afirmação}:} Se K é compacto, \(f\in \mathcal{C}(X)\) e \(f \geq \chi_{K},\) então \(L(f) \geq \mu (K).\)
+	Realmente, seja \(\varepsilon  > 0\) e defina
+	\[
+		G = \{x: f(x) > 1 - \varepsilon \},
+	\]
+	que é aberto. Se \(g\in \mathcal{F}_{G},\) tal que \(g \leq \chi_{G}\leq \frac{f}{1-\varepsilon }\), então
+	\[
+		(1-\varepsilon )^{-1}f - g\geq 0.
+	\]
+	Como L é um funcional linear positivo,
+	\[
+		L((1-\varepsilon )^{-1}f - g)\geq 0,
+	\]
+	o que leva à conclusão de que \(Lg \leq \frac{Lf}{1-\varepsilon }\). Como g foi escolhido arbitrariamente, isto vale para todos os g's da coleção, do que segue que
+	\[
+		\mu (K) \leq \mu (G) \leq \frac{Lf}{1-\varepsilon }.
+	\]
+	Logo, como \(\varepsilon \) é arbitrário, \(\mu (K) \leq Lf\). \qedsymbol
+
+	Com todos estes passos em mãos, podemos dar continuidade à prova do teorema. Escrevendo \(f = f^{+}-f^{-}\) e usando a linearidade de L, podemos supor \(f \geq 0\). Como X é compacto, f é limitado e, multiplicando por uma
+	constante junto da linearidade, podemos assumir que \(0\leq f\leq 1.\)
+
+	Agora, seja \(n\geq 1\) e \(K_{i} = \{x: f(x)\geq i/n\}\). Pela continuidade da f, cada \(K_{i}\) é um conjunto fechado e, então, compacto. Colocando \(K_{0}\) como todo o X, defina
+	\[
+		f_{i}(x) = \left\{\begin{array}{ll}
+			0,                    & \quad x\in K_{i-1}^{\complement};   \\
+			f(x) - \frac{i-1}{n}, & \quad x\in K_{i-1}\setminus{K_{i}}; \\
+			\frac{1}{n},          & \quad x\in K_{i}.
+		\end{array}\right.
+	\]
+	Note que \(f = \sum\limits_{i=1}^{n}f_{i}\) e \(\chi_{K_{i}} \leq nf_{i} \leq \chi_{K_{i-1}}.\) Sendo assim,
+	\[
+		\frac{\mu (K_{i})}{n}\leq \int_{}^{}f_{i}d\mu \leq \frac{\mu (K_{i-1})}{n},
+	\]
+	donde obtemos
+	\[
+		\frac{1}{n}\sum\limits_{i=1}^{n}\mu (k_{i})\leq \int_{}f d\mu_{}\leq \frac{1}{n}\sum\limits_{i=0}^{n-1}\mu (K_{i}).
+	\]
+	Seja, novamente, \(\varepsilon > 0\) e G um aberto contendo \(K_{i-1}\) tal que \(\mu (G) < \mu (K_{i-1}) + \varepsilon .\) Então, \(nf_{i}\in \mathcal{F}_{G}\) e
+	\[
+		L(nf_{i}) \leq \mu (G) \leq \mu (K_{i-1})+\varepsilon .
+	\]
+	Como escolhemos \(\varepsilon \) arbitrariamente, \(l(f_{i}) \leq \mu (K_{i-1})/n\). Utilizando que \(L(nf_{i}) \geq \mu (K_{i})\), chegamos na estimativa
+	\[
+		\frac{1}{n}\sum\limits_{i=1}^{n}\mu (K_{i}) \leq L(f) \leq \frac{1}{n}\sum\limits_{i=0}^{n-1}\mu (K_{i}).
+	\]
+	Comparando as duas estimativas obtidas, vemos que
+	\[
+		\biggl\vert L(f) - \int_{}^{}fd\mu  \biggr\vert \leq \frac{\mu (K_{0}) - \mu (K_{n})}{n} \leq \frac{\mu (X)}{n}.
+	\]
+	Portanto, utilizando que \(\mu (X) = L(1) < \infty\) e que n é arbitrário, segue o resultado. \qedsymbol
+\end{proof*}
+\begin{example}
+	Se f for contínua no intervalo [a, b] e L(f) for a integral de Riemann de f no intervalo [a, b], então L é um funcional linear positivo em \(\mathcal{C}([a, b]).\) Neste caso, a medida cuja existência é dada pelo Teorema de Representação de Riesz
+	é a medida de Lebesgue.
+\end{example}
+Vale observar que, em um espaço métrico (não necessariamente compacto), uma função contínua f se anula no infinito se, dado \(\varepsilon  > 0\), existe um conjunto compacto K tal que \(|f(x)| < \varepsilon \) se \(x\not\in K\). Denotamos o conjunto destas funções contínuas por \(\mathcal{C}_{0}(X)\), e há
+uma versão do Teorema da Representação de Riesz para \(\mathcal{C}_{0}(X).\)
+\begin{prop*}
+	Suponha que X seja um espaço métrico compacto, \(\mathcal{B}\) a \(\sigma \)-álgebra de Borel e \(\mu \) uma medida finita no espaço mensurável \((X, \mathcal{B}).\) Se \(E\in \mathcal{B}\) e \(\varepsilon  > 0\), existe um conjunto \(K\subseteq E\subseteq G\) tal que K é compacto, G é aberto, e
+	\[
+		\mu (G\setminus{E}) < \varepsilon \quad\&\quad \mu (E\setminus{K})<\varepsilon .
+	\]
+\end{prop*}
+Nesta proposição, K e G dependem de \(\varepsilon \) e de E.
+\begin{def*}
+	Uma medida \(\mu \) é \textbf{regular} se
+	\[
+		\mu (E) = \inf_{}\{\mu (G): G \text{ aberto, } E \subseteq G\}\quad\&\quad \mu (E) = \sup_{}\{\mu (K): K \text{ compacto, }K\subseteq E\}. \quad \square
+	\]
+\end{def*}
+\begin{prop*}
+	Suponha que I seja um funcional linear limitado em \(\mathcal{C}(X)\). Então, existem funcionais lineares positivos J e K tais que \(I = J\setminus{K}.\)
+\end{prop*}
+Utilizando, então, o \hyperlink{riesz_representation}{\textit{Teorema da Representação de Riesz}} para funcionais lineares limitados a valores reais, temos o resultado
+\begin{theorem*}
+	Se X é um espaço métrico compacto e I é um funcional linear limitado em \(\mathcal{C}(X),\) existe uma medida com sinal \(\mu \) em uma Borel \(\sigma \)-álgebra tal que
+	\[
+		I(f) = \int_{}f d\mu_{}
+	\]
+	para cada f em \(\mathcal{C}(X).\)
+\end{theorem*}
 \subsection{Claudinei C. J. - Topologia}
 \end{document}

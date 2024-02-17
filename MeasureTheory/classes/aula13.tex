@@ -28,7 +28,523 @@ Definimos \(\Vert x \Vert = \left< x, x \right>^{\frac{1}{2}},\) tal que \(\left
 			|\left< x, y \right>|\leq \Vert x \Vert \Vert y \Vert.
 		\]
 	\end{theorem*}}
+\begin{proof*}
+	Seja \(A = \Vert x \Vert^{2}, B = |\left< x, y \right>|\) e \(C = \Vert y \Vert^{2}\). Se \(C = 0,\) então \(y=0\) e \(\left< x, y \right> = 0\), tal que a Desigualdade continua verdadeira. Se B for 0,
+	é um caso óbvio. Consequentemente, podemos assumir que \(C > 0\) e \(B\neq 0\).
+
+	Caso \(\left< x, y \right> = R e^{i\theta },\) tome \(\alpha  = e^{i\theta }\), tal que \(|\alpha| = 1\) e \(\alpha \left< y, x \right> = |\left< x, y \right>| = B.\) Como B é real, vale que \(\overline{\alpha }\left< x, y \right> = \alpha \left< x, y \right> = |\left< x, y \right>|\). Assim,
+	dado \(r\in \mathbb{R},\)
+	\begin{align*}
+		0 & \leq \Vert x-r\alpha y \Vert^{2}                                                                                        \\
+		  & =\left< x-r\alpha y, x-r\alpha y \right>                                                                                \\
+		  & = \left< x, x \right> - r\alpha \left< y, x \right> - r\overline{\alpha }\left< x, y \right> + r^{2}\left< y, y \right> \\
+		  & = \Vert x \Vert^{2} - 2r|\left< x, y \right>| + r^{2}\Vert y \Vert^{2}.
+	\end{align*}
+	Desta forma,
+	\[
+		A - 2Br + Cr^{2} \geq 0
+	\]
+	para todo r real. Como supomos que \(C > 0\), faz sentido tomarmos \(r = \frac{B}{C}\), tal que obtemos \(B^{2} \leq AC.\) Portanto,
+	\[
+		\sqrt[]{B^{2}}\leq \sqrt[]{AC} \Longleftrightarrow |\left< x, y \right>|\leq \Vert x \Vert\Vert y \Vert.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Um caso particular, resultando da Desigualdade de Cauchy-Schwarz, é a \textit{desigualdade triangular}.
+\begin{prop*}
+	Para todo x, y em H, temos
+	\[
+		\Vert x + y \Vert \leq \Vert x \Vert + \Vert y \Vert.
+	\]
+\end{prop*}
+\begin{proof*}
+	Basta notar que
+	\begin{align*}
+		\Vert x + y \Vert^{2} & = \left< x + y, x + y \right>                                                                                   \\
+		                      & = \left< x, x \right> + \left< x, y \right> + \left< y, x \right> + \left< y, y \right>                         \\
+		                      & \leq \Vert x \Vert^{2} + 2\Vert x \Vert\Vert y \Vert + \Vert y \Vert^{2} = (\Vert x \Vert + \Vert y \Vert)^{2},
+	\end{align*}
+	como queríamos. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Um \textbf{espaço de Hilbert}, H, é um espaço de produto interno completo com respeito à métrica induzida pela norma, \(d(x, y) = \Vert x-y \Vert.\quad \square\)
+\end{def*}
+\begin{example}
+	Seja \(\mu \) uma medida positiva em um conjunto X e tome \(H = L^{2}(\mu )\). Defina
+	\[
+		\left< f, g \right> = \int_{}^{}f \overline{g} d\mu .
+	\]
+	Então, H é um espaço de Hilbert com este produto interno.
+	Se \(\mu \) for uma medida de contagem nos número naturais, então \(L^{2}(\mu )\) é um espaço levemente diferente, denotado por \(\ell ^{2}.\) Um elemento em \(\ell ^{2}\) é uma sequência \(a = (a_1, a_2, \dotsc )\)
+	tal que \(\sum\limits_{n=1}^{\infty}|a_{n}|^{2} < \infty\) e que, se \(b = (b_1, b_2, \dotsc ),\) então
+	\[
+		\left< a,  b \right> = \sum\limits_{n=1}^{\infty}a_{n}\overline{b_{n}}.
+	\]
+	Além destes dois, podemos pedir que \(\mu \) seja uma medida de contagem sobre um conjunto de n elementos, o que resultaria em H ser o espaço euclidiano de dimensão n.
+\end{example}
+\begin{prop*}
+	Seja \(y\in H\) fixo. Então, as funções \(x\mapsto \left< x, y \right>\) e \(x\mapsto \Vert x \Vert\) são contínuas.
+\end{prop*}
+\begin{proof*}
+	Pela \hyperlink{cauchy_schwarz}{\textit{Desigualdade de Cauchy-Schwarz}},
+	\[
+		|\left< x, y \right> - \left< x', y \right>| = |\left< x -x', y \right>|\leq \Vert x - x' \Vert\Vert y \Vert,
+	\]
+	provando a continuidade de \(x\mapsto \left< x, y \right>\). Agora, pela desigualdade triangular,
+	\[
+		\Vert x \Vert \leq \Vert x-x' \Vert + \Vert x' \Vert \Longleftrightarrow \Vert x \Vert - \Vert x' \Vert \leq \Vert x-x' \Vert.
+	\]
+	Com isso,
+	\[
+		|\Vert x \Vert - \Vert x' \Vert| \leq \Vert x-x' \Vert.
+	\]
+	Portanto, a função \(x\mapsto \Vert x \Vert\) é contínua. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Um subconjunto M de um espaço vetorial é chamado de \textbf{subespaço} se M em si for um espaço vetorial com as mesmas operações de soma e multiplicação por escalar. Um
+	\textbf{subespaço fechado} é um subespaço que é, também, um conjunto fechado com respeito à métrica induzida pelo produto interno \(\left< \cdot , \cdot  \right>.\quad \square\)
+\end{def*}
+Nem todo subespaço é fechado. Vejamos isto no exemplo a seguir
+\begin{example}
+	Considere \(\ell ^{2}\) e seja M a coleção de sequência que é nula para todos os índices, menos uma quantidade finita deles. Seja \(x_{n} = \biggl(1, \frac{1}{2}, \dotsc , \frac{1}{n}, 0, 0, \dotsc \biggr)\) e \(x =
+	\biggl(1, \frac{1}{2}, \frac{1}{3}, \dotsc \biggr)\) dois elementos de \(\ell ^{2}\). Então, cada \(x_{n}\in M\), mas x não pertence a M, pois ele possui infinitos termos não nulos. Consequentemente, M não é fechado, pois
+	\[
+		\lim_{n\to \infty}\Vert x_{n} - x \Vert^{2} = \lim_{n\to \infty} \sum\limits_{j=n+1}^{\infty}\frac{1}{j^{2}} = 0.
+	\]
+\end{example}
+Outra propriedade interessante das normas induzidas por produtos internos e que está presente nos espaços de Hilbert é a \hypertarget{parallelogram}{\textit{regra do paralelogramo}}
+\[
+	\Vert x+y \Vert^{2} + \Vert x-y \Vert^{2} = 2\Vert x \Vert^{2} + 2\Vert y \Vert^{2}.
+\]
+\begin{def*}
+	Um conjunto \(E\subseteq H\) é dito \textbf{convexo} se \(\lambda x + (1-\lambda )y\in E\) para quaisquer \(0\leq \lambda \leq 1\) e \(x, y\in E.\quad \square\)
+\end{def*}
+\begin{prop*}
+	Todos os conjuntos não-vazios, fechados e convexos E de H possuem um elemento cuja norma é a menor de todas.
+\end{prop*}
+\begin{proof*}
+	Seja \(\delta = \inf_{}\{\Vert x \Vert: x\in E\}\). Se \(x, y\in E\), podemos dividir a expressão da regra do paralelogramo por 4 para obter
+	\[
+		\frac{1}{4}\Vert x-y \Vert^{2} = \frac{1}{2}\Vert x \Vert^{2} + \frac{1}{2}\Vert y \Vert^{2} - \biggl\Vert \frac{x+y}{2}\biggr\Vert^{2}.
+	\]
+	Por convexidade de E, dados \(x, y \in E\), \((x+y)/2\) sempre pertencerá ao conjunto E. Sendo assim,
+	\[
+		\Vert x-y \Vert^{2} \leq 2\Vert x \Vert^{2} + 2\Vert y \Vert^{2} - 4\delta ^{2}.
+	\]
+	Agora, escolhemos \(y_{n}\in E\) tal que \(\Vert y_{n} \Vert\to \delta .\) Consequentemente,
+	\[
+		\Vert y_{n} - y_{m} \Vert^{2} \leq 2\Vert y_{n} \Vert^{2} + 2\Vert y_{m} \Vert^{2} - 4\delta ^{2},
+	\]
+	mas o lado direito tende a 0 conforme m e n tendem a infinito. Isto implica que \(y_{n}\) é uma sequência de Cauchy e, por completude de H, converge para algum y dentro de H.
+	Como \(y_{n}\in E\) e E é fechado, \(y\in E\) e, por continuidade da norma, \(\Vert y \Vert = \lim_{n\to \infty}\Vert y_{n} \Vert = \delta .\)
+
+	Quanto à unicidade, dado outro ponto \(y'\) com \(\Vert y' \Vert = \delta ,\) então \(\Vert y - y' \Vert = 0\) e, portanto, \(y = y'\). \qedsymbol
+\end{proof*}
+\begin{def*}
+	Diremos que x é \textbf{ortogonal} a y se \(\left< x,  y \right> = 0.\) Denotamos o conjunto de todos os elementos y ortogonais a um elemento x por
+	\[
+		x^{\perp }\coloneqq \{y\in X: \left< x, y \right> = 0\}.
+	\]
+	O \textbf{complemento ortogonal} de M, denotado por \(M^{\perp },\) é definido como
+	\[
+		M^{\perp } =  \{y\in X: \left< y, x \right> = 0 \forall x\in M\}.
+	\]
+\end{def*}
+Como \(x^{\perp } = f^{-1}(\{0\}),\) em que \(f(x) = \left< x, y \right>\) é contínua, vale que \(x^{\perp }\) é um subespaço fechado de H. Além disso, \(M^{\perp }\) também é um subespaço fechado, já que
+\[
+	M^{\perp } = \bigcap_{x\in M}^{}x^{\perp }.
+\]
+Observe que, se \(z\in M\cap M^{\perp }\), então
+\[
+	\Vert z \Vert^{2} = \left< z, z \right> = 0 \Rightarrow z = 0.
+\]
+\begin{lemma*}
+	Seja M um subespaço fechado de H com \(M\neq H\). Então, \(M^{\perp }\) contém um elemento não-nulo.
+\end{lemma*}
+\begin{proof*}
+	Escolha \(x\in H\) com \(x\not\in M\). Seja \(E = \{w - x: w\in M\},\) o qual é convexo e fechado como subconjunto de H. Por isso, sabe-se que existe um elemento \(y\in E\) cuja norma
+	é a menor de todas. Observe que \(y+x\in M\), donde concluímos que \(y\neq 0\) já que \(x\not\in M\). Com isto, o próximo passo é mostrar que, dado \(w\in M\), \(\left< w, y \right> = 0\), o que
+	significa que \(y\in M^{\perp }\).
+
+	Isto é óbvio caso \(w = 0\), então podemos supro que \(w\neq 0.\) Sabe-se que \(y+x\in M\), tal que, dado qualquer \(t\in \mathbb{R},\) temos \(tw + (y+x)\in M\). Assim,
+	\[
+		tw + (y+x) - x = tw + y\in E
+	\]
+	por definição de E. Como y é o elemento de E com menor norma,
+	\begin{align*}
+		\left< y, y \right> = \Vert y \Vert^{2} & \leq \Vert tw+y \Vert^{2}                                                             \\
+		                                        & = \left< tw + y, tw + y \right>                                                       \\
+		                                        & = t^{2}\left< w, w \right> + 2t \mathrm{Re}\left< w, y \right> + \left< y, y \right>,
+	\end{align*}
+	o que implica que, para todo t real,
+	\[
+		t^{2}\left< w, w \right> + 2t \mathrm{Re}\left< w, y \right>\geq 0.
+	\]
+	Em particular, tome \(t = -\mathrm{Re}\biggl(\frac{\left< w, y \right>}{\left< w, w \right>}\biggr)\). Chegamos em
+	\[
+		-\frac{|\mathrm{Re}\left< w, y \right>|^{2}}{\left< w, w \right>}\geq 0,
+	\]
+	donde segue que \(\mathrm{Re}\left< w, y \right> = 0\).
+
+	Resta mostrar que o mesmo vale para números imaginários. Sendo assim, como \(w\in M\), \(iw\in M\) e, repetindo o mesmo argumento para iw no lugar de w, temos \(\mathrm{Re}\left< iw, y \right> = 0,\) de forma que
+	\[
+		\mathrm{Im}\left< w, y \right> = - \mathrm{Re}(i \left< w, y \right>) = -\mathrm{Re}\left< iw, y \right> = 0.
+	\]
+	Portanto, \(\left< w, y \right> = 0\). \qedsymbol
+\end{proof*}
+Em particular, a prova deste resultado fornece uma ferramenta que permite-nos escrever cada elemento de H unicamente como a soma de um elemento de M e um de \(M^{\perp }\). Sendo mais específico, colocando
+\[
+	Px = y + x\quad\&\quad Qx = -y
+\]
+na prova feita, então \(Px\in M\) e \(Qx\in M^{\perp }\), tal que \(x = Px + Qx\). Os termos \(Px\) e \(Qx\) são conhecidos como \textbf{projeções ortogonais} de x sobre M e \(M^{\perp }\), respectivamente. Para ver a unicidade, se
+\[
+	x = z + z',\quad z\in M,\quad z'\in M^{\perp },
+\]
+então \(Px - z = z' - Qx\) é um elemento tanto de M quanto de \(M^{\perp },\) o que significa que ambos os lados da igualdade são nulos. Logo, \(z = Px\) e \(z'=Qx.\)
+\begin{theorem*}
+	Se L é um funcional linear limitado em H, então existe um único y em H tal que \(Lx = \left< x, y \right>.\)
+\end{theorem*}
+\begin{proof*}
+	Supondo que tenhamos provado a existência, a unicidade segue automaticamente. Se \(Lx = \left< x, y \right> = \left< x, y' \right>\), então \(\left< x, y - y' \right> = 0\) para todos os x. Em particular, até mesmo para
+	\(x = y - y'.\)
+
+	Com relação à existência, se \(Lx = 0\) para todo x, fazemos \(y = 0\). Caso contrário, tome
+	\[
+		M = \{x: Lx = 0\},
+	\]
+	\(z\neq 0\) em \(M^{\perp }\) e \(y = \alpha z\), em que \(\alpha  = \frac{\overline{Lz}}{\left< z, z \right>}.\) Note que \(y\in M^{\perp }\),
+	\[
+		Ly = \frac{\overline{Lz}}{\left< z, z \right>}Lz = \frac{|Lz|^{2}}{\left< z, z \right>} = \left< y, y \right>
+	\]
+	e que \(y\neq 0.\) Se \(x\in H\) e
+	\[
+		w = x - \frac{Lx}{\left< y, y \right>}y,
+	\]
+	então \(Lw = 0\), o que significa que \(w\in M\) e, além disso, \(\left< w, y \right> = 0\). Portanto,
+	\[
+		\left< x, y \right> = \left< x - w, y \right> = Lx. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{def*}
+	Um subconjunto \(\{u_{\alpha }\}_{\alpha \in A}\) de H é \textbf{ortonormal} se \(\Vert u_{\alpha } \Vert = 1\) para todo \(\alpha \) e \(\left< u_{\alpha }, u_{\beta } \right> = 0\) sempre que \(\alpha , \beta \in A\) e que eles são escalares distintos. \(\square\)
+\end{def*}
+Vale mencionar que o processo de ortonormalização de Gram-Schmidt vale, também, em dimensão infinita. Com efeito, suponha que \(\{x_{n}\}_{n=1}^{\infty}\) é uma sequência linearmente indepedente, o que quer dizer que não há combinação linear finita de \(x_{n}\)'s que vala 0. Coloque
+\(u_1 = \frac{x_1}{\Vert x_1 \Vert}\) e defina, indutivamente,
+\[
+	v_{N} = x_{N} - \sum\limits_{i=1}^{n-1}\left< x_{N}, u_{i} \right>u_{i},\quad u_{N} = \frac{v_{N}}{\Vert v_{N} \Vert}.
+\]
+Deste modo, temos \(\left< v_{N}, u_{i} \right> = 0\) se \(i < N\). Portanto, \(u_1, \dotsc , u_{N}\) são ortonormais.
+
+Uma propriedade boa que conjuntos ortonormais possuem é que, para qualquer elemento x do espaço de Hilbert, apenas uma quantidade finita de termos é relevante na soma
+\[
+	\sum\limits_{\alpha \in A}^{}|\left< x, u_{\alpha } \right>|^{2}\leq \Vert x \Vert^{2}.
+\]
+Esta desigualdade recebe o nome especial de \hypertarget{bessel_inequality}{\textit{Desigualdade de Bessel}}. Formalmente,
+\begin{prop*}
+	Se \(\{u_{\alpha }\}_{\alpha \in A}\) é um conjunto ortonormal, então, para cada x em H,
+	\[
+		\sum\limits_{\alpha \in A}^{}|\left< x, u_{\alpha } \right>|^{2}\leq \Vert x \Vert^{2}.
+	\]
+\end{prop*}
+\begin{proof*}
+	Seja F um subconjunto finito de A e
+	\[
+		y = \sum\limits_{\alpha \in F}^{}\left< x, u_{\alpha } \right>u_{\alpha }.
+	\]
+	Então,
+	\[
+		0 \leq \Vert x-y \Vert^{2} = \Vert x \Vert^{2}-\left< x, y \right> - \left< y, x \right> + \Vert y \Vert^{2}.
+	\]
+	Em particular,
+	\[
+		\left< y, x \right> = \biggl< \sum\limits_{\alpha\in F }^{}\left< x, u_{\alpha } \right>u_{\alpha }, x \biggr> = \sum\limits_{\alpha \in F}^{}\left< x, u_{\alpha } \right>\left< u_{\alpha }, x \right> = \sum\limits_{\alpha \in F}^{}|\left< x, u_{\alpha } \right>|^{2}.
+	\]
+	Como isto é um número real, \(\left< x, y \right> = \left< y, x \right>\). Além disso, como \(\{u_{\alpha }\}\) é um conjunto ortonormal
+	\begin{align*}
+		\Vert y \Vert^{2} = \left< y, y \right> & = \biggl<\sum\limits_{\alpha \in F}^{}\left< x, u_{\alpha } \right>u_{\alpha } , \sum\limits_{\beta \in F}^{}\left< x, u_{\beta } \right>u_{\beta } \biggr> \\
+		                                        & = \sum\limits_{\alpha , \beta \in F}^{}\left< x, u_{\alpha } \right>\overline{\left< x, u_{\beta } \right>}\left< u_{\alpha }, u_{\beta } \right>           \\
+		                                        & = \sum\limits_{\alpha \in F}^{}|\left< x, u_{\alpha } \right>|^{2}.
+	\end{align*}
+	Logo,
+	\[
+		0\leq \Vert y-x \Vert^{2} = \Vert x \Vert^{2} - \sum\limits_{\alpha \in F}^{}|\left< x, u_{\alpha } \right>|^{2}.
+	\]
+	Isolando os termos entre a desigualdade,
+	\[
+		\sum\limits_{\alpha \in F}^{}|\left< x, u_{\alpha } \right>|^{2}\leq \Vert x \Vert^{2}.
+	\]
+	Se N é um inteiro maior que \(n \Vert x \Vert^{2},\) então não ocorrerá \(|\left< x, u_{\alpha } \right>|^{2}> 1/n\) para mais do que N termos dos \(\alpha \)'s. Destarte,
+	\(|\left< x, u_{\alpha } \right>|^{2}\neq 0\) apenas para uma quantidade enumerável de \(\alpha \). Chamando-os de \(\alpha _1, \alpha _2, \dotsc \), chegamos que
+	\[
+		\sum\limits_{\alpha \in A}^{}|\left< x, u_{\alpha } \right>|^{2} = \sum\limits_{j=1}^{\infty}|\left< x, u_{\alpha_{j}} \right>|^{2} = \lim_{m\to \infty}\sum\limits_{j=1}^{m} \leq \Vert x \Vert^{2}.
+	\]
+	Portanto,
+	\[
+		\sum\limits_{\alpha \in A}^{}|\left< x, u_{\alpha } \right>|^{2} \leq \Vert x \Vert^{2}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Suponha que \(\{u_{\alpha }\}_{\alpha \in A}\) é ortonormal. São equivalentes:
+	\begin{itemize}
+		\item[1)] Se \(\left< x, u_{\alpha } \right> = 0\) para cada \(\alpha \in A\), então x = 0;
+		\item[2)] Para todo x, \(\Vert x \Vert^{2} = \sum\limits_{\alpha \in A}^{}|\left< x, u_{\alpha } \right>|^{2}\);
+		\item[3)] Para cada x em H, \(x = \sum\limits_{\alpha \in A}^{}\left< x, u_{\alpha } \right>u_{\alpha }\).
+	\end{itemize}
+\end{prop*}
+Antes da prova, valem alguns comentários. Quando a primeira propriedade é verdadeira, diremos que o conjunto ortonormal é \textbf{completo}. O item 2 é conhecido como a \textit{identidade de Parseval}.
+No terceiro, lidamos com convergência com respeito à norma de H, o que impica que apenas uma quantidade enumerável de termos da soma é não nula.
+\begin{proof*}
+	\(1) \Rightarrow 3): \) Tome x em H. Pela \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel}}, existe apenas uma quantidade contável de \(\alpha \)'s tais que \(|\left< x, u_{\alpha } \right>|^{2}\neq 0\). Seja
+	\(\alpha_1, \alpha _2, \dotsc \) uma enumeração destes \(\alpha \)'s. Novamente, pela \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel}}, a série \(\sum\limits_{i=1}^{\infty}|\left< x, u_{\alpha_{i}} \right>|^{2}\) converge. Utilizando que \(\{u_{\alpha }\}\) é um conjunto ortonormal,
+	\begin{align*}
+		\biggl\Vert \sum\limits_{j=m}^{n}\left< x, u_{\alpha_{j}} \right>u_{\alpha_{j}}\biggr\Vert^{2} & = \sum\limits_{j, k = m}^{n}\left< x, u_{\alpha_{j}} \right>\overline{\left< x, u_{\alpha_{k}} \right>}\left< u_{\alpha_{j}}, u_{\alpha_{k}} \right> \\
+		                                                                                               & = \sum\limits_{j=m}^{n}|\left< x, u_{\alpha_{j}} \right>|^{2}\to 0
+	\end{align*}
+	quando m e n tendem a infinito. Assim, \(\sum\limits_{j=1}^{n}\left< x, u_{\alpha_{j}} \right>u_{\alpha_{j}}\) é uma sequência de Cauchy, significando sua convergência. Tome \(z = \sum\limits_{j=1}^{\infty}\left< x, u_{\alpha_{j}} \right>u_{\alpha_{j}}.\) Então,
+	\(\left< z-x, u_{\alpha_{j}} \right> = 0\) para todo \(\alpha_{j}\). Logo, \(z-x = 0.\)
+
+	\(3)\Rightarrow 2):\) Segue da relação
+	\[
+		\Vert x \Vert^{2} - \sum\limits_{j=1}^{n}|\left< x, u_{\alpha_{j}} \right>|^{2} = \biggl\Vert x - \sum\limits_{j=1}^{n}\left< x, u_{\alpha_{j}} \right>u_{\alpha_{j}}\biggr\Vert^{2}\to 0.
+	\]
+
+	Por fim, que 2 implica 1 é automático. \qedsymbol
+\end{proof*}
+\begin{example}
+	Tome \(H = \ell ^{2} = \{x = (x_1, x_2, \dotsc ): \sum\limits_{}^{}|x_{i}|^{2} < \infty\}\) com \(\left< x, y \right> = \sum\limits_{i}^{}x_{i}\overline{y_{i}}\). Então, \(\{e_{i}\}\) é um sistema ortonormal completa, em que cada \(e_{i}\) assume o valor 1 na i-ésima coordenada
+	e 0 em todas as outras.
+\end{example}
+\begin{def*}
+	Seja \(K\subseteq H\), em que H é um espaço de Hilbert. O conjunto das combinações lineares de finitos elementos de K é chamado de \textbf{conjunto gerado por K}.
+	Uma coleção de elementos \(\{e_{\alpha }\}\) é uma \textbf{base} para H se o conjunto de combinações lineares finitas de \(e_{\alpha }\)'s for denso em H. \(\square\)
+\end{def*}
+Equivalentemente, uma base é um subconjunto de H cujo fecho tenha H como conjunto gerado.
+\begin{prop*}
+	Todo espaço de Hilbert tem uma base ortonormal.
+\end{prop*}
+\begin{proof*}
+	Se \(B = \{u_{\alpha }\} \) for ortonormal, mas não uma base, tome V como o fecho do conjunto linearmente gerado por B, \textit{i. e.}, o fecho, com respeito à norma em H, do conjunto de combinações lineares finitas dos elementos de B.
+	Assuma que \(V\neq H\) e escolha um x não-nulo em \(V^{\perp }.\) Tome \(B' = B \cup \biggl\{\frac{x}{\Vert x \Vert}\biggr\}\), tal que B' é uma base estritamente maior que B.
+	Como a união de uma sequência crescente de conjunto ortonormais é, em si, um conjunto ortonormal, existe um deles que é maximal pelo \hyperlink{zornn}{\textit{Lema de Zornn}}. Pelo que já foi visto, este conjunto ortonormal maximal precisa ser uma base,
+	caso contrário, conseguiríamos achar um maior, o que geraria uma contradição. \qedsymbol
+\end{proof*}
 
 \subsection{Ana Júlia G. A. - Séries de Fourier}
-página 214 + pedir slides
+O sentido de estudar as séries de Fourier neste momento é a aplicação interessante que espaços de Hilbert e as técnicas que vimos até o momento têm para a teoria das séries. Elas em si são utilizadas em EDPs, filtragem, compressão de dados,
+digitalização. Ao longo desta seção, tomaremos \(H = L^{2}([0, 2\pi ))\) e
+\[
+	u_{n} = \frac{1}{\sqrt[]{2\pi }}e^{inx},\quad n\in \mathbb{Z}.
+\]
+Faremos o produto interno ser
+\[
+	\left< f, g \right> = \int_{0}^{2\pi }f(x)\overline{g(x)}dx,\quad \Vert f \Vert^{2} = \int_{0}^{2\pi }|f(x)|^{2}dx.
+\]
+Em particular, para m e n distintos,
+\[
+	\left< u_{n}, u_{m} \right> = \int_{0}^{2\pi }e^{inx}e^{-imx}dx = \int_{0}^{2\pi }e^{i(n-m)x}dx = 0
+\]
+e, para m = n,
+\[
+	\left< u_{n}, u_{n} \right> = \int_{0}^{2\pi }e^{i(n-n)x}dx = 2\pi
+\]
+\begin{def*}
+	Um \textbf{polinômio trigonométrico} é uma combinação linear finita dos termos \(u_{n}.\quad \square\)
+\end{def*}
+Se \(\mathcal{F}\) denota o conjunto gerado pelos \(\{u_{n}\}\), então nosso objetivo será mostrar que \(\mathcal{F}\) é denso em \(L^{2}([0, 2\pi )).\)
+
+Seja \(\varphi_{n}(x) = c_{n}(1+\cos^{}{(x)})^{n},\) em que \(c_{n}\) é escolhido tal que
+\[
+	\int_{-\pi }^{\pi }\varphi_{n}(x)dx = 1,\quad \varphi_{n}(x)\geq 0, x\in [-\pi, \pi ].
+\]
+\begin{lemma*}
+	\begin{itemize}
+		\item[1)] Se \(f\in L^{1},\) então \(f*\varphi_{n}\) é um polinômio trigonométrico;
+		\item[2)] Se \(\delta\in (0, \pi )\), então
+		      \[
+			      \int_{\delta \leq |x| \leq \pi }^{}\varphi_{n}(x)dx\to 0
+		      \]
+		      quando \(n\to \infty\).
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	1) Para ver que \(\varphi_{n}\) é um polinômio trigonométrico, observe que
+	\[
+		\varphi_{n}(x) = c_{n}\biggl(e^{i0x} + \frac{1}{2}e^{ix} + \frac{1}{2}e^{-ix}\biggr)^{n}
+	\]
+	Escreva \(\varphi_{n} = \sum\limits_{k=-n}^{n}b_{k}e^{ikx}\), tal que
+	\[
+		f*\varphi (x) = \sum\limits_{k=-n}^{n}b_{k}\int_{}^{}e^{ik(x-y)}f(y)dy = \sum\limits_{k=-n}^{n}a_{k}b_{k}e^{ikx},
+	\]
+	em que pedimos que \(a_{k} = \int_{}^{}e^{-iky}f(y)dy\). Isto conclui a prova do primeiro item, pois expressamos \(f*\varphi \) como um polinômio trigonométrico.
+
+	Para o item 2, sejam
+	\[
+		\alpha_{n} = \int_{-\delta }^{\delta }\varphi_{n}(x)dx \quad\&\quad  \beta_{n} = \int_{\delta \leq |x|\leq \pi }^{}\varphi_{n}(x)dx.
+	\]
+	Dentro de \([-\delta , \delta ]\), a função \(1 + \cos^{}{(x)}\) assume seu máximo em \(|x| = \delta \). Por outro lado, em \(\biggl[-\frac{\delta }{2}, \frac{\delta }{2}\biggr]\), assume
+	seu mínimo em \(|x| = \frac{\delta }{2}.\) Como \(\alpha_{n} \geq \int_{-\frac{\delta }{2}}^{\frac{\delta }{2}}dx,\) segue que
+	\begin{align*}
+		\frac{\beta_{n}}{\alpha_{n}} & \leq \frac{c_{n}2\pi (1+\cos^{}{(\delta )})^{n}}{c_{n}\delta (1+\cos^{}{\biggl(\frac{\delta }{2}\biggr)})^{n}}      \\
+		                             & = \frac{2\pi }{\delta }\biggl(\frac{1+\cos^{}{(\delta )}}{1 + \cos^{}{\biggl(\frac{\delta }{2}\biggr)}}\biggr)^{n}.
+	\end{align*}
+	Como o lado direito tende a 0 quando \(n\to \infty\), concluímos a prova. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Suponha que f é contínua em \([0, 2\pi ]\) e que \(f(0) = f(2\pi ).\) Dado \(\varepsilon  > 0\), existe g em \(\mathcal{F}\) tal que
+	\[
+		\sup_{0 \leq x \leq 2\pi }|f(x)-g(x)| < \varepsilon .
+	\]
+\end{theorem*}
+\begin{proof*}
+	Dada tal função f, iremos periodicamente estender ela ao intervalo \([-4\pi , 4\pi ]\) e multiplicá-la por uma função contínua unitária em \([-3\pi , 3\pi ]\) e com suporte compacto. Como f em si tem suporte compacto, existe \(\delta \) tal que \(|f(x-y) - f(x)| < \frac{\varepsilon }{2}\)
+	se \(|y|\leq \delta \). Seja \(M = \sup_{x}|f(x)|.\) Então, se \(|x| \leq \pi ,\) usamos que \(\int_{-\pi }^{\pi }\varphi_{n}(y)dy = 1\) e chegamos em
+	\begin{align*}
+		|f*\varphi_{n}(x) - f(x)| & =\biggl\vert \int_{}^{}[f(x-y)-f(x)]\varphi_{n}(y)dy \biggr\vert                                                      \\
+		                          & \leq \int_{-\delta }^{\delta }|f(x-y) - f(x)|\varphi_{n}(y)dy + 2M \int_{\delta\leq |y|\leq \pi }^{}\varphi_{n}(y)dy.
+	\end{align*}
+	Como os dois termos somados são limitados por
+	\[
+		\frac{\varepsilon }{2}\int_{-\pi }^{\pi }\varphi_{n}(y)dy = \frac{\varepsilon }{2},
+	\]
+	chegamos em
+	\[
+		|f*\varphi_{n}(x) - f(x)| \leq \frac{\varepsilon }{2} + \frac{\varepsilon }{2} = \varepsilon,
+	\]
+	provando o teorema. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	\(\mathcal{F}\) é denso em \(L^{2}([0, 2\pi )).\)
+\end{theorem*}
+\begin{proof*}
+	Se \(f\in L^{2}([0, 2\pi ))\), então, pelo \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}}, quando \(m\to \infty\),
+	\[
+		\int_{}^{}|f-f\chi_{[1/m, 2\pi -1/m]}|^{2}\to 0.
+	\]
+	Sabe-se que qualquer função em \(L^{2}([1/m, 2\pi - 1/m])\) pode ser aproximada em \(L^{2}\) por funções continuas com suporte no intervalo dentro do parenteses, tal que, pelo que foi
+	dito acima, uma função contínua com suporte no conjunto em parêntese pode ser uniformemente aproximada em \([0, 2\pi )\) por elementos de \(\mathcal{F}\).
+
+	Finalmente, se g é uma função contínua em \([0, 2\pi )\) e \(g_{m}\to g\) uniformemente em \([0, 2\pi )\), então \(g_{m}\to g\) em \(L^{2}([0, 2\pi ))\) por uma aplicação do \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}}.
+	Juntando isto tudo, portanto, segue que \(\mathcal{F}\) é denso em \(L^{2}([0, 2\pi )).\) \qedsymbol
+\end{proof*}
+Resta provarmos a afirmação de que \(u_{n}\) é completo. Com efeito, suponha que f é ortogonal a cada \(u_{n}\), o que, em particular, significa que ela é ortogonal a todas as combinações lineares finitas dos \(u_{n}\)'s e a todos os elementos de \(\mathcal{F}.\) Como este é denso em \(L^{2}([0, 2\pi ))\),
+podemos encontrar \(f_{n}\in \mathcal{F}\) tendendo a f em \(L^{2}\), tal que
+\[
+	\Vert f \Vert^{2} = \left< f, f \right> = \lim_{n\to \infty}\left< f_{n}, f \right> = 0.
+\]
+Logo, \(\Vert f \Vert^{2} = 0 \) e f = 0, mostrando a completude de \(\{u_{n}\}\) como sistema ortonormal.
+
+Outra propriedade interessante é que há uma forma de traduzir resultados dos \(u_{n}\)'s para séries trigonométricas de forma automática. Dado f em \(L^{2}([0, 2\pi )),\) escrevemos
+\[
+	c_{n} = \left< f, u_{n} \right> = \int_{0}^{2\pi }f\overline{u_{n}}dx = \frac{1}{\sqrt[]{2\pi }}\int_{0}^{2\pi }f(x)e^{-inx}dx,
+\]
+conhecidos como \textit{Coeficientes de Fourier de f.} Pela identidade de Parseval,
+\[
+	\Vert f \Vert^{2} = \sum\limits_{n}^{}|c_{n}|^{2}.
+\]
+Observe que, também, para qualquer f em \(L^{2},\) temos
+\[
+	\lim_{N\to \infty}\sum\limits_{|n|\leq N}^{}c_{n}u_{n} = f \Longleftrightarrow \biggl\Vert f - \sum\limits_{|n| \leq N}^{}c_{n}u_{n}\biggr\Vert\to 0, N\to \infty.
+\]
+Agora, usando que \(e^{inx} = \cos^{}{(nx)} + i \sin^{}{(nx)}\), temos
+\[
+	\sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx} = A_{0} + \sum\limits_{n=1}^{\infty}B_{n}\cos^{}{(nx)} + \sum\limits_{n=1}^{\infty}C_{n}\sin^{}{(nx)},
+\]
+em que pedimos que \(A_{0} = c_{0}, B_{n} = c_{n} + c_{-n}\) e \(C_{n} = i(c_{n} - c_{-n}).\) Para mostra que o oposto também é verdadeiro, utilizamos que
+\(\cos^{}{(nx)} = \frac{(e^{inx} + e^{-inx})}{2}\) e \(\sin^{}{(nx)} = \frac{(e^{inx} - e^{-inx})}{2i},\) tal que
+\[
+	A_{0} + \sum\limits_{n=1}^{\infty}B_{n}\cos^{}{(nx)} + \sum\limits_{n=1}^{\infty}C_{n}\sin^{}{(nx)} = \sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx},
+\]
+no qual pedimos, desta vez, que \(c_{0} = A_{0}, c_{n} = \frac{B_{n}}{2} + \frac{C_{n}}{2i}\) para \(n > 0\) e \(c_{n} = \frac{B_{n}}{2} - \frac{C_{n}}{2i}\) para \(n < 0\), assim provando a possibilidade de equivalência dos resultados, como desejado.
+
+No próximo passo do estudo das séries de Fourier, veremos como elas podem ser usadas para aprender coisas sobre as funções nas quais elas são baseadas - em outras palavras, provaremos que
+a convergência \(S_{N}f\to f\) em \(L^{2}\) quando \(N\to \infty\) ocorre, também, pontualmente, \textit{i.e.}, \(S_{N}f(x)\to f(x)\) quando \(N\to \infty\) para todo x. Aqui, escrevemos
+\[
+	S_{N}f(x) = \frac{1}{\sqrt[]{2\pi }}\sum\limits_{|n|\leq N}^{}c_{n}e^{inx},\quad c_{n} = \frac{1}{\sqrt[]{2\pi }}\int_{0}^{2\pi }f(y)e^{-iny}dy.
+\]
+Isto conta como um complemento ao teorema principal da seção, pois mostramos que as funções contínuas que possuem mesmo valor em 0 e em \(2\pi \) podem ser aproximadas por polinômios trigonométricos, mas, aqui, mostraremos que eles são explicitamente as somas parciais
+\(S_{N}f\). A primeira etapa é o Lema de Riemann-Lebesgue, enunciado e provado a seguir
+\hypertarget{riemann_lebesgue}{
+	\begin{lemma*}
+		Se \(f\in L^{1}([0, 2\pi ))\), então
+		\[
+			\int_{0}^{2\pi }f(x)e^{-irx}dx\to 0
+		\]
+		quando \(|r|\to \infty.\)
+	\end{lemma*}}
+\begin{proof*}
+	Se \(f(x) = \chi_{[a, b)]}(x)\) com \(0 \leq a < b \leq 2\pi \), então
+	\[
+		\int_{0}^{2\pi }f(x)e^{-irx}dx = \frac{e^{-ira} - e^{-irb}}{ir}\to 0,\quad |r|\to \infty
+	\]
+	e temos o resultado provado para funções características. Por linearidade, temos o resultado, também, para quando f for uma função degrau.
+	Resta para os casos de f ser positiva e f ser uma função qualquer.
+
+	Para tanto, suponha que \(f\in L^{1} \) e tome \(\varepsilon > 0\). Escreva
+	\[
+		\int_{0}^{2\pi }f(x)e^{-irx}dx = \int_{0}^{2\pi }(f(x)-g(x))e^{-irx}dx + \int_{0}^{2\pi }g(x)e^{-irx}dx,
+	\]
+	em que g é uma função degrau tal que \(\Vert f-g \Vert_{1} < \varepsilon .\) O primeiro termo à direita é limitado por \(\Vert f - g \Vert_{1} < \varepsilon \), enquanto que o segundo tende a 0 quando fazemos r
+	tender a infinito em módulo. Logo,
+	\[
+		\limsup_{|r|\to \infty}\biggl\vert \int_{0}^{2\pi }f(x)e^{-irx}dx \biggr\vert \leq \varepsilon .
+	\]
+	Portanto, como \(\varepsilon > 0\) foi escolhido de forma arbitrária, completamos a prova. \qedsymbol
+\end{proof*}
+Com relação à convergência de \(S_{N}f(x)\), primeiramente note que
+\[
+	S_{N}f(x) = \sum\limits_{|n|\leq N}^{}\frac{1}{2\pi }e^{inx}\int_{0}^{2\pi }f(y)e^{-iny}dy = \frac{1}{2\pi }\int_{0}^{2\pi }f(y)\sum\limits_{|n|\leq N}^{}e^{in(x-y)}dy.
+\]
+Colocando \(D_{N}(t) = \frac{1}{2\pi }\sum\limits_{|n|\leq N}^{}e^{int},\) temos
+\[
+	S_{N}f(x) = \int_{0}^{2\pi }f(y)D_{N}(x-y)dy.
+\]
+Temos uma forma explícita para esta função \(D_{N}(t)\), a qual é conhecida como \textbf{Núcleo de Dirichlet}, ou \textbf{Kernel de Dirichlet}. Para encontrá-la, usamos as fórmulas para a série geométrica
+e para a expressão de seno em termos da exponencial complexa. Assim, obtemos
+\begin{align*}
+	D_{N}(t) = \frac{1}{2\pi }\sum\limits_{|n|\leq N}^{}e^{int} & = \frac{1}{2\pi }e^{-iNt}\sum\limits_{n=0}^{2N}e^{int}                                                                                                  \\
+	                                                            & = \frac{1}{2\pi }e^{-iNt}\frac{e^{i(2N+1)t}-1}{e^{it}-1}                                                                                                \\
+	                                                            & = \frac{1}{2\pi }\frac{e^{i \frac{t}{2}}}{e^{i \frac{t}{2}}}\frac{e^{i(N+\frac{1}{2})t}-e^{-i(N+\frac{1}{2})t}}{e^{i \frac{t}{2}} - e^{-i \frac{t}{2}}} \\
+	                                                            & = \frac{1}{2\pi }\frac{\sin^{}{\biggl(\biggl(N+\frac{1}{2}\biggr)t\biggr)}}{\sin^{}{\biggl(\frac{t}{2}\biggr)}}.
+\end{align*}
+Como cada exponencial tem período de \(2\pi \), este será o período de \(D_{N}\) também. Caso f seja periódica e com período de \(2\pi \), uma substituição de \(y = x - z\) fornece
+\begin{align*}
+	S_{N}f(x) & = \int_{0}^{2\pi }f(z)D_{N}(x-z)dz          \\
+	          & = \int_{-\pi + x}^{\pi + x}f(z)D_{N}(x-z)dz \\
+	          & = - \int_{\pi }^{-\pi }f(x-y)D_{N}(y)dy     \\
+	          & = \int_{-\pi }^{\pi }f(x-y)D_{N}(y)dy.
+\end{align*}
+Fazendo com que \(f_{0}\) seja a função identicamente igual a 1, então todos os coeficientes de \(f_{0}\) são 0, menos o primeiro, \(c_{0}\), que precisará valer \(\sqrt[]{2\pi },\) tal que \(S_{N}f_{0}(0) = 1.\)
+Com isso, trocando f por \(f_{0}\), obtemos
+\[
+	1 = \int_{-\pi }^{\pi }D_{N}(y)dy.
+\]
+Com manipulações algébricas, chegamos na expressão
+\[
+	S_{N}f(x) - f(x) = \int_{-\pi }^{\pi }[f(x-y) - f(x)]D_{N}(y)dy.
+\]
+\begin{theorem*}
+	Suponha que f é limitada e mensurável em \([0, 2\pi ).\) Por periodicidade, é possível estender o domínio de f para toda a reta \(\mathbb{R}\). Além disso, fixado x
+	em \([0, 2\pi )\) e assumindo que exista \(c_1 > 0\) satisfazendo, para todo h,
+	\[
+		|f(x+h) - f(x)|\leq c_{1}|h|,
+	\]
+	então
+	\[
+		\lim_{N\to \infty}S_{N}f(x) = f(x).
+	\]
+\end{theorem*}
+\begin{proof*}
+	ome
+	\[
+		g(y) = \frac{1}{2\pi }\frac{f(x-y)-f(x)}{\sin^{}{\biggl(\frac{y}{2}\biggr)}}.
+	\]
+	Para y em \([-\pi , \pi ],\) sabemos que \(\biggl\vert \sin^{}{\biggl(\frac{y}{2}\biggr)} \biggr\vert \geq \frac{2}{\pi }\frac{y}{2},\) de maneira que
+	\[
+		|g(y)|\leq \frac{1}{2\pi }\frac{c_y|y|}{|y|/\pi } = \frac{c_{1}}{2}
+	\]
+	é um valor absoluto limitado por uma constante. Finalmente, como
+	\[
+		S_{N}f(x) - f(x) = \frac{1}{2i}\int_{-\pi }^{\pi }g(y)(e^{i(N+\frac{1}{2})y} - e^{-i(N+\frac{1}{2})y})dy,
+	\]
+	segue do \hyperlink{riemann_lebesgue}{\textit{Lema de Riemann-Lebesgue}} que \(\lim_{N\to \infty}S_{N}f(x) - f(x)\ = 0.\) \qedsymbol
+\end{proof*}
 \end{document}

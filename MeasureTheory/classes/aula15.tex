@@ -286,4 +286,326 @@ Finalmente, então, podemos ver o último resultado.
 \end{proof*}
 
 \subsection{Kalel B. - Teoria Espectral}
+Neste seminário, veremos alguns resultados comuns para a Teoria Espectral, incluindo operadores lineares, operadores adjuntos/Hermitianos, simétricos, compactos e como a Teoria da Medida fornece ferramentas
+capazes de melhorar o estudo desta parte. Sem mais delongas, um lembrete do que são autovalores e autovetores. Dada uma operação linear \(A\), um \textbf{autovalor} \(\lambda \) de A é um escalar que satisfaz \(Av = \lambda v\).
+Se existir tal \(\lambda \), então v é chamado de \textbf{autovetor}. Equivalentemente, um escalar \(\lambda \) é um autovalor se ele satisfaz
+\[
+	\det{(\lambda I - A)} = 0.
+\]
+\begin{def*}
+	Seja H um espaço de Hilbert de números complexos. Um operador linear \(A:H\rightarrow H \) é \textbf{limitado} se
+	\[
+		\Vert A \Vert = \sup_{}\{\Vert Ax \Vert: \Vert x \Vert \leq 1\} < \infty.\quad \square
+	\]
+\end{def*}
+\begin{prop*}
+	Dados dois operadores lineares limitados \(A, B:H\rightarrow H\) e \(c\in \mathbb{C},\) temos
+	\begin{itemize}
+		\item[1)](A+B)(x) = Ax + Bx;
+		\item[2)] (cA)(x) = cA(x).
+	\end{itemize}
+\end{prop*}
+\begin{prop*}
+	Seja \(\mathcal{L}\) o conjunto de todos os operadores lineares limitados de H. \(\mathcal{L}\) é um espaço vetorial e um espaço de Banach com a norma \(\Vert A \Vert = \sup_{\Vert x \Vert = 1}\{\Vert Ax \Vert\}.\)
+\end{prop*}
+\begin{def*}
+	A \textbf{composição de operadores} é definida como
+	\[
+		(AB)(x) = A(Bx).\quad \square
+	\]
+\end{def*}
+Essa composição não é comutativa. Para ver isto, basta tomar A e B como matrizes quadradas e a composição como a multiplicação usual de matrizes, que não é comutativa.
+Além disso, dados dois operadores limitados A e B, temos
+\[
+	\Vert AB \Vert \leq \Vert A \Vert\Vert B \Vert
+\]
+e, em particular,
+\[
+	\Vert A^{n} \Vert\leq \Vert A \Vert^{n}.
+\]
+\begin{def*}
+	Sejam \(A:H\rightarrow H\) um operador linear limitado e \(\lambda \in \mathbb{C}\)
+	\begin{itemize}
+		\item O \textbf{espectro} de A é
+		      \[
+			      \sigma (A) = \{\lambda \in \mathbb{C}: A - \lambda I \text{ não é inversível}\}.
+		      \]
+		\item O \textbf{resolvente} de A é o conjunto dos números complexos para os quais \(A - \lambda I\) é inversível, \textit{i.e.},
+		      \[
+			      R_{\lambda }(A) = \mathbb{C}\setminus{\sigma (A)}.
+		      \]
+		\item O \textbf{raio espectral} de A é definido por
+		      \[
+			      r(A) = \sup_{}\{|\lambda |: \lambda \in \sigma (A)\}.
+		      \]
+	\end{itemize}
+\end{def*}
+Vale observar que nem todo elemento do espectro é um autovalor.
+\begin{example}
+	Seja \(H = l^{2},\) o qual é um espaço de Hilbert com a norma
+	\[
+		\Vert x \Vert = \biggl(\sum\limits_{n=1}^{\infty}|x_{n}|^{2}\biggr)^{\frac{1}{2}}\quad\&\quad x=(x_{n})\in l^{2} \text{ se }\sum\limits_{n=1}^{\infty}|x_{n}|^{2} < \infty.
+	\]
+	Defina \(A:H\rightarrow H\) por
+	\[
+		A(a_1, a_2, a_3, \dotsc ) = (a_1, a_2/2, a_3/3, \dotsc ),
+	\]
+	o qual é limitado, já que
+	\[
+		\Vert A(a_1, a_2, a_3, \dotsc ) \Vert^{2} = \biggl\Vert \biggl(a_1, \frac{a_2}{2}, \frac{a_3}{3}, \dotsc \biggr)\biggr\Vert^{2} = \biggl(\sum\limits_{n=1}^{\infty}\biggl(\frac{|a_{n}|}{|n|}\biggr)^{2}\biggr) \leq \sum\limits_{n=1}^{\infty}|a_{n}|^{2} = \Vert a_{n} \Vert^{2} < \infty.
+	\]
+	Este operador A não admite inversa. Para ver isto, seja \(e_{n}\) um elemento de \(\ell^{2}\) tal que
+	\[
+		e_{n} = (0, 0, \dotsc , 0, 1, 0, \dotsc ),
+	\]
+	em que o valor 1 é assumido na n-ésima entrada. Sendo assim, se A tivesse inversa, então
+	\[
+		A^{-1}e_{n} = ne_{n}\not\in \ell^{2},
+	\]
+	o que faria com que A não fosse sobrejetora e \(A - 0I\) não admitisse inversa, ou seja, 0 estaria no espectro de A. No entanto, não existe \(v\neq 0\) tal que \(Av = 0v\), então 0 não é autovalor.
+\end{example}
+\begin{prop*}
+	Se \(B:H\rightarrow H\) é um operador linear limitado com \(\Vert B \Vert < 1\), então \(I - B\) é inversível e
+	\[
+		(I-B)^{-1} = \sum\limits_{i=0}^{\infty}B^{i}.
+	\]
+	Aqui, colocamos a convenção \(B^{0} = I\).
+\end{prop*}
+\begin{proof*}
+	Temos \(\Vert B^{i} \Vert \leq \Vert B \Vert^{i}\), já que \(\Vert B \Vert < 1\). Assim, segue que
+	\[
+		\sum\limits_{i=0}^{\infty}\Vert B \Vert^{i} < \infty,
+	\]
+	pois é uma série geométrica com \(\Vert B \Vert < 1.\) Agora, seja \(S_{n} = \sum\limits_{i=0}^{n}B^{i}\). Para \(n\geq m\), temos
+	\[
+		\Vert S_{m} - S_{n} \Vert = \biggl\Vert \sum\limits_{i=0}^{n}B^{i} - \sum\limits_{i=0}^{m}B^{i}\biggr\Vert = \biggl\Vert \sum\limits_{i=m}^{n}B^{i}\biggr\Vert \leq \sum\limits_{i=m}^{n}\Vert B \Vert^{i}.
+	\]
+	Logo, para \(m, n > N_{0}\), temos \(\Vert S_{m} - S_{n} \Vert\to 0\), do que segue que \(S_{n}\) é uma sequência de Cauchy de operadores limitados. Aqui, utilizando a completude
+	de \(\mathcal{L}\), existe um S para o qual \(S_{n}\) converge, tal que
+	\[
+		\lim_{n\to \infty}S_{n} = \sum\limits_{i=0}^{\infty}B^{i} = S.
+	\]
+	Deste modo, \(BS = \sum\limits_{i=1}^{\infty}B^{i} = S - I\), ou seja,
+	\[
+		(I-B)S = I = S(I-B).
+	\]
+	Portanto,
+	\[
+		S = (B-I)^{-1} = \sum\limits_{i=0}^{\infty}B^{i}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Se \(A:H\rightarrow H\) é um operador linear limitado inversível com \(\Vert B \Vert < \frac{1}{\Vert A^{-1} \Vert}\), então \(A - B\) é invertível.
+\end{prop*}
+\begin{proof*}
+	Temos
+	\[
+		\Vert A^{-1}B \Vert \leq \Vert A^{-1} \Vert \Vert B \Vert < 1.
+	\]
+	Então, existe \((I-A^{-1}B)^{-1}\).
+	\textbf{\underline{Afirmação}:} Se M e N são inversíveis, então
+	\[
+		(N^{-1}M^{-1})(MN) = I = (MN)(N^{-1}M^{-1}).
+	\]
+	Deste modo, considere \(M = A\) e \(N = I - A^{-1}B\), do que segue que
+	\begin{align*}
+		 & I = ((I-A^{-1}B)^{-1}A^{-1})(A(I-A^{-1}B)) = (A-A^{-1}BA)^{-1}(A-B)) \\
+		 & I = A(I-A^{-1}B)((I-A^{-1}B)^{-1}A^{-1}) = (A-B)(A-A^{-1}BA)^{-1}.
+	\end{align*}
+	Portanto, \(A- B\) é inversível. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Se \(A:H\rightarrow H\) é um operador linear limitado, então \(\sigma (A)\subseteq \mathbb{C}\) é fechado, limitado e
+	\[
+		r(A) \leq \Vert A \Vert.
+	\]
+\end{prop*}
+\begin{proof*}
+	Seja \(\lambda \not\in \sigma (A)\), ou seja, \(\lambda I - A\) é inversível e considere \(B(\lambda , \delta ), \delta > 0\) suficientemente pequeno. Dado \(\omega \in B(\lambda , \delta )\), temos
+	\[
+		\omega I - A = \omega I - \lambda I + \lambda I - A = (\lambda I - A) - (\lambda -\omega )I.
+	\]
+	Como \(\lambda I - A \) é um operador linear limitado, inversível e que satisfaz
+	\[
+		\Vert (\lambda - \omega )I \Vert = |\lambda  - \omega | < \delta  < \frac{1}{\Vert (\lambda I - A)^{-1} \Vert},
+	\]
+	segue que \(\omega I - A\) tem inversa. Consequentemente, \(\omega \not\in \sigma (A)\), então \(B(\lambda , \delta )\subseteq \sigma (A)^{\complement}\).
+	Disto, obtemos que \(\sigma (A)\) é fechado. Ademais, sabemos que
+	\[
+		(\lambda I - A)^{-1} = \lambda ^{-1}(I-A\lambda ^{-1})^{-1} = \sum\limits_{n=0}^{\infty}A^{n}\lambda ^{-n-1}
+	\]
+	é convergente quando \(\Vert A\lambda ^{-1} \Vert < 1\), tal que
+	\[
+		\Vert A\lambda ^{-1} \Vert = |\lambda ^{-1}| \Vert A \Vert < 1 \Longleftrightarrow \Vert A \Vert < |\lambda |,
+	\]
+	de modo que, se \(|\lambda | > \Vert A \Vert\), temos \(\lambda I - A\) inversível e, a partir disto, \(\lambda \not\in \sigma (A)\).
+
+	Portanto, dado \(\lambda \in \sigma (A)\), temos \(|\lambda |\leq \Vert A \Vert\), tal que \(r(A) \leq \Vert A \Vert\) e \(\sigma (A) \subseteq B[0, \Vert A \Vert]\). \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se \(A:H\rightarrow H\) é um operador linear limitado, o \textbf{adjunto} de A, denotado por \(A^{*},\) é um operador tal que
+	\[
+		\left< Ax, y \right> = \left<  x, A^{*}y \right>,\quad \forall x, y\in H.\quad \square
+	\]
+\end{def*}
+Observe que, desta definição, segue que
+\[
+	(cA)^{*} = \overline{c}A^{*},\quad (A^{n})^{*} = (A^{*})^{n},\quad\&\quad \overline{P(A)} = \sum\limits_{j=0}^{n}\overline{a}_{j}P(A^{*}) = \overline{P}(A^{*}),
+\]
+em que \(P(A) = \sum\limits_{j=0}^{n}a_{j}A^{j}\).
+
+\begin{prop*}
+	Se \(A:H\rightarrow H\) é um operador limitado, então existe um único operador \(A^{*}\) tal que \(\left< Ax, y \right> = \left< x, A^{*}y \right>\) para todo x e y.
+\end{prop*}
+\begin{proof*}
+	Fixe y. Defina \(f(x) = \left< Ax, y \right>,\) o qual é um funcional linear em H que satisfaz
+	\[
+		|f(x)| = |\left< Ax, y \right>|\leq \Vert Ax \Vert\Vert y \Vert \leq \Vert A \Vert\Vert y \Vert.
+	\]
+	Logo, f é limitado e segue do \hyperlink{riesz_representation}{\textit{Teorema da Representação de Riesz}} que existe um único \(z_{y}\) que satisfaz a igualdade
+	\[
+		\left< Ax, y \right> = f(x) = \left< x, z_{y} \right>
+	\]
+	para todo x. Isto implica que \(y = z_{y}\). Ademais,
+	\[
+		\left< x, z_{y_1 + y_2} \right> = \left< Ax, y_1 + y_2 \right> = \left< Ax, y_1 \right> + \left< Ax, y_2 \right> = \left< x, z_{y_1} \right> + \left< x, z_{y_2} \right> = \left< x, z_{y_1} + z_{y_2} \right>
+	\]
+	para todo x. Com isso, \(z_{y_1 + y_2} = z_{y_{1}} + z_{y_2}.\).
+
+	Do mesmo modo, isso vale para o produto de y por um escalar também, \textit{i.e.}, \(z_{cy} = cz_{y}.\) Assim, basta definirmos \(A^{*}y = z_{y},\) pois
+	\[
+		\left< Ax, y \right> = \left< x, z_{y} \right> = \left< x, A^{*}y \right>.
+	\]
+	Resta, então, apenas provarmos a unicidade. Para isso, considere \(A_1\) e \(A_2\) dois operadores tais que
+	\[
+		\left< x, A_1y \right> = \left< Ax, y \right> = \left< x, A_2 y \right>
+	\]
+	para todo x e y. Destarte, \(A_1 y = A_2y\) para todo y. Portanto, \(A_1 = A_2\). \qedsymbol
+\end{proof*}
+\begin{def*}
+	Seja \(A:H\rightarrow H\) um operador linear limitado. A é dito \textbf{simétrico}, ou \textbf{Hermitiano}, ou ainda \textbf{auto-adjunto} se
+	\[
+		\left< Ax, y \right> = \left< x, Ay \right>
+	\]
+	para todo x e y em H. \(\square\)
+\end{def*}
+\begin{example}
+	Sejam \((X, \mathcal{A}, \mu )\) um espaço de medida com \(\mu \) medida \(\sigma \)-finita e \(H = L^{2}(X)\), o qual é um espaço de Hilbert. Seja \(F:X\times X\rightarrow \mathbb{C}\) uma função mensurável tal que \(F(y, x) = \overline{F(x, y)}\) e
+	\[
+		\int_{}^{}\int_{}^{}F(x, y)^{2}\mu (dx)\mu (dy) < \infty.
+	\]
+	Defina \(A:H\rightarrow H\) por
+	\[
+		Af(x) = \int_{}^{}F(x, y)f(y)\mu (dy).
+	\]
+	Mostraremos que A é limitado e simétrico. Com efeito, note que
+	\[
+		\biggl\vert \int_{}^{}F(x, y)f(y)\mu (dy) \biggr\vert \leq \int_{}^{}|F(x, y)f(y)|\mu (dy)
+	\]
+	pela \hyperlink{holder}{\textit{Desigualdade de Hölder}} (p=q=2),
+	\[
+		\int_{}^{}|F(x, y)f(y)|\mu (dy) \leq \biggl(\int_{}^{}|F(x, y)|^{2}\mu (dy)\biggr)^{\frac{1}{2}}\biggl(\int_{}^{}|f(y)|^{2}\mu (dy)\biggr)^{\frac{1}{2}}.
+	\]
+	Logo,
+	\[
+		\biggl\vert \int_{}^{}F(x, y)f(y)\mu (dy) \biggr\vert^{2}\leq \biggl(\int_{}^{}|F(x, y)|^{2}\mu (dy)\biggr)\biggl(\int_{}^{}|f(y)|^{2}\mu (dy)\biggr).
+	\]
+	Integrando isto, chegamos em
+	\[
+		\int_{}^{}\biggl\vert \int_{}^{}F(x, y)f(y)\mu (dy) \biggr\vert^{2}\mu (dx) \leq \int_{}^{}\biggl(\int_{}^{}|F(x, y)|^{2}\mu (dy)\biggr)\mu (dx)\biggl(\int_{}^{}|f(y)|^{2}\mu (dy)\biggr),
+	\]
+	já que o último termo à direita não depende de x. Por hipótese e \(f\in L^{2},\) temos
+	\[
+		\Vert Af(x) \Vert_{2}^{2} = \int_{}^{}\biggl\vert \int_{}^{}F(x, y)f(y)\mu (dy) \biggr\vert^{2}\mu (dx) < \infty.
+	\]
+	Sendo assim, na norma do operador, vamos ter que \(\Vert Af \Vert\) é finito. Logo, A é limitado.
+
+	Agora, vamos mostrar que A é simétrico. Sejam \(f, g\in L^{2}(X)\). Temos
+	\begin{align*}
+		\left< Af, g \right> = \int_{}^{}Af \overline{g}d\mu  = \int_{}^{}Af(x)\overline{g}(x)\mu (dx) & = \int \int_{}F(x, y)f(y)\mu (dy)\overline{g}(x)\mu (dx).
+		                                                                                               & = \int_{}^{}\int_{}^{}F(x, y)f(y)\overline{g}(x)\mu (dy)\mu (dx)            \\
+		                                                                                               & = \int_{}^{}\int_{}^{}F(x,y)\overline{g}(x)f(y)\mu (dx)\mu (dy)             \\
+		                                                                                               & = \int_{}^{}\overline{\int_{}^{}\overline{F(x, y)}g(x)}\mu (dx)f(y)\mu (dy) \\
+		                                                                                               & = \int_{}^{}\overline{\int_{}^{}F(y,x)g(x)}\mu (dx)f(y)\mu (dy)             \\
+		                                                                                               & = \int_{}^{}f(y)\overline{A}g(y)\mu (dy) = \left< f, Ag \right>.
+	\end{align*}
+	Portanto, \(A = A^{*}\).
+\end{example}
+\begin{prop*}
+	Seja \(A:H\rightarrow H\) um operador limitado simétrico.
+	\begin{itemize}
+		\item[1)] \(\left< Ax, x \right>\) é real para todo x em H;
+		\item[2)] A função \(x\mapsto \left< Ax, x \right>\) é nula se, e somente se, \(a = 0\);
+		\item[3)] Vale que \(\Vert A \Vert = \sup_{\Vert x \Vert = 1}|\left< Ax, x \right>|\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	1): Temos
+	\[
+		\left< Ax, x \right> = \left< x, Ax \right> = \overline{\left< Ax, x \right>}.
+	\]
+	Logo, \(\left< Ax, x \right>\in \mathbb{R}.\)
+
+	2): Se \(A = 0\), então \(\left< Ax, x \right> = 0.\) Agora, se \(\left< Ax, x \right> = 0\) para todo x, segue que
+	\begin{align*}
+		0 = \left< A(x+y), x+y \right> & = \left< Ax, x \right> + \left< Ax, y \right> + \left< Ay, x \right> + \left< Ay, y \right> \\
+		                               & = \left< Ax, y \right> + \left< Ay, x \right>                                               \\
+		                               & = \left< Ax, y \right> + \left< y, Ax \right>                                               \\
+		                               & = \left< Ax, y \right> + \overline{\left< Ax, y \right>}.
+	\end{align*}
+	Logo, \(\mathrm{Re}\left< Ax, y \right> = 0\). Analogamente, trocando x por ix e sabendo que \(\mathrm{Im}(z) = -\mathrm{Re}(iz),\) obtemos
+	\[
+		\mathrm{Im}(\left< Ax, y \right>) = -\mathrm{Re}(i \left< Ax, y \right>) = - \mathrm{Re}(\left< Aix, y \right>) = 0.
+	\]
+	Disto, chegamos em \(\left< Ax, y \right> = 0\) para todo x e y, ou seja, \(Ax = 0\) para todo x. Logo, A = 0.
+
+	3): Finalmente, seja \(\beta = \sup_{\Vert x \Vert = 1}|\left< Ax, x \right>|\). Pela \hyperlink{cauchy_schwarz}{\textit{Desigualdade de Cauchy-Schwarz}}, temos
+	\[
+		|\left< Ax, x \right>|\leq \Vert Ax \Vert\Vert x \Vert \leq \Vert A \Vert\Vert x \Vert^{2},
+	\]
+	tal que \(\beta \leq \Vert A \Vert\). Agora, sejam \(\Vert x \Vert = 1\) e \(y\in H\) tais que \(\left< y, Ax \right>\) é real e \(\Vert y \Vert = 1.\) Vale que
+	\[
+		\left< y, Ax \right> = \frac{1}{4}(\left< x + y, A(x, y) \right> - \left< x - y, A(x-y) \right>,
+	\]
+	no qual utilizamos que \(\left< y, Ax \right> = \left< Ax, y \right> = \left< x, Ay \right>,\) pois \(\left< y, Ax \right>\) é real e A é simétrico. Com isso, pela \textit{Lei do Paralelogramo},
+	\begin{align*}
+		16|\left< y, Ax \right>|^{2} & \leq \beta ^{2}(\Vert x + y \Vert^{2} + \Vert x-y \Vert^{2})^{2} \\
+		                             & = 4\beta ^{2}(\Vert x \Vert^{2} + \Vert y \Vert^{2})^{2}         \\
+		                             & = 16\beta ^{2}.
+	\end{align*}
+	Com isto, \(|\left< y, Ax \right>|\leq \beta \). Caso \(\Vert y \Vert = 1\), mas \(\left< y, Ax \right> = re^{i\theta },\) seja \(y'= e^{-i\theta }\) e prossiga do mesmo jeito que acima, mas com y' no lugar de y. Fazendo isto,
+	\[
+		|\left< y', Ax \right>| = |\left< y, Ax \right>| \leq \beta ,
+	\]
+	em que colocamos \(y = \frac{Ax}{\Vert Ax \Vert}.\) Assim, segue que \(\Vert Ax \Vert \leq \beta \) e \(\Vert A \Vert \leq \beta \). Portanto, \(\Vert A \Vert = \beta \). \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja \(A:H\rightarrow H\) um operador linear limitado e simétrico. Então, os autovalores de A são reais e, além disso, dois autovetores correspondentes a autovalores distintos são ortogonais.
+\end{prop*}
+\begin{proof*}
+	Note que, se \(\lambda \in \mathbb{C}\) é um autovalor de A, então
+	\[
+		\lambda \left< v, v \right> = \left< \lambda v, v \right> = \left< Av, v \right> = \left< v, Av \right> = \left< v, \lambda v \right> = \overline{\lambda }\left< v, v \right>,
+	\]
+	do que segue que \(\lambda  = \overline{\lambda } \) e, consequentemente, \(\lambda \in bm  R\).
+
+	Para ver a ortogonalidade, sejam \(v_1\) e \(v_2\) autovetores correspondentes aos autovalores \(\lambda _1\) e \(\lambda _2\) respectivamente, com \(\lambda _1\neq \lambda _2\). Temos
+	\[
+		\lambda _1 \left< v_1, v_2 \right> = \left< \lambda_1 v_1, v_2 \right> = \left< Av_1, v_2 \right> = \left< v_1, Av_2 \right> = \left< v_1, \lambda _2v_2 \right> = \overline{\lambda }_2\left< v_1, v_2 \right>,
+	\]
+	mas \(\lambda_2 \in \mathbb{R}\). Portanto,
+	\[
+		\lambda _1\left< v_1, v_2 \right>=\lambda _2 \left< v_1, v_2 \right> \Rightarrow \left< v_1, v_2 \right> = 0. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{def*}
+	Um operador linear \(A:H\rightarrow H\) é dito \textbf{compacto} se \(\overline{A(B)}\) é compacto em H, em que B é a bola aberta unitária. \(\square\)
+\end{def*}
+\begin{theorem*}
+	Seja \(A:H\rightarrow H\) um operador compacto e simétrico. Então, H admite uma base ortonormal formada por autovetores de A. Além disso, existem sequências de autovalores \((\lambda_{n})\) de A e vetores \((v_{n})\) tais que
+	cada \(v_{n}\) é autovetor associado a \(\lambda_{n}\) e
+	\[
+		Ax = \sum\limits_{n}^{}\lambda_{n} \left< x, v_{n} \right>v_{n}.
+	\]
+\end{theorem*}
 \end{document}
