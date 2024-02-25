@@ -13,6 +13,45 @@
 		\hat{f}(u) = \int_{\mathbb{R}^{n}}^{}e^{iu \cdot x}f(x)dx,\quad u\in \mathbb{R}^{n}.\quad \square
 	\]
 \end{def*}
+\begin{prop*}
+	Suponha que f e g estão em \(L^{1}\). Então,
+	\begin{itemize}
+		\item[1)] \(\hat{f}\) é limitada e contínua;
+		\item[2)] \(\hat{(f+g)}(u) = \hat{f}(u) + \hat{g}(u)\);
+		\item[3)] \(\hat{(af)}(u) = a \hat{f}(u)\) se \(a\in \mathbb{C}\);
+		\item[4)] Se \(a\in \mathbb{R}^{n}\) e \(f_{a}(x) = f(x+a)\), então \(\hat{f}_{a}(u) = e^{-iu \cdot a}\hat{f}(u)\);
+		\item[5)] Se \(a\in \mathbb{R}^{n}\) e \(g_a(x) = e^{ia \cdot x}g(x)\), então \(\hat{g}_{a}(u) = \hat{g}(u+a)\);
+		\item[6)] Se a é um número real não-nulo e \(h_a(x) = f(ax)\), então \(\hat{h}_{a}(u) = a^{-n}\hat{f}\biggl(\frac{u}{a}\biggr)\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Vale que \(\hat{f}\) é limitada pois \(f\in L^{1}\) e \(|e^{iu \cdot x}| = 1\). Temos
+	\[
+		\hat{f}(u+h) - \hat{f}(u) = \int_{}^{}\biggl(e^{i(u+h)\cdot x} - e^{iu \cdot x}\biggr)f(x)dx.
+	\]
+	Então,
+	\[
+		|\hat{f}(u+h) - \hat{f}(u)|\leq \int_{}^{}|e^{iu \cdot x}|\cdot |e^{ih \cdot x} - 1||f(x)|dx
+	\]
+	O termo sendo integrado é limitado por \(2|f(x)|,\) o qual é integrável, e \(e^{ih \cdot x} - 1\to 0\) quando \(h\to 0\). consequentemente,
+	a continuidade segue do \hyperlink{dominated_convergence}{\textit{Teorema da Convergência Dominada}}.
+
+	Os itens 2 e 3 seguem por uma mudança de variáveis. Para ver a veracidade do item 4, também pode-se utilizar uma mudança de variáveis
+	\[
+		\hat{f}_{a}(u) = \int_{}^{}e^{iu \cdot x}f(x+a)dx = \int_{}^{}e^{iu \cdot (x-a)}f(x)dx = e^{-iu \cdot a}\hat{f}(u)
+	\]
+	Quanto ao item 5,
+	\[
+		\hat{g}_{a}(u) = \int_{}^{}e^{iu \cdot x}e^{ia \cdot x}f(x)dx = \int_{}^{}e^{i(u+a)\cdot x}f(x)dx = \hat{f}(u+a).
+	\]
+	Por fim, o item 6 também segue de uma mudança de variáveis:
+	\begin{align*}
+		\hat{h}_{a}(u) = \int_{}^{}e^{iu \cdot x}f(ax)dx & = a^{-n}\int_{}^{}e^{iu \cdot \biggl(\frac{y}{a}\biggr)}f(y)dy \\
+		                                                 & = a^{-n}\int_{}^{}e^{i \biggl(\frac{u}{a}\biggr)y}f(y)dy       \\
+		                                                 & = a^{-n}\hat{f}\biggl(\frac{u}{a}\biggr).
+	\end{align*}
+	Como queríamos. \qedsymbol
+\end{proof*}
 Neste capítulo, \(u \cdot x\) denota o \textit{produto interno} de \(\mathbb{R}^{n}\)
 \begin{prop*}
 	Suponha que \(f, g, f \cdot x_{j}\in L^{1}.\) Então,
