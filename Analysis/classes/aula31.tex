@@ -1,0 +1,264 @@
+\documentclass[../analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 31 - 19/06/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Sequências de Funções;
+	\item Convergência Pontual e Uniforme de Sequência de Funções;
+	\item Critério de Cauchy para Funções;
+	\item O Teste M de Weierstrass.
+\end{itemize}
+\subsection{Convergência Pontual de Sequências e Séries de Funções}
+\begin{def*}
+	Seja \(\{f_{n}\}, n\in \mathbb{N}\) uma sequência de funções definiddas em \(D\subseteq \mathbb{R}\) e tomando valores em \(\mathbb{R}.\) Se \(\{f_{n}(x)\} \) é convergente para todo x em D, definimos a \textbf{função limite da sequência} \(\{f_{n}\} \) como
+	\[
+		f(x)=\lim_{n\to \infty}f_{n}(x),\quad x\in D.
+	\]
+	Analogamente, se \(\sum\limits_{}^{}f_{n}(x)\) converge para todo x em D, definimos
+	\[
+		f(x)=\sum\limits_{n=1}^{\infty}f_{n}(x),\quad x\in D
+	\]
+	como a \textbf{soma da série} \(\sum\limits_{}^{}f_{n}.\) \(\square\)
+\end{def*}
+Uma questão natural que surge é se as propriedades que uma sequência de funções possui é mantida por seu limite - em outras palavras, se funções deriváveis permanecem deriváveis, integráveis permanecem integráveis, ou, mas básico ainda, se continuas continuam contínuas. Caso a resposta seja afirmativa, há alguma relação entre, por exemplo, as derivadas das sequências e a derivada do limite?
+
+A resposta dessas questões importantes está por trás de uma longa jornada dentre as sequências e séries de funções e, para começar, estudamos o que seria uma função f, dada pelo limite de uma sequência de funções \(\{f_{n}\}\), contínua em um ponto de acumulação x de D. Neste caso, seria preciso que
+\[
+	\lim_{n\to \infty}\lim_{t\to x}f_{n}(t)=\lim_{n\to \infty}f_{n}(x) = f(x)=\lim_{x\to t}f(t)=\lim_{t\to x}\lim_{n\to \infty}f_{n}(t),
+\]
+ou seja, é necessária a capacidade de trocar a ordem em que os limites são executados - começar pelo limite de n tendendo a infinito ou pelo limite de t tendendo a x não pode ser relevante para o resultado final. Por mais incrível que seria, isto não é o caso que sempre ocorre, e veremos exemplos disto antes de entregar as condições precisas para este caso mais básico de preservação de continuidade.
+
+\begin{example}
+	Considere a sequência dupla em \(m, n\in \mathbb{N}^{\times}\) dada por
+	\[
+		s_{m, n}=\frac{m}{m+n}.
+	\]
+	Então, para n fixo, \(\lim_{m\to \infty}s_{m, n}=1\), tal que
+	\[
+		\lim_{n\to \infty}\lim_{m\to \infty}s_{m, n}=1.
+	\]
+	Por outro lado, se tomarmos o limite começando por n tendendo a infinito, então \(\lim_{n\to \infty}s_{m, n}=0\), tal que
+	\[
+		\lim_{m\to \infty}\lim_{n\to \infty}s_{m, n}= 0,
+	\]
+	que, como sabemos, é diferente de 1, em geral.
+\end{example}
+\begin{example}
+	Para um exemplo com sequências e séries de funções, seja
+	\[
+		f_{n}(x)=\frac{x^{2}}{(1+x^{2})^{n}},\quad x\in \mathbb{R}; n\in \mathbb{N}
+	\]
+	e considere a função série
+	\[
+		f(x)=\sum\limits_{n=0}^{\infty}f_{n}(x)=\sum\limits_{n=0}^{\infty}\frac{x^{2}}{(1+x^{2})^{n}}.
+	\]
+	Como \(f_{n}(0)=0\), temos \(f(0)=0.\) Para \(x\neq 0\), a série geométrica que define f é convergente e tem soma \(1+x^{2}.\) Logo,
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			0, \quad x=0 \\
+			1+x^{2},\quad x\neq0
+		\end{array}\right.,
+	\]
+	o que mostra que a função soma de uma série de funções, mesmo se elas forem contínuas, pode ser descontínua.
+\end{example}
+\begin{example}
+	Para \(m=1,2,3,\dotsc \), defina
+	\[
+		f_{m}(x)=\lim_{n\to \infty}(\cos^{}{(m!\pi x)})^{2n}.
+	\]
+	Quando \(m!x\) é um inteiro, \(f_{m}(x)=1,\) já que será o cosseno de um múltiplo de \(\pi \). Por outro lado, para quaisquer outros valores de x, \(f_{m}(x)=0\), já que será um número menor que 1 elevado a uma potência crescente. Agora, defina
+	\[
+		f(x)=\lim_{m\to \infty}f_{m}(x).
+	\]
+	Para x irracional, \(f_{m}(x)=0\) para todo m, tal que \(f(x)=0\), mas, para \(x=p/q\in \mathbb{Q},\) sendo p e q inteiros e q um inteiro não nulo, \(m!x\) será inteiro sempre que \(m\geq q\) e \(f(x)=1\). Em outras palavras, f é a função
+	\[
+		f(x)=\lim_{m\to \infty}\lim_{n\to \infty}(\cos^{}{(m!\pi x)})^{2n}  = \left\{\begin{array}{ll}
+			0,\quad x \text{ irracional} \\
+			1,\quad x \text{ racional}
+		\end{array}\right..
+	\]
+	Portanto, obtemos uma função descontínua em todos os pontos e que não é Riemann-integrável, mesmo sendo construída a partir de funções Riemann-integráveis.
+\end{example}
+\begin{example}
+	Seja
+	\[
+		f_{n}(x)=\frac{\sin^{}{(nx)}}{\sqrt[]{n}},\quad x\in \mathbb{R}, n\in \mathbb{N}^{\times}
+	\]
+	e
+	\[
+		f(x)=\lim_{n\to \infty}f_{n}(x)=0,\quad \forall x\in \mathbb{R}.
+	\]
+	Então, \(f'(x)=0\) para todo x real e
+	\[
+		f_{n}^{'}(x)=\sqrt[]{n}\cos^{}{(nx)},
+	\]
+	de forma que \(\{f_{n}^{'}\}\) não converge para f'. Para ver que isto de fato ocorre, note que
+	\[
+		f_{n}^{'}(0)=\sqrt[]{n}\overbrace{\longrightarrow}^{n\to\infty}+\infty,
+	\]
+	enquanto que \(f'(0)=0.\)
+\end{example}
+\begin{example}
+	Seja
+	\[
+		f_{n}(x)=n^{2}x(1-x^{2})^{n},\quad 0\leq x\leq 1,\quad n\in \mathbb{N}.
+	\]
+	Para \(0 < x \leq 1\), temos
+	\[
+		\lim_{n\to \infty}f_{n}(x)=0.
+	\]
+	Como \(f_{n}(0)=0\) para todo n natural, temos também
+	\[
+		\lim_{n\to \infty}f_{n}(x)=0,\quad 0\leq x\leq 1,\quad n\in \mathbb{N}.
+	\]
+	Por outro lado,
+	\[
+		\int_{0}^{1}f_{n}(x)dx=\frac{n^{2}}{2n+2}\overbracket[0pt]{\longrightarrow}^{n\to \infty}+\infty.
+	\]
+	Se, na definição de \(f_{n}\), trocarmos \(n^{2}\) por n, teremos
+	\[
+		\lim_{n\to \infty}\int_{0}^{1}f_{n}(x)dx=\lim_{n\to \infty}\frac{n}{2n+2}=\frac{1}{2},
+	\]
+	enquanto que \(\lim_{n\to \infty}=0\) para \(0\leq x\leq 1\), e
+	\[
+		\int_{0}^{1}[\lim_{n\to \infty}f_{n}(x)]dx=0.
+	\]
+	Desta forma, o limite das integrais não precisa ser igual à integral do limite, mesmo que ambos sejam finito.
+\end{example}
+Agora, como foram mostradas as formas que trabalhar com múltiplos processos pode dar errado, vamos definir um novo tipo de convergência, mais forte e que exploraremos mais a fundo.
+\subsection{Convergência Uniforme e o Teste M de Weiertstrass}
+\begin{def*}
+	Seja \(\{f_{n}\}\), n natural, uma sequência de funções definidas em \(D\subseteq \mathbb{R}\) e tomando valores em \(\mathbb{R}.\) Dizemos que \(\{f_{n}\}, n\in \mathbb{N}\) \textbf{converge uniformemente para f em D} se, dado \(\varepsilon > 0\), existe \(N\in \mathbb{N}\) tal que
+	\[
+		\sup_{x\in D}|f_{n}(x)-f(x)|\leq \varepsilon , \quad \forall n\geq N.
+	\]
+	Dizemos, também, que a série \(\sum\limits_{}^{}f_{n}(x)\) converge uniformemente em D se a sequência de somas parciais, definida por
+	\[
+		\sum\limits_{i=1}^{n}f_{i}(x)=s_{n}(x)
+	\]
+	converge uniformemente em D. \(\square\)
+\end{def*}
+O critério de Cauchy para convergência uniforme é o seguinte:
+\hypertarget{uniform_cauchy}{
+	\begin{theorem*}[Critério de Cauchy para Uniforme]
+		A sequência de funções \(\{f_{n}\},\) definidas em \(D\subseteq \mathbb{R}\) e tomando valores em \(\mathbb{R},\) converge uniformemente em D se, e somente se, dado \(\varepsilon > 0\), existe \(N\in \mathbb{N}\) tal que \(m\geq N, n \geq N\) implica que
+		\[
+			\sup_{x\in D}|f_{n}(x)-f_{m}(x)|\leq \varepsilon .
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	Suponha que \(\{f_{n}\}\) converge uniformemente em D e seja f a função limite. Então, existe N natural tal que \(n\geq N\) implica em
+	\[
+		\sup_{x\in D}|f_{n}(x)-f(x)|\leq \frac{\varepsilon }{2}.
+	\]
+	Logo, para todo x em D e todos \(n, m \geq N\),
+	\[
+		|f_{n}(x)-f_{m}(x)|\leq |f_{n}(x)-f(x)|+|f(x)-f_{m}(x)|\leq \varepsilon,
+	\]
+	ou seja,
+	\[
+		\sup_{x\in D}|f_{n}(x)-f_{m}(x)|\leq \varepsilon , \quad \forall n, m\geq N.
+	\]
+	Por outro lado, suponha que a condição (1) seja válida, tal que \(\{f_{n}(x)\}\) converge, para todo x, até uma \(f(x)\). Com isto, a sequência \(\{f_{n}\}\) converge em D, justamente para f. O que precisamos é provar que essa convergência é uniforme.
+
+	Com efeito, seja \(\varepsilon >0\) dado e escolha N natural tal que (1) seja válida. Fixado n, faça m tender a infinito na primeira expressão. Como \(f_{m}(x)\overbracket[0pt]{\longrightarrow}^{m\to \infty}f(x)\), temos
+	\[
+		|f_{n}(x)-f(x)|\leq \varepsilon , \quad \forall n\geq N; \forall x\in D,
+	\]
+	portanto completando a prova.\qedsymbol
+\end{proof*}
+Enquanto temos o critério de Cauchy para sequências, existe o Teste M de Weierstrass para séries, que, além de garantir convergência, fornece-a de forma uniforme.
+\hypertarget{Weierstrass_M}{
+	\begin{theorem*}[Teste M de Weierstrass]
+		Seja \(\{f_{n}\}\) uma sequência de funções definidas em \(D\subseteq \mathbb{R}\) e tomando valores em \(\mathbb{R}\). Suponha que
+		\[
+			\sup_{x\in D}|f_{n}(x)|\leq M_{n},\quad \forall n\in \mathbb{N}.
+		\]
+		Se \(\sum\limits_{}^{}M_{n}\) converge, então \(\sum\limits_{}^{}f_{n}\) converge uniformemente em D.
+	\end{theorem*}
+}
+Vale mencionar que a recíproca não é verdadeira.
+\begin{proof*}
+	Suponha que \(\sum\limits_{}^{}M_{n}\) converge, ou seja, dado \(\varepsilon >0\), existe \(N\in \mathbb{N}\) tal que
+	\[
+		\biggl\vert \sum\limits_{i=1}^{m}f_{i}(x) \biggr\vert\leq \sum\limits_{i=n}^{2}M_{i}\leq \varepsilon , \quad \forall x\in D, \quad \forall m, n\geq N.
+	\]
+	A partir disso, a convergência uniforme segue do \hyperlink{uniform_cauchy}{\textit{Critério de Cauchy para convergência Uniforme}}. \qedsymbol
+\end{proof*}
+\begin{example}
+	O exemplo a seguir falsifica a recíproca, já que, tomando
+	\[
+		f_{n}(x)=\frac{x^{2}(1-x^{2})^{n+2}}{\ln^{}{(n+3)}},\quad 0\leq x\leq 1, n\in \mathbb{N}.
+	\]
+	Esta série converge uniformemente e
+	\[
+		M_{n}=\frac{\biggl(1+\frac{1}{n+2}\biggr)^{-(n+2)}}{(n+3)\ln^{}{(n+3)}},
+	\]
+	tal que \(\sum\limits_{}^{}M_{i}\) diverge.
+\end{example}
+\begin{def*}
+	Uma \textbf{sequência dupla} \((x_{nk})\) é uma função \(x:\mathbb{N}\times \mathbb{N}\rightarrow \mathbb{R} \), que associa a cada por \((n. k)\) de números naturais um número real \(x(n, k)\coloneqq x_{nk}\)
+	\[
+		\begin{matrix}
+			x_{11} & x_{12} & x_{13} & \dotsc \\
+			x_{21} & x_{22} & x_{23} & \dotsc \\
+			x_{31} & x_{32} & x_{33} & \dotsc \\
+			\dotsc & \dotsc & \dotsc & \dotsc \\
+			\dotsc & \dotsc & \dotsc & \dotsc \\
+		\end{matrix}\quad \square
+	\]
+\end{def*}
+Consideremos as somas repetidas \(\sum\limits_{n=1}^{\infty}\biggl(\sum\limits_{k=1}^{\infty}x_{nk}\biggr)\) e \(\sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr)\). Mesmo se ambas convergirem, alterar a ordem das somas pode gerar resultados diferentes.
+
+Uma forma de visualizar isso é pensando em cada ordem de soma como começando pela coluna e somando cada resultado, ou começando pela linha e somando cada resultado, ou seja,
+
+\[
+	\begin{matrix}
+		\frac{1}{2} & -\frac{1}{2} & 0            & 0             & 0              & \dotsc \\
+		0           & \frac{3}{4}  & -\frac{3}{4} & 0             & 0              & \dotsc \\
+		0           & 0            & \frac{7}{8}  & -\frac{7}{8}  & 0              & \dotsc \\
+		0           & 0            & 0            & \frac{15}{16} & -\frac{15}{16} & \dotsc \\
+		\dotsc      & \dotsc       & \dotsc       & \dotsc        & \dotsc         & \dotsc \\
+	\end{matrix}\quad \square
+\]
+A soma começando pelas colunas resulta no seguinte conjunto de números:
+\[
+	\biggl\{\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \frac{1}{16}, \dotsc \biggr\} = \biggl\{\frac{1}{2^{n}}:n\in \mathbb{N}\biggr\} ,
+\]
+enquanto que a soma iniciada pelas linhas é o conjunto
+\[
+	\{0, 0, 0, 0, 0, \dotsc \}.
+\]
+Logo, as somas dão diferentes, pois
+\[
+	\sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr)=\sum\limits_{k=1}^{\infty}\biggl(\frac{1}{2}\biggr)^{n} = 1 \quad\&\quad \sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr) = 0.
+\]
+Sendo assim, sob quais condições poderemos livremente trocar as ordens de somas infinitas? E como isso pode ser útil? O primeiro passo nessa resposta está no seguinte lema:
+\begin{lemma*}
+	Se \(f_{n}:\mathbb{N}\rightarrow \mathbb{R}\) é dada por \(f_{n}(j)=x_{n1}+\dotsc +x_{nj}\), a soma \(\sum\limits_{n=1}^{\infty}f_{n}\) converge uniformemente em \(\mathbb{N}\) e \(\sum\limits_{k=1}^{\infty}x_{nk}\) converge para todo n natural, então
+	\[
+		\sum\limits_{n=1}^{\infty}\biggl(\sum\limits_{k=1}^{\infty}x_{nk}\biggr) = \sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr).
+	\]
+\end{lemma*}
+\begin{proof*}
+	Como \(\sum\limits_{n=1}^{\infty}f_{n}\) converge uniformemente, segue que
+	\begin{align*}
+		\sum\limits_{n=1}^{\infty}\sum\limits_{k=1}^{\infty}x_{nk}  =\sum\limits_{n=1}^{\infty}\biggl[\lim_{j\to \infty}f_{n}(j)\biggr] & =\lim_{j\to \infty}\biggl[\sum\limits_{n=1}^{\infty}f_{n}(j)\biggr]                    \\
+		                                                                                                                                & =\lim_{j\to \infty}\biggl[\sum\limits_{n=1}^{\infty}\sum\limits_{k=1}^{j}x_{nk}\biggr] \\
+		                                                                                                                                & =\lim_{j\to \infty}\biggl[\sum\limits_{k=1}^{j}\sum\limits_{n=1}^{\infty}x_{nk}\biggr] \\
+		                                                                                                                                & = \sum\limits_{k=1}^{\infty}\sum\limits_{n=1}^{\infty}x_{nk}.\quad \text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+Com este lema, estamos prontos para ver a primeira condição que garante a capacidade da troca da ordem de soma.
+\begin{theorem*}
+	Dada \(\{x_{nk}\}\), se \(\sum\limits_{k=1}^{\infty}|x_{nk}|=a_{n}\) para cada n e \(\sum\limits_{n=1}^{\infty}a_{n}<\infty\), então
+	\[
+		\sum\limits_{n=1}^{\infty}\biggl(\sum\limits_{k=1}^{\infty}x_{nk}\biggr) = \sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr).
+	\]
+	Em particular, todas as séries contidas nesta igualdade são convergentes.
+\end{theorem*}
+\begin{proof*}
+	Coloque \(f_{n}(k)=x_{n1}+\dotsc + x_{nk}\), como no lema; Temos \(|f_{n}(k)|\leq a_{n}\) para todo k e todo n. Logo, \(\sum\limits_{n=1}^{\infty}f_{n}\) é uniformemente convergente para \(k\in \mathbb{N}\) por meio do teste M de Weierstrass, com \(M=\sum\limits_{n=1}^{\infty}a_{n}\). Portanto, pelo lema anterior, segue o resultado. \qedsymbol
+\end{proof*}
+\end{document}

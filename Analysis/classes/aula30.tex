@@ -1,0 +1,160 @@
+\documentclass[../analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 30 - 17/06/2023}
+\subsection{Motivações}
+\begin{itemize}
+	\item Caracterizações das Funções Riemann Integráveis;
+	\item Número de Lebesgue.
+\end{itemize}
+\subsection{Caracterizações das Funções Riemann Integráveis}
+\begin{def*}
+	Se \(f\in \mathcal{B}([a, b], \mathbb{R})\) defina \(\omega ^{f}:[a, b]\rightarrow \mathbb{R}\) por \(\omega ^{f}(x)=\lim_{\nu\to 0}\omega_{\nu}^{f}(x)\), em que
+	\[
+		\omega _{\nu}^{f}(x)=\sup_{}\{|f(s)-f(t)|: s, t\in [a, b]\cap (x-\nu, x+\nu)\}. \quad \square
+	\]
+\end{def*}
+Note que, para cada x em \([a, b]\), fazer, para \(\nu\in(0, \infty)\),
+\[
+	\nu \mapsto \omega_{\nu}^{f}(x)\in [0, \infty)
+\]
+é não-decrescente, tal que \(\omega ^{f}(x)\) está bem definida para cada x em \([a, b]\). Além disso, f é contínua em \(p\in[a, b]\) se, e somente se, \(\omega^{f}(p)=0.\)
+
+Com efeito, se \(\omega ^{f}(p)=0\), ou seja, \(\lim_{\nu\to 0}\omega_{\nu}^{f}(p)=0\), então dado \(\varepsilon >0\), existe \(\delta >0\) tal que se \(\nu<\delta \), vale
+\[
+	|\omega _{\nu}^{f}(p)|<\varepsilon
+\]
+Em outras palavras, dado \(\varepsilon >0\), existe \(\delta >0\) tal que
+\[
+	\sup_{}\{|f(s)-f(t)|:s, t\in [a, b]\cap (x-\nu, x+\nu)\}<\varepsilon \Rightarrow |f(s)-f(t)|<\varepsilon
+\]
+para todo s em \((p-\nu, p+\nu)\cap [a, b]\). Portanto, f é contínua em p.
+
+\begin{lemma*}
+	O conjunto \(E_{\delta }^{f}=\{x\in [a, b]:\omega^{f}(x)\geq \delta \}\) é compacto.
+\end{lemma*}
+\begin{proof*}
+	Seja \(x\in \overline{E _{\delta }^{f}}\) e considere uma sequência \(\{x_{n}\}\) de elementos de \(E_{\delta }^{f}\) que convirja para x quando n tende a infinito. Nosso objetivo será mostrar que o fecho e o conjunto coincidem, assim mostrando que ele é fechado e entrando nos critérios de compacidade.
+	Com efeito, note que \(\omega^{f}(x_{n})\geq \delta \) para todo n natural. A partir disto, sejam \(0<\nu^{'}<\nu\) e n um natural tal que
+	\[
+		(x_{n}-\nu^{'},x_{n}+\nu')\subseteq (x-\nu, x+\nu).
+	\]
+	Logo,
+	\[
+		\delta \leq \omega^{f}(x_{n}) \leq \omega_{\nu'}^{f}(x_{n}) \leq \omega_{\nu}^{f}(x)
+	\]
+	e, portanto,
+	\[
+		\omega^{f}(x)=\lim_{\nu\to 0}\omega_{\nu}^{f}(x)\geq \delta. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{lemma*}
+	Seja \(f\in \mathcal{B}([a, b], \mathbb{R})\) e \(\mathcal{P}=\{x_{0}, \dotsc, x_{n}\}\in \mathcal{P}([a, b])\). Coloque
+	\begin{align*}
+		 & M_{i}=\sup_{x\in[x_{i-1}, x_{i}]}\{f(x)\},                \\
+		 & m_{i}=\inf_{x\in[x_{i-1}, x_{i}]}\{f(x)\},                \\
+		 & \omega_{i}=\sup_{x, y\in[x_{i-1, x_{i}}]}\{|f(x)-f(y)|\}.
+	\end{align*}
+	Então, \(\omega_{i}=M_{i}-m_{i}\), \(1\leq i\leq n.\)
+\end{lemma*}
+\begin{proof*}
+	Para todo \(x, y\in[x_{i-1}, x_{i}]\), temos \(\omega_{i}\geq |f(x)-f(y)|\geq f(x)-f(y)\) e, assim,
+	\[
+		\omega_{i}\geq M_{i}-f(y), \quad \forall y\in[x_{i-1}, x_{i}].
+	\]
+	Disto segue que \(\omega_{i}\geq M_{i}-m_{i}.\)
+
+	Por outro lado, dado \(\varepsilon > 0\), existem \(x, y\in [x_{i-1}, x_{i}]\) tais que \(M_{i}\leq f(x)+\frac{\varepsilon }{2}\) e \(m_{i}\geq f(y)-\frac{\varepsilon }{2}\), donde temos
+	\[
+		M_{i}-m_{i}\leq f(x)-f(y)+\varepsilon \leq \omega_{i}+\varepsilon.
+	\]
+	Como é válido para \(\varepsilon \) arbitrário, vale que \(M_{i}-m_{i}\leq \omega_{i}\). Portanto,
+	\[
+		M_{i}-m_{i}=\omega_{i}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{theorem*}
+	Se \(f\in \mathcal{B}([a, b], \mathbb{R})\) e \(\omega^{f}(x)<\varepsilon \) para todo \(x\in[a, b]\), então existe uma partição \(\mathcal{P}=\{x_{0}, x_{1}, \dotsc , x_{n}\}\in \mathfrak{P}([a, b])\) tal que \(\max_{1\leq i\leq }(M_{i}-m_{i})<\varepsilon \), em que \(M_{i}, m_{i}\) são definidos como antes.
+\end{theorem*}
+\begin{proof*}
+	Note que, para cada x em \([a, b]\), existe \(\delta_{x}>0\) tal que \(\omega_{\delta_{x}}^{f}(x)<\varepsilon .\) A cobertura
+	\[
+		\{I_{x}=(x-\delta_{x}, x+\delta_{x}): x\in[a, b]\}
+	\]
+	de \([a, b]\) tem uma subcobertura finita, já que [a, b] é compacto. Denotemos ela pelos elementos \(I_{x_{1}}, \dotsc, I_{x_{n}}.\) Assim, os pontos a e b, junto com os extremos de cada intervalo \(I_{x_{i}}\) que pertencem a \((a, b)\) formam a partição desejada. \qedsymbol
+\end{proof*}
+Se pensarmos no \(\omega^{f}\) como a oscilação máxima de f dentro de cada intervalo, por menor que seja, que contenha x, então os conjuntos \(E_{\delta }^{f}\) é composto dos elementos x aos quais f será aplicada tais que sua oscilação não é nula, que compõe, por exemplo, o conjunto
+\[
+	\left\{\begin{array}{ll}
+		1,\quad  x\in \mathbb{Q} \\
+		0,\quad  x\not\in \mathbb{Q}
+	\end{array}\right.
+\]
+Já sabemos que a integral de Riemann-Stieltjes deste conjunto não existe, então utilizaremos conjuntos que lembrem este para determinar completamente quais funções possuem uma integral de Riemann.
+
+Em forma de palavras, o teorema afirma que ``A integral de Riemann de uma função limitada existe quando o conjunto de elementos nos quais esta função oscila possui medida exterior nula".
+\begin{theorem*}
+	As funções Riemann-integráveis em um intervalo [a, b] são completamente caracterizadas pelo conjunto
+	\[
+		\{f\in \mathcal{B}([a, b], \mathbb{R}): m^{*}(E_{\delta }^{f}=0,\quad \forall \delta >0)\}.
+	\]
+	Em outras palavras,
+	\[
+		\mathcal{R}([a, b])=\{f\in \mathcal{B}([a, b], \mathbb{R}): m^{*}(E_{\delta }^{f}=0,\quad \forall \delta >0)\}.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Começamos mostrando o lado ``\(\subseteq \)" da igualdade de conjuntos acima.
+
+	Dados \(f\in \mathcal{R}([a, b]), \delta > 0\) e \(\varepsilon >0\), seja \(\mathcal{P}=\{x_{0}, \dotsc , x_{n}\}\in \mathfrak{P}([a, b])\) tal que
+	\[
+		\sum\limits_{i=1}^{n}[M_{i}-m_{i}](x_{i}-x_{i-1})=\sum\limits_{i=1}^{n}\omega_{i}(x_{i}-x_{i-1})<\varepsilon\delta.
+	\]
+	\textbf{\underline{Afirmação}:} Se \(E_{\delta, i}\coloneqq (x_{i-1}, x_{i})\cap E_{\delta}^{f}\neq\emptyset\), então \(\omega_{i}\geq \delta \).
+
+	De fato, se \(x\in E_{\delta , i},\) \(\omega^{f}(x)\geq \delta \) e existe \(\nu >0\) tal que \((x-\nu, x+\nu )\subseteq (x_{i-1}, x_{i})\) e \(\omega_{\nu }^{f}(x)\geq \omega^{f}(x)\geq \delta \). Logo, \(\omega_{i}\geq \delta \).
+
+	Com esta afirmação, mostrar a relação de contido torna-se questão de mostrar que há um elemento comum entre todo intervalo \((x_{i-1}, x_{i})\) e \(E_{\delta }^{f}\). Para isto, considere a seguinte família de índices \(I=\{i\in \{1, \dotsc , n\}: E_{\delta, i}\neq\emptyset\}\). Então,
+	\[
+		\delta \sum\limits_{i\in I}^{}(x_{i}-x_{i-1})\leq \sum\limits_{i\in I}^{}\omega_{i}(x_{i}-x_{i-1})\leq \varepsilon\delta,
+	\]
+	tal que, dividindo por \(\delta \) nos dois lados, obtém-se
+	\[
+		\sum\limits_{i\in I}^{}(x_{i}-x_{i-1})< \varepsilon.
+	\]
+	Finalmente, para ver que \(m^{*}(E_{\delta }^{f})=0\), note que estes intervalos como construímos cobrem \(E_{\delta }^{f}\setminus{\mathcal{P}}\), mas \(\mathcal{P}\) é finito, permitindo concluirmos que a medida exterior é nula.
+
+	Para provarmos o outro lado, suponha que \(m^{*}(E_{\delta }^{f}=0)\) para todo \(\delta > 0\). Dado \(\varepsilon >0\), tome \(\delta = \frac{\varepsilon }{2(b-a)}\) e seja \(\mathcal{P}_{0}\in \mathfrak{P}([a, b])\) tal que a soma dos comprimentos dos intervalos que intersectam \(E_{\delta }^{f}\) é menor que \(\frac{\varepsilon }{2(M-m)}\).
+
+	Pelo teorema anterior, os intervalos que não estão nesta categoria podem ser subdivididos de modo a obter um refinamento \(\mathcal{P}=\{x_{0}, \dotsc , x_{n}\}\) de \(\mathcal{P}_{0}\) tal que \(\omega_{i}<\delta  \) se \(E_{\delta , i}= \emptyset \). Seja \(I=\{i:E_{\delta, i}\neq\emptyset\}\) e \(J=\{i:E_{\delta , i}=\emptyset \}\). Desta forma,
+	\[
+		\sum\limits_{i\in I}^{}(x_{i}-x_{i-1})<\frac{\varepsilon }{2(M-m)}
+	\]
+	e, se i é um índice da família J, então \(\omega_{i}<\delta =\frac{\varepsilon }{2(b-a)}\), tal que
+	\[
+		\sum\limits_{i=1}^{n}\omega_{i}(x_{i}-x_{i-1})=\sum\limits_{i\in I}^{}\omega_{i}(x_{i}-x_{i-1})+\sum\limits_{i\in J}^{}\omega_{i}(x_{i}-x_{i-1})<\varepsilon
+	\]
+	e, portanto, \(f\in \mathcal{R}([a, b])\). \qedsymbol
+\end{proof*}
+Alguns resultados decorrem deste, relacionados a operações aritméticas de funções Riemann-integráveis, alguns que já vimos, entre outros.
+\begin{crl*}
+	Se \(f\in \mathcal{B}([a, b], \mathbb{R})\), seja \(E_{f}=\{x\in [a, b]: f \text{ é descontínua em x}\}\). Então, \(\mathcal{R}([a, b])=\{f\in \mathcal{B}([a, b], \mathbb{R}): m^{*}(E_{f})=0\}\).
+\end{crl*}
+\begin{proof*}
+	Segue por notar que \(E_{f}=\bigcup_{n\in \mathbb{N}}^{}E_{\frac{1}{n}}^{f}\) e usar o teorema anterior. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se \(f, g\in \mathcal{R}([a, b])\), então \(f \cdot g\in \mathcal{R}([a, b])\) e, se \(f(x)\neq 0\) para todo x em \([a, b]\), então \(\frac{1}{f}\in \mathcal{R}([a, b])\).
+\end{crl*}
+\begin{crl*}
+	Se \(f\in \mathcal{B}([a, b], \mathbb{R})\) só tem descontinuidades de primeira espécie, então \(E^{f}\) é enumerável e f é integrável. Em particular, se \(f\in \mathbb{B}([a, b], \mathbb{R})\) é monótona, então \(f\in \mathcal{R}([a, b])\).
+\end{crl*}
+\begin{proof*}
+	Se \(\sigma_{f}(x)=\max_{}\{|f(x)-f(x^{+})|, |f(x)-f(x^{-})|\}\), então \(E^{f}\) pode ser escrito como
+	\[
+		E^{f}=\{x\in[a, b]: \sigma_{f}(x)>0\} = \bigcup_{n=1}^{\infty},\quad E_{n}^{f}=\biggl\{x\in[a, b]:\sigma_{f}(x)\geq \frac{1}{n}\biggr\}.
+	\]
+	Se \(x\in E_{n}^{f}\) e \(x\in(a, b)\), existe \(\delta >0\) tal que \(|f(t)-f(x^{+})|<\frac{1}{4n}\) para todo \(t\in(x, x+\delta )\) e \(|f(t)-f(x^{-})|<\frac{1}{4n}\) para todo \(t\in(x-\delta , x).\) Logo, para todo \(t\in (x-\delta, x+\delta )\), \(t\neq x\) e \(\sigma(t)\leq \frac{1}{2n}<\frac{1}{n}.\)
+
+	Portanto, como todos os pontos de \(E_{n}^{f}\) são isolados, \(E_{n}^{f}\) é enumerável e \(E^{f}\) também é. \qedsymbol
+\end{proof*}
+\end{document}

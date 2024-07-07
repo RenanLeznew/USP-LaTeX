@@ -1,0 +1,91 @@
+\documentclass[../analysis_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 29 - 15/06/2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema da Mudança de Variáveis;
+	\item Teorema Fundamental do Cálculo;
+	\item Integração por Partes.
+\end{itemize}
+\subsection{Teoremas de Integração}
+\hypertarget{change_of_variables}{
+	\begin{theorem*}
+		Sejam \(\varphi :[A, B]\rightarrow [a, b]\) uma função contínua e bijetora, com \(\varphi (A)=a\) e \(\varphi (B)=b\), \(\alpha \) uma função não-decrescente, \(\beta = \alpha \circ \varphi \) e \(g = f \circ \varphi \). Se \(f\in \mathcal{R}(\alpha , [a, b])\), então \(g\in \mathcal{R}(\beta, [A, B])\) e
+		\[
+			\int_{A}^{B}gd\beta = \int_{a}^{b}f d\alpha .
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	Sejam \(\mathcal{P}=\{x_{0}, \dotsc , x_{n}\}\in \mathfrak{P}_{[a, b]}\) e \(\mathcal{Q}=\{y_{0}, \dotsc , y_{n}\}\in \mathfrak{P}_{[A, B]}\), com \(x_{i}=\varphi (y_{i})\). (Esta construção pode ser usada em qualquer partição de \([A, B]\) a partir de [a, b]).
+
+	Como os valores de f em \([x_{i-1}, x_{i}]\) e de g em \([y_{i-1}, y_{i}]\) são os mesmos,
+	\[
+		U(\mathcal{Q}, g, \beta )=U(\mathcal{P}, f, \alpha ), \quad L(\mathcal{Q}, g, \beta )=U(\mathcal{P}, f, \alpha ).
+	\]
+	Pelo fato de f ser Riemann-Stieltjes integrável em \([a, b]\) com respeito à \(\alpha \), \(\mathcal{P}\) pode ser escolhida tal que ambas \(U(\mathcal{P}, f, \alpha )\) e \(L(\mathcal{P}, f, \alpha )\) estão próximas a \(\int_{a}^{b}fd\alpha \). Portanto,
+	\(g\in \mathcal{R}(\beta , [A, B])\), como desejado. \qedsymbol
+\end{proof*}
+
+Para caso especial em que \(\alpha (x)=x\), então \(\beta = \varphi \). Suponha que \(\varphi'\in \mathcal{R}([A, B])\). Ao aplicar os resultados anteriores, temos
+\[
+	\int_{a}^{b}f(x)dx = \int_{A}^{B}f(\varphi (y))\varphi '(y)dy,
+\]
+que é o resultado usual de mudança de variáveis. Outra parte fundamental do cálculo que todo estuante aprende é que a integração e a derivação são, em algum sentido, operações opostas. Para ver a formalização disto, temos o seguinte teorema:
+\begin{theorem*}
+	Se \(f\in \mathcal{R}([a, b])\), então dados \(a\leq x\leq b\), coloque
+	\[
+		F(x)=\int_{a}^{x}f(t)dt.
+	\]
+	Afirmamos que \(F:[a, b]\rightarrow \mathbb{R}\) é Lipschitz contínua e, se f é contínua em \(x_{0}\in [a, b]\), então F é diferenciável em \(x_{0}\) e, além disso,
+	\[
+		F'(x_{0})=f(x_{0}).
+	\]
+\end{theorem*}
+Por ser Lipschitz contínua, em particular, segue que esta F é diferenciável a menos de um conjunto de medida nula.
+\begin{proof*}
+	Como \(f\in \mathcal{R}([a, b])\), vale que \(\sup_{t\in[a,b]}|f(t)|=M<\infty\). Se \(a\leq x<y\leq b\), então
+	\[
+		|F(y)-F(x)|=\biggl\vert \int_{x}^{y}f(t)dt \biggr\vert\leq M(y-x),
+	\]
+	donde segue que F é Lipschitz contínua. Agora, se f é contínua em \(x_{0}\), dado \(\varepsilon > 0\), escolha \(\delta >0\) tal que, se \(t\in[a, b], |t-x_{0}|<\delta \), então
+	\[
+		|f(t)-f(x_{0})|<\varepsilon .
+	\]
+	Logo, se \(x_{0}-\delta <s\leq x_{0}\leq t<x_{0}+\delta \) e \(a\leq s<t\leq b\), temos
+	\[
+		\biggl\vert \frac{F(t)-F(s)}{t-s}-f(x_{0}) \biggr\vert = \biggl\vert \frac{1}{t-s}\int_{t}^{s}[f(4)-f(x_{0})] \biggr\vert <\varepsilon .
+	\]
+	Portanto, \(F'(x_{0})=f(x_{0})\). \qedsymbol
+\end{proof*}
+\hypertarget{fundamental_theorem_of_calculus}{
+	\begin{theorem*}
+		Se \(f\in \mathcal{R}([a, b])\) e existe uma função diferenciável \(F:[a, b]\rightarrow \mathbb{R}\) tal que \(F'=f\), então
+		\[
+			\int_{a}^{b}f(x)dx=F(b)-F(a).
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	Dado \(\varepsilon >0\), seja \(\mathcal{P}=\{x_{0}, \dotsc , x_{n}\}\in \mathfrak{P}([a, b])\) tal que \(U(\mathcal{P}, f)-L(\mathcal{P}, f)<\varepsilon .\) Pelo \hyperlink{mean_value}{\textit{Teorema do Valor Médio}},
+	\[
+		F(x_{i})-F(x_{i-1})=f(t_{i})\Delta x_{i}
+	\]
+	para algum \(t_{i}\in[x_{i-1}, x_{i}]\), para \(i=1,\dotsc ,n\). Logo, \(\sum\limits_{i=1}^{n}f(t_{i})\Delta x_{i}=F(b)-F(a)\) e
+	\[
+		\biggl\vert F(b)-F(a)-\int_{a}^{b}f(x)dx \biggr\vert<\varepsilon .
+	\]
+	Portanto, como \(\varepsilon \) foi escolhido de forma arbitrária, segue o resultado. \qedsymbol
+\end{proof*}
+\hypertarget{integration_by_parts}{
+	\begin{theorem*}
+		Se \(F, G:[a, b]\rightarrow \mathbb{R}\) são diferenciáveis, \(F'=f\), \(G'=g\in \mathcal{R}([a, b])\), então
+		\[
+			\int_{a}^{b}F(x)g(x)dx=F(b)G(b)-F(a)G(a)-\int_{a}^{b}f(x)G(x)dx.
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	Faça \(H(x)=F(x)G(x)\). Então, sendo ela a soma de produtos de funções em \(\mathcal{R}([a, b])\), \(H'\in \mathcal{R}([a, b])\). Portanto, pelo \hyperlink{fundamental_theorem_of_calculus}{\textit{Teorema Fundamental do Cálculo}}, segue o resultado. \qedsymbol
+\end{proof*}
+\end{document}
