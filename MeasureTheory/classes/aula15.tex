@@ -8,7 +8,184 @@
 	\item Teoria Espectral.
 \end{itemize}
 \subsection{Hugo O. B. - Espaços de Sobolev}
-  come
+\begin{def*}
+	Seja \(C_{K}^{\infty}\) o conjunto de todas as funções em \(\mathbb{R}^{n}\) que possuem suporte compactos e que são infinitamente diferenciáveis. Para \(j=(j_{1},\dotsc ,j_{n})\), escreva
+	\[
+		D^{j}f=\frac{\partial^{j_{1}+\dotsc +j_{n}}f}{\partial ^{j_{1}}_{x_{1}}\dotsc \partial ^{j_{n}}_{x_{n}}}
+	\]
+	e defina \(|j|=j_{1}+\dotsc +j_{n}.\) Assuma que f, g são localmente integráveis. Então, diremos que \(D^{j}f=g\) \textbf{fracamente}, ou que \textbf{g é a j-ésima derivada parcial fraca de f}, se
+	\[
+		\int_{}^{}f(x)D^{j}\varphi (x)dx=(-1)^{|j|}\int_{}^{}g(x)\varphi (x)dx,\quad \forall \varphi\in C_{K}^{\infty}.\quad \square
+	\]
+\end{def*}
+
+Note que, caso \(g=D^{j}f\) no sentido usual, então a integração por partes mostra que g também é a derivada fraca de f.
+
+Iremos construir um espaço normado de funções a valores em \(\mathbb{R}^{n}\) que terão todas as derivadas até certa ordem pertencentes em \(L^{p}\). Dentro desse espaço, seremos capazes de estimar a norma-q das funções por meio do seu gradiente, além de explorar outras propriedades. Deste princípio, coloque
+\[
+	W^{k, p}(\mathbb{R}^{n})=\{f: f\in L^{p}, D^{j}f\in L^{p} \text{ para todo }j\text{ tal que }|j|\leq k\},
+\]
+com a norma
+\[
+	\Vert f \Vert_{W^{k, p}}=\sum\limits_{\{j:0\leq |j|\leq k\}}^{}\Vert D^{j}f \Vert_{p},
+\]
+em que colocamos \(D^{0}f=f.\)
+\begin{theorem*}
+	O espaço \(W^{k, p}\) é completo.
+\end{theorem*}
+\begin{proof*}
+	Seja \(f_{m}\) uma sequência de Cauchy em \(W^{k, p}\). Para cada j com \(|j|\leq k\), vemos que \(D^{j}f_{m}\) é uma sequência de Cauchy em \(L^{p}\). Sendo \(L^{p}\) completo, existe \(g_{j}=\lim_{m\to \infty}D^{j}f_{m}\) em \(L^{p}\) e \(f=\lim_{m\to \infty}f_{m}\), também em \(L^{p}\). Então,
+	\[
+		\int_{}^{}f_{m}D^{j}\varphi =(-1)^{|j|}\int_{}^{}(D^{j}f_{m})\varphi \longrightarrow (-1)^{|j|}\int_{}^{}g_{j}\varphi.
+	\]
+	para todo \(\varphi \) em \(C_{K}^{\infty}\). Por outro lado,
+	\[
+		\int_{}^{}f_{m}D^{j}\varphi \overbracket[0pt]{\longrightarrow}^{m\to \infty}\int_{}^{}f D^{j}\varphi,
+	\]
+	tal que, comparando as duas igualdades,
+	\[
+		(-1)^{|j|}\int_{}^{}g_{j}\varphi = \int_{}^{}fD^{j}\varphi
+	\]
+	para todo \(\varphi \in C_{K}^{\infty}.\) Logo, \(g_{j}=D^{j}f\) quase sempre para todo j que satisfaça \(|j|\leq k.\) Portanto, \(D^{j}f_{m}\) converge para \(D^{j}f\) em \(L^{p}\) para todo j tal que \(|j|\leq k\), concluindo a demonstração. \qedsymbol
+\end{proof*}
+Dado o espaço que iremos trabalhar, construiremos as etapas para obter e provar a \textbf{Desigualdade de Sobolev}, mencionada anteriormente.
+\begin{lemma*}
+	Se \(k\geq 1\) e \(f_{1},\dotsc , f_{k}\geq 0\), então
+	\[
+		\int_{}^{}f_{1}^{\frac{1}{k}}\cdots f_{k}^{\frac{1}{k}}\leq \biggl(\int_{}^{}f_{1}\biggr)^{\frac{1}{k}}\cdots \biggl(\int_{}^{}f_{k}\biggr)^{\frac{1}{k}}.
+	\]
+\end{lemma*}
+\begin{proof*}
+	Vamos provar o análogo à desigualdade, mas elevando tudo a k. A prova será por indução, com o caso \(k=1\) sendo
+	\[
+		\int_{}^{}f_{1}=\int_{}^{}f_{1}.
+	\]
+	Suponha, então, que a desigualdade é válida para k-1, tal que é válida a desigualdade
+	\[
+		\biggl(\int_{}^{}f_{1}^{\frac{1}{(k-1)}}\cdots f_{k-1}^{\frac{1}{k-1}}\biggr) \leq \biggl(\int_{}^{}f_{1}\biggr)\cdots \biggl(\int_{}^{}f_{k-1}\biggr).
+	\]
+	Seja \(p=\frac{k}{(k-1)}\) e \(q=k\), tal que
+	\[
+		\frac{1}{p}+\frac{1}{q}=1.
+	\]
+	Pela \hyperlink{holder}{\textit{Desigualdade de Hölder}},
+	\[
+		\int_{}^{}(f_{1}^{\frac{1}{k}}\cdots f_{k-1}^{\frac{1}{k}})f_{k}^{\frac{1}{k}}\leq \biggl(\int_{}^{}f_{1}^{\frac{1}{k-1}}\cdots f_{k-1}^{\frac{1}{k-1}}\biggr)^{\frac{(k-1)}{k}}\biggl(\int_{}^{}f_{k}\biggr)^{\frac{1}{k}}.
+	\]
+	Elevando ambos os lados à k-ésima potência resultará em
+	\[
+		\biggl(\int_{}^{}(f_{1}^{\frac{1}{k}}\cdots f_{k-1}^{\frac{1}{k}})f_{k}^{\frac{1}{k}}\biggr)\leq \biggl(\int_{}^{}f_{1}^{\frac{1}{k-1}}\cdots f_{k-1}^{\frac{1}{k-1}}\biggr)^{(k-1)}\biggl(\int_{}^{}f_{k}\biggr).
+	\]
+	Pela hipótese indutiva, substituindo a desigualdade válida fornece o resultado que buscamos. \qedsymbol
+\end{proof*}
+Começaremos provando a \textbf{Desigualdade de Gagliardo-Nirenberg}, que é uma versão do que queremos, mas para a norma de \(L^{1}\):
+\hypertarget{gagliardo-nirenberg-inequality}{
+	\begin{theorem*}[Desigualdade de Gagliardo-Nirenberg]
+		Existe uma constante \(c_{1}\) dependendo apenas de n tal que, se \(u\in C_{K}^{1}\), então
+		\[
+			\Vert u \Vert_{\frac{n}{n-1}}\leq c_{1}\Vert |\nabla u| \Vert_{1}
+		\]
+	\end{theorem*}
+}
+É importante u ter suporte compacto, pois, caso contrário, seria possível escolher \(u\equiv 1\) e chegar a uma contradição.
+\begin{proof*}
+	Coloque \(s=\frac{1}{(n-1)}\). Seja \(K_{j_{1}\dotsc j_{m}}\) a integral de \(|\nabla u(x_{1}, \dotsc , x_{n})|\) com respeito às variáveis \(x_{j_{1}}, \dotsc , x_{j_m}\). Desta forma,
+	\[
+		K_{1}=\int_{}^{}|\nabla u(x_{1}, \dotsc , x_{n})|dx_{1},\quad K_{23}=\iint_{}|\nabla u(x_{1}, \dotsc , x_{n})| dx_{2}dx_{3}, \dotsc
+	\]
+	Note que \(K_{1}\) é uma função de \((x_{2}, \dotsc , x_{n})\) e \(K_{23}\) é uma função de \((x_{1}, \dotsc , x_{4})\) - em outras palavras, para \(K_{j_{1}\dotsc j_{n}}\), como será uma integral com respeito a \((x_{j_1},\dotsc , x_{j_{n}})\), a função perde a dependência nessas variáveis, mas continua de todas as outras.
+
+	Se \(x=(x_{1},\dotsc ,x_{n})\in \mathbb{R}^{n}\), então, como u tem suporte compacto,
+	\begin{align*}
+		|u(x)| & =\biggl\vert \int_{-\infty}^{x_{1}}\frac{\partial^{}u}{\partial x_{1}^{}}(y_{1), x_{2}, \dotsc , x_{n}})dy_{1} \biggr\vert \\
+		       & \leq \int_{\mathbb{R}}^{}|\nabla u(y_{1}, x_{2}, \dotsc , x_{n})|dy_{1}                                                    \\
+		       & =K_{1}.
+	\end{align*}
+	Pelo mesmo argumento, podemos substituir \(x_{1}\) e \(y_{1}\) por \(x_{i}\) e \(y_{i}\) para cada i natural, de maneira que \(|u(x)|\leq K_{i}\) e
+	\[
+		|u(x)|^{\frac{n}{(n-1)}}=|u(x)|^{ns}\leq K_{1}^{s}K_{2}^{s}\dotsc K_{n}^{s}.
+	\]
+	Como o \(K_{1}\) não depende de \(x_{1}\), segue que
+	\begin{align*}
+		\int_{}^{}|u(x)|^{ns}dx_{1} & \leq K_{1}^{s}\cdots K_{n}^{s}dx_{1}                                                                 \\
+		                            & \leq K_{1}^{s}\biggl(\int_{}^{}K_{2}dx_{1}\biggr)^{s}\cdots \biggl(\int_{}^{}K_{n}dx_{1}\biggr)^{s}.
+	\end{align*}
+	Observe como
+	\[
+		\int_{}^{}K_{2}dx_{1}=\int_{}^{}\biggl(\int_{}^{}|\nabla u(x_{1}, \dotsc , x_{n})|dx_{2}\biggr) = K_{12},
+	\]
+	tal que, repetindo isso para outros valores além de 2, obtemos
+	\[
+		\int_{}^{}|u|^{ns}dx_{1}\leq K_{1}^{s}K_{12}^{s}\cdots K_{1n}^{s}.
+	\]
+	Assim, como \(K_{12}\) não depende de \(x_{2}\),
+	\begin{align*}
+		\int_{}^{}|u(x)|^{ns}dx_{1}dx_{2} & \leq K_{12}^{s}\int_{}^{}K_{1}^{s}K_{13}^{s}\cdots K_{1n}^{s}dx_{2}                                                                                                                           \\
+		                                  & K_{12}^{s}\biggl(\int_{}^{}K_{1}dx_{2}\biggr)^{s}\biggl(\int_{}^{}K_{13}dx_{2}\biggr)^{s}\cdots \biggl(\int_{}^{}K_{1n}dx_{2}\biggr)^{s} = K_{12}^{s}K_{12}^{s}K_{123}^{s}\cdots K_{12n}^{s}.
+	\end{align*}
+	Repetindo este processo fornece
+	\[
+		\int_{}^{}|u(x)|^{ns}dx_{1}dx_{2}dx_{3}\leq K_{123}^{s}K_{123}^{s}K_{123}^{s}K_{1234}^{s}\cdots K_{123n}^{s}.
+	\]
+	Continuando ainda mais, chegamos em
+	\[
+		\int_{}^{}|u(x)|^{ns}dx_{1}\cdots dx_{n}\leq (K_{12\cdots n}^{s})^{n}=K_{12\cdots n}^{ns}.
+	\]
+	Portanto, lembrando que \(s=\frac{1}{n-1}\) e tomando a \(ns\)-ésima raíz dos dois lados, obtemos o que queríamos. \qedsymbol
+\end{proof*}
+
+Finalmente, podemos obter as \textbf{Desigualdades de Sobolev}
+\hypertarget{sobolev_inequality}{
+	\begin{theorem*}[Desigualdades de Sobolev]
+		Suponha que \(1\leq p < n \) e \(u\in C_{K}^{1}.\) Então, existe uma constante \(c_{1}\) dependendo apenas de n e tal que
+		\[
+			\Vert u \Vert_{\frac{np}{(n-p)}}\leq c_{1}\Vert |\nabla u| \Vert_{p}.
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	O caso em que \(p=1\) é o caso anterior, então podemos supor \(1<p<n.\) Se \(u\equiv 0\), não há nada a ser feito. Tirando estes dois, seja
+	\[
+		r=\frac{p(n-1)}{n-p}
+	\]
+	e observe que \(k>1\),
+	\[
+		r-1=\frac{np-n}{n-p}.
+	\]
+	Coloque \(w=|u|^{r}\); como \(r>1\), então a função caracterizada por \(x\rightarrow |x|^{r}\) é continuamente diferenciável, tal que \(w\in C _{K}^{1}\). Observe que
+	\[
+		|\nabla w|\leq c_{2}|u|^{r-1}|\nabla u|.
+	\]
+	uma aplicação conjunta da \hyperlink{holder}{\textit{Desigualdade de Hölder}} com o teorema anterior para \(q=\frac{p}{p-1}\), obtemos
+	\begin{align*}
+		\biggl(\int_{}^{}|w|^{\frac{n}{n-1}}\biggr)^{\frac{n-1}{n}} & \leq c_{3}\int_{}^{}|\nabla w|                                                                                                         \\
+		                                                            & \leq c_{4}\int_{}^{}|u|^{\frac{(np-n)}{(n-p)}}|\nabla u|                                                                               \\
+		                                                            & \leq  c_{5}\biggl(\int_{}^{}|u|^{\frac{np}{(n-p)}}\biggr)^{\frac{p-1}{p}}\biggl(\int_{}^{}|u|^{\frac{np}{(n-p)}}\biggr)^{\frac{1}{p}}.
+	\end{align*}
+	Note que o lado esquerdo é, revertendo a substituição de w,
+	\[
+		\biggl(\int_{}^{}|u|^{\frac{np}{(n-p)}}\biggr)^{\frac{n-1}{n}}.
+	\]
+	Agora, dividindo ambos os lados por
+	\[
+		\biggl(\int_{}^{}|u|^{\frac{np}{(n-p)}}\biggr)^{\frac{p-1}{p}}
+	\]
+	e, como
+	\[
+		\frac{n-1}{n}-\frac{p-1}{p}=\frac{1}{p}-\frac{1}{n}=\frac{n-p}{pn},
+	\]
+	obtemos, portanto, o resultado desejado. \qedsymbol
+\end{proof*}
+
+É possível fazer a prova generalizando da função continuamente diferenciável com suporte compacto u para uma função f no espaço de Sobolev \(W^{k, p}\) por meio de iterações, de forma que o teorema a seguir é verídico, relacionando a q-norma de \(D^{k}f\) com a p norma de f:
+\begin{theorem*}
+	Suponha que \(k\geq 1\), \(p<\frac{n}{k}\) e que definimos q por \(\frac{1}{q}=\frac{1}{p}-\frac{k}{n}.\) Então, existe \(c_{1}\) tal que
+	\[
+		\Vert f \Vert_{q}\leq c_{1} \biggl\Vert \sum\limits_{\{j: |j|=k\}}^{}|D^{j}f| \biggr\Vert .
+	\]
+\end{theorem*}
+Uma última observação é que é possível provar que, se \(p>\frac{n}{k}\) e \(f\in W^{k, p}\), então f é Hölder contínua.
+
 \subsection{Renan W. - Distribuições}
 As distribuições são ferramentas que aparecem em cada vez mais áreas. Dentre elas, cargas pontuais no eletromagnetismo são descritas por meio das distribuições,
 formulações de teoria quântica dos campos e processamento de sinais valem a pena serem mencionadas. Numa perspectiva mais voltada à matemática, elas são utilizadas especialmente
