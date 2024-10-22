@@ -1,0 +1,181 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 12 - September 24th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Adjoint Functors and Examples.
+\end{itemize}
+\subsection{Adjoint Functors}
+\begin{def*}
+	Two functors \(L:\mathcal{A}\rightarrow \mathcal{B}\) and \(R:\mathcal{B}\rightarrow \mathcal{A}\) between categories \(\mathcal{A}\) and \(\mathcal{B}\) are called \textbf{adjoint} if there is a \textit{natural bijection}
+	\[
+		\tau =\tau_{A, B}:\mathcal{B}(L(A), B)\rightarrow \mathcal{A}(A, R(B))
+	\]
+	for any objects \(A\in \mathrm{obj}(\mathcal{A})\) and \(B\in \mathrm{obj}(\mathcal{B})\). \(\square\)
+\end{def*}
+``Naturality'' in that definition means that for any morphisms \(f:A'\rightarrow A\) in \(\mathcal{A}\), and \(g:B\rightarrow B'\) in \(\mathcal{B}\), the following diagram commutes:
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(\mathcal{B}(L(A'), B)\)};
+		\node(BL) at (-2,-1){\(\mathcal{A}(A', R(B))\)};
+		\node(TR) at (2,1){\(\mathcal{B}(L(A), B)\)};
+		\node(BR) at (2,-1){\(\mathcal{A}(A, R(B))\)};
+		\node(B2) at (6,-1){\(\mathcal{A}(A, R(B'))\)};
+		\node(T2) at (6,1){\(\mathcal{B}(L(A), B')\)};
+
+
+		\draw[Arrow](TR)--node[midway, above] {\(L(f)^{*}\)}(TL);
+		\draw[Arrow](TR)--node[midway, above] {\(g_{*}\)}(T2);
+		\draw[Arrow](BR)--node[midway, below] {\(f^{*}\)}(BL);
+		\draw[Arrow](BR)--node[midway, below] {\(R(g)_{*}\)}(B2);
+		\draw[Arrow](TL)--node[midway, left] {\(\tau_{A', B}\)}(BL);
+		\draw[Arrow](TR)--node[midway, right] {\(\tau_{A, B}\)}(BR);
+		\draw[Arrow](T2)--node[midway, right] {\(\tau_{A, B'}\)}(B2);
+	\end{tikzpicture}
+\end{center}
+Being commutative, what happens is that we get the pair of inverse natural morphisms \(\varphi :L(A)\rightarrow B\) and \(\psi:A\rightarrow R(B)\), so that
+\[
+	g_{k}(\varphi )=g\circ \varphi,\quad f^{*}(\psi)=\psi \circ f.
+\]
+There's more to say about these functors L and R. With regards to R, what happens is that
+\begin{align*}
+	 & (g:B\rightarrow B')\overbracket[0pt]{\longrightarrow}^{R}R(g):R(B)\rightarrow R(B') \\
+	 & \theta:A\rightarrow R(B)                                                            \\
+	 & R(g)_{*}(\theta )=R(g)\circ \theta,
+\end{align*}
+and in a somewhat analogous way for L,
+\begin{align*}
+	 & (\gamma :A'\rightarrow A)\overbracket[0pt]{\longrightarrow}^{L}L(\gamma ):L(A')\rightarrow L(A) \\
+	 & h:L(A)\rightarrow B,\quad L(f)^{*}=h\circ L(\gamma ).
+\end{align*}
+For that reason, L is called the \textbf{left adjoint of the pair (L, R)}, and R is called the \textbf{right adjoint of the pair (L, R)}.
+\begin{example}
+	Let's consider the categories Grps and Ab, and put
+	\begin{align*}
+		 & L:\mathrm{Grps}\rightarrow \mathrm{Ab},\quad G\mapsto G^{\mathrm{ab}}=G/G' \\
+		 & R:\mathrm{Ab}\rightarrow \mathrm{Grps},\quad A\mapsto A,
+	\end{align*}
+	so that
+	\[
+		\mathrm{Ab}(L(G), A)\overbracket[0pt]{\longrightarrow}^{\tau_{G, A}, \cong }\mathrm{Grps}(G, R(A)),\quad f\mapsto f\circ \pi,
+	\]
+	where \(\pi :G\rightarrow G^{\mathrm{ab}}\) and \(f:G^{\mathrm{ab}}\rightarrow A\). We'll next show that this is indeed a natural bijection, starting with the proof that it is a bijection.
+
+	Define, given \(g:G\rightarrow R(A)\) defined by the rule
+	\[
+		g(aya^{-1}y^{-1})=g(a)g(y)g(a^{-1})g(y^{-1}) = 1,
+	\]
+	and \(\overline{g}:G^{\mathrm{ab}}\rightarrow A\) taken as
+	\[
+		\overline{g}(\overline{x})=g(x),
+	\]
+	the following candidate for inverse of \(\tau_{A, G}\):
+	\begin{align*}
+		\eta_{A, G}: & \mathrm{Grps}(G, R(A))\rightarrow \mathrm{Ab}(L(G), A)                                              \\
+		             & \biggl(g:G\rightarrow R(A)=A\biggr)\mapsto \biggl(\overline{g}:G^{\mathrm{ab}}\rightarrow A\biggr).
+	\end{align*}
+	Consequently,
+	\[
+		\left\{\begin{array}{ll}
+			\eta _{A, G}\circ \tau _{G, A} = \mathrm{id}_{\mathrm{Ab}(L(G), A)} \\
+			\tau_{G, A}\circ \eta _{A, G}=\mathrm{id}_{\mathrm{Grps}(G, R(A))}.
+		\end{array}\right.
+	\]
+	Hence, \(\tau_{G, A} \) is a bijection.
+
+	Another example related to groups is to take Sets instead of \(\mathrm{Ab}\), put \(g:S\rightarrow R(G)=G\), \(\tilde g:F(S)\rightarrow G\), where g is a map of sets, and then define
+	\begin{align*}
+		\eta_{S, G}: & \mathrm{Sets}(S, R(G))\rightarrow \mathrm{Grps}(L(S), G)                   \\
+		             & \underbrace{(g:S\rightarrow R(G)=G)}_{\text{map of sets}}\mapsto \tilde g.
+	\end{align*}
+	Here, the way \(\tilde g\) acts is through
+	\[
+		\tilde g(S_{1}^{n_1}S_{2}^{n_2}\dotsc S_{r}^{n_{r}})=g(S_1)^{n_1}\dotsc g(S_r)^{n_r},\quad n_{i}\in \mathbb{Z}, S_{i}\in S.
+	\]
+\end{example}
+\begin{def*}
+	We say that a functor \(F:\mathcal{A}\rightarrow \mathcal{B}\) has a \textbf{right adjoint} if there is a functor \(R:\mathcal{B}\rightarrow \mathcal{A}\) such that \((F, R)\) is an adjoint pair. We also say that F has a \textbf{left adjoint} if there is a functor \(L:\mathcal{B}\rightarrow \mathcal{A}\) such that (L, F) is an adjoint pair. \(\square\)
+\end{def*}
+As a remark, the last example shows that forgetfull functors usually have left adjoints, but there are some that don't.
+\begin{example}
+	Consider the forgetful functor \(F:\mathrm{Fields}\rightarrow \mathrm{Sets}\). Then, F does not have a left adjoint. If we also consider
+	\begin{align*}
+		G: & \mathrm{Sets}\rightarrow \mathrm{Fields} \\
+		   & X\mapsto \mathbb{Q}(\mathbb{Z}[X]).
+	\end{align*}
+	For a category S whose objects are Sets, i.e., S is a subcategory of Sets which is not full, with morphisms being injective maps
+	\[
+		\underline{S}(X, Y)=\{\text{injective maps }f:X\rightarrow Y\}.
+	\]
+	With regards to the left adjoint, while we have \(F:\mathrm{Fields}\rightarrow \underline{S}\), the candidate for left-adjoint would be
+	\begin{align*}
+		L: & \underbrace{\underline{S}}_{=\mathcal{A}}\rightarrow \underbrace{\mathrm{Fields}}_{=\mathcal{B}} \\
+		   & X\mapsto \mathbb{Q}(\mathbb{Z}[X]).
+	\end{align*}
+	Hence,
+	\begin{align*}
+		F(L(X) & , E)\cong^{\tau_{X, E}}\underline{S}(X, F(X))                           \\
+		       & \biggl(f:L(X)=\mathbb{Q}(\mathbb{Z[X]})\rightarrow E\biggr)\mapsto f|_R
+	\end{align*}
+\end{example}
+\begin{example}[Hom-Hom]
+	Let R be a ring with unity, and M be an R-module. Then, for any additive abelian group A, we have the isomorphism
+	\[
+		\mathrm{Hom}_{\mathbb{Z}}(M, A)\cong \mathrm{Hom}_{R}(M, \mathrm{Hom}_{\mathbb{Z}}(R, A)),
+	\]
+	where
+	\[
+		\mathrm{Hom}_{\mathbb{Z}}(R, A)=\{f:R\rightarrow A: \text{f is a homomorphism of abelin groups (R, +) and A}\}.
+	\]
+	Call that isomorphism \(\theta \), and notice that \(\mathrm{Hom}_{\mathbb{Z}}(R, A)\) is a group with the opertion + characterized as follows: given \(f, g:R\rightarrow A\),
+	\begin{align*}
+		 & f+g:R\rightarrow A                 \\
+		 & (f+g)(r)\coloneqq f(r)+g(r)        \\
+		 & (-f)(r)\eqqcolon -f(r)             \\
+		 & 0:R\rightarrow A,\quad r\mapsto 0.
+	\end{align*}
+	Furthermore, \(\mathrm{Hom}_{\mathbb{Z}}(R, A)\) is also an R-module; in fact, for \(r\in R, f\in \mathrm{Hom}(R, A)\), let
+	\begin{align*}
+		 & fr:R\rightarrow A \\
+		 & (fr)(x)=f(rx).
+	\end{align*}
+	Regarding the way \(\theta \) acts upon f, put
+	\begin{align*}
+		\tilde: & M\rightarrow \mathrm{Hom}_{\mathbb{Z}}(R, A) \\
+		        & m\mapsto f_{m},\quad f_{m}(r)=f(rm),
+	\end{align*}
+	so that \(\theta (f)=\tilde f\), which has the property \(\tilde f(ms)=\tilde f(m)s\). Hence,
+	\[
+		\theta :\mathrm{Hom}_{\mathbb{Z}}(M, A)\rightarrow \mathrm{Hom}_{R}(M, \mathrm{Hom}_{\mathbb{Z}}(R, A)).
+	\]
+
+	Now, to see that \(\theta \) does in fact define a natural bijection, we ought to start by proving that it is a bijection. For that matter, define
+	\begin{align*}
+		\theta': & \mathrm{Hom}(M, \mathrm{Hom}_{\mathbb{Z}}(R, A))\rightarrow \mathrm{Hom}(M, A) \\
+		         & (f:M\rightarrow \mathrm{Hom}(R, A))\mapsto \alpha \circ f,
+	\end{align*}
+	where \(\alpha :\mathrm{Hom}(R, A)\rightarrow A\) maps g to g(1). Thus, \(\theta \circ \theta' =\mathrm{id} \) and \(\theta '\circ \theta =\mathrm{id}\).
+
+	With the natural bijection in hands, the left and right adjoints can be taken as
+	\begin{align*}
+		L: & \mathrm{Mod}_{R}\rightarrow \mathrm{Ab} \\
+		   & M\mapsto M
+	\end{align*}
+	and
+	\begin{align*}
+		R: & \mathrm{Ab}\rightarrow \mathrm{Mod}_{R}   \\
+		   & A\mapsto \mathrm{Hom}_{\mathbb{Z}}(R, A).
+	\end{align*}
+	Therefore,
+	\[
+		\mathrm{Ab}(L(M), A)\cong \mathrm{Mod}_{R}(M, R(A))
+	\]
+	via \(\theta' \), which means that (L, R) are indeed adjoint functors.
+\end{example}
+\end{document}

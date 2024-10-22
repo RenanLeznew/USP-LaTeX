@@ -1,0 +1,195 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 06 - August 27th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Epi, Mono, and Iso morphisms.
+\end{itemize}
+\subsection{Epi, Mono, and Isom Morphisms}
+\begin{def*}
+	Let \(\mathcal{C}\) be a category. A morphism \(f:B\rightarrow C\) in \(\mathcal{C}\) is called \textbf{mono} if for any two morphisms \(e_1, e_2:A\rightarrow B\), one has
+	\[
+		f\circ e_1=f\circ e_2 \Rightarrow e_1=e_2.
+	\]
+	A morphism is called \textbf{epi} if for any two morphism \(g_1, g_2:C\rightarrow D\) such that \(g_1\circ f = g_2\circ f\), we have \(g_1=g_2\). \(\square\)
+\end{def*}
+\begin{example}
+	In the category of Sets, Ab, Grps, and Top, the monomorphisms are injective maps.
+	\begin{itemize}
+		\item \textbf{Sets}: Given f a monomorphism, we want to show that if \(f(s)=f(s'),\) then \(s=s'\). Let \(\{x\} = A\) and define, for nonempty S,
+		      \[
+			      A\rightrightarrows_{e_2}^{e_1}S\overbracket[0pt]{\rightarrow}^{f} S',\quad e_1(x)=s, e_2(x)=s'.
+		      \]
+		      It follows that, since f is mono,
+		      \[
+			      f\circ e_1(x)=f(s)=f(s')=f\circ e_2 \Rightarrow e_1 = e_2.
+		      \]
+		      By definition of \(e_{i}, i=1,2\), that means \(s=e_1(x)=e_2(x)=s'.\)
+		\item \textbf{Grps}: Let \(f:G\rightarrow G'\) be a homomorphism of groups and a monomorphism. Then, since \(f(g)=1\) if and only if g=1, it follows that f is injective.
+	\end{itemize}
+\end{example}
+\begin{example}
+	Let \(A=\mathbb{Z}\), and define \(e_1=g^{n}\) and \(e_2=(g')^{n}\). Then, f is a monomorphism since
+	\begin{align*}
+		f\circ e_1(n)=f(g^{n}) & =f(g)^{n}    \\
+		                       & =f(g')^{n}   \\
+		                       & =f((g')^{n}) \\
+		                       & =f\circ e_2.
+	\end{align*}
+	Hence, \(e_1=e_2\), which means \(e_1(n)=e_2(n)\), or, equivalently, \(g=g'\).
+\end{example}
+\begin{example}
+	In the category of Sets and Ab, the epimorphisms are the same as the surjective morphisms.
+	\begin{itemize}
+		\item \textbf{Ab}: Let \(f:B\rightarrow C\) be an epi morphism. Then, given three objects in \(\mathrm{Ab}\), say B, C, D, and morphisms \(g_1, g_2:C\rightarrow D\) such that \(g_1\circ f = g_2\circ f\), this implies \(g_1=g_2\). Hence, given y in C, we want to show that there is an x in B such that \(f(x)=y\). Let \(g_1\) be the projection of \(B\) onto \(B/\mathrm{Im}(f)\) and \(g_2\) be the zero morphism from C to the the quotient group of C and the image of f, \(g_2:C\rightarrow C/\mathrm{Im}(f), C\ni y\mapsto 0+\mathrm{Im}(f)\). That way, for any x in B, we have \(g_1\circ f(x)=g_2 \circ f(x)\), so that since f is an epimorphism, we must also have \(g_1 = g_2\). Thus, for all y in C,
+		      \[
+			      g_1(y)=g_2(y)=0+\mathrm{Im}(f).
+		      \]
+		      Since \(g_1\) is the canonical projection, \(g_1(y)=y+\mathrm{Im}(f)\), which implies
+		      \[
+			      y+\mathrm{Im}(f)=0+\mathrm{Im}(f)=\mathrm{Im}(f)
+		      \]
+		      for all y in C. Therefore, by definition of the quotient group's equality relation, \(y\in \mathrm{Im}(f)\), which means \(y=f(x)\) for some x in B, for all y in C.
+		\item \textbf{Vect}\(_{\mathbb{K}}\): We shall prove that epimorphisms in here are also surjective. Consider the following set-up:
+		      \[
+			      V\overbracket[0pt]{\longrightarrow}^{f}W\rightrightarrows_{p}^{\mathrm{id}}W,
+		      \]
+		      where \(W = f(V)\oplus W'\), \(p(w)=f(v)\), and id is the identity. Hence, any element w in W can be written as \(w=f(v)+w'\), and thus, for any w in W,
+		      \[
+			      \mathrm{id}(w)=\mathrm{id}(f(v)+w')=f(v) + 0\quad\&\quad p(w)=p(f(v)+w')=f(v).
+		      \]
+		      Consequently, for v in V,
+		      \[
+			      \mathrm{id}\circ f = f(v) = p \circ f \Rightarrow \mathrm{id}=p.
+		      \]
+		      Therefore, p is surjective.
+		\item \textbf{Top}: In top, there continuous surjective maps do count as epimorphisms; however, there are epimorphisms which are not continuous functions. For instance, consider the inclusion map from the rationals into the reals \(i:\mathbb{Q}\hookrightarrow \mathbb{R}\) and let \(g_1, g_2:\mathbb{R}\rightarrow X\) be continuous functions, resulting in the following diagram:
+		      \[
+			      \mathbb{Q}\overbracket[0pt]{\rightarrow}^{i}\mathbb{R}\rightrightarrows_{g_1}^{g_2}X,\quad g_1\circ i=g_2\circ i.
+		      \]
+		      Then, for all q in \(\mathbb{Q}\), \(g_1(q)=g_2(q)\). However, \(\mathbb{Q}\) is dense in \(\mathbb{R}\), which implies that there is a real number r such that some sequence \(\{q_{n}\}\) of rationals satisfies \(\lim_{n\to \infty}q_{n}=r\). As a result,
+		      \[
+			      g_1(r)=g_1(\lim_{n\to \infty}q_{n})=\lim_{n\to \infty}g_1(q_{n})=\lim_{n\to \infty}g_2(q_{n})=g_2(\lim_{n\to \infty})=q_2(r),
+		      \]
+		      meaning \(g_1=g_2\). Therefore, i is epi, but not surjective
+		\item \textbf{Rings}: In the category of rings, monomorphisms are injective, and surjective morphisms are epi, but not all epimorphisms are surjective; for instance, consider the inclusion \(i:\mathbb{Z}\hookrightarrow \mathbb{Q}\) and two morphisms \(g_1, g_2:\mathbb{Q}\rightarrow R\). Then, for all integers n,
+		      \[
+			      g_1\circ i(n)=g_2\circ i(n) \Rightarrow g_1(n)=g_2(n).
+		      \]
+		      If \(x = \frac{p}{q}\) is a rational, then
+		      \[
+			      g_1(x)=g_1 \biggl(\frac{p}{q}\biggr) = \frac{g_1(p)}{g_1(q)} = \frac{g_2(p)}{g_2(q)}=g_2 \biggl(\frac{p}{q}\biggr) = g_2(x).
+		      \]
+		      Therefore, \(g_1=g_2\) even though i is not a surjection.
+	\end{itemize}
+\end{example}
+\subsection{Kernel and Cokernel}
+\begin{def*}
+	Let \(\mathcal{C}\) be a category with a zero object (0). The \textbf{Kernel} of a morphism \(f:B\rightarrow C\) is a morphism \(i:A\rightarrow B\) such that
+	\begin{itemize}
+		\item[i)] \(f\circ i =0\) [zero morphism], i.e.,
+		      \[
+			      A\rightarrow B\rightarrow C: A\rightarrow 0\rightarrow C: 0\in \mathcal{C}(A, C).
+		      \]
+		\item[ii)] (\textbf{Universal Property}): For any morphism \(e:A'\rightarrow B\) such that \(f\circ e=0\), then there is a unique morphism \(e':A'\rightarrow A\) such that \(e=i\circ e'\). In other words, the following diagram commutes:
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){A};
+				      \node(BL) at (0,-1){A'};
+				      \node(TR) at (2,1){C};
+				      \node(TM) at (0,1){B};
+
+				      \draw[Arrow](TM)--node[midway, above] {f}(TR);
+				      \draw[Arrow](BL)--node[midway, above] {e'}(TL);
+				      \draw[Arrow](TL)--node[midway, above] {i}(TM);
+				      \draw[Arrow](BL)--node[midway, right] {e}(TM);
+
+			      \end{tikzpicture}
+		      \end{center}. \(\square\)
+	\end{itemize}
+\end{def*}
+\begin{lemma*}
+	\begin{itemize}
+		\item[1)] The kernel of a morphism is mono (i.e., in the above definition, \(i:A\rightarrow B\) is a monomorphism).
+		\item[2)] Any two kernels \(i:A\rightarrow B, i_1:A_1\rightarrow B\) of \(f:B\rightarrow C\) are isomorphic via a morphism \(e:A\rightarrow A_1\) such that \(i_1\circ e=i\), which means the following diagram commutes
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){A};
+				      \node(BL) at (0,-1){\(A_1\)};
+				      \node(TR) at (2,1){C};
+				      \node(TM) at (0,1){B};
+
+				      \draw[Arrow](TM)--node[midway, above] {f}(TR);
+				      \draw[Arrow](TL)--node[midway, above] {e}(BL);
+				      \draw[Arrow](TL)--node[midway, below] {\(\cong \)}(BL);
+				      \draw[Arrow](BL)--node[midway, right] {\(i_1\)}(TM);
+				      \draw[Arrow](TL)--node[midway, above] {i}(TM);
+			      \end{tikzpicture}
+		      \end{center}
+	\end{itemize}
+\end{lemma*}
+\begin{def*}
+	Let \(\mathcal{C}\) be a category with zero object 0. A \textbf{Cokernel} of a morphism \(f:B\rightarrow C\) is a morphism \(p:C\rightarrow P\) such that
+	\begin{itemize}
+		\item[1)] \(p\circ f\)=0;
+		\item[2)] (\textbf{Universal Property}): For any morphism \(g:C\rightarrow D'\) such that \(g\circ f=0\), then there exists a unique morphism \(g':D'\rightarrow D\) such that \(g\circ g'=p\), meaning the following diagram commutes:
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){B};
+				      \node(BL) at (0,-1){P'};
+				      \node(TR) at (2,1){P};
+				      \node(TM) at (0,1){C};
+
+				      \draw[Arrow](TL)--node[midway, above] {f}(TM);
+				      \draw[Arrow](BL)--node[midway, below] {g'}(TR);
+				      \draw[Arrow](TM)--node[midway, left] {g}(BL);
+				      \draw[Arrow](TM)--node[midway, above] {p}(TR);
+
+			      \end{tikzpicture}
+		      \end{center}
+	\end{itemize}
+\end{def*}
+\begin{lemma*}
+	\begin{itemize}
+		\item[1)] The cokernel of a morphism is epi (i.e., in the above definition, \(i:A\rightarrow B\) is a epimorphism).
+		\item[2)] Any two cokernels \(p:C\rightarrow D, p_1:C\rightarrow D_1\) of \(f:B\rightarrow C\) are isomorphic via a morphism \(g:P\rightarrow P_1\) such that \(g\circ \beta =p_1, p\circ f=0,\) and \(p_1\circ f=0\), which means the following diagram commutes:
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){B};
+				      \node(BL) at (0,-1){\(P_1\)};
+				      \node(TR) at (2,1){P};
+				      \node(TM) at (0,1){C};
+
+				      \draw[Arrow](TL)--node[midway, above] {f}(TM);
+				      \draw[Arrow](TR)--node[midway, above] {g}(BL);
+				      \draw[Arrow](TM)--node[midway, right] {\(i_1\)}(BL);
+				      \draw[Arrow](TM)--node[midway, above] {i}(TR);
+			      \end{tikzpicture}
+		      \end{center}
+	\end{itemize}
+\end{lemma*}
+\end{document}

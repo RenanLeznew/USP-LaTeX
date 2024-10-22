@@ -1,0 +1,164 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 02 - August 08th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Subcategories;
+	\item Monoids;
+\end{itemize}
+\subsection{Category Theory}
+Before we move on to more definitions, a remark that is important related to last class is that \(\mathcal{C}(A, B)\) can be empty, but \(\mathcal{C}(A, A)\) can never be, since the identity of A always exists. Coming back to the examples  we were studying with a comment, a very interesting thing that happens with \(\mathrm{Vect}_{\mathbb{K}}\) is that if we consider the collection of morphisms between two objects, it is itself a vector space by setting \((f+g)(v) = f(v)+g(v)\) and \((\lambda f)(v)=\lambda f(v)\). These kinds of categories are known as \textbf{enriched categories} - those whose classes of morphisms are themselves objects of a catgegory. Let's continue with other examples in this class.
+
+\begin{example}[Finite-dimensional Vector Spaces]
+	As with the category of arbitrary vector spaces, we must consider a field \(\mathbb{K}\); with that, the objects of this category \(\mathcal{V}_{1}\) are \(\mathbb{K}\)-Vector Fields of finite dimension, and the morphisms are
+	\[
+		\mathcal{V}_{1}(V, W)=\{f:V\rightarrow W: f \text{ is a \(\mathbb{K}\)-linear transformation}\}
+	\]
+\end{example}
+\begin{example}[Infinite-dimensional Vector Spaces]
+	Once more, consider a field \(\mathbb{K}\); with that, the objects of this category \(\mathcal{V}_{2}\) are
+	\[
+		\mathrm{Obj}(\mathcal{V}_{2})=\{\mathbb{K}^{n}:n \in \mathbb{N}\cup \{0\} \} = \{(0), \mathbb{K}, \mathbb{K}^{2}, \dotsc \},
+	\]
+	where an element of \(\mathbb{K}^{n}\) is of the form \((a_{1},\dotsc , a_{n})\), and the morphisms are
+	\[
+		\mathcal{V}_{1}(\mathbb{K}^{m}, \mathbb{K}^{n})=\{f:\mathbb{K}^{m}\rightarrow \mathbb{K}^{n}: f \text{ is a \(\mathbb{K}\)-linear transformation}\}.
+	\]
+\end{example}
+\begin{def*}
+	We say that \(\mathcal{C}\) is a \textbf{subcategory} of \(\mathcal{B}\) if
+	\begin{itemize}
+		\item[1)] \(\mathcal{C}\) itself is a category;
+		\item[2)] The collection of objects of \(\mathcal{C}\) are all objects of \(\mathcal{B}\) (\(\mathrm{Obj}(\mathcal{C})\subseteq \mathrm{Obj}(\mathcal{B})\)),
+		\item[3)] For all objects A, B of \(\mathcal{C}\), \(\mathcal{C}(A, B)\subseteq \mathcal{B}(A, B)\).
+	\end{itemize}
+	In these cases, we write \(\mathcal{C}\subseteq \mathcal{B}\). Moreover, we say that \(\mathcal{C}\) is  \textbf{full subcategory} of \(\mathcal{B}\) if for any two objects A, B of \(\mathcal{C}\), we have \(\mathcal{C}(A, B)=\mathcal{B}(A, B)\).
+\end{def*}
+\begin{example}[Properties of Vector-Fields Categories]
+	For example, \(\mathcal{V}_{2}\subseteq \mathcal{V}_{1}\subseteq \mathrm{Vect}_{\mathbb{K}}\), and all of them are full subcategories. Notice that if \(V\) is a finite-dimensional vector spaces, then \(V \cong \mathbb{K}^{n}\) where \(n=\mathrm{dim}_{\mathbb{K}}V\), which is usually known as ``Linear transformations can be seen as matrices"!
+\end{example}
+
+\begin{example}[A Category of One-Element?]
+	Let's cosider a category \(\mathcal{C}\) comprised of a single-element, \(\mathcal{C}=\{*\}\). What can we say about it?
+
+	Since \(\mathrm{id}_{*}\in \mathcal{C}(*, *)\), we know that the set of morphisms in here is non-empty. If there are other morphisms, say \(f, g\in \mathcal{C}(*, *)\), then we can define a product on \(\mathcal{C}(*, *)\) by
+	\[
+		f \cdot g=f\circ g.
+	\]
+	For this operation, we have
+	\begin{itemize}
+		\item[i)] Associativity: \((f \cdot g )\cdot h = f \cdot (g \cdot h)\)
+		\item[2)] Identity element: There is an element \(e=\mathrm{id}_{*}\) such that \(f \cdot e = f = f \cdot e\) for any morphism \(\mathcal{C}(*, *)\).
+	\end{itemize}
+	We call this \(\mathcal{C}(*, *)\) a \textit{monoid}.
+\end{example}
+\begin{def*}
+	A set M with an operation
+	\begin{align*}
+		\cdot : & M \times M\rightarrow M \\
+		        & (a, b)\mapsto a \cdot b
+	\end{align*}
+	is called a \textbf{monoid} if
+	\begin{itemize}
+		\item[1)] The operationis associative: for all elements a, b, c of M, \((a \cdot b)\cdot c=a \cdot (b \cdot c)\);
+		\item[2)] M has an identity element e: \(a \cdot e = a = e \cdot a\) for all a in M.
+	\end{itemize}
+\end{def*}
+\begin{def*}
+	A \textbf{group} is a set G with an operation
+	\[
+		\cdot :G \times G\rightarrow G, \quad (g, h)\mapsto g \cdot h,
+	\]
+	such that
+	\begin{itemize}
+		\item[1)] The pair \((G, \cdot )\) is a monoid with identity e;
+		\item[2)] Any element g of G han an inverse: for all g of G, there exists g' also in G such that \(g \cdot g' = e = g' \cdot g.\)
+	\end{itemize}
+\end{def*}
+We can also contruct a category out of a monoid. For that, let \(\mathcal{M}\) be a monoid and consider a set \(\mathcal{C}'\) witha one element \(\mathcal{C}' = \{\bigstar\}\). For any a in \(\mathcal{M}\) we associate a morphism
+\[
+	a_{M}:\bigstar\rightarrow \bigstar.
+\]
+We define a composition: given a, b elements of \(\mathcal{M}\),
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			<->/.tip =Latex, thick]
+		\node(st1) at (-2,0){\(\bigstar\)};
+		\node(st2) at (0,0){\(\bigstar\)};
+		\node(st3) at (2,0){\(\bigstar\)};
+
+		\draw[Arrow](st1)--node[midway, above] {\(a_{M}\)}(st2);
+		\draw[Arrow](st2)--node[midway, above] {\(b_{M}\)}(st3);
+	\end{tikzpicture}
+\end{center}
+from which we define \(b_{M}\circ a_{M}\coloneqq (ba)_{M}\). One can see that it satisfies
+\[
+	c_{M}\circ (a_M\circ b_M)=(c_{M}\cdot a_{M})\cdot b_{M}
+\]
+for any \(a, b, c\in \mathcal{M}\), and
+\[
+	e_{M}\circ a_{M}=a_M=a_{M}\circ e_{M},
+\]
+where \(e\in \mathcal{M}\) is the identity of the monoid, so that we can set \(\mathrm{id}_{\bigstar}=e_{M}\). Thus, we define the category \(\mathcal{M}\) as follows:
+\begin{itemize}
+	\item[Objects:] \(\mathrm{Obj}(\mathcal{M})=\{\bigstar\}\);
+	\item[Morphisms:] \(\mathcal{M}(\bigstar, \bigstar)=\{a_{M}: a\in \mathcal{M}\}\cong \mathcal{M}.\)
+\end{itemize}
+\begin{def*}
+	Let \(\mathcal{C}\) be a category. We say that \(f\in \mathcal{C}(A, B)\) is an \textbf{isomorphism} if there is a \(g \in \mathcal{C}(B, A)\) such that
+	\begin{align*}
+		 & g\circ f= \mathrm{id}_{A}  \\
+		 & f\circ g= \mathrm{id}_{B}.
+	\end{align*}
+
+\end{def*}
+\begin{example}
+	In the category of sets, \(f:A\rightarrow B\) is an isomorphism if it is bijective
+\end{example}
+\begin{example}
+	In the category of topological spaces, \(f:X\rightarrow Y\) is an isomorphism if f is a homeomorphism.
+	\begin{exr}
+		Find a bijective, continuous map \(f:X\rightarrow Y\) of topological spaces which is not a homeomorphism.
+	\end{exr}
+\end{example}
+\begin{example}
+	In the category of groups, a morphism \(f:G\rightarrow H\) is an isomorphism if it is an isomorphism of groups.
+\end{example}
+\begin{exr}
+	Let \(\mathcal{M}\) be a category with one object, \(\mathrm{Obj}(\mathcal{M})=\{*\}.\) Then, proof that \(\mathcal{M}(*, *)\) is a group of and only if any morphism \(f\in \mathcal{M}(*, *)\) is an isomorphism.
+\end{exr}
+\begin{example}
+	Let H be a subgroup of G. To G, we can associate a category \(\mathcal{M}_{G}\), and, to H, \(\mathcal{M}_{H}\). Hence, being a subgroup translates to being a subcategory: \(H\leq G \) becomes \(\mathcal{M}_{H}\subseteq \mathcal{M}_{G}\). But how? We know that \(\mathrm{Obj}(\mathcal{M}_{G})=\{*\}\) and \(\mathrm{Obj}(\mathcal{M}_{H})=\{*\}\), so what must be different are the morphisms:
+	\begin{align*}
+		 & \mathcal{M}_{G}(*, *)=\{a_{M}:*\rightarrow *: a\in G\}\sim G; \\
+		 & \mathcal{M}_{H}(*, *)=\{a_{M}:*\rightarrow *: a\in H\}\sim H;
+	\end{align*}
+	and \(\mathcal{M}_{H}\subseteq \mathcal{M}_{G}\). Moreover, \(\mathcal{M}_{G}\) is a full subcategory iff G=H.
+\end{example}
+\begin{example}
+	Let \(\text{Top}_{c}\) be the category of Compact topological spaces. Then, \(\text{Top}_{c}\) is a full subcategory of Top. The \(\mathrm{Ob}(\text{Top}_{c})\) are compact topological spaces, whilst for Top they are topological spaces, and there are topological spaces which are not compact. Hence, \(\mathrm{Obj}(\text{Top}_{c})\subsetneq \mathrm{Obj}(\text{Top}) \), but given objects X, Y in \(\text{Top}_{c}\), we have
+	\[
+		T_{c}(X, Y)=T(X, Y).
+	\]
+	Furthermore, let \(T_{hc}\) be the category of compact Hausdorff topological spaces, whose objects are compact topological spaces, and the morphisms are
+	\[
+		T_{hc}(X, Y)=\{f:X\rightarrow Y: f \text{ is continuous}\}.
+	\]
+	There exists a theorem in topology which states that
+	\begin{theorem*}
+		Let \(f:X\rightarrow Y\) be a continuous mop. If
+		\begin{itemize}
+			\item[1)] X es compact;
+			\item[2)] Y is Hausdorff;
+			\item[3)] f is bijective,
+		\end{itemize}
+		then f is a homeomorphism. (Please read the proof on Wikipedia).
+	\end{theorem*}
+	Now, in the category \(T_{hc}\), a morphism \(f:X\rightarrow Y\) is an isomorphism iff f is a bijection.
+\end{example}
+\end{document}

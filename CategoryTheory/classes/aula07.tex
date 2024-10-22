@@ -1,0 +1,245 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 07 - August 29th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Product and Coproduct of Categories.
+\end{itemize}
+\subsection{Product and Coproduct of Categories}
+\begin{def*}
+	Let \(\mathcal{C}\) be a category, and X, Y be objects of \(\mathcal{C}\). A \textbf{product of X and Y} is an object, usually denoted by \(X \times Y\), of \(\mathcal{C}\), together with a pair of morphisms \(\pi_1:X\times Y\rightarrow X\) and \(\pi_2:X\times Y\rightarrow Y\) such that for every object P and every pair of morphisms \(f:P\rightarrow X\) and \(g:P\rightarrow Y\), there exists a unique morphism \(h :P\rightarrow X\times Y\) satisfying
+	\[
+		\pi_1 \circ h = f\quad\&\quad \pi_2 \circ h = g. \square
+	\]
+	This yields the following commutative diagram:
+
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(PD) at (0,-2){\(A\times  B\)};
+			\node(S1) at (-2,0){A};
+			\node(S2) at (2,0){B};
+			\node(IS) at (0,2){P};
+
+			\draw[Arrow](PD)--node[midway, above] {\(\pi_1\)}(S1);
+			\draw[Arrow](PD)--node[midway, above] {\(\pi_2\)}(S2);
+			\draw[Arrow](IS)--node[midway, left] {f}(S1);
+			\draw[Arrow](IS)--node[midway, left] {g}(S2);
+			\draw[dashed, Arrow](IS)--node[midway, left] {h}(PD);
+
+		\end{tikzpicture}
+	\end{center}
+\end{def*}
+\begin{def*}
+	Let \(\mathcal{C}\) be a category, and A, B \(\in \mathrm{Obj}(\mathcal{C})\). The \textbf{coproduct of A and B} in C is an object of \(\mathcal{C}, A\sqcup B\) together with a morphism \(i:A\rightarrow A \sqcup B\) and \(j:B\rightarrow A \sqcup B\) such that for any two morphisms \(\alpha : A\rightarrow B \) and \(\beta :B\rightarrow P\), there existes a unique morphism \(\gamma :A\sqcup B\rightarrow P\) satisfying
+	\[
+		\gamma \circ i = \alpha \quad\&\quad \gamma \circ j=\beta. \square
+	\]
+	This yields the following commutative diagram:
+
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(S1) at (-2,0){A};
+		\node(S2) at (2,0){B};
+		\node(IS) at (0,-2){P};
+		\node(PD) at (0,2){\(A \sqcup B\)};
+
+		\draw[Arrow](S1)--node[midway, above] {i}(PD);
+		\draw[Arrow](S2)--node[midway, above] {j}(PD);
+		\draw[Arrow](S2)--node[midway, left] {\(\alpha \)}(IS);
+		\draw[Arrow](S1)--node[midway, left] {\(\beta \)}(IS);
+		\draw[dashed, Arrow](PD)--node[midway, left] {\(\gamma \)}(IS);
+
+	\end{tikzpicture}
+
+\end{def*}
+\begin{example}
+	\item[1)] For \(\mathcal{C}=\)Sets, the product is the usual cartesian product \(X\times Y\), and the coproduct is the disjoint union \(X\sqcup Y\);
+	\item[2)] For \(\mathcal{C}=\)Grps, the product is the usual groups product, and the coproduct is the free product \(G * H\) (recall that \(\mathbb{Z}*\mathbb{Z}=\left< a, b: a \text{ and }b \text{ have no relation} \right>\))
+\end{example}
+\begin{def*}
+	Let \(\{A_{i}\}_{i\in I}\) be a family of objects of \(\mathcal{C}\). The \textbf{coproduct} of \(\{A_{i}\}_{i\in I}\) is an object of \(\mathcal{C}\), denoted by \(\bigsqcup_{i\in I}^{}A_{i}\), together with the morphism \(\alpha_{i}:A_{i}\rightarrow \bigsqcup_{i\in I}^{}A_{i}\) such that for any family of morphisms \(\beta_{i}:A_{i}\rightarrow P, i\in I, P\in \mathrm{Obj}(\mathcal{C})\), there is a unique morphism \(\gamma :\bigsqcup_{i\in I}^{}A_{i}\rightarrow P\) such that
+	\[
+		\gamma \circ \alpha_{i}=\beta_{i},\quad \forall i\in I.\quad \square
+	\]
+	Here, the diagram looks like
+
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(A_{i}\)};
+			\node(TR) at (2,1){\(\sqcup A_{i}\)};
+			\node(BR) at (-2,-1){P};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\alpha_{i}\)}(TR);
+			\draw[Arrow](TL)--node[midway, left] {\(\beta_{i}\)}(BR);
+			\draw[dashed, Arrow](TR)--node[midway, left] {\(\gamma \)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+\end{def*}
+A remark here is important - in general, coproducts might not exist. Moreover, if the coproduct of an arbitrary family \(\{A_{i}\}_{i\in I}\) exists, it is unique up to isomorphism.
+\begin{example}
+	\begin{itemize}
+		\item[i)] In Sets, take objects X and Y. We shall prove that the coproduct is indeed the disjoint product in here. For that matter, define
+		      \[
+			      \text{Inclusions}\left\{\begin{array}{ll}
+				      \alpha_{1}:X\hookrightarrow X\sqcup Y,\quad x\mapsto x \\
+				      \alpha_{2}:Y\hookrightarrow X\sqcup Y,\quad y\mapsto y
+			      \end{array}\right..
+		      \]
+		      Next, we have two maps \(\beta_1:X\rightarrow Z, \beta_2:Y\rightarrow Z\) from X and Y to a set Z. From here, define \(\gamma :X\sqcup Y\rightarrow Z\) by the rule
+		      \[
+			      \gamma (u) = \left\{\begin{array}{ll}
+				      \beta_1(u),\quad u\in X \\
+				      \beta_2(u),\quad u\in Y.
+			      \end{array}\right.
+		      \]
+		      Thus, for all x in X,
+		      \[
+			      \gamma \circ \alpha_1(x)=\gamma(x)=\beta_1(x)
+		      \]
+		      and, for all y in Y,
+		      \[
+			      \gamma \circ \alpha_2(y)=\gamma(y)=\beta_2(y).
+		      \]
+		      Therefore, \(\gamma \circ \alpha_1=\beta_1,\) and \(\gamma \circ \alpha_2=\beta_2 \). In other words, we have the following diagram:
+
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(S1) at (-2,0){X};
+				      \node(S2) at (2,0){Y};
+				      \node(IS) at (0,-2){P};
+				      \node(PD) at (0,2){\(X \sqcup Y\)};
+
+				      \draw[Arrow](S1)--node[midway, above] {\(\beta_1\)}(PD);
+				      \draw[Arrow](S2)--node[midway, above] {\(\beta_2\)}(PD);
+				      \draw[Arrow](S2)--node[midway, left] {\(\alpha_1\)}(IS);
+				      \draw[Arrow](S1)--node[midway, left] {\(\alpha_2\)}(IS);
+				      \draw[dashed, Arrow](PD)--node[midway, left] {\(\gamma\)}(IS);
+
+			      \end{tikzpicture}
+		      \end{center}
+
+		      It is worth noting that we define the coproduct of a family of sets, \(\{X_{i}\}_{i\in I}\), in a similar fashion:
+		      \[
+			      \alpha_{i}: X_{i}\hookrightarrow \bigsqcup_{i\in I}^{}X_{i},\quad x_{i}\mapsto x_{i},
+		      \]
+		      and
+		      \[
+			      X\times I\overbracket[0pt]{\rightarrow}^{\varphi }\bigsqcup_{i\in I}^{}X_{i},\quad (x, i)\mapsto x_{i}.
+		      \]
+		\item Given a field \(\mathbb{K}\), consider the category of vector spaces over \(\mathbb{K}\), \(\mathrm{Vect}_{K}=P\). Here, the coproduct is the direct sum of two vector spaces \(V, W\in \mathrm{Obj}(P)\). The direct sum of vector spaces V and W, \(V\oplus W\), coincides with the product \(V\times W\) for the finite product case; however, when considering an arbitrary collection \(\{V_{i}\}_{i\in I}\), then the direct sum \(\bigoplus_{i\in I}V_{i}\) is defined as \(\bigoplus_{i\in I}V_{i}=\{(v_{i})_{i\in I}: v_{i}=0\text{ for all but finitely many i's}\}\). Moving on from the contextualization, define the morphisms
+		      \[
+			      \left\{\begin{array}{ll}
+				      V\overbracket[0pt]{\rightarrow}^{\alpha_1} V\oplus W   \\
+				      V\overbracket[0pt]{\rightarrow}^{\alpha_{2}} V\oplus W \\
+				      v\mapsto (v, 0)                                        \\
+				      w\mapsto (0,w)
+			      \end{array}\right.,
+		      \]
+		      where \(\alpha_{1,2}\) are linear transformations. From here, put \(\gamma (v, w)=\beta_1(v)+\beta_2(w)\).
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(S1) at (-2,0){V};
+				      \node(S2) at (2,0){W};
+				      \node(IS) at (0,-2){D};
+				      \node(PD) at (0,2){\(V \oplus W\)};
+
+				      \draw[Arrow](S1)--node[midway, above] {\(\beta_1\)}(PD);
+				      \draw[Arrow](S2)--node[midway, above] {\(\beta_2\)}(PD);
+				      \draw[Arrow](S2)--node[midway, left] {\(\alpha_1\)}(IS);
+				      \draw[Arrow](S1)--node[midway, left] {\(\alpha_2\)}(IS);
+				      \draw[dashed, Arrow](PD)--node[midway, left] {\(\gamma \)}(IS);
+
+			      \end{tikzpicture}
+		      \end{center}
+
+		      If \(\{V_{i}\}_{i\in I}\) is a family of vector spaces, then \(\bigoplus_{i\in I}V_{i}\) is the coproduct in P. To see that, make \(\alpha_{i}\) map an element v of \(V_{i}\) to the vector whose only non-zero entry is the i-th one:
+		      \begin{align*}
+			       & \alpha_{i}:  V_{i}\rightarrow \bigoplus_{i\in I}V_{i}                                     \\
+			       & v\mapsto (0,\dotsc ,0,\underbrace{v}_{i-th \text{ entry}},0,\dotsc ,0) \eqqcolon (v_{j}), \\
+			       & (v_{j}) = \left\{\begin{array}{ll}
+				                          v,\quad j=i \\
+				                          0, \quad j\neq  i
+			                          \end{array}\right..
+		      \end{align*}
+		      Then, set \(\gamma ((v_{i})_{i\in I})=\sum\limits_{i\in I}^{}\beta_{i}(v_{i})\), and we get
+		      \[
+			      \gamma \circ \alpha_{i} = \beta_{i},\quad \forall i\in I.
+		      \]
+
+		      For the case where \(\mathrm{Vect}_{\mathbb{K}}=\mathbb{K}^{n}, n\in \mathbb{N}\), put \(F_{x}\coloneqq F\) and consider the mapping
+		      \begin{align*}
+			       & x\rightarrow V_{x}\coloneqq \bigoplus_{x\in X}F_{x}    \\
+			       & y\mapsto (v_{x})_{x\in X}  = \left\{\begin{array}{ll}
+				                                             v_{x}=1,\quad x=y \\
+				                                             0, \quad x\neq y.
+			                                             \end{array}\right.
+		      \end{align*}
+	\end{itemize}
+\end{example}
+
+\begin{example}
+	If X and Y are two sets, we can define \(V\sqcup X \cong V_{X}\oplus V_{Y}\). To see that, we'll define two functors
+	\begin{align*}
+		F: & \mathrm{Sets}\rightarrow \mathrm{Vect}_{\mathbb{K}}       \\
+		   & X\mapsto V_{X} \quad (\text{This is an adjoint functor}).
+	\end{align*}
+	and
+	\begin{align*}
+		G_{F}: & \mathrm{Vect}_{\mathbb{K}}\rightarrow \mathrm{Sets}      \\
+		       & V\mapsto V \quad (\text{This is the forgetful functor}).
+	\end{align*}
+
+	Now let W be a vector space and \(\mathcal{G}:x\rightarrow W\) be a map of sets. Putting it all together, we get the diagram
+
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){X};
+			\node(BL) at (-2,-1){W};
+			\node(TR) at (2,1){\(V_x\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\alpha \)}(TR);
+
+			\draw[Arrow](TL)--node[midway, left] {\(\varphi \)}(BL);
+			\draw[dashed, Arrow](TR)--node[midway, right] {\(\psi\)}(BL);
+		\end{tikzpicture}
+	\end{center}
+
+	It should be noted that there is a natural isomorphism between \(\mathcal{C}(x, F(W))\) and \(\mathcal{P}(F(W), x)\) via an adjoint functor (\(F:\mathcal{C}\rightarrow \mathcal{P}\) and \(G_{F}:\mathcal{P}\rightarrow \mathcal{C}\)).
+\end{example}
+\end{document}

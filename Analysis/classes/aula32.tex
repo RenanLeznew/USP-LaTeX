@@ -4,7 +4,157 @@
 \subsection{Motivações}
 \begin{itemize}
 	\item Troca de Ordem de Limites;
-	\item Compacidade e Covergência;
+	\item Compacidade e Convergência;
 	\item Norma do Supremo e Espaço das Funções Contínuas e Limitadas;
 \end{itemize}
+\subsection{Troca de Ordem de Limites}
+\begin{theorem*}
+	Suponha que \(f_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}f\) uniformemente em um conjunto D e seja x um ponto de acumulação de D. Se
+	\[
+		\lim_{t\to x}f_{n}(t)=a_{n},\quad n\in \mathbb{N},
+	\]
+	então \(\{a_{n}\}\) é convergente e
+	\[
+		\lim_{t\to x}f(t)=\lim_{n\to \infty}a_{n}.
+	\]
+	Em outras palavras,
+	\[
+		\lim_{t\to x}\lim_{n\to \infty}f_{n}(t)=\lim_{n\to \infty}\lim_{t\to x}f_{n}(t).
+	\]
+\end{theorem*}
+\begin{proof*}
+	Dado \(\varepsilon >0\), pela convergência uniforme da sequência, existe N natural tal que
+	\[
+		|f_{n}(t)-f_{m}(t)|\leq \varepsilon , \quad \forall n, m \geq N, \forall t\in D.
+	\]
+	Fazendo t tender a x,
+	\[
+		|a_{n}-a_{m}|\leq \varepsilon,\quad \forall n, m\geq N.
+	\]
+	Logo, \(\{a_{n}\}\) é uma sequência de Cauchy e, com isso, convergente para algum valor, digamos a.
+
+	Agora,
+	\[
+		|f(t)-a|\leq |f(t)-f_{n}(t)|+|f_{n}(t)-a_{n}|+|a_{n}-a|.
+	\]
+	Escolhemos n pela convergência uniforme tal que
+	\[
+		\sup_{t\in D}|f(t)-f_{n}(t)|\leq \frac{\varepsilon }{3}
+	\]
+	e de forma tal \(|a_{n}-a|\leq \frac{\varepsilon }{3}\). Para este n escolhido, tome \(\delta >0\) que satisfaça
+	\[
+		|f_{n}(t)-a_{n}|\leq \frac{\varepsilon }{3},\quad t\in D, 0<|t-x|<\delta .
+	\]
+	Segue que
+	\[
+		|f(t)-a|\leq \varepsilon , t\in D, 0<|t-x|<\delta .
+	\]
+	Portanto, \(\lim_{t\to x}f(t)=a\). \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se \(\{f_{n}\}\) é uma sequência de funções contínuas definidas em \(D\subseteq \mathbb{R}\) e tomando valores em \(\mathbb{R}\); assuma, também, que \(f_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}f\). Então, f é contínua em D.
+\end{theorem*}
+Este resultado extremamente importante é um corolário direto do teorema que acabou de ser provado, mas vale ressalvar que a recíproca é, em geral, falsa. Basta tomar como exemplo \(f_{n}(x)=n^{2}x(1-x^{2})^{n},\) \(0\leq x\leq 1, n\in \mathbb{N}.\)
+\begin{theorem*}
+	Seja \(K\subseteq \mathbb{R}\) um compacto. Se
+	\begin{itemize}
+		\item[a)] \(\{f_{n}\}\) for uma sequência de funções contínuas em K,
+		\item[b)] \(f_{n}(x)\overbracket[0pt]{\longrightarrow}^{n\to \infty}f(x)\) para todo x em K,
+		\item[c)] f é contínua em K e
+		\item[d)]\(f_{n}(x)\geq f_{n+1}(x)\) para todo x em K e todo n natural,
+	\end{itemize}
+	então \(f_{n}\) converge uniformemente em K.
+\end{theorem*}
+\begin{proof*}
+	Seja \(g_{n}=f_{n}-f\). Então, sendo a diferença de duas funções contínuas, vale que \(g_{n}\) é contínua, \(g_{n}\) converge a 0 ponto a ponto e \(g_{n}\geq g_{n+1}\). Vamos mostrar que a convergência de \(g_{n}\) a 0 é uniforme em K.
+
+	Dado \(\varepsilon >0\), seja \(K_{n}=\{x\in K: g_{n}(x)\geq \varepsilon \}\). Como \(g_{n}\) é contínua, \(K_{n}\) é compacto e, pela propriedade \(g_{n}\geq g_{n+1}\), vale \(K_{n}\supseteq K_{n+1}\).
+
+	Fixe x em K. Como \(g_{n}(x)\) converge a 0 quando n tende a infinito, x não pertence a \(K_{n}\) para n suficientemente grande e, logo, x não pertence a \(K_{n}\) para todo n - matematicamente, \(x\not\in \bigcap_{}^{}K_{n}\). Em outras palavras, \(\bigcap_{}^{}K_{n}\) é vazia. Consequentemente, segue que \(K_{N}\) é vazio para algum N.
+
+	Portanto, \(0\leq g_{n}(x)<\varepsilon \) para todo x em K e todo \(n\geq N.\) \qedsymbol
+\end{proof*}
+\begin{example}
+	Este exemplo ilustra a necessidade da compacidade nas hipóteses. Se
+	\[
+		f_{n}(x)=\frac{1}{nx+1}, \quad x\in(0, 1), n\in \mathbb{N},
+	\]
+	então \(f_{n}(x)\overbracket[0pt]{\longrightarrow}^{n\to \infty}0\) monotonicamente em \((0,1)\), mas a convergência não é uniforme.
+\end{example}
+\begin{def*}
+	Considere \(D\subseteq \mathbb{R}\) e denote por \(\mathcal{C}(D)\) o conjunto das funções \(f:D\rightarrow \mathbb{R}\) que são contínuas e limitadas. A cada f em \(\mathcal{C}(D)\), definimos a sua \textbf{norma do supremo},
+	\[
+		\Vert f \Vert=\sup_{x\in D}|f(x)|. \quad \square
+	\]
+\end{def*}
+Como f é limitada, \(\Vert f \Vert<\infty\). Além disso, \(\Vert f \Vert=0\) se, e somente se, \(f(x)=0\) para todo \(x\in D\), ou seja, \(f\equiv 0\). Além disso, dadas \(f, g\in \mathcal{C}(D)\) e \(\lambda \in \mathbb{R}\), vale para todo x em D que
+\begin{align*}
+	 & |f(x)+g(x)|\leq |f(x)|+|g(x)|\leq \Vert f \Vert+\Vert g \Vert \\
+	 & |\lambda f(x)|=|\lambda ||f(x)|\leq |\lambda |\Vert f \Vert.
+\end{align*}
+Sendo assim,
+\[
+	\Vert f+g \Vert\leq \Vert f \Vert+\Vert g \Vert,\quad \Vert \lambda f \Vert=|\lambda |\Vert f \Vert.
+\]
+Podemos definir uma noção de distância nesse espaço, possibilitando discussões sobre sequência de Cauchy e convergência como fizemos até o momento. Nesta linha de raciocínio, definimos a distância entre f e g em \(\mathcal{C}(D)\) como
+\[
+	\Vert f-g \Vert.
+\]
+Com isso, uma sequência \(\{f_{n}\}\) converge uniformemente para f se, e somente se,
+\[
+	\lim_{n\to \infty}\Vert f_{n}-f \Vert=0.
+\]
+\begin{theorem*}
+	Com a noção de distância acima, em \(\mathcal{C}(D)\), todas as sequências de Cauchy convergem. Em outras palavras, \(\mathcal{C}(D)\) é um espaço métrico completo.
+\end{theorem*}
+\begin{proof*}
+	Seja \(\{f_{n}\}\) uma sequência de Cauchy em \(\mathcal{C}(D)\), ou seja, dado \(\varepsilon >0\), existe \(N\in \mathbb{N}\) tal que, para todos os m e n naturais que forem maiores ou iguais a N,
+	\[
+		\Vert f_{n}-f_{m} \Vert<\varepsilon.
+	\]
+	Como vimos anteriormente, existe uma função contínua para a qual \(\{f_{n}\}\) converge uniformemente, digamos f. Além disso, f é limitada, já que, tomando \(\varepsilon = 1\), existe um n natural para o qual
+	\[
+		|f(x)-f_{n}(x)|<1,\quad \forall x\in D
+	\]
+	e \(f_{n}\) é limitada. Portanto, \(f\in \mathcal{C}(D)\) e \(\Vert f-f_{n} \Vert\overbracket[0pt]{\longrightarrow}^{n\to \infty}0\), pois \(f_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}f\) uniformemente em D. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja \(\alpha :[a, b]\rightarrow \mathbb{R}\) não-decrescente. Se considerarmos uma sequência de funções Riemann-Stieltjes integráveis com respeito a \(\alpha \) em \([a, b]\) em todos os seus termos, ou seja, \(f_{n}\in \mathcal{R}(\alpha, [a, b])\), em que n é um natural, e essa sequência convergir uniformemente em \([a, b]\) para f, então f é Riemann-Stieltjes integrável com respeito a \(\alpha \) dentro de \([a, b]\) e, além disso,
+	\[
+		\int_{a}^{b}fd\alpha = \lim_{n\to \infty}\int_{a}^{b}f_{n}d\alpha .
+	\]
+\end{theorem*}
+\begin{proof*}
+	Faça
+	\[
+		\varepsilon_{n}=\sup_{x\in [a, b]}|f_{n}(x)-f(x)|.
+	\]
+	Então,
+	\[
+		f_{n}-\varepsilon_{n}\leq f \leq f_{n}+\varepsilon_{n}
+	\]
+	e as integrais superiores e inferiores de f satisfazem
+	\[
+		\int_{a}^{b}(f_{n}-\varepsilon_{n})d\alpha \leq \underline{\int_{a}^{b}}f d\alpha \leq \overline{\int_{a}^{b}}fd\alpha \leq \int_{a}^{b}(f_{n}+\varepsilon_{n})d\alpha.
+	\]
+	Segue que
+	\[
+		0 \leq \overline{\int_{a}^{b}}fd\alpha -\underline{\int_{a}^{b}}fd\alpha \leq 2\varepsilon_{n}[\alpha(b)-\alpha {a}]
+	\]
+	Como \(\varepsilon_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0\), as integrais superiores e inferiores de f coincidem e \(f\in \mathcal{R}(\alpha , [a, b])\). Portanto,
+	\[
+		\biggl\vert \int_{a}^{b}fd\alpha -\int_{a}^{b}f_{n}d\alpha  \biggr\vert\leq \varepsilon_{n}[\alpha (b)-\alpha(a)].\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	Se \(f_{n}\in \mathcal{R}(\alpha , [a, b])\) e
+	\[
+		f(x)=\sum\limits_{n=1}^{\infty}f_{n}(x),\quad (a\leq x\leq b)
+	\]
+	com série convergindo uniformemente em \([a, b]\), então
+	\[
+		\int_{a}^{b}fd\alpha =\sum\limits_{n=1}^{\infty}\int_{a}^{b}f_{n}d\alpha .
+	\]
+	Em outras palavras, a série pode ser integrada termo-a-termo.
+\end{crl*}
 \end{document}

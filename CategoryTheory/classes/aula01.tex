@@ -1,0 +1,204 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 01 - August 06th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Introduction of the discipline;
+	\item Basic Ideas.
+\end{itemize}
+\subsection{Category Theory}
+Let's start with a definition of a category
+\begin{def*}
+	A \textbf{category} \(\mathcal{C}\) (cat) consists of
+	\begin{itemize}
+		\item[1)] A class of \textbf{objects}, denoted by \(\mathrm{Obj}(\mathcal{C})\);
+		\item[2)] For any pair of objects A, B in \(\mathrm{Obj}(\mathcal{C})\), we associate a \textit{set} of \textbf{morphisms}, denoted by \(\mathcal{C}(A, B)\),
+	\end{itemize}
+	and these two have the following properties:
+	\begin{itemize}
+		\item \textbf{Composition:} For any three objects A, B, and C in \(\mathrm{Obj}(\mathcal{C})\), we have the property
+		      \begin{align*}
+			      \mathcal{C} & (A, B)\times \mathcal{C}(B, C) \longrightarrow \mathcal{C}(A, C) \\
+			                  & (f, g)\mapsto g\circ f
+		      \end{align*}
+		\item \textbf{Identity:} For any object A of \(\mathcal{C}\), there is a morphisms \(\mathrm{id}_{A}\in \mathcal{C}(A, A)\)
+		\item \textbf{Associativity:} The composition of morphisms is associative,
+		      \[
+			      h\circ (g\circ f)=(h\circ g)\circ f,
+		      \]
+		      which means the following diagram commutes:
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(1) at (-4,2){\(\mathcal{C}(A, B)\times \mathcal{C}(B, C)\times \mathcal{C}(C, D)\)};
+				      \node(2) at (4,2){\(\mathcal{C}(A, C)\times \mathcal{C}(C, D)\)};
+				      \node(3) at (-4,-2){\(\mathcal{C}(A, B)\times \mathcal{C}(B, D)\)};
+				      \node(4) at (4,-2){\(\mathcal{C}(A, D) \)};
+
+				      \draw[Arrow](1)--(2);
+				      \draw[Arrow](1)--(3);
+				      \draw[Arrow](2)--(4);
+				      \draw[Arrow](3)--(4);
+
+
+			      \end{tikzpicture},
+		      \end{center}
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+					      <->/.tip =Latex, thick]
+				      \node(1) at (-4,2){\((f, g, h)\)};
+				      \node(2) at (4,2){\((f\circ g, h)\)};
+				      \node(3) at (-4,-2){\((f, g\circ h)\)};
+				      \node(4) at (4,-2){\((f\circ g\circ h) \)};
+
+				      \draw[Arrow](1)--(2);
+				      \draw[Arrow](1)--(3);
+				      \draw[Arrow](2)--(4);
+				      \draw[Arrow](3)--(4);
+
+
+			      \end{tikzpicture}
+		      \end{center}
+		      which roughly translates to \((h\circ g)\circ f = (g\circ f)\circ h\)
+		\item \textbf{Identity Property:} Given any two objects A, B in \(\mathcal{C}\) and any morphism \(f\in \mathcal{C}(A, B)\), we have the equality
+		      \[
+			      \mathrm{id}_{B}\circ f = f = f \circ \mathrm{id}_{A}.
+		      \]
+	\end{itemize}
+\end{def*}
+We fix a few notations: Writing \(A\in \mathrm{Obj}(\mathcal{C})\) means that A is an object of \(\mathcal{C}\), and a morphism \(f\in \mathcal{C}(A, B)\) will be denoted by \(f:A\rightarrow B\), or \(A\overbracket[0pt]{\longrightarrow}^{f}B\) and \(\mathrm{id}_{A}:A\rightarrow A\) is denoted by \(\mathrm{id}_{A}:A\rightarrow A\), which allows us to translate easily from mathematical notation to an arrow diagram, such as
+\[
+	h\circ (g\circ f)=(h\circ g)\circ f
+\]
+becomes
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			<->/.tip =Latex, thick]
+		\node(A) at (-4,0){A};
+		\node(B) at (-1,0){B};
+		\node(C) at (2,0){C};
+		\node(D) at (5,0){D};
+
+		\draw[Arrow](A)--node[midway, above] {f}(B);
+		\draw[Arrow](B)--node[midway, above] {g}(C);
+		\draw[Arrow](C)--node[midway, above] {h}(D);
+	\end{tikzpicture},
+\end{center}
+and the Identity part would be
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			<->/.tip =Latex, thick]
+		\node(A) at (-4,0){A};
+		\node(B) at (-1,0){A};
+		\node(C) at (2,0){B};
+		\node(D) at (5,0){B};
+
+		\draw[Arrow](A)--node[midway, above] {\(\mathrm{id}_{A}\)}(B);
+		\draw[Arrow](B)--node[midway, above] {f}(C);
+		\draw[Arrow](C)--node[midway, above] {\(\mathrm{id}_{B}\)}(D);
+	\end{tikzpicture},
+\end{center}
+With this definition in hands, let's look at a few familiar examples of categories
+\begin{example}[Category of Sets]
+	This category is called Sets. Its objects are the usual sets, and the morphisms are maps between sets - given sets X, Y,
+	\[
+		\mathcal{C}(A, B)=\{f:A\rightarrow B: f \text{ is a map}\}.
+	\]For any set A in \(\mathrm{Obj}(\text{Sets})\), there is an identity \(\mathrm{id}_{A}\) taking a from A and mapping it to itself.
+\end{example}
+\begin{example}[Category of Topological Spaces]
+	This one is denoted by Top. Its objects are topological spaces, and the morphisms are, given two topological spaces X, Y
+	\[
+		\mathcal{D}(X, Y)=\{f:X\rightarrow Y: f \text{ is a continuous map}\},
+	\]
+	and the identity is also the usual identity function.
+\end{example}
+Notice that any morphism in Top is a particular case of the morphisms in Sets:
+\[
+	\mathcal{P}(X, Y)\subseteq \mathcal{C}(X, Y).
+\]
+Moreover, if we consider all the morphisms from a topological space X to \(\emptyset \), then it has the form
+\[
+	\mathcal{P}(X, \emptyset ) = \left\{\begin{array}{ll}
+		\emptyset ,\quad \text{if }X \neq\emptyset, \\
+		\{\mathrm{id}_{\emptyset}\},\quad \text{if }X=\emptyset,
+	\end{array}\right.
+\]
+but seen as morphisms from \(\emptyset \) to X, it'd be
+\[
+	\mathcal{P}(\emptyset , X)  = \left\{\begin{array}{ll}
+		\{\emptyset \overbracket[0pt]{\hookrightarrow}^{\mathrm{id}_{\emptyset }} X\},\quad \text{if }X\neq \emptyset \\
+		\{id_{\emptyset }\}, \quad \text{if } X = \emptyset
+	\end{array}\right.
+\]
+\begin{example}[Category of Rings]
+	Denoted by Rings, it consits of the category whose objects are rings with identity. Here, the morphisms for two objects R, S are ring homomorphisms
+	\[
+		\mathcal{H}(R, S)=\mathrm{Hom}(R, S)=\{f:R\rightarrow S: f \text{ is a homomorphism}\}.
+	\]
+	There are two strange objects in this category - the 0-ring, in which the multiplicative and additive identities are the same (1=0), and the Integers Ring. For the first one, if R is a ring,
+	\[
+		\mathcal{H}(R, R_{0})=\{\pi :R\rightarrow R_{0},\quad r\mapsto 0\},
+	\]
+	and
+	\[
+		\mathcal{H}(R_{0}, R)  = \left\{\begin{array}{ll}
+			\emptyset ,\quad |R|\geq 2 \\
+			\{\mathrm{id}_{R_{0}}\},\quad R=R_{0}.
+		\end{array}\right.
+	\]
+	A quick exercise to recall working with the 0-ring is to proof that it is the only ring, up to isomorphism, such that \(0_{R}=1_{R}.\)
+
+	With regards to the second one, let R be any ring. Then, we have a homomorphism of rings given by
+	\begin{align*}
+		g: & \mathbb{Z}\rightarrow R,                                                  \\
+		   & n\mapsto n \cdot 1_{R}=\underbrace{1_{R}+\dotsc +1_{R}}_{\text{n times}},
+	\end{align*}
+	which means
+	\[
+		\mathcal{H}(\mathbb{Z},R)=\{g\}.
+	\]
+	As we'll see later on, objects like \(\mathbb{Z}\) to Rings will be called \textbf{Initial Objects}, and objects like the 0-ring will be known as \textbf{Terminal Objects}.
+\end{example}
+\begin{example}[Category of Groups]
+	We call this category Grp, in which the objects are groups, and, given two groups G, H, the morphism between them is a group homomorphism:
+	\[
+		\mathrm{Grp}(G, H)=\{f:G\rightarrow H: f \text{ is a group homomorphism}\}\coloneqq \mathrm{Hom}(G, H).
+	\]
+	In this category, there is a trivial group consisting of only the identity, and denoted by 1, as an initial object:
+	\[
+		\mathrm{Hom}(1,G)=\{\varphi : 1\rightarrow G,\quad 1\mapsto 1_{G} \},
+	\]
+	and it is also a terminal object via
+	\[
+		\mathrm{Hom}(G, 1)=\{\pi : G\rightarrow 1, \quad g\mapsto 1\}.
+	\]
+	Another category related to this one is the category of abelian groups, denoted by Ab.
+\end{example}
+\begin{example}[A lot of Vector Spaces Categories]
+	For this one, you can fix your favorite field - \(\mathbb{Q},\mathbb{R},\mathbb{F}_{p}\) where p is prime, \(\mathbb{Q}[\sqrt[]{p}], \mathbb{Q}[i]\), \(\mathfrak{m} \trianglerighteq R\), where \(\mathfrak{m}\) is a maximal ideal, or the quotient field of a domain A - \[\mathrm{Frac}(A)=\biggl\{\frac{a}{b}: a, b\in A, b\neq0\biggr\}.\] For a fixed field \(\mathbb{K}\), the category will be denoted by \(\mathrm{Vect}_{\mathbb{K}}\); the objects would be vector spaces over any of these fields, with each different field generating a different category, and morphisms here are linear transformations between the vector spaces over a fixed field
+	\[
+		\mathcal{K}(V, W)=\{f:V\rightarrow W: f \text{ is a }\mathbb{K}\text{-linear transformation.}\}=T(V, W).
+	\]
+	A very helpful and special property here is the fact that they have bases that uniquely determine their elements and dimensions. Here, the trivial vector space with a basis given by \(\{0\}\) is both an initial and a terminal object. This category can be ``slit-up" into two other - the category of finite-dimensional \(\mathbb{K}-\)vector spaces, with their morphisms being also T(V, W), and the category of infinite-dimensional of vector spaces.  They are subcategories of the bigger category \(\mathrm{Vect}_{\mathbb{K}}.\)
+\end{example}
+\end{document}

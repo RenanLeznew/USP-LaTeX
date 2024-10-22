@@ -1,0 +1,272 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 13 - September 26th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Adjoint Functors and their Properties.
+\end{itemize}
+\subsection{Adjoint Functors}
+\begin{def*}
+	Let \(\mathcal{A}\) and \(\mathcal{X}\) be categories. An \textbf{adjunction} from \(\mathcal{X}\) to \(\mathcal{A}\) is a triplet\(\left<F, G, \varphi  \right>:\mathcal{X}\rightarrow \mathcal{A}\), where \(F:\mathcal{X}\rightarrow \mathcal{A}\) and \(G:\mathcal{A}\rightarrow \mathcal{X}\) are functors, and \(\varphi \) is a natural bijection given by-
+	\[                                                                                                                                          \mathcal{A}(F(X), A)\overbracket[0pt]{\longrightarrow}^{\cong  }\mathcal{X}(X, G(A)) \]                                                                                                                                          for any X in \(\mathrm{obj}(\mathcal{X})\) and A in \(\mathrm{obj}(\mathcal{A})\).In other words, by being a natural bijection, the following diagram commutes;
+	\begin{center}                                                                                                                                    \begin{tikzpicture}[                                                                                                                     observed/.style = {rectangle, thick, text centered, draw, text width = 6em},                                                             latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(\mathcal{A}(F(X), A)\)};
+			\node(BL) at (-2,-1){\(\mathcal{A}(F(X), A')\)};
+			\node(TR) at (2,1){\(\mathcal{X}(X, G(A))\)};
+			\node(BR) at (2,-1){\(\mathcal{X}(X', G(A'))\)};
+
+			\node(TTL) at (4,1){p};
+			\node(BBL) at (4,-1){\(h\circ p\)};
+			\node(TTR) at (6,1){\(\varphi (p)\)};
+			\node(BBR) at (6,-1){\(\varphi (h\circ p)\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{X, A}\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\varphi_{X, A'}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {G(k)}(BL);
+			\draw[Arrow](TR)--node[midway, right] {F(h)}(BR);
+
+			\draw[Arrow](TTL)--node[midway, above] {}(TTR);
+			\draw[Arrow](BBL)--node[midway, below] {}(BBR);
+			\draw[Arrow](TTL)--node[midway, left] {}(BBL);
+			\draw[Arrow](TTR)--node[midway, right] {}(BBR);
+
+		\end{tikzpicture}
+	\end{center}
+	for any morphisms \(k:A\rightarrow A', h:X\rightarrow X'\). For \(f:F(X)\rightarrow X\in \mathcal{A}(F(X), A)\), \(\varphi(f):X\rightarrow G(A)\) is called the \textbf{right adjoint} of f. Via the naturality of \(\varphi^{-1}\), there is an equivalent diagram by considering
+	\begin{align*}
+		 & \varphi^{-1}(g\circ h)=\varphi^{-1}(g) \circ F(h) \\
+		 & \varphi^{-1}(G(k)\circ g)=k\circ \varphi^{-1}(g),
+	\end{align*}
+	where g is a morphism \(g:X\rightarrow G(A)\).\(\square\)
+\end{def*}
+More specifically, the equivalent diagram mentioned would be
+\begin{center}                                                                                                                                    \begin{tikzpicture}[                                                                                                                      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},                                                               latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(\mathcal{A}(F(X), A)\)};
+		\node(BL) at (-2,-1){\(\mathcal{A}(F(X'), A)\)};
+		\node(TR) at (2,1){\(\mathcal{X}(X, G(A))\)};
+		\node(BR) at (2,-1){\(\mathcal{X}(X', G(A'))\)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(\varphi_{X, A}\)}(TR);
+		\draw[Arrow](BL)--node[midway, below] {\(\varphi_{X, A'}\)}(BR);
+		\draw[Arrow](TL)--node[midway, left] {\(v\circ G(k)\)}(BL);
+		\draw[Arrow](TR)--node[midway, right] {\(u\circ F(h)\)}(BR);
+	\end{tikzpicture}
+\end{center}
+\begin{example}
+	If \(\mathcal{A}=\mathcal{X}=\mathrm{Sets}=S\), consider X, Y, R three sets. Let \(f:X\times Y\rightarrow R\) be such that, for all x in X,
+	\begin{align*}
+		 & Y\rightarrow  \{x\}\times Y \\
+		 & y\mapsto (x, y),
+	\end{align*}
+	so that there is
+	\begin{align*}
+		\tilde f: & X\rightarrow \{Y\rightarrow R\}                                                                                                                \\
+		          & x\mapsto (Y\overbracket[0pt]{\longrightarrow}^{\sim }\{x\}\times Y\overbracket[0pt]{\longrightarrow}^{f|_{\{x\}\times Y}}R, y\mapsto f(x, y)).
+	\end{align*}
+	Take \(\varphi :S(X\times Y, R)\rightarrow S(X, R^{Y}) \), where \(R^{Y}\) denotes the set of all maps from Y to R. Then, \(\varphi(f)=\tilde f\), where
+	\begin{align*}
+		 & \tilde f:Y\rightarrow R \\
+		 & \tilde f(x)(y)=f(x, y).
+	\end{align*}
+	We'll show that \(\varphi \) is the natural bijection; starting with the fact that it is a bijection, to see that we find an inverse \(\psi\), given by
+	\begin{align*}
+		\psi: & S(X, R^{Y})\rightarrow S(X\times Y, R)                      \\
+		      & f\mapsto \overline{f}\coloneqq \overline{f}(x)(y)=f_{x}(y),
+	\end{align*}
+	in which, to understand what is \(\overline{f}\), one shall take into account the mappings
+	\begin{align*}
+		 & f:X\rightarrow R^{Y},\quad x\mapsto f_{x}                         \\
+		 & f_{x}:Y\rightarrow R                                              \\
+		 & \overline{f}:X\times Y\rightarrow R,\quad (x, y)\mapsto f_{x}(y).
+	\end{align*}
+	Hence, \(\psi\circ \varphi = \mathrm{id}_{S(X\times Y, R)}\) and \(\varphi \circ \psi = \mathrm{id}_{S(X, R^{Y})}\).
+
+	Now, we have to show how it acts on functors. In this case, take a set Y such that for two functors F and G,
+	\begin{align*}
+		F: & S\rightarrow S      \\
+		   & X\mapsto X\times Y,
+	\end{align*}
+	\begin{align*}
+		G: & S\rightarrow S  \\
+		   & X\mapsto X^{Y}.
+	\end{align*}
+	Hence, \(\varphi \) acts as
+	\[
+		S(F(X), R)\cong \varphi (X, G(R)),
+	\]
+	which means it is a natural bijection. In this case, F is called a \textbf{left-adjoint} for G and G is called a \textbf{right-adjoint} for F.
+\end{example}
+\begin{example}
+	Let R be a commutative ring and A, B, C be R-modules. Let \(f :A \otimes _{R}B\rightarrow C\) be a homomorphism of R-modules. We want to associate to f a map
+	\[
+		A\longrightarrow \mathrm{Hom}_{R}(B, C)\coloneqq \{f:B\rightarrow C: f\text{ is a R-homomorphism}\}
+	\]
+	defined by
+	\[
+		a\mapsto \biggl(f_{a}:b\mapsto f(a\otimes b)\biggr),
+	\]
+	which yielded a map
+	\[
+		\mathrm{Hom}_{R}(A\otimes_{R}B, C)\longrightarrow \mathrm{Hom}_{R}(A, \mathrm{Hom}_{R}(B, C)),\quad f\mapsto f_{a}.
+	\]
+	Here, we get a map \(\psi\) which will be given by
+	\begin{align*}
+		\psi:\mathrm{Hom}_{R} & (A, \mathrm{Hom}(B, C))\rightarrow \mathrm{Hom}_{R}(A\otimes _{R}B, C)                                  \\
+		                      & \biggl(g: A\rightarrow \mathrm{Hom}(B, C)\biggr)\mapsto \tilde g\coloneqq \tilde g(a\otimes b)=g_{a}(b) \\
+		                      & \quad a\mapsto g_{a}
+	\end{align*}
+	such that \(\psi \circ \varphi =\mathrm{id}\) and \(\varphi \circ \psi=\mathrm{id}.\)
+
+	If N, M are R-modules, and S an R-algebras, then
+	\[
+		\mathrm{Hom}(\underbrace{M\otimes _{R}S}_{\text{Extension of Scalars}}, N)\cong \mathrm{Hom}(M, \underbrace{\mathrm{Hom}_{R}(S, N)}_{\text{Restriction}}).
+	\]
+	Now, we take a functor \(F:\mathrm{Mod}_{R}\rightarrow \mathrm{Mod}_{R}\) by fixing nd R-module B and letting it act as
+	\[
+		F(A)=A\otimes _{R}B.
+	\]
+	On the other hand, take \(G:\mathrm{Mod}_{R}\rightarrow \mathrm{Mod}_{R}\) acting by
+	\[
+		G(-)=\mathrm{Hom}(B, -).
+	\]
+	Hence,
+	\begin{align*}
+		 & \mathrm{Hom}(A\otimes_{R}B, C)\overbracket[0pt]{\longrightarrow}^{\cong  }\mathrm{Hom}(A, \mathrm{Hom}_{R}(B, C)) \\
+		 & \mathrm{Hom}(F(A), C)\overbracket[0pt]{\longrightarrow}^{\cong  }\mathrm{Hom}(A, G(C)).
+	\end{align*}
+\end{example}
+Adjoint functors have a relation with universality - every adjunction yields a universal morphism: given a triplet \(\left< F, G, \varphi  \right>:\mathcal{X}\rightarrow \mathcal{A}\), we have a bijection
+\[
+	\mathcal{A}(F(X), A)\overbracket[0pt]{\longrightarrow}^{\varphi =\varphi_{X, A}, \cong  }\mathcal{X}(X, G(A)).
+\]
+Let \(A=F(X)\); then, we get
+\[
+	\mathcal{A}(F(X), F(X))\overbracket[0pt]{\longrightarrow}^{\varphi, \cong  }\mathcal{X}(X, G\circ F(X))
+\]
+but \(\mathcal{A}(F(X), F(X))\) consists of the identity \(\mathrm{id}_{F(X)}\). We denote \(\varphi(\mathrm{id}_{F(X)})\) by \(\eta_{X}\), where
+\[
+	\varphi (\mathrm{id}_{X})=\eta_{X}:X\rightarrow G\circ F(X).
+\]
+By a proposition used to study the Yoneda Lemma, this gives a universal morphism from X to G. Let's study this map.
+
+For startes, \(\eta_{X}\) is natural, meaning that for  morphism in \(\mathcal{X}\) \(h:X'\rightarrow X\), the following diagram commutes:
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){X'};
+		\node(BL) at (-2,-1){X};
+		\node(TR) at (2,1){\(G\circ F(X')\)};
+		\node(BR) at (2,-1){\(G\circ F(X)\)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(\eta_{X'}\)}(TR);
+		\draw[Arrow](BL)--node[midway, below] {h}(BR);
+		\draw[Arrow](TL)--node[midway, left] {\(\eta _{X}\)}(BL);
+		\draw[Arrow](TR)--node[midway, right] {\(G\circ F(h)\)}(BR);
+	\end{tikzpicture}
+\end{center}
+In fact, notice that
+\begin{align*}
+	G\circ F(h)\circ \eta_{X}(X) & =G\circ F(h)\circ \varphi (\mathrm{id}_{X}) \\
+	                             & =\varphi (F(h)\circ \mathrm{id}_{F(X')})    \\
+	                             & =\varphi (\mathrm{id}_{F(X)}\circ F(h))     \\
+	                             & =\varphi (\mathrm{id}_{F(X)})\circ h        \\
+	                             & =\eta_{X}\circ h,
+\end{align*}
+so \(\eta \) gives a natural transformation
+\[
+	\mathrm{id}_{\mathcal{X}}\longrightarrow G\circ F: \forall X\in \mathrm{obj}(\mathcal{X}).
+\]
+This bijection \(\varphi \) can be expressed in terms of the arrows \(\eta_{X}\) as
+\[
+	\varphi (f)=G(f)\circ \eta_{X}
+\]
+for \(f:F(X)\rightarrow A\), i.e.,
+\[
+	f:F(X)\rightarrow A \Rightarrow G(f):G\circ F(x)\rightarrow G(A).
+\]
+Using this, we have
+\begin{align*}
+	\varphi (f)\varphi (f\circ \mathrm{id}_{F(X)}) & =G(f)\circ \varphi (\mathrm{id}_{F(X)}) \\
+	                                               & =G(f)\circ \eta_{X'}.
+\end{align*}
+This could've been shown using a diagram:
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(\mathcal{A}(F(X), F(X))\)};
+		\node(BL) at (-2,-1){\(\mathcal{A}(F(X), A)\)};
+		\node(TR) at (2,1){\(\mathcal{X}(X, G\circ F(X))\)};
+		\node(BR) at (2,-1){\(\mathcal{X}(X, G(A))\)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(\varphi_{\mathcal{X}, F(X)}\)}(TR);
+		\draw[Arrow](BL)--node[midway, below] {\(\varphi_{*, A}\)}(BR);
+		\draw[Arrow](TL)--node[midway, left] {\(f_{*}\)}(BL);
+		\draw[Arrow](TR)--node[midway, right] {G(f)}(BR);
+
+	\end{tikzpicture}
+\end{center}
+If we put \(X=G(A)\), then we get the bijection
+\[
+	\mathcal{A}(F\circ G(A), A)\overbracket[0pt]{\longrightarrow}^{\cong  }\mathcal{X}(G(A), G(A)),
+\]
+such that \(\varphi ^{-1}\) acts by sending \(\mathrm{id}_{G(A)}\) to \(\varepsilon_{A}:F\circ G(A)\rightarrow A\), where \(\varepsilon_{A}\) denotes \(\varepsilon_{A}=\varphi^{-1}(\mathrm{id}_{G(A)})\). Hence, for all objects \(A\in \mathrm{obj}(\mathcal{A})\),
+\[
+	\varepsilon_{A}:F\circ G(A)\rightarrow A
+\]
+is similar to \(\eta_{X}\), ND we have the formula
+\[
+	\varphi^{-1}(g)=\varepsilon_{A}\circ F(g)
+\]
+for any \(g:X\rightarrow G_{A}\), meaning \(\varepsilon_{A}\) yields a natural transformation
+\[
+	\varepsilon :F\circ G\Rightarrow \mathrm{id}_{A}.
+\]
+Take \(X=G(A)\); then,
+\[
+	\varepsilon_{A}=\varphi^{-1}(\mathrm{id}_{G(A)}),
+\]
+so
+\[
+	\varphi (\varepsilon_{A})=\mathrm{id}_{G(A)}\Rightarrow G(\varepsilon_{A})\circ \eta_{X}=\mathrm{id}_{G(A)}.
+\]
+This shows that the composition
+\[
+	G\overbracket[0pt]{\longrightarrow}^{\eta \circ G } G\circ F\circ G\overbracket[0pt]{\longrightarrow}^{G\circ \varepsilon  }G
+\]
+is the identity \(\mathrm{id}_{G}\).
+
+All this construction proves the following theorem:
+\begin{theorem*}
+	An adjunction \(\left< F, G, \varphi  \right>:\mathcal{X}\rightarrow \mathcal{A}\) determines:
+	\begin{itemize}
+		\item[1)] A natural transformation \(\eta :\mathrm{id}_{X}\rightarrow G\circ F\) such that for each X in \(\mathrm{obj}(\mathcal{X})\), the morphism \(\eta_{X}\) is universal from X to G, while the right adjointment of each \(F(X)\rightarrow A\) has \(\varphi (f)=G(f)\circ \eta_{X}:X\rightarrow G(A)\);
+		\item[2)] A natural transformation \(\varepsilon :F\circ G\Rightarrow \mathrm{id}_{A}\) such that each \(\varepsilon_{A}\) is universal from F to A, while each \(g:X\rightarrow G(A)\) has a left adjoint \(\varphi^{-1}(g)=\varepsilon_{A}\circ F(g):F(X)\rightarrow A\).
+	\end{itemize}
+	Moreover, both the following compositions are identities:
+	\begin{align*}
+		 & G\overbracket[0pt]{\longrightarrow}^{\eta \circ G}G\circ F\circ G\overbracket[0pt]{\longrightarrow}^{G\circ \varepsilon  }G \\
+		 & F\overbracket[0pt]{\longrightarrow}^{F\circ \eta }F\circ G\circ F\overbracket[0pt]{\longrightarrow}^{\varepsilon \circ F }F \\
+		 & (G\varepsilon )\circ (\eta G)=\mathrm{id}_{G}                                                                               \\
+		 & (\varepsilon F)\circ (F\eta )=\mathrm{id}_{F}.
+	\end{align*}
+	\(\eta \) is cLled \textbf{unit} and \(\varepsilon \) is called \textbf{counit} of the adjunction.
+\end{theorem*}
+\end{document}

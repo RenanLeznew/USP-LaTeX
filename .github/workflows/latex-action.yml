@@ -42,6 +42,29 @@ jobs:
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
+  build_latex_Category:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v3
+      - name: Compile LaTeX document Category Theory
+        uses: xu-cheng/latex-action@v3
+        with:
+          work_in_root_file_dir: true
+          root_file: CategoryTheory/category_theory.tex
+      - name: Upload Category Theory file
+        uses: actions/upload-artifact@v3
+        with:
+          name: Category Theory
+          path: CategoryTheory/category_theory.pdf
+          if-no-files-found: error
+      - name: Upload Category Theory to Google Drive
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+        with:
+          target: CategoryTheory/category_theory.pdf
+          credentials: ${{ secrets.DRIVESHHHH }}
+          parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+
   build_latex_AlgebraII:
     runs-on: ubuntu-latest
     steps:

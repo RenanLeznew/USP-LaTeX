@@ -1,0 +1,236 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 03 - August 13th , 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Terminal, Initial, and Zero Objects;
+	\item Functors;
+	\item Small categories.
+\end{itemize}
+\subsection{Terminal, Initial, and Zero Objects}
+\begin{def*}
+	Let \(\mathcal{C}\) be a category. An \textbf{initial object} of \(\mathcal{C}\) is an object I such that for any object A of \(\mathcal{C}\), there is a unique morphism
+	\[
+		f_{I}:I\rightarrow A,\quad \mathcal{C}(I, A)=\{f_{I}\}\quad \forall A\in \mathrm{Obj}(\mathcal{C}).
+	\]
+	A \textbf{terminal object} is an object T of \(\mathcal{C}\) such that for any object B of \(\mathcal{C}\), there is a unique morphism
+	\[
+		g_{T}:B\rightarrow T,\quad \mathcal{C}(B, T)=\{g_{T}\}\quad \forall B\in \mathrm{Obj}(\mathcal{C}).\quad \square
+	\]
+\end{def*}
+Terminal and initial objects are not necessarily unique, but they are isomorphic, hence unique up to isomorphism.
+\begin{example}
+	\item[1)] In the category of rings, as we've seen previously, \(\mathbb{Z}\) is an initial object, and the zero ring is terminal. The argument was done previously.
+	\item[2)] In Sets as well as in Top, the empty set is an initial object via the inclusion function, and any set with one element is a termnial object - for any S object of Sets, if \(T=\{t\}\), there exists a function
+	\begin{align*}
+		S: & S\rightarrow T \\
+		   & s\mapsto t
+	\end{align*}
+	\item[3)] For Grps, the category of groups, both the initial and final objects are the Trivial group \(I=T=\{1\}\).
+	\item[4)] Let \(\mathcal{C}=3=\{1,2,3\}\), and define the morphisms
+	\begin{align*}
+		 & \mathcal{C}(1,2)=\{i\}           \\
+		 & \mathcal{C}(1,3)=\{j\}           \\
+		 & \mathcal{C}(2,3)=\{\emptyset \},
+	\end{align*}
+	where the identity morphisms were omitted.
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				<->/.tip =Latex, thick]
+			\node(1) at (-2,0){1};
+			\node(2) at (2,2){2};
+			\node(3) at (2,-2){3};
+
+			\draw[Arrow](1)--node[midway, above] {i}(2);
+			\draw[Arrow](1)--node[midway, above] {j}(3);
+		\end{tikzpicture}
+	\end{center}
+	Here, the initial object is 1 and the terminal object does not exist; if we do the opposite, i.e., \(3^{op}=\{1,2,3\}\), but with morphisms
+	\begin{align*}
+		 & \mathcal{C}(2,1)=\{i\}           \\
+		 & \mathcal{C}(3,1)=\{j\}           \\
+		 & \mathcal{C}(2,3)=\{\emptyset \},
+	\end{align*}
+	where the identity morphisms were omitted again,
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				<->/.tip =Latex, thick]
+			\node(1) at (-2,0){1};
+			\node(2) at (2,2){2};
+			\node(3) at (2,-2){3};
+
+			\draw[Arrow](2)--node[midway, above] {i}(1);
+			\draw[Arrow](3)--node[midway, above] {j}(1);
+		\end{tikzpicture}
+	\end{center}
+	then we have a category with terminal object 1 and no initial object.
+	\item[5)] The following category has no terminal neither initial object:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				<->/.tip =Latex, thick]
+			\node(1) at (-2, 2){1};
+			\node(2) at (2, 2){2};
+			\node(3) at (-2, 0){3};
+			\node(4) at (2, 0){4};
+
+			\draw[Arrow](1)--(2);
+			\draw[Arrow](3)--(4);
+		\end{tikzpicture}
+	\end{center}
+	\item[6)]The \textbf{Discrete Category}, \(\mathcal{D}\) is a category with a class of objects such that for any pair A, B of objects of \(\mathcal{D}\), its morphisms are
+	\[
+		\mathcal{D}(A, B) = \left\{\begin{array}{ll}
+			\emptyset ,\quad A\neq B \\
+			\{\mathrm{id}_{A}\},\quad A=B.
+		\end{array}\right.
+	\]
+\end{example}
+A very important notion introduced in the example of category 3 and \(3^{op}\) is the following:
+\begin{def*}
+	Given a category \(\mathcal{C}\), the \textbf{Opposite Category}, or \textbf{Dual Category}, \(\mathcal{C}^{op}\), is the defined as a category with the same objects and morphisms as \(\mathcal{C}\), except the morphisms are with inverted directions:
+	\begin{itemize}
+		\item[1)] \(\mathrm{Obj}(\mathcal{C})=\mathrm{Obj}(\mathcal{C}^{op})\);
+		\item[2)] For all objects A, B in \(\mathcal{C}^{op}\),
+		      \[
+			      \mathcal{C}^{op}(A, B)=\mathcal{C}(B, A),
+		      \]
+		      or
+		      \[
+			      f^{op}:A\rightarrow B \text{ in }\mathcal{C}^{op} \Longleftrightarrow f:B\rightarrow A \text{ in }\mathcal{C}.\quad \square
+		      \]
+	\end{itemize}
+\end{def*}
+\begin{exr}
+	\begin{itemize}
+		\item[i)] An initial object in \(\mathcal{C}^{op}\) is a terminal object in \(\mathcal{C}\);
+		\item[ii)] A terminal object in \(\mathcal{C}^{op}\) is an initial object in \(\mathcal{C}\);
+		\item[iii)] Prove that two initial objects are unique up to isomorphisms;
+		\item[iii)] Prove that two terminal objects are unique up to isomorphisms.
+	\end{itemize}
+\end{exr}
+\begin{def*}
+	An object of \(\mathcal{C}\) that is both an initial and terminal object is called a \textbf{Zero Object}, and we denote this objects by 0.
+
+	Now let \(\mathcal{C}\) be a category with a zero object, and \(A, B\in \mathrm{Obj}(\mathcal{C})\). Then, \(\mathcal{C}(A, B)\) has a special morphism
+	\[
+		A\rightarrow 0 \rightarrow B,
+	\]
+	called the \textbf{zero morphism}. \(\square\)
+\end{def*}
+\subsection{Functors}
+When we study category theory, it is important to study the relations between two or more categories, and that is done by \textit{functors}.
+\begin{def*}
+	Let \(\mathcal{C}, \mathcal{D}\) be two categories. A \textbf{Functor} F between \(\mathcal{C}\) and \(\mathcal{D}\) is a relation such that:
+	\begin{itemize}
+		\item[1)] It assigns to any \(A\in \mathrm{Obj}(\mathcal{C})\) an object \(F(A)\in \mathrm{Obj}(\mathcal{D})\);
+		\item[2)] To any \(f\in \mathcal{C}(A, B)\), it assigns \(F(f)\in \mathcal{D}(F(A), F(B))\) such that:
+		      \begin{itemize}
+			      \item[2.i)] \(F(\mathrm{id}_{A})=\mathrm{id}_{F(A)}\);
+			      \item[2.ii)] \(F(g\circ f)=F(g)\circ F(f)\).
+		      \end{itemize}
+	\end{itemize}
+	In other words, a functor is a mapping which takes objects to objects, and arrows to arrows while preserving identities and compositions. We denote it by \(F:\mathcal{C}\rightarrow \mathcal{D}.\quad \square\)
+\end{def*}
+A remark: \(F:\mathcal{C}\rightarrow \mathcal{D}\) gives a map, in the set theory sense, \(\mathcal{C}(A, B)\longrightarrow \mathcal{D}(F(A), F(B)), f \mapsto F(f)\).
+
+\begin{example}
+	\item[1)] There is a functor between \(F:\mathrm{Rng}\rightarrow \mathrm{Ab}\) by taking \((R, +, \cdot )\mapsto (R, \cdot )\). We can also take one between \(F:\mathrm{Rng}\rightarrow \text{Monoids}, (R, +, \cdot)\mapsto (R, \cdot )\).
+	\item[2)] The \textbf{forgetful functor} is the functor that removes a structure from a collection. For instance, \(G:\mathrm{Top}\rightarrow \mathrm{Sets}, (X, \tau )\mapsto X\), or even the example above which ``forgot" the addition operation;
+	\item[3)] We can define a morphism from Sets to Top by \(H:\mathrm{Sets}\rightarrow \mathrm{Top}, S\mapsto (S, \tau)\) where \(\tau \) is the discrete topology;
+	\item[4)] If \(\mathcal{D}\) is a subcat of \(\mathcal{C}\), then the inclusion \(\mathcal{D}\hookrightarrow \mathcal{C} \) is a functor;
+	\item[5)] The abelianization of a group is a functor:
+	\begin{align*}
+		A: & \mathrm{Gr}\rightarrow \mathrm{Ab}     \\
+		   & G\mapsto G^{ab}\coloneqq \frac{G}{G'},
+	\end{align*}
+	or the inclusion between subgroups;
+	\item[6)] There is an identity functor between \(\mathcal{C}\) and itself which takes its objects and arrows to themselves;
+	\item[7)] If \(F:\mathcal{C}\rightarrow \mathcal{D}\) and \(G:\mathcal{D}\rightarrow \mathcal{E}\) are functors, then \(G\circ F:\mathcal{C}\rightarrow \mathcal{E}\) is also a functor.
+	\item[8)] Let \(\mathcal{C}\) be a category with a terminal object T, and \(\mathcal{T}\) be a category whose only object is T, and \(\mathcal{T}(T, T)=\mathcal{C}(T, T)=\{\mathrm{id}_{T}\}\). Then, \(F:\mathcal{C}\rightarrow T\), where \(\mathrm{Obj}(\mathcal{C})\rightarrow \mathrm{Obj}(\mathcal{T}), A\mapsto T\) and \(F(f:A\rightarrow B)=\mathrm{id}_{T}\), is a functor;
+	\item[9)] Fixing a set A, a group action is a functor between Grps and Sets, and the fundamental group is a functor between Grps and Top.
+\end{example}
+\begin{def*}
+	A category \(\mathcal{C}\) is called \textbf{Small Category} if its collection of objects is a set. Otherwise, it is called a \textbf{Big Category}. \(\square\)
+\end{def*}
+Most categories seen until now are Big,
+\begin{example}
+	\item[1)] 3 is a small category;
+	\item[2)] The category \(\mathrm{V}_{2}=\{\mathbb{K}^{0}, \mathbb{K}^{1}, \mathbb{K}^{2},\dotsc \}\) is a small category.
+	\item[3)] If M is a monoid, we can associate to it a category \(\mathcal{M}\) whose object is just a point, \(\mathrm{Obj}(\mathcal{M})=\{\bigstar\}\), and the morphisms are \(\mathcal{M}(\bigstar, \bigstar)=M\). This category \(\mathcal{M}\) is a monoid.
+	\item[4)] As redundant as it may sound, we also have a category of small categories, Cat, whose objects are small categories, and the morphisms are functors among them: if \(\mathcal{C, D}\) are small categories, then
+	\[
+		\mathrm{Cat}(\mathcal{C}, \mathcal{D}) =\{F:\mathcal{C}\rightarrow \mathcal{D}:F \text{ is a functor.}\}.
+	\]
+	We'll come back to this one later.
+\end{example}
+\begin{def*}
+	A functor \(F:\mathcal{C}\rightarrow \mathcal{D}\) is called \textbf{faithful} if for any objects A, B of \(\mathcal{C}\), the map \(\mathcal{C}(A, B)\rightarrow \mathcal{D}(F(A), F(B)), f\mapsto F(f)\) is injective as a map of sets. It is called \textbf{full} if for any objects A, B of \(\mathcal{C}\), the map \(\mathcal{C}(A, B)\rightarrow \mathcal{D}(F(A), F(B)), f \mapsto F(f)\), is surjective also as a map of sets\footnote{Para a turma que fez álgebra 1 com Roberto Carlos, essas ideias haviam sido mencionadas quando ele falou de ação de grupo fiel (faithful).}. It is called \textbf{fully faithful} if it is faithful and full. \(\square\)
+\end{def*}
+\begin{def*}
+	A category \(\mathcal{C}\) witha a faithful functor \(F:\mathcal{C}\rightarrow \mathrm{Sets}\) is called a \textbf{concrete category}. \(\square\)
+\end{def*}
+\begin{def*}
+	A functor \(F:\mathcal{C}\rightarrow \mathcal{D}\) is called an \textbf{isomorphism} if there is a functor \(G:\mathcal{D}\rightarrow \mathcal{C}\) such that \(G\circ F=\mathrm{id}_{\mathcal{C}}, F\circ G=\mathrm{id}_{G}.\quad \square\)
+\end{def*}
+\begin{example}
+	\item[1)] If \(\mathcal{C}_{\text{one}}\) is the category of categories with one object, and \(\mathcal{M}\) the category of monoids. Then, these two categories are isomorphic;
+	\item[2)] If \(\mathcal{C}\) is a subcategory of \(\mathcal{D}\), the inclusion \(i:\mathcal{C}\hookrightarrow \mathcal{D}\) is faithful. If \(\mathcal{C}\) is a \textit{full subcategory}, then i is a full functor;
+	\item[3)] Forgetful functors \textit{usually} are faithful, for instance \(F:\mathrm{Grps}\rightarrow \mathrm{Sets}\). The category of abelian groups and \(\mathrm{Mod}_{\mathbb{Z}}\), the category of \(\mathbb{Z}-\)modules, are isomorphic (in fact, they are usually taken as the same is an algebra course).
+\end{example}
+\begin{exr}
+	Show that \(\mathcal{C}_{\text{one}}\) and \(\mathcal{M}\) are isomorphic.
+\end{exr}
+\begin{exr}
+	Prove the isomorphism between \(\mathrm{Ab}\) and \(\mathrm{Mod}_{\mathbb{Z}}\). Hint: if A is a \(\mathbb{Z}\)-module, then for all integers n and \(a\in A\), define \(n \cdot a\coloneqq a^{n}\).
+\end{exr}
+\begin{theorem*}
+	Every category is isomorphic to a subcategory of sets.
+\end{theorem*}
+\begin{proof*}[Sketch]
+	Let \(\mathcal{C}\) be a category. Define the category \(\overline{\mathcal{C}}\) as follows:
+	\[
+		\mathrm{Obj}(\overline{\mathcal{C}})=\{\overline{A}: A\in \mathrm{Obj}(\mathcal{C})\}
+	\]
+	and
+	\[
+		\overline{A}=\{f: \text{f is a morphism in } \mathcal{C} \text{ with codomain in A}\},
+	\]
+	i.e. the set whose elements are \(f:X\rightarrow A\) for some objec X of \(\mathcal{C}.\) Then, for objects A, B of \(\mathcal{C}\), \(g:A\rightarrow B\), define
+	\begin{align*}
+		\overline{g}: & \overline{A}\rightarrow \overline{B} \\
+		              & \varphi \mapsto g\circ \varphi .
+	\end{align*}
+	Hence, there is a mapping of morphisms
+	\begin{align*}
+		\mathcal{C}(A, & B)\rightarrow \overline{\mathcal{C}}(\overline{A}, \overline{B}) \\
+		               & g\mapsto \overline{g}.
+	\end{align*}
+	Now, define the functor
+	\begin{align*}
+		F: & \mathcal{C}\rightarrow \overline{\mathcal{C}}\subseteq \mathrm{Sets} \\
+		   & A\mapsto \overline{A}                                                \\
+		   & f:A\rightarrow B \longrightarrow F(f)=\overline{f}.
+	\end{align*}
+	This is an isomorphism and \(\mathcal{C}\cong \overline{\mathcal{C}}.\) \qedsymbol
+\end{proof*}
+
+\begin{exr}
+	Prove that F at the end of the proof is indeed a functor and an isomorphism.
+\end{exr}
+\end{document}
+

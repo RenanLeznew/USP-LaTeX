@@ -1,0 +1,199 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 11 - September 19th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Representation and Yoneda Lemma.
+\end{itemize}
+\subsection{Representation and Yoneda Lemma}
+\begin{def*}
+	Let \(\mathcal{D}\) be a category and \(K:\mathcal{D}\rightarrow \mathrm{Sets}\) be a functor. A \textbf{Representation} of K is a pair
+	\(R, \psi\), with R an object of \(\mathcal{D}\), and \(\psi:\mathcal{D}(R, -)\rightarrow K\) is a natural isomorphism. The object R is called the \textbf{Representation object of K}, and is said to be representable when such representation exists. \(\square\)
+\end{def*}
+By the definition, there exists a bijection \(\pi si_{A}\) between \(\mathcal{D}(R, A)\) and K(A) for all \(A\). Moreover, if \(f:A\rightarrow B\) is a morphism in \(\mathcal{D}\), then
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(\mathcal{D}(R, A)\)};
+		\node(BL) at (-2,-1){\(\mathcal{D}(R, B)\)};
+		\node(TR) at (2,1){K(A)};
+		\node(BR) at (2,-1){K(B)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(\psi_{A}\)}(TR);
+		\draw[Arrow](BL)--node[midway, above] {\(\mathcal{D}(R, f)\)}(BR);
+		\draw[Arrow](TL)--node[midway, left] {\(\psi_{B}\)}(BL);
+		\draw[Arrow](TR)--node[midway, left] {\(f_{*}\)}(BR);
+
+	\end{tikzpicture}
+\end{center}
+
+\begin{example}
+	For two vector fields over a field \(\mathbb{K}\), V, V',consider the functor
+	\begin{align*}
+		K: & \mathrm{Vect}_{\mathbb{K}}\rightarrow \mathrm{Sets} \\
+		   & W\mapsto \text{bilinear}(V\times V', W).
+	\end{align*}
+	We need  vector field R over \(\mathbb{K}\), and a bijective mapping \(\psi\), such that
+	\begin{align*}
+		\psi: & \mathcal{D}(R, -)\rightarrow K                                                    \\
+		      & \mathcal{D}(V\otimes_{\mathbb{K}} V', W)\cong K(W)=\text{bilinear}(V\times V', W) \\
+		      & f\mapsto f\circ \varphi_{V, V'},
+	\end{align*}
+	defined by having in mind
+	\[
+		V\times V'\overbracket[0pt]{\longrightarrow}^{\varphi_{V, V'} } V\otimes_{\mathbb{K}}V'\overbracket[0pt]{\longrightarrow}^{f}W,
+	\]
+	and finally yielding the following diagram
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(V\times V'\)};
+			\node(BL) at (-2,-1){\(V\otimes_{\mathbb{K}V'}\)};
+			\node(TR) at (2,1){W};
+
+			\draw[Arrow](TL)--node[midway, above] {g}(TR);
+			\draw[Arrow](TL)--node[midway, left] {\(\varphi_{V, V'}\)}(BL);
+			\draw[Arrow](BL)--node[midway, above] {\(\overline{g}\)}(TR);
+		\end{tikzpicture}
+	\end{center}
+\end{example}
+The Yoneda Lemma has to deal with whether a function is representable under certain conditinos or not. Before, though, we'll see other examples.
+\begin{example}
+	\begin{itemize}
+
+		\item[1)]Let G be a group, \(N\trianglelefteq G\), and consider two functors
+		      \begin{align*}
+			      F: & \mathrm{Grps}\rightarrow \mathrm{Sets}                      \\
+			         & H \mapsto \{f:G\rightarrow H | N\subseteq \mathrm{ker}(f)\}
+		      \end{align*}
+		      and \(K:\mathcal{D}\rightarrow \mathrm{Sets}\), so that \(R:\mathcal{D}(R, -)\cong  K\). Notice that if we consider morphismsm between the quotient group of G by N to H, we're done, since that means
+		      \begin{align*}
+			       & \mathrm{Grps}(G/N, H)\cong K(H)=\{f:G\rightarrow H: N\subseteq \mathrm{ker}(f)\} \\
+			       & G/N\overbracket[0pt]{\longrightarrow}^{f}H\mapsto f\circ \pi ,
+		      \end{align*}
+		      so we're mapping f to \(f\circ \pi \) via \(N\overbracket[0pt]{\longrightarrow}^{\pi }G/N\overbracket[0pt]{\longrightarrow}^{f}\), which is a bijection. Hence, the functor K is representable by the quotient.
+
+		\item[2)]With respect to vector spaces over a field, we had the functor \(X\in \mathrm{Sets}\rightarrow V_{X}=F(X)\), sending X to \(V_{X}\). If we want to translate it to the language that we want, going from vector spaces to Sets, what we need to do is the following:
+
+		      Let X be a Set and consider the functor
+		      \begin{align*}
+			      K_{X}: & \mathrm{Vect}_{\mathbb{K}}\rightarrow \mathrm{Sets} \\
+			             & V\mapsto \text{maps}(X, V).
+		      \end{align*}
+		      Hence, we end up with the transformation \(\mathcal{T}(V_{X}, V)=K_{X}(V)\), where \(V_{X}\) is the vector space generated by X, i.e.
+		      \[
+			      V_{X}=\biggl\{\sum\limits_{x\in X}^{}a_{x}x: a_x\in F, x\in X\biggr\}.
+		      \]
+		      Thus, we're mapping functions \(\varphi :X\rightarrow V\in K_{x}(V)\) to
+		      \begin{align*}
+			      \tilde\varphi : & V_{X}\rightarrow V                                                                                   \\
+			                      & \tilde{\varphi }\biggl(\sum\limits_{x\in X}^{}a_{x}x\biggr) = \sum\limits_{x\in X}^{}a_{x}\varphi(x)
+		      \end{align*}
+	\end{itemize}
+\end{example}
+\begin{prop*}
+	Let \(*\) be a set with one element, \(*=\{*\}\) and \(\mathcal{P}\) be a category. If \(\left< R, u:*\rightarrow KR \right>\) is a universal morphism from * to a functor \(K:\mathcal{D}\rightarrow \mathrm{Sets}\), then K is representable. In fact, more precisely,
+	\[
+		\mathcal{D}(R, -)\cong K.
+	\]
+	Moreover, every representation of K is obtained in this way from exactly one such universal morphism
+\end{prop*}
+\begin{proof*}
+	For any set X, we have a bijection of sets
+	\[
+		\text{maps}(*, X) \cong X,\quad (f:*\rightarrow X)\mapsto f(*)
+	\]
+	which is natural in X: let \(\theta : X\rightarrow Y\) be a map of sets. Then, the diagram
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){Maps(*, X)};
+			\node(BL) at (-2,-1){Maps(*, Y)};
+			\node(TR) at (2,1){X};
+			\node(BR) at (2,-1){Y};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\sim\)}(TR);
+			\draw[Arrow](BL)--node[midway, above] {\(\sim\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(\theta_{*}\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {f}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	is commutative, so that \(\theta_{*}(f)=\theta \circ f\). We thus have a natural isomorphism
+	\[
+		\text{Maps}(*, -)\cong \mathrm{id}_{\mathrm{Sets}},
+	\]
+	where
+	\begin{align*}
+		\text{maps}(*, -): & \mathrm{Sets}\rightarrow \mathrm{Sets} \\
+		                   & X\mapsto \text{Maps}(*, X).
+	\end{align*}
+	Composing this with K yields a natural isomorphism
+	\[
+		\mathrm{Sets}(*, K(-))\overbracket[0pt]{\longrightarrow}^{\cong }K.
+	\]
+	By the proposition from last class, we have the natural isomorphism
+	\[
+		\mathrm{Sets}(*, K(-))\cong \mathcal{D}(R, -).
+	\]
+	Now since the composition of bijections is a bijection itself, we get the natural isomorphism
+	\[
+		\mathcal{D}(R, -)\cong K.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Remark: In the proposition above, consider the functor
+\[
+	K\coloneqq \mathcal{C}(C, S(-)):\mathcal{D}\rightarrow \mathrm{Sets}.
+\]
+Then, this K is representable, and \(\left< R, u':*\rightarrow \mathcal{C}(C, S(R)) \right>\), where
+\[
+	u':*\rightarrow \mathcal{C}(C, S(R)),\quad *\mapsto u
+\]
+is a representation of K. Thus,
+\[
+	\mathcal{D}(R, -)\cong K \quad\&\quad \mathcal{D}(R, -)\cong \mathcal{C}(C, S(-)).
+\]
+\begin{example}
+	Let \(F:\mathrm{Fields}\rightarrow \mathrm{Dom}_{m}\), where the category \(\mathrm{Dom}_{m}\) is the one whose objects are domains, and morphisms are monomorphisms between them. Let D be a domain and take
+	\begin{align*}
+		K: & \mathrm{Fields}\rightarrow \mathrm{Sets} \\
+		   & F\mapsto \mathrm{Injhom}(D, F),
+	\end{align*}
+	so that K is a covariant functor.
+
+	If \(\mathcal{D}\) is the category of Fields, then this is a natural bijection between F and K(F), i.e.,
+	\[
+		\mathcal{D}(\mathbb{Q}(D), F)\cong K(F).
+	\]
+	If \(g:D\rightarrow F\) is a monomorphism, then we have a homomorphism of fields
+	\begin{align*}
+		\tilde{g}: & \mathbb{Q}(D)\rightarrow F           \\
+		           & \frac{a}{b}\mapsto \frac{g(a)}{g(b)}
+	\end{align*}
+\end{example}
+\begin{example}
+	Let \((X, d_X)\) be a metric space, \(\mathcal{D}\) be the category of complete metric spaces, and
+	\[
+		K:\mathcal{D}\rightarrow \mathrm{Sets},\quad Y\mapsto \{\varphi :(X, d_{X})\rightarrow (Y, d_{Y}): \varphi \text{ is an isometry}\}.
+	\]
+	Then, K is representable via \(\left< \overline{X}, x\hookrightarrow \overline{X} \right>\). If we consider \(\mathcal{D}(\overline{X}, -)\cong K\), then that would be
+	\[
+		\mathcal{D}(\overline{X}, Y)\cong K(Y),\quad (f:\overline{X}\rightarrow \overline{Y})\mapsto f|_X.
+	\]
+\end{example}
+\end{document}

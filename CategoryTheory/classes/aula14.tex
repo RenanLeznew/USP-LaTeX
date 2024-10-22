@@ -1,0 +1,216 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 14 - October 1st, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item The Abelian Categories.
+\end{itemize}
+\subsection{Abelian Categories}
+\begin{def*}
+	A category \(\mathcal{A}\) is called an \textbf{Abelian Category} if for any objects \(A, B\in \mathrm{obj}(A)\), the set of morphisms \(\mathcal{A}(A, B)\) defines an abelian group such that
+	we have the following distributive property:
+	\[
+		h\circ (g+g')\circ f = h\circ g\circ f + h\circ g'\circ f\in \mathcal{A}(A', B'),
+	\]
+	where g, g' are both in \(\mathcal{A}(A, B)\), \(h\in \mathcal{A}(B, B') \), and \(f\in \mathcal{A}(A', A)\). \(\square\)
+\end{def*}
+A remark: since \(\mathcal{A}(A, B)\) is a group, it has an identity, hance \(\mathcal{A}(A, B)\neq\emptyset\). Furthermore, if \(\mathcal{A}\) is an abelian category, then
+\begin{align*}
+	\theta : & \mathcal{A}^{\mathrm{op}}\times \mathcal{A}\rightarrow \mathrm{Ab} \\
+	         & (A, B)\mapsto \mathcal{A}(A, B)
+\end{align*}
+is a functor: if \(f:A\rightarrow A'\), \(g:B\rightarrow B'\) so that \((f, g):(A, B)\rightarrow (A', B')\), then
+\begin{align*}
+	h_{(f, g)}: & \mathcal{A}(A, B)\rightarrow \mathcal{A}(A', B') \\
+	            & h\mapsto g\circ h\circ f
+\end{align*}
+is a homomorphism of Abelian groups. Finally, in an ab-category \( \mathcal{A}\), for any B in \(\mathrm{obj}(A)\), \(\mathcal{A}(B, B')\) is an associative ring with identity, with product operation given by
+\[
+	g \cdot f = g\circ f,
+\]
+so that \(1_{\mathcal{A}(B, B)}=\mathrm{id}_{B}\) and \(0_{\mathcal{A}(B, B)}=0\in \mathcal{A}(B, B)\).
+\begin{example}
+	\begin{itemize}
+		\item[1)] The category of abelian groups is an ab-category: given A, A' two abelian groups,
+		      \[
+			      \mathrm{Ab}(A, A')=\{f:A\rightarrow A': f \text{ is a group homomorphism}\}
+		      \]
+		      under the operation for pairwise \(f, g:A\rightarrow A'\)
+		      \begin{align*}
+			      (f+g): & A\rightarrow A'                         \\
+			             & a\mapsto (f+g)(a)\coloneqq f(a)+g(a),   \\
+			             & 0:A\rightarrow A',\quad 0\mapsto 0_{A'}
+		      \end{align*}
+		      is an abelian group.
+		\item[2)] The category of vector fields over a field \(\mathbb{K}\) is an ab-category.
+		\item[3)] In general, if R is a ring, then Mod, the category of left R-modules, is an abelian category; in fact, given two left R-moduli M, M', we have
+		      \[
+			      \mathrm{Mod}(M, M')=\{f:M\rightarrow M': \text{f is a left R-hom}\} = \mathrm{Hom}_{R}(M, M').
+		      \]
+		\item[4)] The category of Sets is not an ab-category. \(\mathcal{A}(X, X)\), where X is a set, is not even a group.
+		\item[5)] Let \(\mathcal{A}\) be a category with only one object, \(\bigstar\). Then, \(\mathcal{A}(\bigstar, \bigstar)\) is a ring. The addition for two morphisms \(f, g\in \mathcal{A}(\bigstar, \bigstar)\) as \(f+g:\bigstar\rightarrow \bigstar\) is defined.
+
+		      Moreover, let R be a ring with identity. Then, we define an ab-category \(\mathcal{A}_{R}\) with an object \(\bigstar\) and morphism
+		      \[
+			      \mathcal{A}_{R}(\bigstar, \bigstar)=\{r:\bigstar\rightarrow \bigstar: r\in R\}
+		      \]
+		      by putting, for r, s in \(\mathcal{A}(\bigstar, \bigstar)\),
+		      \begin{align*}
+			       & r+s:\bigstar\rightarrow \bigstar,\quad r+s\in R   \\
+			       & r \cdot s= r\circ s:\bigstar\rightarrow \bigstar.
+		      \end{align*}
+		      In other words, we have a one-to-one correspondence between Rings and Ab-categories with only one object. In fact, it's an equivalence of categories!
+	\end{itemize}
+\end{example}
+\subsection{Additive Categories}
+\begin{def*}
+	An \textbf{additive category} \(\mathcal{A}\) is an ab-cat such that
+	\begin{itemize}
+		\item[1)] \(\mathcal{A}\) han a zero object;
+		\item[2)] For any two objects \(A, B\in \mathrm{obj}(\mathcal{A})\), the product \(A\times B\) exists. \(\square\)
+	\end{itemize}
+\end{def*}
+\begin{lemma*}
+	In an additive category, the product and coproduct of any finite number of objects exists and \(\prod\limits_{i=1}^{n}A_{i}\cong \sqcup_{i=1}^{n}A_{i}\).
+\end{lemma*}
+\begin{proof*}
+	It is sufficient to prove that \(A\times B\cong A\sqcup B\). Notice that \(A\times B\) exitst by definition, and what we'll do is show that \(A\times B\) also satisfies the coproduct property; in other words, show that it is an object of \(\mathcal{A}\) together with morphisms from A, B to itself and such that if we have an object D in \(\mathcal{A}\) also with morphisms from A, B to itself, then there is a unique morphism making the following diagram commute:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(S1) at (-2,0){A};
+			\node(S2) at (2,0){B};
+			\node(IS) at (0,-2){D};
+			\node(PD) at (0,2){\(A \times B\)};
+
+			\draw[Arrow](S1)--node[midway, above] {i}(PD);
+			\draw[Arrow](S2)--node[midway, above] {j}(PD);
+			\draw[Arrow](S2)--node[midway, left] {\(\alpha_{B}\)}(IS);
+			\draw[Arrow](S1)--node[midway, left] {\(\alpha_{A}\)}(IS);
+			\draw[dashed, Arrow](PD)--node[midway, left] {\(\gamma \)}(IS);
+
+		\end{tikzpicture}
+
+	\end{center}
+	Consider the following diagrams
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,2){A};
+			\node(BL) at (0,-2){B};
+			\node(TR) at (2,0){A};
+			\node(BR) at (0,0){\(A\times B\)};
+
+			\draw[Arrow, dashed](TL)--node[midway, above] {i}(BR);
+			\draw[Arrow](BR)--node[midway, right] {\(\pi_{B}\)}(BL);
+			\draw[Arrow](BR)--node[midway, above] {\(\pi_{A}\)}(TR);
+			\draw[Arrow](TL)--node[midway, left] {0}(BL);
+			\draw[Arrow](TL)--node[midway, right] {\(\mathrm{id}_{A}\)}(TR);
+
+		\end{tikzpicture}
+	\end{center}
+	The first step was constructing the arrow from A to itself, the identity, then from A to B, the 0 morphism. Analogously, with respect to B, we end up with the diagram
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,2){B};
+			\node(BL) at (0,-2){B};
+			\node(TR) at (2,0){A};
+			\node(BR) at (0,0){\(A\times B\)};
+
+			\draw[Arrow, dashed](TL)--node[midway, above] {j}(BR);
+			\draw[Arrow](BR)--node[midway, right] {\(\pi_{B}\)}(BL);
+			\draw[Arrow](BR)--node[midway, above] {\(\pi_{A}\)}(TR);
+			\draw[Arrow](TL)--node[midway, right] {0}(TR);
+			\draw[Arrow](TL)--node[midway, left] {\(\mathrm{id}_{A}\)}(BL);
+
+		\end{tikzpicture}
+	\end{center}
+	Now, consider the following diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(S1) at (-2,0){A};
+			\node(S2) at (2,0){B};
+			\node(IS) at (0,-2){D};
+			\node(PD) at (0,2){\(A \times B\)};
+
+			\draw[Arrow](S1)--node[midway, above] {i}(PD);
+			\draw[Arrow](S2)--node[midway, above] {j}(PD);
+			\draw[Arrow](S2)--node[midway, left] {\(\alpha_{B}\)}(IS);
+			\draw[Arrow](S1)--node[midway, left] {\(\alpha_{A}\)}(IS);
+			\draw[dashed, Arrow](PD)--node[midway, left] {\(\gamma \)}(IS);
+
+		\end{tikzpicture}
+
+	\end{center}
+	we define
+	\[
+		\gamma = \alpha_{A}\circ \pi_{A}+\alpha_{B}\circ \pi_{B},
+	\]
+	so that
+	\begin{align*}
+		\gamma \circ j & = (\alpha_{A}\circ \pi_{A})\circ j+(\alpha_{B}\circ \pi_{B})\circ j  \\
+		               & =\alpha_{A}\circ (\pi _{A}\circ j) +\alpha_{B}\circ (\pi_{B}\circ j) \\
+		               & =\alpha_{A}\circ 0 + \alpha_{B}\circ \mathrm{id}_{B}                 \\
+		               & =\alpha _{B}.
+	\end{align*}
+	In a similar fashion, \(\gamma \circ i = \alpha_{A}\).
+
+	Finally, we prove that \(\gamma \) is unique. Let's assume that \(\gamma ':A\times B\rightarrow D\) is another morphism such that \(\gamma'\circ j = \alpha_{B}\) and \(\gamma '\circ i=\alpha_{A}\). Then,
+	\[
+		\left\{\begin{array}{ll}
+			\gamma '\circ i_{A}\circ \pi _{A}=\alpha_{A}\circ \pi _{A} \\
+			\gamma '\circ i_{B}\circ \pi _{B}=\alpha _{B}\circ \pi _{B},
+		\end{array}\right.
+	\]
+	so together,
+	\begin{align*}
+		\gamma '\circ (i_{A}\circ \pi _{A}+i_{B}\circ \pi _{B}) & =\alpha _{A}\circ \pi _{A}+\alpha _{B}\circ \pi_{B} \\
+		                                                        & =\gamma.
+	\end{align*}
+	Since the term inside the parenthesis is just \(\mathrm{id}_{A\times B}\), we are done. \qedsymbol
+\end{proof*}
+If \(\mathcal{A}\) is an additive categories and 0 is a zero object, then \(\mathcal{A}(0, B)\) and \(\mathcal{A}(B, 0)\) are trivial groups.
+\begin{example}
+	\begin{itemize}
+		\item[1)] Ab, \(\mathrm{Mod}_{R}\), \(_{R}\mathrm{Mod}\), \(\mathrm{Vect}_{\mathbb{K}}\) are all additive categories.
+		\item[2)] Let R be a ring, \(\mathcal{F}\) a category with objects \(0, R, R^{2}, R^{3}, \dotsc \) and morphisms
+		      \[
+			      \mathrm{Hom}(R^{n}, R^{m})=M_{n\times m}(R),\quad R^{n}=\biggl\{\begin{pmatrix}
+				      a_{1}  \\
+				      a_{2}  \\
+				      \vdots \\
+				      a_{n}
+			      \end{pmatrix}: a_{i}\in R\biggr\}
+		      \]
+	\end{itemize}
+\end{example}
+Notice that an abelian category is an additive category such that
+\begin{itemize}
+	\item[1)] Any morphism has kernel and cokernel;
+	\item[2)] Any monomorphism is the kernel of its cokernel;
+	\item[3] Any epimorphism is the cokernel of its kernel.
+\end{itemize}
+In a way, we want to say that the kernel and cokernel are unique.
+\end{document}

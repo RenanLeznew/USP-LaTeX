@@ -1,0 +1,442 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 15 - October 2nd, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item The Category of Complexes
+\end{itemize}
+\subsection{The Category of Complexes}
+Here, recall the definition of Kernel:
+\begin{def*}
+	Let \(\mathcal{C}\) be a category with a zero object and \(f:A\rightarrow B\) be a morphism. The \textbf{kernel} of f is a morphism \(i:X\rightarrow A\) such that \(f\circ i:X\rightarrow B\) is zero morphism with the following property:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){X};
+			\node(BL) at (0,1){A};
+			\node(TR) at (2,1){B};
+			\node(BR) at (0,-1){Y};
+
+			\draw[Arrow](BL)--node[midway, above] {f}(TR);
+			\draw[Arrow](BR)--node[midway, right] {\(\varphi \)}(BL);
+			\draw[Arrow](TL)--node[midway, above] {i}(BL);
+			\draw[Arrow, dashed](BR)--node[midway, left] {\(\psi\)}(TL);
+		\end{tikzpicture}
+	\end{center}
+	there exists a unique \(\psi\) such that \(i\circ \psi = \psi\), and \(f\circ \varphi =0\). We denote the kernel of f by
+	\[
+		\mathrm{ker}(f)\overbracket[0pt]{\longrightarrow}^{i}A,\quad \mathrm{ker}(f)\in \mathrm{obj}(\mathcal{C}).\quad \square
+	\]
+\end{def*}
+\begin{exr}
+	Show that the kernel
+	\[
+		\mathrm{ker}(f)\rightarrow X
+	\]
+	is a monomorphism.
+\end{exr}
+\begin{def*}
+	The \textbf{Cokernel} of \(f:A\rightarrow B\) is a morphism \(p:B\rightarrow Z\) such that \(p\circ f=0 \) and which has the following property:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){A};
+			\node(BL) at (0,1){B};
+			\node(TR) at (2,1){Z};
+			\node(BR) at (0,-1){C};
+
+			\draw[Arrow](TL)--node[midway, above] {f}(BL);
+			\draw[Arrow](BL)--node[midway, above] {p}(TR);
+			\draw[Arrow](BL)--node[midway, left] {p'}(BR);
+			\draw[Arrow, dashed](TR)--node[midway, right] {\(\theta \)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	there is a unique \(\theta:Z\rightarrow C\) such that \(\theta \circ p = p'\). We denote the cokernel of f by
+	\[
+		B\rightarrow \mathrm{coker}(f).\quad \square
+	\]
+\end{def*}
+\begin{exr}
+	Show that
+	\[
+		B\rightarrow \mathrm{coker}(f)
+	\]
+	is an epimorphism.
+\end{exr}
+In an abelian ctegory, given a morphism \(f:A\rightarrow B\), we have the following relationship between kernel and cokernel:
+\[
+	\mathrm{ker}(f)\rightarrow A\overbracket[0pt]{\rightarrow}^{f}B\rightarrow \mathrm{coker}(f).
+\]
+If we focus on a snippet of that relationship, we find
+\[
+	A\overbracket[0pt]{\hookrightarrow}^{f}B\overbracket[0pt]{\rightarrow}^{p}\mathrm{coker}(f),
+\]
+meaning A is isomorphic to the kernel of p by uniqueness. Similarly, we can look at a snippet of the form
+\[
+	\mathrm{ker}(g)\overbracket[0pt]{\hookrightarrow}^{i}C\overbracket[0pt]{\rightarrow}^{g}D,
+\]
+which will mean \(D\cong \mathrm{coker}(g)\).
+
+In general, we speak of the images of a morphism: let \(f:A\rightarrow B\) be a morphism in \(\mathcal{A}\). Then,
+\[
+	A\overbracket[0pt]{\rightarrow}^{f} B\overbracket[0pt]{\rightarrow}^{p}\mathrm{coker}(f) \Rightarrow p\circ f=0,
+\]
+so that \(\mathrm{im}(f)=\mathrm{ker}(p)\hookrightarrow B\). This is summarized in the diagram
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(X) at (-2,1){\(\mathrm{im}(f)=\mathrm{ker}(p)\)};
+		\node(B) at (2,1){\(\mathrm{coker}(f)\)};
+		\node(A) at (0,1){B};
+		\node(Y) at (0,-1){A};
+
+		\draw[Arrow](X)--node[midway, above] {i}(A);
+		\draw[Arrow](A)--node[midway, above] {f}(B);
+		\draw[Arrow](Y)--node[midway, left] {f}(A);
+		\draw[Arrow, dashed](Y)--node[midway, left] {}(X);
+
+	\end{tikzpicture}
+
+\end{center}
+what this means is that any morphism \(f:A\rightarrow B\) in \(\mathcal{A}\) factors as follows:
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){A};
+		\node(BL) at (0,-1){\(\mathrm{im}(f)\)};
+		\node(TR) at (2,1){B};
+
+		\draw[Arrow](TL)--node[midway, above] {p}(TR);
+		\draw[Arrow](TL)--node[midway, left] {\(\tilde f\)}(BL);
+		\draw[Arrow](BR)--node[midway, right] {i}(TR);
+
+	\end{tikzpicture}
+\end{center}
+\begin{exr}
+	Show that \(\tilde f\) is an epimorphism.
+\end{exr}
+\begin{def*}
+	Let \(\mathcal{A}\) be an abelian category. A \textbf{chain} of morphism
+	\[
+		A \overbracket[0pt]{\longrightarrow}^{f} B \overbracket[0pt]{\longrightarrow}^{g} C
+	\]
+	is called a \textbf{Complex Sequence} if
+	\[
+		g\circ f = 0.\quad \square
+	\]
+\end{def*}
+\begin{lemma*}
+	For any f, g in a chain, there is a morphism \(\mathrm{im}(f) \rightarrow \mathrm{ker}(g)\)
+\end{lemma*}
+\begin{proof*}
+	Start with the following diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(X) at (-2,1){\(\mathrm{ker}(g)\)};
+			\node(B) at (2,1){C};
+			\node(A) at (0,1){B};
+			\node(Y) at (0,-1){\(\mathrm{im}(f)\)};
+			\node(L) at (0,-3){A};
+
+			\draw[Arrow](X)--node[midway, above] {j}(A);
+			\draw[Arrow](A)--node[midway, above] {g}(B);
+			\draw[Arrow](Y)--node[midway, left] {i}(A);
+			\draw[Arrow, dashed](Y)--node[midway, left] {\(g_{1}\)}(X);
+			\draw[Arrow](L)--node[midway, left] {}(Y);
+
+		\end{tikzpicture}
+	\end{center}
+	\textbf{\underline{Claim}:} \(g\circ i = 0\).
+
+	In fact, since \(i:\mathrm{ker}(g)\rightarrow B\) is the kernel of \(g_1\), then there exists a unique \(g:\mathrm{im}(f)\rightarrow \mathrm{ker}(g)\) such that \(i\circ g_{1}=j\). Since i and j are mono, \(g_{1}\) is mono too. The remainder of the proof is left as an \textbf{exercise}
+\end{proof*}
+\begin{def*}
+	We say that the chain
+	\[
+		A\overbracket[0pt]{\rightarrow}^{f}B\overbracket[0pt]{\rightarrow}^{g}C
+	\]
+	is \textbf{exact} if \(\mathrm{im}(f) = \mathrm{ker}(g)\). \(\square\)
+\end{def*}
+\begin{def*}
+	A \textbf{chain} in \(\mathcal{A}\) is a family of objects and morphisms
+	\[
+		A_{\cdot }=\{A_{n}, \partial_{n}\}_{n\in \mathbb{Z}},\quad \partial_{n}:A_{n}\rightarrow A_{n-1},
+	\]
+	where \(A_{\cdot }\) is called a \textbf{chain-complex} and \(\partial_{n}\) is called the \textbf{n-th differential}, such that for any n:
+	\[
+		\partial_{n-1}\circ \partial_{n} = 0.
+	\]
+	We denote \(A_{\cdot }\) as follows:
+	\[
+		\dotsc \rightarrow A_{n}\overbracket[0pt]{\rightarrow}^{\partial_{n+1}}A_{n}\overbracket[0pt]{\rightarrow}^{\partial_{n}}A_{n-1}\overbracket[0pt]{\rightarrow}^{\partial_{n-1}}A_{n-2}\rightarrow \dotsc
+	\]
+	for any n.
+\end{def*}
+\begin{def*}
+	Let \(Z_{n}(A_{\cdot })=\mathrm{ker}(\partial_{n})\). Then, we call \(Z_{n}(A_{\cdot })\) \textbf{cycles}. Similarly, the \textbf{boundaries} are defined as \(B_{n}(A_{\cdot })=\mathrm{im}(\partial_{n+1})\). \(\square\)
+\end{def*}
+By the previous discussion, we have a monomorphism.
+\[
+	B_{n}(A_{\cdot })\overbracket[0pt]{\hookrightarrow}^{i_{n}} Z_{n}(A_{\cdot }).
+\]
+Based on this, the next definitions make sense:
+\begin{def*}
+	The \textbf{n-homology of }\(A_{\cdot }\) is:
+	\[
+		H_{n}(A_{\cdot })\coloneqq \mathrm{coker}(i_{n}).\quad \square
+	\]
+\end{def*}
+For any morphsim \(A\overbracket[0pt]{\rightarrow}^{f}B\), we denote
+\[
+	\mathrm{coker}(f)=B/\mathrm{im}(f).
+\]
+If f is mono, then the notation simply becomes
+\[
+	\mathrm{coker}(f)=B/A.
+\]
+That way, we get
+\[
+	H_{n}(A_{\cdot })\coloneqq \frac{Z_{n}(A_{\cdot })}{B_{n}(A_{\cdot })}.
+\]
+\begin{def*}
+	We say \(A_{\cdot }\) is \textbf{exact at n} if \(H_{n}(A_{\cdot })=0,\) and it is \textbf{exact} if \(H_{n}(A_{\cdot })=0\) for all n. \(\square\)
+\end{def*}
+Now, let \(A_{\cdot }\) and \(B_{\cdot }\) be two chain-complexes:
+\[
+	A_{\cdot }=\{A_{n}, \partial_{n}^{A}\}_{n\in \mathbb{Z}},\quad B_{\cdot }=\{B_{n}, \partial_{n}^{B}\}.
+\]
+A morphism \(f_{\cdot }:A_{\cdot }\rightarrow B_{\cdot }\) is a \textbf{family of morphsim}
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TTL) at (-4,1){\(\dotsc \)};
+		\node(BBL) at (-4,-1){\(\dotsc \)};
+		\node(TL) at (-2,1){\(A_{n+1}\)};
+		\node(BL) at (-2,-1){\(B_{n+1}\)};
+		\node(TM) at (0,1){\(A_{n}\)};
+		\node(BM) at (0,-1){\(B_{n}\)};
+		\node(TR) at (2,1){\(A_{n-1}\)};
+		\node(BR) at (2,-1){\(B_{n-1}\)};
+		\node(TTR) at (4,1){\(\dotsc \)};
+		\node(BBR) at (4,-1){\(\dotsc \)};
+
+		\draw[Arrow](TTL)--(TL);
+		\draw[Arrow](BBL)--(BL);
+		\draw[Arrow](BR)--(BBR);
+		\draw[Arrow](TR)--(TTR);
+		\draw[Arrow](TL)--node[midway, above] {\(\partial_{n+1}^{A}\)}(TM);
+		\draw[Arrow](TM)--node[midway, above] {\(\partial_{n}^{A}\)}(TR);
+		\draw[Arrow](BL)--node[midway, below] {\(\partial_{n+1}^{B}\)}(BM);
+		\draw[Arrow](BM)--node[midway, below] {\(\partial_{n}^{B}\)}(BR);
+		\draw[Arrow](TL)--node[midway, left] {\(f_{n+1}\)}(BL);
+		\draw[Arrow](TM)--node[midway, left] {\(f_{n}\)}(BM);
+		\draw[Arrow](TR)--node[midway, right] {\(f_{n-1}\)}(BR);
+
+	\end{tikzpicture}
+	\(\square\)
+\end{center}
+Let \(f_{\cdot }:A_{\cdot }\rightarrow B_{\cdot }, g_{\cdot }:B_{\cdot }\rightarrow C_{\cdot }\) be three morphisms of chain complexes. We define
+\[
+	g_{\cdot }\circ f_{\cdot }=\{g_{n}\circ f_{n}\}_{n\in \mathbb{Z}}.
+\]
+If \(A_{\cdot }\) is a chain complex, the \(\mathrm{id}_{A}:A_{\cdot }\rightarrow A_{\cdot }\) is the family \(\{\mathrm{id}_{A_{n}}\}_{n\in \mathbb{Z}}\).
+
+As a conclusion, we see that the family of chain complexes is a category, called \textbf{the category of chain complexes in \(\mathcal{A}\)}, denoted by \(\mathrm{Ch}(\mathcal{A})\), with structure:
+\begin{align*}
+	 & \mathrm{obj}(\mathrm{Ch}(\mathcal{A}))=\{A_{\cdot }: A_{\cdot }\text{ is a chain complex}\}                                               \\
+	 & \mathrm{Mor}(A_{\cdot }, B_{\cdot })=\{f_{\cdot }:A_{\cdot }\rightarrow B_{\cdot }: f_{\cdot }\text{ is a morphism of chain complexes}\}.
+\end{align*}
+what follows is that \(\mathcal{A}\) is an additive category under the following operation of morphisms: given \(f_{\cdot }, g_{\cdot }\) morphisms between \(A_{\cdot }\) and \(B_{\cdot }\), put
+\[
+	f_{\cdot }+g_{\cdot }=\{f_{n}+g_n\}_{n\in \mathbb{Z}},\quad f_{n}, g_{n}\in \mathcal{A}(A_{n}, B_{n}).
+\]
+The zero object in \(\mathrm{Ch}(\mathcal{A})\) is the chain
+\[
+	\dotsc \rightarrow 0\rightarrow 0\rightarrow 0\rightarrow 0\rightarrow \dotsc .
+\]
+Let \(f_{\cdot }:A_{\cdot }\rightarrow B_{\cdot }\) be a morphism, and
+\begin{align*}
+	 & H_{n}(A_{\cdot })=\frac{Z_{n}(A_{\cdot })}{B_{n}(A_{\cdot})} \\
+	 & H_{n}(B_{\cdot })=\frac{Z_{n}(B_{\cdot })}{B_{n}(B_{\cdot})} \\
+\end{align*}
+which yields the following two diagrams:
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(Z_{n}(A_{\cdot })\)};
+		\node(BL) at (-2,-1){\(Z_{n}(B_{\cdot })\)};
+		\node(TM) at (0,1){\(A_{n}\)};
+		\node(BM) at (0,-1){\(B_{n}\)};
+		\node(TR) at (2,1){\(A_{n-1}\)};
+		\node(BR) at (2,-1){\(B_{n-1}\)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(i_{n}\)}(TM);
+		\draw[Arrow](TM)--node[midway, above] {\(\partial_{n}^{A}\)}(TR);
+		\draw[Arrow](BM)--node[midway, above] {\(\partial_{n}^{B}\)}(BR);
+		\draw[Arrow](BL)--node[midway, below] {\(j_{n}\)}(BM);
+		\draw[Arrow](TM)--node[midway, left] {\(f_{n}\)}(BM);
+		\draw[Arrow](TR)--node[midway, right] {\(f_{n-1}\)}(BR);
+
+	\end{tikzpicture}
+\end{center}
+and
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(X) at (-2,1){\(Z_{n}(B_{\cdot })\)};
+		\node(B) at (2,1){\(B_{n-1}\)};
+		\node(A) at (0,1){\(B_{\cdot }\)};
+		\node(Y) at (0,-1){\(Z_{n}(A_{\cdot })\)};
+
+		\draw[Arrow](X)--node[midway, above] {}(A);
+		\draw[Arrow](A)--node[midway, above] {\(\partial_{n}^{A}\)}(B);
+		\draw[Arrow](Y)--node[midway, left] {\(f_{n}\circ i_{n}\)}(A);
+		\draw[Arrow, dashed](Y)--node[midway, left] {\(\exists !\)}(X);
+
+	\end{tikzpicture}
+\end{center}
+which results in the relationship
+\begin{align*}
+	\partial _{n}^{B}\circ (f_{n}\circ i_{n}) & =(\partial_{n}^{B}\circ f_{n})\circ i_{n}        \\
+	                                          & =(f_{n-1}\circ \partial_{n}^{A})\circ i_{n}      \\
+	                                          & =f_{n-1}\circ (\partial_{n}^{A}\circ i_{n}) = 0,
+\end{align*}
+showing that the morphism \(Z_{n}(A_{\cdot })\overbracket[0pt]{\rightarrow}^{\overline{f}_{n}}Z_{n}(B_{\cdot })\) is unique.
+
+Similarly, there is a morphism
+\[
+	\tilde f_{n}:B_{n}(A_{\cdot })\rightarrow B_{n}(B_{\cdot })
+\]
+such that the following diagram commutes:
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(B_{n}(A_{\cdot })\)};
+		\node(BL) at (-2,-1){\(B_{n}(B_{\cdot })\)};
+		\node(TR) at (2,1){\(Z_{n}(A_{\cdot })\)};
+		\node(BR) at (2,-1){\(Z_{n}(B_{\cdot })\)};
+
+		\draw[Arrow](TL)--node[midway, above] {}(TR);
+		\draw[Arrow](BL)--node[midway, below] {}(BR);
+		\draw[Arrow](TL)--node[midway, left] {\(\tilde f_{n}\)}(BL);
+		\draw[Arrow](TR)--node[midway, right] {\(\overline{f_{n}}\)}(BR);
+
+	\end{tikzpicture}
+\end{center}
+Thus, \(f_{\cdot }\) induces a morphism of n-th homologies
+\[
+	f_{*}:\frac{Z_{n}(A_{\cdot })}{B_{n}(A_{\cdot })}\rightarrow \frac{Z_{n}(B_{\cdot })}{B_{n}(B_{\cdot })} \Longleftrightarrow f_{*}:H_{n}(A_{\cdot })\rightarrow H_{n}(B_{\cdot }).
+\]
+Consequently, the following diagrams appear:
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(X) at (-2,1){\(B_{n}(B_{\cdot })\)};
+		\node(B) at (2,1){\(H_{n}(B_{\cdot })\)};
+		\node(A) at (0,1){\(Z_{n}(B_{\cdot })\)};
+		\node(Y) at (0,-1){\(H_{n}(A_{\cdot })\)};
+
+		\draw[Arrow](X)--node[midway, above] {}(A);
+		\draw[Arrow](A)--node[midway, above] {}(B);
+		\draw[Arrow](Y)--node[midway, left] {}(A);
+		\draw[Arrow, dashed](Y)--node[midway, left] {}(B);
+
+	\end{tikzpicture}
+\end{center}
+and
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(X) at (-2,1){\(B_{n}(A_{\cdot })\)};
+		\node(B) at (2,1){\(H_{n}(A_{\cdot })\)};
+		\node(A) at (0,1){\(Z_{n}(A_{\cdot })\)};
+		\node(Y) at (0,-1){\(Z_{n}(B_{\cdot })\)};
+		\node(Z) at (0,-3){\(H_{n}(B_{\cdot })\)};
+
+		\draw[Arrow](X)--node[midway, above] {\(i_{n}\)}(A);
+		\draw[Arrow](A)--node[midway, above] {}(B);
+		\draw[Arrow](A)--node[midway, left] {}(Y);
+		\draw[Arrow](Y)--node[midway, left] {\(p_{B}\)}(Z);
+		\draw[Arrow, dashed](B)--node[midway, left] {}(Y);
+	\end{tikzpicture}
+\end{center}
+An exercise is to prove that, consequently,
+\[
+	p_{B}\circ \overline{f}_{n}\circ i_{n}=0.
+\]
+\begin{lemma*}
+	Let \(f_{\cdot }:A_{\cdot }\rightarrow B_{\cdot }, g_{\cdot }:B_{\cdot }\rightarrow C_{\cdot }\) be two morphisms of chain complexes. Then,
+	\begin{itemize}
+		\item[1)]\((g_{\cdot }\circ f_{\cdot })_{*}=g_{*}\circ f_{*}\);
+		\item[2)]\((\mathrm{id}_{A})_{*} = \mathrm{id}_{H_{n}(A_{\cdot })}\) for all n.
+	\end{itemize}
+\end{lemma*}
+\begin{crl*}
+	The homology
+	\begin{align*}
+		H_{n}: & \mathrm{Ch}(A_{\cdot })\rightarrow \mathcal{A} \\
+		       & A_{\cdot }\mapsto H_{n}(A_{\cdot })
+	\end{align*}
+	is a functor.
+\end{crl*}
+\begin{theorem*}[Next class]
+	\(\mathrm{Ch}(A_{\cdot })\) is an abelian category.
+\end{theorem*}
+\end{document}

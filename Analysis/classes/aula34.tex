@@ -6,4 +6,110 @@
 	\item Famílias Equicontínuas de Funções;
 	\item Teorema de Arzelá-Ascoli.
 \end{itemize}
+\subsection{Famílias Equicontínuas de Funções}
+Em vista da última aula, mesmo que \(\{f_{n}\}\) seja uma sequência uniformemente limitada de funções contínuas em um compacto D, não necessariamente existirá uma subsequência que convirja pontualmente em D. Para mostrar isso, vejamos o seguinte exemplo
+\begin{example}
+	Seja \(f_{n}(x)=\sin^{}{(nx)},\) em que x pertence ao intervalo \([0, 2\pi ]\) e n é um natural. Suponha que existe uma sequência \(\{n_{k}\}\) tal que, para todo x em \([0, 2\pi ]\), \(\{\sin^{}{(n_{k}x)}\}\) converge. Nesse caso, devemos ter
+	\[
+		\lim_{k\to \infty}(\sin^{}{(n_{k}x)}-\sin^{}{(n_{k+1}x)})=0,\quad x\in [0, 2\pi ]
+	\]
+	e, por isso,
+	\[
+		\lim_{k\to \infty}(\sin^{}{(n_{k}x)}-\sin^{}{(n_{k+1}x)})^{2}=0,\quad x\in [0, 2\pi ].
+	\]
+	Aqui, para podermos dar continuidade, usaremos um futuro Teorema, chamado \textit{Teorema da Convergência Dominada de Lebesgue}; segundo ele, temos
+	\[
+		\lim_{k\to \infty}\int_{0}^{2\pi }(\sin^{}{(n_{k}x)}-\sin^{}{(n_{k+1}x)})^{2}dx =0.
+	\]
+	No entanto, calculando a integral sem o limite,
+	\[
+		\int_{0}^{2\pi }(\sin^{}{(n_{k}x)}-\sin^{}{(n_{k+1}x)})^{2}dx=2\pi,
+	\]
+	o que resulta numa contradição, ou seja, não existe subsequência convergente para nosso exemplo.
+\end{example}
+Existem outras nuância presentes na questão de limitação e convergência uniformes. A citar algumas delas, a convergência pontual não implica em limitação uniforme, como indicado no exemplo \(f_{n}(x)=n^{2}x(1-x^{2})^{n}, x\in [0,1]\), mas convergência uniforme emplica em limitação uniforme. Além disso, em geral, nem toda sequência convergente contém uma subsequência uniformemente convergente, mesmo se ela for uniformemente limitada em um compacto; a exemplo,
+\begin{example}
+	Tome
+	\[
+		f_{n}(x)=\frac{x^{2}}{x^{2}+(1-nx)^{2}}, \quad x\in [0,1], n\in \mathbb{N}.
+	\]
+	Então, \(|f_{n}(x)|\leq 1\) para todo x em \([0,1]\) e todo n natural (basta perceber que o denominador é o numerador somado com um número positivo ou 0); por isso, \(\{f_{n}\}\) é uniformemente limitada dentro do intervalo \([0,1]\) e, ademais,
+	\[
+		\lim_{n\to \infty}f_{n}(x)=0,\quad x\in [0,1].
+	\]
+	Porém,
+	\[
+		f_{n}\biggl(\frac{1}{n}\biggr)=1,\quad n\in \mathbb{N}
+	\]
+	e nenhuma subsequência pode convergir uniformemente em \([0,1]\).
+\end{example}
+A chave para amarrar todos os problemas apresentados está na ideia de uma família específica de funções,
+\begin{def*}
+	Uma família \(\mathcal{F}\) de funções definidas em um subconjunto D dos reais e tomando valores em \(\mathbb{R}\) é dita equicontínua em ad se, dado \(\varepsilon > 0\), existe \(\delta >0\) tal que, para toda função f dentro desta família \(\mathcal{F}\) e x, y em D, se \(|x-y|<\delta \), então
+	\[
+		|f(x)-f(y)|<\varepsilon .\quad \square
+	\]
+\end{def*}
+Em particular, toda função pertencente a uma família equicontínua é uniformemente contínua; o poder aqui está no fato delas serem equicontínuas \textit{com os mesmos epsilon e delta}\footnote{Daí o nome equicontínuas!}, o que falhava para a sequência do exemplo imediatamente anterior à definição. Mostraremos, para começar, um teorema que estabelece uma relação próxima entre equicontinuidade e convergência uniforme de sequências de funções contínuas.
+\begin{theorem*}
+	Se K é um subconjunto compacto dos reais, \(f_{n}\) pertence a \(\mathcal{C}(K)\) para todo n natural e se \(\{f_{n}\}\) converge uniformemente em K, então \(\{f_{n}\}\) é equicontínua em K.
+\end{theorem*}
+\begin{proof*}
+	Dado \(\varepsilon >0\), pela hipótese de convergência da \(\{f_{n}\}\), existe um inteiro N tal que
+	\[
+		\Vert f_{n}-f_{-} \Vert < \frac{\varepsilon }{3},\quad n>N.
+	\]
+	Como funções contínuas são uniformemente contínuas dentro de um compacto, existe um \(\delta >0\) tal que, se \(x, y\in K\) satisfazem \(|x-y|<\delta \) e \(1\leq i\leq N\),
+	\[
+		|f_{i}(x)-f_{i}(y)| < \frac{\varepsilon }{3}<\varepsilon .
+	\]
+	Tomando um n maior que N e x, y em K que satisfazem a mesma desigualdade modular, segue que
+	\[
+		|f_{n}(x)-f_{n}(y)|\leq |f_{n}(x)-f_{N}(x)|+|f_{N}(x)-f_{N}(y)|+|f_{N}(y)-f_{n}(y)| < \frac{3\varepsilon }{3}=\varepsilon .
+	\]
+	Portanto, \(f_{n}\) é uma família equicontínua de funções em K. \qedsymbol
+\end{proof*}
+Além dessa relação útil, as famílias equicontínuas determinam quando sequência de funções pontualmente limitadas têm subsequências uniformemente convergentes, resultado este feito a seguir
+\begin{theorem*}
+	Se K é compacto e a sequência \(\{f_{n}\}\) em \(\mathcal{C}(K)\) é pontualmente limitada e equicontínua em K, então
+	\begin{itemize}
+		\item[a)] \(\{f_{n}\}\) é uniformemente limitada em K,
+		\item[b)] \(f_{n}\) tem uma subsequência uniformemente convergente.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	\((a)\Rightarrow ):\) Da equicontinuidade da sequência \(\{f_{n}\}\), dado \(\varepsilon > 0\), seja \(\delta >0\) tal que, para todo n natural e x, y em K satisfazendo \(|x-y|<\delta \), temos
+	\[
+		|f_{n}(x)-f_{n}(y)|<\frac{\varepsilon }{3}<\varepsilon .
+	\]
+	Como K é compacto, sejam \(p_{1},\dotsc , p_{r}\) em K tais que \(K\subseteq \bigsqcup_{i=1}^{r}V_{\delta }(p_{i})\), em que, para x em K, o conjunto \(V_{\delta }(x)\), chamado vizinhança-\(\delta \) de x, é dado por
+	\[
+		V_{\delta }(x)=\{y\in K: |x-y|<\delta \}.
+	\]
+	Como \(\{f_{n}\}\) é pontualmente limitada, existe \(M_{i}<\infty\) tal que \(|f_{n}(p_{i})|<M_{i}\) para todo n natural. Portanto, fazendo \(M=\max_{}(M_{1},\dotsc , M_{r})\), segue, para todo x em K, que
+	\[
+		|f_{n}(x)|<M+\varepsilon,
+	\]
+	provando o item a.
+
+	\((b)\Rightarrow ):\) Seja E um sobconjunto denso e contável de K; pelos resultados anteriores, \(\{f_{n}\}\) tem uma subsequência \(\{f_{n_i}\}\) tal que \(\{f_{n_{i}}(x)\}\) converge para cada x em E. Coloque \(f_{n_{i}}=g_{i}\), apenas para facilitar a notação. Provaremos a convergência uniforme de \(\{g_{i}\}\) em K.
+
+	Com efeito, da equicontinuidade, dado \(\varepsilon > 0\) seja \(\delta > 0\) tal que, para todo i em \(\mathbb{N}\) e todo x, y em K satisfazendo \(|x-y|<\delta \), temos
+	\[
+		|g_{i}(x)-g_{i}(y)|<\frac{\varepsilon}{3}.
+	\]
+	Como E é denso em K e este é compacto, existem finitos pontos \(x_{1},\dotsc , x_{m}\) em E tais que K é coberto por \(\delta \)-vizinhanças destes pontos:
+	\[
+		K\subseteq V_{\delta }(x_1)\cup \dotsc \cup V_{\delta }(x_{m}).
+	\]
+	Repita o processo de escolha de \(\delta >0\) dado \(\varepsilon > 0\) que foi feito no início da prova. Se x pertence a K, \(x\in V(x_{\kappa }, \delta )\) para algum \(\kappa \), de modo que
+	\[
+		|g_{i}(x)-g_{i}(x_{\kappa })|<\frac{\varepsilon }{3}
+	\]
+	para cada i natural. Se \(i, j\geq N\), segue que
+	\[
+		|g_{i}(x)-g_{j}(x)|\leq |g_{i}(x)-g_{i}(x_{\kappa })|+|g_{i}(x_{\kappa })-g_{j}(x_{\kappa })|+|g_{j}(x_{\kappa })-g_{j}(x)| <\varepsilon,
+	\]
+	portanto finalizando a prova. \qedsymbol
+\end{proof*}
 \end{document}

@@ -1,0 +1,287 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 08 - September 10th , 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Review
+\end{itemize}
+\subsection{Review of Products and Coproducts}
+Today's class started with a review of coproducts and products. Recall their definitions:
+\begin{def*}
+	Let \(\mathcal{C}\) be a category, and X, Y be objects of \(\mathcal{C}\). A \textbf{product of X and Y} is an object, usually denoted by \(X \times Y\), of \(\mathcal{C}\), together with a pair of morphisms \(\pi_1:X\times Y\rightarrow X\) and \(\pi_2:X\times Y\rightarrow Y\) such that for every object P and every pair of morphisms \(f:P\rightarrow X\) and \(g:P\rightarrow Y\), there exists a unique morphism \(h :P\rightarrow X\times Y\) satisfying
+	\[
+		\pi_1 \circ h = f\quad\&\quad \pi_2 \circ h = g. \square
+	\]
+	This yields the following commutative diagram:
+
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(PD) at (0,-2){\(A\times  B\)};
+			\node(S1) at (-2,0){A};
+			\node(S2) at (2,0){B};
+			\node(IS) at (0,2){P};
+
+			\draw[Arrow](PD)--node[midway, above] {\(\pi_1\)}(S1);
+			\draw[Arrow](PD)--node[midway, above] {\(\pi_2\)}(S2);
+			\draw[Arrow](IS)--node[midway, left] {f}(S1);
+			\draw[Arrow](IS)--node[midway, left] {g}(S2);
+			\draw[dashed, Arrow](IS)--node[midway, left] {h}(PD);
+
+		\end{tikzpicture}
+	\end{center}
+\end{def*}
+\begin{def*}
+	Let \(\mathcal{C}\) be a category, and A, B \(\in \mathrm{Obj}(\mathcal{C})\). The \textbf{coproduct of A and B} in C is an object of \(\mathcal{C}, A\sqcup B\) together with a morphism \(i:A\rightarrow A \sqcup B\) and \(j:B\rightarrow A \sqcup B\) such that for any two morphisms \(\alpha : A\rightarrow B \) and \(\beta :B\rightarrow P\), there existes a unique morphism \(\gamma :A\sqcup B\rightarrow P\) satisfying
+	\[
+		\gamma \circ i = \alpha \quad\&\quad \gamma \circ j=\beta. \square
+	\]
+	This yields the following commutative diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(S1) at (-2,0){A};
+			\node(S2) at (2,0){B};
+			\node(IS) at (0,-2){P};
+			\node(PD) at (0,2){\(A \sqcup B\)};
+
+			\draw[Arrow](S1)--node[midway, above] {i}(PD);
+			\draw[Arrow](S2)--node[midway, above] {j}(PD);
+			\draw[Arrow](S2)--node[midway, left] {\(\alpha \)}(IS);
+			\draw[Arrow](S1)--node[midway, left] {\(\beta \)}(IS);
+			\draw[dashed, Arrow](PD)--node[midway, left] {\(\gamma \)}(IS);
+
+		\end{tikzpicture}
+	\end{center}
+
+\end{def*}
+\begin{def*}
+	Let \(\{A_{i}\}_{i\in I}\) be a family of objects of \(\mathcal{C}\). The \textbf{coproduct} of \(\{A_{i}\}_{i\in I}\) is an object of \(\mathcal{C}\), denoted by \(\bigsqcup_{i\in I}^{}A_{i}\), together with the morphism \(\alpha_{i}:A_{i}\rightarrow \bigsqcup_{i\in I}^{}A_{i}\) such that for any family of morphisms \(\beta_{i}:A_{i}\rightarrow P, i\in I, P\in \mathrm{Obj}(\mathcal{C})\), there is a unique morphism \(\gamma :\bigsqcup_{i\in I}^{}A_{i}\rightarrow P\) such that
+	\[
+		\gamma \circ \alpha_{i}=\beta_{i},\quad \forall i\in I.\quad \square
+	\]
+	Here, the diagram looks like
+
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(A_{i}\)};
+			\node(TR) at (2,1){\(\sqcup A_{i}\)};
+			\node(BR) at (-2,-1){P};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\alpha_{i}\)}(TR);
+			\draw[Arrow](TL)--node[midway, left] {\(\beta_{i}\)}(BR);
+			\draw[dashed, Arrow](TR)--node[midway, right] {\(\gamma \)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+\end{def*}
+\begin{def*}
+	Let \(\{A_{j}\}_{j\in J}\) be a family of objects of \(\mathcal{C}\). The \textbf{product} of \(\{A_{j}\}_{j\in J}\) is an object of \(\mathcal{C}\), denoted by \(\prod\limits_{i\in I}^{}A_{i}\), together with the morphism \(\pi_{j}:A_{j}\rightarrow \prod_{j\in J}^{}A_{j}\) such that for any family of morphisms \(\beta_{j}:A_{j}\rightarrow P, j\in J, P\in \mathrm{Obj}(\mathcal{C})\), there is a unique morphism \(\lambda :P\rightarrow\bigsqcup_{j\in J}^{}A_{j} \) such that
+	\[
+		\pi_{j}\circ \lambda =\beta_{j},\quad \forall j\in J.\quad \square
+	\]
+	Here, the diagram looks like
+
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(A_{j}\)};
+			\node(TR) at (2,1){\(\prod A_{j}\)};
+			\node(BR) at (-2,-1){C};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\pi_{j}\)}(TR);
+			\draw[Arrow](BR)--node[midway, left] {\(\beta_{j}\)}(TL);
+			\draw[dashed, Arrow](BR)--node[midway, right] {\(\lambda \)}(TR);
+		\end{tikzpicture}
+	\end{center}
+\end{def*}
+\begin{exr}
+	The coproduct and product, if they exist, are unique up-to-isomorphism.
+\end{exr}
+\begin{example}
+	\begin{itemize}
+		\item[i)] Given a field \(\mathbb{K}\), the coproduct object in \(\mathrm{Vect}_{\mathbb{K}}\) is the direct sum, and the morphisms that come with it take a single vector to a j-tuple whose only non-zero entry is the j-th:
+		      \begin{align*}
+			       & \bigsqcup_{j\in J}^{}V_{j}\coloneqq \oplus_{j\in J}V_{j} \\
+			       & i_{j}:V_{j}\rightarrow \bigsqcup_{j\in J}^{}V_{j}        \\
+			       & x\mapsto (x_{j})_{j} = \left\{\begin{array}{ll}
+				                                       x,\quad j'=j \\
+				                                       0,\quad j'\neq j.
+			                                       \end{array}\right.
+		      \end{align*}
+		      The product here is the usual cartesian product, with canonical projections as morphisms:
+		      \begin{align*}
+			       & \prod\limits_{}^{}V_{j}\coloneqq \prod\limits_{}^{}V_{j} = V_{1}\times V_{2}\times \dotsc \times V_{j}\times \dotsc \\
+			       & \prod\limits_{j\in J}^{}V_{j}\overbracket[0pt]{\longrightarrow}^{p_{j'}}V_{j'}                                      \\
+			       & (v_{j})\mapsto v_{j'}
+		      \end{align*}
+		\item[2)] In Sets, the coproduct is the disjoint union of sets, and the product is the usual cartesian product.
+		\item[3)] In the category Posets, let \(\mathcal{P}\) be a poset and x, y be elements of \(\mathcal{P}.\) Then,
+		      \[
+			      \mathcal{P}(x, y)=\mathrm{Hom}(x, y) = \left\{\begin{array}{ll}
+				      \{i:x\rightarrow y\},\quad x\leq y \\
+				      \emptyset
+			      \end{array}\right.
+		      \]
+		      Here, the coproduct is known as \textbf{meet of x, y} in \(\mathcal{P}\), which is the greatest lower bound, and the product is known as the \textbf{joins of x, y} in \(\mathcal{P}\), which is the least upper bound:
+		      \begin{align*}
+			       & x\sqcup y= x\wedge y = \text{upper bound of }\{\omega \in \mathcal{P}; \omega \leq x, \omega \leq y\}  \\
+			       & x \times y = x\vee y = \text{lower bound of }\{\omega \in \mathcal{P}: x\leq \omega , y\leq \omega \}.
+		      \end{align*}
+		\item[4)] In the category Top of topological spaces, the coproduct is the disjoint union - U is open in the disjoint union of \(X_{j}\) if and only if \(U \cap X_{j}\) is open for all j in J. For a more interesting example, consider \(\mathcal{T}_{*}\) to be the category of ponted spaces:
+		      \begin{align*}
+			       & \mathrm{obj}(\mathcal{T}_{*})=(X, x_{0}),\quad x_{0}\in X                              \\
+			       & \mathcal{T}_{*}((X, x_{0}), (Y, y_{0}))  = \left\{\begin{array}{ll}
+				                                                           \{f:X\rightarrow Y, f(x_{0})=y_{0}\} \\
+				                                                           \emptyset .
+			                                                           \end{array}\right.
+		      \end{align*}
+
+		      Here, the product is the usual cartesian product given by
+		      \[
+			      (X, x_{0})\times (X, y_{0})=(X\times Y, (x_{0}, y_{0})),
+		      \]
+		      but the coproduct is the \textbf{Wedge Sum} of X and Y:
+		      \[
+			      X\wedge Y = \frac{X \sqcup Y}{x_{0}\sim y_{0}},\quad X\sqcup Y =\bigl(X\times \{y_{0}\} \cup \{x_{0}\}\times Y, (x_{0}, y_{0})\bigr).
+		      \]
+		      It is worth mentioning that both terminal and initial objects of \(\mathcal{T}_{*}\) are \((\{*\}, *)\), hence it has a zero object.
+		\item[5)] The category of A-algebras \(\mathcal{A}\), where A is a commutative ring, is the one whose objects are
+		      \[
+			      \mathrm{obj}(\mathcal{A})=\{(B, f:A\rightarrow B): B\text{ is a ring, f is a ring homomorphism}\}.
+		      \]
+		      Here, the product between two objects \((B, f)\) and \((B', f')\) is the \textbf{Tensor Product}
+		      \[
+			      (B, f)\sqcup (B', f')=(B \otimes_{A} B', f \otimes f'),
+		      \]
+		      where
+		      \begin{align*}
+			      f \otimes f': & A\rightarrow B\otimes B'    \\
+			                    & a\mapsto f(a)\otimes f(a)'.
+		      \end{align*}
+		      The mappings that come along with it are
+		      \begin{align*}
+			       & B\overbracket[0pt]{\hookrightarrow}^{i_{B} }B\otimes _A B',\quad b\mapsto b\otimes 1_{B'}    \\
+			       & B\overbracket[0pt]{\hookrightarrow}^{i_{B'} }B\otimes _A B',\quad b\mapsto 1_{B'}\otimes b'.
+		      \end{align*}
+		      As for the product, it's given by
+		      \[
+			      (B, f)\times (B', f') = (B\times B', f\times f'),
+		      \]
+		      where
+		      \begin{align*}
+			      f\times f': & A\rightarrow B\times B' \\
+			                  & a\mapsto (f(a), f'(a))  \\
+			                  & 1\mapsto (1_B, 1_B')
+		      \end{align*}
+		      In terms of diagrams,
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(S1) at (-2,0){B};
+				      \node(S2) at (2,0){B'};
+				      \node(IS) at (0,-2){C};
+				      \node(PD) at (0,2){\(B \otimes  B'\)};
+
+				      \draw[Arrow](S1)--node[midway, above] {i}(PD);
+				      \draw[Arrow](S2)--node[midway, above] {j}(PD);
+				      \draw[Arrow](S2)--node[midway, left] {\(\alpha_{B}\)}(IS);
+				      \draw[Arrow](S1)--node[midway, left] {\(\alpha_{B'}\)}(IS);
+				      \draw[dashed, Arrow](PD)--node[midway, left] {\(\lambda \)}(IS);
+
+			      \end{tikzpicture}
+		      \end{center}
+		      in which \(\lambda (b\otimes b')=\alpha_{B}(b)\alpha_{B'}(B')\).
+		\item[6)] For groups Grps, the product is the usual cartesian product between sets. As for the coproduct, one might be tempted to define it based on the following diagram:
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+
+				      \node(S1) at (-2,0){G};
+				      \node(S2) at (2,0){H};
+				      \node(IS) at (0,-2){T};
+				      \node(PD) at (0,2){\(G \times  H\)};
+
+				      \draw[Arrow](S1)--node[midway, above] {i}(PD);
+				      \draw[Arrow](S2)--node[midway, above] {j}(PD);
+				      \draw[Arrow](S2)--node[midway, left] {\(\alpha_{G}\)}(IS);
+				      \draw[Arrow](S1)--node[midway, left] {\(\alpha_{H}\)}(IS);
+				      \draw[dashed, Arrow](PD)--node[midway, left] {\(\lambda \)}(IS);
+			      \end{tikzpicture}
+		      \end{center}
+		      with \(\lambda ((g, h), (g', h')) = \alpha_{G}(g)\alpha_{H}(h)\), but it's only ok for abelian group, hence it's not the coproduct. The answer is the \textbf{Free Product of Groups}:
+		      \[
+			      G, H \longrightarrow G*H=\{\underbrace{ghg'h'\dotsc }_{\text{words}}\}.
+		      \]
+		      Here,
+		      \begin{align*}
+			       & i_{G}:G\hookrightarrow G*H,\quad g\mapsto g  \\
+			       & i_{H}:H\hookrightarrow G*H,\quad h\mapsto h,
+		      \end{align*}
+		      and the way to multiply words is through
+		      \begin{align*}
+			                  & x=g_1h_1g_2h_2 \dotsc g_{n}h_{n}                                               \\
+			                  & y=g_1'h_1'g_2'h_2' \dotsc g'_{n}h_{n}'                                         \\
+			      \Rightarrow & x \cdot y =g_1h_1g_2h_2 \dotsc g_{n}h_{n}g_1'h_1'g_2'h_2' \dotsc g'_{n}h_{n}'.
+		      \end{align*}
+		      resulting in the following diagram
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(S1) at (-2,0){G};
+				      \node(S2) at (2,0){H};
+				      \node(IS) at (0,-2){T};
+				      \node(PD) at (0,2){\(G * H\)};
+
+				      \draw[Arrow](S1)--node[midway, above] {i}(PD);
+				      \draw[Arrow](S2)--node[midway, above] {j}(PD);
+				      \draw[Arrow](S2)--node[midway, left] {\(\alpha_{G}\)}(IS);
+				      \draw[Arrow](S1)--node[midway, left] {\(\alpha_{H}\)}(IS);
+				      \draw[dashed, Arrow](PD)--node[midway, left] {\(\lambda \)}(IS);
+
+			      \end{tikzpicture}
+		      \end{center}
+		      where \(\lambda (g_1h_1g_2h_2 \dotsc g_{n}h_{n})=\alpha_G(g_1)\alpha_H(h_1)\)\footnote{This is more studied in Van Campen Theorem in the field of fundamental groups.}.
+	\end{itemize}
+	\begin{exr}
+		Check for the claims of products and coproducts of the past examples.
+	\end{exr}
+
+\end{example}
+\end{document}

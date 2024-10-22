@@ -1,0 +1,231 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 10 - September 17th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Continuation of Universality.
+\end{itemize}
+\subsection{Universal Property - Continuation}
+Recall from last class the definition of the \textit{universal arrow} and the \textit{universal object}.
+
+\begin{def*}
+	Let \(S:\mathcal{D}\rightarrow \mathcal{C}\) be a functor and \(C\in \mathrm{obj}(C)\). A \textbf{universal arrow from C to S} is a pair \(\left< R, u \right>\) which consists of an object \(R\in \mathrm{obj}(\mathcal{D})\) and a morphism \(u:\mathcal{C}\rightarrow S(R)\) in \(\mathcal{C}\), such that for every pair \(\left< D, f \right>\) with \(D\in \mathcal{D}\) and \(f:C\rightarrow SD\) a morphism in \(\mathcal{C}\), there is a \textbf{universal morphism} \(f':R\rightarrow D\) in \(\mathcal{D}\) with \(sf'\circ u = f\). In terms of a diagram,
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (0,0){C};
+			\node(TR) at (2,1){SR};
+			\node(BR) at (2,-1){SD};
+			\node(TTR) at (3,1){R};
+			\node(BBR) at (3,-1){D};
+
+			\draw[Arrow](TL)--node[midway, above] {u}(TR);
+			\draw[Arrow](TL)--node[midway, below] {f}(BR);
+			\draw[dashed, Arrow](TR)--node[midway, left] {S(f')}(BR);
+			\draw[dashed, Arrow](TTR)--node[midway, left] {f'}(BBR);
+
+		\end{tikzpicture}
+	\end{center}
+	In other words, every arrow from f to s factors uniquely through the universal morphism u as in the previous diagram. \(\square\)
+\end{def*}
+
+\begin{def*}
+	Let \(H:\mathcal{D}\rightarrow \mathrm{Sets}\) be a functor. A \textbf{universal element of S} is a universal arrow from \(\{*\}\) to S. Thes means an universal element is an object \(R\in \mathcal{D}\) together with an element \(u(*)\) of \(H(R)\) (\(\{*\}\overbracket[0pt]{\longrightarrow}^{u } H(R)\)) which satisfies the previous universal property:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(\{*\}\)};
+			\node(TR) at (2,1){H(R)};
+			\node(BR) at (2,-1){H(D)};
+			\node(TTR) at (3,1){R};
+			\node(BBR) at (3,-1){D};
+
+			\draw[Arrow](TL)--node[midway, above] {}(TR);
+			\draw[Arrow](TL)--node[midway, below] {f}(BR);
+			\draw[Arrow](TR)--node[midway, left] {H(f')}(BR);
+			\draw[Arrow](TTR)--node[midway, left] {f'}(BBR);
+		\end{tikzpicture}
+	\end{center}
+	so if D is an object of \(\mathcal{D}\) and \(y\in H(\mathcal{D})\), then there is a unique \(f':R\rightarrow D\) such that \(H(f'):H(R)\rightarrow H(D), u\mapsto y\).
+	\(\square\)
+\end{def*}
+
+One point already worth mentioning is that the latter is a special case of the former; in fact, let \(C=\{\bigstar\}\in  \mathrm{obj}(\mathrm{Sets})\) and let
+\begin{align*}
+	a: & C\rightarrow H(R) \\
+	   & a(x)=e.
+\end{align*}
+Then, the pair \(\left< \{\bigstar\}, u:\{\bigstar\}\rightarrow  S(R)\right>\) is a universal arrow for S as in the definition of universal arrow.
+Moreover, the former is also a special case of the latter. As a matter of facts, consider \(S:\mathcal{D}\rightarrow \mathcal{C},\) and \(C\in \mathrm{obj}(\mathcal{C})\). Let
+\begin{align*}
+	H: & \mathcal{D}\rightarrow \mathrm{Sets} \\
+	   & D\mapsto \mathcal{C}(C, S(D)).
+\end{align*}
+Hence, \(H=\mathcal{C}(C, S(-))\), and thus \(\left< R, u:C\rightarrow S(R) \right>\) is a universal element of H.
+
+\begin{prop*}
+	For a functor \(S:\mathcal{D}\rightarrow \mathcal{C}\), the pair \(\left< R, u:C\rightarrow S(R) \right>\) is a universal morphism from C to S if, and only if, the function
+	\begin{align*}
+		\theta_{D}: & \mathcal{D}(R, D)\rightarrow \mathcal{C}(C, S(D)) \\
+		            & f'\mapsto sf'\circ u
+	\end{align*}
+	is a bijection. This bijection is natural in \(\mathcal{D}\). Conversely, given R and C, any natural isomorphism
+	\[
+		\theta_{D}:\mathcal{D}(R, D)\rightarrow \mathcal{C}(C, S(D))
+	\]
+	is determined in this way by a unique arrow \(u:C\rightarrow S(R)\) such that \(\left< r, u \right>\) is universal from C to S.
+\end{prop*}
+\begin{proof*}
+	Let \(\left< R, u \right>\) be a universal morphism. We want to prove that \(\theta_{D}\) is a bijection, which is done using the universality property.
+
+	\(\theta_{D}\) \textbf{is surjective:} Let \(f\in \mathcal{C}(C, S(D))\). We have the following diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){C};
+			\node(BL) at (-2,-1){C};
+			\node(TR) at (2,1){S(R)};
+			\node(BR) at (2,-1){S(D)};
+			\node(TTR) at (3,1){R};
+			\node(BBR) at (3,-1){D};
+
+			\draw[Arrow](TL)--node[midway, above] {u}(TR);
+			\draw[Arrow](BL)--node[midway, above] {f}(BR);
+			\draw[Arrow](TL)--node[midway, left] {}(BL);
+			\draw[Arrow](TR)--node[midway, left] {Sf'}(BR);
+			\draw[Arrow](TTR)--node[midway, left] {f'}(BBR);
+
+		\end{tikzpicture}
+	\end{center}
+	By universality, there is \(f':R\rightarrow D\) such that \(sf'\circ u=f.\) Then, \(\theta_{D}(f')=f\)
+
+	\(\theta_{D}\) \textbf{is injective:} By uniqueness of universality, \(\theta_{D}\) is injective, for if \(\theta_{D}(f')=\theta_{D}(g')\), then \(sf'\circ u = sg'\circ u\), resulting in the following diagram:
+
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){C};
+			\node(BL) at (-2,-1){C};
+			\node(TR) at (2,1){S(R)};
+			\node(BR) at (2,-1){S(D)};
+
+			\draw[Arrow](TL)--node[midway, above] {u}(TR);
+			\draw[Arrow](BL)--node[midway, above] {f}(BR);
+			\draw[Arrow](TL)--node[midway, left] {}(BL);
+			\draw[Arrow](TR)--node[midway, left] {Sf', Sg'}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	which implies \(f'=g'\) by uniqueness.
+
+	On the other hand, assume \(\theta_{D}\) is bijective. Take \(D=R\), so that
+	\[
+		\theta_{R}:\mathcal{D}(R, R)\overbracket[0pt]{\longrightarrow}^{\sim }\mathcal{C}(\mathcal{C}, S(R)).
+	\]
+	Let \(u\coloneqq \theta_{R}(\mathrm{id}_{R}):\mathcal{C}\rightarrow S(R)\).
+
+	\textbf{\underline{Claim}:} The pair \(\left< R, u \right>\) is a universal morphism from \(C\) to \(S\). In fact, let \(f:C\rightarrow S(D)\) be a morphism and \(f'\) be a morphism from R to D in \(\mathcal{D}\) such that \(\theta(f')=f\), i.e.,
+	\[
+		sf'\circ u=f,
+	\]
+	which proves the existence of f'. It remains to show its unicity. For that much, consider the commutative diagram
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(\mathcal{D}(R, R)\)};
+			\node(BL) at (-2,-1){\(\mathcal{D}(R, D)\)};
+			\node(TR) at (2,1){\(\mathcal{C}(C, S(R))\)};
+			\node(BR) at (2,-1){\(\mathcal{C}(C, S(D))\)};
+
+
+			\node(TTL) at (4,1){\(\mathrm{id}_{R}\)};
+			\node(BBL) at (4,-1){\(f'\)};
+			\node(TTR) at (6,1){\(u\)};
+			\node(BBR) at (6,-1){\(sf'\circ u\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\theta_{R}\)}(TR);
+			\draw[Arrow](BL)--node[midway, above] {\(\theta_{D}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {}(BL);
+			\draw[Arrow](TR)--node[midway, left] {}(BR);
+
+			\draw[Arrow](TTL)--node[midway, above] {}(TTR);
+			\draw[Arrow](BBL)--node[midway, above] {}(BBR);
+			\draw[Arrow](TTL)--node[midway, left] {}(BBL);
+			\draw[Arrow](TTR)--node[midway, left] {}(BBR);
+
+		\end{tikzpicture}
+	\end{center}
+	Since \(\mathrm{id}_{R}\) is unique, it sets f' with the property \(sf'\circ u=f\), therefore f' is unique. \qedsymbol
+\end{proof*}
+A brief remark: the bijection says that the functors
+\begin{align*}
+	 & \mathcal{C}(C, S -):\mathcal{D}\rightarrow \mathrm{Sets} \\
+	 & \mathcal{D}(R, -):\mathcal{D}\rightarrow \mathrm{Sets}
+\end{align*}
+are isomorphic.
+
+
+\end{document}
+\begin{itemize}
+	\item[1)] Consider the category of fields, \(\mathcal{D}=\mathrm{Fields}\), in which objects are Fields\footnote{For instance,\(\mathbb{C}, \mathbb{Z}/p \text{ p prime}, \mathbb{Q}, A/\mathfrak{m} (\text{A is a ring, }\mathfrak{m}\text{ is a maximal ideal}), \mathbb{Q}(A)=\biggl\{\frac{a}{b}: a, b\in A, \text{A is a domain, }b\neq 0\biggr\}\)}.} and the morphisms are injective ring homomorphisms.
+
+	      Let \(\mathcal{C}=\mathrm{Dom}\) be the category of domains. Then,\(D, D'\) are domains, and the morphisms are also taken to be injective homomorphisms of rings. For the functor, we consider the forgetful \(F:\mathcal{D}\rightarrow \mathcal{C}\) by ``forgetting'' the field structure. If we take a domain \(D\in \mathrm{obj}(\mathcal{C})\), then the pair \(\left< \mathbb{Q}(D), u:D\rightarrow \mathbb{Q}(D) \right>\) is a universal morphism from D to F. This means that given u from D to \(F(\mathbb{Q}(D))\), we have the fololwing diagram
+	      \begin{center}
+		      \begin{tikzpicture}[
+				      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				      error/.style ={circle, thick, draw, text centered},
+				      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			      ]
+			      \node(TL) at (-2,1){D};
+			      \node(BL) at (-2,-1){D};
+			      \node(TR) at (2,1){\(F(\mathbb{Q}(D))\)};
+			      \node(BR) at (2,-1){F(E)};
+			      \node(TTR) at (3,1){\(\mathbb{Q}(D)\)};
+			      \node(BBR) at (3,-1){E};
+
+			      \draw[Arrow](TL)--node[midway, above] {u}(TR);
+			      \draw[Arrow](BL)--node[midway, above] {f}(BR);
+			      \draw[Arrow](TL)--node[midway, left] {=}(BL);
+			      \draw[Arrow](TR)--node[midway, right] {F(f')}(BR);
+			      \draw[Arrow](TTR)--node[midway, right] {f'}(BBR);
+
+		      \end{tikzpicture}
+	      \end{center}
+	\item[2)] Let \(\mathcal{M}\) be the category of metric spaces, in which \(\mathrm{obj}(\mathcal{M})= (X, d_{X})\), where X is a set and \(d_{X}:X\times X\rightarrow \mathbb{R}\) is a map such that
+	      \begin{itemize}
+		      \item[1)] \(d_{X}(x, x)= 0\);
+		      \item[2)] If x and y are different, \(d_{X}(x, y)>0\);
+		      \item[3)] \(d_{X}(x, y)=d_{X}(y, x)\);
+		      \item[4)] \(d_{X}(x, z)\leq d_{X}(x, y)+d_{X}(y, z)\),
+	      \end{itemize}
+	      and the morphisms are isometries, which are always injective. Define \(\mathcal{M}_{C}\) to be the category of complete metric spaces, and let \(F:\mathcal{M}_{C}\rightarrow \mathcal{M}\) to be the forgetful functor, whic takes a complete metric space and forget the complete structure (start to consider non-converging Cauchy sequences). Then, given an object X of \(\mathcal{M}\), we have a universal arrow via \(\left< \overline{X}, X\overbracket[0pt]{\hookrightarrow}^{\sim} X \right>\), from X to F.
+\end{itemize}
+\end{example}
+\end{documentk}

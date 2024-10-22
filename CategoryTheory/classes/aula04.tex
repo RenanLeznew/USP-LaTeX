@@ -1,0 +1,266 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 04 - August 20th , 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Functors and Natural Transformations.
+\end{itemize}
+\subsection{Contravariant Functors and More Examples}
+Last class, we defined a \textit{functor} as
+\begin{def*}
+	Let \(\mathcal{C}, \mathcal{D}\) be two categories. A \textbf{Covariant Functor} F between \(\mathcal{C}\) and \(\mathcal{D}\) is a relation such that:
+	\begin{itemize}
+		\item[1)] It assigns to any \(A\in \mathrm{Obj}(\mathcal{C})\) an object \(F(A)\in \mathrm{Obj}(\mathcal{D})\);
+		\item[2)] To any \(f\in \mathcal{C}(A, B)\), it assigns \(F(f)\in \mathcal{D}(F(A), F(B))\) such that:
+		      \begin{itemize}
+			      \item[2.i)] \(F(\mathrm{id}_{A})=\mathrm{id}_{F(A)}\);
+			      \item[2.ii)] \(F(g\circ f)=F(g)\circ F(f)\).
+		      \end{itemize}
+	\end{itemize}
+	In other words, a functor is a mapping which takes objects to objects, and arrows to arrows while preserving identities and compositions. We denote it by \(F:\mathcal{C}\rightarrow \mathcal{D}.\quad \square\)
+\end{def*}
+The word covariant indicates that F preserves the direction of the arrows; however, a \textbf{Contravariant Functor} \(G:\mathcal{C}\rightarrow \mathcal{D}\) is a covariant functor \(G^{op}:\mathcal{C}^{op}\rightarrow \mathcal{D}\). More precisely, it has the following properties:
+\begin{itemize}
+	\item[1)] \(g:\mathrm{Obj}(\mathcal{C})\rightarrow \mathrm{Obj}(\mathcal{D})\);
+	\item[2)] For all morphisms \(f:C\rightarrow C'\) in \(\mathcal{D}\), we have a morphism \(G(f):G(C')\rightarrow G(C)\) such that
+	      \begin{itemize}
+		      \item[2.1)] \(G(\mathrm{id}_{C})= \mathrm{id}_{G(C)}\);
+		      \item[2.2)] \(G(g\circ f)=G(f)\circ G(g)\).
+	      \end{itemize}
+\end{itemize}
+Just like with covariant functors, we have a mop of the set of morphisms from one category to the other, except the arrows' direction is reversed.
+
+Having seen many new definitions, we can revisit many already-known structures and subjects from other areas of mathematics and revisit them through the lenses of category theory:
+\begin{example}
+	Let \(\mathcal{C}\) be a category and fix an object A in \(\mathcal{C}\). Then,
+	\begin{align*}
+		G_{A}: & \mathcal{C}\rightarrow \mathrm{Sets} \\
+		       & C\mapsto G(C, A)
+	\end{align*}
+	is a contravariant functor, since
+	\[
+		f:C\rightarrow C' \longrightarrow G_{A}(f):\mathcal{C}(C', A)\rightarrow \mathcal{C}(C, A),\quad g\mapsto g\circ f.
+	\]
+	Moreover, we have the covariant functor
+	\begin{align*}
+		F_{A}: & \mathcal{C}\rightarrow \mathrm{Sets} \\
+		       & C\mapsto \mathcal{C}(A, C).
+	\end{align*}
+	If \(f:C\rightarrow C'\) is a morphism in \(\mathcal{C}\), then we have the map
+	\begin{align*}
+		F_{A}(f): & \mathcal{C}(A, C)\rightarrow \mathcal{C}(A, C') \\
+		          & h\mapsto f \circ h.
+	\end{align*}
+\end{example}
+\begin{example}
+	If \(\mathcal{C}=\mathrm{Ab}\), then for any two objects A, A' objects of Ab,
+	\[
+		\mathrm{Ab}(A, A')=\underbrace{\mathrm{Hom}(A, A')}_{\text{is a group}},
+	\]
+	since we can define an operation
+	\[
+		f*g:A\rightarrow A'\longrightarrow f+g:A\rightarrow A',\quad (f+g)(a)=f(a)+g(a),
+	\]
+	with null element \(0=f_{0}:A\rightarrow A'\) which maps a to 0, and a negativa elemnet via \(-f:A\rightarrow A'\) mapping a to -f(a). Then, we have the functors
+	\begin{align*}
+		G_{A}=\mathrm{Hom}(-, A): & \mathrm{Ab}\rightarrow \mathrm{Ab} \\
+		                          & C\mapsto \mathrm{Hom}(C, A)        \\
+		F_{A}=\mathrm{Hom}(A, -): & \mathrm{Ab}\rightarrow \mathrm{Ab} \\
+		                          & C\mapsto \mathrm{Hom}(A, C)        \\
+	\end{align*}
+\end{example}
+\begin{example}
+	In the category of vector spaces over a field \(\mathbb{K}\), for any two vector spaces V, W, then \(T(V, W)\), known as a \(\mathbb{K}\)\textbf{-transformation} is a \(\mathbb{K}-\)vector space:
+	\begin{align*}
+		 & (f+g)(v)=f(v)+g(v) \\
+		 & (af)(v)=af(v).
+	\end{align*}
+
+	Still on this category, the contravariant functor assumes an interesting form. Given a vector space V, define the functor
+	\begin{align*}
+		G_{V}: & \mathrm{Vect}_{\mathbb{K}}\rightarrow \mathrm{Vect}_{\mathbb{K}} \\
+		       & W\mapsto T(W, V)
+	\end{align*}
+	in which case its contravariant functor will be
+	\begin{align*}
+		F_{V}: & \mathrm{Vect}_{\mathbb{K}}\rightarrow \mathrm{Vect}_{\mathbb{K}} \\
+		       & W \mapsto T(V, W)
+	\end{align*}
+	and if \(V=\mathbb{K}\), then that gvies the dual space of W by \(T(W, \mathbb{K})=W^{*}\), so thas we also get a new (contravariant) functor ()*, the dual functor, which acts by
+	\begin{align*}
+		G_{T}=()^{*}: & \mathrm{Vect}_{\mathbb{K}}\rightarrow \mathrm{Vect}_{\mathbb{K}} \\
+		              & W\mapsto W^{*}
+	\end{align*}
+\end{example}
+\begin{example}
+	Let R be the category of commutative rings. Then, we have a dual functor over there by taking
+	\begin{align*}
+		\mathrm{GL}_{n}: & R\rightarrow \mathrm{Grps}               \\
+		                 & R\mapsto \mathrm{GL}_{n}(R)=M_{n}(R)^{*}
+	\end{align*}
+\end{example}
+\begin{example}
+	Let X be a topological space and set \(U_{X}=\{U\subseteq X: U \text{ is an open set}\}\). Then, \(U_{X}\) itself is a category, with morphisms
+	\[
+		U_{X}(U, U') = \left\{\begin{array}{ll}
+			i_{U, U'}:U\hookrightarrow U',\quad U\subseteq U' \\
+			\emptyset , \quad U\not\subseteq U'
+		\end{array}\right.
+	\]
+	where \(i_{U, U'}=\mathrm{id}_{U}\).
+\end{example}
+\begin{def*}
+	A \textbf{presheaf on X} is a contravariant functor
+	\[
+		F:U_{X}\rightarrow \mathcal{C}.
+	\]
+	If, for instance, \(\mathcal{C}=\mathrm{Ab}\), we call it an \textbf{Abelian Presheaf} on X. \(\square\)
+\end{def*}
+Presheaves are extremely important in logic for the definiton of topos, and in algebra for homology/cohomology.
+\subsection{Natural Transformations}
+\begin{def*}
+	Let \(F, G:\mathcal{C}\rightarrow \mathcal{D}\) be two functors between categories. A \textbf{natural transformation} is a function with the following properties:
+	For any C in \(\mathrm{Obj}(\mathcal{C})\), we have a morphism \(\eta_{C}:F(C)\rightarrow G(C)\) in \(\mathcal{D}\) such that for any morphisms \(f:C\rightarrow C'\) in \(\mathcal{C}\), we have the following diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				<->/.tip =Latex, thick]
+			\node(FC) at (-2,2){F(C)};
+			\node(FCp) at (-2,-2){F(C')};
+			\node(GC) at (2,2){G(C)};
+			\node(GCp) at (2,-2){G(C')};
+
+			\draw[Arrow](FC)--node[midway, above] {\(\eta_{C}\)}(GC);
+			\draw[Arrow](FCp)--node[midway, above] {\(\eta_{C'}\)}(GCp);
+			\draw[Arrow](FC)--node[midway, left] {\(F(f)\)}(FCp);
+			\draw[Arrow](GC)--node[midway, left] {\(G(f)\)}(GCp);
+		\end{tikzpicture}
+	\end{center}
+	and such a diagram commutes, i.e.
+	\[
+		G(f)\circ \eta _{C}=\eta _{C'}\circ F(f).
+	\]
+	In this case, we say that \(\eta_{C}\) is natural. If \(\eta_{C}\) is an isomorphism for any object C of \(\mathcal{C}\), we say that \(\eta \) is a \textbf{natural isomorphism}.
+\end{def*}
+Freely saying, a natural transformation is a ``function" between functors, and it's useful when comparing categories.
+
+If \(\eta : F \Rightarrow  G\) is a natural isomorphism, then we write \(F\overbracket[0pt]{\cong}^{\eta } G\). We also say that two functors \(F, G:\mathcal{C}\rightarrow \mathcal{D}\) are naturally isomorphic, and write \(F\cong G\), if there is a natural isomorphism \(\eta :F \Rightarrow G \)
+\begin{example}
+	\begin{itemize}
+		\item[1)] The determinant is a natural transformation. Let A be a commutative ring and let
+		      \begin{align*}
+			      \det_{A}{}: & M_{n}(A)\rightarrow A                                                                                        \\
+			                  & (a_{ij})\mapsto \sum\limits_{\sigma \in S_{n}}^{}\mathrm{sgn}(\sigma )a_{1\sigma (1)}\dotsc a_{n\sigma (n)}.
+		      \end{align*}
+		      be the determinant. Here, \(S_{n}\) is the permutation group of order n. For it to be a natural isomorphism, however, we need to write down the functors. For that, define
+		      \begin{align*}
+			       & \mathrm{GL}_{n}, ()^{*}:R\rightarrow \mathrm{Grps} \\
+			       & \mathrm{GL}_{n}:A\mapsto GL_{n}(A)                 \\
+			       & ()^{*}:A\mapsto A^{*}.
+		      \end{align*}
+		      Now given any commutative ring A in R, the action of the determinant is given by \(\det_{A}:\mathrm{GL}_{n}(A)\Rightarrow A^{*}\) , and if \(f:A\rightarrow B\) is a ring homomorphism, then we have the commutative diagram
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+					      <->/.tip =Latex, thick]
+				      \node(FC) at (-2,2){\(\mathrm{GL}_{n}(A)\)};
+				      \node(FCp) at (-2,-2){\(\mathrm{GL}_{n}(B)\)};
+				      \node(GC) at (2,2){\(A^{*}\)};
+				      \node(GCp) at (2,-2){\(B^{*}\)};
+
+				      \draw[Arrow](FC)--node[midway, above] {\(\det_{A}\)}(GC);
+				      \draw[Arrow](FCp)--node[midway, above] {\(\det_{B}\)}(GCp);
+				      \draw[Arrow](FC)--node[midway, left] {\(f\)}(FCp);
+				      \draw[Arrow](GC)--node[midway, left] {\((f)^{*}\)}(GCp);
+			      \end{tikzpicture}
+		      \end{center}
+		      More on this example, we can define the determinant as a natural isomorphism from the category of commutative rings \(\mathcal{R}\) into the category of rings Rings, with the functors being
+		      \begin{align*}
+			      M_{n}: & \mathcal{R}\rightarrow \mathrm{Rings} \\
+			             & A \mapsto M_{n}(A)
+		      \end{align*}
+		      and
+		      \begin{align*}
+			      i_{\mathcal{R}}:\mathcal{R}\hookrightarrow \mathrm{Rings}.
+		      \end{align*}
+		      Now, given a ring homomorphism \(f:A\rightarrow B\) in \(\mathcal{R}\), then the diagram
+
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+					      <->/.tip =Latex, thick]
+				      \node(FC) at (-2,2){\(\mathrm{M}_{n}(A)\)};
+				      \node(FCp) at (-2,-2){\(\mathrm{M}_{n}(B)\)};
+				      \node(GC) at (2,2){\(A\)};
+				      \node(GCp) at (2,-2){\(B\)};
+
+				      \draw[Arrow](FC)--node[midway, above] {\(\det_{A}\)}(GC);
+				      \draw[Arrow](FCp)--node[midway, above] {\(\det_{B}\)}(GCp);
+				      \draw[Arrow](FC)--node[midway, left] {\(M_{n}(f)\)}(FCp);
+				      \draw[Arrow](GC)--node[midway, left] {\(i_{\mathcal{R}}(f)\)}(GCp);
+			      \end{tikzpicture}
+		      \end{center}
+		      commutes, hence \(\det:M_{n}()\Rightarrow i_{\mathcal{R}} \) is a natural transformation.
+		\item[2)] Let \(t:V\rightarrow W\) be a \(\mathbb{K}\)-transformation, \(\mathbb{K}\) a field, and let \(F=T(-, W)\), \(G=T(-, W)\) be functors acting as \(F, G:\mathrm{Vect}_{\mathbb{K}}\rightarrow \mathrm{Vect}_{\mathbb{K}}\). Now given any object U of \(\mathrm{Vect}_{\mathbb{K}}\), define
+		      \begin{align*}
+			      \eta_{U}: & \underbrace{F(U)}_{=T(U, W)}\rightarrow \underbrace{G(U)}_{=T(U, W)} \\
+			                & f:U\rightarrow V \mapsto t\circ f
+		      \end{align*}
+	\end{itemize}
+	\pagebreak
+	so that if \(h:U\rightarrow U'\in T(U, U')\), then the following diagram commutes:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				<->/.tip =Latex, thick]
+			\node(FC) at (-2,2){\(F(U)\)};
+			\node(FCp) at (-2,-2){\(F(U')\)};
+			\node(GC) at (2,2){\(G(U)\)};
+			\node(GCp) at (2,-2){\(G(U')\)};
+
+			\draw[Arrow](FC)--node[midway, above] {\(\eta_{U} \)}(GC);
+			\draw[Arrow](FCp)--node[midway, above] {\(\eta _{U'}\)}(GCp);
+			\draw[Arrow](FCp)--node[midway, left] {\(F(h)\)}(FC);
+			\draw[Arrow](GCp)--node[midway, left] {\(G(h)\)}(GC);
+		\end{tikzpicture}
+	\end{center}
+	which is equivalent to
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				<->/.tip =Latex, thick]
+			\node(FC) at (-2,2){\(T(U, V)\)};
+			\node(FCp) at (-2,-2){\(T(U', W)\)};
+			\node(GC) at (2,2){\(T(U, V)\)};
+			\node(GCp) at (2,-2){\(T(U',W)\)};
+
+			\draw[Arrow](FC)--node[midway, above] {\(\eta_{U} \)}(GC);
+			\draw[Arrow](FCp)--node[midway, above] {\(\eta _{U'}\)}(GCp);
+			\draw[Arrow](FCp)--(FC);
+			\draw[Arrow](GCp)--(GC);
+		\end{tikzpicture}
+	\end{center}
+
+\end{example}
+
+\end{document}

@@ -7,4 +7,152 @@
 	\item Famílias Equicontínuas de Funções;
 	\item Rising Sun Lemma.
 \end{itemize}
+\subsection{Convergência Uniforme e Derivação}
+Como já foi mostrado, para que o limite das derivadas seja a derivada dos limites, condições além da convergência uniforme são necessárias. Com efeito, o seguinte teorema dita quando é possível:
+\begin{theorem*}
+	Se \(\{f_{n}\}\) é uma sequência de funções diferenciáveis em \([a, b]\) tal que \(\{f_{n}'\}\) uniformemente em \([a, b]\) e \(\{f_{n}(x_{0})\}\) converge para algum \(x_{0}\in [a, b]\), então \(\{f_{n}\}\) converge uniformemente em \([a, b]\) para uma função f que é diferenciável em \([a, b]\) e, além disso,
+	\[
+		f'(x)=\lim_{n\to \infty}f_{n}'(x),\quad \forall x\in [a, b]
+	\]
+\end{theorem*}
+\begin{proof*}
+	Pela convergência uniforme de f, dado \(\varepsilon >0\), seja \(N\in \mathbb{N}\) tal que, se \(m, n\geq N\), então
+	\[
+		|f_{n}(x_{0})-f_{m}9x_{0}| < \frac{\varepsilon }{2}
+	\]
+	e, também pela convergência uniforme das derivadas,
+	\[
+		|f_{n}'(t)-f_{m}'(t)|<\frac{\varepsilon }{2(b-a)},\quad \forall t\in [a, b].
+	\]
+	Para \(n, m\geq N\), aplicando o \hyperlink{mean-value}{\textit{Teorema do Valor Médio}} a \(f_{n}-f_{m}\), temos
+	\[
+		|f_{n}(x)-f_{m}(x)-f_{n}(t)+f_{m}(t)|\leq \frac{|x-t|\varepsilon }{2(b-a)}<\frac{\varepsilon }{2},\quad \forall x, t\in[a, b].
+	\]
+	Utilizando a desigualdade triangular,
+	\[
+		|f_{n}(x)-f_{m}(x)|\leq |f_{n}(x)-f_{m}(x)-f_{n}(x_{0})+f_{m}(x_{0})|+|f_{n}(x_{0})-f_{m}(x_{0})|,
+	\]
+	do que segue que
+	\[
+		|f_{n}(x)-f_{m}(x)|<\varepsilon ,\quad x\in [a, b], n, m\geq N,
+	\]
+	resultando na convergência uniforme de \(\{f_{n}\}\) em \([a, b]\). Seja
+	\[
+		f(x)=\lim_{n\to \infty}f_{n}(x),\quad x\in [a, b]
+	\]
+	e fixe x em \([a, b]\); defina as funções que representam a derivada sem o limite para \(a\leq t\leq b,\) em que \(t\neq x\), como
+	\[
+		\varphi_{n}(t)=\frac{f_{n}(t)-f_{n}(x)}{t-x},\quad \varphi (t)=\frac{f(t)-f(x)}{t-x}.
+	\]
+	Então,
+	\[
+		\lim_{t\to x}\varphi_{n}(t)=f_{n}'(x),\quad n\in \mathbb{N}.
+	\]
+	Com isso, para \(m, n\geq N\),
+	\[
+		|\varphi_{n}(t)-\varphi_{m}(t)|\leq \frac{\varepsilon }{2(b-a)},
+	\]
+	e \(\{\varphi_{n}\}\) converge uniformemente para \(t\neq x\). Como \(\{f_{n}\}\) converge para f, concluímos que
+	\[
+		\lim_{n\to \infty}\varphi_{n}(t)=\varphi (t)
+	\]
+	uniformemente para \(a\leq t\leq b, t\neq x\). Pela caracterização da trocabilidade de limites aplicada à sequência \(\{\varphi_{n}\}\),
+	\[
+		\lim_{t\to x}\varphi (t)=\lim_{n\to \infty}f_{n}'(x).
+	\]
+	Portanto, pela definição de \(\varphi (t)\), obtivemos o que queríamos. \qedsymbol
+\end{proof*}
+Se assumíssemos continuidade das \(f_{n}'\), uma prova muito mais curta com o Teorema Fundamental do Cálculo seria possível. Além disso, agora que temos mais costume de trabalhar com noções de derivação, continuidade e sequências, podemos construir uma função contínua em todo lugar, e diferenciável em nenhum ponto. A ideia para sua geração é repetir em um estilo análogo ao de um fractal, obtendo um gráfico que oscila TANTO que não tem como derivar nunca.
+\begin{theorem*}
+	Existe uma função contínua que não é diferenciável em nenhum ponto.
+\end{theorem*}
+\begin{proof*}
+	Defina \(\varphi :\mathbb{R}\rightarrow \mathbb{R}\) 2-periódica e tal que
+	\[
+		\varphi (x)=|x|,\quad x\in [-1, -1].
+	\]
+	Então, para todo s e t,
+	\[
+		|\varphi (s)-\varphi (t)|\leq |s-t|
+	\]
+	e \(\varphi \) é contínua. Defina \(f:\mathbb{R}\rightarrow \mathbb{R}\) por
+	\[
+		f(x)=\sum\limits_{n=0}^{\infty}\biggl(\frac{3}{4}\biggr)^{n}\varphi (4^{n}x).
+	\]
+	Como \(0\leq \varphi \leq 1\), a série que define f converge uniformemente em \(\mathbb{R}\) pelo teste \hyperlink{weierstrass_m}{\textit{M de Weierstrass}} com \(M_{n}=\biggl(\frac{3}{4}\biggr)\) e, consequentemente, f é contínua. Agora, fixe \(x\in \mathbb{R}\) e m um natural diferente de 0. Faça
+	\[
+		\delta_{m}=\pm \frac{1}{2}\cdot 4^{-m}.
+	\]
+	em que o sinal é escolhido de forma que não haja um inteiro entre \(4^{m}x\) e \(4^{m}(x+\delta_{m})\), o que pode ser feito já que \(4^{m}|\delta_{m}|=\frac{1}{2}\). Defina
+	\[
+		\gamma_{n}=\frac{\varphi (4^{n}(x+\delta_{m}))-\varphi(4^{n}x)}{\delta_{m}}.
+	\]
+	Quando \(n>m\), \(4^{n}\delta_{m}\) é um inteiro par e \(\gamma_{n}=0\), enquanto que quando \(0\leq n\leq m\), segue que \(|\varphi_{n}|\leq 4^{n}\). Como \(|\gamma_{m}|=4^{m},\) concluímos que
+	\begin{align*}
+		\biggl\vert \frac{f(x+\delta_{n})-f(x)}{\delta_{m}} \biggr\vert & =\biggl\vert \sum\limits_{n=0}^{m}\biggl(\frac{3}{4}\biggr)^{n}\gamma_{n} \biggr\vert \\
+		                                                                & \geq 3^{m}-\sum\limits_{n=0}^{m-1}3^{n}                                               \\
+		                                                                & =\frac{1}{2}(3^{m}+1).
+	\end{align*}
+	Fazendo m tender a infinito, \(\delta_{m}\) irá a 0, do que seguirá que f não é diferenciável em x. \qedsymbol
+\end{proof*}
+O próximo passo é testar se existe algo análogo a ``toda sequência limitada de números reais possui subsequência convergente" para sequências de funções. Antes, será preciso definir algumas coisas, afinal queremos falar sobre sequências limitadas de funções, mas não sabemos o que exatamente seria isso.
+\begin{def*}
+	Seja \(\{f_{n}\}\) uma sequência de funções definidas em um conjunto D. Dizemos que \(\{f_{n}\}\) é \textbf{pontualmente limitada em D} se \(\{f_{n}(x)\}\) é limitada para todo x em D, o que significa que, para cada x pertencente a D, existe uma função \(\varphi :D\rightarrow \mathbb{R}\) tal que
+	\[
+		|f_{n}(x)|\leq \varphi(x), \quad x\in D, n\in \mathbb{N}.
+	\]
+	Se existir um único número que limite a sequência em todos os seus pontos, diremos que \(\{f_{n}\}\) é \textbf{uniformemente limitada em D}. Em termos matemáticos, se existe \(M\geq 0\) tal que
+	\[
+		|f_{n}|\leq M, \quad x\in D, n\in \mathbb{N}.\quad \square
+	\]
+\end{def*}
+\begin{theorem*}
+	Se \(\{f_{n}\}\) é uma sequência pontualmente limitada de funções definidas em um conjunto contável D, então \(\{f_{n}\}\) tem uma subsequência \(\{f_{n_{k}}\}\) tal que \(\{f_{n_{k}}\}\) converge para cada x em D.
+\end{theorem*}
+\begin{proof*}
+	Sejam \(\{x_{i}\}\), \(i=1,2,3,\dotsc \), os pontos de D dispostos em sequência. Como \(\{f_{n}(x_{1})\}\) é limitado, existe \(\varphi_{1}:\mathbb{N}\rightarrow \mathbb{N}\) estritamente crescente e tal que \(\{f_{\varphi_{1}(n)}(x_{1})\}\) é convergente.
+
+	Consideremos agora as sequência \(S_{1}, S_{2}, \dotsc \) representadas por
+	\[
+		\begin{bmatrix}
+			S_{1}: & f_{\varphi_{1}(1)} & f_{\varphi_{1}(2)} & f_{\varphi_{1}(3)} & f_{\varphi_{1}(4)} & \dotsc \\
+			S_{2}: & f_{\varphi_{2}(1)} & f_{\varphi_{2}(2)} & f_{\varphi_{2}(3)} & f_{\varphi_{2}(4)} & \dotsc \\
+			S_{3}: & f_{\varphi_{3}(1)} & f_{\varphi_{3}(2)} & f_{\varphi_{3}(3)} & f_{\varphi_{3}(4)} & \dotsc \\
+			\vdots & \vdots             & \vdots             & \vdots             & \vdots             & \ddots
+		\end{bmatrix}
+	\]
+	e com as seguintes propriedades:
+	\begin{itemize}
+		\item[a)] As funções \(\varphi_{j}:\mathbb{N}\rightarrow \mathbb{N}\) é estritamente crescente e \(\varphi_{j+1}(\mathbb{N})\subseteq \varphi_{j}(\mathbb{N})\);
+		\item[b)] A sequência \(\biggl\{f_{\varphi_{j}(n)}(x_{j})\biggr\}\) converge, como é garantido pela limitação da sequência numérica limitada \(\{f_{n}(x_{j})\}\).
+	\end{itemize}
+	Agora, consideramos a sequência diagonal
+	\[
+		S: f_{\varphi_{1}(1)} \quad  f_{\varphi_{2}(2)} \quad  f_{\varphi_{3}(3)} \quad f_{\varphi_{4}(4)} \quad  \dotsc
+	\]
+	Pela forma que foi construída, a sequência S, exceto nos primeiros n-1 termos, é uma subsequência de \(S_{n}.\) Portanto, \(\{f_{\varphi_{n}(n)}(x_{i})\}\) converge, conforme n tende a infinito, para cada \(x_{i}\in D\). \qedsymbol
+\end{proof*}
+Vamos ver, a seguir, o Lema do Sol Nascente de Frigyes Riesz, cujo nome vem de imaginar o gráfico da função g como uma paisagem montanhosa, com o sol brilhando horizontalmente da direita. O que o lema descreve é o conjunto dos pontos de (a, b) que estão na ``sombra".
+\hypertarget{rising_sun}{
+	\begin{theorem*}[Lema do Sol Nascente]
+		Seja \(g:[a, b]\rightarrow \mathbb{R}\) uma função contínua e
+		\[
+			S=\{x\in [a, b]:\text{ existe }y\in(x, b]\text{ com }g(y)>g(x)\}.
+		\]
+		Note que b não pertence a S e a pode ou não estr em S. Coloque \(E=S\cap (a, b)\). Então, E é um conjunto aberto e pode ser escrito como uma união contável de intervalos disjuntos
+		\[
+			E=\bigcup_{k=1}^{\infty}(a_{k}, b_{k})
+		\]
+		com \(g(a_{k})=g(b_{k})\), exceto se \(a_{k_{0}}=a\in S\) para algum \(k_{0}\). Neste caso, \(g(a)<g(b_{k_{0}})\). Além disso, se \(x\in (a_{k}, b_{k})\), então \(g(x)<g(b_{k})\).
+	\end{theorem*}
+}
+\begin{proof*}
+	Note que, se \([c, d)\subseteq S\) e d não pertence a S, então \(g(c)<g(d)\). Com efeito, se \(g(c)\geq g(d)\), então \(g(z)=\max_{}\{g(x):x\in [c, d]\}\) para algum \(z\in [c, d).\) Como z pertence a S, existe y em \((z, b]\) com \(g(z)<g(y)\).
+
+			Dá para notar que y pertence a \((d, b]\) e \(g(d)\leq g(z)<g(y),\) o que implicaria em d pertencente a S. Uma contradição.
+
+	Da continuidade de g, E é aberto, então pode ser escrito de maneira única como união enumerável de intervalos abertos e disjuntos, escrevamos \(\{(a_{k}, b_{k}: k\in \mathbb{N})\}\).
+
+	Segue da afirmativa anterior que \(g(x)<g(b_{k})\) para x em \((a_{k}, b_{k})\). Pela continuidade de g, devemos ter também \(g(a_{k})\leq g(b_{k})\). Se \(a_{k}\neq a\) ou a não pertence a S, então \(g(a_{k})\geq g(b_{k})\). Assim, \(g(a_{k})=g(b_{k})\) nesses casos. Por fim, se \(a_{k}=a\in S\), a primeira parte da prova mostra que \(g(a)<g(b_{k})\). \qedsymbol
+\end{proof*}
 \end{document}

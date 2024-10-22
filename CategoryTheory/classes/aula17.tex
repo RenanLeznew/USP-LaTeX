@@ -1,0 +1,355 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 17 - October 17th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item More General Yoneda Lemma;
+	\item Chain Complexes;
+	\item Snake Lemma.
+\end{itemize}
+\subsection{Advancing Through the Sea of Categories}
+\begin{prop*}
+	Let \(\mathcal{A}\) be an Abelian category, and M be an object of \(\mathcal{A}\). Then, the covariant functor
+	\[
+		\mathcal{A}(M, -):\mathcal{A}\rightarrow \mathrm{Ab}
+	\]
+	and the contravariant functor
+	\[
+		\mathcal{A}(-, M):\mathcal{A}\rightarrow \mathrm{Ab}
+	\]
+	are left exact functors, i.e., for any exact sequence in \(\mathcal{A}\)
+	\[
+		0\rightarrow A\overbracket[0pt]{\rightarrow}^{f}B\overbracket[0pt]{\rightarrow}^{g}C\rightarrow 0,
+	\]
+	the following sequences are exact:
+	\begin{align}
+		 & 0\rightarrow \mathcal{A}(M, A)\overbracket[0pt]{\rightarrow}^{f_{*}}\mathcal{A}(M, B)\overbracket[0pt]{\rightarrow}^{g_{*}}\mathcal{A}(M, C)  \\
+		 & 0\rightarrow \mathcal{A}(C, M)\overbracket[0pt]{\rightarrow}^{g_{*}}\mathcal{A}(B, M)\overbracket[0pt]{\rightarrow}^{f_{*}}\mathcal{A}(A, M)\
+	\end{align}
+\end{prop*}
+\begin{proof*}
+	Consider the first chain from the sequences. To see that \(f_{*}\) is injective, take \(\alpha \in \mathcal{A}(M, A):\alpha :M\rightarrow A\rightarrow B\). Since \(f_{*}(\alpha )=0\), what follows is that
+	\[
+		f\circ \alpha =0 = f\circ 0,
+	\]
+	which yields
+	\[
+		M\overbracket[0pt]{\rightarrow}^{\alpha }A, \quad M\overbracket[0pt]{\rightarrow}^{0}A, \quad\&\quad A\overbracket[0pt]{\rightarrow}^{f}B.
+	\]
+	Thus, since f is mono, \(\alpha = 0\).
+
+	Moreover, to see that \(g_{*}\circ f_{*}=0\), take an \(\alpha \in \mathcal{A}(M, A)\). Then,
+	\begin{align*}
+		g_{*}\circ f_{*}(\alpha )=g_{*}(f\circ \alpha ) & = g\circ (f\circ \alpha ) \\
+		                                                & = (g\circ f)\circ \alpha  \\
+		                                                & = (g\circ f)(\alpha )     \\
+		                                                & = 0.
+	\end{align*}
+
+	The next step is to show that \(\mathrm{Im}(f_{*}) = \mathrm{Ker}(g_{*})\), start off by showing that \(\mathrm{Im}(f_{*})\subseteq \mathrm{Ker}(g_{*})\) - pick a \(\beta \) in the image of \(f_{*}\). Hence, there exists an \(\alpha \) such that \(f_{*}(\alpha )=\beta \), which leads us to the following set of equalities:
+	\begin{align*}
+		            & g_{*}\circ f_{*}(\alpha )=g_{*}(\beta ) \\
+		\Rightarrow & g_{*}(\beta )=0                         \\
+		\Rightarrow & \beta \in \mathrm{Ker}(g_{*}).
+	\end{align*}
+	On the other hand, to show that \(\mathrm{Ker}(g_{*})\subseteq \mathrm{Im}(f_{*})\), take \(\gamma \in \mathrm{Ker}(g_{*})\), which means that \(g_{*}(\gamma )=0\), i.e., \(g\circ \gamma =0\), where \(\gamma :M\rightarrow B \). Then, we apply the universal property of Kernel on the following diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(X) at (-2,1){A};
+			\node(B) at (2,1){C};
+			\node(A) at (0,1){B};
+			\node(Y) at (0,-1){M};
+
+			\draw[Arrow](X)--node[midway, above] {f}(A);
+			\draw[Arrow](A)--node[midway, above] {g}(B);
+			\draw[Arrow](Y)--node[midway, left] {\(\gamma \)}(A);
+			\draw[Arrow, dashed](Y)--node[midway, left] {\(\alpha \)}(X);
+
+		\end{tikzpicture}
+	\end{center}
+	in which \(\mathrm{Ker}(g)=A\overbracket[0pt]{\rightarrow}^{f}B\). Using the aforementioned property,
+	\[
+		f\circ \alpha = \gamma,
+	\]
+	also meaning that \(f_{*}(\alpha )=\gamma \). Thus, \(\mathrm{Ker}(g_{*})\subseteq \mathrm{Im}(f_{*})\). Therefore,
+	\[
+		\mathrm{Im}(f_{*})=\mathrm{Ker}(g_{*}).
+	\]
+	To tie up all the loose ends remaining, just apply 1 to the function
+	\[
+		\mathcal{A}^{\mathrm{op}}(M, -) = \mathcal{A}(-, M),
+	\]
+	and one gets to 2. \qedsymbol
+\end{proof*}
+
+To further proceed within the subject, we need a more general version of Yoneda Lemma, as stated next:
+\begin{theorem*}[Yoneda Lemma]
+	Let \(\mathcal{A}\) be an abelian category, and pick two morphisms \(\alpha , \beta \) as
+	\[
+		A\overbracket[0pt]{\rightarrow}^{\alpha }B\overbracket[0pt]{\rightarrow}^{\beta }C.
+	\]
+	If, for any \(M\in \mathrm{Obj}(\mathcal{A})\), the sequence
+	\[
+		\mathcal{A}(M, A)\overbracket[0pt]{\rightarrow}^{\alpha_{*}} \mathcal{A}(M, B)\overbracket[0pt]{\rightarrow}^{\beta_{*}}\mathcal{A}(M, C)
+	\]
+	is exact in the category \(\mathrm{Ab}\), then the chain in \(\mathcal{A}\) is also exact in \(\mathcal{A}\), i.e.,
+	\[
+		\left\{\begin{array}{ll}
+			\beta\circ \alpha \\
+			\mathrm{Im}(\alpha )=\mathrm{Ker}(\beta ).
+		\end{array}\right.
+	\]
+\end{theorem*}
+\begin{proof*}
+	The proof will be done by proving each of the two equalities in the last part of the theorem.
+
+	Without further ado, starting with \(\beta \circ \alpha =0\), take \(M\coloneqq A\). We have the exact chain
+	\[
+		\mathcal{A}(A, A)\overbracket[0pt]{\rightarrow}^{\alpha_{*}}\mathcal{A}(A, B)\overbracket[0pt]{\rightarrow}^{\beta_{*}}\mathcal{A}(A, C).
+	\]
+	Since \(\mathrm{id}_{A}\) belongs to \(\mathcal{A}(A, A)\), \(\alpha_{*}(\mathrm{id}_{A})\) is in \(\mathrm{Im}(\alpha_{*})\), which has been shown to be the same as \(\mathrm{Ker}(\beta_{*})\). Thus,
+	\[
+		\beta_{*}(\alpha_{*}(\mathrm{id}_{A}))=0\Rightarrow (\beta_{*}\circ \alpha_{*})(\mathrm{id}_{A})=0\Rightarrow (\beta \circ \alpha )_{*}(\mathrm{id}_{A}) = 0\Rightarrow \beta \circ \alpha \circ \mathrm{id}_{A}=0.
+	\]
+	Hence,
+	\[
+		\beta \circ \alpha =0.
+	\]
+
+	Next, to prove that \(\mathrm{Im}(\alpha )\cong \mathrm{Ker}(\beta )\), we'll go diagram hunting. Specifically, consider
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(X) at (-2,1){\(\mathrm{Ker}(B)\)};
+			\node(A) at (0,1){B};
+			\node(B) at (2,1){C};
+			\node(Y) at (0,-1){\(\mathrm{Im}(\alpha )\)};
+
+			\draw[Arrow](X)--node[midway, above] {i}(A);
+			\draw[Arrow](A)--node[midway, above] {\(\beta \)}(B);
+			\draw[Arrow](Y)--node[midway, left] {j}(A);
+			\draw[Arrow, dashed](Y)--node[midway, left] {j'}(X);
+
+		\end{tikzpicture}
+	\end{center}
+	From it, we get
+	\begin{align*}
+		 & \beta \circ i=0 \\
+		 & \beta \circ j=0 \\
+		 & i\circ j'=j.
+	\end{align*}
+	To prove that \(j'\) is a monomorphism, let \(l:I\rightarrow \mathrm{Im}(\alpha )\) be a morphism such that \(j'\circ l = 0\). Then,
+	\[
+		I\overbracket[0pt]{\rightarrow}^{l}\mathrm{Im}(\alpha )\overbracket[0pt]{\rightarrow}^{j'}\mathrm{Ker}(\beta ).
+	\]
+	Appling i to \(j'\circ l\) gives us
+	\begin{align*}
+		            & i\circ j'\circ l=0 \\
+		\Rightarrow & j\circ l = 0       \\
+		\Rightarrow & l = 0
+	\end{align*}
+	since j itself is a monomorphism. Thus, j' is mono.
+
+	Now take \(M=\mathrm{Ker}(B)\), so that we have te exact sequence
+	\[
+		\biggl(*_{\mathrm{Ker}(B)}\biggr):\mathcal{A}(\mathrm{Ker}(B), A)\overbracket[0pt]{\rightarrow}^{\alpha_{*}}\mathcal{A}(\mathrm{Ker}(B), B)\overbracket[0pt]{\rightarrow}^{\beta_{*}} \mathcal{A}(\mathrm{Ker}(B), C).
+	\]
+	Hence,
+	\[
+		\beta_{*}(i)=\beta \circ i = 0 \Rightarrow i\in \mathrm{Ker}(\beta_{*})=\mathrm{Im}(\alpha_{*}),
+	\]
+	which leads us to the existence of a morphism \(t:\mathrm{Ker}(B)\rightarrow A\) such that \(\alpha_{*}(t)=i\), i.e., \(\alpha \circ t = i.\). Putting this together with
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){A};
+			\node(BL) at (0,-1){\(\mathrm{Im}(\alpha )\)};
+			\node(TR) at (2,1){B};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\alpha \)}(TR);
+			\draw[Arrow](TL)--node[midway, left] {p}(BL);
+			\draw[Arrow](BL)--node[midway, right] {j}(TR);
+
+		\end{tikzpicture} \(\Rightarrow j\circ p = \alpha \),
+	\end{center}
+	we find that
+	\begin{align*}
+		                                            & i\circ \mathrm{id}_{\mathrm{Ker}(\beta )} = i = \alpha\circ t = j\circ p\circ t = i\circ j'\circ p\circ t \\
+		\underbrace{\Rightarrow}_{\text{i is mono}} & j'\circ p\circ t=\mathrm{id}_{\mathrm{Ker}(B)}.
+	\end{align*}
+	Consequently,
+	\[
+		\mathrm{Ker}(B)\overbracket[0pt]{\rightarrow}^{t}A\rightarrow \mathrm{Im}(\alpha )\overbracket[0pt]{\rightarrow}^{i'}\mathrm{Ker}(B).
+	\]
+	On the other hand,
+	\[
+		j\circ \mathrm{id}_{\mathrm{Im}(\alpha )} = j = i\circ j'=\alpha \circ t\circ j' = j\circ p\circ t\circ j',
+	\]
+	which, together with j being a monomorphism, gives us
+	\[
+		(p\circ \alpha )\circ j'=\mathrm{id}_{\mathrm{Im}(\alpha )}.
+	\]
+	Therefore, j' has a right and a left inverse, thus being an isomorphism. \qedsymbol
+\end{proof*}
+Together with Yoneda's Lemma, we also have a function to embed any additive category into a full subcategory, known as the \textbf{Yoneda Embedding}
+\begin{theorem*}[Yoneda Embedding]
+	Any additive category \(\mathcal{A}\) can be embedded as a full-subcategory in an abelian category:
+	\begin{align*}
+		 & \mathcal{A}\rightarrow \mathrm{Ab}^{\mathcal{A}^{\mathrm{op}}} \\
+		 & X\mapsto h_{X}=\mathcal{A}(-, X).
+	\end{align*}
+\end{theorem*}
+\begin{exr}
+	As an exercise, prove the Yoneda Embedding theorem. Do have in mind that
+	\[
+		\mathrm{obj}\biggl(\mathrm{Ab}^{\mathcal{A}^{\mathrm{op}}}\biggr)\coloneqq \{F:\mathcal{A}^{\mathrm{op}}\rightarrow \mathrm{Ab}: F \text{ is a functor}\}.
+	\]
+\end{exr}
+Using the Yoneda Embedding, we can extend the concept of exactenss to additive categories:
+\begin{def*}
+	A sequence of objects and morphisms
+	\[
+		\dotsc \longrightarrow A_{1}\overbracket[0pt]{\longrightarrow}^{f} A_{2}\overbracket[0pt]{\longrightarrow}^{g} A_{3}\overbracket[0pt]{\longrightarrow}^{h} A_{4}\longrightarrow \dotsc
+	\]
+	is a \textbf{Complex cn an Additive Category} \(\mathcal{A}\) if it is a chain complex in the abelian category \(\mathrm{Ab}^{\mathcal{A}^{\mathrm{op}}}\). The chain is called \textbf{exact} if it is exact in \(\mathrm{Ab}^{\mathcal{A}^{\mathrm{op}}}\). \(\square\)
+\end{def*}
+The following theorem follows a proof by accept it:
+\begin{theorem*}[Freyd-Mitchell Embedding]
+	If \(\mathcal{A}\) is a small abelian category, then there is a ring R and a fully-faithful functor
+	\[
+		F:\mathcal{A}\rightarrow \mathrm{Mod}_{R}
+	\]
+	which embedds \(\mathcal{A}\) as a faithful subcategory of \(\mathrm{Mod}_{R}.\) This means that for any \(X, Y\in \mathrm{Obj}(\mathcal{A})\),
+	\[
+		\mathcal{A}(X, Y)\cong \mathrm{Hom}_{R}(F(X), F(Y)).
+	\]
+\end{theorem*}
+Using this, we can extend many homological theorems from Modulus to Abelian Categories. For starters, we have the \textit{Snake Lemma}.
+\begin{lemma*}[Snake Lemma]
+	Let \(\mathcal{A}\) be an abelian category and consider the commutative diagram in \(\mathcal{A}\):
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){A};
+			\node(BL) at (-2,-1){A'};
+			\node(TR) at (0,1){B};
+			\node(BR) at (0,-1){B'};
+			\node(BBR) at (2,-1){C'};
+			\node(TTR) at (2,1){C'};
+			\node(ZR) at (4,1){0};
+			\node(ZL) at (-4,-1){0};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\alpha \)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\alpha'\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {f}(BL);
+			\draw[Arrow](TR)--node[midway, right] {g}(BR);
+			\draw[Arrow](TTR)--node[midway, right] {h}(BBR);
+			\draw[Arrow](TR)--(TTR);
+			\draw[Arrow](BR)--(BBR);
+			\draw[Arrow](ZL)--(BL);
+			\draw[Arrow](TTR)--(ZR);
+
+		\end{tikzpicture}
+	\end{center}
+	If the rows of this diagram are exact, then there is a morphism
+	\[
+		b:\mathrm{Ker}(h)\rightarrow \mathrm{Coker}(f)
+	\]
+	such that the following sequence is exact:
+	\[
+		\mathrm{Ker}(f)\overbracket[0pt]{\rightarrow}^{\alpha }\mathrm{Ker}(g)\overbracket[0pt]{\rightarrow}^{\beta }\mathrm{Ker}(h)\overbracket[0pt]{\rightarrow}^{S}\mathrm{Coker}(f)\overbracket[0pt]{\rightarrow}^{\overline{\alpha '}}\mathrm{Coker}(g)\overbracket[0pt]{\rightarrow}^{\overline{\beta'}}\mathrm{Coker}(h),
+	\]
+	with the full form of it being
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(KL) at (-2,3){\(\mathrm{ker}(f)\)};
+			\node(KM) at (0,3){\(\mathrm{ker}(g)\)};
+			\node(KR) at (2,3){\(\mathrm{ker}(h)\)};
+			\node(TL) at (-2,1){A};
+			\node(BL) at (-2,-1){A'};
+			\node(ZL) at (-4,-1){0};
+			\node(TM) at (0,1){B};
+			\node(BM) at (0,-1){B'};
+			\node(TR) at (2,1){C};
+			\node(ZR) at (4,1){0};
+			\node(BR) at (2,-1){C'};
+			\node(CKL) at (-2,-3){\(\mathrm{coker}(f)\)};
+			\node(CKM) at (0,-3){\(\mathrm{coker}(g)\)};
+			\node(CKR) at (2,-3){\(\mathrm{coker}(h)\)};
+
+
+			\draw[Arrow](KL)--node[midway, above] {\(\alpha \)}(KM);
+			\draw[Arrow](KM)--node[midway, above] {\(\beta \)}(KR);
+			\draw[Arrow](CKL)--node[midway, above] {\(\overline{\alpha' }\)}(CKM);
+			\draw[Arrow](CKM)--node[midway, above] {\(\overline{\beta'}\)}(CKR);
+			\draw[Arrow](TL)--node[midway, above] {\(\alpha \)}(TM);
+			\draw[Arrow](TM)--node[midway, above] {\(\beta \)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\alpha '\)}(BM);
+			\draw[Arrow](BM)--node[midway, below] {\(\beta '\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(f\)}(BL);
+			\draw[Arrow](TM)--node[midway, left] {\(g\)}(BM);
+			\draw[Arrow](TR)--node[midway, right] {\(h\)}(BR);
+			\draw[Arrow](ZL)--(BL);
+			\draw[Arrow](TR)--(ZR);
+			\draw[Arrow](KL)--(TL);
+			\draw[Arrow](KM)--(TM);
+			\draw[Arrow](KR)--(TR);
+			\draw[Arrow](BR)--(CKR);
+			\draw[Arrow](BM)--(CKM);
+			\draw[Arrow](BL)--(CKL);
+			\draw[->,gray,rounded corners] (KR) -| node[auto,text=black,pos=.7]
+				{S} ($(ZR.east)+(.5,0)$) |- ($(BM)!.35!(TM)$) -|
+			($(ZL.west)+(-.5,0)$) |- (CKL);
+
+		\end{tikzpicture}
+	\end{center}
+\end{lemma*}
+\begin{proof*}
+	By the Freyd-Mitchell Embedding, it is enough to prove the lemma for modules, which is a well-known Lemma. \qedsymbol
+\end{proof*}
+
+\hypertarget{long_exact_sequence}{\begin{theorem*}[Long Exact Sequence]
+		Let \(\mathcal{A}\) be an abelian category and
+		\[
+			0\rightarrow A_{\cdot }\overbracket[0pt]{\rightarrow}^{f_{\cdot }}B_{\cdot }\overbracket[0pt]{\rightarrow}^{g_{\cdot }}C_{\cdot }\rightarrow 0
+		\]
+		be a short exact sequence of complexes. Then, there is a connecting homomorphism
+		\[
+			S_{n}:H_{n}(C_{\cdot })\rightarrow H_{n-1}(A_{\cdot })
+		\]
+		such that the chain
+		\begin{align*}
+			\dotsc & \overbracket[0pt]{\rightarrow}^{S_{n+2}} H_{n+1}(A_{\cdot })\overbracket[0pt]{\longrightarrow}^{H_{n+1}(f_{\cdot })} H_{n+1}\overbracket[0pt]{\longrightarrow}^{H_{n+1}(g_{\cdot })} H_{n+1}(C_{\cdot })\overbracket[0pt]{\longrightarrow}^{S_{n+1}}H_{n}(A_{\cdot })\overbracket[0pt]{\longrightarrow}^{H_{n}(f_{\cdot })} H_{n}\overbracket[0pt]{\longrightarrow}^{H_{n}(g_{\cdot })} H_{n}(C_{\cdot })\overbracket[0pt]{\longrightarrow}^{S_{n}} \\
+			       & \overbracket[0pt]{\longrightarrow}^{S_{n}} H_{n-1}(A_{\cdot })\overbracket[0pt]{\longrightarrow}^{H_{n-1}(f_{\cdot })} H_{n-1}\overbracket[0pt]{\longrightarrow}^{H_{n-1}(g_{\cdot })} H_{n-1}(C_{\cdot })\overbracket[0pt]{\longrightarrow}^{S_{n-1}}\dotsc .
+		\end{align*}
+		is exact.
+	\end{theorem*}}
+
+\end{document}

@@ -1,0 +1,114 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 05 - August 22nd , 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Equivalence of Categories
+\end{itemize}
+\subsection{Equivalence of Categories}
+\begin{def*}
+	We say a contravariant functor \(F:\mathcal{C}\rightarrow \mathcal{D}\) \textbf{gives equivalences of categories} if there is a covariant functor \(G:\mathcal{D}\rightarrow \mathcal{C}\) such that there are natural isomorphisms
+	\[
+		\varepsilon :F\circ G\Rightarrow \mathrm{id}_{\mathcal{D}},\quad \eta :\mathrm{id}_{\mathcal{C}}\Rightarrow G\circ F.\quad \square
+	\]
+\end{def*}
+\begin{example}
+	\item[1)] A \textbf{preorder} \(O\) is a set with a relation \(\leq \) such that:
+	\begin{itemize}
+		\item[1.i)] For any a in \(O\), \(a\leq a\) (Reflexive);
+		\item[1.ii)] For every a, b, c in \(O\), if \(a\leq b\) and \(b\leq c\), then \(a\leq c\) (Transitive).
+	\end{itemize}
+	With this, a \textbf{Partially Ordered Set (Poset)} is a preorder (\(O, \leq \)) which is also symmetric: if \(a\leq b\) and \(b\leq a\), then \(a = b\). Moreover, a poset is called a \textbf{total ordered set} if or any a, b in O, either \(a\leq b\) or \(b\leq a\).
+
+	What follows is that a poset can be seen as a category \(\mathcal{O}\): \(\mathrm{Obj}(\mathcal{O}) = O\), and for any a, b in O,
+	\[
+		\mathcal{O}(a, b)  = \left\{\begin{array}{ll}
+			\{i:a\rightarrow b\},\quad a\leq b \\
+			\emptyset,\quad \text{otherwise}.
+		\end{array}\right.
+	\]
+	Conversely, if \(\mathcal{C}\) is a small category where the set of morphisms of two objects hat at most one element, then \(\mathcal{C}\) can be seen as a poset:
+	\[
+		A, B\in \mathcal{C}: A\leq B \text{ if } \mathcal{C}(A, B)=\{i:A\rightarrow B\}.
+	\]
+
+	For the categories to be shown equivalent, let \(\mathcal{C}\) be the following category: \(\mathrm{Obj}(\mathcal{C})=\{s: |s|<\infty, s \text{ has a total order}\}\),
+	\[
+		\mathcal{C}(s, s')=\{f:s\rightarrow s': f \text{ preserves orders}\},
+	\]
+	where ``preserves orders" means that if \(a \leq b\), then \(f(a)\leq f(b)\). As for \(\mathcal{D}\), let it be the subcategory of \(\mathcal{C}\) with the objects \(\underline{n}=\{1,2,\dotsc ,n\}\), where \(1\leq 2\leq \dotsc \leq n\). Take \(G:\mathcal{D}\rightarrow \mathcal{C}\) to be the inclusion, and \(F:\mathcal{C}\rightarrow \mathcal{D}\) which acts on the objects through
+	\begin{align*}
+		 & F:\mathrm{Obj}(\mathcal{C})\rightarrow \mathrm{Obj}(D)                                                          \\
+		 & \{s_1\subseteq s_2\subseteq \dotsc \subseteq s_{l}\} = s \mapsto \underline{|s|}=\{0\leq 2\leq \dotsc \leq l\},
+	\end{align*}
+	and on morphisms via
+	\begin{align*}
+		 & \mathcal{C}(s, s')\rightarrow \mathcal{D}(\underline{|s|}, |s'|)        \\
+		 & f:s\rightarrow s'\mapsto \underline{f}:\underline{|s|}\rightarrow |s'|,
+	\end{align*}
+	where f sends \(s_{i}\) to \(s_{j}\) by \(f(i)=j\). Then, the compositions of functors are
+	\begin{align*}
+		 & G\circ F:\mathcal{C}\rightarrow \mathcal{C},\quad s\mapsto |s|                                                  \\
+		 & \mathrm{id}_{\mathcal{D}}=F\circ G:\mathcal{D}\rightarrow \mathcal{D},\quad \underline{n}\mapsto \underline{n}.
+	\end{align*}
+
+	Next, we define the natural isomorphisms: First, we need \(\mathrm{id}_{\mathcal{C}}\overbracket[0pt]{\Rightarrow}^{\eta_{s} } G\circ F\), with \(\eta_{s}\) defined by
+	\begin{align*}
+		\eta_{s}: & S\rightarrow G\circ F(s)=|s| \\
+		          & s_{i}\mapsto i.
+	\end{align*}
+	To see that this is natural, take \(f:S\rightarrow S'\) a morphism in \(\mathcal{C}.\) Then, the following diagram is commutative:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,2){S};
+			\node(BL) at (-2,-2){S'};
+			\node(TR) at (2,2){\(G\circ F(S)=\underline{|S|}\)};
+			\node(BR) at (2,-2){\(G\circ F(S')=\underline{|S'|}\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\eta_{s}\)}(TR);
+			\draw[Arrow](BL)--(BR);
+			\draw[Arrow](TL)--node[midway, left] {f}(BL);
+			\draw[Arrow](TR)--node[midway, right] {\(G\circ F(f)\)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	so that \(\mathrm{id}_{\mathcal{C}}\cong G\circ F\) is a natural isomorphism.
+\end{example}
+We can find more examples through the next theorem, whose proof will be given in the future.
+\begin{theorem*}
+	A functor \(F:\mathcal{C}\rightarrow \mathcal{D}\) yields an equivalence of categories if and only if it has the following two properties
+	\begin{itemize}
+		\item[1)] F is fully faithful, i.e. the natural map \(\mathcal{C}(A, B)\rightarrow \mathcal{D}(F(A), F(B)\) is a bijection;
+		\item[2)] F is essentially surjective, i.e. each object of \(\mathcal{D}\) is isomorphic to an object of the form F(A) for some A in
+		      \(\mathrm{Obj}(\mathcal{C})\)
+	\end{itemize}
+\end{theorem*}
+\begin{example}
+	\begin{itemize}
+		\item[1)]Let \(\mathcal{D}\) be the category of finite sets \(\mathrm{Sets}_{\text{finite}}\), and \(\mathcal{C}\) be the subcategory of \(\mathcal{D}\) with objects being \(\mathrm{Obj}(\mathcal{C})=\{\underline{n}: \underline{n}=\{1,2,\dotsc ,n\}\}\cup \emptyset \). Take \(F:\mathcal{C}\rightarrow \mathcal{D}\) be the inclusion, so that
+		      \begin{align*}
+			      F:\mathrm{Obj} & (\mathcal{C})\rightarrow \mathrm{Obj}(\mathcal{D})                                       \\
+			                     & \underline{n}\mapsto \underline{n}                                                       \\
+			                     & f:\underline{n}\rightarrow \underline{m}\mapsto f:\underline{n}\rightarrow \underline{m}
+		      \end{align*}
+		      and we get \(\mathcal{C}(\underline{n}, \underline{m})=\mathcal{D}(\underline{n},\underline{m})=\{f:\underline{n}\rightarrow \underline{m}\}\). Hence, F is fully faithful; moreover, if s is an object of \(\mathcal{D}\), then there is a bijection \(s\cong \underline{|s|}\), which is nothing but \(F(\underline{|s|})\). So, F is essentially surjective. Therefore, by the theorem above, there must exist an equivalence of categories between \(\mathcal{C}\) and \(\mathcal{D}\).
+		\item[2)] Fix a field \(\mathbb{K}\), and \(\mathcal{C}\) be a subcategory of \(\mathrm{Vect}_{\mathbb{K}}\) such that \(\mathrm{Obj}(\mathcal{C})=\{\mathbb{K}^{n}: n\in \mathbb{N}\cup \{0\}\}\) and \(\mathcal{D}\) be the category of finite-dimensional vector spaces. Once again, the inclusion of \(\mathcal{C}\) into \(\mathcal{D}\) is an equivalence of categories.
+
+		      More generally, let \(\mathcal{D}\) be any category. For A an object of \(\mathcal{D}\), let \([A]\) be the isomorphism of objects of \(\mathcal{D}\) such that they are isomorphic to A:
+		      \[
+			      [A]=\{B\in \mathrm{Obj}(\mathcal{D}): A\cong B\}.
+		      \]
+		      Let \(\mathcal{C}\) be the subcategory of \(\mathcal{D}\) whose objects are exactly one object from each isomorphism class (essentially analogous to the idea of taking a representative from an equivalence class). In other words,
+		      \[
+			      \mathrm{Obj}(\mathcal{C})=\{A\in \mathrm{Obj}(\mathcal{D}): \text{ if }[A]=[B],\text{ then }A\cong B\}.
+		      \]
+		      Then, as per the previous examples, we can show that the inclusion \(F:\mathcal{C}\hookrightarrow \mathcal{D} \) is an equivalence of categories.
+	\end{itemize}
+\end{example}
+\end{document}

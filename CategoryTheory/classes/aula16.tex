@@ -1,0 +1,379 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 16 - October 14th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Abelian Subcategories;
+	\item Category of Functors.
+\end{itemize}
+\subsection{Continuation of Abelian Categories}
+For starters, let's prove the last theorem from last class:
+\begin{theorem*}
+	The category of chain complexes is an abelian category.
+\end{theorem*}
+\begin{proof*}
+	We start by proving that it is an additive category, i.e., an AB-category with zero object. For that, take two objects \(C_{\cdot }, D_{\cdot }\in \mathrm{Ch}(\mathcal{A})\); we're going to show that \(\mathrm{Hom}(C_{\cdot }, D_{\cdot })\) is an abelian group. In fact, given two functions \(g_{\cdot }, f_{\cdot }:C_{\cdot }\rightarrow D_{\cdot }\), it follows that
+	\[
+		g_{\cdot }+f_{\cdot }=\{g_{n}+f_{n}:C_{n}\rightarrow D_{n}: n\in \mathbb{Z}\},
+	\]
+	and the functions inside keys are commutative in sum.
+
+	Next, we sow that it has a zero-object; in fact, is is seen via
+	\[
+		0_{\cdot }: \dotsc \longrightarrow 0_{}\overbracket[0pt]{\longrightarrow}^{f_{n}=0} 0_{}\overbracket[0pt]{\longrightarrow}^{f_{n+1}=0} 0_{}\overbracket[0pt]{\longrightarrow}^{\partial_{}} 0_{}\longrightarrow \dotsc.
+	\]
+
+	Now that we have it as an additive category, let \(f_{\cdot  }:B_{\cdot }\rightarrow C_{\cdot }\) be a morphism in \(\mathrm{Ch}(\mathcal{A})\), and consider
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TTL) at (-4,1){\(\dotsc \)};
+			\node(BBL) at (-4,-1){\(\dotsc \)};
+			\node(TL) at (-2,1){\(B_{n+1}\)};
+			\node(BL) at (-2,-1){\(C_{n+1}\)};
+			\node(TM) at (0,1){\(B_{n}\)};
+			\node(BM) at (0,-1){\(C_{n}\)};
+			\node(TR) at (2,1){\(B_{n-1}\)};
+			\node(BR) at (2,-1){\(C_{n-1}\)};
+			\node(TTR) at (4,1){\(\dotsc \)};
+			\node(BBR) at (4,-1){\(\dotsc \)};
+
+			\draw[Arrow](TTL)--(TL);
+			\draw[Arrow](BBL)--(BL);
+			\draw[Arrow](BR)--(BBR);
+			\draw[Arrow](TR)--(TTR);
+			\draw[Arrow](TL)--node[midway, above] {\(\partial_{n+1}^{A}\)}(TM);
+			\draw[Arrow](TM)--node[midway, above] {\(\partial_{n}^{A}\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\partial_{n+1}^{B}\)}(BM);
+			\draw[Arrow](BM)--node[midway, below] {\(\partial_{n}^{B}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(f_{n+1}\)}(BL);
+			\draw[Arrow](TM)--node[midway, left] {\(f_{n}\)}(BM);
+			\draw[Arrow](TR)--node[midway, right] {\(f_{n-1}\)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	We define
+	\[
+		\mathrm{ker}(f_{\cdot })\coloneqq \{\mathrm{ker}(f_{n}):n\in \mathbb{Z}\},\quad \mathrm{coker}(f_{\cdot })\coloneqq \{\mathrm{coker}(f_{n}):n\in \mathbb{Z}\}
+	\]
+	yielding the total diagram as
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TTL) at (-4,1){\(\dotsc \)};
+			\node(BBL) at (-4,-1){\(\dotsc \)};
+			\node(KTL) at (-4,3){\(\dotsc \)};
+			\node(KTR) at (4,3){\(\dotsc \)};
+			\node(CBL) at (-4,-3){\(\dotsc \)};
+			\node(CBR) at (4,-3){\(\dotsc \)};
+			\node(KL) at (-2,3){\(\mathrm{ker}(f_{n+1})\)};
+			\node(KM) at (0,3){\(\mathrm{ker}(f_{n})\)};
+			\node(KR) at (2,3){\(\mathrm{ker}(f_{n-1})\)};
+			\node(TL) at (-2,1){\(B_{n+1}\)};
+			\node(BL) at (-2,-1){\(C_{n+1}\)};
+			\node(TM) at (0,1){\(B_{n}\)};
+			\node(BM) at (0,-1){\(C_{n}\)};
+			\node(TR) at (2,1){\(B_{n-1}\)};
+			\node(BR) at (2,-1){\(C_{n-1}\)};
+			\node(CKL) at (-2,-3){\(\mathrm{coker}(f_{n+1})\)};
+			\node(CKM) at (0,-3){\(\mathrm{coker}(f_{n})\)};
+			\node(CKR) at (2,-3){\(\mathrm{coker}(f_{n-1})\)};
+			\node(TTR) at (4,1){\(\dotsc \)};
+			\node(BBR) at (4,-1){\(\dotsc \)};
+
+			\draw[Arrow](KTL)--(KL);
+			\draw[Arrow](KR)--(KTR);
+			\draw[Arrow](CBL)--(CKL);
+			\draw[Arrow](CKR)--(CBR);
+			\draw[Arrow](TTL)--(TL);
+			\draw[Arrow](BBL)--(BL);
+			\draw[Arrow](BR)--(BBR);
+			\draw[Arrow](TR)--(TTR);
+			\draw[Arrow](KL)--node[midway, above] {\(\partial_{n+1}^{'}\)}(KM);
+			\draw[Arrow](KM)--node[midway, above] {\(\partial_{n}^{'}\)}(KR);
+			\draw[Arrow](CKL)--node[midway, above] {\(\partial_{n+1}^{''}\)}(CKM);
+			\draw[Arrow](CKM)--node[midway, above] {\(\partial_{n}^{''}\)}(CKR);
+			\draw[Arrow](TL)--node[midway, above] {\(\partial_{n+1}^{B}\)}(TM);
+			\draw[Arrow](TM)--node[midway, above] {\(\partial_{n}^{B}\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\partial_{n+1}^{C}\)}(BM);
+			\draw[Arrow](BM)--node[midway, below] {\(\partial_{n}^{C}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(f_{n+1}\)}(BL);
+			\draw[Arrow](TM)--node[midway, left] {\(f_{n}\)}(BM);
+			\draw[Arrow](TR)--node[midway, right] {\(f_{n-1}\)}(BR);
+			\draw[Arrow](KL)--node[midway, left] {\(i_{n+1}\)}(TL);
+			\draw[Arrow](KM)--node[midway, left] {\(i_{n}\)}(TM);
+			\draw[Arrow](KR)--node[midway, right] {\(i_{n-1}\)}(TR);
+			\draw[Arrow](BR)--(CKR);
+			\draw[Arrow](BM)--(CKM);
+			\draw[Arrow](BL)--(CKL);
+
+		\end{tikzpicture}
+	\end{center}
+	that way,
+	\[
+		\partial_{n}^{'}\circ \partial_{n+1}^{'}=0
+	\]
+	for all n, since
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(X) at (-2,1){\(\mathrm{ker}(f_{n})\)};
+			\node(B) at (2,1){\(C_{n}\)};
+			\node(A) at (0,1){\(B_{n}\)};
+			\node(Y) at (0,-1){\(\mathrm{ker}(f_{n+1})\)};
+
+			\draw[Arrow](X)--node[midway, above] {}(A);
+			\draw[Arrow](A)--node[midway, above] {\(f_{n}\)}(B);
+			\draw[Arrow](Y)--node[midway, left] {}(A);
+			\draw[Arrow, dashed](Y)--node[midway, left] {}(X);
+
+		\end{tikzpicture}
+
+	\end{center}
+	Thus, \(\mathrm{ker}(f_{\cdot })\) is a complex. To see that it is indeed the kernel of \(f_{\cdot }\) in this category, consider first the diagram
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(X) at (-2,1){\(\mathrm{ker}(f_{\cdot })\)};
+			\node(B) at (2,1){\(C_{\cdot }\)};
+			\node(A) at (0,1){\(B_{\cdot }\)};
+			\node(Y) at (0,-1){\(A_{\cdot }\)};
+
+			\draw[Arrow](X)--node[midway, above] {\(i_{\cdot }\)}(A);
+			\draw[Arrow](A)--node[midway, above] {\(f_{\cdot }\)}(B);
+			\draw[Arrow](Y)--node[midway, left] {\(h_{\cdot }\)}(A);
+			\draw[Arrow, dashed](Y)--node[midway, left] {\(g_{\cdot }\)}(X);
+
+		\end{tikzpicture}
+	\end{center}
+	and let \(f_{\cdot }\circ h_{\cdot }=0\). Then, for all n,
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(X) at (-2,1){\(\mathrm{ker}(f_{n })\)};
+			\node(B) at (2,1){\(C_{n}\)};
+			\node(A) at (0,1){\(B_{n}\)};
+			\node(Y) at (0,-1){\(A_{n}\)};
+
+			\draw[Arrow](X)--node[midway, above] {\(i_{n}\)}(A);
+			\draw[Arrow](A)--node[midway, above] {\(f_{n}\)}(B);
+			\draw[Arrow](Y)--node[midway, left] {\(h_{n}\)}(A);
+			\draw[Arrow, dashed](Y)--node[midway, left] {\(g_{n}\)}(X);
+		\end{tikzpicture}
+	\end{center}
+	so that \(i_{n}\circ g_{n}=h_{n}\). For any two follow-up elements on the chain, we also have
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(A_{n}\)};
+			\node(BL) at (-2,-1){\(\mathrm{ker}(f_{n})\)};
+			\node(TR) at (2,1){\(A_{n-1}\)};
+			\node(BR) at (2,-1){\(\mathrm{ker}(f_{n-1})\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\partial_{n}\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\partial_{n}^{'}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(g_{n}\)}(BL);
+			\draw[Arrow](TR)--node[midway, right] {\(g_{n-1}\)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	which, put together with all previous relations,
+	\begin{align*}
+		i_{n-1}\circ g_{n-1}\circ \partial_{n} = h_{n-1}\circ \partial_{n}^{A} & =\partial_{n-1}^{B}\circ h_{n}            \\
+		                                                                       & =\partial_{n-1}^{B}\circ i_{n}\circ g_{n} \\
+		                                                                       & =i_{n-1}\circ \partial_{n}^{'}\circ g_{n}
+	\end{align*}
+	where the last part came from \(g_{n-1}\circ \partial_{n},=\partial_{n}^{'}\circ g_{n}\).
+	\begin{exr}
+		Prove the remaining part of the proof, i.e., the relations between epi, mono, and coker, ker. \qedsymbol
+	\end{exr}
+\end{proof*}
+\begin{theorem*}
+	If \(\mathcal{A}\) is an abelian category, then \(\mathcal{Ch}(\mathcal{A})\) is also an abelian category.
+\end{theorem*}
+\begin{example}
+	If \(\mathcal{A}=\mathrm{Ab}\), then \(\mathrm{Ch}(\mathrm{Ab})\) is an abelian category whose objects are chain complexes in Ab.
+\end{example}
+\begin{def*}
+	A subcategory \(\mathcal{B}\) of an abelian category \(\mathcal{A}\) is called an \textbf{abelian subcategory} is \(\mathcal{B}\) itself is an abelian category and if any exact chain in \(\mathcal{B}\) is also exact in \(\mathcal{A}.\) \(\square\)
+\end{def*}
+Let \(\mathcal{A}\) be an abelian category and \(\mathcal{C}\) be any category. Denote by \(\mathcal{A}^{\mathcal{C}}\) the category of all functors, called the \textbf{functor category}, from \(\mathcal{C}\) to \(\mathcal{A}\), so that
+\[
+	\mathrm{obj}(\mathcal{A}^{\mathcal{C}})=\{F:\mathcal{C}\rightarrow \mathcal{A}: F\text{ is a functor}\}.
+\]
+Given two objects \(F:\mathcal{C}\rightarrow \mathcal{A}, G:\mathcal{C}\rightarrow \mathcal{A}\), the morphism from F to G is the natural transformation between them:
+\[
+	\mathrm{Hom}_{\mathcal{A}^{\mathcal{C}}}(F, G)=\{F \overbracket[0pt]{\Rightarrow}^{\eta }G: \eta \text{ is a natural transformation}\}.
+\]
+In other words, for all \(f:B\rightarrow C\) in \(\mathcal{C}\), the following diagram commutes
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){F(B)};
+		\node(BL) at (-2,-1){F(C)};
+		\node(TR) at (0,1){G(B)};
+		\node(BR) at (0,-1){G(C)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(\eta_{B}\)}(TR);
+		\draw[Arrow](BL)--node[midway, below] {\(\eta_{C}\)}(BR);
+		\draw[Arrow](TL)--node[midway, left] {F(f)}(BL);
+		\draw[Arrow](TR)--node[midway, right] {G(f)}(BR);
+
+	\end{tikzpicture}
+\end{center}
+What follows is that \(\mathcal{A}^{\mathcal{C}}\) is an additive category. To see that, the way to turn Hom(F, G) into an abelian group is to define, given two natural transformations
+\[
+	\eta :F\rightarrow G,\quad\&\quad \eta':F\rightarrow G,
+\]
+their sum \(\eta+\eta':F\rightarrow G\) as
+\[
+	(\eta +\eta ')_{B}=\eta_{B}+\eta_{B}^{'}:F(B)\rightarrow G(B)
+\]
+for all B in \(\mathcal{C}\), and take the zero object in \(\mathcal{A}^{\mathcal{C}}\) as
+\begin{align*}
+	0: & \mathcal{C}\longrightarrow \mathcal{A} \\
+	   & C\longmapsto 0.
+\end{align*}
+Though it shall not be proven, we get the following theorem:
+\begin{theorem*}
+	Let \(\mathcal{A}\) be an abelian group. If \(\mathcal{C}\) is a category, then \(\mathcal{A}^{\mathcal{C}}\) is an abelian category.
+\end{theorem*}
+\begin{example}
+	For instance, if \(\mathcal{C}\) is Sets, and \(\mathcal{A}\) is Ab, then
+	\[
+		\{C\overbracket[0pt]{\rightarrow}^{f}A: f\text{is a map}\}
+	\]
+	is an abelian group. For the operation, we put, for \(f, g:C\rightarrow A\),
+	\begin{align*}
+		f+g: & C\rightarrow A     \\
+		     & (f+g)(c)=f(c)+g(c)
+	\end{align*}
+\end{example}
+Let \(\eta :F\Rightarrow G \) be a morphism in \(\mathcal{A}^{\mathcal{C}}.\) For any object C in \(\mathcal{C}\),
+\[
+	\eta_{C}:F(C)\rightarrow G(C)
+\]
+is a morphism in \(\mathcal{A}\) that has kernel and cokernel, defined by
+\[
+	(\mathrm{ker}(\eta ))(C)\coloneqq \mathrm{ker}(\eta_{C}),
+\]
+and it can be naturally transformed into F, i.e., \(\mathrm{ker}(\eta )\Rightarrow F\) by
+\begin{align*}
+	(\mathrm{ker}(\eta ))(C)\hookrightarrow F(C).
+\end{align*}
+Hence, the kernel (and the cokernel) are functors \(\mathrm{ker}(\eta ):\mathcal{C}\rightarrow \mathcal{A}\), \(\mathrm{coker}(\eta ):\mathcal{C}\rightarrow \mathcal{A}\), where
+\[
+	(\mathrm{coker}\eta )(C)=\mathrm{coker}(\eta_{C}).
+\]
+\begin{example}
+	Let \(\mathcal{C}=\mathcal{Z}\) be the discrete category, whose morphisms are, for integers n, n',
+	\[
+		\mathrm{Hom}(n, n') = \left\{\begin{array}{ll}
+			\{\mathrm{id}_{n}\},\quad n=n' \\
+			\emptyset ,\quad n\neq n'.
+		\end{array}\right.
+	\]
+	Now, the functor category \(\mathrm{Ab}^{\mathbb{Z}}\) is an abelian category, the category of \textbf{graded abelian groups}, by
+	\begin{align*}
+		F: & \mathbb{Z}\rightarrow \mathrm{Ab} \Longleftrightarrow \underbrace{\{A_{n}:n\in \mathbb{Z}\}}_{\text{graded abelian groups}} \\
+		   & n\mapsto A_{n}.
+	\end{align*}
+
+	If \(\mathcal{C}=\mathbb{Z}\), \(\mathbb{Z}\) as an opposite ordered category by takin
+	\[
+		\mathrm{Hom}(n, n') = \left\{\begin{array}{ll}
+			\{i\}, \quad n\leq n' \\
+			\emptyset ,\quad \text{otherwise}.
+		\end{array}\right.
+	\]
+	Now, for any abelian category \(\mathcal{A}\), the category \(\mathcal{A}^{\mathbb{Z}}\) is the category \(\mathrm{Ch}(\mathcal{A})\) by
+	\begin{align*}
+		 & \mathbb{Z}\longrightarrow \mathcal{A}                                                   \\
+		 & (n\rightarrow n-1)\mapsto (A_{n} \overbracket[0pt]{\rightarrow}^{\partial^{A}}A_{n-1}).
+	\end{align*}
+\end{example}
+\begin{def*}
+	A functor \(F:\mathcal{A}\rightarrow \mathcal{B}\) between two ab-categories \(\mathcal{A}, \mathcal{B}\) is called an \textbf{additive functor} if the map
+	\begin{align*}
+		 & \mathcal{A}(X, Y)\longrightarrow \mathcal{B}(F(X), F(Y)) \\
+		 & (f:X\rightarrow Y)\mapsto (F(f):F(X)\rightarrow F(Y))
+	\end{align*}
+	is a homomorphism of abelian groups. \(\square\)
+\end{def*}
+\begin{def*}
+	An additive functor \(F:\mathcal{A}\rightarrow \mathcal{B}\) between abelian categories is called \textbf{right (left) exact} if for any short exact sequence
+	\[
+		0\rightarrow A\overbracket[0pt]{\rightarrow}^{f} B\overbracket[0pt]{\rightarrow}^{g} C\rightarrow 0
+	\]
+	in \(\mathcal{A}\), the sequence
+	\[
+		F(A)\overbracket[0pt]{\rightarrow}^{F(f)}F(B)\overbracket[0pt]{\rightarrow}^{F(g)}F(C)\rightarrow 0
+	\]
+	is exact in \(\mathcal{B}\).
+	For the left, this would be the same as asking for
+	\[
+		0\rightarrow F (A)\overbracket[0pt]{\rightarrow}^{F(f)}F(B)\overbracket[0pt]{\rightarrow}^{F(g)}F(C)
+	\]
+	to be exact is \(\mathcal{B}\).
+
+	If both occur, then F is just called \textbf{exact}, i.e., an exact functor makes the exact sequence in \(\mathcal{A}\) an exact sequence in \(\mathcal{B}\):
+
+	\[
+		0\rightarrow A\overbracket[0pt]{\rightarrow}^{f} B\overbracket[0pt]{\rightarrow}^{g} C\rightarrow 0
+	\]
+	becomes
+	\[
+		0\rightarrow F (A)\overbracket[0pt]{\rightarrow}^{F(f)}F(B)\overbracket[0pt]{\rightarrow}^{F(g)}F(C)\rightarrow 0.\quad \square
+	\]
+\end{def*}
+\begin{def*}
+	A contravariant functor \(F:\mathcal{A}\rightarrow \mathcal{B}\) between abelian categories is called \textbf{right (left or exact)} if \(F^{\mathrm{op}}:\mathcal{A}^{\mathrm{op}}\rightarrow \mathcal{B}\) is right (left or exact). \(\square\)
+\end{def*}
+\begin{prop*}
+	Let \(\mathcal{A}\) be an abelian category, and \(M\in \mathrm{obj}(\mathcal{A})\). Then, the covariant functor
+	\[
+		\mathcal{A}(M, -):\mathcal{A}\rightarrow \mathrm{Ab}
+	\]
+	is left exact, and the contravariant functor
+	\[
+		\mathcal{A}(-, M):\mathcal{A}\rightarrow \mathrm{Ab}
+	\]
+	is also left exact.
+\end{prop*}
+Proof on the next class.
+\end{document}

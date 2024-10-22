@@ -1,0 +1,137 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 09 - September 12th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Universality.
+\end{itemize}
+\subsection{Universality}
+\begin{def*}
+	Let \(S:\mathcal{D}\rightarrow \mathcal{C}\) be a functor and \(C\in \mathrm{obj}(C)\). A \textbf{universal arrow from C to S} is a pair \(\left< R, u \right>\) which consists of an object \(R\in \mathrm{obj}(\mathcal{D})\) and a morphism \(u:\mathcal{C}\rightarrow S(R)\) in \(\mathcal{C}\), such that for every pair \(\left< D, f \right>\) with \(D\in \mathcal{D}\) and \(f:C\rightarrow SD\) a morphism in \(\mathcal{C}\), there is a \textbf{universal morphism} \(f':R\rightarrow D\) in \(\mathcal{D}\) with \(sf'\circ u = f\). In terms of a diagram,
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (0,0){C};
+			\node(TR) at (2,1){SR};
+			\node(BR) at (2,-1){SD};
+			\node(TTR) at (3,1){R};
+			\node(BBR) at (3,-1){D};
+
+			\draw[Arrow](TL)--node[midway, above] {u}(TR);
+			\draw[Arrow](TL)--node[midway, below] {f}(BR);
+			\draw[dashed, Arrow](TR)--node[midway, left] {S(f')}(BR);
+			\draw[dashed, Arrow](TTR)--node[midway, left] {f'}(BBR);
+
+		\end{tikzpicture}
+	\end{center}
+	In other words, every arrow from f to s factors uniquely through the universal morphism u as in the previous diagram. \(\square\)
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Let X be a set, and \(\mathbb{K}\) be a field. To X and \(\mathbb{K}\) we can associate a vector space \(V_{X}\); now consider S the functor \(S:\mathrm{Vect}_{\mathbb{K}}\rightarrow \mathrm{Sets}\) which takes a vector field V to a set V (forgetful functor) and take X to be a set. A universal arrow from X to S is the pair \((V_X, u:X\rightarrow V_X)\), where u is the inclusion. To check if it is indeed a universal arrow, let W be in \(\mathrm{obj}(\mathrm{Vect})_{\mathbb{K}}\), and \(f:X\rightarrow W\). Then, there is a unique map from \(V_{X}\rightarrow W\) such that the following diagram commutes:
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (0,0){X};
+				      \node(TR) at (2,1){\(V_{X}\)};
+				      \node(BR) at (2,-1){W};
+				      \node(TTR) at (3,1){\(V_{X}\)};
+				      \node(BBR) at (3,-1){W};
+
+				      \draw[Arrow](TL)--node[midway, above] {u}(TR);
+				      \draw[Arrow](TL)--node[midway, below] {f}(BR);
+				      \draw[dashed, Arrow](TR)--node[midway, left] {S(f')}(BR);
+				      \draw[dashed, Arrow](TTR)--node[midway, left] {f'}(BBR);
+
+			      \end{tikzpicture}
+		      \end{center}
+		      where f' maps \(\sum\limits_{}^{}a_{x}n\) to \(\sum\limits_{}^{}a_{x}f(n)\).
+		\item[2)] Let's look at the example of tensor products - let R be a commutative ring, and M, N be two fixed R-modules. Consider the functor
+		      \[
+			      S:\mathrm{Mod}_{R}\rightarrow \mathrm{Sets},\quad K\mapsto \text{bilinear}(M\times N\rightarrow K).
+		      \]
+		      Now, let \(R=M\otimes_{R}N, u:M\times_{R} N\rightarrow M\otimes_{R} N\) which sends \((m, n)\mapsto m\otimes n\), denote it by \(u\coloneqq \otimes_{R} \).
+		      %\begin{center}
+		      %  \begin{tikzpicture}[
+		      %      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+		      %      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+		      %      error/.style ={circle, thick, draw, text centered},
+		      %      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+		      %      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		      %    ]
+		      %    \node(TL) at (-1,0){\(M\times_{R} N\)};
+		      %    \node(BL) at (2,-1){T};
+		      %    \node(TR) at (2,1){\(M\otimes_{R} N\)};
+		      %
+		      %    \draw[Arrow](TL)--node[midway, above] {\(\otimes_{R}\)}(TR);
+		      %    \draw[Arrow](TL)--node[midway, below] {f}(BL);
+		      %    \draw[dashed, Arrow](TR)--node[midway, left] {h}(BL);
+		      %
+		      %  \end{tikzpicture}
+		      %\end{center}
+		      %so that the tensor product sends pair of elements (m, n) through a bilinear map \(\otimes_{R} \), giving out an element \(m\otimes n\) in the R-module \(T\):
+		      %\[
+		      %  f(m, n)=h\circ \otimes_{R}(m, n) = h(m\otimes_{R} n).
+		      %\]
+		      Let \(C=\{*\}\). Then, our objects from the definition are
+		      \begin{align*}
+			       & \left< R, u \right>=\biggl< M\otimes_{R} N, u:\{*\}\rightarrow  \{M\times N\rightarrow M\otimes_{R} N\}\biggr> \\
+			       & \left< T, f \right>,\quad f:\{*\}\rightarrow \text{bilinear}\{M\times N\rightarrow T\}.
+		      \end{align*}
+		      Then, there is a unique map \(M\otimes_{R}N\overbracket[0pt]{\longrightarrow}^{\overline{\varphi }} T\) such that \(s(\overline{\varphi })\circ u=f.\)
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-1,0){\(M\times_{R} N\)};
+				      \node(BL) at (2,-1){T};
+				      \node(TR) at (2,1){\(M\otimes_{R} N\)};
+
+				      \draw[Arrow](TL)--node[midway, above] {\(\otimes_{R}\)}(TR);
+				      \draw[Arrow](TL)--node[midway, below] {g}(BL);
+				      \draw[dashed, Arrow](TR)--node[midway, left] {\(\overline{g}\)}(BL);
+
+			      \end{tikzpicture}
+		      \end{center}
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Let \(s:\mathcal{D}\rightarrow \mathrm{Sets}\) be a functor. A \textbf{universal element of S} is a universal arrow from \(\{*\}\) to S. Thes means an universal element is an object \(R\in \mathcal{D}\) together with an element \(u(*)\) of \(S(R)\) (\(\{*\}\overbracket[0pt]{\longrightarrow}^{u } S(R)\)) which satisfies the previous universal property:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(\{*\}\)};
+			\node(TR) at (2,1){S(R)};
+			\node(BR) at (2,-1){S(D)};
+			\node(TTR) at (3,1){R};
+			\node(BBR) at (3,-1){D};
+
+			\draw[Arrow](TL)--node[midway, above] {}(TR);
+			\draw[Arrow](TL)--node[midway, below] {f}(BR);
+			\draw[Arrow](TR)--node[midway, left] {S(f')}(BR);
+			\draw[Arrow](TTR)--node[midway, left] {f'}(BBR);
+		\end{tikzpicture}
+	\end{center}
+	so if D is an object of \(\mathcal{D}\) and \(y\in S(\mathcal{D})\), then there is a unique \(f':R\rightarrow D\) such that \(s(f'):S(R)\rightarrow S(D), u\mapsto y\).
+	\(\square\)
+\end{def*}
+\end{document}
