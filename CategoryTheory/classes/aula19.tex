@@ -1,9 +1,335 @@
 \documentclass[../category_theory.tex]{subfiles}
 \begin{document}
-\section{Class - , 2024}
+\section{Class 19 - October 24th , 2024}
 \subsection{Motivations}
 \begin{itemize}
-	\item a
+	\item Continuation of Direct Limits
 \end{itemize}
-\subsection{a}
+\subsection{Direct and Inverse Limits}
+For starters, recall the definition of direct limits we've seen:
+\begin{def*}
+	A \textbf{direct limit of a directed system}
+	\[
+		\{F_{x}, \varphi_{y}^{x}\}_{x\in I}
+	\]
+	in \(\mathcal{C}\), is an object of \(\mathcal{C}\) denoted by \(\varinjlim_{I}F_{x}\), and a family of morphisms
+	\[
+		\alpha_{x}:F_{x}\rightarrow \varinjlim_{I}F_{x}
+	\]
+	such that
+	\begin{itemize}
+		\item[1)] \(\alpha_{x}=\alpha_{y}\circ \varphi_{y}^{x}\) for all \(x\leq y\) in I;
+		\item[2)] (\textbf{Universal Property}): If there is an object A in \(\mathcal{C}\) together with morphisms
+		      \[
+			      \beta_{x}:F_{x}\rightarrow A
+		      \]
+		      such that \(\beta_{x}=\beta_{y}\circ \varphi_{y}^{x}\) for all \(x\leq y\), then there is a unique morphism
+		      \[
+			      \beta :\varinjlim_{}F_{n}\rightarrow A
+		      \]
+		      satisfying \(\beta\circ \alpha_{x}=\beta_{x}.\)
+	\end{itemize}
+	This is summarized in the following diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(F_{x}\)};
+			\node(BL) at (0,-1){\(\varinjlim_{I}F_{x}\)};
+			\node(TR) at (2,1){\(F_{y}\)};
+			\node(BR) at (0,-3){A};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{y}^{x}\)}(TR);
+			\draw[Arrow](BL)--node[midway, right] {\(\exists \beta \)}(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{x}\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{y}\)}(BL);
+			\draw[Arrow](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(\beta_{x}\)}}](BR);
+			\draw[Arrow](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(\beta_{y}\)}}](BR);
+		\end{tikzpicture} \(\square\)
+	\end{center}
+\end{def*}
+\begin{exr}
+	If a direct limit of  directed system exists, then it is unique up to isomorphism.
+\end{exr}
+We'll continue with the examples for now, before diving deeper in the theory.
+\begin{example}
+	\begin{itemize}
+		\item[1)] Take I = \(\mathbb{N}\) (with the usual order relationsihp). A functor \(F:\mathbb{N}\rightarrow \mathcal{C}\) gives a system
+		      \[
+			      \{F_{i}, \varphi_{i}^{j}\}_{i\in \mathbb{N}},
+		      \]
+		      i.e.,
+		      \[
+			      F_{1}\overbracket[0pt]{\rightarrow}^{\varphi_{2}^{1}}F_{2}\overbracket[0pt]{\rightarrow}^{\varphi_{3}^{2}}F_{3}\rightarrow \dotsc .
+		      \]
+		      Let's look, inside this example, at a few examples.
+
+
+		      For instance, if \(\mathcal{C}=\mathrm{Grps}\), and \(\varphi_{j}^{i}:F_{i}\rightarrow F_{j} \) are injective, then
+		      \[
+			      \varinjlim_{\mathbb{N}}F_{i}\coloneqq \bigcup_{}^{}F_{i}.
+		      \]
+		      Moreover, if \(F_{i}=F\), and \(\varphi_{i}^{j}=\mathrm{id}_{F}\), then
+		      \[
+			      \varinjlim_{\mathbb{N}}F_{i}=F
+		      \]
+		\item[2)] Take \(\mathbb{N}\) with the following order:
+		      \[
+			      m\curlyeqprec n \Longleftrightarrow m|n,
+		      \]
+		      and put \(F_{n}=\mu_{n}(F)=\{x\in F:x^{n}=1\}\), where F is a field. If \(m|n\), then
+		      \[
+			      \mu_{m}(F)\subseteq \mu_{n}(F).
+		      \]
+		      By letting
+		      \[
+			      \varphi _{n}^{m}:\mu_{m}(F)\rightarrow \mu_{n}(F)
+		      \]
+		      be the inclusion, then, we obtain as limiit
+		      \[
+			      \varinjlim_{\mathbb{N}}\mu_{n}(F)=\bigcup_{n\in \mathbb{N}}^{}\mu_{n}(F)\eqqcolon \mu(F).
+		      \]
+
+		      When \(F\) is taken to be the complex field, the n-th application of \(\mu_{n}\) yields an n-side polygon, and
+		      \[
+			      \mu(\mathbb{C})=\{z\in \mathbb{C}: z^{n}=1\}\cong \mathbb{Q}/\mathbb{Z}\cong \bigoplus_{\text{p prime}} \frac{\mathbb{Z}\biggl[\frac{1}{p}\biggr]}{\mathbb{Z}}
+		      \]
+		      This isomorphism comes from a map
+		      \[
+			      z=e^{\frac{2\pi i k}{n}}\mapsto \frac{k}{n},\quad 0\leq k\leq n-1.
+		      \]
+
+		      When \(F\) is an algebraic closed field of characteristic p, \(x^{p}=1\) and
+		      \[
+			      \mu (F)\cong \frac{\mathbb{Q}}{\mathbb{Z}}\biggl[\frac{1}{p}\biggr] = S^{-1}\biggl(\frac{\mathbb{Q}}{\mathbb{Z}}\biggr) =\bigoplus_{\text{p prime, q}\neq p}\frac{\mathbb{Z}\biggl[\frac{1}{q}\biggr]}{\mathbb{Z}}
+		      \]
+	\end{itemize}
+\end{example}
+\begin{theorem*}
+	The direct limit of any directed system in the category of Modules over a ring R always exists.
+\end{theorem*}
+\begin{proof*}
+	Let \(\{\mu_{i}, \varphi_{i}\}_{i\in I}\) be a directed system of R-modules for any i in I. Define
+	\begin{align*}
+		\lambda_{i}: & M_{i}\rightarrow \bigoplus_{i\in I}M_{i}                                                \\
+		             & m\mapsto \underbrace{(\dotsc , 0, m, 0, \dotsc , 0, \dotsc )}_{\text{i-th coordinate}}.
+	\end{align*}
+	Now define
+	\[
+		\varinjlim_{I}\coloneqq \bigoplus_{i\in I}M_{i}/ \left< \lambda_{j}\circ \varphi_{j}^{i}(x_{i})-\lambda_{i}(x_{i})|x_{i}\in M_{i}, i\leq j, i, j\in I  \right>.
+	\]
+	As for the morphisms, put
+	\begin{align*}
+		\alpha_{i}: & M_{i}\rightarrow \varinjlim_{i}M_{i} \\
+		            & \alpha_{i}=\pi\circ \lambda_{i}
+	\end{align*}
+	and
+	\begin{align*}
+		\pi : & \bigoplus_{i\in I}M_{i}\rightarrow \varinjlim_{I}M_{i} \\
+		      & m\mapsto \overline{m}.
+	\end{align*}
+	It is easy (????) to show that \(\varinjlim_{}M_{i}\) and \(\alpha_{i}\) satisfy the definition of direct limit. \qedsymbol
+\end{proof*}
+\begin{example}
+	Let I be a discrete preorder:
+	\[
+		i\in I: i\leq j \Longleftrightarrow  i=j.
+	\]
+	The morphism \(\varphi_{j}^{i}\) are, then, \(\varphi_{j}^{i}=\varphi_{i}^{i}=\mathrm{id}_{M_{i}}:M_{i}\rightarrow M_{i}\), and
+	\[
+		\lambda_{j}\circ \varphi_{j}^{i}(x_{i})-\lambda_{i}(x_{i})=\lambda_{i}(x_{i})-\lambda_{i}(x_{i})=0,
+	\]
+	hence
+	\[
+		\varinjlim_{}M_{i}=\bigoplus_{i\in I}M_{i}.
+	\]
+\end{example}
+\begin{example}
+	Let M be an R-modulus, and I be the set of finitely generated submoduli of M; I is a preorder
+	\[
+		N, N'\in I: N\leq N'\Longleftrightarrow N\subseteq N'.
+	\]
+	\textbf{\underline{Claim}:} M is isomorphic to \(\varinjlim_{N\in I}N\).
+	\begin{exr}
+		Use the universal property of directed limit to prove the claim.
+	\end{exr}
+	We'll show that M satisfies the universal property of direct limits. Let \(\varphi_{N}^{N}, \alpha_{N}\) be the inclusions. Then,
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){N};
+			\node(BL) at (0,-1){M};
+			\node(TR) at (2,1){N'};
+			\node(BR) at (0,-3){A};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{N}^{N}\)}(TR);
+			\draw[Arrow](BL)--node[midway, right] {\(\beta \)}(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{N}\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{N'}\)}(BL);
+			\draw[Arrow](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(\beta_{N}\)}}](BR); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(\beta_{N'}\)}}](BR);
+		\end{tikzpicture}
+	\end{center}
+	Then, put \(\beta_{N'}\circ \varphi_{N'}^{N}=\beta_{N}\), and \(\beta(m)\coloneqq \beta_{N}(m)\), where N is a finitely generated submodulus containing m. This \(\beta \) is well-defined and unique, and  it'd remain to show that it is an isomorphism.
+\end{example}
+\begin{example}
+	Take \(M\subseteq (\mathbb{Q}, +)\). Then, M is the direct limit of finitely generated N's; wEn \(N\subseteq \mathbb{Q}\) is finitely generated, it is isomorphic to \(\mathbb{Z}\) such that
+	\[
+		N=\left< a_{1}, \dotsc , a_{n} \right>\cong \mathbb{Z}^{n},\quad a_{i}=\frac{r_{i}}{s_{i}},
+	\]
+	where \((r_{i}, s_{i})=1\) (\(r_{i}\) and \(s_{i}\) are coprimes). If we were to consider
+	\[
+		a_{i}=\frac{p_{i}}{q}, \quad q=s_{1}\cdot \dotsc \cdot s_{n}, p_{i}= s_{1}\cdot \dotsc \cdot \hat{S}_{i}\cdot \dotsc \cdot s_{n},
+	\]
+	then
+	\[
+		N=\biggl<\frac{p_{1}}{q},\dotsc , \frac{p_{n}}{q}\biggr> = \frac{1}{q}\left< p_{1}, \dotsc , p_{n} \right>=\frac{1}{q}<d> = \biggl<\frac{d}{q}\biggr>\cong \mathbb{Z}.
+	\]
+\end{example}
+Let \(F=\{F_{i}, \varphi_{j}^{i}\}_{I}\) be a directed system in \(\mathcal{C}\) and \(G:\mathcal{C}\rightarrow \mathcal{D}\) be a functor. Then, \(G\circ F=\{G(F_{i}), G(\varphi_{j}^{i})\}_{i\in I}\) is a directed system in \(\mathcal{D}\), arising from the relation
+\[
+	I\overbracket[0pt]{\rightarrow}^{F}\mathcal{C}\overbracket[0pt]{\rightarrow}^{G}\mathcal{D}.
+\]
+To show that, assume \(\varinjlim_{}F_{i}\) and \(\varinjlim_{}G_{i}\) exits, and put
+\[
+	\alpha_{j}^{i}=\alpha_{i},
+\]
+so that
+\[
+	G(\alpha_{j}\circ \varphi_{j}^{i})=G(\alpha_{i})\Rightarrow G(\alpha_{j})\circ G(\varphi_{j}^{i})=G(\alpha_{i}).
+\]
+Thus, the following diagram commutes:
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(G(F_{i})\)};
+		\node(BL) at (0,-1){\(G(\varinjlim_{}F_{i})\)};
+		\node(TR) at (2,1){\(G(F_{j})\)};
+		\node(BR) at (0,-3){\(\varinjlim_{}G(F_{i})\)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(G(\varphi_{j}^{i})\)}(TR);
+		\draw[Arrow](BL)--node[midway, right] {\(\beta \)}(BR);
+		\draw[Arrow](TL)--node[midway, right] {\(G(\alpha_{i})\)}(BL);
+		\draw[Arrow](TR)--node[midway, left] {\(G(\alpha_{j})\)}(BL);
+		\draw[Arrow](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(\beta_{i}\)}}](BR); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+		\draw[Arrow](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(\beta_{j}\)}}](BR);
+	\end{tikzpicture}
+\end{center}
+where \(\beta:G(\varinjlim_{}F_{i})\rightarrow \varinjlim_{}G(F_{i})\) is an isomorphism.
+\begin{example}
+	Fix an R-modulus M and let \(\{N_{i}, \varphi_{j}^{i}\}\) be a directed system in \(\mathrm{Mod}_{R}\). Put
+	\[
+		G\coloneqq -\otimes_{R}M:\mathrm{Mod}_{R}\rightarrow \mathrm{Ab}
+	\]
+	and
+	\[
+		\beta :G(\varinjlim_{I}N_{i})\rightarrow \varinjlim_{}G(N_{i}) \Longleftrightarrow \beta:(\varinjlim_{I}N_{i})\otimes_{R}M\rightarrow \varinjlim_{}(N_{i}\otimes_{R}M).
+	\]
+	\begin{theorem*}
+		If \(\{N_{i}, \varphi_{j}^{i}\}_{i\in I}\) is a directed system of R-moduli, then
+		\[
+			(\varinjlim_{I}N_{i})\otimes_{R}M\cong \varinjlim_{I}(N_{i}\otimes_{R}M)
+		\]
+	\end{theorem*}
+	\begin{exr}
+		Prove the theorem above.
+	\end{exr}
+\end{example}
+
+\begin{theorem*}
+	Let \(\{A_{i}, \varphi_{j}^{i}\}_{i\in I}\) be a directed system in \(\mathrm{Mod}_{R}\), \(\lambda_{i}:A_{i}\rightarrow \bigoplus_{i\in I}A_{i}\) be the i-th coordinate map. Take I as a directed set such that for all i, j in I, there exists k satisfying
+	\[
+		i, j\leq k.
+	\]
+	Then,
+	\begin{itemize}
+		\item[1)] The elements of
+		      \[
+			      \varinjlim_{}A_{i}\coloneqq \bigoplus_{i\in I}A_{i}/S
+		      \]
+		      are of the form \(\lambda_{i}(a_{i})+S.\).
+		\item[2)] The equation
+		      \[
+			      \lambda_{i}(a_{i})+S=0
+		      \]
+		      is true if and only if there exists an t greater than or equal to i such that
+		      \[
+			      \varphi_{t}^{i}(a_{i})=0.
+		      \]
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Note that
+	\[
+		S=\biggl<\lambda_{j}\circ \varphi_{j}^{i}(a_{i})-\lambda_{i}(a_{i})| a_{i}\in A_{i}, i\leq j, i, j\in I\biggr>\leq \bigoplus_{i\in I}A_{i}.
+	\]
+
+	1) Let \(x=\sum\limits_{i=1}^{n}\lambda_{i_{k}}(a_{i_{k}})+s\in \varinjlim_{}A_{i}\). Since I is a directed set, there is j in I such that \(j\geq i_{k}, k=1,\dotsc ,n\). Now, we have
+	\[
+		b^{i_{k}}=\varphi_{j}^{i_{k}}(a_{i_k})\in A_{j},\quad b=\sum\limits_{k=1}^{n}b^{i_{k}}.
+	\]
+	let \(\varphi_{j}^{i_{k}}:A_{k}\rightarrow A_{j}\). Then,
+	\begin{align*}
+		x-\lambda_{j}(b)=\sum\limits_{}^{}\lambda_{i_{k}}(a_{i_{kj}})-\lambda_{j}(b) & =\sum\limits_{}^{}\lambda_{i_{k}}(a_{i_{k}})-\lambda_{j}\biggl(\sum\limits_{}^{}b^{i_{k}}\biggr)                    \\
+		                                                                             & =\sum\limits_{}^{}\lambda_{i_{k}}(a_{i_{k}})-\sum\limits_{}^{}\lambda_{j}(b^{i_{k}})                                \\
+		                                                                             & =\sum\limits_{}^{}\lambda_{i_{k}}(a_{i_{k}})-\sum\limits_{}^{}\lambda_{j}\circ \varphi_{j}^{i_{k}}(a_{i_{k}})\in S.
+	\end{align*}
+	Thus,
+	\[
+		\overline{x-\lambda_{j}(b)}=0\Rightarrow \overline{x}=\overline{\lambda_{j}(b)}.
+	\]
+
+	2) If \(\varphi_{t}^{i}(a_{i})=0 \), then
+	\[
+		\lambda_{i}(a_{i})=\lambda_{i}(a_{i})-\lambda_{t}\circ \varphi_{t}^{i}(a_{i})\in S,
+	\]
+	Thus,
+	\[
+		\overline{\lambda_{i}(a_{i})}=0.
+	\]
+
+	On the other hand, let \(\lambda_{i}(a_{i})+S=0\). Consequentely, \(\lambda_{i}(a_{i})\in S\), such that
+	\[
+		\lambda_{i}(a_{i})=\sum\limits_{j}^{}\lambda_{k}\circ \varphi_{k}^{i}(a_{j})-\lambda_{j}(a_{j})\in S.
+	\]
+	Choose t in I so that t is larger than or equal to all indices that appear in the sum. Then,
+	\begin{align*}
+		\lambda_{t}\circ \varphi_{t}^{i}(a_{i}) & =\biggl(\lambda_{t}\circ \varphi_{t}^{i}(a_{i})-\lambda_{i}(a_{i})\biggr) + \lambda_{i}(a_{i})                                             \\
+		                                        & =\lambda_{t}\circ \varphi_{t}^{i}(a_{i})-\lambda_{i}(a_{i})+ \sum\limits_{i}^{}\lambda_{k}\circ \varphi_{k}^{i}(a_{j})-\lambda_{j}(a_{j}).
+	\end{align*}
+	Since \(\varphi_{t}^{k}=\varphi_{t}^{j}\circ \varphi_{j}^{k}\), we end up with
+	\[
+		\lambda_{k}\circ \varphi_{k}^{j}(a_{j})-\lambda_{j}(a_{j})=\biggl(\lambda_{t}\circ \varphi_{t}^{k}-\lambda_{j}(a_{j})\biggr)+\biggl[\lambda_{t}\circ \varphi_{t}^{k}(-\varphi_{k}^{j}(a_{j})-\lambda_{k}(-\varphi_{k}^{j}(a_{j}))\biggr].
+	\]
+	Now, changing notation, this becomes
+	\[
+		\lambda_{t}\varphi _{t}^{i}(a_{i})=\sum\limits_{l=1}^{r}\lambda_{t}\varphi_{t}^{i}(a_{j_{l}})-\lambda_{j_{l}}(a_{j_{l}})\in \bigoplus_{i\in I}A_{i}.
+	\]
+	Let \(j_{1}\leq j_{2}\leq \dotsc \leq j_{r}\leq t\). From the equation above, we get
+	\[
+		\biggl(-a_{j_{1}}, -a_{j_{2}}, \dotsc, -a_{j_{r}}, \varphi_{t}^{i}(a_{i})-\sum\limits_{}^{}\varphi_{t}^{i}(a_{j})-a_{t}\biggr) = 0.
+	\]
+	Hence,
+	\[
+		a_{j_{1}}=\dotsc =a_{j_{r}}=0,\quad \varphi_{t}^{i}(a_{i})-\biggl(\sum\limits_{}^{}\varphi _{t}^{j}(a_{j})-a_{t}\biggr)=0,
+	\]
+	meaning \(a_{j}=0\) if \(j\neq t\) and, if \(j=t\),
+	\[
+		\varphi_{t}^{i}(a_{i})-\sum\limits_{j=1}^{t}\varphi_{t}^{j}(a_{j})-a_{t} = \varphi_{t}^{i}(a_{i}) - \varphi_{t}^{t}(a_{t}) - a_{t} = \varphi_{t}^{i}(a_{i}).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
 \end{document}

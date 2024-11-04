@@ -1,9 +1,315 @@
 \documentclass[../category_theory.tex]{subfiles}
 \begin{document}
-\section{Class - , 2024}
+\section{Class 18 - October 21st, 2024}
 \subsection{Motivations}
 \begin{itemize}
-	\item a
+	\item Proving Last Class' Theorem;
+	\item Beggining of the End - Limits.
 \end{itemize}
-\subsection{a}
+\subsection{The Long Exact Sequence Theorem}
+The first thing from today's class will be to prove \hyperlink{long_exact_sequence}{\textit{the long exact sequence}} theorem. Then, we'll start the last topic of the course, i.e., limits. Without further ado, recall the theorem in question:
+
+\begin{theorem*}[Long Exact Sequence]
+	Let \(\mathcal{A}\) be an abelian category and
+	\[
+		0\rightarrow A_{\cdot }\overbracket[0pt]{\rightarrow}^{f_{\cdot }}B_{\cdot }\overbracket[0pt]{\rightarrow}^{g_{\cdot }}C_{\cdot }\rightarrow 0
+	\]
+	be a short exact sequence of complexes. Then, there is a connecting homomorphism
+	\[
+		S_{n}:H_{n}(C_{\cdot })\rightarrow H_{n-1}(A_{\cdot })
+	\]
+	such that the chain
+	\begin{align*}
+		\dotsc & \overbracket[0pt]{\rightarrow}^{S_{n+2}} H_{n+1}(A_{\cdot })\overbracket[0pt]{\longrightarrow}^{H_{n+1}(f_{\cdot })} H_{n+1}\overbracket[0pt]{\longrightarrow}^{H_{n+1}(g_{\cdot })} H_{n+1}(C_{\cdot })\overbracket[0pt]{\longrightarrow}^{S_{n+1}}H_{n}(A_{\cdot })\overbracket[0pt]{\longrightarrow}^{H_{n}(f_{\cdot })} H_{n}\overbracket[0pt]{\longrightarrow}^{H_{n}(g_{\cdot })} H_{n}(C_{\cdot })\overbracket[0pt]{\longrightarrow}^{S_{n}} \\
+		       & \overbracket[0pt]{\longrightarrow}^{S_{n}} H_{n-1}(A_{\cdot })\overbracket[0pt]{\longrightarrow}^{H_{n-1}(f_{\cdot })} H_{n-1}\overbracket[0pt]{\longrightarrow}^{H_{n-1}(g_{\cdot })} H_{n-1}(C_{\cdot })\overbracket[0pt]{\longrightarrow}^{S_{n-1}}\dotsc .
+	\end{align*}
+	is exact.
+\end{theorem*}
+\begin{proof*}
+	For any \(A\in \mathrm{Obj}(\mathcal{A}), B\in \mathrm{Obj}(B)\), we have the natural isomorphism
+	\[
+		\eta_{A, B}:\mathcal{B}(\mathcal{L}(A), B)\rightarrow \mathcal{A}(A, \mathcal{R}(B)).
+	\]
+	As we've seen before, \(\mathcal{B}(\mathcal{L}(A), -)\) is left exact, so for any exact sequence
+	\[
+		0\rightarrow B'\rightarrow B\rightarrow B''\rightarrow 0,
+	\]
+	the following exact sequence arises
+	\[
+		0\rightarrow \mathcal{B}(\mathcal{L}(A), B')\rightarrow \mathcal{B}(\mathcal{L}(A), B)\rightarrow \mathcal{B}(\mathcal{L}(A), B'').
+	\]
+
+	Consider the diagram
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(ZT) at (-5,1){0};
+			\node(ZB) at (-5,-1){0};
+			\node(TL) at (-3,1){\(\mathcal{B}(\mathcal{L}(A), B')\)};
+			\node(BL) at (-3,-1){\(\mathcal{A}(A, \mathcal{R}(B'))\)};
+			\node(TR) at (0,1){\(\mathcal{B}(\mathcal{L}(A), B)\)};
+			\node(BR) at (0,-1){\(\mathcal{A}(A, \mathcal{R}(B))\)};
+			\node(TTR) at (3,1){\(\mathcal{B}(\mathcal{L}(A), B'')\)};
+			\node(BBR) at (3,-1){\(\mathcal{A}(A, \mathcal{R}(B''))\)};
+
+			\draw[Arrow](ZT)--(TL);
+			\draw[Arrow](ZB)--(BL);
+			\draw[Arrow](TR)--(TTR);
+			\draw[Arrow](BR)--(BBR);
+			\draw[Arrow](TL)--node[midway, above] {}(TR);
+			\draw[Arrow](BL)--node[midway, below] {}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(\eta_{A, B'}\)}(BL);
+			\draw[Arrow](TR)--node[midway, right] {\(\eta_{A, B}\)}(BR);
+			\draw[Arrow](TTR)--node[midway, right] {\(\eta_{A, B''}\)}(BBR);
+
+		\end{tikzpicture}
+	\end{center}
+	Since in the diagram, the first row is exact and the column morphisms are isomorphisms, the second row is also exact for any A. Hence, by the Yoneda Lemma, on the exact sequence
+	\[
+		0\rightarrow \mathcal{A}(A, \mathcal{R}(B'))\rightarrow \mathcal{A}(A, \mathcal{R}(B))\rightarrow \mathcal{A}(A, \mathcal{R}(B'')),
+	\]
+	the sequence
+	\[
+		0\rightarrow R(B')\rightarrow R(B)\rightarrow R(B'')
+	\]
+	is exact. The right exactness of \(\mathcal{L}\) can be proved similarly. \qedsymbol
+\end{proof*}
+\begin{example}
+	Let R be a ring. Consider
+	\begin{align*}
+		\mathcal{R}_{B}\coloneqq B \otimes_{R}-: & \mathrm{Mod}_{R}\rightarrow \mathrm{Ab} \\
+		                                         & A\mapsto B\otimes_{R}A
+	\end{align*}
+	and, for \(\mathcal{L}\),
+	\begin{align*}
+		\mathcal{L}_{B}\coloneqq \mathrm{Hom}(B\otimes_{R}-): & \mathrm{Mod}_{ar}\rightarrow \mathrm{Ab} \\
+		                                                      & C\mapsto \mathrm{Hom}_{R}(B, C).
+	\end{align*}
+	Then, \(\mathcal{R}_{B}, \mathcal{L}_{B}\) are adjoint functors:
+	\[
+		\mathrm{Hom}_{Z}(B\otimes_{R}A, C)\cong \mathrm{Hom}_{\mathbb{Z}}(B, \mathrm{Hom}_{R}(A, C))
+	\]
+	If X is an abelian group, \(\mathrm{Hom}_{\mathbb{Z}}(B, X)\) is an R-modulus; take \(r\in R\), \(f:B\rightarrow X\in \mathrm{Hom}_{\mathbb{Z}}(B, X)\), and define
+	\begin{align*}
+		 & r \cdot f:B\rightarrow X \\
+		 & (rf)(b)=f(rb),
+	\end{align*}
+	so that
+	\[
+		\mathrm{Hom}(\mathcal{R}_{B}(A), C)\cong \mathrm{Hom}(A, \mathcal{L}_{B}(C)),
+	\]
+	and thus \(\mathcal{L}_{B}=\mathrm{Hom}_{\mathbb{Z}}(B, -)\) is right exact, and \(\mathcal{R}_{B}=B\otimes_{R}-\) is left-exact.
+\end{example}
+\subsection{Direct \& Inverse Limits}
+If you have a chain \(A_{1}\subseteq A_{2}\subseteq A_{3}\subseteq \dotsc \) of abelian groups (or \(B_{1}\supseteq B_{2}\supseteq B_{3}\supseteq \dotsc \), the union \(\bigcup_{}^{}A_{i}\) and the intersection \(\bigcap_{}^{}A_{i}\) will also be abelian groups. These are denoted by
+\[
+	\varinjlim_{i\in \mathbb{N}}=\bigcup_{i=1}^{\infty}A_{i}\quad\&\quad \varprojlim_{n\in \mathbb{N}}\bigcap_{n=1}^{\infty}A_{i},
+\]
+and serve as examples of direct and inverse limits respec.
+
+To really start this discussion, we must go to preorders.
+\begin{def*}
+	A \textbf{preorder is Sets} is a relation \(\leq \) in a set X, which is
+	\begin{itemize}
+		\item[1)] \textit{reflexive}: \(x\leq x\) for all x in X;
+		\item[2)] \textit{transitive}: if \(x\leq y\) and \(y\leq z\),  then \(x\leq z\).
+	\end{itemize}
+	the pair \((X, \leq )\) is called a \textbf{partially ordered set} or \textbf{poset} if
+	\begin{itemize}
+		\item[1)] \((X, \leq )\) is a preorder;
+		\item[2)] If both \(x\leq y\) and \(y\leq x\), then \(x=y\).
+	\end{itemize}
+	the pair \((X, \leq )\) is also called a \textbf{directed set} if
+	\begin{itemize}
+		\item[1)] \((X, \leq )\) is a preorder;
+		\item[2)] For any x, y in X, there exists a z also in X such that \(x\leq z, y\leq z\). \(\square\)
+	\end{itemize}
+\end{def*}
+We have seen that a preorder \((X, \leq )\) can be seen as a category \(\mathcal{X}\), described by
+\begin{align*}
+	 & \mathrm{Obj}(\mathcal{X})=X, \\
+	\mathrm{Hom}_{\mathcal{X}}(x, y) = \left\{\begin{array}{ll}
+		                                          \{i_{y}^{x}\}, \quad x\leq y \\
+		                                          \emptyset , \quad \text{otherwise},
+	                                          \end{array}\right.
+\end{align*}
+in which \(i_{y}^{x}:x\rightarrow y, i_{x}^{x}=\mathrm{id}_{x}\).
+\begin{def*}
+	Let I be a preorder on a category \(\mathcal{C}\). A \textbf{directed system with indexed set I} in \(\mathcal{C}\) is a functor \(F:I\rightarrow \mathcal{C}\). \(\square\)
+\end{def*}
+So, for any index \(x\in I\), we assign an object \(F_{x}\in \mathrm{Obj}(\mathcal{C})\) such that for all x, y in I, if \(x\leq y\), then there exists a morphism
+\[
+	\varphi_{x}^{y}=F(i_{y}^{x}):F_{x}\rightarrow F_{y}
+\]
+with the following properties:
+\begin{itemize}
+	\item[1)] \(\varphi_{x}^{x}=\mathrm{id}_{F_{x}}\) for all x in I;
+	\item[2)] If \(x\leq y\leq z\), then
+	      \[
+		      \varphi_{z}^{y}\circ \varphi_{y}^{x} = \varphi_{z}^{x},
+	      \]
+	      meaning the following diagram is commutative
+	      \begin{center}
+		      \begin{tikzpicture}[
+				      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				      error/.style ={circle, thick, draw, text centered},
+				      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			      ]
+			      \node(TL) at (-2,1){\(F_{x}\)};
+			      \node(BL) at (0,-1){\(F_{z}\)};
+			      \node(TR) at (2,1){\(F_{y}\)};
+
+			      \draw[Arrow](TL)--node[midway, above] {\(\varphi_{y}^{x}\)}(TR);
+			      \draw[Arrow](TL)--node[midway, left] {\(\varphi_{z}^{x}\)}(BL);
+			      \draw[Arrow](TR)--node[midway, right] {\(\varphi_{z}^{y}\)}(BR);
+		      \end{tikzpicture}
+	      \end{center}
+\end{itemize}
+Usually, we denote a directed system in \(\mathcal{C}\) with indexed set I by
+\[
+	\{F_{x}, \varphi_{y}^{x}\}_{x\in I}.
+\]
+\begin{def*}
+	A \textbf{direct limit of a directed system}
+	\[
+		\{F_{x}, \varphi_{y}^{x}\}_{x\in I}
+	\]
+	in \(\mathcal{C}\), is an object of \(\mathcal{C}\) denoted by \(\varinjlim_{I}F_{x}\), and a family of morphisms
+	\[
+		\alpha_{x}:F_{x}\rightarrow \varinjlim_{I}F_{x}
+	\]
+	such that
+	\begin{itemize}
+		\item[1)] \(\alpha_{x}=\alpha_{y}\circ \varphi_{y}^{x}\) for all \(x\leq y\) in I;
+		\item[2)] (\textbf{Universal Property}): If there is an object A in \(\mathcal{C}\) together with morphisms
+		      \[
+			      \beta_{x}:F_{x}\rightarrow A
+		      \]
+		      such that \(\beta_{x}=\beta_{y}\circ \varphi_{y}^{x}\) for all \(x\leq y\), then there is a unique morphism
+		      \[
+			      \beta :\varinjlim_{}F_{n}\rightarrow A
+		      \]
+		      satisfying \(\beta\circ \alpha_{x}=\beta_{x}.\)
+	\end{itemize}
+	This is summarized in the following diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(F_{x}\)};
+			\node(BL) at (0,-1){\(\varinjlim_{I}F_{x}\)};
+			\node(TR) at (2,1){\(F_{y}\)};
+			\node(BR) at (0,-3){A};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{y}^{x}\)}(TR);
+			\draw[Arrow](BL)--node[midway, right] {\(\exists \beta \)}(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{x}\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{y}\)}(BL);
+			\draw[Arrow](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(\beta_{x}\)}}](BR);
+			\draw[Arrow](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(\beta_{y}\)}}](BR);
+		\end{tikzpicture} \(\square\)
+	\end{center}
+\end{def*}
+\begin{example}
+	Let \(I=\mathbb{N}\) and consider a functor \(F:I\rightarrow \mathcal{C}\), \(\mathcal{C}\) a category, yielding the following directed system:
+	\[
+		\{F_{n}, \varphi_{n}^{m}\}_{n\in \mathbb{N}}.
+	\]
+	If \(\mathcal{C}=\mathrm{Grps}\), and \(\varphi_{n+1}^{n}\) an injection. Then,
+	\[
+		\varinjlim_{\mathbb{N}}G_{i} = \bigcup_{i=1}^{\infty}G_{i}.
+	\]
+	In fact, we have
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(G_{m}\)};
+			\node(BL) at (0,-1){\(\bigcup_{n=1}^{\infty}G_{n}\)};
+			\node(TR) at (2,1){\(G_{n}\)};
+			\node(BR) at (0,-3){G};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi _{n}^{m}\)}(TR);
+			\draw[Arrow](BL)--node[midway, right] {\(\beta \)}(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{m}\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{n}\)}(BL);
+			\draw[Arrow](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(\beta_{m}\)}}](BR); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(\beta_{n}\)}}](BR);
+		\end{tikzpicture}
+	\end{center}
+	which means that there should exists a unique \(\beta :\bigcup_{n=1}^{\infty}G_{n}\rightarrow G\) such that \(\beta(x)=\beta_{n}(x)\) if  \(x\in G_{n}\). When \(x\in G_{m}\), either \(m\geq n\) or \(m\leq n\). Hence, for n larger than m,
+	\[
+		\beta_{n}\circ \varphi_{n}^{m}=\beta_{m}.
+	\]
+	On the other hand, if \(n\leq m\),
+	\[
+		\beta (x)=\beta_{n}(x)=\beta_{m}\circ \varphi_{m}^{n}(x)=\beta_{m}(x)
+	\]
+	To see that \(\beta \) is unique, let \(\beta':\bigcup_{}^{}G_{n}\rightarrow G\). To see that it has similar properties as \(\beta \), take any \(x\in \bigcup_{n=1}^{\infty}G_{n}\); hence, for some n, \(x\in G_{n}\),
+	\begin{align*}
+		\beta'(x)=\beta '(\alpha_{n}(x)) & =(\beta'\circ \alpha_{n})(x) \\
+		                                 & =\beta_{n}(x)                \\
+		                                 & =\beta(x).
+	\end{align*}
+	Thus, by the universal property of direct limits,
+	\[
+		\varinjlim_{\mathbb{N}}G_{n}\cong \bigcup_{n=1}^{\infty}G_{n}.
+	\]
+\end{example}
+\begin{example}
+	Take I to be any set, and consider I to be a discrete category. Let
+	\[
+		F:I\rightarrow \mathrm{Ab}
+	\]
+	be a functor. mapping x to \(A_{x}\). If x is different from y, put it as no morphisms between \(A_{x}\) and \(A_{y}\). Then,
+	\[
+		\varinjlim_{x\in I}A_{x}= \bigoplus_{x\in I}A_{x}.
+	\]
+	Hence, define
+	\begin{align*}
+		\alpha_{x}: & A_{x}\longrightarrow \bigoplus_{x\in I}A_{x}                                     \\
+		            & a\mapsto \underbrace{(0,\dotsc ,0,\alpha ,0,\dotsc ,0)}_{\text{x-th component}}.
+	\end{align*}
+	Here, the diagram is
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(A_{x}\)};
+			\node(BL) at (0,-1){\(\bigoplus A_{x}\)};
+			\node(TR) at (2,1){\(A_{x}\)};
+			\node(BR) at (0,-3){A};
+
+			\draw[Arrow](TL)--node[midway, above] {id}(TR);
+			\draw[Arrow](BL)--node[midway, right] {\(\beta \)}(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{x}\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{x}\)}(BL);
+			\draw[Arrow, scale=.7](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(\beta_{x}\)}}](BR); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(\beta_{x}\)}}](BR);
+		\end{tikzpicture}
+	\end{center}
+	which implies
+	\[
+		\beta((a_{x})_{x\in I})=\sum\limits_{x\in I}^{}\beta_{x}(a_{x}).
+	\]
+\end{example}
 \end{document}

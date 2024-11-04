@@ -1,9 +1,317 @@
 \documentclass[../category_theory.tex]{subfiles}
 \begin{document}
-\section{Class - , 2024}
+\section{Class 20 - October 31st, 2024}
 \subsection{Motivations}
 \begin{itemize}
-	\item a
+	\item Properties of the Direct Limit;
+	\item Morphism between Limits.
 \end{itemize}
-\subsection{a}
+\subsection{More About Direct Limits}
+Recall the last result from last class:
+\begin{theorem*}
+	Let \(\{A_{i}, \varphi_{j}^{i}\}_{i\in I}\) be a direct system in the category of R-modulus. Let
+	\begin{align*}
+		\lambda_{i}: & A_{i}\rightarrow \bigoplus_{i\in I}A_{i}                        \\
+		             & a\mapsto \underbrace{(0,\dotsc ,0,a,0,\dotsc ,0)}_{\text{i-th}}
+	\end{align*}
+	be the coordinate map. If I is a directed set (for all i, j in I, there exists a k such that \(i\leq k, j\leq k\)). Then,
+	\begin{itemize}
+		\item[1)] The elements of \(\varinjlim_{}A_{i}\coloneqq \bigoplus\limits_{i\in I}A_{i}/S\) are of the form \(\lambda_{i}(a_{i})+S\) for some i.
+		\item[2)] The equation
+		      \[
+			      \lambda_{i}(a_{i})+S=0
+		      \]
+		      is true if and only if there exists an t greater than or equal to i such that
+		      \[
+			      \varphi_{t}^{i}(a_{i})=0.
+		      \]
+	\end{itemize}
+\end{theorem*}
+We'll look at some consequences derived from this result. Along the way, assume all rings to be commutative.
+\begin{prop*}
+	Let R be a ring, \(\{A_{i}, \varphi_{j}^{i}\}_{i\in I}\) be a directed system of R-algebras, i.e., \(A_{i}\) are R-algebras and \(\varphi_{j}^{i}\) are homomorphisms of ring. If I is a directed set, then \(\varinjlim_{i\in I}A_{i}\) is an R-algebra.
+\end{prop*}
+\begin{proof*}
+	By the previous theorem, the elements of \(\varinjlim_{}A_{i}\) are of the form \(\lambda_{i}(a_{i})+S\) for some i. Take two such elements, say
+	\[
+		\underbrace{\lambda_{i}(a_{i})+S}_{x}, \underbrace{\lambda_{j}(a_{j})+S}_{y}\in \varinjlim_{}A.
+	\]
+	Since I is directed, there is a k such that i, j are less then it. Hence,
+	\begin{align*}
+		 & \lambda_{i}(a_{i})+S=\lambda_{k}\circ \varphi_{k}^{i}(a_{i})+S  \\
+		 & \lambda_{j}(a_{j})+S=\lambda_{k}\circ \varphi_{k}^{j}(a_{j})+S.
+	\end{align*}
+	Now, we define
+	\[
+		x \cdot y = \lambda_{k}\biggl(\varphi_{k}^{i}(a_{i})\cdot \varphi_{k}^{j}(a_{j})\biggr)+S.
+	\]
+	Next, it should be shown that this definition is independent of i, j, and k, \(\lambda(y+z)=x \cdot y+ x \cdot z\), and \((xy)\cdot z=x \cdot (y \cdot z).\)
+
+	Putting that aside, a fundamental question is what is the identity of \(\varinjlim_{}A_{i}\) assume that \(\varphi_{i}^{j}(1)=1\) for all i, j; we also know that for all i's and j's of I, there is a k such that \(i, j\leq k\), and thus
+	\begin{align*}
+		 & \lambda_{i}(1)+S=\lambda_{k}(\varphi_{k}^{i}(1))+S=\lambda_{i}(1)+S  \\
+		 & \lambda_{j}(1)+S=\lambda_{k}(\varphi_{k}^{j}(1))+S=\lambda_{j}(1)+S.
+	\end{align*}
+	In conclusion, it makes sense to define
+	\[
+		1_{\varinjlim_{i}A_{i}}=\lambda_{i}(1)+S,\quad \forall i\in I.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+When we look at a direct limit diagram,
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(A_{i}\)};
+		\node(BL) at (0,-1){\(\varinjlim_{}A_{i}\)};
+		\node(TR) at (2,1){\(A_{j}\)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{i}\)}(TR);
+		\draw[Arrow](TL)--node[midway, right] {\(\alpha_{i}\)}(BL);
+		\draw[Arrow](TR)--node[midway, left] {\(\alpha_{j}\)}(BL);
+	\end{tikzpicture}
+\end{center}
+it is easy (????) to see that \(\alpha_{i}\) is a homomorphism of R-algebras.
+\begin{example}
+	Let A be a commutative ring, \(\mathfrak{p}\trianglelefteq A\) be a prime ideal, and define
+	\[
+		A_{\mathfrak{p}}=\biggl\{ \frac{a}{s}: a\in A, s\in A\setminus{\mathfrak{p}}\biggr\}.
+	\]
+	Given a morphism \(f\in A\setminus{\mathfrak{p}}\), we can also put
+	\[
+		A_{f}=A\biggl[\frac{1}{f}\biggr]=\biggl\{\frac{a}{f^{r}}: r\in \mathbb{N}, a\in A\biggr\}.
+	\]
+	As a matter of facts, \(A_{f}\) is an A-algebra via \(\rho :A\rightarrow A_{f}\).
+
+	In this example, we can define explictly \(\varphi_{f, g} \) by letting
+	\begin{align*}
+		\varphi_{f, g}: & A_{f}\rightarrow A_{fg}                                         \\
+		                & \frac{a}{f^{r}}\mapsto \frac{ag^{r}}{(fg)^{r}}=\frac{a}{f^{r}}.
+	\end{align*}
+	This way, \(\{A_{f}, \varphi_{f, g}\}_{f\in A\setminus{\mathfrak{p}}}\) is a directed system with directed set and \(\varinjlim_{}A_{f}=A_{p}\)
+\end{example}
+\begin{prop*}
+	Let I, J be directed pre-ordered sets such that \(J\subseteq I\). Let I, J be directed sets such that, for any i in I, there is a j in J such that \(i\leq j\). If \(\{A_{i}, \varphi_{j}^{i}\}_{i\in I}\) is a directed system of R-modulus (abelian groups), then
+	\[
+		\varinjlim_{J}A_{i}\cong \varinjlim_{I}A_{i}.
+	\]
+\end{prop*}
+\begin{proof*}
+	For any j, j' in J with \(j\leq j'\), we have
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(A_{j}\)};
+			\node(BL) at (0,-1){\(\varinjlim_{J}A_{j}\)};
+			\node(TR) at (2,1){\(A_{j'}\)};
+			\node(BR) at (0,-3){\(\varinjlim_{i}A_{i}\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j'}^{j}\)}(TR);
+			\draw[Arrow](BL)--node[midway, right] {\(\lambda \)}(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{j}\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{j'}\)}(BL);
+			\draw[Arrow](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(\alpha'_{j}\)}}](BR); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(\alpha'_{j'}\)}}](BR);
+		\end{tikzpicture}
+	\end{center}
+	Using the theorem from last class, if we look only at the vertical direct limits part of the diagram, we find
+	\begin{align*}
+		                & \varinjlim_{J}\overbracket[0pt]{\longrightarrow}^{\lambda }\varinjlim_{I}A_{i}                          \\
+		\Leftrightarrow & \frac{\bigoplus A_{j}}{S_{J}}\overbracket[0pt]{\longrightarrow}^{\lambda }\frac{\bigoplus A_{i}}{S_{I}} \\
+		                & \lambda_{j}(a_{j})+S_{J}\mapsto \lambda_{j}(a_{j})+S_{I}.
+	\end{align*}
+	We'll prove, then, that \(\lambda \) is a bijection.
+
+	\textbf{\underline{Claim}:} \(\lambda \) is Injective. In fact,
+	\[
+		\lambda (\lambda_{j}(a_{j})+S_{J})=0 \Rightarrow \lambda_{j}(a_{j})+S_{I}=0.
+	\]
+	By the same theorem, there exists a t in I, \(t\geq j\), such that \(\varphi_{t}^{j}(a_{j})=0\). Let t' be an element of J such that \(t'\geq t\). Then,
+	\begin{align*}
+		            & \varphi_{t'}^{j}(a_{j})=\varphi_{t'}^{t}\circ \varphi_{t}^{j}(a_{j})=0 \\
+		\Rightarrow & \lambda_{j}(a_{j})+S_{J}=0. \blacktriangle
+	\end{align*}
+	\textbf{\underline{Claim}:} \(\lambda \) is surjective. As a matter of facts,
+	\[
+		\lambda_{i}(x_{i})+S_{I}\in \varinjlim_{I}A_{i}.
+	\]
+	Thus, there exists a j in J such that \(j\geq i\), so that
+	\[
+		\lambda(\lambda_{j}(\varphi_{j}^{i}(a_{i}))+S_{J})=\lambda_{j}(\varphi_{j}^{i}(a_{i})+S_{I})=\lambda_{i}(a_{i})+S_{I}. \blacktriangle.
+	\]
+
+	In conclusion, \(\{A_{f}, \varphi_{f, g}\}_{f\in A\setminus{\mathfrak{p}}}\) is a directed system with directed set, and
+	\[
+		\varinjlim_{}A_{f}=A_{p}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+As an observation, let \(\{A_{i}, \varphi_{j}^{i}\}_{i\in I}\) be a directed system in a category \(\mathcal{C}\). Thus, there is a function
+\begin{align*}
+	A: & I\rightarrow \mathcal{C}                                      \\
+	   & i\mapsto A_{i}                                                \\
+	   & \& i\leq j\rightarrow \varphi_{j}^{i}:A_{i}\rightarrow A_{j}.
+\end{align*}
+If \(A:I\rightarrow \mathcal{C}\), \(B:I\rightarrow \mathcal{C}\) are two deirected system, then a morphism between A and B is a natural transformation.
+\begin{def*}
+	Let \(\{A_{i}, \varphi_{j}^{i}\}_{i\in S}, \{B_{i},  \psi_{j}^{i}\}_{i\in S}\) be two directed systems. A morphism between these systems is a family \(\{t_{i}:A_{i}\rightarrow B_{i}\}_{i\in I}\) of morphisms in \(\mathcal{C}\) such that the following diagram commutes:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-1,1){\(A_{i}\)};
+			\node(BL) at (-1,-1){\(B_{i}\)};
+			\node(TR) at (1,1){\(A_{j}\)};
+			\node(BR) at (1,-1){\(B_{j}\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{i}\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\psi_{j}^{i}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(t_{i}\)}(BL);
+			\draw[Arrow](TR)--node[midway, right] {\(t_{j}\)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	which means that, for all i, j in I with \(i\leq j\),
+	\[
+		t_{j}\circ \varphi_{j}^{i}=\psi_{j}^{i}\circ t_{i}.\quad \square
+	\]
+\end{def*}
+Next, assume that \(\varinjlim_{}A_{i}\) and \(\varinjlim_{}B_{i}\) exists. Then, using the definition above, we end up with the following diagram
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(A_{i}\)};
+		\node(BL) at (0,-1){\(\varinjlim_{I}A_{i}\)};
+		\node(TR) at (2,1){\(A_{j}\)};
+		\node(BR) at (0,-3){\(\varinjlim_{I}B_{i}\)};
+		\node(SR) at (2, -1.5){\(B_{j}\)};
+		\node(SL) at (-2, -1.5){\(B_{i}\)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{i}\)}(TR);
+		\draw[Arrow](BL)--node[midway, right] {\(\lambda \)}(BR);
+		\draw[Arrow](TL)--node[midway, right] {\(\alpha_{i}\)}(BL);
+		\draw[Arrow](TR)--node[midway, left] {\(\alpha_{j}\)}(BL);
+		\draw[Arrow, dashed](SL)--node[near start, above] {\(\psi_{j}^{i}\)}(SR);
+		\draw[Arrow](SL)--node[left, above] {\(\beta_{i}\)}(BR);
+		\draw[Arrow](SR)--node[left, above] {\(\beta_{j}\)}(BR);
+		\draw[Arrow](TR)--node[midway, left] {\(t_{j}\)}(SR);
+		\draw[Arrow](TL)--node[midway, right] {\(t_{i}\)}(SL);
+	\end{tikzpicture}
+\end{center}
+which translates to the following separate equations
+\[
+	\alpha_{j}\circ \varphi_{j}^{i}=\alpha_{i}, \quad \beta_{j}\circ \psi_{j}^{i}=\beta_{i}, \quad t_{j}\circ \varphi_{j}^{i}=\psi_{j}^{i}\circ t_{i}.
+\]
+When put together, we get
+\begin{align*}
+	(\beta_{j}\circ t_{j})\circ \varphi_{j}^{i} & =\beta_{j}(t_{j}\circ \varphi_{j}^{i})                          \\
+	                                            & =\beta_{j}\circ (\psi_{j}^{i}\circ t_{i})                       \\
+	                                            & =(\beta_{j}\circ \psi_{j}^{i})\circ t_{i}=\beta_{i}\circ t_{i}.
+\end{align*}
+\begin{theorem*}
+	Let I be a pre-order and \(\mathcal{A}\) be an abelian category. If the directed limit of any system in \(\mathcal{A}\) exists, then the functor \(\varinjlim_{}\) is right exact: if the sequence of direct systems
+	\[
+		0\longrightarrow \{A_{i}, \varphi_{j}^{i}\}_{I}\overbracket[0pt]{\rightarrow}^{\{s_{i}\}}\{B_{i}, \psi_{j}^{i}\}_{I}\overbracket[0pt]{\rightarrow}^{\{t_{i}\}}\{C_{i}, \eta_{j}^{i}\}_{I}\longrightarrow 0
+	\]
+	is exact is \(\mathrm{Dir}(I)\), then the sequence
+	\[
+		0\longrightarrow \varinjlim_{}A_{i}\overbracket[0pt]{\rightarrow}^{S}\varinjlim_{}B_{i}\overbracket[0pt]{\rightarrow}^{T}\varinjlim_{}C_{i}\longrightarrow 0
+	\]
+	is exact.
+\end{theorem*}
+\begin{theorem*}
+	Let \(\mathcal{A}=\mathrm{mod}_{R}\) or \(\mathrm{Ab}\) and I be a directed set. Then, the direct limit is an exact functor:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(ZL) at (-4, 1){0};
+			\node(ZR) at (4, 1){0};
+			\node(ZBL) at (-4, -1){0};
+			\node(ZBR) at (4, -1){0};
+			\node(TL) at (-2,1){\(A_{i}\)};
+			\node(BL) at (-2,-1){\(A_{j}\)};
+			\node(TM) at (0,1){\(B_{i}\)};
+			\node(BM) at (0,-1){\(B_{j}\)};
+			\node(TR) at (2,1){\(C_{i}\)};
+			\node(BR) at (2,-1){\(C_{j}\)};
+
+			\draw[Arrow](ZL)--(TL);
+			\draw[Arrow](ZBL)--(BL);
+			\draw[Arrow](TR)--(ZR);
+			\draw[Arrow](BR)--(ZBR);
+			\draw[Arrow](TL)--node[midway, above] {\(s_{i}\)}(TM);
+			\draw[Arrow](TM)--node[midway, above] {\(t_{i}\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(s_{j}\)}(BM);
+			\draw[Arrow](BM)--node[midway, below] {\(t_{j}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(\varphi_{j}^{i}\)}(BL);
+			\draw[Arrow](TM)--node[midway, right] {\(\psi_{j}^{i}\)}(BM);
+			\draw[Arrow](TR)--node[midway, right] {\(\eta_{j}^{i}\)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	where the above chain is exact for all i, and the below for all j.
+\end{theorem*}
+\begin{exr}
+	Prove the above theorem.
+\end{exr}
+We have the bijection
+\begin{align*}
+	 & \theta :\mathcal{A}(\varinjlim_{}F_{i}, A)\rightarrow \mathcal{P}(\{F_{i}, \varphi_{j}^{i}\} |A|)                        \\
+	 & \mathcal{A}(\varinjlim_{}F_{i}, A)\overbracket[0pt]{\longrightarrow}^{\cong }\mathcal{P}(\{F_{i}, \varphi_{j}^{i}\} |A|) \\
+	 & \theta' :\mathcal{P}(\{F_{i}, \varphi_{j}^{i}\} |A|)\rightarrow \mathcal{A}(\varinjlim_{}F_{i}, A).
+\end{align*}
+For this, we define
+\[
+	\theta (\lambda )=\{\lambda \circ \alpha_{i}:F_{i}\rightarrow A\},\quad\&\quad \theta'(\{t_{i}\})=T,
+\]
+and \(\{F_{i}, \varphi_{j}^{'}\}\overbracket[0pt]{\rightarrow}^{t_{i}}|A|\). We end up with the diagram
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-2,1){\(F_{i}\)};
+		\node(BL) at (0,-1){\(\varinjlim_{I}F_{i}\)};
+		\node(TR) at (2,1){\(F_{j}\)};
+		\node(BR) at (0,-3){A};
+		\node(SR) at (2, -1.5){\(A=A_{j}\)};
+		\node(SL) at (-2, -1.5){\(A=A_{i}\)};
+
+		\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{i}\)}(TR);
+		\draw[Arrow](BL)--node[near start, right] {T}(BR);
+		\draw[Arrow](TL)--node[midway, right] {}(BL);
+		\draw[Arrow](TR)--node[midway, left] {}(BL);
+		\draw[Arrow, dashed](SL)--node[near start, below] {Id}(SR);
+		\draw[Arrow](SL)--node[left, above] {}(BR);
+		\draw[Arrow](SR)--node[left, above] {}(BR);
+		\draw[Arrow](TR)--node[midway, left] {\(t_{j}\)}(SR);
+		\draw[Arrow](TL)--node[midway, right] {\(t_{i}\)}(SL);
+	\end{tikzpicture}
+\end{center}
+So that we have just proven that \((\varinjlim_{I}, ||)\) are adjoint functors
 \end{document}
