@@ -1,9 +1,345 @@
 \documentclass[../category_theory.tex]{subfiles}
 \begin{document}
-\section{Class - , 2024}
+\section{Class 21 - November 5th, 2024}
 \subsection{Motivations}
 \begin{itemize}
-	\item a
+	\item Inverse limit.
 \end{itemize}
-\subsection{a}
+\subsection{Inverse limits}
+\begin{def*}
+	Let I be a preorder \((I, \leq )\), and \(\mathcal{C}\) be a category. An \textbf{inverse system} in the category is a contravariant functor \(F:I\rightarrow \mathcal{C}\). In other words, for any i in I, we have an object \(F_{i}\) in \(\mathrm{obj}(\mathcal{C})\) and for any i, j in I with \(i\leq j\), there is  morphism
+	\[
+		\varphi_{j}^{i}:F_{j}\rightarrow F_{i}
+	\]
+	such that
+	\begin{itemize}
+		\item[1)] \(\varphi_{i}^{i}=\mathrm{id}_{F_{i}}\);
+		\item[2)] For all \(i\leq j\leq k\), \(\varphi_{i}^{k}=\varphi_{i}^{j}\circ \varphi_{j}^{k}\), which means the next diagram commutes:
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){\(F_{k}\)};
+				      \node(BL) at (0,-1){\(F_{j}\)};
+				      \node(TR) at (2,1){\(F_{i}\)};
+
+				      \draw[Arrow](TL)--node[midway, above] {\(\varphi_{i}^{k}\)}(TR);
+				      \draw[Arrow](TL)--node[midway, left] {\(\varphi_{j}^{k}\)}(BL);
+				      \draw[Arrow](TR)--node[midway, right] {\(\varphi_{i}^{j}\)}(BL);
+
+			      \end{tikzpicture}
+		      \end{center}
+	\end{itemize}
+	We denote this inverse system F with \(\{F_{i}, \varphi_{j}^{i}\}_{i\in I}\). \(\square\)
+\end{def*}
+\begin{def*}
+	Given an inverse system \(\{F_{i}, \varphi_{j}^{i}\}_{i\in I}\), the \textbf{inverse limit} of the inverse system is an object \(\varprojlim_{}F_{i}\in \mathrm{obj}(\mathcal{C})\), if it exists, together with morphisms
+	\[
+		\alpha_{i}:\varprojlim_{}F_{i}\rightarrow F_{i},\quad \forall i
+	\]
+	such that
+	\begin{itemize}
+		\item[1)] For every \(i\leq j\),
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){\(\varprojlim_{}F_{i}\)};
+				      \node(BL) at (0,-1){\(F_{j}\)};
+				      \node(TR) at (2,1){\(F_{i}\)};
+
+				      \draw[Arrow](TL)--node[midway, above] {\(\alpha_{i}\)}(TR);
+				      \draw[Arrow](TL)--node[midway, left] {\(\alpha_{j}\)}(BL);
+				      \draw[Arrow](BL)--node[midway, right] {\(\varphi_{j}^{i}\)}(TR);
+
+			      \end{tikzpicture}
+			      \(\Longleftrightarrow \varphi_{j}^{i}\circ \alpha_{j}=\alpha_{i}\)
+		      \end{center}
+		\item[2)][\textbf{Universal Property}] If H is an object of \(\mathcal{C}\) and if for any i in I, there exists \(f_{i}:H\rightarrow F_{i}\) such that
+		      \[
+			      \varphi_{j}^{i}\circ f_{j}=f_{i},\quad \forall i\leq j.
+		      \]
+		      Then, there is a unique morphism \(f:H\rightarrow \varprojlim_{}F_{i}\) such that
+		      \[
+			      \alpha_{i}\circ f = f_{i},\quad \forall i\in I,
+		      \]
+		      resulting in the diagram
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){\(F_{j}\)};
+				      \node(BL) at (0,-1){\(\varprojlim_{}F_{i}\)};
+				      \node(TR) at (2,1){\(F_{i}\)};
+				      \node(BR) at (0,-3){H};
+
+				      \draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{i}\)}(TR);
+				      \draw[Arrow, dashed](BR)--node[midway, right] {f}(BL);
+				      \draw[Arrow](BL)--node[midway, right] {\(\alpha_{j}\)}(TL);
+				      \draw[Arrow](BL)--node[midway, left] {\(\alpha_{i}\)}(TR);
+				      \draw[Arrow](BR)to[out = 200, in = 130, edge node={node[midway, left] {\(f_{i}\)}}](TL); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+				      \draw[Arrow](BR)to[out = 340, in = 60, edge node={node[midway, right] {\(f_{j}\)}}](TR);
+			      \end{tikzpicture}
+		      \end{center}
+	\end{itemize}
+\end{def*}
+\begin{exr}
+	If \(\varprojlim_{}F_{i}\) exists, prove that it is unique up to isomorphism.
+\end{exr}
+\begin{theorem*}
+	Let R be a ring and \(_{R}M\) be the category of R-modulus (e.g. The category Ab). Then, the inverse limit of any inverse system exists.
+\end{theorem*}
+\begin{proof*}
+	Let \(F=\{F_{i}, \varphi_{j}^{i}\}_{i\in I}\) be an inverse system in \(_{R}\mathrm{Mod}\) and \(p_{i}:\prod\limits_{i\in I}^{}F_{i}\rightarrow F_{i}\) be the projection to the i-th coordinate. Put
+	\[
+		\varprojlim_{}F_{i}=\biggl\{(a_{i})\in \prod\limits_{i\in I}^{}F_{i}: a_{i}=\varphi_{j}^{i}(a_{j})\biggr\}.
+	\]
+	To finish the proof, one would need to show that
+	\begin{itemize}
+		\item[i)] \(\varprojlim_{}F_{i}\) is a submodulus of \(\prod\limits_{i\in I}^{}F_{i}\);
+		\item[ii)] For each i,
+		      \[
+			      \alpha_{i}=p_{i}|_{\varprojlim_{}F_{i}}:\varprojlim_{}F_{i}\rightarrow F_{i}.
+		      \]
+	\end{itemize}
+	It is easy to check that \(\varprojlim_{}F_{i}\) together with \(\alpha_{i}\)'s satisfy the definition of inverse limit, \((a_{i})_{i\in I}\in \varprojlim_{}F_{i}\). For instance,
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\((a_{i})_{i\in I}\)};
+			\node(BL) at (0,-1){\(a_{j}\)};
+			\node(TR) at (2,1){\(a_{i}\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\alpha_{i}\)}(TR);
+			\draw[Arrow](TL)--node[midway, left] {\(\alpha_{j}\)}(BL);
+			\draw[Arrow](BL)--node[midway, right] {\(\varphi_{j}^{i}\)}(TR);
+
+		\end{tikzpicture}
+	\end{center}
+	and we can guess that the map will be \(f(h)=(f_{i}(h))_{i\in I},\) so that by its definition, \(\alpha_{i}\circ f=f_{i}\) for all i. To see that this f is unique, take \(g:H\rightarrow \varprojlim_{}F_{i}\) be another R-homomorphism such that \(\alpha_{i}\circ g=f_{i}.\) We have
+	\[
+		\alpha_{i}(g(h))=f_{i}(h),
+	\]
+	so that for every i,
+	\[
+		\alpha_{i}(g(h))=f_{i}(h)=\alpha_{i}(f(h)),
+	\]
+	which implies that the i-th coordinate of \(g(h)\) and \(f(h)\) are equal. Therefore,
+	\[
+		g(h)=(f_{i}(h))_{i\in I}= f(h).
+	\]
+	All of this is summarized in the diagram
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,-1){\(F_{j}\)};
+			\node(BL) at (0,1){\(\varprojlim_{}F_{i}\)};
+			\node(TR) at (2,-1){\(F_{i}\)};
+			\node(BR) at (0,3){H};
+
+			\draw[Arrow](TR)--node[midway, above] {\(\varphi_{j}^{i}\)}(TL);
+			\draw[Arrow, dashed](BR)--node[midway, right] {f}(BL);
+			\draw[Arrow, dashed](BR)--node[midway, left] {g}(BL);
+			\draw[Arrow](BL)--node[midway, right] {\(\alpha_{j}\)}(TL);
+			\draw[Arrow](BL)--node[midway, left] {\(\alpha_{i}\)}(TR);
+			\draw[Arrow](BR)to[out = 200, in = 130, edge node={node[midway, left] {\(f_{i}\)}}](TL); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow](BR)to[out = 340, in = 60, edge node={node[midway, right] {\(f_{j}\)}}](TR);
+		\end{tikzpicture}
+		\qedsymbol
+	\end{center}
+\end{proof*}
+It's nice to see that, based on the diagram of the universal product, the existence of the product in a category is a necessary, although not sufficient, condition for the existence of the inverse limit, just like the existence of the coproduct was necessary but not sufficient for the direct limit.
+\begin{example}
+	\begin{itemize}
+		\item[1)] Consider the chain of inclusions of groups \(A_1\supseteq A_2\supseteq A_3\supseteq \dotsc \). Take \(I=\mathbb{N}\) and put, for \(i\leq j\),
+		      \[
+			      \varphi_{j}^{i}:A_{j}\hookrightarrow A_{i},
+		      \]
+		      so that \(\{A_{i}, \varphi_{j}^{i}\}_{i\in \mathbb{N}}\) is an inverse system:
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){\(A_{k}\)};
+				      \node(BL) at (0,-1){\(A_{j}\)};
+				      \node(TR) at (2,1){\(A_{i}\)};
+
+				      \draw[Arrow](TL)--node[midway, above] {\(\varphi_{i}^{k}\)}(TR);
+				      \draw[Arrow](TL)--node[midway, left] {\(\varphi_{j}^{k}\)}(BL);
+				      \draw[Arrow](TR)--node[midway, right] {\(\varphi_{i}^{j}\)}(BL);
+
+			      \end{tikzpicture}
+		      \end{center}
+
+		      As the candidate for the inverse limit, since the direct was the union of groups, we propose it is the intersection:
+		      \[
+			      \varprojlim_{}A_{i}=\bigcap_{i\in \mathbb{N}}^{} A_{i}.
+		      \]
+		      Let \(\varphi_{j}^{i}\circ f_{j}=f_{i}\) for every i, j such that \(i\leq j\). Take h in H; since it is the inclusion, the action of \(\varphi_{j}^{i}\) on it is
+		      \[
+			      \varphi_{j}^{i}(f_{j}(h))=f_{i}(h)\Rightarrow f_{j}(h)=f_{i}(h)\quad \forall i\leq j,
+		      \]
+		      Now take i, i' natural numbers. There existes a j such that \(i, i'\leq j\). Then,
+		      \[
+			      f_{i}(h)=f_{j}(h)=f_{i'}(h),
+		      \]
+		      so that for all i, i' in \(\mathbb{N}\), \(f_{i}(h)=f_{i'}(h).\) Thus, h is well-defined, and we can put
+		      \[
+			      f(h)\coloneqq f_{i}(h)\quad \forall i\in \mathbb{N}.
+		      \]
+
+		      To see that f is unique, let \(g:H\rightarrow \bigcap_{i\in \mathbb{N}}^{}A_{i}\) be such that \(\alpha_{i}\circ g=f_{i}\). For any h in H, we have
+		      \begin{align*}
+			      g(h)=\alpha_{i}(g(h)) & =(\alpha_{i}\circ g)(h) \\
+			                            & =f_{i}(h)               \\
+			                            & =(\alpha_{i}\circ f)(h) \\
+			                            & = f(h).
+		      \end{align*}
+		      Hence, g=f.  By the universal property of the inverse limit,
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,-1){\(A_{j}\)};
+				      \node(BL) at (0,1){\(\bigcap_{i\in \mathbb{N}}^{}A_{i}\)};
+				      \node(TR) at (2,-1){\(A_{i}\)};
+				      \node(BR) at (0,3){H};
+
+				      \draw[Arrow](TR)--node[midway, above] {\(\varphi_{j}^{i}\)}(TL);
+				      \draw[Arrow, dashed](BR)--node[midway, right] {f}(BL);
+				      \draw[Arrow, dashed](BR)--node[midway, left] {g}(BL);
+				      \draw[Arrow](BL)--node[midway, right] {\(\alpha_{j}\)}(TL);
+				      \draw[Arrow](BL)--node[midway, left] {\(\alpha_{i}\)}(TR);
+				      \draw[Arrow](BR)to[out = 200, in = 130, edge node={node[midway, left] {\(f_{j}\)}}](TL); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+				      \draw[Arrow](BR)to[out = 340, in = 60, edge node={node[midway, right] {\(f_{i}\)}}](TR);
+			      \end{tikzpicture}
+
+			      \[
+				      \Rightarrow \varprojlim_{}F_{i}\cong \bigcap_{i\in \mathbb{N}}^{}A_{i}.
+			      \]
+		      \end{center}
+		\item[2)] Let I be a preorder as a discrete category:
+		      \[
+			      i\leq j \Longleftrightarrow i=j,
+		      \]
+		      so that \(\{F_{i}, \varphi_{j}^{i}\}\) is an inverse system in \(\mathrm{Ab}\). Then, \(\varprojlim_{}F_{i}=\prod\limits_{i\in I}^{}F_{i}\), so that \(\varphi_{j}^{i}\) is defined if and only if i = j, in which case \(\varphi_{i}^{i}=\mathrm{id}_{F_{i}}\). Putting
+		      \[
+			      \varprojlim_{}F_{i}=\biggl\{(a_{i})_{i\in I}: a_{i}=\varphi_{j}^{i}(a_{j})\biggr\}
+		      \]
+		      won't work very well, then, but since
+		      \[
+			      \varprojlim_{}F_{i}=\biggl\{(a_{i})_{i\in I}: a_{i}=\varphi_{j}^{i}(a_{j})\biggr\}=\biggl\{(a_{i})_{i\in I}\in \prod\limits_{}^{}F_{i}\biggr\}=\prod\limits_{}^{}F_{i},
+		      \]
+		      we can just work directly with the definition in this case
+		\item[3)] [Pull-back/Fibre product]. Let X, Y, Z be topological spaces, and define the fibre product to be
+		      \[
+			      X\times_{Z}Y=\{(x, y)\in X\times Y: f(x)=g(y)\},\quad f:X\rightarrow Z, g:Y\rightarrow Z
+		      \]
+		      so that
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){\(X\times_{Z}Y\)};
+				      \node(BL) at (-2,-1){X};
+				      \node(TR) at (2,1){Y};
+				      \node(BR) at (2,-1){Z};
+
+				      \draw[Arrow](TL)--node[midway, above] {}(TR);
+				      \draw[Arrow](BL)--node[midway, below] {f}(BR);
+				      \draw[Arrow](TL)--node[midway, left] {}(BL);
+				      \draw[Arrow](TR)--node[midway, right] {g}(BR);
+
+			      \end{tikzpicture}
+		      \end{center}
+		      We can generalize this idea: if we put \(I=\{a, b, c: a\leq b, a\leq c\}, F:I\rightarrow \mathcal{C}\) a contravariant functor, then
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){b};
+				      \node(BL) at (-2,-1){a};
+				      \node(BR) at (0,-1){c};
+
+				      \node(TTL) at (4,1){\(F_{b}\)};
+				      \node(BBL) at (2,-1){\(F_{a}\)};
+				      \node(BBR) at (4,-1){\(F_{c}\)};
+
+				      \draw[Arrow](BL)--node[midway, below] {\(i_{a}^{c}\)}(BR);
+				      \draw[Arrow](BL)--node[midway, left] {\(i_{a}^{b}\)}(TL);
+
+				      \draw[Arrow](BBL)--node[midway, below] {\(\varphi _{a}^{c}\)}(BBR);
+				      \draw[Arrow](TTL)--node[midway, left] {\(\varphi _{a}^{b}\)}(BBR);
+
+			      \end{tikzpicture}
+		      \end{center}
+		      Now, \(\varprojlim_{i\in I}F_{i}\), if it exists, is called the \textbf{pull-back}:
+		      \[
+			      \varprojlim_{i\in I}F_{i}=\biggl\{(x, y)\in F_{b}\times F_{c}: \varphi_{a}^{b}(x)= \varphi _{a}^{c}(y)\biggr\},
+		      \]
+		      or in the diagram,
+		      \begin{center}
+			      \begin{tikzpicture}[
+					      observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					      latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					      error/.style ={circle, thick, draw, text centered},
+					      confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					      outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				      ]
+				      \node(TL) at (-2,1){\(\varprojlim_{}F_{i}\)};
+				      \node(BL) at (-2,-1){\(F_{c}\)};
+				      \node(TR) at (2,1){\(F_{b}\)};
+				      \node(BR) at (2,-1){\(F_{a}\)};
+
+				      \draw[Arrow](TL)--node[midway, above] {}(TR);
+				      \draw[Arrow](BL)--node[midway, below] {}(BR);
+				      \draw[Arrow](TL)--node[midway, left] {}(BL);
+				      \draw[Arrow](TR)--node[midway, right] {}(BR);
+
+			      \end{tikzpicture}
+		      \end{center}
+		      If \(F_{b} \hookrightarrow F_{a}\) and \(F_{c}\hookrightarrow F_{a}\), then \(\varprojlim_{}F_{i}=F_{b}\cap F_{c}\).
+	\end{itemize}
+\end{example}
+\begin{exr}
+	If \(\{F_{i}, \varphi_{j}^{i}\}_{i\in I}\) is an inverse system of R-algebras, R a commutative ring, then \(\varprojlim_{}F_{i}\) exists and is an R-algebra.
+\end{exr}
 \end{document}
