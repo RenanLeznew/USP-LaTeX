@@ -1,9 +1,221 @@
 \documentclass[../category_theory.tex]{subfiles}
 \begin{document}
-\section{Class - , 2024}
+\section{Class 22 - November 7th, 2024}
 \subsection{Motivations}
 \begin{itemize}
-	\item a
+	\item Continuation of Inverse Limits;
+	\item I-adic completion.
 \end{itemize}
-\subsection{a}
+\subsection{Inverse Limits}
+Since last class was dedicated to defining am examplifying inverse limits, today well look at some. Before, however, a quick remark is that an inverse system
+\[
+	F:I\rightarrow \mathcal{C}
+\]
+can be seen as a directed system by:
+\[
+	F^{\mathrm{op}}:I^{\mathrm{op}}\rightarrow \mathcal{C}
+\]
+\begin{example}
+	Let p be a prime number, \(I=\mathbb{N}\). For  \(i\leq j\) in I, define
+	\begin{align*}
+		\varphi_{i}^{j}: & \mathbb{Z}/p^{j}\mathbb{Z}\rightarrow \mathbb{Z}/p ^{i}\mathbb{Z} \\
+		                 & a+p ^{j}\mathbb{Z}\mapsto a+p ^{i}\mathbb{Z}.
+	\end{align*}
+	Then, \(\{\mathbb{Z}/p ^{i}\mathbb{Z}, \varphi_{j}^{i}\}\) defines an inverse system in Ab (which, as proven last class, has inverse limit). With this, we denote
+	\[
+		\mathbb{Z}_{p}\coloneqq \varprojlim_{}\frac{\mathbb{Z}}{p ^{i}\mathbb{Z}}.
+	\]
+	Now we have a collection of four different \(\mathbb{Z}\)'s with a p subscript!
+	\begin{align*}
+		 & \mathbb{Z}/p = \mathbb{Z}/p\mathbb{Z}                                                                                   \\
+		 & \mathbb{Z}_{(p)}=\biggl\{\frac{a}{b}\in \mathbb{Q}: p \not|\; b\biggr\}                                                 \\
+		 & \mathbb{Z}_{p ^{\infty}}\coloneqq \frac{\mathbb{Z}\biggl[\frac{1}{p}\biggr]}{\mathbb{Z}}=\varinjlim_{}\mathbb{Z}/p ^{n} \\
+		 & \mathbb{Z}/p \hookrightarrow \mathbb{Z}/p ^{2} \hookrightarrow \mathbb{Z}/p ^{3}                                        \\
+		 & \overline{1}\longmapsto \overline{p}\longmapsto \overline{p}                                                            \\
+		 & \mathbb{Z}_{p}\coloneqq \varprojlim_{}\frac{\mathbb{Z}}{p ^{i}\mathbb{Z}} \rightsquigarrow\;\text{p-adic integers}.
+	\end{align*}
+	A few properties of the p-adic integers, which can be made explict by
+	\[
+		\mathbb{Z}_{p}=\biggl\{(a_{i})\in \prod\limits_{i\in \mathbb{N}}^{}\mathbb{Z}/p ^{i}\mathbb{Z}: \varphi_{j}^{i}(a_{j})=a_{i}\: \forall i\leq j\biggr\}.
+	\]
+	are:
+	\begin{itemize}
+		\item[1)] \(\mathbb{Z}_{p}\) is a domain, \(\mathbb{Z}\hookrightarrow \mathbb{Z}_{p}\) via \(n\mapsto (n)_{i\in \mathbb{N}}\);
+		\item[2)] It is a local domain;
+		\item[3)] it's field of fractions is \(\mathbb{Q}(\mathbb{Z}_{p})=\mathbb{Z}_{p}\)
+	\end{itemize}
+	\begin{exr}
+		If I is directed (for all i, j in I, there exists a k such that \(i,\; j\leq k\)), \(F_{i}\) are rings, and \(\varphi_{j}^{i}\) are ring homomorphisms, then
+		\[
+			\varprojlim_{}F_{i}
+		\]
+		is a ring.
+	\end{exr}
+	It follows that \(\mathbb{Z}_{p}\) is a ring via the operations defined below for \((a_{i}), (b_{i})\) in \(\mathbb{Z}_{p}\):
+	\begin{align*}
+		 & (\overline{a}_{i})+(\overline{b}_{i})=(\overline{a}_{i}+\overline{b}_{i}) \\
+		 & (\overline{a}_{i})\cdot (\overline{b}_{i})=(\overline{a_{i}b_{i}})        \\
+		 & 1 _{\mathbb{Z}_{p}}= (1)_{i\in I}.
+	\end{align*}
+	which motivates the exercise mentioned above. Moreover, we can write \(x=(\overline{a}_{i})_{i\in \mathbb{N}}\) as
+	\[
+		x\coloneqq \sum\limits_{i=0}^{\infty}a_{i}p ^{i},\quad 0\leq i\leq p-1.
+	\]
+	Hence, with notation \(x=\sum\limits_{i=0}^{\infty}a_{i}p ^{i},\: y=\sum\limits_{i=0}^{\infty}b_{i}p ^{i}\), we can put
+	\begin{align*}
+		 & x+y=\sum\limits_{i=0}^{\infty}c_{i}p ^{i},   \\
+		 & xy = \sum\limits_{i=0}^{\infty}d_{i} p ^{i},
+	\end{align*}
+	in which the process to buid the coefficents \(c_{i}, d_{i}\) is
+	\begin{align*}
+		 & a_{0}+b_{0}= q_{0}p + c_{0},\quad 0\leq c_{0}\leq p-1     \\
+		 & a_{1}+b_{1}+q_{0}= q_{1}p+c_{1},\quad 0\leq c_{1}\leq p-1 \\
+		 & a_{2}+b_{2}+q_{1}= q_{2}p+c_{2},\quad 0\leq c_{2}\leq p-1 \\
+		 & \vdots
+	\end{align*}
+	and, using this, one can do analysis on \(\mathbb{Z}_{p}\), defining Cauchy sequences, a topology, and so on, so much so as to make it a complete space.
+
+	Let's explore these ideas a bit more, and make the \textbf{I-adic completion}. Let R be a commutative ring, \(\mathfrak{i} \trianglelefteq R \), and M be an R-modulus. Consider the inverse system \(\{F_{i}, \varphi_{j}^{i}\}_{i\in \mathbb{N}}\), where
+	\begin{align*}
+		F_{i}= \frac{M}{\mathfrak{i}^{i}M}, \varphi_{j}^{i}: & \frac{M}{\mathfrak{i}^{i}M}\twoheadrightarrow \frac{M}{\mathfrak{i}^{i}M} \\
+		                                                     & \overline{m}=m+\mathfrak{i}^{j}M\mapsto \overline{m}=m+\mathfrak{i}^{i}M  \\
+		                                                     & \mathfrak{i}^{j}M\subseteq \mathfrak{i}^{i}M.
+	\end{align*}
+	The inverse limit is denoted by \(\hat{M}\):
+	\[
+		\hat{M}\coloneqq \varprojlim_{}\frac{M}{\mathfrak{i}^{i}M}=\biggl\{(m_{i})_{i}: \varphi_{j}^{i}(\overline{m}_{j})=\overline{m}_{i}\biggr\}.
+	\]
+	To see that \(\hat{M}\) is an R-modulus, define for \(x=(\overline{m}_{i})_{i\in \mathbb{N}}\) and a in R,
+	\[
+		a \cdot x\coloneqq (\overline{am_{i})}_{i\in I}.
+	\]
+	From this, we have an R-homomorphism through
+	\[
+		\theta:M\rightarrow \hat{M}, m\mapsto (\overline{m})_{i\in \mathbb{N}}.
+	\]
+	\begin{exr}
+		\(\theta \) is injective iff \(\bigcap_{i\in \mathbb{N}}^{}\mathfrak{i}^{i}M = 0\).
+	\end{exr}
+	This \(\hat{M}\) is called the \textbf{I-adic completion of M}. If \(M=R\), then \(\hat{M}=\hat{R}\), which in particular means
+	\[
+		\hat{R}=\varprojlim_{}\frac{R}{\mathfrak{i}^{i}},
+	\]
+	and that is a commutative ring. With this in mind, we see that \(\hat{M}\) is an \(\hat{R}\)-modulus: if \(m=(\overline{m}_{i})_{i\in \mathbb{N},\; a=(\overline{a}_{i})_{i\in \mathbb{N}}}\), then
+	\[
+		a \cdot m_{i}\coloneqq (\overline{a_{i}m_{i}})_{i\in \mathbb{N}}.
+	\]
+	For example, if \(\mathfrak{j}=\mathfrak{i}^{2024}\), then \(\hat{M}_{\mathfrak{j}}\cong \hat{M}_{\mathfrak{i}}\). This is generalized via the following exercise
+	\begin{exr}
+		Let \(J\subseteq I\), where both J and I are directed sets, and assume that, for any i in I, there is a j in J such that \(i\leq j\). If \(\{F_{i}, \varphi_{j}^{i}\}\) is an inverse system, then
+		\[
+			\underbrace{\varprojlim_{I}F_{i}}_{\{F_{i}, \varphi_{j}^{i}\}_{i\in I}}\cong \underbrace{\varprojlim_{J}F_{j}}_{\{F_{j}, \varphi_{j}^{j'}\}_{j\in J}}
+		\]
+		In other words, the next diagram is commutative:
+		\begin{center}
+			\begin{tikzpicture}[
+					observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+					latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+					error/.style ={circle, thick, draw, text centered},
+					confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+					outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+				]
+				\node(TL) at (-2,-1){\(F_{j}\)};
+				\node(BL) at (0,1){\(\varprojlim_{I}F_{j}\)};
+				\node(TR) at (2,-1){\(F_{j'}\)};
+				\node(BR) at (0,3){\(\varprojlim_{I}F_{i}\)};
+
+				\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{j'}\)}(TR);
+				\draw[Arrow, dashed](BR)--node[midway, right] {\(\alpha \)}(BL);
+				\draw[Arrow](BL)--node[midway, right] {\(\alpha_{j}\)}(TL);
+				\draw[Arrow](BL)--node[midway, left] {\(\alpha_{j'}\)}(TR);
+				\draw[Arrow](BR)to[out = 200, in = 130, edge node={node[midway, left] {\(\alpha_{j}\)}}](TL); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+				\draw[Arrow](BR)to[out = 340, in = 60, edge node={node[midway, right] {\(\alpha_{j'}\)}}](TR);
+			\end{tikzpicture}
+		\end{center}
+	\end{exr}
+	Next, consider \(h:M\rightarrow N\) to be a homomorphism of R-moduli. For all i in \(\mathbb{N}\), put
+	\begin{align*}
+		f_{i}: & \frac{M}{\mathfrak{i}^{i}M}\rightarrow \frac{N}{\mathfrak{i}^{i}N} \\
+		       & \overline{m}\mapsto \overline{h(m)}.
+	\end{align*}
+	We want to combine the two diagrams below
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(T) at (0,1){\(\hat{N}\)};
+			\node(BL) at (-2,-1){\(N/\mathfrak{i}^{j}N\)};
+			\node(BR) at (2,-1){\(N/\mathfrak{i}^{i}N\)};
+
+			\node(TT) at (0,1){\(\hat{M}\)};
+			\node(BBL) at (-2,-1){\(M/\mathfrak{i}^{j}M\)};
+			\node(BBR) at (2,-1){\(M/\mathfrak{i}^{i}M\)};
+
+			\draw[Arrow](T)--node[midway, above] {\(\alpha_{j}\)}(BL);
+			\draw[Arrow](T)--node[midway, above] {\(\alpha_{i}\)}(BR);
+			\draw[Arrow](BL)--node[midway, below] {\(\varphi_{j}^{i}\)}(BR);
+
+			\draw[Arrow](TT)--node[midway, above] {\(\alpha_{j}'\)}(BBL);
+			\draw[Arrow](TT)--node[midway, above] {\(\alpha_{i}'\)}(BBR);
+			\draw[Arrow](BBL)--node[midway, below] {\(\varphi_{j}^{i'}\)}(BBR);
+		\end{tikzpicture}
+	\end{center}
+	To do that, we consider
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,-1){\(N/\mathfrak{i}^{j}N\)};
+			\node(BL) at (0,1){\(\hat{N}\)};
+			\node(TR) at (2,-1){\(N/\mathfrak{i}^{i}N\)};
+			\node(BR) at (0,3){\(\hat{M}\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{i}\)}(TR);
+			\draw[Arrow, dashed](BR)--node[midway, right] {\(\hat{h}\)}(BL);
+			\draw[Arrow](BL)--node[midway, right] {}(TL);
+			\draw[Arrow](BL)--node[midway, left] {}(TR);
+			\draw[Arrow](BR)to[out = 200, in = 130, edge node={node[midway, left] {\(h_{j}\circ \alpha_{j}'\)}}](TL); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow](BR)to[out = 340, in = 60, edge node={node[midway, right] {\(h_{i}\circ \alpha_{i}'\)}}](TR);
+		\end{tikzpicture}
+	\end{center}
+	where \(\hat{h}\) is an R-homomorphism defined by
+	\begin{align*}
+		\hat{h}: & \hat{M}\rightarrow \hat{N}                                                           \\
+		         & (\overline{m}_{i})_{i\in \mathbb{N}}\mapsto (\overline{h(m_{i})})_{i\in \mathbb{N}}.
+	\end{align*}
+	To truly be able to do analysis, we must define some sort of norm/distance in this space. To do it, consider
+	\[
+		(\mathbb{Q}, |\cdot |_{p}),\quad |x|_{p}=\frac{1}{p ^{v(x)}},
+	\]
+	where v(x) is given by the power \(\alpha\) below:
+	\begin{align*}
+		x = \frac{a}{b} & = p ^{\alpha}\frac{r}{s},\quad p\not|rs,\: \alpha\in \mathbb{Z} \\
+		                & a = p ^{a_{1}}r, \: p\not|r                                     \\
+		                & b = p ^{a_{2}}s, \: p\not|s                                     \\
+	\end{align*}
+	Then, for all \(x, y\in \mathbb{Q}\), define \(|x-y|_{p}\) as metric on \(\mathbb{Q}\), so that
+	\begin{align*}
+		 & |xy|_{p}=|x|_{p}|y|_{p}                                                                 \\
+		 & |x|_{p}=0 \Longleftrightarrow x=0                                                       \\
+		 & \underbrace{|x+y|_{p}\leq \max_{}\{|x|_{p}, |y|_{p}\}}_{\text{lacks Archimedean prop.}}
+	\end{align*}
+	This serves as a generalization of how to start analysis.
+
+	One more concrete example would be to take \(R=\mathbb{K}[x]\), \(\mathfrak{i}= \langle X \rangle\). Then,
+	\[
+		\hat{R}\cong h[[x]]= \biggl\{\sum\limits_{i=0}^{\infty}a_{i}x^{i}: a_{i}\in \mathbb{K}\biggr\},
+	\]
+	and
+	\[
+		\hat{M}=\biggl\{\sum\limits_{i=1}^{\infty}a_{i}x^{i}: a_{i}\in \mathbb{K}\biggr\},\quad \mathbb{Q}_{p, c}\rightarrow \hat{\mathbb{Q}}_{p, c}.
+	\]
+\end{example}
 \end{document}
