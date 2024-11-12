@@ -1,0 +1,379 @@
+ \documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 23 - November 12th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item Inverse Limits as Functors;
+	\item Wrapping up the Completion Example.
+\end{itemize}
+\subsection{Inverse Limits}
+Let I be a perorder, \(\mathcal{A}\) be an abelian category, and \(\mathrm{Inv}_{\mathcal{A}}(I)\) be the category of all inverse systems with index set I
+\[
+	\mathrm{Obj}(\mathrm{Inv}_{\mathcal{A}}(I))=\{F:I^{\mathrm{op}}\rightarrow \mathcal{A}\}=\{F_{i},  \varphi_{i}\}.
+\]
+In fact, \(\mathrm{Inv}_{\mathcal{A}}(I)=\mathcal{A}^{\mathrm{I}^{\mathrm{op}}}\) in the functor category, so it is an abelian category. Suppose the inverse limit of the inverse system with index I exists is \(\mathcal{A}\):
+\[
+	F=\{F_{i}, \varphi_{j}^{i}\}_{I}\rightsquigarrow \varprojlim_{}F_{i} \:\text{exists}.
+\]
+Then, \(\varprojlim_{}\) is an additive functor
+\begin{align*}
+	\varprojlim_{}: & \mathrm{Inv}_{\mathcal{A}}(I)\rightarrow \mathcal{A}    \\
+	                & \{F_{i}, \varphi_{j}^{i}\} \mapsto \varprojlim_{}F_{i}.
+\end{align*}
+On the other hand, to any object A in \(\mathrm{Obj}(\mathcal{A})\), we can associate an inverse system \(|A|\) given by
+\[
+	|A|_{i}=A,\quad \varphi_{j}^{i}:|A|_{j}\overbracket[0pt]{\rightarrow}^{\mathrm{id}_{A}}|A|_{i},
+\]
+so we also get a functor
+\begin{align*}
+	|\quad |: & \mathcal{A}\rightarrow \mathrm{Inv}_{\mathcal{A}}(I) \\
+	          & A\mapsto |A|.
+\end{align*}
+\begin{prop*}
+	There is a natural isomorphism such that
+	\[
+		\mathrm{Inv}(|A|, \{F_{i}, \varphi_{j}^{i}\})\cong \mathcal{A}(A, \varprojlim_{}F_{i})
+	\]
+\end{prop*}
+\begin{proof*}
+	Let \(\theta:|A|\rightarrow \{F_{i},  \varphi _{j}^{i}\}\) be a morphism such that we have the following diagram:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,-1){\(F_{j}\)};
+			\node(BL) at (0,1){\(\varprojlim_{}F_{i}\)};
+			\node(TR) at (2,-1){\(F_{i}\)};
+			\node(BR) at (0,3){\(A\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{i}\)}(TR);
+			\draw[Arrow, dashed](BR)--node[midway, right] {\(\gamma \)}(BL);
+			\draw[Arrow](BL)--node[midway, right] {}(TL);
+			\draw[Arrow](BL)--node[midway, left] {}(TR);
+			\draw[Arrow](BR)to[out = 200, in = 130, edge node={node[midway, left] {\(\theta_{j}\)}}](TL); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow](BR)to[out = 340, in = 60, edge node={node[midway, right] {\(\theta_{i}\)}}](TR);
+		\end{tikzpicture}
+	\end{center}
+	In other words, there exists a unique \(\gamma:A\rightarrow \varprojlim_{}F_{i}\) such that
+	\[
+		\gamma\circ F_{i}=\theta_{i}\quad \forall i\in I.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Two corollaries that follow are
+\begin{crl*}
+	The functors \((|\quad |, \varprojlim_{I})\) are adjoint
+\end{crl*}
+\begin{crl*}
+	\(\varprojlim_{I}\) is left-exact, i.e., for any exact sequence of inverse systems
+	\[
+		0\rightarrow \{A_{i},  \varphi _{j}^{i}\}\rightarrow \{B_{i}, \psi_{j}^{i}\}\rightarrow \{C_{i}, \eta_{j}^{i}\}\rightarrow 0,
+	\]
+	we have the exact sequence
+	\[
+		0 \rightarrow \varprojlim_{}A_{i}\rightarrow \varprojlim_{}B_{i}\rightarrow \varprojlim_{}C_{i}.
+	\]
+\end{crl*}
+\begin{example}
+	Let R be a commutative ring, \(\mathfrak{i} \trianglelefteq R\), and
+	\[
+		0\rightarrow L\overbracket[0pt]{\rightarrow}^{f}M\overbracket[0pt]{\rightarrow}^{g}N\rightarrow 0
+	\]
+	be an exact sequence of R-moduli. Then, the sequence
+	\[
+		0 \rightarrow \hat{L}\overbracket[0pt]{\rightarrow}^{\hat{f}}\hat{M}\overbracket[0pt]{\rightarrow}^{\hat{g}}\hat{N},
+	\]
+	where
+	\[
+		\hat{L}=\varprojlim_{}\frac{L}{I^{i}L}, \: \hat{M}=\varprojlim_{}\frac{M}{I^{i}M},\:\hat{N}=\varprojlim_{}\frac{N}{I^{i}N}.
+	\]
+	is exact (by the previous corollary). Thus, the I-adic completion is right exact.
+	\begin{theorem*}
+		Let \(\mathfrak{i} \trianglelefteq R.\) If R is \textit{Noetherian} (any ideal \(\mathfrak{i}\trianglelefteq R\) is finitely generated), then the I-adic completion is an exact functor on the category of finitely generated R-moduli: if
+		\[
+			0\rightarrow L\overbracket[0pt]{\rightarrow}^{f}M\overbracket[0pt]{\rightarrow}^{g}N\rightarrow 0
+		\]
+		is an exact sequence of R-moduli, then
+		\[
+			0\rightarrow \hat{L}\rightarrow \hat{M}\rightarrow \hat{N}\rightarrow 0
+		\]
+		is an exact sequence of \(\hat{R}-\)moduli
+	\end{theorem*}
+	\begin{proof*}
+		Atiyah-MacDonald book.
+	\end{proof*}
+	\begin{crl*}
+		If R is Noetherian, and \(M_{1},\dotsc , M_{n}\) are finitely generated R-moduli, then
+		\[
+			\widehat{\bigoplus_{i=1}^{n}}\cong \bigoplus_{i=1}^{n}\hat{M}_{i}.
+		\]
+	\end{crl*}
+	\begin{proof*}
+		Apply the previous theorem to the exact sequence
+		\[
+			0\rightarrow M_{i}\rightarrow \bigoplus_{i=1}^{n}M_{i}\rightarrow \bigoplus_{i=2}^{n}M_{i}\rightarrow 0
+		\]
+		and discuss by induction. \qedsymbol
+	\end{proof*}
+\end{example}
+\begin{theorem*}
+	Let (\(\mathcal{A}, \mathcal{B}\)) be two abelian categories, \(\mathcal{L}:\mathcal{A}\rightarrow \mathcal{B}\), and \(\mathcal{R}:\mathcal{B}\rightarrow \mathcal{A}\) be two additive adjoint functors.
+	\begin{itemize}
+		\item[1)] If \(\{A_{i}, \varphi _{j}^{i}\}\) is a direct system such that \(\varinjlim_{}A_{i}\) and \(\varinjlim_{}L(A_{i})\) exist, then \(L(\varinjlim_{}A_{i})\cong \varinjlim_{}L(A_{i})\).
+		\item[2)] If \(\{B_{i}, \psi_{j}^{i}\}\) is a direct system in \(\mathcal{B}\) such that \(\varprojlim_{}B_{i}\) and \(\varprojlim_{}R(B_{i})\) exists, then \(R(\varprojlim_{}A_{i})\cong \varinjlim_{}R(A_{i})\).
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	From the directed system \(\{A_{i}, \varphi_{j}^{i}\}\), we obtain the directed system \(\{L(A_{i}), \psi(\varphi_{j}^{i})\}\). Then, putting this together with our hypotheses, we get the following diagrams:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(T) at (-6,1){\(A_{i}\)};
+			\node(BL) at (-8,-1){\(A_{j}\)};
+			\node(BR) at (-4,-1){\(A_{k}\)};
+
+			\draw[Arrow](T)--node[midway, above] {\(\varphi_{j}^{i}\)}(BL);
+			\draw[Arrow](T)--node[midway, above] {\(\varphi_{k}^{i}\)}(BR);
+			\draw[Arrow](BL)--node[midway, below] {\(\varphi_{k}^{j}\)}(BR);
+
+			\node(TL) at (0,1){\(L(A_{i})\)};
+			\node(BLL) at (-2,-1){\(L((A_{j})\)};
+			\node(BLR) at (2,-1){\(L(A_{k})\)};
+
+			\draw[Arrow](TL)--node[midway, left] {\(L(\varphi_{j}^{i})\)}(BLL);
+			\draw[Arrow](TL)--node[midway, right] {\(L(\varphi_{k}^{i})\)}(BLR);
+			\draw[Arrow](BLL)--node[midway, below] {\(L(\varphi_{k}^{j})\)}(BLR);
+
+			\node(TI) at (4,-1){\(\varinjlim_{}L(A_{i})\)};
+			\node(BLI) at (2,1){\(L(A_{j})\)};
+			\node(BRI) at (6,1){\(L(A_{k})\)};
+
+			\draw[Arrow](BLI)--node[midway, above] {\(\alpha_{i}'\)}(TI);
+			\draw[Arrow](BRI)--node[midway, above] {\(\alpha_{j}'\)}(TI);
+			\draw[Arrow](BLI)--node[midway, below] {\(\varphi_{j}^{i}\)}(BRI);
+
+			\draw[Arrow, red, dashed](T)--node[midway, above] {L}(TL);
+			\draw[Arrow, red, dashed](TL)--(TI);
+		\end{tikzpicture}
+	\end{center}
+	On the other hand, we also have the relations
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(T) at (-2,-1){\(\varinjlim_{}A_{i}\)};
+			\node(BL) at (-4,1){\(A_{i}\)};
+			\node(BR) at (0,1){\(A_{j}\)};
+
+			\draw[Arrow](BL)--node[midway, above] {\(\alpha_{i}\)}(T);
+			\draw[Arrow](BR)--node[midway, above] {\(\alpha_{j}\)}(T);
+			\draw[Arrow](BL)--node[midway, below] {\( \varphi _{j}^{i}\)}(BR);
+
+			\node(TL) at (4,-1){\(L(\varinjlim_{}A_{i})\)};
+			\node(BLL) at (2,1){\(L(A_{i})\)};
+			\node(BLR) at (6,1){\(L(A_{j})\)};
+
+			\draw[Arrow](BLL)--node[midway, left] {\(L(\alpha_{i})\)}(TL);
+			\draw[Arrow](BLR)--node[midway, right] {\(L(\alpha_{j})\)}(TL);
+			\draw[Arrow](BLL)--node[midway, below] {\(L(\varphi _{j}^{i})\)}(BLR);
+
+			\draw[Arrow, red](T)--(TL);
+		\end{tikzpicture}
+	\end{center}
+	Putting both diagrams together, we find
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(L(A_{i})\)};
+			\node(BL) at (0,-1){\(\varinjlim_{}L(A_{i})\)};
+			\node(TR) at (2,1){\(L(A_{j})\)};
+			\node(BR) at (0,-3){\(L(\varinjlim_{}A_{i})\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(L(\varphi_{j}^{i})\)}(TR);
+			\draw[Arrow, dashed](BL)--node[midway, right] {\(\gamma \)}(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{i}'\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{j}'\)}(BL);
+			\draw[Arrow, -stealth](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(L(\alpha_{i})\)}}](BR); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow, -stealth](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(L(\alpha_{j})\)}}](BR);
+		\end{tikzpicture}
+	\end{center}
+	To prove that \(\gamma \) is an isomorphism, it is sufficient to prove that \(L(\varinjlim_{}A_{i})\) satisfies the condition of a direct limit:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(L(A_{i})\)};
+			\node(BR) at (0,-3){B};
+			\node(TR) at (2,1){\(L(A_{j})\)};
+			\node(BL) at (0,-1){\(L(\varinjlim_{}A_{i})\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(L(\varphi_{j}^{i})\)}(TR);
+			\draw[Arrow, dashed](BL)--node[midway, right] {?}(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{i}'\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{j}'\)}(BL);
+			\draw[Arrow, -stealth](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(f_{i}\)}}](BR); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow, -stealth](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(f_{j}\)}}](BR);
+		\end{tikzpicture}
+	\end{center}
+	Since (L, R) are adjoint functors, we have the bijection
+	\[
+		\mathcal{B}(L(\varinjlim_{}A_{i}), B)\overbracket[0pt]{\cong}^{\tau } \mathcal{A}(\varinjlim_{}A_{i}, R(B)).
+	\]
+	In the bijection
+	\[
+		\mathcal{B}(L(A), C)\cong \mathcal{A}(A, R(C)),
+	\]
+	put \(C=L(A)\). Then, it follows that
+	\begin{align*}
+		\mathcal{B}(L(A), & L(A))\overbracket[0pt]{\cong }^{\tau }\mathcal{A}(A, R \circ L(A)) \\
+		                  & \mathrm{id}_{L(A)}\longmapsto (t_{A}:A\rightarrow R\circ L(A))     \\
+		                  & \tau(\mathrm{id}_{L(A)})\coloneqq t_{A},
+	\end{align*}
+	which gives a natural transformation
+	\[
+		\mathrm{id}_{A}\Rightarrow R\circ L,
+	\]
+	and the commutative diagram
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(A_{i}\)};
+			\node(BL) at (0,-1){\(\varinjlim_{}A_{i}\)};
+			\node(TR) at (2,1){\(A_{j}\)};
+			\node(BR) at (0,-3){\(R(B)\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi_{j}^{i}\)}(TR);
+			\draw[Arrow, dashed](BL)--node[midway, right] {\(\beta\) }(BR);
+			\draw[Arrow](TL)--node[midway, right] {\(\alpha_{i}\)}(BL);
+			\draw[Arrow](TR)--node[midway, left] {\(\alpha_{j}\)}(BL);
+			\draw[Arrow, -stealth](TL)to[out = 250, in = 150, edge node={node[midway, left] {\(R(f_{i})\circ t_{A_{i}}\)}}](BR); % To use in/out, imagine a circle around the node. The angles are with respect to the node as the center.
+			\draw[Arrow, -stealth](TR)to[out = 300, in = 30, edge node={node[midway, right] {\(R(f_{j})\circ t_{A_{j}}\)}}](BR);
+		\end{tikzpicture}
+
+		\[
+			\Rightarrow \beta:\varinjlim_{}A_{i}\rightarrow R(B),\quad \beta\circ \alpha_{i}=R(f_{i})\circ t_{A_{i}}.
+		\]
+	\end{center}
+	Observe that \(\beta\in \mathcal{A}(\varinjlim_{}A_{i}, R(B))\), so \(\tau^{-1}(\beta )\in (L(\varinjlim_{}A_{i}), B)\). Since \(\tau , \tau^{-1}\) are natural transformations, we have
+	\[
+		\gamma\circ L(\alpha_{i})=f_{i}.
+	\]
+	Hence,
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(\mathcal{A}(A_{i}, R(B))\)};
+			\node(BL) at (-2,-1){\(\mathcal{B}(L(A_{i}), B)\)};
+			\node(TR) at (2,1){\(\mathcal{A}(\varinjlim_{}A_{i}, R(B))\)};
+			\node(BR) at (2,-1){\(\mathcal{B}(L(\varinjlim_{}A_{i}), B)\)};
+
+			\draw[Arrow](TR)--node[midway, above] {\(\alpha_{i*}\)}(TL);
+			\draw[Arrow](BL)--node[midway, below] {\(L(\alpha_{i})_{*}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(\tau^{-1}\)}(BL);
+			\draw[Arrow](TR)--node[midway, right] {\(\tau^{-1}\)}(BR);
+		\end{tikzpicture}
+	\end{center}
+	which means that
+	\begin{align*}
+		            & L(\alpha_{i})_{*}\circ \tau^{-1}=\tau^{-1}\circ \alpha_{i*}                                                                                      \\
+		\Rightarrow & L(\alpha_{i})_{*}\circ \tau^{-1}(B)=\tau^{-1}\circ \alpha_{i*}(\beta )                                                                           \\
+		\Rightarrow & \gamma\circ L(\alpha_{i})=\tau^{-1}(R(f_{i})\circ t_{A_{i}})=\tau^{-1}(R(f_{i}))\circ \tau^{-1}(t_{A_{i}})=f_{i}\circ \mathrm{id}_{A_{i}}=f_{i}.
+	\end{align*}
+	Finally, to see that \(\gamma \) is unique, assume \(\gamma':L(\varinjlim_{}A_{i})\rightarrow B\) is another morphism such that
+	\[
+		\gamma'\circ L(\alpha_{i})=f_{i}.
+	\]
+	Then, we get
+	\[
+		\varinjlim_{}A_{i}\overbracket[0pt]{\rightarrow}^{t}R\circ L(\varinjlim_{}A_{i})\overbracket[0pt]{\rightarrow}^{R(\gamma')}R(B)
+	\]
+	so that \(R(\gamma')\circ t\) satisfies the condition of B. Thus,
+	\[
+		R(\gamma')\circ t = B \Rightarrow \tau^{-1}(B)=\gamma' \Rightarrow \gamma =\gamma'.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	Let \(\mathcal{A}, \mathcal{B}\) be two abelian categories such that the direct sum of objects exists in them, i.e., if \(\{A_{i}\}_{i\in I}\) is a family of objects, then \(\bigoplus\limits_{i\in I}A_{i}\) exists. If \(L:\mathcal{A}\rightarrow \mathcal{B}\) is a left-adjoint of a functor, then
+	\[
+		L \biggl(\bigoplus_{i\in I}A_{i}\biggr)\cong \bigoplus_{i\in I}L(A_{i}).
+	\]
+\end{crl*}
+\begin{proof*}
+	If we consider I as a pre order with the order
+	\[
+		i\leq j \Longleftrightarrow i=j,
+	\]
+	then
+	\[
+		\varinjlim_{I}A_{i}\cong \bigoplus_{i\in I}A_{i}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	\begin{itemize}
+		\item[1)] Any two directed limits commute (you can change indices' order), that is, if \(\{A_{ij}\}_{i\in I, j\in J}\) is a family of objects in an Abelian category, and if
+		      \[
+			      \varinjlim_{I}A_{ij}\quad\&\quad \varinjlim_{J}A_{ij}
+		      \]
+		      exist, then
+		      \[
+			      \varinjlim_{J}[\varinjlim_{I}(A_{ij})]\cong \varinjlim_{I}[\varinjlim_{J}(A_{ij})].
+		      \]
+		\item[2)] Any two inverse limits commute, as above.
+	\end{itemize}
+\end{crl*}
+\begin{proof*}
+	We've seen that \(L\coloneqq \varinjlim_{I}A_{i}\) is left-adjoint of the functor \(|\:|\). Now, use the previous theorem:
+	\[
+		\varinjlim_{J} L(A_{ij})\cong L(\varinjlim_{J}(A_{ij})).\quad \text{\qedsymbol}.
+	\]
+\end{proof*}
+\begin{example}
+	Let B be a R-S bimodule. As seen before, the pair of functors
+	\[
+		(B \otimes_{R}-, \mathrm{Hom}_{S}(B, -))
+	\]
+	are adjoint functors. Moreover,
+	\[
+		\mathrm{Hom}_{S}(B\otimes_{R} A, C)\cong \mathrm{Hom}_{R}(A, \mathrm{Hom}_{S}(B, C)).
+	\]
+	Thus, \(B\otimes_{R}-\) commutes with the direct limit:
+	\[
+		B\otimes _{R}(\varinjlim_{}A_{i})\cong \varinjlim_{}(B\otimes A_{i})
+	\]
+	and \(\mathrm{Hom}_{S}(B, -)\) commutes with the inverse limit:
+	\[
+		\mathrm{Hom}_{S}(B, \varprojlim_{}C_{i})\cong \varprojlim_{}C_{i}\mathrm{Hom}(B, C_{i}).
+	\]
+\end{example}
+\end{document}
