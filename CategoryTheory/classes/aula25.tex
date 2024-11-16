@@ -1,0 +1,66 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 25 - November 19th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item \(K_{0}\) of Categories;
+	\item ``Devissage'' Theorem.
+\end{itemize}
+\subsection{\(K_{0}\) of a Category}
+First of all, we set the context of our category. One should recall the definitions of \textbf{pre-additive, additive, abelian, cokernel, kernel, and full subcategory}.
+Given that, we can define the space on which we'll work.
+\begin{def*}
+	Let \(\mathcal{A}\) be an abelian category. A \textbf{category with exact sequences} is a full additive subcategory \(\mathcal{P}\) of \(\mathcal{A}\), with the following properties:
+	\begin{itemize}
+		\item[i)] \(\mathcal{P}\) is \textbf{closed under extensions}, i.e., if
+		      \[
+			      0\rightarrow P_{1}\rightarrow P\rightarrow P_{2}\rightarrow 0
+		      \]
+		      is an exact sequence in \(\mathcal{A}\) and \(P_{1}, P_{2}\in \mathrm{Obj}(\mathcal{P})\), then \(P\in \mathrm{Obj}(\mathcal{P})\).
+		\item[ii)] \(\mathcal{P}\) has a \textbf{small skeletonk} in \(\mathcal{A}\), i.e., \(\mathcal{P}\) has a full subcategory \(\mathcal{P}_{0}\) which is small. \(\square\)
+	\end{itemize}
+\end{def*}
+It's nice to add the following remark: the exact sequences in such a category are defined to be the exact sequences in the ambient category \(\mathcal{A}\) with objects and morphisms from \(\mathcal{P}.\)
+\begin{example}
+	Small abelian categories or abelian categories with a small skeleton are categories with exact sequences.
+\end{example}
+\begin{example}
+	Let R be a ring. Then, the category \(\mathrm{Proj R}\) discussed last class is a category with exact sequences, where the small skeleton is the set of direct summands in \(\{R^{m}: m\in \mathbb{N}\}.\)
+\end{example}
+\begin{def*}
+	Let \(\mathcal{P}\) be a category with exact sequences and whose small skeleton is denoted by \(\mathcal{P}_{0}\). We define \(K_{0}(\mathcal{P})\) to be the free abelian group on \(\mathrm{Obj}(\mathcal{P}_{0})\) modulo the following relations:
+	\begin{itemize}
+		\item[i)] \([P]=[P']\) if \(P\cong P'\) in \(\mathcal{P}\);
+		\item[ii)] \([P]=[P_{1}]+[P_{2}]\) if there is a short exact sequence
+		      \[
+			      0\rightarrow P_{1}\rightarrow P\rightarrow P_{2}\rightarrow 0
+		      \]
+		      in \(\mathcal{P}.\:\square\)
+	\end{itemize}
+\end{def*}
+Here, \([P]\) denotes the element of \(K_{0}(P)\) corresponding to \(P\in \mathrm{Obj}(\mathcal{P}_{0})\). Moreover, (i) is just a particular case of (ii) when \(P_{1} = 0\), so that
+\[
+	0\rightarrow P \hookrightarrow\mathrel{\mspace{-15mu}}\twoheadrightarrow P_{2}\rightarrow 0 \Rightarrow P\cong P_{2}.
+\]
+\begin{theorem*}
+	Consider the category \(\mathrm{ProjR}\), with R a ring. Then, \(K_{0}(R)\cong K_{0}(\mathrm{Proj R})\).
+\end{theorem*}
+Next, let's study the ``Devissage'' theorem, which comes from a French word for ``\textit{unscrewing}'' and is an algebraic geometry technique introduced by Alexander Grothendieck to prove statements about coherent sheaves on Noetherian Schemes:
+\begin{def*}
+	A \textbf{simple object} in an abelian category \(\mathcal{A}\)  is an object \(0\neq M\in \mathrm{Obj}(\mathcal{A})\) such that any monomorphism \(N\rightarrowtail M\) is either 0 or an isomorphism. \(\square\)
+\end{def*}
+\begin{def*}
+	Let \(\mathcal{A}\) be an abelian category. The simple objects in \(\mathcal{A}\) are \textbf{objects of length one}. By induction, we define the \textbf{objects of length n} to be those \(M\in \mathrm{Obj}(\mathcal{A})\) for which there is an exact sequence in \(\mathcal{A}\)
+	\[
+		0\rightarrow M_{1}\rightarrow M\rightarrow M_{2}\rightarrow 0,
+	\]
+	with \(M_{1}, M_{2}\in \mathrm{Obj}(\mathcal{A})\) and \(M_{1}\) of length n-1, \(n\geq 2\: \square\)
+\end{def*}
+Define \(\mathcal{A}_{fi}\) to be the \textit{category of objects of finite length}, that is, objects M of length less than or equal to n for some natural number \(n\geq 1\).
+\begin{prop*}
+	The full subcategory \(\mathcal{A}_{fi}\) of \(\mathcal{A}\) is a category with exact sequences.
+\end{prop*}
+\begin{theorem*}[``Devissage'']
+	Let \(\mathcal{A}\) be an abelian category in which every simple object is isomorphic to one, and only one, element of some set \(S\subseteq \mathrm{Obj}(\mathcal{A})\). Then, \(K_{0}(\mathcal{A}_{fi})\) is canonically isomorphic to the free abelian group on S.
+\end{theorem*}
+\end{document}
