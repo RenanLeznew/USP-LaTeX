@@ -12,7 +12,7 @@ Se tudo correr conforme o planejado, este repositório será atualizado (pelo me
 
 Atualmente, há um Drive no qual é possível baixar os PDF's das disciplinas. [Clique aqui para acessá-lo](https://drive.google.com/drive/u/2/folders/1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc).
 
-Este trabalho é carinhosamente dedicado à minha namorada, Gabs, que esteve me apoiando ao longo da criação destas notas, me fornecendo ideias e ouvindo minhas reclamações de erros inesperados.
+Este trabalho é carinhosamente dedicado à minha namorada, Gabriela Zanetti, que esteve me apoiando ao longo da criação destas notas, me fornecendo ideias e ouvindo minhas reclamações de erros inesperados.
 
 ## Itens Incluídos Aqui (Por ano) ✒️📜
 
@@ -71,7 +71,7 @@ If everything goes as expected, this repository shall be updated (at least) mont
 Recently, I've been using Github Actions to upload the PDF's to a Google Drive Folder [Click Here to Access It](https://drive.google.com/drive/u/2/folders/1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc).
 I also plan to include an english translated version of all the PDF's, though that will take a long time.
 
-I dedicate these notes to my most dear girlfriend, Gabs, who gives me motivation even in the worst moments, and patiently listens to my complaints when there are unexpected errors.
+I dedicate these notes to my most dear girlfriend, Gabriela Zanetti, who gives me motivation even in the worst moments, and patiently listens to my complaints when there are unexpected errors.
 
 ## Items Included Here (By year) ✒️📜
 
