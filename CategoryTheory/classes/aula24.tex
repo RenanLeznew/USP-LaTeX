@@ -1,0 +1,141 @@
+\documentclass[../category_theory.tex]{subfiles}
+\begin{document}
+\section{Class 24 - November 14th, 2024}
+\subsection{Motivations}
+\begin{itemize}
+	\item K-Theory
+\end{itemize}
+\subsection{K-Theory - A Brief Recap}
+Before we truly start, let's recap some important definitions:
+\begin{def*}
+	A \textbf{magma} is an algebraic structure consisting of a set X with an internal binary operation
+	\begin{align*}
+		\cdot : & X\times X\rightarrow X                    \\
+		        & (a, b)\longmapsto a \cdot b.\quad \square
+	\end{align*}
+\end{def*}
+\begin{def*}
+	A \textbf{semigroup} is a magma such that the binary operation is associative. \(\square\)
+\end{def*}
+\begin{def*}
+	A \textbf{monoid} is a semigroup with an identity for the binary operation. \(\square\)
+\end{def*}
+\begin{def*}
+	A \textbf{group} is a monoid such that each element is invertible under the binary operation. \(\square\)
+\end{def*}
+\begin{def*}
+	A \textbf{free abelian group} is an abelian group with a basis. \(\square\)
+\end{def*}
+\begin{def*}
+	A group G \textbf{acts on a set X} if we have a function
+	\begin{align*}
+		 & G \times X \rightarrow X \\
+		 & (g, x)\mapsto g \cdot x,
+	\end{align*}
+	which satisfies \(1_{G}=x\) and \(h \cdot (g \cdot x)= (h \cdot g)\cdot x\) for all x in X and g, h in G. The notation used is \(G\curvearrowright X\)
+\end{def*}
+\begin{def*}
+	An \textbf{(left) R-module M} consists of an abelian group \((M, +)\) and an operation \(\cdot :R\times M\rightarrow M\) such that, for all r, s in R, which is a ring with unity, and x, y in M, we have:
+	\begin{itemize}
+		\item[1)] \(r \cdot (x + y)= r \cdot x + r \cdot y\);
+		\item[2)] \((r+s)\cdot x = r \cdot x + s \cdot x\);
+		\item[3)] \((r \cdot s)\cdot x = r \cdot (s \cdot x)\);
+		\item[4)] \(1 \cdot x = x\). \(\square\)
+	\end{itemize}
+\end{def*}
+Notice that properties 3 and 4 make it so that a module is always an action of R in M.
+\begin{def*}
+	A \textbf{finitely generated module} is a module that has a finite set of generators. \(\square\)
+\end{def*}
+\begin{def*}
+	A \textbf{free module} is a module with a basis. \(\square\)
+\end{def*}
+\begin{def*}
+	An R-module P is said to be \textbf{projective} if there exists an R-module Q such that \(P\oplus Q\) is free. \(\square\)
+\end{def*}
+\begin{prop*}
+	Every free R-module is projective.
+\end{prop*}
+\begin{proof*}
+	Let P be a free R-module. Taking Q as the trivial module 0, we get the result. \qedsymbol
+\end{proof*}
+\subsection{Grothendieck Group and  \(K_{0}\)}
+With these definitions in mind, we can start. Consider the category of all finitely-generated projective modules over R, denoted by \(\mathrm{Proj R}\). It forms a not-small category described by
+\begin{align*}
+	 & \mathrm{Obj}(\mathrm{Proj R})=\{P: P \text{ is a finitely-generated projective module}\} \\
+	 & \mathrm{Proj R}(P, Q)=\{f:P\rightarrow Q: f \text{ is a usual homomorphism}.\}
+\end{align*}
+For now, just consider the collection \(\mathbb{P}\) of all finitely-generated projective R-moduli and take the following equivalence relation on \(\mathbb{P}:\)
+\[
+	\forall P, Q\in \mathbb{P},\: P\sim Q \Longleftrightarrow P\cong Q
+\]
+Call Proj R to be the set of isomorphism classes of finitely-generated projective R-moduli; under the operation \(\oplus\), Proj R is an abelian monoid, but it is not, in general, a group - in other words, it lacks invertibility. We can, however, ``force'' it into becoming a group, in a process similar to how one usually constructs \((\mathbb{Z}, +)\) from \((\mathbb{N}, +)\).
+\begin{theorem*}
+	Let S be a commutative/abelian semigroup. There exists an abelian group G, called the \textbf{Grothendieck group} or \textbf{group completion of S}, together with a semigroup homomorphism \(\varphi :S\rightarrow G\) such that for any group H and homomorphism \(\psi:S\rightarrow H\), there exists a unique homomorphism \(\theta:G\rightarrow H\) with \(\psi = \theta \circ \varphi \).
+\end{theorem*}
+In the uniqueness from the above theorem, we have a universal property: if \(\varphi':S\rightarrow G'\) is any other pair witThe same property, then there exists an isomorphism \(\alpha:G\rightarrow G'\) with \(\varphi'=\alpha \circ \varphi \).
+\begin{example}
+	The group completion of \(\mathbb{N}\) is \(\mathbb{Z}\), which follows from the universal property to \(\mathbb{Z}.\)
+\end{example}
+\begin{def*}
+	Let R be a ring with identity. Then, \(K_{0}(R)\) is the Grothendieck group of \((\mathrm{Proj R}, \oplus)\). \(\square\)
+\end{def*}
+\begin{example}
+	If R is a field or a division ring (non-commutative field), then \(K_{0}(R)\cong \mathbb{Z}.\)
+
+	As a matter of facts, if R is as above, then any finitely-generated R-modulus is a finitely-generated R-vector space (module over a field). Thus, we have a basis and a well-defined dimension. Since dimension is invariant troughout isomorphisms, we have an isomorphism
+	\[
+		\mathrm{Proj R}\overbracket[0pt]{\Rightarrow}^{\sim}\mathbb{N},
+	\]
+	where V is an n-dimensional vector space (\([v]\mapsto n=\mathrm{dim}(V)\).) As seen before, the group completion of \(\mathbb{N}\) is \(\mathbb{Z}\) by universal property, therefore \(K_{0}(R)\cong \mathbb{Z}.\)
+\end{example}
+\begin{example}
+	If R is a local ring, an eucilidean domain, or a P.I.D., then \(K_{0}(R)\cong \mathbb{Z}.\)
+\end{example}
+\begin{prop*}
+	Let \((R_{\alpha })_{\alpha \in I}, \: (\theta_{\alpha \beta }:R_{\alpha }\rightarrow R_{\beta })_{\alpha <\beta }\) be a directed system of rings and let \(R\coloneqq \varinjlim_{}R_{\alpha }\) be the directed limit of the system. Then, \(K_{0}(R)\cong \varinjlim_{}K_{0}(R_{\alpha })\).
+\end{prop*}
+\begin{prop*}
+	Let \(R = R_1\times R_2\) be a cartesian product of rings. Then, \(K_{0}(R)\cong K_{0}(R_1)\oplus / \times K_{0}(R_2)\)
+\end{prop*}
+\begin{theorem*}[Monita Invariance]
+	Let R be a ring and \(n\in \mathbb{Z}_{>0}\). Then,
+	\[
+		K_{0}(R) \cong K_{0}(M_{n}(R)).
+	\]
+\end{theorem*}
+\begin{prop*}
+	\(K_{0}(-)\) is a covariant functor from the category of Rings to the category of Ableian Groups, Ab.
+\end{prop*}
+\begin{proof*}
+	First of all, for any R in \(\mathrm{Obj}(\mathrm{Rings}),\: K_{0}(R)\) is in \(\mathrm{Obj}(\mathrm{Ab})\), since the Grothendieck group of \((\mathrm{Proj R}, \oplus)\) is an abelian group.
+
+	Secondly, consider the identity \(\mathrm{id}_R:R\rightarrow R, \; R\in \mathrm{Obj}(\mathrm{Rings})\). Then,
+	\begin{align*}
+		(\mathrm{id}_{R})_{*}=K_{0}(\mathrm{id}_{R}): & K_{0}(R)\rightarrow K_{0}(R)      \\
+		                                              & [N]\mapsto [N\otimes_{R}R] = [N],
+	\end{align*}
+	so that \(K_{0}(\mathrm{id}_{R}) = \mathrm{id}_{K_{0}(R)}\). Now, take two arrows
+	\[
+		\varphi :R'\rightarrow R\quad\&\quad \psi:S\rightarrow R'.
+	\]
+	Note that
+	\begin{align*}
+		K_{0}(\varphi ): & K_{0}(R')\rightarrow K_{0}(R)      \\
+		                 & [N]\mapsto [N\otimes_{R'}R] = [N],
+	\end{align*}
+	and
+	\begin{align*}
+		K_{0}(\psi): & K_{0}(S)\rightarrow K_{0}(R') \\
+		             & [N]\mapsto [N\otimes_{S}R']
+	\end{align*}
+	are well-defined.
+
+	Moreover,
+	\begin{align*}
+		(\varphi\circ \psi)_{*}=K_{0}(\varphi \circ \psi): & K_{0}(S)\rightarrow K_{0}(R) \\
+		                                                   & [M]\mapsto [M\otimes_{S}R],
+	\end{align*}
+\end{proof*}
+
+\end{document}
