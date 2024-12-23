@@ -7,4 +7,220 @@
 	\item Sequências Duplas;
 	\item Produto de Séries de Cauchy.
 \end{itemize}
+\subsection{Funções Analíticas}
+\begin{def*}
+	Seja I um intervalo aberto de \(\mathbb{R}\). Uma função \(f:I\rightarrow \mathbb{R}\) é dita \textbf{analítica} se ela é de classe \(C^{\infty}\) e se, dado \(x_{0}\) um ponto de I, existe \(R>0\) tal que uma vizinhança de raio R centrada em \(x_{0}\) esteja contida em I e se o valor dessa função é dado pela sua expansão de Taylor nos pontos desta vizinhança; de forma equivalente:
+	\begin{itemize}
+		\item Existe R positivo tal que \(V_{R}(x_{0})=(x_{0}-R, x_{0}+R)\subseteq I\) e;
+		\item Para todo x em \(V_{R}(x_{0})\),
+		      \[
+			      f(x)=f(x_{0})+f'(x_{0})(x-x_{0})+\dotsc +\frac{f^{(n)(x_{0})}}{n!}(x-x_{0})^{n}+\dotsc \quad \square
+		      \]
+	\end{itemize}
+\end{def*}
+Com base na aula anterior sobre séries de potências, esta definição pode ser reformulada como: uma função \(f:I\rightarrow \mathbb{R}\) é analítica se, dado \(x_{0}\) em I, existem \(R>0\), com \((x_{0}-R, x_{0}+R)\subseteq I\), e uma série de potências
+\[
+	\sum\limits_{n=0}^{\infty}a_{n}(x-x_{0})^{n}
+\]
+tal que, para todo x em \((x_{0}-R, x_{0}+R)\),
+\[
+	f(x)=\sum\limits_{n=0}^{\infty}a_{n}(x-x_{0})^{n}.
+\]
+Note que a série varia com o ponto \(x_{0}\) e, mesmo que a função seja analítica em toda a reta, a série de potências em torno de um ponto \(x_{0}\) não necessariamente irá convergir para todos os pontos da reta real.
+\begin{theorem*}
+	A soma e o produto de funções analíticas em I é, também, uma função analítica em I.
+\end{theorem*}
+\begin{proof*}
+	Com efeito, se dado \(x_{0}\) em I,
+	\begin{align*}
+		 & f(x)=\sum\limits_{n=0}^{\infty}a_{n}(x-x_{0})^{n},\quad |x-x_{0}|<r \\
+		 & g(x)=\sum\limits_{n=0}^{\infty}b_{n}(x-x_{0})^{n},\quad |x-x_{0}|<s
+	\end{align*}
+	e \(t=\min_{}\{r, s\}\), então, se \(|x-x_{0}|<t\),   f
+	\[
+		f(x)+g(x) = \sum\limits_{n=0}^{\infty}(a_{n}+b_{n})(x-x_{0})^{n}
+	\]
+	e
+	\[
+		f(x)\cdot g(x)=\sum\limits_{n=0}^{\infty}c_{n}(x-x_{0})^{n},
+	\]
+	em que \(c_{n}=a_{0}b_{n}+\dotsc +a_{n}b_{0}\). \qedsymbol
+\end{proof*}
+De cara, a diferença entre as analíticas e as funções de classe \(C^{\infty}\), também conhecidas como funções suaves, pode parecer inexistente. Porém, o seguinte teorema joga luzes nesta distinção.
+\begin{theorem*}
+	Se uma função \(f:I\rightarrow \mathbb{R}\) se anula, junto a todas as suas derivadas, num ponto de I, então f é identicamente nula.
+\end{theorem*}
+\begin{proof*}
+	Seja A o subconjunto de I dado pelos pontos onde f, assim como todas as suas derivadas, se anula. Considere, também, o conjunto B formado pelos pontos x de I para os quais f ou alguma de suas derivadas é diferente de zero.
+
+	Como as derivadas são contínuas, B é um conjunto aberto de I, assim como A também o é. Já que A e B são complementares como subconjuntos de I, o mesmo pode ser escrito como a união dos dois; além disso, eles são disjuntos como um par. No entanto, I é um intervalo, então um deles DEVE necessariamente ser nulo. Portanto, já que, por hipótese, A não é nulo, segue que B é nulo e, assim, A é igual a todo o conjunto I. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Sejam \(f, g :I\rightarrow \mathbb{R}\) analíticas. Se, para algum \(x_{0}\) em I, tem-se \(f^{(n)}(x_{0})=g^{(n)}(x_{0})\), para todo n natural, então f(x)=g(x) para todos os pontos de I.
+\end{crl*}
+\begin{lemma*}
+	Seja f uma função \(C^{\infty}\) num intervalo I e X um subconjunto de I com um ponto de acumulação \(x_{0}\) em I. Se f(x)=0 para todo x dentro de X, então \(f^{(n)}(x_{0})=0\) para todo \(n\geq 0\).
+\end{lemma*}
+\begin{proof*}
+	Seja \(\{x_{n}\}\) uma sequência estritamente monótona de pontos de X, com \(\lim_{n\to \infty}x_{n}=x_{0}\). Com isso, pela continuidade de f,
+	\[
+		f(x_{0})=\lim_{n\to \infty}f(x_{n})=0.
+	\]
+	Além disso,
+	\[
+		f'(x_{0}) = \lim_{n\to \infty}\frac{f(x_{n})-f(x_{0})}{x_{n}-x_{0}}=0.
+	\]
+	Pelo \hyperlink{rolle}{\textit{Teorema de Rolle}}, para todo n natural, existe \(y_{n}\) entre \(x_{n}\) e \(x_{n+1}\) tal que \(f'(y_{n})=0\).
+
+	Como \(\{x_{n}\}\) é uma sequência estritamente monótona, \(\{y_{n}\}\) também é, e \(\lim_{n\to \infty}y_{n}=x_{0}\). Logo,
+	\[
+		f''(x_{0})=\lim_{n\to \infty}\frac{f'(y_{n})-f'(x_{0})}{y_{n}-x_{0}}=0.
+	\]
+	Portanto, seguindo este processo com indução, segue que todas as derivadas de f se anulam em \(x_{0}\). \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Seja I um intervalo aberto da reta real, X um subconjunto de I que tem um ponto de acumulação \(x_{0}\) em I e \(f:I\rightarrow \mathbb{R}\) analítica. Se \(f(x)=0\) para todo x em X, então f(x)=0 para todo x em I.
+\end{theorem*}
+\begin{crl*}
+	Seja I um intervalo aberto da reta real, X um subconjunto de I que tem um ponto de acumulação \(x_{0}\) em I e \(f, g:I\rightarrow \mathbb{R}\) analíticas. Se \(f(x)=g(x)\) para todo x em X, então f(x)=g(x) para todo x em I.
+\end{crl*}
+\begin{theorem*}
+	Seja \(f:(-R, R)\rightarrow \mathbb{R}\) dada por \(f(x)=\sum\limits_{n=0}^{\infty}a_{n}x^{n}\). Para todo \(x_{0}\) em (-R, R), se \(|x-x_{0}|<R-|x_{0}|\), então
+	\[
+		f(x)=\sum\limits_{n=0}^{\infty}b_{n}(x-x_{0})^{n}.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Se \(|x-x_{0}|<R-|x_{0}|\), então \(|x_{0}|+|x-x_{0}|<R.\). Logo, a série \(\sum\limits_{n=0}^{\infty}a_{n}x^{n}\) converge absolutamente para \(x=|x_{0}|+|x-x_{0}|\), ou seja,
+	\[
+		\sum\limits_{n=0}^{\infty}|a_{n}|(|x_{0}|+|x-x_{0}|)^{n}<+\infty
+	\]
+	e
+	\[
+		\sum\limits_{n=0}^{\infty}|a_{n}|\sum\limits_{k=0}{n}\binom{n}{k}|x_{0}|^{n-k}|x-x_{0}|^{k}<+\infty.
+	\]
+	Portanto,
+	\begin{align*}
+		f(x)=\sum\limits_{n=0}^{\infty}a_{n}x^{n} & =\sum\limits_{n=0}^{\infty}a_{n}[x_{0}+(x-x_{0})]^{k}                                                       \\
+		                                          & =\sum\limits_{n=0}^{\infty}a_{n}\sum\limits_{k=0}^{n}\binom{n}{k}x_{0}^{n-k}(x-x_{0})^{k}                   \\
+		                                          & = \sum\limits_{k=0}^{\infty}\biggl[\sum\limits_{n\geq k}^{}a_{n}\binom{n}{k}x_{0}^{n-k}\biggr](x-x_{0})^{k} \\
+		                                          & =\sum\limits_{k= 0}^{\infty}b_{k}(x-x_{0})^{k}.\quad \text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{crl*}
+	Sejam \(\sum\limits_{n=0}^{\infty}a_{n}x^{n}\) e \(\sum\limits_{n=0}^{\infty}b_{n}x^{n}\) séries de potências convergentes no intervalo \((-R, R)\) e \(X\subseteq (-R, R)\) um conjunto com um ponto de acumulação nesse intervalo. Se \(\sum\limits_{n=0}^{\infty}a_{n}x^{n}=\sum\limits_{n=0}^{\infty}b_{n}x^{n}\) para todo x de X, então \(a_{n}=b_{n}\) para todo n natural.
+\end{crl*}
+\subsection{Sequências Duplas}
+\begin{def*}
+	Uma \textbf{sequência dupla} \(\{x_{nk}\}\) é uma função \(x:\mathbb{N}\times \mathbb{N}\rightarrow \mathbb{R}\) que associa a cada par (n, k) de números naturais um número real \(x_{nk}\)
+	\[\begin{matrix}
+			x_{11} & x_{12} & x_{13} & \dotsc \\
+			x_{21} & x_{22} & x_{23} & \dotsc \\
+			x_{31} & x_{32} & x_{33} & \dotsc \\
+			\vdots & \vdots & \vdots & \ddots
+		\end{matrix}\quad \square\]
+\end{def*}
+\begin{example}
+	Consideremos as somas repetidas
+	\[
+		\sum\limits_{n=1}^{\infty}\biggl(\sum\limits_{k=1}^{\infty}x_{nk}\biggr) \quad\&\quad \sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr);
+	\]
+	mesmo quando elas convergem, o resultado obtido pode acabar sendo diferente! Por exemplo, considere a seguinte sequências dupla:
+	\[\begin{matrix}
+			\frac{1}{2} & -\frac{1}{2} & 0            & 0             & 0              & \dotsc \rightarrow 0 \\
+			0           & \frac{3}{4}  & -\frac{3}{4} & 0             & 0              & \dotsc \rightarrow 0 \\
+			0           & 0            & \frac{7}{8}  & -\frac{7}{8}  & 0              & \dotsc \rightarrow 0 \\
+			0           & 0            & 0            & \frac{15}{16} & -\frac{15}{16} & \dotsc \rightarrow 0 \\
+			\vdots      & \vdots       & \vdots       & \vdots        & \ddots         & \ddots               \\
+			\downarrow  & \downarrow   & \downarrow   & \downarrow    &                &                      \\
+			\frac{1}{2} & \frac{1}{4}  & \frac{1}{8}  & \frac{1}{16}  & \dotsc         & \dotsc               \\
+		\end{matrix}\quad \square\]
+
+	Somando primeiro as linhas, obtemos
+	\[
+		\sum\limits_{n=1}^{\infty}\biggl(\sum\limits_{k=1}^{\infty}x_{nk}\biggr)=0,
+	\]
+	enquanto que, se somarmos primeiro as colunas, teremos
+	\[
+		\sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr) = \sum\limits_{k=1}^{\infty}\biggl(\frac{1}{2}\biggr)^{n}=1.
+	\]
+\end{example}
+A partir deste exemplo, já é possível ilustrar a necessidade de impôr condições para a igualdade das duas somas ser obtida
+\begin{lemma*}
+	Se \(f_{n}:\mathbb{N}\rightarrow \mathbb{R}\) é dada por \(f_{n}(j)=x_{n1}+\dotsc +x_{nj},\:\sum\limits_{n=1}^{\infty}f_{n}\) converge uniformemente em \(\mathbb{N}\) e \(\sum\limits_{k=1}^{\infty}x_{nk}\) converge para todo n natural, então
+	\[
+		\sum\limits_{n=1}^{\infty}\biggl(\sum\limits_{k=1}^{\infty}x_{nk}\biggr)=\sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr).
+	\]
+\end{lemma*}
+\begin{proof*}
+	A prova segue do fato de que, se \(\sum\limits_{n=1}^{\infty}f_{n}\) converge uniformemente, então
+	\begin{align*}
+		\sum\limits_{n=1}^{\infty}\sum\limits_{k=1}^{\infty}x_{nk} & = \sum\limits_{n=1}^{\infty}\biggl[\lim_{j\to \infty}f_{n}(j)\biggr]                    \\
+		                                                           & = \lim_{j\to \infty}\biggl[f_{n}(j)\biggr]                                              \\
+		                                                           & = \lim_{j\to \infty}\biggl[\sum\limits_{n=1}^{\infty}\sum\limits_{k=1}^{j}x_{nk}\biggr] \\
+		                                                           & = \lim_{j\to \infty}\biggl[\sum\limits_{k=1}^{j}\sum\limits_{n=1}^{\infty}x_{nk}\biggr] \\
+		                                                           & = \sum\limits_{k=1}^{\infty}\sum\limits_{n=1}^{\infty}x_{nk}.\quad \text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{theorem*}
+	Dada \(\{x_{nk}\},\) se \(\sum\limits_{k=1}^{\infty}|x_{nk}|=a_{n}\) para cada n e \(\sum\limits_{n=1}^{\infty}a_{n}<+\infty\), então
+	\[
+		\sum\limits_{n=1}^{\infty}\biggl(\sum\limits_{k=1}^{\infty}x_{nk}\biggr)=\sum\limits_{k=1}^{\infty}\biggl(\sum\limits_{n=1}^{\infty}x_{nk}\biggr).
+	\]
+\end{theorem*}
+Esta afirmação implica, em particular, que todas as séries contidas na igualdade acima são convergentes.
+\begin{proof*}
+	Coloque \(f_{n}(k)=x_{n1}+\dotsc +x_{nk}\), como no lema. Assim, temos \(|f_{n}(k )|\leq a_{n}\) para todo k e todo n. Logo, pelo \hyperlink{weierstrass_m}{\textit{Teste M de Weierstrass}}, \(\sum\limits_{n=1}^{\infty}f_{n}\) é uniformemente convergente em k natural. Portanto, pelo Lema anterior, segue o resultado. \qedsymbol
+\end{proof*}
+\subsection{Produto de Séries de Cauchy}
+\begin{def*}
+	Dadas as séries \(\sum\limits_{n=0}^{\infty}a_{n}\) e \(\sum\limits_{n=0}^{\infty}b_{n}\), o seu \textbf{produto de Cauchy} é a série
+	\[
+		\sum\limits_{n=0}^{\infty}c_{n},\quad c_{n}=\sum\limits_{k=0}^{n}a_{k}b_{n-k},\: \forall n\in \mathbb{N}.\quad \square
+	\]
+\end{def*}
+Este produto é baseado no produto de polinômios, e pode não ser convergente mesmo quando as séries de \(a_{n}\) e \(b_{n}\) são (vide a série \(\sum\limits_{k=0}^{\infty}\frac{(-1)^{n}}{\sqrt[]{n+1}}\)[Exercício]).
+\begin{theorem*}
+	Se \(\sum\limits_{n=0}^{\infty}a_{n}\) é absolutamente convergente com soma A e \(\sum\limits_{n=0}^{\infty}b_{n}\) é convergente com soma B, então seu produto de Cauchy \(\sum\limits_{n=0}^{\infty}c_{n}\) é convergente com soma AB.
+\end{theorem*}
+\begin{proof*}
+	Para começar, coloquemos
+	\begin{align*}
+		 & A_{n}=\sum\limits_{k=0}^{n}a_{k} \\
+		 & B_{n}=\sum\limits_{k=0}^{n}b_{k} \\
+		 & C_{n}=\sum\limits_{k=0}^{n}c_{k} \\
+		 & \beta_{n}=B_{n}-B,
+	\end{align*}
+	em que n é natural. Com isso,
+	\[
+		A_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}A,\;B_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}B \;\&\; \beta_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0.
+	\]
+	O que queremos mostrar, então, é que \(C_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}AB.\) Para cada n natural,
+	\begin{align*}
+		C_{n}=c_{0}+c_{1}+\dotsc +c_{n} & = a_{0}b_{0}+(a_{0}b_{1}+a_{1}b_{0})+\dotsc +(a_{0}b_{n}+a_{1}b_{n-1}+\dotsc +a_{n-1}b_{1}+a_{n}b_{0})          \\
+		                                & = a_{0}(b_{0}+b_{1}+ \dotsc +b_{n})+a_{1}(b_{0}+b_{1}+ \dotsc +b_{n-1})+\dotsc +a_{n-1}(b_{0}+b_{1})+a_{n}b_{0} \\
+		                                & = a_{0}B_{n}+a_{1}B_{n-1}+\dotsc +a_{n-1}B_{1}+a_{n}B_{0}                                                       \\
+		                                & =a_{0}(B+\beta_{n})+a_{1}(B+\beta_{n-1})+\dotsc +a_{n}(B+\beta_{0})                                             \\
+		                                & =(a_{0}+a_{1}+\dotsc +a_{n})B + a_{0}\beta_{n}+a_{1}\beta_{n-1}+\dotsc +a_{n}\beta_{0}                          \\
+		                                & =A_{n}B+a_{0}\beta_{n}+\dotsc +a_{n}\beta_{0}.
+	\end{align*}
+	Se colocarmos \(\gamma_{n}=a_{0}\beta_{n}+a_{1}\beta_{n-1}+\dotsc +a_{n}\beta_{0}\), n natural, então
+	\[
+		C_{n}=A_{n}B+\gamma_{n},
+	\]
+	de forma que o resultado estará provado a partir do momento que provarmos que \(\gamma_{n}\) tende a 0 conforme n se aproxima de infinito.
+
+	Com efeito, como \(\sum\limits_{n=0}^{\infty}a_{n}\) é absolutamente convergente, seja \(\alpha =\sum\limits_{n=0}^{\infty}|a_{n}|\). Pela convergência da série de \(b_{n}\), dado \(\varepsilon >0\), existe N natural tal que \(|\beta_{n}|=|B_{n}-B|<\varepsilon \) sempre que n for maior que N. Logo, para \(n\geq N\),
+	\begin{align*}
+		|\gamma_{n}| & = |(\beta_{0}a_{n}+\dotsc +\beta_{N}a_{n-N})+(\beta_{N+1}a_{n-N-1}+\dotsc +\beta_{n}a_{0})|        \\
+		             & \leq |\beta_{0}a_{n}+\dotsc +\beta_{N}a_{n-N}|+|\beta_{N+1}||a_{n-N-1}|+\dotsc +|\beta_{n}||a_{0}| \\
+		             & < |\beta_{0}a_{n}+\dotsc +\beta_{N}a_{n-N}|+ \varepsilon (|a_{n-N-1} +\dotsc +|a_{0}|)             \\
+		             & \leq |\beta_{0}a_{n}+\dotsc +\beta_{N}a_{n-N}| +\varepsilon\alpha.
+	\end{align*}
+	Assim, para todo \(\varepsilon >0\),
+	\[
+		0\leq \limsup_{n\to \infty}|\gamma_{n}|\leq \varepsilon \alpha .
+	\]
+	Portanto, \(\lim_{n\to \infty}\gamma_{n}=0\), completando a demonstração. \qedsymbol
+\end{proof*}
 \end{document}

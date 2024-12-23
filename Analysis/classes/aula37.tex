@@ -6,4 +6,170 @@
 	\item Séries de Potência;
 	\item Funções Analíticas.
 \end{itemize}
+\subsection{Séries de Potências}
+Trataremos de um tipo particular de série de funções, chamadas \textbf{séries de potências}, da forma
+\[
+	\sum\limits_{n=0}^{\infty}c_{n}x^{n}
+\]
+ou
+\[
+	\sum\limits_{n=0}^{\infty}c_{n}(x-a)^{n},
+\]
+mas consideraremos, sem perda de generalidade, o caso a = 0.
+\begin{prop*}
+	Sejam \(x_{0},\: x_{1}\) números reais não-nulos.
+	\begin{itemize}
+		\item Se a série \(\sum\limits_{n=0}^{\infty}c_{n}x_{0}^{n}\) for convergente, então a série \(\sum\limits_{n=0}^{\infty}c_{n}x^{n}\) será absolutamente convergente para cada x no intervalo \((-|x_{0}|, |x_{0}|)\).
+		\item Se a série \(\sum\limits_{n=0}^{\infty}c_{n}x_{1}^{n}\) for divergente, então a série \(\sum\limits_{n=0}^{\infty}c_{n}x^{n}\) será absolutamente divergente para cada x que satisfaça \(|x| > |x_{1}|\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Sabemos que a série numérica \(\sum\limits_{n=1}^{\infty}c_{n}x_{0}^{n}\) é convergente e \(x_{0}\neq 0\). Logo, \(\lim_{n\to \infty}c_{n}x_{0}^{n} = 0\) e existe \(M\geq 0\) tal que \(|c_{n}x_{0}^{n}|\leq M\) para
+	todo n natural.
+
+	Se \(x\in(-|x_{0}|, |x_{0}|)\), então
+	\[
+		|c_{n}x^{n}| = |c_{n}x_{0}^{n}|\biggl\vert \frac{x^{n}}{x_{0}^{n}} \biggr\vert \leq M \biggl\vert \frac{x}{x_{0}} \biggr\vert^{n} = M r^{n},\quad n\in \mathbb{N}\; r\coloneqq \biggl\vert \frac{x}{x_{0}} \biggr\vert.
+	\]
+	Como r é menor que 1, pelo critério de comparação para séries de termos não-negativos, a série \(\sum\limits_{n=0}^{\infty}|c_{n}x^{n}|\) é convergente para todo x dentro do intervalo \((-|x_{0}|, |x_{0}|)\).
+
+	Por outro lado, se \(|x| > |x_{1}|\), a série numérica \(\sum\limits_{n=0}^{\infty}c_{n}x^{n}\) não pode ser convergente, pois isto implicaria a convergência da série \(\sum\limits_{n=0}^{\infty}c_{n}x_{1}^{n}\), uma contradição, pois já sabemos que esta é divergente. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Dada a série de potências \(\sum\limits_{n=0}^{\infty}c_{n}x^{n}\), uma, e apenas uma, das situações abaixo acontecem:
+	\begin{itemize}
+		\item A série de potências converge somente em x = 0;
+		\item A série de potências converge absolutamente para todo x real;
+		\item Existe um R positivo tal que a série de potências converge absolutamente para todo x em (-R, R) e diverge para todo x com \(|x|>R\).
+	\end{itemize}
+	Além disso,
+	\[
+		\limsup_{n\to \infty}\sqrt[n]{|c_{n}|} = \frac{1}{R}.
+	\]
+\end{theorem*}
+No último caso, não é possível afirmar nada quando x é igual a R ou a -R, sendo necessária a análise caso a caso. Por último, a igualdade final postulada é resultado do critério da raiz.
+\begin{theorem*}
+	Seja R um número positivo, incluindo infinito, tal que a série de potências \(\sum\limits_{n=0}^{\infty}c_{n}x^{n}\) é convergente para todo x em (-R, R) e seja \(f:(-R, R)\rightarrow \mathbb{R}\) dada por
+	\[
+		f(x)=\sum\limits_{n=0}^{\infty}c_{n}x^{n},\quad x\in (-R, R).
+	\]
+	Então, para r em (0, R), a série \(\sum\limits_{n=0}^{\infty}c_{n}x^{n}\) será uniformemente convergente no intervalo \([-r, r]\).
+
+	Ademais, a função f será diferenciável em (-R, R) e integrável em \([0,x]\subseteq (-R, R)\), tais que
+	\begin{align*}
+		 & f'(x)=\sum\limits_{n=1}^{\infty}nc_{n}x^{n-1},\quad x\in (-R, R)                            \\
+		 & \int_{0}^{x}f(x)dx = \sum\limits_{n=0}^{\infty}\frac{c_{n}}{n+1}x^{n+1},\quad x\in (-R, R).
+	\end{align*}
+\end{theorem*}
+Em outras palavras, a série pode ser integrada e derivada termo a termo. Nas condições do teorema acima, a função f é \textit{de classe }\(C^{\infty}\), ou seja, \(f\in C^{\infty}((-R, R), \mathbb{R})\). Para além disso, dado k natural, teremos
+\[
+	f^{(k)}(x)=\sum\limits_{n=k}^{\infty}n(n-1)\dotsc (n-k+1)c_{n}x^{n-k},\quad x\in (-R, R).
+\]
+Em particular, para cada k natural, vale
+\[
+	f^{(k)}(0)=k!c_{k} \Rightarrow c_{k}=\frac{f^{(k)}(0)}{k!},
+\]
+o que significa que a série de potências que define f é exatamente a série de Taylor de f.
+
+Existem funções f de classe \(C^{\infty}((-R, R), \mathbb{R})\) de modo que
+\[
+	f(x)\neq \sum\limits_{n=0}^{\infty}\frac{f^{(n)}(0)}{n!}x^{n},\quad x\in \mathbb{R},
+\]
+como por exemplo
+\[
+	f(x) = \left\{\begin{array}{ll}
+		e^{-\frac{1}{x^{2}}},\quad & x\neq 0 \\
+		0,\quad                    & x=0.
+	\end{array}\right.
+\]
+O que ocorre é que, apesar de f ser de fato de classe \(C^{\infty}(\mathbb{R}, \mathbb{R})\), o coeficiente acaba por satisfazer anulação sempre:
+\[
+	f^{(n)}(0)=0,\quad \forall n\in \mathbb{N}.
+\]
+
+Vamos ver, agora, alguns exemplos de séries de potências e seus limites.
+\begin{example}
+	\begin{itemize}
+		\item[i)] A série de potências
+		      \[
+			      \sum\limits_{n=0}^{\infty}\frac{x^{n}}{n!}
+		      \]
+		      converge para todo x real, e sua soma é \(e^{x}\).
+		\item[ii)] A série de potências
+		      \[
+			      \sum\limits_{n=0}^{\infty}n!x^{n}
+		      \]
+		      converge apenas para x = 0, com valor final 0.
+		\item[iii)] A série abaixo converge para a expressão colocada se, e somente se, x pertence a \((-1, 1)\):
+		      \[
+			      \sum\limits_{n=0}^{\infty}(-1)^{n}x^{n} = \frac{1}{1+x}.
+		      \]
+		\item[iv)] Integrando a expressão
+		      \[
+			      \sum\limits_{n=0}^{\infty} (-1)^{n}x^{n},
+		      \]
+		      obtemos
+		      \[
+			      \sum\limits_{n=0}^{\infty}\frac{(-1)^{n}}{n+1}x^{n+1}=x-\frac{x^{2}}{2}+\frac{x^{3}}{3}-\dotsc =\log^{}{(1+x)},\quad x\in (-1, 1].
+		      \]
+		\item[v)] Por fim,
+		      \[
+			      \arctan(x)=\int_{0}^{x}\frac{dt}{1+t^{2}}=x-\frac{x^{3}}{3}+\frac{x^{5}}{5}-\dotsc +(-1)^{n}\frac{x^{2n+1}}{2n+1}+\dotsc =\sum\limits_{n=0}^{\infty}(-1)^{n}\frac{x^{2n+1}}{2n+1}.
+		      \]
+	\end{itemize}
+\end{example}
+
+Agora, abordamos a seguinte questão: se a série de potências converge em ambos os extremos do seu intervalo de convergência, podemos garantir que a convergência seja, na verdade, uniforme para valores dentro dele?
+\hypertarget{abel}{
+	\begin{theorem*}[Abel]
+		Seja \(\sum\limits_{n=0}^{\infty}a_{n}x^{n}\) uma série de potências com raio de convergência R em \((0, \infty)\). Se \(\sum\limits_{n=0}^{\infty}a_{n}R^{n}\) converge, então \(\sum\limits_{n=0}^{\infty}a_{n}x^{n}\) converge uniformemente no intervalo \([0, R]\) e
+		\[
+			\lim_{x\to R^{-}}\biggl(\sum\limits_{n=0}^{\infty}a_{n}x^{n}\biggr)=\sum\limits_{n=0}^{\infty}a_{n}R^{n}.
+		\]
+	\end{theorem*}
+}
+A prova utilizará o seguinte lema:
+\begin{lemma*}
+	Se \(\{s_{n}\}=\{\alpha_{1}+\dotsc +\alpha_{n}\}\) é limitada, ou seja, \(\sup_{}\{|s_{n}|: \: n\in \mathbb{N}\}=K<\infty\) e \(\{b_{n}\}\) é uma sequência não-crescente de números não negativos, então \(|\alpha_{1}b_{1}|+\dotsc +\alpha_{p}b_{p}\leq Kb_{1}\) para todo p natural.
+\end{lemma*}
+\begin{proof*}
+	Para a prova, reescreveremos a expressão de dentro do módulo em termo de b e s ao invés de \(\alpha \) e b, notando que
+	\[
+		\alpha_{j}=s_{j}-s_{j-1}.
+	\]
+	Sendo assim,
+	\begin{align*}
+		|\alpha_{1}b_{1}+\dotsc +\alpha_{p}b_{p}| & =|s_{1}b_{1}+(s_{2}-s_{1})b_{2}+\dotsc +(s_{p}-s_{p-1})b_{p}|                        \\
+		                                          & =|s_{1}(b_{1}-b_{2})+\dotsc +s_{p-1}(b_{p-1}-b_{p})+s_{p}b_{p}|                      \\
+		                                          & \leq K(b_{1}-b_{2}+b_{2}-\dotsc +b_{p-1}-b_{p}+b_{p})=Kb_{1}.\quad \text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{proof*}[\hyperlink{abel}{\textit{Teorema de Abel}}]
+	Dado \(\varepsilon >0\), existe N natural tal que, se n for maior que N, então
+	\[
+		|a_{n+1}R^{n+1}+\dotsc +a_{n+p}R^{n+p}|<\varepsilon ,\quad \forall p\in N.
+	\]
+	Colocando \(\alpha_{p}\coloneqq a_{n+p}R^{n+p}\) para todo p natural, os \(\alpha_{p}\)'s satisfazem a hipótese do lema anterior para \(K=\varepsilon \), tal que, para todo x em [0, R], temos
+	\[
+		|a_{n+1}x^{n+1}+\dotsc +a_{n+p}x^{n+p}| = \biggl\vert \alpha_{1}\biggl(\frac{x}{R}\biggr)+\dotsc +\alpha_{p}\biggl(\frac{x}{R}\biggr)^{p} \biggr\vert \cdot \biggl(\frac{x}{R}\biggr)^{n}.
+	\]
+	Do lema, com \(b_{p}=\bigl(\frac{x}{R}\bigr)^{p}\), segue que, sempre que n for maior que N e x pertencer a [0, R],
+	\[
+		|a_{n+1}x^{n+1}+\dotsc +a_{n+p}x^{n+p}|\leq \varepsilon \biggl(\frac{x}{R}\biggr)^{n+1}\leq \varepsilon,\quad \forall p\in \mathbb{N}.
+	\]
+	Logo, \(\sum\limits_{}^{}a_{n}x^{n}\) converge uniformemente em [0, R] e, como \(a_{n}x^{n}\) é contínua em [0, R], f(x) também é no mesmo intervalo. Portanto,
+	\[
+		\sum\limits_{n=0}^{\infty}a_{n}R^{n}=f(R)=\lim_{x\to R^{-}}f(x)=\lim_{x\to R^{-}}\biggl(\sum\limits_{n=0}^{\infty}a_{n}x^{n}\biggr).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Valem algumas observações:
+\begin{itemize}
+	\item[1)] As mesmas conclusões do Teorema de Abel valem com -R no lugar de R; basta tomar a série \(\sum\limits_{n=0}^{\infty}(-1)^{n}a_{n}x^{n}\);
+	\item[2)] A série \(\sum\limits_{n=0}^{\infty}a_{n}x^{n}\) converge uniformemente no seu intervalo de convergência (-R, R) se, e somente se, ela converge nos pontos R e -R;
+	\item[3)] A série
+	      \[
+		      \sum\limits_{n=0}^{\infty}\frac{(-1)^{n}}{n+1}x^{n+1}
+	      \]
+	      converge uniformemente em \([-1+\delta , 1]\) para todo \(\delta > 0\), mas não converge uniformemente em (-1, 1].
+\end{itemize}
 \end{document}

@@ -6,4 +6,136 @@
 	\item Teorema da Aproximação de Weierstrass;
 	\item Teorema de Stone-Weierstrass.
 \end{itemize}
+\subsection{O Teorema de Stone-Weierstrass}
+\begin{def*}
+	Seja X um conjunto compacto dos reais. Definimos o espaço das funções contínuas de X em \(\mathbb{R}\) como o conjunto delas, \(\mathcal{C}(X, \mathbb{R})\), munido da norma
+	\[
+		\Vert f-g \Vert=\max_{x\in X}|f(x)-g(x)|.
+	\]
+	Além disso, colocamos a soma e multiplicação das funções, além da multiplicação de um escalar por uma função f, da forma usual (ponto-a-ponto). \(\square\)
+\end{def*}
+\begin{def*}
+	Um subconjunto A de \(\mathcal{C}(X, \mathbb{R})\) é dito uma \textbf{álgebra} se, dado que f e g pertencem a A e a é um escalar real, então a soma f+g, o produto \(f \cdot g\) e a multiplicação escalar \(af\), também pertencem a A. \(\square\)
+\end{def*}
+Da definição acima, uma álgebra é um subconjunto fechado para a adição, multiplicação e produto por escalar.
+\begin{example}
+	O conjunto dos polinômios trigonométricos é uma álgebra em \(\mathcal{C}([a, b], \mathbb{R})\).
+\end{example}
+\begin{def*}
+	Seja E um subconjunto de \(\mathcal{C}(X, \mathbb{R})\). O subconjunto definido pela interseção de todas as álgebras contendo E é, também, uma álgebra, denotada por \(A(E)\), chamada \textbf{álgebra gerada por E.} \(\square\)
+\end{def*}
+\begin{example}
+	O conjunto dos polinômios reais em uma variável real é a álgebra gerada por \(\{1, x\}\), já que todo polinômio pode ser escrito como um produto, soma ou multiplicação escalar destes dois elementos.
+\end{example}
+\begin{theorem*}
+	Se \(A\subseteq \mathcal{C}(X, \mathbb{R})\) é uma álgebra, então
+	\[
+		A^{-}=\{f\in \mathcal{C}(X, \mathbb{R}: f\text{ é limite uniforme de funções em A})\}
+	\]
+	também é uma álgebra.
+\end{theorem*}
+\begin{proof*}
+	Se f e g pertencem ao conjunto \(A^{-}\), existem sequências \(\{f_{n}\}, \;\{g_{n}\}\) em A tais que
+	\[
+		f_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}f,\:g_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}g
+	\]
+	uniformemente em X. Segue que, para todo c real,
+	\begin{align*}
+		 & f_{n}+g_{n}\in A, \: f_{n}+g_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}f+g                 \\
+		 & f_{n}\cdot g_{n}\in A, \: f_{n}\cdot g_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}f \cdot g \\
+		 & cf_{n}\in A, \: cf_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}cf
+	\end{align*}
+	uniformemente em K. Logo, f+g, fg e cf pertencem a \(A^{-}\). Portanto, \(A^{-}\) é uma álgebra. \qedsymbol
+\end{proof*}
+\hypertarget{stone-weierstrass}{
+	\begin{theorem*}[Stone-Weierstrass]
+		Seja A uma álgebra de \(\mathcal{C}(X, \mathbb{R})\) tal que \(A = A^{-}\), que 1 pertence a Ela, e que, se x, y são elementos de X distintos, existe uma função f na álgebra tal que f(x) e f(y) são diferentes. Então, \(A = \mathcal{C}(X, \mathbb{R})\).
+	\end{theorem*}
+}
+\begin{proof*}
+
+	Para provar este teorema,  postulamos alguns lemas.
+	\begin{lemma*}
+		Se \(f\in A\), então \(|f|\in A\).
+	\end{lemma*}
+	\begin{proof*}
+		Se \(\max_{x\in X}|f(x)| < M,\:\varepsilon >0,\: p(t) = a_{0}+a_{1}t+\dotsc +a_{n}t^{n}\) for um polinômio do \hyperlink{weierstrass-approximation}{\textit{teorema de Aproximação de Weierstrass}} tal que
+		\[
+			||t| - p(t)| < \varepsilon , \quad \forall t\in [-M, M]
+		\]
+		e \(p(f) = a_{0}+a_{1}f + a_{2}f^{2}+\dotsc +a_{n}f^{n}\), então \(p(f)\in A\) e
+		\[
+			||f(x)| - p(f(x))| < \varepsilon ,\quad x\in X.
+		\]
+		Segue do fato que A é fechada em \(\mathcal{C}(X, \mathbb{R})\) que \(|f|\in A\). \qedsymbol
+	\end{proof*}
+	\begin{lemma*}
+		Se h, g pertencem a A, então \(\max_{}\{h, g\}\in A\) e \(\min_{h, g}\in A\).
+	\end{lemma*}
+	\begin{proof*}
+		Este lema segue do fato que
+		\begin{align*}
+			 & \min_{}\{h, g\}=\frac{1}{2}(h+g)-\frac{1}{2}|h-g|  \\
+			 & \max_{}\{h, g\}=\frac{1}{2}(h+g)+\frac{1}{2}|h-g|.
+		\end{align*}
+		A partir do momento que o mínimo e o máximo podem ambos serem representados pelas operações básicas descritas nesta aula, junto ao fato da álgebra ser fechada para elas, obtemos a pertença de ambos a A. \qedsymbol
+	\end{proof*}
+	\begin{lemma*}
+		Se x e y são elementos de X, existe \(f_{xy}\) em A tal que:
+		\[
+			f_{xy}(x)=f(x)\quad\&\quad f_{xy}(y)=f(y).
+		\]
+	\end{lemma*}
+	\begin{proof*}
+		Para quaisquer x, y em X distintos e f em \(\mathcal{C}(X, \mathbb{R})\), a função constante \(g^{x}\) com valor \(f(x)\) está em A, já que 1 está também.
+
+		Seja \(h^{y}\) um elemento de A tal que \(h^{y}(x)\neq h^{y}(y)\); sem perda de generalidade, assumimos \(h^{y}(x)=0\). Existe a real tal que
+		\[
+			f_{xy}=g^{x}+ah^{y}\in A.
+		\]
+		Logo, pela forma que g e h foram definidas, esta função satisfaz \(f_{xy}(x)=f(x)\) e \(f_{xy}(y)=f(y)\). \qedsymbol
+	\end{proof*}
+	\begin{lemma*}
+		Existe \(f_{x}\) em A tal que \(f_{x}(x)=f(x)\) e \(f_{x}(z)<f(z)+\varepsilon \) para todo z em X.
+	\end{lemma*}
+	\begin{proof*}
+		Dado \(\varepsilon >0\), para cada y em X, existe um intervalo aberto \(I_{y}\) tal que y pertence a ele e, para todos os pontos z em \(I_{y}\),
+		\[
+			f_{xy}(z)<f(z)+\varepsilon .
+		\]
+		Como X é compacto, é possível separar uma cobertura finita por intervalos deste tipo, como \(I_{y_{1}},\dotsc ,I_{y_{n}}\), para alguma escolha de \(y_{1},\dotsc ,y_{n}\). Assim, seja
+		\[
+			f_{x}=\min_{}\{f_{xy_{1}},\dotsc , f_{xy_{n}}\}.
+		\]
+		Então, \(f_{x}\) pertence a A, \(f_{x}(x)=x\) e, para todo z em X,
+		\[
+			f_{x}(z)<f(z)+\varepsilon .\quad \text{\qedsymbol}
+		\]
+	\end{proof*}
+	\begin{lemma*}
+		Existe F em A tal que, para todo z em X,
+		\[
+			f(z)-\varepsilon < F(z)<f(z)+\varepsilon,
+		\]
+		ou seja,
+		\[
+			|f(z)-F(z)|<\varepsilon .
+		\]
+	\end{lemma*}
+	\begin{proof*}
+		Para x dentro de X, existe um intervalo aberto \(I_{x}\) tal que, para qualquer z em \(I_{x}\),
+		\[
+			f_{x}(z)>f(z)-\varepsilon .
+		\]
+		Como X é compacto, é possível separar um número finito de intervalos deste tipo, \(I_{x_{1}}, \dotsc ,I_{x_{n}}\)tal que eles cubram X. A partir disto, seja
+		\[
+			F=\max_{}\{f_{x_{1}}, \dotsc , f_{x_{n}}\}.
+		\]
+
+		Portanto, F pertence a A e, para todo z de X,
+		\[
+			|f(z)-F(z)|<\varepsilon .\quad \text{\qedsymbol}
+		\]
+	\end{proof*}
+\end{proof*}
 \end{document}

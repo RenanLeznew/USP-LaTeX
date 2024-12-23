@@ -3,6 +3,155 @@
 \section{Aula 35 - 29/06/2023}
 \subsection{Motivações}
 \begin{itemize}
-  \item Teorema da Aproximação de Weierstrass.
+	\item Teorema da Aproximação de Weierstrass.
+	\item O Teorema de Stone-Weierstrass
 \end{itemize}
+\subsection{Teorema de Aproximação de Weierstrass}
+\begin{def*}
+	Seja \(\{f_{n}\}\) uma sequência de funções definidas em um conjunto D. Dizemos que \(\{f_{n}\}\) é \textbf{pontualmente limitada em D} se \(\{f_{n}(x)\}\) é limitada para todo x em D. Em outras palavras, se existe função \(\varphi : D \rightarrow \mathbb{R}\) tal que
+	\[
+		|f_{n}(x)| \leq \varphi (x),\quad x\in D,\; n\in \mathbb{N}.
+	\]
+	Dizemos que \(\{f_{n}\}\) é \textbf{uniformemente limitada em D} se existe \(M\geq 0\) tal que
+	\[
+		|f_{n}(x)| \leq M,\quad x\in D,\; n\in \mathbb{N}.\quad \square
+	\]
+\end{def*}
+\begin{theorem*}
+	Se \(\{f_{n}\}\) é uma sequência pontualmente limitada de funções definidas em um conjunto contável D, então \(\{f_{n}\}\) tem uma subsequência \(\{f_{n_{k}}\}\) tal que \(\{f_{n_{k}}(x)\}\) converge para cada x em D.
+\end{theorem*}
+Com a ideia da equicontinuidade, encontramo-nos um passo mais perto de mostrar o resultado análogo à versão de sequências - que toda sequência limitada de funções tem uma subsequência convergente.
+\begin{def*}
+	Uma família \(\mathcal{F}\) de funções definidas em \(D\subseteq \mathbb{R}\) e tomando valores em \(\mathbb{R}\) é dita \textbf{equicontínua} em D se, dado \(\varepsilon > 0\), existe \(\delta > 0\) tal que, para todo x, y em D, se \(|x-y|<\delta \), então
+	\[
+		|f(x)-f(y)|<\varepsilon , \quad f \in \mathcal{F}. \; \square
+	\]
+\end{def*}
+\begin{theorem*}
+	Se \(K\subseteq \mathbb{R}\) é compacto, \(f_{n}\in \mathcal{C}(K)\) para n natural e se \(\{f_{n}\}\) converge uniformemente em K, então \(\{f_{n}\}\) é equicontínua em K.
+\end{theorem*}
+\begin{proof*}
+	Dado \(\varepsilon <0\), da convergência uniforme de \(\{f_{n}\}\), existe N natural tal que
+	\[
+		\sup_{x\in D}|f_{n}(x)-f_{N}(x)| < \frac{\varepsilon }{3},\quad \forall n\geq N.
+	\]
+	Como K é compacto, as \(f_{n}\)'s são uniformemente contínuas e existe \(\delta >0\) tal que
+	\[
+		|f_{i}(x)-f_{i}(y)|<\frac{\varepsilon }{3} < \varepsilon ,\quad x, y\in K\: |x-y|<\delta \quad\&\quad 1\leq i\leq N.
+	\]
+	Se n é maior que N e x, y são de K tais que \(|x-y|<\delta \), segue que
+	\[
+		|f_{n}(x)-f_{n}(y)| \leq |f_{n}(x)-f_{N}(x)|+|f_{N}(x)-f_{N}(y)|+|f_{N}(y)-f_{n}(y)| < \varepsilon .
+	\]
+	Portanto, o mesmo \(\varepsilon \) funciona para x e y, provando o teorema. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se K é compacto e a sequência \(\{f_{n}\}\) em \(\mathcal{C}(K)\) é pontualmente limitada e equicontínua em K, então
+	\begin{itemize}
+		\item[a)] \(\{f_{n}\}\) é uniformemente limitada em K;
+		\item[b)] \(\{f_{n}\}\) tem uma subsequência  uniformemente convergente.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	\textbf{a)} Como \(\{f_{n}\}_{n\in \mathbb{N}} \) é equicontínua, dado \(\varepsilon > 0\), tome \(\delta >0\) tal que
+	\[
+		|f_{n}(x)-f_{n}(y)| < \frac{\varepsilon }{3}<\varepsilon, \quad n\in \mathbb{N}\:\&\: \forall x, y\in K: |x-y|<\delta .
+	\]
+	Por K ser compacto, sejam \(p_{1}, \dotsc , p_{r}\) em K tais que
+	\[
+		K\subseteq \bigcup_{i=1}^{r}V_{\delta }(p_{i}),
+	\]
+	em que, para x em K, definimos a \(\delta-\)vizinhança em torno de x como
+	\[
+		V_{\delta }(x)=\{y\in K: |y-x|<\delta \}.
+	\]
+	Já que \(\{f_{n}\}\) é pontualmente limitada, existe \(M_{i}<\infty\) tal que \(|f_{n}(p_{i})|<M_{i}\) para todo n em \(\mathbb{N}\). Coloque \(M=\max_{}(M_{1}, \dotsc M_{r})\); então, para todo x em K,
+	\[
+		|f_{n}(x)| < M + \varepsilon.
+	\]
+
+	\textbf{b)} Seja E um conjunto contável e denso em K, ou seja, \(\overline{E}=K\). Sabemos, então, que \(\{f_{n}\}\) tem uma subsequência \(\{f_{n_{i}}\}\) tal que \(\{f_{n_{i}}(x)\}\) converge para cada x em E. Assim, pela equicontinuidade, dado \(\varepsilon >0\), podemos escolher \(\delta > 0\) tal que
+	\[
+		|g_{i}(x)-g_{i}(y)| < \frac{\varepsilon}{3},\quad \forall i\in \mathbb{N}\:\&\: \forall x, y\in K: |x-y|<\delta .
+	\]
+	Como K é compacto e \(\overline{E}=K\), existem \(x_{1}, \dotsc , x_{m}\) em E tais que
+	\[
+		K\subseteq V_{\delta }(x_{1})\cup \dotsc \cup V_{\delta }(x_{m}).
+	\]
+	Tome N em \(\mathbb{N}\) tal que, para \(1\leq \kappa \leq m\) e i, j maiores que N,
+	\[
+		|g_{i}(x_{\kappa }) - g_{j}(x_{\kappa })| < \frac{\varepsilon }{3}.
+	\]
+	Se x pertence a K, x pertence a uma \(\delta -\)vizinhança em torno de \(x_{\kappa }\) para algum \(\kappa \) entre 1 e m, atl que
+	\[
+		|g_{i}(x)-g_{i}(x_{\kappa })|<\frac{\varepsilon }{3}
+	\]
+	para todo i em \(\mathbb{N}.\) Se \(i, j \geq N\), segue que
+	\[
+		|g_{i}(x)-g_{j}(x)| \leq |g_{i}(x)|-g_{i}(x_{\kappa }) + |g_{i}(x_{\kappa })-g_{j}(x_{\kappa })|+|g_{j}(x_{\kappa })+g_{j}(x)| < \varepsilon .
+	\]
+	Portanto, \(\{g_{i}\}\) converge uniformemente. \qedsymbol
+\end{proof*}
+\hypertarget{weierstrass-approximation}{
+	\begin{theorem*}[Aproximação de Weierstrass]
+		Dados f em \(\mathcal{C}([a, b], \mathbb{R})\) e \(\varepsilon > 0\), existe um polinômio \(p :[a, b]\rightarrow \mathbb{R}\) tal que
+		\[
+			\Vert p-f \Vert_{\infty} = \max_{x\in [a, b]}(|f(x)-p(x)|)<\varepsilon .
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	Faremos a prova para a = 0 e b = 1. Para isso, dada uma função f em \(\mathcal{C}([0, 1], \mathbb{R})\), defina os \textit{polinômios de Bernstein associados a f} como
+	\[
+		B_{n}(x)=\sum\limits_{k=0}^{n}\binom{n}{k} x^{k}(1-x)^{n-k}f \biggl(\frac{k}{n}\biggr).
+	\]
+	Em particular, se \(f\equiv 1\), então
+	\[
+		\sum\limits_{k=0}^{n}\binom{n}{k}x^{k}(1-x)^{n-k}=[x+(1-x)]^{n}=1
+	\]
+	e, derivando isto, obtemos
+	\begin{align*}
+		\sum\limits_{k=0}^{n}\binom{n}{k}x^{k}(1-x)^{n-k} & = \sum\limits_{k=0}^{n}\binom{n}{k}[kx^{k-1}(1-x)^{n-k}-(n-k)x^{k}(1-x)^{n-k-1}] \\
+		                                                  & = \sum\limits_{k=0}^{n}\binom{n}{k}x^{k-1}(1-x)^{n-k-1}[k(1-x)-(n-k)x]           \\
+		                                                  & = \sum\limits_{k=0}^{n}\binom{n}{k}x^{k-1}(1-x)^{n-k-1}(k-nx)= 0.
+	\end{align*}
+	Multiplicando por x(1-x), segue que
+	\[
+		\sum\limits_{k=0}^{n}\binom{n}{k}x^{k}(1-x)^{n-k}(k-nx)=0.
+	\]
+	Repetindo este mesmo processo de derivar e multiplicar o resultado da derivação por x(1-x), chegamos em
+	\[
+		-nx(1-x)+\sum\limits_{k=0}^{n}\binom{n}{k}x^{k}(1-x)^{n-k}(k-nx)^{2}=0
+	\]
+	Isolando a somatória e dividindo tudo por \(n^{2}\), temos
+	\[
+		\sum\limits_{k=0}^{n}\binom{n}{k}x^{k}(1-x)^{n-k}\biggl(x-\frac{k}{n}\biggr)^{2}=\frac{x(1-x)}{n}.
+	\]
+	Como
+	\[
+		|f(x)-B_{n}(x)|\leq \sum\limits_{k=0}^{n}\binom{n}{k}x^{k}(1-x)^{n-k}\biggl\vert f(x)-f \biggl(\frac{k}{n}\biggr) \biggr\vert
+	\]
+	e pela continuidade uniforme da f em \([0, 1]\), existe \(\delta >0\) tal que
+	\[
+		\biggl\vert x- \frac{k}{n} \biggr\vert < \delta \Rightarrow \biggl\vert f(x)-f \biggl(\frac{k}{n}\biggr) \biggr\vert < \frac{\varepsilon }{2}.
+	\]
+
+	Agora, para qualquer x em [0, 1] fixo, separamos a soma do lado direito em duas partes, denotadas por S e S', de forma tal que
+	\begin{itemize}
+		\item S é a  soma dos termos para os quais
+		      \[
+			      \biggl\vert x-\frac{k}{n} \biggr\vert < \delta ;
+		      \]
+		\item S' é a soma dos termos que não se encaixam no critério de S.
+	\end{itemize}
+	Em particular, segue que \(S<\varepsilon / 2\). A seguir, então, provaremos que, para n suficientemente grande e independentemente de x, S' satisfaz o mesmo. Com efeito, por f ser limitada, existe \(K>0\) tal que \(\sup\limits_{x\in [0,1]}|f(x)|<K.\) Logo,
+	\[
+		S' \leq 2K \underbrace{\sum\limits_{\substack{1\leq k<n\\\bigl\vert x-\frac{k}{n} \bigr\vert\geq \delta }}^{}\binom{n}{k} x^{k}(1-x)^{n-k}}_{S''}\eqqcolon 2KS''.
+	\]
+	Destarte,
+	\[
+		\frac{\delta ^{2}}{2K}S' \leq \delta ^{2}S'' \leq \frac{x(1-x)}{n}\leq \frac{1}{4n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}0,
+	\]
+	portanto provando o resultado. \qedsymbol
+\end{proof*}
 \end{document}
