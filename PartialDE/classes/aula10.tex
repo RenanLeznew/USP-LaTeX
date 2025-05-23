@@ -1,0 +1,299 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 02 de Abril, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Convergência Uniforme das Séries de Fourier;
+	\item Convergência de séries de Fourier no sentido \(L^{2}\);
+	\item Fórmula de Parseval.
+\end{itemize}
+\subsection{Convergência Pontual das Séries de Fourier - Parte 2}
+Na aula passada, estávamos olhando a questão da convergência pontual das séries de Fourier por meio de um \hyperlink{ponintwise_convergence}{\textit{teorema}}. Quase terminamos a prova, mas faltou mostrar que uma função auxiliar definida durante a prova, denotada por \(g_{x}\), era contínua por parte. Para isso, no caso de y diferente de 0, é óbvio que ela é, mas dá problema no 0, que devemos conferir se quebra mesmo; nesse caso,
+\[
+	\lim_{y\to 0^{+}}g_{x}(y) = \lim_{y\to 0^{+}} \frac{f(x-y)-f(x^{-})}{1-e^{iy}}.
+\]
+Assim, aplicando a regra de L'Hospital e usando a propriedade de f ser suave por partes,
+\[
+	\lim_{y\to 0^{+}} \frac{f(x-y)-f(x^{-})}{1-e^{iy}}=\lim_{y\to 0^{+}}\frac{-f'(x-y)}{-ie^{iy}} = \frac{f'(x^{-})}{i}.
+\]
+Analogamente, mostramos o mesmo para o limite a 0 pela lateral à esquerda.
+
+\begin{example}
+	Considere a função \(f:\mathbb{R}\rightarrow \mathbb{C}\) \(2\pi \)-periódica dada por \(f(x) = x\) para x no intervalo \([-\pi , \pi )\). Todas as suas derivadas, em cada intervalo de tamanho \(2\pi \), será 1. Sendo assim, para onde a série dessa f converge?
+
+	Como ela é contínua, os limites laterais são iguais. Assim, usando o \hyperlink{ponintwise_convergence}{\textit{teorema da convergência pontual}},
+	\[
+		\lim_{N\to \infty}\sum\limits_{n=-N}^{N}c_{n}e^{inx} = \frac{1}{2}(f(x) + f(x)) = f(x),
+	\]
+	o que significa que a série da função, dada por
+	\[
+		2\sum\limits_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\frac{1}{2}\sin^{}{(nx)}.
+	\]
+	converge exatamente para a função em si. Para ver a utilidade disso, segue que, pela nossa análise, temos
+	\begin{align*}
+		\frac{\pi }{2} & = 2 \sum\limits_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}\sin^{}{\biggl(n\frac{\pi }{2}\biggr)}        \\
+		               & =2\sum\limits_{n=0}^{\infty}\frac{(-1)^{2n+2}}{2n+1}\sin^{}{\biggl((2n+1)\frac{\pi }{2}\biggr)} \\
+		               & =2\sum\limits_{n=0}^{\infty}\frac{(-1)^{n}}{2n+1}.
+	\end{align*}
+	Portanto, temos uma forma de calcular \(\pi \):
+	\[
+		\pi = 4\sum\limits_{n=0}^{\infty}\frac{(-1)^{n}}{2n+1} \Rightarrow \pi = 4 \biggl(1 - \frac{1}{3} + \frac{1}{5} - \frac{1}{7} + \dotsc \biggr).
+	\]
+\end{example}
+\begin{example}
+	O outro exemplo que já estudamos foi para a função módulo definida em um intervalo de tamanho \(2\pi \). Seguindo o mesmo raciocínio feito acima,
+	\[
+		|\theta | = \frac{\pi }{2} - \frac{4}{\pi }\sum\limits_{n=0}^{\infty}\frac{\cos^{}{(2n+1)\theta }}{(2n+1)^{2}},\quad \forall \theta \in [-\pi , \pi ].
+	\]
+	Quando \(\theta \) vale 0, vemos que
+	\[
+		\pi^{2} = 8 \sum\limits_{n=0}^{\infty}\frac{1}{(2n+1)^{2}}.
+	\]
+\end{example}
+Quando temos uma função apenas contínua por partes, dificilmente vamos conseguir algo melhor do que o resultado anterior. No entanto, se tivermos algo como o exemplo do módulo - contínua normalmente e suave por partes - podemos discutir a convergência uniforme das suas séries.
+\begin{def*}
+	Dizemos que a série \(\sum\limits_{n=-N}^{N}f_{n}\), em que cada \(f_{n}:\mathbb{R}\rightarrow \mathbb{C}\) é \(2\pi \)-periódica e contínua, \textbf{converge uniformemente a }\(f:\mathbb{R}\rightarrow \mathbb{C}\) se
+	\[
+		\lim_{N\to \infty}\biggl(\sup_{x\in \mathbb{R}}\biggl\vert \sum\limits_{n=-N}^{N}f_{n}(x) - f(x) \biggr\vert\biggr) = 0.\quad \square
+	\]
+\end{def*}
+Essa definição pode ser reescrita em termos de \(\varepsilon -\delta \); na verdade, a pontual também pode:
+\begin{itemize}
+	\item[i)] \textbf{\underline{Pontual}:} Dado \(\varepsilon > 0\) e um ponto x no domínio da função, existe \(N=N(x, \varepsilon )\) dependente de x e de \(\varepsilon \) tal que, se n for maior ou igual a N, então
+	      \[
+		      \biggl\vert \sum\limits_{n=-N}^{N}f_{n}(x) - f(x) \biggr\vert < \varepsilon .
+	      \]
+	\item[ii)] \textbf{\underline{Uniforme}:} Dado \(\varepsilon > 0\), existe um natural N dependente de \(\varepsilon \) apenas, tal que, para qualquer natural maior que ele,
+	      \[
+		      \biggl\vert \sum\limits_{n=-N}^{N}f_{n}(x) - f(x) \biggr\vert < \varepsilon , \quad \forall x\in \mathbb{R}.
+	      \]
+	      O nome uniforme vem justamente disso: o \(\varepsilon \) vale \textit{uniformemente} para todos os números no domínio da função.
+\end{itemize}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill O Teste-M de Weierstrass},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Um resultado super recorrente no estudo da uniformidade de sequências de funções é o \hypertarget{weierstrass_m}{teste-M de Weierstrass}: se existem constantes \(M_{n}\) positivas tais que
+	\[
+		|f_{n}(x)|\leq M_{n},\; \forall x\in \mathbb{R}
+	\]
+	cujas soma é finita, ou seja,
+	\[
+		\sum\limits_{n=-\infty}^{\infty}M_{n}<\infty,
+	\]
+	então a série de funções \(\sum\limits_{n=-N}^{N}f_{n}\) converge uniformemente à f.
+\end{tcolorbox}
+\begin{theorem*}
+	Se \(f:\mathbb{R}\rightarrow \mathbb{C}\) é \(2\pi \)-periódica, suave por partes e contínua\footnote{Por exemplo, a função \(|\cdot |\).}, então a série de Fourier (real e complexa) converge uniformemente à f.
+\end{theorem*}
+\begin{proof*}
+	Note que, por hipótese, a função derivada de f, \(f':\mathbb{R}\rightarrow \mathbb{C}\) está definida a não ser em pontos isolados, é \(2\pi \)-periódica e é contínua por partes. Assim, pela \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel}},
+	\[
+		\sum\limits_{n=-\infty}^{\infty}|c_{n}'|^{2}\leq \frac{1}{2\pi }\int_{-\pi }^{\pi }|f'(x)|^{2}dx < \infty.
+	\]
+	Observe também que, como ganhamos uma partição pela definição de suavidade por partes,
+	\[
+		c_{n} = \frac{1}{2\pi }\int_{-\pi }^{\pi }f(x)e^{-inx}dx = \frac{1}{2\pi }\sum\limits_{j=0}^{N}\int_{x_{j}}^{x_{j+1}}f(x)e^{-inx}dx.
+	\]
+	Fazendo uma integração por partes, com termo derivado sendo \(e^{-inx}\) e termo fixo \(f(x)\), chegamos em
+	\[
+		c_{n} = \frac{1}{2\pi }\sum\limits_{j=0}^{N}\biggl(\underbrace{f(x)\frac{e^{-inx}}{-in}\biggl|_{x_{j}}^{x_{j+1}}}_{=f(x_{j+1})e^{-inx_{j+1}}-f(x_{j})e^{-inx_{j}}} - \int_{x_{j}}^{x_{j+1}}f'(x)\frac{e^{-inx}}{-in}dx\biggr.\biggr).
+	\]
+	Ao expandir a soma, ela torna-se uma série telescópica com os únicos termos restantes sendo \(-f(x_{0})e^{-inx_{0}}\) e \(f(x_{N})e^{-inx_{N}}\), ou seja,
+	\[
+		c_{n} = \frac{1}{2\pi }\int_{-\pi}^{\pi}f'(x)e^{-inx}\frac{1}{in}dx
+	\]
+
+	Em conclusão, temos
+	\begin{align*}
+		 & c_{n} = \frac{1}{in}c_{n}'                                       \\
+		 & f(x) \rightarrow \sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx}    \\
+		 & f'(x)\rightarrow \sum\limits_{n=-\infty}^{\infty}inc_{n}e^{inx}.
+	\end{align*}
+
+	Além disso, vemos que os termos da série de f satisfazem
+	\[
+		|c_{n}e^{inx}|\leq M_{n}\coloneqq |c_{n}|.
+	\]
+	Assim, pelo \hyperlink{weierstrass_m}{\textit{Teste-M de Weierstrass}}, basta provar que
+	\[
+		\sum\limits_{n=-\infty}^{\infty}|c_{n}|<\infty.
+	\]
+	Para isso, usamos a \hyperlink{cauchy_schwartz}{\textit{desigualdade de Cauchy-Schwartz}}  para obter
+	\begin{align*}
+		\sum\limits_{n=-N}^{N}|c_{n}| & = |c_{0}| + \sum\limits_{\substack{n=-N                                                                                                                                       \\ n\neq0}}^{N}|c_{n}|\\
+		                              & = |c_{0}| + \sum\limits_{\substack{n=-N                                                                                                                                       \\ n\neq0}}^{N}\frac{1}{|n|}|nc_{n}|\\
+		                              & \leq |c_{0}|+\biggl(\sum\limits_{\substack{n=-N                                                                                                                               \\ n\neq0}}^{N}\frac{1}{|n|^{2}}\biggr)^{\frac{1}{2}}\biggl(\sum\limits_{\substack{n=-N \\ n\neq0}}^{N}|nc_{n}|^{2}\biggr)^{\frac{1}{2}}\\
+		                              & \leq |c_{0}|+\biggl(2\sum\limits_{n=1}^{\infty}\frac{1}{n^{2}}\biggr)^{\frac{1}{2}}\biggl(\frac{1}{2\pi }\int_{-\pi }^{\pi }|f'(x)|^{2}\biggr)^{\frac{1}{2}},\quad \forall N.
+	\end{align*}
+	Logo,
+	\[
+		\sum\limits_{n=-\infty}^{\infty}M_{n}<\infty
+	\]
+	e, portanto, a convergência é uniforme. \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Desigualdade de Cauchy-Schwartz},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	A desigualdade de Cauchy-Schwartz é com respeito ao produto interno de vetores dentro de um espaço vetorial; mais especificamente, ela afirma que
+	\[
+		\sum\limits_{n=1}^{N}a_{n}b_{n} = |\left< (a_1, \dotsc , a_{n}), (b_1, \dotsc , b_{n}) \right>|\leq \Vert (a_1, \dotsc , a_{n}) \Vert \Vert (b_1, \dotsc , b_{n}) \Vert.
+	\]
+\end{tcolorbox}
+\begin{theorem*}
+	Seja \(f:\mathbb{R}\rightarrow \mathbb{C}\) uma função \(2\pi \)-periódica e contínua por partes (mas bastaria ser \(L^{2}(-\pi , \pi )!\)). Então,
+	\[
+		\lim_{N\to \infty}\int_{-\pi }^{\pi }\biggl\vert \sum\limits_{n=-N}^{N}c_{n}e^{inx} - f(x) \biggr\vert^{2}dx = 0.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Para o caso em que f é contínua, confira em algum material (e.g. Robert Seeley). \qedsymbol
+\end{proof*}
+Faremos uma interpretação dos achados que tivemos. Para isso, recordemos algumas coisas:
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Convergência em \(L^{2}\)},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Já recordamos previamente a norma e produto interno no espaço de funções. Olhando especificamente para as funções contínuas e \(2\pi \)-periódicas, o produto interno assume a forma
+	\[
+		\left< f, g \right>=\int_{-\pi }^{\pi }f(x)\overline{g(x)}dx,
+	\]
+	e, a norma,
+	\[
+		\Vert f \Vert \coloneqq \sqrt[]{\left< f, f \right>}=\biggl(\int_{-\pi }^{\pi }|f(x)|^{2}\biggr)^{\frac{1}{2}}.
+	\]
+	Com isso, podemos falar sobre a convergência no sentido \(L^{2}\), ou convergência quadrática, como
+	\[
+		\lim_{N\to \infty}\Vert \sum\limits_{n=-N}^{N} c_{n}e^{inx}-f(x) \Vert=0.
+	\]
+\end{tcolorbox}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Base ortonormal},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Para um espaço vetorial V com produto interno \(\left< \cdot , \cdot  \right>\), considere a base \(\mathcal{B}=\{e_{1},\dotsc ,e_{n}\}.\) Diremos que ela é uma base \textbf{ortonormal} se
+	\[
+		\left< e_{i}, e_{j} \right>=\delta_{ij}.
+	\]
+	Com isso, dado um vetor u de V, ele pode ser escrito como
+	\[
+		u=\sum\limits_{j=1}^{n}\left< u, e_{j} \right>e_{j}.
+	\]
+	Consequentemente, também,
+	\[
+		\biggl\Vert u-\sum\limits_{j=1}^{n}\left< u, e_{j} \right>e_{j} \biggr\Vert = 0.
+	\]
+\end{tcolorbox}
+Uma coisa muito interessante que dá para fazer com o conceito de base ortonormal misturado ao da série de Fourier é considerar V como um dos três:
+\begin{itemize}
+	\item[1.)] O espaço das funções contínuas e \(2\pi \)-periódicas;
+	\item[2.)] O espaço das funções contínuas por partes;
+	\item[3.)] O espaço das funções \(L^{2}.\)
+\end{itemize}
+Nestes casos, há uma base ortonormal com elementos da base descritos por
+\[
+	e_{n}=\frac{1}{\sqrt[]{2\pi }}e^{inx},\quad n\in \mathbb{Z},
+\]
+pois, com esta forma,
+\[
+	\left< e_{n}, e_{m} \right>=\frac{1}{2\pi }\int_{-\pi }^{\pi }e^{i(n-m)x}dx = \delta_{nm}.
+\]
+Além disso, como qualquer função dentro daquelas classes possui um critério de garantia de convergência que permite com que elas sejam escritas em termo de uma série de Fourier, esses elementos de fato formam uma base, pois
+\begin{align*}
+	c_{n}e^{inx} & =\biggl(\frac{1}{2\pi }\int_{-\pi }^{\pi }f(y)e^{-iny}dy\biggr)e^{inx}                                             \\
+	             & =\int_{-\pi }^{\pi }f(y)\overline{\frac{1}{\sqrt[]{2\pi }}e^{iny}}dy \biggl(\frac{1}{\sqrt[]{2\pi }}e^{inx}\biggr) \\
+	             & = \left< f, e_{n} \right>e_{n}.
+\end{align*}
+Assim, concluímos que a discussão sobre séries de Fourier era, na verdade, uma discussão pela busca de uma base ortonormal para os espaços de funções acima - uma série de Fourier é, essencialmente, escrever uma combinação linear de vetores linearmente independentes para aquelas classes de funções: uma \textbf{base} para elas. De fato, concluímos que
+\[
+	f(x)=\sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx}=\sum\limits_{n=-\infty}^{\infty}\left< f, e_{n} \right>e_{n}.
+\]
+Portanto, também,
+\[
+	\lim_{N\to \infty}\biggl\Vert f - \sum\limits_{n=-N}^{N}\left< f, e_{n} \right>e_{n} \biggr\Vert=0
+\]
+\subsection{Fórmula de Parseval}
+Considere a soma parcial
+\[
+	S_{N}(x)=\sum\limits_{n=-N}^{N}c_{n}e^{inx}.
+\]
+Vimos que, pelos critérios de convergência, se f pertence a um dos três espaços vetoriais de funções mencionados, então
+\[
+	\lim_{N\to \infty}\Vert S_{N}-f \Vert=0.
+\]
+Por outro lado, sabemos que
+\begin{align*}
+	 & \Vert s_{N} \Vert=\Vert S_{N}-f+f \Vert\leq \Vert s_{N}-f \Vert+\Vert f \Vert      \\
+	 & \Vert f \Vert=\Vert f-S_{N}+S_{N} \Vert\leq \Vert f-s_{N} \Vert+\Vert S_{N} \Vert.
+\end{align*}
+Logo,
+\[
+	\left.\begin{array}{ll}
+		\Vert S_{N} \Vert-\Vert f \Vert\leq \Vert S_{N}-f \Vert \\
+		\Vert f \Vert-\Vert S_{N} \Vert\leq \Vert S_{N}-f \Vert
+	\end{array}\right\} \Rightarrow \biggl\vert \Vert S_{N} \Vert-\Vert f \Vert \biggr\vert \leq \Vert S_{N}-f \Vert.
+\]
+Desta forma,
+\[
+	\lim_{N\to \infty} \biggl\vert \Vert S_{N} \Vert - \Vert f \Vert \biggr\vert=\lim_{N\to \infty}\Vert S_{N}-f \Vert=0
+\]
+e, portanto,
+\[
+	\lim_{N\to \infty}\Vert S_{N} \Vert=\Vert f \Vert.
+\]
+Em outras palavras, os critérios de convergência que vimos foram, também, válidos para convergência em norma das funções! Agora, com isso em mãos, podemos usar a forma de reescrita da norma em termos do produto interno para obter
+\begin{align*}
+	\Vert S_{N} \Vert ^{2}=\left< S_{N}, S_{N} \right> & = \int_{-\pi }^{\pi }\sum\limits_{n=-N}^{N}c_{n}e^{inx}\sum\limits_{n=-N}^{N}\overline{c_{m}}e^{-imx}dx                              \\
+	                                                   & = \sum\limits_{n=-N}^{N}\sum\limits_{m=-N}^{N}c_{n}\overline{c_{m}}\underbrace{\int_{-\pi }^{\pi }e^{i(n-m)x}dx}_{=2\pi \delta_{nm}} \\
+	\\
+	                                                   & =\sum\limits_{n=-N}^{N}2\pi |c_{n}|^{2}.
+\end{align*}
+Conclusão: se f admite série de Fourier convergente, temos a \textbf{fórmula de Parseval}:
+\hypertarget{parseval_formula}{
+\[
+	\underbrace{\frac{1}{2\pi }\int_{-\pi }^{\pi }|f(x)|^{2}dx}_{\Vert f \Vert^{2}} = \underbrace{\sum\limits_{n=-\infty}^{\infty}|c_{n}|^{2}.}_{\frac{1}{2\pi }\Vert S_{N} \Vert^{2}}
+\]
+}
+Ou seja, no fim das contas, a desigualdade de Bessel é uma igualdade!
+\end{document}

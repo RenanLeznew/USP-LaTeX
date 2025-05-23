@@ -1,0 +1,226 @@
+ \documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 19 - 19 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Equação de Laplace na Bola Unitária.
+\end{itemize}
+\subsection{Equação de Laplace na Bola Unitária.}
+Consideramos o problema
+\[
+	\left\{\begin{array}{ll}
+		\Delta u(x, y) = 0, & \quad x^{2}+y^{2}<1 \\
+		u(x,y) = g(x,y),    & \quad x^{2}+y^{2}=1
+	\end{array}\right..
+\]
+Colocando \(x = r\cos^{}{(\theta )}\) e \(y = r\sin^{}{(\theta )}\), se
+\[
+	v(r, \theta ) = u(x (r,\theta), y(r, \theta )),
+\]
+então
+\[
+	\left\{\begin{array}{ll}
+		{\color{Sienna2}\frac{\partial^{2}v}{\partial r^{2}} + \frac{1}{r}\frac{\partial^{}v}{\partial r^{}} + \frac{1}{r^{2}}\frac{\partial^{2}v}{\partial \theta ^{2}}}, & \quad 0\leq r<1,\; -\pi \leq \theta \leq \pi \\
+		{\color{VioletRed4} v(1, \theta ) = g(\theta )},                                                                                                                   & \quad -\pi \leq \theta \leq \pi              \\
+		{\color{DarkGoldenrod2}v(r, -\pi ) = v(r, \pi ),\quad \frac{\partial^{}v}{\partial \theta ^{}}(r, -\pi ) = \frac{\partial^{}v}{\partial \theta ^{}}(r, \pi )}.
+	\end{array}\right.
+\]
+
+{\color{Sienna2}\underline{Passo 1}}: vamos procurar soluções da forma \(v(r, \theta ) = R(r)\Theta (\theta )\). Obtemos:
+\[
+	R''(r)\Theta (\theta ) + \frac{1}{r}R'(r)\Theta (\theta ) + \frac{1}{r^{2}}R(r)\Theta ''(\theta ) = 0.
+\]
+Multiplicando tudo por \(\frac{r^{2}}{R\Theta },\)
+\[
+	\biggl[\frac{r^{2}R''(r)}{R(r)}+r \frac{R'(r)}{R(r)}\biggr] + \biggl[\frac{\Theta ''(\theta )}{\Theta (\theta )}\biggr] = 0.
+\]
+Assim,
+\begin{align*}
+	 & r^{2}R''(r) +rR'(r) = \lambda R(r)              \\
+	 & \Theta ''(\theta ) = -\lambda \Theta (\theta ).
+\end{align*}
+
+{\color{VioletRed4}\underline{Passo 2}}: agora que temos a EDO acima, queremos, para todo n,
+\begin{align*}
+	 & R(r)\Theta (-\pi ) = R(r)\Theta (\pi )   \\
+	 & R(r)\Theta '(-\pi ) = R(r)\Theta '(\pi),
+\end{align*}
+logo
+\[
+	\Theta (-\pi ) = \Theta (\pi ) \quad\&\quad \Theta '(-\pi ) = \Theta '(\pi ).
+\]
+Em conclusão,
+\begin{align*}
+	 & \Theta ''(\theta )=-\lambda \Theta (\theta ) \\
+	 & \Theta (-\pi ) = \Theta (\pi )               \\
+	 & \Theta'(-\pi ) = \Theta '(\pi ).
+\end{align*}
+Agora, podemos olhar para os casos de \(\lambda \), como fizemos outra vez
+
+\underline{Caso \(\lambda  = 0\)}: temos
+\[
+	\left.\begin{array}{ll}
+		\Theta (\theta ) = a + b\theta \\
+		\Theta (-\pi ) = \Theta (\pi ) \Leftrightarrow a-b\pi =a+b\pi \Rightarrow b = 0
+	\end{array}\right\} \Theta (\theta ) = a\in \mathbb{R}.
+\]
+
+\underline{Caso \(\lambda < 0\)}: aqui,
+\[
+	\Theta (\theta ) = Ae^{-\sqrt[]{-\lambda }\theta } + B e^{\sqrt[]{-\lambda }\theta },
+\]
+tal que
+\[
+	\Theta (\theta ) = \Theta (-\pi ) \Longleftrightarrow Ae^{-\sqrt[]{-\lambda }\pi } + Be^{\sqrt[]{-\lambda }\pi } = Ae^{\sqrt[]{-\lambda }\pi } + B e^{-\sqrt[]{-\lambda }\pi }
+\]
+junto à
+\begin{align*}
+	\Theta '(\theta ) = \Theta '(\pi ) & \Longleftrightarrow -A e^{-\sqrt[]{-\lambda }\pi }+Be^{\sqrt[]{-\lambda }\pi } = -Ae^{\sqrt[]{-\lambda }\pi }+Be^{-\sqrt[]{-\lambda }\pi } \\
+	                                   & \Longleftrightarrow                     2Be^{\sqrt[]{-\lambda }\pi } = 2Be^{-\sqrt[]{-\lambda }\pi }                                       \\
+	                                   & \Longleftrightarrow \underbrace{e^{\sqrt[]{-\lambda }\pi }}_{>1} = \underbrace{e^{-\sqrt[]{-\lambda }\pi }}_{<1}                           \\
+	                                   & \Rightarrow B = 0 \Rightarrow Ae^{-\sqrt[]{-\lambda }\pi } = Ae^{\sqrt[]{-\lambda }\pi }\Longleftrightarrow A = 0.
+\end{align*}
+Obtemos um absurdo, ou uma equação inútil.
+
+\underline{Caso \(\lambda > 0\):} partimos da EDO
+\begin{align*}
+	 & \Theta (\theta ) = A\cos^{}{(\sqrt[]{\lambda }\theta )} + B\sin^{}{(\sqrt[]{\lambda }\theta )}                      \\
+	 & \sqrt[]{\lambda  }\Theta '(\theta ) = -A\sin^{}{(\sqrt[]{\lambda }\theta )} + B\cos^{}{(\sqrt[]{\lambda }\theta )}.
+\end{align*}
+Com as condições iniciais,
+\begin{align*}
+	 & \Theta (-\pi ) = \Theta (\pi ) \Longleftrightarrow A\cos^{}{(\sqrt[]{\lambda }\pi )} + B\sin^{}{(\sqrt[]{\lambda }\pi )} = A\cos^{}{(\sqrt[]{\lambda }\pi )} - B\sin^{}{(\sqrt[]{\lambda }\pi )}     \\
+	 & \Theta' (-\pi ) = \Theta '(\pi ) \Longleftrightarrow -A\sin^{}{(\sqrt[]{\lambda }\pi )} + B\cos^{}{(\sqrt[]{\lambda }\pi )} = A\sin^{}{(\sqrt[]{\lambda }\pi )} + B\cos^{}{(\sqrt[]{\lambda }\pi )},
+\end{align*}
+que resulta no sistema
+\[
+	\left.\begin{array}{ll}
+		2B\sin^{}{(\sqrt[]{\lambda }\pi )} = 0 \\
+		2A\sin^{}{(\sqrt[]{\lambda }\pi )} = 0.
+	\end{array}\right\} \sin^{}{(\sqrt[]{\lambda }\pi )} = 0 \Longleftrightarrow \lambda = n^{2},\quad n\in \mathbb{Z}.
+\]
+Consequentemente, encontramos que \(\Theta \) pode ter as seguintes caras:
+\begin{align*}
+	 & \Theta_{0}(\theta ) = \frac{a_{0}}{2}                                                  \\
+	 & \Theta_{n}(\theta ) = a_{n}\cos^{}{(n\theta )}                                         \\
+	 & \Theta_{2n}(\theta ) = b_{n}\sin^{}{(n\theta )}, \quad \lambda_{n} = n^{2},\; n\geq 0.
+\end{align*}
+Vamos resolver, então,
+\[
+	r^{2}R_{n}''(r) + rR_{n}'(r) = n^{2}R_{n}(r).
+\]
+Para isso, seja \(w(s) = R(e^{s})\), tal que
+\begin{align*}
+	\frac{\mathrm{d}w}{\mathrm{d}s} = \frac{\mathrm{d}R}{\mathrm{d}r}\frac{\mathrm{d}r}{\mathrm{d}s} \Rightarrow w'(s) = R'(e^{s})e^{s} \\
+	\frac{\mathrm{d}^{2}w}{\mathrm{d}s^{2}} = \frac{\mathrm{d}}{\mathrm{d}s}(R'(e^{s})e^{s}) & =R''(e^{s})e^{s}e^{s} + R'(e^{s})e^{s}   \\
+	                                                                                         & =R'(e^{s})e^{2s}+ R'(e^{s})e^{s}.
+\end{align*}
+Seja \(r = e^{s}\); então, queremos
+\[
+	e^{2s}R(e^{s})+e^{s}R'(e^{s}) = \lambda R(e^{s}) \Longleftrightarrow w''(s) = \lambda w(s),\quad \lambda  = 0 \text{ ou }\lambda =n^{2}.
+\]
+Quando \(\lambda \) vale 0,
+\[
+	w''(s) = 0 \Rightarrow w(s) = a + bs \Rightarrow R(r) = w(\ln^{}{(r)}) = a+b\ln^{}{(r)}
+\]
+e, quando \(\lambda \) vale \(n^{2}\),
+\[
+	w''(s) = n^{2}w(s) \Rightarrow w(s) = ae^{ns}+be^{-ns} \Rightarrow R(r)=w(\ln^{}{(r)})=ae^{n\ln^{}{(r)}}+be^{-n\ln^{}{(r)}}=ar^{n}+br^{-n}.
+\]
+Em conclusão, no passo 2, obtivemos
+\begin{align*}
+	 & v_{0}(r, \theta ) = a + b\ln^{}{(r)}                      \\
+	 & v_{n}(r, \theta ) = (ar^{n}+br^{-n})\cos^{}{(n\theta )}   \\
+	 & v_{2n}(r, \theta ) = (ar^{n}+br^{-n})\sin^{}{(n\theta )},
+\end{align*}
+mas ignoramos tanto o termo log quando o termo que tem uma potência negativa pois estamos analisando apenas as soluções clássicas!
+
+{\color{Thistle2}\underline{Passo 3:}}finalmente, no último passo, vamos resolver com a condição de contorno:
+\begin{align*}
+	 & v(r, \theta ) = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}[a_{n}r^{n}\cos^{}{(n\theta )}+b_{n}r^{n}\sin^{}{(n\theta )}]                       \\
+	 & g(\theta ) = v(1, \theta ) = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}[a_{n}\cos^{}{(n\theta )}+b_{n}\sin^{}{(n\theta )}]                    \\
+	 & a_{n}=\frac{1}{\pi }\int_{-\pi }^{\pi }g(y)\cos^{}{(ny)} \mathrm{dy},\; b_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }g(y)\sin^{}{(ny)} \mathrm{dy}.
+\end{align*}
+Colocando tudo isso junto, obtemos a expressão (que nem cabe certinho na linha)
+\[
+	v(r,\theta )=\frac{1}{\pi }\int_{-\pi }^{\pi }g(y) \mathrm{dy} + \sum\limits_{n=1}^{\infty}\frac{r^{n}}{\pi }\biggl[\biggl(\int_{-\pi }^{\pi }g(y)\cos^{}{(ny)} \mathrm{dy}\biggr)\cos^{}{(n\theta )}+\biggl(\int_{-\pi }^{\pi }g(y)\sin^{}{(y)} \mathrm{dy}\biggr)\sin^{}{(n\theta )}\biggr]
+\]
+
+Voltando um pouco agora, lembre-se da \hyperlink{euler_formula}{\textit{outra forma de escrever seno e cosseno}}, tal que a expressão para v pode ser vista como
+\begin{align*}
+	v(r, \theta ) & = c_{0} + \sum\limits_{n=1}^{\infty}[c_{n}r^{n}e^{in\theta }+c_{-n}r^{n}e^{-in\theta }]                            \\
+	              & = c_{0} + \sum\limits_{n=1}^{\infty}c_{n}r^{n}e^{in\theta } + \sum\limits_{n=-\infty}^{-1}c_{n}r^{-n}e^{in\theta } \\
+	              & = \sum\limits_{n=-\infty}^{\infty}c_{n}r^{|n|}e^{in\theta }.
+\end{align*}
+Desta forma,
+\[
+	g(\theta ) = v(1, \theta ) = \sum\limits_{n=\infty}^{\infty}c_{n}e^{in\theta } \Rightarrow c_{n} = \frac{1}{2\pi }\int_{-\pi }^{\pi }g(y)e^{-iny} \mathrm{dy},
+\]
+e chegamos à forma equivalente para v, dada por
+\[
+	v(r, \theta ) = \sum\limits_{n=-\infty}^{\infty}\biggl(\frac{1}{2\pi }\int_{-\pi }^{\pi }g(\psi)e^{-in\psi} \mathrm{d\psi}\biggr)e^{in\theta }r^{|n|}.
+\]
+Logo,
+\begin{align*}
+	v(r, \theta  ) & = \frac{1}{2\pi }\sum\limits_{n=0}^{\infty}\int_{-\pi }^{\pi }e^{in(\theta  -\psi )}r^{n}g(\psi ) \mathrm{d\psi } + \frac{1}{2\pi }\sum\limits_{n=-\infty}^{-1}\int_{-\pi }^{\pi }e^{in(\theta -\psi )}r^{-n}g(\psi ) \mathrm{d\psi }                           \\
+	               & = \frac{1}{2\pi }\int_{-\pi }^{\pi }\biggl(\sum\limits_{n=0}^{\infty}r^{n}e^{in(\theta  -\psi )}\biggr)g(\psi ) \mathrm{d\psi } + \frac{1}{2\pi }\int_{-\pi }^{\pi }\biggl(\sum\limits_{n=0}^{\infty}r^{n}e^{-in(\theta -\psi )}\biggr)g(\psi ) \mathrm{d\psi } \\
+	               & = \frac{1}{2\pi }\int_{-\pi }^{\pi }\frac{1}{1-re^{i(\theta -\psi )}}g(\psi ) \mathrm{d\psi} + \frac{1}{2\pi }\int_{-\pi }^{\pi }\frac{e^{-i(\theta  -\psi )}r}{1-re^{-i(\theta  -\psi )}} g(\psi )\mathrm{d\psi }                                              \\
+	               & = \frac{1}{2\pi }\int_{-\pi }^{\pi }\frac{1-re^{-i(\theta -\psi )}+re^{-i(\theta -\psi )}-r^{2}}{(1-re^{i(\theta -\psi )})(1-re^{-i(\theta -\psi )})}g(\psi ) \mathrm{d\psi }                                                                                   \\
+	               & = \frac{1}{2\pi }\int_{-\pi }^{\pi }\frac{1-r^{2}}{1+r^{2}-2r\cos^{}{(\theta -\psi )}}g(\psi ) \mathrm{d\psi }.
+\end{align*}
+em que este resultado final é um caso específico da chamada \hyperlink{poisson_formula}{\textit{Fórmula de Poisson}}. Ela pode ser reescrita ainda na forma de uma convolução com o núcleo de Poisson:
+\[
+	v(r, \theta )= \frac{1}{2\pi }\int_{-\pi }^{\pi }\frac{1-r^{2}}{1+r^{2}-2r\cos^{}{(\theta -\psi )}}g(\psi ) \mathrm{d\psi } = \int_{-\pi }^{\pi }\underbrace{H_r(\theta -\psi )}_{\mathclap{\text{Núcleo de Poisson}}}g(\psi ) \mathrm{d\psi }
+\]
+\subsection{Consequências da Fórmula de Poisson.}
+Vamos nos concentrar no caso bidimensional; seja o problema, definido numa bola aberta centrada em \((a, b)\) e com raio R qualquer, dado por
+\[
+	\left\{\begin{array}{ll}
+		\Delta u(x, y) = 0, & \quad (x-a)^{2}+(y-b)^{2}\leq R^{2} \\
+		u(x, y) = g(x, y),  & \quad (x-a)^{2} + (y-b)^{2}=R^{2}
+	\end{array}\right..
+\]
+A pergunta que fazemos é ``qual a solução para esse problema?''. Como já sabemos estudar o caso da bola unitária, vamos fazer
+\begin{align*}
+	 & x = a + Rr\cos^{}{(\theta) } \\
+	 & y = b + Rr\sin^{}{(\theta )}
+\end{align*}
+e obtemos a equação de Laplace em \(B_1(0)\); assim,
+\[
+	v(r, \theta ) = \frac{R^{2}-r^{2}}{2\pi }\int_{-\pi }^{\pi }\frac{g(\psi )}{R^{2}+r^{2}-2Rr\cos^{}{(\theta -\psi )}} \mathrm{d\psi }
+\]
+\begin{theorem*}
+	Seja \(u:\Omega \subseteq \mathbb{R}^{2}\rightarrow \mathbb{R}\) uma função harmônica. Logo, para todo x em \(\Omega \) e raio R positivo tal que
+	\[
+		\overline{B_R(x_{0})}\subseteq \Omega ,
+	\]
+	temos
+	\begin{align*}
+		u(x) = \oint_{\partial B_R(x_{0})}^{}u(y) \mathrm{dS(y)} & = \frac{1}{\text{comprimento}(\partial B_R(x_{0}))}\int_{\partial B_R(x_{0})}^{}u(y) \mathrm{dS(y)}
+		                                                         & = \oint_{B_R(x_{0})}u(y)dy = \frac{1}{\text{Área}(B_R(x_{0}))}\int_{B_R(x_{0})}^{}u(y) \mathrm{dy}.
+	\end{align*}
+\end{theorem*}
+\begin{proof*}
+	Sabemos que, no fecho de \(B_R(x_{0})\), temos \(x_{0} = (a, b)\) e
+	\[
+		\left\{\begin{array}{ll}
+			\Delta u(x, y) = 0, & \quad (x-a)^{2}+(y-b)^{2}\leq R^{2} \\
+			u(x, y) = u(x, y),  & \quad (x-a)^{2}+(y-b)^{2} = R^{2}
+		\end{array}\right..
+	\]
+	Assim, temos
+	\[
+		u(x(r, \theta ), y(r, \theta )) = \frac{R^{2}-r^{2}}{2\pi }\int_{-\pi }^{\pi }\frac{u(a+R\cos^{}{(\psi )}, b+ R\sin^{}{(\psi )})}{R^{2}-r^{2}-2rR\cos^{}{(\theta -\psi )}} \mathrm{d\psi },\quad \forall r>0,
+	\]
+	que é a fórmula de Poisson com
+	\[
+		g(\psi ) = u(a+R\cos^{}{(\psi )}, b + R \sin^{}{(\psi )}) = u|_{\partial B_R(x_{0})}.
+	\]
+	Para r = 0, portanto,
+	\begin{align*}
+		u(a, b) = u(x(0, \theta ), y(0, t)) & = \frac{R^{2}}{2\pi }\int_{-\pi }^{\pi }\frac{u(a+R\cos^{}{(\psi )}, b+R\sin^{}{(\psi )})}{R^{2}} \mathrm{d\psi } \\
+		                                    & = \frac{1}{2\pi R}\int_{-\pi }^{\pi }u(a + R\cos^{}{(\psi )}, b+R\sin^{}{(\psi )})R \mathrm{d\psi }               \\
+		                                    & = \frac{1}{|\partial B(x_{0}, r)|}\int_{\partial B_r(x_{0})}^{}u \mathrm{ds}.\quad \text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+\end{document}

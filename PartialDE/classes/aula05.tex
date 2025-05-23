@@ -1,0 +1,348 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 17 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Princípio do Máximo Forte;
+	\item Existência e Unicidade da Solução da Equação do Calor;
+	\item Resolvendo a Equação do Calor.
+\end{itemize}
+\subsection{Existência e Unicidade de Solução da Equação do Calor}
+Ao fim da última aula, vimos uma proposição sobre a unicidade de soluções para EDPs com condição de contorno. Uma das passagens foi a seguinte: saímos de
+\[
+	\frac{1}{2} \frac{d}{dt}\int_{\Omega }^{}w^{2}dx = \int_{\Omega }^{}|\nabla w|^{2}dx \leq 0
+\]
+e, integrando de 0 até t, obtivemos,
+\begin{align*}
+	\frac{1}{2}\int_{\Omega }^{}w^{2}(x, t_{0})dx & - \frac{1}{2}\int_{\Omega }^{}w^{2}(x, 0)dx \leq 0             \\
+	                                              & \Rightarrow -\frac{1}{2}\int_{\Omega }^{}w^{2}(x, t_{0})\leq 0 \\
+	                                              & \Rightarrow w(x, t_{0}) = 0,\quad \forall x\in \Omega ,\: t>0.
+\end{align*}
+Vamos dar um passo para trás (ou dois, se cada passo corresponder a uma linha acima do fim); analisemos a desigualdade
+\[
+	\frac{1}{2}\int_{\Omega }^{}w^{2}(x, t_{0})dx - \frac{1}{2}\int_{\Omega }^{}w^{2}(x, 0)dx \leq 0.
+\]
+
+Consideremos, com base nisso, o seguinte problema de contorno de uma EDP, com duas soluções, denotadas por u e v:
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}}=\Delta u,\quad  \Omega ,\: t>0 \\
+		u = 0, \quad  \partial \Omega ,\: t > 0                           \\
+		u = \phi _1,\quad  \Omega ,\: t = 0
+	\end{array}\right.
+\]
+e
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}v}{\partial t^{}}=\Delta v,\quad  \Omega ,\: t>0 \\
+		v = 0, \quad  \partial \Omega ,\: t > 0                           \\
+		v = \phi _2,\quad  \Omega ,\: t = 0
+	\end{array}\right.
+\]
+Assim como na demonstração, seja \(w = u - v\) e \(w(x, 0) = \phi_1-\phi_2\), com as mesmas propriedades mostradas lá, tal que a desigualdade torna-se
+\[
+	\int_{\partial \Omega }^{}(u(x, t)-v(x, t))^{2} dx \leq \int_{\partial \Omega }^{}(\phi_1(x)-\phi_2(x))^{2}dx.
+\]
+Pra que isto serve? Para mostrar a continuidade em relação aos parâmetros da equação!   \begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Produto Interno de Funções},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	A norma e o produto interno definidos sobre o espaço de funções são
+	\[
+		\langle f, g \rangle= \int_{\Omega }^{}f(x)g(x)dx
+	\]
+	e
+	\[
+		\Vert f \Vert = \sqrt[]{\left< f, g \right>} = \biggl(\int_{\Omega }^{}f(x)^{2}dx\biggr)^{\frac{1}{2}}.
+	\]
+\end{tcolorbox}
+
+Com isto,
+\[
+	\Vert u(\cdot , t)-v(\cdot , t) \Vert\leq \Vert \phi_1(\cdot )-\phi_2(\cdot ) \Vert.
+\]
+Agora que estamos convencidos das boas propriedades que estão por trás das EDPs com condições de contorno, partimos para o
+\hypertarget{strong_maximum}{
+	\begin{theorem*}[Princípio do Máximo (Forte)]
+		Seja U um aberto limitado de \(\mathbb{R}^{n}\) e u uma função de classe \(\mathcal{C}^{2, 1}(\overline{U} \times [0, T])\) tal que
+		\[
+			\frac{\partial^{}u}{\partial t^{}}(x, t)=\Delta u(x, t),\quad (x, t)\in U\times (0, T].
+		\]
+		Então,
+		\[
+			\max_{\mathclap{(x, t)\in \overline{U}\times [0,T]}}u =\max_{}\{u(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\}
+		\]
+	\end{theorem*}
+}
+Antes de uma prova do caso geral, vamos olhar para dois particulares que podem ajudar a entender o que está acontecendo:
+
+\textbf{n=1)} Aqui, U assume a forma de um intervalo fechado \(U=[a, b]\), tal que a figura formada pelo produto cartesiano mencionado forme um quadrado de lado \(b-a\) e altura \(T\). Como
+
+\textbf{n=2)} A cara deste teorema em duas dimensões é bem representada por um problema de condição de contorno; a título de exemplo, considere
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}}(x, t)=\Delta u(x, t), & \quad x\in \Omega ,\: t>0            \\
+		u(x, t)=h(x, t),                                         & \quad x\in \partial \Omega ,\: t > 0 \\
+		u(x, 0)=g(x),                                            & \quad x\in \Omega.
+	\end{array}\right.
+\]
+Então,
+\[
+	\max_{}(u)\leq \max_{}(g, h).
+\]
+
+Agora sim, vejamos sua demonstração:
+\begin{proof*}
+	Seja \(\varepsilon > 0\) e defina \(v:\overline{U}\times [0, T]\rightarrow \mathbb{R}\) por
+	\[
+		v(x, t)=u(x, t) + \varepsilon \underbrace{\Vert x \Vert^{2}}_{\mathclap{x_{1}^{2}+x_{2}^{2}+\dotsc +x_{n}^{2}}}.
+	\]
+	Suponha que o máximo de v, com respeito aos pontos em seu domínio, ocorra no ponto \((x_{0}, t_{0})\) dentro de \(U\times (0, T]\).
+
+	A escolha deste ponto em específico é motivada da suposição de um máximo que caia para fora de um dos dois lados da igualdade no teorema enunciado.
+	Como definimos v dentro do domínio à esquerda, resta assumir que o máximo cai em um ponto dentro deste tal domínio, mas fora do conjunto à direita da igualdade,
+	ou seja, que o máximo ocorra em
+	\[
+		U\times (0, T] = (\overline{U}\times [0, T])\setminus{((\partial U \times [0, T]) \cup (\overline{U}\times \{0\}))}.
+	\]
+	A partir disto, obteremos, ao final, uma contradição e, como o ponto de máximo não poderá estar em \(U\times (0, T]\), restará apenas que ele esteja em \((\partial U \times [0, T]) \cup (\overline{U}\times \{0\})\).
+
+	Sem mais delongas, vamos buscar problema. Pelo cálculo 2, sabemos que, como \(x_{0}\) é o máximo da aplicação que mapeia os pontos x em U para \(v(x, t_{0})\):
+	\[
+		x_{0}=\max_{x\in U}\{x\mapsto v(x, t_{0})\},
+	\]
+	temos
+	\[
+		\frac{\partial^{}v}{\partial x_1{}}, \dotsc , \frac{\partial^{}v}{\partial x_{n}^{}}=0.
+	\]
+	Analogamente, \(t_{0}\) é o máximo do mapa que corresponde um valor de \(v(x_{0}, t)\) para cada t dentro do intervalo colocado \((0, T]\):
+	\[
+		t_{0}= \max_{t\in (0, T]}\{t\mapsto v(x_{0}, t)\}.
+	\]
+	Assim, dependendo de onde o \(t_{0}\) está no intervalo ao qual pertence, teremos algumas situação. Caso \(t_{0}\) esteja no interior deste intervalo, isto é, \(t_{0}\) esteja em \((0, T)\), teremos
+	\[
+		\frac{\partial^{}v}{\partial t^{}}=0.
+	\]
+	Por outro lado, se o ponto de máximo coincidir com o extremo T incluso no intervalo, então
+	\[
+		\frac{\partial^{}v}{\partial t^{}}(x_{0}, T)=\lim_{\substack{h\to 0\\ h<0}} \frac{\overbrace{v(x_{0}, T+h) - v(x_{0}, T)}^{\leq 0}}{\underbrace{h}_{\leq 0}} \geq 0.
+	\]
+	Vale mencionar que h é tomado como negativo, ou, no máximo, valendo zero, pois caso fosse positivo, sua soma com T sairia da borda do intervalo. No fim das contas, a desigualdade acima garante que
+	\[
+		v(x_{0}, T+h) < v(x_{0}, T).
+	\]
+
+	Como conclusão, ao juntar as partes dos casos de extremos,
+	\[
+		\frac{\partial^{}v}{\partial t^{}}(x_{0}, t_{0})\geq 0
+	\]
+
+	Há ainda uma terceira parte que podemos observar: caso \(x_{0}\) seja máximo da função \(U\ni x\mapsto v(x, t_{0})\), então
+	\(
+	\left(\frac{\partial^{2}v}{\partial x_{i}\partial x_{j}^{}}\right)
+	\)
+	é não positiva. Assim, seus autovalores, tal qual a soma dos mesmos, também devem ser não negativas; logo, considerando a matriz das derivadas parciais de segunda ordem conforme representado dentro dos parenteses
+	\[
+		\frac{\partial^{2}v}{\partial x_{i}\partial x_{j}^{}} = \begin{bmatrix}
+			{\color{red}\frac{\partial^{2}v}{\partial x_{1}^{2}}} & \frac{\partial^{2}v}{\partial x_{1}\partial x_{2}^{}} & \dotsc                                                \\
+			\frac{\partial^{2}v}{\partial x_{2}\partial x_{1}^{}} & {\color{red}\frac{\partial^{2}v}{\partial x_{2}^{2}}} & \dotsc                                                \\
+			\vdots                                                & \ddots                                                & \dotsc                                                \\
+			\dotsc                                                & \ddots                                                & {\color{red}\frac{\partial^{2}v}{\partial x_{n}^{2}}}
+		\end{bmatrix}
+	\]
+	a soma dos termos em vermelho - o traço da matriz - também deve satisfazer
+	\[
+		\mathrm{Tr}\biggl(\frac{\partial^{2}v}{\partial x_{i}\partial x_{j}^{}}\biggr) \leq 0.
+	\]
+	Observe, porém, que isto é exatamente o mesmo que
+	\[
+		\Delta v \leq 0.
+	\]
+
+	Após estes passos, descobrimos que v satisfaz as propriedades
+	\[
+		\frac{\partial^{}v}{\partial t^{}}\geq 0 \quad\&\quad \Delta v \leq 0.
+	\]
+	Vamos ver como isto se relaciona com a função u, então:
+	\begin{align*}
+		 & \frac{\partial^{}v}{\partial t^{}}=\frac{\partial^{}u}{\partial t^{}}+\frac{\partial^{}}{\partial t^{}}\bigl(\varepsilon \Vert x \Vert^{2}\bigr) = \frac{\partial^{}u}{\partial t^{}} \\
+		 & \Delta v = \Delta u + \varepsilon \underbrace{\Delta \left(\Vert x \Vert^{2}\right)}_{=2+2+\dotsc +2} = \Delta u + 2n\varepsilon.
+	\end{align*}
+	Logo,
+	\[
+		\frac{\partial^{}v}{\partial t^{}}-\Delta v \geq 0
+	\]
+	e, desta forma,
+	\[
+		0\leq \frac{\partial^{}v}{\partial t^{}}-\Delta v = \underbrace{\frac{\partial^{}u}{\partial t^{}}-\Delta u }_{=0}-2n\varepsilon < 0.
+	\]
+	Um absurdo!
+
+	Portanto, mostramos que
+	\[
+		\max_{\mathclap{(x, t)\in \overline{U}\times [0,T]}}v =\max_{}\{v(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\}.
+	\]
+	Para finalizar e obter a igualdade para u, basta tomar o limite conforme \(\varepsilon \) tende a 0, obtendo, finalmente,
+	\[
+		\max_{\mathclap{(x, t)\in \overline{U}\times [0,T]}}u =\max_{}\{u(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+
+Em particular, uma das consequências do teorema do máximo poderia, de certa forma, ser chamada ``teorema do mínimo''
+\begin{crl*}
+	Sob as condições do \hyperlink{strong_maximum}{\textit{Teorema do Máximo}},
+	\[
+		\min_{\mathclap{(x, t)\in \overline{U}\times [0, T]}} u = \min_{}\{u(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\}
+	\]
+\end{crl*}
+\begin{proof*}
+	Suponha que
+	\[
+		\frac{\partial^{}u}{\partial t^{}}=\Delta u.
+	\]
+	Então,
+	\[
+		\frac{\partial^{}(-u)}{\partial t^{}}=-\frac{\partial^{}u}{\partial t^{}}=-\Delta u=\Delta (-u).
+	\]
+	Pelo \hyperlink{strong_maximum}{\textit{teorema do máximo}},
+	\[
+		\max_{\mathclap{(x, t)\in \overline{U}\times [0,T]}}(-u) =\max_{}\{-u(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\}.\quad \text{\qedsymbol},
+	\]
+	mas
+	\[
+		\max_{}(-u)=-\min_{}(u).
+	\]
+	Portanto,
+	\[
+		\min_{\mathclap{(x, t)\in \overline{U}\times [0, T]}} u = \min_{}\{u(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Usando o teorema e o corolário, também podemos provar que
+\begin{crl*}
+	Sob as condições do teorema,
+	\[
+		\max_{\mathclap{(x, t)\in \overline{U}\times [0, T]}} |u| = \max_{}\{|u|(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\}.
+	\]
+\end{crl*}
+
+\subsection{Existência e Unicidade da Equação do Calor}
+
+De cara, entenderemos a importância deste teorema pois ele é o que nos permitirá provar a unicidade da equação do calor! Como de costume com este tipo de problemática, vamos considerar dois problemas de condições de contorno correspondentes à equação do calor:
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}}= \Delta u + f, & \quad x\in \Omega,\: t > 0           \\
+		u = h(x, t),                                      & \quad x\in \partial \Omega ,\: t > 0 \\
+		u = g(x),                                         & \quad x\in \Omega ,\: t = 0
+	\end{array}\right.
+\]
+e
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}v}{\partial t^{}}=\Delta v + f, & \quad x\in\Omega ,\: t>0            \\
+		v = h(x, t),                                     & \quad x\in\partial \Omega ,\: t > 0 \\
+		v = g(x),                                        & \quad x\in\Omega ,\: t = 0.
+	\end{array}\right.
+\]
+Colocando \(w=u-v\), temos
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}w}{\partial t^{}}=\Delta w & \quad x\in\Omega ,\: t>0            \\
+		w = 0                                       & \quad x\in\partial \Omega ,\: t > 0 \\
+		w=0                                         & \quad x\in\Omega ,\: t = 0.
+	\end{array}\right.
+\]
+Caso u e v sejam de classe \(\mathcal{C}^{2, 1}\), w também será, o que garante que estamos dentro das condições do \hyperlink{strong_maximum}{\textit{teorema do máximo}}! Assim,
+\begin{align*}
+	 & \max_{\mathclap{(x, t)\in \overline{U}\times [0, T]}} w = \max_{}\{w(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\} = 0  \\
+	 & \min_{\mathclap{(x, t)\in \overline{U}\times [0, T]}} w = \min_{}\{w(x, t):(x, t)\in(\partial U\times [0,T])\cup (\overline{U}\times \{0\})\} = 0,
+\end{align*}
+mas, por se tratar de máximos e mínimos, o que isto quer dizer é que
+\[
+	0\leq w\leq 0 \Rightarrow w = 0
+\]
+e, portanto, u é igual a v.
+
+Estudando novamente a continuidade em relação aos parâmetros, relembremos o que foi feito anteriormente: partimos de
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}}=\Delta u,\quad  \Omega ,\: t>0 \\
+		u = 0, \quad  \partial \Omega ,\: t > 0                           \\
+		u = \phi _1,\quad  \Omega ,\: t = 0
+	\end{array}\right.
+\]
+e
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}v}{\partial t^{}}=\Delta v,\quad  \Omega ,\: t>0 \\
+		v = 0, \quad  \partial \Omega ,\: t > 0                           \\
+		v = \phi _2,\quad  \Omega ,\: t = 0.
+	\end{array}\right.
+\]
+Com isto, w satisfará
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}w}{\partial t^{}}=\Delta w, & \quad x\in \Omega ,\: t > 0          \\
+		w=0,                                         & \quad x\in \partial \Omega ,\: t > 0 \\
+		w=\phi_{1}-\phi_{2},                         & \quad x\in \Omega ,\: t = 0          \\
+	\end{array}\right.
+\]
+Diferente de antes, utilizando o corolário do módulo para o \hyperlink{strong_maximum}{\textit{teorema do máximo}}, temos
+\[
+	\max_{}|w|=\max_{}|\phi_{1}-\phi_{2} |
+\]
+e, portanto,
+\[
+	\max_{}|u-v|\leq \max_{}|\phi_{1}-\phi_{2}|
+\]
+
+Resta, por fim, a existência. Para entender como provar a existência da solução de uma equação do calor, estudemos a forma com a qual o calor dispersa-se em uma barra de tamanho L - noutros termos, considere o caso em que x está num domínio unidimensional (ou seja, em que x é um número real variando em um intervalo da reta real) da equação do calor:
+
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}}= \Delta u + f, & \quad x\in [0, L],\: t > 0                      \\
+		u(0, t) = u(L, t) = 0,                            & \quad x\in \partial [0, L] = \{0, L\} ,\: t > 0 \\
+		u(x, 0) = g(x),                                   & \quad x\in [0, L] ,\: t = 0.
+	\end{array}\right.
+\]
+A ideia do método é procurarmos soluções da forma \(T(t)X(x)\).
+
+\textbf{\underline{Passo 1:}} usamos a equação do calor para encontrar tais soluções:
+\begin{align*}
+	                    & \frac{\partial^{}}{\partial t^{}}(T(t)X(x)) = \frac{\partial^{2}}{\partial x^{2}}(T(t)X(x) \\
+	\Longleftrightarrow & T'(t)x(x) = T(t)X''(x)                                                                     \\
+	\Longleftrightarrow & \frac{T'(t)}{T(t)}= \frac{X''(x)}{X(x)}.
+\end{align*}
+Sendo assim, deve existir uma constante \(\lambda \) real tal que
+\[
+	\frac{T'(t)}{T(t)}= \frac{X''(x)}{X(x)} = \lambda
+\]
+e, consequentemente,
+\begin{align*}
+	 & T'(t)=\lambda T(t)  \\
+	 & X''(x)=\lambda X(x) \\
+\end{align*}
+
+\textbf{\underline{Passo 2:}} usaremos as condições de contorno para achar as soluções do passo 1: sabemos que
+\[
+	T(t)X(0)=T(t)X(L)=0.
+\]
+Assim, para que T não seja identicamente nula, precisamos que os extremos se anulem - \(X(0)=X(L)=0.\)
+
+Logo, juntando com o passo 1,
+\[
+	T'(t)=\lambda T(t) \quad\&\quad X''(x)=\lambda X(x),\: X(0)=X(L)=0.
+\]
+
+\textbf{\underline{Passo 3:}} analisaremos os casos com diferentes \(\lambda \) na \hypertarget{next_class_5}{próxima aula!}
+
+\end{document}

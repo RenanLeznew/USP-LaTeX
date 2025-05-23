@@ -1,0 +1,118 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 26 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Séries de Fourier de Seno e de Cosseno;
+\end{itemize}
+\subsection{Séries de Fourier II}
+Gostaríamos de continuar o estudo de séries de Fourier \(2\pi \)-periódica, analisando elas em
+\[
+	[-\pi ,\pi ],\; [-T, T],\;[0,\pi ],\;[0,T],
+\]
+e a série seno e cosseno. Quando temos uma função \(f:[-\pi ,\pi ]\rightarrow \mathbb{C}\), podemos estender ela a intervalos para além do \([-\pi ,\pi ]\), (mas precisamos excluir uma das extremidades!), e sua série de Fourier será a mesma da original; além disso, a expressão será idêntica à da original.
+
+De forma mais rigorosa, seja \(f:[-\pi ,\pi ]\rightarrow \mathbb{C}\); definimos a função \(\tilde{f}:\mathbb{R}\rightarrow \mathbb{C}\) da forma
+\[
+	\tilde{f}(x+2n\pi )=f(x),\quad x\in[-\pi ,\pi ),\; n\in \mathbb{Z}.
+\]
+Em particular, para recuperar f, basta restringir o domínio de \(\tilde{f}\) para \([-\pi , \pi )\). A série de Fourier de f é, por definição, a mesma que a de \(\tilde{f},\) e as fórmulas anteriores para os coeficientes também permanecem.
+
+Uma coisa legal que dá pra fazer é restringir a série a apenas o termo cosseno, ou apenas o termo seno, e analisar as chamadas \textbf{Séries de Fourier Seno e Cosseno da Função} que apareceram durante nosso estudo dos casos da EDP do calor; para isso, olharemos duas extensões que valem a pena: uma par e uma ímpar.
+
+A ideia aqui é pegar a f, estender a \([-\pi ,\pi ]\) e estender esta função periódica repetidamente. No caso da extensão seno, faremos:
+\begin{itemize}
+	\item[1.] Extensão a uma função ímpar\footnote{Porque seno é uma função ímpar.} de \([-\pi , \pi ]\);
+	\item[2.] Estender a uma função \(2\pi \)-periódica \(\tilde{f}.\)
+\end{itemize}
+Nosso objetivo, então, será calcular a série, na forma real, de \(\tilde{f}\) restrita ao \([0, \pi ]\). Segue que
+\begin{align*}
+	 & \tilde{f}(x) = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}[a_{n}\cos^{}{(nx)} + b_{n}\sin^{}{(nx)}]                     \\
+	 & a_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }\tilde{f}(x)\cos^{}{(nx)}dx = 0                                                 \\
+	 & b_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }\tilde{f}(x)\sin^{}{(nx)}dx = \frac{2}{\pi }\int_{0}^{\pi }f(x)\sin^{}{(nx)}dx.
+\end{align*}
+Aqui, conseguimos ver a necessidade de pegar uma extensão ímpar especificamente: a integral que define os termos \(a_{n}\), do cosseno, tornam-se nulas; as que definem os os termos \(b_{n}\), definindo o seno, dobram e ficam restritas ao intervalo \([0, \pi ]\). Logo, a série de fourier seno é dada por
+\[
+	f(x)=\sum\limits_{n=1}^{\infty}b_{n}\sin^{}{(nx)},\quad b_{n} = \frac{2}{\pi }\int_{0}^{\pi }f(x)\sin^{}{(nx)}dx.
+\]
+
+Quanto à \textbf{Série de Fourier Cosseno}, o que fazemos é:
+\begin{itemize}
+	\item[1.] Estender a uma função par\footnote{Porque cosseno é uma função par.} de \([-\pi , \pi ]\);
+	\item[2.] Estender a uma função \(2\pi \)-periódica \(\tilde{f}.\)
+\end{itemize}
+Analogamente a antes, a série de Fourier cosseno de f é a série de Fourier de \(\tilde{f}\) restrita ao \([0, \pi ]\):
+\begin{align*}
+	 & \tilde{f}(x) = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}[a_{n}\cos^{}{(nx)} + b_{n}\sin^{}{(nx)}]                         \\
+	 & b_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }\tilde{f}(x)\sin^{}{(nx)}dx = 0                                                     \\
+	 & a_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }\tilde{f}(x)\cos^{}{(nx)}dx = \frac{2}{\pi }\int_{-\pi }^{\pi }f(x)\cos^{}{(nx)}dx.
+\end{align*}
+Logo, a série de Fourier cosseno é dada por
+\[
+	f(x)=\frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}a_{n}\cos^{}{(nx)},\quad a_{n}=\frac{2}{\pi }\int_{0}^{\pi }f(x)\cos^{}{(nx)}dx.
+\]
+
+\subsection{Aplicando as Séries de Cosseno e de Seno}
+\begin{example}
+	Considere o problema do calor numa barra com tamanho \(\pi \); estudaremos a propagação do calor ao longo dela e seu comportamento nas extremidades, por meio da EDP
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}u}{\partial t^{}}=\frac{\partial^{2}u}{\partial x^{2}}, & \quad t>0,\; x\in[0, \pi ] \\
+			u(0, t) = u(\pi , t) = 0,                                                & \quad t>0                  \\
+			u(x, 0) = g(x),                                                          & \quad x\in [0, \pi ].
+		\end{array}\right.
+	\]
+	Conforme fora feito previamente, pelo método da separação de variáveis, chegamos a uma conclusão e um problema:
+	\[
+		u(x, t) = \sum\limits_{n=1}^{\infty}b_{n}e^{-n^{2}t}\sin^{}{(nx)},
+	\]
+	junto ao problema de conseguir trabalhar apenas com condições iniciais na forma de senos e cossenos; de forma conveniente, conseguimos agora mesmo um ferramental que permite transformar funções numa soma de senos e cossenos, ou apenas um dos dois. Assim, considerando a condição de contorno dada,
+	\[
+		u(x, 0) = g(x) = \sum\limits_{n=1}^{\infty}b_{n}\sin^{}{(nx)},\quad b_{n}=\frac{2}{\pi }\int_{0}^{\pi }g(x)\sin^{}{(nx)}dx.
+	\]
+	Em conclusão,
+	\[
+		u(x, t) = \sum\limits_{n=1}^{\infty}\biggl(\frac{2}{\pi }\int_{0}^{\pi }g(y)\sin^{}{(ny)}dy\biggr)e^{-n^{2}t}\sin^{}{(nx)}.
+	\]
+
+	Olhando para um exemplo dentro do exemplo, vamos considerar o caso em que \(g(x)=x\), que já vimos antes sua série; então, a solução torna-se
+	\[
+		u(x, t) = \sum\limits_{n=1}^{\infty}(-1)^{n+1}\frac{2}{n}e^{-n^{2}t}\sin^{}{(nx)}.
+	\]
+\end{example}
+\begin{example}
+	Agora, vamos ver a EDP
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}u}{\partial t^{}}(x, t) = \frac{\partial^{2}u}{\partial x^{2}},            & \quad x\in[0, \pi ],\; t>0 \\
+			\frac{\partial^{}u}{\partial x^{}}(0, t) = \frac{\partial^{}u}{\partial x^{}}(\pi , t) = 0, & \quad t>0                  \\
+			u(x, 0) = g(x).
+		\end{array}\right.
+	\]
+
+	Vimos que
+	\begin{align*}
+		 & u(x, t) = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}a_{n}e^{-n^{2}t}\cos^{}{(nx)} \\
+		 & g(x) = u(x, 0) = \frac{a_{0}}{2}+\sum\limits_{n=1}^{\infty}a_{n}\cos^{}{(nx)}.
+	\end{align*}
+
+	Usando a série cosseno, concluímos
+	\[
+		a_{n} = \frac{2}{\pi }\int_{0}^{\pi }g(x)\cos^{}{(nx)}dx,
+	\]
+	tal que a solução será
+	\[
+		u(x, t) = \underbrace{\frac{1}{\pi }\int_{0}^{\pi }g(y)dy}_{=a_{0}/2} + \sum\limits_{n=1}^{\infty}\frac{2}{\pi }\biggl(\int_{0}^{\pi }g(y)\cos^{}{(ny)}dy\biggr)e^{-n^{2}t}\cos^{}{(nx)}.
+	\]
+
+	Novamente, se \(g(x)=x\), isto torna-se
+	\[
+		u(x, t) = \frac{\pi }{2}-\frac{4}{\pi }\sum\limits_{n=1}^{\infty}\frac{1}{(2n+1)^{2}}e^{-(2n+1)^{2}t}\cos^{}{(2n+1)x}.
+	\]
+	Observe que, conforme t tende a infinito, o termo exponencial negativa faz a parte da soma tender a 0, resultando em
+	\[
+		u(x,t)\overbracket[0pt]{\longrightarrow}^{t\to \infty} \frac{1}{\pi }\int_{0}^{\pi }g(y)dy,
+	\]
+	que é exatamente a média de g.
+\end{example}
+\end{document}

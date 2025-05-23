@@ -1,0 +1,209 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 07 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Calor e Onda em Mais Dimensões;
+	\item Transição para o Estudo da Equação de Laplace.
+\end{itemize}
+\subsection{Equação de Laplace - O Começo a partir do que Temos.}
+Até o momento, estudamos as equações da onda e do calor com a variável ``espaço'' (x) em uma única dimensão. A ideia aqui é explorarmos um pouco mais do que acontece quando aumentamos, e manteremos em \(\mathbb{R}^{3}\). Assim, considere um
+aberto \(\Omega \subseteq \mathbb{R}^{n}\), com \(n=1, 2, 3\) e o problema
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}} = \Delta u, & \quad t > 0, x\in \Omega   \\
+		u = 0,                                         & \quad x\in \partial \Omega \\
+		u(x, 0) = u_{0}(x),                            & \quad x\in \Omega
+	\end{array}\right..
+\]
+Usando a solução normalmente encontrada no passo 1, concluímos que, para \(x=(x_1, x_2, \dotsc , x_{n})\) em um conjunto \(\Omega \) de \(\mathbb{R}^{n}\),
+\[
+	u(x, t) = X(x)T(t) \Rightarrow \frac{X''(x)}{X(x)}=\frac{T'(t)}{T(t)}\dotsc ,
+\]
+mas não. Aqui, não faz sentido falar na derivada de X em x, porque x é uma variável em \(\mathbb{R}^{n}\)! A forma que encontramos, na verdade,
+\[
+	u(x, t) = X(x)T(t) \Rightarrow \frac{\Delta X(x)}{X(x)} = \frac{T'(t)}{T(t)} = \lambda .
+\]
+O processo da EDO é o mesmo, mas temos que levar em conta a multidimensionalidade da X!
+
+O passo 2 também muda: partindo de que \(u(x, t) = 0\) quando x é um ponto na fronteira de \(\Omega \), segue que \(X(x) = 0 \) na fronteira também. Assim,
+\begin{align*}
+	 & \Delta X(x) = \lambda X(x), \quad x\in \Omega \\
+	 & X(x) = 0, \quad x\in \partial \Omega          \\
+	 & T''(t) = \lambda T(t).
+\end{align*}
+
+Para a onda, a ideia é parecida:
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial t^{2}} = \Delta u,                           & \quad t > 0, x\in \Omega   \\
+		u = 0,                                                                     & \quad x\in \partial \Omega \\
+		u(x, 0) = u_{0}(x),\; \frac{\partial^{}u}{\partial t^{}}(x, 0) = v_{0}(x), & \quad x\in \Omega
+	\end{array}\right..
+\]
+tal que o Passo 1 fornece
+\[
+	u(x,t) = T(t)X(x) \Rightarrow \frac{\Delta X(x)}{X(x)} = \frac{T''(t)}{T(t)} = \lambda ,
+\]
+e obtemos a EDO no Passo 2
+\begin{align*}
+	 & \Delta X(x) = \lambda X(x), \quad x\in \Omega \\
+	 & X(x) = 0, \quad x\in \partial \Omega          \\
+	 & T''(t) = \lambda T(t).
+\end{align*}
+
+Ambos os passos 2 das duas equações acabam lidando com o problema de autovalores do Laplaciano com condições de Dirichlet, que pode ser atacado por meio do teorema abaixo
+\begin{theorem*}
+	Se \(\Omega \) for um subconjunto aberto, convexo, limitado e com fronteira regular de \(\mathbb{R}^{n}\), então existe uma sequência de funções \(\{\varphi_{n}\}_{n\in \mathbb{N}}\) de classe \(\mathcal{C}^{\infty}(\overline{\Omega })\) e uma sequência de escalares \(\{\lambda_{n}\}_{n\in \mathbb{N}}\) tais que
+	\begin{align*}
+		 & 1) \int_{\Omega }^{}\varphi_{n}\varphi_{m} \mathrm{dx} = \delta_{nm};                                                                     \\
+		 & 2) \Delta \varphi_{n} = \lambda_{n}\varphi_{n},\quad \varphi_{n}|_{\partial \Omega } = 0;                                                 \\
+		 & 3) \lambda_{n} < 0, \quad \lambda_{n}\overbracket[0pt]{\longrightarrow}^{n\to \infty}-\infty                                              \\
+		 & 4) \forall u_{0}\in \mathcal{C}(\overline{\Omega }),\quad u_{0} = \sum\limits_{n=1}^{\infty}\left< u_{0}, \varphi_{n} \right>\varphi_{n}.
+	\end{align*}
+\end{theorem*}
+Note que a expressão para \(u_{0}\) no item 4 pode ser reescrita, usando os outros itens, como
+\[
+	\int_{\Omega }^{}\biggl\vert u_{0} - \sum\limits_{n=1}^{N}\left< u_{0}, \varphi_{n} \right>\varphi_{n} \biggr\vert^{2} \mathrm{dx}\overbracket[0pt]{\longrightarrow}^{N\to \infty}0.
+\]
+
+\begin{example}
+	Considere o caso em que n vale 1 e \(\Omega \) é o intervalo aberto \(\Omega = (0, \pi )\). Aqui, tomemos
+	\[
+		\varphi_{n}(x) = \sqrt[]{\frac{2}{\pi }}\sin^{}{(nx)},\quad \lambda_{n} = -n^{2}
+	\]
+	e
+	\[
+		u_{0} = \sum\limits_{n=1}^{\infty}\left< u_{0}, \varphi_{n} \right>\varphi_{n} = \sum\limits_{n=1}^{\infty}\biggl(\frac{2}{\pi }\int_{0}^{\pi }u_{0}(y)\sin^{}{(ny)} \mathrm{dy}\biggr)\sin^{}{(nx)},
+	\]
+	que nada mais é que a série seno! Com isso, quando atacamos o passo da condição inicial no calor e na onda, conseguimos
+	\begin{align*}
+		 & u(x,t) = \sum\limits_{n=1}^{\infty}T_{n}(t)X_{n}(x) = \sum\limits_{n=1}^{\infty}c_{n}e^{\lambda_{n}t}\varphi_{n}(x)                                                                                                               \\
+		 & u_{0}(x) = u(x, 0) = \sum\limits_{n=1}^{\infty}c_{n}\varphi_{n}(x) \Rightarrow c_{n}=\left< u_{0}, \varphi_{n} \right> \Rightarrow u(x,t)=\sum\limits_{n=1}^{\infty}\left< u_{0}, \varphi_{n} \right>e^{\lambda_{n}t}\varphi_{n}.
+	\end{align*}
+
+	Para a onda, também, obtemos a solução com esse mesmo processo:
+	\begin{align*}
+		 & u(x,t) = \sum\limits_{n=1}^{\infty}T_{n}(t)X_{n}(x) = \sum\limits_{n=1}^{\infty}[b_{n}\sin^{}{(\sqrt[]{-\lambda_{n}}t)} + a_{n}\cos^{}{(\sqrt[]{-\lambda_{n}}t)}]\varphi_{n}                                                       \\
+		 & u_{0}(x) = \sum\limits_{n=1}^{\infty}a_{n}\varphi_{n} \Rightarrow a_{n} = \left< u_{0}, \varphi_{n} \right>                                                                                                                        \\
+		 & v_{0}(x) = \frac{\partial^{}u}{\partial t^{}}(x, 0) = \sum\limits_{n=1}^{\infty}b_{n}\sqrt[]{-\lambda_{n}}\varphi_{n} \Rightarrow b_{n} = \frac{1}{\sqrt[]{-\lambda_{n}}}\left< v_{0}, \varphi_{n} \right>                         \\
+		 & u(x,t) = \sum\limits_{n=1}^{\infty}\biggl[\left< u_{0}, \varphi_{n} \right>\cos^{}{(\sqrt[]{-\lambda_{n}}t)} + \frac{1}{\sqrt[]{-\lambda_{n}}}\left<v_{0}, \varphi_{n} \right>\sin^{}{(\sqrt[]{-\lambda_{n}}t)}\biggr]\varphi_{n}.
+	\end{align*}
+\end{example}
+
+O que aprendemos com este exemplo é que já temos um método para resolver as EDPs que não depende tanto da dimensão. Testaremos ele com o seguinte problema de autovalores em \(n=2\): seja \(\Omega \) o retângulo de base \(L_1\) e altura \(L_2\) encostado na origem e considere a EDP
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial x^{2}}(x,y) + \frac{\partial^{2}u}{\partial y^{2}}(x,y) = \lambda u(x, y), & \quad x\in(0, L_1),\; y\in(0, L_2)    \\
+		u(0, y) = u(L_1, y) = u(x, 0) = u(x, L_2) = 0,                                                           & \quad x, y\in (0, L_1)\times (0, L_2)
+	\end{array}\right..
+\]
+Temos que determinar a função u e o escalar \(\lambda \).
+
+Nosso passo 1 será considerar a solução \(u(x, y) = X(x) Y(y)\), o que indica que
+\[
+	X''(x)Y(y) + X(x)Y''(y) = \lambda X(x)Y(y).
+\]
+Dividindo tudo por \(X(x)Y(y)\), temos a equação
+\[
+	\frac{X''(x)}{X(x)} = \frac{Y''(y)}{Y(y)} = \lambda ,
+\]
+tal que isto torna-se o conjunto de equações
+\[
+	\left\{\begin{array}{ll}
+		X''(x) = \lambda_1 X(x) \\
+		Y''(x) = \lambda_2 Y(y) \\
+		\lambda_1 + \lambda_2 = \lambda .
+	\end{array}\right.
+\]
+
+Em seguida, no passo 2, usamos as condições de contorno para obtermos
+\[
+	u(0, y) = u(L_1, y) = 0 \Leftrightarrow X(0)Y(y) = X(L_1)Y(y) = 0 \Leftrightarrow X(0) = X(L_1) = 0
+\]
+e, analogamente,
+\[
+	u(x, 0) = u(x, L_2) = 0 \Leftrightarrow X(x)Y(0) = X(x)Y(0) = 0 \Leftrightarrow Y(0) = Y(L_2) = 0,
+\]
+que nos fornece as soluções para as EDOs dadas por
+\begin{align*}
+	 & X''(x) = \lambda_1 X(x),\; X(0) = X(L_1) = 0 \Rightarrow X_{n}(x) = \sin^{}{\biggl(\frac{n\pi x}{L_1}\biggr)}, \lambda_1 = -\biggl(\frac{n\pi }{L_1}\biggr)^{2}  \\
+	 & Y''(x) = \lambda_2 Y(x),\; Y(0) = Y(L_2) = 0 \Rightarrow Y_{n}(y) = \sin^{}{\biggl(\frac{n\pi y}{L_2}\biggr)}, \lambda_1 = -\biggl(\frac{n\pi }{L_2}\biggr)^{2},
+\end{align*}
+tal que as soluções da EDP terão a cara
+\begin{align*}
+	\varphi_{mn} & (x,y) = \frac{2}{\sqrt[]{L_1L_2}}\sin^{}{\biggl(\frac{n\pi x}{L_1}\biggr)}\sin^{}{\biggl(\frac{m\pi x}{L_2}\biggr)} \\
+	             & \lambda_{mn}= -\biggl[\biggl(\frac{n\pi }{L_1}\biggr)^{2}+\biggl(\frac{m\pi }{L_2}\biggr)^{2}\biggr].
+\end{align*}
+
+Vamos ver o mesmo problema quando \(\Omega \) é uma bola unitária:
+\[
+	\Omega = \{(x, y)\in \mathbb{R}^{2}: x^{2}+y^{2}<1\}, \quad \partial \Omega  = \{(x, y)\in \mathbb{R}^{2}: x^{2}+y^{2}=1\},
+\]
+com EDP
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial x^{2}}(x,y) + \frac{\partial^{2}u}{\partial y^{2}}(x,y) = \lambda u(x, y), & \quad (x, y)\in \Omega          \\
+		u = 0,                                                                                                   & \quad (x, y)\in \partial \Omega
+	\end{array}\right..
+\]
+
+Como retornaremos a isto quando virmos as EDPs de Laplace e Poisson, por agora vamos apenas jogar as soluções com uma transformação de variáveis, aceitando que fazer isso é possível:
+\[
+	\left.\begin{array}{ll}
+		x = r \cos^{}{(\theta )} \\
+		y = r \sin^{}{(\theta )}
+	\end{array}\right\} \Delta u = \frac{\partial^{2}u}{\partial r^{2}} + \frac{1}{r}\frac{\partial^{}u}{\partial r^{}} + \frac{1}{r^{2}}\frac{\partial^{2}u}{\partial \theta ^{2}},
+\]
+com a vantagem disso tornar a EDP original
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial r^{2}} + \frac{1}{r}\frac{\partial^{}u}{\partial r^{}} + \frac{1}{r^{2}}\frac{\partial^{2}u}{\partial \theta ^{2}}, = \lambda u(r, \theta ), & \quad (r, \theta )\in [0, 1]\times [0, 2\pi ] \\
+		u(1, \theta ) = 0,                                                                                                                                                         & \quad \theta \in [0, 2\pi ]
+	\end{array}\right..
+\]
+Assim, o passo 1 torna-se definir as soluções como \(u(r, \theta ) = R(r)\Theta(\theta )\), tal que
+\[
+	\Theta R'' + \frac{1}{r}\Theta R' + \frac{1}{r^{2}}R\Theta '' = \lambda R\Theta.
+\]
+Dividindo tudo por \(\dfrac{r^{2}}{R\Theta}\), isto equivale a
+\[
+	\frac{r^{2}R'' + rR'}{R} + \frac{\Theta''}{\Theta} = \lambda r^{2} \Longleftrightarrow \frac{r^{2}R'' + rR'-\lambda r^{2} R}{R} + \frac{\Theta''}{\Theta} = 0.
+\]
+Vamos denotar por
+\[
+	\lambda_1\coloneqq \frac{r^{2}R'' + rR'-\lambda r^{2} R}{R} \quad\&\quad \lambda_2 \coloneqq \frac{\Theta''}{\Theta},
+\]
+tal que podemos escrever em forma de EDOs
+\[
+	r^{2}R'' + rR' - \lambda r^{2}R = \lambda_1 R \quad\&\quad \Theta'' = \lambda_2 \Theta.
+\]
+
+Com isso, podemos ir ao passo 2! Comece observando que, em geral, na coordenada polar, os pontos que correspondem ao 0 também correspondem ao \(2\pi \), que nos fornece uma condição inicial geométrica na forma
+\[
+	\Theta(0) = \Theta (2\pi ) \quad\&\quad \frac{\mathrm{d}\Theta}{\mathrm{d}\theta }(0) = \frac{\mathrm{d}\Theta}{\mathrm{d}\theta }(2\pi ) = 0
+\]
+e, em R, teremos a condição pela própria EDP:
+\[
+	R(1)\Theta (\theta ) = 0 \Rightarrow R(1) = 0 \quad\&\quad \lim_{r\to 0}R(r) < \infty,
+\]
+em que a segunda condição é pedida por parcimônia mesmo. Logo,
+\[
+	\Theta''(\theta ) = \lambda_{2}\Theta(\theta ),\;\&\;\Theta(0) =\Theta(2\pi ),\;\&\;\Theta'(0) =\Theta'(2\pi ),
+\]
+que nos dá como solução
+\[
+	\Theta(\theta ) = \left\{\begin{array}{ll}
+		1,             & \quad \lambda_2 = 0       \\
+		\sin^{}{(nx)}, & \quad \lambda_2 = -n^{2}  \\
+		\cos^{}{(nx)}, & \quad \lambda_2 = -n^{2}.
+	\end{array}\right..
+\]
+
+A da EDO em R é a Equação de Bessel, então vamos deixar ela pra depois, porque a cara dessa aqui é feia:
+\[
+	J_{v}(x) = \sum\limits_{k=0}^{\infty}\frac{(-1)^{k}}{k!\Gamma (k+r-1)}\biggl(\frac{x}{2}\biggr)^{2k+v},\quad v^{2} = \lambda_{1}.
+\]
+Na próxima aula, olharemos para um novo tipo de EDP, a \textit{Equação de Laplace}.
+
+\end{document}

@@ -1,0 +1,261 @@
+ \documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 13 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Continuação do exemplo da aula anterior;
+	\item Condições de contorno;
+	\item Equação de Calor.
+\end{itemize}
+\subsection{Método das Curvas Características - Continuação}
+\begin{example}
+	\hyperlink{nextclass03}{\textit{Considere a EDP da aula passada}}:
+	\[
+		\left\{\begin{array}{ll}
+			-y \frac{\partial^{}u}{\partial x^{}} + x \frac{\partial^{}u}{\partial y^{}} = 0 \\
+			u(x, 0) = g(x)
+		\end{array}\right.
+	\]
+	Aplicando o primeiro passo da \hyperlink{recipe}{\textit{receita}}, temos que resolver
+	\begin{align*}
+		 & x_{r}'(s) = -y_{r}(s), \: x_{r}(0) = r \\
+		 & y_{r}'(s) = x_{r}(s), \: y_{r}(0) = 0,
+	\end{align*}
+	cuja solução é
+	\[
+		x_{r}(s) = A \cos^{}{(s)} + B\sin^{}{(s)}
+	\]
+	e
+	\[
+		y_{r}(s) = -B\cos^{}{(s)} + A\sin^{}{(s)}.
+	\]
+	Vamos supor que
+	\[
+		x(0) = r \quad\&\quad y(0) = 0,
+	\]
+	tal que, comparando estes à solução dada,
+	\[
+		x(0) = A \;\&\; y(0) = - B \Rightarrow \gamma_{r}(s)=(r\cos^{}{(s)}, r\sin^{}{(s)}).
+	\]
+	Olhando para esta forma que a \(\gamma_{r}\) assume, notamos que as curvas integrais aqui assumem o formato de círculos, com diâmetro diretamente proporcional ao r!
+	Mas se as curvas integrais são círculos, a EDP vai ter solução?
+
+	A reposta é que a solução não pode ser definida em todo \(\mathbb{R}^{2}\). O motivo disso é que \(u(x(s), y(s))\) deve satisfazer
+	\[
+		\frac{d}{ds}u(x(s), y(s)) = 0,
+	\]
+	ou seja, u deverá ser constante. Porém, com estas curvas características e com base na condição inicial, o que irá ocorrer é
+	\[
+		u(x(\pi ), y(\pi )) = -r \quad\&\quad u(x(0), y(0)) = r,
+	\]
+	isto é, olhando nos dois extremos do círculo, a função u deverá variar os valores. Se a solução existisse, teríamos uma constante que assume valores diferentes, o que é, no mínimo, meio estranho.
+
+	O que acontece, já que temos este problema, se aplicarmos a \hyperlink{recipe}{\textit{receita}}? A ideia é que ela fornecerá soluções \textit{locais} perto da coordenada (r, 0) para cada r não-nulo.
+	A receita sempre funciona para achar uma solução próxima de (r, 0) desde que \(a_{n}(r, 0)\) seja não-nulo. Isto será mais explorado no exemplo seguinte!
+
+\end{example}
+\begin{example}
+	Tomemos, em \(\mathbb{R}^{2}\),
+	\[
+		\left\{\begin{array}{ll}
+			1\frac{\partial^{}u}{\partial x^{}}(x, y) + 0\frac{\partial^{}u}{\partial y^{}}(x, y) = 0 \\
+			u(x, 0) = x.
+		\end{array}\right.
+	\]
+	Existe solução para essa? Se não, existe pelo menos solução local?
+
+	Se tiver solução, teremos, pelo Teorema Fundamental do Cálculo,
+	\[
+		\underbrace{u(x, 0)}_{=x} = \underbrace{u(x_{0}, 0)}_{x_{0}} + \int_{x_{0}}^{x}\underbrace{\frac{\partial^{}u}{\partial x^{}}(s, 0)}_{=0}ds,
+	\]
+	o que implicará em x coincidir \textbf{sempre} com \(x_{0}\). Para resolver isto, podemos olhar para o valor 0 e encontrar infinitas soluções! Basta ignorar o x e colocar u em termos de uma função de y, o que significa
+	\[
+		u(x, y) = G(y) \quad\&\quad G(0) = 0.
+	\]
+\end{example}
+
+Após tantos exemplos, percebemos que a tal receita funciona bem. Um leitor curioso, no entanto, provavelmente já se perguntou ``por que a receita funciona?'', e vamos mostrar isso agora!\footnote{Seguindo a ideia das letras miúdas de contratos duvidosos, deixaremos escondido que será apenas a parte da solução.}
+\begin{proof*}[Prova da \hyperlink{recipe}{\textit{receita}}]
+	Assumindo que os passos 1 e 2 já foram provados, seja \(v = u \circ G(r, s) = u(\gamma_{r}(s))\). Então,
+	\[
+		\frac{\partial^{}v}{\partial s^{}} = \sum\limits_{j=1}^{n}\frac{\partial^{}u}{\partial x_{j}^{}}(\gamma_{r}(s))\frac{\partial^{}x_{j}}{\partial s^{}}(s) = \sum\limits_{j=1}^{n}\frac{\partial^{}u}{\partial x_{j}^{}}(\gamma_{r}(s))a_{j}(\gamma_{r}(s)).
+	\]
+	Além disso, pelo passo 2,
+	\[
+		\frac{\partial^{}v}{\partial s^{}}(s) = f(\gamma_{r}(s), v_{r}(s)).
+	\]
+	Juntando ambos, concluímos que
+	\[
+		\sum\limits_{j=1}^{n}\frac{\partial^{}u}{\partial x_{j}^{}}(\gamma_{r}(s))a_{j}(\gamma_{r}(s)) = f(\gamma_{r}(s), v_{r}(s)).
+	\]
+	Utilizando, então, que \(x = G(r, s),\) temos
+	\[
+		\sum\limits_{j=1}^{n}a_{j}(x)\frac{\partial^{}u}{\partial x_{j}^{}}(x) = f(x, u(x)).
+	\]
+	Por fim,
+	\[
+		u(x', 0) = v(\gamma_{x'}(0)) = g(x').
+	\]
+\end{proof*}
+Em resumo, se \(a_{n}(x', 0)\) é diferente de zero, podemos aplicar a receita para obter solução local e, se G for um \textit{difeomorfismo} (função suave com inversa suave - ambas têm quantas derivadas satisfazerem o leitor), então \(u\circ G^{-1}\) será solução.
+
+\subsection{Condições de Contorno e Equação do Calor}
+Agora que já temos uma forma sólida de encontrar soluções para EDPs, daremos o passo para a próxima etapa desta jornada. De imediato, estudaremos a questão do calor num aberto limitado, que nos levará, em seguida, ao estudo das séries de Fourier. Feito isto, olharemos para as ondas num aberto limitado, depois para a equação de Laplace e terminamos estudando onda e calor em \(\mathbb{R}^{n}\) por meio das transformadas de Fourier.
+
+Quanto ao calor, comecemos pela dedução física. Seguindo aquela ideia de u como a densidade de alguma coisa, em cada aberto B contido num espaço \(\Omega \), teremos a seguinte ``lei'':
+\begin{center}
+	\color{purple}Taxa de Variação em B \color{black}é resultado do \color{blue}Fluxo que entra em B \color{black}e do \color{red}Uso por uma fonte em B. \color{black}(ou roxo = azul + vermelho, se não me falha a memória de cores).
+\end{center}
+Matematicamente, isto seria representado por
+\[
+	\color{purple}\frac{d}{dt}\int_{B}^{}udx \color{black}=\color{blue}-\int_{\partial V}^{}F \cdot n ds \color{black}+\color{red}\int_{B}^{}f dx,
+\]
+que equivale a
+\[
+	\int_{B}^{}\biggl(\frac{\partial^{}u}{\partial t^{}} + \nabla \cdot F - f\biggr)dx = 0,\quad \forall B \Rightarrow \frac{\partial^{}u}{\partial t^{}} + \nabla \cdot F = f.
+\]
+
+No nosso estudo preliminar das EDPs, a poluição andava com a velocidade do rio:
+\[
+	F = \vec{v}u,
+\]
+descrita pela \hyperlink{transport}{\textit{equação do transporte}}.
+
+Agora, porém, há uma difusão da poluição: F aponta na direção de maior decrescimento (inverso do gradiente) e é proporcional a esta diferença; traduzindo,
+\[
+	F = - k\nabla u,\quad k>0.
+\]
+Disto, obtemos
+\[
+	\frac{\partial^{}u}{\partial t^{}} + \nabla \cdot (-k\nabla u) = f,\quad \frac{\partial^{}u}{\partial t^{}} = k \nabla \cdot (\nabla u)+f
+\]
+e, em conclusão, chegamos na equação do calor:
+\[
+	\frac{\partial^{}u}{\partial t^{}} = k \Delta u + f.
+\]
+
+Fica a pergunta: é possível resolver esta equação? A resposta é que sim, mas tem \textbf{muitas} soluções; infinitas, de fato! Então, precisamos mais é determinar a condição inicial. Porém, só as condições iniciais não são suficientes: aqui, entra o conceito das \textbf{condições de contorno}.
+
+\begin{def*}
+	As \textbf{condições de contorno}, ou \textbf{condições de fronteira}, para uma EDP são condições impostas em u(x, t) para t positivo e x um elemento da fronteira de \(\Omega \):
+	\[
+		u(x, t), \quad t>0,\: x\in \partial \Omega.\quad \square
+	\]
+\end{def*}
+Apesar de ser parecido com o problema de condição inicial, as condições de contorno tratam de um valor nos extremos (o plural está certo: pode ser em mais de um ponto, até mesmo na fronteira inteira) de onde a variável independente x se encontra, enquanto que as de condição inicial dizem respeito ao valor da variável independente x em um único ponto ponto, normalmente o inicial.
+
+Existem alguns tipos de condições de contorno mais comuns que podem ser estabelecidas para EDPs, como
+
+\begin{table}[H]
+	\centering
+	\caption{Exemplos de Condições de Contorno}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{| l | c | p{7cm} |}
+			\hline
+			Nome da Condição & Forma da Condição                                                             & Explicação                                                                                \\
+			\hline
+			Dirichlet        & \(\displaystyle{u(x, t) = g(x, t),\; x\in \partial \Omega, t>0 }\)            & Corresponde à Temperatura Fixa na fronteira de \(\Omega \)                                \\
+			\hline
+			Neumann          & \(\displaystyle{F(x, t) \cdot n(x) = g(x, t),\; x\in \partial \Omega, t>0 }\) & Corresponde a um fluxo de temperatura fixo e proporcional a g na fronteira de \(\Omega \) \\
+			\hline
+			Robin            & \(\displaystyle{F(x, t) \propto u(x, t),\; x\in \partial \Omega, t>0 }\)      & Corresponde ao fluxo de temperatura proporcional à própria temperatura                    \\
+			\hline
+		\end{tabular}}
+\end{table}
+
+Um problema típico de condição de contorno supões que \(\Omega \) seja um aberto limitado, \(\partial \Omega \) seja suave e requer que o matemático determine a solução de
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}} = \Delta u + f(x), & \quad x\in \Omega ,\: t > 0\text{ (equação)}                       \\
+		u(x, 0) = g(x),                                       & \quad x\in \Omega\text{ (condição inicial)}                        \\
+		u(x, t) = h(x),                                       & \quad x\in \partial\Omega,\: t > 0\text{ (condição de contorno)} .
+	\end{array}\right.
+\]
+
+Neste tipo de problema, buscamos cumprir três coisas:
+\begin{itemize}
+	\item[1)] A busca pela existência de (pelo menos) uma solução;
+	\item[2)] A prova de que a solução é única;
+	\item[3)] A demonstração de que a solução depende continuamente de f, g e h - a equação, a condição inicial e a condição de contorno.
+\end{itemize}
+
+Para isto, utilizamos normalmente o chamado \textbf{método da energia}, no qual vamos mostrar, primeiramente, que se existe uma solução, ela deverá ser única; o que queremos dizer por isso é que, se \(u_1\) e \(u_2\) resolvem a EDP, então elas são iguais.
+
+Suponhamos, sem mais delongas, que \(u_1, u_2:\overline{\Omega }\times [0, \infty)\rightarrow \mathbb{R}\) sejam funções tais que:
+\begin{itemize}
+	\item[i)] A derivada parcial de u com respeito a t existe e é contínua para todo par de coordenadas (x, t) e \(\overline{\Omega }\times [0, \infty)\);
+	\item[ii)] As derivadas parciais de u com respeito a j-ésima coordenada de x, junto à segunda derivada parcial de u com respeito às i-ésima e j-ésima coordenadas de x, existem e são ambas contínuas todo par de coordenadas (x, t) e \(\overline{\Omega }\times [0, \infty)\),
+	      além de admitirem extensão contínua até \(\Omega \): para todo (x, t) em \(\overline{\Omega }\times [0, \infty)\), existem
+	      \[
+		      \frac{\partial^{}u}{\partial x_{j}^{}} \quad\&\quad \frac{\partial^{}u}{\partial x_{i}x_{j}^{}}.
+	      \]
+\end{itemize}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Extensão e Extensão Contínua},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Uma extensão de uma função \(f:U\subseteq X\rightarrow Y\) é uma outra função \(F:X\rightarrow Y\) tal que sua restrição a U equivale a f:
+	\[
+		F|_U(x) \equiv f(x),\quad \forall x\in U.
+	\]
+	Uma extensão é dita contínua quando F é contínua, como esperado.
+
+\end{tcolorbox}
+
+Quanto uma função u satisfazer (i) e (ii), diremos que ela é de classe \(\mathcal{C}^{2, 1}(\overline{\Omega }\times [0, \infty))\), ou seja, ela pertence a este conjunto de funções.
+
+\begin{prop*}
+	Se \(u_{1}, u_{2}\) são funções de classe \(\mathcal{C}^{2, 1}(\overline{\Omega }\times [0, \infty))\) e solucionam
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}u}{\partial t^{}} = \Delta u + f(x), & \quad x\in \Omega ,\: t > 0\text{ (equação)}                       \\
+			u(x, 0) = g(x),                                       & \quad x\in \Omega\text{ (condição inicial)}                        \\
+			u(x, t) = h(x),                                       & \quad x\in \partial\Omega,\: t > 0\text{ (condição de contorno)} ,
+		\end{array}\right.
+	\]
+	então \(u_{1} = u_{2}\).
+\end{prop*}
+\begin{proof*}
+	Coloque \(w\coloneqq u_{1}-u_{2}\), tal que:
+	\begin{align*}
+		 & \frac{\partial^{}w}{\partial t^{}} = \frac{\partial^{}u_{1}}{\partial t^{}} - \frac{\partial^{}u_{2}}{\partial t^{}} = \Delta u_{1} + f - \Delta u_{2} - f = \Delta u_{1} - \Delta u_{2} = \Delta w \\
+		 & w(x, t) = u_{1}(x, t) - u_{2}(x, t) = h(x) - h(x) = 0                                                                                                                                               \\
+		 & w(x, 0) = u_{1}(x, 0) - u_{2}(x, 0) = g(x) - g(x) = 0.
+	\end{align*}
+	Em conclusão, sob as hipóteses requeridas, w deve satisfazer
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}w}{\partial t^{}} = \Delta w & \quad x\in \Omega ,\: t > 0\text{ (equação)}                       \\
+			w(x, t) = 0                                   & \quad x\in \Omega\text{ (condição inicial)}                        \\
+			w(x, 0) = 0                                   & \quad x\in \partial\Omega,\: t > 0\text{ (condição de contorno)} ,
+		\end{array}\right.
+	\]
+	O próximo passo consiste em mostrar que w é identicamente nula, já que seria o equivalente a mostrar a equivalência entre \(u_{1}\) e \(u_{2}\)
+	A ideia desta prova é unir as seguintes igualdades de integrais sobre \(\Omega \):
+	\begin{align*}
+		 & \int_{\Omega }^{}\frac{\partial^{}w}{\partial t^{}}wdx = \int_{\Omega }^{}(\Delta w)wdx                                                                                                                                                                    \\
+		 & \int_{\Omega }^{}\frac{\partial^{}w}{\partial t^{}}w dx = \int_{\Omega }^{}\frac{1}{2}\frac{\partial^{}}{\partial t^{}}w^{2} dx = \frac{1}{2}\frac{d}{dt}\int_{\Omega }^{}w^{2}dx                                                                          \\
+		 & \int_{\Omega }^{}(\Delta w)w dx = \int_{\Omega }^{}\nabla \cdot (w\nabla w) - (\nabla w \cdot \nabla w)dx = \underbrace{\int_{\partial \Omega }^{}w\nabla w \cdot n ds}_{\mathclap{=0\text{ pela cond. de contorno}}} - \int_{\Omega }^{}|\nabla w|^{2}dx,
+	\end{align*}
+	resultando em
+	\[
+		\frac{1}{2} \frac{d}{dt}\int_{\Omega }^{}w^{2}dx = \int_{\Omega }^{}|\nabla w|^{2}dx \leq 0.
+	\]
+	Integrando de 0 até t, portanto,
+	\begin{align*}
+		\frac{1}{2}\int_{\Omega }^{}w^{2}(x, t_{0})dx & - \frac{1}{2}\int_{\Omega }^{}w^{2}(x, 0)dx \leq 0                               \\
+		                                              & \Rightarrow -\frac{1}{2}\int_{\Omega }^{}w^{2}(x, t_{0})\leq 0                   \\
+		                                              & \Rightarrow w(x, t_{0}) = 0,\quad \forall x\in \Omega ,\: t>0.\text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\end{document}

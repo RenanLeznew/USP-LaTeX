@@ -1,0 +1,202 @@
+\documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 26 de Fevereiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Alguns pré-requisitos para a Integração;
+	\item A Integral de Riemann.
+\end{itemize}
+\subsection{Prelúdio para Integração: revisando sup e inf}
+\paragraph{} Apresentaremos uma formulação da integral de Riemann que, na verdade, foi feita por Darboux. A original pelo Riemann é a feita usando as somas de Riemann;
+por outro lado, a de Darboux faz uso das estruturas de \(\mathbb{R}\) como corpo ordenado que satisfaz a propriedade do menor limitante superior, introduzindo as noções
+de integral superior e inferior através do supremo e ínfimo, facilitando bastante a demonstração de teoremas. Caso a questão dos supremos e ínfimos seja efêmera para o leitor ou leitora,
+nãos se preocupe, pois relembraremos suas definições e algumas de suas propriedades .
+
+Em primeira mão, lembre-se que um subconjunto X da reta real é dito \textbf{limitado superiormente}, l.s., quando existe (pelo menos) um número real \(\beta \) satisfazendo
+\[
+	\forall x\in X, \: x\leq \beta .
+\]
+Neste caso, chamamos \(\beta \) de \textbf{cota superior de X}, que não precisa ser única: para o subconjunto [0, 1] dos reais, tanto 2, quanto 3, quanto 10293847123805798012357891 são cotas superiores de X.
+Com base nisso, observamos que isso pode ser expresso como ``X é limitado superiormente quando existe \(\beta \) real tal que X é um subconjunto do intervalo \((-\infty, \beta]\)''.
+
+De maneira análoga, X é dito \textbf{limitado inferiormente}, l.i., quando existe (pelo menos) um número real \(\alpha \) tal que
+\[
+	\forall x\in X, \: x\geq \alpha .
+\]
+Continuando as similaridades, chamaremos \(\alpha \) de \textbf{cota inferior de X} e, novamente, não é necessário que ela seja única, além de que
+isso pode ser expresso como ``X é limitado inferiormente quando existe \(\alpha  \) real tal que X é um subconjunto do intervalo \([\alpha , \infty)\)''.
+
+Juntando ambos, diremos que X é um \textbf{conjunto limitado} quando ele é tanto l.s. quanto l.i., ou seja, ``X é limitado quando existem \(\alpha , \beta \) reais tais que X é um subconjunto do intervalo \([\alpha, \beta ]\)''.
+
+Dito isso, podemos enfim definir supremo e ínfimo.
+\begin{def*}
+	Se X é um subconjunto não-vazio dos números reais, que também é limitado superiormente, um número real b será dito \textbf{supremo de X} quando ele é a \textbf{menor cota superior de X}, i.e.,
+	\begin{itemize}
+		\item[S1)] Todo elemento de X é menor ou igual a b:
+		      \[
+			      x\in X \Rightarrow x \leq b,
+		      \]
+		\item[S2)] Para qualquer número positivo, existe um elemento de X tal que este elemento é maior que o deslocamento de b por tal número:
+		      \[
+			      \forall \varepsilon > 0,\: \exists x_{0}\in X: \: b - \varepsilon < x_{0}.
+		      \]
+	\end{itemize}
+	Neste caso, indicamos \(b\coloneqq \sup_{}X\). \(\square\)
+\end{def*}
+A propriedade S2 quer dizer nada mais, nada menos, que qualquer número menor que b \textit{não} é uma cota superior para X. De maneira análoga, definimos o ínfimo por
+
+\begin{def*}
+	Se X é um subconjunto não-vazio dos números reais, que também é limitado inferiormente, um número real a será dito \textbf{ínfimo de X} quando ele é a \textbf{maior cota inferior de X}, i.e.,
+	\begin{itemize}
+		\item[I1)] Todo elemento de X é maior ou igual ao a:
+		      \[
+			      x\in X \Rightarrow x \geq a,
+		      \]
+		\item[I2)] Para qualquer número positivo, existe um elemento de X tal que este elemento é menor que o deslocamento de b por tal número:
+		      \[
+			      \forall \varepsilon > 0,\: \exists x_{0}\in X: \: a + \varepsilon > x_{0}.
+		      \]
+	\end{itemize}
+	Neste caso, indicamos \(a\coloneqq \inf_{}X\). \(\square\)
+\end{def*}
+Apesar de termos definido as coisas, nada garante que elas existem. Provar isto será nosso passo seguinte; no entanto, antes, vale mencionar que dizer que ``um elemento é o supremo'' é, na verdade,
+um erro de fala, pois ele é único. Com efeito, se \(b_1 \) e \(b_2\) fossem dois supremos distintos, podemos supor sem perda de generalidade que \(b_1 < b_2\) ou \(b_2 < b_1\) (vamos com o primeiro caso), então
+\[
+	b_{1} = b_{2} - \underbrace{(b_2 - b_1)}_{>0} = b_{2} - \varepsilon , \quad \varepsilon \coloneqq b_{2} - b_{1}.
+\]
+Porém, como \(b_{2}\) também é supremo de X, ele deve satisfazer S2: deve existir um \(x_{0}\) em X que satisfaça
+\[
+	\forall \varepsilon > 0, \exists x_{0}\in X: b_{2} - \varepsilon < x_{0}.
+\]
+Em particular, como \(b_1\) é igual a justamente \(b_2 - \varepsilon \), isto significa que \(x_{0}\) é maior que \(b_1\), então ele não pode ser supremo. Um absurdo, como queríamos.
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se X possui um maior elemento, digamos M, então M pertence a X e, além disso,
+		      \[
+			      x\leq M
+		      \]
+		      para todo elemento x de X. Logo, M é o supremo de X.
+
+		      De fato, M satisfaz a primeira de cara; quanto à segunda, assumindo \(\varepsilon \) como um número positivo qualquer, então
+		      \[
+			      M - \varepsilon < M
+		      \]
+		      justamente por M ser o maior elemento de X. Como ele pertence a X, o próprio M cumpre o papel do \(x_{0}\) da propriedade S2. Desta forma, M
+		      satisfaz ambas as propriedade e, portanto, \(M = \sup_{}X\). Nos casos em que ocorre isso, do supremo pertencer ao conjunto, chamamos M de \textbf{máximo de X} e denotamos por \(M\coloneqq \max_{}X\).
+
+		\item[2)] O supremo nem sempre precisa pertencer ao conjunto. Para ver isto, considere \(X = (-\infty, b)\). Afirmamos que \(b = \sup_{}X.\)
+
+		      Com efeito, se x é um elemento de X, a própria definição de segmento implica em x ser menor que b, mostrando que o mesmo cumpre a propriedade S1. Ademais, es \(\varepsilon  > 0\) é dado e \(x_{0}\) for o ponto médio entre b e \(\varepsilon/2 \), o que significa que
+		      \[
+			      x_{0} = \frac{b+(b-\varepsilon )}{2} = b - \frac{\varepsilon }{2},
+		      \]
+		      então \(x_{0}\in X\) e
+		      \[
+			      b-\varepsilon  < x_{0} = b-\frac{\varepsilon}{2}.
+		      \]
+		      Portanto,
+		      \[
+			      b = \sup_{}X \quad\&\quad b\not\in X.
+		      \]
+	\end{itemize}
+\end{example}
+
+Com base nos exemplos, vemos que o supremo substitui o máximo justamente nos casos em que ele não existe. Porém, voltamos à pergunta de antes: como que o supremo vai substituir o máximo quando não existe, se não sabemos nem se o supremo existe?
+Para isso que enunciaram e provaram (não vamos) o teorema a seguir.
+\hypertarget{lub_property}{
+	\begin{theorem*}[``Axioma'' do Supremo e Ínfimo]
+		Todo subconjunto X de \(\mathbb{R}\) que é não-vazio e limitado superiormente admite supremo. Analogamente, todo subconjunto X não-vazio dos números reais que é limitado inferiormente admite ínfimo.
+	\end{theorem*}
+}
+\begin{exr}
+	Mostre que o supremo do conjunto
+	\[
+		X = \{r\in \mathbb{Q}:r^{2} < 2\}
+	\]
+	não é racional.
+\end{exr}
+
+Vamos listar algumas consequências do Axioma do Supremo:
+\begin{itemize}
+	\item[I)] O conjunto dos naturais \(\mathbb{N} = \{1, 2, 3, \dotsc \}\) \textbf{não} é limitado superiormente. Para ver isso, assuma que \(\mathbb{N}\) é limitado superiormente;
+	      como ele é não-vazio, pelo axioma, existe um número real \(b = \sup_{}\mathbb{N}\). Logo, por S2 dado \(\varepsilon  = 1 > 0\), existe um \(n_{0}\) natural que satisfaz
+	      \[
+		      b-1 < n_{0},
+	      \]
+	      e aqui está a contradição: somando 1 em ambos os lados, chegamos em
+	      \[
+		      b < n_{0} + 1,
+	      \]
+	      ou seja, encontramos um natural (\(n_{0}+1\)) que é maior que o suposto supremo dos naturais. Portanto, não existe supremo para \(\mathbb{N}\).
+
+	      Uma consequência deste exemplo é que
+	      \[
+		      \lim_{n\to \infty}n = \infty.
+	      \]
+	\item[II)] Outro exemplo na linha do anterior é que
+	      \[
+		      0 = \inf_{}\biggl\{\frac{1}{n}: n \in \mathbb{N}\biggr\}
+	      \]
+	      e, como consequência,
+	      \[
+		      \lim_{n\to \infty}\frac{1}{n} = 0.
+	      \]
+
+	      Com efeito, temos, para todo natural n,
+	      \[
+		      0 < \frac{1}{n}
+	      \]
+	      pelos axiomas de ordem (se um número é positivo, seu inverso multiplicativo também o é), mostrando que 0 é cota inferior. Além disso, dado \(\varepsilon > 0\), segue do exemplo anterior que deve existir um \(n_{0}\) natural com
+	      \[
+		      \frac{1}{\varepsilon } < n_{0},
+	      \]
+	      justamente pelos naturais não serem limitados superiormente. Tomando os inversos,
+	      \[
+		      \frac{1}{n_{0}} < \varepsilon,
+	      \]
+	      donde segue que nenhum número maior que 0 é cota inferior de X.
+
+	      Quanto à questão do limite, ela quer dizer que, dado \(\varepsilon > 0\), deverá existir um \(n_{0}\) tal que sempre que \(n\geq n_{0}\),
+	      \[
+		      -\varepsilon < \frac{1}{n} <\varepsilon,
+	      \]
+	      que é exatamente o que provamos, já que, a partir de \(n_{0}\) (o qual já sabemos ser limitado por \(\varepsilon \)),
+	      \[
+		      \frac{1}{n_{0}} > \frac{1}{n_{0}+1} > \frac{1}{n_{0}+2} >\dotsc >\frac{1}{n} > \dotsc.
+	      \]
+	\item[III)] (Teorema mais Importante da Análise para Édinho): toda sequência limitada e monótona de números reais é convergente, que é equivalente ao \hyperlink{lub_property}{\textit{axioma do supremo.}}
+
+	      Para provar, suponha que a sequência \(\{a_{n}\}_{n\in \mathbb{N}}\) é monótona, limitada e não-decrescente (\(a_1 \leq a_2\leq \dotsc \)) e consideremos o conjunto
+	      \[
+		      A = \{a_{n}:n\in \mathbb{N}\},
+	      \]
+	      o qual necessariamente é limitado pela hipótese da sequência ser limitada. Além disso, por ser não-vazio e limitado, existe um valor \(a\) real que é o supremo de A.
+
+	      \textbf{\underline{Afirmação}:} a sequência converge para \(a = \sup_{}A\). Com efeito, dado \(\varepsilon > 0\), vale que \(a-\varepsilon\) não pode ser cota superior de A. Logo, por S2, existe um elemento \(a_{n_{0}}\) de A tal que
+	      \[
+		      a-\varepsilon < a_{n_{0}}.
+	      \]
+	      Por isso, em conjunto à monotonicidade da sequência, podemos escrever
+	      \[
+		      a-\varepsilon < a_{n_{0}}\leq a_{n},
+	      \]
+	      para n maior ou igual a \(n_{0}\).
+
+	      Portanto, como \(\varepsilon \) foi escolhido arbitrariamente, provamos exatamente o significado de
+	      \[
+		      \lim_{n\to \infty}a_{n} = a. \quad \blacktriangle \quad  \text{\qedsymbol}
+	      \]
+	\item[IV)]
+	      \begin{exr}
+		      Seja uma sequência de compactos (conjuntos fechados e limitados) não-vazios da seguinte forma:
+		      \[
+			      K_1 \supseteq K_2 \supseteq K_3 \supseteq \dotsc \supseteq K_{n}\supseteq \dotsc.
+		      \]
+		      Então, existe um elemento \(\gamma \) que pertence à interseção de todos eles:
+		      \[
+			      \gamma \in \bigcap_{n=1}^{\infty}K_{n}.
+		      \]
+		      Fica como exercício a prova dele.
+	      \end{exr}
+\end{itemize}
+\end{document}

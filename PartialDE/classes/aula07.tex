@@ -1,0 +1,250 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 24 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Séries de Fourier.
+\end{itemize}
+\subsection{Séries de Fourier}
+Agora, veremos mais um método muito utilizado para lidar com EDPs.
+\begin{def*}
+	Uma função \(f:\mathbb{R}\rightarrow \mathbb{C}\) é dita \textbf{T-periódica} se, para todo x em \(\mathbb{R}\),
+	\[
+		f(x + T) = f(x),\quad \forall x\in \mathbb{R}.\: \square
+	\]
+\end{def*}
+Observe, então, que a função f é unicamente determinada em qualquer intervalo \([a, a+T)\) para números reais a. Essa definição é a base para trabalhar com as séries de Fourier, pois elas serão, em grandes partes, \(2\pi \)-periódicas (e normalmente, em intervalos \([0, 2\pi ]\) ou \([-\pi , \pi ]\)).
+
+Dito isso, nosso objetivo inicial é escrever uma função \(2\pi \)-periódico com a seguinte série, chamada \textbf{série de Fouries}
+\[
+	f(x) = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}[a_{n}\cos^{}{(nx)} + b_{n}\sin^{}{(nx)}],
+\]
+em que a forma acima leva o nome de \textbf{forma real} (de números reais), mas que tem como alternativa a \textbf{forma complexa}
+\[
+	f(x) = \sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx}.
+\]
+Qual a diferença entra elas, se ambas levam o nome ``série de Fourier''? Na verdade, elas duas são equivalentes, mas para não ficar com o argumento de autoridade, recordemos algumas coisas dos números complexos.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Fórmula de Euler},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	A \hypertarget{euler_formula}{fórmula de Euler} é dada por
+	\[
+		e^{i\theta }=\cos^{}{(\theta )} + i \sin^{}{(\theta )},
+	\]
+	que leva também à seguinte expressão para seno e cosseno
+	\[
+		\cos^{}{(\theta )} = \frac{e^{i\theta }+e^{-i\theta }}{2},\: \sin^{}{(\theta )} = \frac{e^{i\theta }-e^{-i\theta }}{2i}.
+	\]
+\end{tcolorbox}
+
+Usando isto, temos
+\begin{align*}
+	f(x) & = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}a_{n}\biggl(\frac{e^{inx}+e^{-inx}}{2}\biggr) + b_{n}\biggl(\frac{e^{inx}-e^{-inx}}{2i}\biggr) - \frac{1}{2i}b_{n} \\
+	     & = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}\frac{1}{2}(a_{n}-ib_{n})e^{inx} + \sum\limits_{n=1}^{\infty}\frac{1}{2}(a_{n}+ib_{n})e^{-inx}                     \\
+	     & = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}\frac{1}{2}(a_{n}-ib_{n})e^{inx} + \sum\limits_{k=-1}^{-\infty}\frac{1}{2}(a_{-k}+ib_{-k})e^{ikx}                  \\
+	     & = \sum\limits_{n=-\infty}^{\infty}                                                                                                                               \\
+	     & c_{0} = \frac{a_{0}}{2},\quad c_{n} = \frac{1}{2}(a_{n}-ib_{n}),\: n > 0 \quad\vee\quad c_{n}=\frac{1}{2}(a_{-n}+b_{-n}),\:n<0.
+\end{align*}
+Em conclusão, toda série real pode ser escrita como uma complexo; mostremos, também, a contrapartida disso.
+\begin{align*}
+	f(x) = \sum\limits_{n=-\infty}^{\infty} & = c_{0}+\sum\limits_{n=1}^{\infty}c_{n}e^{inx}+\sum\limits_{n=-1}^{-\infty}c_{n}e^{-inx}                                     \\
+	                                        & = c_{0} + \sum\limits_{n=1}^{\infty}(c_{n}e^{inx}+c_{-n}e^{inx})                                                             \\
+	                                        & = c_{0} + \sum\limits_{n=1}^{\infty}(c_{n}\cos^{}{(nx)} + ic_{n}\sin^{}{(nx)} + c_{-n}\cos^{}{(nx)} - i c_{-n}\sin^{}{(nx)}) \\
+	                                        & = c_{0} + \sum\limits_{n=1}^{\infty}(c_{n}\cos^{}{(nx)} + ic_{n}\sin^{}{(nx)} + c_{-n}\cos^{}{(nx)} - ic_{-n}\sin^{}{(nx)})  \\
+	                                        & = c_{0} + \sum\limits_{n=1}^{\infty}\bigl[(c_{-n}+c_{-n}\cos^{}{(nx)}) + (ic_{n}-i_{c-n})\bigr]                              \\
+	                                        & = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}(a_{n}\cos^{}{(nx)}+b_{n}\sin^{}{(nx)}),                                       \\
+	                                        & a_{0} = 2c_{0}, \quad a_{n} = c_{n} + c_{-n},\quad b_{n} = ic_{n}-ic_{-n},\: n > 0.
+\end{align*}
+Pelos mesmos argumentos, trocando apenas ``\(\infty\)'' por ``N'', e vemos que
+\[
+	\sum\limits_{n=-N}^{N}c_{n}e^{inx} = \frac{a_{0}}{2} + \sum\limits_{n=1}^{N}(a_{n}\cos^{}{(nx)}+b_{n}\sin^{}{(nx)}).
+\]
+
+Apesar de termos mostrado algumas propriedades sobre essas tais séries de Fourier, ainda não conseguimos usá-las para nada, e nosso objetivo é seguir algo parecido a um dos processos anteriores para a equação do calor, em que chegamos numa solução com a forma delas: as séries de Fourier constituem um ferramental muito útil no estudo das EDPs. Até chegar lá, temos algumas etapas, por exemplo toda a parte do trabalho com os coeficientes \(a_{n},\; b_{n}\) e \(c_{n}\).
+Como toda bom e velho estudante, vamos tentar adivinhas os coeficientes à base do chute!
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Combinação Linear e Produto Interno},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Lembre-se, da álgebra linear, que um vetor \(v\) pode ser escrito como combinação linear de vetores \(e_{i}\) de uma base, mas com seus tamanhos alterados em \(\alpha_{i}\) unidades:
+	\[
+		v=\sum\limits_{}^{}\alpha_{i}e_{i},
+	\]
+	e que o produto interno deste vetor \(v\) com os elementos da base resulta nos respectivos \(\alpha\)'s
+	\[
+		\left< v, e_{j} \right> = \sum\limits_{}^{}\alpha_{i} \left< e_{i}, e_{j} \right> = \alpha_{j}.
+	\]
+
+\end{tcolorbox}
+Como indicamos antes, o produto interno no espaço de funções pode ser dado pela integral como
+\[
+	\int_{}^{}f(x)\overline{g(x)}dx = \left< f, g \right>.
+\]
+Com base nisso, nosso chute totalmente aleatório (não é) se baseia em considerar
+\[
+	f(x) = \sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx} \Longleftrightarrow f(x)e^{-imx} = \sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx}e^{-imx},
+\]
+tal que
+\[
+	\int_{-\pi }^{\pi }f(x)e^{-imx}dx = \int_{-\pi }^{\pi }\sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx}e^{-imx}dx.
+\]
+Logo,
+\[
+	\int_{-\pi }^{\pi }f(x)e^{-imx}dx = \sum\limits_{n=-\infty}^{\infty}\int_{-\pi }^{\pi }c_{n}e^{i(n-m)x}dx.
+\]
+Computando a integral da exponencial,
+\[
+	\sum\limits_{n=-\infty}^{\infty}\int_{-\pi }^{\pi }c_{n}e^{i(n-m)x}dx = \sum\limits_{n=-\infty}^{\infty}c_{n}2\pi \delta_{nm}=2\pi c_{m},
+\]
+onde apareceu o antigo Delta de Kronecker. Substituindo por k a diferença entre n e m, chegamos em
+\[
+	\int_{-\pi }^{\pi }e^{ikx}dx  = \left\{\begin{array}{ll}
+		2\pi ,                                           & \quad k = 0   \\
+		\frac{e^{ikx}}{ik}\biggl|_{-\pi }^{\pi }\biggr., & \quad k\neq0.
+	\end{array}\right.
+\]
+Podemos trabalhar no segundo termo das possibilidades e chegar em
+\[
+	\frac{1}{ik}e^{ikx}\biggl|_{-\pi }^{\pi }\biggr. = \frac{1}{ik}(e^{ik\pi }-e^{-ik\pi }) = \frac{1}{ik}2i\sin^{}{(k\pi )} = 0;
+\]
+logo,
+\[
+	\int_{-\pi }^{\pi }e^{ikx}dx  = \left\{\begin{array}{ll}
+		2\pi , & \quad k = 0   \\
+		0,     & \quad k\neq0.
+	\end{array}\right.
+\]
+Finalmente, chegamos à definição formal de que
+\begin{def*}
+	A \textbf{série de Fourier complexa} é
+	\[
+		f(x)=\sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx},\quad c_{n}\coloneqq \frac{1}{2\pi }\int_{-\pi }^{\pi }f(x)e^{-inx}dx
+	\]
+	e a \textbf{série de Fourier real} é
+	\[
+		f(x) = \frac{a_{0}}{2} + \sum\limits_{n=1}^{\infty}(a_{n}\cos^{}{(nx)}+b_{n}\sin^{}{(nx)}),
+	\]
+	com
+	\begin{align*}
+		 & a_{0} = \frac{1}{\pi }\int_{-\pi }^{\pi }f(x)dx,                                                                                       \\
+		 & a_{n}=\frac{1}{2\pi }\int_{-\pi }^{\pi }f(x)(e^{-inx}+e^{inx})dx = \frac{1}{\pi }\int_{-\pi }^{\pi }\cos^{}{(nx)}dx                    \\
+		 & b_{n} = \frac{1}{2\pi }\int_{-\pi }^{\pi }f(x)(ie^{-inx}-ie^{inx})dx = \frac{1}{\pi }\int_{-\pi }^{\pi }f(x)\sin^{}{(nx)}dx.\: \square
+	\end{align*}
+\end{def*}
+Para consolidar o que foi visto (e, convenhamos, não foi pouca coisa), vejamos alguns exemplos.
+\begin{example}
+	\begin{itemize}
+		\item[1)] Considere a função \(f:\mathbb{R}\rightarrow \mathbb{C},\: 2\pi-\)periódica, definida por
+		      \[
+			      f(x)=x,\quad x\in [-\pi, \pi).
+		      \]
+		      Aqui,
+		      \[
+			      a_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }x\cos^{}{(nx)}dx = 0,
+		      \]
+		      pois é o produto de uma função ímpar por uma par, cuja integral num intervalo simétrico é 0.
+		      \begin{tcolorbox}[
+				      skin = enhanced,
+				      title=Lembrete!,
+				      after title*={\hfill Funções Pares e Ímpares},
+				      fonttitle=\bfseries,
+				      sharp corners=downhill,
+				      colframe=black,
+				      colbacktitle=yellow!75!white,
+				      colback=yellow!30,
+				      coltitle=black,
+				      colbacklower=black,
+				      %drop fuzzy shadow,
+				      drop large lifted shadow
+			      ]
+			      Dizemos que uma função \(f:X\rightarrow Y\) é \textbf{par} quando ela satisfaz, para todos os elementos do seu domínio, a igualdade
+			      \[
+				      f(-x) = f(x),\quad \forall x\in X.
+			      \]
+			      Por outro lado, ela é dita \textbf{ímpar} quando, para todos os elementos do domínio,
+			      \[
+				      -f(x) = f(-x),\quad \forall x\in X.
+			      \]
+		      \end{tcolorbox}
+
+		      Quanto aos \(b_{n}\)'s, usamos uma integração por parte para descobrir
+		      \begin{align*}
+			      b_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }x\sin^{}{(nx)}dx & = -\frac{1}{\pi } x \biggl(-\frac{\cos^{}{(nx)}}{n}\biggr)\biggl|_{-\pi }^{\pi }\biggr. + \frac{1}{\pi }\int_{-\pi }^{\pi }\frac{\cos^{}{(nx)}}{n}dx             \\
+			                                                                & = -\frac{1}{\pi }\biggl(\frac{\pi }{n}\cos^{}{(n\pi )} - \frac{-\pi }{n}\cos^{}{(-\pi n)}\biggr) + \frac{1}{\pi n^{2}}\sin^{}{(nx)}\biggl|_{-\pi }^{\pi }\biggr. \\
+			                                                                & = -\frac{2}{n}\cos^{}{(n\pi )}.
+		      \end{align*}
+		      Sendo assim, a série de Fourier obtida é
+		      \[
+			      f(x) = \sum\limits_{n=1}^{\infty}\frac{-2\cos^{}{(n\pi )}}{n}\sin^{}{(nx)} = \sum\limits_{n=1}^{\infty}(-1)^{n}\frac{2}{n}\sin^{}{(nx)}.
+		      \]
+		      Analogamente, a formulação complexa  resulta em
+		      \[
+			      f(x) = \sum\limits_{n=-\infty}^{\infty}i \frac{(-1)^{n}}{n}e^{inx},\quad n\neq 0
+		      \]
+		      em que usamos
+		      \begin{align*}
+			       & c_{0} = \frac{a_{0}}{2} = 0,                                      \\
+			       & c_{n} = \frac{a_{n}-ib_{n}}{2} = i \frac{(-1)^{n}}{n}, \: n > 0   \\
+			       & c_{-n} = \frac{a_n + ib_{-n}}{2} = i \frac{(-1)^{n}}{n},\: n > 0.
+		      \end{align*}
+		\item[2)] Agora, tome como função \(f:\mathbb{R}\rightarrow \mathbb{C}\), também \(2\pi \)-periódica, dada por
+		      \[
+			      f(x)=|x|,\quad x\in [-\pi , \pi ).
+		      \]
+		      Então, temos os coeficientes \(a_{0}\)
+		      \[
+			      a_{0} = \frac{1}{\pi }\int_{-\pi }^{\pi }|x|dx = \frac{2}{\pi }\int_{0}^{\pi }xdx = \frac{2}{\pi }\frac{\pi^{2}}{2} = \pi,
+		      \]
+		      os \(a_{n}\)'s, dados por
+		      \begin{align*}
+			      a_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }|x|\cos^{}{(nx)}dx & = \frac{2}{\pi }\int_{0}^{\pi }x\cos^{}{(nx)}dx                                                                            \\
+			                                                                  & = \frac{2}{\pi }\frac{x\sin^{}{(nx)}}{n}\biggl|_{0}^{\pi }\biggr. - \frac{2}{\pi }\int_{0}^{\pi }\frac{\sin^{}{(nx)}}{n}dx \\
+			                                                                  & = \frac{2}{\pi }\frac{\cos^{}{(nx)}}{n^{2}}\biggl|_{0}^{\pi }\biggr.                                                       \\
+			                                                                  & = \frac{2}{\pi n^{2}}(\cos^{}{(n\pi )}-1), n\geq 1
+		      \end{align*}
+		      e, por fim, os \(b_{n}\)'s, que são determinados a partir de
+		      \[
+			      b_{n} = \frac{1}{\pi }\int_{-\pi }^{\pi }f(x)\sin^{}{(nx)}dx = 0.
+		      \]
+		      Destarte, a série de Fourier é
+		      \begin{align*}
+			      |x| & = \frac{\pi }{2} + \sum\limits_{n=1}^{\infty}\frac{2}{n^{2}\pi}(\cos^{}{(n\pi )}-1)                                            \\
+			          & = \frac{\pi }{2} + \sum\limits_{n=1}^{\infty}-\frac{4}{n^{2}\pi }\cos^{}{(nx)}\quad \text{(como o cosseno é 0 quando n é par)} \\
+			          & = \frac{\pi }{2}-\sum\limits_{\mathclap{\substack{n=1                                                                          \\ n\text{ ímpar}}}}^{\infty}\frac{4}{n^{2}\pi }\cos^{}{(nx)}\\
+			          & = \frac{\pi }{2} - \frac{4}{\pi }\sum\limits_{m=0}^{\infty}\frac{\cos^{}{(2m + 1)x}}{(2m+1)^{2}},
+		      \end{align*}
+		      em que, no último passo, apenas transformamos a expressão ``n ímpar'' na versão simbólica de um número ímpar genérico.
+
+		      Observe que, caso a série convirja para x nulo, obtemos
+		      \[
+			      \frac{\pi }{2} - \frac{4}{\pi }\sum\limits_{n=0}^{\infty}\frac{1}{(2n+1)^{2}} = 0,
+		      \]
+		      que permite concluirmos uma igualdade bem interessante sobre somatórias via manipulação algébrica:
+		      \[
+			      \frac{\pi^{2} }{8} = \sum\limits_{n=0}^{\infty}\frac{1}{(2n+1)^{2}}.
+		      \]
+	\end{itemize}
+\end{example}
+
+\end{document}

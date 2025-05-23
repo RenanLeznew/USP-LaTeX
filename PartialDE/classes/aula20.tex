@@ -1,0 +1,223 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 20 - 21 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Consequências da Fórmula de Poisson;
+	\item Princípio do Máximo Forte;
+	\item Desigualdade de Harnack;
+\end{itemize}
+\subsection{Consequências da Fórmula de Poisson.}
+Nosso objeto de estudo é a fórmula de Poisson, feita no contexto de uma bola de centro (a, b) e raio \(R>0\):
+\[
+	\left\{\begin{array}{ll}
+		\Delta u = 0, \quad x\in B \\
+		u|_{\partial \Omega } = h
+	\end{array}\right.
+\]
+sendo que
+\[
+	u(a+r\cos^{}{(\theta )}, b + r\sin^{}{(\theta )}) = \frac{R^{2}-r^{2}}{2\pi }\int_{-\pi }^{\pi }\frac{h(\psi )}{R^{2}+r^{2}-2rR\cos^{}{(\theta -\psi )}} \mathrm{d\psi }.
+\]
+Colocando \(h = u|_{\partial B}\), temos
+\[
+	h(\psi ) = u(a+R\cos^{}{(\psi) }, b+R\sin^{}{(\psi) }).
+\]
+Logo,
+\[
+	u(a+r\cos^{}{(\psi )}, b+r\sin^{}{(\psi )}) = \frac{R^{2}-r^{2}}{2\pi R}\int_{-\pi }^{\pi }\frac{u(a+R\cos^{}{(\psi )}, b+R\sin^{}{(\psi )})}{R^{2}+r^{2}-2rR\cos^{}{(\theta -\psi )}} \mathrm{d\psi },
+\]
+que pode ser reescrita por meio da substituição
+\[
+	\left.\begin{array}{ll}
+		\gamma (\psi ) = (a + R \cos^{}{(\psi )}, b+r\sin^{}{(\psi)}) \\
+		\Vert \gamma ' \Vert d\psi = R d\psi
+	\end{array}\right\} \int_{\partial B}^{}u \mathrm{ds} = \frac{R^{2}-r^{2}}{2\pi R}\int_{\partial B}^{}\frac{u}{R^{2}-r^{2}-2rR\cos^{}{(\theta -\psi )}} \mathrm{ds},
+\]
+onde \(ds = R d\psi \). Além disso, note que, se considerarmos
+\[
+	x = (a+r\cos^{}{(\theta) }, b + r\sin^{}{(\theta )}) \quad\&\quad x' = (a+R\cos^{}{(\psi )}, b + R \cos^{}{(\psi )}),
+\]
+então
+\begin{align*}
+	\Vert x-x' \Vert^{2} & = \Vert (R\cos^{}{(\psi )}-r\cos^{}{(\theta )}, R\sin^{}{(\psi )} - r\sin^{}{(\theta )}) \Vert^{2}                                                                              \\
+	                     & = (R\cos^{}{(\psi )}-r\cos^{}{(\theta )})^{2} + (R\sin^{}{(\psi )}-r\sin^{}{(\theta )})^{2}                                                                                     \\
+	                     & = R^{2}\cos^{2}{(\psi )}+r^{2}\cos^{2}{(\theta )}-2rR\cos^{}{(\psi )}\cos^{}{(\theta) } + R^{2}\sin^{2}{(\psi )}+r^{2}\sin^{2}{(\theta )}-2rR\sin^{}{(\theta )}\sin^{}{(\psi )} \\
+	                     & =R^{2}+r^{2}-2rR\cos^{}{(\theta -\psi )} \Rightarrow r^{2} = \Vert x-p \Vert^{2},\; p = (a, b).
+\end{align*}
+Em conclusão, u pode ser escrita como
+\[
+	u(x) = \frac{R^{2}-\Vert x-p \Vert^{2}}{2\pi R}\int_{\partial B}^{}\frac{u(x')}{\Vert x-x' \Vert^{2}} \mathrm{dS(x')},
+\]
+que é uma generalização da fórmula vista na aula passada que funciona para bolas em qualquer dimensão finita. Uma das consequências é que, se x for igual a p, então
+\[
+	u(p) = \frac{R}{2\pi }\int_{\partial B}^{}\frac{u(x')}{\Vert p-x' \Vert^{2}} \mathrm{dS(x')} = \frac{1}{2\pi R}\int_{\partial B}^{}u(x') \mathrm{dS(x')},
+\]
+e portanto recuperamos o valor médio
+\[
+	u(p) = \frac{1}{|\partial B|}\int_{\partial B}^{}u(x') \mathrm{dS(x')}.
+\]
+Logo,
+\[
+	u(a, b) = \frac{1}{2\pi r}\int_{-\pi }^{\pi }u(a+r\cos^{}{(\theta )}, b+r\sin^{}{(\theta )})r \mathrm{d\theta },\quad \forall r > 0,\; B_r(a, b)\subseteq \Omega,
+\]
+sendo que
+\[
+	\partial B = \{(a+r\cos^{}{(\theta )}, b+r\sin^{}{(\theta )}):\; -\pi <\theta \leq \pi \}\quad\&\quad  dS = rd\theta.
+\]
+Consequentemente,
+\[
+	\int_{0}^{R}ru(a, b) \mathrm{dr} = \frac{1}{2\pi }\int_{0}^{R}\int_{-\pi }^{\pi }u(a+r\cos^{}{(\theta )}, b+r\sin^{}{(\theta )}) \mathrm{d\theta } \mathrm{dr},
+\]
+ou seja,
+\[
+	\frac{R^{2}}{2}u(a, b) = \frac{1}{2\pi } \iint_{B_{R}(a, b)}udxdy \Longleftrightarrow u(a, b) = \frac{1}{\pi R^{2}}\iint_{B}udxdy,
+\]
+e novamente recuperamos o valor médio
+\[
+	u(p) = \frac{1}{|B|}\int_{B}^{}u \mathrm{dx}.
+\]
+
+A segunda consequência disso é o princípio do máximo forte:
+\begin{theorem*}[Princípio do Máximo Forte]
+	Seja \(\Omega \) um subconjunto aberto, conexo e limitado de \(\mathbb{R}^{2}\), e seja u uma função de classe \(\mathcal{C}^{2}(\overline{\Omega })\) tal que
+	\[
+		\Delta u = 0.
+	\]
+	Se \(x_{0}\) for um ponto em \(\Omega \) e tal que \(u(x_{0}) \geq u(x)\) para todo x em \(\Omega \), então
+	\[
+		u(x) = u(x_{0}),\; \forall x\in \Omega .
+	\]
+\end{theorem*}
+\begin{proof*}
+	Vamos definir
+	\[
+		\mathcal{C}\coloneqq \{x\in \Omega :\; u(x) = u(x_{0})\},
+	\]
+	que é não-vazio pois pelo menos o \(x_{0}\) pertence a ele. Além disso, \(\mathcal{C}\) é fechado em \(\Omega \), já que se \(\{x_{n}\}_{n}\) for uma sequência de elementos de \(\mathcal{C}\) que converge para o ponto \(\tilde{x}\) em \(\Omega \), então
+	\[
+		u(\tilde{x}) = \lim_{n\to \infty}u(x_{n}) = \lim_{n\to \infty}u(x_{0}) = u(x_{0}),
+	\]
+	logo \(\tilde{x}\) pertence também a \(\mathcal{C}.\) Vale também que \(\mathcal{C}\) é aberto; de fato, dado \(\tilde{x}\) em \(\mathcal{C}\) e um r positivo tal que
+	\[
+		\overline{B_r(\tilde{x})}\subseteq \Omega ,
+	\]
+	temos
+	\[
+		\frac{1}{|B|}\int_{B}^{}u(\tilde{x}) \mathrm{dx} = u(\tilde{x}) = \frac{1}{|B|}\int_{B}^{}u \mathrm{dx},
+	\]
+	de forma que
+	\[
+		\int_{B}^{}\underbrace{u(\tilde{x})-u(x)}_{\geq 0} \mathrm{dx} = 0 \Rightarrow u(x) = u(\tilde{x}) = u(x_{0}),\; \forall x\in B_r(\tilde{x}).
+	\]
+	Consequentemente,
+	\[
+		B_r(\tilde{x})\subseteq \mathcal{C}.
+	\]
+	Concluímos, com isso, que \(\mathcal{C}\) é não-vazio, aberto E fechado no \textit{conexo} \(\Omega \). Portanto,
+	\[
+		\mathcal{C}=\Omega  \Rightarrow u(x) = u(x_{0}),\; \forall x\in \Omega . \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+Veremos também a desigualdade de Harnack e o que resulta dela, dada por
+\hypertarget{harnack_inequality}{
+	\begin{theorem*}[Desigualdade de Harnack]
+		Seja \(u\in \mathcal{C}^{2}(\mathbb{R}^{2})\) uma solução de
+		\[
+			\Delta u = 0.
+		\]
+		Então, para todo raio positivo tal que \(\Vert x \Vert<R\), valem as desigualdades
+		\[
+			\frac{R-\Vert x \Vert}{R+\Vert x \Vert}u(0)\leq u(x)\leq \frac{R+\Vert x \Vert}{R-\Vert x \Vert}u(0).
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	Tomemos o ponto \(X=(x, y)\) de \(\mathbb{R}^{2}\); sabemos que, pela fórmula de Poisson,
+	\[
+		u(X) = \frac{R^{2}-\Vert X \Vert^{2}}{2rR}\int_{\partial B_{r}(0)}^{}\frac{u(x')}{\Vert x-x' \Vert^{2}} \mathrm{dS}.
+	\]
+	Colocando \(R = \Vert x' \Vert,\) segue que
+	\begin{align*}
+		R-\Vert x \Vert = \Vert x' \Vert-\Vert x \Vert \leq \Vert x'-x \Vert & \leq \Vert x' \Vert+\Vert x \Vert \\
+		                                                                     & \leq R+\Vert x \Vert.
+	\end{align*}
+	Desta forma,
+	\begin{align*}
+		u(x) & = \frac{(R+\Vert x \Vert)(R-\Vert x \Vert)}{2\pi R}\int_{\partial B_r(0)}^{}\frac{u(x')}{\Vert x-x' \Vert^{2}} \mathrm{dS} \\
+		     & \leq \frac{(R+\Vert x \Vert)(R-\Vert x \Vert)}{2\pi R}\int_{\partial B}^{}\frac{u(x')}{(R-\Vert x \Vert)^{2}} \mathrm{dS}  \\
+		     & = \frac{R+\Vert x \Vert}{R-\Vert x \Vert}\frac{1}{2\pi R}\int_{\partial B}^{}u(x') \mathrm{dS}                             \\
+		     & =\frac{R+\Vert x \Vert}{R-\Vert x \Vert}u(0)
+	\end{align*}
+	e
+	\begin{align*}
+		u(x) & = \frac{(R+\Vert x \Vert)(R-\Vert x \Vert)}{2\pi R}\int_{\partial B_r(0)}^{}\frac{u(x')}{\Vert x-x' \Vert^{2}} \mathrm{dS} \\
+		     & \geq \frac{(R+\Vert x \Vert)(R-\Vert x \Vert)}{2\pi R}\int_{\partial B}^{}\frac{u(x')}{(R+\Vert x \Vert)^{2}} \mathrm{dS}  \\
+		     & = \frac{R-\Vert x \Vert}{R+\Vert x \Vert}\frac{1}{2\pi R}\int_{\partial B}^{}u(x') \mathrm{ds}                             \\
+		     & = \frac{R-\Vert x \Vert}{R+\Vert x \Vert}u(0).
+	\end{align*}
+	Portanto,
+	\[
+		\frac{R-\Vert x \Vert}{R+\Vert x \Vert}u(0)\leq u(x)\leq \frac{R+\Vert x \Vert}{R-\Vert x \Vert}u(0). \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Essa desigualdade em si não é muito legal, mas a consequência dela sim! É o chamado
+\hypertarget{liouville_theorem}{
+	\begin{theorem*}[Teorema de Liouville]
+		Seja u uma função de classe \(\mathcal{C}^{2}(\mathbb{R}^{2})\), sempre não-negativa (\(u\geq 0\)) e que satisfaça
+		\[
+			\Delta u = 0.
+		\]
+		Então, u é constante.
+	\end{theorem*}
+}
+\begin{proof*}
+	Pela \hyperlink{harnack_inequality}{\textit{Desigualdade de Harnack}},
+	\[
+		\frac{R-\Vert x \Vert}{R+\Vert x \Vert}u(0)\leq u(x)\leq \frac{R+\Vert x \Vert}{R-\Vert x \Vert}u(0),\quad \forall \Vert x \Vert<R.
+	\]
+	Fixando x e tomando o limite quando R tende a infinito, obtemos
+	\[
+		u(0)\leq u(x)\leq u(0) \Rightarrow u(x)=u(0). \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\subsection{Uma Palavrinha sobre o Teorema da Divergência.}
+O \hyperlink{divergence_theorem}{\textit{teorema da Divergência}} no cálculo é visto em \(\mathbb{R}^{3}\) como
+\[
+	\int_{\Omega }^{}\nabla \cdot F \mathrm{dx} = \int_{\partial \Omega }^{}F \cdot n \mathrm{dS},
+\]
+normalmente junto ao teorema de Green em \(\mathbb{R}^{2}\)
+\hypertarget{green_theorem}{\[
+		\int_{S}^{}\underbrace{P \mathrm{dx} + Q \mathrm{dy}}_{F_1 \mathrm{d}x + F_2 \mathrm{d}y} = \underbrace{\iint_{\Omega }\biggl(\frac{\partial^{}Q}{\partial x^{}} - \frac{\partial^{}P}{\partial y^{}}\biggr) \mathrm{d}x \mathrm{d}y}_{\iint_{\Omega }\nabla \cdot F dxdy}.
+	\]}
+Com isso, colocando
+\[
+	\gamma (t) = (x(t), y(t)),\; \gamma '(t) = (x'(t), y'(t)),\;\&\; n'(t) = \frac{(y'(t),-x'(t))}{\Vert (x'(t), y'(t)) \Vert},
+\]
+seguirá que
+\begin{align*}
+	\int_{\partial \Omega }^{}F \cdot n \mathrm{dS} & = \int_{\partial \Omega }^{}(F_1 y' - F_2x')\frac{1}{\Vert (x', y') \Vert}\Vert (x', y') \Vert \mathrm{dt} \\
+	                                                & =\int_{\partial \Omega }^{}F_1 \mathrm{dy} - F_2 \mathrm{dx}                                               \\
+	                                                & = \int_{\partial \Omega }^{}P \mathrm{dx} + Q \mathrm{dy},
+\end{align*}
+e ele também pode ser visto como um teorema de integração por partes, já que, supondo que temos um aberto em duas dimensões (mesma coisa para outras!), teremos
+\begin{align*}
+	\int_{\partial \Omega }^{}\frac{\partial^{}f}{\partial x^{}}g \mathrm{dx}\mathrm{dy} & = \int_{\Omega }^{}\biggl(\frac{\partial^{}}{\partial x^{}}(fg) - f \frac{\partial^{}g}{\partial x^{}}\biggr) \mathrm{dxdy} \\
+	                                                                                     & =-\int_{\Omega }^{}f \frac{\partial^{}g}{\partial x^{}} \mathrm{dxdy} + \int_{\Omega }^{}\nabla \cdot (fg, 0) \mathrm{dxdy} \\
+	                                                                                     & = - \int_{\Omega }^{}f \frac{\partial^{}g}{\partial x^{}} \mathrm{dxdy} + \int_{\partial \Omega }^{}fg n_{x} \mathrm{dS},
+\end{align*}
+em que usamos
+\[
+	\int_{\Omega }^{}\nabla \cdot (fg, 0) \mathrm{dxdy} = \int_{\partial \Omega }^{}(fg, 0) \cdot (n_x, ny) \mathrm{dS} = \int_{\partial \Omega }^{}fgn_x \mathrm{dS}.
+\]
+Analogamente, para y, temos
+\[
+	\int_{\Omega }^{}\frac{\partial^{}f}{\partial y^{}}g \mathrm{dxdy} = \int_{\partial \Omega }^{}fgn_y \mathrm{dS} - \int_{\Omega }^{}f \frac{\partial^{}g}{\partial y^{}} \mathrm{dxdy}.
+\]
+Juntando as duas formas com \(F_1\) e \(F_2\) nos papeis de f e 1 no papel de g, recuperamos o teorema da divergência:
+\[
+	\int_{\Omega }^{}\frac{\partial^{}F_1}{\partial x^{}} + \frac{\partial^{}F_2}{\partial y^{}} \mathrm{dxdy} = \int_{\Omega }^{}F_1n_x + F_2n_y \mathrm{dS} \Longleftrightarrow \int_{\Omega }^{}\nabla \cdot F \mathrm{dxdy} = \int_{\partial \Omega }^{}F \cdot n \mathrm{dS}.
+\]
+
+\end{document}

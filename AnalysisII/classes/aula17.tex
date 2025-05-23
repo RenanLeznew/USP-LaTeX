@@ -1,0 +1,149 @@
+\documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 12 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Integrabilidade de uma sequência uniforme;
+	\item Critério de Cauchy.
+\end{itemize}
+\subsection{Integrabilidade e Diferenciabilidade de Sequências.}
+Apesar da convergência pontual falhar em transferir propriedades, veremos que a uniforme é bem-comportada.
+\begin{theorem*}
+	Se \(f_{n}:X\rightarrow \mathbb{R}\) é uma sequência de funções contínuas num ponto a do domínio X e que converge uniformemente para f em X, então f é contínua em a.
+\end{theorem*}
+\begin{proof*}
+	Com efeito, pela convergência uniforme, vale que dado \(\varepsilon >0\), podemos encontrar \(n_{0}\) natural de forma que, se \(n\geq n_{0}\), então
+	\[
+		\sup_{y\in X}|f_{n}(y)-f(y)|<\frac{\varepsilon }{3}.
+	\]
+	Note que, dado quaisquer x em X e n maior ou igual a \(n_{0}\), podemos escrever
+	\begin{align*}
+		|f(x)-f(a)| & \leq |f(x)-f_{n}(x)|+|f_{n}(x)-f_{n}(a)|+|f_{n}(a)-f(a)|                     \\
+		            & \leq \frac{\varepsilon }{3} + |f_{n}(x) - f_{n}(a)| + \frac{\varepsilon }{3} \\
+		            & = \frac{2\varepsilon }{3}+|f_{n}(x)-f_{n}(a)|.
+	\end{align*}
+	No entanto, o termo que resta encontrar um número dominante é lidado com por meio da continuidade de cada \(f_{n}\) em a, donde segue que, para o n fixo, se \(|x-a| < \delta \),
+	\[
+		|f_{n}(x)-f_{n}(a)| \leq \frac{\varepsilon }{3}.
+	\]
+	Logo, se \(|x-a|<\delta \),
+	\begin{align*}
+		|f(x)-f(a)| & \leq |f(x)-f_{n}(x)|+|f_{n}(x)-f_{n}(a)|+|f_{n}(a)-f(a)|                     \\
+		            & \leq \frac{\varepsilon }{3} + |f_{n}(x) - f_{n}(a)| + \frac{\varepsilon }{3} \\
+		            & = \frac{2\varepsilon }{3}+ \frac{\varepsilon }{3}                            \\
+		            & = \varepsilon.
+	\end{align*}
+	Portanto, f é contínua em a. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se (M, d) é um espaço métrico qualquer, então o espaço das funções contínuas limitadas com domínio M e contra-domínio \(\mathbb{R}\) é completo.
+\end{crl*}
+\begin{theorem*}
+	Se \(f_{n}:[a, b]\rightarrow \mathbb{R}\) são funções integráveis e convergem uniformemente para f em \([a, b]\), então:
+	\begin{itemize}
+		\item[i)] A função f é integrável; e
+		\item[ii)] A integral do limite é o limite das integrais:
+		      \[
+			      \int_{a}^{b}f(x) \mathrm{dx} = \int_{a}^{b}\lim_{n\to \infty}f_{n}(x) \mathrm{dx} = \lim_{n\to \infty}\int_{a}^{b}f_{n}(x) \mathrm{dx}.
+		      \]
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	(i)O fato de f ser limitada foi deixado como exercício.
+
+	De resto, basta mostrar que o conjunto das descontinuidades da f tem medida nula! Com efeito, para cada n natural, seja
+	\[
+		D_{n} = \{x\in X: f_{n} \text{ é descontínua em }x\}.
+	\]
+	Pela integrabilidade de cada \(f_{n}\), sabemos que todos eles têm medida nula pelo \hyperlink{lebesgue_theorem}{\textit{Teorema de Lebesgue}}. Daí, quem também terá medida nula será o conjunto
+	\[
+		D\coloneqq \bigcup_{n=1}^{\infty}D_{n}
+	\]
+	pelas propriedades dos conjuntos de medidas nulas. Assim, x está fora de D, pois todas as \(f_{n}\)'s são contínuas em x, o que leva à conclusão de que x não pertence a nenhum dos \(D_{n}\)'s, então não pode estar na união deles. Logo, a f é contínua nesse x pelo teorema que acabamos de provar.
+	Em conclusão, \(D_{0}\) é um subconjunto de \(D\), pois o que provamos foi essencialmente que um ponto fora de \(D\) sempre estará fora de \(D_{0}\), isto é, \(D^{\complement} \subseteq D_{0}^{\complement}\). Como D tem medida nula, vale que
+	\[
+		m(D_{0}) = 0.
+	\]
+	Portanto, f é integrável em \([a, b]\).
+
+	(ii) Agora, como a sequência \(\{f_{n}\}\) converge uniformemente para f, dado \(\varepsilon  > 0\), existe \(n_{0}\) natural tal que, para todo x no intervalo \([a, b]\),
+	\[
+		|f_{n}(x) - f(x)| < \varepsilon,\quad \forall n \geq n_{0}.
+	\]
+	Logo, sabendo que f e todos os termos da sequência têm integrais,
+	\begin{align*}
+		\biggl\vert \int_{a}^{b}f_{n} \mathrm{dx} - \int_{a}^{b}f \mathrm{dx} \biggr\vert & = \biggl\vert \int_{a}^{b}(f_{n} - f) \mathrm{dx} \biggr\vert \\
+		                                                                                  & \leq \int_{a}^{b}|f_{n}(x)-f(x)| \mathrm{dx}                  \\
+		                                                                                  & < \int_{a}^{b}\frac{\varepsilon }{b-a} \mathrm{dx}            \\
+		                                                                                  & = \frac{\varepsilon }{b-a}(b-a) = \varepsilon,
+	\end{align*}
+	que é o mesmo que dizer
+	\[
+		\lim_{n\to \infty}\int_{a}^{b}f_{n}(x) \mathrm{dx} = \int_{a}^{b}f(x) \mathrm{dx}. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{exr}
+	Mostre que o limite de uma sequência de funções limitadas é, também, limitado. (Dica: desigualdade triangular!)
+\end{exr}
+\begin{def*}
+	Uma sequência \(f_{n}:X\rightarrow \mathbb{R}\) é uma \textbf{sequência de Cauchy} quando, dado \(\varepsilon >0\), existe \(n_{0}\) natural tal que
+	\[
+		m, n \geq n_{0} \Rightarrow \sup_{x\in X}|f_{m}(x) - f_{n}(x)| < \varepsilon,
+	\]
+	ou seja, quando
+	\[
+		m, n \geq n_{0} \Rightarrow |f_{m}(x) - f_{n}(x)| < \varepsilon \quad \forall x\in X. \quad \square
+	\]
+\end{def*}
+\begin{theorem*}
+	Uma sequência de funções \(f_{n}:X\rightarrow \mathbb{R}\) é uniformemente convergente se, e somente se, ela é de Cauchy.
+\end{theorem*}
+\begin{proof*}
+	Por um lado, se \(f_{n}\) converge uniformemente para f, então dado \(\varepsilon  > 0\), existe \(n_{0}\) natural tal que:
+	\begin{align*}
+		 & (I) n\geq n_{0} \Rightarrow |f_{n}(x) - f(x)| < \frac{\varepsilon }{2},\quad \forall x\in X  \\
+		 & (I) m\geq n_{0} \Rightarrow |f_{m}(x) - f(x)| < \frac{\varepsilon }{2},\quad \forall x\in X.
+	\end{align*}
+	Logo, pela desigualdade triangular, se \(m,n\geq n_{0}\),
+	\[
+		|f_{n}(x) - f_{m}(x)| \leq |f_{n}(x)-f(x)| + |f(x)-f_{m}(x)| <\frac{\varepsilon }{2} + \frac{\varepsilon }{2} = \varepsilon , \quad \forall x\in X,,
+	\]
+	mostrando que a sequência é de Cauchy.
+
+	Por outro, suponha que a sequência é de Cauchy. Dado \(\varepsilon  > 0\), existe \(n_{0}\) natural tal que, se \(m, n\geq n_{0}\), então
+	\[
+		\sup_{y\in X}|f_{m}(y)-f_{n}(y)| < \frac{\varepsilon }{2}.
+	\]
+	Em particular, para cada x em X, fixada a sequência \(f_1(x),\dotsc, f_{n}(x), \dotsc \), ela é de Cauchy em \(\mathbb{R}\), pois se \(m, n\geq n_{0}\),
+	\[
+		|f_{m}(x)-f_{n}(x)| \leq \sup_{y\in X}|f_{m}(y) - f_{n}(y)| < \frac{\varepsilon }{2},
+	\]
+	ou seja, existe o limite da sequência vista como uma sequência de números reais. Cada ponto x de X terá um limite deste tipo, então esse limite é uma função de x, ou seja, encontramos a função \(f(x)\) dada por
+	\[
+		f(x)\coloneqq \lim_{n\to \infty}f_{n}(x),
+	\]
+	mostrando que f ``nasceu'' do limite pontual das \(f_{n}\)'s:
+	\[
+		f(a)=\lim_{x\to a}f(x)=\lim_{x\to a}[\lim_{n\to \infty}f_{n}(x)] = \lim_{n\to \infty}[\lim_{x\to a}f_{n}(x)],
+	\]
+	restando provar que este limite pontual é uniforme.
+
+	Com efeito, tomando \(\varepsilon > 0\), existe \(n_{0}\) natural tal que se \(m, n\geq n_{0}\), então
+	\[
+		\sup_{y\in X}|f_{m}(y)-f_{n}(y)|<\frac{\varepsilon }{2},
+	\]
+	tal que, dado x em X, se \(n\geq n_{0}\) é fixo e qualquer, então
+	\[
+		m\geq n_{0} \Rightarrow |f_{n}(x)-f_{m}(x)|<\frac{\varepsilon }{2}.
+	\]
+	Daí, fazendo o limite quando m tende a infinito, obtemos que
+	\[
+		|f_{n}(x) - f(x)|\leq \frac{\varepsilon }{2}.
+	\]
+	Em suma, para todo x em X e n maior que \(n_{0}\),
+	\[
+		|f_{n}(x)-f(x)|<\varepsilon .
+	\]
+	Portanto, \(f_{n}\) converge uniformemente para f em X. \qedsymbol
+\end{proof*}
+\end{document}

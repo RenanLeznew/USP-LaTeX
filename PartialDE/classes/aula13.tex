@@ -1,0 +1,185 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 23 de Abril, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Separação de variáveis para ondas;
+	\item Motivação por trás das condições de contorno;
+\end{itemize}
+\subsection{Um Aprofundamento em Condições de Contorno.}
+Vamos dar uma olhada mais a fundo no prcoesso de separação de variáveis que utilizamos durante o estudo da existência de solução da equação da onda na aula passada. Vale relembrar que estudamos o problema
+\[
+	\left\{\begin{array}{ll}
+		{\color{SpringGreen4}\frac{\partial^{2}u}{\partial t^{2}}(x, t)=\frac{\partial^{2}u}{\partial x^{2}}(x, t)}, & \quad x\in [0, L],\: t\in \mathbb{R} \text{ passo 1}              \\
+		{\color{IndianRed3}\mathcal{C}(u)=0},                                                                        & \quad t\in \mathbb{R} \text{ cond. contorno de Neumann, passo 2.} \\
+		{\color{RoyalBlue3}u(x,0)=u_{0}(x)},                                                                         & \quad  x\in [0, L]     \text{ condição inicial, passo 3.}         \\
+		{\color{RoyalBlue3}\frac{\partial^{}u}{\partial t^{}}(x,0)=u_{1}(x)},                                        & \quad  x\in [0, L]\text{ condição inicial, passo 3.}
+	\end{array}\right..
+\]
+Durante o {\color{SpringGreen4} passo 1}, procuramos por soluções que tivessem a cara
+\[
+	u(x, t) = T(t)X(x),
+\]
+e encontramos as EDOs
+\[
+	T''(t) = \lambda T(t), X''(x) = \lambda X(x).
+\]
+No segundo passo, havíamos utilizado a condição de fronteira para obtermos
+\[
+	\mathcal{C}(T(t)X(x)) \Rightarrow T(t)\mathcal{C}(X(x)),
+\]
+nos fornecendo a condição inicial para a EDO em x com a forma
+\[
+	X''(x) = \lambda X(x),\quad \mathcal{C}(x) = 0.
+\]
+
+Para entender melhor o que está por trás disso, precisamos deixar alguns lembretes de Álgebra Linear:
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Diagonalização de Matrizes},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Temos duas fórmulas de \hypertarget{matrix_diagonalization}{diagonalizar} matrizes, mas elas são equivalentes. Para a primeira, seja A uma matriz quadrada de dimensão n e com coeficientes reais. Dizemos que A é \textbf{diagonalizável} se existe uma base \(\{e_{1}, \dotsc , e_{n}\}\) de \(\mathbb{R}^{n}\) tal que
+	\[
+		Ae_{j} = \lambda_{j}e_{j}.
+	\]
+	Isto pode ser reformulado exigindo que exista uma matriz diagonal D, normalmente composta por autovalores de A, tal que A e D são similares, ou seja, que exista uma matriz inversível P tal que
+	\[
+		P^{-1}AP = D.
+	\]
+	Para encontrar D, normalmente utilizamos os zeros do polinômio característico da matriz:
+	\[
+		p_{A}(\lambda ) = \det{(A - \lambda \mathrm{Id})},
+	\]
+	em que Id é a identidade das matrizes de dimensão n.
+
+	Um resultado altamente importante é que toda matriz auto-adjunta (\(A^{T} = A\), ou \(\left< Ax, y \right> = \left< x, Ay \right>\)) é diagonalizável, e outro é que a base mencionada na primeira definição pode ser tomara como uma base ortonormal. Consequência desses dois são, por exemplo,
+	\begin{align*}
+		 & Ae_{j} = \lambda_{j}e_{j}                              \\
+		 & \left< e_{i}, e_{j} \right> = \delta_{ij}              \\
+		 & u = \sum\limits_{j=1}^{n}\left< u, e_{j} \right>e_{j}.
+	\end{align*}
+\end{tcolorbox}
+
+A parte interessante é que existe uma relação entre estes problemas da álgebra linear e nosso estudo das EDPs! Consideremos o operador diferencial agindo por
+\[
+	\mathcal{A}u = \frac{\mathrm{d}^{2}u}{\mathrm{d}x^{2}};
+\]
+então, \(\mathcal{A}\) é análogo à matriz A. Quando impomos as condições de contorno, estamos efetivamente tornando \(\mathcal{A}\) em um operador auto-adjunto (ou matriz auto-adjunta), então vai existir uma base ortonormal \(\mathcal{B} = \{e_{1}, e_{2}, \dotsc \}\). Assim, a questão da condição de contorno (e, consequentemente, da separação de variáveis) torna-se uma de responder a questão ``Quando é que \(\mathcal{A}\) é auto-adjunto?''
+
+Com base no lembrete, queremos que ocorra a igualdade
+\[
+	\left< \mathcal{A}u, v \right> = \left< u,\mathcal{A}v\right>.
+\]
+Lembremos como funciona o produto interno no espaço de funções, tal que
+\begin{align*}
+	\left< \mathcal{A}u, v \right> = \int_{0}^{L}\frac{\mathrm{d}^{2}u}{\mathrm{d}x^{2}}v \mathrm{dx} & = \frac{\mathrm{d}u}{\mathrm{d}x}v \biggl|_{0}^{L}\biggr. - \int_{0}^{L}\frac{\mathrm{d}u}{\mathrm{d}x}\frac{\mathrm{d}v}{\mathrm{d}x} \mathrm{dx}                                                                                 \\
+	                                                                                                  & = \frac{\mathrm{d}u}{\mathrm{d}x}v \biggl|_{0}^{L}\biggr. - u \frac{\mathrm{d}v}{\mathrm{d}x}\biggl|_{0}^{L}\biggr. + \underbrace{\int_{0}^{L}u \frac{\mathrm{d}^{2}v}{\mathrm{d}x} \mathrm{dx}}_{\left< u, \mathcal{A}v \right>.}
+\end{align*}
+Em conclusão,
+\[
+	\left< \mathcal{A}u, v \right> - \left< u, \mathcal{A}v \right> = u'(L)v(L) - u'(0)v(0) - u(L)v'(L) + u(0)v'(0)
+\]
+e, para que \(\mathcal{A}\) satisfaça o que precisa para ser auto-adjunto, devemos escolher uma condição de contorno tal que
+\[
+	u'(L)v(L) - u'(0)v(0) - u(L)v'(L) + u(0)v'(0)=0.
+\]
+\begin{example}
+	Alguns exemplos de condições de contorno que garantem o requerimento acima são:
+	\begin{align*}
+		 & u(0) = u(L) = v(0) = v(L) = 0 \text{ (Dirichlet)}                                  \\
+		 & u'(0) = u'(L) = v'(0) = v'(L) = 0 \text{ (Neumann)}                                \\
+		 & u(0) = u(L),\; u'(0) = u'(L), \; v(0) = v(L),\; v'(0) = v'(L) \text{ (Periódica)}.
+	\end{align*}
+\end{example}
+
+Em geral, definimos as condições de contorno da seguinte forma:
+\[
+	\mathcal{C}u = 0 \Longleftrightarrow \left\{\begin{array}{ll}
+		\alpha_1 u(0) + \tilde{\alpha }_1u'(0) + \beta_1u(L) + \tilde{\beta }_1u'(L) = 0 \\
+		\alpha_2 v(0) + \tilde{\alpha }_2v'(0) + \beta_2v(L) + \tilde{\beta }_2v'(L) = 0 \\
+	\end{array}\right.,
+\]
+em que os coeficientes são reais e seus conjuntos como vetores, isto é,
+\[
+	(\alpha_1, \tilde{\alpha }_1, \beta_1, \tilde{\beta }_1) \quad\&\quad (\alpha_2, \tilde{\alpha }_2, \beta_2, \tilde{\beta }_2)
+\]
+são linearmente independentes. Queremos que, se u e v forem funções de classe \(\mathcal{C}^{2}([0, L])\) satisfazem \(\mathcal{C}u_1 = \mathcal{C}u_2 = 0\), então
+\[
+	u'(L)v(L) - u'(0)v'(0) - u(L)v'(L) + u(0)v'(0) = 0.
+\]
+\begin{example}
+	\begin{itemize}
+		\item[1)]Para a condição de contorno de Dirichlet,
+		      \[
+			      \alpha_1 = \beta_2 = 1,\quad  \tilde{\alpha}_1 = \tilde{\beta }_1 = \beta_1 = 0, \quad \tilde{\alpha}_2 = \tilde{\beta }_2 = \beta_2 = 0
+		      \]
+		\item[2)] Para Neumann,
+		      \[
+			      \tilde{\alpha}_{1} = 1, \text{ resto 0, } \tilde{\beta}_2 = 1, \text{ resto 0}.
+		      \]
+		\item[3)] Para a Periódica,
+		      \[
+			      \alpha_1 = 1,\; \beta_1 = -1,\; \tilde{\alpha }_1 = \tilde{\beta }_1 = 0,\quad \tilde{\alpha }_2 = 1,\; \tilde{\beta }_2 = -1,\; \alpha_2 = \beta_2 = 0.
+		      \]
+		\item[4)] Para Dirichlet-Neumann,
+		      \[
+			      \alpha_{1} = 1, \text{ resto 0, } \tilde{\beta}_2 = 1, \text{ resto 0}.
+		      \]
+		\item[5)] Para Neumann-Dirichlet,
+		      \[
+			      \tilde{\beta}_{1} = 1, \text{ resto 0, } \alpha_2 = 1, \text{ resto 0}.
+		      \]
+		\item[6)] Para Robin,
+		      \[
+			      \tilde{\alpha}_{1} = 1,\; \alpha_1 = \pm 1, \text{ resto 0, } \beta_2 = 1,\; \tilde{\beta}_2 = \pm1, \text{ resto 0}.
+		      \]
+	\end{itemize}
+\end{example}
+\begin{theorem*}
+	Dada uma condição de contorno auto-adjunta, existe uma sequência de funções em \(\mathcal{C}^{2}([0, L])\) e uma sequência de números reais, respectivamente
+	\[
+		\{\varphi_{n}\}_{n\in \mathbb{N}}\in \mathcal{C}^{2}([0, L])\quad\&\quad \{\lambda_{n}\}_{n\in \mathbb{N}}\in \mathbb{R},
+	\]
+	tais que, comparando analogias com álgebral linear à direita
+	\begin{align*}
+		 & 1) \frac{\mathrm{d}^{2}\varphi_{n}}{\mathrm{d}x^{2}} = \lambda_{n}\varphi_{n} \forall n                           \quad  Ae_{n} = \lambda_{n}e_{n}                                  \\
+		 & 2) \left< \varphi_{n}, \varphi_{m} \right> = \delta_{nm}                                                          \quad  \left< e_{i}, e_{j} \right> = \delta_{ij}                  \\
+		 & 3)\text{ Para toda u contínua por partes}, u = \sum\limits_{n=1}^{\infty}\left< u, \varphi_{n} \right>\varphi_{n} \quad  u = \sum\limits_{n=1}^{\infty}\left< u, e_{i} \right>e_{i} \\
+	\end{align*}
+\end{theorem*}
+\begin{example}
+	\begin{itemize}
+		\item[1)]Para a condição de contorno de Dirichlet,
+		      \[
+			      \varphi_{n} = \sqrt[]{\frac{2}{L}}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)},\quad \lambda_{n} = -\biggl(\frac{n\pi }{L}\biggr)^{2}
+		      \]
+		\item[2)] Para Neumann,
+		      \[
+			      \varphi_{n} = \sqrt[]{\frac{2}{L}}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)},\quad \lambda_{n} = -\biggl(\frac{n\pi }{L}\biggr)^{2}
+		      \]
+		\item[3)] Para a Periódica de \([-L, L]\),
+		      \[
+			      \varphi_{n} = \sqrt[]{\frac{1}{2L}} \text{ ou }\frac{1}{\sqrt[]{L}}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)}, \text{ ou }\frac{1}{\sqrt[]{L}}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)}
+		      \]
+		\item[4)] Para Dirichlet-Neumann,
+		      \[
+			      \varphi_{n} = c_{n}\sin^{}{\biggl(\biggl(x+\frac{1}{2}\biggr)\frac{\pi x}{L}\biggr)},\quad \lambda_{n} = -\biggl(\biggl(n+\frac{1}{2}\biggr)\frac{\pi }{L}\biggr)^{2}
+		      \]
+		\item[5)] Para Neumann-Dirichlet,
+		      \[
+			      \varphi_{n} = c_{n}\cos^{}{\biggl(\biggl(x+\frac{1}{2}\biggr)\frac{\pi x}{L}\biggr)},\quad \lambda_{n} = -\biggl(\biggl(n+\frac{1}{2}\biggr)\frac{\pi }{L}\biggr)^{2}
+		      \]
+	\end{itemize}
+\end{example}
+\end{document}
+

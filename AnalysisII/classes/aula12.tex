@@ -1,0 +1,152 @@
+ \documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 23 de Abril, 2025 (Gravada)}
+\subsection{Motivações}
+\begin{itemize}
+	\item Oscilação de funções em um ponto.
+\end{itemize}
+\subsection{Oscilações de Funções em um Ponto.}
+Veremos, nesta aula, as propriedades das oscilações de funções em cada ponto. Assim, vale lembrar a definição da oscilação conforme vimos aula passada:
+\begin{def*}
+	Seja \(f:[a, b]\rightarrow \mathbb{R}\) uma função limitada. Para cada \(x_{0}\) no intervalo \([a, b]\) e número positivo \(\delta \), definimos a \textbf{oscilação de f num intervalo fechado em torno de }\(x_{0}\) como
+	\[
+		\Omega (x_{0}; \delta )=\omega(f; [a, b]\cap [x_{0}-\delta , x_{0}+\delta ]) = M_{\varepsilon }-m_{\delta },
+	\]
+	em que
+	\begin{align*}
+		 & M_{\delta }=\sup_{}\{f(x):x\in [a, b]\cap [x_{0}-\delta , x_{0}+\delta ]\}               \\
+		 & m_{\delta }=\inf_{}\{f(x):x\in [a, b]\cap [x_{0}-\delta , x_{0}+\delta ]\}.\quad \square
+	\end{align*}
+\end{def*}
+Com a capacidade de caracterizar a oscilação em torno de uma vizinhança de um ponto, um processo natural é diminuir ela indefinidamente, usando limites, para olhar ponto-a-ponto a oscilação de uma função, que é a motivação da seguinte definição:
+
+\begin{def*}
+	Seja \(f:[a, b]\rightarrow \mathbb{R}\) uma função limitada. Para cada \(x_{0}\) no intervalo \([a, b]\) e número positivo \(\delta \), definimos a \textbf{oscilação de f no ponto}\(x_{0}\) como
+	\[
+		\omega (f; x_{0})=\omega (x_{0})\coloneqq \lim_{\delta \to 0^{+}}\Omega (x_{0}; \delta )=\inf_{\delta > 0}\Omega (x_{0};\delta ). \quad \square
+	\]
+\end{def*}
+
+Quanto às propriedades das oscilações, postulamos:
+\begin{prop*}[Propriedades das Oscilações]
+	Seja \(f:[a, b]\rightarrow \mathbb{R}\) uma função limitada. Valem as propriedades:
+	\begin{itemize}
+		\item[i)] Para to ponto no intervalo \([a, b]\), a oscilação é não-negativa:
+		      \[
+			      \omega (f, p)\geq 0;
+		      \]
+		\item[ii)] A oscilação é responsávle por detectar os pontos onde f é contínua e diferenciá-los dos pontos em que ela não é: para todo ponto p do intervalo \([a, b]\), a oscilação da f em p é nula se, e somente se, f é contínua em p;
+		\item[iii)] Se \(I\) é um intervalo contido em \([a, b]\) e p é um ponto interior (ou seja, não está nos extremos de I), então
+		      \[
+			      \omega (f; p) \leq \omega (f; I).
+		      \]
+	\end{itemize}
+\end{prop*}
+Sobre o item (iii), vale a pena dizer que se p for um ponto de fronteira (pertencente à extremidade de I), então a oscilação nele será estritamente menor do que a oscilação no intervalo I.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Ponto interior},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Dizer que um ponto p é interior ao intervalo \(I\) significa que existe pelo menos um intervalo centrado em p contido em I:
+	\[
+		p\in \mathrm{Int(I)} \Longleftrightarrow \exists \delta'>0:\; [p-\delta', p+\delta '] \subseteq I,
+	\]
+	ou seja, tem que existir um intervalo em torno de p cujos pontos todos fazem parte de I.
+\end{tcolorbox}
+\begin{proof*}
+	(i) A prova dessa propriedade é clara pois, para qualquer \(\delta \) positivo e qualquer ponto p em \([a, b]\) vale que
+	\[
+		\omega (f; X_{\delta }) = M_{\delta } -m_{\delta } \geq 0,
+	\]
+	ou seja, o 0 é cota inferior de todos os valores da oscilação de f nos conjuntos \(X_{\delta }\); assim, como a oscilação no ponto p fora definida como o ínfimo dessas oscilações nestes conjuntos, ela é a maior cota superior, então necessariamente será maior ou igual a 0:
+	\[
+		\omega(f; p) = \inf_{\delta > 0}\omega (f; X_{\delta })\geq 0.
+	\]
+
+	(ii) Fixemos um ponto p em \([a, b]\) e \(\delta \) positivo. Lembremos a caracterização da oscilação de uma função nos intervalos de \(X_{\delta }\) em termos do diâmetro:
+	\[
+		\omega (f; X_{\delta }) = \sup\limits_{x, y\in X_{\delta }}\{|f(x)-f(y)|\}.
+	\]
+	Com isso, temos
+	\[
+		\omega (f; p) = 0 \Longleftrightarrow \lim_{\delta \to 0^{+}}\omega (f; X_{\delta }),
+	\]
+	e, lembrando o que significa um limite pela direita dar 0, segue que para todo \(\varepsilon  > 0\), existe \(\delta '>0\) tal que,
+	\[
+		0 < \delta < \delta ' \Rightarrow \omega (f; X_{\delta }) < \varepsilon .
+	\]
+	Consequentemente, se o próprio supremo é menor do que \(\varepsilon \) para todos x e y, então para todo \(\varepsilon > 0\), existe \(\delta '\) também positivo tal que
+	\[
+		0 < \delta < \delta ' \quad\&\quad x,\; y\in X_{\delta } \Rightarrow |f(x)-f(y)|<\varepsilon,
+	\]
+	que equivale à continuidade de f em p, pois é o critério de Cauchy. Com efeito, supondo a verdade na afirmação acima, então dado \(\varepsilon > 0\), existe \(\delta '\) positivo tal que
+	\[
+		0 < \delta < \delta ' \quad\&\quad x,\; y\in [a, b]\cap [p-\delta , p+\delta ] \Rightarrow |f(x)-f(y)|<\varepsilon;
+	\]
+	em particular, para todo \(\varepsilon > 0\), existe \(\delta \) tal que
+	\[
+		|x-p|<\delta ' \Rightarrow |x-p| < \delta <\delta ',
+	\]
+	isto é, x e p pertencem ao intervalo \([a, b]\cap [p-\delta , p+\delta ]\), tal que, colocando \(y=p\),
+	\[
+		|f(x)-f(p)| < \varepsilon
+	\]
+	que é a condição de f ser contínua em p. Desta forma, provamos que, se a oscilação de f no ponto p for nula, ela é contínua em p.
+
+	Por outro lado, supondo que f seja contínua em p, vale que, dade \(\varepsilon \) positivo, existe \(\delta \) também positivo tal que
+	\[
+		x\in[a, b],\; |x-p|<\delta ' \Rightarrow |f(x)-f(p)|<\frac{\varepsilon }{2}.
+	\]
+	Em particular, se \(x, y\) pertencem a \([a, b]\) com \(|x-p|<\delta \) e \(|y-p|<\delta \), então temos, para qualquer \(0< \delta < \delta '\),
+	\[
+		|x-p|, |y-p|<\delta ' \quad\&\quad x, y\in [a, b].
+	\]
+	Logo,
+	\[
+		|f(x)-f(p)|<\frac{\varepsilon }{2}\quad\&\quad |f(y)-f(p)|<\frac{\varepsilon }{2}.
+	\]
+	Portanto, pela desigualdade triangular,
+	\begin{align*}
+		|f(x)-f(y)| & \leq |f(x)-f(p)|+|f(p)-f(y)|                                    \\
+		            & <\frac{\varepsilon }{2} + \frac{\varepsilon }{2} = \varepsilon,
+	\end{align*}
+	o que significa que, se f é contínua em p, então para qualquer \(\varepsilon \) positivo, existira \(\delta \) positivo tal que
+	\[
+		0 < \delta <\delta ' \quad\&\quad x, y\in [a, b]\cap X_{\delta }\Rightarrow |f(x)-f(y)|<\varepsilon ,
+	\]
+	que é exatamente o que significa a oscilação em p ser nula.
+
+
+	(iii) Para este item, tome p como um ponto interior do intervalo \([a, b]\); então,
+	\[
+		X_{\delta '} = [a, b]\cap [p-\delta ', p+\delta '] = [p-\delta ', p+\delta ']\subseteq I.
+	\]
+	Por outro lado, lembre-se que a oscilação é crescente em relação a conjunto: se você aumentar o conjunto, você aumenta a oscilação
+	\[
+		A\subseteq B \Rightarrow \omega (f; A)\leq \omega (f; B).
+	\]
+	Daí,
+	\[
+		\omega(f; X_{\delta '})\leq \omega (f; I);
+	\]
+	portanto, como
+	\[
+		\omega (f; p) = \inf_{\delta > 0}\omega (f; X_{\delta }),
+	\]
+	temos
+	\[
+		\omega (f; p) = \inf_{\delta > 0}\omega (f; X_{\delta }) \leq \omega (f; X_{\delta }) \leq \omega(f; I). \text{ \qedsymbol}
+	\]
+
+\end{proof*}
+\end{document}

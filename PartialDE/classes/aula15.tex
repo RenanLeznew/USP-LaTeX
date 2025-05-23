@@ -1,0 +1,32 @@
+ \documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 30 de Abril, 2025}
+\subsection{Um Comentário sobre Mudança de Variáveis.}
+A aula de hoje foi mais focada na revisão para a prova. No entanto, foi feito um comentário a respeito da mudança de variáveis: se \(f:[0, \pi ]\rightarrow \mathbb{R}\) for uma função \(2\pi \)-periódica, temos em mente a solução geral dada por
+\[
+	f(x) =\sum\limits_{n=1}^{\infty}b_{n}\sin^{}{(nx)},\quad b_{n}=\frac{2}{\pi }\int_{0}^{\pi }f(y)\sin^{}{(ny)} \mathrm{dy},
+\]
+Mas como poderíamos lidar com uma função \(f:[0, L]\rightarrow \mathbb{R}\)?
+
+A ideia é definir uma outra função dada por
+\[
+	\tilde{f}(x) = f \biggl(\frac{xL}{\pi }\biggr), \quad  \tilde{f}:[0, \pi ]\rightarrow \mathbb{R},
+\]
+que pode ser trocada também fazendo
+\[
+	f(x) = \tilde{f}\biggl(\frac{\pi x}{L}\biggr).
+\]
+Com isto, sabemos resolver a série para \(\tilde{f}\) como foi dado acima:
+\[
+	\tilde{f}(x) =\sum\limits_{n=1}^{\infty}b_{n}\sin^{}{(nx)},\quad b_{n}=\frac{2}{\pi }\int_{0}^{\pi }\tilde{f}(y)\sin^{}{(ny)} \mathrm{dy},
+\]
+e basta reverter com a regrinha que passamos
+\[
+	f(x) = \tilde{f}\biggl(\frac{\pi x}{L}\biggr) = \sum\limits_{n=1}^{\infty}b_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)},
+\]
+com coeficientes
+\[
+	b_{n} = \frac{2}{\pi }\int_{0}^{\pi }f \biggl(\frac{yL}{\pi }\biggr)\sin^{}{(ny)} \mathrm{dy} = \frac{2}{L}\int_{0}^{L}f(z)\sin^{}{\biggl(\frac{n\pi z}{L}\biggr)} \mathrm{dz}.
+\]
+
+\end{document}

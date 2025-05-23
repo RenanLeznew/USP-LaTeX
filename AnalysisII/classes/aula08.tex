@@ -1,0 +1,249 @@
+\documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 31 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Critérios de Integrabilidade de Riemann;
+	\item Classes de Funções Integráveis.
+\end{itemize}
+\subsection{Critérios para Existência da Integral - Parte 2}
+Conforme vimos na aula passada, dada uma função limitada \(f:[a, b]\rightarrow \mathbb{R}\), ao colocar
+\[
+	A = \sigma (f)\quad\&\quad B=\Sigma (f),
+\]
+vimos que para quaisquer elementos de A e B, tem-se \(a\leq b\), em particular para
+\[
+	a = L(f; \mathcal{P}),\quad b=U(f; \mathcal{Q}).
+\]
+Logo, \(\sigma (f)\) e \(\Sigma (f)\) estão nas hipóteses do lema, donde segue que
+\[
+	\underline{\intup_{a}^{b}}f = \sup_{}\sigma (f)\leq \inf_{}\Sigma (f) = \overline{\intup_{a}^{b}}f.
+\]
+
+Por outro lado, a definição de integrabilidade para f significa que
+\[
+	\sup_{}\sigma (f) = \underline{\intup_{c}^{b}}f = \overline{\intup_{a}^{b}} f = \inf_{}\Sigma (f),
+\]
+donde outra aplicação do lema oferece uma condição de integrabilidade da forma ``Dado \(\varepsilon >0\), devem existir \(a = L(f; \mathcal{P})\in\sigma (f)\) e \(b=U(f; \mathcal{Q})\in \Sigma (f)\) tais que
+\[
+	U(f; \mathcal{Q}) - L(f; \mathcal{P})<\varepsilon \text{''.}
+\]
+
+\hypertarget{integrability_conditions}{
+	\begin{theorem*}[Condições de Integrabilidade]
+		Seja \(f:[a, b]\rightarrow \mathbb{R}\) uma função limitada. As seguintes propriedades são equivalentes:
+		\begin{itemize}
+			\item[1)] f é integrável;
+			\item[2)] Dado \(\varepsilon > 0\), existem partições \(\mathcal{P}, \mathcal{Q}\) tais que
+			      \[
+				      U(f; \mathcal{P}) - L(f; \mathcal{Q})<\varepsilon ;
+			      \]
+			\item[3)] Dado \(\varepsilon > 0\), existe uma partição \(\mathcal{P}_{0}\) de \([a, b]\) tal que
+			      \[
+				      U(f; \mathcal{P}_{0}) - L(f; \mathcal{P}_{0})<\varepsilon;
+			      \]
+			\item[4)] Dado \(\varepsilon > 0\), existe uma partição
+			      \[
+				      \mathcal{P}: a = t_{0}<t_1 <\dotsc <t_{n} = b
+			      \]
+			      tal que, se \(\omega_{i} = M_{i}-m_{i}\) é a oscilação de f dentro de \([t_{i-1}, t_{i}]\), então
+			      \[
+				      \sum\limits_{i=1}^{n}\omega_{i}(t_{i}-t_{i-1})<\varepsilon .
+			      \]
+		\end{itemize}
+	\end{theorem*}
+}
+\begin{proof*}
+	Para ver que 1 e 2 são equivalentes, foi justificado na observação anterior.
+
+	Agora, quanto à implicação de 3 para a 2, basta tomar
+	\[
+		\mathcal{Q} = \mathcal{P} = \mathcal{P}_{0}.
+	\]
+
+	Com respeito à equivalência entre 3 e 4,
+	\begin{align*}
+		U(f; \mathcal{P}) - L(f; \mathcal{P}) & = \sum\limits_{i=1}^{n}M_{i}(t_{i}-t_{i-1})-\sum\limits_{i=1}^{n}m_{i}(t_{i}-t_{i-1}) \\
+		                                      & = \sum\limits_{i=1}^{n}(M_{i}-m_{i})(t_{i}-t_{i-1}),
+	\end{align*}
+	mostrando que as duas são equivalentes, mudando apenas a forma de escrever os termos.
+
+	Sendo assim, resta apenas demonstrar que 2 implica 3 para completar o ciclo causal. Com efeito, dado \(\varepsilon \) positivo, sejam duas partições \(\mathcal{P}, \mathcal{Q}\) do intervalo \([a, b]\) tais que
+	\[
+		U(f; \mathcal{P})-L(f; \mathcal{Q})<\varepsilon .
+	\]
+	Como
+	\[
+		U(f; \mathcal{P}\cup \mathcal{Q})\leq U(f; \mathcal{P})\quad\&\quad L(f; \mathcal{Q})\leq L(f; \mathcal{P}\cup \mathcal{Q}),
+	\]
+	conclui-se que
+	\[
+		U(f; \mathcal{P}\cup \mathcal{Q})-L(f; \mathcal{P}\cup \mathcal{Q})\leq U(f; \mathcal{P})-L(f; \mathcal{Q})<\varepsilon,
+	\]
+	que é exatamente o que queríamos mostrar, mas com \(\mathcal{P}_{0} = \mathcal{P}\cup \mathcal{Q}.\) \qedsymbol
+\end{proof*}
+
+Tendo em mãos um critério teórico, podemos começar a discutir quais são os tipos de funções cuja integral existe. Após isso, analisaremos um critério muito mais útil na prática, devido ao Lebesgue, mas cujo arcabouço matemático ainda não temos, e iremos trabalhar em seguida. Sendo assim, vejamos alguns exemplos das oscilações antes de vermos as tais classes:
+\begin{example}
+	Seja \(f:[a, b]\rightarrow \mathbb{R}\) uma função contínua e X um subconjunto compacto do intervalo \([a, b]\) em que f está definida. Pelo \hyperlink{weierstrass_theorem}{\textit{Teorema de Weierstrass}}, existem elementos \(x_{1},\; x_{2}\) em X tais que
+	\[
+		\sup_{}f(X) = f(x_{2}) \quad\&\quad \inf_{}f(X) = f(x_{1}).
+	\]
+	Daí,
+	\[
+		\omega (f; X) = \sup_{}f(X) - \inf_{}f(X) = f(x_{2})-f(x_{1}),
+	\]
+	o que significa que, quando X for compacto, a oscilação é assumida por valores dentro dele.
+\end{example}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Teorema de Weierstrass},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	O \hypertarget{weierstrass_theorem}{Teorema de Weierstrass} afirma que, dado um compacto K, se uma função \(f:K\rightarrow \mathbb{R}\) for uma função contínua, então ela é limitada e cobre os valores do seu supremo e seu ínfimo: existem c e d dentro de K, tais que
+	\[
+		f(c)=\sup_{x\in K}f(x)\quad\&\quad f(d)=\inf_{x\in K}f(x).
+	\]
+\end{tcolorbox}
+\begin{example}
+	Agora, seja \(f:[a, b]\rightarrow \mathbb{R}\) uma função monótona e X um subconjunto compacto do intervalo \([a, b]\) em que f está definida. Sem perda de generalidade, assuma que f é crescente; então, para cada \(x\) dentro do intervalo \([a, b]\), vale que
+	\[
+		f(a)\leq f(x) \quad\&\quad f(b)\geq f(x),
+	\]
+	indicando que a função ``preserva as cotas'' do domínio em sua imagem (se fosse decrescente, ela invereria as cotas!). Além disso, como a e b são, respectivamente, os supremos e ínfimos do intervalo \([a, b]\), vale que, dado \(\varepsilon > 0\), existem \(x_{0}\) e \(y_{0}\) dentro do intervalo satisfazendo
+	\[
+		a-\varepsilon > x_{0} \geq a \quad\&\quad b-\varepsilon < y_{0} \leq b.
+	\]
+	Utilizando a monotonicidade novamente, segue que
+	\[
+		f(a-\varepsilon )> f(x_{0}) > f(a) \quad\&\quad f(b-\varepsilon )< f(y_{0}) < f(b).
+	\]
+	Como \(a-\varepsilon \) é maior que a, \(f(a-\varepsilon )\) também é maior que \(f(a)\), ou seja,
+	\[
+		f(a)-f(a-\varepsilon ) > 0,
+	\]
+	e podemos tomar \(\varepsilon' = f(a)-f(a-\varepsilon ) > 0\), tal que, para algum \(x_{0}\) no domínio da f,
+	\[
+		f(a)-\varepsilon ' > f(x_{0}) > f(a),
+	\]
+	mostrando que
+	\[
+		f(a)=\inf_{x\in [a, b]}f(x)
+	\]. Analogamente, mostra-se que \(f(b)=\sup_{x\in [a, b]}f(x)\). Portanto,
+	\[
+		\omega (f; [a, b])=\sup_{}f([a, b])-\inf_{}f([a, b]) = f(b)-f(a).
+	\]
+\end{example}
+
+\subsection{Classes de Funções Integráveis}
+Estando mais familiarizados com o conceito de oscilação, embarquemos na jornada pelas classes de funções integráveis. O primeiro deles diz respeito à continuidade como condição suficiente, mas não necessário, para integração\footnote{Essa frase vem da forma de ler um ``se, e somente se'' como ``é necessário E suficiente''. Dizer que ela é suficiente siginifica, em termos simples, exatamente isso: ser contínua é suficiente para uma função ser integrável, mas existem funções que não são contínuas e são integráveis. De certa forma, podemos ver esta parte da jornada como a busca pelas condições necessárias e suficientes para uma função ser Riemann-integrável, a fim de caracterizar completamente esta classe de funções.}
+\begin{theorem*}
+	Toda função \(f:[a, b]\rightarrow \mathbb{R}\) contínua é integrável em \([a, b]\):
+	\[
+		\mathcal{C}([a, b])\subseteq \mathcal{R}([a, b]).
+	\]
+\end{theorem*}
+\begin{proof*}
+	Antes de mais nada, observe que f é limitada pelo \hyperlink{weierstrass_theorem}{\textit{teorema de Weierstrass}}, então faz sentido falar sobre integrabilidade. Além disso, toda função contínua num compacto é \textit{uniformemente contínua} - basta um natural \(N\), dependente apenas de dado \(\varepsilon \) positivo, para determinar como é o comportamento da função em sua imagem conforme os valores em seu domínio aproximam-se uns dos outros.
+
+	Nessas condições, dado \(\varepsilon \) positivo associado à continuidade uniforme de f, existe um \(\delta \) positivo tal que, sempre que \(|x-y|\) for menor que \(\delta \),
+	\[
+		|f(x)-f(y)|<\frac{\varepsilon }{b-a}.
+	\]
+	Daí, se fixamos uma partição do intervalo da forma
+	\[
+		\mathcal{P}_{0}: a = t_{0} < t_{1}<t_2<\dotsc <t_{n}=b,
+	\]
+	com \(t_{i}-t_{i-1}\) menor que \(\delta \) para todos os índices, resulta
+	\[
+		x, y\in [t_{i-1}, t_{i}] \Rightarrow |x-y|<\delta  \Rightarrow |f(x)-f(y)|<\frac{\varepsilon }{b-a}.
+	\]
+	Isto é diretamente traduzido em uma limitação na oscilação dessas funções:
+	\[
+		\omega_{i}=\sup_{}\{|f(x)-f(y)|:\: x, y\in [t_{i-1}, t_{i}]\} < \frac{\varepsilon }{b-a}.
+	\]
+	Dessa forma,
+	\[
+		U(f; \mathcal{P})-L(f; \mathcal{P})=\sum\limits_{i=1}^{n}\omega_{i}(t_{i}-t_{i-1}) < \sum\limits_{i=1}^{n}\frac{\varepsilon }{b-a}(t_{i}-t_{i-1})=\frac{\varepsilon }{b-a}\sum\limits_{i=1}^{n}(t_{i}-t_{i-1})=\varepsilon .
+	\]
+	Portanto, pelo \hyperlink{integrability_conditions}{\textit{critério de integração 4}}, f é integrável. \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Para obter a partição com a propriedade específicada usada no teorema acima, basta escolher um natural n que satisfaça
+	\[
+		\frac{b-a}{n}<\delta
+	\]
+	e, dividindo o intervalo \([a, b]\) em partes iguais de comprimento \((b-a)/n\), segue que obtemos tal partição por meio de
+	\[
+		t_{i}=a + i \frac{b-a}{n},\quad i=1, 2,\dotsc ,n.
+	\]
+\end{tcolorbox}
+\begin{theorem*}
+	Se \(f:[a, b]\rightarrow \mathbb{R}\) é uma função monótona, então ela é integrável.
+\end{theorem*}
+\begin{proof*}
+	Sem perda de generalidade, assuma que f é não-decrescente, ou seja,
+	\[
+		x<y \Rightarrow f(x)\leq f(y),
+	\]
+	pois, caso fosse não-crescente, bastaria considerarmos -f e aplicar que f é integrável se, e somente se, -f for.
+
+	Feito este adendo, um ponto x entre a e b satisfaz
+	\[
+		a \leq x \leq b \Rightarrow f(a)\leq f(x)\leq f(b),
+	\]
+	que garante a limitação de f para podermos começar a discussão sobre integrabilidade. Destaquemos também que, se
+	\[
+		\mathcal{P}: a = t_{0} < t_{1} < \dotsc < t_{n}=b
+	\]
+	for qualquer partição, então
+	\[
+		\omega_{i}=M_{i}-m_{i} = f(t_{i})-f(t_{i-1}) \quad \forall i=1,2,\dotsc ,n.
+	\]
+	Logo,
+	\begin{align*}
+		\sum\limits_{i=1}^{n}\omega_{i} & = \sum\limits_{i=1}^{n}[f(t_{i})-f(t_{i-1})]                                   \\
+		                                & = [f(t_{1}) - f(t_{0})] + [f(t_{2})-f(t_{1})] + \dotsc + [f(t_{n})-f(t_{n-1})] \\
+		                                & = f(t_{n})-f(t_{0}) = f(b)-f(a).
+	\end{align*}
+	Podemos também supor que \(f(a)\) é estritamente menor que \(f(b)\); caso contrário, pela não crescência, a função seria constante.
+
+	Agora, dado \(\varepsilon \) positivo, fixamos uma partição
+	\[
+		\mathcal{P}_{0}: a = t_{0} < t_{1} < \dotsc < t_{n}=b
+	\]
+	tal que
+	\[
+		t_{i}-t_{i-1}<\frac{\varepsilon }{f(b)-f(a)},\quad i=1,2,\dotsc ,n
+	\]
+	e seguirá que
+	\begin{align*}
+		U(f; \mathcal{P}_{0})-L(f; \mathcal{P}_{0}) & = \sum\limits_{i=1}^{n}\omega_{i}(t_{i}-t_{i-1})                 \\
+		                                            & < \sum\limits_{i=1}^{n}\omega_{i} \frac{\varepsilon }{f(b)-f(a)} \\
+		                                            & = \frac{\varepsilon }{f(b)-f(a)}\sum\limits_{i=1}^{n}\omega_{i}  \\
+		                                            & = \frac{\varepsilon }{f(b)-f(a)}(f(b)-f(a))= \varepsilon .
+	\end{align*}
+	Portanto, novamente pelas \hyperlink{integrability_conditions}{\textit{condições de integrabilidade}}, f é integrável em \([a, b]\). \qedsymbol
+\end{proof*}
+Note que, no caso da continuidade, tinhamos controlado o tamanho das oscilações locais da função sendo estudada; em contrapartida, na monotonicidade, controlamos o ``tamanho'' da partição.
+\end{document}

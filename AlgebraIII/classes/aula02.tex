@@ -1,0 +1,206 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 13 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Grau de Extensão de Corpos.
+\end{itemize}
+\subsection{Introdução à Teoria de Galois - Parte 2}
+Ao longo do curso, utilizaremos o seguinte recorrentemente: se \(\mathbb{F}\) é um corpo, o anel \(\mathbb{F}[x]\) é um domínio de ideais principais (D.I.P.), ou seja, dado um ideal \(\mathfrak{i}\trianglelefteq \mathbb{F}[x]\), então
+\[
+	\mathfrak{i} = \langle f(x) \rangle = \{f(x)g(x): g(x)\in \mathbb{F}[x]\}.
+\]
+Quando esta f(x) é irredutível, o ideal gerado por ela é maximal e, em particular,
+\[
+	\mathbb{E} \coloneqq \frac{F[x]}{\langle f(x) \rangle}
+\]
+será um corpo. Quase todos, se não todos, os exemplos deste curso serão desta forma; se não, serão isomorfos a um corpo desta forma. Conseguimos algumas coisas bem legais com isso; por exemplo, a função
+\begin{align*}
+	\varphi : & \mathbb{F}\rightarrow \mathbb{E}                 \\
+	          & a\mapsto \overline{a} = a + \langle f(x) \rangle
+\end{align*}
+é um monomorfismo. Mostraremos isto exibindo que se \(\varphi (a) = 0\), então a também deve ser nula. Com efeito,
+\[
+	\varphi (a) = 0 \Rightarrow \overline{a} = 0 \Rightarrow a\in \langle f(x) \rangle.
+\]
+Por pertencer ao ideal gerado por \(f(x)\), a será divisível por f(x), o que será possível apenas se a = 0. Além disso,
+\[
+	\mathrm{Im}(\varphi ) = \{\overline{a}: a \in \mathbb{F}\}
+\]
+é um subcorpo de \(\mathbb{E}\). Quando encontramos um monomorfismo desse estilo, dizemos que ele é um \textbf{mergulho}. Nesse caso, então, \(\mathbb{F}\overbracket[0pt]{\hookrightarrow}^{\varphi }\mathbb{E}\) determina um mergulho de \(\mathbb{F}\) em \(\mathbb{E}\).
+O que nós ganhamos com isso é a possibilidade de enxergar \(\mathbb{F}\) como um subcorpo de \(\mathbb{E}\), e conseguimos estudar o \textbf{grau de extensão} de \(\mathbb{F}\) por meio da proposição
+\begin{prop*}
+	Se \(\mathbb{F}\) é subcorpo de \(\mathbb{E}\coloneqq \frac{F[x]}{\langle f(x) \rangle}\), então
+	\[
+		[\mathbb{E}:\mathbb{F}] = \mathrm{dim}_{\mathbb{F}}\mathbb{E} = \mathrm{deg}(f).
+	\]
+\end{prop*}
+\begin{proof*}
+	Tome um elemento b de \(\mathbb{E}\) tal que
+	\[
+		b = \overline{g(x)} = g(x) + \langle f(x) \rangle.
+	\]
+	Podemos dividir g(x) por f(x) usando o algoritmo de divisão de Euclides: existem \(q(x)\) e \(r(x)\) em \(\mathbb{F}[x]\) tais que
+	\[
+		g(x) = q(x)f(x) + r(x),\quad 0\leq \deg{(r(n))} < \deg{(f)}.
+	\]
+	Logo,
+	\[
+		b = \overline{g(x)} = \overline{q(x)f(x) + r(x)} = \overline{q(x)f(x)} + \overline{r(x)} = \overline{r(x)}.
+	\]
+	Seja, agora, n o grau de f(x) e
+	\[
+		r(x) = c_{0} + c_{1}x + \dotsc + c_{r-1}x^{n-1}
+	\]
+	para alguns \(c_{i}\in \mathbb{F}[x]\), determinando um polinômio de grau menor que f. Com isso, descobrimos que podemos representar b por
+	\begin{align*}
+		b = \overline{r} & = \overline{c_{0}+ c_{1}x + \dotsc + c_{n-1}x^{n-1}}                                              \\
+		                 & = \overline{c_{0}}+\overline{c_{1}}\overline{x} + \dotsc + \overline{c_{n-1}}\overline{x}^{n-1}   \\
+		                 & = c_{0}+c_{1}\overline{x} + \dotsc + c_{n-1}\overline{x}^{n-1}                                  .
+	\end{align*}
+	Em outras palavras, b é uma combinação linear de elementos do conjunto
+	\[
+		\{\overline{1}, \overline{x}, \overline{x}^{2}, \dotsc , \overline{x}^{n-1}\},
+	\]
+	isto é, como \(\mathbb{F}\)-espaço vetorial, \(\mathbb{E}\) é gerado por \(\{\overline{1}, \dotsc , \overline{x}^{n-1}\}\), o que implica na seguinte desigualdade:
+	\[
+		[\mathbb{E}:\mathbb{F}] = \mathrm{dim}_{\mathbb{F}}(\mathbb{E})\leq |\{\overline{1}, \dotsc , \overline{x}^{n-1}\}| = n = \deg{(f)}.
+	\]
+
+	Para finalizar, falta mostrar que este conjunto, \(\{\overline{1}, \overline{x}, \dotsc \overline{x}^{n-1}\}\) é linearmente independente. Sendo assim, vamos encurtar a notação colocando \(d_{i}=\overline{d_{i}}\) seja
+	\[
+		d_{0}\overline{1} + d_{1}\overline{x} + \dotsc + d_{n-1}\overline{x}^{n-1} = \overline{0}.
+	\]
+	Como consequência,
+	\[
+		\overline{d_{0} + d_{1}x + \dotsc +d_{n-1}x^{n-1}} = \overline{0} \Rightarrow d_{0} + d_{1}x + \dotsc +d_{n-1}x^{n-1}\in \langle f(x) \rangle.
+	\]
+	Assim como antes, isto significa que f(x) divide este polinômio:
+	\[
+		f(x)|d_{0} + d_{1}x + \dotsc +d_{n-1}x^{n-1},
+	\]
+	o que, como o grau de f é maior, a única possibilidade é que
+	\[
+		d_{0} + d_{1}x + \dotsc +d_{n-1}x^{n-1} = 0.
+	\]
+	Para que isto seja possível, é necessário que
+	\[
+		d_{0} = d_{1} = \dotsc = d_{n-1} = 0.
+	\]
+
+	Portanto, \(\{\overline{1}, \overline{x}, \dotsc , \overline{x}^{n-1}\}\) define uma base para \(\mathbb{E}\) como \(\mathbb{F}\)-espaço vetorial.
+\end{proof*}
+Nesta proposição, usamos o fato que todo polinômio divide 0, e que se um primeiro polinômio divide um segundo, o grau deste segundo deve ser maior que o do primeiro; caso contrário, o segundo polinômio será nulo. Isto aconteceu tanto com a, como um polinômio de grau 1, logo no começo da aula, quanto com a combinação linear para demonstração de ser linearmente independente.
+
+Sob as mesmas condições de \(\mathbb{F}\) e \(\mathbb{E}\) que colocamos, tome \(g(x) = a_{0}+a_{1}x + \dotsc + a_{m}x^{m}\), tal que
+\[
+	\overline{g(x)} = a_{0} + a_1\overline{x}+\dotsc +a_{m}\overline{x}^{m}
+\]
+e seja \(\alpha  = \overline{x}.\) Então, todo elemento de \(\mathbb{E}\) é da forma \(h(\alpha )\), em que h(x) é um polinômio com coeficientes em \(\mathbb{F}\); devido a isso, denotamos \(\mathbb{E}\) por \(\mathbb{F}[\alpha ]\):
+\[
+	\mathbb{E} = \mathbb{F}[\alpha ] = \{h(\alpha )\in \mathbb{E}:\: h(x)\in \mathbb{F}[x]\}.
+\]
+
+Considere o anel dos polinômios sobre \(\mathbb{E}\), \(\mathbb{E}[y]\), que será um D.I.P, e pegue um elemento \(f(Y)\) em \(\mathbb{E}[y]\). Ele terá, então, a forma
+\[
+	f(y) = e_{0} + e_{1}y + \dotsc + e_{n}y^{n},
+\]
+de forma que, para o \(\alpha \in \mathbb{E}\) de antes, teremos
+\[
+	f(\alpha ) = f(\overline{x}) = \overline{f(x)} = 0.
+\]
+Por conta disso, \(\alpha \) pode fazer parte de uma fatoração de \(f(y)\) por meio do algoritmo de divisão:
+\[
+	f(y) = (y-\alpha )h(y),\quad h(y)\in \mathbb{E}[x].
+\]
+\begin{exr}
+	Seja \(\mathbb{F}\) um corpo, \(\alpha \) um elemento dele e f(x) um polinômio tendo \(\alpha \) como raiz. Então,
+	\[
+		f(x) = (x-\alpha )h(x)
+	\]
+	por um \(h(x)\in \mathbb{F}[x]\).
+\end{exr}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Em \(\mathbb{F} = \mathbb{Q}\), considere o polinômio
+		      \[
+			      f(x) = x^{2} - 3\in \mathbb{Q}[x],
+		      \]
+		      que é irredutível (não tem raiz racional). Aqui, então,
+		      \[
+			      \mathbb{E}=\frac{\mathbb{Q}[x]}{\langle x^{2}-3 \rangle} = \mathbb{F}[\alpha ],
+		      \]
+		      onde \(\alpha \) é raiz de \(x^{2}-3\) em \(\mathbb{E}\). Com isso,
+		      \[
+			      [\mathbb{E}:\mathbb{Q}] = \mathrm{deg}(x^{2}-3) = 2.
+		      \]
+		      Vale, também, que uma base da extensão \(\mathbb{E}/\mathbb{Q}\) é \(\{1, \alpha \}\); então,
+		      \[
+			      \mathbb{E} = \{a_{0}1 + a_{1}\alpha : \; a_{0}, \; a_{1}\in \mathbb{Q}\}.
+		      \]
+
+		      Considere uma raiz de \(x^{2}-3\) em \(\mathbb{C}\), como \(\sqrt[]{3}\). A partir dela, podemos construir um anel e um isomorfismo, fazendo
+		      \[
+			      \mathbb{E}' = \{a_{0} + a_{1}\sqrt[]{3}:\; a_{0}, \; a_{1}\in \mathbb{Q}\}\subseteq \mathbb{C}
+		      \]
+		      e
+		      \begin{align*}
+			      \varphi: & \mathbb{E}\rightarrow \mathbb{E}'                    \\
+			               & a_{0} + a_{1}\alpha \mapsto a_{0} + a_{1}\sqrt[]{3}.
+		      \end{align*}
+		      Como esta \(\varphi \) é isomorfismo, segue que \(\mathbb{E}'\) é um corpo - conseguimos outra forma de construí-los. Normalmente, denotamos este tipo de corpos por
+		      \[
+			      \mathbb{Q}(\sqrt[]{3})\coloneqq \frac{\mathbb{Q}[x]}{\langle x^{2}-3 \rangle} = \{a_{0} + a_{1}\sqrt[]{3}:\; a_{0}, \; a_{1}\in \mathbb{Q}\}.
+		      \]
+		      Por ser um corpo, sabemos que ele terá um elemento inverso sempre que o elemento for diferente de zero. Qual será a forma dele? Dá pra encontrar fazendo
+		      \begin{align*}
+			                  & (a_{0} + a_{1}\sqrt[]{3})(a_{0} - a_1\sqrt[]{3}) = a_{0}^{2} - 3 a_{1}^{2}\neq 0                                          \\
+			      \Rightarrow & (a_{0} + a_{1}\sqrt[]{3})^{-1} = \frac{a_{0}}{a_{0}^{2} - 3 a_{1}^{2}} - \frac{a_{1}}{a_{0}^{2} - 3 a_{1}^{2}}\sqrt[]{3}.
+		      \end{align*}
+		\item[2)] Agora, tome \(\mathbb{F}\) como sendo os racionais gaussianos, \(\mathbb{F} = \mathbb{Q}[i]\). Aqui,
+		      \[
+			      f(x) = x^{2}-3\in \mathbb{F}[x]
+		      \]
+		      é um polinômio irredutível também. Deste jeito, podemos considerar
+		      \[
+			      \mathbb{E} = F[\alpha ] = \mathbb{Q}[i][\alpha ], \quad \alpha =\overline{x}.
+		      \]
+		      Vale que \([\mathbb{E}:\mathbb{Q}[i]] = 2\). Além disso, temos
+		      \[
+			      \mathbb{Q}\subseteq \mathbb{Q}[i]\subseteq \mathbb{E},
+		      \]
+		      em que ambas as partes da cadeia de subconjuntos têm grau de extensão 2 e \(\mathbb{Q}\) é subcorpo de \(\mathbb{E}\). Como consequência,
+		      \[
+			      [\mathbb{E}:\mathbb{Q}] = 2 \cdot 2 = 4.
+		      \]
+		      Generalizamos isto a seguir!
+	\end{itemize}
+\end{example}
+\begin{prop*}
+	Seja \(\mathbb{F}\subseteq \mathbb{E}\subseteq \mathbb{K}\) uma cadeia de corpos. Então,
+	\[
+		[\mathbb{K}:\mathbb{F}] = [\mathbb{K}:\mathbb{E}] \cdot [\mathbb{E}:\mathbb{F}].
+	\]
+\end{prop*}
+\begin{exr}
+	Demonstre a proposição acima. Dica: pegue uma base para \(\mathbb{E}/\mathbb{F}\), outra para \(\mathbb{K}/\mathbb{E}\) e mostre que
+	\[
+		\{\alpha_{i}\beta_{j}:\; i\in I, \; j\in J\}
+	\]
+	é uma base para \(\mathbb{K}/\mathbb{F}\).
+\end{exr}
+\begin{example}
+	Agora, tome como exemplo o corpo finito de tamanho 5, ou seja, \(\mathbb{F} = \mathbb{F}_{5} = \{0, 1, 2, 3, 4\}\), e considere um polinômio \(f(x)\in \mathbb{F}_{5}\) irredutível de grau 2, tal como \(f(x) = x^{2} + 2\) (cheque que é!). Colocando
+	\[
+		\mathbb{E} = \frac{\mathbb{F}_{5}[x]}{\langle x^{2}+2 \rangle},
+	\]
+	temos \([\mathbb{E}:\mathbb{F}_{5}] = 2\), tal que
+	\[
+		\mathbb{E} \cong \mathbb{F}_{5}\times \mathbb{F}_{5} \Rightarrow |\mathbb{E}| = 5^{2} = 25.
+	\]
+\end{example}
+\begin{exr}
+	Seja \(\mathbb{F}\) um corpo e \(f(x)\in \mathbb{F}[x]\) com \(\deg{(f(x))}\leq 3\). Então, f(x) é irredutível se, e somente se, ela não tem nenhuma raiz em \(\mathbb{F}.\)
+\end{exr}
+
+\end{document}

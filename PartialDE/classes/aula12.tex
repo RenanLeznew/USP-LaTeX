@@ -1,0 +1,248 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 09 de Abril, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Equação da Onda: existência e unicidade de solução.
+\end{itemize}
+\subsection{Existência e Unicidade da Equação da Onda.}
+
+Começamos o estudo da equação da conda com problema de contorno na aula passada, e continuaremos a partir disso. O primeiro passo será demonstrar a unicidade da equação da onda por meio do método da energia; com isto, considere \(\Omega \) um aberto limitado e regular de \(\mathbb{R}^{n}\), no qual está definido o problema
+\[
+	\left\{\begin{array}{ll}
+		{\color{SpringGreen4}\frac{\partial^{2}u}{\partial t^{2}}(x, t)=\Delta u(x, t) + f(x, t)}, & \quad x\in \Omega ,\: t\in \mathbb{R} \text{ passo 1}                                 \\
+		{\color{IndianRed3}u(0, t) = u(L, t)=h(x, t)},                                             & \quad x\in \partial \Omega ,\: t\in \mathbb{R} \text{ condição de contorno, passo 2.} \\
+		{\color{RoyalBlue3}u(x,0)=u_{0}(x)},                                                       & \quad  x\in \Omega      \text{ condição inicial, passo 3.}                            \\
+		{\color{RoyalBlue3}\frac{\partial^{}u}{\partial t^{}}(x,0)=u_{1}(x)},                      & \quad  x\in \Omega \text{ condição inicial, passo 3.}
+	\end{array}\right.
+\]
+Suponha que u e v são de classe \(\mathcal{C}^{2}(\overline{\Omega }\times \mathbb{R})\) e que ambas resolvam a {\color{SpringGreen4}Equação da Onda}. Na mesma lógica do calor, a função \(w=u-v\) resolve-a também, mas com condições dadas por \(h(x, t)=f(x, t)=u_{0}=u_{1}=0\). Nosso objetivo será mostrar que este w é identicamente nulo.
+
+Primeiramente, sabe-se que
+\[
+	\frac{\partial^{2}w}{\partial t^{2}}=\Delta w.
+\]
+Seguindo o método da energia, vamos multiplicar ambos os lados pela derivada parcial de w com respeito ao tempo e integrar:
+\begin{align*}
+	\int_{\Omega }^{}\frac{\partial^{}w}{\partial t^{}}\frac{\partial^{2}w}{\partial t^{2}} \mathrm{dx} & =\int_{\Omega }^{}\frac{\partial^{}w}{\partial t^{}}\Delta w \mathrm{dx}                                                     \\
+	                                                                                                    & = \frac{1}{2}\int_{\Omega }^{}\frac{\mathrm{d}}{\mathrm{d}t}\biggl(\frac{\partial^{}w}{\partial t^{}}\biggr)^{2} \mathrm{dx}
+\end{align*}
+que, junto à igualdade
+\begin{align*}
+	\int_{\Omega }^{}\frac{\mathrm{d}w}{\mathrm{d}t}(\Delta w) \mathrm{dx} & = \int_{\Omega }^{}\underbrace{\biggl[\nabla \cdot \biggl(\frac{\mathrm{d}w}{\mathrm{d}t}\nabla w\biggr)\biggr]}_{\text{\hyperlink{divergence_theorem}{\textit{teo. da divergência}}}} - \nabla \biggl(\frac{\partial^{}w}{\partial t^{}}\biggr) \cdot \nabla w \mathrm{dx} \\
+	                                                                       & = \int_{\partial \Omega }^{}\frac{\partial^{}w}{\partial t^{}} \cdot \underbrace{\nabla w \cdot n}_{=\frac{\partial^{}w}{\partial n^{}}} \mathrm{dS}-\int_{\Omega }^{}\frac{\partial^{}}{\partial t^{}}(\nabla w) \cdot \nabla w \mathrm{dx}                                \\
+	                                                                       & = \int_{\partial \Omega }^{} \frac{\partial^{}w}{\partial t^{}} \frac{\partial^{}w}{\partial n^{}} \mathrm{dS}-\frac{1}{2}\frac{\partial^{}}{\partial t^{}}\int_{\Omega }^{} \Vert \nabla w \Vert^{2}\mathrm{dx},
+\end{align*}
+concluímos que
+\[
+	\frac{1}{2}\frac{\mathrm{d}}{\mathrm{d}t} \int_{\Omega }^{}\biggl[\biggl(\frac{\partial^{}w}{\partial t^{}}\biggr)^{2}+\Vert \nabla w \Vert^{2}\biggr] \mathrm{dx}=\int_{\partial \Omega }^{}\frac{\mathrm{d}w}{\mathrm{d}t} \frac{\partial^{}w}{\partial n^{}} \mathrm{dS}.
+\]
+Pela condição de Neumann,
+\[
+	\frac{\partial^{}w}{\partial n^{}} = 0
+\]
+e,  pela de Dirichlet,
+\[
+	\frac{\mathrm{d}w}{\mathrm{d}t}=0,
+\]
+pois \(w(x, t)=0\) sempre que x é um ponto de fronteira e t for real, donde segue, pela definição da derivada, que
+\[
+	\frac{\mathrm{d}w}{\mathrm{d}t}=\lim_{h\to 0}\frac{w(x, t+h)-w(x, t)}{h}=0,\quad x\in \partial \Omega .
+\]
+Logo,
+\[
+	\int_{\partial \Omega }^{}\frac{\mathrm{d}w}{\mathrm{d}t} \frac{\partial^{}w}{\partial n^{}} \mathrm{dS} = 0
+\]
+e segue que
+\[
+	E(t)=\frac{1}{2}\int_{\Omega }^{}\biggl[\biggl(\frac{\partial^{}w}{\partial t^{}}\biggr)^{2}+\Vert \nabla w \Vert^{2}\biggr] \mathrm{dx} = \frac{1}{2}\int_{0}^{t} \biggl(\frac{\mathrm{d}}{\mathrm{d}t} \int_{\Omega }^{}\biggl[\biggl(\frac{\partial^{}w}{\partial t^{}}\biggr)^{2}+\Vert \nabla w \Vert^{2}\biggr] \mathrm{dx}\biggr)\mathrm{dt}
+\]
+é constante. Portanto,
+\[
+	E(t)=E(0)=\frac{1}{2}\int_{\Omega }^{}\biggl[\biggl(\frac{\mathrm{d}w}{\mathrm{d}t}(x, 0)\biggr)^{2} + \Vert \nabla w(x,0) \Vert^{2}\biggr] \mathrm{dx} = 0.
+\]
+Como ambos os termos ao quadrado são maiores ou iguais a 0,
+\[
+	\frac{\mathrm{d}w}{\mathrm{d}t} = 0 \quad\&\quad \nabla w(x, t)=0.
+\]
+
+Por conta de todas as primeiras derivadas de w se anularem, a função w é constante, o que significa também que
+\[
+	w(x, t)=w(x, 0)=0.
+\]
+Em conclusão: w é identicamente nula e, pela forma como ela foi definida, u é equivalente a v, donde afirmamos que a solução é única.
+
+Agora que temos a unicidade, vamos ver a questão da existência dessa única solução; sendo assim, considere novamente o problema da onda, mas no seguinte caso particular:
+\[
+	\left\{\begin{array}{ll}
+		{\color{SpringGreen4}\frac{\partial^{2}u}{\partial t^{2}}(x, t)=\frac{\partial^{2}u}{\partial x^{2}}(x, t)}, & \quad x\in [0, L],\: t\in \mathbb{R} \text{ passo 1}         \\
+		{\color{IndianRed3}u(0, t) = u(L, t)=0},                                                                     & \quad t\in \mathbb{R} \text{ condição de contorno, passo 2.} \\
+		{\color{RoyalBlue3}u(x,0)=u_{0}(x)},                                                                         & \quad  x\in [0, L]     \text{ condição inicial, passo 3.}    \\
+		{\color{RoyalBlue3}\frac{\partial^{}u}{\partial t^{}}(x,0)=u_{1}(x)},                                        & \quad  x\in [0, L]\text{ condição inicial, passo 3.}
+	\end{array}\right..
+\]
+
+{\color{SpringGreen4}\underline{Passo 1:}} A fim de aplicar o método da separação de variáveis, vamos procurar soluções que tenham a forma \(u(x, t)=T(t)X(x).\) Segue que, nesse caso,
+\[
+	\frac{\partial^{2}u}{\partial t^{2}} = T''(t)X(x) \quad\&\quad \frac{\partial^{2}u}{\partial x^{2}} = X''(x)T(t),
+\]
+que, pela condição da EDP da onda, pode ser reescrito como
+\[
+	T''(t)X(x) = X''(x) T(t) \Longleftrightarrow \frac{T''(t)}{T(t)} = \frac{X''(x)}{X(x)} = \lambda.
+\]
+Assim, as soluções terão a cara
+\[
+	T''(t) = \lambda T(t) \quad\&\quad X''(x) = \lambda X(x).
+\]
+
+{\color{IndianRed3}\underline{Passo 2:}} agora, utilizaremos as condições de contorno para encontrar a cara da solução. Mais especificamente,
+\begin{align*}
+	 & u(0, t) = 0 \Rightarrow T(t)X(0) = 0 \Rightarrow X(0) = 0  \\
+	 & u(L, t) = 0 \Rightarrow T(t)X(L) = 0 \Rightarrow X(L) = 0.
+\end{align*}
+Disto, tiramos que a solução, em relação a X, deve satisfazer a EDO com condições de contorno
+\[
+	X''(x) = \lambda X(x),\quad X(0) = X(L) = 0.
+\]
+Quando estudamos séries de Fourier, já vimos que as soluções para isso são da forma
+\[
+	X_{n}(x) = b_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)},\; \lambda_{n} = -\biggl(\frac{n\pi }{L}\biggr)^{2}.
+\]
+Logo, determinamos que, com relação à parte T da solução, ela satisfaz as soluções parciais
+\[
+	T_{n}''(t) = -\biggl(\frac{n\pi }{L}\biggr)^{2}T_{n}(t),
+\]
+que é uma EDO cujas soluções têm forma
+\[
+	T_{n}(t) = A\cos^{}{\biggl(\frac{n\pi t}{L}\biggr)} + B \sin^{}{\biggl(\frac{n\pi t}{L}\biggr)}.
+\]
+Portanto, a cara das soluções, a priori ao problema inicial, são
+\[
+	u_{n}(x, t) = c_{n}\cos^{}{\biggl(\frac{n\pi t}{L}\biggr)} + d_{n} \sin^{}{\biggl(\frac{n\pi t}{L}\biggr)}.
+\]
+Finalizaremos o estudo da unicidade incluindo os problemas iniciais impostos à EDP da onda.
+
+	{\color{RoyalBlue3}\underline{Passo 3:}} para fazermos o que fora dito, somaremos as soluções particulares para determinar as formas de \(c_{n}\) e \(d_{n}\), usando \(u_{0}\) e \(u_{1}\). Assim,
+\[
+	u(x, t) = \sum\limits_{n=1}^{\infty}\biggl[c_{n}\cos^{}{\biggl(\frac{n\pi t}{L}\biggr)} + d_{n}\sin^{}{\biggl(\frac{n\pi t}{L}\biggr)}\biggr]\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)},
+\]
+cuja derivada é
+\[
+	\frac{\mathrm{d}u}{\mathrm{d}t} = \sum\limits_{n=1}^{\infty}\biggl[-\biggl(\frac{n\pi }{L}\biggr)c_{n}\sin^{}{\biggl(\frac{n\pi t}{L}\biggr)} + \biggl(\frac{n\pi }{L}\biggr)d_{n}\cos^{}{\biggl(\frac{n\pi t}{L}\biggr)}\biggr]\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)}.
+\]
+Logo,
+\[
+	u_{0}(x) = u(x, 0) = \sum\limits_{n=1}^{\infty}c_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)} \quad\&\quad u_{1}(x) = \frac{\mathrm{d}u}{\mathrm{d}t}(x, 0) = \sum\limits_{n=1}^{\infty}\biggl(\frac{n\pi }{L}\biggr)d_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)}.
+\]
+
+\begin{example}
+	Podemos aprofundar esse estudo olhando o que acontece quando o intervalo tem forma \([0, \pi ]\) e quando ele não tem. Para \(L = \pi \), temos
+	\begin{align*}
+		 & c_{n} = \frac{2}{\pi }\int_{0}^{\pi }u_{0}(y)\sin^{}{(ny)} \mathrm{dy}   \\
+		 & d_{n} = \frac{2}{n\pi }\int_{0}^{\pi }u_{1}(y)\sin^{}{(ny)} \mathrm{dy}.
+	\end{align*}
+
+	Caso sejam impostas as condições
+	\[
+		u_{0}(x) = x,\; u_{1}(x) = 0,
+	\]
+	seguirá que, pela expansão em Fourier seno da identidade,
+	\[
+		u_{0}(x) = \sum\limits_{n=1}^{\infty}(-1)^{n+1}\frac{2}{n}\sin^{}{(nx)}
+	\]
+	e, assim, a solução da equação da onda será
+	\[
+		u(x, t) = \sum\limits_{n=1}^{\infty}(-1)^{n+1}\frac{2}{n}\sin^{}{(nx)}\cos^{}{(nx)}.
+	\]
+
+	Quando \(L\neq \pi \), por outro lado,
+	\begin{align*}
+		 & c_{n} = -\frac{2}{L}\int_{0}^{L}u_{0}(y)\sin^{}{\biggl(\frac{n\pi y}{L}\biggr)} \mathrm{dy} \\
+		 & d_{n} = -\frac{2}{n\pi } \int_{0}^{L}u_1(y)\sin^{}{\biggl(\frac{nx}{L}\biggr)} \mathrm{dy}.
+	\end{align*}
+\end{example}
+
+\subsection{Onda com Condições de Neumann}
+Para refrescar a memória, as condições de Neumann são impostas não sobre a solução na fronteira em si, mas sim sobre o fluxo, ou seja, sua derivada, de forma que ele seja fixo na fronteira do aberto em estudo. O problema estudado será
+\[
+	\left\{\begin{array}{ll}
+		{\color{SpringGreen4}\frac{\partial^{2}u}{\partial t^{2}}(x, t)=\frac{\partial^{2}u}{\partial x^{2}}(x, t)}, & \quad x\in [0, L],\: t\in \mathbb{R} \text{ passo 1}              \\
+		{\color{IndianRed3}\frac{\partial^{}u}{\partial x^{}}(0, t) = \frac{\partial^{}u}{\partial x^{}}(L, t)=0},   & \quad t\in \mathbb{R} \text{ cond. contorno de Neumann, passo 2.} \\
+		{\color{RoyalBlue3}u(x,0)=u_{0}(x)},                                                                         & \quad  x\in [0, L]     \text{ condição inicial, passo 3.}         \\
+		{\color{RoyalBlue3}\frac{\partial^{}u}{\partial t^{}}(x,0)=u_{1}(x)},                                        & \quad  x\in [0, L]\text{ condição inicial, passo 3.}
+	\end{array}\right..
+\]
+
+{\color{SpringGreen4}\underline{Passo 1:}} novamente, olharemos para \(u(x, t)=T(t)X(x)\), tal que
+\[
+	\frac{\partial^{2}u}{\partial t^{2}} = T''(t)X(x) \quad\&\quad \frac{\partial^{2}u}{\partial x^{2}} = X''(x)T(t),
+\]
+que, pela condição da EDP da onda, pode ser reescrito como
+\[
+	T''(t)X(x) = X''(x) T(t) \Longleftrightarrow \frac{T''(t)}{T(t)} = \frac{X''(x)}{X(x)} = \lambda.
+\]
+Assim, novamente, as soluções terão a cara
+\[
+	T''(t) = \lambda T(t) \quad\&\quad X''(x) = \lambda X(x).
+\]
+
+{\color{IndianRed3}\underline{Passo 2:}}utilizaremos as condições de Neumann para encontrar as componentes que formarão a solução:
+\begin{align*}
+	 & \frac{\mathrm{d}}{\mathrm{d}x}u(0, t) = 0 \Rightarrow T(t)X'(0) = 0 \Rightarrow X'(0) = 0  \\
+	 & \frac{\mathrm{d}}{\mathrm{d}x}u(L, t) = 0 \Rightarrow T(t)X'(L) = 0 \Rightarrow X'(L) = 0.
+\end{align*}
+Logo, com relação a X, é necessário satisfazer
+\[
+	X''(x) = \lambda X(x),\quad X'(0) = X'(L) = 0,
+\]
+o que significa que as soluções dessa EDO são
+\[
+	X_{n}(x) = b_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)},\; \lambda_{n} = -\biggl(\frac{n\pi }{L}\biggr)^{2}.
+\]
+e
+\[
+	X_{0}(x) = \frac{a_{0}}{2},\; \lambda_{0} =0.
+\]
+
+Logo, determinamos que T satisfaz
+\begin{align*}
+	 & \lambda_{0} = 0 \Rightarrow T''(t) = 0 \Rightarrow T(t) = At + B                                                                                                     \\
+	 & T_{n}''(t) = -\biggl(\frac{n\pi }{L}\biggr)^{2}T_{n}(t) \Rightarrow T_{n}(t) = A\cos^{}{\biggl(\frac{n\pi t}{L}\biggr)} + B \sin^{}{\biggl(\frac{n\pi t}{L}\biggr)},
+\end{align*}
+que nos fornece duas soluções, de acordo com \(\lambda \):
+\begin{align*}
+	 & u_{0}(x, t) = At + B                                                                                        \\
+	 & u_{n}(x, t) = a_{n}\cos^{}{\biggl(\frac{n\pi t}{L}\biggr)} + b_{n} \cos^{}{\biggl(\frac{n\pi t}{L}\biggr)}.
+\end{align*}
+
+{\color{RoyalBlue3}\underline{Passo 3:}} novamente, somamos as soluções particulares para determinar \(a_{n}\) e \(b_{n}\) por meio de \(u_{0}\) e \(u_{1}\):
+\[
+	u(x, t) = At + B + \sum\limits_{n=1}^{\infty}\biggl[a_{n}\cos^{}{\biggl(\frac{n\pi t}{L}\biggr)} + b_{n}\sin^{}{\biggl(\frac{n\pi t}{L}\biggr)}\biggr]\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)},
+\]
+cuja derivada é
+\[
+	\frac{\mathrm{d}u}{\mathrm{d}t} = A + \sum\limits_{n=1}^{\infty}\biggl[-\biggl(\frac{n\pi }{L}\biggr)a_{n}\sin^{}{\biggl(\frac{n\pi t}{L}\biggr)} + \biggl(\frac{n\pi }{L}\biggr)b_{n}\cos^{}{\biggl(\frac{n\pi t}{L}\biggr)}\biggr]\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)}.
+\]
+Logo,
+\[
+	u_{0}(x) = \underbrace{B}_{\mathclap{\frac{a_{0}}{2}}} + \sum\limits_{n=1}^{\infty}a_{n}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)} \quad\&\quad u_{1}(x) = A + \sum\limits_{n=1}^{\infty}\biggl(\frac{n\pi }{L}\biggr)b_{n}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)}.
+\]
+
+\begin{example}
+	Assim como fizemos antes, vamos olhar para o caso em que \(L = \pi \); nele,
+	\begin{align*}
+		 & B = \frac{1}{\pi }\int_{0}^{\pi } u_{0}(y)\mathrm{dy}                    \\
+		 & a_{n} = \frac{2}{\pi }\int_{0}^{\pi }u_{0}(y)\cos^{}{(ny)} \mathrm{dy}   \\
+		 & A = \frac{1}{\pi }\int_{0}^{\pi } u_{1}(y)\mathrm{dy}                    \\
+		 & b_{n} = \frac{2}{\pi n}\int_{0}^{\pi }u_{1}(y)\cos^{}{(ny)} \mathrm{dy}.
+	\end{align*}
+	Dessa vez, vamos interpretar u, A e B fisicamente, de modo que
+	\begin{itemize}
+		\item A será a média da velocidade inicial;
+		\item B será a média da condição inicial imposta à onda; e
+		\item u pode ser vista como a soma da média da posição inicial com a velocidade inicial passado certo tempo t, e com as oscilações.
+	\end{itemize}
+\end{example}
+
+
+\end{document}

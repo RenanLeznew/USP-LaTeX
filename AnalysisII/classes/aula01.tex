@@ -1,0 +1,48 @@
+\documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 24 de Fevereiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Breve motivação sobre os tópicos da disciplina.
+\end{itemize}
+\subsection{Introduzindo Análise II - A Integral de Riemann}
+\paragraph{} O tópico da integral de Riemann é a clássica questão do cálculo da área ou volume de certos objetos. Esta questão dista até mais do que da graduação: durante o ensino médio, normalmente é apresentada  a forma de calcular as áreas de polígonos e outras figuras, cujo argumento baseia-se em alguns fatos tomados como axiomas - considera-se o conjunto das figuras planas limitadas, digamos \(\mathcal{F}\), e temos uma função área, ``definida'' por
+\begin{align*}
+	m: & \mathcal{F}\rightarrow [0, \infty) \\
+	   & F\mapsto m(F),
+\end{align*}
+com algumas regras, tais como linhas terem medida de área igual a 0, ou que figuras cujas interseções assumem o formato de linhas satisfazem a área total delas ser a soma de cada área; em outras palavras, se \(F_{1}, F_{2}\in \mathcal{F}\) com \(F_{1}\cap F_{2} = \text{linhas}\), então
+\[
+	m(F_{1}\cup F_{2}) = m(F_{1}) + m(F_{2}).
+\]
+Outra, seria uma invariância da área da figura com relação à sua posição no plano, ou seja, a área de um triângulo posicionado na origem deve ser a mesma que sua área em qualquer outro lugar do plano, qualquer rotação, ou reflexão - a chamada \textit{invariância por movimentos rígidos}.
+
+Assim, algumas coisas aparecem ao longo do ensino médio, como por exemplo o seguinte teorema (não na forma de um teorema, normalmente):
+\begin{theorem*}
+	Seja R um retângulo com base a e altura b. Então, com a notação acima, \(m(R) = a \cdot b.\)
+\end{theorem*}
+Para prová-lo, fica a pergunta: o que significa calcular a área de uma figura plana?
+
+Quando queremos calcular a área de uma figura, buscamos atribuir um valor que signifique a quantidade de espaço do plano que ela ocupa. Com as notações acima, calcular a área de uma figura F significa atribuir a ela a quantidade do plano que ela ocupa.
+
+Matematicamente, isto requer fixar uma unidade u de comprimento (metro, centímetro, qualquer uma) que possibilita medir comprimentos de reta. A partir disso, cria-se o quadrado unitário, ou seja, o quadrado cujos lados medem a unidade u; criado este quadrado unitário, a área dele é atribuída o valor 1, e pode-se calcular quantos deles cabem em cada figura plana: a noção de área passa a ser o máximo de quadrados unitários que cabem dentro da figura.
+
+Por exemplo, para calcular a do triângulo, dividimos o quadrado unitário \(u^{2}\) com uma diagonal passando de uma ponta à outra, formando dois triângulos \(T_1\) e \(T_2\) tais que
+\[
+	m(u^{2}) = m(T_1) + m(T_2) = 2m(T_1) \Rightarrow m(T_1) = \frac{1}{2}m(u^{2}).
+\]
+Tendo triângulos e quadrados, podemos calcular de outros polígonos dividindo eles em triângulos e quadrados.
+
+O problema com este método é que ele quebra quando a figura não tem bordas retas - vide o caso do círculo, cujos contornos não são linhas retas, assim como as elipses. Para estes casos, entra o conceito de limites, que seria a ideia de fazer aproximações cada vez menos piores para a área real da figura.
+
+\subsubsection{Adendo: motivação para sequências de funções}
+\paragraph{} Nesta parte, desejaremos concluir propriedades sobre uma função \(f:[a, b]\rightarrow \mathbb{R}\) cuja existência só se sabe teoricamente - carecemos de uma lei de formação da função \(x\mapsto f(x)\). Porém, para cada x no domínio, o valor f(x) pode ser aproximado por valores de funções que sabemos calcular, novamente atribuindo a ideia de limite:
+\[
+	f(x) = \lim_{n\to \infty}f_{n}(x),
+\]
+em que cada \(f_{n}(x)\) é uma função que sabemos a regra ou como calcular. Um exemplo disso é a exponencial \(e^{x}\), que não sabemos a lei de formação, mas aproximamos ela por um limite de polinômios
+\[
+	f(x) = e^{x} = \sum\limits_{n=0}^{\infty}\frac{x^{n}}{n!} = \lim_{n\to \infty}\biggl(\sum\limits_{j=0}^{n}\frac{x^{j}}{j!}\biggr).
+\]
+
+\end{document}

@@ -1,0 +1,229 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 24 de Fevereiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Tipos de Segunda Ordem;
+\end{itemize}
+\subsection{Equações Diferenciais Parciais - O Começo}
+Começaremos do começo: o que é uma EDP? Quais os tipos delas? Como encontrar uma EDP na rua e o que fazer quando vê-la? Elas acreditam no axioma da escolha? Brincadeiras à parte, daremos uma olhada na definição e nos principais tipos iniciais.
+
+A partir da primeira pergunta, o nome sugere que será uma equação envolvendo derivadas em mais de uma variável. Na teoria de EDOs, poderíamos estudá-las a partir de funções em um intervalo, então teremos que mudar esse intervalo para algo além. De fato, vamos pegar um aberto \(U\subseteq \mathbb{R}^{n}\) e uma função \(u:U\rightarrow \mathbb{R}\) com derivadas de ordem k em \(\mathbb{N}_{0} = \{0, 1, 2, \dotsc \}\). Vamos definir
+\[
+	\partial^{k}u(x)\coloneqq \biggl(\frac{\partial^{k}u}{\partial x_{1}\dotsc \partial x_{i_{k}}}(x),\: i_{1},\dotsc ,i_{k}\in \{1, \dotsc , n\}\biggr).
+\]
+Com isso, uma EDP é uma equação da forma
+\[
+	F \biggl(x, u(x), \partial^{1}u(x), \dotsc , \partial^{k}u(x)\biggr) = 0,\quad F:U\times \mathbb{R}^{m}\times \mathbb{R}^{nm}\times \dotsc \times \mathbb{R}^{nm^{k}}\rightarrow \mathbb{R}^{N}.
+\]
+Poderíamos definir EDPs para entradas complexas da função também, ou seja, tomando \(x\in \mathbb{C}^{n}\), F com valores em \(\mathbb{C}^{N}\) e \(u:U\subseteq \mathbb{C}^{N}\rightarrow \mathbb{C}^{m}\). Dito isso, aproveitamos a equação acima para definir algumas terminologias:
+\begin{itemize}
+	\item A \textbf{ordem da EDP} é a maior ordem da derivada que aparece, ou seja, k;
+	\item O \textbf{número de variáveis} é n, pois u depende de n variáveis;
+	\item Dizemos que o sistema é um \textbf{sistema determinado} se n = N, \textbf{sobredeterminado} se \(n < N\) e \textbf{subdeterminado} se \(n > N\).
+\end{itemize}
+Pegando de exemplo uma equação de segunda ordem com 2 variáveis, tal que m = N = 1, sua forma mais geral seria
+\[
+	F(x, x_{2}, u(x_1, x_2), \partial^{}_{x_{1}}u, \partial^{}_{x_{2}}u, \partial^{2}_{x_{1}}u, \partial^{2}_{x_{2}}u, \partial^{}_{x_{1}}\partial^{}_{x_{2}}u) = 0,
+\]
+que pode parecer pouco funcional. Sendo assim, alguns exemplos mais concretos seguem:
+\begin{example}
+	O \textbf{gradiente} é um operador de derivadas parciais para uma função \(u:U\rightarrow \mathbb{R}\) da forma
+	\[
+		\nabla{u(x)} = \biggl(\frac{\partial^{}u}{\partial x_{1}^{}}(x), \dotsc , \frac{\partial^{}u}{\partial x_{n}^{}}(x)\biggr).
+	\]
+	Assim, uma EDP com este operador para igualdade com \(f:U\rightarrow \mathbb{R}^{n}\), em que \(U\) ainda é um aberto de \(\mathbb{R}^{n}\), seria da forma
+	\[
+		\nabla{u(x)} = f \: \Longleftrightarrow \: \biggl(\frac{\partial^{}u}{\partial x_{1}^{}}(x), \dotsc , \frac{\partial^{}u}{\partial x_{n}^{}}(x)\biggr) = (f_{1}(x), \dotsc , f_{n}(x)),
+	\]
+	que, de maneira explícita, significa resolver o sistema
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}u}{\partial x_{1}^{}} = f_{1} \\
+			\quad \vdots                                   \\
+			\frac{\partial^{}u}{\partial x_{n}^{}} = f_{n}.
+		\end{array}\right.
+	\]
+	Observe, então, que este sistema está sobredeterminado, pois temos apenas uma função para n equações.
+\end{example}
+\begin{example}
+	Para um exemplo de sistema subdeterminado, considere novamente U um aberto de \(\mathbb{R}^{n}\), \(u:U\subseteq \mathbb{R}^{n}\rightarrow \mathbb{R}^{n}\), em que n é maior ou igual a 2, e \(f:U\rightarrow \mathbb{R}\). Com isto, podemos estudar a equação
+	\[
+		\nabla \cdot u(x)\coloneqq \frac{\partial^{}u_{1}}{\partial x_{1}^{}} +\dotsc +\frac{\partial^{}u_{n}}{\partial x_{n}^{}} = f,
+	\]
+	fornecendo um sistema com uma equação e n funções.
+\end{example}
+
+Ao estudar EDPs, é comum se deparar com a chamada notação de multi-índice. Nela, consideramos um vetor de números reais \(\alpha = (\alpha_{1}, \dotsc , \alpha_{n})\in \mathbb{N}_{0}^{n}\) tal que
+\[
+	|\alpha | = \alpha_{1} + \alpha_{2} + \dotsc + \alpha_{n}.
+\]
+Com essa notação, podemos escrever
+\begin{align*}
+	 & x^{\alpha } = x_{1}^{\alpha_{1}}\cdot  \dotsc \cdot x_{n}^{\alpha_{n}}                                                                                                                      \\
+	 & \partial^{\alpha }_{n} = \partial^{\alpha_{1}}_{x_{1}}\dotsc \partial^{\alpha_{n}}_{x_{n}} = \frac{\partial^{|\alpha |}}{\partial_{}^{\alpha_{1}}x_{1}\dotsc \partial^{\alpha_{n}}_{}x_{n}}
+\end{align*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Para n = 2 e \(\alpha = (2, 1)\), teríamos
+		      \[
+			      x^{\alpha } = x_{1}^{\alpha_{1}}x_{2}^{\alpha_{2}} = x_{1}^{2}x_{2}^{1} \quad\&\quad \partial_{x}^{\alpha }u = \frac{\partial^{3}u}{\partial^{2}x_{1}\partial^{}_{}x_{2}}.
+		      \]
+	\end{itemize}
+	\item[2)] Para n = 3 e \(\alpha = (1, 0, 2)\), seria
+	\[
+		x^{\alpha } = x_{1}^{1}x_{2}^{0}x_{3}^{2} \quad\&\quad \partial_{x}^{\alpha }u = \frac{\partial^{3}u}{\partial^{}x_{1}\partial^{2}_{}x_{2}}.
+	\]
+\end{example}
+
+\subsection{EDPs Lineares, Semilineares, Quasilineares e Totalmente não-lineares}
+Com tantos nomes num único subtítulo, vamos nos basear bastante em exemplos para entender os termos. Para o caso das \textbf{EDPs lineares}, tomemos \(u:U\subseteq \mathbb{R}^{n}\rightarrow \mathbb{R}^{m}\); então, ela terá a forma
+\[
+	\sum\limits_{|\alpha |\leq k}^{}a_{\alpha }(x)\partial_{n}^{\alpha }u(x) = f(x)
+\]
+Quando a igualdade é com zero (f(x) = 0), chamamos esta EDP de \textbf{homogênea}; caso contrário, ela é \textbf{não-homogênea}.
+\begin{example}
+	Para o caso de n = 2, m = 1 e k = 2 (ou seja, um EDP de segunda ordem, com 2 variáveis), um exemplo de EDP linear seria
+	\[
+		a_{20}(x)\frac{\partial^{2}u}{\partial x_{1}^{2}} + a_{11}(x)\frac{\partial^{2}u}{\partial x_{1}\partial x_{2}^{}} + a_02(x)\frac{\partial^{2}u}{\partial x_{2}^{2}} + a_{10}(x)\frac{\partial^{}u}{\partial x_{1}^{}} + a_{01}(x)\frac{\partial^{}u}{\partial x_{2}^{}} + a_{00}(x) = f(x),
+	\]
+	mas por que isso é chamado linear? Pois existe uma função \(T:C^{k}(U)\rightarrow C(U)\) tal que, ao ser aplicada em U, coincide com o lado esquerdo da equação, ou seja,
+	\[
+		Tu = \sum\limits_{|\alpha | \leq k}^{}a_{\alpha }(x)\partial_{n}^{\alpha }u(x),
+	\]
+	logo T é uma transformação linear.
+\end{example}
+Uma EDP \textbf{semilinear} (homogênea) assume a forma
+\[
+	\sum\limits_{|\alpha |=k}^{} a_{\alpha }(x)\partial_{}^{\alpha }u(x) + F(x, u(x), \partial^{1}u(x), \dotsc , \partial^{k-1}u(x)) = 0,
+\]
+a \textbf{quasilinear} (também homogênea) tem forma
+\[
+	\sum\limits_{|\alpha | = k}^{} a_{\alpha }(x, \partial u, \dotsc , \partial^{k-1}u)\partial^{\alpha }u(x) + F(x, u(x), \dotsc, \partial^{k-1}u(x)) = 0.
+\]
+Por fim, a \textbf{totalmente não-linear} é o que não for nada acima.
+\begin{example}
+	\begin{itemize}
+
+		\item[1](\textbf{Equação do Transporte}): A equação do transporte é uma EDP de primeira ordem linear construída a partir de uma função \(u:U\times \mathbb{R}\subseteq \mathbb{R}^{n}\times \mathbb{R}\rightarrow \mathbb{R}\) dada por
+		      \[
+			      \frac{\partial^{}u}{\partial t^{}}(x, t) + \sum\limits_{j=1}^{n}b_{j}(x, t)\frac{\partial^{}u}{\partial x_{j}^{}}(x, t) = f(x, t).
+		      \]
+		      Podemos encurtar isso definindo um coeficiente \(b(x) = (b_{1}(x), \dotsc , b_{n}(x))\) e escrevendo
+		      \[
+			      \frac{\partial^{}u}{\partial t^{}}(x, t) + (b \cdot \nabla u)(x, t) = f(x, t).
+		      \]
+		\item[2](\textbf{Equação de Cauchy-Riemann}): Aqui, vamos considerar uma função complexa \(u:U\subseteq \mathbb{C}\rightarrow \mathbb{C}\) e faremos uma EDP linear de primeira ordem dada por
+		      \[
+			      \frac{1}{2}\biggl(\frac{\partial^{}u}{\partial x^{}} + i \frac{\partial^{}u}{\partial y^{}}\biggr) = 0,
+		      \]
+		      ou, utilizando a notação \(z = x + iy\) e \(\overline{z} = x - iy\),
+		      \[
+			      \frac{\partial^{}u}{\partial \overline{z}^{}} = 0.
+		      \]
+		\item[3](\textbf{Equação de Laplace/Poisson}): Vamos olhar para duas EDPs, uma homogênea e outra não, ambas de segunda ordem e lineares que giram em torno de um operador, o chamado \textbf{Laplaciano}, dado por
+		      \[
+			      \Delta u(x)\coloneqq \frac{\partial^{2}u}{\partial x_{1}^{2}}+\dotsc +\frac{\partial^{2}u}{\partial x_{n}^{2}},
+		      \]
+		      extremamente importante na física e na matemática. As EDPs em si são
+		      \[
+			      \Delta u(x) = 0 (\text{Laplace})\quad\&\quad \Delta u(x) = f(x) (\text{Poisson}).
+		      \]
+		      Este operador tem propriedades muito boas relacionada ao gradiente e divergente. Mais especificamente,
+		      \[
+			      \Delta u = \nabla \cdot \nabla{u(x)} = \mathrm{div}(\mathrm{grad}u(x)),
+		      \]
+		      ou seja,
+		      \[
+			      \nabla \cdot (\nabla{u}) = \nabla \cdot \biggl(\frac{\partial^{}u}{\partial x_{1}^{}}, \dotsc , \frac{\partial^{}u}{\partial x_{n}^{}}\biggr) = \frac{\partial^{}}{\partial x_{1}^{}}\biggl(\frac{\partial^{}u}{\partial x_{1}^{}}\biggr) + \dotsc + \frac{\partial^{}}{\partial x_{n}^{}}\biggl(\frac{\partial^{}u}{\partial x_{n}^{}}\biggr) = \Delta u(x).
+		      \]
+		\item[4](\textbf{Equação do Calor}): esta teve a origem no século XVII ao estudar a propagação do calor ao longo do tempo, ou seja, ela dependerá do espaço e de uma variável extra que codifica a passagem do tempo. Sua forma geral é a de uma equação de segunda ordem linear tal que
+		      \[
+			      \frac{\partial^{u}}{\partial x^{}}(x, t) = k\Delta u(x, t) + f(x, t),\quad k>0,
+		      \]
+		      em que \(u:U\times [0, \infty[\rightarrow \mathbb{R}\), onde (mais uma vez) \(U\subseteq \mathbb{R}^{n}\) é aberto e \(\Delta(-)\) é o operador Laplaciano. Alguns casos particulares, por exemplo,
+		      \begin{align*}
+			       & n=1: \frac{\partial^{}u}{\partial t^{}} = k \frac{\partial^{2}u}{\partial x^{2}} + f                                                                                             \\
+			       & n=2: \frac{\partial^{}u}{\partial t^{}} = k \biggl(\frac{\partial^{2}u}{\partial x^{2}} + \frac{\partial^{2}u}{\partial y^{2}}\biggr) + f                                        \\
+			       & n=3: \frac{\partial^{}u}{\partial t^{}} = k \biggl(\frac{\partial^{2}u}{\partial x^{2}} + \frac{\partial^{2}u}{\partial y^{2}} + \frac{\partial^{3}u}{\partial z^{3}}\biggr) + f \\
+		      \end{align*}
+		\item[5](\textbf{Equação da Onda}): novamente uma com origens físicas, a equação segue a ideia de descrever um objeto pelo qual a energia propaga, uma onda física, que pode incluir ondas do mar, ondas gravitacionais, ondas sonoras, cordas, pêndulos, entre muitas outras coisas. Sua forma é uma linear de segunda ordem como
+		      \[
+			      \frac{\partial^{2}u}{\partial t^{2}}(x, t) = c^{2}\Delta u(x, t), \quad c > 0,
+		      \]
+		      onde \(u:U\times \mathbb{R}\rightarrow \mathbb{R}\) e \(U\subseteq \mathbb{R}^{2}\).
+		\item[6](\textbf{Equação de Schr\o dinger}): um exemplo dentro da física quântica e que envolver números complexos. Também é de segunda ordem e linear, assumindo a forma
+		      \[
+			      i\hbar \frac{\partial^{}u}{\partial t^{}} = - \frac{\hbar^{2}}{2m}\Delta u + V(x)u,
+		      \]
+		      onde \(u:U\times \mathbb{R}\rightarrow \mathbb{C}\), U é MAIS UM aberto de \(\mathbb{R}^{n}\) e V é chamado de potencial.
+		\item[7](\textbf{Equação da Placa}): este é um exemplo de uma EDP de quarta ordem linear, dada por
+		      \[
+			      \Delta^{2} u = f \Longleftrightarrow \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\frac{\partial^{4}u}{\partial x_{i}^{2}x_{j}^{2}}(x) = f(x)
+		      \]
+		\item[8](\textbf{Equação de Maxwell}): as equações de Maxwell descrevem a luz como uma onda eletromagnética. Tomamos duas funções de \(U\subseteq \mathbb{R}^{3}\) (adivinhe o que U é de novo?) denotadas por \(E, B:U\times \mathbb{R}\rightarrow \mathbb{R}^{3}\) e olhamos para o sistema de EDPs de primeira ordem lineares
+		      \begin{align*}
+			       & \nabla \cdot E = \frac{\rho }{\varepsilon_{0}}                                                  \\
+			       & \nabla \cdot B = 0                                                                              \\
+			       & \nabla \times E = - \frac{\partial^{}B}{\partial t^{}}                                          \\
+			       & \nabla \times B = \mu_{0} \biggl(J + \varepsilon_{0} \frac{\partial^{}E}{\partial t^{}}\biggr).
+		      \end{align*}
+		\item[9](\textbf{Eikodal}): entramos, com esta, nos exemplos menos intuitivos. Ela é uma EDP de primeira ordem totalmente não-linear baseada em \(\Vert \nabla{u(x)} \Vert = 1\), ou seja, da forma
+		      \[
+			      \biggl(\frac{\partial^{}u}{\partial x_{1}^{}}\biggr)^{2}+\dotsc + \biggl(\frac{\partial^{}u}{\partial x_{n}^{}}\biggr)^{2} = 1.
+		      \]
+		\item[10](\textbf{Monge-Ampere}): outra EDP totalmente não-linear, mas dessa vez de segunda ordem, que é baseada no chamado \textbf{Hessiano} \(D^{2}u(x) = \biggl(\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}}\biggr)\) e tem a forma
+		      \[
+			      \det{(D^{2}u(x))} = f(x).
+		      \]
+		\item[11](\textbf{p-Laplaciano}): uma generalização do Laplaciano, que é o caso p = 0, descreve uma equação de segunda ordem quasilinear quando \(p\neq 2\) da forma
+		      \[
+			      \nabla \cdot (|\nabla u|^{p-2}\nabla u) = 0.
+		      \]
+		\item[12](\textbf{Meio Poroso}): outra equação de segunda ordem quasilinear, dessa vez tomando um \(\gamma \neq 0\), com forma
+		      \[
+			      \Delta (u^{\gamma }) = 0 \Longleftrightarrow \gamma(\gamma -1)u^{\gamma -2}\nabla u \cdot \nabla u + \gamma u^{\gamma -1}\Delta u.
+		      \]
+		\item[13](\textbf{Equação KDV}): essa é uma EDP de terceira ordem da forma
+		      \[
+			      \frac{\partial^{}u}{\partial t^{}} + u \frac{\partial^{}u}{\partial x^{}} + \frac{\partial^{3}u}{\partial x^{3}} = 0,
+		      \]
+		      donde percebemos também que ela é semilinear.
+		\item[14](\textbf{Equação de Navier-Stokes para Fluídos Não-Compressíveis}): tomando \(u:U\times \mathbb{R}\rightarrow \mathbb{R}^{n}\), U subconjunto de \(\mathbb{R}^{n}\), ela tem a forma
+		      \[
+			      \frac{\partial^{}u}{\partial t^{}} + (u \cdot \nabla)u - \Delta u = -\nabla p,\: \nabla u = 0,
+		      \]
+		      em que
+		      \[
+			      (u \cdot \nabla)u = \biggl(\sum\limits_{j=1}^{n}u_{j}\frac{\partial^{}u_{1}}{\partial x_{j}^{}},\dotsc , \sum\limits_{j=1}^{n}u_{j}\frac{\partial^{}u_{n}}{\partial x_{j}^{}}\biggr)
+		      \]
+		      é o chamado \textit{termo de turbulência}. Observe que esta equação é de segunda ordem e semilinear.
+	\end{itemize}
+\end{example}
+\subsection{EDPs Elípticas, Hiperbólicas e Parabólicas}
+Ao explorar a área de EDPs, o estudante encontrará outra classificação além da ordem, linearidade e o que mais foi apresentado, mas ela é mais restritiva do que realmente útil. Considere a equação de segunda ordem em duas variáveis
+\[
+	a \frac{\partial^{2}u}{\partial x^{2}} + b \frac{\partial^{2}u}{\partial x \partial y^{}} + c \frac{\partial^{2}u}{\partial y^{2}} + d \frac{\partial^{}u}{\partial x^{}} + e \frac{\partial^{}u}{\partial y^{}} + f = 0
+\]
+e dissecaremos partes dela. Para facilitar, considere o esquema de cores nela:
+\[
+	\color{red}a \frac{\partial^{2}u}{\partial x^{2}} + b \frac{\partial^{2}u}{\partial x \partial y^{}} + c \frac{\partial^{2}u}{\partial y^{2}} \color{blue}+ d \frac{\partial^{}u}{\partial x^{}} + e \frac{\partial^{}u}{\partial y^{}} \color{green} + f = 0.
+\]
+Quanto ao termo vermelho, ele é o de ordem mais alta da EDP. Vamos fazer uma mudança de variável para sumir com o termo misto \(\frac{\partial^{2}u}{\partial x \partial y^{}}\): coloque \(\eta = Ax + By\) e \(\xi = Cx + Dy\). Assim,
+\[
+	v(\eta , \xi ) = u(x(\eta , \xi ), y(\eta , \xi )) \quad\&\quad u(x, y) = v(\eta (x, y), \xi (x, y)),
+\]
+tal que, aplicando a regra da cadeia e computando as contas,
+\begin{align*}
+	\frac{\partial^{}u}{\partial x^{}} & = \frac{\partial^{}}{\partial x^{}}\bigl(v(\eta (x, y), \xi (x, y))\bigr)                                                                                      \\
+	                                   & = \frac{\partial^{}v}{\partial \eta ^{}}\frac{\partial^{}\eta }{\partial x^{}} + \frac{\partial^{}v}{\partial \xi ^{}} + \frac{\partial^{}\xi }{\partial x^{}} \\
+	                                   & = A \frac{\partial^{}v}{\partial \eta ^{}} + C \frac{\partial^{}v}{\partial \xi ^{}},
+\end{align*}
+sendo parecido para a parcial em y, que resultará em
+\begin{align*}
+	\frac{\partial^{}u}{\partial y^{}} & = \frac{\partial^{}}{\partial y^{}}(v(\eta, \xi ))                                                                                                          \\
+	                                   & = \frac{\partial^{}v}{\partial \eta ^{}}\frac{\partial^{}\eta }{\partial y^{}} + \frac{\partial^{}v}{\partial \xi ^{}}\frac{\partial^{}\xi }{\partial y^{}} \\
+	                                   & = B \frac{\partial^{}v}{\partial \eta ^{}} + D \frac{\partial^{}v}{\partial \xi ^{}},
+\end{align*}
+\hyperlink{nextclass1}{\textit{(continua na próxima aula...)}}
+\end{document}

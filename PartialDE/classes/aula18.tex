@@ -1,0 +1,148 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 12 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Casos do Laplace: retângulo e bola.
+\end{itemize}
+\subsection{Casos do Laplace: retângulo e bola.}
+Começaremos nos restringindo ao caso do retângulo, ou seja, \(\Omega = (0, L_1)\times (0,L_2)\), com equação dada por
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial x^{2}}(x,y)+\frac{\partial^{2}u}{\partial y^{2}}(x,y)=0, & \quad (x,y)\in \Omega \\
+		u(x,0) = f_1(x)                                                                                                \\
+		u(x,L_2) = f_2(x)                                                                                              \\
+		u(0,y)=g_1(y)                                                                                                  \\
+		u(L_1, y) = g_2(y)
+	\end{array}\right..
+\]
+Colocamos, também, que a restrição de u ao bordo de \(\Omega \) é uma função G, i.e., \(u|_{\partial \Omega } = G|_{\partial \Omega }.\) Note que \(u=v+w\), onde
+\begin{align*}
+	\frac{\partial^{2}v}{\partial x^{2}}+\frac{\partial^{2}v}{\partial y^{2}} = 0 & \quad \frac{\partial^{2}w}{\partial x^{2}}+\frac{\partial^{2}w}{\partial y^{2}}=0 \\
+	v(x,0) = f_1(x)                                                               & \quad w(x,0)=0                                                                    \\
+	v(x,L_2) = f_2(x)                                                             & \quad w(x,L_2)=0                                                                  \\
+	v(0, y) = 0                                                                   & \quad w(0,y)=g_1(y)                                                               \\
+	v(L_1, y) = 0                                                                 & \quad w(L_1, y) = g_2(y),
+\end{align*}
+tal que, conhecendo v e w, conhecemos u. Sendo assim, vamos achar v. Começamos procurando por soluções da forma \(v(x, y) = X(x)Y(y)\):
+\[
+	0 = \frac{\partial^{2}v}{\partial x^{2}} + \frac{\partial^{2}u}{\partial y^{2}} \Longleftrightarrow X''(x)Y(y) + X(x)Y''(y) = 0 \Longleftrightarrow \frac{X''(x)}{X(x)} + \frac{Y''(y)}{Y(y)} = 0.
+\]
+Em conclusão,
+\[
+	\frac{X''(x)}{X(x)} = \lambda \quad\&\quad \frac{Y''(y)}{Y(y)} = -\lambda \Longleftrightarrow X''(x) = \lambda X(x) \;\&\; Y''(y) = -\lambda Y(Y).
+\]
+
+A partir disso, no passo 2, usaremos as condições de fronteira para determinar quais são os possíveis \(\lambda \)'s que satisfaçam estas equações. Com efeito, temos \(v(0, y) = v(L, y) = 0\) leva a
+\[
+	X(0)Y(y) = 0 \;\&\; X(L_1)Y(y)=0 \Rightarrow X(0) = X(L_1) = 0.
+\]
+Logo,
+\[
+	\left.\begin{array}{ll}
+		X''(x) = \lambda X(x) \\
+		X(0) = X(L_1) = 0
+	\end{array}\right\} \Rightarrow X_{n}(x) = \sin^{}{\biggl(\frac{n\pi }{L_1}x\biggr)},\quad \lambda_{n} = -\biggl(\frac{n\pi }{L_1}\biggr)^{2}
+\]
+e
+\[
+	Y_{n}''(y) = \biggl(\frac{n\pi }{L_1}\biggr)^{2}Y_{n}(y),
+\]
+tal que
+\[
+	Y_{n}(y) = Ae^{\frac{n\pi }{L_1}y} + Be^{-\frac{n\pi }{L_1}y} = C \cosh^{}{\biggl(\frac{n\pi }{L_1}x\biggr)} + D\sinh^{}{\biggl(\frac{n\pi }{L_1}y\biggr)},
+\]
+que garante as soluções parciais tendo formato
+\[
+	v_{n}(x, y) = \biggl[C_{n}\cosh \biggl(\frac{n\pi }{L_1}y\biggr)] + D_{n}\sinh \biggl(\frac{n\pi }{L_1}y\biggr)\biggr]\sin^{}{\biggl(\frac{n\pi }{L_1}x\biggr)}.
+\]
+
+No caso do retângulo, podemos encontrar os coeficientes considerando a solução total
+\[
+	v(x, y) = \sum\limits_{n=1}^{\infty}\biggl[c_{n}\cosh^{}{\biggl(\frac{n\pi }{L_1}y\biggr)} + d_{n}\sinh^{}{\biggl(\frac{n\pi }{L_1}y\biggr)}]\biggr]\sin^{}{\biggl(\frac{n\pi }{L_1}x\biggr)}.
+\]
+Com as condições iniciais
+\[
+	v(x,0)=f_1(x) \quad\&\quad v(x, L_2) = f_2(x),
+\]
+podemos estudar os casos em que y vale 0 ou \(L_2\) para obter os valores destas funções. Ao fazermos isso, chegamos em
+\begin{align*}
+	 & y = 0 \Rightarrow f_1(x) = v(x, 0) = \sum\limits_{n=1}^{\infty}c_{n}\sin^{}{\biggl(\frac{n\pi }{L_1}x\biggr)}                                                                                                                 \\
+	 & y = L_2 \Rightarrow f_2(x) = v(x, L_2) = \sum\limits_{n=1}^{\infty}\biggl[c_{n}\cosh^{}{\biggl(\frac{n\pi }{L_1}L_2\biggr)}+d_{n}\sinh^{}{\biggl(\frac{n\pi }{L_1}L_2\biggr)}\biggr]\sin^{}{\biggl(\frac{n\pi }{L_1}x\biggr)}
+\end{align*}
+Com base no que encontramos para \(f_1\), deduzimos que os coeficientes \(c_{n}\)'s têm expressão
+\[
+	c_{n} = \frac{2}{L_1}\int_{0}^{L_1}f_1(s)\sin^{}{\biggl(\frac{n\pi }{L_1}s\biggr)} \mathrm{ds},
+\]
+que podemos usar para encontrar os próprios \(d_{n}\)'s
+\begin{align*}
+	 & c_{n}\cosh^{}{\biggl(\frac{n\pi L_2}{L_1}\biggr)} + d_{n}\sinh^{}{\biggl(\frac{n\pi L_2}{L_1}\biggr)} =  \frac{2}{L_1}\int_{0}^{L_1}f_2(s)\sin^{}{\biggl(\frac{n\pi s}{L_1}\biggr)} \mathrm{ds}                                    \\
+	 & \Rightarrow d_{n} = \frac{1}{\sinh^{}{\biggl(\frac{n\pi L_2}{L_1}\biggr)}}\biggl[\frac{2}{L_1}\int_{0}^{L_1}f_{2}\sin^{}{\biggl(\frac{n\pi s}{L_1}\biggr)} \mathrm{ds} - c_{n}\cosh^{}{\biggl(\frac{n\pi L_2}{L_1}\biggr)}\biggr],
+\end{align*}
+ou seja, caracterizamos por completo as soluções nestes casos.
+
+O segundo que veremos é da bola aberta em \(\mathbb{R}^{2}\), com o problema
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial x^{2}}(x,y) + \frac{\partial^{2}u}{\partial y^{2}}(x, y) = 0, & \quad x^{2}+y^{2} < 1 \\
+		u(x, y)=g(x,y),                                                                             & \quad x^{2}+y^{2}=1
+	\end{array}\right..
+\]
+Usaremos as transformações \(x = r \cos^{}{(\theta )}\) e \(y = r \sin^{}{(\theta )}\), tal que \(v(r, \theta ) = u(x(r, \theta ), y(r, \theta ))\) e
+\begin{align*}
+	 & \frac{\partial^{}v}{\partial r^{}} = \frac{\partial^{}u}{\partial x^{}}\frac{\partial^{}x}{\partial r^{}} + \frac{\partial^{}u}{\partial y^{}}\frac{\partial^{}y}{\partial r^{}} \Rightarrow \frac{\partial^{}v}{\partial r^{}}=\cos^{}{(\theta )}\frac{\partial^{}u}{\partial x^{}}+\sin^{}{(\theta )}\frac{\partial^{}u}{\partial y^{}}                                 \\
+	 & \frac{\partial^{}v}{\partial \theta ^{}} = \frac{\partial^{}u}{\partial x^{}}\frac{\partial^{}x}{\partial \theta ^{}} + \frac{\partial^{}u}{\partial y^{}}\frac{\partial^{}y}{\partial \theta ^{}} \Rightarrow \frac{\partial^{}v}{\partial \theta ^{}} = -r\sin^{}{(\theta )}\frac{\partial^{}u}{\partial x^{}} + r\cos^{}{(\theta )}\frac{\partial^{}u}{\partial y^{}}.
+\end{align*}
+Vale lembrar que podemos escrever as derivadas parciais usando uma matriz, e faremos isso para descobrir a matriz que transforma derivadas com respeito a x, y nas com respeito a \(r, \theta \) (vice-versa):
+\begin{align*}
+	 & \begin{bmatrix}
+		   \frac{\partial^{}}{\partial r^{}} \\
+		   \frac{\partial^{}}{\partial \theta ^{}}
+	   \end{bmatrix} = \begin{bmatrix}
+		                   \cos^{}{(\theta )}   & \sin^{}{(\theta )}  \\
+		                   -r\sin^{}{(\theta )} & r\cos^{}{(\theta )}
+	                   \end{bmatrix} \begin{bmatrix}
+		                                 \frac{\partial^{}}{\partial x^{}} \\
+		                                 \frac{\partial^{}}{\partial y^{}}
+	                                 \end{bmatrix}             \\
+	 & \begin{bmatrix}
+		   \frac{\partial^{}}{\partial x^{}} \\
+		   \frac{\partial^{}}{\partial y ^{}}
+	   \end{bmatrix} = \frac{1}{r}\begin{bmatrix}
+		                              r\cos^{}{(\theta )} & -\sin^{}{(\theta )} \\
+		                              r\sin^{}{(\theta )} & \cos^{}{(\theta )}
+	                              \end{bmatrix} \begin{bmatrix}
+		                                            \frac{\partial^{}}{\partial r^{}} \\
+		                                            \frac{\partial^{}}{\partial \theta ^{}}
+	                                            \end{bmatrix},
+\end{align*}
+onde usamos a fórmula para a inversa de uma matriz 2x2. Consequentemente, chegamos em
+\[
+	\frac{\partial^{}}{\partial x^{}} = \cos^{}{(\theta )}\frac{\partial^{}}{\partial r^{}} - \frac{1}{r}\sin^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}} \quad\&\quad \frac{\partial^{}}{\partial y^{}} = \sin^{}{(\theta )}\frac{\partial^{}}{\partial r^{}} + \frac{1}{r}\cos^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}}.
+\]
+Com isso, podemos reescrever a derivada para a EDP de Laplace na bola aberta em \(\mathbb{R}^{2}\) como
+\begin{align*}
+	\frac{\partial^{2}}{\partial x^{2}} + \frac{\partial^{2}}{\partial y^{2}} & =  \biggl(\cos^{}{(\theta )}\frac{\partial^{}}{\partial r^{}} - \frac{1}{r}\sin^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}}\biggr)\biggl(\cos^{}{(\theta )}\frac{\partial^{}}{\partial r^{}} - \frac{1}{r}\sin^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}}\biggr) \\
+	                                                                          & + \biggl(\sin^{}{(\theta )}\frac{\partial^{}}{\partial r^{}}+\frac{1}{r}\cos^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}}\biggr)\biggl(\sin^{}{(\theta )}\frac{\partial^{}}{\partial r^{}} + \frac{1}{r}\cos^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}}\biggr).
+\end{align*}
+Note que, assim,
+\begin{align*}
+	 & \cos^{2}{(\theta )}\frac{\partial^{2}}{\partial r^{2}} + \frac{1}{r^{2}}\cos^{}{(\theta )}\sin^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}} - \frac{1}{r}\sin^{}{(\theta )}\cos^{}{(\theta )}\frac{\partial^{2}}{\partial r \partial \theta ^{}} + \frac{1}{r}\sin^{2}{(\theta )}\frac{\partial^{}}{\partial r^{}}                 \\
+	 & - \frac{1}{r}\sin^{}{(\theta )}\cos^{}{(\theta )}\frac{\partial^{2}}{\partial r \partial \theta ^{}} + \frac{1}{r^{2}}\sin^{}{(\theta) }\cos^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}} + \frac{1}{r^{2}}\sin^{2}{(\theta )}\frac{\partial^{2}}{\partial \theta ^{2}} + \sin^{2}{(\theta )}\frac{\partial^{2}}{\partial r^{2}}   \\
+	 & - \frac{1}{r^{2}}\sin^{}{(\theta )}\cos^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}} + \frac{1}{r}\sin^{}{(\theta )}\cos^{}{(\theta )}\frac{\partial^{2}}{\partial r \partial \theta ^{}} + \frac{1}{r}\cos^{2}{(\theta )}\frac{\partial^{}}{\partial r^{}}                                                                        \\
+	 & + \frac{1}{r}\cos^{}{(\theta )}\sin^{}{(\theta )}\frac{\partial^{2}}{\partial \theta \partial r^{}} - \frac{1}{r^{2}}\sin^{}{(\theta )}\cos^{}{(\theta )}\frac{\partial^{}}{\partial \theta ^{}} + \frac{1}{r^{2}}\cos^{2}{\theta }\frac{\partial^{2}}{\partial \theta ^{2}}                                                               \\
+	 & = \frac{\partial^{2}}{\partial r^{2}} + \frac{1}{r}\frac{\partial^{}}{\partial r^{}} + \frac{1}{r^{2}}\frac{\partial^{2}}{\partial \theta ^{2}}                                                                                                                                                                                          ,
+\end{align*}
+ou seja,
+\[
+	\Delta = \frac{\partial^{2}}{\partial r^{2}} + \frac{1}{r}\frac{\partial^{}}{\partial r^{}} + \frac{1}{r^{2}}\frac{\partial^{2}}{\partial \theta ^{2}}.
+\]
+Em conclusão disto tudo, a transformação \(v(r, \theta ) = u(x(r, \theta ), y(r, \theta ))\) satisfaz
+\[
+	\frac{\partial^{2}v}{\partial r^{2}}(r, \theta ) + \frac{1}{r}\frac{\partial^{}v}{\partial r^{}}(r, \theta ) + \frac{1}{r^{2}}\frac{\partial^{2}v}{\partial \theta ^{2}}(r, \theta ) = 0, \quad 0\leq r<1,\quad\&\quad 0\leq \theta \leq 2\pi
+\]
+com condição de fronteira
+\[
+	v(1,\theta ) = g(\theta ).
+\]
+\end{document}

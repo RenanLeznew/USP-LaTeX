@@ -1,0 +1,402 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Existência da Solução de Laplace;
+	\item Método da Energia;
+	\item Princípio do Máximo Generalizado.
+\end{itemize}
+\subsection{Introdução à Equação de Laplace}
+Finalmente, iniciamos o estudo da equação de Laplace e Poisson, que são a mesma EDP base, mas com a diferença que a primeira é igualada a 0, enquanto a segunda a uma função. O problema base é
+\[
+	\left\{\begin{array}{ll}
+		\Delta u(x) = f(x),     & \quad x\in \Omega          \\
+		\mathcal{B}u(x) = g(x), & \quad x\in \partial \Omega
+	\end{array}\right.
+\]
+e, quanto à classificação,
+\begin{itemize}
+	\item[\textbf{Laplace}:] se f = 0, ou seja,
+	      \[
+		      \Delta u = 0;
+	      \]
+	\item[\textbf{Poisson}:] se f é diferente de 0, isto é,
+	      \[
+		      \Delta u = f\neq 0.
+	      \]
+\end{itemize}
+Uma solução da equação de Laplace é chamada \textbf{Função Harmônica}. Além disso, temos as seguintes condições de contorno:
+\begin{itemize}
+	\item[I)] \textbf{Dirichlet}: \(u(x) = g(x),\; x\in \partial \Omega \);
+	\item[II)] \textbf{Neumann}: \(\partial_{n}u(x) = g(x), \; x\in \partial \Omega \);
+	\item[III)] \textbf{Robin}: \(\partial_{n}u(x) + a(x)u(x) = g(x), \; x\in \partial \Omega \).
+\end{itemize}
+Além disso, vale a pena olhar para os diferentes formatos dela em cada dimensão.
+\begin{align*}
+	 & n=1:\quad \frac{\mathrm{d}^{2}u}{\mathrm{d}x^{2}}(x) = f(x);                                                                                                          \\
+	 & n=2:\quad \frac{\partial^{2}u}{\partial x^{2}}(x,y) + \frac{\partial^{2}u}{\partial y^{2}}(x,y) = f(x,y);                                                             \\
+	 & n=3:\quad \frac{\partial^{2}u}{\partial x^{2}}(x, y, z) + \frac{\partial^{2}u}{\partial y^{2}}(x, y, z) + \frac{\partial^{2}u}{\partial z^{2}}(x, y, z) = f(x, y, z).
+\end{align*}
+\begin{example}
+	No caso de uma dimensão, um exemplo da equação de Laplace seria
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\mathrm{d}^{2}u}{\mathrm{d}x^{2}}(x) = f(x) \\
+			u(0) = \alpha ,\; u(L) = \beta
+		\end{array}\right..
+	\]
+	Para lidar com os possíveis casos, dividimos o problema em 2 a fim de incluir um problema de Laplace e um de Poisson - considere \(v, w:[0, L]\rightarrow \mathbb{R}\) com os problemas
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\mathrm{d}^{2}v}{\mathrm{d}x^{2}}(x) = 0 \quad \frac{\mathrm{d}^{2}w}{\mathrm{d}x^{2}}(x) = f(x) \\
+			v(0) = \alpha ,\; v(L) = \beta  \quad w(0)=w(L)=0
+		\end{array}\right.
+	\]
+	e note que \(u\coloneqq v+w\) é solução do problema anterior, já que
+	\begin{align*}
+		 & \frac{\mathrm{d}^{2}u}{\mathrm{d}x^{2}} = \frac{\mathrm{d}^{2}v}{\mathrm{d}x^{2}} + \frac{\mathrm{d}^{2}w}{\mathrm{d}x^{2}} = 0 + f = f(x) \\
+		 & u(0) = v(0) + w(0) = \alpha + 0 = \alpha                                                                                                   \\
+		 & u(L) = v(L) + w(L) = 0 + \beta .
+	\end{align*}
+	Vamos resolver para v!
+	\begin{align*}
+		 & \frac{\mathrm{d}^{2}v}{\mathrm{d}x^{2}} = 0 \Rightarrow v'(x) = A \Rightarrow v(x) = Ax + B                                               \\
+		 & v(0) = \alpha  \Rightarrow \beta  = \alpha, \quad v(L) = \beta  \Rightarrow AL + \alpha  = \beta \Rightarrow A = \frac{\beta -\alpha }{L} \\
+		 & v(x) = \frac{\beta - \alpha }{L}x + \alpha .
+	\end{align*}
+	Agora, podemos resolver para w e obter
+	\[
+		w''(x) = f(x) \Rightarrow w'(x) = A + \int_{0}^{x}f(s) \mathrm{ds} \Rightarrow w(x) = Ax + b + \int_{0}^{x}\biggl(\int_{0}^{y}f(s) \mathrm{ds}\biggr) \mathrm{dy},
+	\]
+	com as condições dadas,
+	\begin{align*}
+		 & w(0) = 0 \Rightarrow A0 + B + \int_{0}^{0} (\dotsc ) = 0 \Rightarrow B = 0                                                                                                                      \\
+		 & w(L) = 0 \Rightarrow AL + \int_{0}^{L}\biggl(\int_{0}^{y}f(s) \mathrm{ds}\biggr) \mathrm{dy} = 0 \Rightarrow A = -\frac{1}{L}\int_{0}^{L}\biggl(\int_{0}^{y}f(s) \mathrm{ds}\biggr) \mathrm{dy} \\
+		 & w(x) = \int_{0}^{x}\biggl(\int_{0}^{y}f(s) \mathrm{ds}\biggr) \mathrm{dy} - \biggl[\frac{1}{L}\int_{0}^{L}\biggl(\int_{0}^{y}f(s) \mathrm{ds}\biggr) \mathrm{dy}\biggr]x.
+	\end{align*}
+	Em conclusão,
+	\[
+		u(x) = \alpha  + \frac{\beta -\alpha }{L}x + \int_{0}^{x}\biggl(\int_{0}^{y}f(s) \mathrm{ds}\biggr) \mathrm{dy} - \biggl[\frac{1}{L}\int_{0}^{L}\biggl(\int_{0}^{y}f(s) \mathrm{ds}\biggr) \mathrm{dy}\biggr]x
+	\]
+
+	Aqui, é necessário tomar um cuidado: quando o problema dado for da forma
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\mathrm{d}^{2}u}{\mathrm{d}x^{2}} = f(x), & \quad x\in [0, L] \\
+			\frac{\mathrm{d}u}{\mathrm{d}x}(0) = \alpha , \; \frac{\mathrm{d}u}{\mathrm{d}x} = \beta ,
+		\end{array}\right.
+	\]
+	se não for satisfeita a relação
+	\[
+		\int_{0}^{L}f(s) \mathrm{ds}=\beta - \alpha ,
+	\]
+	não existirá solução para este problema, já que
+	\[
+		u'' = f \Rightarrow u'(x) = A + \int_{0}^{x}f(s) \mathrm{ds}
+	\]
+	leva em
+	\begin{align*}
+		 & u'(0) = \alpha \Rightarrow A = \alpha                             \\
+		 & u'(L) = \beta \Rightarrow \alpha  + \int_{0}^{L}f(s) \mathrm{ds},
+	\end{align*}
+	ou seja,
+	\[
+		\int_{0}^{L}f(s) \mathrm{ds} = \beta - \alpha
+	\]
+	garante que a igualdade seja válida. Neste caso, teremos
+	\[
+		u(x) = \alpha x + \int_{0}^{x}\biggl(\int_{0}^{y}f(s) \mathrm{ds}\biggr) \mathrm{dy} + B,
+	\]
+	indicando que existem infinitas soluções.
+\end{example}
+
+Quando olhamos para o caso de mais dimensões, a forma geral é
+\[
+	\left\{\begin{array}{ll}
+		\Delta u(x) = f(x),                           & \quad x\in \Omega            \\
+		\frac{\partial^{}u}{\partial n^{}}(x) = g(x), & \quad x\in \partial \Omega .
+	\end{array}\right..
+\]
+Podemos integrar em \(\Omega \) e obter
+\[
+	\int_{\Omega }^{}\Delta u(x) \mathrm{dx} = \int_{\Omega }^{}f(x) \mathrm{dx},
+\]
+Além disso, a partir do \hyperlink{divergence_theorem}{\textit{Teorema da Divergência}} e das \hyperlink{gradient_properties}{\textit{Propriedades dos Gradientes}}, temos
+\[
+	\int_{\Omega }^{}\nabla \cdot (\nabla u) \mathrm{dx} = \int_{\partial \Omega }^{}\nabla u \cdot n \mathrm{dS} = \int_{\Omega }^{}\frac{\partial^{}u}{\partial n^{}} \mathrm{dS} = \int_{\partial \Omega }^{}g \mathrm{dS}.
+\]
+
+Quando estudamos as equações do calor e da onda, encontramos fenôemnos físicos descritos por elas, mas e quanto aos problemas de Laplace/Poisson? Onde eles aparecem?
+O primeiro lugar é dentro das próprias equações da onda e calor, mas num contexto estacionário:
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial t^{2}} = \Delta u + f \\
+		\mathcal{B}u = 0
+	\end{array}\right.
+\]
+com \(\partial_{t}^{2}u = 0,\) temos
+\[
+	\Delta u + f = 0 \Rightarrow \Delta u = -f.
+\]
+Similarmente, para o problema do calor
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}} = \Delta u + f \\
+		\mathcal{B}u = 0
+	\end{array}\right.
+\]
+e \(\partial_{t}u = 0\), chegamos em
+\[
+	\Delta u = -f.
+\]
+Em particular, para que sejam satisfeitos
+\[
+	\Delta u = - f\quad\&\quad \frac{\partial^{}u}{\partial n^{}} = g,
+\]
+precisamos que
+\[
+	-\int_{\Omega }^{}f \mathrm{dx} = \int_{\partial \Omega }^{}g \mathrm{dS}.
+\]
+
+O segundo caso em que aparecem os problemas de contorno é quando temos uma função holomorfa \(f:\Omega \subseteq \mathbb{C}\rightarrow \mathbb{C}\) com derivada dada por
+\[
+	f'(z) = \lim_{h\to 0} \frac{f(z+h) - f(z)}{h}.
+\]
+Aqui, por ser holomorfa, ela é de classe \(\mathcal{C}^{\infty}\); logo,
+\[
+	\frac{\partial^{2}u}{\partial x^{2}} = \frac{\partial^{2}v}{\partial x \partial y^{}} = \frac{\partial^{2}v}{\partial y \partial x^{}} = - \frac{\partial^{2}u}{\partial y^{2}}
+\]
+e, portanto,
+\[
+	\frac{\partial^{2}u}{\partial x^{2}} + \frac{\partial^{2}u}{\partial y^{2}} = 0.
+\]
+Vale mencionar que a ``segunda coordenada'' de f também satisfaz:
+\[
+	\frac{\partial^{2}v}{\partial x^{2}} = - \frac{\partial^{2}u}{\partial x \partial y^{}} = - \frac{\partial^{2}u}{\partial y \partial x^{}} = - \frac{\partial^{2}v}{\partial y^{2}},
+\]
+e novamente temos
+\[
+	\frac{\partial^{2}v}{\partial x^{2}} + \frac{\partial^{2}v}{\partial y^{2}} = 0.
+\]
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Função Holomorfa},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Dizemos que uma função complexa \(f:\Omega \subseteq \mathbb{C}\rightarrow \mathbb{C} \) é \textbf{holomorfa} quando ela é diferenciável e satisfaz, em suas componentes, as condições de Cauchy-Riemann; noutras palavras, escrevendo \(f(x, y) = u(x, y) + i v(x, y) = (u(x, y), v(x, y))\), ela será holomorfa se satisfazer
+	\hypertarget{cauchy_riemann}{
+		\begin{align*}
+			 & \frac{\partial^{}u}{\partial x^{}} = \frac{\partial^{}v}{\partial y^{}}   \\
+			 & \frac{\partial^{}u}{\partial y^{}} = -\frac{\partial^{}v}{\partial x^{}}.
+		\end{align*}
+	}
+	Esta condição sai da matriz Jacobiana de f, dada por
+	\[
+		Jf = \begin{bmatrix}
+			\frac{\partial^{}u}{\partial x^{}} & \frac{\partial^{}u}{\partial y^{}} \\
+			\frac{\partial^{}v}{\partial x^{}} & \frac{\partial^{}v}{\partial y^{}}
+		\end{bmatrix}.
+	\]
+\end{tcolorbox}
+
+Veremos mais três casos onde aparecem as condições, antes de seguirmos para o estudo das soluções.
+\begin{example}
+	\begin{itemize}
+		\item[1)] Nas equações de Maxwell: se \(\Omega \) for um aberto simplesmente conexo,
+		      \[
+			      \left.\begin{array}{ll}
+				      \nabla \cdot E = \frac{\rho }{\varepsilon_{0}} \\
+				      \nabla \times E = 0
+			      \end{array}\right\} \Rightarrow E = \nabla \varphi  \Rightarrow \nabla E = \nabla \nabla \varphi = \frac{\rho }{\varepsilon_{0}} \Rightarrow \Delta \varphi = \frac{\rho }{\varepsilon_{0}}.
+		      \]
+		\item[2)] No estudo de fluídos: se \(\Omega \) é simplesmente conexo,
+		      \[
+			      \left.\begin{array}{ll}
+				      \nabla \times v = 0 \\
+				      \nabla \cdot v = 0
+			      \end{array}\right\} v = \nabla \varphi \Rightarrow \nabla \cdot (\nabla \varphi ) = 0 \Rightarrow \Delta \varphi = 0.
+		      \]
+		\item[3)] O potencial gravitacional é descrito por
+		      \[
+			      \Delta \varphi =4\pi G\varphi .
+		      \]
+	\end{itemize}
+\end{example}
+
+\subsection{Existência e Unicidade da Solução para Equação de Laplace.}
+Agora que estamos mais acostumados com o problema apresentado, podemos olhas as condições para suas soluções. Neste contexto, vamos supor que \(\Omega \subseteq \mathbb{R}^{n}\) é um aberto, limitado e com fronteira regular. Começaremos esta jornada por meio da boa colocação para o problema de Dirichlet:
+\[
+	\left\{\begin{array}{ll}
+		\Delta u(x) = f(x), & \quad x\in \Omega     \\
+		u(x) = g(x),        & \quad \partial \Omega
+	\end{array}\right..
+\]
+
+Para abordar a unicidade de uma solução do problema acima, desenvolveremos outra forma do método da energia - sejam \(u, v:\overline{\Omega }\rightarrow \mathbb{R}\) soluções de classe \(\mathcal{C}^{2}\) do problema e defina \(w\coloneqq u-v\). Logo,
+\[
+	\Delta w = \Delta u - \Delta v = f - f = 0
+\]
+e
+\[
+	w|_{\partial \Omega } = u|_{\partial \Omega } - v|_{\partial \Omega } = g - g = 0,
+\]
+ou seja, w satisfaz o problema
+\[
+	\left\{\begin{array}{ll}
+		\Delta w = 0, & \quad x\in \Omega          \\
+		w = 0,        & \quad x\in \partial \Omega
+	\end{array}\right..
+\]
+
+Por termos \(\Delta w = 0, \) segue que
+\[
+	w\Delta w = 0 \Rightarrow \int_{\Omega }^{}w\Delta w \mathrm{dx} = 0.
+\]
+Assim, novamente usando as \hyperlink{gradient_properties}{\textit{Propriedades de Gradientes}},
+\begin{align*}
+	0 = \int_{\Omega }^{}w\Delta w \mathrm{dx} & = \int_{\Omega }^{}\nabla (w\nabla w) \mathrm{dx} - \int_{\Omega }^{}|\nabla w|^{2} \mathrm{dx}                                                            \\
+	                                           & = \int_{\partial \Omega }^{}w \underbrace{\nabla w \cdot n}_{\frac{\partial^{}w}{\partial n^{}}} \mathrm{dS} - \int_{\Omega }^{}|\nabla w|^{2} \mathrm{dx} \\
+	                                           & = - \int_{\Omega }^{}|\nabla w|^{2} \mathrm{dx},
+\end{align*}
+tal que, junto ao fato de que o mapeamento
+\[
+	\overline{\Omega }\ni x \mapsto |\nabla w(x)|^{2}\in \mathbb{R}
+\]
+é contínuo e sempre não-negativo, temos
+\[
+	\nabla w(x) = 0
+\]
+para todos os pontos de \(\Omega \), tornando a função w constante em cada componente conexa de \(\Omega \); no entanto, sabemos que
+\[
+	w|_{\partial \Omega } = 0,
+\]
+portanto \(w\equiv 0\) e \(u\equiv v\). Isto prova o seguinte
+\begin{theorem*}
+	Se u e v são soluções clássicas da EDP de Laplace, então u e v são as mesmas funções - a solução é única.
+\end{theorem*}
+Além disso, veremos agora a versão generalizada do antigo \hyperlink{strong_maximum}{\textit{Princípio do Máximo}}:
+
+\hypertarget{maximum_principle}{
+	\begin{theorem*}[Princípio do Máximo]
+		Se u for uma função de classe \(\mathcal{C}^{2}(\overline{\Omega })\), onde \(\Omega \) é um aberto limitado, e u resolve a equação
+		\[
+			\Delta u(x) = 0,
+		\]\
+		então
+		\[
+			\max\limits_{\overline{\Omega }} u = \max\limits_{\partial \Omega }u.
+		\]
+		Em outras palavras, u atinge seu máximo na fronteiro do aberto em que está definido.
+	\end{theorem*}}
+\begin{proof*}
+	Seja \(v:\overline{\Omega} \rightarrow \mathbb{R}\) dada por
+	\[
+		v(x) = u(x) + \varepsilon \Vert x \Vert^{2},
+	\]
+	em que \(x = (x_1, \dotsc , x_{n})\) é um elemento de \(\Omega \) como subconjunto de \(\mathbb{R}^{n}\) e sua norma é dada por
+	\[
+		\Vert x \Vert^{2} = x_{1}^{2} + \dotsc x_{n}^{2}.
+	\]
+
+	Além disso, seja \(x_{0}\) um ponto do fecho de \(\Omega \) (ponto de acumulação de \(\Omega \)) tal que \(v(x)\leq v(x_{0})\) para todos os outros pontos de acumulação de \(\Omega \). Primeiramente, note que \(x_{0}\) existe pela compacidade do fecho; em seguida, suponha que \(x_{0}\) está, na verdade, no conjunto \(\Omega \) em si e escrevamos
+	\[
+		x_{0} = (x_{0}^{1}, \dotsc , x_{0}^{n}).
+	\]
+	Logo, o mapeamento
+	\[
+		t\mapsto v(x_{0}^{1}, \dotsc , x_{0}^{j}+t, \dotsc , x_{0}^{n})
+	\]
+	é tal que seu máximo é 0. Destarte,
+	\[
+		\frac{\partial^{}v}{\partial x_{j}^{}}(x_{0}^{1}, \dotsc , x_{0}^{j}, \dotsc , x_{0}^{n}) = 0,
+	\]
+	e
+	\[
+		\frac{\partial^{2}v}{\partial x_{j}^{2}} \leq 0 \forall j\in \{1, \dotsc , n\}.
+	\]
+	Portanto,
+	\[
+		\Delta v(x_{0}) \leq 0. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+
+\begin{theorem*}
+	Seja \(\Omega \) um aberto limitado de \(\mathbb{R}^{n}\). Então, existe no máximo uma solução u de classe \(\mathcal{C}^{2}(\overline{\Omega })\) do problema
+	\[
+		\left\{\begin{array}{ll}
+			\Delta u (x)=f(x), & \quad x\in \Omega          \\
+			u(x)=g(x),         & \quad x\in \partial \Omega
+		\end{array}\right..
+	\]
+\end{theorem*}
+\begin{proof*}
+	Suponha que u e v sejam duas soluções do problema em questão, ambas de classe \(\mathcal{C}^{2}(\overline{\Omega })\). Definimos \(w\coloneqq u-v\), tal que
+	\[
+		\left\{\begin{array}{ll}
+			\Delta w = \Delta u - \Delta v = f - f =0,                                 & \quad  x\in \Omega           \\
+			w|_{\partial \Omega } = u|_{\partial \Omega }-v|_{\partial \Omega }=g-g=0, & \quad x\in \partial \Omega .
+		\end{array}\right..
+	\]
+	Usando o \hyperlink{maximum_principle}{\textit{Princípio do Máximo}}, temos
+	\[
+		\left.\begin{array}{ll}
+			\max_{\overline{\Omega }} w = \max_{\partial \Omega }w = 0 \\
+			\min_{\overline{\Omega }} w = \min_{\partial \Omega }w = 0.
+		\end{array}\right\} 0\leq w\leq 0  \Rightarrow 0 \Rightarrow u-v = 0.
+	\]
+	Portanto,
+	\[
+		u = v. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+
+Outra questão que é bom tirarmos do caminho desde o começo é a da continuidade em relação aos parâmetros de fronteira. Para isso, sejam
+\[
+	\left\{\begin{array}{ll}
+		\Delta u(x) = 0, & \quad x\in \Omega          \\
+		u(x) = g(x),     & \quad x\in \partial \Omega
+	\end{array}\right. \quad\&\quad \left\{\begin{array}{ll}
+		\Delta v(x) = 0, & \quad x\in \Omega          \\
+		v(x) = h(x),     & \quad x\in \partial \Omega
+	\end{array}\right.
+\]
+
+Novamente, coloque \(w\coloneqq u-v\). Logo,
+\[
+	\Delta w = \Delta u - \Delta v = 0
+\]
+e
+\[
+	w|_{\partial \Omega } = u|_{\partial \Omega } - v|_{\partial \Omega } = g-h.
+\]
+Como consequência do \hyperlink{maximum_principle}{\textit{princípio do máximo}}, também,
+\[
+	\left.\begin{array}{ll}
+		\max\limits_{\overline{\Omega }}w = \max\limits_{\partial \Omega }w = \max\limits_{\partial \Omega }g-h \\
+		\min\limits_{\overline{\Omega }}w = \min\limits_{\partial \Omega}w = \min\limits_{\partial \Omega } g-h
+	\end{array}\right\} \min\limits_{\partial \Omega }(g-h) \leq u(x)-v(x)\leq \max\limits_{\partial \Omega }(g-h).
+\]
+Resultado direto disto é que
+\[
+	-\max\limits_{}|g-h| \leq u(x)-v(x)\leq \max\limits_{\partial \Omega }|g-h|,
+\]
+Logo,
+\[
+	\max\limits_{\partial \Omega }(g-h) \leq \max\limits_{\partial \Omega }|g-h|,
+\]
+que pode ser reescrito também como
+\[
+	\min\limits_{\partial \Omega }(g-h) \geq \min\limits_{\partial \Omega }(-|g-h|) = -\max\limits_{\partial \Omega }|g-h|.
+\]
+
+\end{document}

@@ -1,0 +1,215 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 28 de Abril, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Soluções Clássicas da Onda.
+\end{itemize}
+\subsection{Recordando o Caminho.}
+Vamos começar a aula relembrando o que fizemos anteriormente para obter uma solução clássica da onda: considerando o problema
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial t^{2}} = \frac{\partial^{2}u}{\partial x^{2}}, & t\in \mathbb{R},\; x\in [0, \pi ] \\
+		u(0, t) = \frac{\partial^{}u}{\partial x^{}}(\pi , t) = 0,                   & t\in \mathbb{R}                   \\
+		u(x, 0) = u_{0}(x),                                                          & x\in [0, L)]                      \\
+		\frac{\partial^{}u}{\partial t^{}}(x,0) = u_1(x),                            & x\in [0, L].
+	\end{array}\right.
+\]
+Na parte 1, fazemos
+\[
+	u(x, t) = T(t) X(t) \Leftrightarrow T''(t)X(x) = T(t)X''(x) \Rightarrow \frac{T''(t)}{T(t)} = \frac{X''(x)}{X(x)},
+\]
+que tem como soluções
+\[
+	T''(t) = \lambda T(t) \quad\&\quad X''(x) = \lambda X(x).
+\]
+Na parte 2, aplicamos as condições de fronteira e obtemos um problema de autovalores:
+\[
+	\left.\begin{array}{ll}
+		T(t)X(0) = 0,  & \forall t \\
+		T(t)X'(L) = 0, & \forall t \\
+	\end{array}\right\} (0) = X'(L) = 0 \Rightarrow \left\{\begin{array}{ll}
+		X'' = \lambda X \\
+		X(0) = X'(L) = 0.
+	\end{array}\right.
+\]
+Estudando os casos dos autovalores, temos:
+
+\underline{\(\lambda = 0\)}: neste caso,
+\begin{align*}
+	 & X''(x) = 0 \Rightarrow X'(x) = A \Rightarrow X(x)=Ax + B \\
+	 & X(0) = 0 \Rightarrow A0 + B = 0 \Rightarrow B = 0        \\
+	 & X'(0) = 0 \Rightarrow A = 0 \Rightarrow A = 0.
+\end{align*}
+Consequentemente, neste caso, X será identicamente nula, o que é um problema.
+
+\underline{\(\lambda > 0\)}: aqui, teremos
+
+\begin{align*}
+	 & X''(x) = 0 \Rightarrow X'(x) = \sqrt[]{\lambda }Ae^{\sqrt[]{\lambda }x} - \sqrt[]{\lambda }Be^{-\sqrt[]{\lambda }x} \Rightarrow X(x) = A e^{\sqrt[]{\lambda }x}+Be^{-\sqrt[]{\lambda }x}.                        \\
+	 & X(0) = 0 \Rightarrow A + B = 0 \Rightarrow A = -B                                                                                                                                                                \\
+	 & X'(L) = 0 \Rightarrow Ae^{\sqrt[]{\lambda }L} - \sqrt[]{\lambda }Be^{-\sqrt[]{\lambda }L} = 0 \underbrace{\Rightarrow }_{\mathclap{A=-B}}A(\underbrace{e^{\sqrt[]{\lambda }L}+e^{-\sqrt[]{\lambda }L}}_{>0}) = 0 \\
+	 & \Rightarrow A=0 \;\&\; B = 0.
+\end{align*}
+
+\underline{\(\lambda < 0\)}: finalmente, nossa última esperança para a solução não identicamente nula (que sabemos existir) nos dá
+\begin{align*}
+	 & X(x) = A\cos^{}{(\sqrt[]{-\lambda }x)} + B \sin^{}{(\sqrt[]{-\lambda }x)}                                                                                                                                \\
+	 & X(0) = 0 \Rightarrow A = 0                                                                                                                                                                               \\
+	 & X'(L) = 0 \Rightarrow B\sqrt[]{\lambda }\cos^{}{(\sqrt[]{\lambda }L)} = 0 \Rightarrow \cos^{}{(\sqrt[]{-\lambda }L)}= 0 \Rightarrow \lambda_{n} = -\frac{\pi^{2}}{L^{2}}\biggl(n+\frac{1}{2}\biggr)^{2}.
+\end{align*}
+Consequentemente, as soluções deste caso terão a cara
+\[
+	X_{n}(x) = C \sin^{}{\biggl(-\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)},\quad \lambda_{n} = -\frac{\pi^{2}}{L^{2}}\biggl(n+\frac{1}{2}\biggr)^{2}.
+\]
+Como a EDO que define o T(t) é basicamente a mesma, podemos reaproveitar a solução para obtermos
+\begin{align*}
+	 & T_{n}''(t) = -\frac{\pi^{2}}{L^{2}}\biggl(n+\frac{1}{2}\biggr)^{2}T_{n}(t)                                                                                \\
+	 & T_{n}(t) = A_{n}\cos^{}{\biggl(\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)t\biggr)} + B_{n}\sin^{}{\biggl(\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)t\biggr)}.
+\end{align*}
+Somando e multiplicando tudo, as soluções parciais têm cara
+\[
+	u_{n} = \biggl[a_{n}\cos^{}{\biggl(\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)t\biggr)} + b_{n}\sin^{}{\biggl(\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)t\biggr)}\biggr]\sin^{}{\biggl(-\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)}
+\]
+
+A parte 3 consiste em colocar tudo o que encontramos acima numa solução única
+\[
+	u(x, t) = \sum\limits_{n=0}^{\infty}\biggl[a_{n}\cos^{}{\biggl(\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)t\biggr)} + b_{n}\sin^{}{\biggl(\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)t\biggr)}\biggr]\sin^{}{\biggl(-\frac{\pi}{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)},
+\]
+com condições
+\[
+	u_{0}(x) = u(x,0) = \sum\limits_{n=0}^{\infty}a_{n}\sin^{}{\biggl(\frac{\pi }{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)}.
+\]
+
+A diferença é que, agora, iremos aplicar o ferramental de álgebra linear que vimos na aula passada. Aqui, consideraremos
+\[
+	\varphi_{n}=\sin^{}{\biggl(\frac{\pi }{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)},
+\]
+que é ortogonal e
+\[
+	\left< \varphi_{n}, \varphi_{m} \right> = \int_{0}^{L}\sin^{}{\biggl(\frac{\pi }{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)}\sin^{}{\biggl(\frac{\pi }{L}\biggl(m+\frac{1}{2}\biggr)x\biggr)} \mathrm{dx} = 0.
+\]
+Sabemos que
+\[
+	\frac{\mathrm{d}^{2}}{\mathrm{d}x^{2}}\varphi_{n} = -\biggl[\frac{\pi }{L}\biggl(n+\frac{1}{2}\biggr)\biggr]^{2}\varphi_{n} = \lambda_{n}\varphi_{n},
+\]
+tal que
+\begin{align*}
+	\lambda_{n}\left< \varphi_{n}, \varphi_{m} \right> = \left< \lambda_{n}\varphi_{n}, \varphi_{m} \right> & = \biggl<\frac{\mathrm{d}^{2}}{\mathrm{d}x^{2}}\varphi_{n} , \varphi_{m} \biggr> \\
+	                                                                                                        & = \biggl< \varphi_{n}, \frac{\mathrm{d}^{2}}{\mathrm{d}x^{2}}\varphi_{m} \biggr> \\
+	                                                                                                        & = \left< \varphi_{n}, \lambda_{m}\varphi_{m} \right>                             \\
+	                                                                                                        & = \lambda_{m}\left< \varphi_{n}, \varphi_{m} \right>.
+\end{align*}
+Consequentemente,
+\[
+	(\lambda_{n}-\lambda_{m})\left< \varphi_{n}, \varphi_{m} \right> = 0
+\]
+e, logo,
+\[
+	n\neq m \Rightarrow \left< \varphi_{n}, \varphi_{m} \right> = 0.
+\]
+
+Para podermos aplicar o que foi visto, queremos também que esse conjunto de vetores forme uma base ortonormal, ou seja, \(\Vert \varphi_{n} \Vert = 1.\) Esta condição equivale a
+\[
+	\int_{0}^{L}c^{2}\sin^{}{\biggl(\frac{\pi }{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)}^{2} \mathrm{dx} = c^{2}\int_{0}^{L}\frac{1}{2}\biggl[1-\cos^{}{2\biggl(\frac{\pi }{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)}\biggr] \mathrm{dx} = \frac{L}{2}c^{2},
+\]
+ou seja,
+\[
+	\varphi_{n} = \sqrt[]{\frac{2}{L}}\sin^{}{\biggl(\frac{\pi }{L}\biggl(n+\frac{1}{2}\biggr)x\biggr)}.
+\]
+Com isso, sabemos que
+\begin{align*}
+	u_{0} = \sum\limits_{n=0}^{\infty}\left< u_{0}, \varphi_{n} \right>\varphi_{n} & = \sum\limits_{n=0}^{\infty}\biggl[\sqrt[]{\frac{2}{L}}\int_{0}^{L}u_{0}(y)\sin^{}{\biggl(\frac{\pi y}{L}\biggl(n+\frac{1}{2}\biggr)\biggr)} \mathrm{dy}\biggr]\sqrt[]{\frac{2}{L}}\sin^{}{\biggl(\frac{\pi x}{L}\biggl(n+\frac{1}{2})\biggr)\biggr)} \\
+	                                                                               & = \sum\limits_{n=0}^{\infty}\biggl[\frac{2}{L}\int_{0}^{L}u_{0}(y)\sin^{}{\biggl(\frac{\pi y}{L}\biggl(n+\frac{1}{2}\biggr)\biggr)} \mathrm{dy}\biggr]\sin^{}{\biggl(\frac{\pi x}{L}\biggl(n+\frac{1}{2})\biggr)\biggr)}.
+\end{align*}
+A conclusão é que a solução geral tem coeficientes com a cara
+\[
+	a_{n}=\frac{2}{L} \int_{0}^{L}u_{0}(y)\sin^{}{\biggl(\frac{\pi y}{L}\biggl(n+\frac{1}{2}\biggr)\biggr)} \mathrm{dy}.
+\]
+
+Voltando para o problema que estávamos estudando no início, podemos determinar que
+\begin{align*}
+	 & \frac{\partial^{}u}{\partial t^{}} = \sum\limits_{n=0}^{\infty}-\biggl[\biggl(\frac{(n+1/2)\pi }{L}\biggr)\biggl(a_{n}\sin^{}{\biggl(\frac{(n+1/2)\pi t}{L}\biggr)}+b_{n}\cos^{}{\biggl(\frac{(n+1/2)\pi t}{L}\biggr)}\biggr)\biggr]\sin^{}{\biggl(\frac{(n+1/2)\pi x}{L}\biggr)} \\
+	 & \frac{\partial^{}u}{\partial t^{}}(x, 0)=\sum\limits_{n=0}^{\infty}-\biggl(\frac{(n+1/2)\pi }{L}\biggr)b_{n}\sin^{}{\biggl(\frac{(n+1/2)\pi t}{L}\biggr)}+\frac{(n+1/2)\pi }{L}b_{n}                                                                                              \\
+	 & \quad \quad \quad =\frac{2}{L}\int_{0}^{L}u_{1}(y)\sin^{}{\biggl(\frac{(n+1/2)\pi y}{L}\biggr)} \mathrm{dy}                                                                                                                                                                     ,
+\end{align*}
+pois
+\[
+	u_{1}(x) = \sum\limits_{n=0}^{\infty}\left< u_{1}, \varphi_{n} \right>\varphi_{n} = \sum\limits_{n=0}^{\infty}\biggl(\frac{2}{L}\int_{0}^{L}u_{1}(y)\sin^{}{\biggl(\frac{(n+1/2)\pi y}{L}\biggr)} \mathrm{dy}\biggr)\sin^{}{\biggl(\frac{(n+1/2)\pi x}{L}\biggr)}.
+\]
+Portanto,
+\[
+	b_{n}= \frac{2}{(n+1/2)\pi }\int_{0}^{L}u_{1}(y)\sin^{}{\biggl(\frac{(n+1/2)\pi y}{L}\biggr)} \mathrm{dy}.
+\]
+\subsection{Soluções Clássicas (\(\mathcal{C}^{2}\)).}
+Com o ferramental desenvolvido, vamos abordar as soluções clássicas da equação da onda, que são as soluções suaves (classe \(\mathcal{C}^{2}\)). Como fizemos antes, consideramos o problema
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial x^{2}}=\frac{\partial^{2}u}{\partial t^{2}}, & \quad t\in \mathbb{R},\: x\in [0, \pi ] \\
+		u(0, t)=u(\pi , t)=0,                                                      & \quad t\in \mathbb{R}                   \\
+		u(x,0)=u_{0}(x),                                                           & \quad x\in [0,\pi ]                     \\
+		\frac{\partial^{}u}{\partial t^{}}(x,0)=0,                                 & \quad x\in [0,\pi ].
+	\end{array}\right.
+\]
+Vamos adiantar o processo.
+
+\underline{\textbf{Passo 1}:}\(T''(t)=\lambda T(t)\), \(X''(x)=\lambda X(x).\)
+
+\underline{\textbf{Passo 2}:}
+\[
+	\left.\begin{array}{ll}
+		X''(x)=\lambda X(x) \\
+		X(0)=X(\pi )=0
+	\end{array}\right\} \Rightarrow X(x)=\sin^{}{(nx)},\quad n\in \mathbb{N}
+\]
+e
+\[
+	u_{n}(x, t)=[a_{n}\cos^{}{(nt)}+b_{n}\sin^{}{(nt)}]\sin^{}{(nx)}.
+\]
+
+\underline{\textbf{Passo 3}:}
+\begin{align*}
+	 & u(x, t)=\sum\limits_{n=1}^{\infty}[a_{n}\cos^{}{(nt)}+b_{n}\sin^{}{(nt)}]\sin^{}{(nx)}                                                                    \\
+	 & u(x,0)=u_{0}\Rightarrow \sum\limits_{n=1}^{\infty}a\sin^{}{(nx)}=u_{0}(x)\Rightarrow a_{n}=\frac{2}{\pi }\int_{0}^{\pi }u_{0}(y)\sin^{}{(ny)} \mathrm{dy} \\
+	 & \frac{\partial^{}u}{\partial t^{}}(x,0)=0 \Rightarrow -\sum\limits_{n=1}^{\infty}b_{n}n\sin^{}{(nx)}=0 \Rightarrow b_{n}=0.
+\end{align*}
+
+Portanto, as soluções para o problema proposto têm a forma
+\[
+	u(x,t)=\sum\limits_{n=1}^{\infty}a_{n}\cos^{}{(nt)}\sin^{}{(nx)},\: a_{n}=\frac{2}{\pi }\int_{0}^{\pi }u_{0}(y)\sin^{}{(ny)} \mathrm{dy}.
+\]
+
+No entanto, queremos focar especificamente nas soluções \(\mathcal{C}^{2}\), que serão aquelas cujas segundas derivadas existem e, além disso, são contínuas. Para isso, é esperado que teremos que derivar aquela expressão. Fazendo isto, obtemos
+\begin{align*}
+	 & u(x, t)=\sum\limits_{n=1}^{\infty}a_{n}\cos^{}{(nt)}\sin^{}{(nx)}                         \\
+	 & \partial_{x}^{}u(x, t)=\sum\limits_{n=1}^{\infty}na_{n}\cos^{}{(nt)}\cos^{}{(nx)}         \\
+	 & \partial_{t}^{}u(x, t)=-\sum\limits_{n=1}^{\infty}na_{n}\sin^{}{(nt)}\sin^{}{(nx)}        \\
+	 & \partial_{xx}^{2}u(x, t)=-\sum\limits_{n=1}^{\infty}n^{2}a_{n}\cos^{}{(nt)}\sin^{}{(nx)}  \\
+	 & \partial_{tt}^{2}u(x, t)=-\sum\limits_{n=1}^{\infty}n^{2}a_{n}\cos^{}{(nt)}\sin^{}{(nx)}  \\
+	 & \partial_{xt}^{2}u(x, t)=-\sum\limits_{n=1}^{\infty}na_{n}\cos^{}{(nt)}\sin^{}{(nx)}    .
+\end{align*}
+
+Logo, basta provar que essas derivadas dão valores que existem, o que pode ser alcançado provando que a série
+\[
+	\sum\limits_{n=1}^{\infty}|n^{2}a_{n}|
+\]
+converge.
+
+Com efeito, pela forma de \(a_{n}\),
+\begin{align*}
+	a_{n}=\frac{2}{\pi }\int_{0}^{\pi }u_{0}(y)\sin^{}{(ny)} \mathrm{dy} & =-\frac{2}{\pi }\overbrace{u_{0}(y)}^{=0}\frac{\cos^{}{(ny)}}{n}\biggl|_{0}^{\pi }\biggr. + \frac{2}{\pi }\int_{0}^{\pi }u_{0}'(y)\frac{\cos^{}{(ny)}}{n} \mathrm{dy} \\
+	                                                                     & =\frac{2}{\pi }\int_{0}^{\pi }u_{0}'(y)\frac{\cos^{}{(ny)}}{n} \mathrm{dy}                                                                                            \\
+	                                                                     & =\frac{2}{\pi }u_{0}'(y)\frac{\sin^{}{(ny)}}{n^{2}}\biggl|_{0}^{\pi }\biggr.-\frac{2}{\pi }\int_{0}^{\pi }u_{0}''(y)\frac{\sin^{}{(ny)}}{n^{2}} \mathrm{dy}           \\
+	                                                                     & = \frac{2}{\pi }u_{0}''(y)\frac{\cos^{}{(ny)}}{n^{3}}\biggl|_{0}^{\pi }\biggr.+\frac{2}{\pi }\int_{0}^{\pi }u_{0}'''(y)\frac{\cos^{}{(ny)}}{n^{3}} \mathrm{dy},
+\end{align*}
+que nos permite escrever
+\[
+	a_{n}=\pm \frac{2}{\pi n^{3}}c_{n}, \quad c_{n}=\int_{0}^{\pi }u'''(y)\cos^{}{(ny)} \mathrm{dy}.
+\]
+
+Logo,
+\[
+	\sum\limits_{n=1}^{\infty}n^{2}|a_{n}|=\frac{2}{\pi }\sum\limits_{n=1}^{\infty}\frac{1}{n}|c_{n}|\leq \frac{2}{\pi }\underbrace{\biggl(\sum\limits_{n=1}^{\infty}\frac{1}{n^{2}}\biggr)^{\frac{1}{2}}}_{=\frac{\pi^{2}}{6}<\infty}\underbrace{\biggl(\sum\limits_{n=1}^{\infty}|c_{n}|^{2}\biggr)^{\frac{1}{2}}}_{\text{\hyperlink{bessel_inequality}{\textit{Bessel}}}\Rightarrow <\infty}<\infty,
+\]
+ou seja, a série converge, e esta solução é, de fato, suave.
+\end{document}

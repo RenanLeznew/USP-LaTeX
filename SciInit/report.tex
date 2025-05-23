@@ -1,0 +1,203 @@
+\documentclass{article}
+ \usepackage{bookmark}
+ \usepackage{amsmath}
+ \usepackage{amsthm}
+ \usepackage{amssymb}
+ \usepackage{tikz}
+ \usepackage{pgfplots}
+ \usepackage[utf8]{inputenc}
+ \usepackage{amsfonts}
+ \usepackage{geometry}
+ \usepackage{graphicx}
+ \usepackage{graphics}
+ \usepackage[export]{adjustbox}
+ \usepackage{fancyhdr}
+ \usepackage[portuguese]{babel}
+ \usepackage{hyperref}
+ \usepackage{multirow}
+ \usepackage{lastpage}
+ \usepackage{mathtools}
+ \usepackage{newtxsf}
+ \usepackage{subfiles}
+ \usepackage{flafter}
+ \usepackage{float}
+ \usepackage{accents}
+ \usepackage[T1]{fontenc}
+ \setcounter{section}{-1}
+
+ \pagestyle{fancy}
+ \fancyhf{}
+
+ \pgfplotsset{compat = 1.18}
+
+ \hypersetup{
+     colorlinks,
+     citecolor=black,
+     filecolor=black,
+     linkcolor=black,
+     urlcolor=black
+ }
+ \newtheorem*{def*}{\underline{Definição}}
+ \newtheorem*{theorem*}{\underline{Teorema}}
+ \newtheorem*{lemma*}{\underline{Lema}}
+ \newtheorem*{prop*}{\underline{Proposição}}
+ \newtheorem{example}{\underline{Exemplo}}
+ \theoremstyle{definition}
+ \newtheorem*{proof*}{\underline{Prova}}
+ \newtheorem*{crl*}{\underline{Corolário}}
+ \newtheorem{exr}{\underline{Exercício}}
+ \renewcommand\qedsymbol{$\blacksquare$}
+
+ \rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
+
+ \geometry{a4paper, left=3cm, top=3cm, right=3cm, bottom=3cm}
+
+\begin{document}
+\begin{figure}[ht]
+	\minipage{0.76\textwidth}
+	\includegraphics[width=4cm]{../icmc.png}
+	\hspace{7cm}
+	\includegraphics[height=4.9cm,width=4cm]{../brasao_usp_cor.jpg}
+	\endminipage
+\end{figure}
+
+\begin{center}
+	\vspace{1cm}
+	\LARGE
+	UNIVERSIDADE DE SÃO PAULO
+
+	\vspace{1.3cm}
+	\LARGE
+	INSTITUTO DE CIÊNCIAS MATEMÁTICAS E COMPUTACIONAIS - ICMC
+
+	\vspace{1.7cm}
+	\Large
+	\textbf{Construção de Conjuntos Fractais}
+
+	Relatório Parcial de Bolsa PUB - Setembro a Fevereiro.
+
+	\vspace{1.3cm}
+	\large
+	\textbf{Renan Wenzel - 11169472}
+
+	\textbf{E-mail: 11169472@icmc.usp.br}
+
+	\vspace{1.3cm}
+	\large
+	\textbf{Professor(a): Tiago Pereira}
+
+	\textbf{E-mail: tiago@icmc.usp.br}
+
+	\vspace{1.3cm}
+	\today
+\end{center}
+
+\hrule
+\vspace{1.3cm}
+
+\section*{ATIVIDADES REALIZADAS}
+
+\paragraph{}Tendo em vista o desejo original de abordar a construção de espaços auto-similares, uma formalização do conceito de fractais,
+através da perspectiva dos sistemas dinâmicos, foram apresentadas de início os conceitos matemátios necessárias para trabalhar com o assunto,
+tais como o espaço em que serão feitos os estudos, sua estrutura métrica e completude, a topologia dos conjuntos-cilindros e noções de probabilidade que aparecerão.
+O estudo começou provando a existência do Atrator de Barnsley-Hutchinson, construído a partir da união das imagens de contrações no espaço dos conjuntos compactos não-vazios de um espaço métrico M, denotado por \(H(M)\), e do operador de Barnsley-Hutchinson, denotado por \(\mathcal{B}:H(M)\rightarrow H(M)\), é dado por
+\[
+	\mathcal{B}(A)=\bigcup_{i=1}^{k}f_{i}(A), \quad f_{i}:M\rightarrow M,\: 1\leq i\leq k,
+\]
+em que cada \(\{f_{i}\}\) é uma contração. Utilizando o fato delas serem contrações num espaço métrico completo, aplicamos o Teorema do Ponto-Fixo de Banach para provar a existência
+de um ponto fixo para \(\mathcal{B}\), o qual denotamos por \(\mathcal{K}\), que é justamente o Atrator de Barnsley-Hutchinson.
+
+Após determinada a existência desse ponto fixo, passamos a analisar de quais formas ele pode ser obtido e computado. A primeira delas foi por meio do teorema a seguir, conhecido como \textit{\textbf{The Coding Map}}, o primeiro
+grande resultado a ser aprofundado:
+
+\begin{theorem*}[The Coding Map]
+	Considere uma família de contrações \(\{f_{i}\}_{i=1}^{k}\) em M e seja \(\mathcal{K}\) o Atrator de Barnsley-Hutchinson correspondente. Dado um ponto p
+	em M, vale que, para qualquer sequência \(\omega \) em um conjunto-cilindro de \(\Sigma_{k}=\{1,\dotsc ,k\}^{\mathbb{N}}\),
+	\[
+		\pi(\omega )\coloneqq \lim_{n\to \infty}f_{\omega_{0}}\circ \dotsc \circ f_{\omega_{n}}(p)
+	\]
+	existe e não depende de p. Além disso, \(\pi \bigl(\Sigma_{k}\bigr)\) é exatamente \(\mathcal{K}\).
+\end{theorem*}
+\begin{proof*}
+	Comece tomando \(p\in \mathcal{K}\) e perceba que, toda vez que uma das \(f_{i}\) é aplicada a \(\mathcal{K}\), ela contrai \(\mathcal{K}\), diminuindo seu diâmetro, até que ele
+	chegue em 0, ou seja, \(\mathcal{K}\) torna-se contraído a um único ponto, ponto este que deve estar dentro de cada um dos \(\mathcal{K}\)'s contraídos.
+	Além disso, como \(\mathcal{K}\) é fechado,
+	\[
+		\lim_{n\to \infty} f_{\omega_{0}}\circ f_{\omega_{1}}\circ\cdots\circ f_{\omega_{n}}(p)\in \bigcap_{n\in \mathbb{N}}^{}f_{\omega_{0}}\circ f_{\omega_{1}}\circ\cdots\circ f_{\omega_{n}} (\mathcal{K}),
+	\]
+	provando que o limite existe e não depende de p.
+
+	Ainda devemos provar para pontos \(q\) for de \(\mathcal{K}\), e, para isso, basta aplicar infinitamente a família de contrações
+	\(\{f_{i}\}_{i=1}^{k}\) tal que \(\{f_{\omega_{0}}\circ \dotsc \circ f_{\omega_{n}}(q)\}_{n}\) e \(\{f_{\omega_{0}}\circ \dotsc \circ
+	f_{\omega_{n}}(p)\}_{n}\) convergem para o mesmo ponto, que sabemos, para o caso de p, estar dentro de \(\mathcal{K}\). A ideia aqui era de que as contrações vão aproximando as imagens desse ponto.
+	Pela unicidade do limite, o limite em q também deve estar.
+
+	Precisamos, por fim, provar que \(\pi(\Sigma_{k})=\mathcal{K} \), que pode ser entendido como uma forma de visualizar \(\mathcal{K}\) como
+	``O conjunto de todos os embaralhamentos de \(f_{\omega_{0}}\circ f_{\omega_{1}}\circ\cdots\circ f_{\omega_{n}}(p)\)''. Começamos isso provando a continuidade de \(\pi \),
+	e é importante entender o que é contínuo neste contexto: provamos que, para cada \(\varepsilon >0\), deve existir um conjunto-cilindro tal que
+	\[
+		\nu\in \mathcal{C} \Rightarrow d(\pi(\nu), \pi(\omega ))<\varepsilon.
+	\]
+	Sabendo que \(\pi (\omega )\) pertence a \(\mathcal{K}\) para todas as sequências em \(\Sigma_{k}\) e por conta da compacidade, segue que ele tem diâmetro finito, que podemos denotar por \(\alpha = \mathrm{diam}(\mathcal{K})\).
+
+	Tomando \(\lambda \) como o maior fator da família de contrações,
+	\[
+		\lambda =\max_{1\leq i\leq k}\{\lambda_{i}\} < 1 \quad\&\quad \lim_{n\to \infty}\lambda^{n}=0.
+	\]
+	o que significa que existe um \(N\coloneqq N(\varepsilon )\) positivo para o qual		\(\lambda^{N}\cdot \alpha < \varepsilon\). Aqui, \(\sigma \) é o chamado \textit{\textbf{Shift Operator}},
+	presente em um dos estudos ao longo do semestre.
+
+	Com base nisso, construiremos nosso conjunto-cilindro \(\mathcal{C}(\varepsilon ) = [\omega_{0}, \dotsc , \omega_{N}]\).
+	Para quaisquer sequências \(\omega \) dentro do conjunto-cilindro \(\mathcal{C}(\varepsilon )\), podemos chegar em
+	\[
+		\pi (\omega ) = f_{\omega_{0}}\circ f_{\omega_{1}}\circ\cdots\circ f_{\omega_{N}}(\pi(\sigma^{N}(\omega ))).
+	\]
+	e, consequentemente,
+	\begin{align*}
+		d(\pi (\nu), \pi (\omega )) & = d(f_{\nu{0}}\circ f_{\nu{1}}\circ\cdots\circ f_{\nu{N}}(\pi(\sigma^{N}(\nu ))), f_{\omega_{0}}\circ f_{\omega_{1}}\circ\cdots\circ f_{\omega_{N}}(\pi(\sigma^{N}(\omega )))) \\
+		                            & \leq \lambda^{N+1}d(\pi(\sigma^{N}(\nu)), \pi(\sigma^{N}(\omega)))<\varepsilon ,\quad \forall \nu\in \mathcal{C}.
+	\end{align*}
+
+	Podemos, agora, provar que \(\pi \) é um ponto-fixo do Operador de Barnsley-Hutchinson, que, por unicidade, deverá coincidir com \(\mathcal{K}\).
+	Esta etapa começa provando que a contração também contrai \(\pi \bigl(\Sigma_{k} \bigr)\), que pode ser feito usando a continuidade de \(\pi \)
+	para realizar uma troca de ordem de limites:
+	\begin{align*}
+		f_{i}(\pi(p)) & = f_{i}(\lim_{n\to \infty}f_{\omega_{0}}\circ f_{\omega_{1}}\circ\cdots\circ f_{\omega_{n}}(p))       \\
+		              & = \lim_{n\to \infty}(f_{i}\circ f_{\omega_{0}}\circ f_{\omega_{1}}\circ\cdots\circ f_{\omega_{n}}(p)) \\
+		              & = \pi(i\omega ),\quad i\omega = (i, \omega_{0}, \dotsc , \omega_{n}, \dotsc ),
+	\end{align*}
+	ou seja, \(i\omega \) é um elemento de \(\Sigma_{k} \), e, logo, \(f_{i}(\pi(\Sigma_{k}))\subseteq \pi(\Sigma_{k})\).
+
+	Por fim, usando a continuidade de \(\pi \) e a compacidade de \(\Sigma_{k} , \; \pi(\Sigma_{k})\) deve ser compacto, o que significa que
+	\[
+		\mathcal{B}(\pi(\Sigma_{k}))=\bigcup_{i=1}^{k}f_{i}(\pi(\Sigma_{k}))=\bigcup_{i=1}^{k}\{\pi(i\omega ):\;\omega \in \Sigma_{k}\}
+	\]
+	é uma cobertura aberta de \(\pi(\Sigma_{k})\) ao mesmo tempo que é um subconjunto dele. Portanto,
+	\[
+		\mathcal{B}(\pi(\Sigma_{k}))=\pi(\Sigma ) \Rightarrow \pi(\Sigma_{k})=\mathcal{K}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+
+O passo seguinte, que ainda está sendo desenvolvido, tem relação com um detalhe na ordem em que as funções são compostas no teorema - se fosse para seguir a ordem
+usual de composição de funções, teríamos
+\[
+	f_{\omega_{0}}\rightarrow f_{\omega_{1}}\circ f_{\omega_{0}}\rightarrow \dotsc \rightarrow f_{\omega_{n}}\circ \dotsc \circ f_{\omega_{0}},
+\]
+mas o resultado faz ao contrário. Por conta disso, a etapa seguinte será explorar sob quais condições é possível obter o Atrator de Barnsley-Hutchinson percorrendo a ordem normal
+de composição de funções. Já temos alguns planejamentos para isso, é esperado que estudemos teoria da medida, derivada de Radon-Nikodym para a continuidade de medidas, uma quantidade de
+Teoria Ergódica e, eventualmente, tentaremos atacar o teorema
+\begin{theorem*}
+	Seja \(\varphi \) um produto independente e identicamente distribuído de contrações \(f_{1},\dotsc f_{k}:M\rightarrow M\) e \(\mathcal{K}\) o Atrator de Barnsley-Hutchinson correspondente. Dado um
+	ponto p em M, temos
+	\[
+		\mathcal{K}=\lim_{l\to \infty}\overline{\{f_{\omega }^{n}(x): n\geq l\}}
+	\]
+	para \(\mathbb{P}\)-quase todo \(\omega \).
+\end{theorem*}
+o que já sabemos sobre a probabilidade \(\mathbb{P}\) será parte de entender quais são esses \(\omega \) que funcionam no teorema e, talvez tão importante quanto isso,
+quais são os \(\omega \)'s que quebram ele.
+\begin{thebibliography}{99}
+	\bibitem{Barnsley1988} BARNSLEY, M. F. Fractals Everywhere. \textbf{Academic Press, Inc. (London) LTD.} 1988.
+\end{thebibliography}
+
+\end{document}

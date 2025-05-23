@@ -1,0 +1,208 @@
+\documentclass[../topology_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 10 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Revisão de métricos;
+	\item Introduções aos conceitos básicos.
+\end{itemize}
+\subsection{Espaços métricos e noções de iniciais}
+Começamos este curso através de um trabalho com a noção de proximidade: o que significa dois pontos estarem próximos ou distantes? A primeira parte para responder isso é começando pela ideia do que é distância, onde estaremos relembrando a definição de um espaço métrico:
+\begin{def*}
+	Diremos que \((X, d)\) é um \textbf{espaço métrico} se X é um conjunto e se existe \(d:X\times X\rightarrow \mathbb{R}_{\geq 0}\), a qual é uma função que satisfaz
+	\begin{itemize}
+		\item[i)] Para todos x, y em X, vale que
+		      \[
+			      d(x, y)\geq 0 \quad\&\quad d(x, y) = 0 \Leftrightarrow x = y;
+		      \]
+		\item[ii)] Para todos x, y em X, temos
+		      \[
+			      d(x, y) = d(y, x);
+		      \]
+		\item[iii)] Para todos x, y e z em X, temos
+		      \[
+			      d(x, z)\leq d(x, y) + d(y, z).\quad \square
+		      \]
+	\end{itemize}
+\end{def*}
+Durante o curso de espaços métricos, esta é a parte com a qual trabalha-se, e até que dá para entender bem ela, junto à noção de proximidade normalmente apresentada no curso mencionado.
+\begin{exr}
+	Mostre que, em \((\mathbb{R}, d)\), a função
+	\[
+		d(x,y) = |x-y|
+	\]
+	é uma métrica.
+\end{exr}
+Para generalizar isso a outros tipos de estruturas que saiam apenas das métricas, é introduzida a construção chamada \textit{topologia}.
+
+A definição de uma topologia que apresentaremos inicialmente é a que normalmente se trabalha, mas não é a mais intuitiva - é difícil entender a noção de proximidade de pontos através dela, por exemplo, pois isso não é falado em momento algum.
+\begin{def*}
+	Diremos que a tupla \((X, \tau )\) é um \textbf{espaço topológico} se \(\tau \) é uma família de subconjuntos de X tais que
+	\begin{itemize}
+		\item[a)] \(\emptyset ,\: X\in\tau \);
+		\item[b)] Se A, B são pertencentes a \(\tau \), então \(A\cap B\) também pertence a \(\tau \) (\(\tau \) é fechado pela interseção);
+		\item[c)] Se \(\mathcal{A}\) é uma família arbitrária de elementos de \(\tau \), então a união arbitrária deles também será um elemento de \(\tau \) (\(\tau \) é fechado pela união arbitrária):
+		      \[
+			      \mathcal{A}\subseteq \tau \Rightarrow \bigcup_{A\in \mathcal{A}}^{}A\in \tau .
+		      \]
+	\end{itemize}
+	Estes elementos da coleção \(\tau \) são chamados \textbf{abertos}.
+\end{def*}
+\begin{example}
+	Considere um conjunto \(X\). O exemplo mais chato de uma topologia consiste em pegar o vazio, o espaço todo e chamar essa coleção de \(\tau \). Só isso mesmo. Não dá para fazer nada com ela, por isso é chamada carinhosamente de \textbf{topologia caótica}:
+	\[
+		\tau_{\mathrm{caos}} = \{\emptyset , X\}.
+	\]
+	Num sentido, nessa aqui, todo mundo está perto de todo mundo, e existe a completa oposta dela (uma em que ``todo mundo está longe de todo mundo''), que consiste justamente em pegar absolutamente tudo que seja subconjunto de X:
+	\[
+		\tau_{\mathrm{discreta}} = \{\mathcal{P}(X)\},
+	\]
+	em que \(\mathcal{P}(X)\) é o conjunto das partes de X. Por abranger tanta gente, ela recebe o nome de \textbf{topologia discreta}.
+
+	Ao longo do curso, raramente veremos a topologia caótica novamente, mas a discreta irá aparecer bastante.
+\end{example}
+\begin{example}
+	Seja \((X, d)\) um espaço métrico. Dados elementos x em X e um número real positivo r, colocamos
+	\[
+		B_{r}(x) = \{y\in X: d(x, y)<r\},
+	\]
+	a chamada ``bola aberta de centro x e raio r''. Diremos, também, que um subconjunto A de X é ``folgado'' se, para todo a em A, existe um \(r>0\) tal que
+	\[
+		B_{r}(a)\subseteq A.
+	\]
+
+	Com estas noções, acontece que podemos definir uma topologia sobre X! Basta colocar
+	\[
+		\tau = \{A\subseteq X: A\text{ é folgado}\},
+	\]
+	que é, na verdade, uma topologia sobre X induzida por d.
+\end{example}
+
+\begin{exr}
+	Mostre que a topologia folgada sobre o espaço métrico acima é, de fato, uma topologia. Fazer o exercício significa conferir todas as propriedades que definem uma topologia sobre X, mas para a \(\tau \) descrita acima.
+\end{exr}
+
+\hypertarget{sorgenfrey}{
+\begin{example}}
+	Com a métrica usual sobre \(\mathbb{R}\), há uma topologia usual também! A induzida pela própria métrica, seguindo bastante a lógica do exemplo 2. Como as bolas abertas em \(\mathbb{R}\) são intervalos, os abertos desta topologia seriam, por exemplo,
+	\[
+		(0, 1),\quad (0, 1)\cup (2, 3),
+	\]
+	entre outros.
+
+	No entanto, um conjunto não tem apenas uma topologia, nem mesmo a reta real. Para outro exemplo, considere \(\mathbb{R}\) com a topologia dada por
+	\[
+		\tau  = \{A\subseteq \mathbb{R}:\:\forall a\in A,\; \exists r > 0 \text{ tal que } [a, a+r) \subseteq A\}.
+	\]
+	A diferença entre esse e o anterior é que a folga está apenas para a direita; na anterior, seria mais algo da forma
+	\[
+		(a-r, a+r)\subseteq A.
+	\]
+	Esta topologia é a que chamamos de \textbf{Reta de Sorgenfrey}. Inclusive, nessa reta, dá para definir uma ``métrica'' que satisfaz os itens a e c, mas não o item b.
+
+	Curiosamente, aqui, o conjunto \([0, 1)\) é aberto, mas \([0, 1]\) não é. Na verdade, todo aberto usual é aberto nesta topologia, mas ela tem abertos que não são considerados isso para a topologia usual. Para esta reta, não existe uma métrica que induza esta topologia, e veremos isso ao longo do curso para testar alguns resultados bem interessantes.
+\end{example}
+Em particular, esse exemplo mostra que métrica e topologia não acontecem sempre - toda métrica induz uma topologia, mas nem toda topologia é induzida por uma métrica. Se fosse o caso, não precisaríamos de duas disciplinas diferentes para falar de duas coisas equivalentes.
+
+Vamos ver uma última definição que o pessoal que não é da topologia costuma não utilizar, mas que acaba sendo útil.
+\begin{def*}
+	Sejam \((X, \tau )\) um espaço topológico e x um ponto de X. Diremos que um subconjunto V de X é uma \textbf{vizinhança de x} se existe um aberto A tal que
+	\[
+		x\in A\subseteq V.
+	\]
+	Dito de outra forma, a vizinhança é um conjunto que tem um aberto contendo x dentro dele. \(\square\)
+\end{def*}
+
+Uma vizinhança de x, então, é um conjunto em que o ponto x ``cabe com folga'', enquanto que um aberto é um conjunto em que todo mundo ``cabe com folga''.
+\begin{example}
+	Na reta \(\mathbb{R}\) com a topologia usual, o conjunto \([0, 2]\) é uma vizinhança de 1, mas não de 0.
+\end{example}
+
+Pela semântica da língua portuguesa, normalmente a existência de algo ``aberto'' é acompanhada pela noção de algo ``fechado'', e aqui na topologia não é diferente:
+\begin{def*}
+	Dizemos que um conjunto \(F\subseteq X\) é \textbf{fechado} se seu complementar é aberto, ou seja, se \(F ^{\complement}=X\setminus{F}.\:\square\)
+\end{def*}
+No entanto, diferente de uma porta ou de uma loja, um conjunto pode estar aberto, fechado, aberto e fechado, ou nenhum dos dois. A similaridade para no termo mesmo.
+\begin{example}
+	Na reta real com a topologia usual, o conjunto \((0, 1]\) não é aberto e nem fechado, mas \([0, 1]\) é fechado, enquanto que \((0, 1)\) é aberto.
+
+	Na \hyperlink{sorgenfrey}{\textit{reta de Sorgenfrey}}, o conjunto \((0, 1]\) não é aberto nem é fechado, \([0, 1]\) é fechado, mas não é aberto e \([0, 1)\) é fechado e aberto!
+\end{example}
+Vale observar que, em qualquer espaço topológico \((X, \tau )\), tanto X quanto o \(\emptyset \) são simultaneamente abertos e fechados. Na discreta, todo conjunto os são.
+
+\begin{def*}
+	Dado um subconjunto A de X, definimos o \textbf{fecho de A} por
+	\[
+		\overline{A} = \bigcap_{F\in \mathcal{F}}^{}F,
+	\]
+	em que
+	\[
+		\mathcal{F} = \{F\subseteq X: F \text{ é fechado e }A\subseteq F.\}\quad \square
+	\]
+\end{def*}
+Em particular, utilizando a ideia de fechado como complementar de aberto, é possível reescrever a definição de topologia usando fechados. Com ela, segue automaticamente que o fecho é em si um conjunto fechado.
+
+Esta definição de fecho significa que ele é o menor conjunto fechado que contém A, ou seja, se F é um conjunto fechado que contém A, ele \textit{necessariamente} contém o fecho de A, \(\overline{A}\) (verifique!).
+
+Como deu para notar, existe uma dualidade entre abertos e fechados, e a partir dela, podemos tirar definições para cada tipo de conjunto. Uma delas, a complementar ao fecho, seria do interior de A, que é o maior aberto dentro de A:
+\[
+	\mathrm{Int}(A) = \bigcup_{V\in \mathcal{V}}^{}V,
+\]
+em que
+\[
+	\mathcal{V} = \{V\subseteq X: V \text{ é aberto e }V\subseteq A\}.
+\]
+
+\begin{def*}
+	Dados um espaço topológico \((X, \tau )\), um subconjunto A de X e x um elemento de X, dizemos que \textbf{x é aderente a A} se para todo aberto V, dentro do qual está x, temos
+	\[
+		A\cap V \neq\emptyset.\quad \square
+	\]
+\end{def*}
+Essa definição recupera bem a ideia de proximidade de pontos, pois um ponto é aderente ao conjunto se ele está coladinho com ele, como se fosse o ponto mais perto possível deste conjunto. A grande coisa deste negócio é que ele permite uma nova definição, dessa vez mais útil, para o fecho:
+\begin{prop*}
+	Seja A um subconjunto de um espaço topológico X. Então,
+	\[
+		\overline{A} = \{x\in X: x \text{ é aderente a A}\}.
+	\]
+\end{prop*}
+\begin{proof*}
+	Como de costume com igualdades entre conjuntos, faremos isto em duas etapas.
+
+	\(\subseteq \)) Seja x um elemento do fecho e suponha que x não é aderente. Então, existe um aberto V com \(x\in V\) tal que
+	\[
+		V\cap A = \emptyset,
+	\]
+	isto é, A está contido no complementar de V: \(A\subseteq X\setminus{V}\). Logo, \(\overline{A}\) está contido em \(X\setminus{V}\), pois o complementar de V é um fechado que contém A. Por hipótese, x não pode
+	pertencer ao complementar de V e, em particular, não pode ser um elemento do fecho, uma contradição.
+
+	\(\supseteq \)) Por outro lado, tome um ponto x aderente a A e suponha que ele não pertence ao fecho. Isto significa que existe pelo menos um fechado dentro do fecho, digamos F, ao qual x não pertence e que contém A.
+	Então, x é um elemento do complementar de F, que é aberto, e
+	\[
+		(X\setminus{F})\cap A = \emptyset .
+	\]
+	Desta forma, provamos que x não é aderente. \qedsymbol
+\end{proof*}
+\begin{example}
+	Na reta real com a topologia usual, temos:
+	\begin{align*}
+		 & \overline{(0, 1)} = [0, 1]          \\
+		 & \overline{[0, 1]} = [0, 1]          \\
+		 & \overline{\mathbb{Q}} = \mathbb{R}.
+	\end{align*}
+
+	Por outro lado, com a topologia discreta,
+	\begin{align*}
+		 & \overline{(0, 1)} = (0, 1)          \\
+		 & \overline{[0, 1]} = [0, 1]          \\
+		 & \overline{\mathbb{Q}} = \mathbb{Q}.
+	\end{align*}
+
+	Por fim, na \hyperlink{sorgenfrey}{\textit{reta de Sorgenfrey}},
+	\begin{align*}
+		 & \overline{(0, 1)} = [0, 1)          \\
+		 & \overline{[0, 1]} = [0, 1)          \\
+		 & \overline{\mathbb{Q}} = \mathbb{R}.
+	\end{align*}
+\end{example}
+\end{document}

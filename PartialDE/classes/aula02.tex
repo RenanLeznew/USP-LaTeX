@@ -1,0 +1,387 @@
+\documentclass[.../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 26 de Fevereiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Classificação de Segunda Ordem;
+	\item O Método das Características.
+\end{itemize}
+\subsection{Classificação de Segunda Ordem}
+Vamos dar continuidade ao que foi apresentado aula passada, mas, ao invés do caso particular que estávamos olhando, analisaremos direto o caso geral. Considere a equação
+\[
+	\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}a_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}}(x) + \sum\limits_{j=1}^{n}b_{j}\frac{\partial^{}u}{\partial x_{j}^{}} + cu = f,\quad a_{ij},\: b_{j}, \: c\in \mathbb{R}.
+\]
+Uma observação é que podemos supor que \((a_{ij})\) é uma matriz simétrica, ou seja, \(a_{ij} = a_{ji}.\) O porquê dessa liberdade é que temos
+\[
+	\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}a_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}} = \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\color{blue}\frac{a_{ij}+a_{ji}}{2}\color{black}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}} + \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\color{blue}\frac{a_{ij}-a_{ji}}{2}\color{black}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}}.
+\]
+Os termos em azul são, em si, simétricos como matrizes. Coloque a seguinte definição de termos:
+\[
+	\left\{\begin{array}{ll}
+		\alpha_{ij}\coloneqq \frac{a_{ij}+a_{ji}}{2} \\
+		\beta_{ij}\coloneqq \frac{a_{ij}-a_{ji}}{2}.
+	\end{array}\right.
+\]
+Então, \(\alpha_{ij}\) coincide com \(\alpha_{ji}\) por um simples critério de comutatividade da soma, e \(\beta_{ij}\) coincide na verdade com \(-\beta_{ji}\) pelo mesmo argumento. Note que
+\begin{align*}
+	\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\beta_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}} & = - \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\beta_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}} \\
+	                                                                                                 & = \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\beta_{ji}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}}   \\
+	(i\coloneqq j \longleftrightarrow j\coloneqq i)                                                  & = \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\beta_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}}.
+\end{align*}
+Logo,
+\[
+	2\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\beta_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}} = 0
+\]
+e, portanto,
+\[
+	\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\beta_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}} = 0.
+\]
+Em conclusão,
+\[
+	\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}a_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}} = \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}\alpha_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}},
+\]
+em que \((\alpha_{ij})\) é simétrico, o que significa que podemos usar os termos como simétricos sem problemas.
+
+Doravante, nosso objetivo é ``sumir'' com os termos \(\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}}\) sempre que i for diferente de j. Para tal,
+seja B uma matriz n por n tal que
+\[
+	y = Bx \quad\&\quad y_{i} = \sum\limits_{j=1}^{n}B_{ij}x_{j}.
+\]
+Além disso, tome \(v(x)\coloneqq u(B^{-1}y)\), de forma tal qual
+\[
+	u(x) = v(By).
+\]
+Com estas duas novas definições, mostraremos que dá para de fato reduzir a equação de segunda ordem. O motivo para isso é que, seguindo essas etapas, iremos obter uma nova forma de classificar estas EDPs. Outro passo nessa direção é entender o que acontece
+com as derivadas após essa transformação. Pela Regra da Cadeia em muitas variáveis,
+\[
+	\frac{\partial^{}u}{\partial x_{i}^{}} = \sum\limits_{k=1}^{n}\frac{\partial^{}v}{\partial y_{k}^{}}\frac{\partial^{}y_{k}}{\partial x_{i}^{}}.
+\]
+Aqui, pela mudança de variáveis,
+\begin{align*}
+	\frac{\partial^{}y_{k}}{\partial x_{i}^{}} & = \frac{\partial^{}}{\partial x_{i}^{}}\biggl(\sum\limits_{j=1}^{n}B_{kj}x_{j}\biggr) \\
+	                                           & = \sum\limits_{j=1}^{n}B_{kj}\frac{\partial^{}x_{j}}{\partial x_{i}^{}}               \\
+	                                           & = \sum\limits_{j=1}^{n}B_{kj}\delta_{ij} = B_{ki},
+\end{align*}
+onde \(\delta_{ij}\) é o Delta de Kronecker
+\[
+	\delta_{ij}\coloneqq \left\{\begin{array}{ll}
+		1,\quad i = j \\
+		0,\quad i \neq j,
+	\end{array}\right.
+\]
+que satisfaz a propriedade agradável de sumir com termos de índices diferentes de i numa somatória:
+\[
+	\sum\limits_{j=1}^{n}B_{kj}\delta_{ij} = B_{k1}\underbrace{\delta_{i1}}_{0} + B_{k2}\underbrace{\delta_{i2}}_{0} + \dotsc + B_{ki}\underbrace{\delta_{ii}}_{1} + \dotsc + B_{kn}\underbrace{\delta_{in}}_{0} = B_{ki}.
+\]
+Sendo assim, a mudança de comportamento da derivada parcial de u para uma em v algumas linhas acima é justificada; mais ainda,
+\[
+	\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}} = \sum\limits_{\ell=1}^{n}\sum\limits_{k=1}^{n}\frac{\partial^{2}u}{\partial y_{\ell}y_{k}^{}}B_{ki}B_{\ell j}.
+\]
+No fim das conta, substituindo isso na EDP original, passamos de
+\[
+	\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}a_{ij}\frac{\partial^{2}u}{\partial x_{i}x_{j}^{}}(x) + \sum\limits_{j=1}^{n}b_{j}\frac{\partial^{}u}{\partial x_{j}^{}} + cu = f,\quad a_{ij},\: b_{j}, \: c\in \mathbb{R}.
+\]
+a
+\begin{align*}
+	                & \sum\limits_{\ell =1}^{n}\sum\limits_{k=1}^{n}\biggl(\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}B_{ki}a_{ij}B_{\ell j}\biggr)\frac{\partial^{2}v}{\partial y_{\ell }y_{k}^{}}(Bx) + \sum\limits_{k=1}^{n}\biggl(\sum\limits_{j=1}^{n}B_{kj}b_{j}\biggr)\frac{\partial^{}v}{\partial y_{k}^{}}(Bx) + cv(Bx) = f(x)    \\
+	\Leftrightarrow & \sum\limits_{\ell =1}^{n}\sum\limits_{k=1}^{n}\biggl(\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}B_{ki}a_{ij}B_{\ell j}\biggr)\frac{\partial^{2}v}{\partial y_{\ell }y_{k}^{}}(y) + \sum\limits_{k=1}^{n}\biggl(\sum\limits_{j=1}^{n}B_{kj}b_{j}\biggr)\frac{\partial^{}v}{\partial y_{k}^{}}(y) + cv(y) = f(B^{-1}y) \\
+\end{align*}
+Note que o termo dentro do parênteses grande pode ser escrito como
+\[
+	\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{n}B_{ki}a_{ij}B_{\ell i} = (BAB^{T})_{k\ell },
+\]
+ou seja, utilizando o seguinte resultado muito importante da álgebra linear
+\begin{quote}
+	``Se A é uma matriz n por n com entradas reais e simétrica, então existe uma matriz ortogonal de mesma estrutura tal que o produto delas e da transposta da matriz ortogonal resulta em uma diagonal:
+	\[
+		BAB^{T} = D,
+	\]
+	em que D é a matriz Diagonal.''
+\end{quote}
+
+Com base nisso, escolheremos B ortogonal tal que
+\[
+	BAB^{T} = D = \begin{bmatrix}
+		\lambda_{1} & 0           & \dotsc & 0           \\
+		0           & \lambda_{2} & \dotsc & 0           \\
+		\vdots      &             & \ddots & \vdots      \\
+		0           & \dotsc      & 0      & \lambda_{n}
+	\end{bmatrix} = \lambda_{k}\delta_{k\ell }.
+\]
+Observe como
+\begin{align*}
+	 & \sum\limits_{\ell , k}^{}\sum\limits_{i, j}^{} \underbrace{B_{ki}A_{ij}B_{\ell j}}_{\lambda_{k}\delta_{k\ell}}\frac{\partial^{2}v}{\partial y_{\ell}y_{k}^{}} + \dotsc = \\
+	 & \sum\limits_{\ell , k}^{}\underbrace{\lambda_{k}\delta_{k\ell }}_{=\lambda_{\ell} }\frac{\partial^{2}v}{\partial y_{\ell}y_{k}^{}} + \dotsc                   =          \\
+	 & \sum\limits_{\ell = 1}^{n}\lambda_{\ell}\frac{\partial^{2}v}{\partial y_{\ell}^{2}} + \dotsc,
+\end{align*}
+ou seja, existe uma matriz B ortogonal tal que \(v(y) = u \circ B^{T}(y)\) satisfaz
+\[
+	\sum\limits_{\ell =1}^{n}\lambda_{\ell}\frac{\partial^{2}v}{\partial y_{\ell}^{2}} + \sum\limits_{k=1}^{n}\sum\limits_{\ell =1}^{n}B_{kj}b_{j}\frac{\partial^{}v}{\partial y_{k}^{}} + cv = f.
+\]
+Agora sim, quanto à dita classificação, diremos que a EDP é
+\begin{itemize}
+	\item \underline{\textbf{Elíptica}} se \(\lambda_{1},\dotsc \lambda_{k} > 0\) ou \(\lambda_{1}, \dotsc , \lambda_{2} < 0\), ou seja, todos os autovalores seguem o mesmo sinal;
+	\item \underline{\textbf{Hiperbólica}} se pelo menos um dos autovalores apresentar diferença no sinal com relação aos outros;
+	\item \underline{\textbf{Parabólica}} se pelo menos um dos autovalores for nulo.
+\end{itemize}
+Para duas variáveis, estes critérios podem ser reescritos utilizando os determinantes! Para entender por que, note que, se n = 2,
+\[
+	\det{(D)} = \det{(BAB^{-1})} = \det{(B)}\det{(A)}\det{(B^{-1})} = \det{(A)},
+\]
+e como
+\[
+	D = \begin{bmatrix}
+		\lambda_1 & 0         \\
+		0         & \lambda_2
+	\end{bmatrix},
+\]
+obtemos como critérios
+\begin{itemize}
+	\item \underline{\textbf{Elíptica}} se \(\det{(A)} > 0\);
+	\item \underline{\textbf{Hiperbólica}} se \(\det{(A)} < 0\);
+	\item \underline{\textbf{Parabólica}} se \(\det{(A)} = 0\).
+\end{itemize}
+A expressão final encontrada é chamada \textbf{Forma Normal}.
+\hypertarget{nextclass1}{\begin{example}
+		Considere a EDP
+		\[
+			a \frac{\partial^{2}u}{\partial x^{2}} + b \frac{\partial^{2}u}{\partial x \partial y^{}} + c \frac{\partial^{2}u}{\partial y^{2}} + d \frac{\partial^{}u}{\partial x^{}} + e \frac{\partial^{}u}{\partial y^{}} + f = 0.
+		\]
+		Fazendo
+		\[
+			\left\{\begin{array}{ll}
+				\eta = Ax + By \\
+				\xi = Cx + Dy,
+			\end{array}\right.
+		\]
+		temos o produto de matrizes
+		\[
+			\begin{bmatrix}
+				A & B \\
+				C & D
+			\end{bmatrix} M \begin{bmatrix}
+				A & C \\
+				B & D
+			\end{bmatrix}.
+		\]
+		Além disso, olhando para a equação original, podemos determinar que, nos termos anteriores,
+		\[
+			\left\{\begin{array}{ll}
+				a_{11} = a \\
+				a_{22} = c \\
+				a_{12} = \frac{1}{2}b,
+				a_{21} = \frac{1}{2}b,
+			\end{array}\right.
+		\]
+		ou seja,
+		\[
+			M = \begin{bmatrix}
+				a           &  & \frac{b}{2} \\
+				\frac{b}{2} &  & c
+			\end{bmatrix}.
+		\]
+		Utilizando isto, temos
+		\[
+			BMB^{-1} = \begin{bmatrix}
+				A & B \\
+				C & D
+			\end{bmatrix} \begin{bmatrix}
+				a           & \frac{b}{2} \\
+				\frac{b}{2} & c
+			\end{bmatrix} \begin{bmatrix}
+				A & C \\
+				B & D
+			\end{bmatrix} = \begin{bmatrix}
+				\lambda_1 & 0           \\
+				0         & \lambda_{2}
+			\end{bmatrix}.
+		\]
+		Logo, para o critério dado derivadas às EDPs em duas variáveis,
+		\[
+			\det{(M)} = ac - \frac{b^{2}}{4}.
+		\]
+	\end{example}}
+
+\begin{example}
+	\begin{itemize}
+		\item[1)] Para a EDP
+		      \[
+			      2 \frac{\partial^{2}u}{\partial x^{2}} - \frac{\partial^{2}u}{\partial x \partial y^{}} + \frac{\partial^{2}u}{\partial y^{2}} + \frac{\partial^{}u}{\partial y^{}} = 0,
+		      \]
+		      segue que
+		      \[
+			      M = \begin{bmatrix}
+				      2            & -\frac{1}{2} \\
+				      -\frac{1}{2} & 1.
+			      \end{bmatrix}
+		      \]
+		      Portanto,
+		      \[
+			      \det{(M)} = 2 + \frac{1}{4} > 0,
+		      \]
+		      donde temos esta EDP como elíptica
+		\item[2)] Considerando o Laplaciano,
+		      \[
+			      \Delta  = \frac{\partial^{2}}{\partial x_1^{2}} + \dotsc + \frac{\partial^{2}}{\partial x_{n}^{2}},
+		      \]
+		      ou seja,
+		      \[
+			      M = \begin{bmatrix}
+				      1      & 0      & \dotsc & 0      \\
+				      0      & 1      & \dotsc & 0      \\
+				      \vdots &        & \ddots & \vdots \\
+				      0      & \dotsc & 0      & 1
+			      \end{bmatrix} \rightarrow \det{(M)} = 1 > 0.
+		      \]
+		      Logo, o operador Laplaciano é elíptico.
+		\item[3)] Seguindo um raciocínio similar para a equação do calor,
+		      \[
+			      \frac{\partial^{}u}{\partial t^{}} - \Delta u = 0,
+		      \]
+		      temos
+		      \[
+			      M = \begin{bmatrix}
+				      0      & 0      & \dotsc & 0      \\
+				      0      & 1      & \dotsc & 0      \\
+				      \vdots &        & \ddots & \vdots \\
+				      0      & \dotsc & 0      & 1
+			      \end{bmatrix}.
+		      \]
+		      Sendo assim, os autovalores são 0 ou 1, o que indica que ela é uma equação parabólica.
+	\end{itemize}
+	\item[4)] Fazendo o mesmo para a equação da onda,
+	\[
+		\frac{\partial^{2}u}{\partial t^{2}} - \Delta u = 0,
+	\]
+	tal que
+	\[
+		M = \begin{bmatrix}
+			1      & 0      & \dotsc & 0      \\
+			0      & -1     & \dotsc & 0      \\
+			\vdots &        & \ddots & \vdots \\
+			0      & \dotsc & 0      & -1
+		\end{bmatrix},
+	\]
+	o que quer dizer que ela tem como autovalores 1 ou -1, ou seja, é hiperbólica.
+	\item[5)] Para a equação abaixo
+	\[
+		\frac{\partial^{2}u}{\partial x_1^{2}} + \frac{\partial^{2}u}{\partial x_2^{2}} + x_3\frac{\partial^{2}u}{\partial x_3^{2}} = f(x_1, x_2, x_3),
+	\]
+	a matriz obtida é
+	\[
+		M = \begin{bmatrix}
+			1 & 0 & 0   \\
+			0 & 1 & 0   \\
+			0 & 0 & x_3
+		\end{bmatrix}.
+	\]
+\end{example}
+\subsection{Método das Características}
+\paragraph{} A fim de explorar o método das características, que, no fim, culminará em nós resolvermos nossa primeira equação, iremos supor que estamos trabalhando
+com uma de primeira ordem e semilinear:
+\[
+	\left\{\begin{array}{ll}
+		\sum\limits_{j=1}^{n}a_{j}(x)\frac{\partial^{}u}{\partial x_{j}^{}}(x) = f(x, u(x)) \\
+		u(x_1, \dotsc , x_{n-1}, 0) = g (x_1, \dotsc , x_{n-1}) .
+	\end{array}\right.
+\]
+Na verdade, simplificaremos ainda mais - em primeira instância, estudaremos o caso em duas variáveis
+\[
+	\left\{\begin{array}{ll}
+		a(x,y)\frac{\partial^{}u}{\partial x^{}} + b(x, y) \frac{\partial^{}u}{\partial y^{}} = f(x, y, u(x, y)) \\
+		u(x, 0) = g(x).
+	\end{array}\right.
+\]
+Como motivação física, vamos supor que \(u:U\rightarrow \mathbb{R}\) represente a densidade de um material, que \(f(t, x)\) seja a produção de material no ponto x e tempo t e \(F(t, x)\) indique o fluxo de u (quanto material está saindo ou entrando da região).
+Descrevendo isto matematicamente, segue que
+\begin{align*}
+	 & \int_{B}u\:dx \text{ representa o material em B}                                   \\
+	 & \int_{B}f(t, x)\:dx \text{ representa o que é produzido em B}                      \\
+	 & \int_{\partial B}F \cdot n\:dS \text{ representa o fluxo saindo ou entrando em B}.
+\end{align*}
+Por lógica, faz sentido pensar que a taxa de variação do material depende do quanto está sendo produzido (consome o material), ou do quanto está entrando ou saindo, que é traduzido em
+\[
+	\frac{d}{dt} \int_{B}u \:dx = \int_{B}f(t, x)\:dx - \int_{\partial B}F \cdot n\:dS.
+\]
+Pelo \hyperref{divergence_theorem}{teorema da divergência}, vale que
+\[
+	\frac{d}{dt} \int_{B}u dx = \int_{B}f(t, x)\:dx - \int_{B}\nabla \cdot F \:dx.
+\]
+Juntando tudo numa coisa só, segue que, para toda região B dentro de U,
+\[
+	\int_{B}^{}\biggl(\frac{\partial^{}u}{\partial t^{}} + \nabla \cdot F - f\biggr)\: dx = 0.
+\]
+Se o termo em parênteses é contínuo, o fato da integral ser nula indica que ele é constante e, consequentemente, devemos ter
+\[
+	\frac{\partial^{}u}{\partial t^{}} + \nabla \cdot F = f,
+\]
+que é a chamada equação da continuidade. Podemos pensar que o fluxo que entra ou sai depende do material presente na região e de uma certa velocidade \(\vec{v}\); se ela for constante, teremos
+\[
+	\frac{\partial^{}u}{\partial t^{}} + \vec{v}\nabla u = f,
+\]
+que leva exatamente a forma que colocamos simplificada, a chamada \textbf{Equação do Transporte}. Resolveremos ela como próxima etapa.
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Teorema da Divergência},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	O \hypertarget{divergence_theorem}{teorema da divergência} ou teorema de Ostrogradsky pode ser enunciado como: seja \(\Omega \) um subconjunto aberto e limitado com ``fronteira suave''. Se u for uma função suave em uma vizinhança U de \(\overline{\Omega }\), então
+	\[
+		\int_{\Omega }^{}\nabla u \mathrm{dV} = \int_{\partial \Omega }^{} u \cdot \hat{n} \mathrm{dS},
+	\]
+	em que \(\hat{n}\) é o vetor normal à fronteira de \(\Omega \).
+
+	No caso de uma dimensão, isso equivale ao teorema fundamental do cálculo - com uma notação altamente abusada, u será uma função \(u(x)\), com gradiente
+	\[
+		\nabla u(x)=\frac{\mathrm{d}u}{\mathrm{d}x},
+	\]
+	``volume'' L dado pelo tamanho do intervalo \(\Omega = (a, b)\), com fecho \(\overline{\Omega }=[a, b]\), e com produto interno com a normal sendo \(u \cdot \hat{n} = u(x).\) Assim,
+	\[
+		\int_{(a, b)}^{}\frac{\mathrm{d}u}{\mathrm{d}x} \mathrm{dL} = \int_{\{a, b\}}^{} u(x) \mathrm{dx} = \int_{a}^{b}u(x) \mathrm{dx}.
+	\]
+\end{tcolorbox}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Propriedades do Divergente e Naplaciano},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	\hypertarget{gradient_properties}{Como toda boa} derivada, o operador gradiente, \(\nabla \), satisfaz a Regra de Leibniz do Produto:
+	\[
+		\nabla (fg)(v) = g(v)\nabla f(v) + f(v) \nabla g(v),\quad v\in \mathbb{R}^{n},
+	\]
+	além de linearidade e uma versão da regra da cadeia.
+
+	Quando fazemos o produto vetorial \(\cdot \) de \(\nabla \) por uma função, chamamos de divergente, que satisfaz, de sua própria forma, outra Regra de Leibniz (e linearidade):
+	\[
+		\nabla \cdot (fg) = (\nabla f)\cdot g + f (\nabla \cdot g).
+	\]
+	A forma como isso se relaciona com a aula é que o laplaciano foi decomposto no divergente e gradiente para o cálculo de uma integral, e isso funciona por
+	\[
+		\nabla \cdot (\nabla f) = \Delta f.
+	\]
+
+	Uma outra que vale a pena lembrar é que
+	\[
+		f\Delta f = \nabla (f \nabla f) - \nabla f \cdot \nabla f.
+	\]
+\end{tcolorbox}
+\end{document}

@@ -1,0 +1,242 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 06 - 19 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Existência da Equação do Calor Unidimensional;
+	\item Método da Separação de Variáveis.
+\end{itemize}
+\subsection{Separação de Variáveis: Soluções da Equação do Calor}
+\hyperlink{next_class_5}{\textit{Conforme vimos previamente}}, analisaremos os casos com diferentes \(\lambda \)'s na EDP do Calor Unidimensional. O primeiro deles será o caso em que \(\lambda \) é nulo: aqui,
+\[
+	X''(x)=0 \Rightarrow X'(x)=A \Rightarrow X(x)=Ax + B,
+\]
+e podemos usar isso para checar as condições de contorno que obtemos para este X
+\begin{align*}
+	 & X(0)=0 \Rightarrow A \cdot 0 + B = 0 \Rightarrow B = 0  \\
+	 & X(L)=0 \Rightarrow A \cdot L + 0 = 0 \Rightarrow A = 0.
+\end{align*}
+Com isto, descobrimos que toda solução dessa EDP, se \(\lambda \) for nulo, será trivial!
+
+O segundo caso a ser analisado é aquele em que \(\lambda \) é positivo. Analogamente ao caso nulo, começamos com
+\[
+	X''(x)=\lambda X(x) \Rightarrow X(x)=Ae^{\sqrt[]{\lambda }x} + B e^{-\sqrt[]{\lambda } x}.
+\]
+Estudando as condições, temos
+\begin{align*}
+	 & X(0)=0 \Rightarrow A + B = 0 \Rightarrow A = -B                                                                                                           \\
+	 & X(L)=0 \Rightarrow Ae^{\sqrt[]{\lambda }L}+Be^{-\sqrt[]{\lambda }L}=0 \Rightarrow A \underbrace{(e^{\sqrt[]{\lambda }L}-e^{-\sqrt[]{\lambda }L})}_{>0}=0.
+\end{align*}
+Concluímos que, novamente,
+\[
+	A = 0 \quad\&\quad B=-A=0,
+\]
+e não existe nenhuma solução sem ser a trivial, mais uma vez.
+
+Nossa última esperança é o caso de \(\lambda \) negativo. Vamos agarrá-la e ver no que dá, de forma similar aos outros dois:
+\[
+	X''(x) = \lambda X(x) \Rightarrow X(x)=A\cos^{}{(\sqrt[]{-\lambda }x)} + B\sin^{}{(\sqrt[]{-\lambda }x)},
+\]
+em que faz sentido optar pela solução com seno e cosseno, pois o termo dentro da raiz não dá problema. Com isso,
+\begin{align*}
+	 & X(0)=0 \Rightarrow X(0)=A=0                                \\
+	 & X(L)=0 \Rightarrow X(L)=B\sin^{}{(\sqrt[]{-\lambda }L)}=0.
+\end{align*}
+Parece que está tudo bem! Queremos B diferente de zero, e esse caso deixa aberta esta possibilidade, pois podemos procurar pelo caso em que \(\sin^{}{(\sqrt[]{-\lambda }L)}\) seja nulo. Isto ocorre sempre que o termo dentro do parenteses for um múltiplo inteiro de \(\pi \). Portanto,
+\[
+	\sqrt[]{-\lambda }=\frac{n\pi }{L} \Longleftrightarrow \lambda = -\biggl(\frac{n\pi }{L}\biggr)^{2}.
+\]
+
+Na verdade, a construção acima é o chamado \textbf{método da separação de variáveis}, e podemos aplicar ele para casos específicos da equação do calor. Veremos um deles a seguir.
+
+\begin{example}
+	Para conseguirmos estudar o método da separação de variáveis, daremos nomes a alguns dos bois que apareceram durante o estuda da Equação do Calor. Reconsidere-a, então, a seguir:
+	\[
+		\left\{\begin{array}{ll}
+			{\color{orange}\frac{\partial^{}u}{\partial t^{}}(x, t)=\frac{\partial^{2}u}{\partial t^{2}}(x, t)}, & \quad x\in [0, L],\: t>0 \\
+			{\color{yellow}u(0, t)=u(0, L)=0,                 }                                                  & \quad t>0                \\
+			{\color{green}u(x, 0) = g(x),                      }                                                 & \quad x\in [0, L].
+		\end{array}\right.
+	\]
+	A parte laranja constituirá o primeiro passo do método; a amarela, o segundo; e, por fim, a verde corresponde à terceira. No caso da equação vista acima, já sabemos que ela tem soluções da forma
+	\[
+		X_{n}(x) = B_{n}\sin^{}{(\sqrt[]{-\lambda }x)} = B_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)}, \quad n\in \mathbb{N},
+	\]
+	onde \(X_{n}(x)\) são as chamadas \textbf{autofunções}, e
+	\[
+		\lambda_{n} = -\biggl(\frac{n\pi }{L}\biggr)^{2}
+	\]
+	são os \textbf{autovalores}, assim como na álgebra linear. Além disso, para a parte da temperatura, outrora denotada por T, obtivemos
+	\[
+		T'(t)=\lambda T(t),
+	\]
+	que, juntando à dedução para X, resulta em soluções
+	\[
+		T_{n}(t)=Ce^{-\left(\frac{n\pi }{L}\right)^{2}t}.
+	\]
+	Unindo as partes, as soluções obtidas para a equação do calor têm forma
+	\[
+		u_{n}(x, t)=B_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)},\quad n\in \mathbb{N}.
+	\]
+	Mediante o {\color{green}passo 3}, vamos achar uma solução que satisfaz a condição inicial, começando por observar que\footnote{``Como a soma de várias soluções é, também, uma solução para as EDPs,''}
+	\[
+		u(x, t)=\sum\limits_{n=1}^{N}u_{n}(x, t)=\sum\limits_{n=1}^{N}b_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)}
+	\]
+	também resolve a EDP do calor e a condição do contorno. Com efeito,
+	\begin{align*}
+		\frac{\partial^{}u}{\partial t^{}}=\frac{\partial^{}}{\partial t^{}}\biggl(\sum\limits_{n=1}^{N}u_{n}\biggr) & =\sum\limits_{n=1}^{N}\frac{\partial^{}u_{n}}{\partial t^{}}                 \\
+		                                                                                                             & =\sum\limits_{n=1}^{N}\frac{\partial^{2}u_{n}}{\partial x^{2}}               \\
+		                                                                                                             & =\frac{\partial^{2}}{\partial x^{2}}\biggl(\sum\limits_{n=1}^{N}u_{n}\biggr) \\
+		                                                                                                             & = \frac{\partial^{2}u}{\partial x^{2}}
+	\end{align*}
+	e
+	\[
+		u(0,t)=\sum\limits_{n=1}^{N}u_{n}(0, t)=0 \quad\&\quad u(L, t)=\sum\limits_{n=1}^{N}u_{n}(L, t)=0.
+	\]
+
+	Agora que sabemos que isso funciona, vamos procurar soluções que tenham essa forma
+	\[
+		u(x, t)=\sum\limits_{n=1}^{N}b_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)}
+	\]
+	e, para que continue dando certo, precisaremos que
+	\[
+		u(x, 0) = g(x).
+	\]
+	Substituindo t por 0 na forma geral, encontramos
+	\[
+		\sum\limits_{n=1}^{N}b_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)} = g(x),
+	\]
+	donde concluímos que, se
+	\[
+		g(x) = \sum\limits_{n=1}^{N}g_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)},
+	\]
+	então tomamos \(b_{n} = g_{n}\) para todo n natural e obtemos
+	\[
+		u(x, t) = \sum\limits_{n=1}^{N}g_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)}.
+	\]
+	Uma coisa interessante é que, tomando, como fato geral, por agora, que para muitas g's, vale a decomposição
+	\[
+		g(x) = \sum\limits_{n=1}^{\infty}g_{n}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)},
+	\]
+	então a forma
+	\[
+		u(x, t) = \sum\limits_{n=1}^{N}g_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}\sin^{}{\biggl(\frac{n\pi x}{L}\biggr)}
+	\]
+	deve resolver boa parte das EDPs de calor.
+
+	Para conferir, voltemos ao {\color{orange}passo 1} e vamos resolver o problema dado. Queremos soluções da forma \(u(x, t) = T(t)X(x)\). Logo,
+	\[
+		T'(t)X(x) = T(t)X''(x) \Rightarrow \frac{T'(t)}{T(t)} = \frac{X''(x)}{X(x)} = \lambda .
+	\]
+	Agora, no {\color{yellow}passo 2}, precisamos resolver a condição de contorno imposta sobre T e X, ou seja,
+	\[
+		T'(t)=\lambda T(t) \quad\&\quad X''(x)=\lambda X(x),\: X'(0)=X'(L)=0.
+	\]
+	Assim como fora feito no caso geral, analisaremos os casos do \(\lambda \):
+
+	\textbf{Caso 1:} \(\lambda = 0\).
+
+	Aqui, usando que \(X''(x)=0\), obtemos
+	\[
+		X(x)=Ax + B \Rightarrow X'(0)=A,\: X'(L)=A.
+	\]
+	Assim, como o valor nas fronteiras é nulo, isto leva à conclusão de que A também é nulo. Portanto,
+	\[
+		X(x)=B.
+	\]
+
+	\textbf{Caso 2:} \(\lambda > 0\).
+
+	Quando \(\lambda \) é positivo, acontece
+	\[
+		X''(x)=\lambda X(x),
+	\]
+	cujas soluções são da forma
+	\[
+		X(x)=Ae^{\sqrt[]{\lambda }x} + Be^{-\sqrt[]{\lambda }x},
+	\]
+	com
+	\[
+		X'(x)=\sqrt[]{\lambda }Ae^{\sqrt[]{\lambda }x} - \sqrt[]{\lambda }Be^{-\sqrt[]{\lambda }x}.
+	\]
+	Resolvendo a EDO da derivada de X com base nas condições de fronteira, segue que
+	\begin{align*}
+		 & X'(0)=0 \Rightarrow \sqrt[]{\lambda }(A-B)=0 \Rightarrow A=B                                                                       \\
+		 & X'(L)=0 \Rightarrow \sqrt[]{\lambda }(Ae^{\sqrt[]{\lambda }L}-Be^{-\sqrt[]{\lambda }L})=0 \Rightarrow A=Be^{-2\sqrt[]{\lambda }L}. \\
+	\end{align*}
+	Consequentemente, juntando ambas,
+	\[
+		B=Be^{-2\sqrt[]{\lambda }L} \Rightarrow 1=e^{-2\sqrt[]{\lambda }L} \text{ ou } B=0.
+	\]
+	A primeira opção é um absurdo, então resta apenas B nulo como solução, donde temos A também nulo e apenas soluções triviais para esta EDP.
+
+	\textbf{Caso 3:} \(\lambda < 0\).
+
+	Quando \(\lambda \) é negativo, temos
+	\[
+		X''(x)=\lambda X(x)\Rightarrow A\cos^{}{(\sqrt[]{-\lambda }x)}+B\sin^{}{(\sqrt[]{-\lambda }x)}
+	\]
+	e
+	\[
+		X'(x)=-\sqrt[]{-\lambda }A\sin^{}{(\sqrt[]{-\lambda }x)} + B\sqrt[]{-\lambda }\cos^{}{(\sqrt[]{-\lambda }x)}.
+	\]
+	Assim como antes, iremos resolver esta EDO com base nas condições de fronteiras
+	\begin{align*}
+		 & X'(0)=0 \Rightarrow B\sqrt[]{-\lambda }=0 \Rightarrow B=0                 \\
+		 & X'(L)=0 \Rightarrow -\sqrt[]{-\lambda }A\sin^{}{(\sqrt[]{-\lambda }L)}=0.
+	\end{align*}
+	Observando o caso em que A é não-nulo, para ver se conseguiremos fugir das soluções triviais, então teremos que resolver
+	\[
+		\sin^{}{(\sqrt[]{-\lambda }L)}=0.
+	\]
+	Assim, \(\sqrt[]{-\lambda }L\) precisa ser um múltiplo inteiro de \(\pi \); logo,
+	\[
+		\lambda =-\biggl(\frac{n\pi }{L}\biggr)^{2},\quad n\in \mathbb{Z}\setminus{\{0\}}.
+	\]
+
+	No fim das contas, as soluções encontradas são da forma
+	\[
+		X_{n}=a_{n}\cos^{}{(\sqrt[]{-\lambda_{n}}x)}=a_{n}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)},\quad n\in \{\underbrace{0}_{\text{Caso 1}},\underbrace{\:1,\:2,\:3,\dotsc }_{\text{Caso 3}}\}
+	\]
+
+	Vemos, a partir disto, que
+	\[
+		T_{n}'(t)=\lambda_{n}T_{n}(t);
+	\]
+	quando n for positivo, pode ser reescrito como
+	\[
+		T_{n}'(t)=-\biggl(\frac{n\pi }{L}\biggr)^{2}T_{n}(t) \Rightarrow T_{n}(t)=c_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}.
+	\]
+	Por outro lado, quando n for nulo,
+	\[
+		T_{0}'(t)=0 \Rightarrow T_{0}(t)=c_{0}.
+	\]
+	Taí uma novidade que saiu de resolver este caso específico! E ainda nem chegamos ao passo 3; antes dele, concluímos que
+	\[
+		u_{n}(x, t)=X_{n}(x)T_{n}(t)=a_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)},\quad n\in \{0, 1, 2, \dotsc \}.
+	\]
+
+	Finalmente, quanto ao {\color{green}passo 3}, que consiste em encontrar soluções com a condição inicial
+	\[
+		u(x, t)=\sum\limits_{n=0}^{N}a_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)}=\sum\limits_{n=0}^{N}u_{n}(x, t),
+	\]
+	que satisfaz a EDP do calor pois
+	\begin{align*}
+		 & \frac{\partial^{}u}{\partial x^{}}(0, t)=\sum\limits_{n=0}^{N}\frac{\partial^{}u_{n}}{\partial x^{}}(0, t)=0  \\
+		 & \frac{\partial^{}u}{\partial x^{}}(L, t)=\sum\limits_{n=0}^{N}\frac{\partial^{}u_{n}}{\partial x^{}}(L, t)=0.
+	\end{align*}
+	Colocando \(u(x,0)=g(x)\), devemos ter
+	\[
+		g(x)=\sum\limits_{n=0}^{N}a_{n}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)} = \frac{a_{0}}{2}+\sum\limits_{n=1}^{N}a_{n}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)}.
+	\]
+	Em geral, se
+	\[
+		g(x)=\frac{g_{0}}{2}+\sum\limits_{n=1}^{N}g_{n}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)},
+	\]
+	então
+	\[
+		u(x, t)=\frac{g_{0}}{2} + \sum\limits_{n=1}^{N}g_{n}e^{-\left(\frac{n\pi }{L}\right)^{2}t}\cos^{}{\biggl(\frac{n\pi x}{L}\biggr)},
+	\]
+\end{example}
+
+\end{document}

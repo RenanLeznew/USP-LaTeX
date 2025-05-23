@@ -1,0 +1,333 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 10 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Continuando os exemplos
+\end{itemize}
+\subsection{Resolvendo a Equação do Transporte}
+Começamos a aula introduzindo a noção de curva integral, a qual será utilizada durante nossa solução para a primeira EDP deste curso!
+\begin{def*}
+	Uma \textbf{curva integral}, ou \textbf{curva característica}, de V é uma função \(\gamma :[a, b]\rightarrow \Omega \subseteq \mathbb{R}^{n}\) que satisfaz
+	\[
+		\gamma'(t) = V(\gamma (t)).\quad \square
+	\]
+\end{def*}
+\begin{example}[Equação do Transporte]
+	A equação do transporte leva em consideração um aberto \(\Omega \subseteq \mathbb{R}^{n}\), ao qual x pertence, um coeficiente vetorial de n valores \(b\in \mathbb{R}^{n}\), um valor de tempo \(t\in (0, T)\) e a função \(u:\Omega \times [0, T)\rightarrow \mathbb{R}\), sendo sua forma dada por
+	\[
+		\frac{\partial^{}u}{\partial t^{}} + b \cdot \nabla u = f.
+	\]
+	Relembrando a aula anterior,
+	\begin{itemize}
+		\item Se f = 0, chamamos ela de equação linear homogênea;
+		\item Se f = f(x) \(\neq\) 0, chamamos ela de equação linear não homogênea;
+		\item Se f = f(x, u(x)), chamamos ela de equação semilinear.
+	\end{itemize}
+	Vamos estudar o problema
+	\[
+		\left\{\begin{array}{ll}
+			\sum\limits_{i=1}^{n}a_{j}(x)\frac{\partial^{}u}{\partial x_{j}^{}}(x) = f(x, u(x)) \\
+			u(x_{0}, 0) = g(x_{0}),
+		\end{array}\right.
+	\]
+	em que \(x = (x_1, x_2, \dotsc , x_{n-1}, x_{n})\). A ideia para abordar esta questão é definir \textit{curvas integrais (características)}; começamos isto por meio da definição do campo vetorial
+	\begin{align*}
+		V: & \Omega \subseteq \mathbb{R}^{n}\rightarrow \mathbb{R}^{n}           \\
+		   & V(x) = (a_1(x), \dotsc , a_{n}(x)),\quad x = (x_1, \dotsc , x_{n}).
+	\end{align*}
+
+	Assim, se V é de classe \(\mathcal{C}^{1}\), dada uma curva \(\gamma (t) = (x_1(t), \dotsc , x_{n}(t))\), então \(\gamma'(t) = V(\gamma (t))\) se, e somente se,
+	\[
+		\left\{\begin{array}{ll}
+			x_{1}^{'}(t) = a_1(x_1(t), \dotsc , x_{n}(t)) \\
+			\quad \vdots                                  \\
+			x_{n}^{'}(t) = a_n(x_1(t), \dotsc , x_{n}(t)) \\
+		\end{array}\right.
+	\]
+	Utilizando a proposição a seguir, iremos dizer os passos que seriam usados para resolver, quase como uma receita de bolo
+	\begin{prop*}
+		Se \(\gamma :[a, b]\rightarrow \Omega \) é uma curva integral e u é solução de uma equação semilinear, então aplicar u à curva integral também resolve uma equação semilinear, ou seja, \(v\coloneqq u\circ \gamma \) satisfaz
+		\[
+			\frac{dv}{dt}(t) = f(\gamma (t), v(t))
+		\]
+	\end{prop*}
+	\begin{proof*}
+		Coloque \(v = u(\gamma (t))\). Segue que, pela regra da cadeia,
+		\[
+			\frac{dv}{dt}(t) = \nabla u(\gamma (t)) \gamma '(t) = \sum\limits_{j=1}^{n}\frac{\partial^{}u}{\partial x_{j}^{}}(\gamma (t))x_{j}^{'}(t).
+		\]
+		Como \(\gamma \) é curva integral, cada \(x_{j}\) satisfaz \(x_{j}'(t) = a_{j}(\gamma (t))\), tal que
+		\[
+			\sum\limits_{j=1}^{n}\frac{\partial^{}u}{\partial x_{j}^{}}(\gamma (t))x_{j}^{'}(t) = \sum\limits_{j=1}^{n}\frac{\partial^{}u}{\partial x_{j}^{}}(\gamma (t))a_{j}(\gamma (t)) = f(\gamma (t), u((\gamma (t)))),
+		\]
+		pois u é solução da equação semilinear. Portanto, observando que o termo \(u(\gamma (t))\) é exatamente a definição de v, obtivemos
+		\[
+			\frac{dv}{dt}(t) = f(\gamma (t), v(t)).\quad \text{\qedsymbol}
+		\]
+	\end{proof*}
+
+	Para aplicar esta proposição, o que temos é o conhecimento de um dos pontos, a condição inicial \(u(x', 0) = g(x')\), e a possibilidade de calcular v a partir do conhecimento de u ao longo da curva que passa por x', a qual denotamos \(\gamma_{x'}.\)
+	A partir disso, para acharmos a solução, pegamos um ponto \((x', x_{n})\), tentamos encontrar a curva integral que passa por este ponto e calculamos v.
+
+	Em outras palavras, isto nos leva à seguinte receita:
+	\hypertarget{recipe}{\begin{itemize}
+			\item[Passo 1)] Dado um vetor \(r\in \mathbb{R}^{n-1}\), calculamos \(\gamma_{r}^{'}(s)=V(\gamma_{r}(s))\), com condição inicial \(\gamma_{r}(0) = (r, 0)\);
+			\item[Passo 2)] Dado um vetor \(r\in \mathbb{R}^{n-1}\), calculamos \(v_{r}^{'}(s)=f(\gamma_{r}(s), v_{r}(s))\), com condição inicial \(v_{r}(0) = g(r)\);
+			\item[Passo 3)] Seja \(G:U\subseteq \mathbb{R}^{n}\rightarrow \mathbb{R}^{n}\) tal que \(G(r, s) = \gamma_{r}(s)\). A solução deve, então, ser dada por
+			      \[
+				      u(x) = v\circ G^{-1}(x),
+			      \]
+			      pois
+			      \[
+				      v = u\circ \gamma_{r}(s) = u\circ G(r, s) \Longleftrightarrow u = v\circ G^{-1}.
+			      \]
+		\end{itemize}}
+\end{example}
+A receita encontrada no exemplo anterior pode ser usada para outros exemplos também! Vamos vê-los.
+\begin{example}
+	Considere o problema de condição inicial
+	\[
+		\left\{\begin{array}{ll}
+			x \frac{\partial^{}u}{\partial x^{}}(x, y) + 1 \frac{\partial^{}u}{\partial y^{}}(x, y) = x^{2} \\
+			u(x, 0) = \sin^{}{(x)}.
+		\end{array}\right.
+	\]
+	Seguindo os passos propostos na \hyperlink{recipe}{\textit{receita}}, o x cumpre o papel de \(a_{1}(x, y)\), o 1 cumpre de \(a_{2}(x, y)\) e, assim, podemos ir ao primeiro passo: encontrar a \(\gamma_{r}\). Note que
+	\[
+		x_{r}'(s) = x(s),\; x_{r}(0) = r\quad\&\quad y_{r}^{'}(s) = 1,\; y_{r}(0) = 0.
+	\]
+	Com isso, como são apenas EDOs comuns, podemos resolvê-las afim de encontrarmos o seguinte resultado:
+	\begin{align*}
+		 & x_{r}(s) = Ae^{s},\quad x_{r}(0) = r \Rightarrow x_{r}(s) = re^{s} \\
+		 & y_{r}(s) = s + A,\quad y_{r}(0) = 0 \Rightarrow y_{r}(s) = s.
+	\end{align*}
+	Logo,
+	\[
+		\gamma_{r}(s) = (re^{s}, s).
+	\]
+
+	O segundo passo, o de calcular o v, é feito por meio de
+	\[
+		\left\{\begin{array}{ll}
+			v_{r}^{'}(s) = r^{2}e^{2s} \\
+			v_{r}(0) = \sin^{}{(r)}
+		\end{array}\right.\Rightarrow v_{r}(s) = A + \frac{r^{2}}{2}(e^{2s}-1).
+	\]
+	Como \(v_{r}(0) = A\), temos \(A = \sin^{}{(r)}\) e, consequentemente,
+	\[
+		v_{r}(s) = \sin^{}{(r)} + \frac{r^{2}}{2}(e^{2s}-1).
+	\]
+
+	Por fim, o terceiro passo é encontrar \(G^{-1}\), que permitirá a nós resolvermos a EDP inicial. Neste sentido, temos
+	\[
+		G(r, s) = \gamma_{r}(s) = (re^{s}, s) = (x, y),
+	\]
+	ou seja, temos uma transformação de coordenadas em que s torna-se y e r assume a forma \(xe^{-y}\). Destarte,
+	\[
+		G^{-1}(x, y) = (xe^{-y}, y).
+	\]
+
+	Portanto, a solução é dada por
+	\begin{align*}
+		u(x, y) = v\circ G^{-1}(x, y) & = v(xe^{-y}, y)                                                            \\
+		                              & = \sin^{}{\bigl(xe^{-y}\bigr)} + \frac{(xe^{-y})^{2}}{2}(e^{2y}-1)         \\
+		                              & = \sin^{}{\bigl(xe^{-y}\bigr)} + \frac{x^{2}}{2} - \frac{x^{2}e^{-2y}}{2}.
+	\end{align*}
+\end{example}
+\begin{example}
+	Agora, considere a EDP com problema de condição inicial
+	\[
+		\left\{\begin{array}{ll}
+			x \frac{\partial^{}u}{\partial x^{}} + \frac{\partial^{}u}{\partial y^{}} = u^{2} \\
+			u(x, 0) = \sin^{}{(x)}.
+		\end{array}\right.
+	\]
+	No primeiro passo, chegamos à conclusão de que
+	\[
+		x_{r}'(s) = x_{r}(s),\: x_{r}(0) = r \quad\&\quad y_{r}'(s) = 1,\: y_{r}(0) = 0,
+	\]
+	ou seja,
+	\[
+		\gamma_{r}(s) = (re^{s}, s).
+	\]
+
+	Encontrada a gama, podemos partir ao passo dois:
+	\[
+		v_{r}'(s) = v_{r}(s)^{2},\: v_{r}(0) = \sin^{}{(r)}.
+	\]
+	Com isso, obtemos
+	\begin{align*}
+		\frac{v_{r}'}{v_{r}^{2}} = 1 & \Longleftrightarrow \int_{0}^{s}\frac{v_{r}'(\tau )}{v_{r}(\tau )^{2}}d\tau = \int_{0}^{s}d\tau                          \\
+		                             & \Longleftrightarrow \int_{v_{r}(0)}^{v_{r}(s)}\frac{du}{u^{2}} = s, \quad u = v_{r}(\tau )\:\&\: du = v_{r}'(\tau )d\tau \\
+		                             & \Rightarrow -\frac{1}{u}\biggl|_{v_{r(0)}}^{v_{r}(s)}\biggr. = \frac{1}{v_{r(0)}} - \frac{1}{v_{r}(s)} = s               \\
+		                             & \Rightarrow \frac{1}{v_{r}(s)} = \frac{1}{v_{r}(0)}-s.
+	\end{align*}
+	Logo,
+	\[
+		v_{r}(s) = \frac{v_{r}(0)}{1-sv_{r}(0)},
+	\]
+	tal que, sabendo o valor de \(v_{r}\) em 0, podemos reescrever
+	\[
+		v_{r}(s) = \frac{\sin^{}{(r)}}{1-s \sin^{}{(r)}}.
+	\]
+	Assim como antes, podemos agora encontrar G e resolver a equação:
+	\[
+		G(r, s) = (re^{s}, s) \Rightarrow G^{-1}(x, y) = (xe^{-y}, y),
+	\]
+	donde segue, portanto, que
+	\[
+		u(x, y) = v\circ G^{-1}(x, y) = v(xe^{-y}, y) = \frac{\sin^{}{(xe^{-y})}}{1-y\sin^{}{(xe^{-y})}}.
+	\]
+\end{example}
+\begin{example}
+	Em seguida, olhemos para o problema de condição inicial
+	\[
+		\left\{\begin{array}{ll}
+			x \frac{\partial^{}u}{\partial x^{}}(x, y, z) + y \frac{\partial^{}u}{\partial y^{}}(x, y, z) + \frac{\partial^{}u}{\partial z^{}}(x, y, z) = u(x, y, z) \\
+			u(x, y, 0) = x^{2} + y^{2}.
+		\end{array}\right.
+	\]
+	Na primeira etapa, temos
+	\begin{align*}
+		 & x_{r}'(s) = x_{r}(s),\: x_{r}(0) = r_{1} \\
+		 & y_{r}'(s) = y_{r}(s),\: y_{r}(0) = r_{2} \\
+		 & z_{r}'(s) = 1.
+	\end{align*}
+	em que \(r = (r_{1}, r_{2})\) é um elemento de \(\mathbb{R}^{2}\). Resolvendo as EDOs, obtemos
+	\[
+		x_{r}(s) = r_{1}e^{s},\: y_{r}(s) = r_{2}e^{s},\; \& z_{r}(s) = s.
+	\]
+	Logo,
+	\[
+		\gamma_{r}(s) = (r_{1}e^{s}, r_{2}e^{s}, s).
+	\]
+
+	Agora, podemos aplicar a mudança para v através de
+	\[
+		\left.\begin{array}{ll}
+			v_{r}'(s) = v_{r}(s) \\
+			v_{r}(0) = r_{1}^{2} + r_{2}^{2}
+		\end{array}\right\} v_{r}(s) = (r_{1}^{2} + r_{2}^{2})e^{s}.
+	\]
+
+	Finalmente, vamos encontrar a G e reverter seu efeito:
+	\[
+		G(r_{1},r_{2}, s) = (r_{1}e^{s}, r_{2}e^{s}, s) = (x, y, z),
+	\]
+	o que significa que passamos de s para z, de \(r_1\) para \(xe^{-s}\) e de \(r_{2}\) para \(ye^{-s}\). Com isso, notamos que
+	\[
+		G^{-1}(x, y, z) = (xe^{-z}, ye^{-z}, z)
+	\]
+	e, portanto,
+	\begin{align*}
+		u(x, y, z) = v\circ G^{-1}(x, y, z) & = v(xe^{-z}, ye^{-z}, z)    \\
+		                                    & = (x^{2}+y^{2})e^{-2z}e^{z} \\
+		                                    & = (x^{2}+y^{2})e^{-z}.
+	\end{align*}
+\end{example}
+\begin{example}[\hypertarget{transport}{Equação do Transporte}]
+	Finalmente, chegamos ao exemplo da equação do transporte para resolver de vez esta EDP. Ela é dada por
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}u}{\partial t^{}}(x, t) + b \nabla u(x, t) = f(x, t) \\
+			u(x, 0) = g(x)
+		\end{array}\right.
+	\]
+	Aqui, a variável que denotamos por x, normalmente unidimensional, passou a ser em duas na forma (x, t). Além disso, \(x'=x\).
+
+	No primeiro passo, temos
+	\begin{align*}
+		 & x_{1r}'(s) = b_1, \: x_{1r}(0) = r_{1} \Rightarrow x_{r1}(s) = r_{1}+b_{1}s \\
+		 & x_{2r}'(s) = b_2, \: x_{2r}(0) = r_{2} \Rightarrow x_{r2}(s) = r_{2}+b_{2}s \\
+		 & \vdots                                                                      \\
+		 & x_{nr}'(s) = b_n, \: x_{nr}(0) = r_{n} \Rightarrow x_{rn}(s) = r_{n}+b_{n}s \\
+		 & t'(s) = 1, \: t(0) = 0.
+	\end{align*}
+	Sendo assim, nossa curva integral tem forma
+	\[
+		\gamma_{r}(s) = (r+sb, s) = (r_{1} + sb_{1}, \dotsc , r_{n}+sb_{n}, s).
+	\]
+
+	Logo,
+	\[
+		v_{r}'(s) = f(r+sb, s),\; v_{r}(0) = g(r),
+	\]
+	que pode ser resolvida colocando
+	\[
+		v_{r}(s) = g(r) + \int_{0}^{s}f(r+\tau b, \tau )d\tau
+	\]
+
+	Seguindo esta linha, temos
+	\[
+		G(r, s) = \gamma_{r}(s) = (r + sb, s) = (x, t),
+	\]
+	tal que s corresponde a t e r corresponde a x-tb, ou seja,
+	\[
+		G^{-1}(x, t) = (x-tb, t).
+	\]
+	Portanto,
+	\[
+		u(x, t) = g(x-tb) + \int_{0}^{t}f(x-tb + \tau b, \tau )d\tau .
+	\]
+
+	Uma coisa bem legal desse caso é que ele deixa a possibilidade de olhar para tipos particulares dele. Por exemplo,
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}u}{\partial t^{}} + b \frac{\partial^{}u}{\partial x^{}} = 0 \\
+			u(x, 0) = g(x)
+		\end{array}\right.
+	\]
+	Com base no que encontramos durante o exemplo, a solução geral é da forma
+	\[
+		u(x, t) = g(x-tb) + \int_{0}^{t}f(x-tb + \tau b, \tau )d\tau,
+	\]
+	mas, como a função f(x, t) é 0 neste caso, isto significa que a função que resolve esta EDP é
+	\[
+		u(x, t) = g(x-tb).
+	\]
+	Podemos observar como é o comportamento das curvas integrais de acordo com a transformação de coordenadas
+	\[
+		\gamma_{r}(s) = (r+bs, s) = (x, t),
+	\]
+	tal que \(x = r + bt\) e, isolando o r,
+	\[
+		x-tb = r \Rightarrow t = \frac{x-c}{b} = A+\frac{x}{b}
+	\]
+	para alguma constante A. Em outras palavras, conseguimos uma descrição para corresponder cada ponto x a um ponto em t - sabendo uma ``posição'', podemos encontrar o ``tempo'' em que ela ocorre.
+
+	Em particular, se f for nula, também acontece algo com a v definida:
+	\[
+		v_{r}'(s) = 0 \Rightarrow v_{r}(s) = k
+	\]
+	para alguma constante k, isto é, u é constante ao longo das curvas integrais.
+\end{example}
+\hypertarget{nextclass03}{\begin{example}}
+	Considere agora a seguinte EDP:
+	\[
+		\left\{\begin{array}{ll}
+			-y \frac{\partial^{}u}{\partial x^{}} + x \frac{\partial^{}u}{\partial y^{}} = 0 \\
+			u(x, 0) = g(x)
+		\end{array}\right.
+	\]
+	Aplicando o primeiro passo da \hyperlink{recipe}{\textit{receita}}, temos que resolver
+	\begin{align*}
+		 & x_{r}'(s) = -y_{r}(s), \: x_{r}(0) = r \\
+		 & y_{r}'(s) = x_{r}(s), \: y_{r}(0) = 0.
+	\end{align*}
+	Derivando novamente, segue que
+	\[
+		x_{r}''(s) = -y_{r}'(s) = -x_{r}(s),
+	\]
+	cuja solução é
+	\[
+		x_{r}(s) = A \cos^{}{(s)} + B\sin^{}{(s)}.
+	\]
+	Analogamente,
+	\[
+		y_{r}(s) = C\cos^{}{(s)} + D\sin^{}{(s)}.
+	\]
+	Continua na próxima aula...
+\end{example}
+
+\end{document}

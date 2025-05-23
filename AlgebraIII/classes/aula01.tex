@@ -1,0 +1,228 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 11 de Março, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Introdução à Teoria de Galois
+\end{itemize}
+\subsection{Introdução à Teoria de Galois}
+Neste curso, estaremos preocupados com o estudo da teoria de Galois, que abrange a teoria de grupos finitos e a teoria de corpos.
+
+Como exemplo de problemas abordados aqui, considere o caso de uma equação de segundo grau da forma
+\[
+	f(x) = x^{2} + ax + b.
+\]
+Podemos descrever as raízes dela utilizando os radicais do polinômio, através da forma
+\[
+	\alpha = \frac{\pm a - \sqrt[]{a^{2}-4b}}{2}.
+\]
+Para polinômios de terceiro e quarto grau, também é possível fazer isso.
+
+A partir disso, Abel se questionou ``Existe um polinômio de grau 5 que não admite descrição de suas raízes por radicais?''. Eventualmente, ele percebeu que não, e passou a estudar para quais casos é possível fazer esta descrição.
+Após um tempo, Galois resolveu abordar a questão também, e resolveu ela para polinômios de qualquer grau, desenvolvendo toda a parte de teoria de grupos e teoria de corpos (daí o nome do tema da disciplina!).
+
+Mais especificamente, o que faremos é, levando em conta que os estudantes já estudaram grupos durante cursos anteriores, haverá um enfoque na parte de corpos - a tradução de problema de teoria de corpos para a de grupos, resolver lá e voltar aos corpos no fim.
+
+Dando início à disciplina, então, definimos
+\begin{def*}
+	Um \textbf{corpo} é um anel comutativo com unidade tal que todo elemento não-nulo dele tem inverso multiplicativo. \(\square\)
+\end{def*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Os conjuntos dos números reais, racionais e complexos com as operações usuais de soma e multiplicação formam corpos;
+		\item[2)] Para p um número primo, o conjunto de inteiros módulo p é um corpo:
+		      \[
+			      \mathbb{Z}/p = \{\overline{0}, \overline{1}, \dotsc , \overline{p-1}\} = \{r + p \mathbb{Z}: r \in \mathbb{Z}\}.
+		      \]
+		      Aqui, as operações são definidas como
+		      \begin{align*}
+			       & \overline{r} + \overline{s} \coloneqq \overline{r+s}           \\
+			       & \overline{r}\cdot \overline{s} \coloneqq \overline{r \cdot s}.
+		      \end{align*}
+		      Com isto, podemos verificar que ele é de fato um corpo: considere um elemento \(\overline{r}\) não-nulo de \(\mathbb{Z}/p\) qualquer; nossa pergunta, então, seria ``existe um outro elemento deste anel cujo produto com \(\overline{r}\) resulta na unidade?''.
+		      Como r é um número entre 0 e p-1, o fato de p ser primo resulta em \(\mathrm{mdc}(r, p) = 1\). Assim, pelo \textit{teorema de Bezout}\footnote{O Teorema de Bezout}, existem inteiros s e j tais que
+		      \[
+			      sr + jp = 1.
+		      \]
+		      Disto, segue que
+		      \[
+			      \overline{sr + jp} = \overline{1} \Rightarrow \overline{sr} = \overline{1}.
+		      \]
+		\item[3)] Existe um teorema que auxilia na construção de corpos:
+		      \hypertarget{field_generator}{\begin{theorem*}
+				      Seja A um anel comutativo e \(\mathfrak{i}\) um ideal de A. Então, vale que \(\mathfrak{i}\) é um ideal maximal se, e somente se, \(A/\mathfrak{i} = \{a + \mathfrak{i}: a \in \mathfrak{i}\}\) é um corpo.
+			      \end{theorem*}}
+		      Um exemplo de aplicação disto consiste em considerar A como o anel de polinômios com coeficientes reais, para os quais os ideais maximais têm a forma \(\mathfrak{i} = \left< f(x) \right>,\) em que f(x) é um polinômio irredutível. Um exemplo deles seria considerar o polinômio
+		      \[
+			      f(x) = x^{2} + 1\in \mathbb{R}[x].
+		      \]
+		      A partir dele, segue que
+		      \[
+			      \frac{A}{\langle f(x) \rangle}\cong \frac{\mathbb{R}[x]}{\langle x^{2} + 1\rangle}\cong \mathbb{C},
+		      \]
+		      em que há um isomorfismo da forma
+		      \begin{align*}
+			       & \frac{\mathbb{R}[x]}{\langle x^{2}+1 \rangle}  \overbracket[0pt]{\rightarrow}^{\theta }\mathbb{C} \\
+			       & \overline{g(x)}\longmapsto g(i)
+		      \end{align*}
+
+		      Para outros polinômios irredutíveis, considere os polinômios \(f(x) = x - 1\) e \(f(x) = 2x + 3\). Então, respectivamente,
+		      \begin{align*}
+			       & \frac{\mathbb{R}[x]}{\langle x-1 \rangle}\cong \mathbb{R} \\
+			       & \overline{h(x)}\longmapsto{h(1)}
+		      \end{align*}
+		      e
+		      \begin{align*}
+			       & \frac{\mathbb{R}[x]}{\langle 2x+3 \rangle}\cong \mathbb{R} \\
+			       & \overline{h(x)}\mapsto h \biggl(-\frac{3}{2})\biggr).
+		      \end{align*}
+
+		      Para um polinômio real de grau ímpar genérico, sabemos que existe pelo menos um número real \(\alpha \) que funciona como raiz dele. Consequentemente, denotando esse polinômio com este grau por f(x),
+		      \[
+			      f(x) = (x-\alpha )g(x),
+		      \]
+		      em que g(x) é de grau par. Aqui, utilizamos o fato de que um polinômio \(f(x)\) com coeficientes reais pode ser unicamente fatorado na forma
+		      \[
+			      f(x) = a \prod\limits_{i}^{}(x-a_{i}) \cdot \prod\limits_{j}^{}(x^{2}+b_{j}x+c_{j}),
+		      \]
+		      sendo \(a, a_{i}, b_{j}\) e \(c_{j}\) números reais e \(x^{2} + b_{j}x + c_{j}\) irredutível.
+		\item[4)] Alterando o anel comutativo com unidade de \(\mathbb{R}\) para \(\mathbb{Q}\), consideramos o anel dos polinômios com coeficientes racionais. Assim, seguindo a ideia de antes, considere o polinômio irredutível
+		      \[
+			      f(x) = x^{2} + 1\in \mathbb{Q}[x],
+		      \]
+		      que resulta no ideal maximal \(\langle x^{2}+1 \rangle \trianglelefteq \mathbb{Q}[x]\). Então, pelo \hyperlink{field_generator}{\textit{teorema anterior}},
+		      \[
+			      \frac{A}{\langle x^{2}+1 \rangle} = \frac{\mathbb{Q}[x]}{\langle x^{2}+1 \rangle}
+		      \]
+		      é um corpo. Mais ainda, existe um isomorfismo dado por
+		      \begin{align*}
+			       & \frac{\mathbb{Q}[x]}{\langle x^{2}+1 \rangle}\overbracket[0pt]{\rightarrow}^{\eta }\mathbb{Q}[i]\coloneqq \{a+bi: \;a,\; b\in \mathbb{Q}\}\subseteq \mathbb{C} \\
+			       & \eta (\overline{g(x)}) = g(i).
+		      \end{align*}
+		      Como \(\mathbb{Q}[i]\) é um corpo, podemos encontrar o inverso de qualquer elemento não-nulo dele; olharemos mais a fundo esta possibilidade. Considere um elemento qualquer de \(\mathbb{Q}[i]\) da forma \(a + bi\), isto é, buscamos definir \((a+bi)^{-1}\) Então, note que
+		      \begin{align*}
+			      (a+bi)(a-bi) = a^{2} + b^{2} & \Rightarrow \frac{1}{a+bi}\frac{1}{a-bi} = \frac{1}{a^{2}+b^{2}}                                                               \\
+			                                   & \Rightarrow \frac{1}{a+bi} = \frac{a-bi}{a^{2}+b^{2}}                                                                          \\
+			                                   & = \underbrace{\frac{a}{a^{2}+b^{2}}}_{\in \mathbb{Q}} - \underbrace{\frac{b}{a^{2}+b^{2}}}_{\in \mathbb{Q}}i\in \mathbb{Q}[i].
+		      \end{align*}
+		      Estudando um pouco mais este corpo, note que ele faz parte de uma cadeia de \textit{subcorpos}
+		      \[
+			      \mathbb{Q}\subseteq \mathbb{Q}[i]\subseteq \mathbb{C},
+		      \]
+		      mas, por exemplo,
+		      \[
+			      \mathbb{Q}i\coloneqq \{bi: b \in \mathbb{Q}\}
+		      \]
+		      não é um subcorpo. Além disso, \(\mathbb{Q}[i]\) é um \textit{corpo de frações}, especificamente um corpo de frações dos inteiros gaussianos:
+		      \[
+			      \mathbb{Q}[i] = \mathrm{Frac}(\mathbb{Z}[i]).
+		      \]
+
+		      Além disso tudo, \(\mathbb{Q}[i]\) é um \textit{espaço vetorial} sobre \(\mathbb{Q}\), o que permite conversar sobre a dimensão de \(\mathbb{Q}[i]\) sobre \(\mathbb{Q}\) e o \textit{grau de extensão}:
+		      \[
+			      [\mathbb{Q}[i]:\mathbb{Q}] = 2,
+		      \]
+		      pois uma base de \(\mathbb{Q}[i]\) sobre \(\mathbb{Q}\) é \(\{1, i\}\).
+	\end{itemize}
+\end{example}
+
+\begin{exr}
+	Com relação ao conjunto de exemplos,
+	\begin{itemize}
+		\item[i)] Prove o \hyperlink{field_generator}{\textit{teorema mencionado no exemplo 3}};
+		\item[ii)] Prove que \(\theta \) conforme definido durante a aplicação do teorema no exemplo 3 é, de fato, um isomorfismo.
+		\item[iii)] Sejam \(x-a,\: x^{2}+bx+c\) polinômios irredutíveis com coeficientes reais. Então, mostre que
+		      \begin{align*}
+			      \frac{\mathbb{R}[x]}{\langle x-a \rangle}\cong \mathbb{R}        &   \\
+			      \frac{\mathbb{R}[x]}{\langle x^{2}+bx+c \rangle}\cong \mathbb{C} & .
+		      \end{align*}
+	\end{itemize}
+\end{exr}
+
+A importância de procurar muitos exemplos nunca pode ser subestimada. Só de olhar para estes exemplos, vimos diferentes formas de construir corpos, trabalhamos com eles e retomamos diversos conceitos que já foram vistos, mas poderiam estar sendo esquecidos.
+Com respeito justamente a esta última parte, vamos destacar algumas delas.
+
+Uma das noções que aparecem neles é a de subcorpos, definidos como
+\begin{def*}
+	Dizemos que \(\mathbb{F}\) é \textbf{subcorpo} de um corpo \(\mathbb{E}\) se:
+	\begin{itemize}
+		\item[I)] \(\mathbb{F}\) é subconjunto de \(\mathbb{E}\);
+		\item[II)] \(\mathbb{F}\) é um corpo;
+		\item[III)] A identidade de \(\mathbb{F}\) é a mesma que a de \(\mathbb{E}\). \(\square\)
+	\end{itemize}
+\end{def*}
+Além dessa, nos deparamos com os corpos de frações,
+\begin{def*}
+	Seja A um domínio. O \textbf{corpo de frações sobre A} é dado por
+	\[
+		\mathrm{Frac}(A) = \biggl\{\frac{a}{b}: a\in A,\: b\in A\setminus{\{0\}}\biggr\},
+	\]
+	no qual definimos as seguintes operações:
+	\begin{align*}
+		 & \frac{a}{b} = \frac{a'}{b'} \Longleftrightarrow ab' = ba' \\
+		 & \frac{a}{b} + \frac{c}{d} \coloneqq \frac{ad + bc}{bd}    \\
+		 & \frac{a}{b} \cdot \frac{c}{d} \coloneqq \frac{ac}{bd}.
+	\end{align*}
+\end{def*}
+Sobre este chamado corpo de frações, temos que provar que ele é, de fato, um corpo. Começando pela demonstração que ele é um anel, definimos as unidades que faltam:
+\begin{align*}
+	 & 0 \coloneqq \frac{0}{1} = \frac{0}{b}\quad \forall b\in A\setminus{\{0\}} \\
+	 & 1\coloneqq \frac{1}{1} = \frac{b}{b}\quad \forall b\in A\setminus{\{0\}}.
+\end{align*}
+Quanto à parte de ser corpo, considere um elemento não-nulo de Frac(A). Então, se denotarmos este elemento por \(\frac{a}{b},\) isto significa que a e b são diferentes de zero. Em particular, podemos concluir que
+\[
+	\frac{b}{a}\in \mathrm{Frac}(A).
+\]
+Além disso,
+\[
+	\frac{a}{b}\cdot \frac{b}{a} = \frac{ab}{ab} = 1,
+\]
+ou seja, todo elemento não-nulo tem, de fato, um inverso, e ele é da forma
+\[
+	\biggl(\frac{a}{b}\biggr)^{-1} = \frac{b}{a}.
+\]
+Por exemplo, para o anel \(\mathbb{R}[x]\),
+\[
+	\mathrm{Frac}(\mathbb{R}[x]) = \biggl\{\frac{f(x)}{g(x)}:\: f(x),\; g(x)\in \mathbb{R}[x], \: g(x)\neq 0\biggr\} = \mathbb{R}[x].
+\]
+
+\begin{exr}
+	Se F é um corpo, mostre que seu corpo de frações é isomorfo a ele mesmo:
+	\[
+		\mathrm{Frac}(F)\cong F.
+	\]
+\end{exr}
+
+Revimos, também, a noção de espaço vetorial.
+\begin{def*}
+	Se \(\mathbb{F}\) é subcorpo de \(\mathbb{E}\), então \(\mathbb{E}\) é um espaço vetorial sobre \(\mathbb{F}\) se:
+	Para todos x, y e z em \(\mathbb{E}\), e para todos \(a, b\) em \(\mathbb{F}\),
+	\begin{itemize}
+		\item[1)]  \((x+y)+z = x + (y+z)\);
+		\item[2)]  \(a(x+y) = ax + ay\);
+		\item[3)] \((a+b)x = ax + bx\);
+		\item[4)] \(1_{\mathbb{F}}\cdot x = x\);
+		\item[5)] \((ab)x = a(bx)\).
+	\end{itemize}
+\end{def*}
+\begin{def*}
+	Definimos o \textbf{grau de extensão} de \(\mathbb{E}\) sobre \(\mathbb{F}\) como:
+	\[
+		[E:F]\coloneqq \mathrm{dim}_{\mathbb{F}}(\mathbb{E}).
+	\]
+\end{def*}
+\begin{example}
+	Alguns graus de extensão incluem, por exemplo,
+	\begin{itemize}
+		\item \([\mathbb{R}: \mathbb{Q}] = \infty\);
+		\item \([\mathbb{C}:\mathbb{R}] = 2\), com a base \(\{1, i\}\).
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Seja \(\mathbb{F}\) um subcorpo de \(\mathbb{E}\). Dizemos que \(\mathbb{E}\) é uma \textbf{extensão finita} de \(\mathbb{F}\) se \([\mathbb{E}:\mathbb{F}] < \infty.\)
+\end{def*}
+Se \(\mathbb{F}\) é subcorpo de \(\mathbb{E}\), escrevemos \(\mathbb{E}/\mathbb{F}.\)
+\begin{def*}
+	Extensões finitas de \(\mathbb{Q}\) são chamados \textbf{corpos de números algébricos} (\textit{algebraic number fields}). \(\square\)
+\end{def*}
+\end{document}

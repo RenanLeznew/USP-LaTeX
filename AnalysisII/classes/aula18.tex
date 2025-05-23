@@ -1,0 +1,136 @@
+\documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 14 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Diferenciação e Convergência Uniforme.
+\end{itemize}
+\subsection{Diferenciação e Convergência Uniforme.}
+\begin{example}
+	Seja \(s_{n}:(-1, 1)\rightarrow \mathbb{R}\) dada por
+	\[
+		s_{n}(x) = \sum\limits_{i=0}^{n}x^{i},
+	\]
+	em que n é um natural. Vimos que ela converge pontualmente para g em \((-1, 1)\), em que g é a função
+	\[
+		g(x) = \frac{1}{1-x}.
+	\]
+	Temos, para um valor r entre 0 e 1, a convergência uniforme de \(s_{n}\) para g
+	\[
+		s_{n}\overbracket[0pt]{\longrightarrow}^{u}g
+	\]
+	no intervalo \([-r, r]\). Com efeito, quando x pertence ao intervalo \([-r, r]\) e m é maior que n, então
+	\[
+		|s_{m}(x)-s_{n}(x)| = \biggl\vert \sum\limits_{i=0}^{m}x^{i}-\sum\limits_{i=0}^{n}x^{i} \biggr\vert = \biggl\vert \sum\limits_{i=n+1}^{m}x^{i} \biggr\vert \leq \sum\limits_{i=n+1}^{m}|x|^{i} \leq \sum\limits_{i=1}^{r}r^{i}.
+	\]
+	Como o último termo da desigualdade é uma série geométrica cujo termo é menor que 1, segue que, para n suficientemente grande,
+	\[
+		\sum\limits_{i=1}^{m}r^{i}\leq \sum\limits_{i=n+1}^{\infty}r^{i} = \frac{r^{n+1}}{1-r} < \varepsilon.
+	\]
+	Consequentemente, dado \(\varepsilon \) positivo, existe um valor \(n_{0}\) natural tal que
+	\[
+		m>n\geq n_{0}\Rightarrow |s_{m}(x)-s_{n}(x)| < \varepsilon , \quad \forall x\in [-r, r].
+	\]
+	Portanto, \(s_{n}\) é de Cauchy em \([-r, r]\), o que equivale à convergência uniforme.
+
+	Nessa mesma linha, considere a adaptação do exemplo dada por
+	\[
+		f_{n}(x) = \sum\limits_{i=0}^{n}(-1)^{i}x^{i},\quad x\in (-1, 1),
+	\]
+	resultando numa série alternada que coincide com
+	\[
+		s_{n}(-x) = f_{n}(x).
+	\]
+	Da mesma forma que fora previamente feito, pode-se provar que \(\{f_{n}\}_{n}\) converge uniformemente para alguma f dentro do intervalo \([-r, r]\), a qual necessariamente deverá ser
+	\[
+		f(x) = \frac{1}{1+x},\quad x\in (-1, 1).
+	\]
+	Daí, pelo teorema 2 da aula passada, se t for um valor entre -1 e 1, então podemos calcular
+	\begin{align*}
+		\int_{0}^{t}\frac{1}{1+x}= \mathrm{dx}\int_{0}^{t}f(x) \mathrm{dx} & = \lim_{n\to \infty}\int_{0}^{t}f_{n}(x) \mathrm{dx}                                                           \\
+		                                                                   & = \lim_{n\to \infty}\int_{0}^{t}\biggl[\sum\limits_{i=0}^{n}(-1)^{i}x^{i}\biggr] \mathrm{dx}                   \\
+		                                                                   & = \lim_{n\to \infty}\biggl[\sum\limits_{i=0}^{n}(-1)^{i}\int_{0}^{t}x^{i} \mathrm{dx}\biggr]                   \\
+		                                                                   & = \lim_{n\to \infty}\sum\limits_{i=0}^{n}(-1)^{i}\frac{t^{i+1}}{i+1}                                           \\
+		                                                                   & = \sum\limits_{i=1}^{\infty}(-1)^{i}\frac{t^{i+1}}{i+1} = \sum\limits_{n=1}^{\infty}(-1)^{n+1}\frac{t^{n}}{n}.
+	\end{align*}
+	Assim, mostramos que, se o t for um valor entre -1 e 1, mostramos que
+	\[
+		\sum\limits_{n=1}^{\infty}(-1)^{n+1}\frac{t^{n}}{n} = \int_{0}^{t}\frac{1}{1+x} \mathrm{dx} = \log^{}{(1+t)}.
+	\]
+
+	Tomando, por exemplo, \(t=-1/2\), temos
+	\begin{align*}
+		\log^{}{\biggl(\frac{1}{2}\biggr)} & = \sum\limits_{n=1}^{\infty}(-1)^{n+1}\frac{\biggl(\frac{1}{2}\biggr)^{n}}{n} \\
+		                                   & = \sum\limits_{n=1}^{\infty}(-1)^{n+1}(-1)^{n}\frac{1}{2^{n}}\frac{1}{n}      \\
+		                                   & = -\sum\limits_{n=1}^{\infty}\frac{1}{n2^{n}}.
+	\end{align*}
+	Logo,
+	\[
+		\log^{}{(2)} = \sum\limits_{n=1}^{\infty}\frac{1}{n2^{n}}.
+	\]
+\end{example}
+\begin{theorem*}
+	Se \(\{f_{n}\}_{n}\) for uma sequência de funções \(f_{n}:[a, b]\rightarrow \mathbb{R}\) de classe \(\mathcal{C}^{1}([a, b])\) tais que
+	\begin{itemize}
+		\item[i)] Existe um valor c no intervalo \([a, b]\) tal que
+		      \[
+			      f_{n}(c)\overbracket[0pt]{\longrightarrow}^{n\to \infty}L\in \mathbb{R};\&
+		      \]
+		\item[ii)] Existe uma função g em \([a, b]\) tal que
+		      \[
+			      f_{n}'\overbracket[0pt]{\longrightarrow}^{u}g,
+		      \]
+	\end{itemize}
+	então existe uma função f de classe \(\mathcal{C}^{1}([a, b])\) tal que:
+	\begin{itemize}
+		\item[I)] A sequência \(\{f_{n}\}_{n}\) converge uniformemente para f em \([a, b]\); e
+		\item[II)] A derivada da f em \([a, b]\) é igual à g:
+		      \[
+			      f'=g.
+		      \]
+	\end{itemize}
+\end{theorem*}
+Em outras palavras, este teorema fala que
+\[
+	\frac{\mathrm{d}}{\mathrm{d}x}[\lim_{}f_{n}] = \frac{\mathrm{d}f}{\mathrm{d}x} = g = \lim_{}\frac{\mathrm{d}f_{n}}{\mathrm{d}x},
+\]
+ou seja, a derivada e o limite, nas condições do teorema, ``comutam''.
+\begin{proof*}
+	Primeiramente, pelo \hyperlink{ftc}{\textit{Teorema Fundamental do Cálculo}}, se x for um valor no intervalo \([a, b]\), temos
+	\[
+		f_{n}(x) = f_{n}(c) + \int_{c}^{x}f_{n}'(y) \mathrm{dy}.
+	\]
+	Além disso, a segunda hipótese imposta sobre as \(f_{n}\)'s, ganhamos a continuidade e integrabilidade da g, tal que
+	\[
+		\int_{c}^{x}f_{n}'(y) \mathrm{dy}\overbracket[0pt]{\longrightarrow}^{n\to \infty}\int_{c}^{x}g(y) \mathrm{dy}.
+	\]
+	Por hipótese, sabemos que
+	\[
+		\lim_{n\to \infty}f_{n}(c) = L,
+	\]
+	ou seja, juntando tudo, segue que
+	\[
+		\lim_{n\to \infty}f_{n}(x) = L + \int_{c}^{x}g(y) \mathrm{dy} \eqqcolon f,
+	\]
+	que define a tal função \(f:[a, b]\rightarrow \mathbb{R}\) como o limite pontual das \(f_{n}\)'s. Temos nosso candidato à função f!
+
+	Ela é \(\mathcal{C}^{1}([a, b])\)? Sim! Por ser definida como uma integral indefinida de uma função contínua, o \hyperlink{ftc}{\textit{Teorema Fundamental do Cálculo}} garante que f é contínua e tem derivada contínua.
+
+	Finalmente, precisamos mostrar que a convergência é uniforme; com efeito, tomando um x qualquer em \([a, b]\), podemos escrever
+	\begin{align*}
+		|f_{n}(x)-f(x)| & = \biggl\vert (L_{n} - f(c)) + \int_{c}^{x}(f_{n}'(y)-g(y)) \mathrm{dy} \biggr\vert \\
+		                & \leq |f_{n}(c)-f(c)| + (b-a)\sup_{y\in[a, b]}|f_{n}'(y) - g(y)|                     \\
+		                & \overbracket[0pt]{\longrightarrow}^{n\to \infty}0 + 0 = 0.
+	\end{align*}
+	Portanto,
+	\[
+		\sup_{x\in [a, b]}|f_{n}(x)-f(x)|\leq |f_{n}(c)-L|+\sup_{y\in [a, b]}|f_{n}'(y)-g(y)|.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{example}
+	Seja
+	\[
+		f_{n}(x) = \sum\limits_{i=0}^{n}\frac{x^{i}}{i!},\quad x\in \mathbb{R},\; n\in \mathbb{N}.
+	\]
+\end{example}
+\end{document}
