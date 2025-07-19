@@ -1,0 +1,300 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 23 - 02 de Junho, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema de Parseval-Plancherel;
+	\item Tabela de Transformadas;
+	\item Convoluções.
+\end{itemize}
+\subsection{Calculando com a Transformada de Fourier.}
+Definimos
+\[
+	L^{2} = \biggl\{f:\mathbb{R}\rightarrow \mathbb{C}:\; \int_{-\infty}^{\infty}|f(x)|^{2} \mathrm{dx}<\infty\biggr\},
+\]
+o qual é um espaço vetorial com produto interno dado por
+\begin{align*}
+	 & \left< f, g \right> = \int_{-\infty}^{\infty}f(x)\overline{g(x)} \mathrm{dx}                           \\
+	 & \Vert f \Vert = \sqrt[]{\left< f, f \right>} = \sqrt[]{\int_{-\infty}^{\infty}|f(x)|^{2} \mathrm{dx}}.
+\end{align*}
+Uma curiosidade é que, na verdade, este espaço é completo! Logo, é um espaço de Hilbert!
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Operador Unitário e Ortogonal},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Um \hypertarget{unitary_operator}{\textbf{Operador Unitário}} \(U:\mathbb{C}^{n}\rightarrow \mathbb{C}^{n}\) é tal que sua inversa é seu operador adjunto, ou seja,
+	\[
+		\left< Ux, Uy \right> = \left< x, y \right> \Longleftrightarrow U^{-1}=U^{*} \Leftrightarrow U = \overline{U^{T}} \;(i.e.\; U_{ij} = \overline{U_{ji}}).
+	\]
+	Existe também o \hypertarget{orthogonal_operator}{Operador Ortogonal} \(Q:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}\), que ocorre quando
+	\[
+		\left< Qx, Qy \right> = \left< x, y \right> \Longleftrightarrow Q^{T} = Q^{-1}.
+	\]
+\end{tcolorbox}
+A seguir, mostraremos que a transformada de Fourier, pode se tornar um operador unitário sob uma dilatação da sua regra de transformação.
+\hypertarget{parseval_plancherel}{\begin{theorem*}[Parseval-Plancherel]
+		Sejam \(f, g:\mathbb{R}\rightarrow \mathbb{C}\) funções tais que todas elas e suas transformadas são de classe \(L^{1}(\mathbb{R})\), i.e.,
+		\[
+			f, g, \hat{f}, \hat{g}\in L^{1}(\mathbb{R});
+		\]
+		em particular, elas são integráveis e limitadas, tornando-as de classe \(L^{2}\) também. Logo,
+		\begin{align*}
+			 & 1)\quad \left< \mathcal{F}f, \mathcal{F}g \right> = 2\pi \left< f, g \right> \\
+			 & 2) \quad \Vert \mathcal{F}f \Vert^{2} = 2\pi \Vert f \Vert^{2}.
+		\end{align*}
+	\end{theorem*}}
+\begin{proof*}
+	1) Queremos provar que
+	\[
+		\int_{-\infty}^{\infty}\hat{f}(\xi )\overline{\hat{g}(\xi )} \mathrm{d\xi } = 2\pi \int_{-\infty}^{\infty}f(x)\overline{g(x)} \mathrm{dx}.
+	\]
+	Com efeito, basta notar que
+	\[
+		g(x) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{g}(\xi ) \mathrm{d\xi },
+	\]
+	tal que
+	\begin{align*}
+		2\pi \int_{-\infty}^{\infty}f(x)\overline{g(x)} \mathrm{dx} & = 2\pi \int_{-\infty}^{\infty}f(x)\overline{\biggl(\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{g}(\xi ) \mathrm{d\xi }\biggr)} \mathrm{dx} \\
+		                                                            & = \int_{-\infty}^{\infty}f(x)\int_{-\infty}^{\infty}e^{-ix\xi }\overline{\hat{g}(\xi )} \mathrm{d\xi } \mathrm{dx}                                  \\
+		                                                            & = \int_{-\infty}^{\infty}\overline{\hat{g(\xi )}}\int_{-\infty}^{\infty}e^{ix\xi }f(x) \mathrm{dx} \mathrm{d\xi }                                   \\
+		                                                            & = \int_{-\infty}^{\infty}\hat{f}(\xi )\overline{\hat{g}(\xi )} \mathrm{d\xi } = \left< \mathcal{F}f, \mathcal{F}g \right>.
+	\end{align*}
+
+	2) Para este, observe que
+	\[
+		\Vert \mathcal{F}f \Vert^{2} = \left< \mathcal{F}f,\mathcal{F}f\right> = 2\pi \left< f, f \right> = 2\pi \Vert f \Vert^{2}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] Sabemos já que
+		      \[
+			      \mathcal{F}(e^{-\frac{x^{2}}{2}}) = \sqrt[]{2\pi }e^{-\frac{\xi^{2}}{2}}.
+		      \]
+		      Logo,
+		      \[
+			      \Vert \mathcal{F}f \Vert^{2} = 2\pi \Vert f \Vert^{2} \Longleftrightarrow 2\pi \int_{-\infty}^{\infty}(e^{-\frac{\xi^{2}}{2}})^{2} \mathrm{d\xi }=2\pi \int_{-\infty}^{\infty}(e^{-\frac{x^{2}}{2}})^{2} \mathrm{dx},
+		      \]
+		      condizendo com o \hyperlink{parseval_plancherel}{\textit{Teorema de Plancherel}}.
+		\item[2)] Agora, considere a transformada
+		      \[
+			      \mathcal{F}(e^{-a|x|}) = \frac{2a}{a^{2}+\xi^{2}},\quad a > 0,
+		      \]
+		      para o qual
+		      \[
+			      \Vert \mathcal{F}f \Vert^{2} = 2\pi \Vert f \Vert^{2}.
+		      \]
+		      Assim, podemos calcular a integral
+		      \[
+			      \int_{-\infty}^{\infty}\frac{4a^{2}}{(a^{2}+\xi^{2})^{2}} \mathrm{d\xi } = 2\pi \int_{-\infty}^{\infty}e^{-2a|x|} \mathrm{dx}.
+		      \]
+		      Aplicando o \hyperlink{parseval_plancherel}{\textit{Teorema de Plancherel}}, segue que
+		      \begin{align*}
+			      \int_{-\infty}^{\infty}e^{-2a|x|} \mathrm{dx} = & 2\int_{0}^{\infty}e^{-2ax} \mathrm{dx} = 2 \frac{e^{-2ax}}{-2a}\biggl|_{0}^{\infty}\biggr. = \frac{1}{a} \\
+			      \Rightarrow                                     & \int_{-\infty}^{\infty}\frac{1}{(a^{2}+\xi^{2})^{2}} \mathrm{d\xi } = \frac{\pi }{2a^{3}}                \\
+			      \Rightarrow                                     & \int_{-\infty}^{\infty}\frac{1}{(1+x^{2})^{2}} \mathrm{dx} = \frac{\pi }{2}.
+		      \end{align*}
+		\item[3)] Vamos ver ainda outra forma de chegar em \(\pi \), dessa vez usando
+		      \[
+			      \mathcal{F}(\chi_{[-a, a]}) = \frac{2\sin^{}{(a\xi )}}{\xi },\quad \& \Vert \mathcal{F}f \Vert^{2} = 2\pi \Vert f \Vert^{2}.
+		      \]
+		      Neste caso,
+		      \begin{align*}
+			       & \int_{-\infty}^{\infty}\biggl\vert \frac{2\sin^{}{(a\xi )}}{\xi } \biggr\vert^{2} \mathrm{d\xi }=2\pi \int_{-\infty}^{\infty}\chi_{[-a, a]}^{2} \mathrm{dx} \\
+			       & \int_{-\infty}^{\infty}\chi_{[-a, a]}^{2}(x) \mathrm{dx} = \int_{-a}^{a}1 \mathrm{dx} = 2a                                                                  \\
+			       & 4 \int_{-\infty}^{\infty}\frac{\sin^{2}{(a\xi )}}{\xi^{2}} \mathrm{d\xi } = 2\pi 2a.
+		      \end{align*}
+		      Portanto,
+		      \[
+			      \int_{-\infty}^{\infty}\frac{\sin^{2}{(a\xi )}}{\xi^{2}} \mathrm{d\xi } = \pi a \underbrace{\Rightarrow }_{\mathclap{a=1}} \int_{-\infty}^{\infty}\frac{\sin^{2}{(x)}}{x^{2}} \mathrm{dx}=\pi .
+		      \]
+	\end{itemize}
+\end{example}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A igualdade
+	\[
+		\Vert \mathcal{F}f \Vert^{2}
+	\]
+	nos permite estender a transformada de Fourier a um operador bijetor
+	\[
+		\mathcal{F}:L^{2}(\mathbb{R})\rightarrow L^{2}(\mathbb{R}).
+	\]
+	A igualdade
+	\[
+		\Vert \mathcal{F}f \Vert^{2} = 2\pi \Vert f \Vert^{2}
+	\]
+	continua valendo para qualquer f em \(L^{2}(\mathbb{R})\).
+
+	A forma de fazer esta extensão é, dada uma função \(f\in L^{2}(\mathbb{R})\),
+	\[
+		\mathcal{F}f \coloneqq \lim_{R\to \infty}\underbrace{\int_{-R}^{R}e^{ix\xi }f(x) \mathrm{dx}}_{\hat{f}_{R}}.
+	\]
+	Este limite é tal que
+	\[
+		\lim_{R\to \infty}\Vert \mathcal{F}f - \hat{f}_{R} \Vert = 0.
+	\]
+\end{tcolorbox}
+
+Antes de passarmos para o próximo tópico, o das convoluções, vamos montar uma tabela de analogia entre séries de Fourier e Transformadas de Fourier.
+\begin{table}[H]
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{| c | c |}
+			\hline
+			\multicolumn{2}{| c |}{Analogia}                                                                                                                                                                                                             \\
+			\hline
+			Série                                                                                                                         & Transformada                                                                                                 \\
+			\hline
+			\multirow{2}{*}{} $f:[-\pi , \pi ]\rightarrow \mathbb{C},\; c_{n}=\frac{1}{2\pi }\int_{-\pi }^{\pi }e^{-inx}f(x) \mathrm{dx}$ & \(f:\mathbb{R}\rightarrow \mathbb{C},\; \hat{f}(\xi ) = \int_{-\infty}^{\infty}e^{-ix\xi }f(x) \mathrm{dx}\) \\
+			\(f\in L^{2}(-\pi , \pi )\mapsto (c_{n})_{n\in \mathbb{Z}}\)                                                                  & \(f\in L^{2}(\mathbb{R})\mapsto \hat{f}\in L^{2}(\mathbb{R})\)                                               \\
+			\hline
+			Dado \(c_{n},\; f(x) = \sum\limits_{n=-\infty}^{\infty}c_{n}e^{inx}\)                                                         & Dado \(\hat{f}\), \(f(x) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{f}(\xi ) \mathrm{d\xi }\)    \\
+			\hline
+			\hyperlink{parseval_formula}{\textit{Fórmula de Parseval}}                                                                    & \hyperlink{parseval_plancherel}{\textit{Teorema de Plancherel}}                                              \\
+			\hline
+		\end{tabular}}
+	\caption{Analogia entre Série e Transformada de Fourier}
+\end{table}
+
+\subsection{Convoluções.}
+\begin{def*}
+	Sejam \(f, g:\mathbb{R}\rightarrow \mathbb{C}\). Definimos a \textbf{convolução de f e g} como a função
+	\begin{align*}
+		 & f * g:  \mathbb{R}\rightarrow \mathbb{C}                  \\
+		 & f * g(x) = \int_{-\infty}^{\infty}f(x-y)g(y) \mathrm{dy},
+	\end{align*}
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A convolução funciona com
+	\begin{itemize}
+		\item[1)] f integrável, g limitada (vice-versa);
+		\item[2)] f, g de classes \(L^{2}(\mathbb{R})\), etc;
+		\item[3)] f de classe \(L^{1}(\mathbb{R})\), g de classe \(L^{2}(\mathbb{R})\), etc.
+	\end{itemize}
+\end{tcolorbox}
+
+\begin{prop*}[Propriedades da Convolução.]
+	Dadas duas funções \(f, g:\mathbb{R}\rightarrow \mathbb{C}\), a convolução delas satisfaz:
+	\begin{align*}
+		 & i)\;f*g = g*f                                                                               \\
+		 & ii)\; f*(\alpha g+\beta h) = af*g + \beta f*h, \quad \forall \alpha , \beta \in \mathbb{C}; \\
+		 & iii)\; f*(g*h) = (f*g)*h;                                                                   \\
+		 & iv)\; \frac{\mathrm{d}}{\mathrm{d}x}(f*g) = f'*g = f*g'.
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	i) Fazemos a conta
+	\[
+		f*g = \int_{-\infty}^{\infty}f(x-y)g(y) \mathrm{dy} \underbrace{=}_{\mathclap{\substack{z=x-y \\ dz = dy}}} \int_{-\infty}^{\infty}f(z)g(x-z) \mathrm{dz} = \int_{-\infty}^{\infty}g(x-y)f(y) \mathrm{dy} = g*f.
+	\]
+
+	ii) Para este, temos
+	\begin{align*}
+		f*(\alpha g + \beta h)(x) & = \int_{-\infty}^{\infty}f(x-y)(\alpha g(y) + \beta h(y)) \mathrm{dy}                                        \\
+		                          & = \alpha \int_{-\infty}^{\infty}f(x-y)g(y) \mathrm{dy} + \beta \int_{-\infty}^{\infty}f(x-y)h(y) \mathrm{dy} \\
+		                          & = \alpha f * g(x) + \beta f*h(x).
+	\end{align*}
+
+	iii) Agora, usaremos a propriedade (i) e obtemos
+	\begin{align*}
+		f*(g*h)(x) = f*(h*g)(x) & = \int_{-\infty}^{\infty}f(x-y)(h*g)(y) \mathrm{dy}                                                     \\
+		                        & = \int_{-\infty}^{\infty}f(x-y)\biggl(\int_{-\infty}^{\infty}h(y-z)g(z) \mathrm{dz}\biggr) \mathrm{dy}  \\
+		                        & = \int_{-\infty}^{\infty}\biggl(\int_{-\infty}^{\infty}f(x-y)h(y-z)g(z) \mathrm{dy}\biggr) \mathrm{dz}  \\
+		                        & = \int_{-\infty}^{\infty}\biggl(\int_{-\infty}^{\infty}f(w)h(x-w-z)g(z) \mathrm{dw}\biggr) \mathrm{dz}, \\
+		                        & \quad w = x-y,\; z=z.
+	\end{align*}
+	Por outro lado,
+	\begin{align*}
+		(f*g)*h(x) = \int_{-\infty}^{\infty}(f*g)(x-y)h(y) \mathrm{dy} & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}f(x-y-z)g(z) \mathrm{dz}h(y) \mathrm{dy}               \\
+		                                                               & = \int_{-\infty}^{\infty}\biggl(\int_{-\infty}^{\infty}f(x-y-z)g(z)h(y) \mathrm{dy}\biggr) \mathrm{dz} \\
+		                                                               & = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} f(w)g(z)h(x-w-z) \mathrm{dw}\mathrm{dz},              \\
+		                                                               & \quad w=x-y-z,\; z=z.
+	\end{align*}
+	Logo,
+	\[
+		f*(g*h)(x) = (f*g)*h(x).
+	\]
+
+	iv) Para esta, supondo que existam as derivadas e integrais necessárias, por um lado temos
+	\[
+		\frac{\mathrm{d}}{\mathrm{d}x}\int_{-\infty}^{\infty}f(x-y)g(y) \mathrm{dy} = \int_{-\infty}^{\infty}\frac{\mathrm{d}}{\mathrm{d}x}f(x-y)g(y) \mathrm{dy} = f'*g(x),
+	\]
+	enquanto que, por outro, podemos usar a propriedade (i) a fim de obtermos
+	\[
+		\frac{\mathrm{d}}{\mathrm{d}x}(f*g) = \frac{\mathrm{d}}{\mathrm{d}x}(g*f) = g'*f = f*g'. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Agora, veremos como as convoluções se relacionam com as transformadas de Fourier.
+
+\begin{prop*}[Transformadas de Fourier e Convoluções]
+	Considere funções \(f, g:\mathbb{R}\rightarrow \mathbb{C}\) bem comportadas (por exemplo, de classe \(L^{2}\)). Então,
+	\begin{align*}
+		 & \mathcal{F}(f*g) = \mathcal{F}f \mathcal{F}g;                        \\
+		 & \mathcal{F}^{-1}(f*g) = 2\pi (\mathcal{F}^{-1}f)(\mathcal{F}^{-1}g).
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	Para isso, note que
+	\[
+		\mathcal{F}(f*g) = \int_{}^{}e^{-ix\xi }f*g(x) \mathrm{dx} = \int_{}^{}e^{-ix\xi }\biggl(\int_{}^{}f(x-y)g(y) \mathrm{dy}\biggr) \mathrm{dx},
+	\]
+	sendo que
+	\[
+		e^{-ix\xi } = e^{-i(x-y)\xi }e^{-iy\xi },
+	\]
+	resultando na continuação das igualdades acimas como:
+	\begin{align*}
+		\mathcal{F}(f*g) & =\int_{}^{}e^{-ix\xi }\biggl(\int_{}^{}f(x-y)g(y) \mathrm{dy}\biggr) \mathrm{dx}                        \\
+		                 & =\int_{}^{}\int_{}^{}e^{-i(x-y)\xi }e^{-iy\xi }f(x-y)g(y) \mathrm{dy} \mathrm{dx}                       \\
+		                 & =\int_{}^{}\int_{}^{}e^{-i(x-y)\xi }f(x-y)e^{-iy\xi }g(y) \mathrm{dy} \mathrm{dx}                       \\
+		                 & =\int_{}^{}\int_{}^{}e^{-iz\xi }f(z)e^{-iy\xi }g(y) \mathrm{dy} \mathrm{dz}                             \\
+		                 & =\int_{}^{}e^{-iz\xi }f(z) \mathrm{dz}\int_{}^{}e^{-iy\xi }g(y) \mathrm{dy}= \mathcal{F}f \mathcal{F}g.
+	\end{align*}
+
+	Por outro lado, para a transformada inversa,
+	\begin{align*}
+		\mathcal{F}^{-1}(f*g) & = \frac{1}{2\pi }\int_{}^{}e^{ix\xi }f*g(x) \mathrm{dx}                                                                                    \\
+		                      & = \frac{1}{2\pi }\int_{}^{}e^{ix\xi }\int_{}^{}f(x-y)g(y) \mathrm{dy}\mathrm{dx}                                                           \\
+		                      & = \frac{1}{2\pi }\int_{}^{} \int_{}^{}e^{i(x-y)\xi }f(x-y)e^{iy\xi }g(y) \mathrm{dy}\mathrm{dx}                                            \\
+		                      & = \frac{1}{2\pi }\int_{}^{}e^{iz\xi }f(z) \mathrm{dz}\int_{}^{}e^{iy\xi }g(y) \mathrm{dy}                                                  \\
+		                      & = 2\pi \biggl(\frac{1}{2\pi }\int_{}^{}e^{iz\xi }f(z) \mathrm{dz}\biggr)\biggl(\frac{1}{2\pi }\int_{}^{}e^{iy\xi }g(y) \mathrm{dy}\biggr).
+	\end{align*}
+	Portanto,
+	\[
+		\mathcal{F}^{-1}(f*g) = 2\pi \mathcal{F}^{-1}f \mathcal{F}^{-1}g.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\end{document}

@@ -1,0 +1,131 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 26 - 11 de Junho, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Equação de Laplace e Núcleo de Poisson
+\end{itemize}
+\subsection{Equação de Laplace com Fourier.}
+Conforme estivemos fazendo, vamos analisar agora a equação de Laplace pela perspectiva da transformada de Fourier e convolução. Vale relembrarmos que a equação de Laplace é o problema
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial x^{2}}(x, y) + \frac{\partial^{2}u}{\partial y^{2}}(x, y)=0, & \quad y>0,\: x\in \mathbb{R} \\
+		u(x, 0) = f(x), x\in \mathbb{R}
+	\end{array}\right..
+\]
+Seguiremos o mesmo roteiro que foi feito até agora para o uso da transformada de Fourier:
+\begin{itemize}
+	\item[1)] Aplicamos \(\mathcal{F}\) em x e encontramos uma versão mais fácil da EDP;
+	\item[2)] Resolvemos a equação mais fácil;
+	\item[3)] Simplificamos com a convolução.
+\end{itemize}
+Começaremos supondo que \(u\in \mathcal{C}^{2}(\mathbb{R})\), com derivadas integráveis e de crescimento controlado:
+\[
+	|x|\rightarrow \infty \Rightarrow u(x,y)\rightarrow 0,\; \frac{\partial^{}u}{\partial x^{}}\rightarrow 0.
+\]
+
+Do primeiro passo, segue que
+\[
+	\left\{\begin{array}{ll}
+		\mathcal{F}\biggl(\frac{\partial^{2}u}{\partial x^{2}}\biggr) + \mathcal{F}\biggl(\frac{\partial^{2}u}{\partial y^{2}}\biggr) = 0 \\
+		\mathcal{F}(u(x, 0)) = \mathcal{F}f
+	\end{array}\right.,
+\]
+sendo que podemos elaborar notando que
+\begin{align*}
+	 & \circ \mathcal{F}\biggl(\frac{\partial^{2}u}{\partial y^{2}}\biggr) = \int_{-\infty}^{\infty}e^{-ix\xi }\frac{\partial^{2}u}{\partial y^{2}}(x, y) \mathrm{dx} = \frac{\partial^{2}\hat{u}}{\partial y^{2}}(\xi , y)                                                              \\
+	 & \circ \mathcal{F}\biggl(\frac{\partial^{2}u}{\partial x^{2}}\biggr) = \int_{-\infty}^{\infty}e^{-ix\xi }\frac{\partial^{2}u}{\partial x^{2}}(x, y) \mathrm{dx} = i\xi \int_{-\infty}^{\infty}e^{-ix\xi }\frac{\partial^{}u}{\partial x^{}} \mathrm{dx} = -\xi^{2}\hat{u}(\xi , y) \\
+	 & \circ \hat{u}(\xi, 0) = \hat{f}(\xi ).
+\end{align*}
+Logo, a equação mais fácil é da forma
+\begin{align*}
+	 & -\xi^{2}\hat{u}(\xi , y) + \frac{\partial^{2}\hat{u}}{\partial y^{2}}(\xi , y) = 0 \\
+	 & \hat{u}(\xi , 0) = \hat{f}(\xi ).
+\end{align*}
+
+Assim, no passo 2, iremos fixar o \(\xi \) e resolver em y! Com efeito,
+\[
+	\hat{u}''(\xi , y) = + \xi^{2}\hat{u}(\xi ,y),
+\]
+e aqui, no termo \(\xi^{2}\), aparece a diferença entre a onda e a equação de Laplace. Já sabemos como resolver equações da forma como a acima:
+\[
+	\hat{u}(\xi , y) = A(\xi )e^{|\xi |}y + B(\xi ) e^{-|\xi |y},
+\]
+mas precisamos tomar \(A(\xi ) = 0\), pois o termo que o acompanha cresce muito rápido, então a transformada inversas não está bem-definida. Logo,
+\[
+	\hat{u}(\xi , y) = B(\xi )e^{-|\xi |y}.
+\]
+Como
+\[
+	\hat{f}(\xi ) = \hat{u}(\xi , 0),
+\]
+segue que B tem a foram
+\[
+	B(\xi ) = \hat{f}(\xi ).
+\]
+Consequentemente,
+\[
+	u(x, y) = \mathcal{F}^{-1}(\hat{f}(\xi )e^{-|\xi |y}) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }e^{-|\xi |y}\hat{f}(\xi ) \mathrm{d\xi }.
+\]
+
+Finalmente, usando a convolução, temos
+\[
+	u(x, y) = \mathcal{F}^{-1}(\hat{f}(\xi )e^{-|\xi |y}) = \mathcal{F}^{-1}(e^{-|\xi |y})*\mathcal{F}^{-1}(\hat{f}(\xi )) = \biggl(\frac{y}{\pi (y^{2}+x^{2})}\biggr)*f.
+\]
+Como \(f*g = g*f\), podemos dizer que a solução tem a forma
+\[
+	u(x, y) = \int_{-\infty}^{\infty}\frac{y}{\pi (y^{2}+(x-s)^{2})}f(s) \mathrm{ds} = \frac{1}{\pi }\int_{-\infty}^{\infty}\frac{y}{(y^{2}+s^{2})}f(x-s) \mathrm{ds}.
+\]
+\begin{def*}
+	O \textbf{núcleo/kernel de Poisson} é a função
+	\[
+		P(x, y) = P_y(x) = \frac{1}{\pi }\frac{y}{y^{2}+x^{2}}
+	\]
+\end{def*}
+\begin{prop*}[Propriedades do Núcleo de Poisson]
+	A função definida acima tem as seguintes propriedades:
+	\begin{itemize}
+		\item[1)] Para quaisquer x real e y positivo,
+		      \[
+			      \Delta P(x, y) =0;
+		      \]
+		\item[2)] Para todo y positivo,
+		      \[
+			      \int_{-\infty}^{\infty}P_y(x) \mathrm{dx} = 1.
+		      \]
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	1) Para ver isso, temos que afzer muita conta. Começando pela variável y,
+	\begin{align*}
+		 & \partial_y \biggl(\frac{y}{y^{2}+x^{2}}\biggr) = \frac{1}{y^{2}+x^{2}} - \frac{2y^{2}}{(y^{2}+x^{2})^{2}} = \frac{x^{2}-y^{2}}{(x^{2}+y^{2})^{2}}                                                                                             \\
+		 & \partial_{y}^{2} \biggl(\frac{y}{y^{2}+x^{2}}\biggr) = \partial_y \biggl(\frac{x^{2}-y^{2}}{(x^{2}+y^{2})^{2}}\biggr) = -\frac{2y}{(x^{2}+y^{2})^{2}} - 4 \frac{yx^{2}-y^{3}}{(x^{2}+y^{2})^{3}} = -\frac{6yx^{2}+2y^{3}}{(x^{2}+y^{2})^{3}}.
+	\end{align*}
+	Para a variável x, temos
+	\begin{align*}
+		 & \partial_x \biggl(\frac{y}{y^{2}+x^{2}}\biggr) = -\frac{2xy}{(y^{2}+x^{2})^{2}}                                                                                                                                               \\
+		 & \partial_{x}^{2} \biggl(\frac{y}{y^{2}+x^{2}}\biggr) = \partial_x \biggl(\frac{-2xy}{(x^{2}+y^{2})^{2}}\biggr) = -\frac{2y}{(x^{2}+y^{2})^{2}} + \frac{4xy 2x}{(x^{2}+y^{2})^{3}} = \frac{6xy^{2}-2y^{3}}{(x^{2}+y^{2})^{3}}.
+	\end{align*}
+	Portanto,
+	\[
+		\Delta P(x, y) = \partial_{x}^{2}P(x, y) + \partial_{y}^{2} P(x, y) = 0.
+	\]
+
+	2) Aqui, calculamos a integral diretamente:
+	\begin{align*}
+		\int_{-\infty}^{\infty}P_y(x) \mathrm{dx} = \frac{1}{\pi }\int_{-\infty}^{\infty}\frac{y}{y^{2}+x^{2}} \mathrm{dx} & = \frac{1}{\pi } \int_{-\infty}^{\infty}\frac{1}{1+\bigl(\frac{x}{y}\bigr)^{2}} \frac{\mathrm{dx}}{y}                        \\
+		                                                                                                                   & = \frac{1}{\pi }\int_{-\infty}^{\infty}\frac{1}{1+z^{2}} \mathrm{dz},\quad z = \frac{x}{y}                                   \\
+		                                                                                                                   & = \frac{1}{\pi }\arctan(z)\biggl|_{-\infty}^{\infty}\biggr. = \frac{1}{\pi }\biggl(\frac{\pi }{2}+\frac{\pi }{2}\biggr) = 1.
+	\end{align*}
+\end{proof*}
+A interpretação desse núcleo é que ele funciona de forma similar a um delta de Kronecker, pois \(P(x, 0) = \delta_{0}(x)\). Além disso, usando \hyperlink{parseval_plancherel}{\textit{Plancherel}}, temos
+\[
+	2\pi \int_{-\infty}^{\infty}|f(x)|^{2} \mathrm{dx} = \int_{-\infty}^{\infty}|\hat{f}(\xi )|^{2} \mathrm{d\xi },
+\]
+donde segue que
+\begin{align*}
+	\int_{-\infty}^{\infty}|u(x, y)|^{2} \mathrm{dx} = \frac{1}{2\pi }\int_{-\infty}^{\infty}|\hat{u}(\xi , y)|^{2} \mathrm{d\xi } & = \frac{1}{2\pi }\int_{-\infty}^{\infty}|e^{-|\xi |y}\hat{f}(\xi )|^{2} \mathrm{d\xi }                                         \\
+	                                                                                                                               & = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{-2y|\xi |} |\hat{f}(\xi )|^{2} \mathrm{d\xi }                                       \\
+	                                                                                                                               & \leq \frac{1}{2\pi }\int_{-\infty}^{\infty}|\hat{f}(\xi )|^{2} \mathrm{d\xi } = \int_{-\infty}^{\infty}|f(x)|^{2} \mathrm{dx}.
+\end{align*}
+\end{document}

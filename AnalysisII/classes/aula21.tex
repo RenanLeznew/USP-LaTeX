@@ -1,0 +1,149 @@
+\documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 21 - 02 de Junho, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Familiarizando com Raio de Convergência;
+	\item Série de Taylor.
+\end{itemize}
+\subsection{As Séries de Taylor: Versão Potência.}
+Na aula passada, vimos que, como consequência do teste da raiz para séries numéricas, é possível associar um intervalo I a cada série de potências, consistindo dos números reais x tais que ela é convergente, donde saíram os nomes de raio de convergência e intervalo de convergência da série. A partir disso, podemos definir
+\begin{def*}
+	Se \(R > 0\) for um número positivo, então \(f:(x_{0}-R, x_{0}+R)\rightarrow \mathbb{R}\) dada por
+	\[
+		f(x)\coloneqq \sum\limits_{n=0}^{\infty}a_{n}(x-x_{0})^{n}
+	\]
+	é uma função contínua chamada de \textbf{Série de Taylor da função f em torno de }\(x_{0}.\; \square\)
+\end{def*}
+O que mostraremos a seguir é que uma função f que pode ser escrita como uma série de Taylor é infinitamente diferenciável no seu intervalo de convergência. O ponto chave consistirá em estabelecer que, dada a hipótese da série de potências de f possuir um raio de convergência, então a série das derivadas, que também será uma série de potências, possuirá o mesmo raio de convergência.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Dado um \(x\) real e diferente de zero, segue das propriedades operatórias das séries numéricas que
+	\[
+		\sum\limits_{n=1}^{\infty}na_{n}x^{n-1}
+	\]
+	converge se, e somente se,
+	\[
+		x \sum\limits_{n=1}^{\infty}na_{n}x^{n-1} = \sum\limits_{n=1}^{\infty}na_{n}x^{n}
+	\]
+	converge.
+\end{tcolorbox}
+Sem mais delongas, vamos nos restringir ao caso \(x_{0} = 0\) sem perda de generalidade, com o caso geral sendo um exercício.
+\begin{lemma*}
+	Dado um número positivo \(R > 0\), então as séries
+	\[
+		\sum\limits_{}^{}a_{n}x^{n}\quad\&\quad \sum\limits_{}^{}na_{n}x^{n-1}
+	\]
+	possuem o mesmo raio de convergência.
+\end{lemma*}
+\begin{proof*}
+	Antes de mais nada, denote por R o raio de convergência da série \(\sum\limits_{}^{}a_{n}x^{n}\). Feito isso, comecemos calculando o raio de convergência da série
+	\[
+		\sum\limits_{n=1}^{\infty}na_{n}x^{n} = 0 + a_{1}x + 2a_2x^{2} + 3a_3x^{3} +\dotsc .
+	\]
+	Para isso, identifiquemos
+	\[
+		b_{n} = \left\{\begin{array}{ll}
+			0,      & \quad n=0            \\
+			na_{n}, & \quad n=1, 2, \dotsc
+		\end{array}\right.
+	\]
+	como sendo a sequência de coeficientes da série. Com isso, seu raio de convergência R' será dado por
+	\begin{align*}
+		\frac{1}{R'} = \limsup_{\to }|b_{n}|^{\frac{1}{n}} & = \limsup_{\to }|na_{n}|^{\frac{1}{n}}                              \\
+		                                                   & = \limsup_{\to }[(n^{\frac{1}{n}})|a_{n}|^{\frac{1}{n}}]            \\
+		                                                   & = (\lim_{\to }n^{\frac{1}{n}})(\limsup_{\to }|a_{n}|^{\frac{1}{n}}) \\
+		                                                   & = \limsup_{\to }|a_{n}|^{\frac{1}{n}}=\frac{1}{R},
+	\end{align*}
+	pois \(\lim_{\to }n^{\frac{1}{n}} = 1\) e onde usamos a propriedade do limsup de
+	\[
+		\limsup_{\to }(y_{n}x_{n}) = (\lim_{\to }y_{n})(\limsup_{\to }x_{n}).
+	\]
+	Logo,
+	\[
+		\frac{1}{R'} = \frac{1}{R} \Longleftrightarrow R = R',
+	\]
+	que, junto à observação, permite concluirmos que
+	\begin{align*}
+		 & |x| < R \Rightarrow \sum\limits_{n=1}^{\infty}na_{n}x^{n-1} \text{ converge absolutamente; e} \\
+		 & |x| > R \Rightarrow \sum\limits_{n=1}^{\infty}na_{n}x^{n-1} \text{ diverge.}
+	\end{align*}
+	Portanto, R deve ser de fato o raio de convergência de \(\sum\limits_{}^{}na_{n}x^{n-1}.\) \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se \(R > 0\), então a função \(f:(-R, R)\rightarrow \mathbb{R}\) definida pela série de potências
+	\[
+		f(x)\coloneqq \sum\limits_{}^{}a_{n}x^{n}
+	\]
+	é infinitamente derivável, com suas derivadas sucessivas dadas por
+	\[
+		f^{(i)}(x) = \sum\limits_{n=1}^{\infty}n(n-1)\dotsc (n-(i-1))a_{n}x^{n-i},\quad |x|<R.
+	\]
+	Além disso,
+	\[
+		a_{n} = \frac{f^{(n)}(0)}{n!},\quad n=0,1,2,\dotsc .
+	\]
+\end{theorem*}
+\begin{proof*}
+	Com efeito, pelas propriedades da convergência uniforme e do fato de
+	\[
+		f(x)=\sum\limits_{}^{}a_{n}x^{n} \quad\&\quad f'(x) = \sum\limits_{}^{}(a_{n}x^{n})' = \sum\limits_{}^{}na_{n}x^{n-1}
+	\]
+	terem o mesmo raio de convergência, o resultado é que \(\sum\limits_{}^{}na_{n}x^{n}\) converge uniformemente em \([-r, r]\subseteq (-R, R)\) para todo r estritamente entre 0 e R. Logo, colocando
+	\[
+		g(x)\coloneqq \sum\limits_{n=1}^{\infty}na_{n}x^{n-1},\quad |x|<R,
+	\]
+	segue que f é derivável e que \(f'= g\) em \((-R, R)\); em particular, \(f'\) é contínua com
+	\[
+		f'(x) = \sum\limits_{n=1}^{\infty}na_{n}x^{n-1} = g(x).
+	\]
+
+	Num processo análogo ao feito acima, \(\sum\limits_{n=1}^{\infty}na_{n}x^{n-1}\) é uma série de potências com raio de convergência \(R > 0\), resultando na série de suas derivadas
+	\[
+		\sum\limits_{n=2}^{\infty}n(n-1)a_{n}x^{n-2} = \sum\limits_{n=1}^{\infty}(na_{n}x^{n-1})'
+	\]
+	tendo raio de convergência R pelo lema provado. Consequentemente, \(f'\) é derivável com derivada
+	\[
+		f''(x) = \sum\limits_{n=2}^{\infty}n(n-1)a_{n}x^{n-2},\quad |x| < R,
+	\]
+	ou seja, ela é dada por uma série de potências com o mesmo raio de convergência \textit{também}.
+
+	Repetindo este processo analogamente para todo natural i, conclui-se que f é uma função suave (\(\mathcal{C}^{\infty}\)) em \((-R, R)\), com derivadas dadas pela fórmula
+	\[
+		f^{(i)}(x) = \sum\limits_{n=1}^{\infty}n(n-1)\dotsc (n-(i-1))a_{n}x^{n-i},\quad |x|<R.
+	\]
+	Particularmente, ao selecionar a i-ésima derivada de f em \(x=0\), a expressão fica
+	\begin{align*}
+		f^{(i)}(0) & = i(i-1)(i-2)\dotsc (i-i+1)a_{i}0^{i-i} + \sum\limits_{n=i+1}^{\infty}n(n-1)\dotsc (n-i+1)a_{n}0^{n-i} \\
+		           & = i!a_{i} \Rightarrow a_{i} = \frac{f^{(i)}(0)}{i!},
+	\end{align*}
+	concluindo, portanto, a prova. \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Como de costume, para simplifica a notação, convencionamos \(0^{0} = 1\) para não ficar escrevendo
+	\[
+		\sum\limits_{n=0}^{\infty}a_{n}x^{n} = a_{0} + \sum\limits_{n=1}^{\infty}a_{n}x^{n}.
+	\]
+\end{tcolorbox}
+\end{document}

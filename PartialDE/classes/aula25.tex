@@ -1,0 +1,228 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 25 - 09 de Junho, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Núcleo do Calor - Propriedades;
+	\item Equação da Onda com Fourier;
+	\item Equação de D'Alembert.
+\end{itemize}
+\subsection{Propriedades do Núcleo do Calor.}
+Com relação à última aula, é possível verificar que \(u(x, t)\), dada por
+\[
+	u(x, t) = \mathcal{F}^{-1}(e^{-t\xi^{2}}\hat{u}_{0}) = K_{t}*u_{0},
+\]
+converge para \(u_{0}(x)\) quando t tende a 0? A resposta é que sim! Temos
+\begin{align*}
+	u(x, t) = \frac{1}{\sqrt[]{4\pi t}}\int_{-\infty}^{\infty}e^{-\frac{(x-y)^{2}}{4t}}u_{0}(y) \mathrm{dy} & \underbrace{=}_{\mathclap{\substack{z=\frac{x-y}{\sqrt[]{4t}}                                                                             \\ -\sqrt[]{4t}dz = dy}}} \frac{1}{\sqrt[]{4\pi t}}\int_{-\infty}^{\infty}e^{-z^{2}}u_{0}(x-\sqrt[]{4t}z)\sqrt[]{4t} \mathrm{dz}\\
+	                                                                                                        & = \frac{1}{\sqrt[]{\pi }}\int_{-\infty}^{\infty}e^{-z^{2}}u_{0}(x-\sqrt[]{4t}z) \mathrm{dz} \overbracket[0pt]{\longrightarrow}^{t\to 0}0.
+\end{align*}
+Portanto,
+\[
+	(x, t) \overbracket[0pt]{\rightarrow}^{t\to 0} \frac{1}{\sqrt[]{\pi }}\int_{-\infty}^{\infty}e^{-z^{2}}\mathrm{dz}u_{0}(x) = u_{0}(x).
+\]
+
+Além disso, a u é \(\mathcal{C}^{\infty}\) se u é limitada, já que
+\[
+	\partial_{x}^{j}\partial_{z}^{k}\int_{-\infty}^{\infty}\frac{1}{\sqrt[]{4\pi t}}e^{-\frac{(x-y)^{2}}{4t}}u_{0}(y) \mathrm{dy} = \int_{-\infty}^{\infty}\partial_{x}^{j}\partial_{x}^{k}\biggl(\frac{1}{\sqrt[]{4\pi t}}e^{-\frac{(x-y)^{2}}{4t}}\biggr)u_{0}(y) \mathrm{dy},
+\]
+pois \(K(x-y, t)u_{0}(y)\) é integrável, assim como suas derivadas\footnotetext{A justificativa disso requer o curso de teoria da medida.}. Em particular,
+\begin{align*}
+	\frac{\partial^{}u}{\partial t^{}} - \frac{\partial^{2}u}{\partial x^{2}} & = \int_{-\infty}^{\infty}\biggl[\frac{\partial^{}}{\partial t^{}}(K(x-y, t))-\frac{\partial^{2}}{\partial x^{2}}(K(x-y, t))\biggr]u_{0}(y) \mathrm{dy} \\
+	                                                                          & = \frac{\partial^{}K}{\partial t^{}}(x-y, t) - \frac{\partial^{2}K}{\partial x^{2}}(x-y, t) = 0,
+\end{align*}
+indicando que u satisfaz a equação do calor.
+
+Com uma aplicação da \hyperlink{parseval_plancherel}{\textit{fórmula de Plancherel}}, chegamos em
+\[
+	2\pi \int_{-\infty}^{\infty}|u(x, t)|^{2} \mathrm{dx} = \int_{-\infty}^{\infty}e^{-2\xi^{2}t}|u_{0}(\xi )|^{2} \mathrm{d\xi },
+\]
+tal que se u é uma função de quadrado integrável e t tende a infinito, a função tende a 0 -- ela ``dispersa''
+
+Um resumão de tudo que vimos até o momento sobre o calor é que uma solução u tem forma
+\[
+	u(x, t) = \mathcal{F}^{-1}\hat{u}(\xi , t),
+\]
+com
+\[
+	\hat{u}(\xi , t) = e^{-\xi^{2}t}\hat{u}_{0}(\xi ) \quad\&\quad u(x, t) = \int_{-\infty}^{\infty}K(x-y, t)u_{0}(y) \mathrm{dy}
+\]
+e que, além disso, \(K(x, t) = \frac{1}{\sqrt[]{4\pi t}}e^{-\frac{x^{2}}{4t}}\) é o núcleo do calor, o qual satisfaz
+\[
+	\frac{\partial^{}K}{\partial t^{}} = \frac{\partial^{2}K}{\partial x^{2}} \quad\&\quad K(x, 0) = \delta_{0}(x).
+\]
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	No estudo das EDOs, vimos a exponencial de uma matriz \(A\in \mathbb{M}_{n, n}(\mathbb{R})\) como solução para
+	\[
+		\left.\begin{array}{ll}
+			x'(t) = Ax(t) \\
+			x(0) = x_{0}
+		\end{array}\right\}x(t) = e^{tA}x_{0}.
+	\]
+	Podemos fazer um análogo nas EDPs para o problema do calor:
+	\[
+		\left.\begin{array}{ll}
+			\frac{\partial^{}u}{\partial t^{}} = \Delta u \\
+			u(0) = u_{0}
+		\end{array}\right\}u(t) = e^{t\Delta }u_{0},
+	\]
+	onde \(\Delta \) é o Laplaciano e escrevemos daquela forma para
+	\[
+		e^{t\Delta }u_{0} = \mathcal{F}^{-1}(e^{-t\xi^{2}}\hat{u}_{0}) = K_{t}*u_{0}.
+	\]
+
+	Como
+	\[
+		K_t*K_s = K_{t+s},
+	\]
+	segue que
+	\[
+		e^{t\Delta }e^{s\Delta } u_{0} = K_{t}*(K_{s}*u_{0}) = K_{t+s}*u_{0} = e^{(t+s)\Delta }u_{0}.
+	\]
+\end{tcolorbox}
+
+\subsection{A Equação da Onda: Versão com Fourier.}
+Estudamos o problema
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u}{\partial t^{2}}(x, t) = \frac{\partial^{2}u}{\partial x^{2}}(x, t), & \quad x\in \mathbb{R},\; t\in \mathbb{R} \\
+		u(x, 0) = u_{0}(x),                                                                      & \quad x\in \mathbb{R}                    \\
+		\frac{\partial^{}u}{\partial t^{}}(x, 0) = v_{0}(x),                                     & \quad x\in \mathbb{R}
+	\end{array}\right.
+\]
+e supomos que
+\[
+	u\in \mathcal{C}^{2}(\mathbb{R}^{2}),\; u,\; \frac{\partial^{}u}{\partial t^{}},\; \frac{\partial^{}u}{\partial x^{}},\; \frac{\partial^{2}u}{\partial x^{2}}
+\]
+são todas integráveis, com
+\[
+	u(x, t)\overbracket[0pt]{\longrightarrow}^{|x|\to \infty}0 \quad\&\quad \frac{\partial^{}u}{\partial x^{}}(x, t)\overbracket[0pt]{\longrightarrow}^{|x|\to \infty}0.
+\]
+A forma para resolver isto com a transformada será pelos passos
+\begin{itemize}
+	\item[Passo 1)] Aplicar \(\mathcal{F}\) em x e achar a equação mais fácil;
+	\item[Passo 2)] Resolver a equação mais fácil;
+	\item[Passo 3)] Usar convolução para simplificar.
+\end{itemize}
+
+No primeiro passo, segue que
+\begin{align*}
+	\mathcal{F}\biggl(\frac{\partial^{2}u}{\partial t^{2}}\biggr) = \int_{-\infty}^{\infty}e^{-ix\xi }\frac{\partial^{2}u}{\partial t^{2}}(x, t) \mathrm{dx} & = \frac{\partial^{2}}{\partial t^{2}}\int_{-\infty}^{\infty}e^{-ix\xi }u(x, t) \mathrm{dx} \\
+	                                                                                                                                                         & = \frac{\partial^{2}\hat{u}}{\partial t^{2}}(\xi , t).
+\end{align*}
+Por outro lado,
+\begin{align*}
+	\mathcal{F}\biggl(\frac{\partial^{2}u}{\partial x^{2}}\biggr) = \int_{-\infty}^{\infty}\underbrace{e^{-ix\xi }}_{f}\underbrace{\frac{\partial^{2}u}{\partial x^{2}}(x, t)}_{g} \mathrm{dx} & =-\int_{-\infty}^{\infty}(-i\xi )e^{-ix\xi }\frac{\partial^{}u}{\partial x^{}}(x, t) \mathrm{dx} + fg \biggl|_{-\infty}^{\infty}\biggr. \\
+	                                                                                                                                                                                           & = \int_{-\infty}^{\infty}(-i\xi )^{2}e^{-ix\xi }u(x, t) \mathrm{dx} + fg \biggl|_{-\infty}^{\infty}\biggr.                              \\
+	                                                                                                                                                                                           & = (i\xi )^{2}\hat{u}(\xi , t) = -\xi^{2}\hat{u}(\xi , t).
+\end{align*}
+Assim, passamos de uma EDP temporal para uma EDO da mola para cada \(\xi \) fixo:
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}\hat{u}}{\partial t^{2}}(\xi , t) = -\xi^{2}\hat{u}(\xi , t), & \quad t\in \mathbb{R},\; \xi \in \mathbb{R} \\
+		\hat{u}(\xi , 0) = \hat{u}_{0}(\xi ),                                           & \quad \xi \in \mathbb{R}                    \\
+		\frac{\partial^{}\hat{u}}{\partial t^{}}(\xi , 0) = \hat{v}_{0}(\xi ),          & \quad \xi \in \mathbb{R}
+	\end{array}\right..
+\]
+
+Finalizado o passo 1, podemos passar para o 2 e resolver esta EDO:
+\[
+	x'' = - \lambda x \Rightarrow x = A \cos^{}{(\sqrt[]{\lambda }x)} + B \sin^{}{(\sqrt[]{\lambda }x)}.
+\]
+Como
+\[
+	\frac{\partial^{2}\hat{u}}{\partial t^{2}} = -\xi^{2}\hat{u}(x, t),
+\]
+então
+\[
+	\hat{u}(\xi , t) = A(\xi )\cos^{}{(\xi t)} + B(\xi )\sin^{}{(\xi t)},
+\]
+tal que, usando a condição inicial,
+\begin{align*}
+	 & \hat{u}(\xi , 0) = A(\xi )\Rightarrow A(\xi ) = \hat{u}_{0}(\xi )                                                                                               \\
+	 & \frac{\partial^{}\hat{u}}{\partial t^{}}(\xi , t) = -A(\xi )\xi \sin^{}{(\xi t)} + B(\xi )\xi \cos^{}{(\xi t)}                                                  \\
+	 & \frac{\partial^{}\hat{u}}{\partial t^{}}(\xi , 0) = B(\xi )\xi  \Rightarrow B(\xi )\xi = \hat{v}_{0}(\xi )\Rightarrow B(\xi ) = \frac{\hat{v}_{0}(\xi )}{\xi }.
+\end{align*}
+Em conclusão,
+\[
+	\hat{u}(x, t) = \cos^{}{(\xi t)}\hat{u}_{0}(\xi ) + \frac{\sin^{}{(\xi t)}}{\xi }\hat{v}_{0}(\xi ),
+\]
+que dá como solução
+\[
+	\mathcal{F}^{-1}(\hat{u}) = u(x, t) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\biggl[\cos^{}{(\xi t)}\hat{u}_{0}(\xi ) + \frac{\sin^{}{(\xi t)}}{\xi }\hat{v}_{0}(\xi )\biggr] \mathrm{d\xi }.
+\]
+
+Finalmente, no passo 3, simplificaremos a expressão acima. Note que
+\[
+	\mathcal{F}^{-1}(\hat{u}) = \mathcal{F}^{-1}(\cos^{}{(\xi t)}\hat{u}_{0}(\xi )) + \mathcal{F}^{-1}\biggl(\frac{\sin^{}{(\xi t)}}{\xi }\hat{v}_{0}(\xi )\biggr).
+\]
+Assim, a primeira parte da expressão pode ser trabalhada a fim de obtermos
+\begin{align*}
+	 & \mathcal{F}^{-1}(\cos^{}{(\xi t)}\hat{u}_{0}(\xi )) = \mathcal{F}^{-1}\biggl(\frac{e^{i\xi t} + e^{-i\xi t}}{2}\hat{u}_{0}(\xi )\biggr)                                                                      \\
+	 & =\frac{1}{2}\biggl(\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi +i\xi t}\hat{u}_{0}(\xi ) \mathrm{d\xi } + \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi - i\xi t}\hat{u}_{0}(\xi ) \mathrm{d\xi }\biggr) \\
+	 & =\frac{1}{2}\biggl(\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{i\xi (x+t)}\hat{u}_{0}(\xi ) \mathrm{d\xi } + \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{i\xi (x-t)}\hat{u}_{0}(\xi ) \mathrm{d}\xi \biggr)        \\
+	 & = \frac{1}{2}(\mathcal{F}^{-1}(\hat{u}_{0})(x+t) + \mathcal{F}^{-1}(\hat{u}_{0})(x-t)) = \frac{1}{2}(u_{0}(x+t) + u_{0}(x-t)).
+\end{align*}
+
+Para a parte do seno, vimos que
+\[
+	\mathcal{F}(\chi_{[-a, a]}) = \frac{2\sin^{}{(a\xi )}}{\xi } \Longleftrightarrow \mathcal{F}\biggl(\frac{1}{2}\chi_{[-t, t]}\biggr) = \frac{\sin^{}{(t\xi )}}{\xi } \Rightarrow \mathcal{F}^{-1}\biggl(\frac{\sin^{}{t\xi }}{\xi }\biggr) = \frac{1}{2}\chi_{[-t, t]}.
+\]
+Logo,
+\begin{align*}
+	\mathcal{F}^{-1}\biggl(\frac{\sin^{}{(t\xi )}}{\xi }\hat{v}_{0}(\xi )\biggr) & = \underbrace{\mathcal{F}^{-1}\biggl(\frac{\sin^{}{(t\xi )}}{\xi }\biggr)}_{\frac{1}{2}\chi_{[-t, t]}(x)}*\mathcal{F}^{-1}(\hat{v}_{0}(\xi )) \\
+	                                                                             & = \frac{1}{2}\int_{-\infty}^{\infty}\chi_{[-t, t]}(x-y)v_{0}(y) \mathrm{dy}                                                                   \\
+	                                                                             & = \frac{1}{2}\int_{x-t}^{x+t}v_{0}(y) \mathrm{dy}.
+\end{align*}
+Para simplifcar ainda mais, vamos supor que exista uma primitiva de \(v_{0}\) denotada por \(V_{0}:\mathbb{R}\rightarrow \mathbb{R}\). Logo, pelo Teorema Fundamental do Cálculo,
+\[
+	\frac{1}{2}\int_{x-t}^{x+t}v_{0}(y) \mathrm{dy} = \frac{1}{2}(V_{0}(x+t) - V_{0}(x-t)).
+\]
+
+Portanto, chegamos na chamada \textit{Fórmula de D'Alembert}:
+\[
+	\hypertarget{dalembert_formula}{\boxed{u(x, t) = \frac{1}{2}(u_{0}(x+t) - u_{0}(x-t)) + \frac{1}{2}(V_{0}(x+t)+V_{0}(x-t))}},
+\]
+que basicamente diz que as soluções da Equação da Onda são compostas por uma onda movendo-se para a esquerda e/ou uma movendo-se para a direita, respectivamente dadas por
+\[
+	\frac{1}{2}u_{0}(x-t) - \frac{1}{2}V_{0}(x-t) \quad\&\quad \frac{1}{2}u_{0}(x+t) + \frac{1}{2}V_{0}(x+t).
+\]
+
+Agora, vamos usar o \hyperlink{parseval_plancherel}{\textit{Plancherel}} aqui e obteremos
+\begin{align*}
+	 & 2\pi \int_{-\infty}^{\infty}\biggl(\frac{\partial^{}u}{\partial t^{}}\biggr)^{2} + \biggl(\frac{\partial^{}u}{\partial x^{}}\biggl)^{2} \mathrm{dx}  =\int_{-\infty}^{\infty}\biggl\vert \mathcal{F}\biggl(\frac{\partial^{}u}{\partial t^{}}\biggr) \biggr\vert^{2} + \biggl\vert \mathcal{F}\biggl(\frac{\partial^{}u}{\partial x^{}}\biggr) \biggr\vert^{2}\mathrm{d\xi } =\int_{-\infty}^{\infty}\biggl\vert \frac{\partial^{}\hat{u}}{\partial t^{}} \biggr\vert^{2}+\vert \xi \hat{u}\vert^{2} \mathrm{d\xi } \\
+	 & = \int_{-\infty}^{\infty}(-\xi \sin^{}{(\xi t)}\hat{u}_{0}(\xi ) + \cos^{}{(\xi t)}\hat{v}_{0}(\xi ))^{2}+\xi^{2}\biggl(\cos^{}{(\xi t)}\hat{u}_{0}(\xi ) + \frac{\sin^{}{(\xi t)}}{\xi }\hat{v}_{0}(\xi )\biggr)^{2}\mathrm{dx}                                                                                                                                                                                                                                                                                    \\
+	 & = \int_{-\infty}^{\infty}[\xi^{2}\sin^{2}{(\xi t)}|\hat{u}_{0}(\xi )|^{2}+\cos^{2}{(\xi t)}|\hat{v}_{0}(\xi )|^{2}-2\xi \sin^{}{(\xi t)}\cos^{}{(\xi t)}\hat{u}_{0}\hat{v}_{0}                                                                                                                                                                                                                                                                                                                                      \\
+	 & \quad\quad  + \xi^{2}\cos^{2}{(\xi t)}|u_{0}|^{2} + \sin^{2}{(\xi t)}|\hat{v}_{0}(\xi )|^{2} + 2\xi \sin^{}{(\xi t)}\cos^{}{(\xi t)}\hat{u}_{0}\hat{v}_{0}] \mathrm{d\xi }                                                                                                                                                                                                                                                                                                                                          \\
+	 & = \int_{-\infty}^{\infty}\biggl(\xi^{2}|\hat{u}_{0}(\xi )|^{2} + |\hat{v}_{0}(\xi )|^{2}\biggr) \mathrm{d\xi }                                                                                                                                                                                                                                                                                                                                                                                                      \\
+	 & = \int_{-\infty}^{\infty}\biggl[\biggl(\frac{\partial^{}u}{\partial x^{}}\biggr)^{2} + (v_{0})^{2}\biggr] \mathrm{dx}                                                                                                                                                                                                                                                                                                                                                                                               \\
+	 & = \int_{-\infty}^{\infty}\biggl(\frac{\partial^{}u}{\partial x^{}}(x, 0)\biggr)^{2} + \biggl(\frac{\partial^{}u}{\partial t^{}}(x, 0)\biggr)^{2} \mathrm{dx}.
+\end{align*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Para poder aplicar Fourier, é necessário que \(u_{0}\) e \(v_{0}\) não cresçam rapidamente; por outro lado, para aplicar D'Alembert, essa restrição não existe.
+\end{tcolorbox}
+
+\end{document}

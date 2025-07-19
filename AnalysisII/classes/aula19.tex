@@ -1,0 +1,176 @@
+\documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 19 - 26 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Séries de Funções;
+	\item Séries de Potência.
+\end{itemize}
+\subsection{Séries de Funções.}
+\begin{def*}
+	Dada uma sequência de funções \(f_{n}:X\rightarrow \mathbb{R}\), em que n é natural, criamos uma nova sequência de funções \(\{s_{n}\}_{n}\), em que \(s_{n}:X\rightarrow \mathbb{R}\), dadas por
+	\begin{align*}
+		 & s_1(x) = f_1(x)                                                                                 \\
+		 & s_2(x) = f_1(x) + f_2(x)                                                                        \\
+		 & \vdots                                                                                          \\
+		 & s_{n}(x) = s_{n-1}(x)+f_{n}(x)= \sum\limits_{i=1}^{n}f_{i}(x), \quad x\in X,\; n\in \mathbb{N},
+	\end{align*}
+	chamada \textbf{série de funções com termo geral }\(f_{n}\), e indicada por
+	\[
+		\sum\limits_{n=1}^{\infty}f_{n}
+	\]
+	ou \(\sum\limits_{}^{}f_{n}\). A sequência \(\{s_{n}\}_{n}\) é chamada \textbf{sequência das somas parciais da série}. \(\square\)
+\end{def*}
+\begin{def*}
+	Dada uma série \(\sum\limits_{}^{}f_{n}\) e f definidas em X, dizemos que:
+	\begin{itemize}
+		\item[1)] a série \(\sum\limits_{}^{}f_{n}\) \textbf{converge pontualmente para f em X} quando
+		      \[
+			      s_{n}\overbracket[0pt]{\rightarrow}^{p}f;
+		      \]
+		\item[2)] a série \(\sum\limits_{}^{}f_{n}\) \textbf{converge uniformemente para f em X} quando
+		      \[
+			      s_{n}\overbracket[0pt]{\rightarrow}^{u}f.
+		      \]
+	\end{itemize}
+	Em ambos os casos, diz-se que f é a \textbf{soma da série} e escreve-se
+	\[
+		f(x) = \sum\limits_{n=1}^{\infty}f_{n}(x). \quad \square
+	\]
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se f é o limite pontual ou uniforme da série \(\sum\limits_{}^{}f_{n} \), para cada x em X,
+	\[
+		f(x) = \sum\limits_{n=1}^{\infty}f_{n}(x) = \lim_{N\to \infty}\sum\limits_{n=1}^{N}f_{n}(x) = \lim_{N\to \infty}s_{N}(x).
+	\]
+\end{tcolorbox}
+
+Podemos traduzir alguns resultados de sequências de funções: seja \(\sum\limits_{}^{}f_{n}\) uma série de funções e \(f:X\rightarrow \mathbb{R}\) uma função. Temos:
+\begin{itemize}
+	\item[I)] Se \(\sum\limits_{}^{}f_{n} = f\) uniformemente em X e cada \(f_{n}\) é contínua em a, então f é contínua em a;
+	\item[II)] Se \(X = [a, b]\), cada \(f_{n}\) é integrável para todo n, e \(\sum\limits_{}^{}f_{n} = f\) uniformemente, então f é integrável e
+	      \[
+		      \int_{a}^{b}\sum\limits_{n=1}^{\infty}f_{n} \mathrm{dx} = \int_{a}^{b}f \mathrm{dx} = \sum\limits_{n=1}^{\infty}\int_{a}^{b}f_{n} \mathrm{dx},
+	      \]
+	      ou seja, a série ``pode ser integrada termo a termo''.
+	\item[III)] Se \(X = [a, b]\), cada \(f_{n}\) é \(\mathcal{C}^{1}([a, b])\) para todo n, existe um ponto c em \([a, b]\) tal que \(\sum\limits_{n=1}^{\infty}f_{n}(x) = L\) e existe uma função \(g:[a, b]\rightarrow \mathbb{R}\) tal que \(\sum\limits_{}^{}f_{n}' = g\) uniformemente em \([a, b]\), então existe \(f\) de classe \(\mathcal{C}^{1}([a, b])\) tal que \(\sum\limits_{}^{}f_{n} = f\) uniformemente em \([a, b]\) e vale
+	      \[
+		      \frac{\mathrm{d}}{\mathrm{d}x}\biggl[\sum\limits_{n=1}^{\infty}f_{n}(x)\biggr] = \frac{\mathrm{d}}{\mathrm{d}x}f = f' = \sum\limits_{n=1}^{\infty}f_{n}' = \sum\limits_{n=1}^{\infty}\frac{\mathrm{d}}{\mathrm{d}x}f_{n}.
+	      \]
+	      Neste caso, também dizemos que a série ``pode ser derivada termo a termo''.
+\end{itemize}
+Para o item I, basta notar que, como \(\{s_{n}\}_{n}\) é uma sequência de funções convergindo uniformemente para f, segue a continuidade em todos os pontos de X.
+
+O fato da série ser um tipo particular de sequência acaba levando a critérios particulares de convergência; uma das nossas jornadas de estudo será desbravar estes métodos de convergir e de efetivamente computar os limites. Dentre os principais critérios, veremos o \textit{teste da razão} e o \textit{teste da raiz}. Antes, porém, teremos o
+\hypertarget{weierstrass_m}{
+	\begin{theorem*}[Teste M de Weierstrass]
+		Se \(\sum\limits_{}^{}f_{n}\) é tal que existe uma série numérica de termos positivos \(\sum\limits_{}^{}M_{n}\) convergente tal que
+		\[
+			|f_{n}(x)|\leq M_{n},\quad \forall x\in X\;\&\; \forall n\in \mathbb{N},
+		\]
+		então existe uma função \(f:X\rightarrow \mathbb{R}\) tal que
+		\[
+			\sum\limits_{}^{}f_{n}=f
+		\]
+		uniformemente em X e \(\sum\limits_{}^{}|f_{n}|\) converge uniformemente.
+	\end{theorem*}
+}
+\begin{proof*}
+	Com efeito, sejam
+	\[
+		t_{n} = \sum\limits_{i=1}^{n}|f_{i}|\quad\&\quad s_{n} = \sum\limits_{i=1}^{n}f_{i}
+	\]
+	e note que, para cada x em X e \(m > n\) natural,
+	\begin{align*}
+		|s_{m}(x) - s_{n}(x)| & = \biggl\vert \sum\limits_{i=1}^{m}f_{i}(x) - \sum\limits_{i=1}^{n}f_{i}(x) \biggr\vert \\
+		                      & = \biggl\vert \sum\limits_{i=n+1}^{m}f_{i}(x) \biggr\vert                               \\
+		                      & \leq \sum\limits_{i=n+1}^{m}|f_{i}(x)| = t_{m}(x) - t_{n}(x).
+	\end{align*}
+	Dito isso, descobrimos que as \(s_{n}\)'s são limitadas pelas \(t_{n}\)'s. Agora, novamente para m maior que n,
+	\[
+		t_{m}(x)-t_{n}(x) = \sum\limits_{i=n+1}^{m}|f_{i}(x)| \leq \sum\limits_{i=n+1}^{m}M_{i} = |a_{m} - a_{n}|,
+	\]
+	onde definimos
+	\[
+		a_{n}\coloneqq \sum\limits_{i=1}^{n}M_{i}.
+	\]
+	Com isso, acabou, já que \(\sum\limits_{}^{}M_{n}\) convergir prova que \(\{a_{n}\}_{n}\) é uma sequência de Cauchy, ou seja, dado \(\varepsilon  > 0\), existe \(n_{0}\) natural tal que
+	\[
+		m > n \geq n_{0} \Rightarrow  |s_{m}(x)-s_{n}(x)| \leq t_{m}(x)-t_{n}(x)\leq |a_{m}-a_{n}| < \varepsilon ,
+	\]
+	provando que tudo é de Cauchy e, portanto, convergente. \qedsymbol
+\end{proof*}
+\begin{example}
+	Considere
+	\[
+		\sum\limits_{}^{}\frac{\sin^{}{(nx)}}{n^{2}}.
+	\]
+	Temos, para x real,
+	\[
+		f_{n}(x) = \frac{\sin^{}{(nx)}}{n^{2}}
+	\]
+	e note que
+	\[
+		|f_{n}(x)| = \biggl\vert \frac{\sin^{}{(nx)}}{n^{2}} \biggr\vert\leq \frac{1}{n^{2}} = M_{n}.
+	\]
+	Sabendo que a série
+	\[
+		\sum\limits_{}^{}\frac{1}{n^{2}}<\infty,
+	\]
+	resulta do \hyperlink{weierstrass_m}{\textit{teorema anterior}} que
+	\[
+		\sum\limits_{}^{}\frac{\sin^{}{(nx)}}{n^{2}} \quad\&\quad \sum\limits_{}^{}\frac{|\sin^{}{(nx)}|}{n^{2}}
+	\]
+	convergem uniformemente. Em particular, existe uma função \(f:\mathbb{R}\rightarrow \mathbb{R}\) dada por
+	\[
+		f(x) = \sum\limits_{n=1}^{\infty}\frac{\sin^{}{(nx)}}{n^{2}}.
+	\]
+\end{example}
+
+\subsection{Séries de Potência.}
+O que governa o estudo das séries de potência é o \textit{teste da raiz}, baseado no limite superior e inferior. Vamos construir estes dois conceitos.
+
+Dada uma sequência de números reais \(\{x_{n}\}_{n}\), considere, para n natural, o conjunto
+\[
+	X_{n}\coloneqq \{x_{j}:\; j\geq n\} = \{x_{n}, x_{n+1}, \dotsc \}
+\]
+e note que
+\[
+	X_1 \supseteq X_2 \supseteq \dotsc \supseteq X_{n} \supseteq \dotsc.
+\]
+Daí, defina também
+\begin{align*}
+	 & a_{n}\coloneqq \inf_{}X_{n}  \\
+	 & b_{n}\coloneqq \sup_{}X_{n},
+\end{align*}
+o ínfimo (supremo) nunca decai (aumenta) quando diminuímos os conjuntos - ele sempre cresce (diminui) ou permanece igual:
+\[
+	\underbrace{a_1 \leq a_2 \leq a_3 \leq \dotsc \leq a_{n}}_{\text{``crescente''}} \leq \dotsc \underbrace{\leq b_{n} \leq b_{n-1} \leq \dotsc \leq b_3 \leq b_2 \leq b_1}_{\text{``decrescente''}},
+\]
+que converge pelo teorema mais importante da análise!! (Note que, mesmo se um dos \(a_{n}\)'s for \(-\infty\), ou um dos \(b_{n}\)'s for \(\infty\), a cadeia não é quebrada, então não há problema na definição aqui).
+
+Assim, existem
+\[
+	a = \lim_{n\to \infty}a_{n} = \sup_{n\in \mathbb{N}}a_{n} \quad\&\quad b = \lim_{n\to \infty}b_{n} = \inf_{n\in \mathbb{N}}b_{n}
+\]
+e, escrevendo por extenso,
+\[
+	a = \sup_{n\in \mathbb{N}}\inf_{j \geq n}x_{j} \quad\&\quad b = \inf_{n\in \mathbb{N}}\sup_{j\geq n}x_{j}.
+\]
+Escrevendo assim, chamamos
+\begin{align*}
+	 & a = \liminf_{n\to \infty}x_{n}  \\
+	 & b = \limsup_{n\to \infty}x_{n}.
+\end{align*}
+\end{document}

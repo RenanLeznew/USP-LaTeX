@@ -1,0 +1,155 @@
+\documentclass[../analysisII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 23 - 11 de Junho, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Funções de Várias Variáveis;
+\end{itemize}
+\subsection{Diferenciabilidade de Multivariadas: consequências e exemplos.}
+Começamos por notar que, se \(f:U \subseteq_{ab} \mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\) é derivável em a, então f é contínua em a. De fato, basta escrever
+\[
+	f(a+h) - f(a) = f'(a)h + r(h).
+\]
+Daí, calculando o módulo, temos
+\[
+	|f(a+h)-f(a)|\leq |f'(a)h|+|r(h)| \leq |f'(a)||h| + |h|\biggl[\frac{r(h)}{|h|}\biggr].
+\]
+Assim, quando h tende a 0, teremos
+\[
+	|f(a+h) - f(a)| \leq 0 + 0 = 0,
+\]
+provando a continuidade.
+
+Além disso, se f é definida em a, dado \(h\) diferente de 0 em \(\mathbb{R}^{m}\), então para \(t\neq 0\),
+\begin{align*}
+	f'(a)h = \frac{1}{t}f'(a)(th) & = \frac{1}{t}\biggl[f(a+th) - f(a) - r(th)\biggr]                            \\
+	                              & =\biggl[\frac{f(a+th)-f(a)}{t}\biggr] - \biggl[\frac{r(th)}{t|h|}|h|\biggr],
+\end{align*}
+donde podemos pôr
+\[
+	f'(a)h = \lim_{t\to 0}\frac{f(a+th) - f(a)}{t}.
+\]
+Assim, definimos
+\begin{def*}
+	O limite à direita
+	\[
+		f'(a)h = \lim_{t\to 0}\frac{f(a+th) - f(a)}{t}.
+	\]
+	é chamado a \textbf{derivada direcional de f em a na direção do vetor h}, indicada por
+	\[
+		\frac{\partial^{}f}{\partial h^{}}(a) \coloneqq f'(a)h, \quad h\in \mathbb{R}^{m}.
+	\]
+	Em particular, se \(h = e_{j} = (0, 0, \dotsc ,\underbrace{ 1}_{\mathclap{\text{j-ésima}}}, 0, \dotsc , 0)\), então
+	\[
+		\frac{\partial^{}f}{\partial e_{j}^{}}(a) = f'(a)e_{j} = \lim_{t\to 0}\frac{f(a+te_{j}) - f(a)}{t},
+	\]
+	chamada \textbf{derivada parcial de f em a com relação à variável }\(x_{j}\), indicada por
+	\[
+		\frac{\partial^{}f}{\partial x_{j}^{}}(a),\quad j=1, 2, \dotsc , m. \;\square
+	\]
+\end{def*}
+
+\begin{example}
+	\begin{itemize}
+		\item[1)] Uma função constante tem derivada direcional sempre nula;
+		\item[2)] Se \(f:U \subseteq_{ab} \mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\) é tal que existe uma T transformação linear \(T\in \mathcal{L}(\mathbb{R}^{m}, \mathbb{R}^{n})\) com
+		      \[
+			      f(x) = Tx,\quad \forall x\in U.
+		      \]
+		      Vamos levar como base o que sabemos de cálculo 1 e provar que, para todo a em U,
+		      \[
+			      f'(a) = A,
+		      \]
+		      que pode ser entendido como, independentemente do ponto, a f' sempre agirá da mesma forma como transformação.
+
+		      Com efeito, note que, se h for um vetor em \(\mathbb{R}^{m}\), então
+		      \[
+			      f(a+h) - f(a) = A(a+h) - Aa = A(h).
+		      \]
+		      Consequentemente,
+		      \[
+			      r(h)\coloneqq f(a+h) - f(a) - Ah = 0 \Rightarrow \lim_{h\to 0}\frac{r(h)}{|h|} = 0.
+		      \]
+		\item[3)] Seja \(B:\mathbb{R}^{m}\times \mathbb{R}^{n}\rightarrow \mathbb{R}^{p}\) uma aplicação bilinear, ou seja,
+		      \begin{align*}
+			       & B(u+\lambda v, w) = B(u, w) + \lambda B (v, w)  \\
+			       & B(u, w+\lambda z) = B(u, w) + \lambda B (w, z).
+		      \end{align*}
+		      neste caso, para todo \((a, b)\) em seu domínio, existe a derivada e tem-se
+		      \[
+			      B'(a, b)(h, k)\footnotetext{\text{Esse (h, k) age como se fosse o h ao qual estamos aplicando.}} = B(a, k) + B(h, b),
+		      \]
+		      pois, observando que
+		      \begin{align*}
+			      B((a, b) + (h, k)) - B(a, b) & = B(a, b+k) + B(h, b+k) - B(a, b)                     \\
+			                                   & = B(a, b) + B(a, k) + B(h, b) + B(h, k) - B(a, b)     \\
+			                                   & = \underbrace{B(a, k) + B(h, b)}_{T(h, k)} + B(h, k).
+		      \end{align*}
+		      Consequentemente,
+		      \[
+			      B((a, b) + B(h, k)) - B(a, b) - [B(a, k) + B(h, b)] = B(h, k),
+		      \]
+		      ou seja, \(r(h, k) = B(h, k)\). Logo,
+		      \begin{align*}
+			      \biggl\vert \frac{B(h, k)}{|(h, k)|} \biggr\vert & \leq \frac{1}{|(h, k)|}\Vert B \Vert |h||k|                                                                   \\
+			                                                       & = \Vert B \Vert \frac{|h||k|}{\max\limits_{}\{|h|, |k|\}}                                                     \\
+			                                                       & = \Vert B \Vert \min\limits_{}\{|h|, |k|\} \overbracket[0pt]{\longrightarrow}^{\mathclap{(h, k)\to (0, 0)}}0.
+		      \end{align*}
+		\item[4)] Uma matriz é invertível quando ela tem uma inversa. Qual será a derivada dessa inversa? Para isso, seja \(g:\mathbb{M}_{n}(\mathbb{R})\rightarrow \mathbb{R}\) a função determinante. Como é sabido, o determinante é n-linear em \(\mathbb{R}^{n}\),
+		      tornando-o uma função contínua. Logo, colocando
+		      \[
+			      U = \{X\in \mathbb{M}_{n}(\mathbb{R}): \det{(X)}\neq0\} = \mathrm{det}^{-1}{(-\infty, 0)\cup (0, \infty)},
+		      \]
+		      segue que U é um aberto por ser a pré-imagem dum aberto sob uma função contínua. Este U é o chamado \textbf{grupo linear geral}, indicado por
+		      \[
+			      GL(\mathbb{R}^{n}) \coloneqq U,
+		      \]
+		      que é um grupo já que
+		      \[
+			      X, Y\in U \Rightarrow XY\in U \quad\&\quad X\in U \Rightarrow X^{-1}\in U.
+		      \]
+		      Destarte, dada \(f:\underbrace{GL(\mathbb{R}^{n})}_{\text{aberto}}\rightarrow GL(\mathbb{R}^{n})\), podemos perguntar sobre sua diferenciabilidade -- a existência de \(f'(X)\) para X um elemento de \(GL(\mathbb{R}^{n})\).
+
+		      Com efeito, tem-se a existência dessa derivada para cada elemento de \(GL(\mathbb{R}^{n})\), e ela vale
+		      \[
+			      f'(X)H = -X^{-1}HX^{-1},\; \forall X\in GL(\mathbb{R}^{n})\;\&\; H\in \mathbb{M}_{n}(\mathbb{R}).
+		      \]
+		      Para provar isso, usaremos o seguinte lema:
+		      \begin{lemma*}
+			      Dada uma matriz n por n com coeficientes reais \(A\in \mathbb{M}_{n}(\mathbb{R})\) com norma menor que 1, então I-A é invertível, com
+			      \[
+				      (I-A)^{-1} = \sum\limits_{n=0}^{\infty}A^{n} = I + A + A^{2} + A^{3} +\dotsc.
+			      \]
+		      \end{lemma*}
+		      A partir desse lema, se \(X\in GL(\mathbb{R}^{n})\), então dada uma matriz H em \(\mathbb{M}_{n}(\mathbb{R})\) suficientemente pequena (\(\Vert H \Vert<\Vert X^{-1} \Vert^{-1}\)), podemos escever
+		      \begin{align*}
+			      (X+H)^{-1}=(I+X^{-1}H)^{-1}X^{-1} & =[I-(-X^{-1}H)]^{-1}X^{-1}=\sum\limits_{n=0}^{\infty}(-1)^{n}(X^{-1}H)^{n}X^{-1} \\
+			                                        & =[I-X^{-1}H + \sum\limits_{n=2}^{\infty}(-1)^{n}(X^{-1}H)^{n}]X^{-1}             \\
+			                                        & =X^{-1}-X^{-1}HX^{-1}+\sum\limits_{n=2}^{\infty}(-1)^{n}(X^{-1}H)^{n}X^{-1},
+		      \end{align*}
+		      ou seja, para H pequeno,
+		      \[
+			      (X+H)^{-1}-X^{-1}=-X^{-1}HX^{-1}+r(H),\quad r(H)\coloneqq \sum\limits_{n=2}^{\infty}(-1)^{n}(X^{-1}H)^{n}X^{-1}.
+		      \]
+		      Finalmente, conforme as propriedades da norma, vemos que o resto de fato tende a 0:
+		      \begin{align*}
+			      \biggl\Vert \frac{r(H)}{\Vert H \Vert} \biggr\Vert & \leq \sum\limits_{n=2}^{\infty}\Vert X^{-1} \Vert^{n+1}\frac{\Vert H \Vert^{n}}{\Vert H \Vert}                                             \\
+			                                                         & = \frac{\Vert X^{-1} \Vert}{\Vert H \Vert}\sum\limits_{n=2}^{\infty}(\Vert X^{-1} \Vert\Vert H \Vert)^{n}                                  \\
+			                                                         & = \frac{\Vert X^{-1} \Vert}{\Vert H \Vert} \frac{\Vert X^{-1} \Vert^{2}\Vert H \Vert^{2}}{1-\Vert X^{-1} \Vert\Vert H \Vert}               \\
+			                                                         & =\biggl[\frac{\Vert X^{-1} \Vert^{3}}{1-\Vert X^{-1} \Vert\Vert H \Vert}\biggr]\Vert H \Vert \overbracket[0pt]{\longrightarrow}^{H\to 0}0.
+		      \end{align*}
+		      Portanto, f é derivável em \(GL(\mathbb{R}^{n})\) com
+		      \[
+			      f'(X)\cdot H=-X^{-1}HX^{-1}
+		      \]
+		      para todo X em \(GL(\mathbb{R}^{n})\) e H em \(\mathbb{M}_{n}(\mathbb{R}).\)
+	\end{itemize}
+\end{example}
+\begin{exr}
+	Demonstre o item 1, ou seja, que se \(f:U\rightarrow \mathbb{R}^{n}\) for uma função constante, i.e., \(f(x) = c\), então
+	\[
+		f'(a)\equiv 0 \; \forall x\in U,\quad f\in \mathcal{L}(\mathbb{R}^{m}, \mathbb{R}^{n}).
+	\]
+\end{exr}
+\end{document}
+

@@ -1,0 +1,243 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 28 - 18 de Junho, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teoremas de Existências e Unicidades;
+	\item Problemas não homogêneos.
+\end{itemize}
+\subsection{Teoremas de Existências e Unicidades.}
+Para a equação de Laplace, temos
+\begin{theorem*}
+	Seja \(u_{0}:\mathbb{R}\rightarrow \mathbb{R}\) uma função contínua e limitada. Logo, existe uma única função \(u:\mathbb{R}\times [0, \infty)\rightarrow \mathbb{R}\) tal que
+	\begin{itemize}
+		\item[1)] u é de classe \(\mathcal{C}(\mathbb{R}\times [0, \infty])\cap \mathcal{C}^{2}(\mathbb{R}\times (0, \infty)\);
+		\item[2)] u é limitada;
+		\item[3)] u satisfaz
+		      \[
+			      \frac{\partial^{2}u}{\partial x^{2}}(x, y) + \frac{\partial^{2}u}{\partial y^{2}}(x, y) = 0,\quad x\in \mathbb{R},\; y > 0\;\&\; u(x, 0) = u_{0}(x).
+		      \]
+	\end{itemize}
+	Além disso, esta única solução satisfaz automaticamente
+	\begin{itemize}
+		\item[4)] u é de classe \(\mathcal{C}^{\infty}(\mathbb{R}\times (0, \infty)\);
+		\item[5)] \(|u(x, t)|\leq \sup_{x\in \mathbb{R}}|u_{0}(x)|\).
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Para a existência, seja
+	\[
+		u(x, y) = \int_{-\infty}^{\infty}P(x, y-s)u_{0}(s) \mathrm{ds} = \int_{-\infty}^{\infty}\frac{1}{\pi }\frac{y}{y^{2}+(x-s)^{2}}u_{0}(s) \mathrm{ds}.
+	\]
+	Então,
+	\[
+		\lim_{y\to 0}u(x, y) = u_{0}(x),
+	\]
+	vale
+	\[
+		\frac{\partial^{2}u}{\partial x^{2}}+\frac{\partial^{2}u}{\partial y^{2}} = \int_{-\infty}^{\infty}\biggl(\frac{\partial^{2}u}{\partial x^{2}}+\frac{\partial^{2}u}{\partial y^{2}}\biggr)(x, y-s)u_{0}(s) \mathrm{ds}=0
+	\]
+	e, para quaisquer i, j naturais,
+	\[
+		\partial_{x}^{k}\partial_{y}^{j}u = \int_{-\infty}^{\infty}(\partial_{x}^{k}\partial_{y}^{j}P)(x, y-s) u_{0}(s) \mathrm{ds},
+	\]
+	donde concluímos que u é de classe \(\mathcal{C}^{\infty}\). Além disso, temos a estimativa
+	\begin{align*}
+		|u(x, y)| & \leq \int_{-\infty}^{\infty}|P(x, y-s)||u_{0}(s)| \mathrm{ds}                                     \\
+		          & \leq \biggl(\int_{-\infty}^{\infty}P(x, y-s) \mathrm{ds}\biggr)(\sup_{x\in \mathbb{R}}|u_{0}(x)|) \\
+		          & \leq \sup_{x\in \mathbb{R}}|u_{0}(x)|.
+	\end{align*}
+
+	Com respeito à unicidade, no primeiro caso, considere que \(u_{0}(x)\) tende a 0 conforme x cresce. Mostraremos uma única solução tal que, conforme tanto x quanto y têm quadrados crescendo até infinito, a própria solução irá a 0. Com efeito, suponha que u e v sejam soluções assim; então, \(w\coloneqq u-v\) satisfaz
+	\[
+		\left\{\begin{array}{ll}
+			\Delta w = 0 \\
+			w(x, 0) = 0  \\
+			w(x, y) \longrightarrow 0,\; x^{2}+y^{2}\rightarrow 0
+		\end{array}\right..
+	\]
+	Assim, dado um ponto \((x_{0}, y_{0})\) no plano e \(R > 0\) tal que \((x_{0}, y_{0})\in [-R, R]\times [0, R]\), o princípio do máximo garante que
+	\[
+		w(x_{0}, y_{0}) \leq \max\limits_{}\{\sup_{x\in [-R, R]}w(x, 0),\; \sup_{x\in[-R, R]}u(x, R),\; \sup_{y\in[0, R]}u(-R, y),\; \sup_{y\in [0, R]}u(R, y)\}.
+	\]
+	Dado \(\varepsilon > 0\), como todos os termos dentro do máximo são ou iguais a 0, ou menores que \(\varepsilon \), podemos escolher R grande suficiente tal que
+	\[
+		w(x_{0}, y_{0}) = u(x_{0}, y_{0}) - v(x_{0}, y_{0}) < \varepsilon
+	\]
+	e, analogamente, tal que
+	\[
+		v(x_{0}, y_{0}) - u(x_{0}, y_{0}) < \varepsilon.
+	\]
+	Portanto,
+	\[
+		u(x_{0}, y_{0}) = v(x_{0}, y_{0}).
+	\]
+
+	No segundo caso, com o método da energia, definimos nosso espaço como
+	\[
+		\mathcal{R} = \mathbb{R}\times [0, \infty),\quad \mathcal{R}_{R} = [-R, R]\times [0, R].
+	\]
+	Assim,
+	\begin{align*}
+		0 = \iint_{\mathcal{R}}w\Delta w dxdy & = \lim_{R\to \infty}\iint_{\mathcal{R}_{R}}w\Delta w dxdy                                                                                                         \\
+		                                      & = \lim_{R\to \infty}\biggl(-\iint_{\mathcal{R}_{R}}|\nabla w|^{2}dxdy + \int_{\partial \mathcal{R}_{R}}^{}w \frac{\partial^{}w}{\partial n^{}} \mathrm{dS}\biggr) \\
+		                                      & = -\iint_{\mathcal{R}}|\nabla w|^{2}dxdy.
+	\end{align*}
+	Consequentemente,
+	\[
+		\nabla w = 0 \Rightarrow w = \mathrm{cte.}
+	\]
+	Portanto, por \(w(x, 0) = 0\), segue que a w é constantemente nula.
+
+	O último caso é o caso do teorema, no qual definiremos
+	\[
+		\tilde{w}(x, y) = \left\{\begin{array}{ll}
+			w(x, y),  & \quad y > 0  \\
+			-w(x, y), & \quad  y < 0
+		\end{array}\right..
+	\]
+	Podemos mostrar que \(\Delta w = 0\) e, consequentemente, que \(\tilde{w}:\mathbb{R}^{2}\rightarrow \mathbb{R}\) é harmônica e limitada, donde temos
+	\[
+		\tilde{w} \geq c \Rightarrow \tilde{w} - c \geq 0 \Rightarrow \tilde{w} = \mathrm{cte.}
+	\]
+	Como \(\tilde{w}(x, 0) = 0\), então \(\tilde{w} = 0\). Portanto,
+	\[
+		w \equiv 0 \Rightarrow u = v.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\subsection{Problemas não homogêneos.}
+Vamos considerar o problema de Poisson dado por
+\[
+	\left\{\begin{array}{ll}
+		\Delta  u(x) = f(x), & \quad x\in \Omega          \\
+		u(x) = g(x),         & \quad x\in \partial \Omega
+	\end{array}\right..
+\]
+\begin{theorem*}[Princípio de Dirichlet]
+	Considere a função \(\mathcal{I}:\mathcal{A}\rightarrow \mathbb{R}\), onde \(\mathcal{A} = \{u\in \mathcal{C}^{2}(\overline{\Omega }):\; u|_{\partial \Omega } = g\}\) é o conjunto de funções que satisfazem a condição de fronteira, dada por
+	\[
+		\mathcal{I}(u) = \int_{\Omega }^{}\frac{1}{2}|\nabla u(x)|^{2} - u(x)f(x) \mathrm{dx}.
+	\]
+	Então,
+	\begin{itemize}
+		\item[1)] Se u é de classe \(\mathcal{C}^{2}(\overline{\Omega })\) é solução do problema de Poisson, então
+		      \[
+			      \mathcal{I}(u) = \min\limits_{v\in \mathcal{A}}\mathcal{I}(v);
+		      \]
+		\item[2)] Se u faz parte do conjunto \(\mathcal{A}\) (ou seja, satisfaz a condição de fronteira e é de classe \(\mathcal{C}^{2}(\overline{\Omega })\)) e \(\mathcal{I}(u) = \min\limits_{v\in \mathcal{A}}\mathcal{I}(v)\), então u é solução do problema de Poisson.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	1) Suponha que u é uma solução do problema de Poisson e que \(w\in \mathcal{A}\). Queremos mostrar que
+	\[
+		\mathcal{I}(u)\leq \mathcal{I}(w).
+	\]
+	Logo, teremos
+	\begin{align*}
+		0 = \int_{\Omega }^{} & (-\Delta u +f)(u-w)  \mathrm{dx}  = \int_{\Omega }^{}-(\Delta u)(u-w) \mathrm{dx} + \int_{\Omega }^{}f(u-w) \mathrm{dx}                                                          \\
+		                      & = \int_{\Omega }^{}\nabla u \cdot \nabla (u-w) \mathrm{dx} - \int_{\partial \Omega }^{}\frac{\partial^{}u}{\partial n^{}}(u-w) \mathrm{dS} + \int_{\Omega }^{}f(u-w) \mathrm{dx} \\
+		                      & = \int_{\Omega }^{}\nabla u \cdot \nabla u \mathrm{dx} - \int_{\Omega }^{}\nabla u \cdot \nabla w \mathrm{dx} + \int_{\Omega }^{}f(u-w) \mathrm{dx}.
+	\end{align*}
+	Usando a desigualdade de Cauchy-Schwarz,
+	\[
+		\int_{\Omega }^{}\nabla u \cdot \nabla u \mathrm{dx} + \int_{\Omega }^{}f u \mathrm{dx}= \int_{\Omega }^{}fw dx \mathrm{dx} + \int_{\Omega }^{}\nabla u \nabla w \mathrm{dx}.
+	\]
+	Assim,
+	\[
+		\int_{\Omega }^{}\nabla u\nabla u \mathrm{dx} + \int_{\Omega }^{}fu \mathrm{dx} \leq \int_{\Omega }^{}fw \mathrm{dx} + \frac{1}{2}\int_{\Omega }^{}\Vert \Delta u \Vert^{2} \mathrm{dx} + \frac{1}{2}\int_{\Omega }^{}\Vert \nabla w \Vert^{2} \mathrm{dx}
+	\]
+	e
+	\[
+		\frac{1}{2}\int_{\Omega }^{}\Vert \nabla u \Vert^{2} \mathrm{dx} + \int_{\Omega }^{}f u  \mathrm{dx} \leq \frac{1}{2}\int_{\Omega }^{}\Vert \nabla w \Vert^{2} \mathrm{dx} + \int_{\Omega }^{}fw \mathrm{dx},
+	\]
+	que equivale a
+	\[
+		I(u)\leq I(v).
+	\]
+
+	2) Suponha que u é um mínimo de I e seja \(v\in \mathcal{C}^{2}(\overline{\Omega })\) tal que \(v|_{\partial \Omega } = 0\). Então, \(u+tv\) pertence a \(\mathcal{A},\) tal que
+	\[
+		I(u) \leq I(u+tv).
+	\]
+	Considere a função \(h:\mathbb{R}\rightarrow \mathbb{R},\; h(t) = I(u+tv)\), para a qual 0 é um dos mínimos. Assim, \(h'(0) = 0\) e
+	\begin{align*}
+		h(t) & = I(u+tv)  = \int_{\Omega }^{}\biggl[\frac{1}{2}\nabla (u+tv)\nabla (u+tv) + (u+tv)f\biggr] \mathrm{dx}                                                                                                                                                         \\
+		     & = \frac{1}{2}\int_{\Omega }^{}\Vert \nabla u \Vert^{2} \mathrm{dx} + t \int_{\Omega }^{}\nabla u \nabla v \mathrm{dx}+\frac{t^{2}}{2}\int_{\Omega }^{}\Vert \nabla v \Vert^{2} \mathrm{dx} + \int_{\Omega }^{}uf \mathrm{dx} + \int_{\Omega }^{}vf \mathrm{dx}.
+	\end{align*}
+	Com respeito à \(h'(0)\), ela tem a forma
+	\[
+		h'(0) = \int_{\Omega }^{}\nabla u \nabla v \mathrm{dx} + \int_{\Omega }^{}vf \mathrm{dx},
+	\]
+	mas, como \(h'(0) = 0\), segue que
+	\[
+		-\int_{\Omega }^{}\nabla u \nabla v \mathrm{dx} = \int_{\Omega }^{}fv \mathrm{dx}.
+	\]
+	Assim, como
+	\[
+		\int_{}^{}\Delta uv = \int_{}^{}[\nabla (v\nabla u) - \nabla v\nabla u] = \int_{\partial \Omega }^{}v \frac{\partial^{}u}{\partial n^{}} - \int_{\Omega }^{}\nabla v \nabla u,
+	\]
+	obtemos, para todo \(v\in \mathcal{C}^{2}(\overline{\Omega })\) com \(v|_{\partial \Omega } = 0\),
+	\[
+		\int_{\Omega }^{}\Delta uv \mathrm{dx} - \int_{\partial \Omega }^{}\frac{\partial^{}u}{\partial n^{}}v \mathrm{dS} = \int_{\Omega }^{}fv \mathrm{dx} \Leftrightarrow \int_{\Omega }^{}(\Delta u-f)v \mathrm{dx} = 0.
+	\]
+	Portanto,
+	\[
+		\Delta u = f.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Observe que \(u\) é tal que
+\[
+	-\int_{\Omega }^{}\nabla u \nabla v \mathrm{dx} = \int_{\Omega }^{}fv \mathrm{dx}.
+\]
+
+Suponha que \(g = 0\). Podemos tomar subespaços de \(\mathcal{C}^{1}(\overline{\Omega })\), digamos \(V = \{e_1, \dotsc , e_{N}\}\), e procurar um vetor \(u = \sum\limits_{j=1}^{N}\lambda_{j}e_{j}\) tal que
+\[
+	-\sum\limits_{j=1}^{N}\lambda_{j}\int_{\Omega }^{}\nabla e_{j}\nabla e_{i} \mathrm{dx} = \int_{\Omega }^{}fe_{i} \mathrm{dx},\; \forall i.
+\]
+Assim,
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}} = \Delta u + f, & \quad t > 0,\; x\in \mathbb{R} \\
+		u(x,0) = u_{0}(x),                                 & \quad x\in \mathbb{R}
+	\end{array}\right..
+\]
+Para lidar com isso, fazemos uma analogia com EDO! Lá, vimos problemas da forma
+\[
+	\left\{\begin{array}{ll}
+		x'(t) = ax(t) + f(t),\; a\in \mathbb{R} \\
+		x(0) = x_{0}
+	\end{array}\right.,
+\]
+resolvido como
+\begin{align*}
+	 & e^{-at}x'(t) = ae^{-at}x(t) + e^{-at}f(t)                                                                  \\
+	 & \underbrace{e^{-at}x'(t) - ae^{-at}x(t)}_{\frac{\mathrm{d}}{\mathrm{d}t} (e^{-at}x(t))} = e^{-at}f(t)      \\
+	 & \int_{0}^{t}\frac{\mathrm{d}}{\mathrm{d}s} (e^{-as}x(s)) \mathrm{ds} = \int_{0}^{t}e^{-as}f(s) \mathrm{ds} \\
+	 & e^{-at}x(t) - x(0) = \int_{0}^{t}e^{-as}f(s) \mathrm{ds},
+\end{align*}
+eventualmente obtendo
+\[
+	x(t) = e^{at}x_{0} + \int_{0}^{t}e^{a(t-s)}f(s) \mathrm{ds}.
+\]
+Aqui, seguindo os mesmos processos, mas com a agindo como o operador \(\Delta \), a expressão para u que obtemos é
+\[
+	u(x, t) = e^{t\Delta }u_{0}(x) + \int_{0}^{t}e^{(t-s)\Delta }f(s) \mathrm{ds},
+\]
+sendo a exponencial dada por
+\[
+	e^{t\Delta }u_{0} = \int_{-\infty}^{\infty}\frac{1}{\sqrt[]{4\pi t}}e^{-\frac{(x-y)^{2}}{4t}}u_{0}(y) \mathrm{dy} = \int_{-\infty}^{\infty}K(x-y, t)u_{0}(y) \mathrm{dy}.
+\]
+Portanto, a solução será
+\[
+	u(x, t) = \int_{-\infty}^{\infty}K(x-y, t)u_{0}(y) \mathrm{dy} + \int_{0}^{t}\biggl(\int_{-\infty}^{\infty}K(x-y, t-s)f(y, s) \mathrm{dy}\biggr) \mathrm{ds}.
+\]
+
+Terminamos com a curiosidade que podemos usar
+\[
+	u = e^{t\Delta }u_{0} + \int_{0}^{t}e^{(t-s)\Delta }f(s, u(s)) \mathrm{ds}
+\]
+para achar soluções de
+\[
+	\frac{\partial^{}u}{\partial t^{}} = \Delta u + f(t, u(t)).
+\]
+\end{document}

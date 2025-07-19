@@ -1,0 +1,253 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 21 - 26 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Transformada de Fourier;
+	\item Mais uma solução na Bola e no Retângulo.
+\end{itemize}
+\subsection{Um pouco mais sobre Funções Harmônicas.}
+\begin{theorem*}
+	Seja u uma função de classe \(\mathcal{C}^{2}(\mathbb{R}^{2})\) tal que \(\Delta u = 0\)  e u é limitada. Então, u é constante.
+\end{theorem*}
+\begin{proof*}
+	Vamos mostrar que
+	\[
+		\partial_x u = \partial_y u = 0.
+	\]
+	Com efeito, dado \(x\in B_R(p)\),
+	\begin{align*}
+		u(x) & = \frac{R^{2}-\Vert x-p \Vert^{2}}{2\pi R}\int_{\partial B_{R}(p)}^{}\frac{u(x')}{\Vert x-x' \Vert^{2}} \mathrm{ds(x')}                                                                                                       \\
+		     & =\frac{-2(x-a)}{2\pi R}\int_{\partial B_R(p)}^{}\frac{u(x')}{\Vert x-x' \Vert^{2}} \mathrm{ds(x')} - \frac{R^{2}-\Vert x \Vert^{2}}{2\pi R}\int_{\partial B_R(p)}^{}\frac{2(x-x')u(x)}{\Vert x-x' \Vert^{2}} \mathrm{ds(x')},
+	\end{align*}
+	onde usamos que
+	\[
+		\Vert x-p \Vert^{2} = (x-a)^{2}+(y-b)^{2} \Rightarrow \frac{1}{\Vert x-x' \Vert^{2}}=\frac{1}{(x-x')^{2}+(y-y')^{2}}.
+	\]
+	Assim, se \(x = p\), temos, no bordo, \(\Vert x'-p \Vert^{4}=R^{4}\) e
+	\[
+		\partial_x u(p) = -\frac{R^{2}}{2\pi R}\int_{\partial B_R(p)}^{}\frac{2(a-x')u(x')}{R^{4}} \mathrm{ds(x')},
+	\]
+	tal que
+	\begin{align*}
+		|\partial_xu(p)| & \leq \frac{1}{R^{3}\pi }\int_{\partial_R(p)}^{}\overbrace{|a-x'|}^{\mathclap{\leq R}}\overbrace{|u(x')|}^{\mathclap{\leq M}} \mathrm{ds(x')} \\
+		                 & \leq \frac{M}{\pi R^{2}}\int_{\partial B_R(p)}^{} \mathrm{ds(x')}                                                                            \\
+		                 & = \frac{M}{\pi R^{2}}2\pi R = \frac{2M}{R},\quad \forall R > 0.
+	\end{align*}
+	Como R foi tomado de forma arbitrária, a única forma da desigualdade acima ser verdadeira é se
+	\[
+		\partial_x u(p) = 0,
+	\]
+	ou seja, se u for constante em x. De forma análoga, provamos que
+	\[
+		\partial_y u(p) = 0,
+	\]
+	concluindo que u é constante também em y. Portanto, u é uma função constante. \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O fato de podermos passar a derivada para dentro da integral logo no início da prova vem do seguinte resultado:
+	\begin{theorem*}
+		Seja u uma função de classe \(\mathcal{C}^{2}(\mathbb{R}^{2})\) tal que \(\Delta u = 0\). Então,
+		\[
+			u\in \mathcal{C}^{\infty}(\Omega )
+		\]
+	\end{theorem*}
+	\begin{proof*}[Ideia da Prova]
+		Em passadas rápidas, dado x em \(\Omega \), escolha \(p\in \Omega \) e \(R > 0\) tais que
+		\[
+			x\in B_{\frac{R}{2}}(p)\subseteq \overline{B_{R}(p)} \subseteq \Omega .
+		\]
+		Com isso,
+		\[
+			u(x) = \underbrace{\frac{R^{2}-\Vert x-R \Vert^{2}}{2\pi R}}_{\mathcal{C}^{\infty}(\Omega )}\int_{\partial B_R(p)}^{}\frac{u(x')}{\Vert x-x' \Vert^{2}} \mathrm{ds(x')},
+		\]
+		mas como \(x\) pertence à bola \( B_{\frac{R}{2}}(p)\), temos
+		\[
+			\partial_{x}^{k}\partial_{y}^{j}\int_{\partial B_{R}(p)}^{}\frac{u(x')}{\Vert x-x' \Vert^{2}} \mathrm{ds(x')} = \int_{\partial B_R(p)}^{}u(x')\partial_{x}^{k}\partial_{y}^{j}(\Vert x-x' \Vert^{-2}) \mathrm{ds(x')}
+		\]
+		pois
+		\[
+			(x, x)\in \partial B_R(p)\times B_{\frac{R}{2}}(p)\mapsto \frac{u(x')}{\Vert x-x' \Vert^{2}}
+		\]
+		é limitada, com derivadas limitadas e \(\mathcal{C}^{\infty}\) no espaço em que é definida. A ideia aqui é que se temos uma função \(K\) que é \(\mathcal{C}^{\infty}\) em (x,y), então
+		\begin{align*}
+			\int_{-\pi }^{\pi }K(x, y, \theta ) \mathrm{d\theta } & \Rightarrow  \int_{-\pi }^{\pi }\frac{K(x+h, y, \theta )-K(x, y, \theta )}{h} \mathrm{d\theta } \\
+			                                                      & = \int_{-\pi }^{\pi }\int_{0}^{1}\partial_x K(x+sh, y, \theta ) \mathrm{ds} \mathrm{d\theta }
+		\end{align*}
+		e, assim,
+		\begin{align*}
+			 & \int_{-\pi }^{\pi }\biggl[\frac{K(x+h, y, \theta )-K(x, y, \theta )}{h}-\partial_x K(x, y, \theta )\biggr] \mathrm{d\theta }  =                                  \\
+			 & =\int_{-\pi }^{\pi }\biggl[\int_{0}^{1}\partial_x K(x+sh, y, \theta ) - \partial_x K(x, y, \theta ) \mathrm{ds}\biggr] \mathrm{d\theta }.\quad \text{\qedsymbol}
+		\end{align*}
+	\end{proof*}
+\end{tcolorbox}
+\subsection{Transformada de Fourier.}
+A Transformada de Fourier é uma ferramenta fenomenal em qualquer problema que ela aparece; aqui, nosso objetivo será vê-la no contexto das EDPs, com o objetivo de estudar o calor, a onda e a Laplace em \(\mathbb{R}^{n}\), ou seja, o \textit{calor em }\(\mathbb{R}^{n}\)
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}}(x, t) = \Delta u(x, t), & \quad t\geq 0,\; x\in \mathbb{R}^{n} \\
+		u(x, 0) = u_{0}(x),                                        & \quad x\in \mathbb{R}^{n}
+	\end{array}\right.,
+\]
+a \textit{onda em }\(\mathbb{R}^{n}\)
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{2}u(x, t)}{\partial t^{2}}=\Delta u(x, t), & \quad t\in \mathbb{R}^{n},\; x\in \mathbb{R}^{n} \\
+		u(x, 0) = u_{0}(x),                                        & \quad x\in \mathbb{R}^{n}                        \\
+		\frac{\partial^{}u}{\partial t^{}}(x, 0) = v_{0}(x),       & \quad x\in \mathbb{R}^{n}
+	\end{array}\right.
+\]
+e a \textit{equação de Laplace em }\(\mathbb{R}^{n}\)
+\[
+	\left\{\begin{array}{ll}
+		\Delta u(x) = 0,    & \quad \mathbb{R}_{+}^{n} = \{x\in \mathbb{R}^{n}: x_{n} > 0\} \\
+		u(x, 0) = u_{0}(x), & \quad x\in \mathbb{R}^{n-1}
+	\end{array}\right..
+\]
+
+Olhando, por exemplo, para a de calor, a ideia base aqui é que nós sabemos que, no caso unidimensional,
+\[
+	u(x, t) = \sum\limits_{n=1}^{\infty}c_{n}(t)\sin^{}{(nx)},
+\]
+donde segue que, derivando,
+\begin{align*}
+	 & \frac{\partial^{2}u}{\partial x^{2}}(x, t) = \sum\limits_{n=1}^{\infty}c_{n}(t)(-n^{2})\sin^{}{(nx)} \\
+	 & \frac{\partial^{}u}{\partial t^{}}(t) = \sum\limits_{n=1}^{\infty}c_{n}'(t) \sin^{}{(nx)},
+\end{align*}
+das quais obtivemos
+\[
+	c_{n}'(t) = -n^{2}c_{n}(t) \Rightarrow c_{n}(t) = e^{-tn^{2}}c_{n}(0).
+\]
+Uma observação aqui é que saímos de uma derivada para uma multiplicação - a derivada segunda com respeito a x pode ser obtida simplesmente multiplicando a derivada com respeito a t por \((-n^{2})\). Com a transformada de Fourier, tentaremos transformar, em geral
+\[
+	\frac{\partial^{2}u}{\partial x^{2}}\rightsquigarrow -\xi^{2}\hat{u}(\xi ),
+\]
+consequentemente transformando o problema
+\[
+	\frac{\partial^{}u}{\partial t^{}} = \frac{\partial^{2}u}{\partial x^{2}} \rightsquigarrow \hat{u}'(\xi, t ) = -\xi^{2}\hat{u}(\xi , t).
+\]
+
+Tentaremos obter algo análogo à série de Fourier em \(\mathbb{R}\). Para isso, seja \(f:\mathbb{R}\rightarrow \mathbb{R}\) e suponha que \(f(x) = 0\) para \(|x|\geq R.\) Se L for maior que R, então
+\[
+	f(x) = \sum\limits_{n=-\infty}^{\infty}c_{n}e^{i \frac{n\pi }{L}x},\; c_{n} = \frac{1}{2L}\int_{-L}^{L}f(y)e^{-i \frac{n\pi }{L}y} \mathrm{dy},\; \forall |x|\leq L.
+\]
+Substituindo \(c_{n}\) na soma por essa expressão, obtemos
+\[
+	f(x) = \sum\limits_{n=-\infty}^{\infty}\frac{1}{2L}\int_{-L}^{L}f(y)e^{-i \frac{n\pi }{L}y} \mathrm{dy}e^{i \frac{n\pi }{L}x}.
+\]
+Agora, coloque
+\[
+	\Delta \xi  = \frac{\pi }{L},\; \xi_{n} = n \Delta \xi  = n \frac{\pi }{L},\;\& \frac{1}{2\pi }\Delta \xi  = \frac{1}{2L},
+\]
+tal que
+\begin{align*}
+	f(x) & = \sum\limits_{n=-\infty}^{\infty}\frac{1}{2L}\int_{-L}^{L}f(y)e^{-i \frac{n\pi }{L}y} \mathrm{dy}e^{i \frac{n\pi }{L}x} \\
+	     & = \sum\limits_{n=-\infty}^{\infty}\frac{1}{2\pi }\int_{-L}^{L}f(y)e^{-i \xi_{n}y} \mathrm{dy}e^{i\xi_{n}x}\Delta \xi     \\
+	     & = \sum\limits_{n=-\infty}^{\infty}\frac{1}{2L}\int_{-L}^{L}f(y)e^{-i \xi_{n}y} \mathrm{dy}e^{-i\xi_{n}x}.
+\end{align*}
+Como \(f = 0\) quando \(|x|\geq L > R\), segue que
+\[
+	\int_{-L}^{L}f(y)e^{-i\xi_{n}y} \mathrm{dy} = \int_{-\infty}^{\infty}f(y)e^{-i\xi_{n}y} \mathrm{dy}.
+\]
+Assim, definindo
+\[
+	\hat{f}(\xi_{n}) \coloneqq \int_{-\infty}^{\infty}f(y)e^{-i\xi_{n}y} \mathrm{dy},
+\]
+concluímos que
+\[
+	f(x) =\frac{1}{2\pi } \sum\limits_{n=-\infty}^{\infty}\hat{f}(\xi_{n})\Delta \xi,
+\]
+que lembra um pouco a integral de Riemann do cálculo 1. Quando tendemos L ao infinito, segue que \(\Delta \xi \) tende a 0 e, consequentemente,
+\[
+	f(x) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{i\xi x}\hat{f}(\xi ) \mathrm{d\xi }.
+\]
+Este processo todo motivou a seguinte definição:
+\begin{def*}
+	A \textbf{transformada de Fourier da função f}, onde \(f:\mathbb{R}\rightarrow \mathbb{C}\) é uma função, é definida como
+	\[
+		\mathcal{F}[f(\xi )] = \hat{f}(\xi) = \int_{-\infty}^{\infty}e^{-i\xi x}f(x) \mathrm{dx}.
+	\]
+	Além disso, a \textbf{transformada de Fourier inversa} é definida como
+	\[
+		\mathcal{F}^{-1}[\hat{f}(x)] = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{i\xi x}\hat{f}(\xi ) \mathrm{d\xi }. \quad \square
+	\]
+\end{def*}
+\begin{example}
+	Seja
+	\[
+		f(x) = \chi_{[-R, R]}(x) = \left\{\begin{array}{ll}
+			1, & \quad |x|\leq R \\
+			0, & \quad |x| > 0
+		\end{array}\right..
+	\]
+	Então,
+	\begin{align*}
+		\hat{f}(\xi ) = \int_{-\infty}^{\infty}e^{-i\xi x}\chi_{\mathbb{R}}(x) \mathrm{dx} & = \int_{-R}^{R}e^{-i\xi x} \mathrm{dx}                              \\
+		                                                                                   & = \frac{e^{-i\xi x}}{-i\xi }\biggl|_{-R}^{R}\biggr.                 \\
+		                                                                                   & = \frac{1}{-i\xi }(e^{-i\xi R}-e^{i\xi R})                          \\
+		                                                                                   & = \frac{2}{\xi }\frac{e^{i\xi R}-e^{-i\xi R}}{2i}                   \\
+		                                                                                   & = \frac{2}{\xi }\sin^{}{(\xi R)} = 2 \frac{\sin^{}{(\xi R)}}{\xi }.
+	\end{align*}
+	Com isso, observe que
+	\[
+		\int_{-\infty}^{\infty}\biggl\vert \frac{\sin^{}{(\xi R)}}{\xi } \biggr\vert \mathrm{d\xi } = \infty,
+	\]
+	mas
+	\[
+		\int_{-\infty}^{\infty}\biggl\vert \frac{\sin^{}{(\xi R)}}{;} \biggr\vert \mathrm{d\xi },
+	\]
+	ou seja, a transformada de Fourier da função característica do intervalo \([-R, R]\) é de classe \(L^{2}\).
+\end{example}
+\begin{example}
+	Agora, considere a função
+	\[
+		f(x) = e^{-a |x|}, \quad a > 0.
+	\]
+	Desta vez, temos
+	\begin{align*}
+		\hat{f}(\xi ) = \int_{-\infty}^{\infty}e^{-i\xi x}e^{-a|x|} \mathrm{dx} & = \int_{-\infty}^{0}e^{-i\xi x}e^{ax} \mathrm{dx} + \int_{0}^{\infty}e^{-i\xi x}e^{-ax} \mathrm{dx}                        \\
+		                                                                        & = \int_{-\infty}^{0}e^{x(a-i\xi )} \mathrm{dx} + \int_{0}^{\infty}e^{x(-a-i\xi )} \mathrm{dx}                              \\
+		                                                                        & = \frac{e^{x(a-i\xi )}}{a-i\xi }\biggl|_{-\infty}^{0}\biggr. + \frac{e^{x(-a-i\xi )}}{-a-i\xi }\biggl|_{0}^{\infty}\biggr. \\
+		                                                                        & = \frac{1}{a-i\xi }+\frac{1}{a+i\xi } = \frac{a+i\xi + a - i\xi }{(a+i\xi )(a-i\xi )} = \frac{2a}{a^{2}+\xi^{2}}.
+	\end{align*}
+\end{example}
+\begin{example}
+	Para o terceiro exemplo de transformada de Fourier, seja
+	\[
+		f(x) = e^{-ax^{2}},\quad a > 0.
+	\]
+	Então,
+	\[
+		\hat{f}(\xi ) = \int_{-\infty}^{\infty}e^{-ix\xi }e^{-ax^{2}} \mathrm{dx}.
+	\]
+	Com isso,
+	\begin{align*}
+		\frac{\mathrm{d}}{\mathrm{d}\xi }\hat{f}(\xi ) & = \frac{\mathrm{d}}{\mathrm{d}\xi }\int_{-\infty}^{\infty}e^{-ix\xi -ax^{2}} \mathrm{dx}                                                                                \\
+		                                               & = \int_{-\infty}^{\infty}(-ix)e^{-ix\xi }e^{-ax^{2}} \mathrm{dx}                                                                                                        \\
+		                                               & = -i \int_{-\infty}^{\infty}e^{-ix\xi }\biggl(-\frac{1}{2a}\biggr)\frac{\mathrm{d}}{\mathrm{d}x}(e^{-ax^{2}}) \mathrm{dx}                                               \\
+		                                               & =\frac{1}{2a}\int_{-\infty}^{\infty}e^{-ix\xi }\frac{\mathrm{d}}{\mathrm{d}x}(e^{-ax^{2}}) \mathrm{dx}                                                                  \\
+		                                               & = \underbrace{\frac{i}{2a}e^{-ix\xi }e^{-ax^{2}}\biggl|_{-\infty}^{\infty}\biggr.}_{=0} - \frac{1}{2a}\int_{-\infty}^{\infty}e^{-ax^{2}}(-i\xi )e^{-ix\xi } \mathrm{dx} \\
+		                                               & = -\frac{\xi }{2a}\int_{-\infty}^{\infty}e^{-ix\xi }e^{-ax^{2}} \mathrm{dx} = - \frac{\xi }{2a}\hat{f}(\xi ).
+	\end{align*}
+	Em conclusão,
+	\[
+		\hat{f}'(\xi ) = -\frac{\xi }{2a}\hat{f}(\xi ) \Rightarrow \hat{f}(\xi ) = f(0) e^{-\frac{\xi^{2}}{4a}}.
+	\]
+	\hypertarget{last_class_21}{Na próxima aula}, nosso tópico de estudos será exatamente a função \(\hat{f}(0)\), mas, um pequeno spoiler de lá, teremos que calcular a integral
+	\[
+		\hat{f}(0) = \int_{-\infty}^{\infty}e^{-ax^{2}} \mathrm{dx}.
+	\]
+\end{example}
+
+\end{document}

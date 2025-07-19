@@ -1,0 +1,250 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 22 - 28 de Maio, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Transformada de Fourier.
+\end{itemize}
+\subsection{Transformada de Fourier: propriedades.}
+Dado \(f:\mathbb{R}\rightarrow \mathbb{C}\), definimos
+\[
+	\mathcal{F}[f(\xi )] = \hat{f}(\xi ) = \int_{-\infty}^{\infty}e^{-ix\xi }f(x) \mathrm{dx}
+\]
+com a Transformada de Fourier\footnote{Às vezes, será escrito \(\mathcal{F}[f]\); outras, \(\mathcal{F}f\), ou \(\mathcal{F}(f)\), ou apenas \(\hat{f}\). Todas são a mesma coisa, mas dependem um pouco (bastante) da minha preguiça de escrever.} da função f. Veremos algumas propriedades sobre elas agora. Para isso, determinemos as seguintes notações:
+\begin{itemize}
+	\item \(L^{1}(\mathbb{R}):\) o espaço das funções integráveis; e
+	\item \(L^{\infty}(\mathbb{R}):\) o espaço das funções ``limitadas'',
+\end{itemize}
+de tal forma que nosso primeira propriedade possa ser vista como dizer que \(\mathcal{F}\) é uma função de \(L^{1}\) em \(L^{\infty}\).
+\begin{prop*}
+	Se \(f:\mathbb{R}\rightarrow \mathbb{C}\) é integrável, então \(\mathcal{F}f\) é limitada e
+	\[
+		\Vert \hat{f} \Vert_{L^{\infty}}\leq \Vert f \Vert_{L^{1}} \Longleftrightarrow \sup_{\xi \in \mathbb{R}}|\hat{f}(\xi )| \leq \int_{-\infty}^{\infty}|f(x)| \mathrm{dx}.
+	\]
+\end{prop*}
+\begin{proof*}
+	Dado \(\xi \) um número real qualquer, segue que
+	\[
+		|\hat{f}(\xi )| = \biggl\vert \int_{-\infty}^{\infty}e^{-ix\xi }f(x) \mathrm{dx} \biggr\vert\leq \int_{-\infty}^{\infty}|f(x)| \mathrm{dx}.
+	\]
+	Portanto, como \(\xi \) fora escolhida arbitrariamente,
+	\[
+		\sup_{\xi \in \mathbb{R}}|\hat{f}(\xi )| \leq \int_{-\infty}^{\infty}|f(x)| \mathrm{dx}.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Em segundo lugar, vemos que a Transformada de Fourier é uma transformação linear
+\begin{prop*}
+	A função \(\mathcal{F}:L^{1}(\mathbb{R})\rightarrow L^{\infty}(\mathbb{R})\) é uma transformação linear.
+\end{prop*}
+\begin{proof*}
+	Com efeito, basta notar que
+	\begin{align*}
+		\mathcal{F}(\alpha f + \beta g)(\xi ) & =\int_{-\infty}^{\infty}e^{-ix\xi }(\alpha f(x)+\beta g(x)) \mathrm{dx}                                                \\
+		                                      & = \alpha \int_{-\infty}^{\infty}e^{-ix\xi }f(x) \mathrm{dx} + \beta \int_{-\infty}^{\infty}e^{-ix\xi }g(x) \mathrm{dx} \\
+		                                      & = \alpha \mathcal{F}(f) + \beta \mathcal{F}(g).
+	\end{align*}
+\end{proof*}
+\begin{prop*}
+	Abaixo, estão listadas outras propriedades úteis:
+	\begin{itemize}
+		\item[i)] \(\mathcal{F}(f(x-a))=e^{-ia\xi }\hat{f}(\xi )\) e \(\mathcal{F}(e^{iax}f(x))=\hat{f}(f-a)\);
+		\item[ii)] Para qualquer \(a > 0,\)
+		      \[
+			      \mathcal{F}(f(ax)) = \frac{1}{a}\hat{f}\biggl(\frac{\xi }{a}\biggr);
+		      \]
+		\item[iii)](\textbf{MUITO IMPORTANTE}): se f é uma função de classe \(\mathcal{C}^{1}\) e integrável (\(f\in \mathcal{C}^{1}\cap L^{1}\)) tal que \(f(x)\) tende a 0 quando x tende a \(\pm \infty\), então a transformada de Fourier leva derivadas em polinômios!
+		      \[
+			      \mathcal{F}(f'(x)) = i\xi \hat{f}(\xi ).
+		      \]
+		\item[iv)] De forma análoga à propriedade acima, se xf e f são integráveis,
+		      \[
+			      \mathcal{F}(xf(x)) = i \frac{\mathrm{d}\hat{f}(\xi )}{\mathrm{d}\xi }
+		      \]
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	i): basta fazer a transformação de variáveis \(y = x-a\) e \(dy = dx\) no meio das seguintes etapas:
+	\[
+		\mathcal{F}(f(x-a)) = \int_{-\infty}^{\infty}e^{-ix\xi }f(x-a) \mathrm{dx} = \int_{-\infty}^{\infty}e^{-iy\xi }e^{-ia\xi }f(y) \mathrm{dy} = e^{-ia\xi }\hat{f}(\xi ).
+	\]
+	Por outro lado,
+	\[
+		\mathcal{F}(e^{iax}f(x)) = \int_{-\infty}^{\infty}e^{-ix\xi }e^{iax}f(x) \mathrm{dx} = \int_{-\infty}^{\infty}e^{-ix(\xi -a)}f(x) \mathrm{dx} = \mathcal{F}f(\xi -a).
+	\]
+
+	ii): dessa vez, transformamos \(y = ax\) e \(dy = adx\), tal que
+	\[
+		\mathcal{F}(f(ax)) = \int_{-\infty}^{\infty}e^{-ix\xi }f(ax) \mathrm{dx} = \frac{1}{a}\int_{-\infty}^{\infty}e^{-iy \frac{\xi }{a}}f(y) \mathrm{dx} = \frac{1}{a}\hat{f}\biggl(\frac{\xi }{a}\biggr).
+	\]
+
+	iii): aqui, faremos uma aplicação da integração por partes:
+	\begin{align*}
+		\mathcal{F}(f') = \int_{-\infty}^{\infty}e^{-ix\xi }f'(x) \mathrm{dx} & = e^{ix\xi }f(x)\biggl|_{-\infty}^{\infty}\biggr. - \int_{-\infty}^{\infty}(-i\xi )e^{-ix\xi }f(x) \mathrm{dx} \\
+		                                                                      & = i\xi \int_{-\infty}^{\infty}e^{-ix\xi }f(x) \mathrm{dx}.
+	\end{align*}
+
+	iv): primeiramente, note que
+	\[
+		i \frac{\mathrm{d}}{\mathrm{d}\xi }(e^{-ix\xi }) = i(-ix)e^{-ix\xi }=xe^{-ix\xi }.
+	\]
+	Com isso,
+	\begin{align*}
+		\mathcal{F}(xf(x)) = \int_{-\infty}^{\infty}e^{-ix\xi }xf(x) \mathrm{dx} & = i \int_{-\infty}^{\infty}\frac{\mathrm{d}}{\mathrm{d}\xi }(e^{-ix\xi })f(x) \mathrm{dx} \\
+		                                                                         & = i \frac{\mathrm{d}}{\mathrm{d}\xi }\int_{-\infty}^{\infty}e^{-ix\xi }f(x) \mathrm{dx}   \\
+		                                                                         & = i \frac{\mathrm{d}\hat{f}(\xi )}{\mathrm{d}\xi }
+	\end{align*}
+\end{proof*}
+Em geral, vale que, se f é de classe \(\mathcal{C}^{k}\) com todas as derivadas integráveis e com todas as derivadas convergindo a 0 conforme \(|x|\) tende a \(\infty\), então
+\[
+	\mathcal{F}\biggl(\frac{\mathrm{d}^{j}f}{\mathrm{d}x^{j}}\biggr)= (i\xi )^{j}\mathcal{F}(f),\quad j< k
+\]
+Além disso, se \(x^{j}f\) é integrável para todo \(j\leq k\),
+\[
+	\mathcal{F}(x^{j}f) = i^{j}\frac{\mathrm{d}^{j}\hat{f}}{\mathrm{d}\xi^{j}}(\xi ).
+\]
+
+Antes de continuar, vamos terminar o \hyperlink{last_class_21}{\textit{exemplo da aula passada}}
+\begin{example}
+	Como calcular a integral de
+	\[
+		\int_{-\infty}^{\infty}e^{-ax^{2}} \mathrm{dx},\quad a>0?
+	\]
+	Para isso, seja
+	\[
+		I \coloneqq \int_{-\infty}^{\infty}e^{-ax^{2}} \mathrm{dx} = \int_{-\infty}^{\infty}e^{-ay^{2}} \mathrm{dx},
+	\]
+	tal que
+	\[
+		I^{2} = \biggl(\int_{-\infty}^{\infty}e^{-ax^{2}} \mathrm{dx}\biggr)\biggl(\int_{-\infty}^{\infty}e^{-ay^{2}} \mathrm{dy}\biggr) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}e^{-a(x^{2}+y^{2})} \mathrm{dx} \mathrm{dy}.
+	\]
+	Aqui, aplicamos a transformada
+	\[
+		\left.\begin{array}{ll}
+			x = r\cos^{}{(\theta )} \\
+			y = r\sin^{}{(\theta )}
+		\end{array}\right\}dxdy = r drd\theta ,
+	\]
+	que torna a expressão de \(I^{2}\) em
+	\begin{align*}
+		I^{2} = \int_{0}^{2\pi }\int_{0}^{\infty}e^{-ar^{2}}r \mathrm{dr} \mathrm{d\theta } = 2\pi \int_{0}^{\infty}re^{-ar^{2}} \mathrm{dr} & \underbrace{=}_{\mathclap{\substack{t=ar^{2}         \\ dt = 2ardr}}} 2\pi \int_{0}^{\infty}\frac{1}{2a}e^{-t} \mathrm{dt}\\
+		                                                                                                                                     & = \frac{\pi }{a}\int_{0}^{\infty}e^{-t} \mathrm{dt}  \\
+		                                                                                                                                     & = \frac{\pi }{a}(-e^{-t})\biggl|_{0}^{\infty}\biggr. \\
+		                                                                                                                                     & = \frac{\pi }{a}.
+	\end{align*}
+	Portanto,
+	\[
+		I^{2} = \frac{\pi }{a} \Rightarrow I = \sqrt[]{\frac{\pi }{a}},
+	\]
+	donde concluímos que
+	\[
+		\mathcal{F}(e^{-ax^{2}}) = \sqrt[]{\frac{\pi }{a}}e^{-\frac{\xi^{2}}{4a}}.
+	\]
+\end{example}
+
+Nossa etapa seguinte será estudar a Transformada Inversa. Mais especificamente, se f tem transformada de Fourier dada por
+\[
+	\hat{f}(\xi ) = \int_{-\infty}^{\infty}e^{-ix\xi }f(x) \mathrm{dx},
+\]
+então
+\[
+	f(x) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{f}(\xi ) \mathrm{d\xi }.
+\]
+
+\begin{theorem*}
+	Se f é uma função de classe \(\mathcal{C}(\mathbb{R})\cap L^{1}(\mathbb{R})\) e \(\hat{f}\) é integrável, então
+	\[
+		f(x) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{f}(\xi ) \mathrm{d\xi }
+	\]
+\end{theorem*}
+\begin{proof*}
+	Basta fazer a conta e ver que
+	\begin{align*}
+		\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{f}(\xi ) \mathrm{d\xi } & = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\underbrace{\biggl(\int_{-\infty}^{\infty}e^{-i\xi y}f(y) \mathrm{dy}\biggr)}_{\hat{f}(\xi )} \mathrm{d\xi } \\
+		                                                                             & =\frac{1}{2\pi }\int_{-\infty}^{\infty}\biggl(\int_{-\infty}^{\infty}e^{i(x-y)\xi } \mathrm{d\xi }\biggr)f(y)\mathrm{dy},
+	\end{align*}
+	exceto que essa igualdade não vale! Afinal,
+	\[
+		(y, \xi )\mapsto e^{i(x-y)\xi }f(y)
+	\]
+	\textbf{não} é integrável! Como resolver isso? Com limites!
+	\begin{align*}
+		\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{f}(\xi ) \mathrm{d\xi } & = \frac{1}{2\pi }\int_{-\infty}^{\infty}\lim_{\varepsilon \to 0}\biggl(e^{ix\xi }e^{-\frac{\varepsilon^{2}}{2}\xi^{2}}\hat{f}(\xi )\biggr) \mathrm{d\xi }                                      \\
+		                                                                             & = \frac{1}{2\pi }\lim_{\varepsilon \to 0}\int_{-\infty}^{\infty}e^{ix\xi }e^{-\frac{\varepsilon^{2} }{2}\xi^{2}}\hat{f}(\xi ) \mathrm{d\xi }                                                   \\
+		                                                                             & = \frac{1}{2\pi }\lim_{\varepsilon \to 0}\int_{-\infty}^{\infty}e^{ix\xi }e^{-\frac{\varepsilon^{2}}{2}\xi^{2}}\biggl(\int_{-\infty}^{\infty}e^{-i\xi y}f(y) \mathrm{dy}\biggr) \mathrm{d\xi } \\
+		                                                                             & = \frac{1}{2\pi }\lim_{\varepsilon \to 0}\int_{-\infty}^{\infty}\biggl(\int_{-\infty}^{\infty}e^{-i(y-x)\xi }e^{-\frac{\varepsilon^{2} }{2}\xi^{2}} \mathrm{d\xi }\biggr)f(y) \mathrm{dy}.
+	\end{align*}
+	Note que
+	\[
+		\int_{-\infty}^{\infty}e^{-i(y-x)\xi }e^{-\frac{\varepsilon^{2}}{2}\xi^{2}} \mathrm{d\xi } = \mathcal{F}(e^{-\frac{\varepsilon^{2}}{2}\xi^{2}})(y-x),
+	\]
+	que, como vimos nas propriedades da transformada de Fourier, pode ser reescrita como
+	\[
+		\mathcal{F}(e^{-\frac{\varepsilon^{2}}{2}\xi ^{2}}) = \sqrt[]{\frac{2\pi }{\varepsilon^{2}}}e^{-\frac{2}{4\varepsilon^{2}}(y-x)^{2}} = \frac{2\pi }{\varepsilon }e^{-\frac{(y-x)^{2}}{2\varepsilon^{2}}}.
+	\]
+	Com isso, substituindo
+	\[
+		z = \frac{y-x}{\varepsilon } \quad\&\quad dz = \frac{1}{\varepsilon }dy,
+	\]
+	podemos continuar a conta acima como
+	\begin{align*}
+		\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{f}(\xi ) \mathrm{d\xi } & = \frac{1}{2\pi }\lim_{\varepsilon \to 0}\int_{-\infty}^{\infty}\biggl(\int_{-\infty}^{\infty}e^{-i(y-x)\xi }e^{-\frac{\varepsilon^{2} }{2}\xi^{2}} \mathrm{d\xi }\biggr)f(y) \mathrm{dy} \\
+		                                                                             & = \lim_{\varepsilon \to 0}\int_{-\infty}^{\infty}\frac{1}{\sqrt[]{2\pi }\varepsilon }e^{-\frac{(y-x)^{2}}{2\varepsilon^{2}}}f(y) \mathrm{dy}                                              \\
+		                                                                             & = \lim_{\varepsilon \to 0}\frac{1}{\sqrt[]{2\pi }}\int_{-\infty}^{\infty}e^{-\frac{z^{2}}{2}}f(x-\varepsilon z) \mathrm{dz}                                                               \\
+		                                                                             & = \frac{1}{\sqrt[]{2\pi }}\int_{-\infty}^{\infty}\lim_{\varepsilon \to 0}e^{-\frac{z^{2}}{2}}f(x+\varepsilon z) \mathrm{dz}                                                               \\
+		                                                                             & = \biggl(\frac{1}{\sqrt[]{2\pi }}\int_{-\infty}^{\infty}e^{-\frac{z^{2}}{2}} \mathrm{dz}\biggr)f(x) = f(x). \quad \text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+
+Pelo Teorema acima, nossa definição da transformada de Fourier inversa como
+\[
+	\mathcal{F}^{-1}(g)(x) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }g(\xi ) \mathrm{d\xi }
+\]
+ganhou sentido. Nesta linha, ganhamos a dupla de transformadas invertíveis
+\begin{align*}
+	 & \mathcal{F}^{-1}(\mathcal{F}(f)) = f \text{ se }f\in \mathcal{C}(\mathbb{R})\cap L^{1}(\mathbb{R})\;\&\;\hat{f}\in L^{1}(\mathbb{R})               \\
+	 & \mathcal{F}(\mathcal{F}^{-1}(f)) = f \text{ se }f\in \mathcal{C}(\mathbb{R})\cap L^{1}(\mathbb{R})\;\&\; \mathcal{F}^{-1}(f)\in L^{1}(\mathbb{R}).
+\end{align*}-1
+\begin{example}
+	Ache as transformadas de Fourier
+	\[
+		\mathcal{F}\biggl(\frac{1}{a^{2}+x^{2}}\biggr)\quad\&\quad \mathcal{F}\biggl(\frac{\sin^{}{(ax)}}{x}\biggr).
+	\]
+	Sabemos que
+	\[
+		\mathcal{F}(e^{-a|x|}) = \frac{2a}{a^{2}+\xi^{2}},
+	\]
+	tal que
+	\[
+		e^{-a|x|} = \mathcal{F}^{-1}\biggl(\frac{2a}{a^{2}+\xi ^{2}}\biggr).
+	\]
+	Sendo assim,
+	\[
+		\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\frac{2a}{a^{2}+\xi^{2}} \mathrm{d\xi } = e^{-a|x|}\underbrace{\rightsquigarrow}_{\mathclap{\substack{x\mapsto -\xi  \\ \xi \mapsto x}}} \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{-ix\xi }\frac{2a}{a^{2}+x^{2}} \mathrm{dx}.
+	\]
+	Consequentemente,
+	\[
+		\mathcal{F}\biggl(\frac{1}{a^{2}+x^{2}}\biggr) = \frac{\pi }{a}e^{-a|\xi |}.
+	\]
+
+	Para a de seno, vimos na aula passada que
+	\[
+		\mathcal{F}(\chi_{[-a, a]}) = \frac{2\sin^{}{(a\xi )}}{\xi },
+	\]
+	donde concluímos que
+	\[
+		\chi_{[-a, a]}(x) = \mathcal{F}^{-1}\biggl(\frac{2\sin^{}{(a\xi )}}{\xi }\biggr).
+	\]
+	Logo,
+	\begin{align*}
+		                    & \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\frac{2\sin^{}{(a\xi )}}{\xi } \mathrm{d\xi } = \chi_{[-a, a]}(x) \\
+		\Longleftrightarrow & \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{-ix\xi }\frac{2\sin^{}{(ax)}}{x} \mathrm{dx} =\chi_{[-a, a]}(\xi )       \\
+		\Longleftrightarrow & \int_{-\infty}^{\infty}e^{-ix\xi }\frac{\sin^{}{(ax)}}{x} \mathrm{dx} = \pi \chi_{[-a, a]}(\xi ).
+	\end{align*}
+	Portanto,
+	\[
+		\mathcal{F}\biggl(\frac{\sin^{}{(ax)}}{x}\biggr) = \pi \chi_{[-a, a]}(\xi ).
+	\]
+
+\end{example}
+
+\end{document}

@@ -1,0 +1,243 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 27 - 16 de Junho, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Finalização da Aplicação em Calor;
+	\item Usando Fourier em Ondas.
+\end{itemize}
+\subsection{Transformada de Fourier e Calor.}
+Antes de prosseguir ao tema da aula em si, precisamos deixar claro o uso dos seguintes espaços:
+\begin{itemize}
+	\item \(\mathcal{C}^{k}(\Omega )\): funções de classe \(\mathcal{C}^{k}\) em \(\Omega \);
+	\item \(L^{1}(\Omega )\): funções tais que a integral do seu módulo é finita:
+	      \[
+		      \int_{\Omega }^{}|f(x)| \mathrm{dx} < \infty;
+	      \]
+	\item \(L^{2}(\Omega )\): funções cujo quadrado do módulo têm integral finita:
+	      \[
+		      \int_{\Omega }^{}|f(x)|^{2} \mathrm{dx} < \infty;
+	      \]
+	\item \(\mathcal{C}(\Omega )\cap L^{\infty}(\Omega )\): funções contínuas e limitadas.
+\end{itemize}
+
+Ao fim, teremos provado o teorema
+\begin{theorem*}
+	Seja \(u_{0}\in \mathcal{C}(\Omega )\cap L^{\infty}(\Omega )\); então, existe \textit{uma única} função \(u:\mathbb{R}\times [0, \infty)\rightarrow \mathbb{R}\) tal que:
+	\begin{align*}
+		 & 1)\; u\in \mathcal{C}(\mathbb{R}\times [0, \infty))\cap \mathcal{C}^{2}(\mathbb{R}\times [0, \infty));
+		 & 2)\; u\in \mathcal{C}(\Omega )\cap L^{\infty}(\Omega );
+		 & 3)\; u\text{ é tal que } \left\{\begin{array}{ll}
+			                                   \frac{\partial^{}u}{\partial t^{}}(x, t) = \frac{\partial^{2}u}{\partial x^{2}}(x, t), & \quad x\in \mathbb{R},\; t > 0 \\
+			                                   u(x, 0) = u_{0}(x)                                                                     & \quad x\in \mathbb{R}
+		                                   \end{array}\right.
+	\end{align*}
+	Além disso, esta função automaticamente satisfaz
+	\begin{align*}
+		 & 4)\; u\in \mathcal{C}^{\infty}(\mathbb{R}\times (0, \infty)) \\
+		 & 5)\; |u(x, t)|\leq \sup_{x\in \mathbb{R}}|u_{0}(x)|.
+	\end{align*}
+\end{theorem*}
+\begin{proof*}
+	[Existência - Esboço]: seja u dada por
+	\[
+		u(x, t) = K_{t}*u_{0}(x) = \int_{-\infty}^{\infty}K(x-y, t)u_{0}(y) \mathrm{dy} = \int_{-\infty}^{\infty}\frac{1}{\sqrt[]{4\pi t}}e^{-\frac{(x-y)^{2}}{4t}}u_{0}(y) \mathrm{dy}.
+	\]
+	Já sabemos que
+	\begin{align*}
+		 & \frac{\partial^{}u}{\partial t^{}} - \frac{\partial^{2}u}{\partial x^{2}} = \int_{-\infty}^{\infty}\biggl(\frac{\partial^{}K}{\partial t^{}}(x-y, t) - \frac{\partial^{2}K}{\partial x^{2}}(x-y, t)\biggr)u_{0}(y) \mathrm{dy} = 0      \\
+		 & \lim_{t\to 0}u(x, t) = u_{0}(x)                                                                                                                                                                                                         \\
+		 & |u(x, t)| \leq \int_{-\infty}^{\infty}\frac{1}{\sqrt[]{4\pi t}}e^{-\frac{(x-y)^{2}}{4t}}|u_{0}(y)| \mathrm{dy}\leq \sup_{x\in \mathbb{R}}|u_{0}(y)|\int_{-\infty}^{\infty}\frac{e^{-\frac{(x-y)^{2}}{4t}}}{\sqrt[]{4\pi t}} \mathrm{dy} \\
+		 & \quad\quad\quad\;\; \leq \sup_{x\in \mathbb{R}}|u_{0}(x)|\underbrace{\int_{-\infty}^{\infty}K(x, t) \mathrm{dx}}_{=1} = \sup_{x\in \mathbb{R}}|u_{0}(x)|.
+	\end{align*}
+	Assim, ganhamos, respectivamente, os itens 3, 1 e 5. Para a segunda parte do item 1 e para o item 4, basta notar que a kj-ésima derivada de u tem forma
+	\[
+		\frac{\partial^{k}}{\partial x^{k}}\frac{\partial^{j}}{\partial t^{j}}u(x, t) = \int_{-\infty}^{\infty}\frac{\partial^{k+j}}{\partial x^{k}t^{j}}(K(x-y, t))u_{0}(y) \mathrm{dy}.
+	\]
+
+	[Unicidade] A prova da unicidade tem coisa nova e irá requerer o lema abaixo
+	\begin{lemma*}
+		Seja \(u\in \mathcal{C}(\mathbb{R}\times [0, \infty))\cap \mathcal{C}^{2}(\mathbb{R}\times (0, \infty)\cap L^{\infty}(\mathbb{R}\times [0, \infty))\) uma função que satisfaz:
+		\begin{align*}
+			 & \circ \frac{\partial^{}u}{\partial t^{}}(x, t) = \frac{\partial^{2}u}{\partial x^{2}}(x, t),\quad x\in \mathbb{R},\; t > 0 \\
+			 & \circ u(x, 0) = u_{0}(x),\quad x\in \mathbb{R}.
+		\end{align*}
+		Então,
+		\[
+			\sup_{(x, t)\in \mathbb{R}\times [0, \infty)} = \sup_{x\in \mathbb{R}}u_{0}(x).
+		\]
+	\end{lemma*}
+	\begin{proof*}[Lema]
+		Seja \((x_{0}, t_{0})\in \mathbb{R}\times (0, \infty)\); provaremos que \(u(x_{0}, t_{0})\leq \sup_{x\in \mathbb{R}}u_{0}(x)\).
+
+		Fixado \(\varepsilon >0\) e \(T>t_{0}\), defina \(v:\mathbb{R}\times [0, T+1)\rightarrow \mathbb{R}\) por
+		\[
+			v(x, t ) = u(x, t) - \frac{\varepsilon }{(T+1-t)^{\frac{1}{2}}} e^{\frac{(x-x_{0})^{2}}{4(T+1-t)}}.
+		\]
+		Com isso, para todo par \((x, t)\in \mathbb{R}\times [0, T+1)\),
+		\[
+			\frac{\partial^{}v}{\partial t^{}}(x, t)=\frac{\partial^{2}v}{\partial x^{2}}(x, t).
+		\]
+		Vamos aplicar o \hyperlink{strong_maximum}{\textit{princípio do máximo}} na caixa
+		\[
+			[x_{0}-r, x_{0}+r] \times \{0\}\cup \{x_{0}-r\}\times [0, T]\cup \{x_{0}+r\}\times [0, T],
+		\]
+		tal que
+		\begin{align*}
+			v(x_{0}, t_{0}) & \leq \max\limits_{}\{\sup_{x\in [x_{0}-r, x_{0}+r]}v_{0}(x), \sup_{t\in [0, T]}v(x_{0}-r, t), \sup_{t\in [0, T]}v(x_{0}+r, t)\} \\
+			                & \leq \max\limits_{}\{\sup_{x\in \mathbb{R}}u_{0}(x), \sup_{x\in [0, T]}v(x_{0}\pm r, t)\}.
+		\end{align*}
+		Note que
+		\[
+			v(x_{0}\pm r, t) = u(x_{0}\pm r, t) - \frac{\varepsilon }{(T+1-t)^{\frac{1}{2}}}e^{\frac{r}{4(T+1-t)}},
+		\]
+		ou seja, podemos misturar isso e a desigualdade encontrada para descobrir que, como
+		\[
+			\frac{1}{(T+1-t)^{\frac{1}{2}}}e^{\frac{t^{2}}{4(T+1-t)}}\geq \frac{1}{(T+1)^{\frac{1}{2}}}e^{\frac{r^{2}}{4(T+1)}},
+		\]
+		então devemos ter na verdade
+		\[
+			u(x_{0}\pm r, t) = u(x_{0}\pm r, t) - \frac{\varepsilon }{(T+1)^{\frac{1}{2}}}e^{\frac{t^{2}}{4(T+1)}}.
+		\]
+		Agora, escolhemos  r tal que
+		\[
+			u(x_{0}\pm r, t) - \frac{\varepsilon }{(T+1)^{\frac{1}{2}}}e^{\frac{t^{2}}{4(T+1)}}\leq \sup_{x\in \mathbb{R}}u_{0}(x),
+		\]
+		que é o mesmo que
+		\[
+			v(x_{0}\pm r, t) \leq \sup_{x\in \mathbb{R}} u_{0}(x).
+		\]
+		Logo,
+		\[
+			v(x_{0}, t) \leq \sup_{x\in \mathbb{R}}u_{0}(x),
+		\]
+		tal que, para todo \(\varepsilon  > 0\),
+		\[
+			u(x_{0}, t_{0})\leq \sup_{x\in \mathbb{R}} u_{0}(x) + \frac{\varepsilon }{(T+1-t)^{\frac{1}{2}}}.
+		\]
+		Portanto,
+		\[
+			u(x_{0}, t_{0}) \leq \sup_{x\in \mathbb{R}}u_{0}(x).\quad \text{\qedsymbol}
+		\]
+	\end{proof*}
+
+	Agora, suponha então que temos w e u funções resolvendo
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}u}{\partial t^{}}(x, t) = \frac{\partial^{2}u}{\partial x^{2}} (x, t), & \quad x\in \mathbb{R},\; t > 0 \\
+			u(x, 0) = u_{0}(x)
+		\end{array}\right.
+		\;\&\; \left\{\begin{array}{ll}
+			\frac{\partial^{}w}{\partial t^{}}(x, t) = \frac{\partial^{2}w}{\partial x^{2}} (x, t), & \quad x\in \mathbb{R},\; t > 0 \\
+			w(x, 0) = u_{0}(x)
+		\end{array}\right..
+	\]
+	Definimos \(U\coloneqq u-w\), tal que U resolve
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{}U}{\partial t^{}}(x, t) = \frac{\partial^{2}U}{\partial x^{2}}(x, t), & \quad x\in \mathbb{R},\; t>0 \\
+			U(x, 0) = 0
+		\end{array}\right..
+	\]
+	Consequentemente, pelo Lema provado acima,
+	\[
+		U(x, t) \leq \sup_{x\in \mathbb{R}}U(x, 0) = 0.
+	\]
+	Da mesma forma, segue que
+	\[
+		\frac{\partial^{}(-U)}{\partial t^{}} = \frac{\partial^{2}(-U)}{\partial x^{2}}\;\&\; -U(x, 0) = 0 \Rightarrow -U(x, t)\leq \sup_{x\in \mathbb{R}}(-U(x, 0)) = 0.
+	\]
+	Portanto, concluímos que \(U(x, t) = 0\) e que, assim, \(u = w\). \qedsymbol
+\end{proof*}
+
+Essa versão é um tanto mais geral que o método da energia costumeiro que estivemos utilizando, pois ele só pode ser usado para provar unicidade de soluções com \(U, \partial_t U, \partial_x U\) e \(\partial_{x}^{2}U\) de classe \(\mathcal{L}^{2}(\mathbb{R})\) e que tenha crescimento na sua forma normal \(U\) e de sua derivada \(\partial_x U\) controlado quando x tende a infinito. O jeito é, a partir do problema
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}U}{\partial t^{}} = \frac{\partial^{2}U}{\partial x^{2}} \\
+		U(x, 0) = 0
+	\end{array}\right. \Rightarrow U =0,
+\]
+fazemos
+\begin{align*}
+	\frac{\partial^{}}{\partial t^{}}\int_{-\infty}^{\infty}U(x, t)^{2} \mathrm{dx} & = 2 \int_{-\infty}^{\infty}U(x, t)\frac{\partial^{}U}{\partial t^{}}(x, t) \mathrm{dx}                                                                                                                      \\
+	                                                                                & = 2\int_{-\infty}^{\infty}U(x, t)\frac{\partial^{2}U}{\partial x^{2}}(x, t) \mathrm{dx}                                                                                                                     \\
+	                                                                                & = 2 U(x, t)\frac{\partial^{}U}{\partial x^{}}(x, t)\biggl|_{-\infty}^{\infty}\biggr. - 2\int_{-\infty}^{\infty}\frac{\partial^{}U}{\partial x^{}}(x, t)\frac{\partial^{}U}{\partial x^{}}(x, t) \mathrm{dx} \\
+	                                                                                & = -2 \int_{-\infty}^{\infty}\biggl(\frac{\partial^{}U}{\partial x^{}}\biggr)^{2} \mathrm{dx},
+\end{align*}
+donde seguem tanto as observações da necessidade de quadrado integrável finito quanto a seguinte implicação
+\[
+	\frac{\partial^{}}{\partial t^{}}\int_{-\infty}^{\infty}U(x, t)^{2} \mathrm{dx}\leq 0 \Rightarrow \int_{0}^{t}\biggl(\frac{\mathrm{d}}{\mathrm{d}s}\biggl|_{-\infty}^{\infty}\biggr.U(x, s)^{2}dx\biggr) \mathrm{ds} \leq \int_{0}^{t}0 \mathrm{dt}.
+\]
+Portanto,
+\[
+	\int_{-\infty}^{\infty}U(x, t)^{2} \mathrm{dx} - \int_{-\infty}^{\infty}U(x, 0)^{2} \mathrm{dx} \leq 0 \Rightarrow \int_{-\infty}^{\infty}U(x, t)^{2} \mathrm{dx} \leq 0 \Rightarrow U(x, t) = 0,
+\]
+finalizando o uso do método da energia.
+\subsection{Equação da Onda com Transformada de Fourier}
+De forma parecida aos outros casos vistos, provaremos que
+\begin{theorem*}
+	Sejam \(u_{0}\in \mathcal{C}^{2}(\mathbb{R}),\; v_{0}\in \mathcal{C}^{1}(\mathbb{R})\). Logo, existe uma única função u de classe \(\mathcal{C}^{2}(\mathbb{R}\times \mathbb{R})\) tal que ela satisfaz
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{2}u}{\partial t^{2}}(x, t) = \frac{\partial^{2}u}{\partial x^{2}}(x, t), & \quad x\in \mathbb{R},\; t\in \mathbb{R} \\
+			u(x, 0) = u_{0}(x),                                                                      & \quad x\in \mathbb{R}                    \\
+			\frac{\partial^{}u}{\partial t^{}}(x, 0) = v_{0}(x),                                     & \quad x\in \mathbb{R}
+		\end{array}\right.
+	\]
+\end{theorem*}
+\begin{proof*}
+	\textbf{\underline{Existência}:} começando pela prova da existência, considere a função
+	\[
+		u(x, t) = \frac{1}{2}(u_{0}(x-t) + u_{0}(x+t)) + \frac{1}{2}(V_{0}(x+t) - V_{0}(x-t)),
+	\]
+	onde \(V\) é uma primitiva de \(v_{0}\); com isto, u é uma função de classe \(\mathcal{C}^{2}(\mathbb{R}\times \mathbb{R})\) por ser a combinação linear das funções de mesma classe \(u_{0}, v_{0}\), e, além disso, satisfaz
+	\begin{align*}
+		 & \circ\; u(x, 0) = \frac{1}{2}(u_{0}(x) + u_{0}(x)) + \frac{1}{2}(v_{0}(x) - v_{0}(x)) = u_{0}(x)                                                                                     \\
+		 & \circ\; \frac{\partial^{}u}{\partial t^{}}(x, 0) = \frac{1}{2}(u_{0}'(x) - u_{0}'(x)) + \frac{1}{2}(v_{0}(x)+v_{0}(x)) = v_{0}(x)                                                    \\
+		 & \circ\; \frac{\partial^{2}u}{\partial t^{2}}(x, t) = \frac{1}{2}(u_{0}''(x+t) + u_{0}''(x-t)) + \frac{1}{2}(v_{0}'(x+t) - v_{0}'(x-t)) = \frac{\partial^{2}u}{\partial x^{2}}(x, t).
+	\end{align*}
+
+	\textbf{\underline{Unicidade}:} para a unicidade, considere u e w funções que satisfazem o problema imposto, de forma que \(U\coloneqq u-w\) satisfaz o problema
+	\[
+		\left\{\begin{array}{ll}
+			\frac{\partial^{2}U}{\partial t^{2}}(x, t) = \frac{\partial^{2}U}{\partial x^{2}}(x, t) \\
+			U(x, 0) = 0                                                                             \\
+			\frac{\partial^{}U}{\partial t^{}}(x, 0) = 0
+		\end{array}\right..
+	\]
+	Definamos, com isso, \(z(x, y) = U(x+y, x-y) \eqqcolon U(X, T)\), tal que
+	\[
+		\frac{\partial^{}z}{\partial x^{}}(x, y) = \frac{\partial^{}U}{\partial X^{}}(x+y, x-y) + \frac{\partial^{}U}{\partial T^{}}(x+y, x-y),
+	\]
+	que, com a regra da cadeia, torna-se
+	\[
+		\frac{\partial^{}z}{\partial y^{}}(x, y) = \frac{\partial^{}U}{\partial X^{}}(x+y, x-y)\frac{\partial^{}X}{\partial y^{}} + \frac{\partial^{}U}{\partial T^{}}(x+y, x-y)\frac{\partial^{}T}{\partial y^{}} = \frac{\partial^{}U}{\partial X^{}} - \frac{\partial^{}U}{\partial T^{}}.
+	\]
+
+	Além disso,
+	\[
+		\frac{\partial^{2}z}{\partial y \partial x^{}}(x, y) = \frac{\partial^{2}U}{\partial X^{2}}(x+y, x-y) - \frac{\partial^{2}U}{\partial t \partial x^{}}(x+y, x-y) + \frac{\partial^{2}U}{\partial x \partial t^{}}(x+y, x-y) - \frac{\partial^{2}U}{\partial t^{2}}(x+y, x-y) = 0.
+	\]
+	Em particular, disto tiramos que a derivada de z com respeito a x é uma constante com relação à variável y, isto é,
+	\[
+		\frac{\partial^{}z}{\partial x^{}}(x, y) = k(x) \Rightarrow \frac{\partial^{}}{\partial x^{}}(z - k) = 0 \Rightarrow z(x, y) - K(x) = H(y),
+	\]
+	onde K é tal que \(K' = k\). Logo,
+	\begin{align*}
+		 & z(x, y) = K(x) + H(y)                                                                                                                                               \\
+		 & z(x, x) = U(x+x, x-x) = U(2x, 0) = 0 \Rightarrow K(x) + H(x) = 0                                                                                                    \\
+		 & \frac{\partial^{}}{\partial x^{}}z(x, x) - \frac{\partial^{}}{\partial y^{}}z(x, x) = 2\frac{\partial^{}U}{\partial t^{}}(2x, 0) = 0 \Rightarrow K'(x) - H'(x) = 0.
+	\end{align*}
+
+	Em conclusão, encontramos funções K e H que satisfazem
+	\begin{align*}
+		 & K(x) + H(x) = 0 \Rightarrow K'(x) + H'(x) = 0    \\
+		 & K'(x) - H'(x) = 0 \Rightarrow K'(x) = H'(x) = 0,
+	\end{align*}
+	ou seja, devem ser duas funções constantes, digamos \(c_1\) e \(c_2\) tais que a soma delas é 0. Portanto, a unicidade segue de
+	\[
+		z(x, y) = c_1 + c_2 = 0 \Rightarrow U(x, t) = 0. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+
+\end{document}

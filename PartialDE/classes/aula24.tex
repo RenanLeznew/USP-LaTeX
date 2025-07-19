@@ -1,0 +1,297 @@
+\documentclass[../pde_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 24 - 04 de Junho, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Convolução;
+	\item Núcleo do Calor
+\end{itemize}
+\subsection{Convolução e Mais Transformada de Fourier}
+Começamos esta aula apresentando uma versão ``invertida'' da proposição que finalizou a aula passada, isto é, vimos que
+\begin{prop*}[Transformadas de Fourier e Convoluções]
+	Considere funções \(f, g:\mathbb{R}\rightarrow \mathbb{C}\) bem comportadas (por exemplo, de classe \(L^{2}\)). Então,
+	\begin{align*}
+		 & \mathcal{F}(f*g) = \mathcal{F}f \mathcal{F}g;                        \\
+		 & \mathcal{F}^{-1}(f*g) = 2\pi (\mathcal{F}^{-1}f)(\mathcal{F}^{-1}g).
+	\end{align*}
+\end{prop*}
+Agora, provaremos
+\begin{prop*}
+	Considere funções \(f, g:\mathbb{R}\rightarrow \mathbb{C}\) bem comportadas (por exemplo, de classe \(L^{2}\)). Então,
+	\begin{align*}
+		 & \mathcal{F}^{-1}(fg) = \mathcal{F}^{-1}f *\mathcal{F}^{-1}g; \\
+		 & 2\pi (\mathcal{F}fg) = \mathcal{F}(f)*\mathcal{F}(g).
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	Sejam \(\tilde{f} = \mathcal{F}^{-1}f\) e \(\tilde{g} = \mathcal{F}^{-1}g\). Já sabemos que \(\mathcal{F}(\tilde{f}*\tilde{g}) = \mathcal{F}(\tilde{f})\mathcal{F}(\tilde{g})\). Com isso, note que podemos escrever esta igualdade como
+	\[
+		\mathcal{F}(\mathcal{F}^{-1}(f)*\mathcal{F}^{-1}(g)) =f g,
+	\]
+	donde concluímos que, apilcando a transformada inversa nos dois lados,
+	\[
+		\mathcal{F}^{-1}\mathcal{F}(\mathcal{F}^{-1}(f)*\mathcal{F}^{-1}(g)) = \mathcal{F}^{-1}(fg).
+	\]
+	Logo,
+	\[
+		\mathcal{F}^{-1}(fg) = \mathcal{F}^{-1}(f)*\mathcal{F}^{-1}(g).
+	\]
+
+	Por outro lado, denote por \(\hat{f} = \mathcal{F}f\) e \(\hat{g} = \mathcal{F}g\). Temos, então, a relação
+	\[
+		\mathcal{F}^{-1}(\hat{f}*\hat{g}) = 2\pi \mathcal{F}^{-1}(\hat{f}) \mathcal{F}^{-1}(\hat{g}),
+	\]
+	que é equivalente, destrinchando as formas de \(\hat{f}\) e \(\hat{g}\), à igualdade
+	\[
+		\mathcal{F}^{-1}(\mathcal{F}f * \mathcal{F}g) = 2\pi fg.
+	\]
+	Em conclusão, aplicando \(\mathcal{F}\) em ambos os lados,
+	\[
+		\mathcal{F}\mathcal{F}^{-1}(\mathcal{F}f*\mathcal{F}g) = 2\pi \mathcal{F}(fg).
+	\]
+	Portanto,
+	\[
+		2\pi \mathcal{F}(fg) = \mathcal{F}f * \mathcal{F}g. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+
+Tendo este ferramental, podemos falar das etapas quando a transformada de Fourier for aplicada a um problema; seguiremos o seguinte roteiro:
+\begin{itemize}
+	\item[Passo 1)] Aplicamos a transformada \(\mathcal{F}\) para transformar derivadas em polinômio;
+	\item[Passo 2)] Resolvemos a equação mais fácil e encontramos a solução transformada \(\hat{u}\);
+	\item[Passo 3)] Usamos a convolução para simplificar a solução, transformando duas integrais em uma só.
+\end{itemize}
+\begin{example}
+	Considere a equação
+	\[
+		-\frac{\mathrm{d}^{2}u}{\mathrm{d}x^{2}}(x) + u(x) = f(x),\quad x\in \mathbb{R}.
+	\]
+	Encontremos uma solução dela.
+
+	\textbf{\underline{Passo 1}:} Aplicamos a transformada de Fourier à equação acima, obtendo
+	\[
+		\mathcal{F}(-u'') + \mathcal{F}(u) = \mathcal{F}(f).
+	\]
+	Com isso, vale lembrar que, contanto que a u e sua derivada tenham um crescimento controlado, isto é,
+	\[
+		u(x)\overbracket[0pt]{\longrightarrow}^{x\to \pm\infty}0 \;\&\; u'(x)\overbracket[0pt]{\longrightarrow}^{x\to \pm \infty}0,
+	\]
+	então valem as relações
+	\begin{align*}
+		 & \mathcal{F}\biggl(\frac{\mathrm{d}u}{\mathrm{d}x}\biggr) = \xi \hat{u}(\xi )               \\
+		 & \mathcal{F}\biggl(\frac{\mathrm{d}^{2}u}{\mathrm{d}x^{2}}\biggr) = - \xi^{2}\hat{u}(\xi ).
+	\end{align*}
+	De fato, basta aplicar a integração por partes duas vezes para ver a validade delas:
+	\begin{align*}
+		\mathcal{F}(u'') & = \int_{-\infty}^{\infty}\underbrace{e^{-ix\xi }}_{g}\underbrace{u''(x)}_{f'} \mathrm{dx} = \underbrace{u'(x)}_{f}\underbrace{e^{-ix\xi }}_{g}\biggl|_{-\infty}^{\infty}\biggr. - \int_{-\infty}^{\infty}\underbrace{(-i\xi )e^{-ix\xi }}_{g'}\underbrace{u'(x)}_{f} \mathrm{dx}                      \\
+		                 & = i\xi \int_{-\infty}^{\infty}\underbrace{e^{-ix\xi }}_{v}\underbrace{u'(x)}_{w'} \mathrm{dx} = i\xi \biggl(\underbrace{u(x)}_{w}\underbrace{e^{-ix\xi }}_{v}\biggl|_{-\infty}^{\infty}\biggr. - \int_{-\infty}^{\infty}\underbrace{(-i\xi )e^{-ix\xi }}_{v'}\underbrace{u(x)}_{w} \mathrm{dx}\biggr) \\
+		                 & = (i\xi )^{2}\hat{u}(\xi ) = -\xi^{2}\hat{u}(\xi ).
+	\end{align*}
+
+	\textbf{\underline{Passo 2}:} Vamos resolver a equação
+	\[
+		(1+\xi ^{2})\hat{u}(\xi ) = \hat{f}(\xi ),
+	\]
+	que nos dá a forma de \(\hat{u}\)
+	\[
+		\hat{u}(\xi ) = \frac{\hat{f}(\xi )}{1+\xi^{2}}.
+	\]
+
+	\textbf{\underline{Passo 3}:} Temos
+	\[
+		u(x) = \mathcal{F}^{-1}(\hat{u}) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{u}(\xi ) \mathrm{d\xi } = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\frac{\hat{f}(\xi )}{1+\xi^{2}} \mathrm{d\xi },
+	\]
+	totalizando duas integrais -- uma advinda de \(\hat{f}\), outra de \(\mathcal{F}^{-1}(\hat{u})\). Note que
+	\[
+		u(x) = \mathcal{F}^{-1}\biggl(\frac{1}{1+\xi^{2}}\hat{f}(\xi )\biggr) = \mathcal{F}^{-1}\biggl(\frac{1}{1+\xi^{2}}\biggr)*\mathcal{F}^{-1}(\hat{f}).
+	\]
+	Além disso, sabemos que
+	\[
+		\mathcal{F}(e^{-|x|})=\frac{2}{1+\xi^{2}},
+	\]
+	donde concluímos
+	\[
+		\mathcal{F}^{-1}\biggl(\frac{1}{1+\xi^{2}}\biggr) = \mathcal{F}^{-1}\biggl(\frac{1}{2}\frac{2}{1+\xi^{2}}\biggr) = \frac{1}{2}e^{-|x|}.
+	\]
+	Logo, temos
+	\[
+		u(x) = \mathcal{F}^{-1}\biggl(\frac{1}{1+\xi^{2}}\biggr)*\mathcal{F}^{-1}(\hat{f}) = \frac{1}{2}e^{-|x|}*f(x).
+	\]
+	Portanto,
+	\[
+		u(x) = \frac{1}{2}\int_{-\infty}^{\infty}e^{-|x-y|}f(y) \mathrm{dy}.
+	\]
+\end{example}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	É possível obter estimativas sobre u usando \hyperlink{parseval_plancherel}{\textit{Plancherel}}, a qual afirma que
+	\[
+		2\pi \Vert u \Vert^{2} = \Vert \hat{u} \Vert^{2}.
+	\]
+	A partir disso,
+	\[
+		2\pi \Vert u \Vert^{2} = \Vert \hat{u} \Vert^{2} = \biggl\Vert \frac{\hat{f}}{1+\xi^{2}} \biggr\Vert.
+	\]
+	Consequentemente, como \(1+\xi^{2} \geq 1\),
+	\begin{align*}
+		\int_{-\infty}^{\infty}|u(x)|^{2} \mathrm{dx} & = \frac{1}{2}\int_{-\infty}^{\infty}\biggl\vert \frac{\hat{f}(\xi )}{1+\xi^{2}} \biggr\vert^{2} \mathrm{d\xi } \\
+		                                              & \leq \frac{1}{2\pi }\int_{-\infty}^{\infty}|\hat{f}(\xi )|^{2} \mathrm{d\xi }                                  \\
+		                                              & =\int_{-\infty}^{\infty}|f(x)|^{2} \mathrm{dx}
+	\end{align*}
+\end{tcolorbox}
+\subsection{Núcleo do Calor}
+Retomemos nossa (talvez nem tão) querida amiga, a equação do calor
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}u}{\partial t^{}}(x, t) = \frac{\partial^{2}u}{\partial x^{2}}(x, t), & \quad t > 0,\; x\in \mathbb{R} \\
+		u(x, 0) = u_{0}(x),                                                                    & \quad x\in \mathbb{R}
+	\end{array}\right.
+\]
+e vamos supor que u e suas derivadas vão a zero no infinito e que \(u_{0}\) é de quadrado integrável em \(\mathbb{R}\). Iremos estudar suas soluções com nossas novas ferramentas da caixa: a transformada de Fourier e a convolução.
+
+\textbf{\underline{Passo 1}:} começamos aplicando a transformada \(\mathcal{F}\) apenas na variável x, obtendo
+\[
+	\hat{u}(\xi , t)\coloneqq \int_{-\infty}^{\infty}e^{-ix\xi }u(x, t) \mathrm{dx}.
+\]
+Assim, aplicando a transformada na equação e no problema inicial, temos
+\[
+	\left\{\begin{array}{ll}
+		{\color{DeepSkyBlue3}\mathcal{F}\biggl(\frac{\partial^{}u}{\partial t^{}}(x, t)\biggr)} = {\color{DarkGoldenrod3}\mathcal{F}\biggl(\frac{\partial^{2}u}{\partial x^{2}}(x, t)\biggr)} \\
+		{\color{Firebrick3}\mathcal{F}(u(x, 0))} = {\color{Chartreuse3}\mathcal{F}(u_{0}(x))}
+	\end{array}\right.,
+\]
+dos quais tiramos
+\begin{align*}
+	 & {\color{DeepSkyBlue3} \mathcal{F}\biggl(\frac{\partial^{}u}{\partial t^{}}(x, t)\biggr)} = \int_{-\infty}^{\infty}e^{-ix\xi }\frac{\partial^{}u}{\partial t^{}}(x, t) \mathrm{dx} = \frac{\partial^{}}{\partial t^{}}\int_{-\infty}^{\infty}e^{-ix\xi }u(x, t) \mathrm{dx} = \frac{\partial^{}\hat{u}}{\partial t^{}}(\xi , t) \\
+	 & {\color{Firebrick3} \mathcal{F}(u(x, 0))} = \int_{-\infty}^{\infty}e^{ix\xi }u(x, 0) \mathrm{dx} = \hat{u}(\xi, 0)                                                                                                                                                                                                             \\
+	 & {\color{Chartreuse3}\mathcal{F}(u_{0}(x))} = \hat{u}(\xi )                                                                                                                                                                                                                                                                     \\
+	 & {\color{DarkGoldenrod3}\mathcal{F}\biggl(\frac{\partial^{2}u}{\partial x^{2}}\biggr)} = \int_{-\infty}^{\infty}e^{-ix\xi }\frac{\partial^{2}u}{\partial x^{2}}(x, t) \mathrm{dx} = (-i\xi )^{2} - \int_{-\infty}^{\infty}e^{-ix\xi }u(x, t) \mathrm{dx} = -\xi^{2}\hat{u}(\xi , t).
+\end{align*}
+Ao fim, obtemos o seguinte problema com condição inicial:
+\[
+	\left\{\begin{array}{ll}
+		\frac{\partial^{}\hat{u}}{\partial t^{}}(\xi , t) = -\xi^{2}\hat{u}(\xi , t), & \quad t>0,\; \xi \in \mathbb{R} \\
+		\hat{u}(\xi , 0) = \hat{u}_{0}(\xi ),                                         & \quad \xi \in \mathbb{R}
+	\end{array}\right..
+\]
+
+\textbf{\underline{Passo 2}:} vamos resolver a versão facilitada da equação. Segue que
+\begin{align*}
+	 & \frac{\partial^{}\hat{u}}{\partial t^{}}(\xi , t) = -\xi^{2}\hat{u}(\xi , t) \Rightarrow \hat{u}(\xi , t) = C(\xi )e^{-\xi^{2}t} \\
+	 & \hat{u}(\xi , 0) = \hat{u}_{0}(\xi )\;\&\; \hat{u}(\xi , 0) = C(\xi ) \Rightarrow C(\xi ) = \hat{u}_{0}(\xi ).
+\end{align*}
+Em conclusão,
+\[
+	\hat{u}(\xi , t)=\hat{u}_{0}(\xi )e^{-\xi^{2}t},
+\]
+e podemos novamente reverter a transformada para ver qual seria a solução. Com efeito,
+\[
+	u(x, t) = \mathcal{F}^{-1}(\hat{u}(\xi , t)) = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }\hat{u}(\xi , t) \mathrm{d\xi } = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }e^{-\xi^{2}t}\hat{u}_{0}(\xi) \mathrm{d\xi}
+\]
+
+\textbf{\underline{Passo 3}:} podemos finalmente passar ao último passo e simplificar essa solução com a convolução. Sabemos que
+\[
+	u(x, t) = \mathcal{F}^{-1}(e^{-\xi^{2}t}\hat{u}_{0}(\xi )) = \mathcal{F}^{-1}(e^{-\xi^{2}t})*\mathcal{F}^{-1}(\hat{u}_{0}),
+\]
+mas note como
+\[
+	\mathcal{F}^{-1}(\hat{u}_{0}) = \mathcal{F}^{-1}(\mathcal{F}(u_{0})) = u_{0},
+\]
+o que leva a uma parte da convolução. Para a outra, começamos por
+\[
+	\mathcal{F}\biggl(e^{-\frac{x^{2}}{2}}\biggr) = \sqrt[]{2\pi }e^{-\frac{\xi^{2}}{2}}.
+\]
+Logo,
+\[
+	\mathcal{F}^{-1}\biggl(e^{-\frac{\xi^{2}}{2}}\biggr) = \frac{1}{\sqrt[]{2\pi }}e^{-\frac{x^{2}}{2}}.
+\]
+No entanto, existe uma variável t na original. Com base no que fora feito acima, vemos que
+\begin{align*}
+	\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{ix\xi }e^{-t\xi^{2}} \mathrm{d\xi } & = \frac{1}{2\pi }\int_{-\infty}^{\infty}e^{i \frac{x}{\sqrt[]{2t}}y}e^{-\frac{y^{2}}{2}} \frac{\mathrm{dy}}{\sqrt[]{2t}}                                                        \\
+	                                                                             & = \biggl(\frac{1}{2\pi }\int_{-\infty}^{\infty}e^{i \biggl(\frac{x}{\sqrt[]{2t}}\biggr)\xi }e^{-\frac{\xi^{2}}{2}} \mathrm{d\xi }\biggr)\frac{1}{\sqrt[]{2t}}                   \\
+	\Longleftrightarrow                                                          & \mathcal{F}^{-1}\biggl(e^{-\frac{\xi^{2}}{2}}\biggr)\biggl(\frac{x}{\sqrt[]{2t}}\biggr)\frac{1}{\sqrt[]{2t}} = \frac{1}{\sqrt[]{2t}}\frac{1}{\sqrt[]{2t}}e^{-\frac{x^{2}}{4t}}.
+\end{align*}
+Em conclusão,
+\[
+	\mathcal{F}^{-1}(e^{-t\xi^{2}})(x) = \frac{1}{\sqrt[]{4t\pi }}e^{-\frac{x^{2}}{4t}},
+\]
+e podemos escrever a solução u como
+\[
+	u(x, t) = \mathcal{F}^{-1}(e^{-\xi^{2}t})*\mathcal{F}^{-1}(u_{0}) = \biggl(\frac{1}{\sqrt[]{4\pi t}}e^{-\frac{x^{2}}{4t}}\biggr)*(u_{0}(x)) = \frac{1}{\sqrt[]{4\pi t}}\int_{-\infty}^{\infty}e^{-\frac{(x-y)^{2}}{4t}}u_{0}(y) \mathrm{dy}.
+\]
+Com base nisso, diremos que
+\begin{def*}
+	O \textbf{Núcleo do Calor} é a função
+	\[
+		K_t(x) = K(x, t)  = \left\{\begin{array}{ll}
+			\frac{1}{\sqrt[]{4\pi t}}e^{-\frac{x^{2}}{4t}}, & \quad t>0     \\
+			0,                                              & \quad t\leq 0
+		\end{array}\right. \square
+	\]
+\end{def*}
+Ela leva este nome pois uma solução qualquer da equação do calor pode ser escrita justamente como uma convolução do núcleo com a condição inicial\footnotetext{Reflita sobre como isso é útil! Basta saber a condição inicial pra ter a solução!}:
+\[
+	u(x, t) = K_t*u_{0}(x).
+\]
+\begin{example}
+	Considere a condição inicial
+	\[
+		u_{0}(x) = \frac{1}{\sqrt[]{\pi }}e^{-x^{2}}.
+	\]
+	Então,
+	\begin{align*}
+		u(x, t) & = \frac{1}{\sqrt[]{4\pi t}}\int_{-\infty}^{\infty}e^{-\frac{(x-y)^{2}}{4t}}\frac{1}{\sqrt[]{\pi }}e^{-y^{2}} \mathrm{dy}                                     \\
+		        & = \frac{1}{\pi \sqrt[]{4t}}\int_{-\infty}^{\infty}e^{-\frac{x^{2}}{4t}+\frac{2xy}{4t}-\frac{y^{2}}{4t}-y^{2}} \mathrm{dy}                                    \\
+		        & = \frac{1}{\sqrt[]{4t}\pi }\int_{-\infty}^{\infty}e^{-\frac{x^{2}}{4t}+\frac{x^{2}}{4t(1+4t)} - \frac{1+4t}{4t}\bigl(y-\frac{x}{1+4t}\bigr)^{2}} \mathrm{dy} \\
+		        & = \frac{1}{\sqrt[]{4t}\pi } e^{-\frac{x^{2}}{1+4t}}\int_{-\infty}^{\infty}e^{-\frac{1+4t}{4t}y^{2}} \mathrm{dy}                                              \\
+		        & = \frac{1}{\sqrt[]{4t}\pi }e^{-\frac{x^{2}}{1+4t}}\frac{\sqrt[]{4t}}{\sqrt[]{1+4t}}\sqrt[]{\pi } = \frac{1}{\sqrt[]{(1+4t)\pi }}e^{-\frac{x^{2}}{1+4t}}.
+	\end{align*}
+	Uma outra maneira de obter isso é fazermos
+	\begin{align*}
+		u(x, t) = \mathcal{F}^{-1}(e^{-\xi^{2}t}\hat{u}_{0}(\xi )) & = \mathcal{F}^{-1}\biggl(e^{-\xi ^{2}t}e^{-\frac{\xi^{2}}{4}}\biggr)     \\
+		                                                           & = \mathcal{F}^{-1}\biggl(e^{-\bigl( t + \frac{1}{4}\bigr)\xi^{2}}\biggr) \\
+		                                                           & = \frac{1}{\sqrt[]{\pi (4t+1)}}e^{-\frac{x^{2}}{1+4t}}.
+	\end{align*}
+\end{example}
+
+Tendo em mãos esta ferramenta nova, é importante olharmos para algumas de suas propriedades.
+\begin{prop*}[Propriedades do Núcleo do Calor]
+	Dado x real e t positivo, valem as seguintes propriedades para o Núcleo do Calor:
+	\begin{align*}
+		 & I)\; \frac{\partial^{}K}{\partial t^{}} = \frac{\partial^{2}K}{\partial x^{2}};
+		 & II)\; \int_{-\infty}^{\infty}K(x, t) \mathrm{dx} = 1.
+	\end{align*}
+\end{prop*}
+\begin{proof*}
+	Tomando x real e t positivo, segue que, sobre o item I,
+	\[
+		\frac{\partial^{}K}{\partial t^{}} = {\color{Orange3}-\frac{1}{2}\frac{1}{\sqrt[]{4\pi }}t^{-\frac{3}{2}}e^{-\frac{x^{2}}{4t}}} + {\color{Magenta4}\biggl(\frac{x^{2}}{4t^{2}}\biggr)\frac{1}{\sqrt[]{4\pi t}}e^{-\frac{x^{2}}{4t}}}.
+	\]
+	Por outro lado,
+	\begin{align*}
+		 & \frac{\partial^{}K}{\partial x^{}} = \frac{1}{\sqrt[]{4\pi t}}\biggl(-\frac{2x}{4t}\biggr)e^{-\frac{x^{2}}{4t}}                                                                                                                               \\
+		 & \frac{\partial^{2}K}{\partial x^{2}} = {\color{Orange3}\frac{1}{\sqrt[]{4\pi t}}\biggl(-\frac{1}{2t}\biggr)e^{-\frac{x^{2}}{4t}}} - {\color{Magenta4}\frac{1}{2}\frac{x}{\sqrt[]{4\pi t}t}\biggl(-\frac{2x}{4t}\biggr)e^{-\frac{x^{2}}{4t}}}.
+	\end{align*}
+	Portanto,
+	\[
+		\frac{\partial^{}K}{\partial t^{}} = \frac{\partial^{2}K}{\partial x^{2}}.
+	\]
+
+	Com relação ao item II, note que
+	\begin{align*}
+		\int_{-\infty}^{\infty}K(x, t) \mathrm{dx} & = \frac{1}{\sqrt[]{4\pi t}}\int_{-\infty}^{\infty}e^{-\frac{x^{2}}{4t}} \mathrm{dx}                                \\
+		                                           & = \frac{1}{\sqrt[]{4\pi t}}\int_{-\infty}^{\infty}e^{-s^{2}}\sqrt[]{4t} \mathrm{ds},\; [s = \frac{x}{\sqrt[]{4t}}] \\
+		                                           & = \frac{1}{\sqrt[]{\pi }}\int_{-\infty}^{\infty}e^{-s^{2}} \mathrm{ds} = 1. \quad \text{\qedsymbol}
+	\end{align*}
+\end{proof*}
+\end{document}
