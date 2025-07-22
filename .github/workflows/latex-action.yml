@@ -104,10 +104,26 @@ jobs:
           name: Analysis
           path: Analysis/analysis_notes.pdf
           if-no-files-found: error
-      - name: Upload Analysis to Google Drive
+  build_latex_AnalysisII:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Compile LaTeX document AnalysisII
+        uses: xu-cheng/latex-action@v4
+        with:
+          work_in_root_file_dir: true
+          root_file: AnalysisII/analysisII_notes.tex
+      - name: Upload AnalysisII file
+        uses: actions/upload-artifact@v4
+        with:
+          name: AnalysisII
+          path: AnalysisII/analysisII_notes.pdf
+          if-no-files-found: error
+      - name: Upload AnalysisII to Google Drive
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
-          target: Analysis/analysis_notes.pdf
+          target: AnalysisII/analysisII_notes.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
 
@@ -291,5 +307,28 @@ jobs:
         uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
         with:
           target: LinearAlgebra/linear_algebra_notes.pdf
+          credentials: ${{ secrets.DRIVESHHHH }}
+          parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+
+  build_latex_PDE:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Compile LaTeX document PDE
+        uses: xu-cheng/latex-action@v4
+        with:
+          work_in_root_file_dir: true
+          root_file: PartialDE/pde_notes.tex
+      - name: Upload PDE file
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDE
+          path: PartialDE/pde_notes.tex
+          if-no-files-found: error
+      - name: Upload PDE to Google Drive
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+        with:
+          target: PartialDE/pde_notes.tex
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
