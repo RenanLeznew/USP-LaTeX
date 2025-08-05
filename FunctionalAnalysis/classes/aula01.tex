@@ -1,0 +1,215 @@
+ \documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 05 de Agosto, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Introdução à disciplina;
+	\item Desigualdades Importantes.
+\end{itemize}
+\subsection{Espaços Vetoriais Normados}
+\begin{def*}
+	Um espaço vetorial é um conjunto não vazio V sobre um corpo \(\mathbb{K}\) com duas operações + e \(\cdot \), sendo a primeira um grupo abeliano com elemento neutro 0, a multiplicação é associativa, com elemento neutro 1 e ambas satisfazem a distribuição. \(\square\)
+\end{def*}
+\begin{def*}
+	Seja V um espaço vetorial sobre \(\mathbb{K}\). Uma \textbf{norma} em V é uma função \(\Vert \cdot  \Vert_{V}:V\rightarrow \mathbb{R}^{+}\) que satisfaz:
+	\begin{align*}
+		 & \Vert v \Vert_{V} = 0 \Longleftrightarrow v = 0                                         \\
+		 & \Vert \lambda v \Vert_{V} = |\lambda | \Vert v \Vert_{V}                                \\
+		 & \Vert v+w \Vert_{V} \leq \Vert v \Vert_{V} + \Vert w \Vert_{V},\quad \forall v, w\in V.
+	\end{align*}
+	Um espaço vetorial com uma norma é chamado \textbf{espaço vetorial normado}, denotado por \((V, \Vert \cdot  \Vert_{V}).\; \square\)
+\end{def*}
+\begin{def*}
+	Seja X um conjunto não vazio. Uma \textbf{métrica} em X é uma função \(\rho :X \times X\rightarrow [0, \infty)\) tal que
+	\begin{align*}
+		 & \rho (x, y) = 0,\quad \forall x, y\in X                               \\
+		 & \rho (x, y) = \rho (y, x),\quad \forall x, y\in X                     \\
+		 & \rho (x,z) \leq \rho (x, y) + \rho (y, z),\quad \forall x, y, z\in X,
+	\end{align*}
+	onde \(\rho \) é chamada distância ou métrica. \(\square\)
+\end{def*}
+Segue que, se \((V, \Vert \cdot  \Vert_{V})\) é normado e \(\rho_{V}:V\times V\rightarrow \mathbb{R}^{+}\) definida por
+\[
+	\rho_{V}(v, w) = \Vert v-w \Vert,
+\]
+então \((V, \rho_{V})\) é métrico. Neste caso, diremos que a métrica é proveniente da norma e todo espaço vetorial normado é um espaço métrico com esta norma.
+\begin{exr}
+	Prova a afirmação de que \((V, \rho_V)\) é métrico.
+\end{exr}
+No curso de métricos, provamos que todo espaço métrico é isometricamente isomorfo a um subconjunto de um espaço vetorial normado.
+
+Começaremos introduzindo o assunto com o seguinte exemplo: para \(p \in [1, \infty]\), seja \((\mathbb{R}^{N}, \Vert \cdot  \Vert_{p})\) com \(\Vert \cdot  \Vert_{p}:\mathbb{R}^{N}\rightarrow \mathbb{R}^{+}\) dada por
+\[
+	\Vert \xi  \Vert_{p} = \biggl(\sum\limits_{i=1}^{N}|\xi |^{p}\biggr)^{\frac{1}{p}},\quad \xi  = (\xi_1, \dotsc , \xi_n),\; 1\leq < \infty
+\]
+e
+\[
+	\Vert \xi  \Vert_{\infty} = \max\limits_{1\leq i\leq N}\{\xi_{i}\}.
+\]
+
+Vamos fazer apenas os casos \(1 < p < \infty\). Por definição da norma,
+\[
+	\Vert x \Vert_{p} = 0 \Longleftrightarrow x =0
+\]
+e que
+\[
+	\Vert \lambda x \Vert_p = \biggl(\sum\limits_{i=1}^{N}|\lambda \xi_{i}|_p\biggr)^{\frac{1}{p}} = |\lambda |\biggl(\sum\limits_{i=1}^{N}|\xi_{i}|^{p}\biggr)^{\frac{1}{p}} = |\lambda | \Vert x \Vert_p, \quad \forall x\in \mathbb{R}^{N},\;\&\; \lambda \in \mathbb{R}.
+\]
+O trabalho todo está em mostrar a desigualdade triangular.
+
+Com efeito, precisaremos da chamada \hyperlink{young_inequality}{\textit{desigualdade de Young}}
+\hypertarget{young_inequality}{
+	\begin{lemma*}[Desigualdade de Young]
+		Se \(p, q\in (1, \infty)\) são conjugaods, i.e., \(\frac{1}{p} + \frac{1}{q} = 1\), e \(a, b\in [0, \infty]\), então
+		\[
+			a^{\frac{1}{p}}b^{\frac{1}{q}} \leq \frac{a}{p} + \frac{b}{q}.
+		\]
+	\end{lemma*}
+}
+\begin{proof*}
+	A ideia da prova da desigualdade de Young é transformar isto num problema de cálculo 1. Para isso, fazemos
+	\[
+		\frac{a^{\frac{1}{p}}b^{\frac{1}{q}}}{b^{\frac{1}{p}+\frac{1}{q}}} \leq \biggl(\frac{a}{b}\biggr)\frac{1}{p} + \frac{1}{q},
+	\]
+	ou seja,
+	\[
+		\biggl(\frac{a}{b}\biggr)^{\frac{1}{p}}\leq \biggl(\frac{a}{b}\biggr)\frac{1}{p} + \frac{1}{q},
+	\]
+	e chamaremos a primeira expressão de t:
+	\[
+		t^{\frac{1}{p}} \leq t \frac{1}{p} + \frac{1}{q},
+	\]
+	então é isso que precisamos checar se é verdade, mostrando que a função
+	\begin{align*}
+		f: & \mathbb{R}^{+}\rightarrow \mathbb{R}          \\
+		   & t \mapsto \alpha t - t^{\alpha } + 1 - \alpha
+	\end{align*}
+	satisfaz
+	\[
+		f(t)\geq 0, \forall t\in \mathbb{R}^{+}.
+	\]
+	Derivando esta função, obtemos
+	\[
+		f'(t) = \alpha (1-t^{\alpha -1})  \left\{\begin{array}{ll}
+			<0,  & \quad t\in [0, 1)      \\
+			= 0, & \quad t=1              \\
+			>0,  & \quad t\in (1, \infty)
+		\end{array}\right.,
+	\]
+	mostrando que \(t=1\) é um ponto de mínimo global para f e \(f(1) = 0\). Portanto, \(f(t)\geq 0\), concluindo a prova. \qedsymbol
+\end{proof*}
+\hypertarget{holder_inequality}{
+	\begin{lemma*}[Desigualdade de Hölder]
+		Se \(p, q\in (1, \infty)\) são conjugados, então
+		\[
+			\sum\limits_{i=1}^{N}|x_{i}y_{i}| \leq \biggl[\sum\limits_{i=1}^{N}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{N}|y_{i}|^{q}\biggr]^{\frac{1}{q}},\; \forall x=(x_1, \dotsc , x_{N}),\; y = (y_1, \dotsc , y_N)\in \mathbb{R}^{N}.
+		\]
+	\end{lemma*}
+}
+\begin{proof*}
+	Se \(x=0\) ou \(y=0\), é automático, então suponha ambos não nulos. Fazendo
+	\[
+		a_{j} = \frac{|x_{j}|^{p}}{\sum\limits_{i=1}^{N}|x_{i}|^{p}} \quad\&\quad b_{j} = \frac{|y_{j}|^{q}}{\sum\limits_{i=1}^{N}|y_{i}|^{q}}.
+	\]
+	Aplicando a \hyperlink{young_inequality}{\textit{Desigualdade de Young}}, obtemos
+	\[
+		a_{j}^{\frac{1}{p}}b_{j}^{\frac{1}{q}} = \frac{|x_{j}||y_{j}|}{\biggl[\sum\limits_{i=1}^{N}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{N}|y_{i}|^{q}\biggr]^{\frac{1}{q}}}\leq \frac{1}{p}a_{j} + \frac{1}{q}b_{j}, \quad 1\leq j\leq N.
+	\]
+	Note que a expressão em fração é o mesmo que
+	\[
+		\frac{|x_{j}y_{j}|}{\Vert x \Vert_p \Vert y \Vert_q} \leq \frac{1}{p}\frac{|x_{j}|^{p}}{\Vert x \Vert_{p}^{p}} + \frac{1}{q} \frac{|y_{j}|^{q}}{\Vert y \Vert_{q}^{q}}
+	\]
+	e, somando em j,
+	\begin{align*}
+		 & \sum\limits_{j=1}^{N}\frac{|x_{j}y_{j}|}{\Vert x \Vert_p \Vert y \Vert_q} \leq \sum\limits_{j=1}^{N} \frac{1}{p}\frac{|x_{j}|^{p}}{\Vert x \Vert_{p}^{p}} + \frac{1}{q} \frac{|y_{j}|^{q}}{\Vert y \Vert_{q}^{q}}                             \\
+		 & \Longleftrightarrow \frac{1}{\Vert x \Vert_p \Vert y \Vert_q}\sum\limits_{j=1}^{N}|x_{j}y_{j}| \leq \frac{1}{p}\sum\limits_{j=1}^{N} \frac{|x_{j}|}{\Vert x \Vert_p} + \frac{1}{q} \sum\limits_{j=1}^{N} \frac{|y_{j}|}{\Vert y \Vert_q}      \\
+		 & \Longleftrightarrow \frac{1}{\Vert x \Vert_p \Vert y \Vert_q}\sum\limits_{j=1}^{N}|x_{j}y_{j}| \leq \frac{1}{p}\frac{\Vert x \Vert_p}{\Vert x \Vert_p} + \frac{1}{q} \frac{\Vert y \Vert_q}{\Vert y \Vert_q} = \frac{1}{p} + \frac{1}{q} = 1.
+	\end{align*}
+	Portanto,
+	\[
+		\sum\limits_{j=1}^{N}|x_{j}y_{j}|\leq \Vert x \Vert_p \Vert y \Vert_q. \quad \text{\qedsymbol}
+	\]
+\end{proof*}
+Note que, para o caso \(p=q=2\), isto é a Desigualdade de Cauchy-Schwarz.
+\hypertarget{minkowski_inequality}{
+	\begin{lemma*}[Desigualdade de Minkowski]
+		Se \(p\in [1, \infty]\)
+	\end{lemma*}
+}
+\begin{proof*}
+	Os casos onde \(p=1, \infty\) são exercícios. Se \(p\in (1, \infty)\), temos
+	\[
+		\biggl[\sum\limits_{i=1}^{N}|x_{i}+y_{i}|^{p}\biggr]^{\frac{1}{p}} \leq \biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{p}}
+	\].
+	Agora,
+	\[
+		(|x_{i}|+|y_{i}|)^{p} = (|x_{i}|+|y_{i}|)^{p-1}|x_{i}| + (|x_{i}|+|y_{i}|)^{p-1}|y_{i}|
+	\]
+	e, somando as igualdades acima,
+	\[
+		\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p} = \sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p-1}|x_{i}| + \sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p-1}|y_{i}|.
+	\]
+	Utilizando a \hyperlink{holder_inequality}{\textit{Desigualdade de Hölder}} em cada um dos somatórios acima e notando que \((p-1)q = p\),
+	\begin{align*}
+		\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p-1}|x_{i}| & \leq \biggl[\sum\limits_{i=1}^{N}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{(p-1)q}\biggr]^{\frac{1}{q}} \\
+		                                                    & = \biggl[\sum\limits_{i=1}^{N}|x_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{q}},
+	\end{align*}
+	e, analogamente,
+	\[
+		\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p-1}|y_{i}| \leq \biggl[\sum\limits_{i=1}^{N}|y_{i}|^{p}\biggr]^{\frac{1}{p}}\biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{q}}.
+	\]
+	Consequentemente,
+	\begin{align*}
+		\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p} & = \sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p-1}|x_{i}| + \sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p-1}|y_{i}|                                                                                                          \\
+		                                           & \leq \biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{q}}\biggl(\biggl[\sum\limits_{i=1}^{N}|x_{i}|^{p}\biggr]^{\frac{1}{p}} + \biggl[\sum\limits_{i=1}^{N}|y_{i}|^{p}\biggr]^{\frac{1}{p}}\biggr) \\
+		                                           & = (\Vert x \Vert_p + \Vert y \Vert_p)\biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{q}}.
+	\end{align*}
+	Portanto,
+	\[
+		\biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{p}} \leq \biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{p} + \frac{1}{q}} \leq (\Vert x \Vert_p + \Vert y \Vert_p)\biggl[\sum\limits_{i=1}^{N}(|x_{i}|+|y_{i}|)^{p}\biggr]^{\frac{1}{q}}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+Com a desigualdade de Minkowski, provamos a triangular e, portanto, que a norma-p é de fato uma norma.
+\begin{exr}
+	Mostre os casos \(p=1, \infty\) na demonstração da \hyperlink{minkowski_inequality}{\textit{desigualdade de Minkowski}}.
+\end{exr}
+
+\begin{exr}
+	Faça os casos \(p=1\) e \(p=\infty\) no exemplo acima no exemplo acima no exemplo acima no exemplo acima.
+\end{exr}
+
+
+\begin{example}
+	O espaço \(\mathcal{C}[a, b] = \{f:[a, b]\rightarrow \mathbb{R}:\; f \text{ é contínua}\}\) é um espaço vetorial sobre \(\mathbb{R}\), sendo cada ponto nele uma função contínua definida em \([a, b]\) a valores reais. As operações de adição e multiplicação por escalar são definidas ponto a ponto: para todas funções \(f, g\) em \(\mathcal{C}[a, b]\) e \(\alpha \) real,
+	\begin{align*}
+		 & (f+g)(t) = f(t) + g(t)       \\
+		 & (\alpha f)(t) = \alpha f(t).
+	\end{align*}
+	Uma das normas que podemos pôr é
+	\[
+		\Vert f \Vert_{\mathcal{C}[a, b]} = \max\limits_{x\in [a, b]}\{|f(x)|\},
+	\]
+	ou, outra ainda, seria
+	\[
+		\Vert f \Vert_{L^{1}(a, b)} = \int_{a}^{b}|f(t)| \mathrm{dt}.
+	\]
+	O que determina o uso de uma sobre a outra, neste caso, é a \textit{completude} -- a norma do sup torna este espaço num completo, mas a norma \(L^{1}(a, b)\) não! Basta tomar
+	\[
+		\int_{0}^{1}x^{n} \mathrm{dx}= \frac{1}{n+1}x^{n+1}\biggl|_{0}^{1}\biggr. = \frac{1}{n+1},
+	\]
+	mas acrescentando um degrau nela:
+	\[
+		f(x) = \left\{\begin{array}{ll}
+			x^{n}, & x\in [0, 1] \\
+			1,     & x\in (1, 2)
+		\end{array}\right.,
+	\]
+	formando uma sequência de Cauchy que não converge na norma \(L^{1}(a, b)\).
+
+	Voltando às possíveis normas, podemos generalizar a segunda para outra norma nesse espaço, a norma \(L^{p}(a, b)\) dada como
+	\[
+		\Vert f \Vert_{L^{p}(a, b)} = \biggl(\int_{a}^{b}|f(t)|^{p} \mathrm{dt}\biggr)^{\frac{1}{p}}
+	\]
+\end{example}
+
+\end{document}
