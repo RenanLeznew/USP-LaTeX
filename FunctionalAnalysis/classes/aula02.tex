@@ -1,0 +1,361 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 07 de Agosto, 2025}
+\subsection{Motivações}
+\begin{itemize}
+ \item Espaços de Banach;
+ \item Transformações Lineares;
+ \item Funcional Sublinear;
+ \item Teorema de Hahn-Banach.
+\end{itemize}
+\subsection{Espaços de Banach e o Terema de Hahn-Banach}
+ \begin{def*}
+   Um espaço vetorial normado que é completo com a métrica induzida pela norma, isto é, 
+     \[
+       \rho (x, y) = \Vert x-y \Vert,
+     \]
+     é dito \textbf{Espaço de Banach.} \(\square\)
+ \end{def*}
+ Veremos mais tarde que todo espaço vetorial normado pode ser imerso em um espaço de Banach.
+
+\begin{def*}
+  Duas normas \(\Vert \cdot  \Vert_{1}\) e \(\Vert \cdot \Vert_{2}\) em X são \textbf{equivalentes} se existem constantes positivas \(c_1\) e \(c_2\) tais que 
+    \[
+      c_1 \Vert x \Vert_1 \leq \Vert x \Vert_2 \leq c_2\Vert x \Vert_1,\quad \forall x\in X.\; \square
+    \]
+\end{def*}
+\begin{def*}
+  Uma série \(\sum\limits_{j=1}^{\infty}x_{j}\) é dita \textbf{convergente} em X se 
+    \[
+      \sum\limits_{j=1}^{n}x_{j}\substack{n\to \infty \\ \longrightarrow \\ }x
+    \]
+    e \textbf{absolutamente convergente} se 
+      \[
+        \sum\limits_{j=1}^{\infty}\Vert x_{j} \Vert
+      \]
+      converge. \(\square\)
+\end{def*}
+\begin{theorem*}
+  Um espaço vetorial normado é completo se, e somente se, toda série absolutamente convergente é convergente.
+\end{theorem*}
+\begin{proof*}
+  Se X é um espaço de Banach e 
+    \[
+      \sum\limits_{j=1}^{\infty}\Vert x_{j} \Vert<\infty,
+    \]
+  é fácil ver que \(\biggl\{ \sum\limits_{j=1}^{n}x_{j}\biggr\}\) é uma sequência de Cauchy, portanto convergente por definição. 
+
+  Por outro lado, se X é um espaço vetorial normado X onde toda série absolutamente convergente é convergente e \(\{x_{n}\}\) é uma sequência de Cauchy, então existem \(n_1<n_2<\dotsc \) naturais tais que 
+    \[
+      \Vert x_{n}-x_{m} \Vert\leq 2^{-j},\quad n, m\geq j,
+    \]
+    então escolhemos \(y_1=x_{n_1},\) e, para \(j\geq 2\), \(y_{j}=x_{n_{j}}-x_{n_{j-1}}\). 
+    Logo,  
+      \[
+        \sum\limits_{j=1}^{k}y_{j}=x_{n_{k}}\;\&\; \sum\limits_{j=1}^{k}\Vert y_{j} \Vert\leq \Vert y_1 \Vert +0\sum\limits_{j=1}^{k}2^{-j}<\Vert y_1 \Vert + 1 < \infty.
+      \]
+    Portanto, \(\{x_{n_{k}}\}\) é convergente e \(\{x_{n}\}\) é convergente. \qedsymbol
+\end{proof*}
+\begin{def*}
+  Uma transformação \(T:X\rightarrow Y\) linear entre dois espaços vetoriais normados é \textbf{limitada} se existe uma constante \(c\geq 0\) tal que 
+    \[
+      \Vert Tx \Vert_{Y}\leq c \Vert x \Vert_{X}, \quad \forall x\in X.\; \square
+    \]
+\end{def*}
+\begin{prop*}
+  Se X, Y são espaços vetoriais normados \(T:X\rightarrow Y\) é linear, são equivalentes: 
+ \begin{itemize}
+   \item[a)] T é contínua; 
+     \item[b)] T é contínua em 0; 
+       \item[c)] T é limitada.
+ \end{itemize}
+\end{prop*}
+\begin{proof*}
+  Provaremos esta proposição em ciclo de \(a \Rightarrow b \Rightarrow c \Rightarrow a.\) A primeira delas, no entanto, é trivial; para ver que b implica c, tomando \(\varepsilon =1\), existe \( \delta >0\) tal que 
+    \[
+      T([B_\delta (0)]^{-})\subseteq T(B_{2\delta }(0)) \subseteq \{y\in Y:\; \Vert y \Vert<1\}.
+    \]
+    Como \(\Vert Tx \Vert\leq 1\), quando \(\Vert x \Vert\leq \delta \), temos 
+      \[
+        \biggl\Vert T \frac{\delta x}{\Vert x \Vert} \biggr\Vert\leq 1
+      \]
+      para x não nulo. Com isso, 
+        \[
+          \Vert Tx \Vert \leq \delta^{-1}\Vert x \Vert,\quad \forall x\in X.
+        \]
+
+        Finalmente, para ver como c implica em a, note que se existe \(c>0\) tal que \(\Vert Tx - Ty \Vert\leq c \Vert x-y \Vert\) para todo x, y em X, então dado \(\varepsilon >0\), escolhemos 
+          \[
+            \delta = \frac{\varepsilon }{c},
+          \]
+          donde segue, portanto, que
+            \[
+              \Vert x-y \Vert<\delta  \Rightarrow \Vert Tx - Ty \Vert < c \frac{\varepsilon }{c} = \varepsilon .\quad \text{\qedsymbol}
+            \]
+\end{proof*}
+
+\begin{example}
+  Daqui adiante, denotaremos por \(L(X, Y)\) o conjunto das transformações lineares e contínuas de X em Y. Defina a seguinte norma: 
+ \begin{align*}
+   \Vert T \Vert&\coloneqq \inf_{x\in X}\{c\geq 0:\; \Vert Tx \Vert\leq c \Vert x \Vert\}\\
+                & = \sup_{\substack{\Vert x \Vert\in X \\ x\neq0}} \frac{\Vert Tx \Vert}{\Vert x \Vert}\\ 
+                & = \sup_{\Vert x \Vert=1} \Vert Tx \Vert.
+ \end{align*}
+\end{example}
+ 
+\begin{prop*}
+  Se Y é completo, então \(L(X, Y)\) é completo. 
+\end{prop*}
+\begin{proof*}
+  Seja \(\{T_{n}\}\) uma sequência de Cauchy em \(L(X, Y)\). Então, \(\{T_{n}x\}\) é de Cauchy em Y; defina 
+    \[
+      Tx = \lim_{n\to \infty}T_{n}x,
+    \]
+    tal que T é linear e que 
+      \[
+        \Vert Tx \Vert=\lim_{n\to \infty}\Vert T_{n}x \Vert \leq \limsup_{n\geq 1}\Vert T_{n} \Vert \Vert x \Vert.
+      \]
+
+      Logo, T é uma transformação linear de X a Y. Além disso, dado \(\varepsilon >0\), existe N natural tal que, para todos \(m,n>N\), 
+        \[
+          \Vert T_{n}x - T_{m}x \Vert = \Vert T_{n}-T_{m} \Vert \Vert x \Vert < \varepsilon \Vert x \Vert,\quad \forall x\in X.
+        \]
+        Passando o limite, quando m tende a infinito, obtemos 
+          \[
+            \Vert T_{n}x - Tx \Vert \leq \varepsilon \Vert x \Vert,\quad \forall n\geq N\;\&\; \forall x\in X.
+          \]
+          Portanto, para todo \(n\geq N\) e \(T_{n}\rightarrow T\),
+            \[
+              \Vert T_{n}-T \Vert<\varepsilon 
+            \]
+            em \(L(X, Y)\). \qedsymbol
+\end{proof*}
+  Em particular, se \(L(X, Y)\) é completo, então Y é completo também. Nele, vale a propriedade de que, dadas duas transformações \(T\in L(X,Y)\) e \(S\in L(Y, Z)\), então \(S\circ T\in L(X, Z)\) e 
+    \[
+      \Vert S\circ T \Vert\leq \Vert S \Vert \Vert T \Vert.
+    \]
+
+   \begin{def*}
+  Uma transformação \(T\in L(X, Y)\) é \textbf{inversível} ou um \textbf{isomorfismo} se T é bijetora e \(T^{-1}\in L(Y, X)\), isto é, para algum \(c>0\),
+    \[
+      \Vert Tx \Vert_{Y} \geq c \Vert x \Vert_{X}.
+    \]    
+    Diremos que T é uma \textbf{isometria} se 
+      \[
+        \Vert Tx \Vert_{Y} = \Vert x \Vert_{X},\quad \forall x\in X.
+      \]
+   \end{def*}
+  \begin{def*}
+    Seja X um espaço vetorial sobre \(\mathbb{K}.\) Uma função linear \(f:X\rightarrow \mathbb{K}\) é chamada um \textbf{funcional linear.}  Se X é um espaço vetorial \(L(X, \mathbb{K})\) é um espaço de Banach chamado \textbf{espaço dual de X}, denotado por \(X^{*}. \;\square\)
+  \end{def*}
+   \begin{tcolorbox}[
+   skin=enhanced,
+   title=Observação,
+   fonttitle=\bfseries,
+ colframe=black,
+   colbacktitle=cyan!75!white, 
+   colback=cyan!15,
+   colbacklower=black,
+ coltitle=black,
+   drop fuzzy shadow,
+   %drop large lifted shadow
+   ]
+   Se X é um espaço vetorial sobre \(\mathbb{C}\), ele também é um sobre \(\mathbb{R}\), e podemos considerar funcionais lineares reais \(f:X\rightarrow \mathbb{R}\) ou complexos \(f:X\rightarrow \mathbb{C}.\)
+   \end{tcolorbox}
+
+  \begin{prop*}
+    Seja X um espaço vetorial sobre \(\mathbb{C}.\) Se \(f:X\rightarrow \mathbb{C}\) é um funcional linear e \(u= \mathcal{R}f\) (onde \(\mathcal{R}\) denota a parte real de f), então u é um funcional linear real e 
+      \[
+        f(x)=u(x)-iu(x),\quad \forall x\in X.
+      \]
+
+      Reciprocamente, se \(u:X\rightarrow \mathbb{R}\) é um funcional linear real e \(f:X\rightarrow \mathbb{C}\) é definido por 
+        \[
+          f(x)=u(x)-iu(ix),
+        \]
+        então f é um funcional linear complexo. Além disso, se X é normado, f é limitado se, e somente se, u é limitado; neste caso, \(\Vert f \Vert = \Vert u \Vert.\)
+  \end{prop*}
+ \begin{proof*}
+   Se \(f:X\rightarrow \mathbb{C}\) é linear, então \(u=\mathcal{R}f\) é linear e 
+     \[
+       \mathcal{I}f(x)=-\mathcal{R}if(x)=-\mathcal{R}f(ix)=-u(ix),
+     \]
+     onde \(\mathcal{I}\) denota a parte imaginária.
+
+     Por outro lado, se u é um funcional linear real, 
+       \[
+         f(x)=u(x)-iu(ix)
+       \]
+       é linear. Se X é normado e f é limitado, \(|u(x)|=|\mathcal{R}f(x)|\leq |f(x)|.\) Logo, u é limitado e \(\Vert u \Vert\leq \Vert f \Vert.\)
+
+       Por outro lado, se u é limitado, 
+         \[
+           |f(x)|=\underbrace{e^{\mathrm{arg}(f(x))}f(x)}_{\alpha }=f(\alpha x)=u(\alpha x)\in \mathbb{R}.
+         \]
+         Logo, 
+           \[
+             |f(x)|\leq \Vert u \Vert \Vert \alpha x \Vert = \Vert u \Vert \Vert x \Vert
+           \]
+           e f é limitado com \(\Vert f \Vert\leq \Vert u \Vert.\) Portanto, 
+             \[
+               \Vert f \Vert=\Vert u \Vert.\quad \text{\qedsymbol}
+             \]
+ \end{proof*}
+
+ \begin{def*}
+   Se X é normado, um \textbf{funcional sublinear} é uma função \(p:X\rightarrow \mathbb{R}\) tal que, para todo x, y em X e \(\lambda \geq 0\),
+    \begin{align*}
+      & p(x+y)\leq p(x)+p(y)\\ 
+      & p(\lambda x) = \lambda p(x).\quad \square
+    \end{align*}
+ \end{def*}
+  \hypertarget{hahn_banach}{ 
+    \begin{theorem*}[Hahn-Banach]
+   Seja X um espaço vetorial real, p um funcional sublinear em X, M um subespaço vetorial de X e f um funcional linear em M tal que \(f(x)\leq p(x)\) para todo x em M. Então, existe um funcional linear F em X tal que 
+     \[
+       F(x)\leq p(x),\quad \forall x\in X
+     \]
+  e F estende f, isto é, \(F|_{M}=f.\)
+ \end{theorem*}}
+\begin{proof*}
+  Começamos mostrando que, se x é um ponto de X fora de M, podemos estender f a um funcional linear g definido sobre \(M+\mathbb{R}x\) e satisfazendo 
+    \[
+      g(y)\leq p(y),\quad \forall y\in M + \mathbb{R}x.
+    \]
+    Se \(y_1, y_2\) são pontos de M, temos 
+      \[
+        f(y_1)+f(y_2) = f(y_1+y_2)\leq p(y_1+y_2)\leq p(y_1-x)+p(x+y_2),
+      \]
+      ou 
+        \[
+          f(y_1)-p(y_1-x)\leq p(x+y_2)-f(y_2).
+        \]
+
+        Logo, 
+          \[
+            r_1=\sup_{y\in M}\{f(y)-p(y-x)\}\leq \inf_{y\in M}\{p(x+y)-f(y)\}=r_2.
+          \]
+          Seja \(\alpha \) tal que \(r_1\leq \alpha \leq r_2\) e defina \(g:M+\mathbb{R}x\rightarrow \mathbb{R}\) por 
+            \[
+              g(y+\lambda x)=f(y)+\lambda \alpha .
+            \]
+            Assim, g é linear e \(g|_{M}=f,\) o que implica, para todo y em M, 
+              \[
+                g(y)\leq p(y).
+              \]
+              Adicionalmente, se \(\lambda > 0\) e y pertence a M,  
+             \begin{align*}
+               g(y+\lambda x)&=\lambda \biggl[f \biggl(\frac{y}{\lambda }\biggr)+\alpha \biggr]\\ 
+                             &\leq \lambda \biggl[f\biggl(\frac{y}{\lambda }\biggr) + p \biggl(x + \frac{y}{\lambda }\biggr) - f \biggl(\frac{y}{\lambda }\biggr)\biggr]\\ 
+                             & p(y+\lambda x),
+             \end{align*}
+             enquanto que, no caso em que \(\lambda =-\mu <0\), 
+              \begin{align*}
+               g(y+\lambda x)&=\mu \biggl[f \biggl(\frac{y}{\mu }\biggr)-\alpha \biggr]\\ 
+                             &\leq \mu \biggl[f\biggl(\frac{y}{\mu }\biggr) + p \biggl(x + \frac{y}{\mu }\biggr) - f \biggl(\frac{y}{\mu }\biggr)\biggr]\\ 
+                             & = p(y - \mu x)= p(y+\mu x).
+x            \end{align*}
+             Logo, para todo z em \(M + \mathbb{R}x\), 
+               \[
+                 g(z)\leq p(z),
+               \]
+               mostrando que o domínio de uma extensão linear maximal de f satisfazendo \(f\leq p\) deve necessariamente ser o espaço todo.
+
+                Para finalizar, seja \(\mathcal{F}\) a família de todas as extensões de f satisfazendo \(f\leq p\) e parcialmente ordenado pela inclusão nos gráficos. Sendo um conjunto linearmente ordenado de extensões, ele tem a união como limitante superior, então podemos usar o Lema de Zorn que \(\mathcal{F}\) para obter um elemento maximal. \qedsymbol
+\end{proof*}
+  Se p é uma seminorma (ou seja, 0 não é necessariamente o único ponto onde ela se anula) e \(f:X\rightarrow \mathbb{R}\), a desigualdade \(f\leq p\) é equivalente a \(|f|\leq p\), pois 
+    \[
+      |f(x)| = \pm f(x)= f(\pm x)< p(\pm x) = p(x).
+    \]
+
+    \hypertarget{complex_hahn_banach}{
+     \begin{theorem*}
+       Seja X um espaço vetorial complexo, p uma seminorma em X, M um subespaço vetorial de X e \(f:M\rightarrow \mathbb{C}\) linear com 
+         \[
+           |f(x)|\leq p(x),\quad x\in M.
+         \]
+         Então, existe \(F:X\rightarrow \mathbb{C}\) linear tal que, para todo x em X, 
+           \[
+             |F(x)|\leq p(x)
+           \]
+           e \(F|_{M}=f.\)
+     \end{theorem*}
+    }
+   \begin{proof*}
+     Seja u a parte real de f. Pelo \hyperlink{hahn_banach}{\textit{Teorema Anterior}}, existe uma extensão linear U de u a X tal que 
+       \[
+         |U(x)|\leq p(x),\quad \forall x\in X.
+       \]
+       Seja \(F(x)=U(x)-iU(ix)\); então, F é uma extensão linear complexa de f e, para cada x em X, se \(\alpha =e^{-i \mathrm{arg}(F(x))}\), temos 
+         \[
+           |F(x)|=\alpha F(x)=F(\alpha x)=U(\alpha x)\leq p(\alpha x)=p(x).\quad \text{\qedsymbol}.\quad \text{\qedsymbol}
+         \]
+   \end{proof*}
+
+  \begin{theorem*}
+    Seja X um espaço vetorial normado. 
+   \begin{itemize}
+     \item[a)] Se M é um subespaço vetorial de X, fechado, e x é um ponto fora de M, então existe f no dual \(X^{*}\) de X tal que 
+       \[
+         f(x)\neq 0 \quad\&\quad f|_{M}=0.
+       \]
+       Mais ainda, se \(\delta =\inf_{y\in M}\Vert x-y \Vert\), f pode ser tomada tal que 
+         \[
+           \Vert f \Vert=1 \quad\&\quad f(x)=\delta ;
+         \]
+         \item[b)] Se \(x\neq 0,\) existe \(f\in X^{*}\) tal que 
+           \[
+             \Vert f \Vert=1\quad\&\quad f(x)=\Vert x \Vert;
+           \]
+        \item[c)] Os funcionais lineares limitados em X separam pontos; 
+          \item[d)] Se x em X define um funcional \(\hat{x}:X^{*}\rightarrow \mathbb{C}\) por 
+            \[
+              \hat{x}(f)=f(x),\quad \forall f\in X^{*},
+            \]
+            então a transformação 
+              \[
+                x \substack{T \\ \longrightarrow \\ }\hat{x}
+              \]
+              é uma isometria linear de X em \(X^{**}.\)
+   \end{itemize}
+  \end{theorem*}
+ \begin{proof*}
+  a) Defina f em \(M+\mathbb{C}x\) por \(f(y+\lambda x)=\lambda \delta \), onde y é um elemento de M e \( \lambda \) é um número complexo. Então, \(f(x)=\delta ,\; f|_{M}=0\) e, para \(\lambda \) diferente de zero, 
+    \[
+      |f(y+\lambda x)|=|\lambda |\Vert \lambda^{-1}y + x \Vert=\Vert y+\lambda x \Vert,
+    \]
+    e o resultado segue do \hyperlink{complex_hahn_banach}{\textit{Teorema de Hahn Banach}} com \(p(x)=\Vert x \Vert\) e M substituído por \(M + \mathbb{C}x\).
+
+  b) É um caso especial de (a) com \(M=0.\)
+
+  c) Se \(x\neq y\), existe f em \(X^{*}\) com \(f(x-y)\neq 0\), ou seja, \(f(x)\neq f(y)\). 
+
+  d) A transformação \(\hat{x}\), conforme fora definida, já é linear de \(X^{*}\) em \(\mathbb{K}.\) Com relação à transformação 
+    \[
+      x\substack{T \\ \longrightarrow \\ }\hat{x},
+    \]
+    podemos ver sua linearidade a partir de 
+   \begin{align*}
+     T(\alpha x+\beta y)(f)=(\hat{\alpha x+\beta y})(f)&=f(\alpha x+\beta y)\\ 
+                                                       &=\alpha f(x)+ \beta f(y)\\ 
+                                                       &=\alpha \hat{x}(f)+\beta \hat{y}(f)\\ 
+                                                       &=\alpha T(x)(f)+\beta T(y)(f),
+   \end{align*}
+   que é válido para toda f no dual de X. Note que 
+     \[
+       |\hat{x}(f)|=|f(x)|\leq \Vert f \Vert \Vert x \Vert \Rightarrow \Vert \hat{x} \Vert \leq \Vert x \Vert.
+     \]
+
+     Por outro lado, de b, existe f em \(X^{*}\) tal que \(f(x)=\Vert x \Vert,\; \Vert f \Vert=1\) e, portanto,
+       \[
+         |\hat{x}(f)| = f(x) = \Vert x \Vert \quad\&\quad \Vert \hat{x} \Vert\geq \Vert x \Vert.\quad \text{\qedsymbol}
+       \] 
+ \end{proof*}
+
+ Com a notação do teorema acima, seja \(\hat{X}=\{\hat{x}:\; x\in X\}.\) Como \(X^{**}\) é Banach, segue que \([\hat{X}]^{-}\) é Banach e, consequentemente, o mapeamento 
+   \[
+     x\ni X \mapsto \hat{x}\in \hat{X}
+   \]
+   é uma imersão densa de X em \([\hat{X}]^{-}\). O espaço \([\hat{X}]^{-}\) é chamado \textbf{completamento} de X, e, se X é Banach, \([\hat{X}]^{-}=\hat{X}.\) Observe que, se X tem dimensão finita , então \(\hat{X}=X^{**}\), já que ambos têm a mesma dimensão, mas se ela for infinita nem sempre temos esta sorte; para os casos onde a igualdade se mantém, X é dito \textbf{reflexivo}. Em geral, identificamos X com \(\hat{X}\) e consideramos X um subespaço de \(X^{**}\), tal que a propriedade de X ser reflexivo torna-se \(X=X^{**}.\)
+
+\end{document}
