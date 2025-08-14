@@ -1,0 +1,296 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 14 de Agosto, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Formas Geométricas de Hahn-Banach
+\end{itemize}
+\subsection{Teoremas de Hahn-Banach: forma geométrica}
+\begin{theorem*}
+	Seja X um espaço vetorial normado.
+	\begin{itemize}
+		\item[a)] Se M é um subespaço vetorial de X, fechado, e x é um ponto fora de M, então existe f no dual \(X^{*}\) de X tal que
+		      \[
+			      f(x)\neq 0 \quad\&\quad f|_{M}=0.
+		      \]
+		      Mais ainda, se \(\delta =\inf_{y\in M}\Vert x-y \Vert\), f pode ser tomada tal que
+		      \[
+			      \Vert f \Vert=1 \quad\&\quad f(x)=\delta ;
+		      \]
+		\item[b)] Se \(x\neq 0,\) existe \(f\in X^{*}\) tal que
+		      \[
+			      \Vert f \Vert=1\quad\&\quad f(x)=\Vert x \Vert;
+		      \]
+		\item[c)] Os funcionais lineares limitados em X separam pontos;
+		\item[d)] Se x em X define um funcional \(\hat{x}:X^{*}\rightarrow \mathbb{C}\) por
+		      \[
+			      \hat{x}(f)=f(x),\quad \forall f\in X^{*},
+		      \]
+		      então a transformação
+		      \[
+			      x \substack{T \\ \longrightarrow \\ }\hat{x}
+		      \]
+		      é uma isometria linear de X em \(X^{**}.\)
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	a) Defina f em \(M+\mathbb{C}x\) por \(f(y+\lambda x)=\lambda \delta \), onde y é um elemento de M e \( \lambda \) é um número complexo. Então, \(f(x)=\delta ,\; f|_{M}=0\) e, para \(\lambda \) diferente de zero,
+	\[
+		|f(y+\lambda x)|=|\lambda |\Vert \lambda^{-1}y + x \Vert=\Vert y+\lambda x \Vert,
+	\]
+	e o resultado segue do \hyperlink{complex_hahn_banach}{\textit{Teorema de Hahn Banach}} com \(p(x)=\Vert x \Vert\) e M substituído por \(M + \mathbb{C}x\).
+
+	b) É um caso especial de (a) com \(M=0.\)
+
+	c) Se \(x\neq y\), existe f em \(X^{*}\) com \(f(x-y)\neq 0\), ou seja, \(f(x)\neq f(y)\).
+
+	d) A transformação \(\hat{x}\), conforme fora definida, já é linear de \(X^{*}\) em \(\mathbb{K}.\) Com relação à transformação
+	\[
+		x\substack{T \\ \longrightarrow \\ }\hat{x},
+	\]
+	podemos ver sua linearidade a partir de
+	\begin{align*}
+		T(\alpha x+\beta y)(f)=(\hat{\alpha x+\beta y})(f) & =f(\alpha x+\beta y)                \\
+		                                                   & =\alpha f(x)+ \beta f(y)            \\
+		                                                   & =\alpha \hat{x}(f)+\beta \hat{y}(f) \\
+		                                                   & =\alpha T(x)(f)+\beta T(y)(f),
+	\end{align*}
+	que é válido para toda f no dual de X. Note que
+	\[
+		|\hat{x}(f)|=|f(x)|\leq \Vert f \Vert \Vert x \Vert \Rightarrow \Vert \hat{x} \Vert \leq \Vert x \Vert.
+	\]
+
+	Por outro lado, de b, existe f em \(X^{*}\) tal que \(f(x)=\Vert x \Vert,\; \Vert f \Vert=1\) e, portanto,
+	\[
+		|\hat{x}(f)| = f(x) = \Vert x \Vert \quad\&\quad \Vert \hat{x} \Vert\geq \Vert x \Vert.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+
+Com a notação do teorema acima, seja \(\hat{X}=\{\hat{x}:\; x\in X\}.\) Como \(X^{**}\) é Banach, segue que \([\hat{X}]^{-}\) é Banach e, consequentemente, o mapeamento
+\[
+	x\ni X \mapsto \hat{x}\in \hat{X}
+\]
+é uma imersão densa de X em \([\hat{X}]^{-}\). O espaço \([\hat{X}]^{-}\) é chamado \textbf{completamento} de X, e, se X é Banach, \([\hat{X}]^{-}=\hat{X}.\) Observe que, se X tem dimensão finita , então \(\hat{X}=X^{**}\), já que ambos têm a mesma dimensão, mas se ela for infinita nem sempre temos esta sorte; para os casos onde a igualdade se mantém, X é dito \textbf{reflexivo}. Em geral, identificamos X com \(\hat{X}\) e consideramos X um subespaço de \(X^{**}\), tal que a propriedade de X ser reflexivo torna-se \(X=X^{**}.\)
+\begin{exr}
+	Seja X um espaço vetorial e M um subespaço vetorial de X. Suponha que todo funcional linear limitado que se anula em M é identicamente nulo e mostre que \(\overline{M}=X.\)
+\end{exr}
+
+\begin{def*}
+	Um \textbf{hiperplano afim} é um conjunto da forma
+	\[
+		H=\{x\in X:\; f(x)=\alpha \},
+	\]
+	onde \(f:X\rightarrow \mathbb{R}\) é um funcional linear não identicamente nulo e \(\alpha \in \mathbb{R}.\) Diremos que H é o hiperplano da equação \([f=\alpha ].\; \square\)
+\end{def*}
+\begin{def*}
+	Seja X um espaço vetorial sobre \(\mathbb{K}. \) Diremos que um subconjunto C de X é \textbf{convexo} se
+	\[
+		tx+(1-t)y\in C
+	\]
+	sempre que \(t\in [0,1]\) e \(x,y\in C.\; \square\)
+\end{def*}
+\begin{prop*}
+	O hiperplano da equação \([f=\alpha ]\) é fechado se, e somente se, f é contínua.
+\end{prop*}
+\begin{proof*}
+	Um dos lados, de f ser continua resultar em H ser fechado, é esperado. Por outro lado, suponha que H é fechado, seja \(x_{0}\) um ponto fora de H e suponha que \(f(x_{0})<\alpha \); tome \(r>0\) tal que
+	\[
+		B_r(x_{0})\subseteq H ^{\complement}.
+	\]
+	Então, \(f(B_r(x_{0}))\) é convexo e não intercepta \(\{\alpha \}\) (Verifique!), tal que
+	\[
+		f(B_r(x_{0}))\subseteq \{x\in \mathbb{R}:\; x<\alpha \},
+	\]
+	do que segue que
+	\[
+		f(x_{0}+rz)<\alpha , \quad \forall z\in B_1(0)
+	\]
+	e
+	\[
+		f(z)<\frac{\alpha -f(x_{0})}{r}.
+	\]
+	Portanto,
+	\[
+		\Vert f \Vert\leq \frac{\alpha - f(x_{0})}{r}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{def*}
+	Se A, B são subconjuntos de X dizemos que o hiperplano de equação \([f=\alpha ]\) \textbf{separa A e B no sentido fraco} se
+	\begin{align*}
+		 & f(x)\leq \alpha ,\quad \forall x\in A  \\
+		 & f(x)\geq \alpha ,\quad \forall x\in B.
+	\end{align*}
+	Analogamente, diremos que o hiperplano de equação \([f=\alpha ]\) \textbf{separa A e B no sentido forte} se existe \(\varepsilon >0\) tal que
+	\begin{align*}
+		 & f(x)\leq \alpha -\varepsilon ,\quad \forall x\in A               \\
+		 & f(x)\geq \alpha+\varepsilon  ,\quad \forall x\in B.\quad \square
+	\end{align*}
+\end{def*}
+
+\hypertarget{first_geometric_hahn_banach}{\begin{theorem*}[Hahn-Banach Geométrico: primeira forma]
+		Seja X um espaço vetorial normado real e sejam A, B dois subconjuntos convexos, não vazios e disjuntos de X. Se A é aberto, existe um hiperplano fechado que separa A e B no sentido fraco.
+	\end{theorem*}}
+Antes de prová-lo, precisaremos dos seguintes lemas:
+\hypertarget{minkowski_functional}{
+	\begin{lemma*}[Funcional de Minkowski de um Convexo]
+		Seja X um espaço vetorial normado sobre \(\mathbb{R}\) e C um aberto convexo de X contendo a origem. Para todo x em X, defina o \textbf{funcional de Minkowski} por
+		\[
+			p(x)\coloneqq \inf\{\alpha >0:\; \alpha^{-1}x\in C\}.
+		\]
+		Então, p é um funcional sub-linear e existe um número positivo M tal que
+		\begin{align*}
+			 & 0\leq p(x)\leq M\Vert x \Vert,\quad \forall x\in X \\
+			 & C=\{x\in X:\; p(x)<1\}.
+		\end{align*}
+	\end{lemma*}
+}
+\begin{proof*}
+	Seja r um número positivo tal que
+	\[
+		\overline{B}_r(0)\subseteq C
+	\]
+	e note que, para todo x em X,
+	\[
+		r \frac{x}{\Vert x \Vert}\in \overline{B}_r(0)\subseteq C,
+	\]
+	o que implica em
+	\[
+		p(x)\leq \frac{1}{r}\Vert x \Vert,
+	\]
+	fazendo a primeira parte das propriedades de p ser verdadeira a partir do momento que colocamos \(M=1/r\). Além disso, para a segunda propriedade, se x for um elemento de C qualquer, existe \(\varepsilon >0\), tal que \((1+\varepsilon )x\in C\); assim,
+	\[
+		p(x)\leq \frac{1}{1+\varepsilon }<1.
+	\]
+
+	Reciprocamente, se \(p(x)<1\), existe \(\alpha\in (0, 1) \) tal que \(\alpha^{-1}x\in C\) e, consequentemente,
+	\[
+		x=\alpha (\alpha ^{-1}x)+(1-\alpha )0\in C.
+	\]
+
+	Vamos verificar, para finalizar, que p é um funcional sub-linear. Primeiramente, observe que
+	\[
+		p(\lambda x)=\lambda p(x),\quad \lambda >0.
+	\]
+	Ademais, sejam x e y elementos de X e \(\varepsilon >0\); então, para todo t em \([0,1]\)
+	\[
+		\frac{x}{p(x)+\varepsilon }\in C \;\&\; \frac{y}{p(y)+\varepsilon }\in C \Rightarrow \frac{tx}{p(x)+\varepsilon } + \frac{(1-t)y}{p(y)+\varepsilon }\in C.
+	\]
+	Em particular, pondo
+	\[
+		t=\frac{p(x)+\varepsilon }{p(x)+p(y)+2\varepsilon },
+	\]
+	temos
+	\[
+		\frac{x+y}{p(x)+p(y)+2\varepsilon }\in C.
+	\]
+	Portanto, para todo \(\varepsilon \) positivo,
+	\[
+		p(x+y)\leq p(x)+p(y)+2\varepsilon  \Rightarrow p(x+y)\leq p(x)+p(y).\text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\begin{lemma*}
+	Seja C um subconjunto aberto, convexo e não vazio de X tal que \(x_{0}\) \textit{\textbf{não}} pertence a C. Então, existe um funcional f em \(X^{*}\) tal que \(f(x)<f(x_{0})\) para todo x em C. Em particular, o hiperplano fechado da equação \([f=f(x_{0})]\) separa C de \(x_{0}\) no sentido fraco.
+\end{lemma*}
+\begin{proof*}
+	Por translação, sempre podemos supor que C contém a origem; dito isso, sejam p o \hyperlink{minkowski_functional}{\textit{funcional de Minkowski}} de C, G o conjunto \(\mathbb{R}x_{0}\) e \(g:G\rightarrow \mathbb{R}\) dada por
+	\[
+		g(tx_{0})=t,\quad t\in \mathbb{R}.
+	\]
+	Com isso,
+	\[
+		g(x)=g(tx_{0}) = \left\{\begin{array}{ll}
+			t\leq t p(x_{0})=p(tx_{0}), & \quad t>0     \\
+			t\leq 0\leq p(tx_{0}),      & \quad t\leq 0
+		\end{array}\right..
+	\]
+	Logo, pelo \hyperlink{hahn_banach}{\textit{Teorema de Hahn-Banach real}}, existe \(f:X\rightarrow \mathbb{R}\) tal que \(f|_{G}=g\) e, para todo x em X,
+	\[
+		f(x)\leq p(x).
+	\]
+	Em particular, \(f(x_{0})=1\) e f é contínua por conta de \(p(x)\leq M\Vert x \Vert.\) Além disso, \(f(x)<1\) para todo x em C, provando o resultado. \qedsymbol
+\end{proof*}
+Finalmente, podemos ir para a
+\begin{proof*}[\hyperlink{first_geometric_hahn_banach}{\textit{Teorema de Hahn-Banach: primeira forma geométrica}}]
+	Seja \(C\coloneqq A-B\), o qual é convexo, aberto e não contém a origem, já que \(A\cap B = \emptyset \). Pelo lema acima, existe um funcional \(f\in X^{*}\) tal que
+	\[
+		f(z)<0,\quad \forall z\in C,
+	\]
+	donde segue que
+	\[
+		f(a)<f(b),\quad \forall a\in A,\; b\in B.
+	\]
+	Portanto, escolhendo \(\alpha \) tal que
+	\[
+		\sup_{a\in A}f(x)\leq \alpha \leq \inf_{b\in B}f(b),
+	\]
+	segue que o hiperplano de equação \([f=\alpha ]\) separa A e B no sentido fraco. \qedsymbol
+\end{proof*}
+\hypertarget{second_geometric_hahn_banach}{
+	\begin{theorem*}[Segunda Forma Geométrica do Hahn-Banach]
+		Seja X um espaço vetorial normado real, A e B convexos, não vazio e disjuntos em X. Suponha que A é fechado e B é compacto; então, existe um hiperplano fechado que separa A e B no sentido forte.
+	\end{theorem*}
+}
+\begin{proof*}
+	Dado \(\varepsilon > 0\), definamos os conjuntos
+	\begin{align*}
+		 & A_\varepsilon = A + B_\varepsilon(0)   \\
+		 & B_\varepsilon = B + B_\varepsilon (0).
+	\end{align*}
+	Desta forma, \(A_\varepsilon \) e \(B_\varepsilon \) são abertos, convexos e não vazios; em particular, para \(\varepsilon > 0\) pequeno, \(A_\varepsilon \) e \(B_\varepsilon \) são disjuntos, tendo em vista que, por A ser fechado,
+	\[
+		d(b, A) > 0, \quad \forall b\in B
+	\]
+	e, como B é compacto,
+	\[
+		\inf_{b\in B}d(b, A) = d(B, A) > 0,
+	\]
+	confirmando a propriedade de serem disjuntos.
+
+	Pela \hyperlink{first_geometric_hahn_banach}{\textit{Primeira Versão,}} existe um hiperplano fechado que separa \(A_\varepsilon \) e \(B_\varepsilon \) no sentido fraco; logo, para todo x em A, y em B e z numa bola \(B_1(0)\),
+	\[
+		f(x+\varepsilon z)\leq \alpha \leq f(y+\varepsilon z),
+	\]
+	donde obtemos
+	\[
+		f(x)-\varepsilon \Vert f \Vert\leq \alpha \leq f(y)+\varepsilon \Vert f \Vert,\quad \forall x\in A,\; y\in B.
+	\]
+	Portanto, como f é diferente de uma função nula, segue o resultado. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Seja X um espaço vetorial normado sobre \(\mathbb{K}\) e F um subespaço vetorial próprio de X, \textit{i.e.}, \(\overline{F}\subsetneq X \). Então, existe um funcional não nulo \(f\in X^{*}\) tal que
+	\[
+		f(x) = 0, \quad \forall x\in F.
+	\]
+\end{crl*}
+\begin{proof*}
+	Sabemos que, se X é um espaço vetorial normado sobre \(\mathbb{R},\) dado \(x_{0}\not\in \overline{F},\) existe um funcional linear \(f:X\rightarrow \mathbb{R}\) contínuo tal que
+	\[
+		f(x)\leq f(x_{0}),\quad \forall x\in F,
+	\]
+	que leva diretamente à conclusão de \(f(x) = 0\) para todo x de F.
+
+	Para o caso complexo, basta tomar \(g:X\rightarrow \mathbb{C}\) dada por
+	\[
+		g(x) = f(x)-if(ix),
+	\]
+	finalizando a prova. \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Um lugar de uso do corolário acima é quando temos que mostrar que F é denso, tal que, pela sua contraposição, basta mostrar que
+	\[
+		f(x) = 0,\quad \forall x\in F \Rightarrow f = 0.
+	\]
+\end{tcolorbox}
+\end{document}

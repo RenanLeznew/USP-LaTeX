@@ -1,0 +1,184 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 12 de Agosto, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Funcional Sublinear;
+	\item Teorema de Hahn-Banach.
+\end{itemize}
+\subsection{Teorema de Hahn-Banach e consequências}
+Recorde que, se X é um espaço vetorial complexo, então X é um espaço vetorial real, e vale o resultado
+\begin{prop*}
+	Seja X um espaço vetorial sobre \(\mathbb{C}.\) Se \(f:X\rightarrow \mathbb{C}\) é um funcional linear e \(u= \mathcal{R}f\) (onde \(\mathcal{R}\) denota a parte real de f), então u é um funcional linear real e
+	\[
+		f(x)=u(x)-iu(x),\quad \forall x\in X.
+	\]
+
+	Reciprocamente, se \(u:X\rightarrow \mathbb{R}\) é um funcional linear real e \(f:X\rightarrow \mathbb{C}\) é definido por
+	\[
+		f(x)=u(x)-iu(ix),
+	\]
+	então f é um funcional linear complexo. Além disso, se X é normado, f é limitado se, e somente se, u é limitado; neste caso, \(\Vert f \Vert = \Vert u \Vert.\)
+\end{prop*}
+
+A partir disso, dada uma função \(u:X\rightarrow \mathbb{R}\), queremos construir uma outra função \(f:X\rightarrow \mathbb{C}\) linear a partir dela. Se invertêssemos os caminhos, ou seja, se partíssemos do caso complexo e quiséssemos construir um real, bastaria tomar u como a parte real de f; para o caso complexo, fica um pouco mais complicado\footnote{A vontade de fazer a piada de ``no caso complexo, fica mais complexo'' quase me consumiu aqui.}, e pra isso que precisamos do resultado acima. Com esta construção de \(f(x) = u(x) - iu(ix),\) dados elementos x e y, segue que
+\begin{align*}
+	f(x+iy) & = u(x+y) - iu(ix+iy)          \\
+	        & = u(x) - iu(ix) + u(y)-iu(iy) \\
+	        & = f(x) + f(y).
+\end{align*}
+Para a multiplicação por escalar, segue que
+\begin{align*}
+	f((\alpha +i\beta )x) & = u(\alpha x + i\beta x) - i u(i(\alpha +i\beta )x)       \\
+	                      & = u(\alpha x)+u(i\beta x) - i u(i\alpha x - \beta x)      \\
+	                      & = \alpha u(x) + \beta u(ix) - \alpha i u(ix) - \beta u(x) \\
+	                      & = (\alpha +i\beta)u(x) + ((\beta - i \alpha ))u(ix)       \\
+	                      & = (\alpha + i\beta )u(x) - i(\alpha +i\beta )u(ix)        \\
+	                      & = (\alpha +i\beta )f(x),
+\end{align*}
+completando a demonstração abaixo apresentada na aula passada:
+
+\begin{proof*}
+	Se \(f:X\rightarrow \mathbb{C}\) é linear, então \(u=\mathcal{R}f\) é linear e
+	\[
+		\mathcal{I}f(x)=-\mathcal{R}if(x)=-\mathcal{R}f(ix)=-u(ix),
+	\]
+	onde \(\mathcal{I}\) denota a parte imaginária.
+
+	Por outro lado, se u é um funcional linear real,
+	\[
+		f(x)=u(x)-iu(ix)
+	\]
+	é linear. Se X é normado e f é limitado, \(|u(x)|=|\mathcal{R}f(x)|\leq |f(x)|.\) Logo, u é limitado e \(\Vert u \Vert\leq \Vert f \Vert.\)
+
+	Por outro lado, se u é limitado,
+	\[
+		|f(x)|=\underbrace{e^{\mathrm{arg}(f(x))}f(x)}_{\alpha }=f(\alpha x)=u(\alpha x)\in \mathbb{R}.
+	\]
+	Logo,
+	\[
+		|f(x)|\leq \Vert u \Vert \Vert \alpha x \Vert = \Vert u \Vert \Vert x \Vert
+	\]
+	e f é limitado com \(\Vert f \Vert\leq \Vert u \Vert.\) Portanto,
+	\[
+		\Vert f \Vert=\Vert u \Vert.\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{exr}[Dica de Exercício!]
+	Tente refazer as contas da proposição acima sozinho, vai ajudar a entendê-lo muito melhor.
+\end{exr}
+
+\begin{def*}
+	Se X é normado, um \textbf{funcional sublinear} é uma função \(p:X\rightarrow \mathbb{R}\) tal que, para todo x, y em X e \(\lambda \geq 0\),
+	\begin{align*}
+		 & p(x+y)\leq p(x)+p(y)                      \\
+		 & p(\lambda x) = \lambda p(x).\quad \square
+	\end{align*}
+\end{def*}
+\hypertarget{hahn_banach}{
+	\begin{theorem*}[Hahn-Banach Real]
+		Seja X um espaço vetorial real, p um funcional sublinear em X, M um subespaço vetorial de X e f um funcional linear em M tal que \(f(x)\leq p(x)\) para todo x em M. Então, existe um funcional linear F em X tal que
+		\[
+			F(x)\leq p(x),\quad \forall x\in X
+		\]
+		e F estende f, isto é, \(F|_{M}=f.\)
+	\end{theorem*}}
+\begin{proof*}
+	Começamos mostrando que, se x é um ponto de X fora de M, podemos estender f a um funcional linear g definido sobre \(M+\mathbb{R}x\) e satisfazendo
+	\[
+		g(y)\leq p(y),\quad \forall y\in M + \mathbb{R}x.
+	\]
+	Se \(y_1, y_2\) são pontos de M, temos
+	\[
+		f(y_1)+f(y_2) = f(y_1+y_2)\leq \underbrace{p(y_1+y_2)}_{\mathclap{=p(y_1-x+x+y_2)}}\leq p(y_1-x)+p(x+y_2),
+	\]
+	ou
+	\[
+		f(y_1)-p(y_1-x)\leq p(x+y_2)-f(y_2).
+	\]
+
+	Logo, é possível tomar o sup e o inf de cada lado
+	\[
+		r_1=\sup_{y\in M}\{f(y)-p(y-x)\}\leq \inf_{y\in M}\{p(x+y)-f(y)\}=r_2.
+	\]
+	Seja \(\alpha \) tal que\footnote{O \(\alpha \) existe por um argumento de densidade dos números reais.} \(r_1\leq \alpha \leq r_2\) e defina \(g:M+\mathbb{R}x\rightarrow \mathbb{R}\) por
+	\[
+		g(y+\lambda x)=f(y)+\lambda \alpha .
+	\]
+	Assim, g é linear e \(g|_{M}=f,\) o que implica, para todo y em M,
+	\[
+		g(y)\leq p(y).
+	\]
+	Adicionalmente, se \(\lambda > 0\) e m pertence a M,
+	\begin{align*}
+		g(m+\lambda x) & =\lambda \biggl[f \biggl(\frac{m}{\lambda }\biggr)+\alpha \biggr]                                                                          \\
+		               & \leq \lambda \biggl[f\biggl(\frac{m}{\lambda }\biggr) + p \biggl(x + \frac{m}{\lambda }\biggr) - f \biggl(\frac{m}{\lambda }\biggr)\biggr] \\
+		               & p(m+\lambda x),
+	\end{align*}
+	enquanto que, no caso em que \(\lambda =-\mu <0\),
+	\begin{align*}
+		g(m+\lambda x) & =\mu \biggl[f \biggl(\frac{m}{\mu }\biggr)-\alpha \biggr]                                                                  \\
+		               & \leq \mu \biggl[f\biggl(\frac{m}{\mu }\biggr) + p \biggl(x + \frac{m}{\mu }\biggr) - f \biggl(\frac{m}{\mu }\biggr)\biggr] \\
+		               & = p(m - \mu x)= p(m+\lambda x).
+	\end{align*}
+	Logo, para todo z em \(M + \mathbb{R}x\),
+	\[
+		g(z)\leq p(z),
+	\]
+	mostrando que o domínio de uma extensão linear maximal de f satisfazendo \(f\leq p\) deve necessariamente ser o espaço todo.
+
+	Para finalizar, seja \(\mathcal{F}\) a família de todas as extensões de f satisfazendo \(f\leq p\) e parcialmente ordenado pela inclusão nos gráficos. Sendo um conjunto linearmente ordenado de extensões, ele tem a união como limitante superior, então podemos usar o \hyperlink{zorn_lemma}{\textit{Lema de Zorn}} que \(\mathcal{F}\) para obter um elemento maximal. \qedsymbol
+\end{proof*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Lema de Zorn},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	O \hypertarget{zorn_lemma}{Lema de Kuratowski-Zorn}, equivalente ao Axioma da Escolha, pode ser enunciado como:
+	\begin{lemma*}[Lema de Kuratowski-Zorn]
+		Se, em um conjunto não-vazio e parcialmente ordenado, todo subconjunto totalmente ordenado tem um limitante superior, então o conjunto tem um elemento maximal.
+	\end{lemma*}
+\end{tcolorbox}
+
+Se p é uma seminorma (ou seja, 0 não é necessariamente o único ponto onde ela se anula) e \(f:X\rightarrow \mathbb{R}\), a desigualdade \(f\leq p\) é equivalente a \(|f|\leq p\), pois
+\[
+	|f(x)| = \pm f(x)= f(\pm x)< p(\pm x) = p(x).
+\]
+
+\hypertarget{complex_hahn_banach}{
+	\begin{theorem*}[Hahn-Banach Complexo]
+		Seja X um espaço vetorial complexo, p uma seminorma em X, M um subespaço vetorial de X e \(f:M\rightarrow \mathbb{C}\) linear com
+		\[
+			|f(x)|\leq p(x),\quad x\in M.
+		\]
+		Então, existe \(F:X\rightarrow \mathbb{C}\) linear tal que, para todo x em X,
+		\[
+			|F(x)|\leq p(x)
+		\]
+		e \(F|_{M}=f.\)
+	\end{theorem*}
+}
+\begin{proof*}
+	Seja u a parte real de f. Pelo \hyperlink{hahn_banach}{\textit{Teorema Anterior}}, existe uma extensão linear U de u a X tal que
+	\[
+		|U(x)|\leq p(x),\quad \forall x\in X.
+	\]
+	Seja \(F(x)=U(x)-iU(ix)\); então, F é uma extensão linear complexa de f e, para cada x em X, se \(\alpha =e^{-i \mathrm{arg}(F(x))}\), temos
+	\[
+		|F(x)|=\alpha F(x)=F(\alpha x)=U(\alpha x)\leq p(\alpha x)=p(x).\quad \text{\qedsymbol}
+	\]
+\end{proof*}
+
+Ambas as versões de Hahn-Banach tentam responder a pergunta ``será que é possível estender um funcional de um subespaço para o espaço inteiro sem ele perder a desigualdade com o funcional sublinear?'', e teoremas de extensão em geral sempre são bem interessantes, afinal a grande dificuldade não está em apenas estender a função -- neste caso, o difícil é preservar a desigualdade! Olharemos para algumas de suas várias consequências com o passar do tempo.
+
+\end{document}
