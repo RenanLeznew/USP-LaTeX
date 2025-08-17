@@ -1,0 +1,383 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 23 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+ \item Teorema de Densidade;
+ \item Distribuições em Abertos do Espaço Euclidiano.
+\end{itemize}
+\subsection{Teorema de Densidade: continuação.}
+  Na aula passada, apresentamos algumas propriedades juntamente a condições de existência e regularidade da convolução entre funções; além disso, falamos sobre a ``aproximação da identidade'' padrão:  
+    \[
+      \{\varphi_{\varepsilon }\}_{\varepsilon >0},\; \varphi_{\varepsilon }(x)=\varepsilon^{-n}\varphi \biggl(\frac{x}{\varepsilon }\biggr),\; \varepsilon >0
+    \]
+    onde \(\varphi \in \mathcal{C}_{c}^{\infty}(\overline{B}(0, 1)),\; \varphi \geq 0\) e \(\int_{}^{}\varphi = 1. \) Para finalizar, provamos uma versão \(\mathcal{C}_{c}^{\infty}(\Omega )\) do \hyperlink{uryhson_lemma}{\textit{Lema de Uryshon}} e enunciamos o seguinte teorema:
+\begin{theorem*}
+	O espaço \(\mathcal{C}_{c}^{\infty}(\Omega )\) é denso em \(\mathcal{C}(\Omega )\) segundo a convergência uniforme em compactos.
+\end{theorem*}
+
+Hoje, vamos elaborar este teorema em um número maior de hipóteses e daremos uma prova a ele: 
+\hypertarget{density_theorem}{ \begin{theorem*}[Teorema de Densidade]
+    Sejam \(f\in \mathcal{C}(\Omega ),\; \Omega \subseteq \mathbb{R}^{n}\) aberto e \(\{\varphi_{\varepsilon }\}_{\varepsilon >0}\) como na aproximação da identidade. Nestas condições, temos:
+   \begin{itemize}
+     \item[i)] Para cada x em \(\Omega \) e \(\varepsilon >0\) pequeno o suficiente (depende de x), existe a convolução \(\varphi_\varepsilon *f(x)\) e, além disso, 
+       \[
+         \varphi_\varepsilon *f(x)\substack{ \\ \longrightarrow \\ \varepsilon\to0^{+}}f(x);
+       \]
+       \item[ii)] Se f é de classe \(L^{\infty}(\Omega )\) ou \(L_{\mathrm{loc}}^{1}(\overline{\Omega })\), então \(\varphi_\varepsilon *f\) está definido em todo \(\Omega \) para qualquer que seja o \(\varepsilon >0\), e 
+         \[
+           \varphi_\varepsilon *f \substack{\mathcal{C}(\Omega ) \\ \longrightarrow \\ }f,
+         \]
+         isto é, converge uniformemente em compactos de \(\Omega \); e
+         \item[iii)] Se \(\Omega =\mathbb{R}^{n}\), então 
+           \[
+             \varphi _\varepsilon *f \substack{ \mathcal{C}(\mathbb{R}^{n})\\ \longrightarrow \\ \varepsilon \to0^{+}}f
+           \]
+           sem nenhuma hipótese adicional sobre f. Em particular, \(\mathcal{C}^{\infty}(\mathbb{R}^{n})\) é denso em \(\mathcal{C}(\mathbb{R}^{n})\).
+   \end{itemize}
+\end{theorem*}}
+\begin{proof*}
+  Para a prova de (i), dado x em \(\Omega \), existe \(\varepsilon >0\) tal que 
+    \[
+      \overline{B}_{\mathbb{R}^{n}}(x, \varepsilon )\subseteq \Omega ;
+    \]
+    logo, sempre que \(0<\varepsilon \leq \varepsilon_x\),
+   \begin{align*}
+     \varphi_{\varepsilon }*f(x)&= \int_{\Omega }^{}\varphi_\varepsilon (x-y)f(y) \mathrm{dy}\\ 
+                                &= \int_{\Omega \cap \overline{B}(x; \varepsilon )}^{}\varphi_\varepsilon (x-y)f(y) \mathrm{dy}\\ 
+                                &= \int_{\overline{B}(x; \varepsilon )}^{} \varphi_\varepsilon (x-y)f(y)\mathrm{dy}.
+   \end{align*}
+
+   A existência dessa integral segue da continuidade do mapa 
+     \[
+       y\mapsto \varphi_\varepsilon (x-y)f(y)
+     \]
+     em \(\overline{B}(x; \varepsilon )\) e, sendo 
+       \[
+         \varphi _\varepsilon *f(x)-f(x)=\int_{\overline{B}(x; \varepsilon )}^{}\varphi_{\varepsilon }(x-y)[f(y)-f(x)] \mathrm{dy},
+       \]
+       podemos usar a continuidade de f em x para obter a seguinte cadeia lógica: dado \(\eta >0\), existe \(\delta >0\) tal que 
+         \[
+           | y-x |<\delta \Rightarrow | f(y)-f(x) | < \frac{\eta }{2},
+         \]
+         donde 
+           \[
+             0<\varepsilon <\delta \Rightarrow | \varphi_\varepsilon *f(x)-f(x) |\leq \frac{\eta }{2}\int_{\overline{B}(x, \varepsilon )}^{}\varphi_\varepsilon(x-y) \mathrm{dy}=\frac{\eta}{2},
+           \]
+           provando a convergência pontual.
+
+           (ii) Assumindo que f é de classe \(L^{\infty}(\Omega )\) (ou \(L_{\mathrm{loc}}^{1}(\overline{\Omega })\)), podemos mostrar a existência de \(\varphi_\varepsilon *f(x)\) para todo x em \(\Omega \) e todo \(\varepsilon >0\) porque f será limitada em \(\Omega \cap \overline{B}_\varepsilon (x)\) para todo x e \(\varepsilon >0\); caso a f for da outra classe, então 
+             \[
+               \Omega \cap \overline{B}(x; \varepsilon )\subseteq \overline{\Omega }\cap \overline{B}(x; \varepsilon )
+             \]
+             é um compacto contido no fecho \(\overline{\Omega }\), o que leva à conclusão de que o mapa \(y\mapsto \varphi_\varepsilon (x-y)f(y)\) é integrável sobre o mesmo.
+           \begin{figure}[H]
+           \begin{center}
+           \includegraphics[height=0.8\textheight, width=0.8\textwidth, keepaspectratio]{./Images/density_2_10.png}
+           \end{center}
+           \caption{para \(\varepsilon >0\) pequeno, \(\overline{B}(x; \varepsilon )\) entra em \(\Omega \), como representado na imagem mais à esquerda; na central, vemos que é garantido que \(\overline{\Omega }\cap \overline{B}(x; \varepsilon )\) é compacto para todo \(\varepsilon >0\); e, por fim, \(f\in L^{\infty}(\Omega )\) evita que f não seja integrável ao redor dos pontos da fronteira de \(\Omega \), conforme visto na imagem mais à direita.}
+           \end{figure}
+
+           Com respeito à convergência, tome um compacto K de \(\Omega \) e fixemos, primeiro, \(\delta_{0}\) com 
+             \[
+               0<\delta_{0}< d(K, \mathbb{R}^{n}\setminus{\Omega }) = d(K, \partial \Omega ).
+             \]
+             Logo, 
+               \[
+                 K_{0}\coloneqq \overline{\mathcal{O}}_{\delta }(K)=\bigcup_{a\in K}^{}\overline{B}(a; \delta_{0})\subseteq \Omega .
+               \]
+
+               Agora, se x for um ponto de K e 
+                 \[
+                   0<\varepsilon \leq \delta_{0},
+                 \]
+                 teremos 
+                   \[
+                     \overline{B}(x; \varepsilon )\subseteq K_{0}\subseteq \Omega ,
+                   \]
+                   donde 
+                     \[
+                       \varphi_{\varepsilon }*f(x)-f(x)=\int_{\overline{B}(x; \varepsilon )}^{}\varphi_{\varepsilon }(x-y)(f(y)-f(x)) \mathrm{dy}.
+                     \]
+                     Com isso, sendo f contínua em \(\Omega \), ela é uniformemente contínua no compacto \(K_{0}\); logo, dado \(\eta>0\), existe \(\delta>0\) tal que 
+                       \[
+                         x, y\in K_{0}\;\&\; | x-y |<\delta  \Rightarrow | f(y)-f(x) |<\frac{\eta }{2}.
+                       \]
+                       Consequentemente, para x em K e \(y\in \overline{B}(x; \varepsilon )\) com \(0<\varepsilon <\min\limits_{}\{\delta_{0}, \delta \}\), teremos 
+                         \[
+                           \biggl\vert \varphi_{\varepsilon }*f(x)-f(x) \biggr\vert \leq \int_{\overline{B}(x; \varepsilon )}^{}\varphi_{\varepsilon }(x-y)| f(y)-f(x) | \mathrm{dy}\leq \sup_{y\in \overline{B}(x; \varepsilon )}| f(y)-f(x) |<\eta ,
+                         \]
+                         pois 
+                           \[
+                             \int_{\overline{B}(x; \varepsilon )}^{}\varphi_{\varepsilon }(x-y) \mathrm{dy}=1,
+                           \]
+                           mostrando que 
+                             \[
+                               0<\varepsilon <\min\limits_{}\{\delta, \delta_{0}\} \Rightarrow \sup_{x\in K} | \varphi_{\varepsilon }*f(x)-f(x) |\leq \frac{\eta }{2}\leq \eta 
+                             \] 
+                             e estabelecendo a convergência 
+                               \[
+                                 \varphi_{\varepsilon }*f(x)\substack{ \\ \longrightarrow \\ \varepsilon \to0^{+}}f
+                               \]
+                               em \(\mathcal{C}(\Omega ).\)
+
+                               (iii) Aqui, basta notar que 
+                                 \[
+                                   f\in \mathcal{C}(\mathbb{R}^{n})\hookrightarrow L_{\mathrm{loc}}^{1}(\mathbb{R}^{n})=L_{\mathrm{loc}}^{1}(\overline{\mathbb{R}^{n}}),
+                                 \]
+                                 tal que caímos no caso (ii) e, portanto, completamos a demonstração. \qedsymbol 
+\end{proof*}
+  \begin{tcolorbox}[
+  skin=enhanced,
+  title=Observação,
+  fonttitle=\bfseries,
+colframe=black,
+  colbacktitle=cyan!75!white, 
+  colback=cyan!15,
+  colbacklower=black,
+coltitle=black,
+  drop fuzzy shadow,
+  %drop large lifted shadow
+  ]
+  Fixada a família \(\{\varphi_{\varepsilon }\}_{\varepsilon >0}\) ``\textbf{regularizante}'' como acima e definido 
+ \begin{align*}
+     I_{\varepsilon }:&\mathcal{C}(\mathbb{R}^{n})\rightarrow \mathcal{C}(\mathbb{R}^{n}) \\
+        &f\longmapsto I_{\varepsilon }(f)\coloneqq \varphi_{\varepsilon }*f,
+ \end{align*}
+ para \(\varepsilon >0\) qualquer, obtemos uma família de aplicações lineares tais que, para toda f de classe \(\mathcal{C}(\mathbb{R}^{n})\), a família \(\{I_{\varepsilon }\}_{\varepsilon >0}\) aproxima pontualmente a função identidade de \(\mathcal{C}(\mathbb{R}^{n})\), ou seja, 
+   \[
+     \lim_{\varepsilon \to 0^{+}} I_{\varepsilon }(f)=f = I(f).
+   \]
+   Por conta disso e outros motivos análogos, costuma-se chamar \(\{I_{\varepsilon }\}_{\varepsilon >0}\) ou \(\{\varphi_{\varepsilon }\}_{\varepsilon >0}\) de \textbf{aproximação da identidade}.
+  \end{tcolorbox}
+    \begin{tcolorbox}[
+    skin=enhanced,
+    title=Observação,
+    fonttitle=\bfseries,
+  colframe=black,
+    colbacktitle=cyan!75!white, 
+    colback=cyan!15,
+    colbacklower=black,
+  coltitle=black,
+    drop fuzzy shadow,
+    %drop large lifted shadow
+    ]
+    O caso em que \(\Omega =\mathbb{R}^{n}\) e \(x=0\) no item (i) do Teorema merece um destaque especial, pois ele nos dá 
+      \[
+        \lim_{\varepsilon \to 0}\varphi_{\varepsilon }*f(0)=\lim_{\varepsilon \to 0^{+}}\int_{}^{}\varphi_\varepsilon (-y)f(y) \mathrm{dy}=f(0),\quad f\in \mathcal{C}(\mathbb{R}^{n}),
+      \]
+      que, quando levamos em conta que a \(\varphi \) que dá origem à família \(\{\varphi_{\varepsilon }\}\) pode ser escolhida como par, o limite acima é o mesmo que 
+        \[
+          \lim_{\varepsilon \to 0^{+}}\int_{}^{}\varphi_{\varepsilon }(y)f(y) \mathrm{dy}=f(0) = \left< \delta , f \right>!
+        \]
+        Noutras palavras, a família 
+          \[
+          \biggl\{\int_{}^{}f(y)\varphi_{\varepsilon }(x-y) \mathrm{dy}\biggr\}_{x\in \Omega }
+          \]
+          determina \textit{completamente} a f!
+    \end{tcolorbox}
+  \subsection{Distribuições em Abertos dos Espaços Euclidianos}
+ \begin{def*}
+   Se \(\Omega \) é um aberto de \(\mathbb{R}^{n}\), o \textbf{espaço das distribuições em }\(\Omega \) (ou sobre \(\Omega \)) é o dual topológico \(\mathcal{D}'(\Omega )\coloneqq [\mathcal{C}_{c}^{\infty}(\Omega )]'\), onde \(\mathcal{C}_{c}^{\infty}(\Omega )\) tem a topologia limite indutivo dos \(\mathcal{C}_{c}^{\infty}(K_{j})\)'s. \(\square\)
+ \end{def*}
+ \begin{def*}
+   Uma \textbf{distribuição} em \(\Omega \subseteq \mathbb{R}^{n}\) é um funcional linear contínuo \(u:\mathcal{C}_{c}^{\infty}(\Omega )\rightarrow \mathbb{C}\). \(\square\)
+ \end{def*}
+  Do que aprendemos sobre a topologia de \(\mathcal{C}_{c}^{\infty}(\Omega )\) e dos \(\mathcal{C}_{c}^{\infty}(K)\), decorre que a definição acima equivale a pedir que, para cada compacto \(K\) de \(\Omega \), exista uma constante \(c>0\) dependendo de K e u (ou seja, \(c=c(K, u)\)) e uma ordem de derivação \(m=m(K, u)\in \mathbb{N}\) tais que 
+    \[
+      | \left< u, \varphi  \right> |\leq c \sum\limits_{| \alpha  |\leq m}^{}\sup_{x\in K}| \partial ^{\alpha }\varphi (x) |,\quad \forall \varphi \in \mathcal{C}_{c}^{\infty}(K),
+    \]
+    pois uma das conclusões do \hyperlink{inductive_limit}{\textit{Teorema do Limite Indutivo}} era justamente que \(u|_{\mathcal{C}_{c}^{\infty}(K)}\in [\mathcal{C}_{c}^{\infty}(K)]'\), e juntamos isso à topologia de \(\mathcal{C}_{c}^{\infty}(K)\) ser dada pelas seminormas 
+      \[
+        p_{m}(f)=\sum\limits_{| \alpha  |\leq m}^{} \sup_{x\in K}| \partial ^{\alpha }f(x) |,\quad m=0,1,2,\dotsc .
+      \]
+
+      Antes de prosseguir com as propriedades intrínsecas dos elementos de \(\mathcal{D}'(\Omega ),\) vamos ver alguns exemplos, começando pelas funções contínuas e, mais geralmente, as localmente integráveis, seguidos das medidas borelianas finitas em compactos, e, por fim, o valor principal da função \(1/x\).
+       
+     \begin{example}
+       Se f for de classe \(L_{\mathrm{loc}}^{1}(\Omega )\) e, para \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\), pusermos 
+         \[
+           \left< Tf, \varphi  \right>\coloneqq \int_{\Omega }^{}f(y) \varphi (y) \mathrm{dy} = \int_{\Omega }^{}f\varphi,
+         \]
+         então \(Tf\in \mathcal{D}'(\Omega )\). 
+
+         Com efeito, a linearidade em \(\varphi \) segue da linearidade da integral: 
+           \[
+             \left< Tf, \varphi +\lambda \psi  \right>=\int_{}^{}f(\varphi +\lambda \psi ) = \int_{}^{}f\varphi +  \lambda \int_{}^{}f\psi = \left< Tf, \varphi  \right> + \lambda \left< Tf, \psi  \right>.
+           \]
+           Para a continuidade, note que 
+             \[
+               | \left< Tf, \varphi  \right> |=\int_{\Omega }^{}| f(y) || \varphi (y) | \mathrm{dy} = \int_{\mathrm{supp}(\varphi )}^{}| f(y) || \varphi (y) | \mathrm{dy} \leq \Vert \varphi  \Vert_{\infty}\int_{\mathrm{supp}(\varphi )}^{}| f(y) | \mathrm{dy}.
+             \]
+             Daí, dado um compacto K de \(\Omega \), tomando \(c\coloneqq \int_{K}^{}| f(y) | \mathrm{dy}\) e \(m=0\), segue que 
+               \[
+                 | \left< Tf, \varphi  \right> |\leq c\sup_{x\in K}| \varphi (x) |,\quad \varphi \in \mathcal{C}_{c}^{\infty}(K),
+               \]
+               que é a condição necessária.
+
+               Note que este processo define uma aplicação \(T:L_{\mathrm{loc}}^{1}(\Omega )\rightarrow \mathcal{D}'(\Omega )\) que associa uma distribuição a cada f em \(L_{\mathrm{loc}}^{1}(\Omega )\) e que é linear. Queremos mais do que isso -- uma cópia de \(L_{\mathrm{loc}}^{1}(\Omega )\) vivendo em \(\mathcal{D}'(\Omega )\) -- e, para isso, precisamos saber se essa aplicação é injetiva e contínua. A primeira parte (injetividade) equivale a provar que, se \(Tf=0\) em \(\mathcal{D}'\), então \(f=0\) em \(L_{\mathrm{loc}}^{1}\), ou seja, se é verdade que 
+                 \[
+                   \int_{}^{}f(x)\varphi (x) =0,\quad \forall \varphi \in \mathcal{C}_{c}^{\infty}(\Omega ) \Rightarrow f = 0 \text{ q.t.p. em } \Omega;
+                 \]
+                 no entanto, isto é claro quando f é de classe \(\mathcal{C}(\Omega )\), pois se \(f(x_{0})\neq 0\), segue que \(f(x)\neq 0\) para todo ponto x em \(\overline{B}(x_{0}; \delta )\subseteq \Omega \). Por outro lado, quando \(f(x)\geq \alpha \) nessa bola e escolhendo \(\varphi \in \mathcal{C}_{c}^{\infty}(B(x_{0}; \delta ))\) com \(0\leq \varphi \leq 1\) e \(\varphi\equiv 1\) em \(\overline{B}(x_{0}; \delta /2)\), que podemos fazer pelo \hyperlink{uryhson_lemma}{\textit{Lema de Uryhson}}, segue por hipótese que 
+                   \[
+                     0<\alpha \leq \int_{\overline{B}(x_{0}; \delta )}^{}f(y)\varphi (y) \leq \int_{B(x_{0}; \delta )}^{}f(y)\varphi (y) = \int_{\Omega }^{}f(y)\varphi (y) =0,
+                   \]
+                   que seria uma contradição.
+             \end{example}
+
+             O caso geral deste exemplo depende de outros fatos, que destacamos a seguir:
+           \begin{lemma*}
+             Se f e g são de classe \(L^{1}(\mathbb{R}^{n})\), então \(f*g(x)\) existe para todo x em \(\mathbb{R}^{n}\), é de classe \(f*g\in L^{1}\) e 
+               \[
+                 \Vert f*g \Vert_1\leq \Vert f \Vert_{L^{1}}\Vert g \Vert_{L^{1}}.
+               \]
+           \end{lemma*}
+          \begin{proof*}
+            Com efeito, o mapa 
+              \[
+                (x, y)\mapsto f(x-y)g(y)
+              \]
+              é \(\mathbb{R}^{n}\times \mathbb{R}^{n}\) mensurável, assim como o módulo, e pelo \hyperlink{fubini_tonelli}{\textit{Tonelli}}, 
+                \[
+                  x\mapsto \int_{}^{}| f(x-y)g(y) | \mathrm{dy}
+                \]
+                é mensurável em \(\mathbb{R}^{n}\), com 
+               \begin{align*}
+                 \int_{}^{}\biggl[\int_{}^{}| f(x-y) || g(y) | \mathrm{dy}\biggr] \mathrm{d}x &= \int_{}^{}| g(y) |\biggl[\int_{}^{}| f(x-y) | \mathrm{dx}\biggr] \mathrm{dy}\\ 
+                                                                                              &= \int_{}^{}| g(y) |\Vert f \Vert_{1} \mathrm{dy}\\ 
+                                                                                              &= \Vert g \Vert_1 \Vert f \Vert_1. 
+               \end{align*}
+               Consequentemente, 
+                 \[
+                   (x, y)\mapsto f(x-y)g(y)
+                 \]
+                 é integrável em \(\mathbb{R}^{n}\times \mathbb{R}^{n}\) e, do \hyperlink{fubini_tonelli}{\textit{Fubini}}, 
+                   \[
+                     x\mapsto \int_{}^{}f(x-y)g(y) \mathrm{dy}=f*g(x)
+                   \]
+                   é mensurável e \(L^{1}(x)\), donde segue que \(f*g(x)\) existe em quase todo vetor de \(\mathbb{R}^{n}\), além de termos 
+                  \begin{align*}
+                    \Vert f*g \Vert_1 = \int_{}^{}| f*g(x) | \mathrm{dx}&= \int_{}^{}\biggl\vert \int_{}^{}f(x-y)g(y) \mathrm{dy} \biggr\vert \mathrm{dx}\\ 
+                                                                        &\leq \int_{}^{}\int_{}^{} | f(x-y)g(y) | \mathrm{dy} \mathrm{dx}\\ 
+                                                                        &=\Vert f \Vert_1 \Vert g \Vert_1.\text{ \qedsymbol}
+                  \end{align*}
+          \end{proof*}
+         \begin{lemma*}
+           Seja qual for o aberto U de \(\mathbb{R}^{n}\), o conjunto \(\mathcal{C}_{c}^{1}(U)\) é denso em \(L^{1}(U)\).
+         \end{lemma*}
+        \begin{lemma*}
+          Se \(f\in L^{1}(\mathbb{R}^{n})\), então 
+            \[
+            \varphi_\varepsilon *f\substack{L^{1} \\ \longrightarrow \\ \varepsilon \to 0^{+}}f,
+            \]
+            onde \(\{\varphi_\varepsilon \}_{\varepsilon >0}\) é a família regularizante padrão.
+        \end{lemma*}
+       \begin{proof*}
+         Com efeito, dado \(\eta >0\), escolhemos \(f_\eta \) em \(\mathcal{C}_{c}^{1}(\mathbb{R}^{n})\) com \(\Vert f_{\eta }-f \Vert_1<\eta \). Para cada \(\varepsilon \) positivo, podemos escrever: 
+        \begin{align*}
+          \varphi_\varepsilon *f - f &= \varphi_{\varepsilon }*(f-f_{\eta })+[\varphi_{\varepsilon }*f_{\eta }-f_{\eta }]+(f_{n}-f)\\ 
+                                     &\Rightarrow \Vert \varphi_{\varepsilon }*f-f \Vert_1 \leq \Vert \varphi_{\varepsilon }*(f-f_{\eta }) \Vert_1 + \Vert \varphi_{\varepsilon }*f_{\eta }-f_{\eta } \Vert+\Vert f_{\eta }-f \Vert_1\\ 
+                                     &\leq 2\eta + \Vert \varphi_{\varepsilon }+f_{\eta }-f_{\eta } \Vert_{1}.
+        \end{align*}
+        Pelo \hyperlink{density_theorem}{\textit{Teorema de Densidade}}, 
+          \[
+            \varphi_{\varepsilon }*f_{\eta }\substack{ \\ \longrightarrow \\ \varepsilon\to 0^{+}}f_{\eta }
+          \]
+          em \(\mathcal{C}(\mathbb{R}^{n})\), donde, se \(K\coloneqq \mathrm{supp}(f_{\eta })\), então podemos escolher \(\varepsilon_{0}>0,\; \varepsilon_{0}=\varepsilon_{\eta }\), para que seja 
+            \[
+              0<\varepsilon \leq \varepsilon_{0} \Rightarrow \Vert \varphi_{\varepsilon }*f_{\eta }-f_{\eta } \Vert_{\infty}\leq \frac{1}{m(K)}\eta \Rightarrow \Vert \varphi_{\varepsilon }f_{\eta }-f_{\eta } \Vert\leq \eta ,
+            \]
+            tal que, para este \(\varepsilon_{0}>0\), 
+              \[
+                0<\varepsilon \leq \varepsilon_{0}\Rightarrow \Vert \varphi_{\varepsilon }*f -f \Vert_{1}\leq 3\eta ,
+              \]
+              completando a prova. \qedsymbol
+       \end{proof*}
+
+       Diante destes fatos, podemos provar o teorema 
+      \begin{theorem*}
+        Dado que 
+       \begin{align*}
+           Tf:&\mathcal{C}_{c}^{\infty}(\Omega )\rightarrow \mathbb{C} \\
+              &\varphi \longmapsto \left< Tf, \varphi  \right>=\int_{\Omega }^{}f(x)\varphi (x) \mathrm{dx},
+       \end{align*}
+       então a transformação 
+      \begin{align*}
+          T:&L_{loc}^{1}(\Omega )\rightarrow \mathcal{D}'(\Omega )\\
+             &f\longmapsto Tf
+      \end{align*}
+      é injetiva.
+      \end{theorem*}
+     \begin{proof*}
+       Seja f uma função de classe \(L_{\mathrm{loc}}^{1}(\Omega )\) com 
+         \[
+           \int_{\Omega }^{}f(x)\varphi (x) \mathrm{dx} = 0,\quad \forall \varphi \in \mathcal{C}_{c}^{\infty}(\Omega ).
+         \]
+         Dado um compacto K de \(\Omega \), fixemos \(\psi \in \mathcal{C}_{c}^{\infty}(\Omega )\) com \(0\leq \psi \leq 1\) e \(\varphi \equiv 1\) em K. Definindo 
+           \[
+             \psi f(K)\coloneqq \left\{\begin{array}{ll}
+                 \psi f(x),  &\quad x\in \Omega \\
+                 0, &\quad x\in \mathbb{R}^{n}\setminus{\Omega }
+             \end{array}\right.,
+           \]
+           vemos que \(\psi f\in L^{1}(\mathbb{R}^{n})\), donde 
+             \[
+               \varphi_{\varepsilon }*(\psi f)\substack{ \\ \longrightarrow \\ \varepsilon \to 0^{+}}\psi f
+             \]
+             em \(L^{1}(\mathbb{R}^{n})\). Porém, para todo vetor x de \(\mathbb{R}^{n}\), 
+            \begin{align*}
+              \varphi_{\varepsilon }*(\psi f)(x)&= \int_{\mathbb{R}^{n}}^{}\varphi_{\varepsilon }(x-y)(\psi f)(y) \mathrm{dy}\\ 
+                                                &= \int_{\mathbb{R}^{n}}^{}f(y)(\underbrace{\psi (y)\varphi_{\varepsilon }(x-y)}_{\in \mathcal{C}_{c}^{\infty}(\Omega )}) \mathrm{dy}\\ 
+                                                &= \int_{\Omega }^{}f(y)(\psi (y)\varphi_{\varepsilon }(x-y)) \mathrm{dy}=0.
+            \end{align*}
+            Pela hipótese sobre f de que 
+              \[
+                \varphi_{\varepsilon }*(\psi f)(x)=0,\quad \forall x\in \mathbb{R}^{n},\; \varepsilon >0,
+              \]
+              temos 
+                \[
+                  \psi f(x)=0
+                \]
+                em quase todo ponto x de \(\Omega \), levando a 
+                  \[
+                    f(x)=0
+                  \]
+                  em quase todo ponto x de K para qualquer que seja K. 
+
+                  Finalmente, esgotando \(\Omega = \bigcup_{j=1}^{\infty}K_{j}\) e sabendo que uma união enumerável de conjuntos de medida nula tem em si medida nula, portanto, conclui-se que \(f=0\) em quase todo ponto de \(\Omega \), que equivale a \(f=0\) como elemento de \(L_{\mathrm{loc}}^{1}(\Omega )\). \qedsymbol
+                  \end{proof*}
+
+                  Uma convenção que faremos a partir deste exemplo é que identificamos f com Tf, através de:
+                    \[
+                      \left< f, \varphi  \right>= \int_{\Omega }^{}f\varphi , \quad \varphi \in \mathcal{C}_{c}^{\infty}(\Omega ),\;\&\; f\in L_{\mathrm{loc}}^{1}(\Omega ).
+                    \]
+
+                    \begin{example}[Função de Heaviside]
+                     A \hypertarget{heaviside_function}{função de Heaviside} \(H:\mathbb{R}\rightarrow \mathbb{R}\) dada por 
+                       \[
+                         H(x) = \left\{\begin{array}{ll}
+                             1,&\quad x>0\\ 
+                            0,&\quad x<0
+                           \end{array}\right.
+                       \]
+                       é uma função \(L_{\mathrm{loc}}^{1}(\mathbb{R})\) com 
+                         \[
+                           \left< H, \varphi  \right>=\int_{-\infty}^{\infty}H(x)\varphi (x) \mathrm{dx}=\int_{0}^{\infty}\varphi (x) \mathrm{dx},\quad \varphi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}).
+                         \]
+                   \end{example}
+
+                   \begin{example}[Logaritmo]
+                    Seja \(f:\mathbb{R}\rightarrow \mathbb{R}\) dada por 
+                      \[
+                        f(x)=\log^{}{| x |},\quad x\neq 0.
+                      \]
+                      Então, f é de classe \(L_{\mathrm{loc}}^{1}(\Omega )\) (Verifique!) e, para \(\varphi \) em \(\mathcal{C}_{c}^{\infty}(\mathbb{R})\), temos: 
+                     \begin{align*}
+                       \left< f, \varphi  \right> &= \int_{-\infty}^{\infty}\log^{}{| x |}\varphi (x) \mathrm{dx}\\ 
+                                                  &= \int_{-\infty}^{\infty}\log^{}{(-x)}\varphi (x) \mathrm{dx} + \int_{0}^{\infty}\log^{}{x}\varphi (x) \mathrm{dx}\\ 
+                                                  &= \int_{0}^{\infty}\log^{}{x}(\varphi (x)-\varphi (-x)) \mathrm{dx}.
+                     \end{align*}
+                   \end{example}
+
+\end{document}
