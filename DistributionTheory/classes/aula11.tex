@@ -1,0 +1,155 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 27 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+ \item Operações com Distribuições;
+ \item Cálculo com Distribuições.
+\end{itemize}
+\subsection{Mexendo nas Distribuições}
+
+Agora que já temos uma noção melhor tanto da definição de distribuições quanto do fato de que, essencialmente, qualquer função em um aberto \(\Omega \) do espaço euclidiano possui um ``representante''/``cópia'' dentro de \(\mathcal{D}'(\Omega )\), vamos dar mais uma amostra do quão amplo esta classe de funções é, e faremos isto mostrando que também podemos incluir medidas borelianas localmente finitas nele.
+
+Além disso, mostraremos como operacionalizar os objetos deste espaço com o objetivo de transportar o cálculo das funções para as distribuições. Em particular, as operações que previamente definimos em \(E'\) de adição e produto escalar podem ser aplicadas para os elementos de \(\mathcal{D}'(\Omega )\). Sem mais delongas, 
+\begin{example}
+  Seja \(\mu \) uma medida boreliana localmente finita num aberto \(\Omega \subseteq \mathbb{R}^{n}.\) Definimos 
+ \begin{align*}
+     T_{\mu }:&\mathcal{C}_{c}^{\infty}(\Omega u)\rightarrow \mathbb{C} \\
+        &\varphi \longmapsto \left< T_{\mu }, \varphi  \right> \coloneqq \int_{\Omega }\varphi  d\mu_{},
+ \end{align*}
+ de tal forma a termos 
+   \[
+     \int_{\Omega }^{}x \varphi  \mathrm{d}| \mu  | = \int_{\mathrm{supp}(\varphi )}| \varphi  | d| \mu_{} | \leq | \mu   |(\mathrm{supp}(\varphi ))\sup_{x\in \Omega }| \varphi (x) |,
+   \]
+   onde \(| \mu  |\) representa a variação total de \(\mu .\) Assim, dado um compacto K de \(\Omega \), tomando \(C\coloneqq | \mu  |(K)\) e \(m=0\), vemos que 
+     \[
+       |\left< T_{\mu }, \varphi  \right>  | \leq c\sup_{x\in K}| \varphi (x) |,\quad \varphi \in \mathcal{C}_{c}^{\infty}(K),
+     \]
+     mostrando que \(T_{\mu }\) define de fato uma distribuição em \(\Omega.\)
+\end{example}
+  \begin{tcolorbox}[
+  skin=enhanced,
+  title=Observação,
+  fonttitle=\bfseries,
+colframe=black,
+  colbacktitle=cyan!75!white, 
+  colback=cyan!15,
+  colbacklower=black,
+coltitle=black,
+  drop fuzzy shadow,
+  %drop large lifted shadow
+  ]
+  Diferentemente do que ocorre com o exemplo de \(L_{\mathrm{loc}}^{1}\), a prova de T definir um injeção contínua de algum espaço de medidas borelianas em \(\mathcal{D}'(\Omega )\) decorre de fatos mais profundos de Teoria da Medida -- os teoremas de Radon em espaços HLC e os teoremas de Representação de Riesz em \(\mathcal{C}_{c}^{}(\Omega )\) e em \(\mathcal{C}_{0}(\Omega )\) -- e identificamos, através deles, 
+    \[
+      \left< T_{\mu }, \varphi  \right> = \left< \mu , \varphi  \right> = \int_{}\varphi  d\mu_{}
+    \]
+  \end{tcolorbox}
+ \begin{example}
+   Quando \(M\subseteq \Omega \) é uma superfície orientável e \(\mu =dM\) é a medida de superfície (construída a partir do elemento de volume de M, teoremas de extensão de medidas de álgebras para \(\sigma-\)álgebras geradas, etc), então a integral de uma \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\) ao longo de uma superfície M define uma distribuição: 
+     \[ 
+       \left< \mu , \varphi  \right>=\int_{M}\varphi  dM.
+     \]
+     Particularmente, se \(\Omega \subseteq \mathbb{R}^{2}\) é um aberto e M é a diagonal do plano, então 
+       \[
+         \left< u, \varphi  \right>= \int_{}^{}\varphi (x, x) \mathrm{dx}
+       \]
+       é uma distribuição em \(\Omega \).
+      \begin{figure}[H]
+      \begin{center}
+      \includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/diag_distri_11.png}
+      \end{center}
+      \end{figure}
+
+      Ademais, a integral de linha ao longo de um caminho, digamos \(\mathcal{C}^{1}\) por partes e descrita arbitrariamente como 
+     \begin{align*}
+ \gamma:&[a, b]\rightarrow \Omega \subseteq \mathbb{R}^{2} \\
+        &t\longmapsto \gamma (t)=(x(t), y(t)) = x(t)+iy(t),
+     \end{align*}
+  com as devidas adaptações pode também ser vista como uma distribuição \(u\in \mathcal{D}'(\Omega )\) pondo 
+    \[
+      \left< u, \varphi  \right> = \int_{a}^{b}\varphi (\gamma (t)) \mathrm{d}\gamma (t) = \int_{a}^{b}\varphi (\gamma (t))\cdot \varphi'(t)\mathrm{d}t
+    \]
+    para \(\varphi :\Omega  \subseteq \mathbb{R}^{2}\rightarrow \mathbb{C}\) sendo a função teste.
+ \end{example}
+
+ \subsection{Operações com Distribuições}
+  A maneira mais comum de se definir operações com distribuições é procurar estender operações que podem ser efetuadas com funções para as distribuições, que será feito por meio de aplicações lineares de \(\mathcal{C}_{c}^{\infty}(\Omega )\) em \(\mathcal{C}_{c}^{\infty}(\Omega ')\), que sejam também contínuas com relação ao limite indutivo, com \(\Omega \) e \(\Omega '\) abertos e que possuam o chamado ``transposto formal''.
+ \begin{def*}
+   Sejam \(\Omega \) e \(\Omega '\) abertos de espaços euclidianos e \(T:\mathcal{C}_{c}^{\infty}(\Omega )\rightarrow \mathcal{C}_{c}^{\infty}(\Omega )'\) e \(T':\mathcal{C}_{c}^{\infty}(\Omega') \rightarrow \mathcal{C}_{c}^{\infty}(\Omega )\) aplicações lineares contínuas tais que: 
+     \[
+       \int_{\Omega '}^{}(T\varphi )(y)\psi (y) \mathrm{dy} = \int_{\Omega }^{}\varphi (x)(T'\psi )(x) \mathrm{dx},\quad \varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\;\&\; \psi\in \mathcal{C}_{c}^{\infty}(\Omega ').
+     \]
+     Quando isto ocorre, dizemos que \(T'\) é o \textbf{transposto formal de T}. \(\square\)
+ \end{def*}
+ Esta nomenclatura vem do problema de Stern-Liouville, onde, na definição do adjunto, ignora-se as condições de fronteira. 
+\begin{lemma*}
+  Se T e T' são transpostos um do outro, então T possui uma extensão contínua \(\tilde{T}:\mathcal{C}_{c}^{\infty}(\Omega )\rightarrow \mathcal{D}'(\Omega )\) tal que 
+    \[
+      \tilde{T}\varphi = T\varphi 
+    \]
+    quando \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\). 
+\end{lemma*}
+\begin{proof*}
+  Com efeito, definamos \(T:\mathcal{D}'(\Omega )\rightarrow \mathcal{D}'(\Omega ')\) pondo 
+    \[
+      \left< \tilde{T}u, \psi  \right> = \left< u, T'\psi  \right>,\quad u\in \mathcal{D}'(\Omega ),\;\&\;\psi \in \mathcal{C}_{c}^{\infty}(\Omega ')
+    \]
+    e observamos que, se \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\), então 
+   \begin{align*}
+     \left< \tilde{T}\varphi , \psi  \right> = \left< \varphi , T'\psi  \right> &= \int_{\Omega }^{}\varphi (x)(T'\psi )(x) \mathrm{dx}\\ 
+                                                                                &= \int_{\Omega '}^{}(T\varphi )(y)\psi (y) \mathrm{dy}\\ 
+                                                                                &= \left< T\varphi , \psi  \right>,\quad \forall \psi \in \mathcal{C}_{c}^{\infty}(\Omega '),
+   \end{align*}
+   que basta para provar o fato de \(\tilde{T}\) estender T; além disto, \(\tilde{T}\) é linear (verifique, mas segue da linearidade de T e de u). Consequentemente, \(\tilde{T}u\in \mathcal{D}'(\Omega ')\) quando u é um elemento de \(\mathcal{D}'(\Omega )\). Com efeito, basta provar a continuidade sequencial: suponha que \(\psi_{j}\rightarrow 0\) em \(\mathcal{C}_{c}^{\infty}(\Omega ')\); então, 
+     \[
+       T'\psi_{j}\substack{\mathcal{C}_{c}^{\infty}(\Omega ) \\ \longrightarrow \\ }0 \Rightarrow \left< u, T'\psi_{j} \right>\substack{ \\ \longrightarrow \\ j\to \infty}0,
+     \]
+     ou seja, 
+       \[
+         \left< \tilde{T}u, \psi_{j} \right>\substack{ \\ \longrightarrow \\ j\to \infty}0.
+       \]
+       Portanto, \(\tilde{T}u\in \mathcal{D}'(\Omega ')\), provando o lema. \qedsymbol
+\end{proof*}
+  \begin{tcolorbox}[
+  skin=enhanced,
+  title=Observação,
+  fonttitle=\bfseries,
+colframe=black,
+  colbacktitle=cyan!75!white, 
+  colback=cyan!15,
+  colbacklower=black,
+coltitle=black,
+  drop fuzzy shadow,
+  %drop large lifted shadow
+  ]
+  Na prática, para designar a extensão de T construída acima, costumamos usar apenas a letra T.
+  \end{tcolorbox}
+ \begin{lemma*}
+   Um funcional linear \(u:\mathcal{C}_{c}^{\infty}(\Omega )\rightarrow \mathbb{C}\) é uma distribuição se, e somente se,  convergência de \(\varphi_{j}\) ao 0 em \(\mathcal{C}_{c}^{\infty}(\Omega )\) resultar na convergência do produto interno \(\left< u, \varphi_{j} \right>\) ao 0 também, isto é, 
+     \[
+       \varphi_{j}\substack{\mathcal{C}_{c}^{\infty}(\Omega ) \\ \longrightarrow \\ }0 \Rightarrow \left< u, \varphi_{j} \right>\substack{ \\ \longrightarrow \\ j\to\infty}0.
+     \]
+ \end{lemma*}
+     Noutras palavras, para provar a continuidade de um funcional linear em \(\mathcal{C}_{c}^{\infty}(\Omega )\), basta provar a continuidade sequencial, e sabemos que isso não precisa ser verdade num espaço topológico qualquer, evidenciando que a topologia de \(\mathcal{C}_{c}^{\infty}(\Omega )\) é especial, já que ele requer \(E_1\) com sua topologia que provém da métrica.
+    \begin{proof*}
+      O fato de \(u\in \mathcal{D}'(\Omega )\) implicar na condição da sequência segue do fato de que, se \(\varphi_{j}\) converge para 0, existe um compacto \(K\subseteq \Omega \) tal que 
+        \[
+          \mathrm{supp}(\varphi_{j})\subseteq K,\quad \forall j,
+        \]
+        isto é, \(\varphi_{j}\in \mathcal{C}_{c}^{\infty}(K)\),\; \forall j\;\&\; \sup_{K}| \partial^{\alpha }\varphi_{j} |\substack{ \\ \longrightarrow \\ j\to \infty}0,\; \forall \alpha .
+    \end{proof*}
+    Como \(u\in \mathcal{D}'(\Omega )\), correspondem a este compacto K os números \(c>0\) e m em \(\mathbb{Z}_{+}\) tais que 
+      \[
+        | \left< u, \varphi  \right> | \leq c \sum\limits_{| \alpha  |\leq m}^{}\sup_{K}| \partial^{\alpha }\varphi (x) |,\quad \varphi \in \mathcal{C}_{c}^{\infty}(K).
+      \]
+      Logo, sendo 
+        \[
+          \sum\limits_{| \alpha  |\leq m}^{} \sup_{}| \partial^{\alpha }\varphi_{j}(x) |\to 0,
+        \]
+        o resultado que obtemos é que 
+          \[
+            \left< u, \varphi_{j} \right>\to 0.
+          \]
+
+          A recíproca, por outro lado, é muito mais interessante, e provaremos ela por contradição. 
+\end{document}
