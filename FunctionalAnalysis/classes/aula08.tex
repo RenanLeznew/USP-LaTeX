@@ -3,142 +3,142 @@
 \section{Aula 08 - 28 de Agosto, 2025}
 \subsection{Motivações}
 \begin{itemize}
- \item Desigualdade de Bessel;
- \item Completamento e Identidade de Parseval; 
- \item Bases Ortonormais em Espaços de Hilbert.
+	\item Desigualdade de Bessel;
+	\item Completamento e Identidade de Parseval;
+	\item Bases Ortonormais em Espaços de Hilbert.
 \end{itemize}
 \subsection{Bases Ortonormais em Espaços de Hilbert}
-  \hypertarget{bessel_inequality}{
-    \begin{theorem*}[Desigualdade de Bessel]
-     Se \(\{u_{\alpha }\}_{\alpha \in A}\) for um conjunto ortonormal em H, então para \(u\in H\), 
-       \[
-         \sum\limits_{\alpha \in A}^{}| \langle u, u_{\alpha } \rangle |^{2}\leq \Vert u \Vert^{2}.
-       \]
-       Em particular, o conjunto 
-         \[
-           \{\alpha \in A:\; \langle u, u_{\alpha } \rangle\neq 0\}
-         \]
-         é enumerável. 
-   \end{theorem*}
-  }
-  \begin{proof*}
-    É suficiente provar que, para todo conjunto \(F\subseteq A\) finito, 
-      \[
-        \sum\limits_{\alpha \in F}^{}| \langle u, u_{\alpha } \rangle |^{2} \leq \Vert u \Vert.
-      \]
-      Com efeito, 
-     \begin{align*}
-       0&\leq \biggl\Vert u-\sum\limits_{\alpha \in F}^{}\langle u, u_{\alpha } \rangle u_{\alpha } \biggr\Vert^{2}\\
-        & = \Vert u \Vert^{2}-2 \mathrm{Re}\biggl\langle u, \sum\limits_{\alpha \in F}^{}\langle u, u_{\alpha } \rangle u_{\alpha } \biggr\rangle + \biggl\Vert \sum\limits_{\alpha \in F}^{}\langle u, u_{\alpha } \rangle u_{\alpha } \biggr\Vert^{2}\\ 
-        &= \Vert u \Vert^{2}-2 \sum\limits_{\alpha \in F}^{}| \langle u, u_{\alpha } \rangle |^{2} + \sum\limits_{\alpha \in F}^{}| \langle u, u_{\alpha } \rangle |^{2}\\ 
-        &= \Vert u \Vert^{2} - \sum\limits_{\alpha \in F}^{}| \langle u, u_{\alpha } \rangle |^{2},
-     \end{align*}
-     onde utilizamos o \hyperlink{pythagorean_theorem}{\textit{Teorema de Pitágoras}}. \qedsymbol
-  \end{proof*}
- \begin{theorem*}
-   Se \(\{u_{\alpha }\}_{\alpha \in A}\) for um conjunto ortonormal em H, as seguintes afirmações são equivalentes:
-   \begin{itemize}
-     \item[a)] (Completamento): se \(\langle u, u_{\alpha } \rangle=0\) para todo \(\alpha \in A\), então \(u=0\); 
-       \item[b)] \hypertarget{parseval_identity}{(Identidade de Parseval):} para todo u de H, 
-         \[
-           \Vert u \Vert^{2}=\sum\limits_{\alpha \in A}^{}| \langle u, u_{\alpha } \rangle |^{2}.
-         \]
-         \item[c)] Todo elemento u de H pode ser escrito como a soma de cada projeção dele sobre os elementos do conjunto ortonormal; isto é,
-           \[
-             u=\sum\limits_{\alpha \in A}^{} \langle u, u_{\alpha } \rangle u_{\alpha },
-           \]
-           onde a soma tem apenas um número enumerável de termos não nulos e converge independente da ordem dos termos.
-   \end{itemize}
- \end{theorem*}
+\hypertarget{bessel_inequality}{
+	\begin{theorem*}[Desigualdade de Bessel]
+		Se \(\{u_{\alpha }\}_{\alpha \in A}\) for um conjunto ortonormal em H, então para \(u\in H\),
+		\[
+			\sum\limits_{\alpha \in A}^{}| \langle u, u_{\alpha } \rangle |^{2}\leq \Vert u \Vert^{2}.
+		\]
+		Em particular, o conjunto
+		\[
+			\{\alpha \in A:\; \langle u, u_{\alpha } \rangle\neq 0\}
+		\]
+		é enumerável.
+	\end{theorem*}
+}
 \begin{proof*}
-  \(a \Rightarrow c):\) se x pertence a H, seja \(\alpha_1,\alpha_2,\dotsc \) uma enumeração qualquer dos \(\alpha \)'s para os quais \(\langle u, u_{\alpha } \rangle\neq 0\). Pela \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel,}} garantimos a convergência da série 
-    \[
-      \sum\limits_{j=1}^{\infty}| \langle u, u_{\alpha_{j}} \rangle |^{2}
-    \]
-    e, pelo \hyperlink{pythagorean_theorem}{\textit{Teorema de Pitágoras}}, 
-      \[
-        \biggl\Vert \sum\limits_{j=m}^{n}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}} \biggr\Vert^{2}=\sum\limits_{j=m}^{n}| \langle u, u_{\alpha_{j}} \rangle |^{2} \substack{ \\ \longrightarrow \\ m,n\to \infty}0.
-      \]
-      Por H ser completo, a série \(\sum\limits_{j=0}^{\infty}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}}\) é convergente. Assim, se 
-        \[
-          v= u - \sum\limits_{j=0}^{\infty}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}},
-        \]
-        temos \(\langle v, u_{\alpha } \rangle =0\) para todo \(\alpha \). Logo, pelo item (a), v deve ser nulo. 
+	É suficiente provar que, para todo conjunto \(F\subseteq A\) finito,
+	\[
+		\sum\limits_{\alpha \in F}^{}| \langle u, u_{\alpha } \rangle |^{2} \leq \Vert u \Vert.
+	\]
+	Com efeito,
+	\begin{align*}
+		0 & \leq \biggl\Vert u-\sum\limits_{\alpha \in F}^{}\langle u, u_{\alpha } \rangle u_{\alpha } \biggr\Vert^{2}                                                                                                                                    \\
+		  & = \Vert u \Vert^{2}-2 \mathrm{Re}\biggl\langle u, \sum\limits_{\alpha \in F}^{}\langle u, u_{\alpha } \rangle u_{\alpha } \biggr\rangle + \biggl\Vert \sum\limits_{\alpha \in F}^{}\langle u, u_{\alpha } \rangle u_{\alpha } \biggr\Vert^{2} \\
+		  & = \Vert u \Vert^{2}-2 \sum\limits_{\alpha \in F}^{}| \langle u, u_{\alpha } \rangle |^{2} + \sum\limits_{\alpha \in F}^{}| \langle u, u_{\alpha } \rangle |^{2}                                                                               \\
+		  & = \Vert u \Vert^{2} - \sum\limits_{\alpha \in F}^{}| \langle u, u_{\alpha } \rangle |^{2},
+	\end{align*}
+	onde utilizamos o \hyperlink{pythagorean_theorem}{\textit{Teorema de Pitágoras}}. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se \(\{u_{\alpha }\}_{\alpha \in A}\) for um conjunto ortonormal em H, as seguintes afirmações são equivalentes:
+	\begin{itemize}
+		\item[a)] (Completamento): se \(\langle u, u_{\alpha } \rangle=0\) para todo \(\alpha \in A\), então \(u=0\);
+		\item[b)] \hypertarget{parseval_identity}{(Identidade de Parseval):} para todo u de H,
+		      \[
+			      \Vert u \Vert^{2}=\sum\limits_{\alpha \in A}^{}| \langle u, u_{\alpha } \rangle |^{2}.
+		      \]
+		\item[c)] Todo elemento u de H pode ser escrito como a soma de cada projeção dele sobre os elementos do conjunto ortonormal; isto é,
+		      \[
+			      u=\sum\limits_{\alpha \in A}^{} \langle u, u_{\alpha } \rangle u_{\alpha },
+		      \]
+		      onde a soma tem apenas um número enumerável de termos não nulos e converge independente da ordem dos termos.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	\(a \Rightarrow c):\) se x pertence a H, seja \(\alpha_1,\alpha_2,\dotsc \) uma enumeração qualquer dos \(\alpha \)'s para os quais \(\langle u, u_{\alpha } \rangle\neq 0\). Pela \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel,}} garantimos a convergência da série
+	\[
+		\sum\limits_{j=1}^{\infty}| \langle u, u_{\alpha_{j}} \rangle |^{2}
+	\]
+	e, pelo \hyperlink{pythagorean_theorem}{\textit{Teorema de Pitágoras}},
+	\[
+		\biggl\Vert \sum\limits_{j=m}^{n}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}} \biggr\Vert^{2}=\sum\limits_{j=m}^{n}| \langle u, u_{\alpha_{j}} \rangle |^{2} \substack{ \\ \longrightarrow \\ m,n\to \infty}0.
+	\]
+	Por H ser completo, a série \(\sum\limits_{j=0}^{\infty}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}}\) é convergente. Assim, se
+	\[
+		v= u - \sum\limits_{j=0}^{\infty}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}},
+	\]
+	temos \(\langle v, u_{\alpha } \rangle =0\) para todo \(\alpha \). Logo, pelo item (a), v deve ser nulo.
 
-     \(c \Rightarrow b):\) com a notação acima, assim como na prova da \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel}}, temos 
-       \[
-         \Vert u \Verta^{2} -\sum\limits_{j=1}^{n}| \langle u, u_{\alpha_{j}} \rangle |^{2}=\biggl\Vert u - \sum\limits_{j=1}^{n}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}} \biggr\Vert^{2}\substack{ \\ \longrightarrow \\ n\to \infty}0.
-       \]
+	\(c \Rightarrow b):\) com a notação acima, assim como na prova da \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel}}, temos
+	\[
+		\Vert u \Vert^{2} -\sum\limits_{j=1}^{n}| \langle u, u_{\alpha_{j}} \rangle |^{2}=\biggl\Vert u - \sum\limits_{j=1}^{n}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}} \biggr\Vert^{2}\substack{ \\ \longrightarrow \\ n\to \infty}0.
+	\]
 
-       \(b \Rightarrow a):\) automático. \qedsymbol 
+	\(b \Rightarrow a):\) automático. \qedsymbol
 \end{proof*}
 \begin{def*}
-  Um conjunto ortonormal tendo as propriedades do Teorema acima é chamado uma \textbf{base ortonormal de H}. \(\square\)
+	Um conjunto ortonormal tendo as propriedades do Teorema acima é chamado uma \textbf{base ortonormal de H}. \(\square\)
 \end{def*}
 
-  Para cada \(\alpha \in A\), defina \(e_{\alpha }\in l^{2}(A)\) por: 
-    \[
-      e_{\alpha }(\alpha ) =1 \quad\&\quad e_{\alpha }(\beta )=0,\; \alpha \neq \beta .
-    \]
-    A família \(\{e_{\alpha }\}_{\alpha \in A}\) é ortonormal e, para qualquer \(f\in l^{2}(A)\), temos 
-      \[
-        \langle f, e_{\alpha } \rangle = f(\alpha ),
-      \]
-      donde segue que \(\{e_{\alpha }\}_{\alpha \in A}\) é uma base ortonormal.
-      \begin{theorem*}
-        Todo espaço de Hilbert tem uma base ortonormal.
-      \end{theorem*}
-     \begin{proof*}
-       Basta aplicar o \hyperlink{zorn_lemma}{\textit{Lema de Zorn}} para mostrar que a coleção de todos os conjuntos ortonormais, ordenados pela inclusão, tem um elemento maximal, que equivale à propriedade (a) da definição de uma base ortonormal. \qedsymbol 
-     \end{proof*}
+Para cada \(\alpha \in A\), defina \(e_{\alpha }\in l^{2}(A)\) por:
+\[
+	e_{\alpha }(\alpha ) =1 \quad\&\quad e_{\alpha }(\beta )=0,\; \alpha \neq \beta .
+\]
+A família \(\{e_{\alpha }\}_{\alpha \in A}\) é ortonormal e, para qualquer \(f\in l^{2}(A)\), temos
+\[
+	\langle f, e_{\alpha } \rangle = f(\alpha ),
+\]
+donde segue que \(\{e_{\alpha }\}_{\alpha \in A}\) é uma base ortonormal.
+\begin{theorem*}
+	Todo espaço de Hilbert tem uma base ortonormal.
+\end{theorem*}
+\begin{proof*}
+	Basta aplicar o \hyperlink{zorn_lemma}{\textit{Lema de Zorn}} para mostrar que a coleção de todos os conjuntos ortonormais, ordenados pela inclusão, tem um elemento maximal, que equivale à propriedade (a) da definição de uma base ortonormal. \qedsymbol
+\end{proof*}
 
-    \begin{theorem*}
-      Um espaço de Hilbert H é separável se, e somente se, tem uma base ortonormal enumerável. Neste caso, toda base ortonormal de H é enumerável. 
-    \end{theorem*}
-   \begin{proof*}
-     Se \(\{x_{n}\}\) é um conjunto enumerável denso em H, descartando recursivamente qualquer \(x_{i}\) que possa ser uma combinação linear de \(x_1,\dotsc ,x_{i-1},\) obtemos uma sequência linearmente independente \(\{y_{n}\}\) e, aplicando o processo de \hyperlink{gram_schmidt}{\textit{Ortogonalização}}, obtemos uma sequência ortonormal \(\{u_{n}\}\) que gera um subespaço denso em H, o qual consequentemente será uma base.
+\begin{theorem*}
+	Um espaço de Hilbert H é separável se, e somente se, tem uma base ortonormal enumerável. Neste caso, toda base ortonormal de H é enumerável.
+\end{theorem*}
+\begin{proof*}
+	Se \(\{x_{n}\}\) é um conjunto enumerável denso em H, descartando recursivamente qualquer \(x_{i}\) que possa ser uma combinação linear de \(x_1,\dotsc ,x_{i-1},\) obtemos uma sequência linearmente independente \(\{y_{n}\}\) e, aplicando o processo de \hyperlink{gram_schmidt}{\textit{Ortogonalização}}, obtemos uma sequência ortonormal \(\{u_{n}\}\) que gera um subespaço denso em H, o qual consequentemente será uma base.
 
-     Reciprocamente, se \(\{u_{n}\}\) é uma base ortonormal, as combinações lineares finitas dos \(u_{n}\)'s com coeficientes em um subconjunto enumerável e denso em \(\mathbb{C}\) forma um subconjunto enumerável e denso em H. Além disso, se \(\{v_{\alpha }\}_{\alpha \in A}\) é outra base ortonormal, para cada n o conjunto 
-       \[
-         A_{n}=\{\alpha \in A:\; \langle u_{n}, v_{\alpha } \rangle\neq 0\}
-       \]
-       é enumerável. Portanto, pelo completamento de \(\{u_{n}\}\), 
-         \[
-           A = \bigcup_{n=1}^{\infty}A_{n},
-         \]
-         mostrando que ele é enumerável. \qedsymbol
-   \end{proof*}
-   \begin{def*}
-     Se \(H_1\) e \(H_2\) são espaços de Hilbert com produtos escalares \(\langle \cdot , \cdot  \rangle_1\) e \(\langle \cdot , \cdot  \rangle_2\), uma \textbf{transformação unitária de \(H_1\) sobre \(H_2\)} é uma transformação linear sobrejetora \(U:H_1\rightarrow H_2\) que preserva o produto escalar, ou seja, 
-       \[
-         \langle Ux, Uy \rangle_2 = \langle x, y \rangle_1. \quad \square
-       \]
-   \end{def*}
-  \begin{exr}
-    Mostre que toda transformação unitária é uma isometria e, reciprocamente, que toda isometria de \(H_1\) sobre \(H_2\) é uma transformação unitária.
-  \end{exr}
-  \begin{prop*}
-    Seja \(\{e_{\alpha }\}_{\alpha \in A}\) uma base ortonormal de X. Então, a correspondência 
-      \[
-        x\mapsto \hat{x},\quad \hat{x}(\alpha )\coloneqq \langle x, u_{\alpha } \rangle
-      \]
-      é uma transformação unitária em \(l^{2}(A).\)
-  \end{prop*}
- \begin{proof*}
-   A linearidade da transformação segue da linearidade do próprio produto interno, e o fato de ser uma isometria de H em \(l^{2}(A)\) é consequência da \hyperlink{parseval_identity}{\textit{Identidade de Parseval}}: 
-     \[
-       \Vert x \Vert^{2} = \sum\limits_{\alpha \in A}^{}| \hat{x}(\alpha ) |^{2}. 
-     \]
+	Reciprocamente, se \(\{u_{n}\}\) é uma base ortonormal, as combinações lineares finitas dos \(u_{n}\)'s com coeficientes em um subconjunto enumerável e denso em \(\mathbb{C}\) forma um subconjunto enumerável e denso em H. Além disso, se \(\{v_{\alpha }\}_{\alpha \in A}\) é outra base ortonormal, para cada n o conjunto
+	\[
+		A_{n}=\{\alpha \in A:\; \langle u_{n}, v_{\alpha } \rangle\neq 0\}
+	\]
+	é enumerável. Portanto, pelo completamento de \(\{u_{n}\}\),
+	\[
+		A = \bigcup_{n=1}^{\infty}A_{n},
+	\]
+	mostrando que ele é enumerável. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se \(H_1\) e \(H_2\) são espaços de Hilbert com produtos escalares \(\langle \cdot , \cdot  \rangle_1\) e \(\langle \cdot , \cdot  \rangle_2\), uma \textbf{transformação unitária de \(H_1\) sobre \(H_2\)} é uma transformação linear sobrejetora \(U:H_1\rightarrow H_2\) que preserva o produto escalar, ou seja,
+	\[
+		\langle Ux, Uy \rangle_2 = \langle x, y \rangle_1. \quad \square
+	\]
+\end{def*}
+\begin{exr}
+	Mostre que toda transformação unitária é uma isometria e, reciprocamente, que toda isometria de \(H_1\) sobre \(H_2\) é uma transformação unitária.
+\end{exr}
+\begin{prop*}
+	Seja \(\{e_{\alpha }\}_{\alpha \in A}\) uma base ortonormal de X. Então, a correspondência
+	\[
+		x\mapsto \hat{x},\quad \hat{x}(\alpha )\coloneqq \langle x, u_{\alpha } \rangle
+	\]
+	é uma transformação unitária em \(l^{2}(A).\)
+\end{prop*}
+\begin{proof*}
+	A linearidade da transformação segue da linearidade do próprio produto interno, e o fato de ser uma isometria de H em \(l^{2}(A)\) é consequência da \hyperlink{parseval_identity}{\textit{Identidade de Parseval}}:
+	\[
+		\Vert x \Vert^{2} = \sum\limits_{\alpha \in A}^{}| \hat{x}(\alpha ) |^{2}.
+	\]
 
-     Agora, se \(f\in l^{2}(A)\), então 
-       \[
-         \sum\limits_{\alpha \in A}^{} | f(\alpha ) |^{2}<\infty,
-       \]
-       e pelo \hyperlink{pythagorean_theorem}{\textit{Teorema de Pitágoras}}, as somas parciais da série \(\sum\limits_{\alpha \in A}^{}f(\alpha )u_{\alpha }\), da qual apenas um número enumerável de termos são não nulos, formam uma sequência de Caucho. Portanto, 
-         \[
-           x = \sum\limits_{\alpha \in A}^{}f(\alpha )u_{\alpha }
-         \]
-         existe em H e \(\hat{x}=f.\) \qedsymbol
- \end{proof*}
-  
+	Agora, se \(f\in l^{2}(A)\), então
+	\[
+		\sum\limits_{\alpha \in A}^{} | f(\alpha ) |^{2}<\infty,
+	\]
+	e pelo \hyperlink{pythagorean_theorem}{\textit{Teorema de Pitágoras}}, as somas parciais da série \(\sum\limits_{\alpha \in A}^{}f(\alpha )u_{\alpha }\), da qual apenas um número enumerável de termos são não nulos, formam uma sequência de Caucho. Portanto,
+	\[
+		x = \sum\limits_{\alpha \in A}^{}f(\alpha )u_{\alpha }
+	\]
+	existe em H e \(\hat{x}=f.\) \qedsymbol
+\end{proof*}
+
 \end{document}
