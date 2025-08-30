@@ -201,4 +201,52 @@ Vale a volta da proposição acima:
 	\]
 	e, do fato que \(P_{M}u = u \) para todo ponto de M, temos portanto \(\Vert P_{M} \Vert =1.\) \qedsymbol
 \end{proof*}
-\end{document}
+
+Se H é um espaço de Hilbert e y é um ponto em H, segue da \hyperlink{cauchy_schwarz}{\textit{Desigualdade de Cauchy-Schwarz}} que 
+  \[
+    f_y(x)=\langle x, y \rangle
+  \]
+  define um funcional linear contínuo com a propriedade de 
+    \[
+      \Vert f_{y} \Vert_{H^{*}}=\Vert y \Vert_{H},
+    \]
+    ou seja, a transformação mapeando y de H para o funcional \(f_y\) é uma isometria linear-conjugada entre H e seu dual. Mais do que isso, 
+    \hypertarget{riesz_representation}{\begin{theorem*}[Representação de Riesz]
+         Se f é um funcional de H, então existe um único ponto y em H tal que, para todos \(x\in H\), 
+           \[
+             f(x)=\langle x, y \rangle.
+           \]
+       \end{theorem*}}
+      \begin{proof*}
+        A unicidade fica como exercício.
+
+        Se f é o funcional nulo, basta tomar y = 0. Caso contrário, seja M o conjunto dos elementos x de H nos quais o funcional se anula; então, M é fechado e um subconjunto próprio de H (pois pedimos que f não fosse o funcional nulo), donde concluímos que \(M^{\perp }\neq \{0\}.\) Seja z um elemento de \(M^{\perp }\) tal que \(\Vert z \Vert=1\); se \(x\in H\) e \(u=f(x)z-f(z)x\), então 
+        \[
+         f(u) = f(f(x)z-f(z)x) &= f(x)f(z)-f(z)f(x) = 0,
+       \]
+       mostrando que u pertence a M. Mais do que isso, 
+         \[
+           0=\langle u, z \rangle = f(x)\Vert z \Vert^{2} - f(z)\langle x, z \rangle = f(x)- \langle x, \overline{f(z)}z \rangle.
+         \]
+         Portanto, pondo \(y=\overline{f(z)}z\), 
+           \[
+             f(x)=\langle x, y \rangle. \text{ \qedsymbol}
+           \]
+      \end{proof*}
+     \begin{exr}
+       Prove a unicidade do y no \hyperlink{riesz_representation}{\textit{Teorema Acima}}.
+     \end{exr}
+     O que conseguimos com isso é que os espaços de Hilbert são reflexivos em um sentido \textit{muito} forte, pois possuem uma identificação isomórfica natural tanto com \(H^{**}\) quanto uma com \(H^{*}\) através de uma transformação linear-conjugada.
+    \begin{def*}
+      Um subconjunto \(\{u_{\alpha }\}_{\alpha \in A}\) de H é chamado um \textbf{conjunto ortonormal} se \(\Vert u_{\alpha } \Vert = 1\) para todo \(\alpha \in A\) e, além disso, 
+        \[
+          \alpha \neq \beta \Rightarrow u_{\alpha }\perp u_{\beta }.\quad \square
+        \]
+    \end{def*}
+  
+    Dada uma sequência linearmente independente de vetores em H, digamos \(\{v_{n}\}_{n=1}^{\infty}\), existe um procedimento usual e já conhecido para convertê-la em uma sequência ortonormal \(\{u_{n}\}_{n=1}^{\infty}\) tal que o espaço gerado por \(\{v_{1}, \dotsc , v_{N}\}\) coincide com aquele gerado por \(\{u_{1},\dotsc , u_{N}\}\): a \hypertarget{gram_schmidt}{Ortogonalização de Gram-Schmidt}, consistindo em tomar primeiro \(u_1 = \frac{v_1}{\Vert v_1 \Vert}\) e, por indução, determinados \(u_1,\dotsc ,u_{N}\), colocar 
+      \[
+        u_{N} = \frac{ \biggl[v_{N}-\sum\limits_{n=1}^{N-1}{\color{Chartreuse4}\langle v_{N}, u_{n} \rangle u_{n}}\biggr]}{{\color{Turquoise4}\Vert v_{N} -\sum\limits_{n=1}^{N-1}\langle V_{N}, u_{n} \rangle u_{n}\Vert}},
+      \]
+      onde, entendendo melhor os termos, o que está {\color{Chartreuse4}em verde é a projeção dos vetores \(v_{N}\) sobre \(u_{i}\)} e o termo {\color{Turquoise4}em azul representa a normalização}, formando, juntos, a projeção ortogonal de \(v_{N}\) sobre \(u_{i}\)
+    \end{document}
