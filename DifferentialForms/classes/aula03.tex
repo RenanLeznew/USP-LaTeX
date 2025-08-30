@@ -1,0 +1,99 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 27 de Agosto, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Transformações Multilineares;
+	\item Produto Tensorial;
+	\item Formas Multilineares.
+\end{itemize}
+\subsection{Transformações Multilineares}
+Começaremos nosso estudo das aplicações multilineares em espaços vetoriais reais de dimensão finita.
+\begin{def*}
+	Sejam \(E_1, \dotsc , E_r\) e F espaços vetoriais, e \(f:E_1\times E_2\times \dotsc \times E_r\rightarrow F\) uma aplicação. Diremos que f é uma \textbf{aplicação r-linear} se f for linear em cada uma de suas variáveis de forma independente: para todos os vetores \(v_1\in E_1,\; v_2\in E_2,\dotsc,\; v_{i-1}\in E_{i-1},\; v_{i},w_{i}\in E_{i},\; v_{i+1}\in E_{i+1}, \dotsc ,\; v_r\in E_r\) e todo escalar \(\lambda \in \mathbb{R},\) temos:
+	\begin{align*}
+		\;(i)\; f(v_1, v_2, \dotsc, v_{i-1}, v_{i}+w_{i},v_{i+1}, \dotsc ,v_r) & = f(v_1, v_2, \dotsc , v_{i}, \dotsc , v_r)                   \\
+		                                                                       & + f(v_1, v_2, \dotsc , v_{i-1}, w_{i}, v_{i+1}, \dotsc , v_r) \\
+	\end{align*}
+	e
+	\[
+		\;(ii)\; f(v_1, v_2, \dotsc, v_{i-1}, \lambda v_{i},v_{i+1}, \dotsc ,v_r) = \lambda f(v_1, v_2, \dotsc , v_{i}, \dotsc , v_r).\; \square
+	\]
+\end{def*}
+No caso em que \(r=1\), temos uma transformação linear usual; ou seja, uma aplicação 1-linear é uma transformação linear. No caso \(r=2\), diremos que a aplicação 2-linear é uma \textbf{transformação bilinear}; e, no caso em que \(r=3\), a aplicação 3-linear é uma \textbf{aplicação trilinear}.
+\begin{example}
+	Considere uma aplicação \(f:\mathbb{R}\times \mathbb{R}\rightarrow \mathbb{R}\) dada por \(f(x, y) = xy\), ou seja, a multiplicação de dois números reais. De fato,
+	\begin{align*}
+		 & \blacklozenge\; f(x_1+x_2, y) = (x_1+x_2)y = x_1 y +x_2 y = f(x_1, y) + f(x_2, y) \\
+		 & \blacklozenge\; f(x, y_1+y_2) = xy_1 + xy_2 = f(x, y_1)+f(x, y_2)                 \\
+		 & \blacklozenge\; f(\lambda x, y) = (\lambda x)y = \lambda (xy) = \lambda f(x, y)   \\
+		 & \blacklozenge\; f(\lambda x, y) = x(\lambda y) = \lambda (xy) = \lambda f(x, y)   \\
+	\end{align*}
+\end{example}
+\begin{example}
+	Dado E um espaço vetorial, a multiplicação de um escalar por um vetor é uma aplicação \(f:\mathbb{R}\times E\rightarrow E\) que é uma transformação bilinear.
+
+	Com efeito, para quaisquer \(\alpha , \lambda , \lambda_1,\lambda_2\in \mathbb{R}\) e \(v, v_1, v_2\in E\), temos
+	\begin{align*}
+		 & \blacklozenge\; f(\lambda_1+\lambda_2, v) = (\lambda_1+\lambda_2)v = \lambda_1 v + \lambda_2 v = f(\lambda_1, v)+f(\lambda_2, v) \\
+		 & \blacklozenge\; f(\lambda, v_1+v_2) = \lambda(v_1+v_2) = \lambda v_1 + \lambda v_2 = f(\lambda, v_1)+f(\lambda, v_2)             \\
+		 & \blacklozenge\; f(\lambda, \alpha v) = \lambda (\alpha v) = \alpha (\lambda v)= \alpha f(\lambda, v)                             \\
+		 & \blacklozenge\; \alpha f(\lambda, v) = (\alpha \lambda) v = \alpha (\lambda v)= \alpha f(\lambda, v)                             \\
+	\end{align*}
+\end{example}
+\begin{def*}
+	Dados dois espaços vetoriais V e F e as formas lineares \(f\in E^{*}\) e \(g\in E^{*}\), definimos a aplicação
+	\begin{align*}
+		f\otimes g: & E\times F\rightarrow\mathbb{R}                          \\
+		            & (u, v)\longmapsto (f\otimes g)(u, v)\coloneqq f(u)g(v),
+	\end{align*}
+	chamada de \textbf{produto tensorial}. \(\square\)
+\end{def*}
+O produto tensorial é uma tentativa de responder ``será que, com este produto, eu consigo traduzir alguns problemas mais complicados de formas bilineares para transformações lineares?'', efetivamente fazendo uma ponte entre aplicações bilineares e apenas lineares, eventualmente aumentando o número de dimensões que fazem parte da ponte.
+\begin{exr}
+	Mostre que o produto tensorial é uma aplicação bilinear.
+
+	% Dadas formas lineares \(f, f_1, f_2, g\in E^{*}\) e um escalar \(\alpha \in \mathbb{R}\), segue que
+	% \[
+	% 	(f_1+f_2)\otimes g(u, v) = (f_1(u)+f_2(u))g(v) = f_1(u)g(v) + f_2(u)g(v) = (f_1\otimes g + f_2 \otimes g)(u, v)
+	% \]
+	% e
+	% \[
+	% 	(\lambda af)\otimes g(u, v) = (\alpha f(u))g(v) = \alpha (f(u)g(v)) = \alpha (f\otimes g)(u, v).
+	% \]
+\end{exr}
+O conjunto de todas as aplicações r-lineares de \(E_1 \times \dotsc \times E_r\) em F será denotado por \(\mathcal{L}(E_1, \dotsc , E_r; F)\), e disso segue que uma forma natural de definir operações neste conjunto a fim de torná-lo um espaço vetorial é defini-las ponto a ponto, ou seja,
+\begin{align*}
+	 & (f+g)(v_1, \dotsc , v_r) = f(v_1, \dotsc , v_r) + g(v_1, \dotsc , v_r) \\
+	 & (\lambda f)(v_1, \dotsc , v_r) = \lambda f(v_1,\dotsc ,v_r)
+\end{align*}
+para quaisquer \(f, g\in \mathcal{L}(E_1, \dotsc , E_r; F)\) e \(\lambda \in \mathbb{R}.\) Quando todos os espaços vetoriais do domínio coincidem, \textit{i.e.}, \(E_1= E_2=\dotsc=E_r\), denotamos este espaço por \(\mathcal{L}^{r}(E; F)\), que será o contexto principal deste curso; em particular, para \(r=1\), este espaço é o usual das transformações lineares da álgebra linear \(\mathcal{L}^{1}(E, F) = \mathcal{L}(E, F)\).
+\begin{def*}
+	Considerando o espaço \(\mathcal{L}^{r}(E; F)\), caso \(F = \mathbb{R}\), as aplicações r-lineares serão chamadas de \textbf{formas r-lineares} ou \textbf{r-formas}. \(\square\)
+\end{def*}
+Observe que, quando \(r=1\), o espaço r-formas é \(\mathcal{L}^{1}(E; \mathbb{R}) = E^{*}\), que nada mais é que o espaço dual de E, formado pelos funcionais lineares de E em \(\mathbb{R}\).
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Considerando \(f\in E^{*},\; f:E\rightarrow \mathbb{R}\) e uma base \(\mathcal{B} = \{e_1, \dotsc, e_n\}\) de E, normalmente fazemos a construção da base dual como
+	\[
+		\mathcal{B}^{*} = \{e_1^{*}, \dotsc , e_{n}^{*}\},\quad e_{i}^{*}(e_{j}) = \left\{\begin{array}{ll}
+			1,\quad i=j \\
+			0, \quad i\neq j
+		\end{array}\right..
+	\]
+	Este conceito será altamente importante ao longo das construções que faremos neste curso!
+
+	Quanto à motivação, de forma geral, os espaços vetoriais fornecem uma noção geométrica, para visualizar conceitos, de forma melhor, mas têm uma operacionalização ruim por conta da definição quase axiomática dos objetos. Por outro lado, o espaço dual permite que um pesquisador consiga trabalhar com as contas de for mais eficaz, e aí está o apelo dele, pois quanto mais distante de \(\mathbb{R}^{n}\) estamos, menos noção geométrica teremos no ambiente, onde entrará o protagonismo do espaço dual.
+\end{tcolorbox}
+
+\end{document}

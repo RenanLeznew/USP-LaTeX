@@ -3,8 +3,140 @@
 \section{Aula 02 - 25 de Agosto, 2025}
 \subsection{Motivações}
 \begin{itemize}
-	\item a
+	\item Uma Revisão Algébrica.
 \end{itemize}
-\subsection{a}
-a
+\subsection{Revendo Conceitos: Permutações e Sequências}
+Um dos tipos mais frequentes de transformações que veremos serão as aplicações multilineares, e para isso é importante estar em dia com o chão teórico das aplicações apenas lineares antes de ir para a versão multidimensional. Em ambos os casos, uma função em especial estará no centro de tudo: o determinante.
+
+Com isso em mente, o objetivo destas primeiras aulas é rever alguns conceitos básicos dessa área -- começaremos com a parte de permutações, que aparecerão na questão da ordem que podemos ou não realizar operações, e com a questão de sequências \textit{finitas} da parte de teoria de Grupos, que é a mesma ideia do que acontece em sequências infinitas, mas com aplicações em um subconjunto dos naturais.
+
+\begin{def*}
+	Seja X um conjunto qualquer. Podemos considerar funções de X em X, ou seja, aplicações \(f, g :X\rightarrow X\). A composição dessas aplicações é denotada por \(f\circ g\) e definida como:
+	\[
+		(f\circ g)(x) = f(g(x)),\quad x\in X.\; \square
+	\]
+\end{def*}
+Neste contexto, a composição de funções é uma operação associativa no conjunto de todas as funções de X em X, o qual denotaremos por \(\mathcal{F}(X).\) Podemos denotar por \(\mathrm{Id}\) a aplicação
+\begin{align*}
+	\mathrm{Id}: & X\rightarrow X  \\
+	             & x\longmapsto x,
+\end{align*}
+chamada de \textbf{Identidade} em \(\mathcal{F}(X)\).
+\begin{def*}
+	Seja X um conjunto qualquer; o par \((\mathcal{F}_B(X), o)\), onde \(\mathcal{F}_B(X)\subseteq \mathcal{F}(X)\) é o conjunto das aplicações bijetoras de X em X, é chamado de \textbf{grupo de permutações de X}. \(\square\)
+\end{def*}
+Não precisaremos trabalhar com conjuntos quaisquer -- neste curso, basta olharmos para os conjuntos finitos; desta forma, se X for um conjunto finito com m elementos, então o número total de permutações é m. Para nosso estudo, usaremos o conjunto
+\[
+	I_{m}=\{1, 2, \dotsc , m\}
+\]
+e denotaremos por \(S_{m}\) o grupo de permutações de \(I_{m}\). Dentre essas aplicações, uma que merece destaque especial é a permutação consistindo em trocar meramente dois elementos, a chamada \textit{transposição}
+\begin{def*}
+	Seja \(m\geq 2\); uma permutação \(\tau \in S_{m}\) é chamada de \textbf{transposição} se existirem dois inteiros distintos \(a, b\in I_{m}\) tais que
+	\[
+		\tau (a) =b,\; \tau (b) = a,\;\&\; \tau (i) = i,\quad i\in I_{m}\;\&\; i\not\in \{a, b\}. \; \square
+	\]
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Dado \(\tau \) uma transposição, denotamos por \(\tau^{-1}\) o seu elemento inverso. Note que
+	\[
+		\tau^{2} = \tau \circ \tau = \mathrm{Id}
+	\]
+	donde temos \(\tau^{-1}=\tau .\)
+\end{tcolorbox}
+\begin{prop*}
+	Toda permutação \(\sigma \in S_{m}\) pode ser escrita em como o produto (a composição) de transposições.
+
+	Embora essa decomposição não seja única, a \textit{paridade} do número de transposições usadas e invariante.
+\end{prop*}
+\begin{proof*}
+	Se \(\sigma \) é uma permutação qualquer nos m elementos, digamos
+	\[
+		\sigma (1 2 \dotsc m) = \sigma(1)\sigma (2)\dotsc \sigma (m) = abm \dotsc c,
+	\]
+	então podemos escrevê-la como
+	\[
+		\tau (1a)\tau(2b)\dotsc \tau (mc),
+	\]
+	portanto escrevendo em termos de transposições.
+
+	Outra forma\footnote{Aparece no Elon.} é utilizar indução no número de elementos -- sabendo que o resultado é trivial para \(m=2\), basta estendermos uma permutação de \(m-1\) elementos em \(m\) elementos tomando o que ficou de fora como a identidade, donde também sai a questão da paridade por meio do chamado \textit{Produto de Vandermonde}
+	\[
+		P(x_1,\dotsc ,x_{m}) = \prod\limits_{i<j}^{} (x_{i}-x_{j}),
+	\]
+	cuja permutação é definida como
+	\[
+		(\sigma P)(x_1, \dotsc , x_{m}) = \prod\limits_{i < j}^{}(x_{\sigma (i)} - x_{\sigma (j)}),
+	\]
+	de forma que \(\sigma P = \varepsilon_{\sigma }P\), onde \(\varepsilon_{\sigma }\in \{-1, 1\}\) é o \textit{sinal\footnote{Essa notação para o sinal será adotada apenas temporariamente, é provável que mude futuramente.} da permutação }\(\sigma \). \qedsymbol
+\end{proof*}
+\begin{def*}
+	Dizemos que uma permutação é \textbf{par} quando ela pode ser descrita como o produto (novamente, no contexto de transposições como um grupo, produto é a composição) de um número par de transposições; analogamente, se uma permutação pode ser descrita como o produto de um número ímpar de transposições, ela será chamada \textbf{ímpar}. \(\square\)
+\end{def*}
+\begin{example}[Polinômio de Vandermonde]
+	Para entender melhor o polinômio de Vandermonde, considere o caso com \(m=4\):
+	\[
+		P(x_1, x_2, x_3 , x_4) = (x_1-x_2)(x_1-x_3)(x_1-x_4)(x_2-x_3)(x_2-x_4)(x_3-x_4),
+	\]
+	com permutação
+	\[
+		\sigma (1) = 3, \sigma(2) = 2), \sigma (3)=1, \sigma (4) = 4.
+	\]
+	Nestas condições,
+	\begin{align*}
+		(\sigma P)(x_1, \dotsc , x_4) & = (x_{\sigma (1)}-x_{\sigma (2)})(x_{\sigma (1)}-x_{\sigma (3)})(x_{\sigma (1)}-x_{\sigma (4)})       \\
+		                              & \quad (x_{\sigma (2)}-x_{\sigma (3)})(x_{\sigma (2)}-x_{\sigma (4)})(x_{\sigma (3)}-x_{\sigma (4)}) = \\
+		                              & = (x_{3}-x_{2})(x_{3}-x_1)(x_3-x_4)(x_2-x_1)(x_2-x_4)(x_1-x_4).
+	\end{align*}
+\end{example}
+
+\begin{def*}
+	Uma \textbf{sequência de r elementos em }\(I_{m}\) é uma aplicação
+	\begin{align*}
+		(S): & I_{r}\rightarrow I_{m}                                     \\
+		     & (1,\dotsc ,r)\longmapsto (S)\coloneqq (i_1, \dotsc , i_r),
+	\end{align*}
+	onde \(i_{k}\) é o valor da função no ponto \(k\in I_{r}.\; \square\)
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A definição acima pode ser vista como um certo abuso de notação -- a sequência em si, normalmente, seria a imagem toda de S, denotada pelo parêntese, enquanto que S em si seria a função
+	\begin{align*}
+		S: & I_r\rightarrow I_{m}               \\
+		   & k\longmapsto S(k) \coloneqq i_{k},
+	\end{align*}
+	mas dá para entender certinho que o que está acontecendo é uma \textit{indexação}.
+\end{tcolorbox}
+A igualdade entre duas sequências ocorre quando elas são iguais ponto a ponto, e o número de tais sequência é \(m^{r}.\)
+
+Se \(I\subseteq I_{m}\) for um conjunto com r elementos, denotaremos seus elementos ordenados por \(I=\{i_1 <\dotsc <i_r\}\); a partir desse conjunto, podemos obter uma sequência sem repetições ao considerar as permutações \(\sigma \in S_r\), de modo que
+\[
+	(S) = (i_{\sigma (1)}, \dotsc , i_{\sigma (r)}).
+\]
+Como há \(\binom{m}{r}\) subconjuntos com r elementos em \(I_{m}\) e \(r!\) permutações possíveis, concluímos que há
+\[
+	\binom{m}{r}r! = m(m-1)\dotsc m(m-r+1)
+\]
+sequências de r elementos sem repetições em \(I_{m}.\)
+
 \end{document}

@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
  \usepackage{bookmark}
+ \usepackage{minted}
  \usepackage{amsmath}
  \usepackage{amsthm}
  \usepackage{amssymb}
@@ -23,6 +24,7 @@
  \usepackage{float}
  \usepackage{accents}
  \usepackage[T1]{fontenc}
+
  \setcounter{section}{-1}
 
  \pagestyle{fancy}
@@ -183,9 +185,15 @@ usual de composição de funções, teríamos
 \[
 	f_{\omega_{0}}\rightarrow f_{\omega_{1}}\circ f_{\omega_{0}}\rightarrow \dotsc \rightarrow f_{\omega_{n}}\circ \dotsc \circ f_{\omega_{0}},
 \]
-mas o resultado faz ao contrário. Por conta disso, a etapa seguinte será explorar sob quais condições é possível obter o Atrator de Barnsley-Hutchinson percorrendo a ordem normal
-de composição de funções. Já temos alguns planejamentos para isso, é esperado que estudemos teoria da medida, derivada de Radon-Nikodym para a continuidade de medidas, uma quantidade de
-Teoria Ergódica e, eventualmente, tentaremos atacar o teorema
+mas o resultado faz ao contrário. Por conta disso, a etapa seguinte será explorar sob quais condições é possível obter o Atrator de Barnsley-Hutchinson percorrendo a ordem normal de composição de funções. Será conveniente definir o produto independente e identicamente distribuído de funções, tanto para facilitar a notação quanto para escritas dos resultados:
+\begin{def*}
+	Sejam \(\Sigma  = \{1, \dotsc , k\}^{\mathbb{N}}\) e \(f_1, \dotsc, f_{k}:M\rightarrow M\) funções. A função
+	\begin{align*}
+		\varphi : & \mathbb{N}\times \Sigma \times M\rightarrow M                                                                                 \\
+		          & (n ,\omega , x)\longmapsto \varphi(n, \omega , x) = f_{\omega_{n-1}}\circ \dotsc \circ f_{\omega_{0}}(x) = f_{\omega }^{n}(x)
+	\end{align*}
+	é chamada \textbf{produto independente e identicamente distribuído das funções }\(f_1, \dotsc , f_{k}.\; \square\)
+\end{def*}
 \begin{theorem*}
 	Seja \(\varphi \) um produto independente e identicamente distribuído de contrações \(f_{1},\dotsc f_{k}:M\rightarrow M\) e \(\mathcal{K}\) o Atrator de Barnsley-Hutchinson correspondente. Dado um
 	ponto p em M, temos
@@ -194,8 +202,16 @@ Teoria Ergódica e, eventualmente, tentaremos atacar o teorema
 	\]
 	para \(\mathbb{P}\)-quase todo \(\omega \).
 \end{theorem*}
-o que já sabemos sobre a probabilidade \(\mathbb{P}\) será parte de entender quais são esses \(\omega \) que funcionam no teorema e, talvez tão importante quanto isso,
-quais são os \(\omega \)'s que quebram ele.
+Neste teorema, a medida de probabilidade \(\mathbb{P}\) é definida na álgebra dos cilindros como
+\[
+	\mathbb{P}([a_{0}, \dotsc, a_{\ell}]) = \prod_{i=0}^{k}p_{a_i}, \quad \sum_{i=0}^{k}p_{i} = 1.
+\]
+Com ela, dada uma sequência \(\omega \in \Sigma\), podemos considerar a sua forma adaptada para as funções de um IFS \(\{X:\; f_{0}, f_{1}\}\) tal que
+\[
+	\mathbb{P}(f_{\omega_{n-1}}\circ \dotsc \circ f_{\omega_{0}}(A)) = p_{\omega_{n-1}}p_{\omega_{n-2}}\dotsc p_{\omega_{0}},\quad p_{0} + p_{1} = 1,\; A\subseteq X,
+\]
+onde \(p_{i}\) se refere à transformação respectiva \(f_{i}\).
+O que já sabemos sobre a probabilidade \(\mathbb{P}\) será parte de entender quais são esses \(\omega \) que funcionam no teorema e, talvez tão importante quanto isso, quais são os \(\omega \)'s que quebram ele.
 
 Com base nisso, vamos ver quando pode acontecer desse teorema quebrar:
 \begin{example}
@@ -226,7 +242,285 @@ Com base nisso, vamos ver quando pode acontecer desse teorema quebrar:
 \end{example}
 Uma forma de entender este exemplo é que, se o único caminho tomado ao caminhar pelos pontos do conjunto de Cantor for o da esquerda (analogamente para o da direita), não tem como formá-lo -- chegará a um conjunto unitário composto pelo 0 (ou pelo 1 pela direita). Com isso, um tipo de \(\omega \) que não permite afirmar o teorema acima é quando eles têm a cauda constante.
 
-Com o entendimento extra fornecido pelo exemplo acima, o próximo passo da pesquisa foi buscar uma prova do teorema.
+Com o entendimento extra fornecido pelo exemplo acima, o próximo passo da pesquisa foi buscar uma prova do teorema. A abordagem é originada da área de sistemas iterados de funções (IFS), com base na relação entre atratores e pontos periódicos, definidos como
+\begin{def*}
+	Dado um IFS do tipo \(\{X:\; f_0, f_1,\dotsc , f_{N}\}\) com atrator \(\mathcal{K}\), um ponto x em \(\mathcal{K}\) é dito \textbf{ponto periódico} se existe \(\omega \in \{0,1, \dotsc , N\}^{n}\) (sequências finitas com n dígitos) tal que
+	\[
+		x = f_{\omega }^{n}(x) = \varphi (n, \omega , x) = f_{\omega_{n-1}}\circ \dotsc \circ f_{\omega_{0}}(x),
+	\]
+	sendo n chamado de \textbf{período.} \(\square\)
+\end{def*}
+Em particular, isto significa que um ponto será periódico a partir do momento que uma sequência \(\omega \) possa recuperá-lo após um número finito de pontos, e, consequentemente, outras repetições desta mesma parte finita da sequência continuarão retornando o mesmo ponto -- por isso, uma sequência em \(\Sigma \) que satisfaça essa periodicidade leva o nome de \textbf{endereço periódico}: ela determina o \textit{endereço} do ponto, e repete segundo um \textit{período}. Com isso, utilizando o Coding Map, um ponto periódico x com endereço \(\omega \) satisfaz \(\pi (\omega ) = x.\)
+
+Para determinar os pontos periódicos de um atrator, é conveniente utilizar a caracterização
+\begin{theorem*}
+	Dado \(\{X: f_{0}, \dotsc , f_{N-1}\}\) um IFS com atrator \(\mathcal{K}\), são equivalentes:
+	\begin{itemize}
+		\item[1)] \(x\in \mathcal{K}\) é um ponto periódico;
+		\item[2)] \(x\in \mathcal{K}\) tem um endereço periódico;
+		\item[3)] \(x\in \mathcal{K}\) é um ponto fixo do semigrupo de transformações gerado por \(\{f_{0}, \dotsc , f_{N-1}\}\)
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Seja \(\{X: f_{0}, \dotsc , f_{N-1}\}\) o IFS com atrator \(\mathcal{K}\) em questão. A prova deste resultado seguirá um esquema de
+	\[
+		(1) \Longleftrightarrow (2) \quad\&\quad (1)\Longleftrightarrow (3).
+	\]
+
+	Sem mais delongas, considere o ponto periódico \(x\in \mathcal{K}\). Por definição, existe algum n e alguma sequência \(\omega \) tais que
+	\[
+		x = f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_0}(x).
+	\]
+	consequentemente, podemos repetir a composição acima conforme desejarmos:
+	\[
+		x = [f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_0}] \circ \dotsc \circ  [f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_0}](x)
+	\]
+	tal que obtemos o endereço periódico \(\overline{\omega_{N-1}\dotsc \omega_{0}}\) para x.
+
+	Por outro lado, se x já tem um endereço periódico, digamos \(\omega\); então, pelo coding map, podemos recuperar x através de
+	\begin{align*}
+		x = \pi (\omega ) & = \pi (\overline{\omega_{N-1}\dotsc \omega_{0}})                                       \\
+		                  & = \pi (\omega_{N-1}\dotsc  \omega_{0} \dotsc \overline{\omega_{N-1}\dotsc \omega_{0}}) \\
+		                  & = f_{\omega_{0}}\circ f_{\omega_{N-1}}(\pi (\overline{\omega_{N-1}\dotsc \omega_{0}})) \\
+		                  & = f_{\omega_{0}}\circ f_{\omega_{N-1}}(x).
+	\end{align*}
+	Logo, x é um ponto periódico, finalizando a equivalência entre os dois primeiros itens.
+
+	Agora, para mostrar que \((1) \Rightarrow (3)\), suponha que x seja um ponto periódico de \(\mathcal{K}\). Como \(f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_{0}}\) é formado por uma quantidade finita de operações do semigrupo \(\{f_{0}, \dotsc , f_{N-1}\}\), ele é um elemento do semigrupo, cujo ponto fixo é exatamente x, já que
+	\[
+		f_{\omega_{N-1}} \circ \dotsc \circ f_{\omega_{0}} (x) = x.
+	\]
+	Noutra perspectiva, se x é um ponto fixo do semigrupo, existe ao menos um elemento dele que retorna x quando sob a operação do grupo, e, sem perda de generalidade, podemos assumir que seja alguma combinação da forma
+	\[
+		f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_{0}}(x) = x,
+	\]
+	provando a equivalência e o teorema. \qedsymbol
+\end{proof*}
+Tendo uma noção melhor dos pontos periódicos, um outro Teorema que aparece para ajudar a provar o principal pode ser enunciado como
+\begin{theorem*}
+	O atrator \(\mathcal{K}\) de um IFS é o fecho do conjunto de seus pontos periódicos, isto é,
+	\[
+		\mathcal{K} = \overline{\{x\in \mathcal{K}:\; x\text{ é periódico}\}}.
+	\]
+\end{theorem*}
+\begin{proof*}
+	A prova segue fazendo uso do coding map que conhecemos. Tendo em vista que o todo limite de dígitos periódicos é em si uma sequência, segue que o espaço de sequências é o fecho dos dígitos periódicos.
+	A partir disso, denotando por \(\mathcal{P}\) o conjunto mencionado, como \(\pi \) é uma função contínua de \(\sigma \) sobre o atrator \(\mathcal{K}\) (afinal, \(\pi :\Sigma \rightarrow \mathcal{K}\) foi provada como contínua, independente do ponto p escolhido no espaço métrico M e tal que \(\pi (\Sigma ) = \mathcal{K}\)), temos
+	\[
+		\overline{\pi (\mathcal{P})} = \pi (\overline{\mathcal{P}}) = \pi (\Sigma ) = \mathcal{K}.
+	\]
+	Por outro lado, o conjunto \(\mathcal{P}\) dos dígitos periódicos, quando sofre a ação de \(\pi \), torna-se exatamente o conjunto dos pontos de \(\mathcal{K}\) que possuem um endereço periódico, ou seja, pelo outro teorema provado, \(\pi (\mathcal{P})\) é equivalente ao conjunto dos pontos periódicos de \(\mathcal{K}\). Portanto, provamos que
+	\[
+		\overline{\{x\in \mathcal{K}:\; x\text{ é periódico}\}} = \mathcal{K}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+Com este teorema, ganhamos uma caracterização de um atrator a partir do limite de seus pontos periódicos, que, por sua vez, são caracterizados pelos pontos que têm um endereço periódico. O próximo passo na pesquisa, então, consiste em utilizar as medidas estacionárias, junto à teoria ergódica e resultados da área para estudar melhor este aspecto probabilístico da caracterização de atratores de IFS, como é o caso do conjunto de Cantor.
+
+Sendo mais específico, a próxima etapa do estudo é mostrar que a medida de Bernoulli que estamos usando é ergódica, seguido do estudo das probabilidades de transição a fim de mostrar justamente que a medida dos pontos com órbita densa em relação à operação do shift, em particular os pontos periódicos, completa o espaço todo -- em outras palavras, uma caracterização de quais sequências falham o teorema principal.
+
+Para mostrar algumas partes das pesquisas futuras, definiremos
+\begin{def*}
+	As \textbf{medidas estacionárias} são probabilidades \(\mathbb{P}\) no espaço métrico M tais que elas são pontos fixos do operador de Markov
+	\[
+		\mathcal{T}\mu (A) = \int_{}^{}p(x, A) \mathrm{d}\mu(x). \square
+	\]
+\end{def*}
+A medida estacionária de interesse em nossos estudos é a que quantifica a probabilidade do coding map passar por um conjunto A:
+\[
+	\pi_{*}\mathbb{P}(A) = \mathbb{P}(\pi \in A) = \mathbb{P}(\{\omega:\; \pi (\omega )\in A\}),
+\]
+a partir do qual provaremos o princípio de Letac e analisaremos suas aplicações.
+\begin{theorem*}[Princípio de Letac]
+	Para um produto aleatória independente e identicamente distribuído de funções contínuas \(f_1, \dotsc , f_{k}\), se o limite
+	\[
+		\pi (\omega ) = \lim_{n\to \infty}f_{\omega_{0}}\circ \dotsc \circ f_{\omega_{n}}(p)
+	\]
+	existir e for independente do ponto p para \(\mathbb{P}\)-quase todo \(\omega \), então para toda distribuição \(\nu \) no espaço das probabilidades borelianas de M, teremos
+	\[
+		\mathcal{T}^{n}\nu \to \pi_{*}\mathbb{P}.
+	\]
+	Em particular, existe uma única medida estacionária.
+\end{theorem*}
+
+\subsection*{Aplicação Matemática: séries de potências aleatórias.}
+Antes de aprofundar neste conteúdo mais relacionado à teoria da medida e teoria ergódica, tendo em vista que o aluno ainda estará vendo isso conforme o tempo for passando, foi observada uma aplicação dos resultados após eles serem formalizados eventualmente: as séries de potências aleatórias.
+
+Esta parte é desenvolvida especificamente para intervalos, e pode ser vista matematicamente como
+\[
+	\mathbb{P}\biggl(\sum_{i=0}^{\infty}\pm \lambda^{n}\in I\biggr),
+\]
+que leva a interpretação complementar a tudo o que foi visto -- a frequência com a qual o produto independente e identicamente distribuído \(f_{\omega }^{n}(x)\) passa por dentro do intervalo I, sendo \(\lambda \) um valor entre 0 e 1. Na forma de um teorema, este resultado é escrito como
+\begin{theorem*}
+	Para todo conjunto ``bem-comportado'' (relacionado ao termo ``quase toda sequência''), segue que
+	\[
+		\mathbb{P}(\pi \in A) = \lim_{n\to \infty}\frac{1}{n}\# \biggl\{i: f_{\omega }^{i}(x)\in A,\; 0\leq i\leq n-1\biggr\}.
+	\]
+
+	Em particular, quando A é um intervalo, temos
+	\[
+		\mathbb{P}\biggl(\sum_{i=0}^{\infty}\pm \lambda^{n}\in I\biggr),
+	\]
+	sendo \(f_{\omega }^{n}(x)\) a órbita aleatória do sistema de contrações \(f_{i}(x) = \lambda x + i,\; i\in \{-1, 1\}.\)
+\end{theorem*}
+\begin{proof*}
+	Neste teorema, o IFS é da forma \(\{I:\; f_1, f_{-1}\}\). Considere o coding map
+	\[
+		\pi (\omega ) = \lim_{n\to \infty}f_{\omega_{0}}\circ \dotsc \circ f_{\omega_{n}}(p)
+	\]
+	e note que, para todo n natural,
+	\begin{align*}
+		 & \circ\; f_{\omega_{n}}(x) = \lambda x + \omega_{n}                                                                                             \\
+		 & \circ\; f_{\omega_{n-1}\circ f_{\omega_{n}}}(x) = \lambda (f_{\omega_{n}}(x)) + \omega_{n-1} = \lambda^{2}x + \lambda\omega_{n} + \omega_{n-1} \\
+		 & \vdots                                                                                                                                         \\
+		 & \circ\; f_{\omega_{0}}\circ \dotsc \circ f_{\omega_{n}}(x) = \lambda^{n+1}x + \sum\limits_{i=0}^{n}\lambda^{i}\omega_{i},
+	\end{align*}
+	donde segue, tomando o limite conforme n tende a infinito, que
+	\[
+		\pi (\omega ) = \lim_{n\to \infty}\lambda^{n+1}x + \lim_{n\to \infty}\sum\limits_{i=0}^{n}\lambda^{n}\omega_{n}.
+	\]
+	Logo, como \(\lambda \) é menor que 1,
+	\[
+		\pi (\omega ) =\lim_{n\to \infty}\lambda^{n+1}x + \lim_{n\to \infty}\sum\limits_{i=0}^{n}\lambda^{n}\omega_{n} = \sum\limits_{n=0}^{\infty}\lambda ^{n}\omega_{n},
+	\]
+	mostrando que
+	\[
+		\pi (\omega ) = \sum\limits_{n=0}^{\infty}\lambda^{n}\omega_{n}.
+	\]
+	Pelo princípio de Letac,
+	\[
+		\pi_{*}\mathbb{P} = \mathbb{P}(\pi \in I) = \mathbb{P}\biggl(\biggl\{\omega \in \{-1, 1\}^{\mathbb{N}}:\; \sum \omega_{n}\lambda ^{n}\in I\biggr\}\biggr).
+	\]
+	A próxima etapa é mostrar que a medida estacionária acima não tem átomos, que não conjuntos unitários de medida positiva -- isto tem relação com a parte do conjunto ser bem-comportado. Para tanto, provaremos que os conjuntos unitários têm medida nula quando medidos \(\pi_{*}\mathbb{P}\), a qual denotamos por m.
+
+	Coloque \(\mathcal{K}\) como sendo o atrator de Hutchinson e defina a função
+	\begin{align*}
+		M: & \mathcal{K}\rightarrow\mathbb{R}_{\geq 0} \\
+		   & a\longmapsto M(a)\coloneqq m(\{a\}),
+	\end{align*}
+	que está bem definido pois, para todo a no atrator,
+	\[
+		M(a) = m(\{a\}) = \pi_{*}\mathbb{P}(\{a\}) = \mathbb{P}(\{\omega :\; \pi (\omega )\in \{a\}\}) < \infty,
+	\]
+	além disso mostrar que m é contínua por conta da continuidade de M. Consequentemente, dada uma sequência monótona crescente \(a_{n}\to a\) em K, segue que \(M(a_{n})\to M(a)\), que, junto ao fato do atrator ser compacto, mostra que existe um \(q\geq0\) e \(x_{0}\in \mathcal{K}\) tais que, para todo x em K,
+	\[
+		q = M(x_{0}) \geq M(x).
+	\]
+
+	Agora que sabemos da existência desse máximo, considere o conjunto de todos os conjuntos unitários de \(\mathcal{K}\) cujas medidas valem q:
+	\[
+		\mathcal{B} = \{a\in \mathcal{K}:\; m(\{a\}) = q\}.
+	\]
+	Nosso objetivo é concluir que \(q=0\) e, para isso, vamos assumir que \(q > 0\); neste caso, estando num espaço de probabilidade,
+	\[
+		m(\{a\}) = \mathbb{P}(\pi \in \{a\})\leq 1,
+	\]
+	tal que apenas um número finito de a's em \(\mathcal{K}\) podem ser medidos com medida q, ou seja, \(\mathcal{B}\) é um conjunto finito. Além disso, note que
+	\[
+		f_{i}(x) = \lambda x + i \Rightarrow f_{i}(x) -i = \lambda x \Rightarrow x = \frac{f_{i}(x) - i}{\lambda },
+	\]
+	que indica a existência de uma função inversa para \(f_{i}\), com fora \(f_{i}^{-1}(x) = \frac{x-i}{\lambda }.\) Destarte,
+	\[
+		q = m(\{a\}) = \sum p_{j}m(\{f_{i}^{-1}(a)\}) \leq \sum p_{j}q = q \sum p_{j} = q,
+	\]
+	mostrando que \(m(\{f_{i}^{-1}(a)\})\) vale q para todo i, o que contradiz a finitude de \(\mathcal{B}.\) Consequentemente, \(q = 0\) e todos os conjunto unitários têm medida zero, provando que a medida não tem átomos.
+
+	Portanto, para qualquer intervalo começando em a e terminando em b tem bordo \(\partial I = \{a, b\},\) mas
+	\[
+		\{a, b\} = \{a\} \cup \{b\} \;\&\; \{a\}\cap \{b\} = \emptyset ,
+	\]
+	tal que
+	\[
+		\pi_{*}\mathbb{P}(\partial I) = \pi_{*}\mathbb{P}(\{a\}) + \pi_{*}\mathbb{P}(\{b\}) = 0+0 = 0. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+
+\subsection*{Aplicação com Código.}
+Com a forma que foi desenvolvida ao longo dos estudos, aprendemos que dois tipos de algoritmos diferentes poderiam ser utilizados para gerar o conjunto de Cantor: um deles utiliza a forma usual de dividir o intervalo em seus terços e unir as duas partes; o problema dela é que envolve muitos passos -- a cada divisão nova, são necessárias duas vezes mais computações, tornando-se um algoritmo que consome muita capacidade computacional rapidamente, pois tem ordem \(2^{n}\) de operações para o n-ésimo passo.
+
+Para simular esse segundo, foram desenvolvidos códigos em Python
+\begin{minted}{python}
+# Versão normal do Algoritmo para geração do conjunto de Cantor.
+import numpy as np
+import matplotlib.pyplot as plt
+
+def cantor_intervals(n: int):
+    L = np.array([0.0])
+    R = np.array([1.0])
+    andares = [(L.copy(), R.copy())]  # passo inicial
+
+    for _ in range(n):
+        lengths = (R - L) / 3.0
+        L_left,  R_left  = L, L + lengths
+        L_right, R_right = R - lengths, R
+        # Para concatenar os dois lados
+        L = np.concatenate([L_left,  L_right])
+        R = np.concatenate([R_left,  R_right])
+        andares.append((L.copy(), R.copy()))
+    return andares  # listagem das componentes
+    #esquerda e direita dos passos 0 até o n.
+
+def plot_cantor_multistep(n: int, outfile: str | None = None):
+    # Esse aqui foi um capricho para mostrar como fica em cada etapa.
+    levels = cantor_intervals(n)
+
+    plt.figure(figsize=(12, 8))
+    for k, (L, R) in enumerate(levels):
+        y = n - k  # deixa o conjunto inicial  no topo
+        for a, b in zip(L, R):
+            plt.plot([a, b], [y, y], '-', linewidth=2)
+
+            plt.yticks(range(n + 1), [f"{s}-esimo passo" for s in range(n, -1, -1)])
+    plt.xlabel("x em [0, 1]")
+    plt.title(f"Construção pelo Terço Médio, Passos 0..{n}")
+    plt.xlim(0, 1)
+    plt.ylim(-0.5, n + 0.5)
+    plt.tight_layout()
+
+    if outfile:
+        plt.savefig(outfile, dpi=200, bbox_inches="tight")
+        plt.close()
+    else:
+        plt.show()
+
+if __name__ == "__main__":
+    n = 10  # passos mostrados
+    plot_cantor_multistep(n, outfile=None)
+\end{minted}
+
+Por outro lado, sabendo o resultado do Teorema e como é possível recuperar o conjunto de Cantor a partir do limite de sequências de funções em pontos do espaço, reduzimos o algoritmo para um muito mais eficiente, de ordem linear no número de passos e amostras. Neste caso, o ``jogo do caos'' foi melhor do que a forma ``não caótica''.
+\begin{minted}{python}
+# Esse é o código com o algoritmo do Caos
+import numpy 
+import random
+import matplotlib.pyplot
+
+def left(x):
+  return x/3 
+def right(x):
+  return (2+x)/3 
+
+iterada = int(input("Digite quantas iterações deseja rodar: ")) 
+ponto_aplicado = float(input("Escolha um ponto entre 0 e 1 para iniciar: ")) 
+caminhos = [] 
+pontos_2d = [] 
+for passo in range(iterada): 
+  valor = random.uniform(0,1)
+  if valor<=0.5:
+    caminhos.append(left(ponto_aplicado)) # Adiciona parte do caminho à esquerda
+    ponto_aplicado = left(ponto_aplicado) # redefine o ponto inicial
+  else: 
+    caminhos.append(right(ponto_aplicado)) 
+    ponto_aplicado = right(ponto_aplicado) 
+for ponto in caminhos:
+ pontos_2d.append((ponto,0)) 
+
+ # Para criar o gráfico de pontos
+ pyplot.scatter(*zip(*pontos_2d), s = 0.001)
+ pyplot.show()
+\end{minted}
+Para projetos futuros, ficaria interessante incluir as aplicações com Cadeias de Markov e métodos de geração de Monte Carlo, justamente para testar, na prática, os limites encontrados para o resultado estudado.
 
 \begin{thebibliography}{99}
 	\bibitem{Barnsley1988} BARNSLEY, M. F. Fractals Everywhere. \textbf{Academic Press, Inc. (London) LTD.} 1988.

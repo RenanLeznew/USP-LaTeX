@@ -1,0 +1,204 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 26 de Agosto, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Espaços com Produto Interno;
+	\item Espaços de Hilbert;
+\end{itemize}
+\subsection{Espaços com Produto Interno e Espaços de Hilbert}
+\begin{def*}
+	Seja H um espaço vetorial sobre \(\mathbb{K}.\) Um \textbf{produto escalar} é uma função \(\left< \cdot , \cdot  \right>: H\times H\rightarrow \mathbb{R}\) tal que, para todo u, v e w de H,
+	\begin{align*}
+		 & (a)\; \left< u, v \right> = \overline{\left< v, u \right>}                                                                                \\
+		 & (b)\; \left< \alpha u + \beta v, w \right> = \alpha \left< u, w \right> + \beta \left< v, w \right>, \quad \alpha,\; \beta \in \mathbb{K} \\
+		 & (c)\; \left< u, u \right>\geq 0                                                                                                           \\
+		 & (d)\; \left< u, u \right> = 0 \Longleftrightarrow u = 0.
+	\end{align*}
+	Um espaço vetorial H juntamente com um produto interno é dito um \textbf{espaço com produto interno.} \(\square\)
+\end{def*}
+
+Dessas propriedades, segue que, para todos u, v e w em H, e \(\alpha , \beta \) em \(\mathbb{K}\),
+\[
+	\left< u, \alpha v + \beta w \right> = \overline{\alpha }\left< u, v \right> + \overline{\beta }\left< u, w \right>
+\]
+e vale a \hypertarget{cauchy_schwarz}{desigualdade de Cauchy-Schwarz}:
+\[
+	| \left< u, v \right> | \leq \left< u, u \right>^{\frac{1}{2}}\left< v, v \right>^{\frac{1}{2}}.
+\]
+De fato, para t reais,
+\[
+	0\leq \left< u+tw, u+tw \right> = \left< u, u \right> + 2t \mathrm{Re}\left< u, w \right> + t^{2}\left< w, w \right>.
+\]
+Como a expressão do lado direito é uma função quadrática de t com uma ou nenhuma raiz real
+\[
+	0\geq 4(\mathrm{Re}\left< u, w \right>)^{2} - 4 \left< u, u \right>\left< w, w \right>
+\]
+e, se \(w = e^{i \mathrm{arg}\left< u, v \right>}v\), temos
+\[
+	0\geq 4 | \left< u, v \right> |^{2} - 4 \left< u, u \right>\left< v, v \right>,
+\]
+provando a desigualdade por manipulação algébrica:
+\begin{align*}
+	                    & 0\geq 4 | \left< u, v \right> |^{2} - 4 \left< u, u \right>\left< v, v \right>,      \\
+	\Longleftrightarrow & 4 | \left< u, v \right> |^{2} \geq 4 \left< u, u \right>\left< v, v \right>          \\
+	\Longleftrightarrow & | \left< u, v \right> | \geq (\left< u, u \right>\left< v, v \right>)^{\frac{1}{2}}.
+\end{align*}
+
+Quando temos um espaço com produto interno, ganhamos naturalmente uma norma dada por
+\begin{align*}
+	\Vert \cdot  \Vert: & H\rightarrow \mathbb{R}                                         \\
+	                    & u\longmapsto \Vert u \Vert = \left< u, u \right>^{\frac{1}{2}}.
+\end{align*}
+Para ver que isto é verdade, precisamos mostrar apenas que \(\Vert u + v \Vert\leq \Vert u \Vert + \Vert v \Vert\) para todo u, v em H, que segue da \hyperlink{cauchy_schwarz}{\textit{desigualdade de Cauchy-Schwarz}} e de
+\begin{align*}
+	\Vert u+v \Vert^{2} & = \Vert u \Vert^{2} + 2 \mathrm{Re}\left< u, v \right> + \Vert v \Vert^{2} \\
+	                    & \leq \Vert u \Vert^{2} + 2 | \left< u, v \right> | + \Vert v \Vert^{2}     \\
+	                    & \leq \Vert u \Vert^{2} + 2 \Vert u \Vert\Vert v \Vert + \Vert v \Vert^{2}  \\
+	                    & = (\Vert u \Vert + \Vert v \Vert)^{2}.
+\end{align*}
+
+\hypertarget{parallelogram_identity}{\begin{lemma*}[identidade do Paralelogramo]
+		Em um espaço com produto interno \((H, \left< \cdot , \cdot  \right>)\), vale a identidade do paralelogramo:
+		\[
+			\Vert u + v \Vert^{2} + \Vert u-v \Vert^{2} = 2(\Vert u \Vert^{2} + \Vert v \Vert^{2}),\quad \forall u, v\in H.
+		\]
+	\end{lemma*}}
+\begin{def*}
+	Se um espaço com produto interno \(H\) é completo, dizemos que H é um \textbf{espaço de Hilbert.} \(\square\)
+\end{def*}
+\begin{def*}
+	Dois vetores u e v em um espaço com produto interno H são ditos \textbf{ortogonais}, denotado por \(u\perp v\), se \(\left< u, v \right> = 0.\; \square\)
+\end{def*}
+\hypertarget{pythagorean_theorem}{\begin{theorem*}[Teorema de Pitágoras]
+		Dados dois vetores ortogonais u e v num espaço com produto interno H, vale o Teorema de Pitágoras:
+		\[
+			\Vert u + v \Vert^{2} = \Vert u \Vert^{2} + \Vert v \Vert^{2}.
+		\]
+		Mais geralmente, se \(u_1, \dotsc , u_{n}\) são vetores dois a dois ortogonais em um espaço com produto interno H, então
+		\[
+			\biggl\vert \sum\limits_{i=1}^{n}u_{i} \biggr\vert^{2} = \sum\limits_{i=1}^{n}\Vert u_{i} \Vert^{2}.
+		\]
+	\end{theorem*}}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Conjuntos Convexos},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Lembre-se que um subconjunto C de um espaço vetorial X é dito \textbf{convexo} se, para todos x, y em C e \(t\in [0, 1]\),
+	\[
+		tx + (1-t)y\in C,
+	\]
+	ou seja, qualquer segmento de reta entre pontos de C continua inteiramente em C.
+\end{tcolorbox}
+
+\begin{lemma*}
+	Se K é um subconjunto fechado e convexo de um espaço de Hilbert H e \(u_{0}\in H\), existe um único \(v_{0}\in K\) tal que
+	\[
+		\Vert u_{0}-v_{0} \Vert = \inf_{v\in K}\Vert u_{0}-v \Vert.
+	\]
+	Escrevemos \(v_{0} = P_{K}u_{0}\) e dizemos que \(P_{K}\) é a \textbf{projeção sobre o convexo K}.
+\end{lemma*}
+
+Se M é um subespaço vetorial de H, então
+\[
+	M^{\perp } \coloneqq \{u\in H:\; u\perp v,\; \forall v\in M\}.
+\]
+\begin{exr}
+	Prove que \(M^{\perp }\) é sempre um subespaço vetorial fechado de \(H.\)
+\end{exr}
+\begin{prop*}
+	Seja H um espaço de Hilbert, K um subconjunto fechado de H e convexo, e \(u_{0}\in H\); então,
+	\[
+		\mathrm{Re}\langle u_{0} - P_{K}u_{0}, w-P_{K}u_{0} \rangle \leq 0,\quad \forall w\in K.
+	\]
+	Além disso, se M é um subespaço vetorial fechado de H, então
+	\[
+		\langle u_{0}-P_{M}u_{0}, w \rangle = 0,\quad \forall w\in M,
+	\]
+	isto é,
+	\[
+		(I-P_{M})u_{0}\in M^{\perp }.
+	\]
+\end{prop*}
+
+Vale a volta da proposição acima:
+\begin{prop*}
+	Sejam H um espaço de Hilbert e K um subconjunto convexo, não vazio e fechado de H. Se, dado \(u_{0}\in H\), existe \(v_{0}\in K\) tal que
+	\[
+		\mathrm{Re} \langle u_{0}-v_{0}, w-v_{0} \rangle \leq 0,\quad \forall w\in K,
+	\]
+	então \(v_{0} = P_{K}U_{0}\).
+\end{prop*}
+\begin{proof*}
+	Se \(v_{0}\in K\) cumpre 1 e w é um ponto de K, temos
+	\begin{align*}
+		\Vert v_{0}-u_{0} \Vert^{2} - \Vert w-u_{0} \Vert^{2} & = \Vert v_{0}-u_{0} \Vert^{2}-\langle v_{0}-u_{0}+w-v_{0}, v_{0}-u_{0}+w-v_{0} \rangle \\
+		                                                      & = 2 \mathrm{Re}\langle u_{0}-v_{0}, w-v_{0} \rangle - \Vert w-v_{0} \Vert^{2}          \\
+		                                                      & \leq 0.
+	\end{align*}
+	Portanto,
+	\[
+		\Vert u_{0}-v_{0} \Vert = \inf_{w\in K}\Vert u_{0}-w \Vert. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	Se H é um espaço de Hilbert E M é um subespaço vetorial fechado de H, então \(P_M:H\rightarrow H\) é caracterizada por \(v = P_{M}u\) se, e somente se ,
+	\[
+		\mathrm{Re}\langle u-v, w \rangle = 0,\quad \forall w\in M.
+	\]
+	Além disso, \(P_{M}\) é linear e idempotente, isto é, \(P_{M}^{2} = P_{M}.\)
+\end{crl*}
+\begin{def*}
+	Uma transformação linear \(P:H\rightarrow H\) que satisfaz \(P^{2} = P\) é chamada de \textbf{projeção}. Caso \(P\in \mathcal{L}(H)\) seja uma projeção, M denote sua imagem e \(M^{\perp } = \mathrm{ker}(P)\), diremos que P é uma \textbf{projeção ortogonal sobre M.} \(\square\)
+\end{def*}
+\begin{exr}
+	Mostre que uma projeção ortogonal P é continua se, e somente se, \(M = \mathrm{Im}(P)\) é fechado.
+\end{exr}
+\begin{theorem*}
+	Seja H um espaço de Hilbert e M um subespaço vetorial fechado de H; então, \(M \oplus M^{\perp } = H\), ou seja, cada u em H pode ser expresso unicamente na forma \(u= w + v\) com w sendo um ponto de M e v um ponto de \(M^{\perp }.\) Ademais, os vetores v e w são os únicos elementos de M e \(M^{\perp } \) cuja distância a u é mínima; em outras palavras,
+	\[
+		w = P_{M}u \quad\&\quad v = P_{M^{\perp }}u.
+	\]
+	Finalmente, \(P_{M}\) e \(P_{M^{\perp }}\) são projeções lineares limitadas com \(\Vert P_{M} \Vert = \Vert P_{M^{\perp }} \Vert = 1\), exceto quando \(M=0\) ou \(M=H.\)
+\end{theorem*}
+\begin{proof*}
+	Para u em H, \(P_{M}u\) é o único elemento de M que minimiza a distância de u a M. Note que, para todo \(u\in H\), temos
+	\[
+		M\cap M^{\perp } = \{0\}\;\&\; u = P_{M}u + (I-P_{M})u\in M + M^{\perp }.
+	\]
+
+	Além disso, se z é um ponto perpendicular aos pontos de M, vale
+	\begin{align*}
+		\Vert u-z \Vert^{2} & = \Vert P_{M}u + (I-P_{M})u - z \Vert^{2}                 \\
+		                    & = \Vert P_{M}u \Vert^{2} + \Vert (I-P_{M})u - z \Vert^{2} \\
+		                    & \geq \Vert P_{M}u \Vert^{2},
+	\end{align*}
+	mostrando que, também, \((I-P_{M})u\) é o único ponto de \(M^{\perp }\) que minimiza a distância de u a \(M^{\perp },\) donde segue que, como não podem existir dois pontos únicos e distintos que minimizem a distância de u a \( M^{\perp }\), deve-se ter
+	\[
+		(I-P_{M})u = P_{M^{\perp }}u.
+	\]
+	Agora, vamos mostrar a continuidade da projeção \(P_{M}\): primeiramente, observe que \(P_{M}\) é linear pois, se \(u, v\in H\) e \(\alpha \in \mathbb{K}\), então
+	\[
+		P_{M}(\alpha u+v) = z
+	\]
+	é o elemento de M que minimiza a distância a \(\alpha u + z\) e
+	\[
+		\Vert \alpha u + v - m \Vert = \Vert \alpha P_{M}u + P_{M}v - m \Vert^{2} + \Vert \alpha (u-P_{M}u) + v - P_{M}v \Vert^{2},
+	\]
+	com o mínimo ocorrendo quando \(m = \alpha P_{M}u + P_{M}v\). Logo, pela proposição provada,
+	\[
+		\Vert P_{M}u \Vert \leq \Vert u \Vert
+	\]
+	e, do fato que \(P_{M}u = u \) para todo ponto de M, temos portanto \(\Vert P_{M} \Vert =1.\) \qedsymbol
+\end{proof*}
+\end{document}
