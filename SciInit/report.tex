@@ -337,19 +337,16 @@ Para mostrar algumas partes das pesquisas futuras, fixemos M um espaço métrico
 \end{def*}
 
 \begin{def*}
-	Um \textbf{processo estocástico} é uma família de variáveis aleatórias em \(\Omega \) com valores em M e indexadas num subconjunto dos reais, ou seja, uma família \(Z=\{Z_{t}:\; t\in I\subseteq \mathbb{R}\}\) tal que, para cada t em \(I\),
-	\[
-		Z_t:\Omega \rightarrow M. \; \square
-	\]
+	Um \textbf{processo estocástico} é uma família de variáveis aleatórias em \(\Omega \) com valores em M e indexadas num subconjunto dos reais, ou seja, uma família \(Z=\{Z_{t}:\; t\in I\subseteq \mathbb{R}\}\) tal que, para cada t em \(I\), seus membros são funções da forma \(	Z_t:\Omega \rightarrow M. \; \square\)
 \end{def*}
 
 A ideia geral dos processos estocásticos, e o motivo da indexação com a letra t, é capturar a ideia de variáveis aleatórias que evoluem ao longo do tempo. Neste caso, o foco foi dado ao caso em que \(I=\mathbb{N}\), que corresponde ao estudo de variáveis aleatórias evoluindo num tempo discreto ao invés de contínuo.
 
 \begin{def*}
-	Uma função \(p:M\times \mathcal{B}(M)\rightarrow \mathbb{R}\) é chamada \textbf{probabilidade de transição} se, com relação aos pontos de M, o mapa \(A\mapsto p(x, A)\) é uma medida de probabilidade em \((M, \mathcal{B}(M))\) e, para todo conjunto na \(\sigma \)-álgebra \(\mathcal{B}(M)\), o mapa \(x\mapsto p(x, A)\) for mensurável. \(\square\)
+	Uma função \(p:M\times \mathcal{B}(M)\rightarrow \mathbb{R}\) é chamada \textbf{probabilidade de transição} se, fixados os pontos de M, o mapa \(A\mapsto p(x, A)\) é uma medida de probabilidade em \((M, \mathcal{B}(M))\) e, fixados os conjuntos na \(\sigma \)-álgebra \(\mathcal{B}(M)\), o mapa \(x\mapsto p(x, A)\) for mensurável. \(\square\)
 \end{def*}
 
-Um tipo especialmente útil de processos estocásticos são as cadeias de Markov, que essencialmente descrevem os casos nos quais o evento que acontecerá num futuro próximo depende apenas do que aconteceu no tempo imediato -- a \textit{probabilidade de transição} do processo em \(t+1\) depende apenas de t, não de todos os outros tempos \(t-1, t-2, \dotsc , t_{0}\). Podemos formalizá-las como
+Um tipo especialmente útil de processos estocásticos são as cadeias de Markov, que essencialmente descrevem os casos nos quais o evento que acontecerá num futuro próximo depende apenas do que aconteceu no tempo imediato -- a \textit{probabilidade de transição} do processo em \(t+1\) depende apenas de t, não de todos os outros tempos \(t-1, t-2, \dotsc , 0\). Podemos formalizá-las como
 \begin{def*}
 	Seja \( \{Z_{n}\}_{n\in \mathbb{N}}\) um processo estocástico em \(\Omega \) com valores em M. Diremos, então, que \(\{Z_{n}\}_{n\in \mathbb{N}}\) é uma \textbf{cadeia de Markov com probabilidade de transição p} se, para todo \(A\) na Borel \(\sigma \)-álgebra \(\mathcal{B}(M)\), tivermos
 	\[
@@ -380,15 +377,16 @@ Em via das cadeias de Markov, conseguimos na verdade dar uma forma explícita pa
 	\]
 	Então, \(\{Z_{n}\}_{n\in \mathbb{N}}\) é uma cadeia de Markov com probabilidade de transição dada por
 	\[
-		p(x, A)=\int_{}\chi_{A}(f_{i}(x)) d\nu_{}(i)=\sum\limits_{i=1}^{k}p_{i}\chi_{A}(f_{i}(x)).
+		p(x, A)=\int_{}\chi_{A}(f_{i}(x)) d\nu_{}(x)=\sum\limits_{i=1}^{k}p_{i}\chi_{A}(f_{i}(x)).
 	\]
 \end{prop*}
 
 \begin{def*}
 	As \textbf{medidas estacionárias} são probabilidades \(\mathbb{P}\) no espaço métrico M tais que elas são pontos fixos do operador de Markov
 	\[
-		\mathcal{T}\mu (A) = \int_{}^{}p(x, A) \mathrm{d}\mu(x). \square
+		\mathcal{T}\mu (A) = \int_{}^{}p(x, A) \mathrm{d}\mu(x),
 	\]
+	sendo \(p(x,A)\) a probabilidade de transição conforme a proposição anterior. \(\square\)
 \end{def*}
 A medida estacionária de interesse em nossos estudos é a que quantifica a probabilidade do coding map passar por um conjunto A:
 \[
@@ -400,23 +398,25 @@ a partir do qual provaremos o princípio de Letac e analisaremos suas aplicaçõ
 	\[
 		\pi (\omega ) = \lim_{n\to \infty}f_{\omega_{0}}\circ \dotsc \circ f_{\omega_{n}}(p)
 	\]
-	existir e for independente do ponto p para \(\mathbb{P}\)-quase todo \(\omega \), então para toda distribuição \(\nu \) no espaço das probabilidades borelianas de M, teremos
+	existir e for independente do ponto p para \(\mathbb{P}\)-quase todo \(\omega \), então para toda distribuição \(\nu \) no espaço das probabilidades borelianas de M, teremos, para qualquer função contínua limitada \(\varphi \),
 	\[
-		\mathcal{T}^{n}\nu \to \pi_{*}\mathbb{P}.
+		\lim_{n\to \infty} \int_{}^{}\varphi\mathcal{T}^{n}\nu= \int_{}^{}\varphi  \mathrm{d}\pi_{*}\mathbb{P}.
 	\]
 	Em particular, existe uma única medida estacionária.
 \end{theorem*}
 
+Em junção ao teorema caracterizando a existência do coding map, obtemos uma forma de identificar quando a medida estacionária existe cumprino da unicidade e a caracterização pelo push-forward do coding map.
+
 \subsection*{Aplicação Matemática: séries de potências aleatórias.}
 Antes de aprofundar neste conteúdo mais relacionado à teoria da medida e teoria ergódica, tendo em vista que o aluno ainda estará vendo isso conforme o tempo for passando, foi observada uma aplicação dos resultados após eles serem formalizados eventualmente: as séries de potências aleatórias.
 
-Esta parte é desenvolvida especificamente para intervalos, e pode ser vista matematicamente como
+Para isso, fixemos o espaço de índices \(\{-1, 1\}^{\mathbb{N}}=\Sigma\) das funções; nosso objetivo será mostrar uma forma de computar qual a probabilidade de uma série de potências de contrações passar por dentro de um intervalo, ou seja, analisaremos o IFS \(\{I:\; \lambda x + 1, \lambda x-1\}\), com medida de probabilidade dada pela medida push-forward do coding map \(\pi _{*}\mathbb{P} \), e pode ser vista matematicamente como
 \[
 	\mathbb{P}\biggl(\sum_{i=0}^{\infty}\pm \lambda^{n}\in I\biggr),
 \]
 que leva a interpretação complementar a tudo o que foi visto -- a frequência com a qual o produto independente e identicamente distribuído \(f_{\omega }^{n}(x)\) passa por dentro do intervalo I, sendo \(\lambda \) um valor entre 0 e 1. Na forma de um teorema, este resultado é escrito como
 \begin{theorem*}
-	Para todo conjunto ``bem-comportado'' (relacionado ao termo ``quase toda sequência''), segue que
+	Para todo conjunto ``bem-comportado'' (ou seja, que não possui \textit{átomos}), segue que
 	\[
 		\mathbb{P}(\pi \in A) = \lim_{n\to \infty}\frac{1}{n}\# \biggl\{i: f_{\omega }^{i}(x)\in A,\; 0\leq i\leq n-1\biggr\}.
 	\]
@@ -455,7 +455,7 @@ que leva a interpretação complementar a tudo o que foi visto -- a frequência 
 	\[
 		\pi_{*}\mathbb{P} = \mathbb{P}(\pi \in I) = \mathbb{P}\biggl(\biggl\{\omega \in \{-1, 1\}^{\mathbb{N}}:\; \sum \omega_{n}\lambda ^{n}\in I\biggr\}\biggr).
 	\]
-	A próxima etapa é mostrar que a medida estacionária acima não tem átomos, que não conjuntos unitários de medida positiva -- isto tem relação com a parte do conjunto ser bem-comportado. Para tanto, provaremos que os conjuntos unitários têm medida nula quando medidos \(\pi_{*}\mathbb{P}\), a qual denotamos por m.
+	A próxima etapa é mostrar que a medida estacionária acima não tem átomos, que são conjuntos unitários de medida positiva -- isto tem relação com a parte do conjunto ser bem-comportado. Para tanto, provaremos que os conjuntos unitários têm medida nula quando medidos \(\pi_{*}\mathbb{P}\), a qual denotamos por m.
 
 	Coloque \(\mathcal{K}\) como sendo o atrator de Hutchinson e defina a função
 	\begin{align*}
@@ -466,7 +466,9 @@ que leva a interpretação complementar a tudo o que foi visto -- a frequência 
 	\[
 		M(a) = m(\{a\}) = \pi_{*}\mathbb{P}(\{a\}) = \mathbb{P}(\{\omega :\; \pi (\omega )\in \{a\}\}) < \infty,
 	\]
-	além disso mostrar que m é contínua por conta da continuidade de M. Consequentemente, dada uma sequência monótona crescente \(a_{n}\to a\) em K, segue que \(M(a_{n})\to M(a)\), que, junto ao fato do atrator ser compacto, mostra que existe um \(q\geq0\) e \(x_{0}\in \mathcal{K}\) tais que, para todo x em K,
+	e, além disso, M é contínua por conta da continuidade de m, garantida m é a única medida estacionária, \(m=\pi_{*}\mathbb{P}=\), a qual é, por sua vez, contínua.
+
+	Consequentemente, dada uma sequência monótona crescente \(a_{n}\to a\) em K, segue que \(M(a_{n})\to M(a)\), que, junto ao fato do atrator ser compacto, mostra que existe um \(q\geq0\) e \(x_{0}\in \mathcal{K}\) tais que, para todo x em K,
 	\[
 		q = M(x_{0}) \geq M(x).
 	\]
