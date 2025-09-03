@@ -81,7 +81,13 @@ e denotaremos por \(S_{m}\) o grupo de permutações de \(I_{m}\). Dentre essas 
 	de forma que \(\sigma P = \varepsilon_{\sigma }P\), onde \(\varepsilon_{\sigma }\in \{-1, 1\}\) é o \textit{sinal\footnote{Essa notação para o sinal será adotada apenas temporariamente, é provável que mude futuramente.} da permutação }\(\sigma \). \qedsymbol
 \end{proof*}
 \begin{def*}
-	Dizemos que uma permutação é \textbf{par} quando ela pode ser descrita como o produto (novamente, no contexto de transposições como um grupo, produto é a composição) de um número par de transposições; analogamente, se uma permutação pode ser descrita como o produto de um número ímpar de transposições, ela será chamada \textbf{ímpar}. \(\square\)
+	Dizemos que uma permutação é \textbf{par} quando ela pode ser descrita como o produto (novamente, no contexto de transposições como um grupo, produto é a composição) de um número par de transposições; analogamente, se uma permutação pode ser descrita como o produto de um número ímpar de transposições, ela será chamada \textbf{ímpar}. O \textbf{sinal}, denotado por \(\mathrm{sgn}(\sigma )\), informa a paridade:
+	\[
+		\mathrm{sgn}(\sigma )  = \left\{\begin{array}{ll}
+			1,  & \quad \sigma \text{ par}   \\
+			-1, & \quad \sigma \text{ ímpar} \\
+		\end{array}\right.
+	\] \(\square\)
 \end{def*}
 \begin{example}[Polinômio de Vandermonde]
 	Para entender melhor o polinômio de Vandermonde, considere o caso com \(m=4\):
@@ -99,6 +105,13 @@ e denotaremos por \(S_{m}\) o grupo de permutações de \(I_{m}\). Dentre essas 
 		                              & = (x_{3}-x_{2})(x_{3}-x_1)(x_3-x_4)(x_2-x_1)(x_2-x_4)(x_1-x_4).
 	\end{align*}
 \end{example}
+
+\begin{prop*}
+	Para quaisquer permutações \(\sigma, \rho \in S_{m}\), valem:
+	\[
+		\mathrm{sgn}(\sigma \circ \rho ) = \mathrm{sgn}(\sigma )\mathrm{sgn}(\rho ),\; \mathrm{sgn}(\sigma^{-1}) = \mathrm{sgn}(\sigma ).
+	\]
+\end{prop*}
 
 \begin{def*}
 	Uma \textbf{sequência de r elementos em }\(I_{m}\) é uma aplicação
@@ -126,7 +139,13 @@ e denotaremos por \(S_{m}\) o grupo de permutações de \(I_{m}\). Dentre essas 
 		   & k\longmapsto S(k) \coloneqq i_{k},
 	\end{align*}
 	mas dá para entender certinho que o que está acontecendo é uma \textit{indexação}.
+
+	Além disso, é importante tomar cuidado para não confundir uma sequência com o conjunto de seus valores; por exemplo, \((1, 3)\) é uma sequência diferente de \((3, 1)\), apesar de ambas terem a imagem \(\{1, 3\}.\)
 \end{tcolorbox}
+
+\begin{def*}
+	Dizemos que uma sequência possui \textbf{repetições} quando existem índices distintos a e b em \(I_r\) tais que \(i_a = i_b.\; \square\)
+\end{def*}
 A igualdade entre duas sequências ocorre quando elas são iguais ponto a ponto, e o número de tais sequência é \(m^{r}.\)
 
 Se \(I\subseteq I_{m}\) for um conjunto com r elementos, denotaremos seus elementos ordenados por \(I=\{i_1 <\dotsc <i_r\}\); a partir desse conjunto, podemos obter uma sequência sem repetições ao considerar as permutações \(\sigma \in S_r\), de modo que

@@ -187,9 +187,9 @@ usual de composição de funções, teríamos
 \]
 mas o resultado faz ao contrário. Por conta disso, a etapa seguinte será explorar sob quais condições é possível obter o Atrator de Barnsley-Hutchinson percorrendo a ordem normal de composição de funções. Será conveniente definir o produto independente e identicamente distribuído de funções, tanto para facilitar a notação quanto para escritas dos resultados:
 \begin{def*}
-	Sejam \(\Sigma  = \{1, \dotsc , k\}^{\mathbb{N}}\) e \(f_1, \dotsc, f_{k}:M\rightarrow M\) funções. A função
+	Sejam \(\Sigma_{k}  = \{1, \dotsc , k\}^{\mathbb{N}}\) e \(f_1, \dotsc, f_{k}:M\rightarrow M\) funções. A função
 	\begin{align*}
-		\varphi : & \mathbb{N}\times \Sigma \times M\rightarrow M                                                                                 \\
+		\varphi : & \mathbb{N}\times \Sigma_{k} \times M\rightarrow M                                                                             \\
 		          & (n ,\omega , x)\longmapsto \varphi(n, \omega , x) = f_{\omega_{n-1}}\circ \dotsc \circ f_{\omega_{0}}(x) = f_{\omega }^{n}(x)
 	\end{align*}
 	é chamada \textbf{produto independente e identicamente distribuído das funções }\(f_1, \dotsc , f_{k}.\; \square\)
@@ -202,15 +202,15 @@ mas o resultado faz ao contrário. Por conta disso, a etapa seguinte será explo
 	\]
 	para \(\mathbb{P}\)-quase todo \(\omega \).
 \end{theorem*}
-Neste teorema, a medida de probabilidade \(\mathbb{P}\) é definida na álgebra dos cilindros como
+Neste teorema, a medida de probabilidade \(\mathbb{P}\), conhecida como Medida de Probabilidade Produto de Bernoulli, é definida na \(\sigma \)-álgebra dos cilindros como
 \[
 	\mathbb{P}([a_{0}, \dotsc, a_{\ell}]) = \prod_{i=0}^{k}p_{a_i}, \quad \sum_{i=0}^{k}p_{i} = 1.
 \]
-Com ela, dada uma sequência \(\omega \in \Sigma\), podemos considerar a sua forma adaptada para as funções de um IFS \(\{X:\; f_{0}, f_{1}\}\) tal que
+Para o estudo dos IFS's em específico, podemos considerar uma forma parecida com ela: dado um IFS \(\{X:\; f_{0}, f_{1}\}\), definimos a medida de probabilidades \(\mathbb{P}\) no IFS tal que
 \[
 	\mathbb{P}(f_{\omega_{n-1}}\circ \dotsc \circ f_{\omega_{0}}(A)) = p_{\omega_{n-1}}p_{\omega_{n-2}}\dotsc p_{\omega_{0}},\quad p_{0} + p_{1} = 1,\; A\subseteq X,
 \]
-onde \(p_{i}\) se refere à transformação respectiva \(f_{i}\).
+onde \(p_{i}\) se refere à função respectiva \(f_{i}\).
 O que já sabemos sobre a probabilidade \(\mathbb{P}\) será parte de entender quais são esses \(\omega \) que funcionam no teorema e, talvez tão importante quanto isso, quais são os \(\omega \)'s que quebram ele.
 
 Com base nisso, vamos ver quando pode acontecer desse teorema quebrar:
@@ -222,7 +222,10 @@ Com base nisso, vamos ver quando pode acontecer desse teorema quebrar:
 			\frac{(2+x)}{3}, & \quad i=1
 		\end{array}\right.,
 	\]
-	com nosso espaço \(\{0,1\}^{\mathbb{N}}\) como lugar onde \(\omega \) está.
+	com nosso espaço \(\{0,1\}^{\mathbb{N}}\) como conjunto das sequências \(\omega \). Note que, pela perspectiva de IFS com probabilidades, o espaço que trabalhamos é
+	\[
+		\biggl\{[0, 1]:\; \frac{1}{3}x,\; \frac{2}{3} + \frac{1}{3}x,\; p_{0},\; p_1\biggr\}.
+	\]
 
 	Em particular, suponha que \(\omega =(0,0,0,\dotsc )\); desta forma, dado l natural,
 	\begin{align*}
@@ -230,7 +233,7 @@ Com base nisso, vamos ver quando pode acontecer desse teorema quebrar:
 		                                                                                               & \vdots                                                      \\
 		                                                                                               & =f_{0}\biggl(\frac{x}{3}\biggr)^{n} = \frac{x^{n}}{3^{n}}.
 	\end{align*}
-	Conforme l tende a infinito -- e, por conta de tomarmos \(n\geq l\), o próprio n -- a composição acima tenderá a 0:
+	Conforme l tende a infinito -- e, por conta de tomarmos \(n\geq l\), o próprio n também tende -- a composição acima tenderá a 0:
 	\[
 		\lim_{n\to \infty}f_{\omega}^{n} = \lim_{n\to \infty}\frac{x^{n}}{3^{n}}= 0.
 	\]
@@ -244,7 +247,7 @@ Uma forma de entender este exemplo é que, se o único caminho tomado ao caminha
 
 Com o entendimento extra fornecido pelo exemplo acima, o próximo passo da pesquisa foi buscar uma prova do teorema. A abordagem é originada da área de sistemas iterados de funções (IFS), com base na relação entre atratores e pontos periódicos, definidos como
 \begin{def*}
-	Dado um IFS do tipo \(\{X:\; f_0, f_1,\dotsc , f_{N}\}\) com atrator \(\mathcal{K}\), um ponto x em \(\mathcal{K}\) é dito \textbf{ponto periódico} se existe \(\omega \in \{0,1, \dotsc , N\}^{n}\) (sequências finitas com n dígitos) tal que
+	Dado um IFS do tipo \(\{X:\; f_0, f_1,\dotsc , f_{k}\}\) com atrator \(\mathcal{K}\), um ponto x em \(\mathcal{K}\) é dito \textbf{ponto periódico} se existe \(\omega \in \{0,1, \dotsc , k\}^{n}\subseteq \Sigma_{k}\) (sequências finitas com n dígitos) tal que
 	\[
 		x = f_{\omega }^{n}(x) = \varphi (n, \omega , x) = f_{\omega_{n-1}}\circ \dotsc \circ f_{\omega_{0}}(x),
 	\]
@@ -254,7 +257,7 @@ Em particular, isto significa que um ponto será periódico a partir do momento 
 
 Para determinar os pontos periódicos de um atrator, é conveniente utilizar a caracterização
 \begin{theorem*}
-	Dado \(\{X: f_{0}, \dotsc , f_{N-1}\}\) um IFS com atrator \(\mathcal{K}\), são equivalentes:
+	Dado \(\{X: f_{0}, \dotsc , f_{k-1}\}\) um IFS com atrator \(\mathcal{K}\), são equivalentes:
 	\begin{itemize}
 		\item[1)] \(x\in \mathcal{K}\) é um ponto periódico;
 		\item[2)] \(x\in \mathcal{K}\) tem um endereço periódico;
@@ -262,37 +265,37 @@ Para determinar os pontos periódicos de um atrator, é conveniente utilizar a c
 	\end{itemize}
 \end{theorem*}
 \begin{proof*}
-	Seja \(\{X: f_{0}, \dotsc , f_{N-1}\}\) o IFS com atrator \(\mathcal{K}\) em questão. A prova deste resultado seguirá um esquema de
+	Seja \(\{X: f_{0}, \dotsc , f_{k-1}\}\) o IFS com atrator \(\mathcal{K}\) em questão. A prova deste resultado seguirá um esquema de
 	\[
 		(1) \Longleftrightarrow (2) \quad\&\quad (1)\Longleftrightarrow (3).
 	\]
 
 	Sem mais delongas, considere o ponto periódico \(x\in \mathcal{K}\). Por definição, existe algum n e alguma sequência \(\omega \) tais que
 	\[
-		x = f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_0}(x).
+		x = f_{\omega_{k-1}}\circ \dotsc \circ f_{\omega_0}(x).
 	\]
 	consequentemente, podemos repetir a composição acima conforme desejarmos:
 	\[
-		x = [f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_0}] \circ \dotsc \circ  [f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_0}](x)
+		x = [f_{\omega_{k-1}}\circ \dotsc \circ f_{\omega_0}] \circ \dotsc \circ  [f_{\omega_{k-1}}\circ \dotsc \circ f_{\omega_0}](x)
 	\]
-	tal que obtemos o endereço periódico \(\overline{\omega_{N-1}\dotsc \omega_{0}}\) para x.
+	tal que obtemos o endereço periódico \(\overline{\omega_{k-1}\dotsc \omega_{0}}\) para x.
 
 	Por outro lado, se x já tem um endereço periódico, digamos \(\omega\); então, pelo coding map, podemos recuperar x através de
 	\begin{align*}
-		x = \pi (\omega ) & = \pi (\overline{\omega_{N-1}\dotsc \omega_{0}})                                       \\
-		                  & = \pi (\omega_{N-1}\dotsc  \omega_{0} \dotsc \overline{\omega_{N-1}\dotsc \omega_{0}}) \\
-		                  & = f_{\omega_{0}}\circ f_{\omega_{N-1}}(\pi (\overline{\omega_{N-1}\dotsc \omega_{0}})) \\
-		                  & = f_{\omega_{0}}\circ f_{\omega_{N-1}}(x).
+		x = \pi (\omega ) & = \pi (\overline{\omega_{k-1}\dotsc \omega_{0}})                                       \\
+		                  & = \pi (\omega_{k-1}\dotsc  \omega_{0} \dotsc \overline{\omega_{N-1}\dotsc \omega_{0}}) \\
+		                  & = f_{\omega_{0}}\circ f_{\omega_{k-1}}(\pi (\overline{\omega_{k-1}\dotsc \omega_{0}})) \\
+		                  & = f_{\omega_{0}}\circ f_{\omega_{k-1}}(x).
 	\end{align*}
 	Logo, x é um ponto periódico, finalizando a equivalência entre os dois primeiros itens.
 
-	Agora, para mostrar que \((1) \Rightarrow (3)\), suponha que x seja um ponto periódico de \(\mathcal{K}\). Como \(f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_{0}}\) é formado por uma quantidade finita de operações do semigrupo \(\{f_{0}, \dotsc , f_{N-1}\}\), ele é um elemento do semigrupo, cujo ponto fixo é exatamente x, já que
+	Agora, para mostrar que \((1) \Rightarrow (3)\), suponha que x seja um ponto periódico de \(\mathcal{K}\). Como \(f_{\omega_{k-1}}\circ \dotsc \circ f_{\omega_{0}}\) é formado por uma quantidade finita de operações do semigrupo \(\{f_{0}, \dotsc , f_{k-1}\}\), ele é um elemento do semigrupo, cujo ponto fixo é exatamente x, já que
 	\[
-		f_{\omega_{N-1}} \circ \dotsc \circ f_{\omega_{0}} (x) = x.
+		f_{\omega_{k-1}} \circ \dotsc \circ f_{\omega_{0}} (x) = x.
 	\]
 	Noutra perspectiva, se x é um ponto fixo do semigrupo, existe ao menos um elemento dele que retorna x quando sob a operação do grupo, e, sem perda de generalidade, podemos assumir que seja alguma combinação da forma
 	\[
-		f_{\omega_{N-1}}\circ \dotsc \circ f_{\omega_{0}}(x) = x,
+		f_{\omega_{k-1}}\circ \dotsc \circ f_{\omega_{0}}(x) = x,
 	\]
 	provando a equivalência e o teorema. \qedsymbol
 \end{proof*}
@@ -319,7 +322,68 @@ Com este teorema, ganhamos uma caracterização de um atrator a partir do limite
 
 Sendo mais específico, a próxima etapa do estudo é mostrar que a medida de Bernoulli que estamos usando é ergódica, seguido do estudo das probabilidades de transição a fim de mostrar justamente que a medida dos pontos com órbita densa em relação à operação do shift, em particular os pontos periódicos, completa o espaço todo -- em outras palavras, uma caracterização de quais sequências falham o teorema principal.
 
-Para mostrar algumas partes das pesquisas futuras, definiremos
+Para mostrar algumas partes das pesquisas futuras, fixemos M um espaço métrico com Borel \(\sigma \)-álgebra \(\mathcal{B}(M)\), \((\Omega , \mathcal{F}, \mathbb{P})\) um espaço de probabilidades, \({X_{0},X_1,\dotsc }\) uma sequência de variáveis aleatórias independentes que assumem valores em \(\{1,\dotsc ,k\}\) com mesma distribuição \(\nu =p_1\delta_1+\dotsc +p_{k}\delta_{k}\) e \(Z_{0}\) uma variável aleatória com valores em M independente dos termos da sequência \(\{X_{n}\}\). Com estas noções,
+
+\begin{def*}
+	Seja \(f:\Omega \rightarrow \mathbb{R}\) uma variável aleatória integrável \(\mathcal{F}-\)mensurável. A \textbf{esperança de f} ou o \textbf{valor esperado de f} é definido como
+	\[
+		\mathbb{E}(f)\coloneqq \int_{\Omega }f d\mathbb{P}_{}.
+	\]
+	Além disso, considerando uma sub \(\sigma \)-álgebra \(\mathcal{H}\subseteq \mathcal{F}\), diremos que uma variável aleatória \(\mathcal{H}\)-mensurável e integrável g é uma \textbf{esperança condicional de f dado \(\mathcal{H}\)} quando
+	\[
+		\int_{A}f d\mathbb{P}_{} = \int_{A}g d\mathbb{P}_{},\quad \forall A\in \mathcal{H},
+	\]
+	e denotaremos g por \(g\coloneqq \mathbb{E}(f|\mathcal{H})\). \(\square\)
+\end{def*}
+
+\begin{def*}
+	Um \textbf{processo estocástico} é uma família de variáveis aleatórias em \(\Omega \) com valores em M e indexadas num subconjunto dos reais, ou seja, uma família \(Z=\{Z_{t}:\; t\in I\subseteq \mathbb{R}\}\) tal que, para cada t em \(I\),
+	\[
+		Z_t:\Omega \rightarrow M. \; \square
+	\]
+\end{def*}
+
+A ideia geral dos processos estocásticos, e o motivo da indexação com a letra t, é capturar a ideia de variáveis aleatórias que evoluem ao longo do tempo. Neste caso, o foco foi dado ao caso em que \(I=\mathbb{N}\), que corresponde ao estudo de variáveis aleatórias evoluindo num tempo discreto ao invés de contínuo.
+
+\begin{def*}
+	Uma função \(p:M\times \mathcal{B}(M)\rightarrow \mathbb{R}\) é chamada \textbf{probabilidade de transição} se, com relação aos pontos de M, o mapa \(A\mapsto p(x, A)\) é uma medida de probabilidade em \((M, \mathcal{B}(M))\) e, para todo conjunto na \(\sigma \)-álgebra \(\mathcal{B}(M)\), o mapa \(x\mapsto p(x, A)\) for mensurável. \(\square\)
+\end{def*}
+
+Um tipo especialmente útil de processos estocásticos são as cadeias de Markov, que essencialmente descrevem os casos nos quais o evento que acontecerá num futuro próximo depende apenas do que aconteceu no tempo imediato -- a \textit{probabilidade de transição} do processo em \(t+1\) depende apenas de t, não de todos os outros tempos \(t-1, t-2, \dotsc , t_{0}\). Podemos formalizá-las como
+\begin{def*}
+	Seja \( \{Z_{n}\}_{n\in \mathbb{N}}\) um processo estocástico em \(\Omega \) com valores em M. Diremos, então, que \(\{Z_{n}\}_{n\in \mathbb{N}}\) é uma \textbf{cadeia de Markov com probabilidade de transição p} se, para todo \(A\) na Borel \(\sigma \)-álgebra \(\mathcal{B}(M)\), tivermos
+	\[
+		\mathbb{P}(Z_{n+1}\in A| \mathcal{F}_{n})=p(Z_{n}, A),
+	\]
+	onde \(\mathcal{F}_{n}\coloneqq \sigma (Z_{0}, \dotsc , Z_{n})\) denota a \(\sigma \)-álgebra gerada pelo processo estocástico e \(\mathbb{P}(Z_{n+1}\in A| \mathcal{F}_{n})\) representa a esperança condicional com respeito à medida \(\mathbb{P}\), ou seja, \(\mathbb{E}(\chi^{-1}_{Z_{n+1}}).\;\square\)
+\end{def*}
+
+Em particular, para \(\mathbb{P}-\)quase todo \(\omega \) em \(\Omega \), a forma explicita da cadeia de Markov com probabilidade de transição p é
+\[
+	\mathbb{P}(Z_{n+1}\in A| \mathcal{F}_{n})(\omega  )= \mathbb{E}\bigl(\chi_{Z_{n+1}^{-1}(A)}| \mathcal{F}_{n}\bigr)(\omega ) = p(Z_{n}(\omega ), A),
+\]
+indicando que a probabilidade de transição do evento \(Z_{n+1}\) acontecer (\(\mathbb{P}(Z_{n+1}\in A| \mathcal{F}_{n})\)) para a sequência \(\omega \in \Omega \) depende apenas da probabilidade da transição do evento \(Z_{n}\) ter acontecido para esta sequência \((p(Z_{n}(\omega ), A))\).
+
+\begin{def*}
+	Se \((Y, \mathcal{G})\) for um espaço mensurável e \(h:X\rightarrow Y\) for uma função mensurável, definimos a \textbf{medida push-forward} \(h_*\mathbb{P}\) em Y por
+	\[
+		h_*\mathbb{P}(A) = \mathbb{P}(h^{-1}(A)), \quad \forall A\in \mathcal{G},
+	\]
+	e passamos a chamar \(h_*\mathbb{P}\) de \textbf{distribuição de h}. \(\square\)
+\end{def*}
+
+Em via das cadeias de Markov, conseguimos na verdade dar uma forma explícita para as probabilidades de transições delas:
+\begin{prop*}
+	Considere uma coleção \(f_1,\dotsc , f_{k}:M\rightarrow M\) de funções contínuas e defina a sequência de variáveis aleatórias
+	\[
+		Z_{n}(\omega )\coloneqq f_{X_{n-1}(\omega )}\circ \dotsc \circ f_{X_{0}(\omega )}(Z_{0}(\omega )) = f_{X_{n-1}}(Z_{n-1}).
+	\]
+	Então, \(\{Z_{n}\}_{n\in \mathbb{N}}\) é uma cadeia de Markov com probabilidade de transição dada por
+	\[
+		p(x, A)=\int_{}\chi_{A}(f_{i}(x)) d\nu_{}(i)=\sum\limits_{i=1}^{k}p_{i}\chi_{A}(f_{i}(x)).
+	\]
+\end{prop*}
+
 \begin{def*}
 	As \textbf{medidas estacionárias} são probabilidades \(\mathbb{P}\) no espaço métrico M tais que elas são pontos fixos do operador de Markov
 	\[
