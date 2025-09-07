@@ -1,0 +1,174 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 07 de Outubro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+ \item Mudança de Variáveis para Distribuições;
+ \item Aprofundamento na Convergência Fraca-*.
+\end{itemize}
+\subsection{Operadores Diferenciais e Mudança de Variáveis para Distribuições}
+ Tendo analisado operações com distribuições e destacado alguns exemplos muito interessantes, daremos continuidade aos estudos desta parte introduzindo os chamados \textit{operadores diferenciais lineares} em \(\mathcal{D}'(\Omega ),\) junto à versão neste espaço da mudança de variáveis. Além disso, veremos distribuições com derivadas 
+ parciais nulas e examinaremos a convergência em \(\mathcal{D}'\) mais a fundo, apresentando funções que não convergiriam de modo natural em seus espaços originais, mas convergem em \(\mathcal{D}'.\)
+
+ \begin{example}[Operadores Diferenciais]
+  Sejam \(a_{\alpha }\in \mathcal{C}^{\infty}(\Omega ),\; | \alpha  |\leq m,\; \alpha \in \mathbb{Z}_{+}^{n}\), onde \(\Omega \) é um aberto de \(\mathbb{R}^{n}\). Considerando 
+    \[
+      P(x, D)=\sum\limits_{| \alpha  |\leq m}^{}a_{\alpha }(x)\partial^{\alpha },
+    \]
+    resulta, do que já estudamos, que \(P(x, D):\mathcal{C}_{c}^{\infty}(\Omega )\rightarrow \mathcal{C}_{c}^{\infty}(\Omega )\) é um operador linear contínuo, chamado \textbf{operador diferencial parcial linear com coeficientes} \(\mathcal{C}^{\infty},\) que chamaremos apenas de \textbf{operador diferencial parcial} ou \textbf{operador diferencial ordinário}, caso n seja 1. Cada uma das parcelas da somatória que o define, ou seja, cada 
+      \[
+        a_{\alpha }(x)\partial^{\alpha }=a_{\alpha }(x)\partial_{1}^{\alpha_{1}}\circ \partial_{2}^{\alpha_{2}}\circ\cdots\circ \partial_{n}^{\alpha_{n}},
+      \]
+      é uma composição de m derivadas parciais sucessivas seguidas de uma multiplicação por função \(\mathcal{C}^{\infty}(\Omega )\), justificando a classe do operador. Caso ocorra de cada \(a_{\alpha }\) ser uma função constante, enfatizaremos este fato dizendo que se trata de um \textbf{operador diferencial parcial com coeficientes constantes}, indicando-o por apenas 
+        \[
+          P(D), = \sum\limits_{| \alpha  |\leq m}^{}a_{\alpha }\partial^{\alpha };
+        \]
+        assim, \(P(x, D)\) possui uma extensão a \(\mathcal{D}'(\Omega )\), \(P(x, D):\mathcal{D}'(\Omega )\rightarrow \mathcal{D}'(\Omega )\), daad por 
+       \begin{align*}
+         \langle P(x, D)u, \varphi  \rangle = \sum\limits_{| \alpha  |\leq m}^{}\langle a_{\alpha }D^{\alpha }u, \varphi  \rangle &= \sum\limits_{| \alpha  |\leq m}^{}\langle \partial^{\alpha }u, a_{\alpha }\varphi  \rangle\\ 
+                                                                                                                                  &= \sum\limits_{| \alpha  |\leq m}^{}(-1)^{| \alpha  |}\langle u, \partial^{\alpha }(a_{\alpha }\varphi ) \rangle\\ 
+                                                                                                                                  &= \biggl\langle u, \sum\limits_{| \alpha  |\leq m}^{}(-1)^{| \alpha  |}\partial^{\alpha }(a_{\alpha })\varphi  \biggr\rangle,
+       \end{align*}
+       onde \(\varphi \) é de classe \(\mathcal{C}_{c}^{\infty}(\Omega )\) e, como visto na segunda linha da equação, faz-se necessário derivar os coeficientes. 
+
+       Desta forma, 
+       \[
+         P'(x, D)\psi = \sum\limits_{| \alpha  |\leq m}^{}(-1)^{| \alpha  |}\partial^{\alpha }(a_{\alpha }\psi )
+       \]
+       é o transposto formal de \(P(x, D)\); em particular, se os coeficientes forem constantes, teremos 
+         \[
+           \langle P(D)u, \varphi  \rangle = \biggl\langle u, \sum\limits_{| \alpha  |\leq m}^{}(-1)^{| \alpha  |}a_{\alpha }\partial^{\alpha }\varphi  \biggr\rangle.
+         \]
+
+\end{example}
+Vamos considerar alguns subexemplos do operador derivada parcial.
+
+\begin{example}[Operadores Comuns de EDP]
+  Temos uma versão do \textbf{operador de Laplace} para as distribuições ao colocarmos 
+    \[
+      P(D)=\Delta = \sum\limits_{j=1}^{m}\frac{\partial^{2}}{\partial x_{j}^{2}},
+    \]          
+    que se exprime como 
+      \[
+        \frac{\partial^{2}}{\partial x_{j}^{2}} = \partial_{j}^{2e_{j}},\quad j=1,2,\dotsc ,n.
+      \]
+      A forma que ele age em uma distribuição \(u\in \mathcal{D}'(\Omega )\) é 
+        \[
+          \langle \Delta u, \varphi  \rangle=\biggl\langle u, \sum\limits_{}^{}(-1)^{2}\frac{\partial^{2}}{\partial x_{j}^{2}}\varphi  \biggr\rangle = \langle u, \Delta \varphi  \rangle,
+        \]
+        isto é, 
+          \[
+            \langle \Delta u, \varphi  \rangle = \langle u, \Delta \varphi  \rangle,\quad u\in \mathcal{D}'(\Omega ),\; \varphi \in \mathcal{C}_{c}^{\infty}(\Omega ).
+          \]
+
+          Seguindo neste caminho de EDPs, podemos considerar um \textbf{operador do calor} dado por 
+            \[
+              P(D)=\frac{\partial^{}}{\partial t^{}} - \Delta x
+            \]
+            com \((t, x)\in (0, \infty)\times \mathbb{R}^{n}\), um \textbf{operador das ondas} 
+              \[
+                P(D)= \frac{\partial^{2}}{\partial t^{2}} - \Delta x
+              \]
+              com \((t,x)\in (0, \infty)\times \mathbb{R}^{n}\), e até mesmo um \textbf{operador de Cauchy-Riemann} 
+                \[
+                  P(D)=\frac{1}{2}\biggl(\frac{\partial^{}}{\partial x^{}}+i \frac{\partial^{}}{\partial y^{}}\biggr),
+                \]
+                com \((x, y)\in \mathbb{R}^{2}.\)
+\end{example}
+ Finalmente, vejamos a versão da mudança de variáveis para distribuições:
+ \begin{example}[Mudança de Variáveis]
+   Sejam U e V abertos de \(\mathbb{R}^{2}\), \(h:U\rightarrow V\) um difeomorfismo e definamos 
+  \begin{align*}
+      H:&\mathcal{C}_{c}^{\infty}(V)\rightarrow \mathcal{C}_{c}^{\infty}(U) \\
+         &\varphi \longmapsto H\varphi \coloneqq \varphi \circ h
+  \end{align*}
+  Como exercício, mostre que H está bem definido, é linear e contínuo. Além disso, se \(\varphi \in \mathcal{C}_{c}^{\infty}(V)\) e \(\psi \in \mathcal{C}_{c}^{\infty}(U)\), pela mudança de variáveis na integral de Riemann, podemos escrever: 
+    \[
+      \int_{U}^{}(H\varphi )(x) \mathrm{dx} = \int_{U}^{}(\varphi \circ h)\psi (x) \mathrm{dx} = \int_{V}^{}\varphi (y)\psi (h^{-1}(y)) | \det{h^{-1}'}(y) | \mathrm{d}y = \int_{V}^{}\varphi (y)(H'\psi )(y) \mathrm{d}y,
+    \]
+    onde 
+      \[
+      H'\psi \coloneqq (\psi \circ h^{-1})| \det{(h^{-1})'} |
+      \]
+      é, portanto, o transposto formal de H (a linearidade e continuidade dele também ficam como exercício!). Logo, podemos definir \(u\circ h\) para uma distribuição \(u\in \mathcal{D}'(V)\) pondo 
+        \[
+          \langle u\circ h, \psi  \rangle=\langle u, (\psi \circ h^{-1})| \det{(h^{-1})'} | \rangle,\quad \psi \in \mathcal{C}_{c}^{\infty}(U),\; u\in \mathcal{D}'(V).
+        \]
+        Este exemplo é indispensável para que se possa definir um tipo de distribuições em variedades ou superfícies. 
+\end{example}
+\begin{example}[Rotações, Translações e Dilatações]
+  Sejam \(\Omega \) um aberto de \(\mathbb{R}^{n}\) e h um vetor fixo. Consideremos 
+ \begin{align*}
+     \tau_h:&\mathcal{C}_{c}^{\infty}(\Omega +h)\rightarrow \mathcal{C}_{c}^{\infty}(\Omega ) \\
+        &\varphi \longmapsto \tau_h\varphi (x)\coloneqq \varphi (x-h),
+ \end{align*}
+ a transação por h. Com isso, note que podemos escrever, para \(g:\Omega +h\rightarrow \Omega \),
+   \[
+     \tau_h\varphi = \varphi \circ g, \quad g(x)=x-h,
+   \]
+   que está nas condições da mudança de variável do exemplo acima; então, faz sentido definirmos, para uma distribuição \(u\in \mathcal{D}'(\Omega )\), a translação dela por h pondo: 
+     \[
+       \langle \tau_h, u \rangle = \langle u, \varphi \circ \tau_{-h} \rangle,
+     \]
+     que às vezes pode ser escrita também como \(\varphi \circ \tau_{-h}=\varphi (\cdot +h)\); logo, 
+       \[
+         \langle \tau_hu, \varphi  \rangle = \langle u, \varphi (\cdot +h) \rangle.
+       \]
+
+      Nos casos em que temos uma rotação \(T:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}\), com T linear satisfazendo \(TT^{*}= I\) e \(| \det{(T)} = 1 |\), e uma dilatação \(d:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}\) com \(d(x)=tx\), colocamos 
+        \[
+          \langle u \circ T, \varphi  \rangle= \langle u, \varphi \circ T^{*} \rangle \quad\&\quad \langle u\circ d, \varphi  \rangle = \langle u, (\varphi \circ d^{-1})t^{-n} \rangle
+        \]
+        para uma distribuição \(u\in \mathcal{D}'(\mathbb{R}^{n})\) e função teste \(\varphi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\); ou seja, 
+          \[
+            \langle u\circ d, \varphi  \rangle = \langle u, \varphi_{t} \rangle,\quad \varphi_{t}(x)=t^{-n}\varphi \biggl(\frac{x}{t}\biggr).
+          \]
+
+          Estas situações nos permitem introduzir: 
+         \begin{itemize}
+           \item[i)] as funções testes \(\hat{\varphi }=\varphi (-x)\) e \(\varphi_{t}(x)=\varphi (tx)\);
+             \item[ii)] distribuições pares e ímpares: se \(T=-I\), então \(u\circ T = u\), a qual chamaremos de \textbf{par}, e, se \(u\circ T=-u\), chamaremos de \textbf{ímpar}; e 
+               \item[ii)] distribuições homogêneas de grau \(\theta >0\) quando \(u_{t}=t^{\theta }u.\)
+         \end{itemize}
+
+\end{example}
+  \begin{tcolorbox}[
+  skin=enhanced,
+  title=Observação,
+  fonttitle=\bfseries,
+colframe=black,
+  colbacktitle=cyan!75!white, 
+  colback=cyan!15,
+  colbacklower=black,
+coltitle=black,
+  drop fuzzy shadow,
+  %drop large lifted shadow
+  ]
+  Uma distribuição \(u\in \mathcal{D}'(\mathbb{R}^{n})\) se diz \textbf{periódica de período \(h\in \mathbb{R}^{n}\)} se \(\tau_h u = u\), e um caso particularmente útil é o caso em que \(h\in \mathbb{Z}^{n}\), ou seja, é um período inteiro.
+  \end{tcolorbox}
+   \begin{tcolorbox}[
+   skin=enhanced,
+   title=Observação,
+   fonttitle=\bfseries,
+ colframe=black,
+   colbacktitle=cyan!75!white, 
+   colback=cyan!15,
+   colbacklower=black,
+ coltitle=black,
+   drop fuzzy shadow,
+   %drop large lifted shadow
+   ]
+   Além disso, a translação fornece outra maneira de definirmos a derivada parcial \(\frac{\partial^{}u}{\partial x_{j}^{}}\): dada \(u\in \mathcal{D}'(\mathbb{R}^{n})\) e \(\tau_{-te_{j}},\) segue que 
+     \[
+       \biggl\langle \frac{\tau_{-te_{j}}u - u}{t}, \varphi  \biggr\rangle = \biggl\langle u, \frac{\varphi (\cdot -te_{j}) - \varphi (\cdot )}{t} \biggr\rangle,
+     \]
+     donde pode-se observar que 
+       \[
+         \frac{\varphi (\cdot -te_{j}) - \varphi (\cdot )}{t} \substack{\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}) \\ \longrightarrow \\ t\to 0} - \frac{\partial^{}\varphi }{\partial x_{j}^{}}.
+       \]
+   \end{tcolorbox}
+
+   \subsection{Distribuições com Derivadas Nulas}
+
+
+\end{document}
