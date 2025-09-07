@@ -1,0 +1,89 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 06 - 10 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Determinantes de Vetores;
+	\item Subvetores.
+\end{itemize}
+\subsection{Determinantes: continuação}
+Até o momento, definimos o determinante de duas formas diferentes, que coincidem:
+\begin{itemize}
+	\item como um escalar associado a um endomorfismo linear;
+	\item como uma função definida sobre as colunas de uma matriz quadrada.
+\end{itemize}
+Agora, veremos mais uma perspectiva -- a do determinante de um conjunto de vetores em relação a uma base fixa.
+\begin{def*}
+	Seja \(\mathcal{E}=(e_1,\dotsc , e_{m})\) uma base ordenada de E. Dado um conjunto de vetores \(u_1, \dotsc , u_{m}\in E\), escrevemos cada vetor em coordenadas na base \(\mathcal{E}:\)
+	\[
+		u_{j}=\sum\limits_{i=1}^{m} \alpha_{j}^{i}e_{i},\quad j=1,\dotsc ,m,
+	\]
+	a partir do qual formamos a matriz \(\alpha =(\alpha_{j}^{i})\) de ordem m, com os vetores \(u_1,\dotsc , u_{m}\) como coordenadas. Com isso, definimos o \textbf{determinante dos vetores \(u_1,\dotsc , u_{m}\) em relação à base \(\mathcal{E}\)} como
+	\[
+		\det{[u_{1},\dotsc , u_{m}]}_{\mathcal{E}}\coloneqq \det{(\alpha )}. \quad \square
+	\]
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Diferente do determinante do endomorfismo, endomorfismo, que é uma propriedade intrínseca, ou seja, independente da base, o determinante de vetores \textit{depende} da escolha da base \(\mathcal{E}.\)
+
+	Geometricamente, esse determinante mede o \textit{\textbf{volume orientado}} do paralelepípedo gerado pelos vetores \(u_1,\dotsc , u_{m}\) em relação ao sistema de coordenadas dado por \(\mathcal{E}.\)
+\end{tcolorbox}
+
+Seja \(\mathcal{E}=(e_1,\dotsc , e_{m})\) uma base de E e \(\mathcal{E}^{*} = (e_{1}^{*}, \dotsc , e_{m}^{*})\) uma base dual de \(E^{*}.\)
+\begin{def*}
+	Para uma sequência de índices \(s=(i_1,\dotsc ,i_r)\), definimos o \textbf{produto tensorial das formas lineares} correspondentes por
+	\[
+		e_{(s)}^{*} = e_{i_1}^{*}\otimes e_{i_2}^{*}\otimes \dotsc \otimes e_{i_r}^{*}\in (E^{*})^{\otimes_r}.
+	\]
+	A forma que ele atua em vetores \(v_1,\dotsc ,v_r\in E\) é
+	\[
+		e_{(s)}^{*} (v_1,\dotsc ,v_r) = \prod\limits_{k=1}^{r}e_{i_k}^{*}(v_{k}). \quad \square
+	\]
+\end{def*}
+\begin{def*}
+	Para um subconjunto \(J=\{j_1<\dotsc <j_r\}\subseteq \{1,\dotsc ,m\}\), definimos a \textbf{forma alternada} associada como
+	\[
+		e_{[J]}^{*} \coloneqq \sum\limits_{\sigma \in S_{r}}^{} \mathrm{sgn}(\sigma )e_{(j_{\sigma (1)}, \dotsc , j_{\sigma (r)})}^{*},
+	\]
+	onde \(S_r\) é o grupo simétrico com r elementos. \(\square\)
+\end{def*}
+\begin{def*}
+	Seja \(\alpha = (\alpha_{j}^{i})\) uma matriz \(m\times r\). Para um subconjunto \(J=\{j_1<\dotsc <j_r\},\) denotamos por \(\alpha^{J}\) a submatriz \(r\times r\) obtida escolhendo as linhas de \(\alpha \) com índices em \(J.\; \square\)
+\end{def*}
+\begin{prop*}
+	Se \(\mathcal{E}=(e_1,\dotsc , e_{m})\) é uma base de E e
+	\[
+		v_{j} = \sum\limits_{i}^{}\alpha_{j}^{i}e_{i},\quad j=1,\dotsc ,r.
+	\]
+	Então, para cada subconjunto J,
+	\[
+		e_{[J]}^{*}(v_1,\dotsc , v_r) = \det{(\alpha^{J})}.
+	\]
+\end{prop*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A introdução destas notações ajuda a distinguir o produto tensorial puro da anti simetrização:  \(e_{(s)}^{*}\) indica o \textbf{produto tensorial}, enquanto \(e_{[J]}^{*}\) indica a \textbf{forma alternada}. Esta distinção eixa explícita a passagem entre cálculo concreto de produtos tensoriais e determinantes de submatrizes.
+\end{tcolorbox}
+
+\end{document}
