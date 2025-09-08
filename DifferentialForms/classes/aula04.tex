@@ -3,9 +3,7 @@
 \section{Aula 04 - 29 de Agosto, 2025}
 \subsection{Motivações}
 \begin{itemize}
-	\item Propriedades de Formas e Aplicações Multilineares;
-	\item Aplicações Alternadas;
-	\item Álgebra Exterior.
+	\item Propriedades de Formas e Aplicações Multilineares.
 \end{itemize}
 \subsection{Propriedades de Formas e Aplicações Multilineares}
 A partir deste ponto, vamos nos restringir ao estudo de aplicações r-lineares da forma \(f:E\times \dotsc \times E\rightarrow F\), com todas as variáveis pertencentes a um mesmo espaço E. As generalizações para os outros casos são imediatas.
@@ -107,115 +105,4 @@ A partir deste ponto, vamos nos restringir ao estudo de aplicações r-lineares 
 	\]
 	e, pela proposição provada, \(f=g\). Portanto, f é a combinação linear das aplicações \(f_{k}^{(s)}.\) \qedsymbol
 \end{proof*}
-\subsection{Álgebra Exterior}
-O estudo de aplicações multilineares constitui um pilar muito importante no estudo de estruturas algébricas e geométricas nos espaços vetoriais, e um dos conceitos que surgem naturalmente ao estudá-las é o de \textit{alternância}, desempenhando papel central na construção da álgebra exterior e na definição de formas diferenciais. Essencialmente, a ideia é entender o que ocorre com uma aplicação r-linear quando os índices dos vetores nos quais ela está sendo aplicada são alternados de posição. Formalmente,
-\begin{def*}
-	Sejam E e F espaços vetoriais. Uma aplicação r-linear \(f:E\times \dotsc \times E\rightarrow F\) é dita \textbf{alternada} se ela é anulada sempre que dois de seus argumentos são iguais, \textit{i.e.}, para quaisquer \(v_1,\dotsc v_r, v\) em E,
-	\[
-		f(v_1,\dotsc , v_{i-1}, \underbrace{v}_{\mathclap{\text{i-ésima}}}, v_{i+1},\dotsc , v_{j-1}, \underbrace{v}_{\mathclap{\text{j-ésima}}}, v_{j+1},\dotsc , v_{r})=0, \quad i\neq j. \; \square
-	\]
-\end{def*}
-Uma caracterização mais parecida à dada de intuição pode ser vista pela
-\begin{prop*}
-	Uma aplicação r-linear f é alternada se, e somente se, para quaisquer vetores \(v_1,\dotsc , v_{r}\) em E e quaisquer índices \(i<j\), tem-se
-	\[
-		f(v_1,\dotsc ,v_{i},\dotsc ,v_{j},\dotsc ,v_r)=-f(v_1,\dotsc ,v_{j},\dotsc ,v_{i},\dotsc ,v_r).
-	\]
-\end{prop*}
-\begin{proof*}
-	Suponha, primeiramente, que f é alternada e considere
-	\[
-		\varphi (u, v)=f(v_1,\dotsc , u,\dotsc ,v,\dotsc v_r).
-	\]
-	Pela alternância, segue que
-	\[
-		0=\varphi (u+v, u+v) = \varphi(u, u)+\varphi (u, v)+\varphi (v, u)+\varphi (v, v)
-	\]
-	e, como \(\varphi (u, u)=\varphi (v, v)=0\), temos
-	\[
-		\varphi (u,v) = -\varphi (v, u),
-	\]
-	ou seja, f é anti simétrica e a igualdade acima pode ser explicitamente escrita como
-	\[
-		f(v_1,\dotsc , u,\dotsc ,v,\dotsc v_r) = -f(v_1,\dotsc , v,\dotsc ,u,\dotsc v_r).
-	\]
-
-	Por outro lado, se f é anti simétrica, então
-	\[
-		\varphi (v, v)=-\varphi (v, v) \Rightarrow 2\varphi (v, v)=0.
-	\]
-	Logo,
-	\[
-		\varphi (v, v)=f(v_1,\dotsc , v,\dotsc ,v,\dotsc v_r) = 0
-	\]
-	e, portanto, f é alternada. \qedsymbol
-\end{proof*}
-\begin{def*}
-	Dizemos que
-	\[
-		\mathcal{A}^{r}(E; F)=\{f\in \mathcal{L}^{r}(E; F):\; f \text{ é alternada}\}
-	\]
-	é o \textbf{espaço das aplicações r-lineares alternadas}, também chamado de \textbf{álgebra exterior.} \(\square\)
-\end{def*}
-\begin{example}
-	Para \(r=1\), toda aplicação \(f:E\rightarrow F\) é alternada. Assim,
-	\[
-		\mathcal{A}^{1}(E; F)=\mathcal{L}(E; F).
-	\]
-\end{example}
-\begin{example}
-	Se \(f:\mathbb{R}\times \dotsc \times \mathbb{R}\rightarrow F\) é r-linear, então
-	\[
-		f(t_1,\dotsc , t_r)=t_1 \dotsc t_r \cdot v,\quad v=f(1,\dotsc ,1).
-	\]
-	Para r maior que 1, a f só é alternada se \(v=0\), que equivale a dizer que f é a aplicação nula. Portanto,
-	\[
-		\mathcal{A}^{r}(\mathbb{R}; F)=0,\quad r>1.
-	\]
-\end{example}
-\begin{example}
-	A aplicação bilinear
-	\[
-		f(u, v)=u_1v_2-u_2v_1,\quad u=(u_1,u_2),\; v=(v_1, v_2),
-	\]
-	é alternada em \(\mathbb{R}^{2}.\) Com efeito, note que
-	\[
-		f(u, v)=u_1v_2-u_2v_1 = -(u_2v_1 - u_1v_2) = - f(v, u),
-	\]
-	e já vimos que isto equivale à alternância.
-\end{example}
-\begin{example}
-	O produto vetorial em \(\mathbb{R}^{3}\), dado por
-	\[
-		f(u, v)=u \times v,\quad u, v\in \mathbb{R}^{3},
-	\]
-	é um exemplo de aplicação bilinear alternada, afinal
-	\[
-		f(u, u) = u \times u = 0, \quad u\in \mathbb{R}^{3}
-	\]
-	que e é exatamente a definição de aplicação alternada.
-\end{example}
-\begin{prop*}
-	Seja \(f:E^{r}\rightarrow F\) uma aplicação r-linear alternada. Se \(v_1,\dotsc ,v_r\) forem vetores linearmente dependentes de E, então
-	\[
-		f(v_1,\dotsc , v_r)=0.
-	\]
-\end{prop*}
-\begin{proof*}
-	Suponha que
-	\[
-		v_{i} = \sum\limits_{j<i}^{}\alpha_{j}v_{j}.
-	\]
-	Pela linearidade de f, junto à sua alternância,
-	\[
-		f(v_1,\dotsc ,v_r)=\sum\limits_{j<i}^{}\alpha_{j}f(v_1,\dotsc , v_{j},\dotsc , v_{j}, \dotsc , v_r)=0. \text{ \qedsymbol}
-	\]
-\end{proof*}
-\begin{crl*}
-	Se \(r>\mathrm{dim}(E)\), então
-	\[
-		\mathcal{A}^{r}(E; F)=\{0\}.
-	\]
-\end{crl*}
-
 \end{document}

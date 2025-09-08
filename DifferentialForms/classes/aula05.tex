@@ -3,10 +3,173 @@
 \section{Aula 05 - 08 de Setembro, 2025}
 \subsection{Motivações}
 \begin{itemize}
-	\item Operador de Anti-Simetrização;
-	\item Determinantes.
+	\item Álgebra Exterior;
+	\item Operador de Anti-Simetrização.
 \end{itemize}
-\subsection{Operador de Anti-Simetrização e Determinantes}
+\subsection{Álgebra Exterior}
+O estudo de aplicações multilineares constitui um pilar muito importante no estudo de estruturas algébricas e geométricas nos espaços vetoriais,
+e um dos conceitos que surgem naturalmente ao estudá-las é o de \textit{alternância}, desempenhando papel central na construção da álgebra
+exterior e na definição de formas diferenciais. Essencialmente, a ideia é entender o que ocorre com uma aplicação r-linear quando os índices
+dos vetores nos quais ela está sendo aplicada são alternados de posição. Formalmente,
+\begin{def*}
+	Uma aplicação r-linear \(f:E^{r}\rightarrow F\) é dita \textbf{alternada}, ou \textbf{anti-simétrica}, se para quaisquer permutações de dois argumentos, a aplicação muda de sinal; ou seja,
+	\begin{align*}
+		  & f(v_1, \dotsc , v_{i-1}, v_{i}, v_{i+1}, \dotsc , v_{j-1}, v_{j}, v_{j+1}, \dotsc , v_r) =          \\
+		= & -f(v_1,\dotsc , v_{i-1}, v_{j}, v_{i+1}, \dotsc , v_{j-1}, v_{i}, v_{j+1}, \dotsc , v_r).\; \square
+	\end{align*}
+\end{def*}
+\begin{def*}
+	Dizemos que
+	\[
+		\mathcal{A}^{r}(E; F)=\{f\in \mathcal{L}^{r}(E; F):\; f \text{ é alternada}\}
+	\]
+	é o \textbf{espaço das aplicações r-lineares alternadas}, também chamado de \textbf{álgebra exterior.} \(\square\)
+\end{def*}
+\begin{exr}
+	Mostre que \(\mathcal{A}^{r}(E; F) \subseteq \mathcal{L}^{r}(E; F)\) e, com as mesmas operações de \(\mathcal{L}^{r}(E; F)\), temos uma estrutura de espaço vetorial para \(\mathcal{A}^{r}(E; F).\)
+\end{exr}
+\begin{prop*}
+	Uma aplicação r-linear \(f:E^{r}\rightarrow F\) é atlernada se, e somente se, sempre que a lista de argumentos contiver vetores
+	\textit{repetidos}, a aplicação se anula, isto é,
+	\[
+		f(v_1, \dotsc , v_{i-1}, \underbrace{v}_{\mathclap{\text{i-ésima}}}, v_{i+1}, \dotsc , v_{j-1}, \underbrace{v}_{\mathclap{\text{j-ésima}}}, v_{j+1}, \dotsc , v_r) = 0
+	\]
+	para quaisquer vetores \(v, v_1, \dotsc , v_r\in E.\)
+\end{prop*}
+\begin{proof*}
+	A ideia nesta prova é que basta provarmos isso para formas bilineares e, conforme for aumentando a linearidade por entrada, podemos
+	apenas considerá-las dois a dois.
+	Suponha primeiramente, então, que f se anula quando tem valores iguais índices diferentes e considere
+	\[
+		\varphi (u, v)=f(v_1,\dotsc , u,\dotsc ,v,\dotsc v_r).
+	\]
+	Pela alternância, segue que
+	\[
+		0=\varphi (u+v, u+v) = \varphi(u, u)+\varphi (u, v)+\varphi (v, u)+\varphi (v, v)
+	\]
+	e, como \(\varphi (u, u)=\varphi (v, v)=0\), temos
+	\[
+		\varphi (u,v) = -\varphi (v, u),
+	\]
+	ou seja, f é alternada e a igualdade acima pode ser explicitamente escrita como
+	\[
+		f(v_1,\dotsc , u,\dotsc ,v,\dotsc v_r) = -f(v_1,\dotsc , v,\dotsc ,u,\dotsc v_r).
+	\]
+
+	Por outro lado, se f é alternada, então
+	\[
+		\varphi (v, v)=-\varphi (v, v) \Rightarrow 2\varphi (v, v)=0.
+	\]
+	Logo,
+	\[
+		\varphi (v, v)=f(v_1,\dotsc , v,\dotsc ,v,\dotsc v_r) = 0
+	\]
+	e, portanto, f se anula quando tem entradas iguais em índices diferentes. \qedsymbol
+\end{proof*}
+
+\begin{example}
+	Para \(r=1\), ou seja, \(f:E\rightarrow F\), toda transformação é alternada, pois não é possível violar a condição imposta para
+	a alternabilidade. Assim,
+	\[
+		\mathcal{A}^{1}(E; F)=\mathcal{L}(E; F).
+	\]
+\end{example}
+Para melhorar nosso entendimento, vamos olhar alguns exemplos e observar detalhes deles a fim de encontrar um padrão que contribua
+para nossa compreensão sobre o assunto.
+
+\begin{example}
+	Se \(f:\mathbb{R}\times \dotsc \times \mathbb{R}\rightarrow F\) é r-linear, então
+	\[
+		f(t_1,\dotsc , t_r)=t_1 \dotsc t_r \cdot v,\quad v=f(1,\dotsc ,1).
+	\]
+	Para r maior que 1, a f só é alternada se \(v=0\), que equivale a dizer que f é a aplicação nula. Portanto,
+	\[
+		\mathcal{A}^{r}(\mathbb{R}; F)=0,\quad r>1.
+	\]
+\end{example}
+\begin{example}
+	Vamos considerar \(f\in \mathcal{L}^{r}(\mathbb{R}; \mathbb{R})\) e observe que
+	\[
+		\mathrm{dim}(\mathcal{L}^{r}(\mathbb{R}; \mathbb{R})) = 1^{r}1 = 1.
+	\]
+	Vimos que
+	\[
+		f_{(s)}^{1} = \left\{\begin{array}{ll}
+			1, & \quad (s) = (i_1,\dotsc , i_r)    \\
+			0, & \quad (s) \neq (i_1,\dotsc , i_r)
+		\end{array}\right.
+	\]
+	é um elemento gerador de \(\mathcal{L}^{r}(\mathbb{R}; \mathbb{R})\). A grosso modo, o que um funcional linear permite que façamos é
+	escolher uma variável a menos de uma multiplicação por um número; então, se tivemos uma quantidade enorme de variáveis, ele escolhe
+	uma variável, mas ele faz o mesmo com apenas uma.
+
+	Em outras palavras, se temos apenas um número (espaço de dimensão 1), o funcional irá ler este número, permitindo ver o mesmo elemento
+	de duas formas diferentes -- uma por ele mesmo, e outra pelo funcional linear que o ``escolhe''.
+
+	Como a dimensão aqui do exemplo é 1, a variedade de funcionais que aparece para nós aqui é \(f\in \mathbb{R}^{*},\; f:\mathbb{R}\rightarrow \mathbb{R}\), que pode
+	ser apenas do tipo multiplicação por escalar \(x\mapsto \alpha x\). Consequentemente, este espaço é apenas uma dilatação dos vetores, com
+	a única diferença entre os elementos sendo qual o fator de dilatação (qual \(\alpha \) está multiplicando o x).
+
+	Assim, apesar de termos	infinitos membros que fazem \(f(x) = \alpha x\), eles todos compõem um único tipo, tal que, na hora de fazer a conta,
+	estaremos fazendo o produto tensorial de um monte de escalar diferente sendo multiplicado -- r cópias tornam-se um produto
+	de r funcionais do tipo \(\alpha x\) -- que, no fim, continua sendo só um escalar (formado por todos os outros) multiplicando o produto
+	das variáveis de cada cópia: se denotarmos por \(f_{i}(t_{i}) = \alpha_{i}t_{i},\; 1\leq i\leq r\), então
+	\[
+		f_1(t_1)\otimes \dotsc \otimes f_r(t_r) = at_1 \dotsc t_r, \quad a =\alpha_1 \dotsc \alpha_r,
+	\]
+	que é um gerador do espaço unidimensional \(\mathcal{L}^{r}(\mathbb{R}; \mathbb{R})\). Consequentemente, dada f uma aplicação r-linear, podemos escrever
+	\[
+		f(t_1, \dotsc , t_r) = \alpha f_{(s)}^{1}(t_1, \dotsc , t_r) = \alpha t_1, \dotsc , t_r, \quad \alpha \in \mathbb{R}.
+	\]
+\end{example}
+\begin{example}
+	A aplicação bilinear
+	\[
+		f(u, v)=u_1v_2-u_2v_1,\quad u=(u_1,u_2),\; v=(v_1, v_2),
+	\]
+	é alternada em \(\mathbb{R}^{2}.\) Com efeito, note que
+	\[
+		f(u, v)=u_1v_2-u_2v_1 = -(u_2v_1 - u_1v_2) = - f(v, u),
+	\]
+	e já vimos que isto equivale à alternância.
+\end{example}
+\begin{example}
+	O produto vetorial em \(\mathbb{R}^{3}\), dado por
+	\[
+		f(u, v)=u \times v,\quad u, v\in \mathbb{R}^{3},
+	\]
+	é um exemplo de aplicação bilinear alternada, afinal
+	\[
+		f(u, u) = u \times u = 0, \quad u\in \mathbb{R}^{3}
+	\]
+	que e é exatamente a definição de aplicação alternada.
+\end{example}
+\begin{prop*}
+	Seja \(f:E^{r}\rightarrow F\) uma aplicação r-linear alternada. Se \(v_1,\dotsc ,v_r\) forem vetores linearmente dependentes de E, então
+	\[
+		f(v_1,\dotsc , v_r)=0.
+	\]
+\end{prop*}
+\begin{proof*}
+	Suponha que
+	\[
+		v_{i} = \sum\limits_{j<i}^{}\alpha_{j}v_{j}.
+	\]
+	Pela linearidade de f, junto à sua alternância,
+	\[
+		f(v_1,\dotsc ,v_r)=\sum\limits_{j<i}^{}\alpha_{j}f(v_1,\dotsc , v_{j},\dotsc , v_{j}, \dotsc , v_r)=0. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	Se \(r>\mathrm{dim}(E)\), então
+	\[
+		\mathcal{A}^{r}(E; F)=\{0\}.
+	\]
+\end{crl*}
+
+\subsection{Operador de Anti-Simetrização}
+Já na definição de alternância que vimos, a ideia de permutação aparece; assim, é possível introduzirmos ainda outra definição de
+uma transformação r-linear alternada com base nas permutações e seus sinais!
 \begin{def*}
 	Uma permutação \(\sigma \in S_r\) \textbf{atua em f \(L^{r}(E; F)\)} definindo
 	\[
@@ -14,7 +177,7 @@
 	\]
 	Diremos que f é \textbf{alternada} se
 	\[
-		f(v_{\sigma (1),\dotsc , f_{\sigma (r)}})= \mathrm{sgn}(\sigma )f(v_1,\dotsc ,v_r),
+		f(v_{\sigma (1)},\dotsc , v_{\sigma (r)})= \mathrm{sgn}(\sigma )f(v_1,\dotsc ,v_r),
 	\]
 	onde \(\mathrm{sgn}(\sigma )\) é o sinal da permutação. \(\square\)
 \end{def*}
@@ -61,124 +224,4 @@
 		\mathrm{dim}(A^{r}(E; F))=\binom{m}{r}n.
 	\]
 \end{prop*}
-\subsection{Determinantes}
-Começaremos este tópico apresentando uma definição intrínseca dos determinantes pela perspectiva de um escalar único para cada transformação \(T:E\rightarrow E\) que satisfaz uma propriedade específica. Antes dela, porém, vale mencionar que denotaremos o \textbf{espaço das formas m-lineares alternadas}, ou seja, o dual de \(A^{m}(E; F)\), por \(\Lambda^{m}(E; \mathbb{R})\).
-\begin{def*}
-	Seja \(T:E\rightarrow E\) um endomorfismo. O \textbf{determinante de T} é o \textit{único} escalar \(\det{T}\in \mathbb{R}\) tal que, para toda forma m-linear alternada \(f\in \Lambda^{m}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_{m}\in E\),
-	\[
-		f(Tv_1,\dotsc , Tv_{m}) = \det{(T)} f(v_1,\dotsc ,v_{m}). \quad \square
-	\]
-\end{def*}
-\begin{prop*}
-	Uma aplicação linear \(T:E\rightarrow F\) induz, para cada r positivo, uma aplicação linear
-	\[
-		T^{\#}: \Lambda^{r}(E; \mathbb{R})\rightarrow \Lambda^{r}(E; \mathbb{R})
-	\]
-	definida como
-	\[
-		(T^{\#}f)(v_1,\dotsc ,v_r)= f(Tv_1,\dotsc ,TV_r),\quad \forall f\in \Lambda ^{r}(F; \mathbb{R})\;\&\; v_1,\dotsc ,v_r\in E.
-	\]
-\end{prop*}
-\begin{proof*}
-	O fato de \(T^{\#}f\) ser uma forma m-linear alternada é imediato, assim como a linearidade de \(T^{\#}.\) Além disso, se T corresponde à identidade de E, então \(T^{\#}=\mathrm{id}.\) e, se \(S:E\rightarrow F\) e \(T:F\rightarrow G\) são lineares, então
-	\[
-		(T \circ S)^{\#}=S^{\#}\circ T^{\#}.\text{ \qedsymbol}
-	\]
-\end{proof*}
-\begin{crl*}
-	Se \(S:E\rightarrow F\) for um isomorfismo, então \(S^{\#}\) também o é, com inversa dada por \((S^{\#})^{-1}=(S^{-1})^{\#}\).
-\end{crl*}
-\begin{prop*}
-	Seja \(T:E\rightarrow E\) um endomorfismo com \(\mathrm{dim}(E)=m\). Então, o determinante satisfaz:
-	\begin{itemize}
-		\item[i)] O determinante da identidade é a unidade: \(\det{(\mathrm{id})}=1\);
-		\item[ii)] O determinante da composição é o produto dos determinantes: para todo \(S:E\rightarrow E\),
-		      \[
-			      \det{(S\circ T)}=\det{(S)}\det{(T)}; \text{ e}
-		      \]
-		\item[iii)] T é invertível se, e somente se, \(\det{(T)})\neq 0\).
-	\end{itemize}
-\end{prop*}
-\begin{proof*}
-	(i) A primeira propriedade é automática;
-
-	(ii) Para a segunda, usaremos
-	\[
-		(S\circ T)^{\#} = T^{\#}\circ S^{\#},
-	\]
-	tal que, para toda \(f\in \Lambda^{r}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_r\in E\)
-	\begin{align*}
-		 & \circ \quad (S\circ T)^{\#}(f)(v_1,\dotsc ,v_r)=f((S\circ O)v_1,\dotsc ,(S\circ T)v_r) = \det{(S\circ T)}f(v_1,\dotsc ,v_r)                                     \\
-		 & \circ \quad  (S\circ T)^{\#}(f)(v_1,\dotsc ,v_r) = (T^{\#}\circ S^{\#})(f)(v_1,\dotsc ,v_r) = T^{\#}(f(Sv_1,\dotsc , Sv_r)) = T^{\#}(\det{S}f(v_1,\dotsc ,v_r)) \\
-		 & \quad \quad = \det{(S)} T^{\#}(f(v_1,\dotsc ,v_r)) = \det{(S)}f(Tv_1,\dotsc ,Tv_r) = \det{(S)}\det{(T)}f(v_1,\dotsc ,v_r).
-	\end{align*}
-	Assim, comparando as duas últimas igualdades, segue que, para toda \(f\in \Lambda^{r}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_r\in E\),
-	\[
-		\det{(S)}\det{(T)}f(v_1,\dotsc ,v_r) = \det{(S\circ T)}f(v_1,\dotsc ,v_r) \Rightarrow \det{(S)}\det{(T)}=\det{(S\circ T)}.
-	\]
-
-	(iii) Finalmente, por um lado, se T é invertível, então
-	\[
-		1=\det{(T\circ T^{-1})} = \det{(T)}\det{(T^{-1})},
-	\]
-	donde segue que \(\det{(T)}\neq 0\); por outro, se \(\det{(T)}\neq 0\), significa que as imagens \(Te_1,\dotsc , Te_{m}\) de uma base formam outra base e, portanto, T é um isomorfismo. \qedsymbol
-\end{proof*}
-
-Para a definição por matrizes, que é a usualmente conhecida para o determinante, faremos uso dos resultados que obtivemos para ele como escalar para chegar no que já sabemos. Para isso,
-\begin{def*}
-	Seja \(\alpha \in \mathbb{M}_{m\times m}(\mathbb{R})\) uma matriz. Definimos o \textbf{determinante da matriz \(\alpha \)} como
-	\begin{align*}
-		\mathrm{det}: & \mathbb{M}_{m\times m}(\mathbb{R})\rightarrow \mathbb{R}             \\
-		              & \alpha \longmapsto \det{(\alpha )}\coloneqq \det{(\tilde{\alpha })},
-	\end{align*}
-	onde \(\tilde{\alpha }:\mathbb{R}^{m}\rightarrow \mathbb{R}^{m}\) é o endomorfismo dado por
-	\[
-		\tilde{\alpha }(e_{j}) =0\sum\limits_{i=1}^{m}\alpha_{ij}e_{i},
-	\]
-	sendo \((e_1, \dotsc , e_{m})\) a base canônica. \(\square\)
-\end{def*}
-\begin{prop*}
-	O determinante é a única forma m-linear alternada dos vetores-coluna de uma matriz que vale 1 na identidade.
-\end{prop*}
-
-\begin{proof*}
-	Seja \(f_{0}\in \Lambda^{m}(\mathbb{R^{m}}; \mathbb{R})\) tal que \(f_{0}(e_1,\dotsc , e_{m})=1\). Se \(\alpha =(\alpha_1,\dotsc , \alpha_{m})\) são as colunas, então
-	\[
-		\det{(\alpha )} = f_{0}(\alpha_1,\dotsc , \alpha_{m}).
-	\]
-	Portanto, \(\mathrm{det}\) é m-linear, alternada e, por unicidade de \(f_{0}\), única. \qedsymbol
-\end{proof*}
-
-\begin{def*}
-	Sejam \(S\in \mathcal{L}(E)\) e \(T\in \mathcal{L}(F)\). Dizemos que S e T são \textbf{conjugadas} se existe um isomorfismo \(\varphi :E\rightarrow F\) tal que
-	\[
-		T= \varphi \circ S\circ \varphi^{-1}. \quad \square
-	\]
-\end{def*}
-\begin{lemma*}
-	Se S e T são conjugados, então \(\det{(S)} = \det{(T)}\).
-\end{lemma*}
-\begin{proof*}
-	Utilizando o fato de que \(T^{\#}= (\varphi^{\#})^{-1}\circ S^{\#}\circ \varphi^{\#}\), obtemos
-	\[
-		T^{\#}f = \det{(S)}f,\quad \forall f\in \Lambda^{m}(F; \mathbb{R}).
-	\]
-	Portanto, por unicidade,
-	\[
-		\det{(T)}=\det{(S)}.\text{ \qedsymbol}
-	\]
-\end{proof*}
-Para amarrar tudo bonitinho, vamos mostrar que os dois determinantes que vimos de fato coincidem, a menos da correspondência natural entre matrizes e transformações lineares:
-\begin{prop*}
-	Seja \(A:E\rightarrow E\) um endomorfismo. Para qualquer matriz \(\alpha \) que representa A em uma base de E, vale
-	\[
-		\det{(A)} = \det{(\alpha )}.
-	\]
-\end{prop*}
-\begin{crl*}
-	Se \(\mathrm{dim}(E)=m\), f é uma forma m-linear alternada, \(\alpha \) é uma matriz m por m e \(\mathcal{E}=(e_1,\dotsc , e_{m})\) é uma base alternada de E, então
-	\[
-		f\biggl(\sum\limits_{i=1}^{m}\alpha_{1i}e_{i}, \dotsc , \sum\limits_{i=1}^{m}\alpha_{mi}e_{i}\biggr) = \det{(\alpha )}f(e_1,\dotsc , e_{m}).
-	\]
-\end{crl*}
 \end{document}

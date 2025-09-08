@@ -3,10 +3,130 @@
 \section{Aula 06 - 10 de Setembro, 2025}
 \subsection{Motivações}
 \begin{itemize}
-	\item Determinantes de Vetores;
-	\item Subvetores.
+	\item Determinantes Intrínsecos, por Matrizes e de Vetores;
+	\item Submatrizes.
 \end{itemize}
-\subsection{Determinantes: continuação}
+\subsection{Determinantes}
+Começaremos este tópico apresentando uma definição intrínseca dos determinantes pela perspectiva de um escalar único para cada transformação \(T:E\rightarrow E\) que satisfaz uma propriedade específica. Antes dela, porém, vale mencionar que denotaremos o \textbf{espaço das formas m-lineares alternadas}, ou seja, o dual de \(A^{m}(E; F)\), por \(\Lambda^{m}(E; \mathbb{R})\).
+\begin{def*}
+	Seja \(T:E\rightarrow E\) um endomorfismo. O \textbf{determinante de T} é o \textit{único} escalar \(\det{T}\in \mathbb{R}\) tal que, para toda forma m-linear alternada \(f\in \Lambda^{m}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_{m}\in E\),
+	\[
+		f(Tv_1,\dotsc , Tv_{m}) = \det{(T)} f(v_1,\dotsc ,v_{m}). \quad \square
+	\]
+\end{def*}
+\begin{prop*}
+	Uma aplicação linear \(T:E\rightarrow F\) induz, para cada r positivo, uma aplicação linear
+	\[
+		T^{\#}: \Lambda^{r}(E; \mathbb{R})\rightarrow \Lambda^{r}(E; \mathbb{R})
+	\]
+	definida como
+	\[
+		(T^{\#}f)(v_1,\dotsc ,v_r)= f(Tv_1,\dotsc ,TV_r),\quad \forall f\in \Lambda ^{r}(F; \mathbb{R})\;\&\; v_1,\dotsc ,v_r\in E.
+	\]
+\end{prop*}
+\begin{proof*}
+	O fato de \(T^{\#}f\) ser uma forma m-linear alternada é imediato, assim como a linearidade de \(T^{\#}.\) Além disso, se T corresponde à identidade de E, então \(T^{\#}=\mathrm{id}.\) e, se \(S:E\rightarrow F\) e \(T:F\rightarrow G\) são lineares, então
+	\[
+		(T \circ S)^{\#}=S^{\#}\circ T^{\#}.\text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	Se \(S:E\rightarrow F\) for um isomorfismo, então \(S^{\#}\) também o é, com inversa dada por \((S^{\#})^{-1}=(S^{-1})^{\#}\).
+\end{crl*}
+\begin{prop*}
+	Seja \(T:E\rightarrow E\) um endomorfismo com \(\mathrm{dim}(E)=m\). Então, o determinante satisfaz:
+	\begin{itemize}
+		\item[i)] O determinante da identidade é a unidade: \(\det{(\mathrm{id})}=1\);
+		\item[ii)] O determinante da composição é o produto dos determinantes: para todo \(S:E\rightarrow E\),
+		      \[
+			      \det{(S\circ T)}=\det{(S)}\det{(T)}; \text{ e}
+		      \]
+		\item[iii)] T é invertível se, e somente se, \(\det{(T)})\neq 0\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	(i) A primeira propriedade é automática;
+
+	(ii) Para a segunda, usaremos
+	\[
+		(S\circ T)^{\#} = T^{\#}\circ S^{\#},
+	\]
+	tal que, para toda \(f\in \Lambda^{r}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_r\in E\)
+	\begin{align*}
+		 & \circ \quad (S\circ T)^{\#}(f)(v_1,\dotsc ,v_r)=f((S\circ O)v_1,\dotsc ,(S\circ T)v_r) = \det{(S\circ T)}f(v_1,\dotsc ,v_r)                                     \\
+		 & \circ \quad  (S\circ T)^{\#}(f)(v_1,\dotsc ,v_r) = (T^{\#}\circ S^{\#})(f)(v_1,\dotsc ,v_r) = T^{\#}(f(Sv_1,\dotsc , Sv_r)) = T^{\#}(\det{S}f(v_1,\dotsc ,v_r)) \\
+		 & \quad \quad = \det{(S)} T^{\#}(f(v_1,\dotsc ,v_r)) = \det{(S)}f(Tv_1,\dotsc ,Tv_r) = \det{(S)}\det{(T)}f(v_1,\dotsc ,v_r).
+	\end{align*}
+	Assim, comparando as duas últimas igualdades, segue que, para toda \(f\in \Lambda^{r}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_r\in E\),
+	\[
+		\det{(S)}\det{(T)}f(v_1,\dotsc ,v_r) = \det{(S\circ T)}f(v_1,\dotsc ,v_r) \Rightarrow \det{(S)}\det{(T)}=\det{(S\circ T)}.
+	\]
+
+	(iii) Finalmente, por um lado, se T é invertível, então
+	\[
+		1=\det{(T\circ T^{-1})} = \det{(T)}\det{(T^{-1})},
+	\]
+	donde segue que \(\det{(T)}\neq 0\); por outro, se \(\det{(T)}\neq 0\), significa que as imagens \(Te_1,\dotsc , Te_{m}\) de uma base formam outra base e, portanto, T é um isomorfismo. \qedsymbol
+\end{proof*}
+
+Para a definição por matrizes, que é a usualmente conhecida para o determinante, faremos uso dos resultados que obtivemos para ele como escalar para chegar no que já sabemos. Para isso,
+\begin{def*}
+	Seja \(\alpha \in \mathbb{M}_{m\times m}(\mathbb{R})\) uma matriz. Definimos o \textbf{determinante da matriz \(\alpha \)} como
+	\begin{align*}
+		\mathrm{det}: & \mathbb{M}_{m\times m}(\mathbb{R})\rightarrow \mathbb{R}             \\
+		              & \alpha \longmapsto \det{(\alpha )}\coloneqq \det{(\tilde{\alpha })},
+	\end{align*}
+	onde \(\tilde{\alpha }:\mathbb{R}^{m}\rightarrow \mathbb{R}^{m}\) é o endomorfismo dado por
+	\[
+		\tilde{\alpha }(e_{j}) =0\sum\limits_{i=1}^{m}\alpha_{ij}e_{i},
+	\]
+	sendo \((e_1, \dotsc , e_{m})\) a base canônica. \(\square\)
+\end{def*}
+\begin{prop*}
+	O determinante é a única forma m-linear alternada dos vetores-coluna de uma matriz que vale 1 na identidade.
+\end{prop*}
+
+\begin{proof*}
+	Seja \(f_{0}\in \Lambda^{m}(\mathbb{R^{m}}; \mathbb{R})\) tal que \(f_{0}(e_1,\dotsc , e_{m})=1\). Se \(\alpha =(\alpha_1,\dotsc , \alpha_{m})\) são as colunas, então
+	\[
+		\det{(\alpha )} = f_{0}(\alpha_1,\dotsc , \alpha_{m}).
+	\]
+	Portanto, \(\mathrm{det}\) é m-linear, alternada e, por unicidade de \(f_{0}\), única. \qedsymbol
+\end{proof*}
+
+\begin{def*}
+	Sejam \(S\in \mathcal{L}(E)\) e \(T\in \mathcal{L}(F)\). Dizemos que S e T são \textbf{conjugadas} se existe um isomorfismo \(\varphi :E\rightarrow F\) tal que
+	\[
+		T= \varphi \circ S\circ \varphi^{-1}. \quad \square
+	\]
+\end{def*}
+\begin{lemma*}
+	Se S e T são conjugados, então \(\det{(S)} = \det{(T)}\).
+\end{lemma*}
+\begin{proof*}
+	Utilizando o fato de que \(T^{\#}= (\varphi^{\#})^{-1}\circ S^{\#}\circ \varphi^{\#}\), obtemos
+	\[
+		T^{\#}f = \det{(S)}f,\quad \forall f\in \Lambda^{m}(F; \mathbb{R}).
+	\]
+	Portanto, por unicidade,
+	\[
+		\det{(T)}=\det{(S)}.\text{ \qedsymbol}
+	\]
+\end{proof*}
+Para amarrar tudo bonitinho, vamos mostrar que os dois determinantes que vimos de fato coincidem, a menos da correspondência natural entre matrizes e transformações lineares:
+\begin{prop*}
+	Seja \(A:E\rightarrow E\) um endomorfismo. Para qualquer matriz \(\alpha \) que representa A em uma base de E, vale
+	\[
+		\det{(A)} = \det{(\alpha )}.
+	\]
+\end{prop*}
+\begin{crl*}
+	Se \(\mathrm{dim}(E)=m\), f é uma forma m-linear alternada, \(\alpha \) é uma matriz m por m e \(\mathcal{E}=(e_1,\dotsc , e_{m})\) é uma base alternada de E, então
+	\[
+		f\biggl(\sum\limits_{i=1}^{m}\alpha_{1i}e_{i}, \dotsc , \sum\limits_{i=1}^{m}\alpha_{mi}e_{i}\biggr) = \det{(\alpha )}f(e_1,\dotsc , e_{m}).
+	\]
+\end{crl*}
+
 Até o momento, definimos o determinante de duas formas diferentes, que coincidem:
 \begin{itemize}
 	\item como um escalar associado a um endomorfismo linear;
