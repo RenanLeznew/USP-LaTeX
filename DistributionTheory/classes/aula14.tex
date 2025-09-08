@@ -1,0 +1,171 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 11 de Outubro, 2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Convergência e Continuidade de Operadores entre Espaços de Distribuições.
+\end{itemize}
+\subsection{Convergência e Continuidade de Operadores entre Espaços de Distribuições.}
+Em nossas aulas iniciais, fizemos uma introdução ao estudo dos Espaços Vetoriais Topológicos (TVS's) e aprendemos que, dado um TVS E, o seu dual topológico \(E'=\{u:E\rightarrow \mathbb{C}:\; u \text{ é linear e contínuo}\}\), a menos que se diga o contrário, é tomado também como TVS munido da topologia gerada pelas seminormas
+\[
+	\{p_x\}_{x\in E}:\; p_x(u) = | \langle u, x \rangle |.
+\]
+Em particular, sua topologia, chama fraca-*, é localmente convexa, e dizemos que uma sequência \(\{u_{n}\}_{n}\) de funcionais em \(E'\) converge fraco-* para \(u\in E'\) se, e somente se,
+\[
+	\langle u_{n}, x \rangle\substack{\mathbb{C} \\ \longrightarrow \\ n\to \infty}\langle u, x \rangle, \quad \forall x\in E,
+\]
+pois isto equivale a dizer que, para todo x em E,
+\[
+	p_x(u_{n}-u)\substack{ \\ \longrightarrow \\ n\to \infty}0
+\]
+de acordo com a maneira de uma sequência convergir numa topologia dada por seminormas.
+
+De fato, o próprio espaço das distribuições em \(\Omega \), \(\mathcal{D}'(\Omega )\), fora concebido deste modo: munimos \(\mathcal{C}_{c}^{\infty}(\Omega )\) da topologia do limite indutivo e colocamos \(\mathcal{D}'(\Omega ) \coloneqq [\mathcal{C}_{c}^{\infty}(\Omega )]'\), o qual está, como espaço topológico, munido da topologia gerada pelas seminormas
+\[
+	p_\varphi (u) = | \langle u, \varphi  \rangle |,\; \varphi \in \mathcal{C}_{c}^{\infty}(\Omega ),\; u\in \mathcal{D}'(\Omega ).
+\]
+Deste modo, uma sequência de distribuições \(u_{j}\in \mathcal{D}'(\Omega )\) converge fraco-* para uma distribuição \(u\in \mathcal{D}'(\Omega )\) se, e somente se, para toda função teste \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\),
+\[
+	\langle u_{n}, \varphi  \rangle \substack{ \\ \longrightarrow \\ n\to \infty} \langle u, \varphi  \rangle.
+\]
+Além disso, e em particular, a continuidade de aplicações lineares \(T:\mathcal{D}'(U)\rightarrow \mathcal{D}'(V)'\) diz respeito a/é medida em termo de essa topologia.
+
+A seguir, exemplificaremos algumas convergências e continuidade de operadores entre espaços de distribuições para nos familiarizarmos com o conceito, prestando devida atenção ao fato de que muitas sequências de funções que, originalmente, não convergiam em seus espaços originais, passam a convergir em \(\mathcal{D}'\), inclusive para limites que contrariam a intuição.
+
+\begin{example}[Convergência \(L_{\mathrm{loc}}^{1}\)]
+	Por definição, a convergência em \(L_{\mathrm{loc}}^{1}(\Omega )\) de uma sequência \(f_{j}\to f\) é equivalente a exigir, para todo compacto \(K\subseteq \Omega \), que
+	\[
+		\int_{K}^{}| f_{j}-f | \substack{ \\ \longrightarrow \\ j\to \infty}0,
+	\]
+	pois o espaço \(L_{\mathrm{loc}}^{1}(\Omega )\) é Fréchet segundo a sequência de seminormas
+	\[
+		q_{\ell}(f) = \int_{K_{\ell}}^{}| f |,
+	\]
+	qualquer que seja o esgotamento escolhido para \(\Omega .\)
+
+	Nosso objetivo aqui é que, se uma sequência de funções converge em \(L_{\mathrm{loc}}^{1},\) ela convergirá para a mesma função em \(\mathcal{D}'\), equivalendo precisamente a demonstrar a continuidade da aplicação
+	\begin{align*}
+		T: & L_{\mathrm{loc}}^{1}(\Omega )\rightarrow \mathcal{D}'(\Omega )                                           \\
+		   & f\longmapsto Tf:\mathcal{C}_{c}^{\infty}(\Omega )\rightarrow \mathbb{C}                                  \\
+		   & \quad \quad \varphi \mapsto \langle Tf, \varphi  \rangle = \int_{\Omega }^{}f(x)\varphi (x) \mathrm{dx}.
+	\end{align*}
+	Por se tratarem de TVS's com topologias das por seminormas, a continuidade de T se prova da seguinte forma: dada \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\), segue que se \(K_{\ell}\) é qualquer compacto contendo o suporte de \(\varphi \),
+	\begin{align*}
+		p_{\varphi }(Tf) = | \langle Tf, \varphi  \rangle | & \leq \int_{\Omega }^{}| f(x)\varphi (x) | \mathrm{dx}              \\
+		                                                    & = \int_{\mathrm{supp}(\varphi )}^{}| f(x)\varphi (x) | \mathrm{dx} \\
+		                                                    & \leq \Vert \varphi  \Vert_{\infty}m(\mathrm{supp}(\varphi ))       \\
+		                                                    & \leq \Vert \varphi  \Vert_{\infty} m(K_{\ell})q_{\ell}(f).
+	\end{align*}
+
+	Em suma, dado \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\), existem \(c\coloneqq \Vert \varphi \Vert_{\infty}m(K_{\ell}) > 0\), dependendo somente de \(\varphi \), pois \(\ell\) foi um natural escolhido em função do \(\mathrm{supp}(\varphi )\), e uma seminorma \(q_{\ell}\) no domínio de T tais que
+	\[
+		p_{\varphi }(Tf)\leq c q_{\ell}(f),\quad \forall f\in L_{\mathrm{loc}}^{1}(\Omega ).
+	\]
+\end{example}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A informação sobre convergência obtida pelo exemplo, junto às diversas inclusões contínuas que já conhecemos, como
+	\begin{align*}
+		 & \mathcal{C}_{c}^{\infty}(\Omega )\hookrightarrow \mathcal{C}^{\infty}(\Omega )\hookrightarrow \mathcal{C}^{m}(\Omega )\hookrightarrow \mathcal{C}(\Omega ) \hookrightarrow \mathcal{L}_{\mathrm{loc}}^{p}(\Omega ) \hookrightarrow L_{\mathrm{loc}}^{1}(\Omega )\substack{ T \\\hookrightarrow }\mathcal{D}'(\Omega )\\
+		 & W^{m, p}(\Omega )\hookrightarrow L^{p}(\Omega )\hookrightarrow L_{\mathrm{loc}}^{p}(\Omega )                                                                                                                                                                                 \\
+		 & \mathcal{C}_{c}^{m}(\Omega )\hookrightarrow L_{\mathrm{loc}}^{1}(\Omega )\;\&\; A(\Omega )\hookrightarrow \mathcal{C}(\Omega ).
+	\end{align*}
+	Quando \(\Omega  = \mathbb{R}^{n}\), podemos também incluir o trecho ``\(\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\hookrightarrow \mathcal{S}(\mathbb{R}^{n})\hookrightarrow \mathcal{C}^{\infty}(\mathbb{R}^{n})\)'', logo entre \(\mathcal{C}_{c}^{\infty}(\Omega )\) e \(\mathcal{C}^{\infty}(\Omega )\). Estas inclusões permitem que \textit{\textbf{praticamente todas}} as convergências naturais dos espaços de funções mais comumente usados ocorra também em \(\mathcal{D}'(\Omega )\).
+
+	Por outra via, podemos também incluir convergências fracas-* de outros espaços E, tal que
+	\[
+		\mathcal{C}_{c}^{\infty}(\Omega )\hookrightarrow E \Rightarrow E'\hookrightarrow \mathcal{D}',
+	\]
+	por exemplo no caso
+	\[
+		\mathcal{C}_{c}^{\infty}(\Omega )\hookrightarrow L^{p}(\Omega ) \Rightarrow L^{p'}(\Omega ) = [L^{p}(\Omega )]'\hookrightarrow \mathcal{D}'(\Omega ).
+	\]
+\end{tcolorbox}
+\begin{example}[Continuidade da Extensão de uma Transformação que tem Transposto Formal]
+	Considere a extensão \(\overline{T}:\mathcal{D}'(U)\rightarrow \mathcal{D}'(V)\) de uma \(T:\mathcal{C}_{c}^{\infty}(U)\rightarrow \mathcal{C}_{c}^{\infty}(V)\) que possui transposto formal \(T':\mathcal{C}_{c}^{\infty}(V)\rightarrow \mathcal{C}_{c}^{\infty}(U) \); dada \(\psi \in \mathcal{C}_{c}^{\infty}(V)\) como \(T'\psi \eqqcolon \varphi \in \mathcal{C}_{c}^{\infty}(U)\), chamando \(p_{\varphi }\) as seminormas de \(\mathcal{D}'(U)\) e de \(q_{\psi }\) as de \(\mathcal{D}'(V)\), segue que
+	\[
+		q_{\psi}(\overline{T}u) = | \langle \overline{T}u, \psi  \rangle | = | \langle u, T'\psi \rangle | = | \langle u, \varphi  \rangle | = p_{\varphi }(u),
+	\]
+	e a continuidade de \(\overline{T}\) segue disso.
+
+	Em particular, considere o subexemplo dos operadores diferenciais \(P(x, D):\mathcal{D}'(\Omega )\rightarrow \mathcal{D}'(\Omega ) \), que era impossível de ser provada por meio das normas; porém, em \(\mathcal{D}'(\Omega )\), basta destacar o caso
+	\[
+		P(x, D) = a(x) \frac{\partial^{}}{\partial x_{j}^{}}:\mathcal{D}'(\Omega )\rightarrow \mathcal{D}'(\Omega ),
+	\]
+	que se vê como uma composição de duas extensões de operadores nas condições do que mostramos acima, efetivamente provando a continuidade.
+\end{example}
+\begin{example}
+	Em \(\mathcal{D}'(\mathbb{R})\), seja \(u_{m}(x) = e^{-2\pi i nx}\), onde n é um natural; esta sequência de funções não converge nem pontualmente em seu conjunto original, apenas quando x é um inteiro k, caso no qual teremos
+	\[
+		u_{m}(k) = e^{-2\pi kni} = 1,\quad \forall n\in \mathbb{N},
+	\]
+	mantendo-se oscilatória nos outros x reais.
+
+	Porém, em \(\mathcal{D}'(\mathbb{R})\), segue imediatamente que
+	\[
+		u_{n}\to 0,
+	\]
+	pois \(u_{n} = U_{n}'\), onde
+	\[
+		U_{n}(x) = -\frac{e^{-2\pi ixn}}{2\pi in},\; \int_{I}^{}| U_{n}(x) | \mathrm{d}x = \frac{1}{2\pi n}\int_{I}^{}| e^{-2\pi inx} | \mathrm{dx} = \frac{1}{2\pi n}\ell (I).
+	\]
+	Consequentemente, \(U_{n}\) converge para 0 em \(L_{\mathrm{loc}}^{1}(\mathbb{R})\), logo também converge em \(\mathcal{D}'(\mathbb{R}).\) Finalmente, como
+	\[
+		\frac{\mathrm{d}}{\mathrm{d}x}: \mathcal{D}'(\mathbb{R})\rightarrow  \mathcal{D}'(\mathbb{R})
+	\]
+	é contínua, segue que
+	\[
+		u_{n} = \frac{\mathrm{d} U_{n}}{\mathrm{d}x}\substack{\mathcal{D}'(\mathbb{R}) \\ \longrightarrow \\ }\frac{\mathrm{d}0}{\mathrm{d}x} = 0.
+	\]
+\end{example}
+A situação acima ainda não é tão surpreendente, pois sabemos que \(\{u_{n}:n\in \mathbb{Z}\}\) definidas conforme acima definem uma \textit{base ortonormal} de
+\[
+	L^{2}(\mathbb{T}) = L(\mathbb{S}^{1}) = L^{2}(0, 1),
+\]
+e que toda base ortonormal de um espaço de Hilbert separável H converge fraco, equivalentemente fraco-* pela identificação entre H e H', por causa da \textit{identidade de Parseval}: com efeito, se \(\{e_{n}:n\in \mathbb{N}\}\) é uma tal base, dado x em H, teremos
+\[
+	\sum\limits_{n=1}^{\infty}| (x, e_{n})_{H} |^{2} = | x |_{H}^{2} \Rightarrow \lim_{n\to \infty}| (x, e_{n}) |_{H}^{2} = 0 \Rightarrow (e_{n}, x)_H\substack{ \\ \longrightarrow \\ n\to \infty}0,
+\]
+isto é, para todo \(\overline{x}\) em H',
+\[
+	\overline{x}(e_{n})\substack{ \\ \longrightarrow \\ n\to \infty}0.
+\]
+\begin{example}
+	Para uma exemplo mais surpreendente, mostremos que a série
+	\[
+		\sum\limits_{n=0}^{\infty}e^{inx}
+	\]
+	de funções converge em \(\mathcal{D}'(\mathbb{R})\). Note que o termo geral tem módulo 1, o que leva à conclusão de que a série diverge pontualmente para cada número real x.
+
+	No entanto, procedendo analogamente ao interior, a partir da convergência uniforme da série
+	\[
+		\sum\limits_{n=1}^{\infty}\frac{e^{inx}}{n^{2}}
+	\]
+	em toda a reta (pelo teste-M de Weierstrass), a sua convergência em \(L^{1}(\mathbb{R})\) é uma consequência disso, logo segue também a convergência em \(\mathcal{D}'(\mathbb{R})\). Por fim, como
+	\[
+		\sum\limits_{n=1}^{\infty}e^{inx} = \frac{\mathrm{d}^{2}}{\mathrm{d}x^{2}}\biggl(-\sum\limits_{n=1}^{\infty}\frac{e^{inx}}{n^{2}}\biggr)
+	\]
+	em \(\mathcal{D}'(\mathbb{R}),\) a afirmação segue.
+
+	Ainda mais impressionante que isso e consequência do resultado acima, é que a série
+	\[
+		\sum\limits_{}^{}n^{k}e^{inx}
+	\]
+	converge para todo \(k\in \mathbb{N}\), porque
+	\[
+		\sum\limits_{}^{}n^{k}e^{inx} = \sum\limits_{}^{}\frac{\mathrm{d}^{k}}{\mathrm{d}x^{k}}\biggl(\frac{e^{inx}}{i^{k}}\biggr) = \frac{\mathrm{d}^{k}}{\mathrm{d}x^{k}}\biggl(\sum\limits_{}^{}\frac{e^{inx}}{i^{k}}\biggr).
+	\]
+	É sempre possível derivar termo-a-termo em \(\mathcal{D}'(\Omega )\) uma série convergente, o que exigiria muito com as técnicas do cálculo, por exemplo a convergência uniforme de \(\sum\limits_{}^{}f_{n}'\).
+\end{example}
+
+\end{document}
