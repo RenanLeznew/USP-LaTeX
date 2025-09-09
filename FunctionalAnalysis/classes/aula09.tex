@@ -1,0 +1,209 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 09 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Conjuntos Ortonormais;
+	\item Bases de Hilbert;
+	\item Transformações Lineares Ilimitadas.
+\end{itemize}
+\subsection{Conjuntos Ortonormais e Bases de Hilbert}
+\begin{theorem*}
+	Se \(\{u_{\alpha }\}_{\alpha \in A}\) for um conjunto ortonormal em H, as seguintes afirmações são equivalentes:
+	\begin{itemize}
+		\item[a)] (Completamento): se \(\langle u, u_{\alpha } \rangle=0\) para todo \(\alpha \in A\), então \(u=0\);
+		\item[b)] \hypertarget{parseval_identity}{(Identidade de Parseval):} para todo u de H,
+		      \[
+			      \Vert u \Vert^{2}=\sum\limits_{\alpha \in A}^{}| \langle u, u_{\alpha } \rangle |^{2}.
+		      \]
+		\item[c)] Todo elemento u de H pode ser escrito como a soma de cada projeção dele sobre os elementos do conjunto ortonormal; isto é,
+		      \[
+			      u=\sum\limits_{\alpha \in A}^{} \langle u, u_{\alpha } \rangle u_{\alpha },
+		      \]
+		      onde a soma tem apenas um número enumerável de termos não nulos e converge independente da ordem dos termos.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	\(a \Rightarrow c):\) se x pertence a H, seja \(\alpha_1,\alpha_2,\dotsc \) uma enumeração qualquer dos \(\alpha \)'s para os quais \(\langle u, u_{\alpha } \rangle\neq 0\). Pela \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel,}} garantimos a convergência da série
+	\[
+		\sum\limits_{j=1}^{\infty}| \langle u, u_{\alpha_{j}} \rangle |^{2}
+	\]
+	e, pelo \hyperlink{pythagorean_theorem}{\textit{Teorema de Pitágoras}},
+	\[
+		\biggl\Vert \sum\limits_{j=m}^{n}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}} \biggr\Vert^{2}=\sum\limits_{j=m}^{n}| \langle u, u_{\alpha_{j}} \rangle |^{2} \substack{ \\ \longrightarrow \\ m,n\to \infty}0.
+	\]
+	Por H ser completo, a série \(\sum\limits_{j=0}^{\infty}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}}\) é convergente. Assim, se
+	\[
+		v= u - \sum\limits_{j=0}^{\infty}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}},
+	\]
+	temos \(\langle v, u_{\alpha } \rangle =0\) para todo \(\alpha \). Logo, pelo item (a), v deve ser nulo.
+
+	\(c \Rightarrow b):\) com a notação acima, assim como na prova da \hyperlink{bessel_inequality}{\textit{Desigualdade de Bessel}}, temos
+	\[
+		\Vert u \Vert^{2} -\sum\limits_{j=1}^{n}| \langle u, u_{\alpha_{j}} \rangle |^{2}=\biggl\Vert u - \sum\limits_{j=1}^{n}\langle u, u_{\alpha_{j}} \rangle u_{\alpha_{j}} \biggr\Vert^{2}\substack{ \\ \longrightarrow \\ n\to \infty}0.
+	\]
+
+	\(b \Rightarrow a):\) automático. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Um conjunto ortonormal tendo as propriedades do Teorema acima é chamado uma \textbf{base ortonormal de H}. \(\square\)
+\end{def*}
+
+Para cada \(\alpha \in A\), defina \(e_{\alpha }\in l^{2}(A)\) por:
+\[
+	e_{\alpha }(\alpha ) =1 \quad\&\quad e_{\alpha }(\beta )=0,\; \alpha \neq \beta .
+\]
+A família \(\{e_{\alpha }\}_{\alpha \in A}\) é ortonormal e, para qualquer \(f\in l^{2}(A)\), temos
+\[
+	\langle f, e_{\alpha } \rangle = f(\alpha ),
+\]
+donde segue que \(\{e_{\alpha }\}_{\alpha \in A}\) é uma base ortonormal.
+\begin{theorem*}
+	Todo espaço de Hilbert tem uma base ortonormal.
+\end{theorem*}
+\begin{proof*}
+	Basta aplicar o \hyperlink{zorn_lemma}{\textit{Lema de Zorn}} para mostrar que a coleção de todos os conjuntos ortonormais, ordenados pela inclusão, tem um elemento maximal, que equivale à propriedade (a) da definição de uma base ortonormal. \qedsymbol
+\end{proof*}
+
+\begin{theorem*}
+	Um espaço de Hilbert H é separável se, e somente se, tem uma base ortonormal enumerável. Neste caso, toda base ortonormal de H é enumerável.
+\end{theorem*}
+\begin{proof*}
+	Se \(\{x_{n}\}\) é um conjunto enumerável denso em H, descartando recursivamente qualquer \(x_{i}\) que possa ser uma combinação linear de \(x_1,\dotsc ,x_{i-1},\) obtemos uma sequência linearmente independente \(\{y_{n}\}\) e, aplicando o processo de \hyperlink{gram_schmidt}{\textit{Ortogonalização}}, obtemos uma sequência ortonormal \(\{u_{n}\}\) que gera um subespaço denso em H, o qual consequentemente será uma base.
+
+	Reciprocamente, se \(\{u_{n}\}\) é uma base ortonormal, as combinações lineares finitas dos \(u_{n}\)'s com coeficientes em um subconjunto enumerável e denso em \(\mathbb{C}\) forma um subconjunto enumerável e denso em H. Além disso, se \(\{v_{\alpha }\}_{\alpha \in A}\) é outra base ortonormal, para cada n o conjunto
+	\[
+		A_{n}=\{\alpha \in A:\; \langle u_{n}, v_{\alpha } \rangle\neq 0\}
+	\]
+	é enumerável. Portanto, pelo completamento de \(\{u_{n}\}\),
+	\[
+		A = \bigcup_{n=1}^{\infty}A_{n},
+	\]
+	mostrando que ele é enumerável. \qedsymbol
+\end{proof*}
+Em um espaço com produto interno H, a identidade de polarização expressa o produto interno em função da norma por meio de
+\[
+	\langle u, v \rangle = \frac{1}{4}[\Vert u+v \Vert^{2} - \Vert u-v \Vert^{2} + i \Vert u+iv \Vert^{2} - i \Vert u-iv \Vert^{2}],\quad \forall u, v\in H.
+\]
+
+\begin{def*}
+	Se \(H_1\) e \(H_2\) são espaços de Hilbert com produtos escalares \(\langle \cdot , \cdot  \rangle_1\) e \(\langle \cdot , \cdot  \rangle_2\), uma \textbf{transformação unitária de \(H_1\) sobre \(H_2\)} é uma transformação linear sobrejetora \(U:H_1\rightarrow H_2\) que preserva o produto escalar, ou seja,
+	\[
+		\langle Ux, Uy \rangle_2 = \langle x, y \rangle_1. \quad \square
+	\]
+\end{def*}
+\begin{exr}
+	Mostre que toda transformação unitária é uma isometria e, reciprocamente, que toda isometria de \(H_1\) sobre \(H_2\) é uma transformação unitária.
+\end{exr}
+\begin{prop*}
+	Seja \(\{e_{\alpha }\}_{\alpha \in A}\) uma base ortonormal de X. Então, a correspondência
+	\[
+		x\mapsto \hat{x},\quad \hat{x}(\alpha )\coloneqq \langle x, u_{\alpha } \rangle
+	\]
+	é uma transformação unitária em \(l^{2}(A).\)
+\end{prop*}
+\begin{proof*}
+	A linearidade da transformação segue da linearidade do próprio produto interno, e o fato de ser uma isometria de H em \(l^{2}(A)\) é consequência da \hyperlink{parseval_identity}{\textit{Identidade de Parseval}}:
+	\[
+		\Vert x \Vert^{2} = \sum\limits_{\alpha \in A}^{}| \hat{x}(\alpha ) |^{2}.
+	\]
+
+	Agora, se \(f\in l^{2}(A)\), então
+	\[
+		\sum\limits_{\alpha \in A}^{} | f(\alpha ) |^{2}<\infty,
+	\]
+	e pelo \hyperlink{pythagorean_theorem}{\textit{Teorema de Pitágoras}}, as somas parciais da série \(\sum\limits_{\alpha \in A}^{}f(\alpha )u_{\alpha }\), da qual apenas um número enumerável de termos são não nulos, formam uma sequência de Caucho. Portanto,
+	\[
+		x = \sum\limits_{\alpha \in A}^{}f(\alpha )u_{\alpha }
+	\]
+	existe em H e \(\hat{x}=f.\) \qedsymbol
+\end{proof*}
+\subsection{Transformações Lineares Ilimitadas}
+
+Nosso próximo tópico de estudo será alguns fatos elementares sobre as transformações lineares, não necessariamente limitadas.
+
+Sejam X, Y espaços vetoriais normados sobre um mesmo corpo \(\mathbb{K}\) e \(A:D(A)\subseteq X\rightarrow Y\), uma transformação linear, onde D é um subespaço vetorial de X.
+
+Definiremos alguns conceitos relacionados às transformações lineares que usaremos de notação:
+
+\begin{def*}
+	Para a transformação linear \(A:X\rightarrow Y\), diremos que:
+	\begin{itemize}
+		\item \(D(A)\) denotará o \textbf{domínio de A};
+		\item \(\mathrm{Graf}(A) = \{(u, Au)\in X\times Y:\; u\in D(A)\}\subseteq X\times Y\) é o \textbf{gráfico de A};
+		\item \(\mathrm{Im}(A)=\{Ax\in Y:\; x\in D(A)\}\) é a \textbf{imagem de A}; e
+		\item \(N(A) = \mathrm{ker}(A) = \{x\in D(A):\; Ax = 0\}\) é o \textbf{núcleo de A}.
+	\end{itemize}
+	Além disso, se \(D(A)\) é denso em X, diremos que A é \textbf{densamente definida}. \(\square\)
+\end{def*}
+
+\begin{example}
+	Seja \(X = \mathcal{C}([0, 1], \mathbb{R})\) com a norma usual, \(D(A) = \mathcal{C}^{1}([0, 1], \mathbb{R})\) e defina
+	\begin{align*}
+		A: & D(A)\subseteq X\rightarrow X                             \\
+		   & u\longmapsto (Au)(s) = u'(s), \quad \forall s\in [0, 1].
+	\end{align*}
+	Note que esta transformação linear não é limitada!
+\end{example}
+
+\begin{def*}
+	Uma transformação linear A é dita \textbf{fechada} se seu gráfico
+	\[
+		\mathrm{Graf}(A) = \{(x, A(x)): x\in X,\; A(x)\in Y\} \subseteq X\times Y
+	\]
+	é fechado em \(X\times Y.\; \square\)
+\end{def*}
+Uma consequência da definição é que
+\begin{prop*}
+	Seja \(A:D(A)\subseteq X\rightarrow X\) uma transformação linear. Então, A é fechada se, e somente se, para toda sequência \(\{(u_{n}, Au_{n})\}\) em \(D(A)\times Y\) que é convergente em \(X\times Y\) para algum \((u, v)\in X\times Y\), temos
+	\[
+		u\in D(A) \quad\&\quad Au = v.
+	\]
+\end{prop*}
+
+
+Lembre-se que uma transformação linear \(A:D(A)\subseteq X\rightarrow Y\) é limitada se existe uma constante \(c\geq 0\) tal que
+\[
+	\Vert Au \Vert\leq c\Vert u \Vert,\quad \forall u\in D(A).
+\]
+Se A é limitada e densamente definida, podemos estendê-la a uma transformação linear limitada definida em X; neste caso, veremos, como consequência do \textit{Teorema do Gráfico Fechado,} que A não é fechada, a não ser que \(D(A) = X.\)
+
+Além disso, provaremos que, como outra consequência do \textit{Teorema do Gráfico Fechado} que se X e Y forem espaços de Banach e \(A:X\rightarrow Y\) for uma transformação linear fechada, então A é limitada. Já temos um contraexemplo do caso em que X e Y não são de Banach, pois a transformação do exemplo anterior é fechada, mas ilimitada.
+
+Apesar disso, em geral, estamos apenas interessados em estudar transformações lineares fechadas definidas entre espaços de Banach X, Y. Assim, as únicas transformações lineares fechadas \(A:D(A)\subseteq X\rightarrow Y\) que não são limitados estão definidos em um subespaço vetorial \(D(A)\subsetneq X\).
+
+\begin{def*}
+	Diremos que uma transformação linear A é \textbf{fechável} se \(\overline{\mathrm{Graf}(A)}\) é gráfico de uma transformação linear; neste caso, \(\overline{\mathrm{Graf}(A)}\) define uma transformação linear \(\overline{A}: D(\overline{A})\subseteq X\rightarrow Y\) e \(D(A)\subseteq D(\overline{A})\), com
+	\[
+		Au = \overline{A}u,\quad \forall u\in D(A).\; \square
+	\]
+\end{def*}
+Da definição acima, segue que \(\overline{A}\) em si é fechada e que ela é a menor extensão fechada de A.
+
+De forma análoga à proposição acima,
+\begin{prop*}
+	Seja \(A:D(A)\subseteq X\rightarrow Y\) uma transformação linear; então, A é fechável se, e somente se, para toda sequência \(\{(u_{n}, Au_{n})\}\) em \(D(A)\times Y\) que é convergente para \((0, v)\in X\times Y\), temos \(v=0.\)
+\end{prop*}
+\begin{proof*}
+	Denotemos por \(\overline{A}\) a transformação linear tal que
+	\[
+		\mathrm{Graf}(\overline{A}) = \overline{\mathrm{Graf}(A)}
+	\]
+	e suponha que A é fechável com fecho \(\overline{A}\). Se \(\{u_{n}\}\) é uma sequência em \(D(A)\) que converge para zero e tal que \(\{Au_{n}\}\) é convergente com limite v, devemos ter
+	\[
+		0=\overline{A}0 = v.
+	\]
+
+	Por outro lado, suponha que, para toda sequência \(\{(u_{n}, Au_{n})\}\) em \(D(A)\times Y\) que é convergente para \((0, v)\) em \(X\times Y\), temos \(v = 0\). Se \((u, v),\; (u, \overline{v})\in \overline{\mathrm{Graf}(A)}\), existem sequências \(\{(u_{n}, Au_{n})\}\) e \(\{(\overline{u_{n}}, A \overline{u_{n}})\}\) tais que
+	\[
+		(u_{n}, Au_{n})\rightarrow (u, v) \quad\&\quad (\overline{u_{n}}, A \overline{u_{n}})\rightarrow (u, \overline{v})
+	\]
+	em \(X\times Y.\) Desta forma, \(u_{n}-\overline{u_{n}}\) é um ponto no domínio de A, e
+	\[
+		(u_{n}-\overline{u_{n}}, A(u_{n}-\overline{u_{n}}))\rightarrow (0, v-\overline{v}),
+	\]
+	levando à conclusão de que \(v=\overline{v}.\) Logo, \(\overline{\mathrm{Graf}(A)}\) é gráfico de um transformação linear. Portanto, o resultado segue. \qedsymbol
+\end{proof*}
+Em todas as aplicações de interesse, A é fechável com domínio denso.
+
+\end{document}
