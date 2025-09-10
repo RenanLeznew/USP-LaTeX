@@ -3,207 +3,140 @@
 \section{Aula 06 - 10 de Setembro, 2025}
 \subsection{Motivações}
 \begin{itemize}
-	\item Determinantes Intrínsecos, por Matrizes e de Vetores;
-	\item Submatrizes.
+	\item Endomorfismo Induzido por Permutação;
+	\item Operador de Anti-Simétrização.
 \end{itemize}
-\subsection{Determinantes}
-Começaremos este tópico apresentando uma definição intrínseca dos determinantes pela perspectiva de um escalar único para cada transformação \(T:E\rightarrow E\) que satisfaz uma propriedade específica. Antes dela, porém, vale mencionar que denotaremos o \textbf{espaço das formas m-lineares alternadas}, ou seja, o dual de \(A^{m}(E; F)\), por \(\Lambda^{m}(E; \mathbb{R})\).
-\begin{def*}
-	Seja \(T:E\rightarrow E\) um endomorfismo. O \textbf{determinante de T} é o \textit{único} escalar \(\det{T}\in \mathbb{R}\) tal que, para toda forma m-linear alternada \(f\in \Lambda^{m}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_{m}\in E\),
+\subsection{Endomorfismo Induzido por Permutação}
+Antes de entra no tópico de determinantes, mostraremos um exemplo de uso do produto tensorial:
+\begin{example}[Construindo uma Base para \(\mathcal{L}^{2}(\mathbb{R}^{3}; \mathbb{R}^{2})\)]
+	O objetivo deste exemple é mostrar como podemos utilizar o produto tensorial para construir uma base para o espaço \(\mathcal{L}^{2}(\mathbb{R}^{3}; \mathbb{R}^{2})\); para isto, fixemos a notação \(\{v_1, \dotsc , v_r\}\) quando nos referirmos a uma base e \((v_1, \dotsc , v_r)\) para referir a uma base ordenada.
+
+	Consideremos a base ordenada canônica do \(\mathbb{R}^{3}\) dada por \((e_1, e_2, e_3)\), onde
 	\[
-		f(Tv_1,\dotsc , Tv_{m}) = \det{(T)} f(v_1,\dotsc ,v_{m}). \quad \square
+		e_1 = (1, 0, 0),\quad e_2 = (0, 1, 0) \quad\&\quad e_3 = (0, 0, 1)
+	\]
+
+	e a base ordenada de \(\mathbb{R}^{2}\), dada por \((w_1, w_2)\) com
+	\[
+		{\color{Chartreuse3}w_1 = (1, 0)} \quad\&\quad {\color{DodgerBlue2}w_2 = (0, 1)}.
+	\]
+
+	Com isso, temos a base de \((\mathbb{R}^{3})^{*}\) associada a \((e_1^{*}, e_2^{*}, e_3^{*})\); se \(f\in \mathcal{L}^{2}(\mathbb{R}^{3}; \mathbb{R}^{2})\), a f tem como resultado \(f(u, v)\in \mathbb{R}^{2}\) dados \(u, v\in \mathbb{R}^{3}\).
+
+	Como próximo passo, consideremos todas as sequências de dois elementos em \(I_3\):
+	\begin{align*}
+		(S):\quad & (1, 1),\; (1, 2),\; (1, 3),\; (2, 1),\; (2, 2),\; (2, 3) \\
+		          & (3, 1),\; (3, 2),\; (3, 3),
+	\end{align*}
+	e, por termos dois elementos na saída (\(w_1\) e \(w_2\)), teremos um total de 9 combinações de índices vezes 2 elementos, totalizando 18 e bastando trocar os números por letras para generalizar este mesmo raciocínio aos casos mais abstratos.
+
+	Vamos, então, explicitar esse caso inteiro para melhorar o entendimento do caso geral. Utilizemos a notação
+	\[
+		f_{{\color{Firebrick3}(1, 1)}}^{{\color{Chartreuse3}1}}(u, v) = e_{{\color{Firebrick3}1}}^{*}(u)e_{{\color{Firebrick3}1}}^{*}(v){\color{Chartreuse3}(1, 0)}
+	\]
+	para indicar que estamos escolhendo o {\color{Chartreuse3}primeiro elemento da lista correspondente à base de \(\mathbb{R}^{3}\)}, ou seja, \({\color{Chartreuse3}e_1}\) e o {\color{Firebrick3}elemento 1 da lista de índices}, correspondente a \({\color{Firebrick3}(1, 1)}\) -- o domínio me dá o número de funcionais que preciso, e o k é o elemento da base que estou associando o elemento da base, correspondendo, na notação geral, a
+	\[
+		f_{{\color{Firebrick3}(s)}}^{{\color{Chartreuse3}k}} = e_{{\color{Firebrick3}(s)}}^{*}(u, v){\color{Chartreuse3}w_k}.
+	\]
+
+	Logo, repetindo este processo,
+	\begin{align*}
+		 & f_{{\color{Firebrick3}(1, 1)}}^{{\color{Chartreuse3}1}}(u, v) = e_{{\color{Firebrick3}1}}^{*}(u)e_{{\color{Firebrick3}1}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(1, 1)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}1}}^{*}(u)e_{{\color{Firebrick3}1}}^{*}(v){\color{DodgerBlue2}(0, 1)}, \\
+		 & f_{{\color{Firebrick3}(1, 2)}}^{{\color{Chartreuse3}1}}(u, v) = e_{{\color{Firebrick3}1}}^{*}(u)e_{{\color{Firebrick3}2}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(1, 2)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}1}}^{*}(u)e_{{\color{Firebrick3}2}}^{*}(v){\color{DodgerBlue2}(0, 1)}, \\
+		 & f_{{\color{Firebrick3}(1, 3)}}^{{\color{Chartreuse3}1}}(u, v) = e_{{\color{Firebrick3}1}}^{*}(u)e_{{\color{Firebrick3}3}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(1, 3)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}1}}^{*}(u)e_{{\color{Firebrick3}3}}^{*}(v){\color{DodgerBlue2}(0, 1)}, \\
+		 & f_{{\color{Firebrick3}(2, 1)}}^{{\color{DodgerBlue2}1}}(u, v) = e_{{\color{Firebrick3}2}}^{*}(u)e_{{\color{Firebrick3}1}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(2, 1)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}2}}^{*}(u)e_{{\color{Firebrick3}1}}^{*}(v){\color{DodgerBlue2}(0, 1)}, \\
+		 & f_{{\color{Firebrick3}(2, 2)}}^{{\color{DodgerBlue2}1}}(u, v) = e_{{\color{Firebrick3}2}}^{*}(u)e_{{\color{Firebrick3}2}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(2, 2)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}2}}^{*}(u)e_{{\color{Firebrick3}2}}^{*}(v){\color{DodgerBlue2}(0, 1)}, \\
+		 & f_{{\color{Firebrick3}(2, 3)}}^{{\color{DodgerBlue2}1}}(u, v) = e_{{\color{Firebrick3}2}}^{*}(u)e_{{\color{Firebrick3}3}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(2, 3)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}2}}^{*}(u)e_{{\color{Firebrick3}3}}^{*}(v){\color{DodgerBlue2}(0, 1)}, \\
+		 & f_{{\color{Firebrick3}(3, 1)}}^{{\color{DodgerBlue2}1}}(u, v) = e_{{\color{Firebrick3}3}}^{*}(u)e_{{\color{Firebrick3}1}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(3, 1)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}3}}^{*}(u)e_{{\color{Firebrick3}1}}^{*}(v){\color{DodgerBlue2}(0, 1)}, \\
+		 & f_{{\color{Firebrick3}(3, 2)}}^{{\color{DodgerBlue2}1}}(u, v) = e_{{\color{Firebrick3}3}}^{*}(u)e_{{\color{Firebrick3}2}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(3, 2)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}3}}^{*}(u)e_{{\color{Firebrick3}2}}^{*}(v){\color{DodgerBlue2}(0, 1)}, \\
+		 & f_{{\color{Firebrick3}(3, 3)}}^{{\color{DodgerBlue2}1}}(u, v) = e_{{\color{Firebrick3}3}}^{*}(u)e_{{\color{Firebrick3}3}}^{*}(v){\color{Chartreuse3}(1, 0)},\; f_{{\color{Firebrick3}(3, 3)}}^{{\color{DodgerBlue2}2}}(u, v) = e_{{\color{Firebrick3}3}}^{*}(u)e_{{\color{Firebrick3}3}}^{*}(v){\color{DodgerBlue2}(0, 1)}.
+	\end{align*}
+	Mostraremos, então, que este conjunto é linearmente independente.
+
+	Considere a combinação linear nula
+	\[
+		\sum\limits_{j,\; (s)}^{}\alpha_{(s)}^{j}f_{(s)}^{j} = 0, \quad j\in \{1, 2\},\; (i_1, i_2)\in I_3.
+	\]
+	Para concluir que os escalares devem ser nulos, lembre-se que estamos construindo usando \textit{produto tensorial}, e agora que ele será útil: ao escolhermos os elementos que, quando respeitam a ordem dos índices, resultam meramente na unidade multiplicada pelo respectivo \(w_{i}\) OU zero, ou seja, sobram apenas os coeficientes
+	com coeficientes iguais, que é uma combinação linear de \(w_1\) e \(w_2\):
+	\[
+		\sum\limits_{j,\; (s)}^{}\alpha_{(s)}^{j}f_{(s)}^{j}(e_{i_1}, e_{i_2}) = \alpha_{(s)}^{1}w_1 + \alpha_{(s)}^{2}w_2 = 0,
+	\]
+	que em si já são linearmente independentes. Logo, \(\alpha_{(s)}^{1} = \alpha_{(s)}^{2} = 0\) e \(\{f_{(s)}^{j}\}_{(s),\; j}\) forma um conjunto de vetores linearmente independentes com um número de elementos igual à dimensão -- é uma base para \(\mathcal{L}^{2}(\mathbb{R}^{3}; \mathbb{R}^{2})\).
+\end{example}
+
+A seguir, tentaremos associar estes assuntos ao tópico das permutações, afinal deu para perceber até pelo exemplo acima que a ordem dos índices pode afetar bastante as questões que estamos estudando: sejam E e F espaços vetoriais; uma permutação \(\sigma \in S_r\) induz um endomorfismo linear no espaço vetorial \(\mathcal{L}^{r}(E; F)\) ao trocar a ordem dos índices -- mais explicitamente, para \(\sigma \in S_r\), definimos
+\begin{align*}
+	\sigma : & \mathcal{L}^{r}(E; F)\rightarrow\mathcal{L}^{r}(E; F)                                    \\
+	         & f\longmapsto \sigma f(v_1, \dotsc , v_r) = f(v_{\sigma (1)}, \dotsc , f_{v_\sigma (r)}).
+\end{align*}
+Formalmente, dizemos
+\begin{def*}
+	Uma permutação \(\sigma \in S_r\) \textbf{atua em f \(L^{r}(E; F)\)} definindo
+	\[
+		(\sigma f)(v_1,\dotsc ,v_r) = f(v_{\sigma (1)}, \dotsc , v_{\sigma (r)}).
+	\]
+	Diremos que f é \textbf{alternada} se
+	\[
+		f(v_{\sigma (1)},\dotsc , v_{\sigma (r)})= \mathrm{sgn}(\sigma )f(v_1,\dotsc ,v_r),
+	\]
+	onde \(\mathrm{sgn}(\sigma )\) é o sinal da permutação. \(\square\)
+\end{def*}
+Com isso, ganhamos a definição de uma transformação r-linear alternada com base nas permutações e seus sinais!
+\begin{exr}
+	Prove as seguintes propriedades da atuação de permutações:
+	\begin{align*}
+		 & \circ \;\sigma (f+g) = \sigma f + \sigma g;                               \\
+		 & \circ \; \sigma ( k f) =  k (\sigma f), \quad k\in \mathbb{R};            \\
+		 & \circ \; (\sigma \circ \rho )f = \sigma (\rho f), \quad \sigma ,r\in S_r.
+	\end{align*}
+	Em particular, mostre que \(\sigma \) é um isomorfismo.
+	%\[
+	%  f = (\sigma^{-1}\circ \sigma )(f),
+	%\]
+\end{exr}
+
+\begin{def*}
+	O \textbf{Operador de Anti-simetrização} é o operador \(A:L^{r}(E; F)\rightarrow L^{r}(E; F)\) definido por
+	\[
+		A(f)= \sum\limits_{\sigma \in S_r}^{} \mathrm{sgn}(\sigma )(\sigma f). \; \square
 	\]
 \end{def*}
 \begin{prop*}
-	Uma aplicação linear \(T:E\rightarrow F\) induz, para cada r positivo, uma aplicação linear
-	\[
-		T^{\#}: \Lambda^{r}(E; \mathbb{R})\rightarrow \Lambda^{r}(E; \mathbb{R})
-	\]
-	definida como
-	\[
-		(T^{\#}f)(v_1,\dotsc ,v_r)= f(Tv_1,\dotsc ,TV_r),\quad \forall f\in \Lambda ^{r}(F; \mathbb{R})\;\&\; v_1,\dotsc ,v_r\in E.
-	\]
-\end{prop*}
-\begin{proof*}
-	O fato de \(T^{\#}f\) ser uma forma m-linear alternada é imediato, assim como a linearidade de \(T^{\#}.\) Além disso, se T corresponde à identidade de E, então \(T^{\#}=\mathrm{id}.\) e, se \(S:E\rightarrow F\) e \(T:F\rightarrow G\) são lineares, então
-	\[
-		(T \circ S)^{\#}=S^{\#}\circ T^{\#}.\text{ \qedsymbol}
-	\]
-\end{proof*}
-\begin{crl*}
-	Se \(S:E\rightarrow F\) for um isomorfismo, então \(S^{\#}\) também o é, com inversa dada por \((S^{\#})^{-1}=(S^{-1})^{\#}\).
-\end{crl*}
-\begin{prop*}
-	Seja \(T:E\rightarrow E\) um endomorfismo com \(\mathrm{dim}(E)=m\). Então, o determinante satisfaz:
+	Para qualquer \(f\in L^{r}(E; F)\), valem:
 	\begin{itemize}
-		\item[i)] O determinante da identidade é a unidade: \(\det{(\mathrm{id})}=1\);
-		\item[ii)] O determinante da composição é o produto dos determinantes: para todo \(S:E\rightarrow E\),
-		      \[
-			      \det{(S\circ T)}=\det{(S)}\det{(T)}; \text{ e}
-		      \]
-		\item[iii)] T é invertível se, e somente se, \(\det{(T)})\neq 0\).
+		\item[i)] O operador de anti-simetrização é uma transformação r-linear alternada entre E e F, isto é, \(Af\in A^{r}(E; F)\);
+		\item[ii)] f é alternada se, e somente se, \(Af=r!f\); e
+		\item[iii)] Se existir \(\rho \in S_r\) ímpar tal que \(\rho f = f\), então \(Af=0\).
 	\end{itemize}
 \end{prop*}
-\begin{proof*}
-	(i) A primeira propriedade é automática;
-
-	(ii) Para a segunda, usaremos
-	\[
-		(S\circ T)^{\#} = T^{\#}\circ S^{\#},
-	\]
-	tal que, para toda \(f\in \Lambda^{r}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_r\in E\)
-	\begin{align*}
-		 & \circ \quad (S\circ T)^{\#}(f)(v_1,\dotsc ,v_r)=f((S\circ O)v_1,\dotsc ,(S\circ T)v_r) = \det{(S\circ T)}f(v_1,\dotsc ,v_r)                                     \\
-		 & \circ \quad  (S\circ T)^{\#}(f)(v_1,\dotsc ,v_r) = (T^{\#}\circ S^{\#})(f)(v_1,\dotsc ,v_r) = T^{\#}(f(Sv_1,\dotsc , Sv_r)) = T^{\#}(\det{S}f(v_1,\dotsc ,v_r)) \\
-		 & \quad \quad = \det{(S)} T^{\#}(f(v_1,\dotsc ,v_r)) = \det{(S)}f(Tv_1,\dotsc ,Tv_r) = \det{(S)}\det{(T)}f(v_1,\dotsc ,v_r).
-	\end{align*}
-	Assim, comparando as duas últimas igualdades, segue que, para toda \(f\in \Lambda^{r}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_r\in E\),
-	\[
-		\det{(S)}\det{(T)}f(v_1,\dotsc ,v_r) = \det{(S\circ T)}f(v_1,\dotsc ,v_r) \Rightarrow \det{(S)}\det{(T)}=\det{(S\circ T)}.
-	\]
-
-	(iii) Finalmente, por um lado, se T é invertível, então
-	\[
-		1=\det{(T\circ T^{-1})} = \det{(T)}\det{(T^{-1})},
-	\]
-	donde segue que \(\det{(T)}\neq 0\); por outro, se \(\det{(T)}\neq 0\), significa que as imagens \(Te_1,\dotsc , Te_{m}\) de uma base formam outra base e, portanto, T é um isomorfismo. \qedsymbol
-\end{proof*}
-
-Para a definição por matrizes, que é a usualmente conhecida para o determinante, faremos uso dos resultados que obtivemos para ele como escalar para chegar no que já sabemos. Para isso,
-\begin{def*}
-	Seja \(\alpha \in \mathbb{M}_{m\times m}(\mathbb{R})\) uma matriz. Definimos o \textbf{determinante da matriz \(\alpha \)} como
-	\begin{align*}
-		\mathrm{det}: & \mathbb{M}_{m\times m}(\mathbb{R})\rightarrow \mathbb{R}             \\
-		              & \alpha \longmapsto \det{(\alpha )}\coloneqq \det{(\tilde{\alpha })},
-	\end{align*}
-	onde \(\tilde{\alpha }:\mathbb{R}^{m}\rightarrow \mathbb{R}^{m}\) é o endomorfismo dado por
-	\[
-		\tilde{\alpha }(e_{j}) =0\sum\limits_{i=1}^{m}\alpha_{ij}e_{i},
-	\]
-	sendo \((e_1, \dotsc , e_{m})\) a base canônica. \(\square\)
-\end{def*}
+\begin{crl*}
+	O operador A projeta \(L^{r}(E; F)\) sobre \(A^{r}(E; F)\).
+\end{crl*}
 \begin{prop*}
-	O determinante é a única forma m-linear alternada dos vetores-coluna de uma matriz que vale 1 na identidade.
-\end{prop*}
-
-\begin{proof*}
-	Seja \(f_{0}\in \Lambda^{m}(\mathbb{R^{m}}; \mathbb{R})\) tal que \(f_{0}(e_1,\dotsc , e_{m})=1\). Se \(\alpha =(\alpha_1,\dotsc , \alpha_{m})\) são as colunas, então
+	Dada uma base ordenada \(E^{*}=(e_{1}^{*}, \dotsc , e_{m}^{*})\) de \(E^{*}\), as formas
 	\[
-		\det{(\alpha )} = f_{0}(\alpha_1,\dotsc , \alpha_{m}).
+		e_{(J)}^{*}=\varphi (e_{j_1}^{*}, \dotsc , e_{j_r}^{*}), \quad J = \{j_1<\dotsc <j_r\}
 	\]
-	Portanto, \(\mathrm{det}\) é m-linear, alternada e, por unicidade de \(f_{0}\), única. \qedsymbol
-\end{proof*}
-
-\begin{def*}
-	Sejam \(S\in \mathcal{L}(E)\) e \(T\in \mathcal{L}(F)\). Dizemos que S e T são \textbf{conjugadas} se existe um isomorfismo \(\varphi :E\rightarrow F\) tal que
+	formam uma base de \(A^{r}(E; \mathbb{R})\) e, em particular,
 	\[
-		T= \varphi \circ S\circ \varphi^{-1}. \quad \square
-	\]
-\end{def*}
-\begin{lemma*}
-	Se S e T são conjugados, então \(\det{(S)} = \det{(T)}\).
-\end{lemma*}
-\begin{proof*}
-	Utilizando o fato de que \(T^{\#}= (\varphi^{\#})^{-1}\circ S^{\#}\circ \varphi^{\#}\), obtemos
-	\[
-		T^{\#}f = \det{(S)}f,\quad \forall f\in \Lambda^{m}(F; \mathbb{R}).
-	\]
-	Portanto, por unicidade,
-	\[
-		\det{(T)}=\det{(S)}.\text{ \qedsymbol}
-	\]
-\end{proof*}
-Para amarrar tudo bonitinho, vamos mostrar que os dois determinantes que vimos de fato coincidem, a menos da correspondência natural entre matrizes e transformações lineares:
-\begin{prop*}
-	Seja \(A:E\rightarrow E\) um endomorfismo. Para qualquer matriz \(\alpha \) que representa A em uma base de E, vale
-	\[
-		\det{(A)} = \det{(\alpha )}.
+		\mathrm{dim}(A^{r}(E; \mathbb{R}))= \binom{m}{r}.
 	\]
 \end{prop*}
 \begin{crl*}
-	Se \(\mathrm{dim}(E)=m\), f é uma forma m-linear alternada, \(\alpha \) é uma matriz m por m e \(\mathcal{E}=(e_1,\dotsc , e_{m})\) é uma base alternada de E, então
+	Se \(\mathrm{dim}(E) = m\), então
 	\[
-		f\biggl(\sum\limits_{i=1}^{m}\alpha_{1i}e_{i}, \dotsc , \sum\limits_{i=1}^{m}\alpha_{mi}e_{i}\biggr) = \det{(\alpha )}f(e_1,\dotsc , e_{m}).
+		\mathrm{dim}(A^{m}(E; \mathbb{R}))=1 \quad\&\quad \mathrm{dim}(A^{r}(E; \mathbb{R}^{n}))= \binom{m}{r}n.
 	\]
 \end{crl*}
-
-Até o momento, definimos o determinante de duas formas diferentes, que coincidem:
-\begin{itemize}
-	\item como um escalar associado a um endomorfismo linear;
-	\item como uma função definida sobre as colunas de uma matriz quadrada.
-\end{itemize}
-Agora, veremos mais uma perspectiva -- a do determinante de um conjunto de vetores em relação a uma base fixa.
-\begin{def*}
-	Seja \(\mathcal{E}=(e_1,\dotsc , e_{m})\) uma base ordenada de E. Dado um conjunto de vetores \(u_1, \dotsc , u_{m}\in E\), escrevemos cada vetor em coordenadas na base \(\mathcal{E}:\)
-	\[
-		u_{j}=\sum\limits_{i=1}^{m} \alpha_{j}^{i}e_{i},\quad j=1,\dotsc ,m,
-	\]
-	a partir do qual formamos a matriz \(\alpha =(\alpha_{j}^{i})\) de ordem m, com os vetores \(u_1,\dotsc , u_{m}\) como coordenadas. Com isso, definimos o \textbf{determinante dos vetores \(u_1,\dotsc , u_{m}\) em relação à base \(\mathcal{E}\)} como
-	\[
-		\det{[u_{1},\dotsc , u_{m}]}_{\mathcal{E}}\coloneqq \det{(\alpha )}. \quad \square
-	\]
-\end{def*}
-\begin{tcolorbox}[
-		skin=enhanced,
-		title=Observação,
-		fonttitle=\bfseries,
-		colframe=black,
-		colbacktitle=cyan!75!white,
-		colback=cyan!15,
-		colbacklower=black,
-		coltitle=black,
-		drop fuzzy shadow,
-		%drop large lifted shadow
-	]
-	Diferente do determinante do endomorfismo, endomorfismo, que é uma propriedade intrínseca, ou seja, independente da base, o determinante de vetores \textit{depende} da escolha da base \(\mathcal{E}.\)
-
-	Geometricamente, esse determinante mede o \textit{\textbf{volume orientado}} do paralelepípedo gerado pelos vetores \(u_1,\dotsc , u_{m}\) em relação ao sistema de coordenadas dado por \(\mathcal{E}.\)
-\end{tcolorbox}
-
-Seja \(\mathcal{E}=(e_1,\dotsc , e_{m})\) uma base de E e \(\mathcal{E}^{*} = (e_{1}^{*}, \dotsc , e_{m}^{*})\) uma base dual de \(E^{*}.\)
-\begin{def*}
-	Para uma sequência de índices \(s=(i_1,\dotsc ,i_r)\), definimos o \textbf{produto tensorial das formas lineares} correspondentes por
-	\[
-		e_{(s)}^{*} = e_{i_1}^{*}\otimes e_{i_2}^{*}\otimes \dotsc \otimes e_{i_r}^{*}\in (E^{*})^{\otimes_r}.
-	\]
-	A forma que ele atua em vetores \(v_1,\dotsc ,v_r\in E\) é
-	\[
-		e_{(s)}^{*} (v_1,\dotsc ,v_r) = \prod\limits_{k=1}^{r}e_{i_k}^{*}(v_{k}). \quad \square
-	\]
-\end{def*}
-\begin{def*}
-	Para um subconjunto \(J=\{j_1<\dotsc <j_r\}\subseteq \{1,\dotsc ,m\}\), definimos a \textbf{forma alternada} associada como
-	\[
-		e_{[J]}^{*} \coloneqq \sum\limits_{\sigma \in S_{r}}^{} \mathrm{sgn}(\sigma )e_{(j_{\sigma (1)}, \dotsc , j_{\sigma (r)})}^{*},
-	\]
-	onde \(S_r\) é o grupo simétrico com r elementos. \(\square\)
-\end{def*}
-\begin{def*}
-	Seja \(\alpha = (\alpha_{j}^{i})\) uma matriz \(m\times r\). Para um subconjunto \(J=\{j_1<\dotsc <j_r\},\) denotamos por \(\alpha^{J}\) a submatriz \(r\times r\) obtida escolhendo as linhas de \(\alpha \) com índices em \(J.\; \square\)
-\end{def*}
 \begin{prop*}
-	Se \(\mathcal{E}=(e_1,\dotsc , e_{m})\) é uma base de E e
+	Sejam \(E=(e_1,\dotsc ,e_{m})\) e \(F=(w_1,\dotsc ,w_{n})\) bases ordenadas; para cada \(J=\{j_1<\dotsc <j_r\}\subseteq \{1,\dotsc ,m\}\) e cada k, defina
 	\[
-		v_{j} = \sum\limits_{i}^{}\alpha_{j}^{i}e_{i},\quad j=1,\dotsc ,r.
+		f_{k}^{J}(e_{j_1}, \dotsc , e_{j_r}) = w_{k}, \quad f_{k}^{J}(e_{p_1}, \dotsc , e_{p_r})=0 \text{ se }\{p_1,\dotsc , p_r\}\neq J.
 	\]
-	Então, para cada subconjunto J,
+	Então, as aplicações \(f_{k}^{J}\) constituem uma base de \(A^{r}(E; F)\) e, consequentemente,
 	\[
-		e_{[J]}^{*}(v_1,\dotsc , v_r) = \det{(\alpha^{J})}.
+		\mathrm{dim}(A^{r}(E; F))=\binom{m}{r}n.
 	\]
 \end{prop*}
-\begin{tcolorbox}[
-		skin=enhanced,
-		title=Observação,
-		fonttitle=\bfseries,
-		colframe=black,
-		colbacktitle=cyan!75!white,
-		colback=cyan!15,
-		colbacklower=black,
-		coltitle=black,
-		drop fuzzy shadow,
-		%drop large lifted shadow
-	]
-	A introdução destas notações ajuda a distinguir o produto tensorial puro da anti simetrização:  \(e_{(s)}^{*}\) indica o \textbf{produto tensorial}, enquanto \(e_{[J]}^{*}\) indica a \textbf{forma alternada}. Esta distinção eixa explícita a passagem entre cálculo concreto de produtos tensoriais e determinantes de submatrizes.
-\end{tcolorbox}
-
 \end{document}
