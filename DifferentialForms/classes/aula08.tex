@@ -1,0 +1,287 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 15 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Outras construções do determinante.
+\end{itemize}
+\subsection{Construção Inrínseca dos Determinantes}
+Na aula passada, mais curta para reposição, dado um espaço vetorial E com dimensão m, vimos que \(\mathrm{dim}(\mathcal{A}^{m}(E; \mathbb{R}))=1\),
+e pudemos definir o determinante de um endomorfismo linear intrinsecamente, ou seja, sem depender de qualquer escolha de base ou elemento,
+da seguinte forma:
+\begin{def*}
+	Seja \(T:E\rightarrow E\) um endomorfismo linear; o \textbf{determinante} de T é definido como sendo o escalar \(\det{(T)}\in \mathbb{R}\) tal que
+	\[
+		f(Tv_1, \dotsc , Tv_{m}) = \det{(T)} f(v_1, \dotsc , v_{m})
+	\]
+	para qualquer \(f\in \mathcal{A}^{m}(E; \mathbb{R})\) e quaisquer \(v_1, \dotsc , v_m\). \(\square\)
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Vale comentar um pouco sobre o nome determinante: no contexto de \(E = \mathbb{R}\), conforme sabemos de outros conteúdos, os endomorfismos da reta são sempre da forma
+	\(x\mapsto \lambda x\), então a única coisa que os \textit{determina} individualmente é o escalar -- e, no fim, a definição intrínseca do determinante
+	é exatamente isso; daí o nome \textit{determinante}: é ele quem vai dizer como é o endomorfismo da reta na reta.
+
+	Além disso, observe que este valor \(\det{(T)}\) é único.
+\end{tcolorbox}
+Seguindo em nossa breve revisão, também vimos algumas ferramentas usadas nessa construção; uma delas foi que toda aplicação linear \(T:E\rightarrow F\) induz, para cada r positivo, uma aplicação linear
+\[
+	T^{\#}: \Lambda^{r}(E; \mathbb{R})\rightarrow \Lambda^{r}(E; \mathbb{R})
+\]
+definida como
+\[
+	(T^{\#}f)(v_1,\dotsc ,v_r)= f(Tv_1,\dotsc ,TV_r),\quad \forall f\in \Lambda ^{r}(F; \mathbb{R})\;\&\; v_1,\dotsc ,v_r\in E,
+\]
+satisfazendo
+\begin{itemize}
+	\item T é linear;
+	\item Se \(T = \mathrm{Id}_E\), então \(T^{\#} = \mathrm{Id}_{\mathcal{A}^{r}(E; \mathbb{R})}\);
+	\item Se \(S:E\rightarrow W\) e \(T:W\rightarrow F\) são lineares, então
+	      \[
+		      (T\circ S)^{ \#} = S^{\#}\circ T^{\#}; \text{ e }
+	      \]
+	\item Se \(T:E\rightarrow F\) é um isomorfismo, então \(T^{\#}\) também é, com inversa \((T^{\#})^{-1}=(T^{-1})^{\#}\).
+\end{itemize}
+Observe que, disso, temos a explicitação do determinante como
+\begin{align*}
+	\det{}: & \mathcal{L}(E)\rightarrow\mathbb{R} \\
+	        & T\longmapsto \det{(T)}.
+\end{align*}
+
+Dando continuidade, veremos algumas outras propriedades dos determinantes e veremos as outras construções dessa transformação.
+\begin{prop*}
+	Seja \(T:E\rightarrow E\) um endomorfismo com \(\mathrm{dim}(E)=m\). Então, o determinante satisfaz:
+	\begin{itemize}
+		\item[i)] O determinante da identidade é a unidade: \(\det{(\mathrm{id})}=1\);
+		\item[ii)] O determinante da composição é o produto dos determinantes: para todo \(S:E\rightarrow E\),
+		      \[
+			      \det{(S\circ T)}=\det{(S)}\det{(T)}; \text{ e}
+		      \]
+		\item[iii)] T é invertível se, e somente se, \(\det{(T)})\neq 0\).
+	\end{itemize}
+\end{prop*}
+%\begin{proof*}
+% (i) A primeira propriedade é automática;
+%
+% (ii) Para a segunda, usaremos
+% \[
+% 	(S\circ T)^{\#} = T^{\#}\circ S^{\#},
+% \]
+% tal que, para toda \(f\in \Lambda^{r}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_r\in E\)
+% \begin{align*}
+% 	 & \circ \quad (S\circ T)^{\#}(f)(v_1,\dotsc ,v_r)=f((S\circ O)v_1,\dotsc ,(S\circ T)v_r) = \det{(S\circ T)}f(v_1,\dotsc ,v_r)  \\
+% 	 & \circ \quad  (S\circ T)^{\#}(f)(v_1,\dotsc ,v_r) = (T^{\#}\circ S^{\#})(f)(v_1,\dotsc ,v_r) = T^{\#}(f(Sv_1,\dotsc , Sv_r))= \\
+% 	 & \quad \quad T^{\#}(\det{S}f(v_1,\dotsc ,v_r)) = \det{(S)} T^{\#}(f(v_1,\dotsc ,v_r)) = \det{(S)}f(Tv_1,\dotsc ,Tv_r)         \\
+% 	 & \quad \quad = \det{(S)}\det{(T)}f(v_1,\dotsc ,v_r).
+% \end{align*}
+% Assim, comparando as duas últimas igualdades, segue que, para toda \(f\in \Lambda^{r}(E; \mathbb{R})\) e quaisquer \(v_1,\dotsc , v_r\in E\),
+% \[
+% 	\det{(S)}\det{(T)}f(v_1,\dotsc ,v_r) = \det{(S\circ T)}f(v_1,\dotsc ,v_r) \Rightarrow \det{(S)}\det{(T)}=\det{(S\circ T)}.
+% \]
+%
+% (iii) Finalmente, por um lado, se T é invertível, então
+% \[
+% 	1=\det{(T\circ T^{-1})} = \det{(T)}\det{(T^{-1})},
+% \]
+% donde segue que \(\det{(T)}\neq 0\); por outro, se \(\det{(T)}\neq 0\), significa que as imagens \(Te_1,\dotsc , Te_{m}\) de uma base formam outra base e, portanto, T é um isomorfismo. \qedsymbol
+%\end{proof*}
+\begin{exr}
+	Prove a proposição acima.
+\end{exr}
+
+\subsection{Definição por Matrizes}
+Para a definição por matrizes, que é a usualmente conhecida para o determinante, faremos uso dos resultados que obtivemos para ele como
+escalar para chegar no que já sabemos. O jeito mais natural para isso seria utilizando bases como base\footnote{Frase estranha, mas ok}
+e usando as matrizes de mudança de base; o problema com isso é justamente o fato de fixar uma base, e cada pessoa pode acabar escolhendo
+uma diferente.
+
+No fim das contas, sabemos que isso acaba dando certo lá da álgebra linear, mas essa definição tem exatamente o problema de não ser
+intrínseca -- ela sempre tem, no fundo, essa dependência em uma \textit{escolha para além da própria matriz}. Ainda assim, vamos mostrar
+que as duas construções coincidem; para isso, definimos como de costume:
+\begin{def*}
+	Seja \(\alpha \in \mathbb{M}_{m\times m}(\mathbb{R})\) uma matriz. Definimos o \textbf{determinante da matriz \(\alpha \)} como
+	\begin{align*}
+		\mathrm{det}: & \mathbb{M}_{m\times m}(\mathbb{R})\rightarrow \mathbb{R}             \\
+		              & \alpha \longmapsto \det{(\alpha )}\coloneqq \det{(\tilde{\alpha })},
+	\end{align*}
+	onde \(\tilde{\alpha }:\mathbb{R}^{m}\rightarrow \mathbb{R}^{m}\) é o endomorfismo dado por
+	\[
+		\tilde{\alpha }(e_{j}) =0\sum\limits_{i=1}^{m}\alpha_{ij}e_{i},
+	\]
+	sendo \((e_1, \dotsc , e_{m})\) a base canônica de \(\mathbb{R}^{m}\). \(\square\)
+\end{def*}
+Como de costume, denotamos simplesmente por \( \mathbb{M}_{m}(\cdot ) \coloneqq \mathbb{M}_{m \times m}(\cdot )\)
+\begin{prop*}
+	O determinante é a única forma m-linear alternada
+	\[
+		\det: \mathbb{M}_{m}(\mathbb{R})\rightarrow \mathbb{R}
+	\]
+	dos vetores-coluna de uma matriz que vale 1 na identidade, ou seja, \(\det{(\mathrm{Id}_{m})}=1\).
+\end{prop*}
+Vale notar que a unicidade pode ser vista como uma consequência justamente da forma com que observamos como o determinante é o escalar que \textit{determina}
+o endomorfismo entre os espaços vetoriais, então apenas ele pode ser o escalar que fixa o endomorfismo como o escalar 1, exatamente como na
+observação, pois o determinante tem a reta como imagem; então, podemos fazer sua prova apenas para a base canônica e o resto segue do que estudamos
+até agora.
+
+%\begin{proof*}
+% Seja \(f_{0}\in \Lambda^{m}(\mathbb{R}^{m}; \mathbb{R})\) tal que \(f_{0}(e_1,\dotsc , e_{m})=1\). Se \(\alpha =(\alpha_1,\dotsc , \alpha_{m})\) são as colunas, então
+% \[
+% 	\det{(\alpha )} = f_{0}(\alpha_1,\dotsc , \alpha_{m}).
+% \]
+% Portanto, \(\mathrm{det}\) é m-linear, alternada e, por unicidade de \(f_{0}\), única. \qedsymbol
+%\end{proof*}
+\begin{exr}
+	Prove esta proposição.
+\end{exr}
+
+Agora, como de costume na álgebra linear, vamos exibir os resultados necessários para compreender que, no fim, o determinante vai dar
+o mesmo valor independente da base (que foi algo que ganhamos por definição com a outra construção).
+
+\begin{def*}
+	Sejam \(S\in \mathcal{L}(E)\) e \(T\in \mathcal{L}(F)\). Dizemos que S e T são \textbf{conjugadas} se existe um isomorfismo \(\varphi :E\rightarrow F\) tal que
+	\[
+		T= \varphi \circ S\circ \varphi^{-1}.
+	\]
+	Em outras palavras, o seguinte diagrama comuta:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-1,1){E};
+			\node(BL) at (-1,-1){E};
+			\node(TR) at (1,1){F};
+			\node(BR) at (1,-1){F};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi \)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\varphi \)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {S}(BL);
+			\draw[Arrow](TR)--node[midway, right] {T}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+\end{def*}
+\begin{lemma*}
+	Se S e T são conjugados, então \(\det{(S)} = \det{(T)}\).
+\end{lemma*}
+%\begin{proof*}
+% Utilizando o fato de que \(T^{\#}= (\varphi^{\#})^{-1}\circ S^{\#}\circ \varphi^{\#}\), obtemos
+% \[
+% 	T^{\#}f = \det{(S)}f,\quad \forall f\in \Lambda^{m}(F; \mathbb{R}).
+% \]
+% Portanto, por unicidade,
+% \[
+% 	\det{(T)}=\det{(S)}.\text{ \qedsymbol}
+% \]
+%\end{proof*}
+\begin{exr}
+	Prove o lema acima.
+\end{exr}
+
+Para amarrar tudo bonitinho, vamos mostrar que os dois determinantes que vimos de fato coincidem, a menos da correspondência natural entre matrizes e transformações lineares:
+\begin{prop*}
+	Seja \(A:E\rightarrow E\) um endomorfismo. Para qualquer matriz \(\alpha \) que representa A em uma base de E, vale
+	\[
+		\det{(A)} = \det{(\alpha )}.
+	\]
+\end{prop*}
+\begin{crl*}
+	Se \(\mathrm{dim}(E)=m\), f é uma forma m-linear alternada, \(\alpha \) é uma matriz m por m e \(\mathcal{E}=(e_1,\dotsc , e_{m})\) é uma base alternada de E, então
+	\[
+		f\biggl(\sum\limits_{i=1}^{m}\alpha_{1i}e_{i}, \dotsc , \sum\limits_{i=1}^{m}\alpha_{mi}e_{i}\biggr) = \det{(\alpha )}f(e_1,\dotsc , e_{m}).
+	\]
+\end{crl*}
+
+Até o momento, definimos o determinante de duas formas diferentes, que coincidem:
+\begin{itemize}
+	\item como um escalar associado a um endomorfismo linear;
+	\item como uma função definida sobre as colunas de uma matriz quadrada.
+\end{itemize}
+Agora, veremos mais uma perspectiva -- a do determinante de um conjunto de vetores em relação a uma base fixa.
+\begin{def*}
+	Seja \(\mathcal{E}=(e_1,\dotsc , e_{m})\) uma base ordenada de E. Dado um conjunto de vetores \(u_1, \dotsc , u_{m}\in E\), escrevemos cada vetor em coordenadas na base \(\mathcal{E}:\)
+	\[
+		u_{j}=\sum\limits_{i=1}^{m} \alpha_{j}^{i}e_{i},\quad j=1,\dotsc ,m,
+	\]
+	a partir do qual formamos a matriz \(\alpha =(\alpha_{j}^{i})\) de ordem m, com os vetores \(u_1,\dotsc , u_{m}\) como coordenadas. Com isso, definimos o \textbf{determinante dos vetores \(u_1,\dotsc , u_{m}\) em relação à base \(\mathcal{E}\)} como
+	\[
+		\det{[u_{1},\dotsc , u_{m}]}_{\mathcal{E}}\coloneqq \det{(\alpha )}. \quad \square
+	\]
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Diferente do determinante do endomorfismo, endomorfismo, que é uma propriedade intrínseca, ou seja, independente da base, o determinante de vetores \textit{depende} da escolha da base \(\mathcal{E}.\)
+
+	Geometricamente, esse determinante mede o \textit{\textbf{volume orientado}} do paralelepípedo gerado pelos vetores \(u_1,\dotsc , u_{m}\) em relação ao sistema de coordenadas dado por \(\mathcal{E}.\)
+\end{tcolorbox}
+
+Seja \(\mathcal{E}=(e_1,\dotsc , e_{m})\) uma base de E e \(\mathcal{E}^{*} = (e_{1}^{*}, \dotsc , e_{m}^{*})\) uma base dual de \(E^{*}.\)
+\begin{def*}
+	Para uma sequência de índices \(s=(i_1,\dotsc ,i_r)\), definimos o \textbf{produto tensorial das formas lineares} correspondentes por
+	\[
+		e_{(s)}^{*} = e_{i_1}^{*}\otimes e_{i_2}^{*}\otimes \dotsc \otimes e_{i_r}^{*}\in (E^{*})^{\otimes_r}.
+	\]
+	A forma que ele atua em vetores \(v_1,\dotsc ,v_r\in E\) é
+	\[
+		e_{(s)}^{*} (v_1,\dotsc ,v_r) = \prod\limits_{k=1}^{r}e_{i_k}^{*}(v_{k}). \quad \square
+	\]
+\end{def*}
+\begin{def*}
+	Para um subconjunto \(J=\{j_1<\dotsc <j_r\}\subseteq \{1,\dotsc ,m\}\), definimos a \textbf{forma alternada} associada como
+	\[
+		e_{[J]}^{*} \coloneqq \sum\limits_{\sigma \in S_{r}}^{} \mathrm{sgn}(\sigma )e_{(j_{\sigma (1)}, \dotsc , j_{\sigma (r)})}^{*},
+	\]
+	onde \(S_r\) é o grupo simétrico com r elementos. \(\square\)
+\end{def*}
+\begin{def*}
+	Seja \(\alpha = (\alpha_{j}^{i})\) uma matriz \(m\times r\). Para um subconjunto \(J=\{j_1<\dotsc <j_r\},\) denotamos por \(\alpha^{J}\) a submatriz \(r\times r\) obtida escolhendo as linhas de \(\alpha \) com índices em \(J.\; \square\)
+\end{def*}
+\begin{prop*}
+	Se \(\mathcal{E}=(e_1,\dotsc , e_{m})\) é uma base de E e
+	\[
+		v_{j} = \sum\limits_{i}^{}\alpha_{j}^{i}e_{i},\quad j=1,\dotsc ,r.
+	\]
+	Então, para cada subconjunto J,
+	\[
+		e_{[J]}^{*}(v_1,\dotsc , v_r) = \det{(\alpha^{J})}.
+	\]
+\end{prop*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A introdução destas notações ajuda a distinguir o produto tensorial puro da anti simetrização:  \(e_{(s)}^{*}\) indica o \textbf{produto tensorial}, enquanto \(e_{[J]}^{*}\) indica a \textbf{forma alternada}. Esta distinção eixa explícita a passagem entre cálculo concreto de produtos tensoriais e determinantes de submatrizes.
+\end{tcolorbox}
+
+\end{document}
