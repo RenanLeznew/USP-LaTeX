@@ -1,0 +1,197 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 16 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Consequências do Teorema Categórico;
+	\item Princípio da Limitação Uniforme;
+	\item Operadores Duais.
+\end{itemize}
+\subsection{Consequências do Teorema Categórico}
+\begin{theorem*}[Teorema da Aplicação Aberta]
+	Seja X um espaço de Banach e Y um espaço vetorial normado. Se \(T\in \mathcal{L}(X, Y)\) e \(T(X)\) for de segunda categoria em Y, entãp:
+	\begin{itemize}
+		\item[a)] T será sobrejetora;
+		\item[b)] T será aberta; e
+		\item[c)] Y será de segunda categoria.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Como podemos escrever
+	\[
+		X = \bigcup_{n=1}^{\infty}B_{n}^{X}(0),
+	\]
+	o conjunto
+	\[
+		T(X) = \bigcup_{n=1}^{\infty}T(B_{n}^{X}(0))
+	\]
+	é de segunda categoria em y, donde segue que o mapa de Y em Y dado por
+	\[
+		y\mapsto ny
+	\]
+	é um homeomorfismo levando \(T(B_{1}^{X}(0))\) em \(T(B_{n}^{X}(0))\). Com isso, pelo \hyperlink{baire_theorem}{\textit{Teorema de Baire}}, o conjunto
+	\(T(B_{1}^{X}(0))\) não pode ser raro, ou seja, deve existir um ponto \(y_{0}\in Y\) e \(r > 0\) tais que
+	\[
+		B_{2r}^{Y}(y_{0})\subseteq \overline{T(B_{1}^{X}(0))}.
+	\]
+	Logo,
+	\[
+		B_{2r}^{Y}(-y_{0})\subseteq \overline{T(B_{1}^{X}(0))}\;\&\; B_{2r}^{Y}(0)\subseteq \overline{T(B_{1}^{X}(0))}.
+	\]
+	Portanto, pelos lemas anteriores,
+	\[
+		B_{r}^{Y}(0)\subseteq T(B_{1}^{X}(0)),
+	\]
+	provando que T é aberta. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se X e Y são espaços de Banach e \(T\in \mathcal{L}(X, Y)\) é bijetora, então T é um isomorfismo, ou seja, \(T^{-1}\in \mathcal{L}(Y, X)\).
+\end{crl*}
+\hypertarget{uniform_limitation}{
+	\begin{theorem*}[Princípio da Limitação Uniforme]
+		Sejam X e Y espaços vetoriais normados e A um subconjunto de \(\mathcal{L}(X, Y)\).
+		\begin{itemize}
+			\item[a)] Se \(\{x\in X:\; \sup_{}\{\Vert Tx \Vert:\; T\in A\} < \infty\}\) for de segunda categoria, então
+			      \[
+				      \sup_{}\{\Vert T \Vert:\; T\in A\} < \infty.
+			      \]
+			\item[b)] Se X for Banach e \(\{x\in X:\; \sup_{}\{\Vert Tx \Vert:\; T\in A\} < \infty\} = X\), então
+			      \[
+				      \sup_{}\{\Vert T \Vert:\; T\in A\} < \infty;
+			      \]
+			\item[c)] Se X for Banach, \(\{T_{n}:\; n\in \mathbb{N}\} \subseteq \mathcal{L}(X, Y),\; \{T_{n}x\}\) for convergente para cada x em X, e definirmos
+			      \begin{align*}
+				      T: & X\rightarrow Y                              \\
+				         & x\longmapsto Tx = \lim_{n\to \infty}T_{n}x,
+			      \end{align*}
+			      então \(T\in \mathcal{L}(X, Y)\) e \(\Vert T \Vert \leq \liminf \Vert T_{n} \Vert.\)
+		\end{itemize}
+	\end{theorem*}
+}
+\begin{proof*}
+	Por conta do \hyperlink{baire_theorem}{\textit{Teorema de Baire}}, basta provarmos (a), e a mistura dos dois resultará nos itens (b) e (c). Para isso, seja
+	\[
+		E_{n} = \{x\in X: \sup_{T\in A}\Vert Tx \Vert\leq n\} = \bigcap_{T\in A}^{}\{x\in X:\; \Vert Tx \Vert \leq n\},
+	\]
+	tal que os \(E_{n}\)'s são fechados e, como sua união contém um conjunto de segunda categoria, devemos ter uma bola \(\overline{B_r}(x_{0}),\; r > 0\), contido em algum \(E_{n}\).
+	Consequentemente, como \(\Vert x \Vert \leq r\), temos \(x_{0}-x\in \overline{B_r(x_{0})}\subseteq E_{n}\) e
+	\[
+		\Vert Tx \Vert = \Vert T(x-x_{0}) \Vert + \Vert Tx_{0} \Vert \leq n+n = 2n, \quad \forall T\in A,
+	\]
+	donde concluímos que \(\overline{B_r(0)}\subseteq E_{2n}\).
+
+	Logo, \(\Vert Tx \Vert \leq 2n\) sempre que \(\Vert x \Vert \leq r\) e para todo T em A, donde temos
+	\[
+		\Vert T \Vert \leq \frac{2n}{r}, \quad \forall T\in A.
+	\]
+	Agora, se \(T_{n}\) converge para \(T\), qualquer subsequência de \(\{T_{n}\}\) também irá convergir; assim, existe uma subsequência \(\{T_{n_k}\}\) para a qual
+	\[
+		\lim_{k\to \infty}\Vert T_{n_k}\Vert = \liminf_{n\to \infty}\Vert T_{n}\Vert,
+	\]
+	mas
+	\[
+		\lim_{k\to \infty}T_{n_k} = Tx.
+	\]
+	Portanto,
+	\[
+		\Vert T \Vert \leq \limsup_{n\to \infty}\Vert T_{n_k} \Vert = \liminf_{n\to \infty} \Vert T_{n} \Vert. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{exr}
+	Tente utilizar o \hyperlink{baire_theorem}{\textit{Teorema de Baire}} para provar os itens restantes.
+\end{exr}
+\begin{crl*}
+	Se X é um espaço de Banach, B é um subconjunto de X e \(f(B)=\{f(b):\; b\in B\}\) é limitado para toda f no dual de X, então B é limitado.
+\end{crl*}
+\begin{proof*}
+	Para cada b em B, defina \(\hat{b}:X^{*}\rightarrow \mathbb{K}\) por
+	\[
+		\hat{b}(f)=f(b),\quad \forall f\in X^{*}.
+	\]
+	Então, para cada f no dual de X,
+	\[
+		\sup_{b\in B}| \hat{b}(f) | = \sup_{b\in B}| f(b) | < \infty
+	\]
+	segue do \hyperlink{uniform_limitation}{\textit{Princípio da Limitação Uniforme}} que
+	\[
+		\sup_{b\in B} \Vert \hat{b} \Vert = \sup_{b\in B}\Vert b \Vert < \infty. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	Seja X um espaço de Banach e \(B^{*}\subseteq X^{*}\); suponhamos que, para todo x de X, o conjunto
+	\[
+		B^{*}(X)=\{b^{*}(x):\; b^{*}\in B^{*}\}
+	\]
+	é limitado. Nestas condições, segue que \(B^{*}\) é limitado.
+\end{crl*}
+\begin{proof*}
+	Por hipótese, para cada x em X,
+	\[
+		\sup_{b\in B^{*}} | b^{*}(x) | \leq c_{x}.
+	\]
+	Segue do \hyperlink{uniform_limitation}{\textit{Princípio da Limitação Uniforme}} que
+	\[
+		\sup_{b^{*}\in B^{*}}\Vert b^{*} \Vert<\infty. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\hypertarget{closed_graphic}{
+	\begin{theorem*}[Gráfico Fechado]
+		Se X e Y forem espaços de Banach e \(T:X\rightarrow Y\) for fechada, então T será limitada.
+	\end{theorem*}
+}
+\begin{proof*}
+	Sejam \(\pi_1\) e \(\pi_2\) as projeções de \(\mathrm{Graf}(T)\) em X e Y, \textit{i.e.},
+	\[
+		\pi_1(x, Tx) = x \quad\&\quad \pi_2(x, Tx) = Tx,
+	\]
+	sendo ambas lineares de \(\mathrm{Graf}(T)\) em seus respectivos espaços X e Y.
+
+	Como X e Y são completos, \(X\times Y\) também o é, mostrando que \(\mathrm{Graf}(T)\) é completo, por ser um subconjunto fechado de um espaço completo; além disso, como \(\pi_1\) é uma bijeção de \(\mathrm{Graf}(T)\) em X, \(\pi_{1}^{-1}\) é limitado. Portanto,
+	\[
+		T = \pi_2 \circ \pi_{1}^{-1}
+	\]
+	é limitado. \qedsymbol
+\end{proof*}
+\subsection{Operadores Duais}
+Nesta seção, recordaremos a definição de operadores duais e trabalharemos a teoria deles.
+Para isso, sejam X e Y espaços vetoriais normados sobre um corpo \(\mathbb{K}\) com duais \(X^{*}\) e \(Y^{*}\).
+
+Se \(x^{*}\in X^{*}\) e \(y^{*}\in Y^{*}\), denotaremos o seu valor em um vetor x ou y por \(\langle x, x^{*} \rangle\) ou \(\langle y, y^{*} \rangle\) (Note que \((X\times Y)^{*} = X^{*}\times Y^{*}\)).
+\begin{def*}
+	Se \(A:D(A)\subseteq X\rightarrow Y\) é um operador linear densamente definido, \textbf{o dual} \(A^{*}:D(A^{*})\subseteq Y^{*}\rightarrow X^{*}\) de A é o operador linear definido da seguinte forma:
+	\[
+		D(A^{*}) = \{y^{*}\in Y^{*}:\; \exists z^{*}\in X^{*} \text{ tal que } \langle Ax, y^{*} \rangle = \langle x, z^{*} \rangle, \forall x\in D(A)\}.
+	\]
+	Se \(y^{*}\in D(A^{*})\), definimos \(A^{*}y^{*}\coloneqq z^{*}\), onde \(z^{*}\) é o único elemento de \(X^{*}\) satisfazendo
+	\[
+		\langle Ax, y^{*} \rangle = \langle x, A^{*}y^{*} \rangle, \quad \forall x\in D(A)\;\&\; \forall y^{*}\in D(A^{*}).\; \square
+	\]
+\end{def*}
+Para alguns resultados básicos, temos
+\begin{prop*}
+	Se X e Y são espaços vetoriais e \(A:D(A)\subseteq X\rightarrow Y\) é um operador linear densamente definido, então
+	\[
+		A^{*}:D(A^{*})\subseteq Y^{*}\rightarrow X^{*}
+	\]
+	é um operador linear fechado.
+\end{prop*}
+\begin{proof*}
+	Considerando as sequências
+	\[
+		y_{n}^{*}\ensurestackMath{\stackon[0em]{\longrightarrow}{n\to \infty}}y^{*}
+	\]
+	e
+
+	\[
+		A^{*}y_{n}^{*}\ensurestackMath{\stackon[0em]{\longrightarrow}{n\to \infty}}x^{*}
+	\]
+	para todo x no domínio de A, temos
+	\[
+		\langle Ax, y^{*} \rangle \ensurestackMath{\stackon[0em]{\longleftarrow}{n\to \infty}} \langle Ax, y_{n}^{*} \rangle = \langle x, A^{*}y_{n}^{*} \rangle\ensurestackMath{\stackon[0em]{\longrightarrow}{n\to \infty}} \langle x, x^{*} \rangle.
+	\]
+	Portanto, \(y^{*}\in D(A^{*})\) e \(A^{*}y^{*} = x^{*}.\) \qedsymbol
+\end{proof*}
+
+
+\end{document}
