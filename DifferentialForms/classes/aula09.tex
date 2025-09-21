@@ -1,0 +1,170 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 17 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Produto exterior e propriedades.
+\end{itemize}
+\subsection{Produto Exterior}
+Seja \(\mathcal{E}=(e_1,\dotsc , e_{m})\) uma base de E e \(\mathcal{E}^{*} = (e_{1}^{*}, \dotsc , e_{m}^{*})\) uma base dual de \(E^{*}.\)
+\begin{def*}
+	Para uma sequência de índices \(s=(i_1,\dotsc ,i_r)\), definimos o \textbf{produto tensorial das formas lineares} correspondentes por
+	\[
+		e_{(s)}^{*} = e_{i_1}^{*}\otimes e_{i_2}^{*}\otimes \dotsc \otimes e_{i_r}^{*}\in (E^{*})^{\otimes_r}.
+	\]
+	A forma que ele atua em vetores \(v_1,\dotsc ,v_r\in E\) é
+	\[
+		e_{(s)}^{*} (v_1,\dotsc ,v_r) = \prod\limits_{k=1}^{r}e_{i_k}^{*}(v_{k}). \quad \square
+	\]
+\end{def*}
+\begin{def*}
+	Para um subconjunto \(J=\{j_1<\dotsc <j_r\}\subseteq \{1,\dotsc ,m\}\), definimos a \textbf{forma alternada} associada como
+	\[
+		e_{[J]}^{*} \coloneqq \sum\limits_{\sigma \in S_{r}}^{} \mathrm{sgn}(\sigma )e_{(j_{\sigma (1)}, \dotsc , j_{\sigma (r)})}^{*},
+	\]
+	onde \(S_r\) é o grupo simétrico com r elementos. \(\square\)
+\end{def*}
+\begin{def*}
+	Seja \(\alpha = (\alpha_{j}^{i})\) uma matriz \(m\times r\). Para um subconjunto \(J=\{j_1<\dotsc <j_r\},\) denotamos por \(\alpha^{J}\) a submatriz \(r\times r\) obtida escolhendo as linhas de \(\alpha \) com índices em \(J.\; \square\)
+\end{def*}
+\begin{prop*}
+	Se \(\mathcal{E}=(e_1,\dotsc , e_{m})\) é uma base de E e
+	\[
+		v_{j} = \sum\limits_{i}^{}\alpha_{j}^{i}e_{i},\quad j=1,\dotsc ,r.
+	\]
+	Então, para cada subconjunto J,
+	\[
+		e_{[J]}^{*}(v_1,\dotsc , v_r) = \det{(\alpha^{J})}.
+	\]
+\end{prop*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A introdução destas notações ajuda a distinguir o produto tensorial puro da anti simetrização:  \(e_{(s)}^{*}\) indica o \textbf{produto tensorial}, enquanto \(e_{[J]}^{*}\) indica a \textbf{forma alternada}. Esta distinção eixa explícita a passagem entre cálculo concreto de produtos tensoriais e determinantes de submatrizes.
+\end{tcolorbox}
+
+Nas próximas partes da aula, definiremos o produto exterior e mostraremos a relação entre o que conhecemos como volumes de paralelepípedos e
+r-formas, mostrando que calcular volumes realmente é, em sua essência, calcular determinantes. Essa parte não tem exatamente uma construção uniforme,
+mas elas são as mesmas ``a menos de isomorfismo''.
+
+Definir o produto exterior de um espaço vetorial consiste em considerar a base do dual, olhar a ordem do vetor que deseja e analisar o espaço das formas
+utilizando os funcionais.
+
+Uma vez introduzidos os vetores e o seu produto, podemos construir uma nova operação fundamental, chamada \textit{produto exterior}, que surge da necessidade de considerar
+apenas as combinações assimétricas de vetores.
+
+Conforme vimos anteriormente, os tensores podem ser multiplicados de forma natural: se T é um p-tensor e S um q-tensor, definimos o tensor (p+q)-linear \(T\otimes S\) por
+\[
+	(T\otimes S)(v_1, \dotsc , v_{p+q}) = T(v_1, \dotsc , v_p)S(v_{p+1}, \dotsc , v_{p+q}),
+\]
+e o objeto \(T\otimes S\) leva o nome de \textit{produto tensorial de T com S}, que é associativo e distributivo com relação à soma, mas não é comutativo.
+
+O primeiro passo para explorar o produto exterior é, assim, definirmos o \textit{espaço exterior}; mais precisamente,
+\begin{def*}
+	Seja E um espaço vetorial de dimensão m. O \textbf{espaço exterior de ordem r}, denotado por \(\bigwedge^{r}E\), é definido como a imagem do
+	operador de antissimetrização
+	\begin{align*}
+		A: & \mathcal{L}^{r}(E; \mathbb{R})\rightarrow\mathcal{L}^{r}(E; \mathbb{R})                                                                                                                                                        \\
+		   & (v_{1}^{*}\otimes \dotsc \otimes v_{r}^{*})\longmapsto A(v_{1}^{*}\otimes \dotsc \otimes v_{r}^{*}) \coloneqq \sum\limits_{\sigma \in S_r}^{}\mathrm{sgn}(\sigma )v_{\sigma (1)}^{*}\otimes \dotsc \otimes v_{\sigma (r)}^{*},
+	\end{align*}
+	ou seja,
+	\[
+		\bigwedge^{r}E\coloneqq A(\mathcal{L}^{r}(E; \mathbb{R})).
+	\]
+	Os elementos deste espaço levam o nome de \textbf{r-covetores}.
+
+	Equivalentemente, podemos ver este espaço como o espaço vetorial gerado pelas expressões formais
+	\[
+		v_1 \wedge \dotsc \wedge v_r \coloneqq A(v_{1}^{*}\otimes \dotsc \otimes v_{r}^{*}),
+	\]
+	com \(v_{i}\in E\). \(\square\)
+\end{def*}
+
+Olhando para as duas definições equivalentes, um elemento
+\[
+	v_1\wedge\dotsc \wedge v_r\in \bigwedge^{r}E
+\]
+pode ser interpretado tanto como uma classe de tensores, quanto como um funcional no dual \(\mathcal{A}^{r}(E; \mathbb{R})\); assim, outra descrição
+possível do espaço exterior de orem r é como o dual do espaço das formas alternadas:
+\[
+	\bigwedge E \coloneqq (\mathcal{A}^{r}(E; \mathbb{R}))^{*}.
+\]
+Aqui, para cada r-upla \((v_1, \dotsc , v_r)\) de vetores em \(E^{r},\) temos um funcional que naturalmente define um elemento de \(\bigwedge^{r}E\), sendo ele
+\begin{align*}
+	\wedge : & \mathcal{A}^{r}(E; \mathbb{R})\rightarrow \bigwedge^{r}E                              \\
+	         & \varphi \longmapsto \varphi (v_1, \dotsc , v_r)\coloneqq v_1\wedge \dotsc \wedge v_r.
+\end{align*}
+\begin{example}
+	Considere \(E = \mathbb{R}^{3}\) como espaço que usaremos de exemplo inicial. Para o caso do espaço externo de ordem 1, estamos fazendo nada mais que considerando
+	os funcionais alternados que atuam em apenas 1 vetor, ou seja,
+	\[
+		\bigwedge^{1}\mathbb{R}^{3} = (\mathcal{A}^{1}(\mathbb{R}^{3}; \mathbb{R}))^* = \mathrm{span}\{e_1, e_2, e_3\} = \mathbb{R}^{3}.
+	\]
+
+	Quando consideramos a ordem 2, mexemos com os índices em pares, que, no caso de \(\mathbb{R}^{3},\) consiste em
+	\[
+		e_1 \wedge e_2,\; e_1 \wedge e_3,\;\&\; e_{2}\wedge e_3.
+	\]
+	Logo,
+	\[
+		\bigwedge^{2}\mathbb{R}^{3} = \mathrm{span}\{e_1\wedge e_2, e_1\wedge e_3, e_2\wedge e_3\}.
+	\]
+
+	Por fim, com para a álgebra exterior de ordem 3, a única combinação dos 3 vetores da base de \(\mathbb{R}^{3}\) é
+	\[
+		e_1 \wedge e_2 \wedge e_3,
+	\]
+	tal que
+	\[
+		\bigwedge^{3}\mathbb{R}^{3} = \mathrm{span}\{e_1 \wedge e_2\wedge e_3\}.
+	\]
+
+	Além disso, o produto exterior entre \(v=(v_1, v_2, v_3), w=(w_1, w_2, w_3)\in \mathbb{R}^{3}\) é
+	\[
+		v\wedge w = (v_1w_2 - v_2w_1)(e_1\wedge e_2) + (v_1w_3 - v_3w_1)(e_1\wedge e_3) + (v_2w_3-v_3w_2)(e_2\wedge e_3).
+	\]
+\end{example}
+
+\begin{lemma*}
+	Sejam \(f\in \mathcal{A}^{p}(E; \mathbb{R})\) e \(g\in \mathcal{A}^{q}(E; \mathbb{R})\). Se \(A(F) = 0 \), então
+	\[
+		f \wedge g = 0 = g \wedge f.
+	\]
+\end{lemma*}
+\begin{proof*}
+	Sejam \(S_{p}\) o grupo das permutações em \(I_{p}\) e \(S_{p+q}\) o das permutações em \(I_{p+q}\); além disso, considere \(G\subseteq S_{p+q}\) o subgrupo formado
+	pelas permutações que fixam \(\{p+1, \dotsc , p+q\}\). Podemos, assim, relacionar de forma natural um elemento \(\sigma \in G\) com um de \(S_{p}\) que também denotaremos
+	por \(\sigma\).
+
+	Consideremos a aplicação
+	\begin{align*}
+		A^{G}(f \otimes g) = \sum\limits_{\sigma \in S_{p}}^{}\varepsilon_{\sigma }\underbrace{\sigma}_{\mathclap{\in S_{p+q}}} \overbrace{(f\otimes g)}^{\in \mathcal{A}^{p+q}} & = \sum\limits_{\sigma \in S_{p}}^{}\varepsilon_{\sigma }\sigma (f)g                       \\
+		                                                                                                                                                                         & = \biggl(\sum\limits_{\sigma \in S_{p}}^{}\varepsilon_{\sigma }\sigma (f)\biggr)\otimes g \\
+		                                                                                                                                                                         & = 0.
+	\end{align*}
+
+	Porém, isso foi feito para apenas um subgrupo; precisamos repetir a conta para o seguinte conjunto: dado \(\rho \in S_{p+q}\),
+	\[
+		\{\rho \sigma :\; \sigma \in G\} = \rho G.
+	\]
+	Seja
+	\begin{align*}
+		A^{\rho G}(f\otimes g) = \sum\limits_{\sigma \in G}^{}\varepsilon_{\rho \sigma }(\rho \sigma )(f\otimes G) & = \sum\limits_{\sigma \in G}^{}\varepsilon_{\rho }\varepsilon_{\sigma }\rho (\sigma (f\otimes g))                                           \\
+		                                                                                                           & = \varepsilon_{\rho }\rho \biggl(\underbrace{\bigl(\sum\limits_{\sigma \in G}^{}\varepsilon_{\sigma }\sigma f\bigr)}_{A(f)}\otimes g\biggr) \\
+		                                                                                                           & = 0.
+	\end{align*}
+	Como os conjuntos dessa forma são classes laterais de \(S_{p+q}\), temos uma partição deste grupo e, como em cada parte a soma é zero, o resultado segue. \qedsymbol
+\end{proof*}
+
+
+
+\end{document}

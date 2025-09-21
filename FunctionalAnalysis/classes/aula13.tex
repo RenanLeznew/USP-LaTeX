@@ -1,0 +1,399 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 18 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Operadores Duais;
+	\item Anuladores;
+	\item Operadores Compactos.
+\end{itemize}
+\subsection{Operadores Duais e Anuladores}
+Nesta seção, recordaremos a definição de operadores duais e trabalharemos a teoria deles.
+Para isso, sejam X e Y espaços vetoriais normados sobre um corpo \(\mathbb{K}\) com duais \(X^{*}\) e \(Y^{*}\).
+
+Se \(x^{*}\in X^{*}\) e \(y^{*}\in Y^{*}\), denotaremos o seu valor em um vetor x ou y por \(\langle x, x^{*} \rangle\) ou \(\langle y, y^{*} \rangle\) (Note que \((X\times Y)^{*} = X^{*}\times Y^{*}\)).
+\begin{def*}
+	Se \(A:D(A)\subseteq X\rightarrow Y\) é um operador linear densamente definido, \textbf{o dual} \(A^{*}:D(A^{*})\subseteq Y^{*}\rightarrow X^{*}\) de A é o operador linear definido da seguinte forma:
+	\[
+		D(A^{*}) = \{y^{*}\in Y^{*}:\; \exists z^{*}\in X^{*} \text{ tal que } \langle Ax, y^{*} \rangle = \langle x, z^{*} \rangle, \forall x\in D(A)\}.
+	\]
+	Se \(y^{*}\in D(A^{*})\), definimos \(A^{*}y^{*}\coloneqq z^{*}\), onde \(z^{*}\) é o único elemento de \(X^{*}\) satisfazendo
+	\[
+		\langle Ax, y^{*} \rangle = \langle x, A^{*}y^{*} \rangle, \quad \forall x\in D(A)\;\&\; \forall y^{*}\in D(A^{*}).\; \square
+	\]
+\end{def*}
+
+Note que, se \(y^{*}\circ A:D(A)\subseteq X\rightarrow \mathbb{K}\) é limitado e \(\overline{D(A)}=X\), dado x em X e uma sequência
+\(\{x_{n}\}\) em D(A) convergindo para x, então \(\{\langle x_{n}, y^{*}\circ A \rangle\}\) é de Cauchy em \(\mathbb{K}\) e, portanto,
+convergente.
+
+Observe que este limite independe da sequência \(\{x_{n}\}\) escolhida, então podemos definir o funcional
+\[
+	z^{*}(x)=\lim_{n\to \infty}\langle x_{n}, y^{*}\circ A \rangle.
+\]
+
+Para alguns resultados básicos, temos
+\begin{prop*}
+	Se X e Y são espaços vetoriais e \(A:D(A)\subseteq X\rightarrow Y\) é um operador linear densamente definido, então
+	\[
+		A^{*}:D(A^{*})\subseteq Y^{*}\rightarrow X^{*}
+	\]
+	é um operador linear fechado.
+\end{prop*}
+\begin{proof*}
+	Considerando as sequências
+	\[
+		y_{n}^{*}\ensurestackMath{\stackon[0em]{\longrightarrow}{n\to \infty}}y^{*}
+	\]
+	e
+
+	\[
+		A^{*}y_{n}^{*}\ensurestackMath{\stackon[0em]{\longrightarrow}{n\to \infty}}x^{*}
+	\]
+	para todo x no domínio de A, temos
+	\[
+		\langle Ax, y^{*} \rangle \ensurestackMath{\stackon[0em]{\longleftarrow}{n\to \infty}} \langle Ax, y_{n}^{*} \rangle = \langle x, A^{*}y_{n}^{*} \rangle\ensurestackMath{\stackon[0em]{\longrightarrow}{n\to \infty}} \langle x, x^{*} \rangle.
+	\]
+	Portanto, \(y^{*}\in D(A^{*})\) e \(A^{*}y^{*} = x^{*}.\) \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Sejam X e Y espaços de Banach sobre \(\mathbb{K}\) e \(A\in \mathcal{L}(X, Y)\); então, \(A^{*}\in \mathcal{L}(Y^{*}, X^{*})\) e
+	\[
+		\Vert A \Vert_{\mathcal{L}(X, Y)} = \Vert A^{*} \Vert_{\mathcal{L}(Y^{*}, X^{*})}.
+	\]
+\end{lemma*}
+\begin{proof*}
+	Para todo funcional \(y^{*}\in Y^{*},\; y^{*}\circ A\) é um funcional linear contínuo e assim determina um único elemento \(x^{*}\in X^{*}\) para o qual
+	\[
+		\langle x, x^{*} \rangle = \langle Ax, y^{*} \rangle,\quad \forall x\in X.
+	\]
+	Segue que \(D(A^{*})=Y^{*}.\) Portanto,
+	\begin{align*}
+		\Vert A^{*} \Vert_{\mathcal{L}(Y^{*}, X^{*})} = \sup_{\Vert y^{*} \Vert_{Y^{*}}\leq 1}\Vert A^{*}y^{*} \Vert_{X^{*}} & = \sup_{\Vert y^{*} \Vert_{Y^{*}}\leq 1}\sup_{\Vert x \Vert_{X}\leq 1}| \langle x, A^{*}y^{*} \rangle | \\
+		                                                                                                                     & = \sup_{\Vert x \Vert_{X}\leq 1}\sup_{\Vert y^{*} \Vert_{X^{*}}\leq 1} | \langle Ax, y^{*} \rangle |    \\
+		                                                                                                                     & = \sup_{\Vert x \Vert_{X}\leq 1}\Vert Ax \Vert_{Y}                                                      \\
+		                                                                                                                     & = \Vert A \Vert_{\mathcal{L}(X, Y)}. \text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{lemma*}
+	Seja Y um espaço de Banach reflexivo sobre \(\mathbb{K}.\) Se \(A:D(A)\subseteq X\rightarrow Y\) é fechado e densamente definido, então \(D(A^{*})\) é denso em \(Y^{*}.\)
+\end{lemma*}
+\begin{proof*}
+	Se \(D(A^{*})\) não é denso em \(Y^{*}\), existe um elemento \(\hat{y}\in Y^{**}\)
+	\[
+		\hat{y}=Jy \neq  0
+	\]
+	tal que \(\langle Jy, y^{*} \rangle=\langle y, y^{*} \rangle=0\) para todo \(y^{*}\in D(A^{*})\). Como A é fechado, seu gráfico é fechado em \(X\times Y\)
+	e não contém \((0, y)\); agora, do \hyperlink{hahn_banach}{\textit{Teorema de Hahn-Banach}}, existem \(x^{*}\in X^{*}\) e \(y^{*}\in Y^{*}\) tais que, para
+	todo \(z\in D(A)\),
+	\[
+		\langle z, x^{*} \rangle-\langle z, y^{*} \rangle=0
+	\]
+	e
+	\[
+		\langle 0, x^{*} \rangle - \langle y, y^{*} \rangle\neq 0.
+	\]
+
+	Logo, \(y^{*}\neq 0,\; \langle y, y^{*} \rangle\neq 0,\; y^{*}\in D(A^{*})\) e \(A^{*}y^{*}=x^{*},\) que implica em \(\langle y, y^{*} \rangle=0\), uma contradição. Portanto,
+	\[
+		\overline{D(A^{*})} = Y^{*}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{theorem*}
+	Se \(S:D(S)\subseteq X\rightarrow X\) é um operador linear injetivo, densamente definido e com imagem densa, então \(S^{*}:D(S^{*})\subseteq X^{*}\rightarrow X^{*}\) está bem definido, é injetivo e
+	\[
+		(S^{*})^{-1}=(S^{-1})^{*}.
+	\]
+	Além disso, \(S^{-1}\in \mathcal{L}(X)\) se, e somente se, S é fechado e \((S^{*})^{-1}\in \mathcal{L}(X^{*})\).
+\end{theorem*}
+\begin{proof*}
+	Pela densidade de \(D(S)\) e de sua imagem, vale que \(S^{*}\) e \((S^{-1})^{*}\) são bem definidos; por outro lado, se \(x^{*}\) for um ponto no domínio de \(D(S^{*})\) tal que
+	\[
+		S^{*}x^{*} = 0\;\& \; x\in D(S),
+	\]
+	então
+	\[
+		0 = \langle x, S^{*}x^{*} \rangle = \langle Sx, x^{*} \rangle,
+	\]
+	e, como a imagem de S é densa por hipótese, concluímos que \(x^{*} = 0\) e que \(S^{*}\) é injetivo, consequentemente evando à conclusão de que \((S^{*})^{-1}\) também está bem definido.
+
+	Finalmente, seja \(x\in \mathrm{Im}(S)\) e \(x^{*}\in D(S^{*})\), e note que
+	\[
+		\langle x, x^{*} \rangle = \langle S\circ S^{-1}x, x^{*} \rangle = \langle S^{-1}x, S^{*}x^{*} \rangle,
+	\]
+	donde segue que \(D((S^{*})^{-1}) = \mathrm{Im}(S^{*}) \subseteq D((S^{-1})^{*})\) e que
+	\[
+		\langle S\circ S^{-1}x, x^{*} \rangle = \langle x, (S^{-1})^{*}\circ S^{*}x^{*} \rangle, \quad \forall x^{*}\in D(S^{*})\;\&\; \forall x\in \mathrm{Im}(S).
+	\]
+	Assim, para todo \(x^{*}\in D(S^{*})\),
+	\[
+		(S^{-1})^{*}\circ S^{*}x^{*} = x^{*}.
+	\]
+
+	Reciprocamente, dados \(x\in D(S)\) e \(X^{*}\in D((S^{-1})^{*})\), temos
+	\[
+		\langle x, x^{*} \rangle = \langle S^{-1}\circ Sx, x^{*} \rangle = \langle Sx, (S^{-1})^{*}x^{*} \rangle,
+	\]
+	resultando em \(\mathrm{Im}((S^{-1})^{*})\subseteq D(S^{*})\) e
+	\[
+		\langle S^{-1}\circ Sx, x^{*} \rangle = \langle x, S^{*}\circ (S^{-1})^{*}x^{*} \rangle, \quad \forall x^{*}\in D((S^{-1})^{*})\;\&\; \forall x\in D(S).
+	\]
+	Portanto, para todo \(x^{*}\in D((S^{-1})^{*})\),
+	\[
+		S^{*}\circ (S^{-1})^{*}x^{*} = x^{*}.\text{ \qedsymbol} \]
+\end{proof*}
+\begin{def*}
+	Seja X um espaço vetorial normado sobre \(\mathbb{K},\) M um subespaço vetorial de X e \(N^{*}\) um subespaço vetorial de \(X^{*}.\) Definimos os conjuntos
+	\begin{align*}
+		 & M^{\perp } = \{f\in X^{*}:\; f(x) = 0,\; \forall x\in M\}    \\
+		 & (N^{*})^{\perp } = \{x\in X:\; f(x) = 0,\; \forall f\in N\}.
+	\end{align*}
+	Dizemos que \(M^{\perp }\) é o \textbf{anulador de M} e que \((N^{*})^{\perp }\) é o \textbf{anulador de \(N^{*}\).} \(\square\)
+\end{def*}
+Observe que \(M^{\perp }\) é um subespaço vetorial \textit{fechado} de \(X^{*}\); de fato, para provar isto, note que se \(f\in \overline{(M^{\perp })}\), então existe uma sequência \(\{f_{n}\}\) em \(M^{\perp }\) com
+\[
+	f_{n}\substack{n\to \infty \\ \longrightarrow \\ }f,
+\]
+donde segue que
+\[
+	0 = f_{n}(x)\substack{n\to \infty \\ \longrightarrow \\ }f(x) \Rightarrow f(x) = 0,\; \forall x\in M,
+\]
+mostrando que \(f\in M^{\perp }\). Analogamente, \((N^{*})^{\perp }\) é um subespaço vetorial fechado de X, bastando observar que
+\[
+	\bigcap_{f\in N^{*}}^{}f^{-1}(0) = (N^{*})^{\perp}
+\]
+e, sendo a intersecção de fechados, \((N^{*})^{\perp }\) é fechado.
+
+\begin{prop*}
+	Seja X um espaço vetorial normado sobre \(\mathbb{K}.\)
+	\begin{itemize}
+		\item[1)] Se M é subespaço vetorial de X, então \((M^{\perp })^{\perp }=\overline{M}\); e
+		\item[2)] Se \(N^{*}\) é um subespaço vetorial de \(X^{*}\), então \(((N^{*})^{\perp })^{\perp }\supseteq \overline{(N^{*})}\)
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Para o item 1, começamos determinando o que exatamente é o espaço estudado; segue que
+	\[
+		(M^{\perp })^{\perp }=\{x\in M:\; f(x)=0,\; \forall f\in M^{\perp }\}.
+	\]
+
+	Se x é um ponto de M, então \(f(x) = 0\) para todo f em \(M^{\perp }\), donde segue que \(x\in (M^{\perp })^{\perp }\), mostrando a inclusão \(M\subseteq (M^{\perp })^{\perp }\). Finalmente, como \((M^{\perp })^{\perp }\) é fechado, segue que
+	\[
+		\overline{M}\subseteq (M^{\perp })^{\perp }.
+	\]
+
+	Por outro lado, se \(x_{0}\) pertence ao complementar de \(\overline{M}\) relativo a \((M^{\perp })^{\perp }\), então segue do \hyperlink{hahn_banach}{\textit{Teorema de Hahn-Banach}} que existe um funcional f tal que \(f(x)=0\) para todo ponto de \(\overline{M}\), mas \(f(x_{0})\neq 0\), indicando que \(f\in M^{\perp }\) e, como \(x_{0}\in (M^{\perp })^{\perp },\) temos \(f(x_{0})=0\), que é um absurdo. Logo, \((M^{\perp })^{\perp }\subseteq \overline{M}\), seguindo a igualdade.
+
+	Relativo ao item 2, o conjunto é
+	\[
+		((N^{*})^{\perp })^{\perp }=\{f\in X^{*}:\; f(x)=0,\; \forall x\in (N^{*})^{\perp }\}.
+	\]
+	Assim, se f é um funcional em \(N^{*}\), então \(f(x)=0\) para todo x em \((N^{*})^{\perp }\), donde segue que f pertence a \(((N^{*})^{\perp })^{\perp }\) e que \(N^{*}\subseteq ((N^{*})^{\perp })^{\perp }.\) Finalmente, do fato que \(((N^{*})^{\perp })^{\perp }\) é fechado, provando que
+	\[
+		\overline{N}\subseteq ((N^{*})^{\perp })^{\perp }. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{lemma*}
+	Seja X um espaço vetorial normado sobre \(\mathbb{K},\; M_1,\; M_2\) subespaços vetoriais de X com \(M_1 \subseteq M_2\) e \(N_{1}^{*},\; N_{2}^{*}\) subespaços vetoriais de \(X^{*}\) com \(N_{1}^{*}\subseteq N_{2}^{*}.\)
+	Então,
+	\[
+		M_{2}^{\perp }\subseteq M_{1}^{\perp }\;\&\; (N_{2}^{*})^{\perp }\subseteq (N_{1}^{*})^{\perp }.
+	\]
+\end{lemma*}
+\begin{proof*}
+	Se f pertence a \(M_{2}^{\perp }\), então
+	\[
+		f(x) = 0,\; \forall x\in M_2.
+	\]
+	Como \(M_1 \subseteq M_2\), segue que, para todo ponto x de \(M_1\),
+	\[
+		f(x) = 0
+	\]
+	e, portanto,
+	\[
+		f\in M_{1}^{\perp }. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{exr}
+	Prove a parte de \((N_{2}^{*})^{\perp } \subseteq (N_{1}^{*})^{\perp }\).
+\end{exr}
+\begin{def*}
+	Um subconjunto \(M^{*}\subseteq X^{*}\) é dito \textbf{total} se \((M^{*})^{\perp }=\{0\}.\; \square\)
+\end{def*}
+Note que um conjunto total é um composto por coordenadas suficientes para descrever qualquer vetor de X, isto é, dados dois vetores
+\(x, y\in X\) cujas coordenadas em \((M^{*})^{\perp }\) coincidem, ou seja, tais que
+\[
+	\langle x, x^{*} \rangle=\langle y, x^{*} \rangle,\quad \forall x^{*}\in M^{*},
+\]
+acontecerá que \(x=y\). De certa forma, isto implica que um conjunto total \(M^{*}\) em \(X^{*}\) é grande, embora não precise ser denso em \(X^{*}\).
+\begin{prop*}
+	Seja \(A:D(A)\subseteq X\rightarrow X\) um operador linear densamente definido; o gráfico de \(A^{*}\)
+	\[
+		\mathrm{Graf}(A^{*})=\{(x^{*}, A^{*}x^{*}):\; x^{*}\in D(A^{*})\}
+	\]
+	é o anulador em \(X^{*}\times X^{*}\) do conjunto
+	\[
+		\{(-Ax, x):\; x\in D(A)\}.
+	\]
+\end{prop*}
+\begin{proof*}
+	De fato, se \(x^{*}\in D(A^{*})\), seguirá que, para todo x em \(D(A)\),
+	\[
+		\langle (-Ax, x), (x^{*}, A^{*}x^{*}) \rangle = 0,
+	\]
+	tal que
+	\[
+		(x^{*}, A^{*}x^{*})\in \{(-Ax, x):\; x\in D(A)\}^{\perp },
+	\]
+	provando que \(\mathrm{Graf}(A^{*})\subseteq \{(-Ax, x):\; x\in D(A)\}^{\perp }\).
+
+	Por outro lado, tomando um par
+	\[
+		(x^{*}, y^{*})\in \{(-Ax, x):\; x\in D(A)\}^{\perp },
+	\]
+	temos
+
+	\[
+		\langle (-Ax, x), (x^{*}, y^{*}) \rangle=-\langle Ax, x^{*} \rangle + \langle x, ^{*} \rangle =0
+	\]
+	para todo x em \(D(A)\); disto, segue que \(x^{*}\in D(A^{*})\) e que \(A^{*}x^{*}=y^{*}\). Portanto,
+	\[
+		(x^{*}, y^{*})\in \mathrm{Graf}(A^{*}) \Rightarrow \{(-Ax, x):\; x\in D(A)\}^{\perp }\subseteq \mathrm{Graf}(A^{*}).\text{ \qedsymbol}
+	\]
+\end{proof*}
+Essa proposição nos dá quase as condições necessárias para dois elementos que coincidem no gráfico de um operador serem os mesmos, mas falta uma parte:
+\begin{prop*}
+	Se \(A:D(A)\subseteq X\rightarrow X\) é fechado e densamente definido, então \(D(A^{*})\) é total.
+\end{prop*}
+\begin{proof*}
+	Seja x um ponto de X tal que, para todo \(x^{*}\in D(A^{*})\),
+	\[
+		\langle x, x^{*} \rangle=0.
+	\]
+
+	Nosso objetivo é mostrar que x vale 0; como
+	\[
+		\mathrm{Graf}(A^{*})=\{(x^{*}, A^{*}x^{*}):\; x^{*}\in D(A^{*})\}= \{(-Ax, x):\; x\in D(A)\}^{\perp },
+	\]
+	vale que, para todo \(x^{*}\in D(A^{*})\),
+	\[
+		\langle (x, 0), (x^{*}, A^{*}x^{*}) \rangle = 0.
+	\]
+	Portanto,
+	\[
+		(x, 0)\in \mathrm{Graf}(A^{*})^{\perp }=\{(-Ax, x):\; x\in D(A)\}^{\perp }\;\&\; x=0. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\subsection{Operadores Compactos}
+\begin{def*}
+	Sejam X, Y espaços de Banach sobre \(\mathbb{K}\). Diremos que um operador linear \(K:X\rightarrow Y\) é \textbf{compacto} se \(K(B_{1}^{X}(0))\) é um subconjunto \hyperlink{relatively_compact}{\textit{relativamente compacto}} de Y.
+
+	O conjunto dos operadores lineares compactos \(K:X\rightarrow Y\) será denotado por \(\mathcal{K}(X, Y)\). \(\square\)
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Conjunto Relativamente Compacto},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Um subconjunto \hypertarget{relatively_compact}{relativamente compacto} Y de um espaço topológico X é um subconjunto cujo fecho \(\overline{Y}\) é compacto, ou seja, no caso de espaços métricos como aqui, diremos que Y é um subconjunto relativamente compacto de X se toda sequência de Y tem uma subsequência convergente em X.
+
+	Essa segunda definição, para o caso de espaços de funções, deveria lembrar o leitor de um \textit{teorema um tanto famoso}\footnote{Arzelá-Ascoli.} na análise.
+\end{tcolorbox}
+\begin{exr}
+	Seja \(X=\mathcal{C}([a, b]; \mathbb{C})\) e \(k\in\mathcal{C}([a, b]\times [a, b]; \mathbb{C})\).
+	Defina \(K\in \mathcal{L}(X)\) por
+	\[
+		(Kx)(t)=\int_{a}^{b}k(t, s)x(s) \mathrm{ds}.
+	\]
+	Mostre que \(K\) é de fato um operador linear em X e, usando o Teorema de Arzelá-Ascoli, mostre que K é um operador compacto.
+\end{exr}
+\begin{theorem*}
+	Sejam X, Y espaços de Banach sobre \(\mathbb{K}.\) Então, \(\mathcal{K}(X, Y)\) é um subespaço fechado de \(\mathcal{L}(X, Y)\).
+\end{theorem*}
+\begin{proof*}
+	Suponha que \(\{K_{n}\}\) é uma sequência em \(\mathcal{K}(X, Y)\) que converge para \(K\in \mathcal{L}(X, Y)\) na topologia de \(\mathcal{L}(X, Y)\);
+	em outras palavras, dado \(\varepsilon >0\), existe \(n_{\varepsilon }\in \mathbb{N}\) tal que
+	\[
+		K(B_{1}^{X}(0))\subseteq K_{n_\varepsilon }(B_{1}^{X}(0)) + B_{\varepsilon }^{Y}(0).
+	\]
+	Portanto, \(K(B_{1}^{X}(0))\) é totalmente limitado em Y, consequentemente é relativamente compacto também. \qedsymbol
+\end{proof*}
+\begin{exr}
+	Seja \(X = \ell^{2}(\mathbb{C})\) e \(A:X\rightarrow X\) dado por
+	\[
+		A\{x_{n}\}=\biggl\{\frac{x_{n}}{n+1}\biggr\},
+	\]
+	o qual sabemos ser limitado e \(0\in \sigma_{C}(A)\). Mostre que A é um operador compacto.
+\end{exr}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Espaços \(\ell^{p}\)},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Os espaços \(\ell^{p}\) são subconjunto dos espaços de sequências que consistem nas sequências \(\{x_{n}\}_{n}\) que satisfazem
+	\[
+		\sum\limits_{n}^{}| x_{n} |^{p}<\infty.
+	\]
+	Se \(p\geq 1\), podemos definir a norma \(\Vert \cdot  \Vert_{p}\) em \(\ell^{p}\) por
+	\[
+		\Vert x \Vert_{p}=\biggl(\sum\limits_{n}^{}| x_{n} |^{p}\biggr)^{\frac{1}{p}},\quad \forall x\in \ell^{p},
+	\]
+	tornando-o um espaço de Banach relativo a esta norma.
+
+	Em particular, para \(p=2\), \(\ell^{2}\) é um espaço de Hilbert com produto interno dado por
+	\[
+		\langle x, y \rangle=\sum\limits_{n}^{}\overline{x_{n}}y_{n},
+	\]
+	onde \(x, y\in \ell^{2}\) são as sequências \(\{x_{n}\}_{n}\) e \(\{y_{n}\}_{n}\)
+\end{tcolorbox}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Espectro Contínuo},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	O conjunto de \(\lambda\in \mathbb{K}\) para os quais \(A-\lambda I\) é injetivo e densamente definido, mas não é sobrejetor, é chamado \textbf{espectro contínuo de A}
+	e denotado por \(\sigma_{c}(A)\).
+
+	O espectro contínuo consiste dos escalares que são aproximadamente autovalores, mas não estão no espectro residual.
+
+	Para o caso de \(A:\ell^{2}(\mathbb{N})\rightarrow \ell^{2}(N)\) dado por \(e_{j}\mapsto e_{j}/j\), segue que \(A\) é injetivo e densamente definido, mas \(\mathrm{Im}(A)\subsetneq \ell^{2}(\mathbb{N})\), pois se
+	\[
+		x=\sum\limits_{j\in \mathbb{N}}^{}c_{j}e_{j}\in \ell^{2}(\mathbb{N})
+	\]
+	com \(c_{j}\in \mathbb{C}\) tais que \(\sum\limits_{j\in \mathbb{N}}^{}| c_{j} |^{2}<\infty\), não necessariamente é verdade que
+	\[
+		\sum\limits_{j\in \mathbb{N}}^{}| jc_{j} |^{2}<\infty.
+	\]
+	Logo,
+	\[
+		\sum\limits_{j\in \mathbb{N}}^{}jc_{j}e_{j}\not\in \ell^{2}(\mathbb{N}).
+	\]
+\end{tcolorbox}
+\end{document}
