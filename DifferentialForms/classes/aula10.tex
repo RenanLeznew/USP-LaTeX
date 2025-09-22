@@ -1,0 +1,136 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 22 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Produto interno;
+	\item (Co)Vetores Decomponíveis.
+\end{itemize}
+\subsection{(Co)Vetores Decomponíveis}
+Para relembrar, na aula passada definimos
+\begin{def*}
+	Um \textbf{produto interno} em um espaço vetorial E é uma forma bilinear
+	\[
+		\langle \cdot , \cdot  \rangle:E\times E\rightarrow \mathbb{R}
+	\]
+	satisfazendo:
+	\begin{itemize}
+		\item[\textbf{Simetria})] para quaisquer \(u, v\) em E,
+		      \[
+			      \langle u, v \rangle = \langle v, u \rangle
+		      \]
+		\item[\textbf{Positividade})] sempre que \(u\neq 0\),
+		      \[
+			      \langle u, u \rangle > 0. \;\square
+		      \]
+	\end{itemize}
+\end{def*}
+
+E propusemos um candidato a produto interno no produto exterior de um espaço vetorial E. Hoje, mostraremos que ele é de fato um produto interno, por meio do
+
+\begin{theorem*}
+	Sejam E um espaço vetorial com produto interno e \(\bigwedge^{r}E\) o r-produto exterior de E. A forma bilinear
+	\[
+		\langle \cdot , \cdot  \rangle:\bigwedge^{r}E \times \bigwedge^{r}E\rightarrow \mathbb{R}
+	\]
+	dada por
+	\[
+		\langle u_1\wedge \dotsc \wedge u_r, v_1\wedge \dotsc \wedge v_r \rangle = \det{(\langle u_{i}, v_{j} \rangle)}
+	\]
+	para quaisquer \(u_{i}, v_{j}\) em E, é um produto interno.
+\end{theorem*}
+\begin{proof*}
+	Para verificar que a 2-forma é simétrica, note que
+	\begin{align*}
+		\langle u_1\wedge \dotsc\wedge u_r, v_1\wedge \dotsc \wedge v_r \rangle & = \det{(\langle u_{i}, v_{j} \rangle)}                                      \\
+		                                                                        & = \det{(\langle v_{j}, u_{i} \rangle)}                                      \\
+		                                                                        & =\langle v_1\wedge \dotsc \wedge v_r, u_1 \wedge \dotsc \wedge u_r \rangle.
+	\end{align*}
+	Vamos mostrar agora que
+	\[
+		\langle u_1\wedge \dotsc \wedge u_r, u_1\wedge \dotsc \wedge u_r \rangle = \det{(\langle u_{i}, u_{j} \rangle)} \geq 0,
+	\]
+	ou seja, que o produto interno do vetor com ele mesmo é positivo; aproveitando, mostraremos que ele se anula se, e somente se, \(u_1\wedge \dotsc \wedge u_r\) é nulo, ou seja, os vetores \(u_1, u_2, \dotsc , u_r\) são linearmente
+	dependentes.
+
+	Para isso, começaremos mostrando o resultado por meio de uma base ortonormal: seja \((e_1, \dotsc , e_m)\) uma base ortonormal de E; ela induz uma base natural em \(\bigwedge^{r}E\) formada pelos vetores
+	\[
+		e_{J} = e_{j_1}\wedge \dotsc \wedge e_{j_r}, \quad J = \{j_1 < \dotsc < j_r\} \subseteq I_{m}.
+	\]
+	Para \(K = \{k_1 < \dotsc < k_r\}\), temos
+	\[
+		e_{k} = e_{k_1} \wedge \dotsc \wedge e_{k_r}
+	\]
+	e, pela definição,
+	\[
+		\langle e_{J}, e_{K} \rangle = \det{(\langle e_{j}, e_{k} \rangle)},\quad j\in J,\; k\in K.
+	\]
+
+	\textbf{\underline{Afirmação}:} Se \(K\neq J\), existe \(k_{0}\not\in J\) tal que \(\langle e_{j}, e_{k_{0}} \rangle = 0\) para todo j em J. Com efeito,
+	\[
+		\begin{pmatrix}
+			\langle e_1, e_1 \rangle & \langle e_1, e_2 \rangle & \langle e_1, e_3 \rangle & \dotsc & \langle e_1, e_{r-1} \rangle & \langle e_1, e_r \rangle \\
+			\langle e_2, e_1 \rangle & \langle e_2, e_2 \rangle & \langle e_2, e_3 \rangle & \dotsc & \langle e_2, e_{r-1} \rangle & \langle e_2, e_r \rangle \\
+			\vdots                   & \vdots                   & \vdots                   & \ddots & \vdots                       & \vdots                   \\
+			\langle e_r, e_1 \rangle & \langle e_r, e_2 \rangle & \langle e_r, e_3 \rangle & \dotsc & \langle e_r, e_{r-1} \rangle & \langle e_r, e_r \rangle \\
+		\end{pmatrix}.\quad  \blacktriangle
+	\]
+	Decorrente da afirmação, o determinante correspondente à definição de \(\langle e_{J}, e_{K} \rangle\) possui uma coluna nula.
+
+	Por outro lado, temos
+	\[
+		\langle e_{J}, e_{J} \rangle = 1,
+	\]
+	tendo em vista que
+	\[
+		\det{(\langle e_{i}, e_{j} \rangle)} = \det{(\mathrm{Id}_{r})} = 1,\quad i, j\in J,
+	\]
+	ou seja, \(\{e_{J}\}_{J\subseteq I_{m}}\) é uma base ortonormal de \(\bigwedge^{r}E\) relativa à forma bilinear \(\langle \cdot , \cdot  \rangle\).
+
+	Armados com estas ferramentas, vamos mostrar que
+	\[
+		\langle u_1\wedge \dotsc \wedge u_r, u_1\wedge \dotsc \wedge u_r \rangle \geq 0.
+	\]
+	Sejam
+	\[
+		x = \sum\limits_{J}^{}\xi^{J}e_{J} \quad\&\quad y = \sum\limits_{K}^{}\eta^{K}e_{K},\quad | J | = | K | = r;
+	\]
+	pela ortogonalidade da base \((e_{J})\), temos
+	\begin{align*}
+		\langle x, y \rangle & = \biggl\langle \sum\limits_{J}^{}\xi^{J}e_{J}, \sum\limits_{K}^{}\eta^{K}e_{K} \biggr\rangle \\
+		                     & = \sum\limits_{J}^{}\sum\limits_{K}^{}\xi^{J}\eta^{K}\langle e_{J}, e_{K} \rangle             \\
+		                     & = \left\{\begin{array}{ll}
+			                                \sum\limits_{J}^{}\xi^{J}\eta^{J}, & \quad J = K   \\
+			                                0,                                 & \quad J\neq K
+		                                \end{array}\right..
+	\end{align*}
+	Em particular,
+	\[
+		\langle x, x \rangle = \sum\limits_{J}^{}(\xi^{J})^{2} \geq 0,
+	\]
+	com igualdade se, e somente se, \(x=0\).
+
+	Portanto,
+	\[
+		\langle u_1\wedge \dotsc \wedge u_r, v_1\wedge \dotsc \wedge v_r \rangle = \det{(\langle u_{i}, v_{j} \rangle)}
+	\]
+	define de fato um produto interno. \qedsymbol
+
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O valor \(\det{(\langle u_{i}, u_{j} \rangle)}\) é chamado de \textbf{Gramiano dos vetores} \(u_1, \dotsc , u_r\).
+\end{tcolorbox}
+
+Tendo um produto interno, podemos definir uma norma, que leva a um comprimento e mostraremos como isso relaciona-se ao volume de um paralelepípedo.
+\end{document}

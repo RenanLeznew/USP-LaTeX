@@ -96,7 +96,7 @@ Olhando para as duas definições equivalentes, um elemento
 pode ser interpretado tanto como uma classe de tensores, quanto como um funcional no dual \(\mathcal{A}^{r}(E; \mathbb{R})\); assim, outra descrição
 possível do espaço exterior de orem r é como o dual do espaço das formas alternadas:
 \[
-	\bigwedge E \coloneqq (\mathcal{A}^{r}(E; \mathbb{R}))^{*}.
+	\bigwedge^{r} E \coloneqq (\mathcal{A}^{r}(E; \mathbb{R}))^{*}.
 \]
 Aqui, para cada r-upla \((v_1, \dotsc , v_r)\) de vetores em \(E^{r},\) temos um funcional que naturalmente define um elemento de \(\bigwedge^{r}E\), sendo ele
 \begin{align*}
@@ -147,8 +147,8 @@ Aqui, para cada r-upla \((v_1, \dotsc , v_r)\) de vetores em \(E^{r},\) temos um
 
 	Consideremos a aplicação
 	\begin{align*}
-		A^{G}(f \otimes g) = \sum\limits_{\sigma \in S_{p}}^{}\varepsilon_{\sigma }\underbrace{\sigma}_{\mathclap{\in S_{p+q}}} \overbrace{(f\otimes g)}^{\in \mathcal{A}^{p+q}} & = \sum\limits_{\sigma \in S_{p}}^{}\varepsilon_{\sigma }\sigma (f)g                       \\
-		                                                                                                                                                                         & = \biggl(\sum\limits_{\sigma \in S_{p}}^{}\varepsilon_{\sigma }\sigma (f)\biggr)\otimes g \\
+		A^{G}(f \otimes g) = \sum\limits_{\sigma \in S_{p}}^{}\mathrm{sgn}(\sigma) \underbrace{\sigma}_{\mathclap{\in S_{p+q}}} \overbrace{(f\otimes g)}^{\in \mathcal{A}^{p+q}} & = \sum\limits_{\sigma \in S_{p}}^{}\mathrm{sgn}(\sigma) \sigma (f)g                       \\
+		                                                                                                                                                                         & = \biggl(\sum\limits_{\sigma \in S_{p}}^{}\mathrm{sgn}(\sigma) \sigma (f)\biggr)\otimes g \\
 		                                                                                                                                                                         & = 0.
 	\end{align*}
 
@@ -158,13 +158,66 @@ Aqui, para cada r-upla \((v_1, \dotsc , v_r)\) de vetores em \(E^{r},\) temos um
 	\]
 	Seja
 	\begin{align*}
-		A^{\rho G}(f\otimes g) = \sum\limits_{\sigma \in G}^{}\varepsilon_{\rho \sigma }(\rho \sigma )(f\otimes G) & = \sum\limits_{\sigma \in G}^{}\varepsilon_{\rho }\varepsilon_{\sigma }\rho (\sigma (f\otimes g))                                           \\
-		                                                                                                           & = \varepsilon_{\rho }\rho \biggl(\underbrace{\bigl(\sum\limits_{\sigma \in G}^{}\varepsilon_{\sigma }\sigma f\bigr)}_{A(f)}\otimes g\biggr) \\
+		A^{\rho G}(f\otimes g) = \sum\limits_{\sigma \in G}^{}\mathrm{sgn}(\rho \sigma )(\rho \sigma )(f\otimes G) & = \sum\limits_{\sigma \in G}^{}\mathrm{sgn}(\rho) \mathrm{sgn}(\sigma )\rho (\sigma (f\otimes g))                                          \\
+		                                                                                                           & = \mathrm{sgn}(\rho )\rho \biggl(\underbrace{\bigl(\sum\limits_{\sigma \in G}^{}\mathrm{sgn}(\sigma)\sigma f\bigr)}_{A(f)}\otimes g\biggr) \\
 		                                                                                                           & = 0.
 	\end{align*}
 	Como os conjuntos dessa forma são classes laterais de \(S_{p+q}\), temos uma partição deste grupo e, como em cada parte a soma é zero, o resultado segue. \qedsymbol
 \end{proof*}
+\subsection{Produto Interno em \(\bigwedge^{r}E\)}
+\begin{def*}
+	Um \textbf{produto interno} em um espaço vetorial E é uma forma bilinear
+	\[
+		\langle \cdot , \cdot  \rangle:E\times E\rightarrow \mathbb{R}
+	\]
+	satisfazendo:
+	\begin{itemize}
+		\item[\textbf{Simetria})] para quaisquer \(u, v\) em E,
+		      \[
+			      \langle u, v \rangle = \langle v, u \rangle
+		      \]
+		\item[\textbf{Positividade})] sempre que \(u\neq 0\),
+		      \[
+			      \langle u, u \rangle > 0. \;\square
+		      \]
+	\end{itemize}
+\end{def*}
+O isomorfismo
+\[
+	\mathcal{L}_2(E; \mathbb{R})\cong  \mathcal{L}(E, E^{*})
+\]
+associa, a cada produto interno \(\langle \cdot , \cdot  \rangle\) em E, uma transformação linear
+\[
+	\xi :E\rightarrow E^{*}
+\]
+definido de forma explícita para um funcional \(\xi (u)\in E^{*}\) como
+\[
+	\xi (u)v = \langle u, v \rangle,\quad \forall v\in E,
+\]
+chamado \textbf{isomorfismo canônico associado ao produto interno}.
 
+Agora, seja E um espaço munido de produto interno; queremos caracterizar a estrutura para os espaços de r-covetores, ou seja, para cada \(\bigwedge^{r}E\).
 
+Para tanto, fixemos \(r>0\) e consideremos a forma 2r-linear
+\[
+	f:E\times \dotsc \times E\rightarrow \mathbb{R}
+\]
+definida por
+\[
+	f(u_1, \dotsc , u_r, v_1, \dotsc , v_r) = \det{(\langle u_{i}, v_{j} \rangle)}.
+\]
+Como o determinante de uma matriz é uma função multilinear alternada das colunas e das linhas, a forma pertence a
+\[
+	\mathcal{A}^{r, r}(E; \mathbb{R}),
+\]
+ou seja, f é alternada nos u's e nos v's separadamente, que nos induz naturalmente uma forma bilinear
+\[
+	\langle \cdot , \cdot  \rangle:\bigwedge^{r}E \times \bigwedge^{r}E\rightarrow \mathbb{R}
+\]
+dada por
+\[
+	\langle u_1\wedge \dotsc \wedge u_r, v_1\wedge \dotsc \wedge v_4 \rangle = \det{(\langle u_{i}, v_{j} \rangle)}
+\]
+para quaisquer \(u_1, \dotsc , u_r, v_1, \dotsc , v_r\in E\).
 
 \end{document}
