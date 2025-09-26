@@ -83,7 +83,77 @@ com x em \(\mathbb{R}^{n}\), e, adotando a notação \(\check{\varphi }\coloneqq
 \]
 seguindo uma maneira de estender \(\varphi * \psi (x)\) com \(\varphi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\) para uma \(u\in \mathcal{D}'(\mathbb{R}^{n})\), pondo:
 \[
-	u*\psi (x)\coloneqq \langle u, \tau_{x}(\psi )^{\check} \rangle,\quad x\in \mathbb{R}^{n}\;\&\; \psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}).
+	u*\psi (x)\coloneqq \langle u, \tau_{x}(\psi )^{\check} \rangle,\quad x\in \mathbb{R}^{n}\;\&\; \psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}),
 \]
+onde assumimos que u atua na variável y, \textit{i.e.}, \(\tau_{X}(\psi )^{\check}\) é função da variável y; quando for necessário deixar bem explícito e evitar confusões, escreveremos
+\[
+	\langle u(y), \tau_{x}(\psi )^{\check}(y) \rangle.
+\]
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Em \(\tau_{x}(\psi )^{\check},\) primeiro refletimos e depois transladamos:
+	\[
+		[\tau_{x}(\psi )^{\check}](y) = \psi^{\check}(y-x) = \psi(x-y) = (\tau_{-x}\psi )(-y) = (\tau_{-x}\psi )^{\check}(y).
+	\]
+\end{tcolorbox}
+Ao definirmo \(u*\psi (x)\), poderíamos escrever também
+\[
+	u * \psi (x) = \langle u, \psi (x - \cdot ) \rangle,
+\]
+tal que, de maneira explícita,
+\[
+	u*\psi (x) = \langle u(y), \psi (x-y) \rangle.
+\]
+Esta definição associa, a cada distribuição \(u\in \mathcal{D}'(\mathbb{R}^{n})\) e função teste \(\varphi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), uma função
+\[
+	u*\varphi :\mathbb{R}^{n}\rightarrow \mathbb{C}
+\]
+definida em todo vetor \(x\in \mathbb{R}^{n}\).
+
+A seguir, resumimos as propriedades dessa operação:
+\begin{prop*}
+	A convolução, conforme definida acima, satisfaz:
+	\begin{itemize}
+		\item[0)] Para toda \(\varphi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), \(\delta * \varphi = \varphi \);
+		\item[1)] Quando \(u\in L_{\mathrm{loc}}^{1}(\mathbb{R}^{n})\), as definições atuais e a antiga coincidem;
+		\item[2)] A convolução \(u*\varphi \) é de classe \(\mathcal{C}^{\infty}\) com
+		      \[
+			      \partial^{\alpha }(u*\varphi ) = u * (\partial^{\alpha }\varphi ) = (\partial^{\alpha }u)*\varphi ,\; \forall \alpha \in \mathbb{Z}_{+}^{n}; \text{ e}
+		      \]
+		\item[3)] Para todas as distribuições \(u\in \mathcal{D}'(\mathbb{R}^{n})\) e \(\varphi , \psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), tem-se
+		      \[
+			      \overbrace{u}^{\mathcal{\in \mathcal{D}'}}*(\overbrace{\varphi* \psi}^{\mathclap{\in \mathcal{C}_{c}^{\infty}}} )= \underbrace{(u*\varphi )}_{\mathclap{\in \mathcal{C}^{\infty}}}*\underbrace{\psi}_{\mathclap{\in \mathcal{C}_{c}^{\infty}}},
+		      \]
+		      com a regularidade sendo distribuída entre os fatores.
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	(0): Para este item, basta notar que
+	\[
+		\delta *\varphi (x) = \langle \delta , \tau_{x}\check{\varphi } \rangle = \tau_{x}\check{\varphi }(0) = \check{\varphi }(0-x) = \varphi (x).
+	\]
+
+	(1): este item segue da maneira como se vê uma função de classe \(u\in L_{\mathrm{loc}}^{1}\) no contexto de \(\mathcal{D}'\):
+	\[
+		u*\varphi (x) = \langle u, \tau_{x}(\varphi)^{\check} \rangle = \int_{\mathbb{R}^{n}}^{}u(y)\varphi (x-y) \mathrm{dy},\quad \forall x\in \mathbb{R}^{n}.
+	\]
+	Se quiser, no lugar de u acima, pode escrever \((Tu)*\varphi (x)\) para aumentar a consciência do que se está fazendo com o objeto, sendo Tu a distribuição provida de \(u\in L_{\mathrm{loc}}^{1}\).
+
+	(2): antes de mais nada, devemos provar que \(u*\varphi \) é de contínua. Com efeito, se \(\{x_{\ell}\}_{\ell}\) converge para \(x_{0}\) em \(\mathbb{R}^{n}\), então
+	\[
+		\tau_{x_{\ell}}\check{\varphi }\substack{ \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\\ \longrightarrow \\ \ell \to \infty}\tau_{x_{0}}\check{\varphi },
+	\]
+	pois
+\end{proof*}
 
 \end{document}
