@@ -3,10 +3,111 @@
 \section{Class 01 - September 26th, 2025 (Edgar Matias)}
 \subsection{Motivations}
 \begin{itemize}
-	\item a
+	\item
 \end{itemize}
-\subsection{a}
-a
+\subsection{Random Orbits and The Chaos Game}
+This talk started using the chaos game iterated system as example; it is the following: imagine three points in the plane, all of them fixed,
+and take any orbit point \(E_{0}\) in the plane. We are going to construct a random sequence by imagining a dice of three faces (A, B, C) and if, for instance, you get
+C, then the point \(E_1\) will be the middle point of the line connecting points C and \(E_{0}\):
+\[
+	K =f_1(K)\cup f_2(K)\cup f_3(K),\quad f_{i} = A_{i}+\frac{1}{2}(x-A_{i}),
+\]
+where f is a contraction and K is compact.
+
+The result from this construction, after some time has passed, \textit{i.e.}, after some iterations, the image formed will be the Sierpinski Triangle, built from Chaos Game.
+One could start at any point, anad the result would still be the same.
+
+By defining the function
+\[
+	\mathcal{B}(A) = f_1(A)\cup f_2(A)\cup f_3(A),
+\]
+or, more generally,
+\[
+	\mathcal{B}(A) = \bigcup_{k=1}^{n}f_{k}(A)
+\]
+acting on the space of nonempty compacts subsets of the plane, it follows that the example above is as example of a fixed point -- the unique fixed point -- of such operator,
+which receives the name of \textbf{Hutchinson Attractor}.
+
+We'll approach this problem from a probabilistic point of view, and what will follow is that even if the dice is weighted, the idea is that the contractions will still converge
+to the attractor. For that, our main theme will be \textit{stationary measures}.
+
+\begin{def*}
+	Given a random sequence \(\{E_{n}\}\) constructed from the chaos game, we define a \textbf{probability measure} by
+	\[
+		\mu_{n}(A) = \mathbb{P}(E_{n}\in A).
+	\]
+\end{def*}
+It can be show that \(\mu_{n}\) in fact converges to a probability measure \(\mu \), and what we had seen on the previous images are ``visualizations'' of the limit of this measure
+for each given weight. Moreover, if \(E_{0}\) has a certain distribution \(\mu \), then \(E_{n}\) also has distribution \(\mu \) for all n and, for that reason, \(\mu \) is called stationary.
+
+\begin{example}
+	A very famous example of the chaos game is the Bansley Fern.
+	% 0.85 0.04 -0.04 
+	% 020 -0.26 0.23 0.22
+	% , picking weights \(p_1 = p_2 = p_3 = p_4 = 0.25\).
+	%\begin{align*}
+	%    &f_1(x) = \begin{pmatrix}
+	%      0 & 0\\ 
+	%      0 & 0.16
+	%    \end{pmatrix}\begin{pmatrix}
+	%      x\\ 
+	%      y
+	%    \end{pmatrix}
+	%\end{align*}
+	The way Bansley found out which functions would work is by trial and error, specifically by taking the fern shape and start looking for a linear transformation that will map a part of the fern
+	onto another untill you eventually find a family that covers the whole set.
+\end{example}
+
+\subsection{Iterated Random Functions}
+
+Fix a probabilty space \((\Omega , \mathcal{O}, \mathbb{P})\) and let \(\{X_{n}\}\) be a sequence of random iid variables with values on another probabilty space \((E, \mathcal{E}, \nu)\), say
+\(E = \{1, \dotsc , k\}\) or \(E = [0, 1]\).
+
+\begin{def*}
+	Given a family of functions \(f_{i}:M\rightarrow M,\; i\in E\) and a random variable \(Z_{0}\in \Omega \) with values in M independent of \(\{X_{n}\}\), we define the \textbf{random i.i.d iteration of functions} by
+	\[
+		Z_{n} = f_{X_{n-1}}\circ \dotsc \circ f_{X_{0}}(Z_{0}), \quad n\geq 1
+	\]
+\end{def*}
+An important property of these kinds of iterations is that they form a \textbf{Markov Chain}, hence it only depends on the immediately before step:
+\[
+	\mathbb{P}(X_{n+1}\in A| X_{0}, \dotsc , X_{n}) = \mathbb{P}(X_{n+1}\in A| X_{n})
+\]
+
+For the case where \(Z_{0} = x\) and \(E = \{1, \dotsc , k\}\), we want to describe if, after going through our process we started at some point x, what is the probability that x will end at set A? Well, that only happens if for some index in the family of functions,
+\(x\in f_{i}^{-1}(A)\), and since each function \(f_{i}\) is chosen with a certain probability \(p_{i}\), we only add the weights for which x is in the preimage of A under i:
+\[
+	\mathbb{P}(Z_{0}\in A) = \sum\limits_{i=1}^{k}p_{i}\chi_{A}(f_{i}(x)), \quad p_{i} = \mathbb{P}(X_{0} = i).
+\]
+This expression defines exactly the probability of a point x transitioning to the set A after the experiment.
+
+In the more general case where E is some space and \(\nu \) is the common distribution of the i.i.d sequence \(\{X_{n}\}\), the transition probability is given by
+\[
+	p(x, A) = \int_{}\chi_{A}(f_{i}(x)) d\nu_{i},
+\]
+and if \(\mu_{n}\) is the distribution of \(Z_{n}\), one can show that
+\[
+	\mu_{n+1}(A) = \int_{}p(x, A) d\mu_{n}.
+\]
+In other words, \(\mu_{n+1} = T \mu_{n}\), where T denotes the \textbf{Perron-Frobenius Operator} acting on the probability measures space \(\mathcal{M}_1(X)\) and defined by
+\[
+	T\mu (A) = \int_{}p(x, A) d\mu_{}.
+\]
+Because we have a Markov Chain here, thus, it suffices to look only at the action of the Perron-Frobenius Operator. Hence, we define a few ideas based on that:
+\begin{def*}
+	A fixed point of the Perron-Frobenius Operator is called a \textbf{stationary measure}. \(\square\)
+\end{def*}
+\begin{def*}
+	We say T is \textbf{assintotically stable} if there is some stationary measure \(\mu \) such taht, por any initial probability measure \(\eta \), one has
+	\[
+		T^{n}\nu \substack{ \\ \longrightarrow \\ n\to \infty} \mu . \square
+	\]
+\end{def*}
+This above convergence can be understood differently based on the topology being adopted
+
+
+
+
 \end{document}
 
 
