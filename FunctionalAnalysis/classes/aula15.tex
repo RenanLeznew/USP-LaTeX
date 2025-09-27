@@ -1,0 +1,109 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 25 de Setembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Operadores Simétrico;
+	\item Operadores Auto-Adjuntos.
+\end{itemize}
+\subsection{Operadores Simétricos e Auto-Adjuntos}
+\begin{def*}
+	Seja H um espaço de Hilbert com produto interno \(\langle \cdot , \cdot  \rangle_{H}\). Se \(A:D(A)\subseteq H\rightarrow H\) é um operador densamente definido, o \textbf{adjunto de A} é definido por
+	\(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;}:D(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;})\subseteq H\rightarrow H\)
+	tal que
+	\[
+		D(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;}) = \{u\in H:\; v\mapsto \langle Av, u \rangle_{H}:D(A)\rightarrow \mathbb{K} \text{ é limitado}\}.
+	\]
+\end{def*}
+Caso u pertença a \(D(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;})\), o \hyperlink{riesz_representation}{\textit{Teorema da Representação de Riesz}} garante que \(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;}u\) é o
+único elemento de H tal que
+\[
+	\langle v, A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;}u \rangle_{H} = \langle Av, u \rangle_{H},\; \forall v\in D(A).
+\]
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se H é um espaço de Hilbert sobre \(\mathbb{C}\), o mapa \(E:H\rightarrow H^{*}\) é definido por \(Eu(v) = \langle v, u \rangle_{H}\) é uma isometria
+	linear-conjugada entre H e \(H^{*}\), tal que podemos identificar H e \(H^{*}\) identificando u com Eu.
+
+	De fato, se \(A^{*}:D(A^{*})\subseteq X^{*}\rightarrow X^{*}\) é o dual de A, então
+	\[
+		A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;} = E^{-1}\circ A^{*}\circ E,
+	\]
+	e embora \(E\) e \(E^{-1}\) sejam operadores lineares-conjugados, a dupla conjugação que ocorre em \(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;}\) torna-o
+	apenas linear.
+
+	Com base nisso, chamaremos ambos \(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;}\) e \(A^{*}\) de adjunto de A, e ambos serão denotados por \(A^{*}\), porém é importante
+	observar que, se \(A = \alpha B\), então \(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;} = \overline{\alpha }B^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;}\),
+	enquanto que \(A^{*} = \alpha B^{*}\). Desta forma,
+	\[
+		(\lambda I - A)^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;} = \overline{\lambda }I - A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;},
+	\]
+	enquanto que
+	\[
+		(\lambda I - A)^{*} = \lambda I^{*} - A^{*}.
+	\]
+\end{tcolorbox}
+
+Com base na observação acima, escreveremos \(A^{*}\) para denotar os operadores dual e adjunto indistintamente.
+
+\begin{def*}
+	Seja H um espaço de Hilbert sobre \(\mathbb{K}\) com produto interno \(\langle \cdot , \cdot  \rangle_{H}\). Diremos que um operador
+	\(A:D(A)\subseteq H\rightarrow H\) é \textbf{simétrico}, também chamado de \textbf{Hermitiano} quando \(\mathbb{K} = \mathbb{C}\), se
+	\(\overline{D(A)} = H\) e \(A\subseteq A^{*}\), isto é, se para todo x, y em \(D(A)\),
+	\[
+		\langle Ax, y \rangle_{H} = \langle x, Ay \rangle_{H}.
+	\]
+	Caso \(A = A^{*},\) diremos que A é \textbf{auto-adjunto.} \(\square\)
+\end{def*}
+\begin{exr}
+	Seja H um espaço de Hilbert. Se \(A:D(A)\subseteq H\rightarrow H\) é um operador densamente definido, prove que \(A^{*}:D(A^{*})\subseteq H\rightarrow H\) é fechado e que, se A é fechado, então \(A^{*}\) é
+	densamente definido.
+\end{exr}
+\begin{exr}
+	Seja H um espaço de Hilbert sobre \(\mathbb{K}\). Mostre que, se \(A:D(A)\subseteq H\rightarrow H\) é simétrico e \(\lambda \in \mathbb{K}\) é um auto-valor de A, então \(\lambda \in \mathbb{R}\). Além disso, prove que
+	\[
+		\inf_{\Vert x \Vert_{H} = 1} \langle Ax, x \rangle_{H} \leq \lambda \leq \sup_{\Vert x \Vert_{H} = 1}\langle Ax, x \rangle_{H}.
+	\]
+\end{exr}
+\begin{exr}
+	Seja \(H = \mathbb{C}^{n}\) com o produto usual. Se \(A = (a_{ij})_{i, j=1}^{n}\) é uma matriz com coeficientes complexos que representa um operador linear em \(A\in \mathcal{L}(H)\),
+	determine \(A^{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=2pt](0, 0)circle;}\) e \(A^{*}.\)
+\end{exr}
+\begin{exr}
+	Seja H um espaço de Hilbert sobre \(\mathbb{K}\) com produto interno \(\langle \cdot , \cdot  \rangle_{H}\) e
+	\(A:D(A)\subseteq H\rightarrow H\) um operador densamente definido. Prove que
+	\[
+		\mathrm{Graf}(A^{*}) = \{(-Ax, x):\; x\in D(A)\}^{\perp }.
+	\]
+\end{exr}
+\begin{prop*}
+	Seja H um espaço de Hilbert sobre \(\mathbb{K}\) com produto interno \(\langle \cdot , \cdot  \rangle_{H}\). Se
+	\(A:D(A)\subseteq H\rightarrow H\) é um operador auto adjunto, injetor e com imagem densa. Então, \(A^{-1}\) é
+	auto adjunto.
+\end{prop*}
+\begin{proof*}
+	Como A é auto adjunto, vale que
+	\[
+		\{(x, -Ax):\; x\in D(A)\}^{\perp } = \{(Ax, x):\; x\in D(A)\} = \mathrm{Graf}(A^{-1}).
+	\]
+
+	Como A é injetor e tem imagem densa, segue do exercício anterior que
+	\[
+		\mathrm{Graf}((A^{-1})^{*}) = \{(-A^{-1}x, x):\; x\in \mathrm{Im}(A)\}^{\perp } = \mathrm{Graf}(A^{-1}).
+	\]
+	Portanto,
+	\[
+		A^{-1} = (A^{-1})^{*}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\end{document}
