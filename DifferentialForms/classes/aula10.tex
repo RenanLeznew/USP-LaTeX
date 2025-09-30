@@ -132,5 +132,83 @@ E propusemos um candidato a produto interno no produto exterior de um espaço ve
 	O valor \(\det{(\langle u_{i}, u_{j} \rangle)}\) é chamado de \textbf{Gramiano dos vetores} \(u_1, \dotsc , u_r\).
 \end{tcolorbox}
 
-Tendo um produto interno, podemos definir uma norma, que leva a um comprimento e mostraremos como isso relaciona-se ao volume de um paralelepípedo.
+\hypertarget{lagrange_identity}{
+	\begin{prop*}[Identidade de Lagrange]
+		Seja \(\alpha \) uma matriz \(m\times r\) com \(m\geq r\); indicando por \(\alpha^{t}\) a matriz transposta de \(\alpha \), tem-se
+		\[
+			\det{(\alpha^{t}\alpha )} = \sum\limits_{J}^{}\det{(\alpha^{J})^{2}},
+		\]
+		onde a soma é tomada com respeito a todos os subconjuntos \(J\) de \(I_{m}\) contendo r elementos, e \(\alpha^{J}\) denota a matriz \(r\times r\) obtida
+		de \(\alpha \) ao escolhermos as r linhas com índices em \(J\).
+	\end{prop*}
+}
+\begin{proof*}
+	Essa identidade decorre do cálculo do quadrado da norma de um r-vetor  decomponível
+	\[
+		u_1\wedge \dotsc \wedge u_{r}\in \bigwedge^{r}E.
+	\]
+	Com efeito, tome uma base ortonormal \(\{e_1, \dotsc , e_{m}\}\) em E e considere os vetores
+	\[
+		u_1 = \sum\limits_{i}^{}\alpha_{i1}e_{i}, \dotsc , u_r = \sum\limits_{i}^{}\alpha_{ir}e_{i},
+	\]
+	onde as coordenadas são as colunas da matriz \(\alpha = (\alpha_{ij})\) em \(\mathbb{M}_{m\times r}\); a partir deles, obtém-se
+	\[
+		\langle u_{i}, u_{j} \rangle = \sum\limits_{k=1}^{m}\alpha_{ki}\alpha_{jk}, \quad i, j\in I_{r},
+	\]
+	indicando que a matriz \((\langle u_{i}, u_{j} \rangle)\) de ordem r é precisamente \(\alpha^{t}\alpha \).
+
+	Por outro lado, em relação à base ortonormal \((e_{J})\) de \(\bigwedge^{r}E\), o r-vetor se escreve como
+	\[
+		u_1\wedge \dotsc \wedge u_r = \sum\limits_{J}^{}\det{(\alpha^{J})}e_{J}.
+	\]
+	Portanto,
+	\[
+		\det{(\alpha^{t}\alpha )} = \det{(\langle u_{i}, u_{j} \rangle)} = | u_1\wedge \dotsc \wedge u_r |^{2} = \sum\limits_{J}^{}\det{(\alpha^{J})^{2}}.\text{ \qedsymbol}
+	\]
+\end{proof*}
+
+No meio da prova do produto interno, provamos também a seguinte proposição
+\begin{prop*}
+	\(\langle e_{J}, e_{K} \rangle = \delta_{JK}\), ou seja, \((e_{J})\) é uma base ortonormal.
+\end{prop*}
+Além disso, ela permite que definamos
+
+\begin{def*}
+	Se \(\langle e_1, \dotsc , e_{m} \rangle\) é ortonormal, a \textbf{base ortonormal de }\(\bigwedge^{r}E\) é dada por
+	\[
+		e_{J} = e_{j_1}\wedge \dotsc \wedge e_{j_r},\quad J = \{j_1 <\dotsc <j_r\}.\; \square
+	\]
+\end{def*}
+
+Tendo um produto interno, podemos definir uma norma, que leva a um comprimento e mostraremos como isso relaciona-se ao volume de um paralelepípedo. De fato, de acordo com a demonstração passada, se
+\[
+	x = \sum\limits_{J}^{}\xi^{J}e_{J}\;\&\; y=\sum\limits_{K}^{}\eta^{K}e_{K},
+\]
+temos
+\[
+	\langle x, y \rangle = \sum\limits_{J}^{}\xi^{J}\eta^{J}, \langle x, x \rangle = \sum\limits_{J}^{}(\xi^{J})^{2}\geq 0,
+\]
+tal que o determinante \(\det{(\langle u_{i}, u_{j} \rangle)} \) mede o volutme orientado do paralelepípedo gerado por \(u_1, \dotsc , u_{r}\), e o cálculo do quadrado da norma de um r veter numa base ortonormal
+garante a \hyperlink{lagrange_identity}{\textit{identidade de Lagrange}}
+\[
+	\det{(\alpha^{t}\alpha )} = \sum\limits_{J}^{}\det{}(\alpha^{J})^{2}.
+\]
+Assim, segue que são verdadeiros a
+\begin{prop*}
+	Para vetores \(u_1, \dotsc , u_r\), vale que
+	\[
+		\mathrm{vol}[u_1, \dotsc , u_r]=| u_1\wedge \dotsc \wedge u_r | = \sqrt[]{\det{(\langle u_{i} , u_{j} \rangle)}}
+	\]
+\end{prop*}
+e o
+\begin{crl*}
+	Se \(u_{j} = \sum\limits_{i}^{}\alpha_{ij}e_{i}\) em uma base ortonormal, então
+	\[
+		\mathrm{vol}[u_1, \dotsc , u_r] = \sqrt[]{\sum\limits_{J}^{}\det{(\alpha^{J})^{2}}};
+	\]
+	se, além disso, \(m=r\), então
+	\[
+		\mathrm{vol}[u_1, \dotsc , u_m] = | \det{(\alpha )} |.
+	\]
+\end{crl*}
 \end{document}
