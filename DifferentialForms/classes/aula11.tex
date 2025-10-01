@@ -44,12 +44,69 @@ Em particular, a definição acima basicamente expande a expressão
 		   & (x, y, z)\longmapsto x^{2} + y^{2} + z^{2}.
 	\end{align*}
 	Dado o ponto \(p = (1, 1, 1)\), a diferencial de f em p seria dada por
-	\[
-		\begin{align*}
-			df_p: & \mathbb{R}^{3}\rightarrow\mathbb{R}                              \\
-			      & h\longmapsto \langle \nabla f(p), h \rangle = 2h_1 + 2h_2 + 2h_3
-		\end{align*}
-	\]
+	\begin{align*}
+		df_p: & \mathbb{R}^{3}\rightarrow\mathbb{R}                              \\
+		      & h\longmapsto \langle \nabla f(p), h \rangle = 2h_1 + 2h_2 + 2h_3
+	\end{align*}
 \end{example}
+
+Definiremos os campos de formas alternadas, posteriormente utilizados para obter resultados geométricos. Começamos com o
+\begin{def*}
+	O \textbf{espaço tangente a }\(\mathbb{R}^{n}\) no ponto \(p\in \mathbb{R}^{n}\), denotado por \(\mathbb{R}_{p}^{n}\), é o conjunto dos vetores \(q-p\), com \(q\in \mathbb{R}^{n}\). \(\square\)
+\end{def*}
+Para o espaço tangente ao espaço n-euclidiano, podemos já obter uma base canônica observando que \(\mathbb{R}^{n} = \mathbb{R}_{0}^{n}\), então basta considerar seus vetores transladados
+\[
+	(e_1)_p, \dotsc , (e_{n})_p
+\]
+para obter uma base para \(\mathbb{R}_{p}^{n}\).
+
+Essa notação não costuma ser tão usada em contextos mais gerais -- normalmente, para denotar o plano tangente a \(\mathbb{R}^{n}\) em p, utiliza-se a notação \(T_{p}\mathbb{R}^{n}\), que será mais comumente
+utilizada aqui também. Com estes conceitos, podemos finalmente definir o campo vetorial como
+\begin{def*}
+	Um \textbf{campo vetorial em }\(\mathbb{R}^{n}\) é uma aplicação \textit{suave}\footnote{De classe \(\mathcal{C}^{\infty},\; \mathcal{C}^{k},\; \mathcal{C}^{r)}\) a depender do contexto; acho que, aqui, é \(\mathcal{C}^{\infty}\)}
+	\[
+		v:\mathbb{R}^{n}\rightarrow \bigsqcup_{p\in \mathbb{R}^{n}}^{}T_p\mathbb{R}^{n}=T\mathbb{R}^{n},
+	\]
+	onde o símbolo \(\sqcup\) denota a união disjunta de conjuntos, e \(T\mathbb{R}^{n}\coloneqq \bigsqcup_{p}^{}T_{p}\mathbb{R}^{n}\) é o chamado \textbf{fibrado tangente de }\(\mathbb{R}^{n}\). \(\square\)
+\end{def*}
+A cada ponto \(p\in \mathbb{R}^{n}\), associa-se um vetor \(v(p)\) no plano tangente no ponto; assim, com relação à base canônica transladada \(\{(e_{i})_p\}_{i=1}^{n}\) de \(T_p\mathbb{R}^{n}\), o campo vetorial v pode ser escrito como
+\[
+	v(p) = \sum\limits_{i=1}^{n}a_{i}(p)(e_{i})_p.
+\]
+\begin{def*}
+	Para um campo vetorial v escrito com respeito à base transladada, diremos que v é \textbf{diferenciável} se todas as funções \(a_{i}:\mathbb{R}^{n}\rightarrow \mathbb{R}\) são diferenciáveis; analogamente, v será suave se todas as \(a_{i}\)'s forem suaves. \(\square\)
+\end{def*}
+\begin{def*}
+	O \textbf{fibrado cotangente de }\(\mathbb{R}^{n}\) é o espaço
+	\[
+		T^{*}\mathbb{R}^{n}\coloneqq \bigsqcup_{p\in \mathbb{R}^{n}}^{}T_{p}^{*}\mathbb{R}^{n},
+	\]
+	onde \(T_{p}^{*}\mathbb{R}^{n}\) é o espaço dual de \(T_{p}\mathbb{R}^{n}.\; \square\)
+\end{def*}
+\begin{def*}
+	Um \textbf{campo de 1-formas em }\(\mathbb{R}^{n}\) é uma aplicação suave
+	\[
+		\omega :\mathbb{R}^{n}\rightarrow T_{p}^{*}\mathbb{R}^{n}
+	\]
+	associando, a cada ponto p de \(\mathbb{R}^{n}\), uma forma linear \(\omega (p)\in T_{p}^{*}(\mathbb{R}^{n})\). \(\square\)
+\end{def*}
+Com relação à base dual \(\{dx_{i}|_{p}\}_{i=1}^{n}\) de \(T_{p}^{*}\mathbb{R}^{n}\), uma 1-forma tem expressão
+\[
+	\omega (p)=\sum\limits_{i=1}^{n}f_{i}(p)dx_{i}|_{p},
+\]
+onde \(f_{i}:\mathbb{R}^{n}\rightarrow \mathbb{R}\) são diferenciáveis quando \(\omega \) o é.
+
+Resumindo, a cada espaço tangente \(\mathbb{R}_{p}^{n}\), associa-se seu espaço dual \((\mathbb{R}_{p}^{n})^{*}\) consistindo das aplicações lineares \(\varphi :\mathbb{R}^{n}\rightarrow \mathbb{R}\). Ademais,
+obtivemos uma base para \((\mathbb{R}_{p}^{n})^{*}\) dada por \(\{(dx_{i})_{p}\}_{i=1}^{n}\), onde \(x_{i}:\mathbb{R}^{n}\rightarrow \mathbb{R}\) é a função coordenada
+\[
+	x_{i}(x_1,\dotsc ,x_{n})=x_{i},
+\]
+e essa base é dual à base \(\{(e_{i})_{p}\}_{i=1}^{n}\) pois
+\[
+	(dx_{i})_{p}((e_{j})_{p})=\frac{\partial^{}x_{i}}{\partial x_{j}^{}}  = \left\{\begin{array}{ll}
+		0, & \quad i\neq j \\
+		1, & \quad i=j
+	\end{array}\right..
+\]
 
 \end{document}
