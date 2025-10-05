@@ -1,0 +1,130 @@
+\documentclass[../stationary_ifs.tex]{subfiles}
+\begin{document}
+\section{Class 02 - October 3rd, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item The Letac Principle;
+	\item Loosened Conditions on the Letac Principle;
+	\item Kingman's Ergodic Theorem.
+\end{itemize}
+\subsection{Stationary Random Iterations of Maps}
+We've finished last seminar on the topic of the Letac Principle, and today we'll show the existence of the reverse-ordered limit
+appearing in it. For that, we'll show that it is true for on-average contractions.
+
+For the problem we'll work on today, start by fixing \((\Omega , \mathbb{P})\), \(\theta :\Omega \rightarrow \Omega \) and its pushforward measure
+\[
+	\theta_{*}\mathbb{P} = \mathbb{P}, \quad \theta_{*}\mathbb{P}(A) = \mathbb{P}(\theta^{-1}(A))
+\]
+Instead of only considering an i.i.d sequence \(\{f_{n}\}\), we want to change it for a stationary sequence by considering maps \(f_{\omega }:Y\rightarrow Y\) and their composition
+\[
+	f_{\omega }^{n}(x) = f_{\omega^{n-1}(\omega )}\circ \dotsc \circ f_{\omega }(x),
+\]
+known as the stationary (ref. sequence) random iteration of maps. Our end goal will be to either prove or give a general idea about the proof of
+\hypertarget{letac_principle}{\begin{theorem*}[The Letac Principle]
+		Assume that \(f_{\omega }\) is Lipschitz and has Lipschitz Constant \(\Vert f_{\omega } \Vert=\sup_{x\neq y}\frac{d(f(x), f(y))}{d(x, y)}\). Moreover, suppose
+		\begin{align*}
+			 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \int_{}^{}\Vert f_{\omega } \Vert \mathrm{d}\mathbb{P}(\omega ) < \infty;     \\
+			 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \int_{}^{}\log^{}{}\Vert f_{\omega } \Vert \mathrm{d}\mathbb{P}(\omega ) < 0.
+		\end{align*}
+		Then, for \(\mathbb{P}\)-almost every \(\omega \), the limit
+		\[
+			\pi (\omega ) = \lim_{n\to \infty}f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )}(x_{0})
+		\]
+		exists and does not depend on \(x_{0}\).
+	\end{theorem*}}
+
+
+Before we can actually prove, a famous theorem on dynamical systems is needed, a.k.a. Kingman's Subadditive Ergodic theorem
+\hypertarget{kingman_ergodic}{
+	\begin{theorem*}[Kindman's Subadditive Ergodic Theorem]
+		Assume we have a measure preserving \(\theta :\Omega \rightarrow \Omega \), i.e., \(\theta_{*}\mathbb{P} = \mathbb{P}\), and a sequence \(\mu_{n}:\Omega \rightarrow \mathbb{R}\) such that
+		\begin{align*}
+			 & 1)\; \mu_{n+m}(\omega ) \leq \mu_{n}(\omega ) + \mu_{m}(\omega )  \\
+			 & 2)\; \mu_{1}^{+} = \max\limits_{0, \mu_{1}}\in L^{1}(\mathbb{P}).
+		\end{align*}
+		The, for \(\mathbb{P}\)-almost every \(\omega \), there exists a function g given by
+		\[
+			g(\omega )\coloneqq \lim_{n\to \infty}\frac{\mu_{n}(\omega )}{n}
+		\]
+		such that \(g:\Omega \rightarrow [-\infty, \infty)\) is \(\theta \)-invariant, and
+		\[
+			\int_{}^{}\theta  \mathrm{d}\mathbb{P} = \lim_{n\to \infty}\frac{1}{n}\int_{}^{}\mu_{n} \mathrm{d}\mathbb{P}.
+		\]
+	\end{theorem*}
+}
+What we want to do using this theorem is study the exponential-rate growth of \(\Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\omega^{-n}(\omega )} \Vert\); we do it by taking the log and the reciprocal
+of the term representing the ``present'' (\(f_{\theta^{-n}(\omega )}\))
+\[
+	\frac{1}{n} \log^{}{\Vert f_{\theta^{-1}(\omega) } \circ \dotsc \circ f_{\theta^{-n}(\omega )}\Vert},
+\]
+which is where \hyperlink{kingman_ergodic}{\textit{Kingman's Ergodic theorem}} comes in handy. Furstenberg-Kesten showed in 1960 a very close version to this using invertible matrices, although they still
+needed \(\theta \)-ergodicity. This whole discussion eventually gave rise to the idea of Lyapunov Exponents.
+\begin{proof*}[Existence of and Independency of \(\pi(\omega ) \)]
+	Let
+	\[
+		\mu_{n}(\omega ) = \Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert;
+	\]
+	now, note that
+	\begin{align*}
+		u_{n+m}(\omega ) & = \Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}}(\omega )\circ f_{\theta^{-n-1}}\circ \dotsc \circ f_{\theta^{-(n+m)}} \Vert                                                \\
+		                 & \leq \Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert\Vert f_{\theta^{-1}(\theta^{-n}(\omega ))}\circ \dotsc \circ f_{\theta^{-m}(\theta_{-n}(\omega ))} \Vert \\
+		                 & = \mu_{n}(\omega )\mu_{m}(\theta^{-n}(\omega )).
+	\end{align*}
+	Hence, the sequence \(\log^{}{}\mu_{n}\) is subadditive with respect to \(\theta^{-1}\), and we can apply \hyperlink{kingman_ergodic}{\textit{Kingman}} to see that
+	\[
+		\overline{\lambda }(\omega ) = \lim_{n\to \infty}\frac{1}{n}\log^{}{}\Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert;
+	\]
+	such a \(\overline{\lambda }\) is known as \hypertarget{backward_lyapunov_exponent}{Backward Maximal Lyapunov Exponent}.
+
+	Observe also that
+	\begin{align*}
+		            & \Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert\leq \prod\limits_{i=1}^{n}\Vert f_{\theta^{-1}(\omega )} \Vert                                          \\
+		\Rightarrow & \frac{1}{n}\log^{}{}\Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert \leq \frac{1}{n}\sum\limits_{i=1}^{n}\log^{}{}\Vert f_{\theta^{-i}(\omega )} \Vert,
+	\end{align*}
+	such that for \(\mathbb{P}\)-almost every \(\theta \),
+	\[
+		\overline{\lambda }(\omega )\leq \lim_{n\to \infty}\frac{1}{n}\sum\limits_{i=1}^{n-1}\log^{}{}\Vert f_{\theta^{-i}(\omega )} \Vert = \int_{}^{}\log^{}{}\Vert f_{\omega } \Vert \mathrm{d}\mathbb{P}(\omega ) = \lambda < 0.
+	\]
+	Thus, take \(\varepsilon > 0\) such that \(\lambda + \varepsilon  = b < 0\) and apply the definition of a limit to find that, for \(\mathbb{P}\)-almost every \(\omega \), there is \(n_{0}(\omega )\) such that
+	\[
+		n \geq n_{0}(\omega ) \Rightarrow \Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert\leq e^{n_{0}b}.
+	\]
+	Define
+	\[
+		c_{\omega }=\max\limits_{1\leq n\leq n_{0}}\biggl\{1, \frac{\Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f{\theta^{-n}(\omega )} \Vert}{e^{nb}}\biggr\}
+	\]
+	so that for every natural n,
+	\[
+		\Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert\leq c(\omega )e^{nb}
+	\]
+	and, in particular, for \(\mathbb{P}\)-almost every \(\omega \),
+	\[
+		d(f_{\theta^{-1}(\omega)}\circ \dotsc \circ f_{\theta^{-n}(\omega )}(x), f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )}(y))\leq c(\omega )e^{nb}.
+	\]
+
+	Now, fix \(x_{0}\in Y\) such that \(d(x_{0}, f_{\omega }(x_{0}))\leq c\); for every \(\omega \), define
+	\[
+		y_{n}=f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )}(x_{0}).
+	\]
+
+	\textbf{\underline{Claim}:} \(\{y_{n}\}\) is a Cauchy sequence. In fact, first observe that
+	\begin{align*}
+		d(y_{n+1}, y_{n}) & = d(f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )}(f_{\theta^{-n-1}}(x_{0})),f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )}(x_{0})) \\
+		                  & \leq c(\omega )e^{nb}d(f_{\theta^{-(n+1)}(\omega )}, x_{0})                                                                                                                   \\
+		                  & \leq c(\omega )e^{nb}c, \quad c\coloneqq d(f_{\theta^{-(n+1)}}, x_{0});
+	\end{align*}
+	with that out of the way and keeping the same c, we can go for the proof of the claim by analyzing the inequalities
+	\begin{align*}
+		d(y_{n+m}, y_{n})\leq \sum\limits_{i=n}^{n+m-1}d(y_{i+1}, y_{i}) & \leq c(\omega )c\sum\limits_{i=n}^{n+m-1}e^{ib} \\
+		                                                                 & = c(\omega )c[e^{nb}+\dotsc +e^{(n+m-1)b}]      \\
+		                                                                 & \leq \frac{c(\omega )c e^{nb}}{1-e^{b}},
+	\end{align*}
+	proving that \(\{y_{n}\}\) is a Cauchy Sequence. \(\blacktriangle\)
+
+	Therefore, because our space is complete, \(\{y_{n}\}\) converges to some value, which is the same as saying that
+	\[
+		\pi(x_{0}) = \lim_{n\to \infty}f_{\theta^{-1}(\omega )}^{n}(x_{0}) = \lim_{n\to \infty}y_{n}
+	\]
+	converges. \qedsymbol
+\end{proof*}
+\end{document}

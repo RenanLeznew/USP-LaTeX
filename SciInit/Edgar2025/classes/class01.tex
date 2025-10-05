@@ -3,7 +3,9 @@
 \section{Class 01 - September 26th, 2025 (Edgar Matias)}
 \subsection{Motivations}
 \begin{itemize}
-	\item
+	\item Random Orbits;
+	\item Perron-Frobenius and Koopman Operators;
+	\item Stationary Measures.
 \end{itemize}
 \subsection{Random Orbits and The Chaos Game}
 This talk started using the chaos game iterated system as example; it is the following: imagine three points in the plane, all of them fixed,
@@ -42,20 +44,49 @@ for each given weight. Moreover, if \(E_{0}\) has a certain distribution \(\mu \
 
 \begin{example}
 	A very famous example of the chaos game is the Bansley Fern.
-	% 0.85 0.04 -0.04 
-	% 020 -0.26 0.23 0.22
-	% , picking weights \(p_1 = p_2 = p_3 = p_4 = 0.25\).
-	%\begin{align*}
-	%    &f_1(x) = \begin{pmatrix}
-	%      0 & 0\\ 
-	%      0 & 0.16
-	%    \end{pmatrix}\begin{pmatrix}
-	%      x\\ 
-	%      y
-	%    \end{pmatrix}
-	%\end{align*}
-	The way Bansley found out which functions would work is by trial and error, specifically by taking the fern shape and start looking for a linear transformation that will map a part of the fern
+	\begin{align*}
+		 & f_1(x) = \begin{pmatrix}
+			            0 & 0    \\
+			            0 & 0.16
+		            \end{pmatrix}\begin{pmatrix}
+			                         x \\
+			                         y
+		                         \end{pmatrix}                 \\
+		 & f_2(x) = \begin{pmatrix}
+			            0.85  & 0.04 \\
+			            -0.04 & 0.85
+		            \end{pmatrix}\begin{pmatrix}
+			                         x \\
+			                         y
+		                         \end{pmatrix} + \begin{pmatrix}
+			                                         0 \\
+			                                         1.6
+		                                         \end{pmatrix} \\
+		 & f_3(x) = \begin{pmatrix}
+			            0.20 & -0.26 \\
+			            0.23 & 0.22
+		            \end{pmatrix}\begin{pmatrix}
+			                         x \\
+			                         y
+		                         \end{pmatrix} + \begin{pmatrix}
+			                                         0 \\
+			                                         1.6
+		                                         \end{pmatrix} \\
+		 & f_4(x) = \begin{pmatrix}
+			            -0.15 & 0.28 \\
+			            0.26  & 0.24
+		            \end{pmatrix}\begin{pmatrix}
+			                         x \\
+			                         y
+		                         \end{pmatrix} + \begin{pmatrix}
+			                                         0 \\
+			                                         0.44
+		                                         \end{pmatrix} \\
+	\end{align*}
+	The way Barnsley found out which functions would work is by trial and error, specifically by taking the fern shape and start looking for a linear transformation that will map a part of the fern
 	onto another untill you eventually find a family that covers the whole set.
+
+	It is also a nice example to notice how one can pick the weights of the four functions to be either the same or not, and it will still coverge to the fern after some number of iterations.
 \end{example}
 
 \subsection{Iterated Random Functions}
@@ -103,12 +134,38 @@ Because we have a Markov Chain here, thus, it suffices to look only at the actio
 		T^{n}\nu \substack{ \\ \longrightarrow \\ n\to \infty} \mu . \square
 	\]
 \end{def*}
-This above convergence can be understood differently based on the topology being adopted
+The above convergence can be understood differently based on the topology being adopted, such as the weak-* topology or the convergence with respect to the Wasserstein Metric.
 
+On the topic of operators, another one that shall appear with some frequence is the \hypertarget{koopman_operator}{\textbf{Koopman Operator}} acting on the sapce of bounded measurable functions or
+on bounded continuous functions, given by
+\[
+	P\varphi (x)=\int_{}\varphi(f_{i}(x)) d\nu_{}.
+\]
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Notice how if \(Z_{n}^{x} = f_{X_{n-1}}\circ \cdots\circ f_{X_{0}}(x)\), then the action of repeated iterations of the \hyperlink{koopman_operator}{\textit{Koopman Operator}} is exactly the expected value of \(\varphi \) applied on the
+	i.i.d iteration of \(\varphi \), i.e.,
+	\[
+		P^{n}(\varphi (x)) = \mathbb{E}(\varphi(Z_{n}^{x})),
+	\]
+	such that one can prove the following relation between the Koopman Operator and the Perron-Frobenius Operator T:
+	\[
+		\int_{}^{}\varphi  \mathrm{d(T^{n}\mu )} = \int_{}^{}P^{n}\varphi  \mathrm{d}\mu
+	\]
+	for any bounded measurable functions and any \(n\geq 1\).
 
-
+	The proof of the \hyperlink{letac_principle}{\textit{Letac Principle}} is a direct consequence of this relationship together with the fact that both \((X_{0}, \dotsc , X_{n-1})\) and \((X_{n-1}, \dotsc , X_{0})\) have the same distribution
+	as long as \(\{X_{n}\}\) is an i.i.d. sequence.
+\end{tcolorbox}
 
 \end{document}
-
-
-
