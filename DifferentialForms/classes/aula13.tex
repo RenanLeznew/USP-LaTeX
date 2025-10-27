@@ -1,0 +1,107 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 22 de Outubro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Derivada Exterior de Aplicações.
+\end{itemize}
+\subsection{Um Pouco Sobre a Estrutura do Módulo das k-Formas}
+Com tudo que fora visto até o momento, deduzimos que o módulo das formas diferenciais de grau k possui uma base natural, formada pelas formas
+\[
+	dx_{i_1}\wedge \dotsc \wedge dx_{i_{k}},\quad 1\leq i_{1}<\dotsc <i_{k}\leq n,
+\]
+ou seja, qualquer k-forma diferencial \(\omega \) pode ser escrita unicamente como
+\[
+	\omega  = \sum\limits_{1\leq i_{1}<\dotsc <i_{k}\leq n}^{}a_{i_1, \dotsc , i_{k}}(x)dx_{i_1}\wedge \dotsc \wedge dx_{i_{k}},\; a_{i_1,\dotsc , i_{k}}\in C^{\infty}(\mathbb{R}^{n}),
+\]
+e a independência linear delas sobre \(\mathcal{C}^{\infty}(\mathbb{R}^{n})\) faz com que não existam combinações não triviais das formas da base que resultem na forma zero, ou seja, o módulo é um \textit{módulo livre}. Assim, podemos
+finalmente dar a estrutura explícita do conjunto de k-formas diferenciais:
+\begin{prop*}
+	O conjunto das formas diferenciais de grau k em \(\mathbb{R}^{n}\), com a soma e o produto externo conforme definidos na aula passada, forma um módulo livre sobre \(\mathcal{C}^{\infty}(\mathbb{R}^{n})\), tendo como base as formas
+	\[
+		dx_{i_1}\wedge \dotsc \wedge dx_{i_{k}}, \quad 1\leq i_1 < \dotsc < i_{k}\leq n.
+	\]
+\end{prop*}
+Lembremos, também, que a definição de produto exterior é feita de forma tal que, se \(\varphi_1, \dotsc , \varphi_{k}\) são 1-formas, então o produto exterior \(\varphi_1 \wedge \dotsc \wedge \varphi_{k}\) coincide com a k-forma definida por
+\[
+	(\varphi_1 \wedge \dotsc \wedge \varphi_{k})(v_1, \dotsc , v_{k}) = \det{(\varphi_{i}(v_{j}))}.
+\]
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Com relação às propriedades das k-formas, note que, embora \(dx_{i}\wedge dx_{i} = 0\), não é verdade que \(\omega\wedge \omega = 0\) para toda forma \(\omega \). Para um contra exemplo, considere
+	\[
+		\omega = x_1 \mathrm{d}x_1\wedge \mathrm{d}x_2 + x_2 \mathrm{d}x_3 \wedge \mathrm{d}x_4;
+	\]
+	então,
+	\[
+		\omega \wedge \omega = 2x_1x_2 \mathrm{d}x_1 \wedge \mathrm{d}x_2 \wedge \mathrm{d}x_3 \wedge \mathrm{d}x_4
+	\]
+\end{tcolorbox}
+\subsection{A Derivada Exterior}
+Uma das propriedades mais importantes das formas diferenciais é a maneira pela qual elas se comportam sob aplicações diferenciáveis: seja \(f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{m}\) uma aplicação diferenciável. Com isso, f induz uma aplicação \(f^{*}\) que leva k-formas em \(\mathbb{R}^{m}\) em k-formas em \(\mathbb{R}^{n}\), definida por
+\[
+	(f^{*}\omega )(p)(v_1, \dotsc , v_{k}) = \omega(f(p))(df_p (v_1), \dotsc , df_p(v_k)).
+\]
+Em particular, se g é uma 0-forma, então \(f^{*}(g) = g\circ f\), ou seja, a \(f^{*}\) equivale a um tipo generalizado de substituição de variáveis.
+\begin{prop*}
+	Sejam \(f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{m}\) diferenciável, \(\omega \) e \(\varphi \) k-formas em \(\mathbb{R}^{m}\), e \(g:\mathbb{R}^{m}\rightarrow \mathbb{R}\) uma 0-forma. Então:
+	\begin{align*}
+		 & \text{a) } f^{*}(\omega +\varphi ) = f^{*}\omega + f^{*}\varphi;                                              \\
+		 & \text{b) } f^{*}(g\omega) = f^{*}(g)f^{*}(\omega );\text{ e}                                                  \\
+		 & \text{c) } f^{*}(\varphi_1 \wedge \dotsc \wedge \varphi_{k}) = f^{*}\varphi_1 \wedge \dotsc f^{*}\varphi_{k}.
+	\end{align*}
+\end{prop*}
+\begin{example}
+	Considere a 2-forma em \(\mathbb{R}^{2}\setminus{\{(0, 0)\}}\) dada por
+	\[
+		\omega  = -\frac{y}{x^{2}+y^{2}}\mathrm{d}x + \frac{x}{x^{2}+y^{2}}\mathrm{d}y.
+	\]
+	Em coordenadas polares, obtidas pela aplicação \(f(r, \theta ) = (r\cos^{}{(\theta )}, r \sin^{}{(\theta )})\), temos
+	\[
+		\mathrm{d}x = \cos^{}{(\theta )}\mathrm{d}r - r \sin^{}{(\theta )}\mathrm{d}\theta , \quad \mathrm{d}y = \sin^{}{(\theta )}\mathrm{d}r + r \cos^{}{(\theta )}\mathrm{d}\theta.
+	\]
+	Portanto, \(f^{*}\omega  = \mathrm{d}\theta \).
+\end{example}
+\begin{prop*}
+	Seja \(f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{m}\) diferenciável. Então:
+	\begin{align*}
+		 & \text{a) }f^{*}(\omega \wedge \varphi ) = (f^{*}\tau )\wedge (f^{*}\varphi ); \text{ e} \\
+		 & \text{b) }(f\circ g)^{*}\omega = g^{*}(f^{*}(\omega )).
+	\end{align*}
+\end{prop*}
+Equipados com estas ferramentas e propriedades, finalmente introduzimos a generalização do diferencial de uma função:
+\begin{def*}
+	Seja \(\omega = \sum\limits_{I}^{}a_{I}dx_{I}\) uma k-forma em \(\mathbb{R}^{n}\). Definimos a \textbf{derivada exterior de }\(\omega \) por
+	\[
+		d\omega  = \sum\limits_{I}^{}da_{I}\wedge dx_{I}.\; \square
+	\]
+\end{def*}
+\begin{example}
+	Seja \(\omega  = xyz \mathrm{d}x + yz \mathrm{d}y + (x+z)\mathrm{d}z\). Então,
+	\begin{align*}
+		\mathrm{d}\omega & = \mathrm{d}(xyz) \wedge \mathrm{d}x + \mathrm{d}(yz) \wedge \mathrm{d}y + \mathrm{d}(x+z)\wedge \mathrm{d}z                              \\
+		                 & = xy \mathrm{d}z \wedge \mathrm{d}x + xz \mathrm{d}y\wedge \mathrm{d}x + y \mathrm{d}z \wedge \mathrm{d}y + \mathrm{d}x\wedge \mathrm{d}z \\
+		                 & = -xz \mathrm{d}x \wedge \mathrm{d}y + (1-xy)\mathrm{d}x \wedge \mathrm{d}z - y \mathrm{d}y\wedge \mathrm{d}z.
+	\end{align*}
+\end{example}
+\begin{prop*}
+	Para formas \(\omega_{1}, \omega_{2}, \varphi \) e \(f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{m}\) diferenciável, temos
+	\begin{align*}
+		 & \text{a) } d(\omega_1 + \omega_2) = d\omega_1 + d\omega_2                                       \\
+		 & \text{b) } d(\omega \wedge \varphi ) = d\omega \wedge \varphi  + (-1)^{k}\omega \wedge d\varphi \\
+		 & \text{c) } d^{2}\omega  = 0                                                                     \\
+		 & \text{d) } d(f^{*}\omega ) = f^{*}(d\omega ).
+	\end{align*}
+\end{prop*}
+\end{document}

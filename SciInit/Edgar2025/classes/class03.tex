@@ -1,0 +1,70 @@
+\documentclass[../stationary_ifs.tex]{subfiles}
+\begin{document}
+\section{Class 03 - October 10th, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Forwards and Backwards Synchronization.
+\end{itemize}
+\subsection{Forwards and Backwards Synchronization}
+Fixed a triplet \((\Omega , \mathcal{F}, \mathbb{P})\), a measure preserving transformation \(\theta :\Omega \rightarrow \Omega  \) and a function \(f_{\omega }:Y\rightarrow Y\), we've last seen a way to define Lyapunov's maximum exponent while proving \hyperlink{letac_principle}{\textit{the letac principle}} using \hyperlink{kingman_ergodic}{\textit{Kingman's Ergodic Theorem}}, defined as
+\hypertarget{lyapunov_exponents}{\begin{align*}
+		 & \lambda^{+}(\omega ) = \lim_{n\to \infty}\frac{1}{n}\log^{}{\Vert f_{\omega }^{n} \Vert}                \\
+		 & \lambda^{-}(\omega ) = \lim_{n\to \infty} \frac{1}{n}\log^{}{\Vert f_{\theta^{-n}(\omega )}^{n} \Vert},
+	\end{align*}}
+respectively called \textbf{maximal lyapunov exponent} and \textbf{backwards maximal lyapunov exponent}. One result we have out of the box is that
+
+\textbf{\underline{Claim}:} for \(\mathbb{P}-\)almost everywhere, the maximal and backwards maximal lyapunov exponents are equal.
+
+In particular, if \(\lambda^{+}(\omega )\leq \lambda < 0\) for \(\mathbb{P}\)-almost everywhere,
+then there is a constant \(b < 0\) and functions \(c^{+}, c^{-}:\Omega \rightarrow [0, \infty)\) such that
+\[
+	d(f_{\omega }^{n}(x), f_{\omega }^{n}(y))\leq c^{+}(\omega )e^{nb}d(x, y)
+\]
+and
+\[
+	d(f_{\theta^{-n}(\omega )}^{n}(x), f_{\theta^{-n}(\omega )}^{n}(y)) \leq c^{-}(\omega ) e^{nb}d(x, y).
+\]
+
+Consequently, both their diameters go to zero:
+\[
+	\underbrace{\mathrm{diam}(f_{\omega }^{n}(Y))\to 0}_{\text{forward synchronization}} \quad\&\quad \underbrace{\mathrm{diam}(f_{\theta^{-n}(\omega )}^{n}(Y))\to 0}_{\text{backward synchronization}}
+\]
+These phenomena are known respectively as \textbf{forward synchronization} and \textbf{backwards synchronization}.
+
+\begin{example}
+	Take \(\Omega = \{-1, 1\}^{\mathbb{Z}} \), \(\theta \) to be the shift map, and the product measure \(\mathbb{P} = \nu^{\mathbb{Z}},\) where \(\nu \) is the distribution giving the weights \(\nu(1) = \frac{1}{2}\) and \(\nu(-1) = \frac{1}{2}\).
+	Here, \(\omega \) is a sequence of the form \(\omega = (\dotsc , \omega_{-1}, \omega_{0}, \omega_{1}, \omega_{2}, \dotsc )\) since we look at the two-ways digit space. Our contractions will be defined by
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \;f_{-1}(x) = \frac{1}{2}x, \quad x\in [0, 1]                          \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \;f_{1}(x) = \left\{\begin{array}{ll}
+			                                                                                                 2x,\; & x\in \bigl[0, \frac{1}{2}\bigr] \\
+			                                                                                                 1,    & x\in \bigl[\frac{1}{2}, 1\bigr]
+		                                                                                                 \end{array}\right.
+	\end{align*}
+
+	\textbf{\underline{Claim}:} for \(\mathbb{P}\)-almost every \(\omega \),
+	\[
+		\mathrm{diam}(f_{\omega-1}\circ \dotsc \circ f_{\omega-n})([0, 1])\to 0,
+	\]
+	but for \(\mathbb{P}\)-almost every \(\omega \),
+	\[
+		\mathrm{diam}(f_{\omega }^{n}([0, 1])) = 1
+	\]
+	for infinitely many n. In other words, in this example we have a forward synchronization, but not a backwards.
+
+	Do notice how 0 is a fixed points both for the forward and the backwards iteration of the functions, so what is going on here?
+
+	Let us prove the claim; for \(\mathbb{P}-\)almost every \(\omega \), since 0 is a fixed point, 1 is going to determine the diameter for the whole interval, so that we can look at \(f_{\omega }^{n}(1)\) -- for inifnitely many n,
+	\[
+		f_{\omega }^{n}(1) = 1.
+	\]
+	As \(\omega \) assumes its values, we are going through expansions and contractions, with ever decreasing chances of getting to 1 as the iterations go. Hence, define
+	\[
+		s_{n} = \omega_{0} + \omega_1 + \dotsc +\omega_{n}.
+	\]
+	If \(s_{n}\) is the maximum \(s_{n} = \max\limits_{0\leq i\leq n}s_{i},\) then \(f_{\omega }^{n}(1) = 1\), so what we must prove is that \(s_{n}\) is the maximum for infinitely many \(n\in \mathbb{N}\)\footnote{In probability theory, \(s_{n} = \omega_{0}+\omega_1+\dotsc +\omega_{n}\) is known as a \textit{symmetrical random walk}.}. A fact that will not be proven is that for \(\mathbb{P}\)-almost every \(\omega \),
+	\[
+		-\infty = \liminf s_{n} < \limsup s_{n} = +\infty.
+	\]
+\end{example}
+\end{document}

@@ -1,0 +1,156 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 21 de Outubro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item O Teorema de Friedrichs.
+\end{itemize}
+\subsection{O Teorema de Friedrichs}
+Os próximos resultados serão utilizados como bases para obtermos operadores auto-adjuntos.
+\begin{prop*}
+	Se \(A_{i}:D(A_{i})\subseteq H\rightarrow H\) são operadores lineares densamente definidos e \(A_1\) for um subconjunto de \(A_2\), então \(A_{1}^{*}\supseteq A_{2}^{*}\).
+\end{prop*}
+\begin{proof*}
+	Se y for um elemento de \(D(A_{2}^{*})\), então o mapa
+	\[
+		D(A_2)\ni x \mapsto \underbrace{\langle A_2x, y \rangle}_{=\langle x, A_{2}^{*}y \rangle}\in \mathbb{K}
+	\]
+	se estende a um único funcional linear limitado em \(H^{*}\) que tem como representação, segundo o \hyperlink{riesz_representation}{\textit{Teorema de Representação de Riesz}}, \(A_2^{*}y\). Consequentemente, o mapa
+	\[
+		D(A_1)\ni x \mapsto \underbrace{\langle A_1x, y \rangle}_{=\langle x, A_{1}^{*}y \rangle} = \langle A_2x, y \rangle\in \mathbb{K}
+	\]
+	também possui extensão ao mesmo funcional linear limitado. Portanto, \(y\in D(A_{1}^{*})\) e
+	\[
+		A_{1}^{*}y = A_{2}^{*}y.
+	\]
+\end{proof*}
+
+\hypertarget{friedrichs}{
+	\begin{theorem*}[Friedrichs]
+		Seja H um espaço de Hilbert sobre \(\mathbb{K}\) e \(A:D(A)\subseteq H\rightarrow H\) um operador simétrico para o qual existe um \(\alpha \in \mathbb{R}\) tal que
+		\[
+			\langle Ah, h \rangle \leq \alpha \Vert h \Vert^{2} (= \alpha \langle h, h \rangle?) \text{ ou } \langle Ah, h \rangle \geq \alpha \Vert h \Vert^{2}
+		\]
+		para todo h no domínio de A. Então, A admite uma extensão auto-adjunta que preserva a limitação.
+	\end{theorem*}
+}
+\begin{proof*}
+	Faremos a prova apenas para o caso em que \(\langle Ax, x \rangle\geq \alpha \Vert x \Vert^{2}\) para todo x em \(D(A)\) e para algum \(\alpha \in \mathbb{R}\). O outro caso pode ser deduzido a partir desse e considerando o operador
+	oposto \(-A\); além disso, olharemos apenas para o caso \(\alpha =1\), pois o caso geral pode ser considerado a partir do operador \(A+(1-\alpha )I\).
+
+	Feitas as ressalvas, considere o produto interno definido por
+	\[
+		(x, y) \mapsto \langle Ax, y \rangle, \quad (x, y)\in D(A)\times D(A).
+	\]
+	A norma resultante deste produto interno, denotada por
+	\[
+		\Vert x \Vert_{\frac{1}{2}} = \langle Ax, x \rangle^{\frac{1}{2}},
+	\]
+	satisfaz
+	\[
+		\Vert x \Vert_{\frac{1}{2}} \geq \Vert x \Vert.
+	\]
+	Sendo assim, denote por \(H^{\frac{1}{2}}\) o completamento de \(D(A)\) relativamente à norma \(\Vert \cdot  \Vert_{\frac{1}{2}}\) e construído da seguinte forma:
+
+	Se \(\{x_{n}\}\) é de Cauchy em \(D(A)\) munido da norma \(\Vert \cdot  \Vert_{\frac{1}{2}}\), a sequência \(\{x_{n}\}\) é de Cauchy na norma \(\Vert \cdot  \Vert\) de H; então, considere um ponto x de H tal que
+	\[
+		x_{n} \substack{n\to \infty \\ \longrightarrow \\ } x
+	\]
+	na norma \(\Vert \cdot  \Vert\) de H. Note que, se \(\{\tilde{x}_{n}\}\) é também de Cauchy em \((D(A), \Vert \cdot  \Vert_{\frac{1}{2}})\) tal que
+	\[
+		\Vert x_{n}-\tilde{x}_{n} \Vert_{\frac{1}{2}} \substack{n\to \infty \\ \longrightarrow \\ }0 \Rightarrow \tilde{x}_{n}\substack{ n\to \infty \\ \longrightarrow \\ H}x.
+	\]
+
+	Mais ainda, se \(\{x_{n}\}\) é de Cauchy em \((D(A), \Vert \cdot  \Vert_{\frac{1}{2}})\), \(\Vert x_{n} \Vert_{\frac{1}{2}}\) converge para a, e \(\Vert x_{n} \Vert\) converge para 0, então
+	\[
+		2\mathrm{Re}\langle Ax_{n}, x_{m} \rangle = \underbrace{\langle Ax_{n}, x_{n} \rangle}_{\mathclap{\Vert x_{n} \Vert_{\frac{1}{2}}^2}} + \underbrace{\langle Ax_{m}, x_{m} \rangle}_{\mathclap{\Vert x_{m} \Vert_{\frac{1}{2}}^{2}}} - \underbrace{\langle A(x_{n}-x_{m}), (x_{n}-x_{m}) \rangle}_{\mathclap{\Vert x_{n}-x_{m} \Vert_{\frac{1}{2}}^{2}}} \substack{m, n\to \infty \\ \longrightarrow \\ }2a^{2}
+	\]
+	e \(a =0\), pois \(\langle Ax_{n}, x_{m} \rangle\) converge para 0, consequentemente mostrando que as sequências de Cauchy convergem em \(H^{\frac{1}{2}}.\)
+
+	Seja \(H^{\frac{1}{2}}\subseteq H\) o conjunto de todos os x em H para os quais existe uma sequência de Cauchy em \((D(A), \Vert \cdot  \Vert_{\frac{1}{2}})\) que convergem para x na norma \(\Vert \cdot  \Vert\) de H. Se x e y são elementos de \(H^{\frac{1}{2}}\) e que são limites
+	na norma de H das sequências de Cauchy \(\{x_{n}\}\) e \(\{y_{n}\}\) em \((D(A), \Vert \cdot  \Vert_{\frac{1}{2}})\), defina
+	\[
+		\Vert x \Vert_{\frac{1}{2}}\coloneqq \lim_{n\to \infty}\Vert x_{n} \Vert_{\frac{1}{2}}\;\&\; \langle x, y \rangle_{\frac{1}{2}}\coloneqq \lim_{n\to \infty}\langle Ax_{n}, y_{n} \rangle.
+	\]
+	Logo, pelo que fora feito anteriormente, \(\Vert x \Vert_{\frac{1}{2}}=0\) se, e somente se, \(x=0.\) Assim, \(\langle \cdot , \cdot  \rangle_{\frac{1}{2}}\) define um produto interno e \(\Vert \cdot  \Vert_{\frac{1}{2}}\) é a norma associada a ele, ambas tendo o domínio base como \(H^{\frac{1}{2}}.\)
+
+	Se \(\{x_{n}\}\) é de Cauchy em \((D(A), \Vert \cdot  \Vert_{\frac{1}{2}})\) e \(x_{n}\) converge para x em H, então
+	\[
+		\lim_{n\to \infty}\Vert x_{n}-x \Vert_{\frac{1}{2}} = \lim_{n\to \infty}\lim_{m\to \infty}\Vert x_{n}-x_{m} \Vert_{\frac{1}{2}}=0.
+	\]
+	Assim, se \(\{y_{n}\}\) é de Cauchy em \(H^{\frac{1}{2}}\), para cada n natural podemos escolher \(x_{n}\in D(A)\) tal que
+	\[
+		\Vert x_{n}-y_{n} \Vert_{\frac{1}{2}}\leq \frac{1}{n}.
+	\]
+	Como \(\{x_{n}\}\) é de Cauchy em \(H^{\frac{1}{2}}\), existe \(x\in H^{\frac{1}{2}}\) tal que
+	\[
+		\lim_{n\to \infty}\Vert x_{n}-x \Vert_{\frac{1}{2}} = 0 \;\&\; \lim_{n\to \infty}\Vert y_{n}-x \Vert_{\frac{1}{2}}=0,
+	\]
+	donde segue que o espaço \((H^{\frac{1}{2}}, \langle \cdot , \cdot  \rangle_{\frac{1}{2}})\) é de Hilbert, \(D(A)\) é denso em \((H^{\frac{1}{2}}, \langle \cdot , \cdot  \rangle_{\frac{1}{2}})\) e a inclusão é uma isometria linear.
+	Com isso, construímos um completamento \((H^{\frac{1}{2}}, \Vert \cdot  \Vert_{H^\frac{1}{2}})\) de \((D(A), \Vert \cdot  \Vert_{\frac{1}{2}})\) que é um espaço de Hilbert continuamente imerso em H.
+
+	Seja \(\tilde{D} = D(A^{*})\cap H^{\frac{1}{2}}\); como \(D(A)\) é um subconjunto de \(D(A^{*})\), deve seguir que \(D(A)\subseteq \tilde{D} \subseteq D(A^{*})\), então faz sentido definirmos \(\tilde{A}\) como a restrição de \(A^{*}\)
+	a \(\tilde{D}\), e mostraremos que \(\tilde{A}\) é auto-adjunto. Começamos mostrando que ele é um operador simétrico: se x e y forem pontos em \(\tilde{D},\) existem sequências \(\{x_{n}\}\) e \(\{y_{n}\}\) em \(D(A)\) com
+	\[
+		\Vert x_{n}-x \Vert_{\frac{1}{2}}\substack{n\to \infty \\ \longrightarrow \\ }0 \quad\&\quad \Vert y_{n}-y \Vert_{\frac{1}{2}}\substack{n\to \infty \\ \longrightarrow \\ }0,
+	\]
+	donde segue que
+	\[
+		\lim_{m\to \infty}\lim_{n\to \infty}\langle Ax_{n}, y_{m} \rangle = \lim_{n\to \infty}\lim_{m\to \infty}\langle Ax_{n}, y_{m} \rangle = \langle x, y \rangle_{\frac{1}{2}}
+	\]
+	existe e coincide com
+	\begin{align*}
+		 & \lim_{n\to \infty}\lim_{m\to \infty}\langle Ax_{n}, y_{m} \rangle = \lim_{n\to \infty}\langle Ax_{n}, y \rangle = \lim_{n\to \infty}\langle x_{n}, \tilde{A}y \rangle = \langle x, \tilde{A}y \rangle  \\
+		 & \lim_{n\to \infty}\lim_{m\to \infty}\langle Ax_{n}, y_{m} \rangle = \lim_{n\to \infty}\langle x, Ay_{m} \rangle = \lim_{n\to \infty}\langle \tilde{A}x, y_{m} \rangle = \langle \tilde{A}x, y \rangle,
+	\end{align*}
+	tal que \(\tilde{A}\) é simétrico.
+
+	Finalmente, para concluir a demonstração, é suficiente mostrar que \(\tilde{A}\) é sobrejetor, que pode ser mostrado da seguinte forma:
+	dado y em H, considere o funcional  dado por \(f(x) = \langle x, y \rangle.\)
+	Então, f é um funcional linear contínuo relativo à norma \(\Vert \cdot  \Vert_{\frac{1}{2}}\) e pode ser estendido a um funcional linear contínuo de \(H^{\frac{1}{2}}\) e, sendo assim,
+	da \hyperlink{riesz_representation}{\textit{representação de Riesz}}, existe \(y'\) em \(H^{\frac{1}{2}}\) tal que
+	\[
+		f(x) = \langle x, y \rangle = \langle x, y' \rangle_{\frac{1}{2}} = \langle Ax, y' \rangle,\quad \forall x\in D.
+	\]
+	Portanto, \(y'\in D(A^{*})\cap H^{\frac{1}{2}}\) e \(A^{*}y' = \tilde{A}y' = y\) mostrando que \(\tilde{A}\) é sobrejetor, consequentemente auto-adjunto. \text{\qedsymbol}
+\end{proof*}
+\begin{example}
+	Seja \(X_{0}=\mathcal{C}([0, \pi ], \mathbb{R})\) o conjunto das funções contínuas e, para pontos x, y em \(X_{0}\), defina o produto interno
+	\[
+		X_{0}\times X_{0}\ni (x, y)\mapsto \langle x, y \rangle=\int_{0}^{\pi }x(s)y(s) \mathrm{ds},
+	\]
+	caracterizando \((X_{0}, \langle \cdot , \cdot \rangle)\) como um espaço com produto interno. Seja \(L^{2}(0, \pi )\) um espaço de Hilbert obtido por completamento de \((X_{0}, \langle \cdot , \cdot  \rangle)\).
+
+	Diremos que um elemento em \(L^{2}(0, \pi )\) tem \textbf{derivada fraca de ordem m} se existir u em \(L^{2}(0, \pi )\) tal que
+	\[
+		\langle v, \varphi^{(m)} \rangle_{2} = (-1)^{m}\langle u, \varphi  \rangle_{2}, \quad \forall \varphi \in \mathcal{C}_{0}^{m}(0,\pi ),
+	\]
+	tal que u passe a ser denotado por \(v^{(m)}\). Além disso, considere o completamento \(H^{1}(0, \pi )\) de \(\mathcal{C}^{1}([0, \pi ], \mathbb{R})\) relativamente à norma dada pelo produto interno como
+	\[
+		\mathcal{C}^{1}([0,\pi ], \mathbb{R})\times \mathcal{C}^{1}([0,\pi ], \mathbb{R})\ni (u, v)\mapsto \langle u, v \rangle_{2} + \langle u', v' \rangle_{2}\in \mathbb{R}
+	\]
+
+	Considere uma sequência de Cauchy \(\{u_{n}\}\) em \(H^{1}(0, \pi )\), tal que \(\{u_{n}\}\) e \(\{u_{n}'\}\) serão de Cauchy em \(L^{2}(0, \pi )\) e, consequentemente, convergentes para \(u, g\) em \(L^{2}(0, \pi )\); logo,
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\quad \langle u_{n}, \varphi' \rangle_{2}\substack{n\to\infty  \\ \longrightarrow \\ }\langle u, \varphi ' \rangle_{2}\\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\quad -\langle u_{n}', \varphi \rangle_{2}\substack{n\to\infty \\ \longrightarrow \\ }-\langle g, \varphi  \rangle_{2},
+	\end{align*}
+	donde segue que u tem uma derivada fraca e \(u' = g\); desta forma, \(\{u_{n}\}\) é convergente para u em \(H^{1}(0, \pi )\).
+
+	Ademais, pode ser mostrado que, se \(u\in L^{2}(0, \pi )\) tem uma derivada fraca \(u'\in L^{2}(0, \pi )\), então existe uma sequência \(\{u_{n}\}\) em \(\mathcal{C}^{1}([0, \pi ], \mathbb{R})\) tal que
+	\(\Vert u_{n}-u \Vert_{2}\) e \(\Vert u_{n}' - u' \Vert_{2}\) convergem para 0. Definimos
+	\[
+		H^{1}(0, \pi )\times H^{1}(0, \pi )\ni (u, v)\mapsto \langle u, v \rangle_{2} + \langle u', v' \rangle_{2}\in \mathbb{R}.
+	\]
+
+	Se \(\varphi \) pertence a \(H^{1}(0, \pi )\), segue que \(\varphi \in \mathcal{C}([0, \pi ], \mathbb{R})\) e é \(\frac{1}{2}\)-Hölder contínua; de fato, existe \(\varphi_{n}\in \mathcal{C}^{1}((0, \pi ), \mathbb{R})\) com
+	\(\Vert \varphi_{n}-\varphi \Vert_{H^{1}(0, \pi )}\substack{n\to \infty \\ \longrightarrow \\ }0\), de modo que
+	\[
+		| \varphi_{n}(t)-\varphi_{n}(s) |\leq \int_{s}^{t}| \varphi_{n}'(\theta ) | \mathrm{d}\theta \leq (t-s)^{\frac{1}{2}}\Vert \varphi_{n}' \Vert_{L^{2}(0, \pi )}.
+	\]
+	Logo, pelo Teorema de Arzelá-Ascoli, toda subsequência de \(\{\varphi_{n}\}\) tem uma subsequência uniformemente convergente para uma função em \(X_{0}\) que deve coincidir com \(\varphi \). Portanto, a sequência converge para \(\varphi \) e
+	\[
+		| \varphi (t)-\varphi (s) | \leq (t-s)^{\frac{1}{2}}\Vert \varphi' \Vert_{L^{2}(0, \pi )}.
+	\]
+\end{example}
+\end{document}

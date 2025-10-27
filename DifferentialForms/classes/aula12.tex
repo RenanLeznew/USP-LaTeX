@@ -1,0 +1,124 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 20 de Outubro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item k-formas exteriores.
+\end{itemize}
+\subsection{As k-Formas Exteriores}
+Em nossos estudos, estamos considerando as k-formas em \(\mathbb{R}^{n}\), tendo em vista que há uma maior facilidade em considerar apenas \(\mathbb{R}^{n}\), pois seu espaço tangente é o próprio \(\mathbb{R}^{n}\).
+\begin{def*}
+	Uma \textbf{k-forma exterior} em \(\mathbb{R}^{n}\) é uma aplicação \(\omega \) que associa, para cada \(p\in \mathbb{R}^{n}\), um elemento \(\omega (p)\) na álgebra exterior \(\mathcal{A}^{k}(\mathbb{R}_{p}^{n})\) descrito como
+	\[
+		\omega(p) = \sum\limits_{I}^{}a_{I}(p)(dx_{i_1}\wedge \dotsc \wedge dx_{i_k})_{p}, \quad I = (i_1 < \dotsc < i_p),
+	\]
+	onde \(a_{I}\) são funções reais definidas em \(\mathbb{R}^{n}.\; \square\)
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill A Notação \(dx_{i}\)},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Quando trabalhamos no \(\mathbb{R}^{n}\), denotamos por \(dx_1, \dotsc , dx_{n}\), os elementos da base de \((\mathbb{R}^{n})^{*}\). Em particular, quando acrescentamos o índice p no produto exterior, estamos indicando o espaço tangente a \((\mathbb{R}^{n})^{*}\) no ponto p,
+	com a identificação de \((\mathbb{R}_{0}^{n})^{*} \cong (\mathbb{R}^{n})^{*}\), e como o espaço varia para cada ponto p, é preciso indicar nelas no caso geral; porém, como o espaço tangente a \(\mathbb{R}^{n}\) é ele mesmo, iremos omitir o p da notação.
+\end{tcolorbox}
+Com os devidos cuidados e observações (vide lembrete), podemos escrever
+\[
+	\omega (p) = \sum\limits_{I}^{}a_{I}(p) dx_{I},
+\]
+sendo que a k-forma herda a propriedade de suavização de \(a_{I}(p)\) (se \(a_{I}(p)\) for contínua, suave, \(\mathcal{C}^{1}\), etc, então a k-forma também será), ou seja,
+
+\begin{def*}
+	Diremos que \(\omega \) é uma \textbf{k-forma diferenciável} se cada \(a_{i}\) for diferenciável como função em \(\mathbb{R}^{n}.\; \square\)
+\end{def*}
+
+Convencionaremos que uma 0-forma (diferenciável) em \(\mathbb{R}^{n}\) é uma função (diferenciável) \(f:\mathbb{R}^{n}\rightarrow \mathbb{R}.\)
+\begin{example}
+	Em \(\mathbb{R}^{4}\), temos:
+	\begin{itemize}
+		\item[0-forma:] funções que levam em \(\mathbb{R}\), como \(f(x, y, z, w) = xy+zw^{2}\);
+		\item[1-forma:] \(x_1\mathrm{d}x_1 + x_3\mathrm{d}x_2 + x_2\mathrm{d}x_3 + x_4^{2}\mathrm{d}x_4\);
+		\item[2-forma:] \(x_1x_2(\mathrm{d}x_1\wedge \mathrm{d}x_2) + x_1x_3 (\mathrm{d}x_1\wedge \mathrm{d}x_3) + x_3x_1(\mathrm{d}x_3\wedge \mathrm{d}x_4)\);
+		\item[3-forma:] \(x_1\mathrm{d}x_1\wedge \mathrm{d}x_2\wedge \mathrm{d}x_3 + x_2x_4\mathrm{d}x_1\wedge \mathrm{d}x_2\wedge \mathrm{d}x_4\);
+		\item[4-forma:] \(x_1x_2x_3x_4 \mathrm{d}x_1\wedge \mathrm{d}x_2\wedge \mathrm{d}x_3\wedge \mathrm{d}x_4\).
+	\end{itemize}
+\end{example}
+
+\begin{def*}
+	Sejam \(\omega \) e \(\varphi \) k-formas
+	\[
+		\omega = \sum\limits_{I}^{}a_{I}dx_{I} \quad\&\quad \varphi = \sum\limits_{I}^{}b_{I}dx_{I}.
+	\]
+	Definimos a \textbf{soma de k-formas} por
+	\[
+		\omega + \varphi = \sum\limits_{I}^{}(a_{I}+b_{I})dx_{I}.
+	\]
+	Se, por outro lado, \(\psi = \sum\limits_{J}^{}c_{J}dx_{J}\) for uma s-forma, definimos o \textbf{produto exterior das k-formas}, resultando numa (s+k)-forma, como
+	\[
+		\omega \wedge \psi = \sum\limits_{I, J}^{}a_{I}c_{J}(dx_{I}\wedge dx_{J}), \quad I = (i_1, \dotsc , i_{k}),\; J = (j_1, \dotsc , j_s).
+	\]
+\end{def*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O conjunto de formas diferenciais possui um estrutura algébrica conhecida como \textbf{Módulo}; mais especificamente, se R é um anel comutativo, um \textbf{módulo sobre R} é um conjunto M equipado com uma adição + e uma multiplicação por elementos de R, satisfazendo
+	\begin{itemize}
+		\item (M, +) é um grupo abeliano (comutativo);
+		\item Para todos r, s em R e m, n em M, vale:
+		      \[
+			      r \cdot (m+n) = r \cdot m + r \cdot n,\; (r+s)\cdot m = r \cdot m + s \cdot m,\;\&\; (rs)\cdot m = r \cdot (sm); \text{ e}
+		      \]
+		\item Se R tiver um elemento unidade multiplicativa \(1_{R}\), então \(1_{R}\cdot m = m\).
+	\end{itemize}
+	No caso das formas diferenciais, o anel é o conjunto de todas as funções suaves em \(\mathbb{R}^{n}\), denotado por \(\mathcal{C}^{\infty}(\mathbb{R}^{n})\).
+
+	As duas informações juntas significam que podemos somar formas diferenciais e multiplicá-las por funções suaves: se \(\omega \) é uma k-forma diferencial e f é uma função suave em \(\mathbb{R}^{n}\), então \(f \cdot \omega \) também é uma forma diferencial de grau k.
+\end{tcolorbox}
+
+\begin{example}
+	Sejam \(\omega = x_1\mathrm{d}x_1 + x_2\mathrm{d}x_2 + x_3 \mathrm{d}x_3\) e \(\varphi = x_1 \mathrm{d}x_1\wedge \mathrm{d}x_2 + \mathrm{d}x_1\wedge \mathrm{d}x_3\). Calculemos \(\omega \wedge \varphi \).
+
+	Com efeito,
+	\begin{align*}
+		\omega \wedge \varphi & = (x_1\mathrm{d}x_1 + x_2\mathrm{d}x_2 + x_3 \mathrm{d}x_3) \wedge (x_1 \mathrm{d}x_1\wedge \mathrm{d}x_2 + \mathrm{d}x_1\wedge \mathrm{d}x_3) \\
+		                      & = x_1x_2 (\mathrm{d}x_1)\wedge (\mathrm{d}x_1\wedge \mathrm{d}x_2) + x_1 1 (\mathrm{d}x_1) \wedge (\mathrm{d}x_1 \wedge \mathrm{d}x_3)         \\
+		                      & + x_2x_1(\mathrm{d}x_2)\wedge (\mathrm{d}x_1\wedge \mathrm{d}x_2) + x_3x_1 (\mathrm{d}x_3) \wedge (\mathrm{d}x_1 \wedge \mathrm{d}x_2)         \\
+		                      & + x_3 1 (\mathrm{d}x_3)\wedge (\mathrm{d}x_1 \wedge \mathrm{d}x_3).
+	\end{align*}
+	Lembrando que \(\mathrm{d}x_3 \wedge \mathrm{d}x_{i} = 0\) e que trocar a ordem do produto exterior resulta numa inversão de sinal, simplificamos para
+	\[
+		\omega \wedge \varphi = -x_2 \mathrm{d}x_1\wedge \mathrm{d}x_2 \wedge \mathrm{d}x_3 + x_1x_3 \mathrm{d}x_1\wedge \mathrm{d}x_2\wedge \mathrm{d}x_3 = (x_1x_3 - x_2)\mathrm{d}x_1\wedge \mathrm{d}x_2\wedge \mathrm{d}x_3
+	\]
+\end{example}
+
+\begin{prop*}
+	Sejam \(\omega \) uma k-forma, \(\varphi \) uma s-forma e \(\theta \) uma r-forma. Então, valem as seguintes propriedades:
+	\begin{align*}
+		 & a)\; (\omega \wedge \varphi )\wedge \theta  = \omega \wedge (\varphi \wedge \theta );                   \\
+		 & b)\; (\omega \wedge \varphi ) = (-1)^{ks}(\varphi \wedge \omega );                                      \\
+		 & c)\; \omega \wedge (\varphi +\theta ) = \omega \wedge \varphi + \omega \wedge \theta, \text{ se r = s}. \\
+	\end{align*}
+\end{prop*}
+\begin{exr}
+	Prove a proposição acima.
+\end{exr}
+\end{document}
