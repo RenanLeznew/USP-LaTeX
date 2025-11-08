@@ -38,5 +38,144 @@ Antes do tópico novo, vamos finalizar uma aplicação do \hyperlink{friedrichs}
 	\]
 	Assim, \(D(A)=H^{2}(0, \pi )\cap H_{0}^{1}(0, \pi )\) e \(Au = -u''\) para todo u em \(D(A)\), sendo, então, uma derivada no sentido fraco previamente definido.
 \end{example}
+Com o exemplo finalizado, podemos dar continuidade às discussões teóricas.
+
+Muitas das soluções dos problemas matemáticos importantes são obtidas como mínimos, máximos, ou pontos fixos de funções definidas em espaços de dimensão infinita, e a noção de compacidade desempenha um papel
+fundamental para a solução de inúmeras questões importantes na matemática. Para introduzir nosso estudo aprofundados desse assunto, considere um espaço vetorial normado X e um conjunto linearmente independente de vetores de X, denotado por
+\(\{f_1, \dotsc , f_{n}\}\).
+\begin{lemma*}
+	Se F é gerado pelo conjunto de vetores, i.e.,  \(F = [f_1, \dotsc , f_{n}]\), então F é completo.
+\end{lemma*}
+\begin{proof*}
+	Mostraremos que existe c positivo tal que
+	\[
+		\sup_{}\biggl\{\biggl\Vert \sum\limits_{i=1}^{n}\alpha_{i}f_{i} \biggr\Vert_{X}:\; (\alpha_1, \dotsc , \alpha_{n})\in \mathbb{K}^{n},\; \sum\limits_{i=1}^{n}| \alpha_{i} | = 1\biggr\}\geq c.
+	\]
+	De fato, se o caso não fosse esse, existiria uma sequência \(\{(\alpha_{1}^{k}, \dotsc , \alpha_{n}^{k})\}_{k\in \mathbb{N}}\) com
+	\[
+		\sum\limits_{i=1}^{n}| \alpha_{i}^{k} | = 1
+	\]
+	e tal que
+	\[
+		\biggl\Vert \sum\limits_{i=1}^{n}\alpha_{i}^{k}f_{i} \biggr\Vert_{X}\substack{k\to \infty \\ \longrightarrow \\ }0.
+	\]
+	Assim, tomando subsequências, poderíamos assumir que \(\alpha_{i}^{k}\) converge para \(\alpha_{i}\) conforme k tende a infinito; consequentemente,
+	\[
+		\sum\limits_{i=1}^{n}| \alpha_{i} | = 1 \quad\&\quad \sum\limits_{i=1}^{n}\alpha_{i}f_{i} =0,
+	\]
+	contradizendo a independências linear de \(\{f_1, \dotsc , f_{n}\}\). Com isso, revertendo a desigualdade do supremo utilizada, segue a completude. \qedsymbol
+\end{proof*}
+\begin{exr}
+	Se F é um espaço vetorial normado de dimensão natural \(n\) sobre K,  mostre que:
+	\begin{itemize}
+		\item Existe uma transformação linear contínua de F sobre \((\mathbb{K}^{n}, \Vert \cdot  \Vert_1)\);
+		\item Todas as normas em F são equivalente;
+		\item Todas as normas em \(\mathbb{K}^{n}\) são equivalentes; e
+		\item Um subconjunto K de F é compacto se, e somente se, K for fechado e limitado.
+	\end{itemize}
+\end{exr}
+
+Para as próximas considerações, pede-se que X seja um espaço vetorial normado com dimensão infinita. Veremos, a partir disso, que nenhum subconjunto de X com interior não vazio é compacto na
+topologia induzida pela norma, donde decorre que os compactos de X não podem conter qualquer bola.
+
+O resultado acima torna muito mais complicada a análise de problemas matemáticos no contexto mencionado, então deveremos procurar alguma topologia para X com menos abertos, já que isso resultaria em mais compactos,
+facilitando a solução de possíveis problemas -- tais topologias serão conhecidas como \textit{topologia fraca em X} e \textit{topologia fraca-*} em \(X^{*}\).
+
+Sendo assim, começando pela introdução do problema, vamos mostrar que a bola unitária de um espaço vetorial normado é compacta se, e somente se, X tem dimensão finita, e disso decorrerá que nenhum compacto em dimensão infinita poderá conter uma bola de raio qualquer.
+
+\hypertarget{riesz_lemma}{
+	\begin{lemma*}[Lema de Riesz]
+		Seja X um espaço vetorial normado sobre \(\mathbb{K}\) e \(M\) um subespaço vetorial fechado próprio de X. Então, para cada \(\varepsilon \) positivo, existe um vetor u de X tal que
+		\[
+			\Vert u \Vert = 1 \quad\&\quad \mathrm{dist}(u, M) \geq 1-\varepsilon .
+		\]
+	\end{lemma*}
+}
+\begin{proof*}
+	Sem perda de generalidade, podemos fazer o caso em que \(0 < \varepsilon <1\). Para tanto, seja v um vetor de X, mas não de M; como M é fechado, a distância \(d = \mathrm{dist}(v, M)\) é não nula (e positiva). Com isso, escolha \(m_{0}\) em M tal que
+	\[
+		d < \Vert v-m_{0} \Vert < \frac{d}{1-\varepsilon },
+	\]
+	e sejam \(u=\frac{v-m_{0}}{\Vert v-m_{0} \Vert}\) e \(m\in M\); então, \(m_{0}+\Vert v-m_{0} \Vert m\) pertence a M e u satisfaz
+	\begin{align*}
+		\Vert u-m \Vert = \biggl\Vert \frac{v-m_{0}}{\Vert v-m_{0} \Vert} - m \biggr\Vert & = \biggl\Vert \frac{v-m_{0}-m \Vert v-m_{0} \Vert}{\Vert v-m_{0} \Vert} \biggr\Vert \\
+		                                                                                  & \geq \frac{d}{\Vert v-m_{0} \Vert}                                                  \\
+		                                                                                  & \geq 1-\varepsilon. \text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+Com o Lema de Riesz, estamos aptos a provar o resultado mencionado:
+\hypertarget{riesz_theorem}{
+	\begin{theorem*}[Teorema de Riesz]
+		Seja X um espaço vetorial normado sobre \(\mathbb{K}\) tal que \(\overline{B}_{1}(0) = \{x\in X:\; \Vert x \Vert\leq 1\}\) é compacta. Então, X tem dimensão finita.
+	\end{theorem*}
+}
+\begin{proof*}
+	Suponha, por absurdo, que X tem dimensão infinita. Com isso, existem subespaços \(M_{n}\) de X, com n natural, tais que \(\mathrm{dim}(M_{n}) = n\) e \(M_{n}\subseteq M_{n+1}\) para todo n natural.
+	Como \(M_{n}\) é fechado, segue do \hyperlink{riesz_lemma}{\textit{Lema de Riesz}} que existe \(u_{n}\) em \(M_{n}\) com norma 1 e tal que
+	\[
+		\mathrm{dist}(u_{n}, M_{n-1})\geq \frac{1}{2}.
+	\]
+	Portanto, \(\{u_{n}\}\) não tem subsequência convergente, o que contradiz a compacidade de \(\overline{B}_{1}(0)\). \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Seja X um espaço vetorial normado de dimensão finita. Se K é um compacto de X, então \(K^{\circ } = \emptyset.\)
+\end{crl*}
+
+Para podermos continuar o assunto e chegar nas topologias fraca e fraca-*, recordaremos algumas noções elementares de topologia geral que são indispensáveis para a apresentação delas.
+
+\begin{def*}
+	Seja X um conjunto não vazio. Uma \textbf{topologia em X} é uma família \(\tau \) de subconjuntos de X que satisfazem:
+	\begin{itemize}
+		\item \(\tau \) contém em si \(\emptyset \) e X;
+		\item A família \(\tau \) é fechada por interseções finitas; e
+		\item A família \(\tau \) é fechada por uniões arbitrárias.
+	\end{itemize}
+	Os elementos de \(\tau \) são chamados \textbf{abertos de X}, e X dotado de uma topologia \(\tau \) é chamado um \textbf{espaço topológico}, o qual denotaremos por \((X, \tau )\). \(\square\)
+\end{def*}
+
+Quando estiver claro qual a topologia envolvida no contexto do espaço topológico, ao invés de escrevermos \((X, \tau )\), escreveremos simplesmente X.
+
+\begin{def*}
+	Seja \((X, \tau )\) um espaço topológico. Um subconjunto de X é dito \textbf{fechado} se o seu complementar é aberto. \(\square\)
+\end{def*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Note que a família dos subconjuntos fechados de X é fechada por uniões finitas (complementar das interseções finitas) e por interseções quaisquer (complementar das uniões quaisquer).
+\end{tcolorbox}
+
+\begin{def*}
+	O \textbf{interior} de um subconjunto A de X, denotado por \(A^{\circ }\), é o maior aberto contido em A. Por outro lado, o \textbf{fecho} de A, denotado por \(\overline{A}\), é o menor fechado que contém A. \(\square\)
+\end{def*}
+
+\begin{def*}
+	Uma família de subconjuntos
+	\[
+		\mathcal{C} = \{C_{\lambda }\in 2^{X}:\; \lambda \in \Lambda \}
+	\]
+	é dita uma \textbf{cobertura de A} se A está contido na união de todos os membros da família:
+	\[
+		A\subseteq \bigcup_{\lambda \in \Lambda }^{}C_{\lambda },
+	\]
+	e dizemos que \(\mathcal{C}\) \textbf{cobre A}. Qualquer subconjunto de \(\mathcal{C}\) que ainda cobre A é chamado uma \textbf{subcobertura} e, se todos os conjuntos \(C_{\lambda }\) são abertos, dizemos que \(\mathcal{C}\) é uma \textbf{cobertura aberta.} \(\square\)
+\end{def*}
+
+\begin{def*}
+	Um subconjunto K de X é \textbf{compacto} se toda cobertura aberta de K possui subcobertura finita. \(\square\)
+\end{def*}
+
+\begin{def*}
+	Se X é um conjunto não vazio e \(\tau_{1},\ \tau_{2}\) são topologias em X, dizemos que \(\tau_2 \) é \textbf{mais fina} que \(\tau_1\) se \(\tau_2 \supseteq \tau_1\). \(\square\)
+\end{def*}
 
 \end{document}

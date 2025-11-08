@@ -1,0 +1,188 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 29 de Outubro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Variedades Diferenciáveis
+\end{itemize}
+\subsection{Variedades Diferenciáveis}
+Uma boa parte dos estudos da matemática acontece no contexto de álgebra linear e espaços vetoriais; quando as estruturas fogem muito dessa lógica, é importante que a gente consiga aproximar o que quer que estejamos estudando de um espaço vetorial, pois assim conseguiremos operacionalizar ele.
+
+A partir desse ponto, veremos uma dessas aproximações por meio das chamadas \textit{variedades diferenciáveis}, que, de forma resumida, é uma colagem de um monte de pedaços de espaços euclidianos\footnote{Em geral, variedades podem ser completamente abstratas, mas aqui estaremos olhando para
+	as euclidianas mesmo, conhecidas como \textit{variedades mergulhadas}, ou superfícies pelo Elon.}.
+
+\begin{def*}
+	Seja M um subconjunto de \(\mathbb{R}^{n}\), com a topologia induzida do \(\mathbb{R}^{n}\), é chamado \textbf{variedade diferenciável de dimensão k} se, para cada ponto p em M, existir uma vizinhança V de p contida em M e uma aplicação \(\varphi :U\rightarrow V \), sendo U um aberto de \(\mathbb{R}^{k}\), tais que:
+	\begin{itemize}
+		\item[a)] A aplicação \(\varphi \) deve ser um homeomorfismo diferenciável (difeomorfismo) de classe \(\mathcal{C}^{\infty}(U)\)\footnote{Tem gente que pede que o grau de diferenciação corresponda à dimensão da variedade, ou seja, que seja \(\mathcal{C}^{k}\), mas é mais fácil só pedir suave logo.};
+		\item[b)] O diferencial \(d\varphi_{q}:\mathbb{R}^{k}\rightarrow \mathbb{R}^{n}\) é injetora em todo ponto q de U.
+	\end{itemize}
+	O par \((U, \varphi )\) é chamado \textbf{parametrização de M em torno de p}, e a família
+	\[
+		\mathcal{A} = \biggl\{(U, \varphi ): \bigcup_{p\in M}^{}V = M, V \subseteq \mathrm{Im}(\varphi )\biggr\}.
+	\]
+	é chamada de \textbf{atlas de M}. \(\square\)
+\end{def*}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/manifold_14.png}
+	\end{center}
+	\caption{Mapeia-se um aberto de U para \(V = V'\cap M\) por meio da \(\varphi \), onde \(V'\subseteq \mathbb{R}^{n}\) é um subconjunto aberto. Uma variedade de dimensão k é um lugar onde isso possa ser feito para todos os pontos dele.}
+\end{figure}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O Teorema do Mergulho de Whitney garante que sempre dá pra estudar as variedades mais abstratas mergulhadas em uma variedade euclidiana, então não tem problema focarmos no estudo delas, principalmente num primeiro contato.
+\end{tcolorbox}
+
+\begin{example}
+	Seja \(\varphi :(-1, 1)\rightarrow \mathbb{R}^{2} \) dada por \(\varphi (t) = (t, t^{2})\). O traço de \(\gamma \) pode ser descrito como o gráfico de uma função, e a \(\gamma \) em si é bijetora sobre a imagem dela; aqui, vale uma dica: quando aparece uma identidade numa das coordenadas, como é o caso da primeira saída da \(\gamma \), já vamos ter garantido que ela é injetora, mas tenha em mente que é preciso que o número e o tipo de entradas deve aparecer na saída -- se fosse \(\gamma (x, y)\), teria que aparecer x, y na saída dela (claro, esse jeito nem sempre vai ser o melhor de ver, mas se aparecer, dá para usar isso de guia).
+
+	Além de ser uma bijeção, podemos ver coordenada a coordenada que ela é contínua e diferenciável, e que tem inversa contínua porque a inversa dela é a projeção, a qual é contínua, ou seja, estamos nas condições de \(\gamma \) ser uma parametrização de uma variedade de dimensão 2.
+\end{example}
+\begin{example}
+	Agora, considere o conjunto
+	\[
+		\{(x, y)\in \mathbb{R}^{2}:\; x^{2} + y^{2} = 1\} = \mathbb{S}^{1}.
+	\]
+	Com a parametrização usual do cálculo, podemos cobrir toda a circunferência completamente, ou seja, temos um Atlas! Mais especificamente, ele é dado pela manipulação
+	\[
+		x^{2} = 1-y^{2} \Rightarrow x = \sqrt[]{1-y^{2}} \quad\&\quad x = -\sqrt[]{1-y^{2}},
+	\]
+	donde definimos as funções
+	\[
+		\varphi_{1}^{+}(y) = (\sqrt[]{1-y^{2}}, y) \quad\&\quad \varphi_{2}^{-}(y) = (-\sqrt[]{1-y^{2}}, y), \quad y\in (-1, 1).
+	\]
+	Alternativamente, poderíamos escrever como
+	\[
+		y^{2} = 1-x^{2} \Rightarrow y = \sqrt[]{1-x^{2}} \quad\&\quad y = -\sqrt[]{1-x^{2}}
+	\]
+	e obter
+	\[
+		\varphi_{2}^{+}(x) = (x, \sqrt[]{1-x^{2}}) \quad\&\quad \varphi_{2}^{-}(x) = (x, -\sqrt[]{1-x^{2}}), \quad x\in (-1, 1).
+	\]
+	Para cada uma delas, temos um caso parecido ao anterior -- uma curva, todas as coordenadas são diferenciáveis, é um homeomorfismo sobre a imagem -- mas com quatro funções cobrindo tudo ao invés de 2, formando um Atlas para a variedade, composto por
+	\[
+		\mathcal{A} = \{(U_1, \varphi_{1}^{+}), (U_1, \varphi_{1}^{-}),(U_2, \varphi_{2}^{+}),(U_2, \varphi_{2}^{-})\},\; U_{1} = U_{2} = (-1, 1).
+	\]
+
+	Vale mencionar que, idealmente, isso será feito sem contas no futuro, mas que por enquanto é o que dá pra fazer.
+\end{example}
+\begin{exr}
+	Tente repetir o pensamento do exemplo anterior, mas para a esfera
+	\[
+		\mathbb{S}^{2} = \{(x, y, z)\in \mathbb{R}^{3}:\; x^{2} + y^{2} + z^{2} = 1\}
+	\]
+\end{exr}
+
+\section{Variedades com Bordo}
+
+O próximo passo é ampliarmos a classe de objetos estudados até aqui: além de variedades sem bordo (modeladas localmente em abertos de $\mathbb{R}^m$), admitiremos pontos cujas vizinhanças são modeladas em abertos do \emph{semiespaço} superior. Isso permite tratar, por exemplo, bolas fechadas, intervalos fechados e cilindros sólidos como variedades \emph{com bordo}.
+
+\begin{def*}[Modelo local]
+	Para $m\ge 1$, denote o produto cartesiano de m cópias de H por
+	\[
+		H^m \;=\; \{(x_1,\dots,x_m)\in\mathbb{R}^m: x_m\ge 0\},
+	\]
+	e o \textbf{bordo de \(H^{m}\)} por
+	\[
+		\partial H^m \;=\; \{(x_1,\dots,x_m)\in\mathbb{R}^m: x_m=0\}\cong \mathbb{R}^{m-1}.
+	\]
+	Ambos são munidos da topologia induzida de $\mathbb{R}^m$. \(\square\)
+\end{def*}
+
+\begin{def*}[Variedade suave com bordo]
+	Sejam $m\le n$ e $M\subset\mathbb{R}^n$. Dizemos que $M$ é uma \textbf{$m$-variedade suave com bordo} se para todo $p\in M$ existe um tríplice $(U,V,\varphi)$ onde
+	\begin{itemize}
+		\item $U\subset H^m$ é aberto (na topologia induzida de $\mathbb{R}^m$);
+		\item $V\subset M$ é aberto (na topologia subespaço de $\mathbb{R}^n$);
+		\item $\varphi:U\to V$ é um \emph{difeomorfismo} (com inversa suave) entre $U$ e $V$;
+		\item $\varphi(x)=p$ para algum $x\in U$.
+	\end{itemize}
+	Chamamos $\varphi$ de \textbf{parametrização local} de $M$ sobre $p$. O \textbf{bordo} de $M$ é
+	\[
+		\partial M \;=\; \bigl\{\,p\in M \;\bigm|\; \exists\,(U,V,\varphi),\, x\in U\cap \partial H^m \text{ com } \varphi(x)=p\,\bigr\}.
+	\]
+	O \textbf{interior} de $M$ é $\,\mathrm{Int}(M)=M\setminus \partial M$. Se $\partial M=\emptyset$, dizemos que $M$ é \textbf{sem bordo}. \(\square\)
+\end{def*}
+
+\begin{example}
+	Com base na definição acima, temos os seguintes exemplos:
+	\begin{enumerate}
+		\item O intervalo fechado $[0,1]\subset\mathbb{R}$ é uma $1$-variedade com bordo; $\partial[0,1]=\{0,1\}$.
+		\item O disco fechado $\overline{D}^2=\{(x,y)\in\mathbb{R}^2:\,x^2+y^2\le 1\}$ é uma $2$-variedade com bordo; $\partial\overline{D}^2=S^1$.
+		\item A bola fechada $\overline{B}^m\subset\mathbb{R}^m$ é uma $m$-variedade com bordo; $\partial\overline{B}^m=S^{m-1}$.
+		\item O cilindro sólido $D^2\times[0,1]\subset\mathbb{R}^3$ é uma $3$-variedade com bordo;
+		      \[
+			      \partial(D^2\times[0,1])=(S^1\times[0,1])\cup(D^2\times\{0\})\cup(D^2\times\{1\}).
+		      \]
+	\end{enumerate}
+\end{example}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Não confunda \emph{bordo de variedade} com \emph{fronteira topológica} como subconjunto de $\mathbb{R}^n$. Por exemplo, o círculo $S^1\subset\mathbb{R}^2$ tem fronteira topológica (no sentido de subconjuntos de $\mathbb{R}^2$) igual a ele mesmo, mas é uma variedade \emph{sem bordo}. Já o disco fechado $\overline{D}^2$ tem bordo (da variedade) igual a $S^1$.
+\end{tcolorbox}
+
+\begin{prop*}[Independência de parametrização do bordo]
+	Se $p\in M$ é imagem de um ponto de $\partial H^m$ por alguma parametrização local $(U,V,\varphi)$, então $p\in\partial M$ para \emph{qualquer} parametrização local $(U',V',\psi)$ centrada em $p$; isto é, o fato de $p$ estar no bordo é independente da escolha de carta.
+\end{prop*}
+
+\begin{proof*}
+	Sejam $(U,V,\varphi)$ e $(U',V',\psi)$ parametrizações locais com $\varphi(x)=\psi(y)=p$. A \emph{mudança de coordenadas}
+	\[
+		\Phi \;=\; \varphi^{-1}\circ \psi : U' \longrightarrow U
+	\]
+	é um difeomorfismo entre abertos de $H^m$. Tal difeomorfismo estende-se (localmente) a abertos de $\mathbb{R}^m$ e, pelo Teorema da Função Inversa, envia interior em interior: $\Phi\bigl(U'\cap\{x_m>0\}\bigr)\subset U\cap\{x_m>0\}$, e o mesmo vale para $\Phi^{-1}$. Logo, $\Phi$ envia $\partial H^m$ em $\partial H^m$. Em particular, se $x\in\partial H^m$ então $y=\Phi^{-1}(x)\in\partial H^m$. Portanto, $p=\psi(y)$ é ponto de bordo em \emph{qualquer} carta centrada em $p$. \qedsymbol
+\end{proof*}
+
+\begin{prop*}[O bordo é subvariedade]
+	Se $M\subset\mathbb{R}^n$ é uma $m$-variedade suave com bordo, então $\partial M$ é uma subvariedade suave de $M$ de dimensão $m-1$ (e, portanto, uma $(m-1)$-variedade suave \emph{sem} bordo).
+\end{prop*}
+
+\begin{proof*}
+	Seja $p\in\partial M$ e escolha uma carta $(U,V,\varphi)$ com $\varphi(0)=p$ e $U\subset H^m$ aberto. Defina
+	\[
+		U' \;=\; U\cap \partial H^m \;\cong\; \text{aberto de }\mathbb{R}^{m-1},
+		\qquad
+		\psi \;=\; \varphi\big|_{U'} : U'\longrightarrow V\cap \partial M .
+	\]
+	Então $\psi$ é um homeomorfismo suave sobre sua imagem (restrição de uma difeomorfismo) e fornece cartas para $\partial M$. As mudanças de coordenadas entre cartas de $\partial M$ são restrições das mudanças de coordenadas de $M$ e, pelo argumento da proposição anterior, preservam $\partial H^m$, logo são difeomorfismos entre abertos de $\mathbb{R}^{m-1}$. Assim, $\partial M$ herda uma estrutura de variedade suave de dimensão $m-1$. Como localmente $\partial M$ é modelado em abertos de $\mathbb{R}^{m-1}$ (não do semiespaço), ele não possui bordo. \qedsymbol
+\end{proof*}
+
+\begin{exr}
+	Mostre as seguintes coisas:
+	\begin{itemize}
+		\item Se $M$ é uma $m$-variedade com $\partial M\neq\emptyset$, então $\partial M$ é uma $(m-1)$-variedade suave \emph{sem} bordo.
+		\item Para $M$ variedade sem bordo e $I=[0,1]$, vale
+		      \[
+			      \partial(M\times I) \;=\; (M\times\{0\})\cup(M\times\{1\}).
+		      \]
+		\item Se $M$ e $N$ são variedades, com $\partial N=\emptyset$, então
+		      \[
+			      \partial(N\times M) \;=\; N\times \partial M.
+		      \]
+	\end{itemize}
+\end{exr}
+\end{document}

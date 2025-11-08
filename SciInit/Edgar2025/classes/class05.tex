@@ -1,0 +1,91 @@
+\documentclass[../stationary_ifs.tex]{subfiles}
+\begin{document}
+\section{Class 05 - October 31st, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Tying a loose end;
+	\item Uniform contractions on the fiber;
+\end{itemize}
+\subsection{A Brief Comment on Last Class}
+Today's lecture will be mostly a review, as well as an update for some of the stuff we've been doing. A nice reference for those interested is J. H. Elton's 1990 ``A Multiplicative Ergodic Theorem for Lipschitz Maps''.
+For starters, we'll discuss a part of the proof where we showed a sequence \(\{x_{n}\}\) was Cauchy in more details: let \((\Omega , \mathcal{F}, \mathbb{P}, \theta )\) be a measure preserving transformation that is invertible, \(f_{\omega }:M\rightarrow M\) be a Lipshicitz function, and suppose
+\[
+	\log^{+}{}\Vert f_{\omega } \Vert\in L^{1}(\mathbb{R}), \; \Vert f_{\omega } \Vert = e^{a_{n}(\omega )},
+\]
+implying that we have a well-defined maximal Lyapunov exponent for the composition given by
+\[
+	\lambda^{+} = \lim_{n\to \infty}\frac{1}{n} \log^{}{\Vert f_{\omega }^{n} \Vert}
+\]
+and a well-defined backwards Lyapunov Exponent as
+\[
+	\lambda^{-}(\omega ) = \lim_{n\to \infty} \frac{1}{n}\log^{}{\Vert f_{\theta^{-n}(\omega )}^{n} \Vert}.
+\]
+We've also assumed \(\lambda^{+}(\omega ) < 0\) for \(\mathbb{P}\)-almost every \(\omega \) and that, for some \(x_{0}\), \(a(\omega ) = d(f_{\omega }(x_{0}), x_{0})\) is such that \(\log^{+}{}(a)\in L^{1}(\omega )\).
+
+As a way to better understand these assumption, consider the following example:
+\begin{example}
+	Define the functions \(f_{\omega }:\mathbb{R}\rightarrow \mathbb{R}\) from the IFS by
+	\[
+		f_{\omega }(x) = \lambda x + b(\omega ),
+	\]
+	such that \(b(\omega )\) represents the displacement from 0. Then,
+	\[
+		f_{\theta^{-1}(\omega )} = \lambda x + b(\theta^{-1}(\omega )),
+	\]
+	and hence
+	\begin{align*}
+		f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}(x) & = \lambda (f_{\theta^{-2}(\omega )}(x)+b(\theta^{-1}(\omega )))                   \\
+		                                                          & = \lambda (\lambda x + b(\theta^{-2}(\omega )) + \lambda b(\theta^{-1}(\omega ))) \\
+		                                                          & = \lambda^{2}x + \lambda b(\theta^{-2}(\omega )) + b (\theta^{-1}(\omega )),
+	\end{align*}
+	so that by induction
+	\[
+		f_{\theta^{-n}(\omega )}^{n}(x) = \lambda^{n}x + \sum\limits_{i=0}^{n-1}\lambda^{i}b(\theta^{-(i+1)}(\omega )).
+	\]
+	When we apply the coding map, it becomes
+	\[
+		\pi(\omega ) = \lim_{n\to \infty}f_{\theta^{-n}(\omega )}^{n}(x) = \sum\limits_{n=0}^{\infty}\lambda^{n}b(\theta^{-(n+1)}(\omega )),
+	\]
+	from which we can see that, when we proved the result assuming \(\lambda^{+}\) and the displacement were bounded almost everywhere, these hypothesis made sure that we could prove that the distance between the terms of the sequence \(\{x_{n}\}\) in the proof added to something finite,
+	hence it is a Cauchy Sequence and the invariant graph was well-defined: if the displacement is not well-behaved, the iteration of functions might not be well-defined.
+\end{example}
+
+In the end, the assumption of \(\lambda^{-}(\omega )< 0\; (\lambda^{+}(\omega ) < 0),\) implies that, for every \(\varepsilon > 0\), there is an \(n_{0}\) such that we gain a ``control'' given by
+\[
+	n \geq n_{0} \Rightarrow \biggl\Vert f_{\theta^{-n}(\omega )}^{n} \biggr\Vert \leq e^{(\lambda^{-}+\varepsilon )n},
+\]
+and assuming \(\log^{+}{}a\in L^{1}(\mathbb{R})\) induces a subexponential growth via Borel-Cantelli:
+\[
+	\lim_{n\to \infty}\frac{1}{n}\log^{+}{(a(\theta^{-n}(\omega )))},
+\]
+which guarantees that for all \(\varepsilon > 0\) there will be an \(m_{0}\) for which
+\[
+	n\geq m_{0} \Rightarrow a(\theta^{-n}(\omega ))\leq e^{n\varepsilon }.
+\]
+Then, if \(\varepsilon \) is such that \(\lambda^{-}+2\varepsilon < 0\), we have
+\begin{align*}
+	n \geq \max\limits_{}\{n_{0}, m_{0}\} & \Rightarrow d(x_{n+1}, x_{n}) \leq e^{(\lambda^{-}+\varepsilon )n}e^{\varepsilon n} = e^{(\lambda^{-}+2\varepsilon )n} \\
+	                                      & \Rightarrow \sum\limits_{n=0}^{\infty}d(x_{n+1}, x_{n}) < \infty,
+\end{align*}
+and we conclude that \(\{x_{n}\}\) is indeed Cauchy in the proof: it is a tug-of-war between how much you contract your terms and how much the distance between them grows, and the conclusion is that it is a Cauchy Sequence.
+
+\subsection{Uniform Contraction on the Fiber}
+For this following section, assume \(\Vert f_{\omega } \Vert\leq \lambda <1\); by defining an auxiliary function
+\begin{align*}
+	\Gamma: & \mathcal{C}_{b}(\Omega ; M)\rightarrow \mathcal{C}_{b}(\Omega ; M)                                               \\
+	        & \varphi \longmapsto \Gamma_{\varphi }(\omega ) \coloneqq f_{\theta^{-1}(\omega )}(\varphi(\theta^{-1}(\omega))),
+\end{align*}
+let's compare what we had to assume for graph transforms in comparison to measure transforms:
+
+\begin{table}[H]
+	\centering
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{| c | c |}
+			\hline
+			Graph Transforms                                 & ``Measure Transforms''                                            \\
+			\hline
+			\(d(x_{0}, f_{\omega (x_{0})})\leq C\)           & \(\Gamma_{\varphi }\) is bounded if \(\varphi \) is bounded       \\
+			\((\omega , x)\mapsto f_{\omega}(x)\) continuous & \(\Gamma_{\varphi }\) is continuous if \(\varphi \) is continuous \\
+		\end{tabular}}
+\end{table}
+\end{document}

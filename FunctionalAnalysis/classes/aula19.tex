@@ -1,0 +1,189 @@
+ \documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 19 - 06 de Novembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Propriedades da Topologia Fraca;
+	\item A Topologia Fraca-*.
+\end{itemize}
+\subsection{Topologia Fraca-*}
+Na aula passada, utilizamos o \hyperlink{tychonoff_theorem}{\textit{Teorema de Tychonoff}} para encontrar uma definição da chamada Topologia Fraca em X, a qual denotamos por \(\sigma (X, X^{*})\). Agora, analisaremos as propriedades dessa topologia e, entendo melhor como ela funciona, definiremos a topologia fraca-*.
+
+\begin{prop*}
+	Seja X um espaço vetorial normado real. A topologia fraca \(\sigma(X, X^{*})\) é de Hausdorff.
+\end{prop*}
+\begin{proof*}
+	Se \(x_1,\; x_2\) são membros distintos de X, segue do \hyperlink{second_geometric_hahn_banach}{\textit{Teorema de Hahn-Banach}} que existe \(f\in X^{*}\) e \(\alpha\in \mathbb{R}\) tais que
+	\[
+		f(x_1)<\alpha <f(x_2).
+	\]
+	Sejam, então,
+	\[
+		U_1 = f^{-1}((-\infty, \alpha )) \quad\&\quad U_2 = f^{-1}((\alpha , \infty));
+	\]
+	logo, \(U_1\) e \(U_2\) são abertos disjuntos com \(x_1\in U_1\) e \(x_2\in U_2\), enquanto ambos \(U_1\) e \(U_2\) pertencem a \(\sigma(X, X^{*})\). Portanto, \(\sigma (X, X^{*})\) é Hausdorff. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja X um espaço vetorial normado real e \(x_{0}\) um ponto de X. Então, para uma família finita de índices I e \(\varepsilon >0\), os conjuntos da forma
+	\[
+		V = \{x\in X:\; | f_{i}(x-x_{0}) | < \varepsilon, \; \forall i\in I\}
+	\]
+	forma uma base de vizinhanças de \(x_{0}\) na topologia \(\sigma(X, X^{*})\).
+\end{prop*}
+\begin{proof*}
+	Se \(a_{i}=f_{i}(x_{0})\), segue que
+	\[
+		V = \bigcap_{i\in I}^{}\varphi_{f_{i}}^{-1}((a_{i}-\varepsilon , a_{i}+\varepsilon ))
+	\]
+	é um aberto da topologia \(\sigma (X, X^{*})\) e contém \(x_{0}\).
+
+	Ademais, se U é uma vizinhança de \(x_{0}\) em \(\sigma (X, X^{*})\), então existe W contido em U tal que
+	\[
+		x_{0}\in W = \bigcap_{i\in I}^{}\varphi_{f_{i}}^{-1}(V_{i}),
+	\]
+	onde I é finito e \(V_{i}\) são abertos em \(\mathbb{K}\) contendo \(a_{i}\). Considere \(\varepsilon >0\) tal que
+	\[
+		\{s:\; | s-a_{i} | < \varepsilon \}\subseteq V_{i},\quad i\in I;
+	\]
+	então,
+	\[
+		x_{0}\in V = \bigcap_{i\in I}^{}\varphi_{f_{i}}^{-1}((a_{i}-\varepsilon , a_{i}+\varepsilon ))\subseteq W\subseteq U.
+	\]
+
+	Portanto, se U for um aberto de \(\sigma (X, X^{*})\) e \(x_{0}\) for um ponto de U, mostramos que existe V da forma desejada que contém esse mesmo ponto. \qedsymbol
+\end{proof*}
+
+\begin{def*}
+	Se \(\{x_{n}\}\) for uma sequência de X que converge no sentido de \(\sigma (X, X^{*})\), diremos que \(\{x_{n}\}\) \textbf{converge fracamente para x}. Neste caso, escrevemos
+	\[
+		x_{n}\rightharpoonup x.\quad \square
+	\]
+\end{def*}
+\begin{prop*}
+	Seja X um espaço vetorial normado sobre \(\mathbb{K}\) e \(\{x_{n}\}\) uma sequência em X. Temos:
+	\begin{itemize}
+		\item[i)] Uma sequência converge pontualmente sob um funcional se, e somente se, a sequência converge fracamente:
+		      \[
+			      x_{n}\rightharpoonup x \Longleftrightarrow f(x_{n})\rightarrow f(x) , \quad \forall f\in X^{*};
+		      \]
+		\item[ii)] Se uma sequência converge no sentido normal, ela converge fracamente:
+		      \[
+			      x_{n}\rightarrow x \Rightarrow x_{n}\rightharpoonup x;
+		      \]
+		\item[iii)] Toda sequência que converge fracamente é limitada em norma, e seu limite tem norma menor que o liminf das normas da sequência:
+		      \[
+			      x_{n}\rightharpoonup x \Rightarrow \{\Vert x_{n} \Vert\} \text{ é limitada e } \Vert x \Vert\leq \liminf_{n\to \infty}\Vert x_{n} \Vert;
+		      \]
+		\item[iv)] Se \(x_{n}\) converge fracamente para x e \(f_{n}\) converge para f no dual de X, ou seja, \(\Vert f_{n}-f \Vert_{X^{*}}\to 0\), então
+		      \[
+			      f_{n}(x_{n})\rightarrow f(x).
+		      \]
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	O item (i) segue das outras propriedades que já mostramos e da definição da topologia fraca; o item (ii), por outro lado, segue do (i) combinado com
+	\[
+		| f(x_{n})-f(x) | \leq \Vert f \Vert\Vert x-x_{n} \Vert.
+	\]
+	Para o item (iii), basta mostrar que \(\{f(x_{n})\}_{n\in \mathbb{N}}\) é limitada para cada \(f\in X^{*}\) e aplicar o \hyperlink{uniform_limitation}{\textit{princípio da limitação uniforme}}. Com isso, a sequência \(\{\Vert x_{n} \Vert\}\) é limitada e, para cada \(f\in X^{*}\),
+	\[
+		| f(x_{n}) | \leq \Vert f \Vert\Vert x_{n} \Vert.
+	\]
+	Logo,
+	\[
+		| f(x) | = \liminf_{n\to \infty}| f(x_{n}) | \leq \Vert f \Vert \liminf_{n\to \infty}\Vert x_{n} \Vert
+	\]
+	e
+	\[
+		\Vert x \Vert = \sup_{\Vert f \Vert\leq 1}| f(x) | \leq \liminf_{n\to \infty}\Vert x_{n} \Vert.
+	\]
+
+	Finalmente, com relação ao item (iv), basta ver que
+	\begin{align*}
+		| f_{n}(x_{n})-f(x) | & \leq | f_{n}(x_{n}) - f(x_{n}) | + | f(x_{n})-f(x) |            \\
+		                      & \leq \Vert f_{n}-f \Vert \Vert x_{n} \Vert + | f(x_{n})-f(x) |.
+	\end{align*}
+	Portanto,
+	\[
+		f_{n}(x_{n})\rightarrow f(x). \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}
+	Quando X é um espaço vetorial normado real de dimensão finita, a topologia fraca \(\sigma (X, X^{*})\) e a topologia induzida pela norma coincidem. Em particular, uma sequência \(\{x_{n}\}\) converge fracamente se, e somente se,
+	\[
+		\lim_{n\to \infty} \Vert x_{n}-x \Vert = 0.
+	\]
+\end{prop*}
+\begin{proof*}
+	Se \(\tau \) denota a topologia induzida pela norma de X, então, por construção, \(\sigma (X, X^{*})\subseteq \tau \). Resta mostrar apenas que, se X tem dimensão finita, então \(\tau \subseteq \sigma (X, X^{*})\).
+
+	De fato, considere um aberto \(U\in \tau \); o que temos que mostrar é que todo ponto \(x_{0}\) de U é interior a U na topologia fraca, ou seja, que existe um aberto V na topologia fraca tal que \(x_{0}\in V\subseteq U\), pois isto mostrará que U é aberto em \(\sigma (X, X^{*})\).
+	Pela forma que conseguimos descrever as vizinhanças de \(x_{0}\) na topologia fraca, basta mostrar que, para algum conjunto finito I de índices e \((f_{i})_{i\in I}\subseteq X^{*}\),
+	\[
+		V = \{x\in X:\; | \langle f_{i}, x-x_{0} \rangle | < \varepsilon, \; \forall i\in I\}\subseteq U.
+	\]
+
+	Sem mais delongas, suponha que \(B_{r}(x_{0})\) está contida em U; escolhendo uma base \(\{e_1,\dotsc , e_{n}\}\) para X com \(\Vert e_{n} \Vert =1\) para todo i em I, temos
+	\[
+		x = \sum\limits_{i=1}^{n}x_{i}e_{i},\quad \forall x\in X
+	\]
+	e as aplicações enviando x para \(x_{i}\) definem n funcionais lineares contínuos sobre X denotados por \(f_{i}\). Com isso, para todo \(x\in V\),
+	\[
+		\Vert x-x_{0} \Vert\leq \sum\limits_{i=1}^{n}| \langle f_{i}, x-x_{0} \rangle | \Vert e_{i} \Vert < n\varepsilon.
+	\]
+	Logo, escolhendo \(\varepsilon = \frac{r}{n}\), temos \(x\in B_{r}(x_{0})\). Portanto,
+	\[
+		V\subseteq B_{r}(x_{0})\subseteq U. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\begin{example}
+	Seja X um espaço vetorial normado real de dimensão infinita. Então, \(\mathbb{S} = \{x\in X:\; \Vert x \Vert=1\}\) nunca é fechado na topologia fraca; mais exatamente, mostraremos que
+	\[
+		\overline{S}^{\sigma (X, X^{*})} = \{x\in X:\; \Vert x \Vert\leq 1\}.
+	\]
+
+	Mostraremos, inicialmente, que
+	\[
+		\overline{S}^{\sigma (X, X^{*})} \supseteq \{x\in X:\; \Vert x \Vert\leq 1\}.
+	\]
+	Seja \(x_{0}\in X\) com norma menor que 1; mostremos que qualquer aberto V de \(\sigma (X, X^{*})\) contendo \(x_{0}\) deve interceptar \(\mathbb{S}\).
+
+	Note que sempre podemos supor que V é da forma
+	\[
+		V = \{x\in X:\; | \langle f_{i}, x-x_{0} \rangle | <\varepsilon ,\; 1\leq i\leq n\},
+	\]
+	com \(\varepsilon >0\) e \(f_1,\dotsc , f_{n}\in X^{*}\).
+
+	Fixemos um ponto \(y_{0}\neq 0\) tal que
+	\[
+		\langle f_{i}, y_{0} \rangle = 0, \quad 1\leq i\leq n.
+	\]
+	Este \(y_{0}\) existe pois, se \(\langle f_{i}, y_{0} \rangle\neq 0\), para todo \(1\leq i\leq n\) e para todo \(y_{0}\) em X, teríamos a aplicação
+	\[
+		z\mapsto (f_1(z), \dotsc , f_{n}(z))\in \mathbb{R}^{n}
+	\]
+	como injetora, logo um isomorfismo sobre sua imagem, o que resultaria em \(\mathrm{dim}(X)\leq n,\) uma contradição.
+
+	Feito o argumento acima, note que a função \(g(t) = \Vert x_{0}+ty_{0} \Vert\) é contínua em \([0, \infty)\) com \(g(0)<1\) e
+	\[
+		\lim_{t\to \infty}g(t)=+\infty.
+	\]
+	Disso, segue que existe \(\overline{t}>0\) tal que
+	\[
+		\Vert x_{0}+\overline{t}y_{0} \Vert = 1.
+	\]
+	Como
+	\[
+		\langle f_{i}, x_{0}+ty_{0}-x_{0} \rangle = 0, \quad 1\leq i\leq n,
+	\]
+	temos \(x_{0}+ty_{0}\) pertencendo a V para todo t real. Consequentemente,
+	\[
+		x_{0}+\overline{t}y_{0}\in V \cap \{x\in X:\; \Vert x \Vert=1\}
+	\]
+	e \(x_{0}\in \overline{S}^{\sigma (X, X^{*})}\).
+
+	A igualdade será mostrada posteriormente quando mostrarmos que todo convexo que é fechado na topologia forte é, também, fechado na topologia fraca.
+\end{example}
+
+\end{document}

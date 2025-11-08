@@ -1,0 +1,206 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 30 de Outubro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Topologia Fraca e Fraca-*.
+\end{itemize}
+\subsection{Topologia Fraca e Fraca-*}
+Estaremos interessados na topologia induzida por uma família de funções que passaremos a descrever. Sendo assim, sejam X um conjunto qualquer e \(\varphi_{i}:X\rightarrow \mathbb{K}\), onde i é um índice de algum conjunto de índices I, uma família de funções.
+A razão para considerarmos a imagem das \(\varphi_{i}\) fixas e igual à \(\mathbb{K}\) é que é assim que estes resultados de topologia geral se aplicam à análise funcional que será desenvolvida a seguir.
+
+Começamos descrevendo o problema: queremos dotar X da topologia menos fina que torna todas as funções \(\varphi_{i}:X\rightarrow \mathbb{K}\), para todo i em I, contínuas. Naturalmente, a topologia discreta \(2^{X}\) que considera todos os subconjuntos possíveis de X como abertos torna
+\(\varphi_{i}:X\rightarrow \mathbb{K}\) é contínua para todo i em I, mas ela não é a mais econômica (no sentido de ter o menor número de abertos); na verdade, ela é a menos econômica, e não queremos isso -- lembrando aqui do \hyperlink{riesz_theorem}{\textit{Teorema de Riesz}} e o problema com os
+abertos para dimensões infinitas.
+\begin{def*}
+	Se U é um aberto de \(\mathbb{K}\), então se cada \(\varphi_{i}\) for contínua, queremos que \(\varphi_{i}^{-1}(U)\) é aberto; desta forma, a topologia menos fina que torna \(\varphi_{i}\) contínua para todo \(i\in I\), deve ser a menor topologia que contém
+	\[
+		\mathcal{E}\coloneqq \{\varphi_{i}^{-1}(U)\in 2^{X}:\; i\in I \text{ e U é um aberto de }\mathbb{K}\}.
+	\]
+	A menor topologia que contém \(\mathcal{E}\) é chamada a \textbf{topologia induzida pela família de funções} \(\{\varphi_{i}:\; i\in I\}\). \(\square\)
+\end{def*}
+\begin{def*}
+	Em geral, se \(\mathcal{E}\subseteq 2^{X}\), a topologia \textit{menos fina} que contém \(\mathcal{E}\) é chamada \textbf{topologia gerada por }\(\mathcal{E}\) e é denotada por \(\tau (\mathcal{E}).\; \square\)
+\end{def*}
+A topologia acima é a interseção de todas as topologias que contém \(\mathcal{E}\); neste caso, nos referimos a \(\mathcal{E}\) como uma sub-base para \(\tau (\mathcal{E})\). A seguir, caracterizaremos a topologia \(\tau(\mathcal{E})\) em termos dos elementos de \(\mathcal{E}\).
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Mais geralmente, poderíamos considerar funções \(\varphi_{i}\) tomando valores em espaços topológicos \((X_{i}, \tau_{i})\) no lugar de \(\mathbb{K}\).
+
+	Apresentaremos, a seguir, as provas para o caso em que \((X_{i}, \tau_{i})\) é \(\mathbb{K}\), mas seriam essencialmente as mesmas no caso geral.
+\end{tcolorbox}
+
+\begin{def*}
+	Se \((X, \tau )\) é um espaço topológico e x pertence a X, uma \textbf{base de vizinhanças de x} é uma família \(\mathcal{N}_{x}\) de membros de \(\tau \) tal que, se x pertence a um aberto \(U\), então existe \(U_{x}\) na família \(\mathcal{N}_{x}\) tal que
+	\[
+		x\in U_{x}\subseteq U.
+	\]
+	Uma \textbf{base para \(\tau \)} é uma família \(\mathcal{N}\subseteq \tau \) tal que \(\mathcal{N}\) é uma base de vizinhanças para cada x em X. \(\square\)
+\end{def*}
+
+Disso, seguem as proposições:
+
+\begin{prop*}
+	Se \((X, \tau )\) é um espaço topológico e \(\mathcal{N}\subseteq \tau \), então \(\mathcal{N}\) é uma base para \(\tau \) se, e somente se, todo \(U\in \tau \) é união de conjuntos em \(\mathcal{N}.\)
+\end{prop*}
+\begin{prop*}
+	Se \(\mathcal{N}\subseteq 2^{X}\), então \(\mathcal{N}\) é uma base para uma topologia se, e somente se, as seguintes condições são verdadeiras:
+	\begin{itemize}
+		\item[a)] Cada x em X pertence a algum V em \(\mathcal{N}\); e
+		\item[b)] Se \(U, V\in \mathcal{N}\) e \(x\in U\cap V\), existe \(W\in \mathcal{N}\) com
+		      \[
+			      x\in W\subseteq U\cap V.
+		      \]
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	A parte de \(\mathcal{N}\) ser uma base levar às implicações é automática.
+
+	Por outro lado, se (a) e (b) estão satisfeitas, tomamos \(\tau \) como a família obtida tomando uniões quaisquer de elementos de \(\mathcal{N}.\) Nisso, já segue que \(X\) é em si um elemento de \(\tau \) e que \(\tau \) é fechada por uniões quaisquer; além disso, \(\emptyset \) é a união vazia de elementos de \(\mathcal{N}\).
+
+	Ademais, se \(U_1,\; U_2\) são membros de \(\tau \) e \(x\in U_1\cap U_2\), então existem \(V_1,\; V_2\) em \(\mathcal{N}\) com \(x\in V_1\subseteq U_1\) e \(x\in V_2\subseteq U_2\). Assim, pela propriedade (b), existe \(W\in \mathcal{N}\) com \(x\in W\subseteq V_1\cap V_2\subseteq U_1\cap U_2\), mostrando que \(U_1\cap U_2\) é união de elementos de \(\mathcal{N}\) e conclui a demonstração. \qedsymbol
+\end{proof*}
+A próxima proposição caracteriza os abertos de \(\tau(\mathcal{E})\) em termos dos elementos de \(\mathcal{E}\):
+\begin{prop*}
+	Se \(\mathcal{E}\subseteq 2^{X}\), então \(\tau(\mathcal{E})\) consiste de \(\emptyset \), de \(X\) e das uniões quaisquer de intersecções finitas de elementos de \(\mathcal{E}\).
+\end{prop*}
+\begin{proof*}
+	A família constituída pelas interseções finitas de elementos de \(\mathcal{E}\) e X satisfaz as condições da proposição anterior. Assim, a família das uniões quaisquer de tais conjuntos é uma topologia contida em \(\tau \) para qualquer outra topologia de X que contenha \(\mathcal{E}\); portanto, é igual a \(\tau(\mathcal{E}.)\) \qedsymbol
+\end{proof*}
+\begin{prop*}
+	Seja X um conjunto qualquer e \(\tau \) a topologia induzida nele pela família das funções \(\varphi_{i}:X\rightarrow \mathbb{K}\), com i pertencendo a uma família qualquer de índices. Se \(\{x_{n}\}\) for uma sequência em X, então \(\{x_{n}\}\) converge para x se, e somente se,
+	\[
+		\varphi_{i}(x_{n})\rightarrow \varphi_{i}(x), \quad \forall i\in I.
+	\]
+\end{prop*}
+\begin{proof*}
+	Se \(x_{n}\) converge para x, então basta utilizar a continuidade de toda \(\varphi_{i}\) para concluir que
+	\[
+		\varphi_{i}(x_{n})\rightarrow \varphi_{i}(x),\quad \forall i\in I.
+	\]
+
+	Por outro lado, suponha que \(\varphi_{i}(x_{n})\) converge para \(\varphi_{i}(x)\) para todo i em I. Mostraremos, a partir disto, que \(x_{n}\) também converge para x. Com efeito, dada uma vizinhança U de x, sejam \(J\subseteq I\) finito e
+	\(V_{j}\), com \(j\in J\), abertos de \(\mathbb{K}\) tais que
+	\[
+		x\in \bigcap_{j\in J}^{}\varphi_{j}^{-1}(V_{j})\subseteq U.
+	\]
+
+	Para cada j em J, existe um natural \(N_{j}\) tal que \(\varphi_{j}(x_{n})\) pertence ao aberto \(V_{j}\) quando \(n\geq N_{j}\); logo, denotando o maior dos \(N_{j}\)'s por N, basta tomar \(n\geq N\), resultando em
+	\[
+		x_{n}\in \varphi_{j}^{-1}(V_{j}), \quad j\in J,
+	\]
+	donde segue que, para todo \(n\geq N\), temos \(x_{n}\in U\). Portanto, \(x_{n}\) converge para x. \qedsymbol
+\end{proof*}
+
+\begin{prop*}
+	Seja X um conjunto e \(\tau \) a topologia em X induzida pela família de funções \(\varphi_{i}:X\rightarrow \mathbb{K},\) com i em uma família qualquer I de índices. Se \((Z, \sigma )\) é um espaço topológico e
+	\(\psi :Z\rightarrow X\) é uma função, então \(\psi \) é contínua se, e somente se, a composição \(\varphi_{i}\circ \psi \) é contínua como função de \(Z\) em \(\mathbb{K}\) para todo \(i\in I\).
+\end{prop*}
+\begin{proof*}
+	Se \(\psi \) é contínua, então a composição, por ser uma de funções contínuas, também será contínua para todo i em I.
+
+	Por outro lado, se \(\varphi_{i}\circ \psi \) é contínua para cada i em I, considere um aberto U de \(\tau \); mostraremos que \(\psi^{-1}(U)\) pertence a \(\sigma \). Sabemos que U pode ser escrito como a união arbitrária de intersecções finitas da pré-imagem de abertos \(V_{i}\) de \(\mathbb{K}\) sob \(\varphi_{i}\), \textit{i.e.},
+	\[
+		U = \bigcup_{\text{qualquer}}^{}\bigcap_{}^{\text{finita}}\varphi_{i}^{-1}(V_{i}), \quad V_{i}\in \tau(\mathbb{K}).
+	\]
+	Logo, a pré-imagem de U sob \(\psi \) pode ser escrita como a pré-imagem do conjunto descrito acima também sob \(\psi \), resultando em
+	\[
+		\psi^{-1}(U)=\bigcup_{\text{qualquer}}^{}\bigcap_{}^{\text{finita}}\psi^{-1}(\varphi_{i}^{-1}(V_{i}))= \bigcup_{\text{qualquer}}^{}\bigcap_{}^{\text{finita}}(\varphi_{i}\circ \psi )^{-1}(V_{i}),
+	\]
+	Como \(\varphi_{i}\circ \psi \) é contínua, temos
+	\[
+		(\varphi_{i}\circ \psi )^{-1}(V_{i})\in \sigma.
+	\]
+	Portanto, \(\psi^{-1}(U)\in \sigma \) e \(\psi:(Z, \sigma )\rightarrow (X, \tau)\) é contínua. \qedsymbol
+\end{proof*}
+
+\begin{def*}
+	Seja A um conjunto. O \textbf{produto cartesiano da família de conjuntos \(\{X_{\alpha }\}_{\alpha \in A}\)} é o conjunto
+	\[
+		X\coloneqq \biggl\{f:A\rightarrow \bigcup_{\alpha \in A}^{}X_{\alpha }:\; f(\alpha )\in X_{\alpha },\; \forall \alpha \in A\biggr\}.
+	\]
+	Denotamos tal conjunto por \(\prod\limits_{\alpha \in A}^{} X_{\alpha }\), ou por \(X^{A}\) quando todos os conjuntos forem idênticos. Os elementos de \(\prod\limits_{\alpha \in A}^{}X_{\alpha }\) são denotados por \(w = (w_{\alpha })_{\alpha \in A}\)\(\square\)
+\end{def*}
+\begin{example}
+	O conjunto das funções reais com valores reais nada mais é que \(\mathbb{R}^{\mathbb{R}}\); do mesmo modo, o conjunto das sequência de números complexos pode ser descrito como \(\mathbb{C}^{\mathbb{N}}.\)
+\end{example}
+Se cada \(X_{\alpha }\) é dotado de uma topologia \(\tau_{\alpha },\; \alpha \in A\), podemos colocar a topologia induzida pela família de aplicações \(\{\alpha_{\alpha }\}_{\alpha \in A}\) como topologia em X, definida por
+\begin{align*}
+	\varphi_{\alpha }: & X\rightarrow X_{\alpha }  \\
+	                   & w\longmapsto w_{\alpha },
+\end{align*}
+correspondendo às projeções sobre cada \(X_{\alpha }\). Essa topologia é denominada \textbf{topologia produto}, denotada por \(\prod\limits_{\alpha \in A}^{}\tau_{\alpha }\).
+
+Em espaços de dimensão finita, compactos são abundantes e caracterizados de forma bem simples, mas isso não acontece para espaços de dimensão infinita, o que torna qualquer resultado que caracterize compactos de extrema utilidade, tendo em vista o papel fundamental deles na análise matemática. Em dimensão infinita,
+grande parte desse tipo de resultado é obtida a partir dos teoremas de \hyperlink{tychonoff_theorem}{\textit{Tychonoff}} e de \hyperlink{arzela_ascoli}{\textit{Arzelá-Ascoli}}.
+
+Em particular, a introdução das topologias fraca e fraca-* com o objetivo de aumentar o número de compactos nos espaços vetoriais normados de dimensão infinita é, em si, inspirada justamente no \hyperlink{tychonoff_theorem}{\textit{Teorema de Tychonoff}}; então, demonstremos ele a seguir:
+\hypertarget{tychonoff_theorem}{
+	\begin{theorem*}[Teorema de Tychonoff]
+		Se \(X_{\alpha },\; \alpha \in A\) são espaços topológicos compactos, então
+		\[
+			(X, \tau ) \coloneqq \biggl(\prod\limits_{\alpha \in A}^{}X_{\alpha }, \prod\limits_{\alpha \in A}^{}\tau_{\alpha }\biggr)
+		\]
+		também será compacto. Noutras palavras, o produto cartesiano arbitrário de espaço compactos é um espaço compacto.
+	\end{theorem*}
+}
+\begin{proof*}
+	Para mostrar que \((X, \tau )\) é um espaço topológico compacto, mostraremos que, se \(\mathcal{F}\subseteq 2^{X}\) tem a propriedade da interseção finita, então
+	\[
+		\bigcap_{\overline{F}\in \mathcal{F}}^{}\overline{F}\neq\emptyset.
+	\]
+	Para isso, seja \(\Lambda \) a família de todas as \(\mathcal{F}\subseteq 2^{X}\) com a propriedade da interseção finita; se \(\Lambda \) é ordenada pela inclusão, então toda cadeia em \(\Lambda \) é superiormente limitada pela união de todas. Assim, pelo \hyperlink{zorn_lemma}{\textit{Lema de Zorn}}, toda
+	\(\mathcal{F}\subseteq 2^{X}\) com a propriedade da interseção finita está contida em uma coleção maximal que mantém a propriedade da interseção finita.
+
+	Logo, basta provarmos que, se \(\mathcal{F}\in \Lambda \) é maximal, então
+	\[
+		\bigcap_{\overline{F}\in \mathcal{F}}^{}\overline{F}\neq\emptyset.
+	\]
+
+	Com efeito, para cada membro F de \(\mathcal{F}\) e índice \(\beta \in A\), seja \(F_{\beta }\) a projeção de F em \(X_{\beta }\), \textit{i.e.},
+	\[
+		F_{\beta } = \{w_{\beta }:\; w = (w_{\alpha })_{\alpha \in A}\in F\};
+	\]
+	então, a coleção \(\mathcal{F}_{\beta }\) de tais \(F_{\beta }\)'s tem a propriedade da interseção finita. Como \(X_{\beta }\) é compacto, existe um elemento \(x_{\beta }\) comum ao fecho de todos os \(F_{\beta }\), ou seja,
+	\[
+		x_{\beta }\in \bigcap_{F_{\beta }\in \mathcal{F}_{\beta }}^{}\overline{F}_{\beta }.
+	\]
+	Seja, então, \((x_{\alpha })_{\alpha \in A}\) uma sequência em X tal que, para todo índice \(\alpha \), temos
+	\[
+		x_{\alpha }\in \bigcap_{F_{\alpha }\in \mathcal{F}_{\alpha }}^{}\overline{F}_{\alpha }.
+	\]
+	A partir dessa sequência, basta apenas mostrarmos que ela pertence ao fecho de F; para isto, dado \(\beta \in A\), seja \(G_{\beta }\) um aberto de \(X_{\beta }\) com \(x_{\beta }\in G_{\beta }\). Então, denotando por G o conjunto das sequências
+	\[
+		G = \{(y_{\alpha })_{\alpha \in A}:\in y_{\beta }\in G_{\beta }\},
+	\]
+	segue que a união da família \(\mathcal{F}\) com a família desses G's continua tendo a propriedade da interseção finita, pois \(\mathcal{F}\) é maximal, resultando em \(G\in \mathcal{F}\). Além disso, toda interseção finita de tais G também pertence a \(\mathcal{F}\); o detalhe aqui é que
+	essas interseções finitas formam uma base de vizinhanças de \((x_{\alpha })_{\alpha \in A}\) na topologia de X, o que implica em todo \(F\in \mathcal{F}\) encontrando todo aberto de X que contém \((x_{\alpha })_{\alpha \in A}\). Logo,
+	\[
+		(x_{\alpha })_{\alpha \in A}\in \overline{F},\quad \forall F\in \mathcal{F}
+	\]
+	e, portanto,
+	\[
+		(x_{\alpha })_{\alpha \in A}\in \bigcap_{F\in \mathcal{F}}^{}\overline{F}.\text{ \qedsymbol}
+	\]
+\end{proof*}
+Finalmente, podemos definir formalmente a topologia fraca em X. Para isso, dado um espaço de Banach X e um funcional \(f\in X^{*}\), designaremos por \(\varphi_{f}:X\rightarrow \mathbb{K}\) a aplicação
+\[
+	\varphi_{f}(x) = f(x) = \langle x, f \rangle,
+\]
+onde f percorre \(X^{*}\), permitindo que obtenhamos uma família \((\varphi_{f})_{f\in X^{*}}\) de aplicações de X em \(\mathbb{K}\). Assim,
+\begin{def*}
+	A \textbf{topologia fraca em X}, denotada por \(\sigma (X, X^{*})\), é a topologia \textit{menos fina} em X que torna contínuas todas as aplicações \((\varphi_{f})_{f\in X^{*}}.\; \square\)
+\end{def*}
+
+\end{document}
