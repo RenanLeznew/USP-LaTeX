@@ -3,8 +3,104 @@
 \section{Aula 20 - 11 de Novembro, 2025}
 \subsection{Motivações}
 \begin{itemize}
-	\item O Teorema de Banach-Alaoglu.
+	\item Propriedades da Topologia Fraca.
 \end{itemize}
-\subsection{O Teorema de Banach-Alaoglu}
+\subsection{Propriedades da Topologia Fraca}
+Terminamos a aula passada com o exemplo parcial a seguir:
+\begin{example}
+	Seja X um espaço vetorial normado real de dimensão infinita. Então, \(\mathbb{S} = \{x\in X:\; \Vert x \Vert=1\}\) nunca é fechado na topologia fraca; mais exatamente, mostraremos que
+	\[
+		\overline{S}^{\sigma (X, X^{*})} = \{x\in X:\; \Vert x \Vert\leq 1\}.
+	\]
+
+	Mostraremos, inicialmente, que
+	\[
+		\overline{S}^{\sigma (X, X^{*})} \supseteq \{x\in X:\; \Vert x \Vert\leq 1\}.
+	\]
+	Seja \(x_{0}\in X\) com norma menor que 1; mostremos que qualquer aberto V de \(\sigma (X, X^{*})\) contendo \(x_{0}\) deve interceptar \(\mathbb{S}\).
+
+	Note que sempre podemos supor que V é da forma
+	\[
+		V = \{x\in X:\; | \langle f_{i}, x-x_{0} \rangle | <\varepsilon ,\; 1\leq i\leq n\},
+	\]
+	com \(\varepsilon >0\) e \(f_1,\dotsc , f_{n}\in X^{*}\).
+
+	Fixemos um ponto \(y_{0}\neq 0\) tal que
+	\[
+		\langle f_{i}, y_{0} \rangle = 0, \quad 1\leq i\leq n.
+	\]
+	Este \(y_{0}\) existe pois, se \(\langle f_{i}, y_{0} \rangle\neq 0\), para todo \(1\leq i\leq n\) e para todo \(y_{0}\) em X, teríamos a aplicação
+	\[
+		z\mapsto (f_1(z), \dotsc , f_{n}(z))\in \mathbb{R}^{n}
+	\]
+	como injetora, logo um isomorfismo sobre sua imagem, o que resultaria em \(\mathrm{dim}(X)\leq n,\) uma contradição.
+
+	Feito o argumento acima, note que a função \(g(t) = \Vert x_{0}+ty_{0} \Vert\) é contínua em \([0, \infty)\) com \(g(0)<1\) e
+	\[
+		\lim_{t\to \infty}g(t)=+\infty.
+	\]
+	Disso, segue que existe \(\overline{t}>0\) tal que
+	\[
+		\Vert x_{0}+\overline{t}y_{0} \Vert = 1.
+	\]
+	Como
+	\[
+		\langle f_{i}, x_{0}+ty_{0}-x_{0} \rangle = 0, \quad 1\leq i\leq n,
+	\]
+	temos \(x_{0}+ty_{0}\) pertencendo a V para todo t real. Consequentemente,
+	\[
+		x_{0}+\overline{t}y_{0}\in V \cap \{x\in X:\; \Vert x \Vert=1\}
+	\]
+	e \(x_{0}\in \overline{S}^{\sigma (X, X^{*})}\).
+
+	A igualdade será mostrada posteriormente quando mostrarmos que todo convexo que é fechado na topologia forte é, também, fechado na topologia fraca.
+\end{example}
+Hoje, trabalharemos com outros exemplos e propriedades, eventualmente retornando a este para terminar sua elaboração. Uma das consequências do exemplo anterior é:
+
+\begin{example}
+	O conjunto \(U=\{x\in X:\; \Vert x \Vert<1\}\) nunca é aberto na topologia fraca, pois, pelo que vimos no exemplo anterior, nenhum de seus pontos é interior.
+\end{example}
+
+Todo conjunto é fechado/aberto se \(\sigma (X, X^{*})\) é também um conjunto fechado/aberto na topologia induzida pelo norma, mas a recíproca, em geral, tende a ser falsa (vide os dois exemplos apresentados).
+
+O teorema a seguir mostra que a recíproca vale se o conjunto fechado na topologia forte é, também, convexo; ou seja, todo conjunto convexo que é fechado na topologia forte é também fechado na fraca.
+\begin{theorem*}
+	Se X é um espaço vetorial normado real e \(C\subseteq X\) é convexo, são equivalentes:
+	\begin{itemize}
+		\item[a)] C é fechado na topologia forte; e
+		\item[b)] C é fechado na topologia fraca.
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	A primeira implicação é automática, então mostraremos a outra parte.
+
+	Para tanto, mostraremos que \(C ^{\complement}\) é aberto em \(\sigma (X, X^{*})\); de fato, dado \(x_{0}\not\in C\), segue da \hyperlink{second_geometric_hahn_banach}{\textit{Segunda Forma Geométrica de Hahn-Banach}} que existem \(f\in X^{*}\) e \(\alpha \in \mathbb{R}\) tais que
+	\[
+		\langle f, x_{0} \rangle < \alpha < \langle f, y \rangle, \quad \forall y\in C.
+	\]
+	Faça
+	\[
+		V = \{x\in X:\; \langle f, x \rangle < \alpha \} = f^{-1}(-\infty, \alpha );
+	\]
+	então, \(x_{0}\) pertence a V, \(V\cap C = \emptyset \) e, consequentemente, \(V\subseteq C ^{\complement}\). Portanto, como \(V\in \sigma (X, X^{*})\), temos \(C ^{\complement}\in \sigma (X, X^{*})\). \qedsymbol
+\end{proof*}
+
+Uma das consequências desse teorema é que, se \(\{x_{n}\}\) for uma sequência fracamente convergente para x, então existe uma sequência de combinações lineares convexas dos \(x_{n}\) que converge fortemente para x. De fato, se \(A\subseteq X\) e denotarmos o menor convexo fechado que contém A por \(\overline{\mathrm{Co}(A)}\), temos
+\[
+	x\in \overline{\mathrm{Co}\{x_{n}\}}^{\sigma (X, X^{*})} = \overline{\mathrm{Co}\{x_{n}\}}^{\Vert \cdot  \Vert} \Rightarrow \exists y_{n}\in \mathrm{Co}\{x_{n}\}:\; y_{n}\rightarrow x.
+\]
+\begin{crl*}
+	Seja X um espaço vetorial normado e \(\tau \) a topologia induzida pela norma em X. Se \(\varphi :(X, \tau )\rightarrow (-\infty, \infty]\) for uma função convexa e semicontínua inferiormente, então \(\varphi :(X, \sigma (X, X^{*}))\rightarrow (-\infty, \infty]\); em particular, se \(x_{n}\) converge fracamente para x, então
+	\[
+		\varphi (x)\leq \liminf_{n\to \infty}\varphi (x_{n}).
+	\]
+\end{crl*}
+\begin{proof*}
+	Aqui, basta mostrarmos que, para todo \(\lambda \) real, o conjunto
+	\[
+		A_{\lambda } = \{x\in X:\; \varphi (x)\leq \lambda \}
+	\]
+	é fechado em \(\sigma (X, X^{*})\). Com efeito, como \(A_{\lambda }\) é convexo e fechado na topologia forte, segue que, para todo \(\lambda \) real, \(A_{\lambda }\) é fechado em \(\sigma (X, X^{*})\). \qedsymbol
+\end{proof*}
 
 \end{document}

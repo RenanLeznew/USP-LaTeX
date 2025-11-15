@@ -1,0 +1,140 @@
+\documentclass[../stationary_ifs.tex]{subfiles}
+\begin{document}
+\section{Class 06 - November 14th, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Comparing with the book.
+\end{itemize}
+\subsection{Comparing what we did with the book -- Presenter: Bella.}
+For the setup of today's class, let's consider a family of continuous functions \(\{f_{\omega }:X\rightarrow X\}_{\omega \in \Lambda }\), a probability space \((\Lambda , \theta )\) and take as our space the collection of one-sided sequences denote by
+\begin{align*}
+	 & \Omega = \Lambda^{\mathbb{N}},\quad \mathbb{P} = \theta^{\mathbb{N}}                 \\
+	 & \hat{\Omega } = \Lambda ^{\mathbb{Z}}, \quad \hat{\mathbb{P}} = \Theta^{\mathbb{Z}}.
+\end{align*}
+
+Furthermore, we must consider the \textbf{Markov Operator}, acting on probability measures \(\nu \) on X by
+\[
+	\mathcal{P}_{\nu }(A) = \int_{}^{}f_{\omega^{*}\mu }(A) \mathrm{d}\mathbb{P}(\omega ) = \int_{}^{}\mu(f_{\omega }^{-1}(A)) \mathrm{d}\mathbb{P}(\omega ).
+\]
+
+One of the Theorems we have seen is
+\begin{theorem*}
+	Suppose the family of functions from above is Lipschitz for all \(\omega \), \((\hat{\Omega }, \hat{\theta }, \sigma )\) is ergodic and the conditions on boundedness:
+	\begin{align*}
+		 & -\quad  \int_{}\Vert f_{\omega } \Vert_{Lip} d\hat{\mathbb{P}}(\omega ) < \infty                  \\
+		 & -\quad  \int_{}\log^{}(\Vert f_{\omega } \Vert_{Lip}) d\hat{\mathbb{P}}(\omega ) < 0              \\
+		 & -\quad  \exists x_{0}\in X:\; \int_{} d(x_{0}, f_{\omega }(x_{0})) d\mathbb{P}(\omega ) < \infty.
+	\end{align*}
+	Then, the coding map, defined as
+	\[
+		\pi (\omega ) = \lim_{n\to \infty}f_{\sigma^{-1}(\omega )}\circ \dotsc \circ f_{\sigma^{-n}(\omega )}(x_{0})
+	\]
+	exists for \(\hat{\mathbb{P}}-\)a.e. \(\omega \).
+\end{theorem*}
+
+We are going to compare this to the theorem in Lasota's book, stated as
+\hypertarget{lasota_theorem}{
+	\begin{theorem*}
+		If X is a closed subspace of the d-dimensional euclidean space, suppose there exists an \(\alpha\in (0, 1)\), \(\beta > 0\) with
+		\[
+			\int_{\Omega }\Vert f_{\omega }(x) - f_{\omega }(z) \Vert \mathrm{d}\mathbb{P}(\omega ) \leq \alpha \Vert x-z \Vert, \quad \forall x, z,
+		\]
+		and that there exists \(x_{0}\in X\) such that
+		\[
+			\int\Vert f_{\omega }(x_{0}) \Vert \mathrm{d}\mathbb{P}(\omega ) < \beta .
+		\]
+		Then, there exists a stationary measure \(\mu_{*}\) such that for all probability measures \(\nu \),
+		\[
+			\mathcal{P}^{n}\nu \substack{\omega^{*} \\ \longrightarrow \\ }\mu_{*},
+		\]
+		where \(\mathcal{P}\) is the Markov Operator.
+	\end{theorem*}
+}
+\begin{proof*}
+	The proof will be divided in two steps:
+
+	\textbf{\underline{Step 1}:} prove that there exists a probability measure \(\mu_{*}\) such that
+	\[
+		\mathcal{P}\mu_{*} = \mu_{*};
+	\]
+
+	\textbf{\underline{Step 2}:} show that \(\mathcal{P}\) is asymptotically stable.
+
+	With regards to the first step, it is a consequence of the \hyperlink{krylov_bogolyubov}{\textit{Krylov-Bogolyubov theorem}}. In more details, take \(\mu_{0}\) to be a probability measure
+	and define the sequence of probability measures
+	\[
+		\omega_{n}  = \frac{1}{n}\sum\limits_{i=0}^{n-1}\mathcal{P}_{\mu_{0}}
+	\]
+
+	\textbf{\underline{Claim}:} if X is compact, then \(\mathcal{C}^{0}(X)\) is separable.
+
+	As a consequence of the claim, there exists a countable set of \(\{h_1, h_2, \dotsc \}\) that is dense in \(\mathcal{C}^{0}\), and thus for any \(h_{i}\in \mathcal{C}^{0}(X)\), we know
+	\[
+		\biggl(\int_{}^{}h_{i} \mathrm{d}\mu_{n}\biggr)_{n\in \omega }, \forall i
+	\]
+	is a bounded sequence; hence, it has a convergent subsequence, let's say \((\mu_{1_k})_{k}\), so that it satisfies
+	\[
+		\int_{}^{}h_1 \mathrm{d} \mu_{1_k}.
+	\]
+	Iteratively, take \((\mu_{2_k})_k\subseteq (\mu_{1_k})_{k}\) such that
+	\[
+		\int_{}^{}h_2 \mathrm{d}\mu_{2_k},
+	\]
+	and keep goingg until we have
+	\[
+		(\mu_{n_{k}})_{k} \subseteq (\mu_{n-1_{k}})_{k}
+	\]
+	for which
+	\[
+		\int_{}^{}h_{i} \mathrm{d} \mu_{n_{k}}, \quad i=1, \dotsc , n.
+	\]
+	[This part continues from the Cantor Diagonal argument]
+\end{proof*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Reminder!,
+		after title={\hfill Krylov-Bogolyubov Theorem},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	The \hypertarget{krylov_bogolyubov}{Krylov-Bogolyubov Theorem} states: if X is compact, then there exists a stationary measure for a random dynamical system.
+
+	Another way to state it, without compactness, is to say that if X is a closed space and there is a probability measure \(\mu_{0}\) such that for all \(\varepsilon > 0\) there is a compact \(B\subseteq X\) with
+	\[
+		\mathcal{P}_{\mu_{0}}^{n}(B)\geq 1-\varepsilon,
+	\]
+	then there exists a stationary measure.
+
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Reminder!,
+		after title={\hfill Weak-* Convergence of Measures},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	We say that a sequence of measure \(\{\mu_{n}\}\) converges to \(\mu_{*}\) in the weak-* topology if and only if, for all continuous and bounded functions h,
+	\[
+		\int_{}^{}h \mathrm{d}\mu_{n}\rightarrow \int_{}^{}h \mathrm{d}\mu.
+	\]
+\end{tcolorbox}
+\begin{exr}
+	Show that if X is compact, then \(\mathcal{C}^{0}(X)\) is separable.
+\end{exr}
+\end{document}

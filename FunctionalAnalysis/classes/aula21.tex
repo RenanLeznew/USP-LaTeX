@@ -1,0 +1,239 @@
+\documentclass[../functional_analysis.tex]{subfiles}
+\begin{document}
+\section{Aula 21 - 13 de Novembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema de Banach-Alaoglu;
+	\item Teorema de Mazur
+\end{itemize}
+\subsection{Teoremas de Banach-Alaoglu}
+\begin{def*}
+	Quando uma sequência de funções \(\{f_{n}\}\) converge para f em \((X^{*}, \sigma (X^{*}, X))\), dizemos que \(\{f_{n}\}\)\textbf{ converge para f na topologia fraca*}, e escrevemos
+	\[
+		f_{n}  \stackrel{*}\rightharpoonup  f. \; \square
+	\]
+\end{def*}
+Com base na definição acima, fica como \textbf{exercício} provar a seguinte:
+\begin{prop*}
+	Seja X um espaço vetorial normado sobre \(\mathbb{K}\) e \(\{f_{n}\}\) uma sequência em \(X^{*}\). Temos:
+	\begin{itemize}
+		\item[i)] A sequência converge fraca* para f se, e somente se, a sequência do produto interno converge:
+		      \[
+			      x_{n}\stackrel{*}\rightharpoonup x \Longleftrightarrow \langle f_{n}, x \rangle \rightarrow \langle f(x), x \rangle , \quad \forall x\in X;
+		      \]
+		\item[ii)] Se uma sequência converge na norma de \(X^{*}\), ela converge fraca*:
+		      \[
+			      \Vert f_{n}-f \Vert_{X^{*}}\to 0 \Rightarrow f_{n} \stackrel{*}\rightharpoonup f;
+		      \]
+		      além disso, se \(f_{n}\) converge para f como sequência de funções, então \(f_{n}\) converge fraca* para f também:
+		      \[
+			      f_{n}\to f \Rightarrow f_{n}\stackrel{*}\rightharpoonup f
+		      \]
+		\item[iii)] Toda sequência que converge fraca* é limitada em norma, e seu limite tem norma menor que o liminf das normas da sequência de funções:
+		      \[
+			      f_{n}\stackrel{*}\rightharpoonup f \Rightarrow \{\Vert f_{n} \Vert\} \text{ é limitada e } \Vert f \Vert\leq \liminf_{n\to \infty}\Vert f_{n} \Vert;
+		      \]
+		\item[iv)] Se \(f_{n}\) converge fraca* para f e \(x_{n}\) converge para x, então
+		      \[
+			      f_{n}(x_{n})\rightarrow f(x).
+		      \]
+	\end{itemize}
+\end{prop*}
+Recorde que provamos, ao longo do curso, o resultado abaixo:
+\begin{prop*}
+	Seja X um conjunto e \(\tau \) a topologia em X induzida pela família de funções \(\varphi_{i}:X\rightarrow \mathbb{K},\) com i em uma família qualquer I de índices. Se \((Z, \sigma )\) é um espaço topológico e
+	\(\psi :Z\rightarrow X\) é uma função, então \(\psi \) é contínua se, e somente se, a composição \(\varphi_{i}\circ \psi \) é contínua como função de \(Z\) em \(\mathbb{K}\) para todo \(i\in I\).
+\end{prop*}
+Por meio dele, podemos provar o seguinte resultado importante:
+\hypertarget{banach_alaoglu}{
+	\begin{theorem*}[Banach-Alaoglu]
+		Seja X um espaço vetorial normado sobre \(\mathbb{K}\). Então, o conjunto
+		\[
+			\overline{B}_{1}^{X^{*}}(0) = \{f\in X^{*}:\; \Vert f \Vert\leq 1\}
+		\]
+		é compacto na topologia fraca-* \(\sigma (X^{*}, X)\).
+	\end{theorem*}
+}
+\begin{proof*}
+	Sejam
+	\[
+		Y = \mathbb{K}^{X} = \{f:X\rightarrow \mathbb{K}\} = \{(w_{x})_{x\in X}\}
+	\]
+	com a topologia produto \(\tau \), \(\varphi :(X^{*}, \sigma (X^{*}, X))\rightarrow (Y, \tau )\) a função definida por
+	\[
+		\varphi (f) = (f(x))_{x\in X}
+	\]
+	e \(\pi_{x}:Y\rightarrow \mathbb{K}\) a projeção, definida por
+	\[
+		\pi_{x}((w_{x})_{x\in X}) = w_{x}.
+	\]
+	Pela caracterização de continuidade na topologia produto e da definição de \(\sigma (X^{*}, X)\), a função \(\varphi \) é contínua, pois, para cada x em X,
+	\[
+		(X^{*}, \sigma (X^{*}, X))\ni f \mapsto (\pi_{x}\circ \varphi )(f) = f(x) = J_{x}(f)\in \mathbb{K}
+	\]
+	é contínua para cada x em X. Agora, então, provaremos que \(\varphi \) é um homeomorfismo de \(X^{*}\) sobre \(\varphi (X^{*})\).
+	De fato, já sabemos até que \(\varphi \) é injetora; mostremos, então, que a inversa de \(\varphi \) existe e é contínua.
+
+	Com efeito, pela caracterização de continuidade na topologia fraca*, basta mostrarmos que, para todo x em X fixo, a aplicação
+	\[
+		(\varphi (X^{*}), \tau )\ni w \mapsto \langle \varphi^{-1}(w), Jx \rangle = \langle x, \varphi^{-1}(w) \rangle = w_x\in \mathbb{K}
+	\]
+	é contínua. Porém, isso decorre automaticamente da definição da topologia produto em \(\mathbb{K}^{X}\)!
+
+	Armados com um homeomorfismo, comece observando que \(\varphi(\overline{B}_{1}^{X^{*}}) = K\), onde
+	\[
+		K = \{w\in Y:\; | w_{x} | \leq \Vert x \Vert,\; w_{x+y} = w_{x} + w_{y}, w_{\lambda x} = \lambda w_{x},\; \lambda \in \mathbb{K},\; x, y\in X\},
+	\]
+	de forma que precisamos apenas mostrar a compacidade de K para termos provado o teorema, pois isto permitirá concluirmos a compacidade da Bola em \(X^{*}\). A fim de cumprir este objetivo,
+	note que podemos decompor K em dois conjuntos \(K_1\) e \(K_2\), dados por
+	\begin{align*}
+		 & K_{1} = \{w\in Y:\; | w_{x} |\leq \Vert x \Vert,\; \forall x\in X\} = \prod\limits_{x\in X}^{}\overline{B}_{\Vert x \Vert_{X}}^{\mathbb{K}}(0)       \\
+		 & K_{2} = \{w\in Y: w_{x+y} = w_{x} + w_{y},\; w_{\lambda x} = \lambda w_{x}, \; \lambda \in \mathbb{K}, \; x, y\in X\}                                \\
+		 & \quad \quad = \bigcap_{x, y\in X}^{}\underbrace{\{w\in Y:\; w_{x+y} -w_{x} - w_{y} = 0\}}_{A_{x, y}} \cap \bigcap_{\substack{ \lambda \in \mathbb{K} \\ x\in X}}^{}\underbrace{\{w\in Y:\; w_{\lambda x} - \lambda w_{x} = 0\}}_{A_{\lambda x}}.
+	\end{align*}
+	A partir disso, segue do \hyperlink{tychonoff}{\textit{Teorema de Tychonoff}} que \(K_1\) é compacto e, como \(A_{x, y}\) e \(A_{\lambda x}\) são fechados (tendo em vista que as aplicações \(w\mapsto w_{x+y} - w_{x} - w_{y}\) e \(w\mapsto w_{\lambda x} - \lambda w_{x}\) são contínuas), \(K_2\) é fechado.
+	Portanto, K é compacto. \qedsymbol
+\end{proof*}
+\subsection{Convexos e o Teorema de Mazur}
+Nesta seção, fixamos \((X, \Vert \cdot  \Vert_{X})\) como espaço vetorial normado. Lembre-se que
+\begin{def*}
+	Um subconjunto C de X é dito \textbf{convexo} se, e somente se, ele contém todo segmento de reta que conecte dois de seus pontos, ou seja,
+	\[
+		[x, y]=\{ty+(1-t)y:\; t\in [0, 1]\}\subseteq X, \quad \forall x, y\in C.\; \square
+	\]
+\end{def*}
+\begin{exr}
+	Mostre que a interseção arbitrária de convexos é, também, um conjunto convexo.
+\end{exr}
+Em vista da última aula, também, definimos com mais atenção a \textit{envoltória convexa} como
+\begin{def*}
+	Seja K um subconjunto de X; a \textbf{envoltória convexa de K} é definida por
+	\[
+		\mathrm{Co}(K) = \bigcap_{}^{}\{C\subseteq X:\; C \text{ é convexo e }K\subseteq C\}.\; \square
+	\]
+\end{def*}
+\begin{prop*}
+	Seja \((X, \Vert \cdot  \Vert_{X})\) um espaço vetorial normado e K um convexo contido em X. Então,
+	\[
+		K = \biggl\{\sum\limits_{i=1}^{n}\alpha_{i}k_{i}:\; n\in \mathbb{N}^{*},\; k_{i}\in K,\; \alpha_{i}\in [0, 1],\; 1\leq i\leq n, \;\&\; \sum\limits_{i=1}^{n}\alpha_{i} = 1\biggr\}.
+	\]
+	Em outras palavras, um conjunto convexo pode ser escrito como o conjunto das combinações lineares de seus elementos, pegando as combinações cujos escalares estão entre 0 e 1 e, quando somados, dão 1 -- atribuímos \textit{pesos} a cada elemento de K.
+\end{prop*}
+\begin{proof*}
+	Um lado da relação é claro:
+	\begin{align*}
+		K & \subseteq \biggl\{\sum\limits_{i=1}^{n}\alpha_{i}k_{i}:\; n\in \mathbb{N}^{*},\; k_{i}\in K,\; \alpha_{i}\in [0, 1],\; 1\leq i\leq n, \;\&\; \sum\limits_{i=1}^{n}\alpha_{i} = 1\biggr\}   \\
+		  & = \bigcup_{n\in \mathbb{N}^{*}}^{}\biggl\{\sum\limits_{i=1}^{n}\alpha_{i}k_{i}:\; k_{i}\in K,\; \alpha_{i}\in [0, 1],\; 1\leq i\leq n, \;\&\; \sum\limits_{i=1}^{n}\alpha_{i} = 1\biggr\}.
+	\end{align*}
+
+	O outro lado da relação será mostrado por um processo indutivo na família de conjuntos definidos por
+	\[
+		K_{n}\coloneqq \biggl\{\sum\limits_{i=1}^{n}\alpha_{i}k_{i}:\; k_{i}\in K,\; \alpha_{i}\in [0, 1],\; 1\leq i\leq n, \;\&\; \sum\limits_{i=1}^{n}\alpha_{i} = 1\biggr\},\; n\in \mathbb{N}^{*}.
+	\]
+	Primeiramente, o caso \(n=1\) segue de imediato pela definição de convexo. Agora, suponha que, para \(1\leq j\leq n-1\), temos \(K_{j}\in K\); mostremos que \(K_{n}\subseteq K\).
+
+	Para isso, seja \(k\in K_{n}\), ou seja,
+	\[
+		k = \sum\limits_{i=1}^{n}\alpha_{i}k_{i},\; k_{i}\in K,\; \alpha_{i}\in [0, 1],\; 1\leq i\leq n \quad\&\quad \sum\limits_{i=1}^{n}\alpha_{i} = 1
+	\]
+	Se \(\alpha_{j} = 0\) para algum dos j's entre 1 e n, estaríamos finalizados; sendo assim, assuma que \(\alpha_{i}\neq 0\) para todo i entre 1 e n, e defina \(\beta \) por
+	\[
+		0 < \beta =\sum\limits_{i=1}^{n-1}\alpha_{i} < 1.
+	\]
+	Com isso, \(\alpha_{n} = 1-\beta \) e, colocando
+	\[
+		k = \sum\limits_{i=1}^{n-1}\frac{\alpha_{i}}{\beta }k_{i}\in K,\quad k_{n}\in K.
+	\]
+	Portanto,
+	\[
+		k = \beta \hat{k} + (1-\beta )x_{n}\in K. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{exr}
+	Mostre que o fecho de um conjunto convexo é convexo.
+\end{exr}
+\begin{prop*}
+	Seja \((X, \Vert \cdot  \Vert_{X})\) um espaço vetorial normado e K um subconjunto de X. Então,
+	\[
+		\mathrm{Co}(K) = \biggl\{\sum\limits_{i=1}^{n}\alpha_{i}k_{i}:\; n\in \mathbb{N}^{*},\; k_{i}\in K,\; \alpha_{i}\in [0, 1],\; 1\leq i\leq n, \;\&\; \sum\limits_{i=1}^{n}\alpha_{i} = 1\biggr\}.
+	\]
+\end{prop*}
+\begin{proof*}
+	Para verificar que o conjunto em questão, denotado por
+	\[
+		\hat{K} = \biggl\{\sum\limits_{i=1}^{n}\alpha_{i}k_{i}:\; n\in \mathbb{N}^{*},\; k_{i}\in K,\; \alpha_{i}\in [0, 1],\; 1\leq i\leq n, \;\&\; \sum\limits_{i=1}^{n}\alpha_{i} = 1\biggr\},
+	\]
+	é convexo, basta tomar dois elementos
+	\[
+		x = \sum\limits_{i=1}^{n}\alpha_{i}k_{i} \quad\&\quad y = \sum\limits_{i=1}^{m}\beta_{i}k_{i}'
+	\]
+	e notar que, para todo \(\lambda \in [0, 1]\),
+	\[
+		\lambda x + (1-\lambda )y\in K.
+	\]
+
+	Logo, temos a cadeia
+	\[
+		K \subseteq \mathrm{Co}(K)\subseteq \hat{K}
+	\]
+	e, do teorema anterior, qualquer convexo que contenha K deve também conter \(\hat{K}\). Portanto,
+	\[
+		\mathrm{Co}(K) = \hat{K}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{def*}
+	Chamaremos de \textbf{envoltória convexa fechada de K} o conjunto
+	\[
+		\overline{\mathrm{Co}}(K) = \overline{(\mathrm{Co}(K))}.\; \square
+	\]
+\end{def*}
+\begin{exr}
+	Mostre que a envoltória convexa fechada de um conjunto K é o menor conexo fechado que contém K, i.e.,
+	\[
+		\overline{\mathrm{Co}}(K) = \bigcap_{}^{}\{F\subseteq X:\; \text{F é conexo e }F = \overline{F}\supseteq K\}.
+	\]
+\end{exr}
+\hypertarget{mazur_theorem}{
+	\begin{theorem*}[Mazur]
+		Se \((X, \Vert \cdot  \Vert_{X})\) for um espaço vetorial normado e K for um subconjunto totalmente limitado de X, então \(\mathrm{Co}(K)\) será totalmente limitado.
+	\end{theorem*}
+}
+\begin{proof*}
+	Seja \(\varepsilon > 0\) dado. Fixe um natural \(n(\varepsilon )\eqqcolon n_{\varepsilon }\in \mathbb{N}^{*}\) e \(k_{i}\in K,\; 1\leq i\leq n_{\varepsilon }\), tais que
+	\[
+		K \subseteq \bigcup_{i=1}^{n_{\varepsilon }}B_{\frac{\varepsilon }{2}}^{X}(k_{i}).
+	\]
+	Se \(K_{\varepsilon }\) denotar a envoltória convexa fechada dos \(n_{\varepsilon }\)'s \(k_{i}\)'s, completando com zeros as somas com menos de \(n_{\varepsilon }\) somandos, sabemos que a forma assumida é
+	\[
+		K_{\varepsilon } = \biggl\{\sum\limits_{i=1}^{n_{\varepsilon }}\alpha_{i}k_{i}:\; \alpha_{i}\in [0, 1],\; 1\leq i\leq n_{\varepsilon }, \;\&\; \sum\limits_{i=1}^{n_{\varepsilon }}\alpha_{i} = 1\biggr\}.
+	\]
+	Note que, escrevendo
+	\[
+		S_{n_{\varepsilon }} = \biggl\{(\alpha_1, \dotsc , \alpha_{n_{\varepsilon }}):\; \alpha_{i}\in[0, 1],\; 1\leq i\leq n_{\varepsilon },\;\&\;\sum\limits_{i=1}^{n}\alpha_{i} = 1\biggr\},
+	\]
+	segue que \(S_{n_{\varepsilon }}\) é um subconjunto de \(n_{\varepsilon }\) cópias do intervalo \([0, 1]\), ou seja, \(S_{n_{\varepsilon }}\subseteq [0, 1]^{n_{\varepsilon }}\), o qual é compacto. Assim, definindo a função
+	\begin{align*}
+		f: & S_{n_{\varepsilon }}\rightarrow X                                                                                                                          \\
+		   & (\alpha_1, \dotsc , \alpha_{n_\varepsilon })\longmapsto f(\alpha_1, \dotsc , \alpha_{n_\varepsilon }) = \sum\limits_{i=1}^{n_\varepsilon }\alpha_{i}k_{i},
+	\end{align*}
+	obtemos \(f(S_{n_\varepsilon }) = K_{\varepsilon }\) e, sendo f contínua, \(K_{\varepsilon }\) é compacto.
+
+	Observe que, como cobertura de \(K_{\varepsilon }\),
+	\[
+		\biggl\{B_{\frac{\varepsilon }{2}}^{X}(k_{\varepsilon }):\; k_{\varepsilon }\in K_{\varepsilon }\biggr\}
+	\]
+	tem uma subcobertura finita dada por
+	\[
+		\biggl\{B_{\frac{\varepsilon }{2}}^{X}(k^{i}_{\varepsilon }):\; 1\leq i\leq m_\varepsilon \biggr\},
+	\]
+	donde segue que
+	\[
+		\biggl\{B_{\frac{\varepsilon }{2}}^{X}(k^{i}_{\varepsilon }):\; 1\leq i\leq m_\varepsilon \biggr\},
+	\]
+	cobre o conjunto
+	\[
+		\mathcal{O}_{\frac{\varepsilon }{2}}(K_{\varepsilon }) = \mathrm{Co}\biggl(\bigcup_{i=1}^{n_{\varepsilon }}B_{\frac{\varepsilon }{2}}^{X}(k_{i})\biggr),
+	\]
+	o qual contém \(\mathrm{Co}(K)\). Portanto, \(\mathrm{Co}(K)\) é totalmente limitado. \qedsymbol
+\end{proof*}
+\end{document}

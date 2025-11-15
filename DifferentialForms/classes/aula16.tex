@@ -1,0 +1,90 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 10 de Novembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Atlas em Variedades com Bordo;
+\end{itemize}
+\subsection{Variedades com Bordo -- Parte 2}
+Nosso próximo passo no estudo de variedades com bordo, que serão as bases para podermos generalizar as integrais, será encontrar uma forma de definir os Atlas nelas.
+
+Por sorte, podemos nos basear fortemente na construção utilizada para o caso das variedades sem bordo para definí-los, destacando apenas a questão que, diferentemente do caso anterior,
+precisamos encontrar a função definida num aberto maior utilizada para as variedades com bordo.
+\begin{def*}
+	Para uma m-variedade com bordo M, o par \((U, \varphi )\) (associado a um ponto p de M) do aberto pareado com o difeomorfismo é chamado \textbf{parametrização de M em torno de p}, sendo p um ponto da imagem de U sob \(\varphi \). A família
+	de parametrizações de M cuja união resulta em M é chamado \textbf{Atlas da Variedade}, ou seja, o atlas \(\mathcal{A} = \{(U, \varphi )\}\) é a coleção de parametrizações de M tal que
+	\[
+		\bigcup_{p\in M}^{}V = M. \quad \square
+	\]
+\end{def*}
+
+Outra noção indispensável no estudo e cálculo das integrais, quando eram feitas em \(\mathbb{R}^{n}\), era a \textit{orientação}; como já vimos até mesmo no início desse curso, sabemos que é possível definir essa ideia para espaços vetoriais -- tanto é que temos a diferenciação entre uma base \(\{v_1, \dotsc , v_{n}\}\) e uma base com orientação \((v_1, \dotsc , v_{n})\).
+Sendo assim, precisamos encontrar uma estrutura parecida para o caso das nossas variedades, e assim como a maior parte das coisas que estamos fazendo, iremos copiar o caso dos espaços vetoriais ao olhar para o exemplo do espaço tangente, e definiremos a orientação na variedade com base na orientação que temos nele. Uma questão ``natural'' que surge é: quantas orientações possíveis distintas somos capazes
+de colocar numa única variedade?
+
+A resposta para essa pergunta encontra-se no determinante, e a resposta é apenas duas: esquerda e direita para 1-espaços vetoriais, horário e anti-horário para 2-espaços vetoriais, as regras das mãos esquerda e direita para 3-espaços vetoriais, e assim por diante. Esse permanece sendo o caso para as variedades, e leva à noção das homotopias, que conservam o sinal do determinante; porém, as opções de sinais do determinante
+são apenas duas, sendo ele positivo ou negativo. Mais formalmente, as bases podem ser levadas num determinante positivo ou num determinante negativo, e é isso que determina a orientação do espaço.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Esse é o caso para variedades conexas por caminho, pelo menos, mas as variedades desconexas podem ter mais -- para uma variedade suave com n \textit{componentes conexas maximais}, o número de orientações possíveis será \(2^{n}\); este é, na verdade, o caso mais geral do que estamos estudando, pois as variedade conexas por caminho
+	nada mais são do que aquelas com uma única componente conexa maximal, ou seja, que tem 2 orientações possíveis.
+\end{tcolorbox}
+
+Antes de definição, vale o lembrete formal:
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Orientação de um Espaço Vetorial},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	A \textbf{orientação de um espaço vetorial} E de dimensão finita n e base \(\mathcal{B} = \{v_1, \dotsc , v_{n}\}\) é a escolha de uma ordenação específica \(\mathcal{B}\), denotada por \((v_1, \dotsc , v_{n})\).
+
+	Apenas duas orientações são possíveis para E, e dizemos que orientação é \textbf{positiva} se \(\det[v_1, \dotsc , v_{n}] > 0\) e \textbf{negativa} se \(det[v_1, \dotsc , v_{n}] < 0.\)
+\end{tcolorbox}
+
+\begin{def*}
+	Dizemos que uma variedade (com bordo ou sem) diferenciável M é \textbf{orientável} se ela admite um Atlas \(\mathcal{A}\) tal que, para quaisquer parametrizações \((U_{\alpha }, \varphi_{\alpha }),\; (U_{\beta }, \varphi_{\beta })\) com \(\varphi_{\alpha }(U_{\alpha }) \cap \varphi _{\beta }(U_{\beta }) = \emptyset \), temos
+	\[
+		\det\biggl[\mathrm{d}(\varphi_{\beta }^{-1}\circ \varphi_{\alpha })_{q}\biggr] > 0,
+	\]
+	com o d de diferencial, para todo
+	\[
+		q\in \varphi_{\alpha }^{-1}(\varphi_{\alpha }(U_{\alpha })\cap \varphi_{\beta }(U_{\beta })).\; \square
+	\]
+\end{def*}
+\subsection{Integrais de Formas}
+Finalmente, armados com as definições e resultados construídos até aqui, podemos entrar no tópico das integrais em formas diferenciais. Para conseguirmos generalizar o que já sabemos, vamos relembrar o caso da integral de uma função f com imagem em \(\mathbb{R}^{2}\). Para encontrar a integral, costumamos utilizar a soma
+\[
+	S(f, P, \xi ) = \sum\limits_{\beta \in S(P)}^{} \omega (\xi (\beta ))(v_1(\beta ), \dotsc , v_n(\beta )).
+\]
+Sabendo que f é integrável e entendendo o significado do diferencial conforme estudamos aqui, isso significa que o limite
+\[
+	\lim_{| P |\to 0}S(f, P, \xi )= \int_{\mathbb{R}}^{}f \mathrm{dv}
+\]
+existe, e que, vendo ``dv'' pela ótica das formas e diferenciais, o limite acima é o mesmo que dizer que existe
+\[
+	\lim_{| P |\to 0}\sum\limits_{\beta \in S(P)}^{}\omega (\xi (\beta ))(v_1(\beta ), \dotsc , v_{n}(\beta )).
+\]
+Juntando tudo, introduzimos a notação do limite acima em termos de
+\[
+	\lim_{| P |\to 0}\sum\limits_{\beta \in S(P)}^{}\omega (\xi (\beta ))(v_1(\beta ), \dotsc , v_{n}(\beta )) = \int_{\mathbb{R}}^{}\omega
+\]
+\end{document}

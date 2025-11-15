@@ -86,7 +86,7 @@ A partir desse ponto, veremos uma dessas aproximações por meio das chamadas \t
 	\]
 \end{exr}
 
-\section{Variedades com Bordo}
+\subsection{Variedades com Bordo}
 
 O próximo passo é ampliarmos a classe de objetos estudados até aqui: além de variedades sem bordo (modeladas localmente em abertos de $\mathbb{R}^m$), admitiremos pontos cujas vizinhanças são modeladas em abertos do \emph{semiespaço} superior. Isso permite tratar, por exemplo, bolas fechadas, intervalos fechados e cilindros sólidos como variedades \emph{com bordo}.
 
@@ -117,72 +117,4 @@ O próximo passo é ampliarmos a classe de objetos estudados até aqui: além de
 	O \textbf{interior} de $M$ é $\,\mathrm{Int}(M)=M\setminus \partial M$. Se $\partial M=\emptyset$, dizemos que $M$ é \textbf{sem bordo}. \(\square\)
 \end{def*}
 
-\begin{example}
-	Com base na definição acima, temos os seguintes exemplos:
-	\begin{enumerate}
-		\item O intervalo fechado $[0,1]\subset\mathbb{R}$ é uma $1$-variedade com bordo; $\partial[0,1]=\{0,1\}$.
-		\item O disco fechado $\overline{D}^2=\{(x,y)\in\mathbb{R}^2:\,x^2+y^2\le 1\}$ é uma $2$-variedade com bordo; $\partial\overline{D}^2=S^1$.
-		\item A bola fechada $\overline{B}^m\subset\mathbb{R}^m$ é uma $m$-variedade com bordo; $\partial\overline{B}^m=S^{m-1}$.
-		\item O cilindro sólido $D^2\times[0,1]\subset\mathbb{R}^3$ é uma $3$-variedade com bordo;
-		      \[
-			      \partial(D^2\times[0,1])=(S^1\times[0,1])\cup(D^2\times\{0\})\cup(D^2\times\{1\}).
-		      \]
-	\end{enumerate}
-\end{example}
-
-\begin{tcolorbox}[
-		skin=enhanced,
-		title=Observação,
-		fonttitle=\bfseries,
-		colframe=black,
-		colbacktitle=cyan!75!white,
-		colback=cyan!15,
-		colbacklower=black,
-		coltitle=black,
-		drop fuzzy shadow,
-		%drop large lifted shadow
-	]
-	Não confunda \emph{bordo de variedade} com \emph{fronteira topológica} como subconjunto de $\mathbb{R}^n$. Por exemplo, o círculo $S^1\subset\mathbb{R}^2$ tem fronteira topológica (no sentido de subconjuntos de $\mathbb{R}^2$) igual a ele mesmo, mas é uma variedade \emph{sem bordo}. Já o disco fechado $\overline{D}^2$ tem bordo (da variedade) igual a $S^1$.
-\end{tcolorbox}
-
-\begin{prop*}[Independência de parametrização do bordo]
-	Se $p\in M$ é imagem de um ponto de $\partial H^m$ por alguma parametrização local $(U,V,\varphi)$, então $p\in\partial M$ para \emph{qualquer} parametrização local $(U',V',\psi)$ centrada em $p$; isto é, o fato de $p$ estar no bordo é independente da escolha de carta.
-\end{prop*}
-
-\begin{proof*}
-	Sejam $(U,V,\varphi)$ e $(U',V',\psi)$ parametrizações locais com $\varphi(x)=\psi(y)=p$. A \emph{mudança de coordenadas}
-	\[
-		\Phi \;=\; \varphi^{-1}\circ \psi : U' \longrightarrow U
-	\]
-	é um difeomorfismo entre abertos de $H^m$. Tal difeomorfismo estende-se (localmente) a abertos de $\mathbb{R}^m$ e, pelo Teorema da Função Inversa, envia interior em interior: $\Phi\bigl(U'\cap\{x_m>0\}\bigr)\subset U\cap\{x_m>0\}$, e o mesmo vale para $\Phi^{-1}$. Logo, $\Phi$ envia $\partial H^m$ em $\partial H^m$. Em particular, se $x\in\partial H^m$ então $y=\Phi^{-1}(x)\in\partial H^m$. Portanto, $p=\psi(y)$ é ponto de bordo em \emph{qualquer} carta centrada em $p$. \qedsymbol
-\end{proof*}
-
-\begin{prop*}[O bordo é subvariedade]
-	Se $M\subset\mathbb{R}^n$ é uma $m$-variedade suave com bordo, então $\partial M$ é uma subvariedade suave de $M$ de dimensão $m-1$ (e, portanto, uma $(m-1)$-variedade suave \emph{sem} bordo).
-\end{prop*}
-
-\begin{proof*}
-	Seja $p\in\partial M$ e escolha uma carta $(U,V,\varphi)$ com $\varphi(0)=p$ e $U\subset H^m$ aberto. Defina
-	\[
-		U' \;=\; U\cap \partial H^m \;\cong\; \text{aberto de }\mathbb{R}^{m-1},
-		\qquad
-		\psi \;=\; \varphi\big|_{U'} : U'\longrightarrow V\cap \partial M .
-	\]
-	Então $\psi$ é um homeomorfismo suave sobre sua imagem (restrição de uma difeomorfismo) e fornece cartas para $\partial M$. As mudanças de coordenadas entre cartas de $\partial M$ são restrições das mudanças de coordenadas de $M$ e, pelo argumento da proposição anterior, preservam $\partial H^m$, logo são difeomorfismos entre abertos de $\mathbb{R}^{m-1}$. Assim, $\partial M$ herda uma estrutura de variedade suave de dimensão $m-1$. Como localmente $\partial M$ é modelado em abertos de $\mathbb{R}^{m-1}$ (não do semiespaço), ele não possui bordo. \qedsymbol
-\end{proof*}
-
-\begin{exr}
-	Mostre as seguintes coisas:
-	\begin{itemize}
-		\item Se $M$ é uma $m$-variedade com $\partial M\neq\emptyset$, então $\partial M$ é uma $(m-1)$-variedade suave \emph{sem} bordo.
-		\item Para $M$ variedade sem bordo e $I=[0,1]$, vale
-		      \[
-			      \partial(M\times I) \;=\; (M\times\{0\})\cup(M\times\{1\}).
-		      \]
-		\item Se $M$ e $N$ são variedades, com $\partial N=\emptyset$, então
-		      \[
-			      \partial(N\times M) \;=\; N\times \partial M.
-		      \]
-	\end{itemize}
-\end{exr}
 \end{document}
