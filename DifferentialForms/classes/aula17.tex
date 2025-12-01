@@ -1,0 +1,75 @@
+\documentclass[../.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 17 de Novembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Reanalisando os casos conhecidos;
+	\item Suporte de formas diferenciais.
+\end{itemize}
+\subsection{Integração em Termos de Formas Diferenciais}
+Na aula passada, vimos como interpretar a integral de Riemann em termos de formas; agora, vamos ver como reinterpretar a integral de superfície: considere uma superfície S parametrizada por \(\varphi :U\rightarrow \mathbb{R}^{3}\), onde U é um subconjunto de \(\mathbb{R}^{2}\), e suponha que \(\varphi \) é de classe \(\mathcal{C}^{k}\).
+Conforme estudado nos cursos de cálculo, a área de S é dada por
+\[
+	\iint_{U} \biggl\vert \frac{\partial^{}\varphi }{\partial u_1^{}}(u) \times \frac{\partial^{}\varphi }{\partial u_2^{}}(u) \biggr\vert \mathrm{d}u_1 \mathrm{d}u_2, \quad u = (u_1, u_2)\in U
+\]
+onde o termo \(\biggl\vert \frac{\partial^{}\varphi }{\partial u_1^{}}(u) \times \frac{\partial^{}\varphi }{\partial u_2^{}}(u) \biggr\vert\) é chamado \textbf{fator de distorção de área}, sendo que área se refere à área do paralelogramo no plano tangente, gerado pelos vetores tangentes.
+
+Além dele, temos o caso da integral de fluxo, no qual
+\[
+	\int_{S}^{}F \cdot \mathrm{d}\vec{S} = \int_{U}^{}\underbrace{F(\varphi (u))}_{\text{Vetor}}\cdot \overbrace{\biggl(\frac{\partial^{}\varphi }{\partial u_1^{}}(u) \times \frac{\partial^{}\varphi }{\partial u_2^{}}(u)\biggr)}^{\text{Forma \(\omega \wedge s\) em \(\mathbb{R}^{3}\)}} \mathrm{d}u_1 \mathrm{d}u_2.
+\]
+Porém, temos
+\[
+	F(\varphi (U))\cdot \biggl(\frac{\partial^{}\varphi }{\partial u_1^{}}(u) \times \frac{\partial^{}\varphi }{\partial u_2^{}}(u)\biggr) = \det \biggl(F(\varphi (u)), \frac{\partial^{}\varphi (u)}{\partial u_1^{}}, \frac{\partial^{}\varphi(u)}{\partial u_2^{}}\biggr),
+\]
+tal que obtemos
+\[
+	\int_{S}^{}F \cdot \mathrm{d} \vec{S} = \int_{U}^{} \det \biggl(F(\varphi (u)), \frac{\partial^{}\varphi (u)}{\partial u_1^{}}, \frac{\partial^{}\varphi(u)}{\partial u_2^{}}\biggr)\mathrm{d}u_1 \mathrm{d}u_2.
+\]
+
+Como podemos reinterpretar esses casos, então? Primeiramente, observe que o termo na integral em U da integral de fluxo ficou em termos de um determinante dentro da integral, e isso é o que permite generalizarmos, pois as formas são escritas como o produto do determinante por uma função... O problema é que a função (no caso, o fluxo), está dentro do determinante; para contornarmos isso, como queremos estudar uma integral de fluxo para cada tipo de fluxo, vamos chamar a forma de
+\(\omega_{F}\), pois os diferenciais \(\partial_{u_1}\varphi(u)\) e \(\partial_{u_2}\varphi(u)\) já estão definidos pela superfície S. Formalmente, denotemos
+\[
+	\omega_{F}(x)(v_1, v_2) = F(x)\cdot (v_1 \times v_2) = \det{(F(x), v_2, v_2)}, \quad x = (x_1, x_2, x_3)\in \mathbb{R}^{3}.
+\]
+Logo, a interpretação em termos de formas da integral de fluxo é dada como
+\[
+	\int_{S}^{}F \cdot \mathrm{d}\vec{S} = \int_{S}^{}\omega_{F}.
+\]
+Um toque final é que a conta em si normalmente é feita em U, e para traduzir a expressão acima em U, temos que utilizar o \textit{pullback} que definimos, resultando em
+\[
+	\int_{S}^{}F \cdot \mathrm{d}\vec{S} = \int_{S}^{}\omega_{F} = \int_{U}^{}\varphi^{*}\omega_{F}.
+\]
+Essa basicamente será nossa definição da integral de uma k-forma.
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A teoria desenvolvida aqui não tem problema de depender da diferença de dimensão entre \(\mathbb{R}^{m}\) e \(\mathbb{R}^{n}\) quando é aplicado o determinante, nem da imersão de uma variedade de dimensão n em \(\mathbb{R}^{2n}\), pois estamos desenvolvendo ela no contexto do plano tangente! Esse detalhe é o que permite
+	generalizarmos o que estamos fazendo para variedades abstratas.
+\end{tcolorbox}
+
+Temos um problema em relação ao que fazemos aqui e o que normalmente ocorre em cálculo, que é o fato de termos que cobrir a variedade com abertos, e isso pode causar intersecções entre as parametrizações, eventualmente sendo traduzido para a integra; consequentemente, ao somarmos e calcularmos as integrais, teremos mais informações do que realmente queríamos. Quando não tem interseção,
+podemos trabalhar normalmente com o que temos aqui, mas se tiver intersecção, teremos que lidar com isso utilizando ferramentas novas. Antes de efetivamente fazermos isso, é importante introduzirmos algumas notações:
+
+\begin{itemize}
+	\item Denotamos por \(\Omega^{k}(U)\) o \textbf{conjunto das k-formas diferenciais em U}, onde U é um subconjunto aberto de \(\mathbb{R}^{n}\) ou de uma variedade M;
+	\item Com base no item acima, podemos denotar o produto exterior por \(\Lambda :\Omega^{k}(U)\times \Omega^{\ell }(U)\rightarrow \Omega^{k+\ell }(U)\).
+\end{itemize}
+
+\begin{def*}
+	Seja M uma variedade, U um subconjunto aberto dela e \(\omega\in \Omega^{k}(U) \). Definimos o \textbf{suporte de \(\omega \)} como o menor fechado contendo U onde a forma não é nula, ou seja,
+	\[
+		\mathrm{supp}(\omega ) = \overline{\{p\in U:\; \omega (p)\neq 0\}}.\; \square
+	\]
+\end{def*}
+\end{document}

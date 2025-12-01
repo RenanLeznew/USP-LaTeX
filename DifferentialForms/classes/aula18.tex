@@ -1,0 +1,82 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 19 de Novembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Integrando k-formas
+\end{itemize}
+\subsection{Integração de k-formas}
+Vamos considerar uma k-forma \(\omega \) definida em um conjunto aberto U de \(\mathbb{R}^{k}\); neste contexto, podemos representar \(\omega \) por
+\[
+	\omega  = a(x_1, \dotsc , x_k)\mathrm{d}x_1 \wedge \mathrm{d}x_2\wedge \dotsc \wedge \mathrm{d}x_k.
+\]
+A partir disso, consideraremos o suporte desta k-forma e, sendo um aberto de \(\mathbb{R}^{k}\), avaliaremos se a forma é integrável no sentido de \(\mathbb{R}^{k}\); supomos, então, que o suporte de \(\omega \) seja compacto e integrável em \(\mathbb{R}^{k}\).
+Finalmente, definimos
+\begin{def*}
+	A \textbf{integral da k-forma \(\omega \) em U} como sendo o valor
+	\[
+		\int_{U}^{}\omega = \int_{\mathrm{supp}(\omega )}^{}a(x_1) \mathrm{d}x_1 \dotsc \mathrm{d}x_{k},
+	\]
+	onde o lado direito representa a integração múltipla em \(\mathbb{R}^{k}.\; \square\)
+\end{def*}
+No caso de variedades ao invés de um aberto U de \(\mathbb{R}^{k}\), a definição torna-se
+\begin{def*}
+	Dada uma variedade M, suponha que o suporte da k-forma \(\omega \) esteja contido em uma vizinhança \(V = \varphi (U)\), onde \((\varphi , U, V)\) é uma parametrização de M. Supondo \(\varphi^{-1}(\mathrm{supp}(\omega ))\) e sendo Q um paralelepípedo em \(\mathbb{R}^{k}\)
+	contendo \(\varphi^{-1}(\mathrm{supp}(\omega ))\), definimos a \textbf{integral da k-forma de \(\omega \)} como sendo o pullback
+	\[
+		\int_{M}^{}\omega = \int_{Q}^{}\varphi^{*}\omega.\; \square
+	\]
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Para a definição acima estar bem posta, ela deve resultar num número, ou seja, ela tem que depender de uma \textit{escolha}. Neste contexto, ela é feita por um conceito que já somos familiares: escolhe-se a \textit{orientação da variedade}. Sendo assim, a variedade M considerada acima é uma variedade compacta e orientada.
+
+	A orientação em questão costuma ser dada a partir de cada tipo de problema que for analisado.
+\end{tcolorbox}
+
+\begin{example}
+	Consideremos uma 2-variedade (superfície) com bordo e orientada M com bordo \(\partial M\) e \(\omega \in \Omega^{1}(M)\) (uma 1-forma em M). Para a integral não ser nula e termos algum tipo de área para calcular, precisaríamos integrar uma 2-forma, mas temos apenas um 1-forma; porém, temos uma operação que transforma 1-formas em 2-formas: a derivada exterior. Sendo assim,
+	derivaremos a 1-forma \(\omega \), a partir de onde passamos a considerar \(\mathrm{d}\omega \in \Omega^{2}(M)\).
+
+	Estamos estudando o caso em que o suporte de  \(\omega\) está contido em uma \(V = \varphi (U)\), onde \((\varphi , U, V)\) é uma parametrização de M. Logo, precisamos considerar o pullback de \(\omega \) por \(\varphi \), dado por
+	\[
+		\varphi^{*}\omega = a(x_1, \dotsc , x_{k})\mathrm{d}x_1\wedge \dotsc \wedge \mathrm{d}x_{k} \underbrace{=}_{k=1} a_2(x_1, x_2) \mathrm{d}x_1 + a_1(x_1, x_2)\mathrm{d}x_2.
+	\]
+	Como vimos, olharemos na verdade para a 2-forma \(\mathrm{d}\omega \), então na verdade temos que calcular o pullback da derivada; para tanto, conforme os resultados de antes, sabemos que é possível calcular primeiro o pullback, depois a derivada exterior, tal que
+	\begin{align*}
+		\mathrm{d}(\varphi^{*}\omega ) & = \mathrm{d}(a_2(x_1, x_2)\mathrm{d}x_1+ a_2(x_1, x_2)\mathrm{d}x_2)                                                                                                      \\
+		                               & = \biggl(\frac{\partial^{}a_2}{\partial x_1}(x_1, x_2)\mathrm{d}x_1 + \frac{\partial^{}a_2}{\partial x_2^{}}(x_1, x_2)\mathrm{d}x_2\biggr)\wedge \mathrm{d}x_1 +          \\
+		                               & + \biggl(\frac{\partial^{}a_1}{\partial x_1}(x_1, x_2)\mathrm{d}x_1 + \frac{\partial^{}a_1}{\partial x_2^{}}(x_1, x_2)\mathrm{d}x_2\biggr)\wedge \mathrm{d}x_2            \\
+		                               & = \frac{\partial^{}a_2}{\partial x_2^{}}(x_1, x_2)\mathrm{d}x_2 \wedge \mathrm{d}x_1 + \frac{\partial^{}a_1}{\partial x_1^{}}(x_1, x_2)\mathrm{d}x_1 \wedge \mathrm{d}x_2 \\
+		                               & = \biggl(\frac{\partial^{}a_1}{\partial x_1^{}}(x_1, x_2) - \frac{\partial^{}a_2}{\partial x_2^{}}(x_1, x_2)\biggr)\mathrm{d}x_1 \wedge \mathrm{d}x_2,
+	\end{align*}
+	ou seja,
+	\[
+		\mathrm{d}(\varphi^{*}\omega ) = \biggl(\frac{\partial^{}a_1}{\partial x_1^{}}(x_1, x_2) - \frac{\partial^{}a_2}{\partial x_2^{}}(x_1, x_2)\biggr)\mathrm{d}x_1 \wedge \mathrm{d}x_2.
+	\]
+	Assim, por definição, se R denota um retângulo,
+	\[
+		\int_{U}^{}\mathrm{d}\varphi^{*}(\omega ) = \int_{R}^{}\biggl(\frac{\partial^{}a_1}{\partial x_1^{}} - \frac{\partial^{}a_2}{\partial x_2^{}}\biggr) \mathrm{d}x_1 \mathrm{d}x_2,
+	\]
+	que é uma integral múltipla na qual podemos aplicar o \hyperlink{fubini_theorem}{\textit{Teorema de Fubini}} para obtermos
+	\begin{align*}
+		\int_{U}^{}\mathrm{d}\varphi^{*}(\omega ) & = \int_{R}^{}\biggl(\frac{\partial^{}a_1}{\partial x_1^{}} - \frac{\partial^{}a_2}{\partial x_2^{}}\biggr) \mathrm{d}x_1 \mathrm{d}x_2           \\
+		                                          & = \int_{a_2}^{b_2}\int_{a_1}^{b_1}(\frac{\partial^{}a_1}{\partial x_1^{}} - \frac{\partial^{}a_2}{\partial x_2^{}}) \mathrm{d}x_1 \mathrm{d}x_2,
+	\end{align*}
+	mas como o suporte está \textit{dentro} do retângulo, a conta ali vai dar zero, pois, nas bordas do retângulo, a função vale 0. Sendo assim, é preciso considerar a integral em pedaços para não dar 0, e, ao juntar os pedaços, vamos obter o resultado desejado, pois, no final,
+	vamos reverter a ordem de \(\mathrm{d}(\varphi^{*}\omega )\) para \(\varphi^{*}(\mathrm{d}\omega )\), mas isso é possível apenas quando o suporte está contido em uma única carta.
+
+	Esse exemplo ilustra o problema com um dos processos que poderíamos usar para chegar ao teorema de Stokes, além de deixar o caminhos traçado para a versão que dá certo.
+\end{example}
+
+\end{document}

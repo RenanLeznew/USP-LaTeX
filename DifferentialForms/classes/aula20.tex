@@ -1,0 +1,112 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 20 - 26 de Novembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema de Stokes.
+\end{itemize}
+\subsection{Teorema de Stokes}
+Para enunciar e trabalhar com o teorema de Stokes, estaremos trabalhando numa variedade com bordo M, pois o teorema trabalha relacionando o bordo com a diferencial; em sua forma sem hipóteses, a afirmação é
+\[
+	\int_{M}^{} \mathrm{d}\omega  = \int_{\partial M}^{}\omega,
+\]
+que estabelece a operação ``d'' como um operador bordo, e será nossa forma preferida de trabalhar com este teorema. Uma outra notação que costuma aparecer é
+\[
+	\int_{M}^{} \mathrm{d}\omega = \int_{\partial M}^{} \omega |_{\partial M},
+\]
+ou até mesmo, considerando a inclusão \(i:\partial M\hookrightarrow M \) e seu pullback, temos ainda
+\[
+	\int_{\partial M}^{}\omega |_{\partial M} = \int_{\partial M}^{}i^{*}\omega,
+\]
+que tem a vantagem de chamar a atenção ao fato da álgebra exterior estar relacionada ao espaço tangente de \(\partial M\)! Por isso, apesar de adicionar esse nível de complexidade a mais, ela é a versão mais cuidadosa.
+
+Contextualizada a notação e como entender o que está acontecendo, enunciamos
+
+\begin{theorem*}
+	Sejam M uma k-variedade diferenciável compacta, orientada, com bordo \(\partial M\) e \(\omega \in \Omega^{k-1}(M)\); então,
+	\[
+		\int_{M}^{} \mathrm{d}\omega  = \int_{\partial M}^{}i^{*}\omega,
+	\]
+	onde i é a inclusão \(i:\partial M\hookrightarrow M\)
+\end{theorem*}
+
+\begin{proof*}
+	\textbf{\underline{Caso 1}}: começamos supondo que o suporte de \(\omega \) está contido em uma carta.
+
+	Precisaremos analisar primeiramente quando V é homeomorfo a um aberto usual de \(\mathbb{R}^{k}\), seguido de um aberto do hiperplano \(\mathbb{H}^{k}\). No primeiro, como o suporte de \(\omega \) é compacto, ele é fechado e limitado, permitindo que possamos analisar a pré-imagem sobre o homeomorfismo limitando a um retângulo fechado e limitado, ou seja,
+	com a possibilidade de aplicar o Teorema de Fubini; no segundo, não conseguimos evitar que o suporte encoste na borda do retângulo (em um dos eixos), então até podemos aplicar o Fubini, mas a parte onde o suporte toca o hiperplano é diferente.
+
+	Vamos denotar o suporte de \(\omega \) por K, i.e., \(K = \mathrm{supp}(\omega )\), o qual é compacto; dividindo a demonstração desse caso em duas partes, conforme instruído acima, a primeira parte considera que \(K\cap \partial M = \emptyset \) e que existe parametrização \((U, \varphi )\) de M com \(K\subseteq V = \varphi (U)\), onde U é um aberto de \(\mathbb{R}^{k}\), tal que o suporte de \(\omega \) esteja contido em uma única
+	carta. Com isso, temos \(\varphi^{*}\omega \) sendo uma \((k-1)-\)forma em U, donde segue que
+	\[
+		d(\varphi^{*}\omega ) = \varphi^{*}(d\omega ),
+	\]
+	mas \(\varphi^{*}\omega \) pode ser escrita como uma soma de \((k-1)\) formas básicas:
+	\[
+		\varphi^{*}\omega = \sum\limits_{j=1}^{k}f_{j}\mathrm{d}x_1\wedge \dotsc \wedge \widehat{\mathrm{d}x_{j}}\wedge \dotsc \mathrm{d}x_{k},
+	\]
+	onde \(f_{j}\) é suave para cada j e \(\widehat{\mathrm{d}x_{j}}\) denota o termo omitido. Note que esta forma está definida em U, com suporte \(\tilde{K} \coloneqq \varphi^{-1}(K)\), o qual também é um compacto! Além disso, o suporte dessa forma ser essa significa que, fora do suporte dela, as \(f_{j}\) devem necessariamente valer 0.
+
+	Calculemos, então, o diferencial da forma \(\varphi^{*}\omega \):
+	\begin{align*}
+		\mathrm{d}(\varphi^{*}\omega ) & = \sum\limits_{j=1}^{k}\biggl(\sum\limits_{i=1}^{k}\frac{\partial^{}f_{i}}{\partial x_{i}}\biggr)\wedge \mathrm{d}x_1\wedge \dotsc \wedge \widehat{\mathrm{d}x_{j}} \wedge \dotsc \wedge dx_{k} \\
+		                               & = \sum\limits_{j=1}^{k}\frac{\partial^{}f_{j}}{\partial x_{j}^{}} \mathrm{d}x_{j} \wedge \mathrm{d}x_1 \wedge \dotsc \wedge \widehat{\mathrm{d}x_{j}}\wedge \dotsc \wedge \mathrm{d}x_{k}       \\
+		                               & = \biggl(\sum\limits_{j=1}^{k}(-1)^{j-1} \frac{\partial^{}f_{j}}{\partial x_{j}^{}}\biggr)\mathrm{d}x_1\wedge \dotsc \wedge \mathrm{d}x_{k}.
+	\end{align*}
+	Podemos, assim, calcular a integral desejada: seja \(\mathcal{R} = [a_1, b_1]\times \dotsc \times [a_{k}, b_{k}]\) um paralelepípedo em \(\mathbb{H}^{k}\subseteq \mathbb{R}^{k}\) contendo o \(\tilde{K}\) e contido em U; temos
+	\begin{align*}
+		\int_{U}^{}\varphi^{*}\omega & = \int_{U}^{}\biggl(\sum\limits_{j=1}^{k}(-1)^{j-1}\frac{\partial^{}f_{j}}{\partial x_{j}^{}}\biggr)\mathrm{d}x_1 \wedge \dotsc \wedge  \mathrm{d}x_{k}                                                                                 \\
+		                             & \stackrel{\text{def}}{=} \int_{U}^{}\biggl(\sum\limits_{j=1}^{k}(-1)^{j-1}\frac{\partial^{}f_{j}}{\partial x_{j}^{}}\biggr) \mathrm{d}x_1 \dotsc \mathrm{d} x_{k}                                                                       \\
+		                             & = \int_{\mathcal{R}}^{}\frac{\partial^{}f_1}{\partial x_1^{}} \mathrm{d}x_1 \dotsc \mathrm{d}x_{k} + \sum\limits_{j=1}^{k}(-1)^{j}\int_{\mathcal{R}}^{}\frac{\partial^{}f_{j}}{\partial x_{j}^{}} \mathrm{d}x_1 \dotsc \mathrm{d}x_{k}.
+	\end{align*}
+	Com isso, como K e o bordo de M têm pelo menos um ponto em comum, podemos evitar que \(\tilde{K}\) não toque o hiperplano \(x_1 = 0\), o que significa que podemos construir o retângulo \(\mathcal{R}\) contendo \(\tilde{K}\) e de tal forma \(\tilde{K}\) não toque outros hiperplanos
+	\(\{x_{i} = a_{i}\},\; \{x_{i} = b_{j}\}\), com exceção do hiperplano \(\{x_{j} = 0\}\); decorrente desta construção, ocorre como no caso anterior:
+	\[
+		\sum\limits_{j=1}^{k}(-1)^{j-1}\int_{\mathcal{R}}^{}\frac{\partial^{}f_{j}}{\partial x_{j}^{}} \mathrm{d}x_1 \dotsc \mathrm{d}x_{k} = 0.
+	\]
+	Calculando individualmente cada uma das integrais em \(\mathcal{R}\), obtemos, por Fubini, a seguinte igualdade:
+	\[
+		\int_{\mathcal{R}}^{}\frac{\partial^{}f_{j}}{\partial x_{j}^{}} \mathrm{d}x_1 \dotsc \mathrm{d}x_{k} = \int_{a_1}^{b_1}\int_{a_2}^{b_2}\cdots \int_{a_k}^{b_k} \biggl(\int_{a_j}^{b_j}\frac{\partial^{}f_{j}}{\partial x_{j}^{}} \mathrm{d}x_{j}\biggr)  \mathrm{d}x_1 \dotsc  \widehat{\mathrm{d}x_{j}}\mathrm{d}x_{k}.
+	\]
+	Note que, pelo teorema fundamental do cálculo,
+	\[
+		\int_{a_{j}}^{v_{j}}\frac{\partial^{}f_{j}}{\partial x_{j}^{}} \mathrm{d}x_{j} = [f_{j}(x_1, \dotsc , \underbrace{b_{j}}_{\text{j-ésima}}, \dotsc , x_{k}) - f(x_1, \dotsc ,\underbrace{ a_{j}}_{\mathclap{\text{j-ésima}}}, \dotsc , x_{k})].
+	\]
+	Porém, tanto \(f(x_1, \dotsc , a_{j}, \dotsc x_{k})\) quanto \(f(x_1, \dotsc , b_{j}, \dotsc , x_{k})\) são iguais a zero; logo, a integral é nula, donde resulta que a integral original também deve ser nula!
+
+	Consequentemente, temos
+	\[
+		\int_{U}^{} \mathrm{d}(\varphi^{*}\omega ) = 0
+	\]
+	e, como \(\mathrm{d}(\varphi^{*}\omega ) = \varphi^{*}(\mathrm{d}\omega )\), também segue que
+	\[
+		\int_{M}^{} \mathrm{d}\omega = \int_{U}^{} \varphi^{*}( \mathrm{d}\omega ) = 0.
+	\]
+	Finalmente, no caso em que o retângulo encosta na borda do hiperplano \(x_1 = 0\) e denotando por \(\mathfrak{R} = [a_2, b_2] \times \dotsc \times [a_{k}, b_{k}]\),
+	\begin{align*}
+		\int_{\mathcal{R}}^{}\frac{\partial^{}f_1}{\partial x_1^{}} \mathrm{d}x_1 \dotsc \mathrm{d}x_{k} & = \int_{a_2}^{b_2}\int_{a_k}^{b_k}\biggl(\int_{a_1}^{0} \frac{\partial^{}f_1}{\partial x_1^{}} \mathrm{d}x_1\biggr) \mathrm{d}x_{k} \dotsc  \mathrm{d}x_{k}         \\
+		                                                                                                 & = \int_{a_2}^{b_2} \int_{a_k}^{b_k}\bigl[f_1(0, x_2, \dotsc , x_{k}) - \underbrace{f_1 (a_1, x_2, \dotsc , x_{k})}_{= 0}\bigr] \mathrm{d}x_2 \dotsc \mathrm{d}x_{k} \\
+		                                                                                                 & = \int_{a_2}^{b_2} \int_{a_k}^{b_k}f_1(0, x_2, \dotsc , x_{k}) \mathrm{d}x_2 \dotsc  \mathrm{d}x_{k}                                                                \\
+		                                                                                                 & = \int_{\mathfrak{R}}^{}f_1(0, x_2, \dotsc , x_{k}) \mathrm{d}x_2 \wedge \dotsc \wedge \mathrm{d}x_{k}                                                              \\
+		                                                                                                 & = \int_{\partial U}^{}\varphi^{*}\omega.
+	\end{align*}
+
+
+	\textbf{\underline{Caso 2}}: finalizamos com uma análise do caso onde o suporte de \(\omega \) está contido em múltiplas cartas, utilizando a partição da unidade.
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Os abertos de \(\mathbb{H}^{k}\) são ou do mesmo tipo que os de \(\mathbb{R}^{k}\), ou a exceção que queríamos analisar no caso 1; por isso, não foi necessário analisar o caso de qualquer aberto de \(\mathbb{H}^{k}\).
+\end{tcolorbox}
+
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass[../differential_forms.tex]{subfiles}
+\begin{document}
+\section{Aula 19 - 24 de Novembro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema de Stokes com Formas;
+\end{itemize}
+\subsection{O Teorema de Stokes com Formas}
+Quando definimos a integral múltipla, ou a de Riemann, fazemos o processo de dividir em algum formato geométrico que conhecemos, de forma infinitesimal, e até cobrir toda a área; porém, ao fazer a conta dessa forma, não utilizamos a orientação em momento algum,
+apenas algo geométrico para medir o tamanho. Ao passar para formas, surge uma questão importante relativa à ordem das coisas, pois a forma de volume é uma forma alternada, consequentemente sendo afetada pela ordem das entradas. No cálculo usual, esses termos até aparecem,
+mas em módulo, o que retira essa dependência da orientação. Com base nisso, se fixarmos uma orientação antes de fazermos a conta, não precisaremos nos preocupar com essa questão (tanto é que a orientação fixada recebe o nome de \textit{orientação positiva}).
+
+Além disso, ao calcularmos, por exemplo, a área de um retângulo, normalmente utilizamos o Teorema de Fubini e caímos na conta de integrais de uma variável, onde é importante saber se o caminho está sendo percorrida pela ida ou pela volta, e para isso, precisamos de uma orientação compatível com isso
+nos resultados mais gerais.
+
+Logo, os nossos objetivos a seguir serão constituídas das generalizações de conceitos que são utilizados nas integrais múltiplas que já conhecemos, a fim de provarmos o Teorema de Stokes em sua versão geral. A escolha dessa orientação pode ser feita de uma forma melhor ao escolhermos a chamada \textit{orientação
+	induzida}.
+
+\begin{def*}
+	Seja M uma variedade orientada de dimensão k e com bordo \(\partial M\). Uma base orientada \((v_1, \dotsc , v_{k-1})\) em \(T_{p}(\partial M)\) é dita \textbf{positivamente orientada em }\(\partial M\) se, ao adicionarmos um vetor v \textit{apontando para fora} de M,
+	a base ordenada \((v, v_1, \dotsc , v_{k-1})\) é positivamente orientada em \(T_{p}M\) (ou seja, segundo a orientação dada/escolhida). \(\square\)
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Como já estamos calculando o espaço tangente a \(\partial M\) no ponto p, assumimos que \textit{p pertence ao bordo} \(\partial M\), e note que \(T_{p}\partial M\) é um espaço tangente à variedade \(\partial M\), não à variedade \(M\)!
+
+	Uma maneira de ver o espaço tangente é como os ``vetores velocidade'' de uma certa curva, e qualquer curva pega no bordo é, em particular, uma na variedade; então, a geometria aqui faz sentido: o espaço tangente ao bordo pode ser visto como um subespaço do espaço tangente à variedade. É isso, também, que permite
+	que falemos sobre vetores apontando para fora!
+\end{tcolorbox}
+
+Para ajudar um pouco a entender essa escolha da orientação que é tanto mencionada e que define se a orientação vai ser positiva por definição, pense nela como se fosse a escolha da base canônica usualmente feita em álgebra linear.
+
+O bom de termos fixado o espaço maior como sendo \(\mathbb{R}^{n}\) é permitir utilizarmos EDOs para calcularmos o que seriam os vetores apontando para fora, mas perdemos isso em espaços abstratos, pois muitas vezes eles mesmos são o universo todo, então não tem isso de ``fora'' ou ``dentro''; assim, ao computarmos a integral, no fim das contas
+olhamos um caso de dentro e fora pela óptica de EDOs, e já sabemos que tem a questão toda da dualidade entre integrais e EDOs, pois ``apontar para dentro'' significa que a solução da EDO está dentro da variedade.
+
+Outro comentário importante é que, na introdução, chamamos a orientação de induzida, e realmente: ao definirmos uma orientação positiva em M (e em \(T_{p}M\)), \textit{induzimos} o que será decidido como positiva no caso do plano tangente menor \(T_{p}(\partial M) \subseteq T_{p}M\). Pegamos a base do maior e relacionamos ela à base do menor.
+
+Vimos anteriormente que, dados M uma variedade de dimensão k, uma forma \(\omega \) em \(\Omega^{k}(M)\) com suporte compacto está contido em M e que seja a imagem de um aberto U por uma parametrização de M (isto é, \(V\coloneqq \mathrm{supp}(\omega ) = \varphi(U)\)), temos
+\[
+	\int_{V}^{}\omega = \int_{U}^{}\varphi^{*}\omega .
+\]
+
+Nosso próximo passo é generalizar isso para o caso em que o suporte esteja contido em múltiplas cartas; para tanto, definiremos funções em abertos que cobrem a variedade e cujas somas nas coberturas dão sempre 1, a partir das quais poderemos pegar, para cada aberto, a parte do suporte que esteja no domínio das parametrizações e multiplicar a forma por elas -- de certa forma,
+atribuiremos pesos a cada carta cobrindo o suporte da forma, mas que, ao considerarmos todas juntas, recuperaremos a forma original.
+
+\begin{def*}
+	Seja M uma variedade suave e seja \(\{V_{\alpha }\}\) uma família de abertos que cobre M. Uma família de funções suaves
+	\[
+		\{f_{\alpha }:M\rightarrow [0,1] \}
+	\]
+	é chamada \textbf{partição de unidade subordinada à cobertura} \(\{V_{\alpha }\}\) se ela satisfaz:
+	\begin{itemize}
+		\item[1)] Para cada \(\alpha \), o suporte de \(f_{\alpha }\) está contido em \(V_{\alpha }\);
+		\item[2)] Para cada ponto p de M, existe um aberto V contendo p tal que apenas um número finito de funções \(f_{\alpha }\) tenha suporte interseccionando V; e
+		\item[3)] Para todo p em M,
+		      \[
+			      \sum\limits_{\alpha \in A}^{}f_{\alpha }(p) = 1. \; \square
+		      \]
+	\end{itemize}
+\end{def*}
+Com essa ferramenta, podemos definir algebricamente a integral de \(\omega \) sobre M, mesmo que seu suporte \textit{não} esteja contido em um \(V = \varphi (U)\), onde \((U, \varphi )\) é uma parametrização de M.
+
+Nossa procedência será da seguinte forma: primeiramente, seja M uma variedade compacta; escolhemos uma cobertura finita \(\{V_{\alpha }\}\) tal que \(\{(U_{\alpha }, \varphi_{\alpha })\}\), com \(\varphi_{\alpha }(U) = V_{\alpha }\), seja um \textit{atlas coerente} de M.
+Agora, tomando uma partição de unidade subordinada à cobertura \(\{V_{\alpha }\}\), podemos escrever
+\[
+	\omega  = \sum\limits_{\alpha \in A}^{}f_{\alpha }\omega.
+\]
+Portanto, faz sentido definir
+\[
+	\int_{M}^{}\omega  = \sum\limits_{\alpha \in A}^{} \int_{V_{\alpha }}^{}f_{\alpha }\omega.
+\]
+
+
+\end{document}
