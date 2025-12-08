@@ -1,0 +1,45 @@
+\documentclass[../stationary_ifs.tex]{subfiles}
+\begin{document}
+\section{Class 08 - December 5th, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Negative Lyapunov Exponents.
+\end{itemize}
+\subsection{Negative Lyapunov Exponents}
+Instead of advancing on the topics, this class will be more of a discussion of what has previously been seen, focusing on the topic of the \textbf{negative Lyapunov exponents}: let \(f_{\omega }:M\rightarrow M\) be Lipschitz and \(\theta:\Omega \rightarrow \Omega  \) be a measure preserving transformation. Suppose
+\[
+	\int_{}^{}\log^{+}{}\Vert f_{\omega } \Vert \mathrm{d}\mathbb{P}(\omega ) < +\infty
+\]
+so we can talk about Lyapunov exponents; without loss of generality, we may assume the meare preserving quadruplet (\(\Omega , \mathcal{F}, \mathbb{P}, \theta \)) is ergodic. From previous results,
+\[
+	\lambda (\omega ) = \lim_{n\to \infty}\frac{1}{n}\log^{}{\Vert f_{\omega }^{n} \Vert},
+\]
+where
+\[
+	f_{\omega }^{n} = f_{\theta^{n-1}(\omega )}\circ \dotsc \circ f_{\omega }.
+\]
+A corollary from Kingman's Ergodic Theorem yields
+\begin{align*}
+	\int_{}^{}\lambda (\omega ) \mathrm{d} \mathbb{P}(\omega ) & = \lim_{n\to \infty}\frac{1}{n}\int_{}^{}\log^{}{}\Vert f_{\omega }^{n} \Vert \mathrm{d}\mathbb{P}(\omega )      \\
+	                                                           & = \inf_{n\in \mathbb{N}}\frac{1}{n}\int_{}^{}\log^{}{\Vert f_{\omega }^{n} \Vert} \mathrm{d}\mathbb{P}(\omega ),
+\end{align*}
+which provides a proper criterion for the Lyapunov exponent to be negative! As a matter of facts, suppose \(\theta \) is ergodic; then, as a result, \(\lambda (\omega ) = \lambda \in \mathbb{R}\) for almost every \(\omega \), since it means the measure \(\mathbb{P}\) is \(\theta \)-invariant and the only functions that are invariant under \(\theta \) are constants. In particular,
+\[
+	\lambda  = \inf_{} \frac{1}{n}\int_{}^{}\log^{}{\Vert f_{\omega }^{n} \Vert} \mathrm{d}\mathbb{P}(\omega ),
+\]
+such that if there is an \(n_{0}\in \mathbb{N}\) satisfying, then
+\[
+	\int_{}^{}\log^{}{\Vert f_{\omega }^{n} \Vert} \mathrm{d}\mathbb{P}(\omega ) < 0,
+\]
+and the Lyapunov exponent must be negative. Furthermore, given \(\varepsilon > 0\) with \(\lambda (\omega ) + \varepsilon  < 0\), there will be an \(n_{0}\) such that
+\[
+	n\geq n_{0} \Rightarrow \frac{1}{n}\log^{}{\Vert f_{\omega }^{n} \Vert} < \lambda (\omega ) + \varepsilon  \Rightarrow \Vert f_{\omega }^{n} \Vert \leq e^{n(\lambda(\omega ) + \varepsilon )}.
+\]
+\begin{example}
+	Let's take our usual family of contractions
+	\[
+		f_{\omega }(x) = \lambda x + b(\omega ),
+	\]
+	behaving in a friendly manner.
+\end{example}
+\end{document}

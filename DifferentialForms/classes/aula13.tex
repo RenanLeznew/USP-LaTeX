@@ -26,6 +26,11 @@ Lembremos, também, que a definição de produto exterior é feita de forma tal 
 \[
 	(\varphi_1 \wedge \dotsc \wedge \varphi_{k})(v_1, \dotsc , v_{k}) = \det{(\varphi_{i}(v_{j}))}.
 \]
+Assim, para a base de diferenciais, a ação delas em um elemento \((v_1,\dotsc , v_{k})\) é
+\[
+	\mathrm{d}x_{i_1}\wedge \dotsc \wedge \mathrm{d}x_{i_{k}} = \det{(v_{i_k})},
+\]
+
 
 \begin{tcolorbox}[
 		skin=enhanced,
@@ -61,16 +66,42 @@ Em particular, se g é uma 0-forma, então \(f^{*}(g) = g\circ f\), ou seja, a \
 		(f^{*}\omega )(p)(v_1, \dotsc , v_{k}) = \omega(f(p))(df_p (v_1), \dotsc , df_p(v_k)).\; \square
 	\]
 \end{def*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Quando um pullback \(f^{*}\) age sobre uma k-forma do tipo
+	\[
+		\omega  = \sum\limits_{I}^{}a_{I}\mathrm{d}x_{I},
+	\]
+	os diferenciais mudam de acordo com \textit{projeções} (afinal, \(\mathrm{d}x_{I}\) denota o diferencial da projeção! Lembre-se da aula de introdução deles). Assim,
+	\[
+		f^{*}\omega (p) = \sum\limits_{I}^{}a_{I}(f(p))\mathrm{d}(x_{I} \circ f)_{p},
+	\]
+	onde \(x_{I} \circ f\) denota as projeções. Por exemplo, se \(f(p) = (f_1(p), f_2(p))\), então
+	\[
+		x_{1}\circ f = f_1(p) \quad\&\quad x_{2}\circ f = f_2(p)
+	\]
+\end{tcolorbox}
 \begin{prop*}
 	Sejam \(f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{m}\) diferenciável, \(\omega \) e \(\varphi \) k-formas em \(\mathbb{R}^{m}\), e \(g:\mathbb{R}^{m}\rightarrow \mathbb{R}\) uma 0-forma. Então:
 	\begin{align*}
-		 & \text{a) } f^{*}(\omega +\varphi ) = f^{*}\omega + f^{*}\varphi;                                              \\
-		 & \text{b) } f^{*}(g\omega) = f^{*}(g)f^{*}(\omega );\text{ e}                                                  \\
-		 & \text{c) } f^{*}(\varphi_1 \wedge \dotsc \wedge \varphi_{k}) = f^{*}\varphi_1 \wedge \dotsc f^{*}\varphi_{k}.
+		 & \text{a) } f^{*}(\omega +\varphi ) = f^{*}\omega + f^{*}\varphi;                                                     \\
+		 & \text{b) } f^{*}(g\omega) = f^{*}(g)f^{*}(\omega );\text{ e}                                                         \\
+		 & \text{c) } f^{*}(\varphi_1 \wedge \dotsc \wedge \varphi_{k}) = f^{*}\varphi_1 \wedge \dotsc \wedge f^{*}\varphi_{k}.
 	\end{align*}
 \end{prop*}
 \begin{example}
-	Considere a 2-forma em \(\mathbb{R}^{2}\setminus{\{(0, 0)\}}\) dada por
+	Considere a 1-forma em \(\mathbb{R}^{2}\setminus{\{(0, 0)\}}\) dada por
 	\[
 		\omega  = -\frac{y}{x^{2}+y^{2}}\mathrm{d}x + \frac{x}{x^{2}+y^{2}}\mathrm{d}y.
 	\]
@@ -83,7 +114,7 @@ Em particular, se g é uma 0-forma, então \(f^{*}(g) = g\circ f\), ou seja, a \
 \begin{prop*}
 	Seja \(f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{m}\) diferenciável. Então:
 	\begin{align*}
-		 & \text{a) }f^{*}(\omega \wedge \varphi ) = (f^{*}\tau )\wedge (f^{*}\varphi ); \text{ e} \\
+		 & \text{a) }f^{*}(\omega \wedge \varphi ) = (f^{*}\omega  )\wedge (f^{*}\varphi ); \text{ e} \\
 		 & \text{b) }(f\circ g)^{*}\omega = g^{*}(f^{*}(\omega )).
 	\end{align*}
 \end{prop*}
