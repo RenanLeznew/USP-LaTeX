@@ -28,6 +28,9 @@
  \usepackage{stackengine}
  \usepackage[T1]{fontenc}
  \setcounter{section}{-1}
+\usepackage{xparse}
+\usepackage{etoolbox}
+\usepackage{currfile}
 
  \pagestyle{fancy}
  \fancyhf{}
@@ -51,6 +54,31 @@
  \newtheorem*{proof*}{\underline{Prova}}
  \newtheorem{exr}{\underline{Exercício}}
  \renewcommand\qedsymbol{$\blacksquare$}
+
+\newwrite\exrlog
+
+\AtBeginDocument{%
+  \immediate\openout\exrlog=\jobname.exrlist
+}
+\AtEndDocument{%
+  \immediate\closeout\exrlog
+}
+
+% Save the original theorem environment macros created by \newtheorem
+\makeatletter
+\let\exr@orig\exr
+\renewcommand{\exr}{%
+  \@ifnextchar[{\exr@opt}{\exr@noopt}%
+}
+\def\exr@noopt{%
+  \exr@orig
+  \immediate\write\exrlog{EXR \theexr\space | \currfilename\space | page \thepage}%
+}
+\def\exr@opt[#1]{%
+  \exr@orig[#1]%
+  \immediate\write\exrlog{EXR \theexr\space | \currfilename\space | page \thepage\space | title: #1}%
+}
+\makeatother
 
  \rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
 

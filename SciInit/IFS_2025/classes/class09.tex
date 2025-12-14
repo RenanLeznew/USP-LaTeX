@@ -1,0 +1,87 @@
+\documentclass[../stationary_ifs.tex]{subfiles}
+\begin{document}
+\section{Class 09 - December 12th, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Markov Processes.
+\end{itemize}
+\subsection{Markov Processes}
+In his 1998 article entitled ``A new class of Markov Processes for image encoding'', Barnsley proposes the theorem
+\begin{theorem*}
+	Suppose that there is an \(\ell \geq 0\) such that
+	\[
+		\int_{}^{}\log^{}{\biggl(\frac{d(f_{i}(x), f_{i}(y))}{d(x, y)}\biggr)} \mathrm{d}n(i) \leq \ell ,\quad \forall x, y\in M.
+	\]
+	Then, for \(\mathbb{P}\)-almost every \(\omega \),
+	\[
+		\pi (\omega ) = \lim_{n\to \infty} f_{\omega_0 }\circ f_{\omega_1 }\circ\cdots\circ f_{\omega_{n}}(x)
+	\]
+	exists and does not depend on x.
+\end{theorem*}
+
+In it, the condition in the form of a log is in fact very interesting, since it removes the need for a supremum usually seen when taking the Lipschitz norm and which we had used previously as condition, i.e.,
+\[
+	\sup_{}\int_{}^{}\log^{}{\biggl(\frac{d(f_{i}(x), f_{i}(y))}{d(x, y)}\biggr)} \mathrm{d}n(i) \leq \ell.
+\]
+Previously, our goal was to use properties of the negative exponent to show that when we look at
+\[
+	x_{n} = f_{\omega_{0}}\circ \dotsc \circ f_{\omega_{n}}(x),
+\]
+then it is converging as a Cauchy Series and
+\[
+	\sum\limits_{n=0}^{\infty}d(x_{n}, x_{n+1})<\infty,
+\]
+which we did; this result is purely on the domain of the weak topology (c.f. the \hyperlink{letac_principle}{\textit{Letac Principle}}, which is essentially just a weak convergence).
+
+Next, we will show that it is possible to prove exponential convergence only with the theorem due to Barnsley; in fact, in his book, they show that the condition
+
+\[
+	\int_{}^{}\log^{}{\biggl(\frac{d(f_{i}(x), f_{i}(y))}{d(x, y)}\biggr)} \mathrm{d} \eta (i) \leq \ell ,\quad \forall x, y\in M
+\]
+implies the existence of a \(q > 0\) and an \(r < 1\) for which
+\[
+	\int_{}^{}d(f_{i}(x), f_{i}(y))^{q} \mathrm{d}n(i) \leq r d(x, y)^{q}.
+\]
+From this, Barnsley uses this property to show that the series \(\sum\limits_{n=0}^{\infty}d(x_{n}, x_{n+1})\) is finite, and hence that the reverse-order limit exists.
+
+As a guide, we will use Klocker's (2022) theorem: under the context of \(\Omega = \mathbb{E}^{\mathbb{N}}, f_{\omega } = f_{\omega_{0}}\), and \(\mathbb{P} = \nu^{\mathbb{N}}\),
+\begin{theorem*}[Klocker, 2022]
+	Let \(\{f_{\omega }^{n}\}\) a random i.i.d. iteration and suppose that there are \(q > 0\) and \(\Omega < 1\) for which
+	\[
+		\int_{}^{}d(f_{i}(x), f_{i}(y))^{q} \mathrm{d}\nu (i) \leq r d(x, y)^{q},
+	\]
+	and assume that there is some \(x_{0}\) making finite the following integral:
+	\[
+		\int_{}^{}d(x_{0}, f_{i}(x_{0}))^{q} \mathrm{d}\nu (i) < +\infty.
+	\]
+\end{theorem*}
+\begin{proof*}
+	a
+\end{proof*}
+
+Do take note of the differences: in Barnsley's case, we had been dealing only with the finite case; now, in Klocker, we remove both the finality, allowing for infinities, and the compactness of the space -- we only as that the metric space M is complete!
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Klocker has also shown that if
+	\[
+		\int_{}^{}\log^{}{\Vert f_{i} \Vert} \mathrm{d}\nu (i) < 0
+	\]
+	and
+	\[
+		\int_{}^{}\Vert f_{i} \Vert^{p} \mathrm{d}\nu (i) < +\infty
+	\]
+	for some p, then the first condition on his theorem is true.
+\end{tcolorbox}
+
+\end{document}

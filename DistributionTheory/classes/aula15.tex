@@ -77,17 +77,17 @@ Dados \(\varphi , \psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), partindo 
 \[
 	\varphi *\psi (x) = \int_{\mathbb{R}^{n}}^{}\varphi(x-y)\psi (y) \mathrm{d}y = \int_{\mathbb{R}^{n}}^{}\varphi(y)\psi (x-y) \mathrm{dy}
 \]
-com x em \(\mathbb{R}^{n}\), e, adotando a notação \(\check{\varphi }\coloneqq \varphi \circ R\), onde \(R(y) = -y\), podemos escrever
+com x em \(\mathbb{R}^{n}\), e, adotando a notação \(\check{\varphi} \coloneqq \varphi \circ R\), onde \(R(y) = -y\), podemos escrever
 \[
-	\varphi * \psi (x) = \int_{\mathbb{R}^{n}}^{}\varphi (y)\tau_{x}(\check{\psi} )(y) \mathrm{d}y,
+	\varphi * \psi (x) = \int_{\mathbb{R}^{n}}^{}\varphi (y)\tau_{x}{\psi} )(y) \mathrm{d}y,
 \]
 seguindo uma maneira de estender \(\varphi * \psi (x)\) com \(\varphi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\) para uma \(u\in \mathcal{D}'(\mathbb{R}^{n})\), pondo:
 \[
-	u*\psi (x)\coloneqq \langle u, \tau_{x}(\check{\psi} ) \rangle,\quad x\in \mathbb{R}^{n}\;\&\; \psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}),
+	u*\psi (x)\coloneqq \langle u, \tau_{x}{\psi} ) \rangle,\quad x\in \mathbb{R}^{n}\;\&\; \psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}),
 \]
 onde assumimos que u atua na variável y, \textit{i.e.}, \(\tau_{X}\check{(\psi )}\) é função da variável y; quando for necessário deixar bem explícito e evitar confusões, escreveremos
 \[
-	\langle u(y), \tau_{x}(\check{\psi} )(y) \rangle.
+	\langle u(y), \tau_{x}{\psi} )(y) \rangle.
 \]
 \begin{tcolorbox}[
 		skin=enhanced,
@@ -145,15 +145,181 @@ A seguir, resumimos as propriedades dessa operação:
 
 	(1): este item segue da maneira como se vê uma função de classe \(u\in L_{\mathrm{loc}}^{1}\) no contexto de \(\mathcal{D}'\):
 	\[
-		u*\varphi (x) = \langle u, \tau_{x}(\check{\varphi}) \rangle = \int_{\mathbb{R}^{n}}^{}u(y)\varphi (x-y) \mathrm{dy},\quad \forall x\in \mathbb{R}^{n}.
+		u*\varphi (x) = \langle u, \tau_{x}{\varphi}) \rangle = \int_{\mathbb{R}^{n}}^{}u(y)\varphi (x-y) \mathrm{dy},\quad \forall x\in \mathbb{R}^{n}.
 	\]
 	Se quiser, no lugar de u acima, pode escrever \((Tu)*\varphi (x)\) para aumentar a consciência do que se está fazendo com o objeto, sendo Tu a distribuição provida de \(u\in L_{\mathrm{loc}}^{1}\).
 
-	(2): antes de mais nada, devemos provar que \(u*\varphi \) é de contínua. Com efeito, se \(\{x_{\ell}\}_{\ell}\) converge para \(x_{0}\) em \(\mathbb{R}^{n}\), então
+	(2): antes de mais nada, devemos provar que \(u*\varphi \) é de fato contínua. Com efeito, se \(\{x_{\ell}\}_{\ell}\) converge para \(x_{0}\) em \(\mathbb{R}^{n}\), então
 	\[
 		\tau_{x_{\ell}}\check{\varphi }\substack{ \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\\ \longrightarrow \\ \ell \to \infty}\tau_{x_{0}}\check{\varphi },
 	\]
-	pois, sendo \(K\coloneqq \{x_{\ell}:\; \ell =0,1,2,\dotsc \}.\)
+	pois, sendo \(K\coloneqq \{x_{\ell}:\; \ell =0,1,2,\dotsc \} - \mathrm{supp}(\varphi )\) um compacto fixo,
+	\[
+		\mathrm{supp} \tau_{x_{\ell}}{\varphi }) = \mathrm{supp} \varphi(x_{\ell } - \cdot ) = x_{\ell}-\mathrm{supp}(\varphi )\subseteq K, \quad \forall \ell = 0, 1, 2, \dotsc
+	\]
+	Além disso, para \(x\in \mathbb{R}^{n}\) fixo,
+	\[
+		\partial_{y}^{\alpha }[\tau_{x}\check{\varphi }] = \partial_{y}^{\alpha }(\varphi \circ g),\; g(y) = x-y.
+	\]
+	Daí, pela regra da cadeia e pela indução, conclui-se que
+	\[
+		\partial_{y}^{\alpha }[\tau_{x}\check{\varphi }] = (-1)^{| \alpha  |}(\partial^{\alpha }\varphi )\circ g = (-1)^{|\alpha |}\tau_{x}(\partial^{\alpha }\varphi )^{\check{}},
+	\]
+	isto é, \(\partial_{y}^{\alpha }[\tau_{x}\check{\varphi }]\) é do tipo \(\tau_{X}{\psi} )\) para uma certa \(\psi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}).\) Finalmente, se \(\psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), então
+	\[
+		| \tau_{x}\check{\psi }(y) - \tau_{x'} | = | \psi(x-y) - \psi(x'-y) | \leq \Vert \nabla \psi  \Vert_{\infty}| x-x' |,\quad \forall x, x', y\in \mathbb{R}^{n},
+	\]
+	pois \(\nabla \psi \) é limitado em \(\mathbb{R}^{n}\), contínuo e com suporte compacto, onde
+	\[
+		\biggl\Vert \nabla \psi  \biggr\Vert_{\infty}\coloneqq \sum\limits_{j=1}^{n}\sup_{y}| \partial_{j}\psi(y) |.
+	\]
+
+	Com essa estimativa, é suficiente para garantir que, quando x converge para \(x'\) em \(\mathbb{R}^{n}\),
+	\[
+		\sup_{y\in \mathbb{R}^{n}}| \tau_{x}\check{\psi }(u) - \tau_{x'}\check{\psi }(y) |\rightarrow 0
+	\]
+	para qualquer que seja \(\psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), resultando em
+	\[
+		\sup_{y\in \mathbb{R}^{n}}\biggl\vert \partial_{y}^{\alpha }[\tau_{x_{\ell}}\check{\varphi }](y) - \partial_{y}^{\alpha }[\tau_{x_{0}}\check{\varphi }](y) \biggr\vert\stackrel{\ell \to \infty}0
+	\]
+	e obtemos, em \(\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\),
+	\[
+		\phi_{\ell} \coloneqq \tau_{x_{\ell}}\check{\varphi }\stackrel{\ell \to \infty}\tau_{x_{0}}\circ \check{\varphi }\eqqcolon \phi_{0}.
+	\]
+
+	Como \(u\in \mathcal{D}'(\mathbb{R}^{n})\), o resultado obtido é
+	\[
+		u*\varphi (x_{\ell}) = \langle u, \phi_{\ell} \rangle\stackrel{\ell \to \infty}\rightarrow \langle u, \phi_0 \rangle = u * \varphi(x_{0}),
+	\]
+	e da continuidade de \(u*\varphi \) em \(x_{0}\), segue que, por ser arbitrário, concluímos que \(u*\varphi \in \mathcal{C}(\mathbb{R}^{n})\).
+
+	Com respeito às derivadas parciais e a igualdade em (ii), basta prová-la para uma derivada de primeira ordem, pois as outras resultarão, também, por indução. Calculemos, então, \(\partial_{j}(u*\varphi )(x_{0})\) num \(x_{0}\in \mathbb{R}^{n}\) e \(j= 1, 2, \dotsc , n\) arbitrários:
+
+	\(1):\; u*\varphi (x_{0}+te_{j}) - u*\varphi (x_{0}) = \langle u, \tau_{(x_{0}+te_{j})}\check{\varphi } - \tau_{x_{0}}\check{\varphi }\rangle\).
+
+	Em seguida, dado \(y\in \mathbb{R}^{n}\), escrevemos
+	\[
+		2):\; \tau_{(x_{0}+be_{j})}\check{\varphi }(y) - \tau_{x_{0}}\check{\varphi }(y) = \varphi(x_{0}+te_{j}-y) - \varphi(x_{0}-y) = \int_{0}^{t}\frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}+se_{j}-y) \mathrm{d}s,
+	\]
+	donde
+	\[
+		\frac{\tau_{(x_{0}+te_{j})}\check{\varphi}(y) - \tau_{x_{0}}\check{\varphi }(y)}{t} - \frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}-y) = \frac{1}{t}\int_{0}^{t}\biggl[\frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}+se_{j}-y) - \frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}-y)\biggr] \mathrm{d}s.
+	\]
+
+	O quociente de Newton acima é uma sequência \(q_{t}(y)\), de funções teste da variável y, e o que se deseja provar é que ela converge para \(\frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}-y)\) em \(\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\) quando \(t\to 0\), concluindo a prova graças ao fato de \(u\in \mathcal{D}'(\mathbb{R}^{n})\) de funções teste, e o que se deseja provar é que ela converge para
+	\(\frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}-y)\) em \(\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\) quando \(t\to 0\), concluindo a prova, graças ao fato de que \(u\in \mathcal{D}'(\mathbb{R}^{n})\). Com efeito, derivando em y sob o sinal da integral e usando um argumento (que já se tornou bem comum),
+	\[
+		\partial_{y}^{\alpha }q_{t}(y) - \partial_{y}^{\alpha }\biggl[\frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}-y)\biggr] = \frac{1}{t}\int_{0}^{t}[(-1)^{| \alpha  |}\partial^{\alpha +e_{j}}\varphi(x_{0}+se_{j}-y)]-(-1)^{| \alpha  |}\partial^{\alpha +e_{j}}\varphi(x_{0}-y) \mathrm{d}s
+	\]
+	e, pela desigualdade do valor médio, o resultado é que, supondo \(t > 0\) (sem perda de generalidade),
+	\[
+		| \partial_{y}^{\alpha }q_{t}(y) - \partial_{y}^{\alpha }\biggl[\frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}-y)\biggr] | \leq \biggl\vert \frac{1}{t}\int_{0}^{t}\Vert \nabla (\partial^{\alpha +e_{j}}\varphi ) \Vert_{\infty}| s | \mathrm{d}s \biggr\vert = \frac{1}{t}\frac{t^{2}}{2} = \frac{t}{2}.
+	\]
+	Daí,
+	\[
+		\sup_{y\in \mathbb{R}^{n}}\biggl\vert \partial_{y}^{\alpha }q_{t}(y) - \partial_{y}^{\alpha }\biggl[\frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}-y)\biggr] \biggr\vert\leq \frac{| t |}{2}\stackrel{t\to 0}\rightarrow 0.
+	\]
+
+	Resta encontrar um compacto K fixo que contém \(\mathrm{supp}(q_{t})\) e \(\mathrm{supp}\biggl[\frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0}-y)\biggr]\) para \(| t | > 0\) pequeno, mas isso é imediato quando \(| t |\leq 1\), porque o suporte em questão está contido em \(x_{0} - \mathrm{supp}(\varphi )\) e
+	\begin{align*}
+		\mathrm{supp}(q_{t}) & \subseteq \mathrm{supp}(\varphi (x_{0}+te_{j}-\cdot ) - \varphi(x_{0}-\cdot ))                               \\
+		                     & \subseteq [x_{0}+te_{j}-\mathrm{supp}(\varphi )]\cup [x_{0} - \mathrm{supp}(\varphi )]                       \\
+		                     & \subseteq [\overline{B}(x_{0}, 1) - \mathrm{supp}(\varphi )]\cup [x_{0}-\mathrm{supp}(\varphi )]\eqqcolon K.
+	\end{align*}
+
+	Por meio disso tudo,
+	\[
+		\frac{u*\varphi (x_{0}+te_{j}) - u*\varphi(x_{0})}{t} = \langle u, q_{t} \rangle\stackrel{t\to0}\rightarrow \biggl\langle u, \frac{\partial^{}\varphi }{\partial w_{j}^{}}(x_{0} - \cdot ) \biggr\rangle = \biggl\langle u, \tau_{x_{0}}\biggl(\frac{\partial^{}\varphi }{\partial w_{j}^{}}^{\check{}}\biggr) \biggr\rangle,
+	\]
+	donde \(u*\varphi \) é derivável em \(x_{0}\) com relação a \(x_{j}\), e vale:
+
+	\[
+		\frac{\partial^{}}{\partial x_{j}^{}}(u*\varphi )(x_{0}) = \biggl\langle u, \tau_{x_{0}}\biggl(\frac{\partial^{}\varphi }{\partial w_{j}^{}}^{\check{}}\biggr) \biggr\rangle = u * \biggl(\frac{\partial^{}\varphi }{\partial x_{j}^{}}\biggr)(x_{0}).
+	\]
+
+	A outra igualdade decorre desta, por meio da observação de que:
+	\begin{align*}
+		\phi: & \mathbb{R}^{n}\times \mathbb{R}^{n}\rightarrow \mathbb{C} \\
+		      & (x, y)\longmapsto \phi (x, y) = \varphi(x-y),
+	\end{align*}
+	já vimos que
+	\[
+		\frac{\partial^{}\phi}{\partial y_{j}^{}}(x, y) = - \frac{\partial^{}\phi}{\partial x_{j}^{}}(x, y),
+	\]
+	pois
+	\begin{align*}
+		\frac{\partial^{}\phi}{\partial x_{j}^{}}(x, y) = \frac{\partial^{}}{\partial x_{j}^{}}(\varphi *D)(x, y) & = \partial_{j}\varphi(D(x, y)) \\
+		                                                                                                          & = \partial_{j}\varphi (x-y),
+	\end{align*}
+	e
+	\begin{align*}
+		\frac{\partial^{}\phi}{\partial y_{j}^{}}(x, y) & = \partial_{j}\varphi(x-y)\frac{\partial^{}}{\partial y_{j}^{}}(x_{j}-y_{j}) \\
+		                                                & = -\partial_{j}\varphi (x-y).
+	\end{align*}
+	Além disso,
+	\begin{align*}
+		u*\varphi (x)=\langle u(y), \phi(x, y) \rangle & \Rightarrow u*\biggl(\frac{\partial^{}\varphi }{\partial x_{j}^{}}\biggr)(x)=         \\
+		                                               & = \biggl\langle u(y), \frac{\partial^{}\phi}{\partial x_{j}^{}}(x, y) \biggr\rangle   \\
+		                                               & = - \biggl\langle u(y), \frac{\partial^{}\phi}{\partial y_{j}^{}}(x, y) \biggr\rangle \\
+		                                               & = \biggl\langle \frac{\partial^{}u}{\partial y_{j}^{}}(y), \phi(x, y) \biggr\rangle   \\
+		                                               & = \biggl\langle \frac{\partial^{}u}{\partial y_{j}^{}}, \phi(x-\cdot ) \biggr\rangle  \\
+		                                               & = \biggl(\frac{\partial^{}u}{\partial y_{j}^{}}\biggr)*\varphi (x).
+	\end{align*}
+	A parte (iii), porém, exige mais cuidado, e por isso precisaremos fazer com calma; a prova se assemelha à de (ii), substituindo o quociente de newton por somas de Riemann, a partir das seguintes considerações: fixado \(x\in \mathbb{R}^{n}\), escrevamos
+	\[
+		[u*(\varphi *\psi )](x) = \langle u, \tau_{x}(\varphi*\psi \check{)} \rangle.
+	\]
+	A função \(\tau_{x}(\varphi *\psi \check{)}:\mathbb{R}^{n}\rightarrow \mathbb{C}\) é dada por
+	\[
+		\tau_{x}(\varphi*\psi \check{)}(y) = \varphi*\psi (x-y) = \int_{\mathbb{R}^{n}}^{}\varphi ((x-y)-z)\psi (z) \mathrm{d}z,\; y\in \mathbb{R}^{n}.
+	\]
+
+	A integral acima ocorre em \(\mathrm{supp}(\psi )\subseteq R = \prod\limits_{i=1}^{n}[a_{i}, b_{i}]\), e é uma integral de Riemann! Nessa situação, a integral sobre \(\mathbb{R}^{n}\) se reduz à integral num retângulo qualquer que contenha o suporte do integrando, conforme aprendemos em análise.
+	Como, em 2, x está fixo e só y varia, para simplificar as notações, indiquemos o integrando por
+	\[
+		F(y, z) \coloneqq \varphi ((x-y)-z)\psi (z),
+	\]
+	de modo que
+	\[
+		\varphi *\psi (x-y) = \int_{\mathbb{R}^{n}}^{}F(y ,z) \mathrm{d}z = \int_{R}^{}F(y, z) \mathrm{d}z.
+	\]
+
+	Assim, se \(p_{\zeta } = (p, \zeta )\) indica uma partição partilhada de R, que podemos supor ser um intervalo só para fixar ideias: neste caso, \(R = [a, b]\), a partição é \(P\coloneqq a = z_{0} < z_1 < \dotsc < z_{n} = b\) com \(\zeta_{j}\in [z_{j-1}, z_{j}], j=1, \dotsc , m\), então
+	\[
+		\int_{R}^{}F(y, z) \mathrm{d}z = \lim_{| P |\to 0}S(F(y, \cdot ); P_{\zeta }),
+	\]
+	onde
+	\[
+		S(F(y, \cdot ); P_{\zeta })\coloneqq \sum\limits_{j=1}^{m}F(y, \zeta_{j})(z_{j}-z_{j-1})
+	\]
+	para qualquer que seja \(y\in \mathbb{R}^{n}\). As somas de Riemann acima definem, desta forma, famílias de funções teste da variável y:
+	\[
+		S(F(y, \cdot ), P_{\zeta }) = \sum\limits_{j=1}^{m}\underbrace{\varphi ((x-y)\cdot \zeta_{j})}_{\mathclap{\substack{\text{funções teste da variável y,} \\ \text{pois x e }\zeta_{j}\text{ estão fixados.}}}}\psi (\zeta_{j})(z_{j}-z_{j-1})
+	\]
+
+	Observe que
+	\begin{align*}
+		\langle u(y), S(F(y, \cdot ), P_{\zeta }) \rangle & = \sum\limits_{j=1}^{m} \langle u(y), F(y, \zeta_{j}) \rangle(z_{j}-z_{j-1})                        \\
+		                                                  & = \sum\limits_{j=1}^{m}\langle u(y), \varphi(x-y-\zeta_{j})\psi(\zeta_{j}) \rangle(z_{j}-z_{j-1})   \\
+		                                                  & = \sum\limits_{j=1}^{m}\langle u(y), \varphi(x-y-\zeta_{j}) \rangle \psi(\zeta_{j})(z_{j}-z_{j-1}),
+	\end{align*}
+	que é a soma de Riemann de uma função de z,
+	\[
+		f(z)\coloneqq \langle u(y), \varphi(x-y-z) \rangle \cdot \psi (z) = \langle u(y), \tau_{(x-z)}\check{\varphi }(y) \rangle\psi (z) = (u*\varphi )(x-z)\psi(z),
+	\]
+	onde \(\varphi(x-y-z) = \tau_{(x-z)}\check{\varphi }(y)\), e que \(\mathcal{C}^{\infty}\) é contínua em R, donde
+	\[
+		(u*\varphi )*\psi (x) = \int_{R}^{}(u*\varphi )(x-z)\psi (z) \mathrm{d}z = \lim_{| P |\to 0}s(f; P_{\zeta }) = \lim_{| P |\to 0}\langle u(y), S(F(y, \cdot ), P_{\zeta }) \rangle.
+	\]
+	A demonstração é concluída após mostrarmos que
+	\[
+		S(F(y, \cdot ), P_{\zeta })\stackrel{| P |\to 0}\longrightarrow \varphi *\psi (x-y)
+	\]
+	em \(\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\); de fato,
+	\begin{align*}
+		\varphi *\psi (x-y) = \tau_{x}(\varphi *\psi \check{)}(y) & \Rightarrow \langle u, S(F(y, \cdot ), P_{\zeta }) \rangle\rightarrow \langle u, \tau_{x}(\varphi*\psi \check{)} \rangle= u * (\varphi *\psi )(x).
+	\end{align*}
+
 \end{proof*}
 
 \end{document}
