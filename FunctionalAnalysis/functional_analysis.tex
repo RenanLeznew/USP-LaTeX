@@ -1,88 +1,67 @@
 \documentclass[12pt]{article}
- \usepackage{bookmark}
- \usepackage{amsmath}
- \usepackage{amsthm}
- \usepackage{amssymb}
- \usepackage{tikz}
- \usepackage{pgfplots}
- \usepackage[utf8]{inputenc}
- \usepackage{amsfonts}
- \usepackage{nicematrix}
- \usepackage[x11names]{xcolor}
- \usepackage{geometry}
- \usepackage{graphicx}
- \usepackage{graphics}
- \usepackage[export]{adjustbox}
- \usepackage{fancyhdr}
- \usepackage[portuguese]{babel}
- \usepackage{hyperref}
- \usepackage{multirow}
- \usepackage{lastpage}
- \usepackage{mathtools}
- \usepackage[many]{tcolorbox}
- \usepackage{newtxsf}
- \usepackage{subfiles}
- \usepackage{flafter}
- \usepackage{float}
- \usepackage{accents}
- \usepackage{stackengine}
- \usepackage[T1]{fontenc}
- \setcounter{section}{-1}
+\usepackage{bookmark}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{nicematrix}
+\usepackage[x11names]{xcolor}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{graphics}
+\usepackage[export]{adjustbox}
+\usepackage{fancyhdr}
+\usepackage[portuguese]{babel}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{lastpage}
+\usepackage{mathtools}
+\usepackage[many]{tcolorbox}
+\usepackage{newtxsf}
+\usepackage{subfiles}
+\usepackage{flafter}
+\usepackage{float}
+\usepackage{accents}
+\usepackage{stackengine}
+\usepackage[T1]{fontenc}
+\setcounter{section}{-1}
 \usepackage{xparse}
+\usepackage{xstring}
 \usepackage{etoolbox}
+\usepackage{expl3}
 \usepackage{currfile}
+\usepackage{pdftexcmds} 
 
- \pagestyle{fancy}
- \fancyhf{}
+\pagestyle{fancy}
+\fancyhf{}
 
- \pgfplotsset{compat = 1.18}
+\pgfplotsset{compat = 1.18}
 
- \hypersetup{
-     colorlinks,
-     citecolor=black,
-     filecolor=black,
-     linkcolor=black,
-     urlcolor=black
- }
- \newtheorem*{theorem*}{\underline{Teorema}}
- \newtheorem*{lemma*}{\underline{Lema}}
- \newtheorem*{prop*}{\underline{Proposição}}
- \newtheorem*{crl*}{\underline{Corolário}}
- \theoremstyle{definition}
- \newtheorem{example}{\underline{Exemplo}}
- \newtheorem*{def*}{\underline{Definição}}
- \newtheorem*{proof*}{\underline{Prova}}
- \newtheorem{exr}{\underline{Exercício}}
- \renewcommand\qedsymbol{$\blacksquare$}
-
-\newwrite\exrlog
-
-\AtBeginDocument{%
-  \immediate\openout\exrlog=\jobname.exrlist
-}
-\AtEndDocument{%
-  \immediate\closeout\exrlog
+\hypersetup{
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=black
 }
 
-% Save the original theorem environment macros created by \newtheorem
-\makeatletter
-\let\exr@orig\exr
-\renewcommand{\exr}{%
-  \@ifnextchar[{\exr@opt}{\exr@noopt}%
-}
-\def\exr@noopt{%
-  \exr@orig
-  \immediate\write\exrlog{EXR \theexr\space | \currfilename\space | page \thepage}%
-}
-\def\exr@opt[#1]{%
-  \exr@orig[#1]%
-  \immediate\write\exrlog{EXR \theexr\space | \currfilename\space | page \thepage\space | title: #1}%
-}
-\makeatother
+\newtheorem*{theorem*}{\underline{Teorema}}
+\newtheorem*{lemma*}{\underline{Lema}}
+\newtheorem*{prop*}{\underline{Proposição}}
+\newtheorem*{crl*}{\underline{Corolário}}
+\theoremstyle{definition}
+\newtheorem{example}{\underline{Exemplo}}
+\newtheorem*{def*}{\underline{Definição}}
+\newtheorem*{proof*}{\underline{Prova}}
+\newtheorem{exr}{\underline{Exercício}}
+\renewcommand\qedsymbol{$\blacksquare$}
 
- \rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
+\rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
 
- \geometry{a4paper, left=3cm, top=3cm, right=3cm, bottom=3cm}
+\geometry{a4paper, left=3cm, top=3cm, right=3cm, bottom=3cm}
 
 \begin{document}
 \begin{figure}[ht]
@@ -183,11 +162,13 @@
 \subfile{classes/aula21}
 \newpage
 
+%\ListaExercicios
+
 \begin{thebibliography}{99}
-	\bibitem{1}	E. Kreyszig-- Introductory Functional Analysis with Applications John Wiley \& Sons (1978)G.
-	\bibitem{2}Bachman and L. Narici-- Functional Analysis, Academic Press, New York-London (1966)
-	\bibitem{3}G. F. Simons-- Introduction to Topology and Modern Analysis, Mc Graw-Hill (1963)
-	\bibitem{4}Chaim S. Hönig-- Aplicações da Topologia à Análise, Projeto Euclides, CNPq-IMPA (1976)
+	\bibitem{1} E. Kreyszig-- Introductory Functional Analysis with Applications John Wiley \& Sons (1978)G.
+	\bibitem{2} Bachman and L. Narici-- Functional Analysis, Academic Press, New York-London (1966)
+	\bibitem{3} G. F. Simons-- Introduction to Topology and Modern Analysis, Mc Graw-Hill (1963)
+	\bibitem{4} Chaim S. Hönig-- Aplicações da Topologia à Análise, Projeto Euclides, CNPq-IMPA (1976)
 \end{thebibliography}
 
 \end{document}
