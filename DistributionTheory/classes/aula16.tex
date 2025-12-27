@@ -1,0 +1,129 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 18 de Outubro, 2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Consequências da Existência de \(u*\varphi \);
+	\item Propriedades de \(u*\varphi \);
+	\item Soluções Fundamentais e Densidade das Funções Testes em \(\mathcal{D}'\).
+\end{itemize}
+\subsection{Consequências e Propriedades da Existência de \(u*\varphi \)}
+Estabelecidas as primeiras propriedades de convolução ``\(u*\varphi \)'', sendo \(u\in \mathcal{D}'(\mathbb{R}^{n})\) e \(\varphi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}) \); agora, nosso objetivo é descrever algumas das consequências, sendo a principal ligada ao conceito de \textit{solução fundamental}, que foi sendo mencionado em quantidades diluídas ao longo do curso.
+
+\begin{prop*}[Invariância por Translação]
+	Para todo \(h\in \mathbb{R}^{n},\; u\in \mathcal{D}'\) e \(\varphi \in \mathcal{C}_{c}^{\infty}\), tem-se:
+	\[
+		\tau_{h}(u*\varphi )=(\tau_{h}u)*\varphi = u*(\tau_{h}\varphi ).
+	\]
+\end{prop*}
+\begin{proof*}
+	A verificação é imediata de definição:
+	\begin{align*}
+		[\tau_{h}(u*\varphi )](x) = u * \varphi (x-h) & = \langle u, \tau_{(x-h)}\check{\varphi } \rangle              \\
+		                                              & = \langle u, \tau_{-h}\circ (\tau_{x}\check{\varphi }) \rangle \\
+		                                              & = \langle \tau_{h}u, \tau_{x}\check{\varphi } \rangle          \\
+		                                              & = (\tau_{h}u)*\varphi (x).
+	\end{align*}
+	Da mesma forma,
+	\begin{align*}
+		\langle u, \tau_{(x-h)}\check{\varphi } \rangle = \langle u, \tau_{x}(\tau_{-h}\check{\varphi }) \rangle & = \langle u, \tau_{x}(\tau_{h}\varphi \check{)} \rangle \\
+		                                                                                                         & = [u*(\tau_{h}\varphi )](x),
+	\end{align*}
+	pois
+	\[
+		(\tau_{h}\varphi \check{)}(y)=\tau_{h}\varphi (-y)=\varphi (-y-h)=\check{f}(y+h)=(\tau_{-h}\check{\varphi })(y). \text{ \qedsymbol}
+	\]
+\end{proof*}
+Esta propriedade pode até parecer ``basal'', mas é uma questão da Análise de Fourier caracterizar, em diversos espaços, os operadores lineares que são invariantes por translações; de fato, nós mesmos enfrentaremos, nas aulas seguintes, a necessidade em saber dizer quando um aplicação linear \(T:\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\rightarrow \mathcal{C}^{\infty}(\mathbb{R}^{n})\) é invariante por translação (ou melhor, que forma assume uma aplicação linear com uma característica)
+
+\begin{prop*}[Convolução de \(\varphi \) com uma Medida \(\mu \)]
+	Para o caso em que \(u = \mu \in \mathcal{D}'(\mathbb{R}^{n})\) provém de uma medida boreliana localmente finita,
+	\[
+		(\mu *\varphi )(x) = \langle \mu , \tau_{x}\check{\varphi } \rangle = \int_{\mathbb{R}^{n}}^{}\varphi (x-y) \mathrm{d}\mu(y)
+	\]
+	e, derivando sob o sinal da integral, obtemos:
+	\[
+		\partial^{\alpha }(\mu *\varphi )(x)=\int_{\mathbb{R}^{n}}^{}(\partial^{\alpha }\varphi )(x-y) \mathrm{d}\mu (y) = [\mu *(\partial^{\alpha }\varphi )](x).
+	\]
+	Além disso,
+	\begin{align*}
+		\int_{\mathbb{R}^{n}}^{}(\partial^{\alpha }\varphi )(x-y) \mathrm{d}\mu (y) = (-1)^{| \alpha  |}\int_{\mathbb{R}^{n}}^{}\partial_{y}^{\alpha }\phi(x, y) \mathrm{d}\mu (y) & = (-1)^{| \alpha  |}\langle u, \partial_{y}^{\alpha }\phi(x, \cdot ) \rangle \\
+		                                                                                                                                                                           & = \langle \partial^{\alpha }\mu , \phi(x, \cdot ) \rangle                    \\
+		                                                                                                                                                                           & = \langle \partial^{\alpha }\mu , \tau_{x}\check{\varphi } \rangle           \\
+		                                                                                                                                                                           & = [(\partial^{\alpha }\mu )*\varphi ](x),
+	\end{align*}
+	onde \(\phi(x, y)=\varphi (x-y)\).
+
+	Em conclusão,
+	\[
+		\partial^{\alpha }(u*\varphi ) = (\partial^{\alpha }\mu )*\varphi  = \mu *(\partial^{\alpha }\varphi ), \quad \forall \alpha \in \mathbb{Z}_{+}^{n}.
+	\]
+\end{prop*}
+
+Com isso, obtemos uma prova mais direta da propriedade (ii) nesse caso particular, que é bastante útil e comum.
+
+Dentre outras consequências, podemos ver as derivadas parciais como operador do tipo ``convolução com um núcleo'': fixada \(u\in \mathcal{D}'(\mathbb{R}^{n})\), fica bem definido o operador linear contínuo
+\begin{align*}
+	T: & \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\rightarrow \mathcal{C}^{\infty}(\mathbb{R}^{n}) \\
+	   & \varphi \longmapsto T\varphi = u*\varphi .
+\end{align*}
+Inclusive, é surpreendente o fato de que \(\partial^{\alpha }\) é dessa forma! Com efeito, dados \(\varphi \in \mathcal{C}_{c}^{\infty}\) e \(\alpha \in \mathbb{Z}_{+}^{n}\), temos
+\[
+	\partial^{\alpha }\varphi  = \partial^{\alpha }(\delta *\varphi ) = (\partial^{\alpha }\delta )*\varphi.
+\]
+Logo, pondo \(u\coloneqq \partial^{\alpha }\delta \), a afirmação segue (em particular, \(u\in \mathcal{E}'(\mathbb{R}^{n})\)); consequentemente, se \(P(D)=\sum\limits_{| \alpha  |\leq m}^{}a_{\alpha }\partial^{\alpha }\) é um ODPCC, então, em \(\mathcal{C}_{c}^{\infty}\), ele também assume a forma
+\[
+	P(D)\varphi  = \sum\limits_{| \alpha  |\leq m}^{}a_{\alpha }(\partial^{\alpha }\delta )*\varphi = \biggl(\sum\limits_{| \alpha  |\leq m}^{}a_{\alpha }\partial^{\alpha }\delta \biggr)*\varphi = (P(D)\delta )*\varphi .
+\]
+Com isso, a ação de \(P(D)\) em \(\mathcal{C}^{\infty}\) se reduz ao cálculo de \(P(D)\delta !\)
+
+\subsection{Soluções Fundamentais e Densidade das Funções Teste em \(\mathcal{D}'\)}
+\begin{def*}
+	Seja \(P(D)=\sum\limits_{| \alpha  |\leq m}^{}a_{\alpha }\partial^{\alpha }\) um ODPCC. Uma \textbf{solução fundamental} (S.F.) de \(P(D)\), ou uma \textbf{Função de Green}, é uma distribuição E em \(\mathbb{R}^{n}\) tal que \(P(D)E = \delta .\; \square\)
+\end{def*}
+O conhecimento de uma solução fundamental pode, em muitos casos, fornecer toda a informação que se deseja extrair sobre o operador, tal como a resolução de certas equações não-homogêneas:
+\begin{example}
+	Dada qualquer função \(f\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), pondo \(u = E * f\), obtemos
+	\begin{align*}
+		P(D)u = P(D)(E*f)= (P(D)E)*f = = \delta * f = f,
+	\end{align*}
+	ou seja, \(P(D)u = f\) em \(\mathcal{D}'.\) Mais do que isso, segue que
+	\[
+		P(D)(E*f)=\sum\limits_{}^{}a_{\alpha }\partial^{\alpha }(E*f) = \sum\limits_{}^{}a_{\alpha }(\partial^{\alpha }E)*f = \biggl(\sum\limits_{}^{}a_{\alpha }\partial^{\alpha }E\biggr)*f.
+	\]
+\end{example}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A conclusão acima se traduz dizendo que, caso \(P(D)\) possui uma solução fundamental, então ele é \textit{globalmente} resolvível.
+\end{tcolorbox}
+
+Em vista do exemplo e das discussões, a existência de uma solução fundamental para \(P(D)\) garante uma recíproca para o fato observado acima! Se \(u\in \mathcal{D}'(\mathbb{R}^{n})\) (em \(\mathcal{E}'(\mathbb{R}^{n})\)) e \(P(D)u = f\), então \(u=E*f\), mas ele precisa da parte 3 do produto da convolução, a qual trata do caso
+em que ambos os fatores são distribuições; quando isto estiver estabelecido, poderemos escrever
+\[
+	u = \delta *u = (P(D)E)*u = E*(P(D)u)=E*f.
+\]
+
+Um resultado bastante importante para caracterizarmos as distribuições em \(\mathcal{D}'(\mathbb{R}^{n})\) é a densidade das funções testes nele:
+\begin{theorem*}
+	As funções teste são densas em \(\mathcal{D}'(\mathbb{R}^{n})\), ou seja, \(\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\) é denso em \(\mathcal{D}'(\mathbb{R}^{n})\) na topologia fraca-*.
+\end{theorem*}
+\begin{proof*}
+	Primeiro, provamos o seguinte fato intermediário:
+
+	\textbf{\underline{Afirmação}:} Se \(\{\psi_{j}\}_{j}\) é uma sequência de funções de Urysohn associadas a um esgotamento \((K_{j})_{j}\) (isto é, \(\psi_{j}\equiv1\) em \(K_{j}\) com \(\psi_{j}\in \mathcal{C}_{c}^{\infty}\)), então dada \(u\in \mathcal{D}'\), segue que
+	\[
+		\psi_{j}\stackrel{j\to \infty}\longrightarrow u
+	\]
+	em \(\mathcal{D}'\)
+\end{proof*}
+\end{document}
