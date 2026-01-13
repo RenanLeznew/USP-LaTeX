@@ -1,0 +1,252 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 21 de Outubro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Considerações finais sobre a convolução;
+	\item Localização;
+	\item Partição da Unidade.
+\end{itemize}
+\subsection{Considerações Finais sobre a Convolução}
+Para cada distribuição \(u\in \mathcal{D}'(\mathbb{R}^{n})\) fixada, podemos considerar o operador \(T_u:\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\rightarrow \mathcal{C}^{\infty}(\mathbb{R}^{n})\) dado por \(Tu\varphi \coloneqq u*\varphi \), o qual é linear e contínuo, e além disso,
+dado h em \(\mathbb{R}^{n}\),
+\[
+	\tau_{h}(\tau_{u}\varphi ) = (\tau_{h}u)*\varphi  = T_{[\tau_{h}u]}\varphi  = u * (\tau_{h}\varphi ) = T_{u}(\tau_{h}\varphi ),
+\]
+ou seja, T comuta com as translações \(\tau_{h}:\mathcal{C}^{\infty}\rightarrow \mathcal{C}^{\infty}\). Merece destaque que essas duas propriedades caracterizam os operadores do tipo ``convolução com uma \(u\in \mathcal{D}'\) fixa'', conforme nos ensina o:
+
+\begin{theorem*}
+	Seja \(T:\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\rightarrow \mathcal{C}^{\infty}(\mathbb{R}^{n})\) linear contínuo tal que, para todo h em \(\mathbb{R}^{n}\), \(\tau_{h} \cdot T = T \cdot \tau_{h}\). Então, existe uma única \(u\in \mathcal{D}'(\mathbb{R}^{n})\) de modo que
+	\[
+		T\varphi = u*\varphi ,\quad \forall \varphi \in \mathcal{C}_{c}^{\infty}.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Com efeito, definindo
+	\begin{align*}
+		u: & \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\rightarrow \mathbb{C}                   \\
+		   & \varphi \longmapsto \langle u, \varphi  \rangle\coloneqq (T\check{\varphi })(0),
+	\end{align*}
+	segue imediatamente das hipóteses que \(\varphi_{j} \rightarrow 0\) em \(\mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), tal que
+	\[
+		\check{\varphi }_{j} \substack{\mathcal{C}_{c}^{\infty} \\ \longrightarrow \\ j\to \infty}0 \Rightarrow T\check{\varphi }_{j} \substack{\mathcal{C}^{\infty} \\ \longrightarrow \\ j\to \infty}0 \Rightarrow (T\check{\varphi }_{j})(0)\substack{\mathbb{C} \\ \longrightarrow \\ j\to \infty}0,
+	\]
+	e a linearidade de u segue de forma parecida; assim, \(u\in \mathcal{D}'\).
+
+	Por outro lado, dado \(x\in \mathbb{R}^{n}\), podemos escrever, para uma teste \(\varphi \in \mathcal{C}_{c}^{\infty}\) também qualquer,
+	\begin{align*}
+		(T\varphi )(x)=\tau_{-x}(T\varphi )(0) & = [T(\tau_{-x} \varphi )](0)                  \\
+		                                       & = T[(\tau_{-x} \varphi \check{)}\check{]}(0)  \\
+		                                       & = [T(\tau_{x}\check{\varphi }\check{)}](0)    \\
+		                                       & = \langle u, \tau_{x}\check{\varphi } \rangle \\
+		                                       & = u*\varphi (x).
+	\end{align*}
+	Portanto,
+	\[
+		T\varphi (x)= u * \varphi (x). \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Seja \(P(x, D)=\sum\limits_{| \alpha  |\leq m}^{}a_{\alpha }(x)\partial^{\alpha }\), onde \(a_{\alpha }\in \mathcal{C}^{\infty}(\mathbb{R}^{n})\). Não é muito difícil ver que
+	\[
+		\tau_{h}\circ P(x, D) = P(x, D)\circ \tau_{h},\quad \forall h\in \mathbb{R}^{n}
+	\]
+	se, e somente se, os coeficientes \(a_{\alpha }\in \mathbb{C}\) são constantes par todo \(\alpha \) na expressão definindo \(P(x, D).\)
+
+	Para interessados em provar isso, a sugestão que fica é a de tomar, para cada \(\alpha \) e \(x_{0}\in \mathbb{R}^{n}\), as funções
+	\[
+		\psi_{(\alpha , x_{0})}(x)= \frac{(x-x_{0})^{\alpha }}{ \alpha!}\psi (x-x_{0}),
+	\]
+	onde \(\psi \) é um função de Urysohn associada a \(\overline{B}(0,1)\).
+\end{tcolorbox}
+
+Assim, o ODPCC \(P(D)\) são os únicos invariantes por translação, e isso é coerente com a aula passada, na qual mostramos que
+\[
+	P(D)\varphi = (P(D)\delta )*\varphi ,\quad \varphi \in \mathcal{C}_{c}^{\infty} \Rightarrow u = P(D)\delta .
+\]
+Por outro lado, se desejamos inverter \(P(D):\mathcal{C}_{c}^{\infty}\rightarrow \mathcal{C}_{c}^{\infty}\), ou seja, encontrar \(T:\mathcal{C}_{c}^{\infty}\rightarrow \mathcal{C}_{c}^{\infty}\) tal que
+\[
+	[T \circ P(D)]\psi = [P(D)\circ T]\psi =\psi ,\quad \forall \psi \in \mathcal{C}_{c}^{\infty};
+\]
+assim, necessariamente T será linear e invariante por translação:
+\[
+	\tau_{h}\circ P(D)=P(D)\circ \tau_{h} \Longleftrightarrow \tau_{h} = P(D)\circ \tau_{h}\circ T \Longleftrightarrow T\circ \tau_{h}=\tau_{h}\circ T,
+\]
+mostrando que o único modo de inverter \(P(D)\) é por meio de uma aplicação linear \(T:\mathcal{C}_{c}^{\infty}\rightarrow \mathcal{C}_{c}^{\infty}\) que comuta com as translações.
+Se desejamos que essa inversa seja, também, contínua, então o teorema diz que há um único modo: encontrar uma \(u\in \mathcal{D}'\) tal que \(T\varphi = u * \varphi \) para todo \(\varphi \in \mathcal{C}_{c}^{\infty}\).
+Deste modo, se uma tal inversa existir, devemos ter, para todo \(\psi \in \mathcal{C}_{c}^{\infty}\),
+\[
+	\psi =P(D)T\psi = P(D)(u*\psi )=(P(D)u)*\psi \Rightarrow P(D)u = \delta .
+\]
+Em conclusão, a única maneira de inverter continuamente \(P(D):\mathcal{C}_{c}^{\infty}\rightarrow \mathcal{C}_{c}^{\infty}\) é encontrando uma solução fundamental para ele, e é daí que vem o conceito!
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se \(v\in \mathcal{D}'\) é tal que
+	\[
+		u*\psi =\psi ,\quad \forall \psi \in \mathcal{C}_{c}^{\infty},
+	\]
+	então \(u = \delta \). Com efeito,
+	\[
+		\psi (0)=(u*\psi )(0)=\langle u, \tau_{0}\check{\psi} \rangle = \langle u, \check{\psi } \rangle,\quad \forall \psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}).
+	\]
+	Noutras palavras,
+	\[
+		\langle u, \varphi  \rangle = \langle u, (\check{\varphi }\check{)} \rangle = \check{\varphi }(0) = \varphi (-0)=\varphi (0)=\langle \delta , \varphi  \rangle
+	\]
+	para qualquer que seja \(\varphi \in \mathcal{C}_{c}^{\infty}\), provando a afirmação.
+\end{tcolorbox}
+
+\subsection{Distribuições com Suporte Compacto (Localização)}
+Dado um ponto \(x_{0}\in \Omega \) e uma distribuição \(u\in \mathcal{D}'(\Omega )\), embora não tenha sentido dizer o que é \(u(x_{0})\), podemos dizer o que é \(u|_{V}\) quando V é um subconjunto aberto qualquer de \(\Omega \), da seguinte maneira:
+\begin{def*}
+	Seja V um aberto de \(\Omega \), de modo que \(\mathcal{C}^{\infty}(V)\) é subespaço de \(\mathcal{C}_{c}^{\infty}(\Omega )\). Assim, para toda u em \(\mathcal{D}'(\Omega )\), a \textbf{restrição de u a V}, também chamada de \textbf{localização de u em V} e indicada por \(u|_{V}\), é a distribuição
+	\[
+		\langle u|_{V}, \varphi\rangle\coloneqq \langle u, \varphi  \rangle,\quad \varphi \in \mathcal{C}_{c}^{\infty}(V). \;\square
+	\]
+\end{def*}
+Lembrando que, se \(\mathrm{supp}(\varphi )\) é um compacto contido em V, ele é também compacto quando visto como subconjunto de \(\Omega \).
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A rigor, na definição acima deveríamos pôr, na verdade, \(u|_{\mathcal{C}_{c}^{\infty}(V)}\), restringindo, na verdade, às \textit{funções testes de V}.
+\end{tcolorbox}
+Em vista da definição e da observação, diremos que duas distribuições u e v em \(\mathcal{D}'(\Omega )\) são iguais em V quando \(u|_{V} = v|_{V}\), ou seja, quando
+\[
+	\langle u, \varphi  \rangle = \langle v, \varphi  \rangle,\quad \forall \varphi \in \mathcal{C}_{c}^{\infty}(V).
+\]
+Na verdade, quando \(v, u\in L_{\mathrm{loc}}^{1}(\Omega )\), as definições para ``\(u = v\)'' em V, dada por funções e para distribuições, coincidem! Com efeito,
+\[
+	\langle u|_{V}, \varphi  \rangle = \langle v|_{V}, \varphi  \rangle \Longleftrightarrow \int_{V}^{}u(x)\varphi(x) \mathrm{dx} = \int_{V}^{}v(x)\varphi(x) \mathrm{dx}, \quad \forall \varphi \in \mathcal{C}_{c}^{\infty}(V),
+\]
+que equivale à afirmação de que \(u=v\) para quase todo ponto de V, conforme a injetividade de \(T:L_{\mathrm{loc}}^{1}(V)\rightarrow \mathcal{D}'(V)\).
+
+A definição acima, apesar de realmente ser bem simples, permite que estudemos a \textit{regularidade local} de uma distribuição no sentido de poder dizer, por exemplo, se essa distribuição se anula num aberto \(V\subseteq \Omega \), ou se essa distribuição será classificada como \(L_{\mathrm{loc}}^{1}\) em V, ou se u é \(\mathcal{C}^{\infty}\) em V (ou seja, existe f em \(\mathcal{C}^{\infty}(V)\) tal que \(u|_{V}=f\)), etc.
+
+Um papel extremamente importante neste contexto é desempenhado pelas \textit{partições de unidade} subordinadas a coberturas finitas de compactos\footnote{Outro corolário do Lema de Urysohn}.
+
+\begin{def*}
+	Sejam \(\Omega \subseteq \mathbb{R}^{n}\) um aberto, K um compacto e \(\{V_{j}\}_{j=1}^{N}\) uma cobertura de K por abertos \(V_{j}\) de \(\Omega \); existem \(\psi_{j}\in \mathcal{C}_{c}^{\infty}(V_{j})\), com \(j=1,2,\dotsc ,N\), tais que:
+	\begin{align*}
+		 & (i)\quad \psi_{j}\geq 0,\quad \forall j;                                                                                 \\
+		 & (ii)\quad \sum\limits_{j=1}^{N}\psi_{j}(x)\leq 1,\quad \forall x\in \Omega ; \&                                          \\
+		 & (iii)\quad \exists U\subseteq \Omega \text{ vizinhança de K}:\; \sum\limits_{j=1}^{N}\psi_{j}(x)=1,\quad \forall x\in U,
+	\end{align*}
+	onde \(\psi_1,\dotsc , \psi_N\) são coeficientes \(\mathcal{C}_{c}^{\infty}\) usados para formar combinações convexas de funções e distribuições. Nesse sentido, \(\{\psi_{j}\}\) são chamadas \textbf{partições de unidade subordinadas a K}. \(\square\)
+\end{def*}
+Na verdade mesmo, precisamos provar a existência das partições de unidade
+\begin{proof*}[Existência da Partição de Unidade e Suporte de Distribuições]
+	Para cada \(x\in K\), existe \(r_x>0\) tal que, para algum \(j_x\in \{1,2,\dotsc ,N\},\)
+	\[
+		\overline{B}(x, r_{x})\subseteq V_{j_x},
+	\]
+	pois K está contido na união dos \(V_{j}\)'s e cada um deles é aberto. Da cobertura \(K\subseteq \bigcup_{x\in K}^{}B(x, r_x)\), extraímos uma subcobertura finita tal que
+	\[
+		K\subseteq B(x_1, r_{1})\cup \dotsc \cup B(x_{M}; r_{M})
+	\]
+	e consideramos
+	\[
+		K_{j}:= \bigcup_{\overline{B}(x_{i}, r_{i})\subseteq V_{j}}^{}\overline{B}(x_{i}, r_{i}),\quad j=1,2,\dotsc ,N.
+	\]
+	Tem-se que cada \(K_{j}\) é compacto e contido em \(V_{j}\). Associada a cada um deles, escolhemos uma função de Urysohn \(\varphi_{j}\in \mathcal{C}_{c}^{\infty}(V_{j})\), e logo \(\varphi_{j}\equiv\) num \(U_{j}\) aberto contendo \(K_{j}\).
+
+	Posto isso, definimos, sucessivamente,
+	\begin{align*}
+		 & \psi _1\coloneqq \varphi_1                                       \\
+		 & \psi_2 \coloneqq \varphi_2(1-\varphi_1)                          \\
+		 & \psi_3 \coloneqq \varphi_3(1-\varphi_1)(1-\varphi_2)             \\
+		 & \vdots                                                           \\
+		 & \psi_N \coloneqq \varphi_N(1-\varphi_1)\dotsc (1-\varphi_{N-1}).
+	\end{align*}
+	A verificação das propriedades são automáticas:
+
+	(i) Como \(0\leq \varphi_{j}\leq 1\), temos \(0\leq \psi_{j}\leq 1\) como produto de funções entre 0 e 1;
+
+	(ii) Dado x em \(\Omega \), temos
+	\begin{align*}
+		\sum\limits_{j=1}^{N}\psi_{j}(x) & = \varphi_1(x)+\varphi_2(x)(1-\varphi_1(x)) + \dotsc +\varphi_N(1-\varphi_1)\dotsc (1-\varphi_{N-1})                                           \\
+		                                 & = 1-[1+\varphi_1(x)] + \varphi_2(x)(1-\varphi_1(x))+ \dotsc +\varphi_N(1-\varphi_1)\dotsc (1-\varphi_{N-1})                                    \\
+		                                 & = 1- (1-\varphi_1(x))(1-\varphi_2(x)) + \varphi_3(x)(1-\varphi_2(x))(1-\varphi_2(x)) + \dotsc + \varphi_N(1-\varphi_1)\dotsc (1-\varphi_{N-1}) \\
+		                                 & = 1-(1-\varphi_1(x))(1-\varphi_2(x))(1-\varphi_3(x)) + \dotsc + \varphi_{N} (1-\varphi_1)\dotsc (1-\varphi_{N-1})                              \\
+		                                 & = 1-\underbrace{(1-\varphi_1(x))(1-\varphi_2(x))\dotsc (1-\varphi_{N-1}(x))(1-\varphi_{N}(x))}_{\text{Entre 0 e 1}}.
+	\end{align*}
+	Logo,
+	\[
+		\sum\limits_{j=1}^{N}\psi_{j}(x)\leq 1,\quad \forall x\in \Omega jk
+	\]
+	e, quando x pertence a U, que pode ser escrito como \(U=U_1\cup \dotsc \cup U_{N}\) e
+	\[
+		K\subseteq K_1\cup \dotsc \cup K_{N} \subseteq U,
+	\]
+	segue que \(x\in U_{j}\), para algum j. Portanto,
+	\[
+		1-\varphi_{j}(x)=0 \Rightarrow \sum\limits_{j=1}^{N}\psi_{j}(x)=1. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{def*}
+	Dada u em \(\mathcal{D}'(\Omega )\), seja
+	\[
+		V \coloneqq \{x_{0}\in \Omega:\; \exists V_{x_{0}}\ni x_{0}: u|_{V_{x_{0}}}=0\},
+	\]
+	onde \(V_{x_{0}}\) é um aberto. Definimos \(\mathrm{supp}(u)\coloneqq \Omega \setminus{V}\) como o \textbf{suporte da distribuição u} (ou seja, é um fechado relativo a \(\Omega \)). \(\square\)
+\end{def*}
+Da definição, é imediato que V é um aberto de \(\Omega \) e podemos provar que V é, na verdade, o \textit{maior} aberto onde u se anula, isto é, \(u|_{V}\equiv 0\) e todo U contido em \(\Omega \) tal que \(u|_{U}\equiv 0\) está contido em V.
+
+\begin{theorem*}
+	Para toda distribuição \(u\in \mathcal{D}'(\Omega )\), o suporte \(\mathrm{supp}(u)\) é o complementar em \(\Omega \) do maior aberto sobre o qual u se anula.
+\end{theorem*}
+\begin{proof*}
+	Com efeito, dada \(\varphi \in \mathcal{C}_{c}^{\infty}(V)\) e tomando \(K=\mathrm{supp}(\varphi )\), existem
+	\[
+		V_1,\dotsc , V_{N}\subseteq V
+	\]
+	tais que \(K\subseteq V_1 \cup \dotsc \cup V_N\). Pelo lema, escolhemos uma partição de unidade associada a essa cobertura de K, digamos \(\psi_1,\dotsc , \psi_{N}\), e observamos que
+	\[
+		\varphi (x)=\sum\limits_{j=1}^{N}\psi_{j}(x)\varphi (x),
+	\]
+	tendo em vista que \(\varphi \) assume a forma acima na vizinhança U utilizada no Lema e que \(\varphi =0\) fora de U, tal que \(\psi_{j}\varphi =0\) fora de U, e, consequentemente, \(\varphi = \sum\limits_{}^{}\psi_{j}\varphi \) fora de U. Sendo \(\mathrm{supp}(\psi_{j}\varphi )\subseteq V_{j}\), temos
+	\[
+		\langle u, \psi_{j}\varphi  \rangle =0,
+	\]
+	pois \(V_{j}\subseteq V\); consequentemente,
+	\[
+		\langle u, \varphi  \rangle = \biggl\langle u, \sum\limits_{j=1}^{N}\psi_{j}\varphi  \biggr\rangle = \sum\limits_{j=1}^{N}\langle u, \psi_{j}\varphi  \rangle=0.
+	\]
+	Portanto,
+	\[
+		u|_{V}=0,
+	\]
+	enquanto que o caso onde \(u|_{U}=0\) já é automático. \qedsymbol
+\end{proof*}
+\end{document}
