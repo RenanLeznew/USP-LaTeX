@@ -1,0 +1,118 @@
+\documentclass[../statistical_inference.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 14 de Janeiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Continuando os Exemplos;
+	\item Equilíbrio Dinâmico;
+	\item Metafísica e Ontologia.
+\end{itemize}
+\subsection{Sistemas Lógicos e Quebra-Cabeças}
+Começamos a aula retomando o que fora feito no exemplo anterior, envolvendo a tabela de afinidade de elementos químicos de Geoffroy:
+\begin{example}[Afinidade Química de Étienne François Geoffroy, 1718]
+	Outro modelo que é resolvível por sistemas lineares é o de molas, onde há três forças se encontrando e procurando um ponto de equilíbrio, mas os ângulos entre elas estão fixos e elas que ajustarão-se em magnitude para encontrá-lo. Consideramos um triângulo ABC com hastes de aço e três molas \(z_{C},\; z_{B},\; z_{A}\) conectadas às hastes AB, AC e BC respectivamente (sem atrito); cada uma delas tem \(r_{i}\) comprimentos de repouso, constantes elásticas \(k_{i}\) e comprimento atual \(z_{i}\), resultando no sistema
+	\[
+		z = \begin{bmatrix}
+			z_{1} \\
+			z_{2} \\
+			z_{3}
+		\end{bmatrix}, \; \mu (z) = \begin{bmatrix}
+			k_{1}(z_{1}-r_{1}) \\
+			k_{2}(z_{2}-r_{2}) \\
+			k_{3}(z_{3}-r_{3})
+		\end{bmatrix},
+	\]
+	com ângulos fixos
+	\[
+		S = \begin{bmatrix}
+			\sin^{}{(270^{\circ })} & \sin^{}{30^{\circ }} & \sin^{}{(150^{\circ })} \\
+			\cos^{}{(270^{\circ })} & \cos^{}{30^{\circ }} & \cos^{}{(150^{\circ })} \\
+		\end{bmatrix} = \begin{bmatrix}
+			-1 & 1/2          & 1/2            \\
+			0  & \sqrt[]{3}/2 & - \sqrt[]{3}/2
+		\end{bmatrix},
+	\]
+	e tal que a soma das componentes se anula e que a soma \(z_{1}+z_{2}+z_{3}\) é a altura do triângulo:
+	\[
+		S\mu (z) = 0 \quad\&\quad 1^{t}z = h, \quad 0 = \begin{bmatrix}
+			0 \\
+			0
+		\end{bmatrix},\; 1 = \begin{bmatrix}
+			1 \\
+			1 \\
+			1
+		\end{bmatrix}.
+	\]
+
+	Uma das coisas que este sistema representa é sistemas químicos, e vamos ver como traduzir do jogo de quebra-cabeças para um jogo contínuo de equilíbrio! Pensamos nas reações químicas como um sistema de uma polia, com a reação indo completamente para a maior afinidade. Uma tabela que contém isso é a \textit{tabula affinitatum}, que explicou de forma algébrica ou mecânica pela primeira vez este fenômeno e permitiu fazer previsões, colocando em ordem desentendente elementos químicos que substituem uns aos outros em um sistema de reações; ao oferecer um agente mais reagente do que o menos, ela irá substituí-lo, resultando na reação química de substituição!
+	Assim, para cada classe de substâncias, bastava ordená-las por reatividade para fazer previsões, e foi um grande progresso, pois, antes disso, a química era basicamente um sistema de fábulas tentando codificar as leis de reações com historinhas, a chamada \textit{alquimia}\footnote{Essa ideia foi tão revolucionária que Geoffroy foi conhecido como Euclides da química!}. A frase que associam a esse momento é
+	\begin{quote}
+		``\textit{Non fingendum aut excogitandum, sed videndum quid natura ferat; aut faciat}'', ou ``Não obtido imaginando ou especulando, mas observando o que a natureza constrói ou efetivamente faz'',
+	\end{quote}
+	mas será que é esse o caso mesmo? Basta apenas observar a natureza, afinal?
+
+	Na aula de hoje, veremos como a química evoluiu de um jogo discreto para um jogo contínuo, e como ela foi se tornando mais e mais científica; a partir dessa história, veremos como usar esse exemplo para outros casos.
+	Em torno de 70 anos após Geoffroy, em 1786, Guyon de Morveau (outro francês) fez outro sistema axiomático que descrevia muito melhor quando reações químicas ocorriam ou não. De acordo com ele, da mesma forma como pessoas têm dois \textit{sexos} (não gêneros!), as reações químicas têm também, sendo eles \textit{ácidos} e \textit{bases}; a partir delas, as outras reações realizam-se por meio das junções entre ácidos e bases, e precisávamos medir a força de atração entre eles.
+	Como proposta, ele fez uma tabela com a disposição dessas afinidades, com as bases nas linhas e os ácidos nas colunas
+
+	\begin{table}[H]
+		\centering
+		\resizebox{\textwidth}{!}{
+			\begin{tabular}{ c c c c c c}
+				\hline
+				Bases / Ácidos                          & Vitriólico/sulfúrico & Nítrico & Muriático/clorídrico & Acético & Mefítico/carbônico \\
+				\hline
+				\hline
+				Barita (\(BaSO_4\))                     & 65                   & 62      & 36                   & 28      & 14                 \\
+				Potassa/lixívia                         & 62                   & 58      & 32                   & 26      & 9                  \\
+				Carbonato de Sódio (\(Na_{2}CO_3\))     & 58                   & 50      & 31                   & 25      & 8                  \\
+				Óxido de Cálcio/Cal (\(CaO\))           & 54                   & 44      & 20                   & 19      & 12                 \\
+				Amônia (\(NH_3\))                       & 46                   & 38      & 14                   & 20      & 4                  \\
+				Óxido de Magnésio/Magnesia (\(MgO\))    & 50                   & 40      & 16                   & 17      & 6                  \\
+				Óxido de Alumínio/Alumina (\(Al_2O_3\)) & 40                   & 36      & 10                   & 15      & 2                  \\
+				\hline
+			\end{tabular}}
+	\end{table}
+	Os inteiros tabulados apenas servem para indicar uma ordem, não tendo nenhum outro significado. O uso deles consiste em: ao misturar um ácido e uma base em solução aquosa, digamos muriato de barita e mefita de potássio, seria como se ambos fossem dois casaizinhos, que têm entre seus elementos diferentes atrações; aí, pode ser que a atração entre os casais cruzados seja maior que a atração entre os casais originais! Nesse exemplo, olhando as afinidades da tabela e somando, obtemos
+	\[
+		\substack{\text{Muriato de} \\ \text{Potássio}, \\ BaCl_{2}}\; \biggl\{\substack{\text{Ac. Muri.}\quad 32 \quad \text{Potassa} \\  36 \quad\quad \quad  + \quad \quad 9 (=45) \\ \text{Barita} \quad  14(=46) \quad \text{Ác. Mefit.}}\biggr\} \;\substack{\text{Mefita} \\ \text{de Potassa} \\ K_2CO_3},
+	\]
+	ou seja, a afinidade entre os casais trocados (Muriato de Potassa e Mefita de Barita), as \textit{quiescentes afinidades} são menores do que as \textit{afinidades divelentes}; então, na hora da reação, os casais serão trocados:
+
+	\begin{align*}
+		BaCl_{2} + & K_2CO_3  \rightarrow 2KCl + BaCO_3 \\
+		           & 36+9=45 < 46=32+14.
+	\end{align*}
+	Neste caso, podemos pensar num Sudoku de desigualdade, e ainda pode ser descrito de forma discreta, pois a perspectiva é de que as reações são tudo ou nada, ou seja, ocorrem a valores discretos.
+
+	Seguindo em frente, as pessoas começaram a perceber que, quando as afinidades quiescentes e divelentes diferem, haverá realmente a troca; porém, quando os números ficam muito próximos, a reação fica muito lenta! Se são muito próximos, ela passa até a ser incompleta...
+
+	Isto levou as pessoas a cogitarem se haveria algo faltando nesse quebra-cabeças, até que em torno de dois séculos depois, Guldberg e Waage (\textit{Reaction Networks in Equilibrium}, 1879) disseram que as forças de afinidades devem ser concebidas mais como um sistema de forças no contínuo, e que uma boa descrição delas seria justamente com o sistema de molinhas mostrado na aula passada!
+	Cada uma das afinidades age como uma mola no sistema fracionária descrevendo qual a fração da componente química que existe no sistema de reações, e a maior ou menor existência de componentes da reação é baseado na afinidade -- a componente da força correspondente -- ser maior ou menor para cada par de substâncias que pode ser formado no sistema de reações; além disso, o vetor de afinidades (seria o \(\mu \))
+	pode ser calculado com base em variáveis distintas, sendo descrito como ``Afinidade = \(\mu (c, z, P, T)\), onde \(\mu \) é a função de afinidade dependendo de constantes termodinâmicas e variáveis de estados (análoga às forças no sistema de molas), \(z\) é a rede gerada pelas frações molares, determinadas por um sistema linear S com matriz fixa dos \textit{coeficientes estequiométricos}, e \(c\) é um vetor de constantes termodinâmicas, similar à matriz de coeficientes que caracterizam o sistema de molas.
+
+	Assim, o prévio quebra-cabeças discreto passou a ser um contínuo, e as entalpias de formação passaram a ser variáveis contínuas! Por analogia com as forças mecânicas, as forças químicas tornam-se frações molares, e torna-se uma questão de quanto da fração molar vai estar presente, e as interações moleculares passam a ser concebidas como acontecendo num sentido, ou outro, de forma probabilística e reversível, formando um equilíbrio químico! Temos uma constante (as concentrações), mas, a nível microscópico, as moléculas estão indo de um lado para o outro, tendo um equilíbrio a nível macroscópico, mas não a nível microscópico.
+	A concepção de física com uso da termodinâmica e física estatística é, então, um equilíbrio macroscópico, mesmo levando em consideração que não é ao nível microscópico, caracterizando um equilíbrio dinâmico\footnote{Que termo curioso.}.
+\end{example}
+
+\begin{example}[Sistemas massa-mola]
+	De cara, temos ainda outro exemplo do equilíbrio dinâmico mencionado acima -- os sistemas de massas e molas acoplados, tanto transversalmente quando longitudinalmente.
+	Nele, aprendemos que eles têm dois modos normais de vibração, com ambos os objetos indo à mesma direção, o modo simétrico, ou ambos indo em direções opostas, o modo assimétrico.
+	Nesses sistemas, temos as características dos quebra-cabeças que mencionamos antes:
+	\begin{itemize}
+		\item \textbf{(De)Composição}: qualquer movimento livre desses sistemas pode ser decomposto em, e recomposto com, sobreposições dos seus modos normais (autossoluções);
+		\item \textbf{Estabilidade}: a energia armazenada em cada um dos modos normais é constante;
+		\item \textbf{Precisão}: as simetrias do sistemas impõe (autoformas) formas estritas invariantes e fatores de frequências que são oscilantes (autovalores).
+	\end{itemize}
+	Temos algumas características importantes que devem ser frisadas: a decomposição, no caso da massa-mola, pode ser feita para sistemas com N massas e N molas, e ela é \textit{estável}, o que quer dizer, neste exemplo, que tendo entendido qual é a amplitude de cada modo de vibração, ela permanecerá constante (na ausência de fricção), e é isso que permite a decomposição do sistema complicado de N massas-molas em várias partezinhas simples com os modos normais de vibração. Além disso, as frequências/características de cada um desses modos são precisamente determinados, correspondendo aos autovalores da matriz que descreve as interações entre massas e molas!
+
+	Estes sistemas de massa-mola, na física, são conhecidos como cordas discretas, e uma corda contínua seria um sistema com infinitas massas-molas, permitindo o estudo de oscilações em cordas contínuas por meio da decomposição em séries de Fourier e nas frequências harmônicas; é interessante que, com uma superposição de vibrações simples, assim como no caso discreto, podemos descrever o sistema complicado e contínuo!
+
+	Essa é, inclusive, a base para a teoria musical: como um quebra-cabeças de acordes e notas, as escalas e harmônicas são descritas com até mesmo as séries de Fourier para os modos normais, mas na realidade, reconhecemos estes invariantes de forma natural -- não foi necessário saber a teoria matemática para começarmos a tocar instrumentos musicais, mas descrevemos as percepções da música utilizando as propriedades essenciais das autossoluções\footnote{Tanto é que, na ornitologia, a precisão rítmica e tonal do canto de um pardal macho determina se ele vai chamar o interesse de uma pardal fêmea, num dueto supostamente muito bonito. No fim, a única diferença entre nós e os pardais é que eles cantam sem teorizar sobre seu cantar, mas nós sim.}.
+	Uma consequência muito importante disso é justamente que, assim como nomeamos as notas musicais, os intervalos e os acordes, podemos nomear as autossoluções e suas relações, caindo na questão das ontologias e constituindo as disciplinas. Assim, por nomear autossoluções, essa ontologias são úteis também pois descrevem os invariantes de cada uma das áreas.
+\end{example}
+
+Vale comentar que uma coisa comum em todos os exemplos é explicar, em cada um deles, por que certos nomes fazem sentido ou explicam as coisas, e isso cai no domínio da \textit{metafísica}. Uma boa teoria científica deve ser, além de descritiva, explicativa, fornecendo a capacidade de entender e manipular o que está acontecendo no mundo, fornecendo uma posição tanto para a ontologia quanto para a metafísica na ciência\footnote{Nota-se que existem vertentes filosóficas, como o positivismo, desejam banir a metafísica da ciência, afirmando que ela não deve fornecer explicações, apenas descrições do mundo.}.
+Aqui, uma descrição apenas busca dizer o que está acontecendo em um fenômeno, e uma explicação buscaria formas de entender o que certa teoria está dizendo e explicar aquela visão de mundo.
+
+\end{document}
