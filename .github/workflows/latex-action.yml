@@ -407,3 +407,25 @@ jobs:
           target: DifferentialForms/differential_forms.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+  build_latex_StatInference:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Compile LaTeX document Statistical Inference
+        uses: xu-cheng/latex-action@v4
+        with:
+          work_in_root_file_dir: true
+          root_file: StatisticalInference/statistical_inference.tex
+      - name: Upload Statistical Inference file
+        uses: actions/upload-artifact@v4
+        with:
+          name: Stastistical Inference
+          path: StatisticalInference/statistical_inference.tex
+          if-no-files-found: error
+      - name: Upload Statistical Inference to Google Drive
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+        with:
+          target: StastisticalInference/statistical_inference.pdf
+          credentials: ${{ secrets.DRIVESHHHH }}
+          parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
