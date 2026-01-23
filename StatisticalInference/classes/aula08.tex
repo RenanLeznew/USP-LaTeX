@@ -1,0 +1,87 @@
+\documentclass[../statistical_inference.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 22 de Janeiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Explicações Metafísicas e Teleológicas.
+\end{itemize}
+\subsection{Explicações Metafísicas e Teleológicas}
+Conforme estávamos estudando, uma boa lei científica tem quatro características essenciais:
+\begin{itemize}
+	\item \textbf{Invariância:} é preciso expressar relações invariantes, estáveis nas observações, como ``para cada ângulo \(\theta_1\in [0, \pi/2]\), vale que \(\sin^{}{(\theta_1)}/\sin^{}{(\theta_2)}=n_2/n_1\)'';
+	\item \textbf{Precisão (sharpness):} é preciso ter uma relação de igualdade PRECISA, como normalmente indicado pelo símbolo ``='' ;
+	\item \textbf{Estabilidade:} mesmo considerando as imperfeições, erros em medida, etc, uma pessoa consegue obter as relações acima com boa acurácia e construir sistemas reais baseados nelas.
+	\item \textbf{Separabilidade (Ortogonalidade) e Composicionalidade:} os sistemas analisados devem poder ser separados e recompostos em sistemas complexos conforme a teoria avança, seguindo regras de composição estabelecidas e operacionalizáveis, como as regras de composição Kepleriana para o telescópio: ``Cada meio de propagação tem seu índice refratário individual, que podem ser combinados segundo a lei
+	      \[
+		      \frac{\sin^{}{(\theta_i)}}{\sin^{}{(\theta_{j})}} = \frac{n_j}{n_i}''
+	      \];
+\end{itemize}
+Além disso, começamos a explorar o que acontece no ciclo de produção de uma teoria científica, como mostrado pelo diagrama de processos
+
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em}
+		]
+
+		\node(teo) at (-6, 5){Teórico};
+		\node(mf) at (-6,  3){\(\substack{\text{Formalização} \\ \text{Matemática}}\)};
+		\node(si) at (-6,  0){\(\substack{\text{Interpretação} \\ \text{Especulativa}}\)};
+		\node(sm) at (-6, -3){\(\substack{\text{Modelagem} \\ \text{Estatística}}\)};
+		\node(ps) at (-6, -5){Óptica};
+
+		\node(mp) at (-2,  5){Metafísico};
+		\node(ce) at (-2,  3){\(\substack{\text{Explicação} \\ \text{Causal}}\)};
+		\node(ev) at (-2,  0){\(\substack{\text{Leis e Regras} \\ \text{Precisas}}\)};
+		\node(da) at (-2, -3){\(\substack{\text{Processamento de} \\ \text{Dados}}\)};
+		\node(op) at (-2, -5){Operacional};
+
+		\node(ex) at (2,  5){Experimental};
+		\node(hf) at (2,  3){\(\substack{\text{Formulação de} \\ \text{Hipótese}}\)};
+		\node(ed) at (2,  0){\(\substack{\text{Desenho da Testagem} \\ \text{Empírica}}\)};
+		\node(ti) at (2, -3){\(\substack{\text{Execução do} \\ \text{Experimento}}\)};
+		\node(ss) at (2, -5){Implementação};
+
+		\draw[Arrow](sm)--(si);
+		\draw[Arrow](si)--(mf);
+		\draw[Arrow](mf)--(ce);
+		\draw[Arrow](ce)--(hf);
+		\draw[Arrow](hf)--(ed);
+		\draw[Arrow](ed)--(ti);
+		\draw[Arrow](ti)--(da);
+		\draw[Arrow](da)--(sm);
+
+	\end{tikzpicture}
+\end{center}
+
+Agora, até mesmo a fim de entender melhor uma das partes mais elusivas do diagrama, vamos ver exemplos de teorias metafísicas para melhor compreender como elas aparecem na ciência.
+Utilizaremos o exemplo da óptica ainda, explorando o aspecto metafísico da lei de Snell-Descartes como melhoria à lei de Kepler (a melhoria foi o uso dos senos dos ângulos, deixando de ser uma relação linear).
+
+A explicação de Descartes foi baseada no jogo de tênis, que tinha acabado de ser inventado: quando uma bola de tênis é arremessada no chão, se a velocidade tangencial/normal após ela acertar o chão é igual/oposta à que ela tinha antes (a velocidade vertical muda, a horizontal permanece não alterada), o resultado é a reflexão da bolinha na superfície.
+Por outro lado, quando a componente vertical aumenta ou diminui, mas a horizontal mantém-se a mesma, haveria uma refração quando os meios trocam, de acordo com índices de refração \(n_1\) e \(n_2\).
+Com este modelo, são obtidas as leis relacionando ângulos com velocidades e senos:
+\[
+	\frac{v_2}{v_1} = \frac{n_1}{n_2} = \frac{\sin^{}{(\theta_2)}}{\sin^{}{(\theta_1)}}
+\]
+e, quando \(\theta \) é um ângulo pequeno (muito menor que 1 radiano), a aproximação paraxial devolve o modelo de Kepler, pois \(\sin^{}{(\theta )}\approx \theta \).
+A comprovação do modelo acima iria requerer a medição da velocidade da luz em diferentes meios, mas demoram séculos até que isso possa ser feito.
+
+Uns 25 anos depois de Descartes dar sua explicação, o francês Férmat deu outra explicação metafísica para explicar por que a luz supostamente concordaria com a versão de Déscartes, seguindo não apenas uma natureza de explicação diferente, como fornecendo previsões diferentes!
+A explicação de Férmat passa do princípio de considerar dois meios e um raio luminoso saindo da esquerda para a direita, indo do ponto A até B; ao invés de imaginar um jogo tênis, imagine que estamos na praia, que a interface dos dois meios é a separação entre a água e a areia, o ponto A é um salva-vidas e o ponto B é um turista se afogando.
+Uma possível trajetória que o salva-vidas poderia fazer seria um linha reta até estar paralelo ao ponto B, depois seguir nadando; porém, como humanos, somos muito melhor andando em terra do que nadando em água, então seria mais rápido ele seguir na areia, chegar ao ponto paralelo a B na terra e nadar, só que isso demoraria um pouco mais do que o necessário ainda, pois minimiza apenas a trajetória.
+Então, ele tem que alterar o ponto de entrada dele para conseguir otimizar o tempo até chegar em B, entrando em um ângulo \(\theta_{2}\) em relação ao mar e \(\theta_{1}\) em relação à terra, correspondendo a uma distância x, e partindo da hipótese due que a velocidade máxima do salva-vidas é c, transformando-se em \(v_t = c/n_1\) quando correndo em terra e \(v_a = c/n_2\) quando nadando em água!
+Logo, após fazer as contas, obtém-se
+\[
+	n_1 \sin^{}{(\theta_1)} = n_2 \sin^{}{(\theta_2)},
+\]
+explicando de forma teleológica que a luz escolhe o caminho que minimiza o tempo de trajetória.
+No fim, ambas as leis explicavam corretamente a teoria de Descartes, mas com previsões diferentes, e Foucault conseguiu mostrar depois que a velocidade da luz é maior quanto mais rarefeito o meio pelo qual ela passa for.
+
+Vale mencionar que, durante muito tempo, algumas pessoas depreciaram as explicações teleológicas ou finais, dando favor às eficientes, mas isso é errado, pois não foi assim que a ciência se desenvolveu! Na física mesmo, muitas leis são feitas minimizando tempo, ação, etc, e essas são todas explicações voltadas às causas finais, enquanto que a formulação de Newton é mais na parte eficiente.
+Ambas as formas resultam nos mesmos aspectos e resultados, mas elas são fundamentalmente diferentes, e o que se colhe delas muda! Da mesma forma que é muito importante pensar na forma de Newton, a teleológica também tem papel fundamental, o poder da mecânica analítica só pode ser totalmente colhido quando há o pensamento teleológico -- que caminho a luz quer fazer para minimizar o tempo de trânsito? Qual a partícula quer fazer para minimizar a ação?
+As explicações teleológicas são tão ou mais úteis quanto as Newtoniana, e nenhuma delas pode ser descartada\footnote{Nem o contexto histórico onde cada processo acontece -- entendê-lo é essencial para compreender os pensamentos e ideias da época.}! É importante analisar pela perspectiva Lagrangiana, Newtoniana e Hamiltoniana para cobrir o problema todo!!
+
+\end{document}
