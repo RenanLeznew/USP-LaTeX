@@ -1,0 +1,52 @@
+\documentclass[../statistical_inference.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 27 de Janeiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Fundações Lógicas da Estatística e Causalidade.
+\end{itemize}
+\subsection{Fundações Lógicas da Estatística e Causalidade}
+Na aula passada, vimos a forma que Pearson desenvolveu sua filosofia anti Spinozianas, desenvolvendo uma linguagem de inferência estatística como resultado final, obtendo altos níveis de influência no meio, mesmo que tenha sido de forma meio sorrateira, pois as inferências dele foram desenvolvidas como forma de apoiar sua filosofia, então comprar as ideias estatísticas dele, no fim, acaba sendo o mesmo que comprar as ideias filosóficas dele.
+
+Baseados na ideia de não acreditar cegamente na filosofia de Pearson, vamos tratar cuidadosamente de entender mais do desenvolvimento da estatística para Pearson, além das bases filosóficas dela, e navegar mais a fundo em outros desenvolvimentos.
+Incluso nisso, vamos mostrar como as ideias iniciais dos primeiros autores estavam seguindo exatamente a trilha dos três princípios do Spinoza, começando pelo Thomas Bayes, que iniciou seu artigo da forma
+\begin{quotation}
+	``The purpose, is to shew what reason we have for believing that there are in the costitution of things, fixed laws according to which events happen, and that, therefore, the frame of the world must be the effect of the wisdom and power of an intelligent cause; and thus to confirm the argument taken from final causes for the existence of the Deity...
+
+	It will be easy to see that the problem solved in this essay is more directly applicable to this purpose; for it shews us, with distinctness and precision, in every case of any particular order or recurrency of events, what reason there is to think that such recurrency or order is derived from stable causes or regulations in nature, and not from any of the irregularities of chance.''
+	Rev. Thomas Bayes, por Rev. Richard Price (1763). \textit{An essay towards solving a problem in the doctrine of chances}. \textit{Phil}. \textit{Trans}. \textit{Roy}. \textit{Soc}. \textit{London}, 53, 370-418.
+\end{quotation}
+
+Em seguida, o Pierre-Simon de Laplace, o Marquês de Laplace, avança bastante a tecnologia de inferência de estatística iniciada por Bayes, que diz
+\begin{quotation}
+	``I am particularly concerned to determine the probability of causes and results [la probabilité des résultats et des causes], as exhibited in events that occur in large numbers, and to investigate the laws acccrding to which that probability approaches a limit in proportion to the repetitions of events.
+
+		[...] the investigation is one that deserves the attention of philosophers in showing how in the final analysis there is a regularity underlying the very things that seem to us to pertain entirely to chance, and in unveiling the hidden but constant causes on which that regularity depends [dévoilant les causes cacheés, mais constantes, dont cette régularité dépend].'' Pierre-Simon, marquis de Laplace (1811, OCv12, 360-361).
+\end{quotation}
+A versão acima já é um tanto mais sofisticada do que Bayes começou, afinal Laplace já tinha conhecimento da convergência assintótica, por exemplo, que mostram que se você tem uma probabilidade fixa para um evento e repetir ele várias vezes, as frequências com que eles ocorrerão irá convergir para as probabilidades com que estão sendo causadas, afinal o cálculo estava em desenvolvimento na época que ele tratou desses assuntos.
+
+O próximo líder desses avanços foi o George Boole, em seu tratado ``\textit{Laws of Thought}'' (1854); mais especificamente, no vigésimo capítulo da obra, ele propõe dois problemas de inestimável importância:
+\begin{quotation}
+	``So to apprehend in all particular instances the relation of cause and effect... Is the final object of science .
+
+	From the probabilities of causes assigned à priori, or given by experience, and their respective probabilities of association with an effect contemplated, it may be requihred to determine the probability of that effect [Problem X]
+
+	On the other hand, it may be required to determine the probability of a particular cause, or of some particular connexion among a system of causes, from observed effects, and the known tendencies of the said causes, singly or in connexion, to the production of such effects. [Problem IX].'' Boole, \textit{Laws of Thought}.
+\end{quotation}
+Em suma, ele soltou dois problemas: o \textit{problema direto}, ou \textit{Problema X}, que é o problema de, dada uma lei probabilística, como calculamos certas coisas pertinentes aos efeitos que esta lei probabilística leva; por exemplo, sabendo \textit{a pirori} que uma certa moeda tem probabilidade 2/3 de cair cara e 1/3 de cair coroa e eu arremessar ela 100 vezes, qual a probabilidade da obter certo número de caras ou certo número de coroas?
+O outro problema é o mesmo que interessou Bayes, que seria o \textit{problema IX}: dada uma observação dos efeitos, podemos inferir alguma coisa a respeito das causas? Se eu lanço uma moeda desconhecida 100 vezes e observo 30 caras, podemos concluir algo sobre a lei causal por trás dela?
+Em outros termos, o problema direto seria \(\mathbb{P}(\mathrm{Dados} | \text{Hipótese})\), e o segundo seria \(\mathbb{P}(\text{Hipótese} | \text{Dados})\).
+
+No fim das contas, o problema X é um tanto mais fácil do que o problema IX, afinal já sabemos o Teorema Central do Limite, levando à distribuição normal, altamente conhecida, e fazer uso das formas de resolver problemas desse tipo; porém, o problema IX requer a computação de várias integrais difíceis, afirmar uma distribuição \textit{a priori} que muitas vezes pode requerir escolher um ponto qualquer do espaço paramétrico, caso não sabemos nada antes, etc (Boole afirma, ainda, que não é tão fácil assim escolher um \textit{a priori}, e tem formas de escolher com parcimônia).
+Pra piorar, o Pearson fala que resolver o problema IX é perda de tempo no sentido matemático e filosófico, distorcendo a fala de Boole! Ele efetivamente rejeita a análise causal e as probabilidades inversas/probabilidades de causas, e isso se tornou o padrão até os dias atuais, basicamente descartando metade ou mais da informação que seria possível obter com um conjunto de dados:
+\begin{quotation}
+	``Statistical workers cannot be too often reminded that there is no validity in a mathematical theory pure and simple. Bayes's Theorem must be based on the experience that where we are à priori in ignorance all values are equally likely to ocuur.
+
+		[...] Indiscriminate use of Bayes' Theorem is to be deprecated. It has unfortunately benn made into a fetish by certain purely mathematical writers on the theory of probability, who have not adequately appreciated the limits of Edgeworth's justification of the theorem by appeal to general experience.'' Soper, Pearson ea (1917, p.359), resposta a Fisher (1912). \textit{On an absolute criterion for fitting frequency curves.}
+\end{quotation}
+
+Antes de aprofundarmos no desenvolvimento estatístico das ideias de Pearson, vamos estar dando uma olhada no seu desenvolvimento científico, pois ele trabalhou bastante na física dos fluídos e na dinâmica do Éter, concluindo que duas esferas imersas em um fluído incompressível, e que pulsa (muda de volume) de forma regular, exercem um no outro uma atração (pela mediação do fluído), determinada pela lei dos quadrados inversos, caso as pulsações sejam concordantes, e (similarmente) exercem repulsão se as fases de pulsações diferem por meio período.
+
+Essa aula toda fica como uma ode à importância de saber a filosofia por trás de uma técnica, pois seguir ela cegamente torna a pessoa cega aos problemas que aconteceram em seu desenvolvimento: adotar as técnicas de Pearson cegamente leva a ignorar uma metade inteira das perguntas que surgem na área de estatística.
+
+\end{document}
