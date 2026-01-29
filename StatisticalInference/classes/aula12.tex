@@ -1,0 +1,34 @@
+\documentclass[../statistical_inference.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 29 de Janeiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Conexões probabilísticas de Causas e Efeitos.
+\end{itemize}
+\subsection{Conexões Probabilísticas de Causas e Efeitos}
+Relembre-se de dois problemas particulares que George Boole propôs em seu livro:
+\begin{quotation}
+	``So to apprehend in all particular instances the relation of cause and effect... Is the final object of science .
+
+	From the probabilities of causes assigned à priori, or given by experience, and their respective probabilities of association with an effect contemplated, it may be requihred to determine the probability of that effect [Problem X]
+
+	On the other hand, it may be required to determine the probability of a particular cause, or of some particular connexion among a system of causes, from observed effects, and the known tendencies of the said causes, singly or in connexion, to the production of such effects. [Problem IX].'' Boole, \textit{Laws of Thought}.
+\end{quotation}
+Como vimos antes, o problema X é bem mais fácil de responder do que o problema IX, tanto é que esse problema das probabilidades inversas levou ao nascimento da estatística.
+
+O Boole em si nunca disse que o problema IX é mal enunciado, apenas que é mais difícil -- conceitualmente, o processo de aprendizagem que levam às estimativas do parâmetro \(\theta \) é a Regra de Bayes, que será vista melhor na aula passada, e requer ou admissão da completa ignorância e a modelagem dela em um parâmetro a priori (por exemplo com a distribuição uniforme de Laplace, onde todos os pontos têm a mesma probabilidade de aparecerem, ou com uma função integrável que retrate razoavelmente bem os positiveis valores), ou usar conhecimentos previamente obtidos.
+Além da questão conceitual, tem o problema de calcular uma constante de normalização com o cálculo de uma integral, mas muitas vezes ela pode ser muito difícil, até mesmo quase impossíveis de calcular! Aí, se não for possível calcular a integral, o problema permanece não resolvido.
+
+Foi visto, também, que Pearson distorceu as ideias de Boole para postulá-lo como um problema ruim e que a estatística deveria só olhar para o problema X, que aparece na sua questão do Spinozismo Inverso e a aversão aos estudos causais, tanto é que ele encontrou e desenvolveu ferramentas para lidar com o problema X, e esse é nosso tópico.
+A grande sacada dele para resolver o problema X foi parecido com o exemplo que demos quando ele foi apresentado: no caso da moedinha, os problemas diretos típicos são a estimativa de, se o valor do parâmetro for P entre 0 e 1 para a probabilidade de sair cara, quantas vezes vamos ter, num lote de 100 lançamentos, exatamente 78 caras? Similarmente, se o parâmetro da distribuição for P=0.7, quantas vezes vamos ter entre 60 e 80 caras no lote? Ou, ainda, se para um dado valor de P, com que \textit{frequência} vou ter, no lote de 100 lançamentos, mais de 85 caras?
+
+Pearson notou que resolver esse problema de forma exata também levaria a integrais que são difíceis, mas tem um resultado de matemático que ele conhecia consistindo em, se temos uma variável aleatória X qualquer (no caso, a moeda cair cara ou coroa) e construir uma outra variável aleatória \(\overline{X}\) representando a média desta primeira (por exemplo, quanto vale a soma dos 100 resultados dividido pelo número de lançamentos), então a variável representando a média tem uma distribuição de probabilidade que é aproximadamente a normal, ou seja, é o Teorema do Limite Central; para todas as perguntas feitas acima, há uma reformulação em termos da variável \(\overline{X}\) que tem uma distribuição aproximadamente normal, e nem precisa ser 100 lançamentos, pode ser com menos e muitas vezes já vai ter uma aproximação muito boa!
+Assim, com este resultado, a maioria dos problemas do tipo X podem ser respondidos, e apesar de provavelmente envolver uma integral, vai ser uma já conhecida, como a normal, ou a qui-quadrado, ou a student-t.
+Desta forma, Pearson desenvolveu o método de fazer expansões assintóticas para expressar os valores dessas integrais, então basta uma pessoa tabular os valores para essas distribuições, escrever um livro e publicar para as outras pessoas poderem conferir os resultados, ou usar réguas de cálculo, sem ter que fazer as contas toda vez, e pronto.
+
+Com as dificuldades do problema IX e a falta de métodos de cálculo numérico (basicamente tinha só o método de aleatorização de Monte Carlo, que só pode ser feito de forma boa em um computador digital, então só me meados da década de 1940), ele realmente foi deixado de lado; à medida que as técnicas computacionais foram melhorando e barateando, a estatística Bayesiana, outrora muito mais teórica, foi se tornando mais prática, pois as questões computacionais do problema IX começaram a ser ultrapassados, inclusive para resolver os métodos de Monte Carlo em computadores pessoais!
+Desse ponto em diante, a estatística Bayesiana saiu da sua caixinha escura e começou a aparecer no mundo científico e cotidiano, mostrando a importância essencial da parte tecnológica no diagrama de produção, tornando ideias outrora totalmente arbitrárias em realidades que avançam as áreas onde aparecem, e foi exatamente isso que aconteceu com a estatística Bayesiana, testagem de causalidade (que é uma questão muito relevante na década de 2020) e a capacidade de obter os dados\footnote{E quanto mais dados são obtidos, melhor tornam-se as estatística causais, ou que dependem de \textit{a priori}'s, ou até mesmo a frequentista com as amostras maiores.}.
+
+Observe, dessa discussão toda, que a matemática pura em si não pode inferir causalidade, ela precisa também da parte técnica: investigar relações de causalidade, ou até mesmo de associação, necessariamente é preciso fazer experimentos randomizados/aleatorizados, e as técnicas de randomização levam a toda uma outra parte de questões éticas científicas, que certamente iremos explorar adiante.
+
+\end{document}
