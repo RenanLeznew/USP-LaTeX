@@ -1,0 +1,74 @@
+\documentclass[../statistical_inference.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 03 de Fevereiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item Vantagens e modos de decisões aleatórias.
+\end{itemize}
+\subsection{Como Aleatorizar?}
+Na aula anterior, vimos um contexto histórico e cultural da aleatorização ao longo dos tempos, que serviu até mesmo como motivação de entender o motivo de lançar um processo de randomização, ilustrando situações nas quais é melhor utilizar um método aleatório do que usar uma forma determinística.
+Conforme vimos, dois dos textos mais antigos da humanidade (a Ilíada e a Bíblia Hebraica) possuem em si processos de aleatorização, inclusive com a discussão do porquê de aleatorizar em alguma situação, sendo um dos momentos mais famosos onde isso aparece a escolha de um Argonauta para explorar uma terra desconhecida, prevenindo mágoas de escolhas determinadas.
+No final dela, começamos a entrar nas questões jurídicas da grécia antiga, onde cada Dikastes deveria ponderar independentemente e como isso se relaciona com a atualmente conhecida Lei dos Grandes Números (\textit{nunc pro trunc}).
+
+Hoje, continuaremos a explorar os motivos e começaremos os estudos de \textit{como} fazer randomizações! Utilizaremos outras civilizações para essa jornada, tal como os Hebreus, com um dos seus provérbios sendo
+\begin{quote}
+	``Jogar um dado coloca as brigas de julgamento para descansar e mantém os poderes essenciais separados'' -- Provérbios, 18:18.
+\end{quote}
+
+A primeira parte é meio direta, dizendo que a randomização provém um empate ou uma quebra na simetria, permitindo uma escolha discreta ser feita ao invés de uma combinação convexa, por exemplo nos casos distribuição de terras, ou ordem de serviços.
+A chave está na parte de manter poderes essenciais separados: considere o exemplo da figura usual da balança, com uma haste central e dois apoios suspensos à haste central usualmente simbolizando a justiça, inclusive! Imagine, então, se os poderes monetários pudessem afetar o peso de crimes na vida -- seria horrível! Daria pra pagar no PIX pelos pecados!!
+
+Essa metáfora ajuda a entender o que seria separar os poderes essenciais, como pondera o filósofo Niklas Luhmann e sua dediferenciação, o qual afirma que
+\begin{quote}
+	``Randomizações fornecem um caminho verificável ao acaso, que funciona como a chave para desacoplar e separar sistemas/poderes funcionalmente distintos e evitar influências espúrias entre eles''.
+\end{quote}
+Poderes financeiros deveriam ser distintos de poderes judiciais, ou religiosos, ou epistemológicos! Note que não há nada de errado com o diálogo entre os sistemas, ou que eles realmente acabem tendo algum tipo de influência, afial isso é totalmente natural; porém, essa influência não deve quebrar a independência um do outro -- um sistema econômico pode afetar a confirmação de uma lei, mas ninguém pode ir até o juiz e pagar pra ele de forma espúria, tampouco um juiz pode ir a uma banca de defesa e exigir legalmente que alguém seja aprovado ou reprovado.
+
+Essas ideias aparecem na estatística com um tipo de variável muito importante de ser considerada, as chamadas \textbf{variáveis de confusão}, que geram os \textbf{efeitos de confusão/confounding}, ilustrado muito bem pelo exemplo do Paradoxo de Lindley/Simpson:
+
+\begin{table}[H]
+	\centering
+	\caption{Paradoxo de Lindley/Simpson}
+	\begin{tabular}{c c c c c c}
+		\hline
+		Sexo      & T  & R  & NR & Total & R\%  \\
+		\hline
+		Todos     & T  & 20 & 20 & 40    & 50\% \\
+		Todos     & NT & 16 & 24 & 40    & 40\% \\
+		\hline
+		Masculino & T  & 18 & 12 & 30    & 60\% \\
+		Masculino & NT & 7  & 3  & 10    & 70\% \\
+		\hline
+		Feminino  & T  & 2  & 8  & 10    & 20\% \\
+		Feminino  & NT & 9  & 21 & 30    & 30\% \\
+		\hline
+	\end{tabular}
+\end{table}
+
+De 80 pacientes, 40 foram tratados (T) e 40 não foram (NT) com um tratamento novo; alguns pacientes recuperar (R), outros não (NR).
+A tabela de taxas de recuperação (R\%) indica que o tratamento foi bom para Todos, mas foi ruim para pessoas do sexo masculino (70\% com o NT contra 60\% com o T) e para pessoas do sexo feminino (20\% com o T e 30\% com o NT)! O que aconteceu?
+
+Aqui, a covariável sexo desagrega o grupo Total em dois subgrupos complementares, e ao traçar uma reta que encaixe esses pontos da melhor maneira possível, a melhor reta que passa pelos pontos, digamos, vermelhos que representam o grupo do sexo masculino está descendo, e a azul do grupo do sexo feminino também está descendo; no entanto, a melhor reta passando por todos os pontos está subindo, e isso é completamente possível por geometria!
+No caso do estudo de estatística em si, o que aconteceu foi que o médico responsável pelo estudo sabia que a doença afeta as mulheres de forma mais severa do que os homens; então, sendo ele um médico consciente e achando que o tratamento não era grande coisa, resolveu dar o tratamento novo para os homens, que já iam se recuperar de qualquer jeito, e reservou o tratamento velho para as mulheres.
+Daí, ele acabou gerando uma associação espúria entre a variável explicada R\% e a variável que estava explicando Sexo, causando o efeito de Confundimento e invertendo o efeito do estudo por conta dessa escolha do médico.
+Na verdade, houve um confundimento estatístico e um confundimento ético, pois ele realmente favoreceu o paciente, seguindo a moral do médico, mas ele atacou a ética científica com a busca pela ``verdade'', fazendo com que a intuição boa do médico afetasse na pesquisa.
+Por isso mesmo, estudos clínicos não são considerados práticas médicas, mas sim científicas, justamente para deixar bem claro que a ética científica está dominando nesse contexto -- \textbf{e isso deve ser feito claro para todos os participantes, mandatoriamente.}
+Cabe aqui, de forma muito boa, a frase
+\begin{quote}
+	``O Inferno é pavimentado por boas intenções'',
+\end{quote}
+afinal éticas podem e irão colidir nas práticas. Para quebrar essa associação, uma seleção ao acaso deve ser feito, acabando com a conexão espúria.
+
+Outro caso onde isso ocorre é do Gluconato de zinco: um estudo cego requer um placebo com as mesmas características que a droga em teste, em cor, gosto, cheiro, consistência e apresentação; uma dessas substâncias que foi encontrada é o gluconato de zinco, que não faz mal, mas deixa um gosto muito ruim.
+Nisso, para citar algumas pessoas,
+\begin{quote}
+	``Qualquer coisa de gosto tão ruim e que fica na boca tanto tempo como o gosto de zinco tem que ser um bom remédio!'' -- Desbiens (2000), Farr e Gwaltney (1987).
+\end{quote}
+Então, dividiram os grupos entre um pessoal que recebeu o gluconato de zinco e outro que recebeu o remédio em si; aí, o laboratório foi fazer um outro estudo para ver se um remédio funcionava, e o responsável teria que encontrar um placebo com gosto e semelhança ao segundo remédio, só que ele foi meio preguiçoso e pegou o placebo do primeiro.
+No entanto, o segundo remédio não tinha gosto de nada, enquanto que o placebo tinha o gosto horrível; consequentemente, quando os pacientes, bichos danados, conversaram entre si, eles chegaram à conclusão de que um grupo estava tomando um pozinho sem gosto, enquanto outro estava tomando um pozinho com gosto amargo, e entrou em ação o dito popular acima! Achavam que o placebo era o remédio e inverteram o negócio!!
+O efeito psicológico de achar que estavam tomando o remédio foi muito maior do que o efeito do remédio, e a conclusão do estudo foi que o placebo era MUITO melhor do que o remédio para tratar o que estavam testando.
+
+Aqui regras e protocolos de um bom experimento devem levar em conta efeitos de segunda ordem ou ordem superior, tanto os indesejados quanto os desejados, pois eles geram importantes circuitos viciosos ou virtuosos.
+
+
+\end{document}
