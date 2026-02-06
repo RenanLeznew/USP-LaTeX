@@ -1,0 +1,118 @@
+\documentclass[../statistical_inference.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 05 de Fevereiro, 2025}
+\subsection{Motivações}
+\begin{itemize}
+	\item A Medida de Evidência
+\end{itemize}
+\subsection{e-valor: Propriedades Lógicas e Consequências Filosóficas}
+Como tópico final, olharemos para as propriedades lógicas e filosóficas na estatística, apesar dessas duas áreas normalmente olharem para o mesmo problema com soluções diferentes e sem se conversarem, talvez por conta das propriedades lógicas dos testes estatísticos desenvolvidos previamente pela estatística erem ruins.
+O último artigo que veremos tem como proposta encontrar uma conversa entre as duas coisas, ou seja, uma solução adequada de acordo com critérios de funcionalidade estatística e que os tests de hipótese derivados tenham boas propriedades lógicas.
+
+Apresentaremos, então, a medida conhecida como e-valor, definindo-a como uma forma de medir significância estatística, seguido de uma análise de suas propriedades lógicas e o cálculo composicional para valores de verdade: se tenho uma nota para hipótese A e outra para a hipótese B, qual é o e-valor de ``A E B'', ou de ``A OU B'', etc -- se formar hipóteses compostas a partir de simples, como calculamos o e-valor delas?
+Depois, olharemos para o (G)FBST, sigla para Teste de significância Completamente Bayesiano Generalizado (\textit{Generalized Full Bayesian Significance Test}), cujo objetivo é estar de acordo com o raciocínio da lógica modal, que é o jeito com o qual todas as línguas faladas são estruturadas, permitindo entendimento muito mais intuitivo.
+Tendo finalizado essas partes, estudaremos aplicações à ciência e tecnologia, junto às consequências filosóficas que, como veremos, estarão diretamente ligadas ao Construtivismo Cognitivo Objetivo apresentado nas aulas, à afirmação dos objetos ontológicos como tokens para autosoluções, e com capacidade de apoiar leis causais metafísica\footnote{O Pearson estaria surtando com isso já.}.
+
+O \textbf{e-valor}, também conhecido como \textbf{valor epistêmico da hipótese H dado o vetor de observações X}, denotado \(\mathrm{ev}(H | X)\), é uma medida de significância avaliando a hipótese H de acordo com o procedimento do GFBST:
+\begin{align*}
+	 & \square\; H, \text{ Aceitar a hipótese;}                                                     \\
+	 & \neg \diamond H, \text{ Rejeitar a hipótese (lê-se negação da possibilidade de H); e}        \\
+	 & \nabla H, \text{ Manter agnóstico (operador de contingência, pode ser aceita ou rejeitada)}.
+\end{align*}
+Veremos que ele está de acordo com propriedades matemáticas e estatísticas, especialmente com os princípios da inferência Bayesiana, incluindo o princípio da verossimilhança, que pode ser entendido como a propriedade de todo o processo de dar nota para uma hipótese necessariamente ter que ser uma função dos dados que estão sendo usados (se um agente externo falasse para você ``quero que você rejeite a hipótese'' mesmo se a conta dissesse o contrário, e você manipulasse para rejeitar, então não estaria seguindo o princípios da verossimilhança), a invariância (\(\chi , \Theta , H\)), afinal seria muito estranho se, ao fazer uma inferência utilizando peso em kg ou em \textit{pounds}, as decisões e a nota fossem diferentes, e a consistência assintótica, entendida como se uma hipótese for feita pensando que uma matriz de correlação, que num modelo bivariado vai ser positiva-definida e 2x2, como com peso e altura, e supormos que peso e altura não têm correlação (o valor de correlação é 0), a consistência diz que, à medida que mais dados forem observados (aumenta o N), a decisão tomada a respeito da hipótese irá, com probabilidade crescente, ser a decisão correta (converge para a decisão correta).
+
+O valor epistêmico obedece, também, as propriedades básicas de composicionalidade lógica que um processo de decisão deveria ter, diferente de muitas das alternativas! Além disso, ele permite lidar com hipóteses \textit{sharp/precisas} ou \textit{slack/grosseiras} sem dificuldades, tem uma série de vantagens computacionais, é uma medida robusta e confiável, com formulação simples e excelentes propriedades de modelagem.
+
+A forma de compor os modelos e hipóteses é utilizando um \textbf{formalismo lógico}, uma álgebra para obter valores-de-verdade de afirmações complexas a partir de suas partes elementares, especificamente um \textbf{cálculo de possibilidades baseado em probabilidades} para o caso do e-valor, seguindo uma lógica modal que, como dito antes, é natural e intuitiva para a interpretação humana, ao passo que violar essas regras trará o risco de desentendimento, desinformação ou erros de comunicação.
+Em um diagrama de modelos, o processo consiste em uma série de modelos estatísticos 1, 2, ..., k encadeados, por exemplo começando com um modelo de como a luz se comporta quando passa pela atmosfera da Terra, seguido de um sobre o que ocorre com a luz quando ela passa pela lente de um telescópio, depois um modelo estatístico para o que acontece num fotomultiplicador, depois um modelo que descreve o que acontece com os dados que passam pelo espectômetro, e todos obtidos com os instrumentos,
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw},
+			latent/.style = {ellipse, thick, draw, text centered},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node[latent](TL) at (-7,0){Origem};
+		\node[observed](M_11) at (-3, 3){\(W^{(1),\; s^{*(1,1)}}\)};
+		\node[observed](M_12) at (0, 3){\(W^{(2),\; s^{*(1,2)}}\)};
+		\node(dt5) at (2,3){\(\cdots\)};
+		\node[observed](M_13) at (4, 3){\(W^{(k),\; s^{*(1,k)}}\)};
+		\node[observed](M_21) at (-3, 1){\(W^{(1),\; s^{*(2,1)}}\)};
+		\node[observed](M_22) at (0, 1){\(W^{(2),\; s^{*(2,2)}}\)};
+		\node(dt6) at (2,1){\(\cdots\)};
+		\node[observed](M_23) at (4, 1){\(W^{(k),\; s^{*(2,k)}}\)};
+		\node(dt1) at (-3,0){\(\vdots\)};
+		\node(dt2) at (0,0){\(\vdots\)};
+		\node(dt3) at (2,0){\(\ddots\)};
+		\node(dt4) at (4,0){\(\vdots\)};
+		\node[observed](M_31) at (-3, -1){\(W^{(1),\; s^{*(q,1)}}\)};
+		\node[observed](M_32) at (0, -1){\(W^{(2),\; s^{*(q,2)}}\)};
+		\node(dt7) at (2,-1){\(\cdots\)};
+		\node[observed](M_33) at (4, -1){\(W^{(k),\; s^{*(q,k)}}\)};
+
+		\node[latent](snk) at (7, 0){Sink};
+
+		\draw[Arrow](TL)--node[midway, above] {}(M_11);
+		\draw[Arrow](TL)--node[midway, below] {}(M_21);
+		\draw[Arrow](TL)--node[midway, left] {}(M_31);
+
+		\draw[Arrow](M_11)--(M_12);
+		\draw[Arrow](M_12)--(dt5);
+		\draw[Arrow](dt5)--(M_13);
+
+		\draw[Arrow](M_21)--(M_22);
+		\draw[Arrow](M_22)--(dt6);
+		\draw[Arrow](dt6)--(M_23);
+
+		\draw[Arrow](M_31)--(M_32);
+		\draw[Arrow](M_32)--(dt7);
+		\draw[Arrow](dt7)--(M_33);
+
+		\draw[Arrow](M_13)--(snk);
+		\draw[Arrow](M_23)--(snk);
+		\draw[Arrow](M_33)--(snk);
+
+	\end{tikzpicture}
+\end{center}
+O diagrama representa k aparelhos e q hipóteses alternativas, valendo a hipótese 1, ou a 2, ou a q para a luz na atmosfera (1), para o telescópio (2), e assim adiante.
+Queremos, então, avaliar uma série de hipóteses que tem a seguinte forma: o que está acontecendo ou é corretamente modelado pela hipótese 1 no modelo 1, 2 no modelo 1, ...,  E k no modelo 1 (primeira linha), a hipótese 2 no modelo 1, 2 no modelo 2, ..., E k no modelo 2 (segunda linha), ou a hipótese 1 no modelo q, 2 no modelo q, ..., E k no modelo q (última linha).
+Isso é o que se chama \textbf{forma normal disjuntiva}, que é justamente essa ideia do OU, restringindo tudo a apenas um dos trenzinhos/linhas, que é a forma padrão de um lógico expressar uma hipótese; logo, gostaríamos de saber lidar em estatística com hipóteses complexas formuladas dessa mesma forma, e se formos capazes de fazer isso, o estatístico vai poder falar com o lógico sem complexos de inferioridade.
+Todavia, para a grande maioria dos modelos estatísticos e testes de hipótese por aí, isso é impossível: o p-valor mesmo, por exemplo, se for sabido para uma hipótese 1 e uma hipótese 2, não vai ser conhecido para as hipóteses ``1 E 2'', nem ``1 OU 2'' -- não existe uma álgebra de composição para hipóteses complexas a partir de simples para o p-valor!! O caso dele é exatamente o do diagrama acima!
+
+Em contrapartida, o segundo tipo de regra de composição é dentro de um único modelo: imagine que consideramos três hipóteses, A, B e C, e a hipótese composta ``A ou B ou C'', ou seja, podemos nos perguntar ``será que é possível que A seja verdadeiro, ou B seja verdadeiro, ou C seja verdadeiro?''; imagine que sabemos que a resposta é sim.
+A figura abaixo mostra, então, que uma conclusão desta situação é que uma das três situações deve acontecer -- se calcular a possibilidade de A, temos que concluir que ela é possível, ou então, ao calcular a de B, que ele é possível, ou então, que ao calcular a de C, então ele é possível! Parece natural e óbvio, mas não acontece com o p-valor!
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+
+		\node(T) at (0,1){\(\diamond C\)};
+		\node(BL) at (-2,-1){\(\diamond (A\cup C)\)};
+		\node(BR) at (2,-1){\(\diamond (B\cup C)\)};
+		\node(CE) at (0,-2) {};
+		\node(BBL) at (-5,-4){\(\diamond A\)};
+		\node(BBR) at (5,-4){\(\diamond B\)};
+		\node(CCE) at (0,-4){\(\diamond (A\cup B)\)};
+
+		\draw[dashed](T)--node[midway, above] {}(BL);
+		\draw[dashed](T)--node[midway, above] {}(BR);
+		\draw[dashed](BL)--node[midway, below] {}(CE);
+		\draw[dashed](BR)--node[midway, below] {}(CE);
+		\draw[blue, -Stealth](CE)--node[midway, right]{\(\diamond (A\cup B\cup C)\)} (CCE);
+		\draw[dashed](BL)--node[midway, above] {}(BBL);
+		\draw[dashed](BR)--node[midway, above] {}(BBR);
+		\draw[blue, -Stealth](CCE)--(BBL);
+		\draw[dashed](CCE)--node[midway, above] {}(BBR);
+	\end{tikzpicture}
+\end{center}
+Como dá pra imaginar, os casos que saem da lógica comum levam a inúmeras contradições ou na teoria, ou para quem vai aplicar a teoria desenvolvida, deixando bem clara a importância da lógica do diagrama acima fazer sentido numa teoria de testagem de hipóteses.
+
+Recapitulando alguns pontos que vimos nas aulas passadas, vimos como o Bayes inventou o referencial básico que conhecemos como regra de Bayes ao se preocupar com como calcular as probabilidades das causas a partir de observações empíricas, normalmente formuladas como equações matemáticas e sendo o que chamamos de hipóteses precisas, além de como Karl Pearson jogou tudo isso fora ao formular sua estatística frequentista e a ciência por ela produzida como sendo anti-metafísica.
+Ao longo desse curso, retomamos uma ciência com visão para a metafísica, seguindo uma formalização matemática para os estudos metafísicos.
+A seguir, iremos dar ênfase a essa matemática mais pura para as bases necessárias do método que estamos desenvolvendo.
+\end{document}
