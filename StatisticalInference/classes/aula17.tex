@@ -1,0 +1,111 @@
+\documentclass[../statistical_inference.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 09 de Fevereiro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item A Definição do e-valor.
+\end{itemize}
+\subsection{O Ambiente da Estatística Paramétrica Bayesiana e o e-valor}
+
+Para as aulas que virão, a matemática irá aumentar sua presença entre nós; assim, faz-se necessária a introdução de algumas das notações que iremos nos deparar.
+Dada uma \textit{distribuição amostral,} denotada por \(p(x | \theta )\), n observações no espaço amostral \(\mathcal{X}\), indicadas pelo vetor \(X = [x^{(1)}, \dotsc , x^{(n)}]\), e uma densidade \textit{a priori} para o(s) parâmetro(s) \(\theta \in \Theta \), denotada por \(p_{0}(\theta )\) (caso não soubermos algo sobre a distribuição a priori, podemos usar a distribuição uniforme pedindo, por exemplo, \(p_{0}(\theta )=1\)), diremos que a \textbf{densidade posterior do parâmetro }\(\theta \), \(p_{n}(\theta | X)\), é a densidade resultante de passos de aprendizagem Bayesianos:
+\[
+	p_{n}(\theta ) = c_{n}^{-1}p_{0}(\theta )\prod\limits_{i=1}^{n} p(x^{(i)} | \theta ) = c_{n}^{-1}p_{0}(\theta )L(\theta |X),
+\]
+onde o símbolo \(\prod\limits_{}^{}\) denota o produto das observações com índice 1 (o de baixo) até as com índice n (o de cima), e \(L(\theta | X)\) é a \textbf{função de verossimilhança}, que consiste da distribuição \(p(\theta | X)\) com argumento \(\theta \) livre, ou seja, variando, e X fixo.
+
+Uma \textbf{hipótese H} consiste em afirmar que o valor real do parâmetro que gerou a observação X, denotado por \( \theta ^{0}\), pertence a uma região do espaço de parâmetros restrita pelas desigualdades (vetoriais) e igualdades da forma
+\[
+	H = \{\theta \in \Theta  | g(\theta )\leq 0 \quad\&\quad h(\theta )=0\},
+\]
+onde 0 é o vetor com todas as entradas valendo 0.
+
+Um exemplo disso é pensar, por exemplo, que como o ser humano é basicamente um saco d'água, então podemos modelar o peso como proporcional à altura ao cubo e queremos testar a veracidade dela; a hipótese H será, assim, uma região do espaço paramétrico, tal como o peso \(\mu_{2}\) sendo igual a \(c_{3}\mu_{1}^{3}\), ou, para um modelo polinomial, que \(\mu_{2} = c_{0}+c_1 \mu_{1} + c_2\mu_{1}^{2} + c_{3}\mu_{1}^{3}\), onde cada \(\mu_{i}\) é uma média observada, fazendo com que a região \((\mu_{1}, \mu_{2})\), a qual é um semiplano positivo, e o modelo polinomial seria uma linha dentro do quadrante descrita por um polinômio de grau três, descrevendo a hipótese por uma relação de igualdade com quatro constantes, \(c_{0}, c_{1}, c_{2}\) e \(c_{3}\).
+
+A \textbf{dimensão h da hipótese H} é a dimensão do espaço de parâmetros, digamos t, menos o número de restrições do tipo de igualdade, que será q; em outras palavras,
+\[
+	h = \mathrm{dim}(H) = t-q \leq t=\mathrm{dim}(\Theta ),
+\]
+também conhecida como \textbf{graus de liberdade}. A partir disso, se a dimensão da hipótese for menor que a dimensão do espaço de parâmetros, então é uma \textbf{hipótese precisa/afiada}; caso contrário, se \(h=t\), então H é uma \textbf{hipótese folgada}.
+
+No exemplo que demos, a hipótese reduziu a dimensão do semiplano positivo de dimensão 2 para uma linha, com dimensão 1, caracterizando-a como uma hipótese precisa!
+
+O que queremos, no fundo, é saber se acreditamos ou não na hipótese, que equivale a saber se o valor verdadeiro do parâmetro pertence ou não à região determinada.
+
+Em nosso modelo, vamos considerar a existência de uma \textbf{densidade de referência} \(r(\theta )\), que nada mais é do que a representação da falta de informação sobre o parâmetro \(\theta \), tal como densidade uniforme de Laplace, indicada por \(r(\theta ) \propto 1\) (qualquer ponto do espaço paramétrico é igual, basicamente), um \textit{a priori} invariante como o de Jeffreys, ou até uma densidade de entropia máxima!
+Geralmente, ao fazer modelagem estatística na prática, essa escolha faz pouca diferença, com todas as prioris padrão fazendo poucas diferenças nas conclusões; caso elas façam muita diferença, significa que sua priori praticamente livre afeta muito no seu resultado, então provavelmente sua amostra é pequena.
+Uma outra forma de entender a densidade de referência é como a representação da métrica de informação intrínseca do espaço de parâmetros, \(\mathrm{d}l^{2} = \mathrm{d}\theta^{t} G(\theta )\mathrm{d}\theta \), ou seja, \(r(\theta )=\sqrt[]{\det{(G(\theta ))}}\).
+
+Temos, também, uma \textbf{distribuição surpresa} \(s(\theta )\), dada pelo quociente entre a posterior e a densidade de referência:
+\[
+	s(\theta ) = \frac{p_{n}(\theta )}{r(\theta )}.
+\]
+Se tivesse definido a posteriori como o produto normalizado e a priori for  própria função de referência, sobra apenas a função de verossimilhança.
+Essa função surpresa deve ser considerada porque temos o requerimento de invariância, ou seja, que mudanças de coordenadas mantenham o resultado da inferência o mesmo -- medir o comprimento em metro ou em polegada não deve mudar a inferência!
+Temos a regra de transformação entre as coordenadas; por exemplo digamos que a mudança seja dada pelo difeomorfismo \(\varphi \), tal que
+\[
+	\tilde{s}(\omega ) = \frac{\tilde{p}_{n}(\omega )}{\tilde{r}(\omega )} = \frac{p_{n}(\varphi^{-1}(\omega )) | J(\omega) |}{r(\varphi^{-1}(\omega ))| J(\omega ) |}=s(\theta ),
+\]
+onde J é o jacobiano
+\[
+	J(\omega ) = \biggl[\frac{\partial^{}\theta }{\partial \omega ^{}}\biggr] = \biggl[\frac{\partial^{}\varphi^{-1}(\omega )}{\partial \omega ^{}}\biggr].
+\]
+
+No caso da densidade de \textit{a priori} ser igual à de referência, então, basta considerarmos a função de verossimilhança como mencionado, que seria basicamente uma medida do quanto acho verdadeiro o valor de \(\theta \); assim, a partir desse pensamento, faz sentido olharmos para o argumento \(\theta^{*}\) do ponto dentro da hipótese que maximiza a função de verossimilhança, que resulta no valor máximo (ou supremo) da função surpresa restrita à hipótese H, e \(s^{*}\) define-se como
+\[
+	s^{*} = \max\limits_{\theta \in H} s(\theta ).
+\]
+Com isso, diremos que um \textbf{ponto tangencial} é um parâmetro que devolve o valor máximo, isto é, \(\theta^{*}\) tal que \(s^{*} = s(\theta^{*})\).
+Se você duvida da hipótese intuitivamente, então você está suspeitando que há um valor \(\theta \) fora de H que seja um candidato melhor a ser o valor dela do que o outro \(\theta^{*}\), e os pontos que podem podemosser levados como mais valorosos ou meritórios do que o campeão da hipótese são os pontos do conjunto de maiores valores da função surpresa, ou seja,
+\[
+	\overline{T}(s^{*}) = \{\theta\in \Omega| s(\theta )>s^{*}\},
+\]
+onde \(T(v)\) é o menor corte-v fechado da função surpresa, i.e.,
+\[
+	T(v) = \{\theta \in \Omega \;|\; s(\theta )\leq v\} \quad\&\quad \overline{T}(v) = \{\theta \in \Omega | s(\theta )>v\},
+\]
+e o conjunto mencionado dos maiores valores da função surpresa é basicamente \(\overline{T}(v)\) para \(v = s^{*}\), conhecido como \textbf{conjunto tangencial}, porque a bordinha dele corresponde à projeção da linha de contorno da função surpresa que tangencia a hipótese H.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A diferença entre um máximo \(\mathrm{max}\) e um supremo \(\mathrm{sup}\) é que o supremo não precisa pertencer ao conjunto; por exemplo, para um intervalo \((0, 1)\), o supremo é \(1\), mas o máximo não existe: ele existiria se fosse o intervalo \((0,1]\) ou \([0,1]\), ou seja, se o ponto do supremo fosse parte do conjunto.
+\end{tcolorbox}
+
+\begin{def*}
+	Dado o contexto acima, definimos a \textbf{função verdade a nível v}, \(W(v)\), como a massa de probabilidade posterior que está abaixo de um nível v da função surpresa:
+	\[
+		W(v) = \int_{T(v)}^{} p_{n}(\theta ) \mathrm{d}\theta,
+	\]
+	sendo a sua complementar dada por \(\overline{W}(v) = 1-W(v)\), que dá o valor de evidência \textit{contra} a hipótese (função mentira!!), a massa de probabilidade acima de um nível v.
+
+	Por fim, o \textbf{valor epistêmico da hipótese H dadas as observações X}, denotado por \(\mathrm{ev}(H | X)\), é definido como a função verdade \(W(v)\) computada ao nível \(v=s^{*}\); similarmente, a \textbf{evidência dada pelos dados X contra a hipótese H} é o complemento \(\overline{\mathrm{ev}}(H | X)\) com massas de probabilidades
+	\[
+		\mathrm{ev}(H | X) = W(s^{*}),\quad \overline{\mathrm{ev}}(H | X) = \overline{W}(s^{*})=1-\mathrm{ev}(H | X). \; \square
+	\]
+\end{def*}
+
+Agora, vamos definir uma função de normalização do e-valor, fazendo com que ele se comporte de um jeito parecido ao p-valor assintoticamente:
+\begin{def*}
+	O \textbf{e-valor padronizado}, \(\mathrm{sev}(H|X)\) (Standardized e-value), de uma hipótese H com dimensão \(h=\mathrm{dim}(H) \leq t = \mathrm{dim}(\Theta )\), e seu complemente \(\overline{\mathrm{sev}}(H|X)\), estão definidas como
+	\[
+		\overline{\mathrm{sev}}(H | X) = \sigma (t, h, \mathrm{ev}(H | X)),\quad \mathrm{sev}(H | X) = 1-\overline{\mathrm{sev}}(H| X),
+	\]
+	onde \(\theta (t, h, c)\) é a \textbf{função de padronização com argumentos} \(t, h\in \mathcal{N}_{+}\) e \(c\in [0,1]\) é um valor entre 0 e 1 definido em termos da distribuição qui-quadrado acumulativa com d graus de liberdade, \(\chi^{2}(d, z)\), dada então por
+	\[
+		\chi^{2}(k, x) = \frac{\Gamma \biggl(\frac{k}{2}, \frac{x}{2}\biggr)}{\Gamma \biggl(\frac{k}{2}, \infty\biggr)} \quad\&\quad \sigma (t, h, c)=\chi ^{2}(t-h, (\chi^{2})^{-1}(t, c)). \; \square
+	\]
+\end{def*}
+Esse valor padronizado (e transformação monotônica) se comporta de forma que, caso a hipótese seja falsa, o valor padronizado tende a zero, e caso seja verdadeira, o valor padronizado tende a 1, ambos conforme o número de observações tendem a infinito, que é exatamente o comportamento do valor-p, e portanto pode substituí-lo em procedimentos estatísticos usuais!
+Vale notar que a convergência do e-valor é mais rápida do que a do p-valor, essencialmente precisando de menos observações do que sua contraparte p, justificando, em primeira instância, o uso do e-valor como medida do quanto acredito na hipótese e de sua significância.
+
+Veremos, a seguir, que além das propriedades assintóticas serem melhores, as propriedades lógicas também são muito melhores para o e-valor comparadas às do p-valor.
+\end{document}
