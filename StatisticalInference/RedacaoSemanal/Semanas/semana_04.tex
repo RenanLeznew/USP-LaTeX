@@ -1,0 +1,101 @@
+\documentclass[../redacoes.tex]{subfiles}
+\begin{document}
+\section{Redação 04}
+\subsection{Resumo da Semana}
+Ao longo da quarta semana de curso, exploramos o tema de aleatorização com uma abordagem similar às anteriores: analisamos por uma perspectiva cronológica, seguida da observação e formalização de suas versões contemporâneas.
+
+Com relação à perspectiva histórica, pelo que o professor falou, a aleatorização tem seu papel cultural e social presente desde milênios atrás, pois ela aparece na Bíblia hebraica e na Ilíada de Homero, deixando vário exemplos importantes de como aleatorizar, por exemplo, quem vai se arriscar em uma expedição dentro de um grupo coordenado (no caso da Ilíada, entre os Argonautas a bordo do Argos) sem que haja uma \textit{escolha}, prevenindo futuras mágoas contra o capitão do grupo ou o grupo todo!
+Os exemplos não param apenas em livros -- a democracia grega presente em Atenas é um dos grandes sistemas que usava aleatorização com um propósito de justiça: no tribunal ateniense, a jurisdição consistia de 501 ou mais jurados (pode até passar de 2000), chamados \(\delta \iota \kappa \eta\), que realizariam o voto de maneira independente, sem comunicarem entre si, e que eram escolhidos aleatoriamente!
+Na modernidade, temos alguns exemplos também, incluindo o sistema de juris dos EUA, escolhendo aleatoriamente quem fará parte da jurisdição dos processos legais, alguns processos do STF brasileiro, e a aleatorização de quem participará do alistamento militar americano para ir à guerra.
+
+Cientes da importância do processo de aleatorização, vimos duas possíveis formas de mediar a segurança em um processo desse tipo: a segurança por obscuridade, consistindo em esconder todas as etapas do processo, e a segurança por desenho/design, que você pode mostrar todo o processo e os mecanismos para quem for, mas ainda será seguro.
+O primeiro tem o grande problema de que, se uma pessoa que conhece o processo for descoberta e interrogado com insistência adequada, ela vai acabar cedendo e revelando informação do processo, acabando com todo o propósito; mais ainda, não é nem necessário ir tão longe, bastando pensar nos casos de vazamento de dados por alguém interno, onde uma pessoa simplesmente decide vazar as informações necessárias sem nem precisar de um incentivo externo!
+O segundo, por outro lado, faz uso de quatro princípios\footnote{Esqueci o nome de quem criou eles, minha mente pensa Kirchhoff, mas acho que confundi.} apresentados em sala para uma boa aleatorização -- a traçabilidade, a flexibilidade, a eficácia e a segurança verificável! Eles permitem que até mesmo quem é de fora e não entende os processos internos por trás, que deixa bem evidente a importância disso para um processo legal, pois permitiria a população geral entender que, realmente, quem participa da tribunal foi escolhido de forma aleatória e imparcial.
+O professor Stern desenvolveu, com um grupo, um sistema desses, mas infelizmente ele é bom de mais para ser implementado, e o sistema legal recusou a oferta incrível.
+
+Quanto ao motivo de fazer a aleatorização, além dos que já foram citados, ele é imprescindível na pesquisa científica, conforme mostrado pelo paradoxo de Simpsons, onde a falta da randomização pode levar a amostras ou experimentações enviesadas e que, na verdade, invertem o efeito de alguma variável independente numa variável dependente, um tipo de variável que adequadamente leva o nome de variável de confusão -- no exemplo quase engraçado da aula, um remédio pode ter um efeito no grupo onde todos estão juntos, mas ter o efeito inverso no grupo do sexo masculino E no grupo do sexo feminino!
+
+\subsection{Uma (tentativa) de Explicar Aleatorização com Categorias}
+Conforme o título anuncia, essa seção vai ser uma tentativa de explicar como a aleatorização aparece em categorias; apesar do nome, não é uma tentativa no sentido de inovador, afinal essa área está em desenvolvimento desde as origens da teoria! De fato, para citar uma frase do Lawvere,
+\begin{quotation}
+	``The possibility of an intrinsic metric for gauging the accuracy of statistical decisions was realized much later in the doctoral thesis of my student X. Q. Meng, based on my 1973 Milan paper concerning the closed structure of the intrinsic metric on convex sets.
+
+	Apart form the completion of the mathematical stucture mentioned in the above two paragraphs, what interests me greatly is the question of why category theory is so completely unused by statisticans during the last 50 years. There are surprising cojectures.'' -- Lawvere, 2020.
+\end{quotation}
+
+Com o alerta acima, o processo de imbuir uma categoria com uma noção de aleatoriedade ou de probabilidade faz uso de um tipo de estrutura que aparece na categoria de categorias, chamada \textbf{mônada}, palavra grega \(\mu o \nu \alpha \varsigma\) que pode ser concebida simples, e derivada para mônada como \textit{substância simples}\footnote{Leibniz tem uma filosofia toda com esse conceito, acredito que o termo tenha sido emprestado, mas descreve muito bem a ideia categórica.}, que é exatamente a ideia por trás de uma mônada categórica: ela é uma generalização da adição de \textit{substância/estrutura} a um conjunto.
+Quando temos um conjunto normal, podemos adicionar operações algébricas a ele e transformá-lo em um espaço vetorial, um anel, ou um grupo, e podemos adicionar uma estrutura de \(\sigma-\)álgebra a ele, tornando-o um espaço mensurável, no qual podemos definir probabilidades.
+A partir dessa ideia, surgem as mônadas, que consistem em funtores de categorias equipadas com uma operação binária associativa e com unidade (pega dois objetos, tem alguma operação cuja ordem de execução não importa e tem um objeto que funciona como o 1 na multiplicação) e esse funtor volta para a mesma categoria (\textit{endo}funtor, da palavra em latim \textit{endo} para ``contido, interno''), e como resultado desse funtor, surge alguma estrutura na categoria -- é basicamente o processo de adicionar substância a um conjunto, colocando uma estrutura algébrica ou de medida nele, mas para o contexto de categorias.
+
+Partindo da brevíssima introdução às mônadas, a ideia básica de introduzir uma noção de probabilidade e de aleatoriedade em uma categoria é que as mônadas desse tipo formariam, como estrutura, o espaço de elementos aleatórios ou as leis que os regem, associando a cada objeto C um outro objeto PC consistindo das ``leis de resultados aleatórios em C'', que é, por exemplo, considerar C como conjuntos normais, PC como as medidas de probabilidades definidas sobre ele, e uma estrutura extra sendo a estrutura de \(\sigma-\)álgebra nos mapas de valoração; assim, se C é o conjunto \(\{\text{Cara}, \text{Coroa}\}\) de possibilidades de uma jogada de moeda, o conjunto \(PC\) contém, por exemplo, a distribuição que dá a probabilidade de \(1/2\) para cada possibilidade, ou seja, contém a combinação
+\[
+	\frac{1}{2}\text{cara} + \frac{1}{2}\text{coroa},
+\]
+e assim vai acumulando os objetos dentro de PC. O termo formal para isso é que PC pode ser visto como o ``espaço das combinações convexas formais generalizadas'', onde uma combinação convexa é um termo derivado de espaços convexos (espaços que prendem qualquer combinação de elementos -- é impossível uma combinação de elementos de um espaço convexo ser um elemento de fora dele).
+
+Conforme fora introduzido, as mônadas têm uma noção de binário para a combinação de dois elementos do espaço sobre a qual foram definidas, de unidade, e de multiplicação; entender onde e como eles aparecem para as mônadas de probabilidades é a chave para compreender como (e por que) essa é a generalização esperada, então esse é o próximo passo natural dessa redação.
+Quando trabalhamos em probabilidade, existem os resultados que possuem probabilidade 0 ou 1, caracterizando-os como determinísticos -- a possibilidade com certeza acontece, ou com certeza não acontece! A distribuição de probabilidade que codifica isso é conhecida como delta de Dirac, e, curiosamente, essa variável aleatória pode ser vista como uma variável aleatória determinística, pois ela vale 100\% quando alguma coisa vai acontecer, e 0\% quando não vai.
+Essencialmente, então, ela não muda um resultado de uma variável aleatória, afinal os pontos onde ela iria acontecer vão continuar acontecendo, e os pontos nos quais ela não iria acontecer continuarão sem acontecer; logo, por essa lógica é natural pensar que a unidade da nossa mônada probabilística é exatamente um mapa \(C\rightarrow PC\) que filtra todos os objetos aleatórios determinísticos, funcionando como um delta de Dirac.
+
+A multiplicação é um pouco mais complicada de explicar, mas mais fácil de conceitualizar, afinal ela consiste apenas na mistura ou média de múltiplas medidas de probabilidades. Parafraseando o exemplo de \cite{perrone19}, imagine que temos duas moedas guardadas numa caixa, que uma das moedas é justa e a outra tem ``cara'' nos dois lados (bem roubada essa); nesse contexto, você puxa uma das moedas da caixa e joga-a, resultando num arremesso que pode ser desenhado em diagrama das seguinte forma:
+
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+
+		\node(T) at (0,1){?};
+		\node(BL) at (-2,-1){moeda 1};
+		\node(BBL) at (-3,-3){cara};
+		\node(BLR) at (-1,-3){coroa};
+		\node(BR) at (2,-1){moeda 2};
+		\node(BBR) at (1,-3){cara};
+		\node(BRL) at (3,-3){coroa};
+
+		\draw[Arrow](T)--node[midway, left] {\(1/2\)}(BL);
+		\draw[Arrow](T)--node[midway, right] {\(1/2\)}(BR);
+		\draw[Arrow](BL)--node[midway,right] {\(1/2\)}(BLR);
+		\draw[Arrow](BL)--node[midway,left] {\(1/2\)}(BBL);
+		\draw[Arrow](BR)--node[midway,left] {1}(BBR);
+		\draw[Arrow](BR)--node[midway,right] {0}(BRL);
+
+	\end{tikzpicture}
+\end{center}
+
+Se considerarmos X como o conjunto \(\{\text{cara, coroa}\}, \) o que a moeda está fazendo é fornecendo uma \textit{lei} de acordo com a qual vamos obter cara ou coroa, ou seja, ela determina os elementos de PX.
+Como o próprio ato de puxar a moeda da caixa é aleatório, afinal não temos um conhecimento dela, também temos uma lei imposta \textit{sobre} as moedas, que determina os elementos de PPX... Mas como seriam esses elementos?
+Ora, se a lei que as moedas fornecem dá as probabilidades específicas, a lei que o ato de escolher a moeda fornece dá a probabilidade geral do resultado final, ou seja,
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+
+		\node(T) at (0,1){?};
+		\node(BL) at (-2,-1){cara};
+		\node(BR) at (2,-1){coroa};
+
+		\draw[Arrow](T)--node[midway, left] {3/4}(BL);
+		\draw[Arrow](T)--node[midway, right] {1/4}(BR);
+
+	\end{tikzpicture}
+\end{center}
+
+Desse exemplo, concluímos que a regra multiplicativa da mônada é um funtor \(E:PPX\rightarrow PX\) que leva um resulta duplamente aleatorizado a um que é aleatorizado normalmente, ou seja, sai das leis de variáveis aleatórias aleatorizadas para as variáveis aleatórias usuais, e por isso esse funtor leva o nome de \textbf{média} ou \textbf{mistura}.
+Na verdade, tendo em vista a interpretação da mônada de probabilidade em termos das combinações convexas, a álgebra da mônada de probabilidades é uma estrutura extra que fornecem alguma forma de avaliar as expressões das misturas em termos de um resultado -- exatamente o valor esperança na probabilidade!
+
+No fim das contas, com as generalizações, uma matéria que normalmente seria restrita a apenas conjuntos, ou, pior ainda, à subclasse de conjuntos que formam os mensuráveis, pode ser generalizada para contextos maiores e mais gerais, e é especialmente útil para trabalhar com medidas de probabilidades sobre medidas de probabilidades.
+Com o formalismo matemático necessário, é possível abordar várias outras generalizações\footnote{Infelizmente, não conheço o suficiente para explicar isso aqui.}, principalmente quando a mônada de probabilidade é misturada com as categorias de Markov!
+Citando por cima o que já foi generalizado e provado em termos de categorias, estão inclusos os inversos bayesianos, inferências causais, o teorema do limite central, o teorema de deFinetti, etc.
+
+Em minha última redação, pretendo finalmente introduzir o framework da lógica modal no contexto das categorias, e uma das grandes motivações por trás do desenvolvimento dessa teoria: o conceito de Topos.
+
+
+\end{document}
