@@ -13,19 +13,98 @@ A ideia que exploraremos é que sim, tal função pode ser definida e usualmente
 \[
 	\kappa = \frac{1}{r}.
 \]
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/tangents_circle_01.png}
+	\end{center}
+	\caption{As tangentes em cada ponto traçam um círculo de raio inversamente proporcional à curvatura.}
+\end{figure}
+
 Por conta do que ela representa, a função \(\kappa \) é chamada \textbf{curvatura} da curva, e \textit{mede quanto a curva se afasta da sua reta tangente em cada um de seus pontos}!
 
 Para introduzir algumas nomenclaturas e conceitos da ontologia permeando a geometria diferencial, vamos considerar o exemplo de uma elipse:
 \[
 	\alpha (u) = (a \cos^{}{u}, b \sin^{}{u}),\quad u\in [0,2\pi ],\; 0<b<a
 \]
-e suponhamos que a curvatura \(\kappa \) é uma função diferenciável. Nos pontos de máximo e mínimo horizontais da elipse, denotados por A e C, e nos máximo e mínimo verticais, denotados por B e D, a função \(\kappa'(u)\) vale 0, permitindo definirmos um conceito chamado \textbf{vértice da curva}; sobre eles, existe um teorema muito importante, conhecido como \textit{\hypertarget{four_vertices}{Teorema dos Quatro Vértices}}, que pode ser enunciado como:
+e suponhamos que a curvatura \(\kappa \) é uma função diferenciável.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/ellipse_01.png}
+	\end{center}
+	\caption{Elipse descrita por \(\alpha (u)\) com os máximos e mínimos denotados.}
+\end{figure}
+
+Nos pontos de máximo e mínimo horizontais da elipse, denotados por A e C, e nos máximo e mínimo verticais, denotados por B e D, a função \(\kappa'(u)\) vale 0, permitindo definirmos um conceito chamado \textbf{vértice da curva}; sobre eles, existe um teorema muito importante, conhecido como \textit{\hyperlink{four_vertices}{Teorema dos Quatro Vértices}}, que pode ser enunciado como:
 \begin{quote}
 	``Qualquer curva \textit{fechada}, \textit{simples} e \textit{convexa} possui pelo menos 4 vértices.'';
 \end{quote}
 claro, pode ser que algum dos termos acima sejam estranhos à formalização matemática por agora, mas temos pelo menos uma noção intuitivo do que cada coisa quer dizer, então já temos uma apreciação inicial sobre a potência desse resultado.
 Além disso, esse teorema mostra uma possibilidade muito boa: conceitos locais, como a curvatura, podem ser usados para deduzir propriedades globais, como o número de vértices!
 
-Em vista da última ponderação, essa introdução é finalizada com uma pergunta para o estudante, que servirá como guia ao longo do curso: \textbf{quais são as propriedades globais de curvas que podemos deduzir a partir de conceitos locais?}
+Em vista da última ponderação, surge uma pergunta para o estudante, que servirá como guia ao longo do curso: \textbf{quais são as propriedades globais de curvas que podemos deduzir a partir de conceitos locais?}
+
+\subsection{Superfícies no Espaço}
+Para tratarmos de curvatura em curvas planas, vamos estabelecer uma convenção sobre o sinal dela, conforme a imagem abaixo.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/curvature_sign_02.png}
+	\end{center}
+	\caption{A curva à esquerda mora localmente no semiplano determinado pela reta tangente que \textbf{não contém} o vetor normal ao ponto u, enquanto que a da direita mora localmente no semiplano determinado pela reta tangente e que \textbf{contém} o vetor normal ao ponto.}
+\end{figure}
+Quando a curva cai no caso um e a curva não fica contida no semiplano que é determinado pela tangente e que contém a normal (se traçarmos o plano formado pela tangente que contém a normal, a curva no ficaria ``abaixo dele'', sem nenhum pedaço dela contido), a curvatura será \textbf{negativa}; no segundo caso, onde a curva mora \textit{localmente} dentro do simplano determinado pela tangente e contendo o vetor normal ao ponto (se traçarmos o semiplano na tangente, um pedaço da curva vai estar dentro dele), então a curvatura será \textbf{positiva}.
+
+Feita a convenção acima, outro problema que abordaremos consiste em considerar as segunintes superfícies em um dado ponto p no espaço \(\mathbb{R}^{3}\):
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.7\textheight, width=0.7\textwidth, keepaspectratio]{./Images/different_surfaces_02.png}
+	\end{center}
+\end{figure}
+As formas das superfícies são claramente distintas, mas como poderíamos explicar isso matematicamente?
+
+Mais ainda, aproveitando as imagens, se cortarmos a superfície com planos passando pelo ponto p, gerados por um vetor tangente unitário v e o vetor normal \(N(p)\), então o braço da superfície neste plano cortando o ponto p é uma curva plana que tem curvatura \(\kappa_{v}(p)\); assim, variando v no círculo unitário no plano tangente a M no ponto p, \(T_{p}M\), temos
+\[
+	\kappa_{v_{\mathrm{min}}}(p)\leq \kappa_{v}(p)\leq \kappa_{v_{\mathrm{max}}}(p).
+\]
+A partir disso, definimos:
+\begin{def*}
+	Para uma superfície M, a sua \textbf{Curvatura Gaussiana no ponto p} é definida pelo produto
+	\[
+		\kappa (p)\coloneqq \kappa _{v_{\mathrm{min}}}(p)\kappa_{v_{\mathrm{max}}}(p). \; \square
+	\]
+\end{def*}
+
+O sinal da curvatura gaussiana nos fornece uma informação sobre a forma local da superfície:
+\begin{itemize}
+	\item Se \(\kappa (p)>0\), a superfície tem localmente a forma de um ovo;
+	\item Se \(\kappa (p)<0\), a superfície tem localmente a forma de uma sela de cavalo; e
+	\item Se \(\kappa (p)=0\), a superfície tem localmente a forma plana.
+\end{itemize}
+No caso de uma esfera de raio r, o valor de sua curvatura em qualquer ponto p é \(\kappa (p)=\frac{1}{r^{2}}\). Essa caracterização leva, naturalmente, à próxima pergunta que gostaríamos de responder ao longo do curso: se \(\kappa \equiv 0\), então a superfície é um plano? E se \(\kappa \equiv \frac{1}{r^{2}}\), ela é necessariamente uma esfera?
+Obsrerve que, para a esfera \(\mathbb{S}^{2}(r)\) de raio r, temos
+\begin{align*}
+	\iint_{\mathbb{S}^{2}(r)}\kappa \mathrm{d}A = \frac{1}{r^{2}}\iint_{\mathbb{S}^{2}(r)} \mathrm{d}A & = \frac{1}{r^{2}} \mathrm{Area}(\mathbb{S}^{2}(r)) \\
+	                                                                                                   & = \frac{1}{r^{2}}4\pi r^{2}                        \\
+	                                                                                                   & = 4\pi.
+\end{align*}
+Na verdade, esse resultado é um caso particular do \hyperlink{gauss_bonnet}{\textit{Teorema de Gauss-Bonnet}}:
+\begin{theorem*}
+	Para uma superfície fechada M em \(\mathbb{R}^{3}\), temos
+	\[
+		\iint_{M}\kappa (p)\mathrm{d}A = 2\pi \chi (M).
+	\]
+\end{theorem*}
+A função \(\chi (M)\) é um conceito topológico chamado \textbf{característica de Euler}, de forma que o teorema de Gauss-Bonnet relaciona um conceito geométrico, a curvatura de uma superfície, com um topológico, a característica de Euler! Para o caso da esfera, \(\chi (\mathbb{S}^{2})=2\), e por isso mesmo
+\[
+	\iint_{\mathbb{S}^{2}(r)}\kappa (p)\mathrm{d}A = 4\pi = 2\pi \chi (M).
+\]
+
+Em suma, nessa disciplina, planejamos:
+\begin{itemize}
+	\item Definir a curvatura de uma curva e de uma superfície;
+	\item Estudar a geometria de curvas planas e espaciais, assim como a geometria de superfícies;
+	\item Fazer cálculos sobre curvas e superfícies;
+	\item Obter propriedades globais a partir de conceitos locais; e
+	\item Procurar propriedades intrínsecas de suprefícies, permitindo-nos diferenciá-las.
+\end{itemize}
 
 \end{document}
