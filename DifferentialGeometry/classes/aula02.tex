@@ -7,5 +7,93 @@
 	\item Mudança de Parâmetro.
 \end{itemize}
 \subsection{Curvas Parametrizadas}
+É possível ver o espaço \(\mathbb{R}^{n}\) de duas maneiras: um espaço vetorial de dimensão n munido do limite de um produto escalar (bilinear):
+\[
+	\langle \omega , \eta  \rangle = \sum\limits_{i=1}^{n}\omega_{i}\eta_{i} = \omega_1\eta_1 + \dotsc +\omega_{n}\eta_{n},
+\]
+onde \(\omega = (\omega_1, \dotsc , \omega_{n})\) e \(\eta = (\eta_1, \dotsc , \eta_{n})\), sendo que \(\langle \omega , \eta  \rangle = 0\) se, e somente se, \(\omega = 0\) ou \(\eta =0\);
+a outra forma, por outro lado, consiste em enxergar \(\mathbb{R}^{n}\) como um conjunto de pontos determinados a partir de um certo ponto chamado origem, usada para obter os outros a partir de coordenadas que usam ela como referência, ou seja, é uma abordagem que usa uma noção da \textbf{distância euclidiana} -- a partir de dois pontos A e B, pode-se formar um vetor \(\vec{AB}\) e definir
+\[
+	d(A, B) = \sqrt[]{\langle \vec{AB}, \vec{AB} \rangle}.
+\]
+O problema é que essa construção é bem teórica, e para fazer contas, precisamos escolher um sistema de coordenadas para utilizar; neste caso, utilizaremos o sistema \((O, E)\), onde E é a base canônica de \(\mathbb{R}^{n}\) como espaço vetorial, de forma que podemos escrever
+\[
+	A = (a_1, \dotsc , a_{n}) \Longleftrightarrow \vec{OA} = (a_1,\dotsc ,a_{n})_{E},\quad B = (b_1,\dotsc ,b_{n})\Longleftrightarrow \vec{OB} = (b_1,\dotsc ,b_{n})_{E}
+\]
+e, consequentemente,
+\[
+	\vec{AB} = (b_{1}-a_{1}, \dotsc b_{n}-a_{n})_{E},
+\]
+a partir de onde damos a definição explícita da distância:
+\[
+	d(A, B)= \sqrt[]{(b_1-a_1)^{2}+\dotsc + (b_{n}-a_{n})^{2}}.
+\]
+
+Finalmente, podemos definir uma curva propriamente:
+\begin{def*}
+	Uma \textbf{curva em \(\mathbb{R}^{n}\)} é uma reta deformada, ou seja, a partir de um intervalo I de \(\mathbb{R}\), mapeamos seus pontos em \(\mathbb{R}^{n}\) com uma aplicação específica.
+	Logo, definimos ela como uma aplicação \(\alpha :I\subseteq \mathbb{R}\rightarrow \mathbb{R}^{n}\) suave (de classe \(\mathcal{C}^{\infty}\))\footnote{As coordenadas de \(\alpha \) são todas funções infinitamente diferenciáveis.} e I é um intervalo aberto de \(\mathbb{R}\). \(\square\)
+\end{def*}
+\begin{def*}
+	A imagem \(\alpha (I)\) é chamada de \textbf{traço da curva} em \(\mathbb{R}^{n}\), e \(\alpha \) é chamada \textbf{parametrização do traço da curva}.
+	O ponto onde \(\alpha \) está sendo aplicada é chamado \textbf{parâmetro da curva}, de forma que escrevemos
+	\[
+		\alpha (u)=(\alpha_1(u), \dotsc , \alpha_{n}(u)),
+	\]
+	sendo \(\alpha_{i}:I\rightarrow \mathbb{R}\) funções infinitamente diferenciáveis. \(\square\)
+\end{def*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O intervalo na definição acima \textit{pode} ser fechado, mas requer que a pessoa defina as derivadas à esquerda e à direita de uma função.
+
+	Além disso, em geral, podemos omitir a menção do traço toda vez, sendo necessária apenas quando necessário: ao falar apenas da curva, falamos do traço da curva, e ao falar do traço, estamos falando especificamente daquela parametrização em específico.
+\end{tcolorbox}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.7\textheight, width=0.7\textwidth, keepaspectratio]{./Images/parametrized_curve_02.png}
+	\end{center}
+	\caption{Uma curva \(\alpha \) mapeando um intervalo aberto I em uma curva de \(\mathbb{R}^{n}\).}
+\end{figure}
+
+\begin{def*}
+	O vetor \(\alpha'(u) = (\alpha_{1}'(u), \dotsc , \alpha_{n}'(u))\) é chamado \textbf{vetor tangente à curva no ponto u ou \(\alpha (u)\)}, também conhecido como \textbf{velocidade}. \(\square\)
+\end{def*}
+\begin{def*}
+	Uma curva \(\alpha \) é dita \textbf{regular em u} se a vetor tangente à curva em u é diferente de zero, isto é, se \(\alpha'(u)\neq 0\); por outro lado, se o vetor tangente \(\alpha '(u)\) nunca se anula, ou seja, \(\alpha'(u)\neq 0\) para todo u em I, então diremos apenas que a curva \(\alpha \) é \textbf{regular}; caso contrário, se \(\alpha (u)=0\) para algum u em I, falaremos que \(\alpha \) é \textbf{singular no ponto u}. \(\square\)
+\end{def*}
+\begin{def*}
+	Se \(\alpha \) é uma curva regular, então o \textbf{vetor tangente unitário} à \(\alpha \) no ponto u é dado por
+	\[
+		t(u) = \frac{\alpha '(u)}{\Vert \alpha'(u) \Vert}. \; \square
+	\]
+\end{def*}
+\begin{example}
+	Uma curva em \(\mathbb{R}^{2}\) é, por exemplo, \(\alpha :\mathbb{R}\rightarrow \mathbb{R}^{2} \) dada por
+	\[
+		\alpha (u) = (\cos^{}{u}, \sin^{}{u});
+	\]
+	da mesma forma, poderíamos definir uma curva implicitamente como o zero de uma função
+	\begin{align*}
+		f: & \mathbb{R}^{2}\rightarrow \mathbb{R}     \\
+		   & (x, y)\longmapsto f(x, y)=x^{2}+y^{2}-1,
+	\end{align*}
+	tal que
+	\[
+		\alpha (\mathbb{R})=f^{-1}(0).
+	\]
+\end{example}
+
 
 \end{document}
