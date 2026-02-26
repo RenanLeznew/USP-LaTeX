@@ -1,0 +1,164 @@
+\documentclass[12pt, a4paper]{article}
+ \usepackage{bookmark}
+ \usepackage{amsmath}
+ \usepackage{amsthm}
+ \usepackage{amssymb}
+ \usepackage{tikz}
+ \usepackage{pgfplots}
+ \usepackage[utf8]{inputenc}
+ \usepackage{amsfonts}
+ \usepackage{geometry}
+ \usepackage{graphicx}
+ \usepackage{graphics}
+ \usepackage[export]{adjustbox}
+ \usepackage{fancyhdr}
+ \usepackage[portuguese]{babel}
+ \usepackage{hyperref}
+ \usepackage{multirow}
+ \usepackage{lastpage}
+ \usepackage{mathtools}
+ \usepackage{setspace}
+ \usepackage{newtxsf}
+ \usepackage{subfiles}
+ \usepackage{flafter}
+ \usepackage{float}
+ \usepackage{indentfirst}
+ \usepackage{accents}
+ \usepackage[T1]{fontenc}
+
+ \setlength{\parindent}{1.25cm}
+ \setlength{\parskip}{0.2em}
+ \onehalfspacing
+
+ \pagestyle{fancy}
+ \fancyhf{}
+
+ \pgfplotsset{compat = 1.18}
+
+ \hypersetup{
+     colorlinks,
+     citecolor=black,
+     filecolor=black,
+     linkcolor=black,
+     urlcolor=black
+ }
+ \newtheorem*{def*}{\underline{Definição}}
+ \newtheorem*{theorem*}{\underline{Teorema}}
+ \newtheorem*{lemma*}{\underline{Lema}}
+ \newtheorem*{prop*}{\underline{Proposição}}
+ \newtheorem{example}{\underline{Exemplo}}
+ \theoremstyle{definition}
+ \newtheorem*{proof*}{\underline{Prova}}
+ \newtheorem*{crl*}{\underline{Corolário}}
+ \newtheorem{exr}{\underline{Exercício}}
+ \renewcommand\qedsymbol{$\blacksquare$}
+
+ \rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
+
+ \geometry{a4paper, left=3cm, top=3cm, right=3cm, bottom=3cm}
+
+\begin{document}
+\begin{figure}[ht]
+	\minipage{0.76\textwidth}
+	\includegraphics[width=4cm]{../../icmc.png}
+	\hspace{7cm}
+	\includegraphics[height=4.9cm,width=4cm]{../../brasao_usp_cor.jpg}
+	\endminipage
+\end{figure}
+
+\begin{center}
+	\vspace{1cm}
+	\Large
+	UNIVERSIDADE DE SÃO PAULO
+
+	INSTITUTO DE CIÊNCIAS MATEMÁTICAS E COMPUTACIONAIS - ICMC
+
+	\vspace{1.7cm}
+	\Large
+	\textbf{Estudo de Iterações Aleatórias Estacionárias de Funções e Medidas Estacionárias}
+
+	\vspace{1.3cm}
+	\normalsize
+	Relatório Parcial de Bolsa PUB - Setembro de 2025 a Fevereiro de 2026.
+	\vspace{1.3cm}
+
+	\large
+	\begin{flushleft}
+		\textbf{Bolsista:} Renan Wenzel
+
+		\textbf{Número USP:} 11169472
+
+		\textbf{E-mail:} 11169472@icmc.usp.br
+
+		\textbf{Curso:} Bacharelado em Matemática
+
+		\textbf{Orientador:} Tiago Pereira
+	\end{flushleft}
+	\vspace{1.3cm}
+	São Carlos, 2026
+	\hrule
+\end{center}
+
+\vspace{1.3cm}
+
+\section*{Resumo}
+Este relatório apresenta as atividades desenvolvidas no âmbito da Bolsa PUB, com foco no estudo introdutório de \emph{iterações aleatórias estacionárias de funções}, medidas estacionárias e operadores associados (Perron--Frobenius e Koopman).
+O trabalho teve como base seminários em inglês sobre o tema, incluindo motivações geométricas, formulação probabilística de sistemas iterados aleatórios, noções de estabilidade assintótica, sincronização e expoentes de Lyapunov.
+Consequentemente, obteve-se uma boa oportunidade para continuidade dos estudos em sistemas dinâmicos aleatórios e para a teoria ergódica.
+
+\noindent\textbf{Palavras-chave:} sistemas dinâmicos aleatórios; medida estacionária; operador de Perron--Frobenius; operador de Koopman; expoente de Lyapunov.
+
+\newpage
+\section*{Revisão Breve}
+Os estudos desse semestre foram uma continuação natural dos temas estudados previamente, ou seja, foram temas que partem do princípio de entendimento do Atrator de Hutchinson, do \textit{coding map} e de sistemas iterados de funções.
+
+No começo do semestre de pesquisa, fora feita uma revisão dos temas de antes, a partir da qual tornaram-se fixadas as notações \((\Omega , \mathcal{O}, \mathbb{P})\) para o espaço de probabilidades e \(\{X_{n}\}\) para uma sequência de variáveis aleatórias i.i.d, as quais moram em um segunda espaço de probabilidade \((E, \mathcal{E}, \nu)\), por exemplo \(E=\{1,\dotsc ,k\}\).
+Neles, dada uma família de funções \(f_{i}:M\rightarrow M, \; i\in E\) e uma variável aleatória \(Z_{0}\in \Omega \) com valores em M e independente de \(\{X_{n}\}\), a iteração aleatória e i.i.d de funções foi definida por
+\[
+	Z_{n}=f_{X_{n-1}}\circ \dotsc \circ f_{X_{0}}(Z_{0}),\quad n\geq 1;
+\]
+daí, definimos as cadeias de Markov como
+\[
+	\mathbb{P}(X_{n+1}\in A| X_{0},\dotsc , X_{n})=\mathbb{P}(X_{n+1}\in A | X_{n}),
+\]
+compreendido como os processos probabilísticos cuja etapa seguinte \(X_{n+1}\) depende apenas da etapa imediatamente anterior \(X_{n}\), não de todas as outras \(X_{0},\dotsc ,X_{n}\); assim, para o caso onde a variável aleatória inicial \(Z_{0}\) da iterada de funções é um ponto e E é o conjunto de tamanho k, o processo de descrever a probabilidade de que x pertença ao conjunto A quando começamos nele depende se valer que x está na pré-imagem de alguma das funções indexadas.
+Motivados por isso, a probabilidade total seria dada ponderado os pesos de cada função para as quais x estaria na pré-imagem de A por \(f_{i}\), ou seja,
+\[
+	\mathbb{P}(Z_{0}\in A) = \sum\limits_{i=1}^{k}p_{i}\chi_{A}(f_{i}(x)),\quad p_{i}= \mathbb{P}(X_{0}=i),
+\]
+fornecendo a definição inicial de \textbf{probabilidade de transição} e que pode ser generalizada para contextos mais gerais, com um espaço E qualquer e uma distribuição \(\omega \) comum à sequência \(\{X_{i}\}\) como
+\[
+	p(x, A)= \int_{}\chi_{A}(f_{i}(x)) \mathrm{d}\omega_{i},
+\]
+donde saiu o \textbf{Operador de Perron--Frobenius}
+\[
+	T\mu (A)=\int_{}^{}p(x, A) \mathrm{d}\mu,
+\]
+e a ideia de \textbf{medida estacionária} como os pontos-fixos do operador de Perron--Frobenius.
+
+Ao final da revisão, foram introduzidos conceitos novos relativamente à etapa anterior de estudos, sendo eles:
+\begin{def*}
+	Um operador T é \textbf{assintoticamente estável} se existe uma medida estacionária \(\mu \) tal que, para qualquer probabilidade inicial \(\nu \),
+	\[
+		T^{n}\nu\stackrel{n\to \infty} \longrightarrow \mu . \;\square
+	\]
+\end{def*}
+E, além da definição de estabilidade assintótica, o \textbf{Operador de Koopman}
+\[
+	P\varphi (x)=\int_{}^{}\varphi (f_{i}(x)) \mathrm{d}\nu,
+\]
+que podem ser explicados respectivamente como ``um operador é assintoticamente estável se ele sempre converge assintoticamente para a mesma medida estacionária, independente da medida de probabilidade inicial'' e como o \textit{valor esperado de \(\varphi \)} aplicado à toda a iterada i.i.d de \(\varphi \).
+Além disso, foi mencionada a relação entre o operador de Koopman e o de Perron--Frobenius por
+\[
+	\int_{}^{}\varphi \mathrm{d}(T^{n}\mu ) = \int_{}^{}P^{n}\varphi  \mathrm{d}\mu
+\]
+para qualquer função limitada e mensurável, relação da qual segue o princípio de Letac.
+
+\section*{Iterações Aleatórias e Estacionárias de Mapas}
+
+\newpage
+\begin{thebibliography}{99}
+	\bibitem{Barnsley1988} BARNSLEY, M. F. Fractals Everywhere. \textbf{Academic Press, Inc. (London) LTD.} 1988.
+\end{thebibliography}
+
+\end{document}
