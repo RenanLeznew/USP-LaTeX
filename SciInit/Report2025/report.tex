@@ -82,7 +82,7 @@
 	Relatório Parcial de Bolsa PUB - Setembro de 2025 a Fevereiro de 2026.
 	\vspace{1.3cm}
 
-	\large
+
 	\begin{flushleft}
 		\textbf{Bolsista:} Renan Wenzel
 
@@ -96,7 +96,6 @@
 	\end{flushleft}
 	\vspace{1.3cm}
 	São Carlos, 2026
-	\hrule
 \end{center}
 
 \vspace{1.3cm}
@@ -156,9 +155,175 @@ para qualquer função limitada e mensurável, relação da qual segue o princí
 
 \section*{Iterações Aleatórias e Estacionárias de Mapas}
 
+Após a revisão, o assunto obteve continuidade com análises nas hipóteses e provas do Princípio de Letac; para tanto, fixamos um espaço \((\Omega , \mathbb{P})\), um operador que preserva medida \(\theta :\Omega \rightarrow \Omega \) e sua medida \textit{pushforward}
+\[
+	\theta_{*}\mathbb{P} = \mathbb{P}, \quad  \theta _{*}\mathbb{P}(A)=\mathbb{P}(\theta^{-1}(A)).
+\]
+A primeira mudança que fizemos no princípio de Letac foi, ao invés de considerar apenas sequências i.i.d de funções, tentar o uso de uma sequência estacionária com a causa final de provarmos a seguinte versão do princípio:
+\begin{theorem*}
+	Suponha que \(f_{\omega }\) é Lipschitz, com constante Lipschitz dada por \(\Vert f_{\omega } \Vert = \sup_{x\neq y} \frac{d(f(x), f(y))}{d(x, y)}\), e suponha também que
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{}\Vert f_{\omega } \Vert \mathrm{d} \mathbb{P}(\omega ) < \infty;      \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{} \log^{}{\Vert f_{\omega } \Vert} \mathrm{d} \mathbb{P}(\omega ) < 0;
+	\end{align*}
+
+	Então, para \(\mathbb{P}-\)quase todo \(\omega \), existe o limite
+	\[
+		\pi (\omega )=\lim_{n\to \infty}f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}\circ\cdots\circ f_{\theta^{-n}(\omega )}(x_{0})
+	\]
+	Além disso, esse limite não depende da escolha de \(x_{0}\).
+\end{theorem*}
+
+Para dar uma ideia da prova dele, estudamos o Teorema Ergódico Subaditivo de Kingman, enunciado como
+\begin{theorem*}
+	Suponha que temos uma transformação \(\theta :\Omega \rightarrow \Omega \) preservando medidas e uma sequência \(\mu_{n}:\Omega \rightarrow \mathbb{R} \) tal que
+	\begin{itemize}
+		\item[1)] \(\mu_{n+m}(\omega ) \leq \mu_{n}(\omega )+\mu_{m}(\omega )\) [Subaditividade]; e
+		\item[2)] \(\mu_{1}^{+} = \max\limits_{0}\mu_{1}\in L^{1}(\mathbb{P})\).
+	\end{itemize}
+	Então, para \(\mathbb{P}\)-quase todo \(\omega \), existe uma função g dada por
+	\[
+		g(\omega )\coloneqq \lim_{n\to \infty}\frac{\mu_{n}(\omega )}{n}
+	\]
+	tal que ela é \(\theta\)-invariante, definida em \(g:\Omega \rightarrow [-\infty, \infty)\) e que
+	\[
+		\int_{}^{}\theta  \mathrm{d}\mathbb{P} = \lim_{n\to \infty} \frac{1}{n}\int_{}^{}\mu_{n} \mathrm{d}\mathbb{P}.
+	\]
+\end{theorem*}
+
+Utilizando ele, foi possível estudar a taxa de crescimento exponencial da norma \(\Vert f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}\circ\cdots\circ f_{\theta^{-n}(\omega )} \Vert\) tomando o log e a recíproca do termo do termo que representa a iteração atual, ou seja, o n-ésimo:
+\[
+	\frac{1}{n}\log^{}{\Vert f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}\circ\cdots\circ f_{\theta^{-n}(\omega )} \Vert}.
+\]
+Para isso, foram utilizadas as ideias de \cite{Furstenberg1960}, consistindo em usar matrizes invertíveis. A prova do princípio de Letac utilizando estes conceitos é importante e vale ser registrada neste relatório, pois ela dá origem às ideias de sincronização \textit{backwards} e \textit{frontwards}:
+\begin{theorem*}
+	Suponha que \(f_{\omega }\) é Lipschitz, com constante Lipschitz dada por \(\Vert f_{\omega } \Vert = \sup_{x\neq y} \frac{d(f(x), f(y))}{d(x, y)}\), e suponha também que
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{}\Vert f_{\omega } \Vert \mathrm{d} \mathbb{P}(\omega ) < \infty;      \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{} \log^{}{\Vert f_{\omega } \Vert} \mathrm{d} \mathbb{P}(\omega ) < 0;
+	\end{align*}
+	Então, para \(\mathbb{P}-\)quase todo \(\omega \), existe o limite
+	\[
+		\pi (\omega )=\lim_{n\to \infty}f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}\circ\cdots\circ f_{\theta^{-n}(\omega )}(x_{0})
+	\]
+	Além disso, esse limite não depende da escolha de \(x_{0}\).
+\end{theorem*}
+\begin{proof*}
+	Seja
+	\[
+		\mu_{n}(\omega )=\Vert f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}\circ\cdots\circ f_{\theta^{-n}(\omega )} \Vert;
+	\]
+	queremos aplicar o teorema de Kingman a esta sequência para obtermos uma sequência de Cauchy em termos de \(f_{\theta_{-1}(\omega )}^{n}\), a fim de usar a completude do espaço para mostrar a existência e independência da escolha do ponto de \(\pi \).
+
+	Com efeito, observe que
+	\begin{align*}
+		\mu_{n+m}(\omega ) & =\Vert f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}\circ\cdots \circ f_{\omega^{-n}(\omega )}\circ \dotsc \circ f_{\theta^{-n-m}(\omega )} \Vert                                                                            \\
+		                   & \leq \Vert f_{\theta^{-1}(\omega )}\circ \cdots\circ f_{\theta^{-n}(\omega )} \Vert \Vert f_{\theta^{-1}(\omega^{-n}(\omega))}\circ f_{\theta^{-2}(\omega^{-n}(\omega ))}\circ\cdots\circ f_{\theta^{-m}(\theta^{-n}(\omega ))} \Vert \\
+		                   & = \mu_{n}(\omega )\mu_{m}(\theta^{-n}(\omega )).
+	\end{align*}
+	Desta forma, a sequência \(\mu_{n}\) é subaditiva, e a \(\log^{}{\mu_{n}}\) também será subaditiva com respeito a \(\theta^{-1}\), permitindo a aplicação do Teorema de Kingman para determinarmos a existência de
+	\[
+		\lim_{n\to \infty}\frac{1}{n}\log^{}{\Vert f_{\theta^{-1}(\omega )}\circ \cdots\circ f_{\theta^{-n}(\omega )} \Vert} \eqqcolon \overline{\lambda }(\omega ),
+	\]
+	que chamaremos de \textbf{Expoente de Lyapunov Retrocedente Máximo} (\textit{Backward Maximal Lyapunov Exponent}). Uma de suas propriedades é que, para \(\mathbb{P}-\)quase todo \(\theta \), vale
+	\[
+		\lambda^{-}(\omega )\leq \lim_{n\to \infty}\frac{1}{n}\sum\limits_{i=1}^{n-1}\log^{}{\Vert f_{\theta^{-i}(\omega )} \Vert} = \int_{}^{}\log^{}{\Vert f_{\omega } \Vert} \mathrm{d}\mathbb{P}(\omega )=\theta <0,
+	\]
+	justificada por conta da subaditividade e do logaritmo transformar produtos em somas. Daí, tome \(\varepsilon >0\) tal que \(\lambda = b -\varepsilon < -\varepsilon \), ou seja, \(\lambda +\varepsilon =b < 0\) e aplique a definição de limite para encontrar \(n_{0}(\omega )\) tal que, se n for maior que \(n_{0}(\omega )\), teremos
+	\begin{align*}
+		\log^{}{\Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert} & \leq \sum\limits_{i=1}^{n}\log^{}{\Vert f_{\theta^{-i}(\omega )} \Vert}                                      \\
+		                                                                                         & \leq n_{0}b                                                                                                  \\
+		                                                                                         & \Rightarrow \Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert \leq e^{n_{0}b}.
+	\end{align*}
+
+	Assim, definimos o coeficiente c em \(\omega \) por
+	\[
+		c(\omega ) \coloneqq \max\limits_{1\leq n\leq n_{0}} \biggl\{1, \frac{\Vert f_{\theta^{-1}(\omega )} \circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert}{e^{nb}}\biggr\},
+	\]
+	que servirá em encontrarmos a sequência de Cauchy adequada, pois, para todo natural n, valem duas desigualdades:
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \;\Vert f_{\theta^{-1}(\omega )} \circ \dotsc \circ f_{\theta^{-n}(\omega )}\Vert \leq c(\omega )e^{nb}                                                             \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; d(f_{\theta^{-1}(\omega )} \circ \dotsc \circ f_{\theta^{-n}(\omega )}(x), f_{\theta^{-1}(\omega )} \circ \dotsc \circ f_{\theta^{-n}(\omega )}(y)) \leq e^{nb}.
+	\end{align*}
+
+	Temos todas as ferramentas para definir e provar que a sequência das composições com transformadas reversas é de Cauchy. Para \(x_{0}\in Y\) fixo tal que\linebreak{} \(d(x_{0}, f_{\omega}(x_{0}))\leq c\) e \(\omega \) qualquer, defina
+	\[
+		y_{n}=f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )}(x_{0}).
+	\]
+	\textbf{\underline{Afirmação}:} a sequência \(\{y_{n}\}\) é de Cauchy.
+
+	Com efeito, primeiro note que a distância entre termos consecutivos da sequência é limitada:
+	\begin{align*}
+		d(y_{n+1}, y_{n}) & = d(f_{\theta^{-1}(\omega )} \circ \dotsc \circ f_{\theta^{-n}(\omega )}(f_{\theta^{-n-1}}(x_{0})), f_{\theta^{-1}(\omega )} \circ \dotsc \circ f_{\theta^{-n}(\omega )}(x_{0})) \\
+		                  & \leq c(\omega )e^{nb}d(f_{\theta^{-(n+1)}(\omega )}(x_{0}), x_{0})                                                                                                               \\
+		                  & \leq c(\omega )e^{nb}c,
+	\end{align*}
+	onde c pôde ser tomada como \(c\coloneqq d(f_{\theta^{-(n+1)}}(x_{0}), x_{0})\).
+	Agora sim, mantendo o mesmo c e analisando as desigualdades, podemos provar que a sequência é de Cauchy, pois
+	\begin{align*}
+		d(y_{n+m}, y_{n}) \leq \sum\limits_{i=n}^{n+m-1}d(y_{i+1}, y_{i}) & \leq c(\omega )c \sum\limits_{i=n}^{n+m-1}e^{ib} \\
+		                                                                  & =c(\omega )c[e^{nb}+\dotsc +e^{(n+m-1)b}]        \\
+		                                                                  & \leq \frac{c(\omega )ce^{nb}}{1-e^{b}}.
+	\end{align*}
+	Logo, a sequência \(\{y_{n}\}\) é de Cauchy. \(\blacktriangle\)
+
+	Portanto, pela completude do espaço, a sequência \(\{y_{n}\}\) precisa convergir para algum valor independentemente do ponto \(x_{0}\) escolhido, ou seja,
+	\[
+		\pi(x_{0})=\lim_{n\to \infty}f_{\theta^{-1}(\omega )}^{n}(x_{0})=\lim_{n\to \infty}y_{n}. \text{ \qedsymbol}
+	\]
+
+\end{proof*}
+
+\section*{Sincronização e Deslocamento}
+O conceito definido na demonstração do Princípio de Letac foi o expoente de Lyapunov de retrocesso máximo, e ele permite entrar na discussão dos tipos de sincronização, que foi um dos temas abordados no período de estudos.
+Para tanto, consideramos fixos uma tripla \((\Omega , \mathcal{F}, \mathbb{P})\); uma transformada \(\theta :\Omega \rightarrow \Omega \) preservando medida; e uma função \(f_{\omega }:Y\rightarrow Y\). Com isso, definimos respectivamente o \textbf{Expoente de Lyapunov de Avanço Máximo} e o \textbf{Expoente de Lyapunov de Retrocesso Máximo} como
+\begin{align*}
+	 & \lambda^{+}(\omega )\coloneqq \lim_{n\to \infty}\frac{1}{n}\log^{}{\Vert f_{\omega }^{n} \Vert}               \\
+	 & \lambda^{-}(\omega )\coloneqq \lim_{n\to \infty}\frac{1}{n}\log^{}{\Vert f_{\theta^{-n}(\omega )}^{n} \Vert}.
+\end{align*}
+
+A partir delas, é possível estudar a sincronicidade das iteradas aleatórias: se \(\lambda^{+}(\omega )\leq \lambda <0\) para \(\mathbb{P}-\)quase todo \(\omega \), então há uma constante \(b<0\) e funções \(c^{+}, c^{-}:\Omega \rightarrow [0, \infty)\) tais que
+\[
+	d(f_{\omega }^{n}(x), f_{\omega }^{n}(y))\leq c^{+}(\omega )e^{nb}d(x, y),
+\]
+conforme vimos durante a demonstração, e, analogamente,
+\[
+	d(f_{\theta^{-n}(\omega )}^{n}(x), f_{\theta^{-n}(\omega )}^{n}(y))\leq c^{-}(\omega )e^{nb}d(x, y).
+\]
+Como o lado direito tende a zero conforme os pontos se aproximam, os diâmetros das duas iteradas também tende a zero! Logo,
+\[
+	\mathrm{diam}(f_{\omega }^{n}(Y)) \rightarrow 0 \quad\&\quad \mathrm{diam}(f_{\theta^{-n}}^{n}(Y))\rightarrow 0,
+\]
+que representam respectivamente a \textbf{sincronização de avanço} e a \textbf{sincronização de retrocesso} de acordo com a ordem de crescência da potência de \(\theta \). O nome de sincronização é, na verdade, muito adequado, pois o que o raciocínio mostrou é que, para \(\mathbb{P}\)-quase sempre, os expoentes de Lyapunov máximos de retrocesso e de avanço são iguais!
+
+Apesar disso, percebemos que as sincronizações nem sempre precisam ocorrer simultaneamente, conforme ilustrado no exemplo a seguir.
+\begin{example}
+	Neste exemplo, vamos considerar \(\Omega = \{-1, 1\}^{\mathbb{Z}},\; \theta \) a transformação \textit{shift}, e \(\mathbb{P}=\nu^{\mathbb{Z}}\) a medida produto, onde \(\nu \) é a distribuição de pesos de metade-metade para cada um dos dígitos compondo \(\Omega \), ou seja, \(\nu (1) =\nu (-1)=\frac{1}{2}\).
+	Com essa configuração, se \(\omega \) for uma sequência da forma \(\omega = (\dotsc , \omega_{-1}, \omega_{0}, \omega_{1}, \dotsc )\), então cada valor poderá ser 1 ou -1, e com as contrações dadas por
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; f_{-1}(x)=\frac{1}{2}x, \quad x\in [0,1]                               \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; f_{1}(x) = \left\{\begin{array}{ll}
+			                                                                                                  2x, \quad x\in \bigl[0, \frac{1}{2}\bigr] \\
+			                                                                                                  1, \quad x\in \bigl[\frac{1}{2}, 1\bigr]
+		                                                                                                  \end{array}\right.,
+	\end{align*}
+	seguirá que as sincronizações desse caso ocorrem em uma direção (retrocesso), mas não na outra (avanço), pois
+	\[
+		\mathrm{diam}(f_{\omega_{-1}}\circ \dotsc \circ f_{\omega_{-1}}([0, 1])) \rightarrow 0,
+	\]
+	mas para \(\mathbb{P}-\)quase todo \(\omega \) e para infinitos valores de n, temos
+	\[
+		\mathrm{diam}(f_{\omega }^{n}([0,1]))=1.
+	\]
+
+	No entanto, o valor 0 é um ponto fixo de ambos
+\end{example}
+
 \newpage
 \begin{thebibliography}{99}
 	\bibitem{Barnsley1988} BARNSLEY, M. F. Fractals Everywhere. \textbf{Academic Press, Inc. (London) LTD.} 1988.
+	\bibitem{Kingman1976} KINGMAN, J. F. C. \textbf{Subadditive Ergodic Theory}. Annals of Probability, 1976, p.883-909.
+	\bibitem{Furstenberg1960} FURSTENBERG, H.; KESTEN, H. Products of Random Matrices. \textbf{Annals of Mathematical Statistics}, v.31, n.2, 1960. DOI: 10.1214/aoms/1177705909.
 \end{thebibliography}
 
 \end{document}
