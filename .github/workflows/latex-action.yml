@@ -429,3 +429,69 @@ jobs:
           target: StatisticalInference/statistical_inference.pdf
           credentials: ${{ secrets.DRIVESHHHH }}
           parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+  build_latex_PDEMethods:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Compile LaTeX document Differential Methods
+        uses: xu-cheng/latex-action@v4
+        with:
+          work_in_root_file_dir: true
+          root_file: PDEMethods/differential_methods.tex
+      - name: Upload Differential Methods file
+        uses: actions/upload-artifact@v4
+        with:
+          name: Differential Methods
+          path: PDEMethods/differential_methods.tex
+          if-no-files-found: error
+      - name: Upload Differential Methods to Google Drive
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+        with:
+          target: PDEMethods/differential_methods.pdf
+          credentials: ${{ secrets.DRIVESHHHH }}
+          parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+  build_latex_NumericalMethods:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Compile LaTeX document Numerical Methods
+        uses: xu-cheng/latex-action@v4
+        with:
+          work_in_root_file_dir: true
+          root_file: NumericalMethods/numerical_methods.tex
+      - name: Upload Numerical Methods file
+        uses: actions/upload-artifact@v4
+        with:
+          name: Numerical Methods
+          path: NumericalMethods/numerical_methods.tex
+          if-no-files-found: error
+      - name: Upload Numerical Methods to Google Drive
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+        with:
+          target: NumericalMethods/numerical_methods.pdf
+          credentials: ${{ secrets.DRIVESHHHH }}
+          parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc
+  build_latex_AlgebraIII:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v4
+      - name: Compile LaTeX document Algebra III
+        uses: xu-cheng/latex-action@v4
+        with:
+          work_in_root_file_dir: true
+          root_file: AlgebraIII/algebraIII_notes.tex
+      - name: Upload Algebra III file
+        uses: actions/upload-artifact@v4
+        with:
+          name: Algebra III
+          path: AlgebraIII/algebraIII_notes.pdf
+          if-no-files-found: error
+      - name: Upload Algebra III to Google Drive
+        uses: Jumbo810/Upload_Github_Artifacts_TO_GDrive@v1.1.1
+        with:
+          target: AlgebraIII/algebraIII_notes.pdf
+          credentials: ${{ secrets.DRIVESHHHH }}
+          parent_folder_id: 1aS3fF7XhO1DM_PM8ZS4mqTBwxi8FWGoc

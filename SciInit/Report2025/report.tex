@@ -316,14 +316,82 @@ Apesar disso, percebemos que as sincronizações nem sempre precisam ocorrer sim
 		\mathrm{diam}(f_{\omega }^{n}([0,1]))=1.
 	\]
 
-	No entanto, o valor 0 é um ponto fixo de ambos
+	No entanto, o valor 0 é um ponto fixo tanto das iteradas de retrocesso quanto das de avanço, que resulta na diferença entre os diâmetros sendo um fenômeno estranho; para entendê-lo melhor, provamos a afirmação acima utilizando um argumento de chances decrescentes de atingir o valor 1 conforme \(\omega \) é iterada.
+	Utilizando que 0 é um ponto fixo, 1 irá determinar o diâmetro para o intervalo completo, ou seja, podemos considerar apenas o valor da iterada no extremo \(f_{\omega }^{n}(1)\), pois a imagem de \([0, 1]\) será \(f_{\omega }^{n}([0,1]) = [0, f_{\omega }^{n}(1)]\) ; nele, para valores infinitos de n, teremos
+	\[
+		f_{\omega }^{n}(1) = 1.
+	\]
+
+	Definiremos o passeio aleatório (simétrico) em \(\omega \) da seguinte forma: conforme \(\omega \) passa por seus valores, a iterada de funções comporta-se como expansões ou contrações, com chances cada vez mais reduzidas de atingir o valor 1, conforme mencionado antes. Dessa forma, definimos
+	\[
+		s_{n}= \omega_{0}+\omega_{1}+\dotsc +\omega_{n}.
+	\]
+	Se \(M_{n}\) denota o máximo desses valores, isto é, se \(M_{n}\coloneqq \max\limits_{0\leq i\leq n}s_{i}\), então o valor máximo \(f_{\omega }^{n}(1)=1\) será atingido apenas quando a sequência formada pela soma dos termos de \(\omega \) coincidir com \(M_{n}\), pois, por indução em n,
+	\[
+		f_{\omega }^{n}(1) = 2^{-(M_{n}-s_{n})},
+	\]
+	que passa a valer 1 apenas quando \(s_{n}=M_{n}\); assim, para provar a afirmação, precisamos provar que \(s_{n}=M_{n}\) para infintos \(n\in \mathbb{N}\). Aqui, foi utilizado o fato de que, para \(\mathbb{P}\)-quase todo \(\omega \),
+	\[
+		-\infty=\liminf_{n\to \infty}s_{n} < \limsup_{n\to \infty}s_{n}=+\infty,
+	\]
+	indicando que o passeio aleatório pode passar tanto por valores arbitrariamente altos, quanto arbitrariamente baixos, e cada vez que ela atinge um valor mais alto que os anteriores, a condição da caminhada se igualar ao máximo é satisfeita! Consequentemente, para \(\mathbb{P}\)-quase todo \(\omega \), existem infinitos valores máximos registrados na caminhada, se traduzindo em
+	\[
+		f_{\omega }^{n}(1)=1
+	\]
+	para infinitos n's, e que consequentemente
+	\[
+		\mathrm{diam}(f_{\omega }^{n}([0,1])) = f_{\omega }^{n}(1)=1,
+	\]
+	provando a afirmação feita, já que o raciocínio para o diâmetro tendendo a 0 é bastante similar, mas a sequência \(s_{n}\) passa a ser definida com a soma dos termos até \(\omega_{-n}\) e usa-se o lim inf na potência \(2^{-(M_{n}-s_{n})}\), que, como é \(-\infty\), tenderá a 0 ao invés de 1!.
 \end{example}
+
+No fim, revisitamos a prova do princípio de Letac para introduzir o deslocamento de um IFS e para entender as suposições de que \(\lambda^{+}(\omega )<0\) para \(\mathbb{P}\)-quase todo \(\omega \), e que existe algum \(x_{0}\) tal que \(a(\omega )=d(f_{\omega }(x_{0}), x_{0})\) satisfaz \(\log^{+}{(a(\omega ))}\in L^{1}(\Omega )\).
+Para isso, consideramos as funções \(f_{\omega }:\mathbb{R}\rightarrow \mathbb{R}\) dadas por
+\[
+	f_{\omega}(x)=\lambda x + b(\omega ),
+\]
+tal que \(b(\omega )\) represente o \textbf{deslocamento a partir do 0}; assim,
+\[
+	f_{\theta^{-1}(\omega )} = \lambda x + b(\theta^{-1}(\omega ))
+\]
+e, como consequência, pudemos analisar o que ocorre num processo indutivo de composições no sentido retrógrado -- para apenas duas iteradas, obtemos
+\begin{align*}
+	f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}(x) & = \lambda (f_{\theta^{-2}(\omega )}(x) + b(\theta^{-1}(\omega )))               \\
+	                                                          & = \lambda [\lambda x + b(\theta^{-2}(\omega ))]+\lambda b(\theta^{-1}(\omega )) \\
+	                                                          & = \lambda^{2}x + \lambda [b(\theta^{-2}(\omega )) + b(\theta^{-1}(\omega ))],
+\end{align*}
+ou seja, para a n-ésima iterada retrógrada, a expressão será
+\[
+	f_{\theta^{-n}(\omega )}^{n}(x) = \lambda^{n}x + \sum\limits_{i=0}^{n-1}\lambda^{i}b(\theta^{-(i+1)}(\omega)).
+\]
+Disso, ao aplicar o \textit{coding map}, obtivemos
+\[
+	\pi (\omega )=\lim_{n\to \infty}f_{\theta^{-n}(\omega )}^{n}(x)= \sum\limits_{n=0}^{\infty}\lambda^{n}b(\theta^{-(n+1)}(\omega )),
+\]
+indicando que, a partir do momento que provamos o resultado assumindo \(\lambda^{+}<0\) e um deslocamento limitada quase sempre, foram essas hipóteses que garantiram a soma finita das distâncias entre os termos da série de Cauchy denotada por \(\{y_{n}\}\) na demonstração do princípio de Letac.
+Isso revela que, se o deslocamento não for ``bem comportado'' nesse sentido, as iteradas das funções podem não estar bem-definidas.
+
+Mais detalhadamente, as hipóteses de que \(\lambda^{-}(\omega )\) e \(\lambda^{+}(\omega )\) são negativas implicou que, para todo \(\varepsilon >0\), existia um \(n_{0}\) responsável por garantir o controle da iterada, de forma que
+\[
+	n\geq n_{0} \Rightarrow \Vert f_{\theta^{-n}(\omega )}^{n} \Vert\leq e^{(\lambda^{-}+\varepsilon )n},
+\]
+e a hipótese do deslocamento com o log, ou seja, de que \(\log^{+}{d(f_{\omega }(x_{0}), x_{0})}\in L^{1}(\Omega )\) (i.e., é limitado em norma) induziu o crescimento sub-exponencial, que permitiu controlar o crescimento do deslocamento conforme as iteradas retrógradas: esta hipótese garantiu que existe \(m_{0}\) para todo \(\varepsilon>0 \), tal que
+\[
+	n\geq m_{0} \Rightarrow d(f_{\theta^{-n}(\omega )}(x_{0}), x_{0}) \leq e^{n\varepsilon }.
+\]
+Portanto, se \(\varepsilon \) é tal que \(\lambda^{-}+2\varepsilon \) é negativo, provar a sequência de Cauchy consistirá num balanço entre quão contraídos serão os termos da iterada, e quanto a distância entre eles cresce! Matematicamente, isto significa exatamente que
+\begin{align*}
+	n\geq \max\limits_{n_{0}, m_{0}} & \Rightarrow d(y_{n+1}, y_{n})\leq e^{(\lambda^{-}+\varepsilon )n}e^{\varepsilon n} = e^{(\lambda^{-}+2\varepsilon )n} \\
+	                                 & \Rightarrow \sum\limits_{n=0}^{\infty} d(y_{n+1}, y_{n})<\infty.
+\end{align*}
+Logo, o expoente de Lyapunov Máximo de Retrocesso \(\lambda^{-}\) é responsável por controlar a contração dos termos, enquanto que o termo \(2\varepsilon \) controla a distância entre eles, e a junção de ambos resulta na sequência de Cauchy.
 
 \newpage
 \begin{thebibliography}{99}
 	\bibitem{Barnsley1988} BARNSLEY, M. F. Fractals Everywhere. \textbf{Academic Press, Inc. (London) LTD.} 1988.
-	\bibitem{Kingman1976} KINGMAN, J. F. C. \textbf{Subadditive Ergodic Theory}. Annals of Probability, 1976, p.883-909.
-	\bibitem{Furstenberg1960} FURSTENBERG, H.; KESTEN, H. Products of Random Matrices. \textbf{Annals of Mathematical Statistics}, v.31, n.2, 1960. DOI: 10.1214/aoms/1177705909.
+	\bibitem{Kingman1976} KINGMAN, J. F. C. Subadditive Ergodic Theory. \textbf{Annals of Probability}, 1976, p.883-909.
+	\bibitem{Furstenberg1960} FURSTENBERG, H.; KESTEN, H. Products of Random Matrices. \textbf{Annals of Mathematical Statistics}, v. 31, n. 2, 1960. DOI: 10.1214/aoms/1177705909.
+	\bibitem{Elton1990} ELTON, J. H. A Multiplicative Ergodic Theorem for Lipschitz Maps. \textbf{Stochastic Processes and their Applications.}, v. 231, n. 2, p. 39-47, 1990.
 \end{thebibliography}
 
 \end{document}
