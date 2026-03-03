@@ -159,35 +159,22 @@ Após a revisão, o assunto obteve continuidade com análises nas hipóteses e p
 \[
 	\theta_{*}\mathbb{P} = \mathbb{P}, \quad  \theta _{*}\mathbb{P}(A)=\mathbb{P}(\theta^{-1}(A)).
 \]
-A primeira mudança que fizemos no princípio de Letac foi, ao invés de considerar apenas sequências i.i.d de funções, tentar o uso de uma sequência estacionária com a causa final de provarmos a seguinte versão do princípio:
-\begin{theorem*}
-	Suponha que \(f_{\omega }\) é Lipschitz, com constante Lipschitz dada por \(\Vert f_{\omega } \Vert = \sup_{x\neq y} \frac{d(f(x), f(y))}{d(x, y)}\), e suponha também que
-	\begin{align*}
-		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{}\Vert f_{\omega } \Vert \mathrm{d} \mathbb{P}(\omega ) < \infty;      \\
-		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{} \log^{}{\Vert f_{\omega } \Vert} \mathrm{d} \mathbb{P}(\omega ) < 0;
-	\end{align*}
+A primeira mudança que fizemos no princípio de Letac foi, ao invés de considerar apenas sequências i.i.d de funções, tentar o uso de uma sequência estacionária com a causa final de provarmos a seguinte versão do princípio; para isso, impusemos algumas condições na esperança das constantes Lipschitz das funções e na esperança do log delas, interpretadas como exigindo a contração na média
 
-	Então, para \(\mathbb{P}-\)quase todo \(\omega \), existe o limite
-	\[
-		\pi (\omega )=\lim_{n\to \infty}f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}\circ\cdots\circ f_{\theta^{-n}(\omega )}(x_{0})
-	\]
-	Além disso, esse limite não depende da escolha de \(x_{0}\).
-\end{theorem*}
-
-Para dar uma ideia da prova dele, estudamos o Teorema Ergódico Subaditivo de Kingman, enunciado como
+Além disso, na prova, utilizamos o Teorema Ergódico Subaditivo de Kingman, enunciado como
 \begin{theorem*}
 	Suponha que temos uma transformação \(\theta :\Omega \rightarrow \Omega \) preservando medidas e uma sequência \(\mu_{n}:\Omega \rightarrow \mathbb{R} \) tal que
 	\begin{itemize}
-		\item[1)] \(\mu_{n+m}(\omega ) \leq \mu_{n}(\omega )+\mu_{m}(\omega )\) [Subaditividade]; e
-		\item[2)] \(\mu_{1}^{+} = \max\limits_{0}\mu_{1}\in L^{1}(\mathbb{P})\).
+		\item[1)] \(\mu_{n+m}(\omega ) \leq \mu_{n}(\omega )+\mu_{m}(\theta^{n}(\omega) )\) [Subaditividade]; e
+		\item[2)] \(\mu_{1}^{+} = \max\limits \{\mu_{1}, 0\}\in L^{1}(\mathbb{P})\) [A esperança/média é finita].
 	\end{itemize}
 	Então, para \(\mathbb{P}\)-quase todo \(\omega \), existe uma função g dada por
 	\[
 		g(\omega )\coloneqq \lim_{n\to \infty}\frac{\mu_{n}(\omega )}{n}
 	\]
-	tal que ela é \(\theta\)-invariante, definida em \(g:\Omega \rightarrow [-\infty, \infty)\) e que
+	tal que ela é \(\theta\)-invariante, definida como \(g:\Omega \rightarrow [-\infty, \infty)\) e que
 	\[
-		\int_{}^{}\theta  \mathrm{d}\mathbb{P} = \lim_{n\to \infty} \frac{1}{n}\int_{}^{}\mu_{n} \mathrm{d}\mathbb{P}.
+		\underbrace{\int_{}^{}g  \mathrm{d}\mathbb{P}}_{\mathbb{E}(g)} = \lim_{n\to \infty} \frac{1}{n}\int_{}^{}\mu_{n} \mathrm{d}\mathbb{P},
 	\]
 \end{theorem*}
 
@@ -197,10 +184,10 @@ Utilizando ele, foi possível estudar a taxa de crescimento exponencial da norma
 \]
 Para isso, foram utilizadas as ideias de \cite{Furstenberg1960}, consistindo em usar matrizes invertíveis. A prova do princípio de Letac utilizando estes conceitos é importante e vale ser registrada neste relatório, pois ela dá origem às ideias de sincronização \textit{backwards} e \textit{frontwards}:
 \begin{theorem*}
-	Suponha que \(f_{\omega }\) é Lipschitz, com constante Lipschitz dada por \(\Vert f_{\omega } \Vert = \sup_{x\neq y} \frac{d(f(x), f(y))}{d(x, y)}\), e suponha também que
+	Suponha que \(f_{\omega }\) é Lipschitz, com constante Lipschitz dada por \(\Vert f_{\omega } \Vert = \sup_{x\neq y} \frac{d(f_{\omega }(x), f_{\omega }(y))}{d(x, y)}\), e suponha também que
 	\begin{align*}
-		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{}\Vert f_{\omega } \Vert \mathrm{d} \mathbb{P}(\omega ) < \infty;      \\
-		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{} \log^{}{\Vert f_{\omega } \Vert} \mathrm{d} \mathbb{P}(\omega ) < 0;
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{}\Vert f_{\omega } \Vert \mathrm{d} \mathbb{P}(\omega ) < \infty;                                                                                              \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \int_{}^{} \log^{+}{\Vert f_{\omega } \Vert} \mathrm{d} \mathbb{P}(\omega ) < 0, \quad \log^{+}{(\Vert f_{\omega } \Vert)} = \max{\log^{}{\Vert f_{\omega } \Vert}, 0};
 	\end{align*}
 	Então, para \(\mathbb{P}-\)quase todo \(\omega \), existe o limite
 	\[
@@ -208,7 +195,7 @@ Para isso, foram utilizadas as ideias de \cite{Furstenberg1960}, consistindo em 
 	\]
 	Além disso, esse limite não depende da escolha de \(x_{0}\).
 \end{theorem*}
-\begin{proof*}
+\begin{proof*} [Prova do Princípio de Letac]
 	Seja
 	\[
 		\mu_{n}(\omega )=\Vert f_{\theta^{-1}(\omega )}\circ f_{\theta^{-2}(\omega )}\circ\cdots\circ f_{\theta^{-n}(\omega )} \Vert;
@@ -231,8 +218,7 @@ Para isso, foram utilizadas as ideias de \cite{Furstenberg1960}, consistindo em 
 	\]
 	justificada por conta da subaditividade e do logaritmo transformar produtos em somas. Daí, tome \(\varepsilon >0\) tal que \(\lambda = b -\varepsilon < -\varepsilon \), ou seja, \(\lambda +\varepsilon =b < 0\) e aplique a definição de limite para encontrar \(n_{0}(\omega )\) tal que, se n for maior que \(n_{0}(\omega )\), teremos
 	\begin{align*}
-		\log^{}{\Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert} & \leq \sum\limits_{i=1}^{n}\log^{}{\Vert f_{\theta^{-i}(\omega )} \Vert}                                      \\
-		                                                                                         & \leq n_{0}b                                                                                                  \\
+		\log^{}{\Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert} & \leq \sum\limits_{i=1}^{n}\log^{}{\Vert f_{\theta^{-i}(\omega )} \Vert} \leq n_{0}b                          \\
 		                                                                                         & \Rightarrow \Vert f_{\theta^{-1}(\omega )}\circ \dotsc \circ f_{\theta^{-n}(\omega )} \Vert \leq e^{n_{0}b}.
 	\end{align*}
 
