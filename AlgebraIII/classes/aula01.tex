@@ -3,8 +3,351 @@
 \section{Aula 01 - 03 de Março, 2026}
 \subsection{Motivações}
 \begin{itemize}
- \item a
+	\item Ações de Grupos;
+	\item Anéis.
 \end{itemize}
-\subsection{a}
-a
+\subsection{Ações de Grupos}
+Seja G um grupo e X um conjunto qualquer.
+\begin{def*}
+	Uma \textbf{ação (à esquerda)} é um morfismo \(\varphi :G\times X\rightarrow X\) que satisfaz
+	\begin{align*}
+		 & i)\quad \varphi (g, \varphi (h, x)) = \varphi (gh, x)         \\
+		 & ii)\quad \varphi (e, x)=x, \quad \forall x\in X,\; g, h\in G.
+	\end{align*}
+\end{def*}
+\begin{def*}
+	Seja \(G\times X \stackrel{\varphi }\rightarrow X\) uma ação. Para todo x em X, definimos a \textbf{Órbita de x} como o conjunto
+
+	\[
+		\mathfrak{O}_{x} = \{y\in X:\; y = \varphi (g, x),\quad g\in G\}\subseteq X. \;\square
+	\]
+\end{def*}
+\begin{exr}
+	Seja
+	\[
+		G_{x}:=\{g\in G:\; \varphi (g, x)=x\}\subseteq G
+	\]
+	O \textbf{grupo de isotropia} de x.
+	Mostre que \(G_{x}\) é subgrupo de G.
+\end{exr}
+Cada ação define uma relação de equivalência no conjunto X, dada por
+\[
+	x \cong y \Longleftrightarrow \exists g\in G:\quad y = \varphi (g, x).
+\]
+Assim, uma outra forma de definir a órbita de um elemento x é como a classe de equivalência sob a relação acima para ele:
+\[
+	[x] = \mathfrak{O}_{x}.
+\]
+Logo, podemos escrever o conjunto total X como
+\[
+	X = \bigcup_{x\in X}^{}\mathfrak{O}_{x}.
+\]
+
+\begin{def*}
+	Um morfismo \(\varphi \) é \textbf{transitivo} se, e somente se, existe uma única órbita; ou seja, para todos x e y em X, existe g em G tal que
+	\[
+		y = \varphi (g, x). \;\square
+	\]
+\end{def*}
+\begin{example}
+	Dado o conjunto X e G o grupo de bijeções de X em X, segue que
+	\[
+		\varphi (\phi, x) = \phi(x)
+	\]
+	é transitiva.
+\end{example}
+\begin{example}
+	Se considerarmos X como o conjunto dos vetores colunas, i.e., \(X = \mathbb{R}^{n}\) e tomarmos \(G = \mathrm{Gl}_{n}(\mathbb{R})\), então
+	\[
+		\varphi (A, v) = Av
+	\]
+	\textit{não} é transitiva!
+\end{example}
+\begin{example}
+	Seja V um espaço vetorial de dimensão n; tome X como o conjunto de bases de V e G todas as transformações lineares e invertíveis de V em V. Defina, com isso,
+	\begin{align*}
+		\varphi : & G\times X\rightarrow X                                            \\
+		          & (\phi, b)\longmapsto \phi(b) = (\phi(e_1), \dotsc , \phi(e_{n})),
+	\end{align*}
+	onde \(b=(e_1,\dotsc , e_{n})\) é uma base.
+	\begin{exr}
+		Prove que \(\varphi \) é transitiva!
+	\end{exr}
+\end{example}
+\begin{example}
+	Considere \(X = \mathbb{R}^{3}\) e G o grupo
+	\[
+		G = \mathcal{O}_{3}(\mathbb{R})=\{A\in \mathrm{Gl}_{3}(\mathbb{R}):\; A^{t}A = \mathrm{Id}\}.
+	\]
+	Defina a ação\begin{align*}
+		 & \mathcal{O}_{3}(\mathbb{R})\times \mathbb{R}^{3}\rightarrow \mathbb{R}^{3} \\
+		 & (A, v )\longmapsto Av.
+	\end{align*}
+	então, as órbitas são as esferas de raio \(r\geq 0\)!
+\end{example}
+Temos uma forma de definir órbitas transitivas: para todo x em X, vale a relação \(\mathfrak{O}_{x}\subseteq X\); assim, sejam \(z, y\) em \(\mathfrak{O}_{x}\), ou seja, existe g em G tal que
+\[
+	\varphi (g, z) = y.
+\]
+Então, a restrição de \(\varphi \) em \(\mathfrak{O}_{x}\) define uma ação de G em \(\mathfrak{O}_{x}\) que é transitiva.
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Em vista do que vimos, nota-se que \(G/G_{x}\) são exatamente as classes laterais à esquerda de G módulo \(G_{x}\), ou seja,
+	\[
+		G/G_{x}\cong \mathfrak{O}_{x}
+	\]
+\end{tcolorbox}
+\begin{example}
+	Tomemos \(X = \mathbb{R}^{3}\) e \(G = \mathrm{SO}_{3}\); para o vetor
+	\[
+		v = \begin{bmatrix}
+			0 \\
+			0 \\
+			1
+		\end{bmatrix},
+	\]
+	a órbita de v será o conjunto
+	\[
+		\mathfrak{O}_{v} = \{v\in \mathbb{R}^{3}:\; \Vert v \Vert^{2}=1\},
+	\]
+	onde \(\Vert \cdot  \Vert\) é simplesmente a norma euclidiana. Logo, o grupo de isotropia é, neste caso, as rotações ao redor do eixo z:
+	\[
+		Gv = \{A\in \mathrm{SO}_{3}(\mathbb{R}):\; Av = v\},
+	\]
+	ou seja, a esfera de raio 1 com centro em \(\vec{0}\) é exatamente o quociente
+	\[
+		\mathrm{SO}_{3}(\mathbb{R})/(Gv) \cong \mathrm{SO}_{2}(\mathbb{R}) \cong \mathbb{S}^{1}.
+	\]
+\end{example}
+
+Utilizando a ação de grupos, podemos obter uma bijeção de X utilizando o seguinte raciocínio: para uma G-ação \(G\times X \stackrel{\varphi }\rightarrow X\) e qualquer g em G, defina o mapa
+\begin{align*}
+	\varphi_{g}: & X\rightarrow X               \\
+	             & x\longmapsto \varphi (g, x).
+\end{align*}
+Então, para toda g em G e todo x em X, vale a relação \( \varphi_{g}(x) = \varphi (g, x)\), ou seja, como g é um Grupo e existe \(g^{-1}\), segue que \( \varphi_{g}\) é uma bijeção de X com inversa
+\[
+	(\varphi_{g})^{-1} = \varphi_{g^{-1}};
+\]
+logo, fica definida de brinde o \textit{homomorfismo}
+\begin{align*}
+	\Phi : & G\rightarrow \mathrm{Bij}(X) \\
+	       & g\longmapsto \varphi_{g}
+\end{align*}
+\begin{theorem*}
+	O morfismo \(\Phi \) é, de fato, um homomorfismo de grupos, ou seja, para todos g e h em G, vale que
+	\[
+		\Phi (gh) = \Phi (g) \circ \Phi (h)
+	\]
+\end{theorem*}
+\begin{proof*}
+	De fato, considere x um elemento de X. Observe que
+	\begin{align*}
+		\Phi (gh)(x) = \varphi_{gh}(x) & = \varphi (gh, x)             \\
+		                               & = \varphi (g, \varphi (h, x)) \\
+		                               & = \varphi_{g}(\varphi_{h}(x)) \\
+		                               & = \varphi_{g}(\Phi (h)(x))    \\
+		                               & = \Phi (g)\circ \Phi (h)(x).
+	\end{align*}
+	Portanto, como x foi escolhido de modo arbitrário, isto vale para todo x de X, caracterizando um homomorfismo de grupo. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Dado um homomorfismo \(\phi\) o \textbf{núcleo de \(\mathbf{\phi}\)} é o conjunto de elementos de seu domínio mapeados para a identidade, i.e.,
+	\[
+		\mathrm{ker}(\phi) = \{g\in G:\; \phi(g)=\mathrm{Id}\},
+	\]
+	onde \(\mathrm{id}\) é a identidade de \(\mathrm{Bij}(X).\; \square\)
+\end{def*}
+\begin{exr}
+	Prove a relação
+	\[
+		\mathrm{ker}(\varphi )=\bigcap_{x\in X}^{}G_{x}.
+	\]
+\end{exr}
+\begin{def*}
+	Um morfismo \(\varphi \) é chamado \textbf{fiel} se o seu núcleo é trivial:
+	\[
+		\mathrm{ker}(\varphi ) = \{e\}.\; \square
+	\]
+\end{def*}
+Equivalentemente, o morfismo será fiel se ele for injetor, ou ainda se existir algum g em G que satisfaça
+\[
+	\varphi_{g}(x) = x, \quad \forall x\in X,
+\]
+então g \textbf{deve} ser o elemento neutro.
+
+\subsection{Anéis e Corpos}
+A teoria de Galois é fundamentalmente uma teoria sobre corpos e sobre como resolver equações polinomiais em diferentes corpos; por exemplo, sabemos que existe a fórmula de Bhaskara para resolver equações de grau 2, e que existem para os graus 3 e 4.
+A partir de certo ponto, houve o questionamento de fórmulas para graus maiores que 5 e concluíram que não existe, até que chegou Galois e interpretou as fórmulas como traduzidas para alguns tipos de grupos, especificamente um subgrupo das permutações, e chegou à conclusão que haverá fórmula quando ele for \textit{solúvel}.
+Daí, ele encontrou um resultado de que haverá fórmula solucionadora se, e somente se, o grupo for solúvel, mas ele não é solúvel para polinômios de grau maior que 5, além de vários outros resultados que auxiliam nessa questão.
+Portanto, para podermos estudar teoria de Galois, passaremos por uma revisão da Anéis e Corpos a seguir.
+
+\begin{def*}
+	Um \textbf{anel \(\mathbf{(A, +, \cdot )}\)} é um conjunto com duas operações + e \(\cdot \), tal que:
+	\begin{itemize}
+		\item \((A, +)\) forma um \textit{grupo abeliano}\footnote{Comutativo.} com identidade \(0\in A\);
+		\item \((A, \cdot )\) é um \textit{monoide}\footnote{A operação é associativa.}, sendo o símbolo \(\cdot \) omitido quando não houver chance de confusão (e.g. \(a \cdot b = ab\)); e
+		\item Vale a distribuição entre operações:
+		      \[
+			      (a+b)c = ac + bc \quad\&\quad a(b+c) = ab + ac
+		      \]
+	\end{itemize}
+	Além disso, se, para todo a e b em A, vale que
+	\[
+		ab = ba,
+	\]
+	o anel é dito \textbf{anel comutativo}, e se existe um elemento \(1\) em A que satisfaz
+	\[
+		a \cdot 1 = 1 \cdot a = a,
+	\]
+	ele será conhecido como \textbf{anel com identidade}. \(\square\)
+\end{def*}
+Os anéis que consideraremos são do tipo específico conhecidos como \textit{anéis comutativos com identidade}, afinal existem vários anéis não comutativos ou que não tem identidade
+\begin{example}[Não exemplo de comutatividade]
+	Seja \((A, +, \cdot )\) um anel comutativo com identidade. Sobre ele, defina o conjunto
+	\[
+		\mathbb{M}_{n}(A) \coloneqq \{M = [a_{ij}]_{n \times n}:\; a_{ij}\in A\}
+	\]
+	e as operações
+	\begin{align*}
+		 & (C+D)_{ij} = C_{ij}+D_{ij}                      \\
+		 & (CD)_{ij} = \sum\limits_{k=1}^{n}c_{ik}d_{kj}   \\
+		 & \mathrm{Id} = \begin{bmatrix}
+			                 1      & 0      & \dotsc & 0      \\
+			                 0      & 1      & \dotsc & 0      \\
+			                 \vdots & \vdots & \ddots & \vdots \\
+			                 0      & 0      & \dotsc & 1
+		                 \end{bmatrix}.
+	\end{align*}
+	Então, se \(n>1\), o anel \((\mathbb{M}_{n}(A), +, \cdot )\) \textit{não} é comutativo.
+\end{example}
+\begin{example}[Anel de Polinômios]
+	Se A é um anel e
+	\[
+		\mathcal{P} = A[x] \coloneqq  \{p(x)=\sum\limits_{i=0}^{n}a_{i}x^{i}:\; a_{i}\in A\}
+	\]
+	é o anel de polinômios com \textit{coeficientes} em A, onde n é chamado \textbf{grau do polinômio}, com o produto de polinômios dado pelo produto de Cauchy:
+	\[
+		p(x)q(x) = \sum\limits_{j+i = k}^{}a_{j}b_{i},\quad \deg{(p(x)q(x))}=k
+	\]
+	onde
+	\[
+		p(x)=\sum\limits_{i}^{}a_{i}x^{i} \quad\&\quad q(x)=\sum\limits_{j}^{}b_{j}x^{j},
+	\]
+	ou seja, ganhamos um anel novo simplesmente adicionando essa variável x; em particular, se A tem identidade 1, então ela será a identidade de \(A[x]\) também!
+\end{example}
+\begin{example}[Não exemplo de identidade]
+	Seja A o anel
+	\[
+		A = 3 \mathbb{Z} = \{n\in \mathbb{Z}:\; n = 3k,\; k\in \mathbb{Z}\}\subseteq \mathbb{Z};
+	\]
+	então, com a soma e o produto usual de \(\mathbb{Z}\), o anel \((A, +, \cdot )\) é comutativo, mas sem identidade.
+\end{example}
+Vamos estudar como ocorre a interação entre as identidades aditiva e multiplicativa.
+\begin{lemma*}
+	Seja A um anel qualquer. Valem as relações:
+	\begin{align*}
+		 & (1)\; 0 \cdot a = a \cdot 0 = 0; \\
+		 & (2)\; a(-b) = (-a)b = -(ab);     \\
+		 & (3)\; (-a)(-b) = ab;             \\
+		 & (4)\; (-1)a = a(-1) = -a; \;\&   \\
+		 & (5)\; (-1)(-1)=1.
+	\end{align*}
+\end{lemma*}
+\begin{proof*}
+	Vamos provar apenas o item 1, pois é bem monótono em geral (ou seja, fica como exercício!): dado a qualquer, vale que
+	\[
+		a \cdot  (0+0) = a \cdot 0 + a \cdot 0;
+	\]
+	porém, \(0+0 = 0\), ou seja,
+	\[
+		a \cdot 0 = a \cdot 0 + a \cdot 0.
+	\]
+	Portanto, como \((A, +)\) é um grupo, existe a lei de cancelação, de forma que
+	\[
+		0 = a \cdot 0. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{exr}
+	Prove as propriedades restantes acima.
+\end{exr}
+\begin{def*}
+	Seja B um subconjunto do conjunto A e \((A, +, \cdot )\) um anel. Então, B é chamado \textbf{subanel de A} se satisfaz:
+	\begin{itemize}
+		\item[1)] Existe identidade em B (\(1\in B\));
+		\item[2)] O grupo da soma de B é subgrupo da soma de A (\((B, +)< (A, +)\)); e
+		\item[3)] B é fechado para multiplicação de seus elementos (\(BB\subseteq B\)). \(\square\)
+	\end{itemize}
+\end{def*}
+\begin{example}[Não exemplo de Subanel]
+	Se A é o anel dos inteiros e \(B = 3\mathbb{Z}\subseteq \mathbb{Z}\), então B não é um subanel.
+\end{example}
+\begin{example}[Subanel]
+	Considere B como um conjunto de \(A[x]\) dado pelos polinômios de graus par; então, B é um subanel de A.
+\end{example}
+\begin{def*}
+	Seja \((A, +, \cdot )\) um anel; um subconjunto \(\mathfrak{i}\subseteq A\) é chamado de \textbf{ideal de A} se:
+	\begin{itemize}
+		\item[1)] \((\mathfrak{i}, +)\) é um subgrupo de \((A, +)\) (logo, fechado em relação à soma);
+		\item[2)] \(\mathfrak{i}\) \textit{absorve} produtos com elementos de A (\(\mathfrak{i}A \subseteq \mathfrak{i}\)). \(\square\)
+	\end{itemize}
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Por que não pedimos que a identidade esteja em \(\mathfrak{i}\)?
+
+	Suponha que \(\mathfrak{i}\) é um ideal de A tal que \(1\in \mathfrak{i}\); então, vale que, para todo elemento a de A,
+	\[
+		a = \underbrace{1}_{\in \mathfrak{i}} \cdot \underbrace{a}_{\in A} \in \mathfrak{i}
+	\]
+	por definição de ideal. Logo, se \(1\in \mathfrak{i}\), teremos \(\mathfrak{i}=A\).
+\end{tcolorbox}
+\begin{def*}
+	Um ideal \(\mathfrak{i}\subseteq A\) é conhecido como \textbf{ideal próprio} se \(\mathfrak{i}\neq\{0\}\) e \(\mathfrak{i}\neq A.\; \square\)
+\end{def*}
+Se \(\mathfrak{i} \) é um ideal de A, podemos definir uma relação de equivalência por
+\[
+	a_1 \sim  a_{2} \Longleftrightarrow a_{1}-a_{2}\in \mathfrak{i}.
+\]
+\begin{exr}
+	Prove que a relação \(\sim \) acima é de equivalência.
+\end{exr}
+Com ela, definimos também a classe de equivalência \(A/\mathfrak{i}\) das classes de equivalências vindas dela, junto às operações
+\begin{align*}
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; [a]+[b]\coloneqq [a+b] \\
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; [a][b]\coloneqq [ab],
+\end{align*}
+tornando \((A/\mathfrak{i}, +, \cdot )\) em um anel comutativo com identidade \([1]\).
+\begin{example}
+	Considere \(A = \mathbb{Z}\) com as operações usuais nos inteiros. Aqui, todos os ideais são do tipo
+	\[
+		\mathfrak{i} = k \mathbb{Z},\quad k\geq 0,
+	\]
+	ou seja, teremos as classes de equivalência
+	\[
+		A/\mathfrak{i} = \mathbb{Z}/k \mathbb{Z} = \mathbb{Z}_{k},
+	\]
+	consistindo dos possíveis restos da divisão por k, conhecido como \textbf{anel dos inteiros módulo k}.
+\end{example}
 \end{document}
