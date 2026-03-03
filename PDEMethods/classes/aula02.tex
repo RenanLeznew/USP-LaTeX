@@ -1,0 +1,85 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 04 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Estados Estacionários;
+	\item Problemas de Valor de Fronteira.
+\end{itemize}
+\subsection{Problemas de Valor de Fronteira: Estados Estacionários}
+Primeiramente, precisamos entender o que exatamente setamos modelando. A equação do calor é derivada das leis de Fourier e da conservação de energia, descrita como
+\[
+	u_{t} = (k(x)u_{x}(x, t))_{x} + \psi (x, t), \quad a <x <b,\; t >0,
+\]
+onde \(u(x, t)\) é a temperatura no ponto x e tempo t, \(k(x)>0\) é um coeficiente de condução de calor (por exemplo, quanto certo material dissipa temperatura), sendo constante (independente de x) caso o material seja homogêneo, e \(\psi (x, t)\) é a fonte do calor.
+Para resolver uma equação desse tipo, precisamos de uma condição inicial no momento \(t=0\), dada por
+\[
+	u(x, 0)=u_{0}(x)
+\]
+dependente apenas de x, e as condições de contorno podem ser tanto do tipo \textit{condições de Dirichlet}, correspondendo às temperaturas prescritas nos extremos, como
+\[
+	u(a, t)=\alpha (t) \quad\&\quad u(b, t)=\beta (t),\quad t\geq 0,
+\]
+ou \textit{condições de Neumann}, dizendo respeito ao fluxo de temperatura -- sua variação em certo ponto, como
+\[
+	u_{x}(a, t) = 0 \quad\&\quad u_{x}(b, t)=0,
+\]
+sendo o exemplo acima correspondendo a um material isolado.
+
+Porém, do jeito que foi posto aqui, essa é uma EDP! Não temos as ferramentas necessárias para resolver isso (por agora); o que estamos interessados aqui é um problema de estado estacionário: se imaginarmos um fio com certa temperatura no lado esquerdo, outra no direito e uma condição inicial, com o passar do tempo, como não estamos acrescentando claro ao sistema, a temperatura vai chegar a uma certa distribuição e parar de variar de acordo com o tempo! Isso constitui uma \textbf{solução estacionária}, na qual o tanto de temperatura entrando no sistema é o mesmo tanto que o que está saindo, e elas são características de um modelo estacionário.
+No modelo anterior, para encaixá-lo nessa configuração, supomos que \(\partial_{t}u = 0, \; k(x)\equiv k >0 \) e que \(\psi (x, t),; \alpha (t),\; \beta (t)\) são todas temporalmente independentes, passando a ser do tipo
+\[
+	-k u''(x) = \psi (x),\quad a < x < b
+\]
+e passá-la para uma EDO usual do tipo
+\[
+	u''(x) = f(x),\quad f(x)\coloneqq \frac{-\psi (x)}{x},\quad a<x<b,
+\]
+caracterizando uma EDO de segunda ordem em \(u(x).\) Logo, adiante, vamos assumir que \(a=0, \; b=1\) e que o problema de fronteira de Dirichlet\footnote{A partir do momento que retiramos a dependência temporal, não faz sentido falar de condição inicial.} é da forma
+\[
+	u(0)=\alpha ,\quad u(1)=\beta.
+\]
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O sistema de estado estacionário acima poderia ser dado uma solução exata se integrarmos f duas vezes e usarmos as condições de fronteira para determinar as constante envolvidas.
+	Um exemplo para o problema acima é considerando
+	\[
+		u(0)=20,\; u(r)=60,\; f(x)=-100e^{x},
+	\]
+	cuja solução é
+	\[
+		u(x)=-100e^{x} + (100e -60)x +120
+	\]
+\end{tcolorbox}
+
+Sem mais delongas, vamos nos concentrar no PVC de dois pontos que postulamos:
+\[
+	\left\{\begin{array}{ll}
+		u''(x)=f(x),\quad 0<x<1 \\
+		u(0)=\alpha             \\
+		u(r)=\beta
+	\end{array}\right..
+\]
+Definamos os pontos de grade \(x_{j}=jh,\; 0\leq j\leq m+1\), do intervalo \([0,1]\) (essencialmente, separamos o intervalo \([0,1]\) em m+1 pontos), onde \(h=\frac{1}{m+1}\) é o comprimento da grade/malha; coloque, também, \(U_{j}\approx u(x_{j})\) como a aproximação de \(u(x_{j})\).
+Assim, pelo valor de contorno, sabemos que \(U_{0}=\alpha \) e \(U_{m+1}=\beta \), de forma que ganhamos m variáveis desconhecidas \(U_1, U_2, \dotsc , U_{m}\), e seria bem legal se conseguíssemos calcular elas, até porque, quanto mais pontos usamos na divisão, melhor será a aproximação.
+
+Pelo que vimos na aula passada, podemos aproximar a segunda derivada de u em x pela fórmula
+\[
+	u''(x_{j})\approx D^{2}u(x_{j})\coloneqq \frac{1}{h^{2}}(u(x_{j-1})-2u(x_{j})+u(x_{j+1})) + \mathcal{O}(h^{2}),
+\]
+Como não sabemos exatamente a forma de \(\mathcal{O}(h^{2})\), devemos descartar esse tema, resultando numa mudança de notação, da qual obtemos o sistema algébrico de m equações lineares em \(U_{j}\) da forma
+\[
+	\frac{1}{h^{2}}(U_{j-1}-2U_{j}+U_{j+1})=f(x_{j}),\quad j=1,2,\dotsc ,m,
+\]
+onde \(U_{0}=\alpha \) e \(U_{m+1}=\beta \).
+\end{document}

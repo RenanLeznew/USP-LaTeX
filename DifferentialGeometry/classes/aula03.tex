@@ -67,9 +67,175 @@ onde \(\kappa (s)\) é a curvatura com sinal da curva \(\alpha \), pois
 \end{tcolorbox}
 \begin{exr}
 	Prove que \(n'(s)=-\kappa (s)t(s).\)
+
+	%% Como \(\langle n, n \rangle = 1\), vale que \(\langle n', n \rangle = 0\); consequentemente, n' é ortogonal a n, então ele deve paralelo a t, ou seja, \(n'=\lambda t\). 
+	% Agora, usando o fato de que \(\langle n, t \rangle = 0\), segue que \(\langle n', t \rangle + \langle n, t' \rangle=0\), ou seja, 
+	% \[
+	%   \langle \lambda t, t \rangle + \langle n, \kappa n \rangle = 0 \Longleftrightarrow \alpha +k = 0 \Longleftrightarrow \lambda =\kappa . \qedsymbol
+	% \]
 \end{exr}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Derivando o produto interno},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Utilizando a regra de Leibniz, se \(f(x)=(f_1(x),\dotsc , f_{n}(x))\) e \(g(x)=(g_1(x),\dotsc , g_{n}(x))\), do modo que
+	\[
+		\langle f(x), g(x) \rangle = f_1(x)g_1(x)+\dotsc + f_{n}(x)g_{n}(x),
+	\]
+	aplicações repetidas dela resultam na relação
+	\[
+		\langle f, g \rangle = \langle f', g \rangle + \langle f, g' \rangle.
+	\]
+\end{tcolorbox}
 \begin{example}[Reta]
-	Seja
+	Seja \(\alpha (s) = p_{0}+sv\), onde s é um número real e v é um vetor unitário, de forma que \(\alpha \) é parametrizada p.c.a. Temos, então,
+	\[
+		t(s) = v \Rightarrow t'(s) =0, \quad \forall s\in \mathbb{R} \Rightarrow \kappa (s) = 0, \; \forall s\in \mathbb{R}.
+	\]
+\end{example}
+\begin{example}[Círculo]
+	Vamos tentar parametrizar e computar a circunferência de um círculo de raio r centrado em \((x_{0}, y_{0})\): para s real e r positivo, considere
+	\[
+		\alpha (s) = \biggl(r \cos^{}{\biggl(\frac{s}{r}\biggr)}+x_{0}, r\sin^{}{\biggl(\frac{s}{r}\biggr)}+y_{0}\biggr),
+	\]
+	de modo que
+	\[
+		t(s)=\alpha '(s) = \biggl(\cos^{}{\biggl(\frac{s}{r}\biggr)}, \sin^{}{\biggl(\frac{s}{r}\biggr)}\biggr)
+	\]
+	é unitário, ou seja, \(\alpha \) é parametrizada p.c.a. Neste caso, como
+	\[
+		t'(s)=\biggl(-\frac{1}{r} \sin^{}{\biggl(\frac{s}{r}\biggr)}, \frac{1}{r}\cos^{}{\biggl(\frac{s}{r}\biggr)}\biggr) = \frac{1}{r}n(s),
+	\]
+	obtemos a curvatura como
+	\[
+		\kappa (s) = \frac{1}{r},
+	\]
+	conforme havíamos conjecturado no início da disciplina.
+\end{example}
+
+Nosso próximo passo de estudo é expressar a curvatura para um parâmetro qualquer.  Vamos denotar por s o parâmetro de uma parametrização p.c.a., e por u um parâmetro qualquer de uma curva suave e regular \(\alpha :I\rightarrow \mathbb{R}^{2}\).
+
+Com estas configurações, temos uma parametrização p.c.a, dada por \(\beta (s)=\alpha (\ell^{-1}(s))\) e \(u = \ell^{-1}(s),\) onde
+\[
+	\ell (u) = \int_{u_{0}}^{u}\Vert \alpha'(t) \Vert \mathrm{d}t.
+\]
+Consequentemente,
+\begin{align*}
+	\frac{\mathrm{d}u}{\mathrm{d}s} = \frac{\mathrm{d}}{\mathrm{d}s}(\ell^{-1}(s)) & = \frac{1}{\ell'(\ell ^{-1}(s))}              \\
+	                                                                               & = \frac{1}{\Vert \alpha'(\ell^{-1}(s)) \Vert} \\
+	                                                                               & = \frac{1}{\Vert \alpha'(u) \Vert},
+\end{align*}
+mas por termos a regra da cadeia, se considerarmos outra função suave f, obtemos a expressão
+\[
+	\frac{\mathrm{d}}{\mathrm{d}s}= \frac{\mathrm{d}f}{\mathrm{d}u}\frac{\mathrm{d}u}{\mathrm{d}s}=\frac{1}{\Vert \alpha '(u) \Vert}\frac{\mathrm{d}f}{\mathrm{d}u}
+\]
+ou seja, podemos traduzir de uma parametrização por s para uma parametrização por u com a relação
+\[
+	\boxed{\frac{\mathrm{d}}{\mathrm{d}s} = \frac{1}{\Vert \alpha '(u) \Vert}\frac{\mathrm{d}}{\mathrm{d}u}}.
+\]
+Mais geralmente, escrevendo \(\alpha (u)=(x(u), y(u))\) para a curva \(\alpha \), a expressão de \(t(u)\) torna-se
+\[
+	t(u) = \frac{\alpha'(u)}{\Vert \alpha'(u) \Vert}=\frac{1}{\sqrt[]{x'(u)^{2}+y'(u)^{2}}}(x'(u), y'(u));
+\]
+deste modo, omitindo o parâmetro u\footnote{Ou seja, todas as derivadas de x e y serão com respeito ao parâmetro u pelo resto do raciocínio.}, chegamos na relação
+\begin{align*}
+	\frac{\mathrm{d}t}{\mathrm{d}s} & = \frac{1}{\sqrt[]{x'^{2}+y'^{2}}}\frac{\mathrm{d}}{\mathrm{d}u}\biggl(\frac{1}{\sqrt[]{x'^{2}+y'^{2}}}(x', y')\biggr)                      \\
+	                                & = \frac{1}{\sqrt[]{x'^{2}+y'^{2}}}\biggl[\frac{1}{\sqrt[]{x'^{2}+y'^{2}}}(x'', y'') + \biggl(\sqrt[]{x'^{2}+y'^{2}}\biggr)'(x', y')\biggr],
+\end{align*}
+e, utilizando a expressão
+\[
+	\kappa (u) = \biggl\langle \frac{\mathrm{d}t}{\mathrm{d}s}, n \biggr\rangle, \quad n = \frac{1}{\sqrt[]{x'^{2}+y'^{2}}}(-y', x'),
+\]
+chegamos em
+\[
+	\kappa (u) = \frac{1}{(x'^{2}+y'^{2})^{\frac{3}{2}}}(x'y''-x''y').
+\]
+Portanto, obtemos uma expressão para a curvatura em termos da parametrização por u:
+\[
+	\kappa (u) = \frac{(x'y''-x''y')}{(x'^{2}+y'^{2})^{\frac{3}{2}}}.
+\]
+\subsection{Pontos de Inflexão e Vértices}
+\begin{def*}
+	Um ponto \(u_{0}\) de uma curva \(\alpha :I\rightarrow \mathbb{R}^{2}\) é chamado \textbf{ponto de inflexão} se \(\kappa (u_{0})=0\); se, por outro lado, \(\kappa'(u_{0})=0\), então chamaremos o ponto \(u_{0}\) de \textbf{vértice}. \(\square\)
+\end{def*}
+\begin{example}
+	Vamos tomar a curva \(\alpha (u)=(u, u^{3}),\; u\in \mathbb{R}\), cujo traço é
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/inflection_04.png}
+		\end{center}
+	\end{figure}
+	Aqui, temos as relações parametrizadas
+	\[
+		\left.\begin{array}{ll}
+			\alpha '(u)=(1, 3u^{2}) \\
+			\alpha ''(u)=(0,6u)
+		\end{array}\right\} \Rightarrow \kappa (u)=\frac{6u}{(1+9u^{4})^{\frac{3}{2}}}.
+	\]
+	Quais são os pontos de inflexão dessa curva? Ela tem algum vértice?
+
+	Para começar, observe que o denominador nunca se anula (naturalmente), mas o numerador sim, quando \(u=0\); logo,
+	\[
+		\kappa (u)=0 \Longleftrightarrow u =0,
+	\]
+	donde concluímos que \(\alpha (0)=(0,0)\) é um ponto de inflexão de \(\alpha \).
+	Ademais,
+	\[
+		\kappa '(u) = -\frac{270x^{4}-6}{(9x^{4}+1)^{\frac{5}{2}}},
+	\]
+	que se anula quando \(270x^{4}-6=0.\)
+\end{example}
+\begin{example}[Elipse]
+	A elipse pode ser parametrizada por
+	\[
+		\alpha (u)=(a\cos^{}{u}, b\sin^{}{u}), \quad u\in \mathbb{R},\; a, b>0,\; a\neq b.
+	\]
+	Como
+	\begin{align*}
+		 & \alpha '(u)=(-a \sin^{}{u}, b \cos^{}{u})  \\
+		 & \alpha ''(u)=(-a\cos^{}{u}, -b\sin^{}{u}),
+	\end{align*}
+	a curvatura da elipse em um ponto u é dada pela relação
+	\[
+		\kappa (u)=\frac{ab}{(a^{2}\sin^{2}{u}+b^{2}\cos^{2}{u})^{\frac{3}{2}}}.
+	\]
+	Observe aqui que \(\kappa (u)>0\) para todo u, ou seja, a \textbf{elipse não possui pontos de inflexão!}.
+
+	Por outro lado, derivando a curva, obtemos
+	\[
+		\kappa '(u)= - \frac{3ab(a^{2}-b^{2})\sin^{}{u}\cos^{}{u}}{(a^{2}\sin^{2}{u}+b^{2}\cos^{2}{u})^{\frac{5}{2}}};
+	\]
+	daí, os vértices da elipse podem ser encontrados por
+	\[
+		\kappa '(u)=0 \Longleftrightarrow u=0,\; \frac{\pi }{2},\; \pi ,\; \frac{3\pi }{2}.
+	\]
+	Portanto, a elipse possui quatro vértices.
+\end{example}
+\begin{example}[Parábola]
+	A parábola pode ser parametrizada por \(\alpha (u)=(u, u^{2}),\; u\in \mathbb{R}\), da qual obtemos
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \alpha '(u)=(1,2u)   \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle; \; \alpha''(u) = (0,2),
+	\end{align*}
+	donde concluímos que
+	\[
+		\kappa (u) = \frac{2}{(1+4u^{2})^{\frac{3}{2}}},
+	\]
+	que, novamente, nunca se anula -- a parábola também não tem pontos de inflexão! No entanto, novamente,
+	\[
+		\kappa '(u) = - \frac{24u}{(1+4u^{2})^{\frac{5}{2}}} \Rightarrow \kappa '(u)=0 \Longleftrightarrow u =0.
+	\]
+	Portanto, a parábola tem um único ponto de vértice em \(\alpha (0).\)
 \end{example}
 
 \end{document}
