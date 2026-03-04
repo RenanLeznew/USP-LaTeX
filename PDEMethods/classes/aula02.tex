@@ -81,5 +81,279 @@ Como não sabemos exatamente a forma de \(\mathcal{O}(h^{2})\), devemos descarta
 \[
 	\frac{1}{h^{2}}(U_{j-1}-2U_{j}+U_{j+1})=f(x_{j}),\quad j=1,2,\dotsc ,m,
 \]
-onde \(U_{0}=\alpha \) e \(U_{m+1}=\beta \).
+onde \(U_{0}=\alpha \) e \(U_{m+1}=\beta \), resultando no sistema de igualdades
+\begin{align*}
+	 & \frac{1}{h^{2}}(\alpha -2U_1+U_2)=f(x_1), \quad j=1            \\
+	 & \frac{1}{h^{2}}(U_1-\alpha -2U_2+U_3)=f(x_2), \quad j=2        \\
+	 & \vdots
+	 & \frac{1}{h^{2}}(U_{m-2} -2U_{m-1}+U_m)=f(x_{m-1}), \quad j=m-1 \\
+	 & \frac{1}{h^{2}}(U_{m-1} -2U_m+\beta )=f(x_m), \quad j=m,
+\end{align*}
+que tem uma representação em forma de
+\[
+	\frac{1}{h^{2}}\begin{bmatrix}
+		2      & 1      & 0      & \dotsc &        &    \\
+		1      & -2     & 1      & 0      & \dotsc &    \\
+		0      & 1      & -2     & 1      & \dotsc &    \\
+		\vdots & 0      & \ddots & \ddots & \ddots &    \\
+		       & \vdots & \vdots & 1      & -2     & 1  \\
+		       &        &        &        & 1      & -2
+	\end{bmatrix} \begin{bmatrix}
+		U_1     \\
+		U_2     \\
+		U_3     \\
+		\vdots  \\
+		U_{m-1} \\
+		U_{m}
+	\end{bmatrix} = \begin{bmatrix}
+		f(x_1)-\frac{\alpha }{h^{2}} \\
+		f(x_2)                       \\
+		f(x_3)                       \\
+		\vdots                       \\
+		f(x_{m-1})                   \\
+		f(x_{m})-\frac{\beta }{h^{2}}
+	\end{bmatrix},
+\]
+ou, equivalentemente, \(A U = F\), onde A é uma \hyperlink{weak_diag}{\textit{diagonalmente dominante de forma fraca}} e não singular.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Diagonalmente Dominante de Forma Fraca},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Uma matriz \hypertarget{weak_diag}{diagonalmente dominante de forma fraca} é aquela cuja diagonal, em módulo, é estritamente maior ou igual que a soma dos outros elementos da linha.
+\end{tcolorbox}
+
+Dado um vetor de valores verdadeiros \(\hat{U} = [u(x_1), \dotsc , u(x_{m})]^{T}\), definimos o \textbf{vetor de erro} por
+\[
+	E = U - \hat{U},
+\]
+que contém os erros em cada ponto da malha. Para essa função, definimos algumas normas:
+\begin{itemize}
+	\item[1)] \textbf{Norma do Máximo/norma-\(\mathbf{\infty}\)}: \(\Vert E \Vert_{\infty}\coloneqq \max\limits_{1\leq j\leq m}| E_{j} | = \max\limits_{i\leq j\leq m}| U_{j}-u(x_{j}) |\);
+	\item[2)] \textbf{norma-1/norma \(L^{1}\) discreta}: \(\Vert E_1 \Vert \coloneqq h \sum\limits_{j=1}^{m}| E_{j} |\); e
+	\item[3)]\textbf{norma-2/norma \(L^{2}\) discreta}: \(\Vert E_1 \Vert \coloneqq \biggl(h \sum\limits_{j=1}^{m}| E_{j} |^{2}\biggr)^{\frac{1}{2}}\).
+\end{itemize}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Essas normas \textbf{não são} as normas vetoriais canônicas, são apenas as versões delas restritas às funções discretas.
+	No caso de uma matriz real \(m\times m\) A, a norma matricial dela associada às normas vetoriais usuais é igual à norma matricial de A associada à norma das funções na malha definidas acima; nesse sentido, o ``multiplicar por h'' corresponde exatamente à refinação dos intervalos até que elas se tornem as versões contínuas.
+\end{tcolorbox}
+\begin{def*}
+	O \textbf{Erro de Truncamento Local} (LTE) é definido trocando \(U_{j}\) pelas soluções verdadeiras \(u(x_{j})\) na fórmula da diferença finita:
+	\begin{align*}
+		 & 0 = \frac{1}{h^{2}}(U_{j-1}-2U_{j}+U_{j+1})-f(x_{j})                                                \\
+		 & \Rightarrow \tau_{j}=\frac{1}{h^{2}}(u(x_{j-1})-2u(x_{j})+u(x_{j+1}))-f(x_{j}),\; j =1,2,\dotsc ,m.
+	\end{align*}
+\end{def*}
+Assim, pela expansão em série de Taylor e o problema de valor de contorno \(u''(x_{j}) = f(x_{j})\), obtemos
+\begin{align*}
+	\tau_{j} & = \biggl(u''(x_{j}) + \frac{1}{12}h^{2}u^{(4)}(x_{j})+\mathcal{O}(h^{4})\biggr)-f(x_{j})                                             \\
+	         & = \frac{1}{12}h^{2}u^{(4)}(x_{j})+\mathcal{O}(h^{4})                                    \text{ (usamos a condição de contorno aqui)} \\
+	         & = \mathcal{O}(h^{2}), \quad 0<h<<1,
+\end{align*}
+ou seja, o erro de truncamento local é da ordem de \(h^{2}.\)
+
+Indo mais adiante, podemos globalizar partes desse resultado como uma função contínua: defina o vetor de erros de truncamento locais
+\[
+	\tau\coloneqq \begin{bmatrix}
+		\tau_1 \\
+		\tau_2 \\
+		\vdots \\
+		\tau_{m}
+	\end{bmatrix},
+\]
+tal que \(\tau = A \hat{U}-F\) e
+\[
+	AE = A(U-\hat{U})=F-(F+\tau) = -\tau;
+\]
+reescreva o sistema de equações como
+\[
+	\frac{1}{h^{2}}(E_{j-1}-2E_{j}+E_{j+1}) = -\tau (x_{j}),\quad j=1,2,\dotsc ,m,
+\]
+com condições de contorno dadas por \(E_{0}=E_{m+1}=0\) -- essa ideia pode ser entendida como a discretização da diferença centrada da EDO
+\[
+	e''(x) = -\tau (x), \quad 0<x<1,
+\]
+com condições de contorno \(e(0)=0\) e \(e(1)=0.\) Desta forma, com um certo abuso de notação, podemos usar o fato de que \(\tau(x)\approx \frac{1}{12}h^{2}u^{(4)}(x)\) e uma integração duas vezes para ver que
+\[
+	e(x)\approx -\frac{1}{12}h^{2}u''(x) + \frac{1}{12}h^{2}[u''(0)+(u''(1)-u''(0))x].
+\]
+Logo, o \textbf{erro global}, uma função contínua, é também da ordem \(\mathcal{O}(h^{2})\) nas três normas!
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	] e
+	Não é só a aproximação da derivada que afeta no erro do truncamento, especialmente para o caso de equações não lineares!
+\end{tcolorbox}
+
+Consequentemente, reescrevemos o sistema linear \(AE = -\tau \) como
+\[
+	A^{h}E^{h}=-\tau^{h},
+\]
+tal que \(E^{h}=(-A^{h})^{-1}\tau^{h}\) e
+\[
+	\Vert E^{h} \Vert \leq \Vert (A^{h})^{-1}\tau^{h} \Vert \leq \Vert (A^{h})^{-1} \Vert \Vert \tau^{h} \Vert,
+\]
+onde \(\Vert \cdot  \Vert\) representa qualquer uma das três normas de funções da malha; ao passar o limite de h tendendo a zero, o ideal é que \(A^{h}\) fique constante, pois sabemos que \(\Vert \tau^{h} \Vert = \mathcal{O}(h^{2})\) e queremos o mesmo para \(\Vert E^{h} \Vert\), requerendo
+\[
+	\Vert (A^{h})^{-1} \Vert \leq C, \quad \forall 0<h<<1.
+\]
+Isso motiva a definição
+\begin{def*}[Estabilidade]
+	Suponha que temos um método de diferenças finitas para um sistema de valor de fronteiras linear que dê uma equação matricial da forma
+	\[
+		A^{h}U^{h} = F^{h},
+	\]
+	onde h é o tamanho da malha. Diremos que o \textbf{método é estável} se:
+	\begin{itemize}
+		\item  \((A^{h})^{-1}\) existe para todo h suficientemente pequeno (por exemplo, a partir de certo \(h_{0}\)); e
+		\item  existe uma certa constante positiva C, independente de h, tal que
+		      \[
+			      \Vert (A^{h})^{-1} \Vert \leq C, \quad 0<h<r_{0}. \; \square
+		      \]
+	\end{itemize}
+\end{def*}
+\begin{def*}[Consistência]
+	Diremos que um método de diferenças finitas é \textbf{consistente com a equação diferencial e as condições de fronteira} se
+	\[
+		\lim_{h\to 0}\Vert  \tau^{h} \Vert =0.\; \square
+	\]
+\end{def*}
+Tipicamente, um método terá \(\Vert \tau^{h} \Vert = \mathcal{O}(h^{p})\) para algum inteiro \(p>0\), caso no qual diremos que o \textbf{método é certamente consistente}.
+\begin{def*}[Convergência]
+	Um método de diferenças finitas é dito \textbf{convergente} se
+	\[
+		\lim_{h\to 0}\Vert E^{h} \Vert =0,
+	\]
+	e a \textbf{ordem de convergência} do método é o inteiro p tal que \(\Vert \tau^{h} \Vert = \mathcal{O}(h^{p})\), que já é o menor tal inteiro justamente por estarmos impondo \(\mathcal{O}(h^{p}).\; \square\)
+\end{def*}
+\hypertarget{fundamental_fdm}{
+	\begin{theorem*}[Teorema Fundamental do MDF]
+		Um método de diferenças finitas que é consistente e estável \textbf{deve} ser convergente. Em particular, um erro de truncamento local da ordem \(\mathcal{O}(h^{p})\) e Estabilidade implicam na convergência de ordem \(\mathcal{O}(h^{p})\).
+	\end{theorem*}
+}
+\begin{proof*}
+	Se um método é estável, teremos
+	\[
+		\Vert E^{h} \Vert \leq \Vert (A^{h})^{-1}\tau^{h} \Vert \leq \Vert (A^{h})^{-1} \Vert \Vert \tau^{h} \Vert \leq C\Vert \tau^{h} \Vert;
+	\]
+	além disso, se o método for consistente,
+	\[
+		\lim_{h\to 0}\Vert E^{h} \Vert \leq \lim_{h\to 0}C\Vert \tau^{h} \Vert =0.
+	\]
+	Portanto, o método é convergente. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Se A for uma matriz simétrica, a \textbf{norma-2 matricial} de A é seu raio espectral:
+	\[
+		\Vert A \Vert_{2} = \rho (A)=\max\limits_{1\leq p\leq m}| \lambda_{p} |. \; \square
+	\]
+\end{def*}
+Note que, neste caso, a matriz \(A^{-1}\) também será simétrica, que permite a conclusão
+\[
+	\Vert A^{-1} \Vert_{2}=\rho (A^{-1}) = \max\limits_{1\leq p\leq m}| \lambda_{p}^{-1} | = (\min\limits_{1\leq p \leq m}| \lambda_{p} |)^{-1}.
+\]
+É possível provar que existe uma fórmula fechada para os autovalores de A, dados por
+\[
+	\lambda_{p} = \frac{2}{h^{2}}(\cos^{}{(p\pi h)}-1),\quad p=1,2,\dotsc ,m,
+\]
+com autovetores \(u^{p}\) correspondentes a \(\lambda_{p}\) tendo componentes \(u_{j}^{p}\) dados por
+\[
+	u_{j}^{p} = \sin^{}{(p\pi jh)}, \quad j=1,2,\dotsc ,m.
+\]
+Logo, em módulo, o menor autovalor de A é
+\begin{align*}
+	\lambda_{1} & = \frac{2}{h^{2}}(\cos^{}{(\pi h)}-1)                                                                 \\
+	            & = \frac{2}{h^{2}}\biggl(-\frac{1}{2}\pi^{2}h^{2} + \frac{1}{24}\pi^{4}h^{4}+\mathcal{O}(h^{6})\biggr) \\
+	            & = -\pi^{2} + \mathcal{O}(h^{2}),
+\end{align*}
+onde usamos a expansão de Taylor do cosseno
+\[
+	\cos^{}{(x)} = 1- \frac{x^{2}}{2!} + \frac{x^{4}}{4!} - \dotsc;
+\]
+assim, existe \(h_{0}>0\) tal que
+\[
+	\Vert (A^{h})^{-1} \Vert_{2} = \biggl\vert \frac{1}{\pi^{2}+\frac{1}{2}\pi^{2}h^{2} - \frac{1}{24}\pi^{4}h^{4}+\mathcal{O}(h^{6})} \biggr\vert \leq \frac{1}{\pi^{2}}, \quad \forall h\leq h_{0},
+\]
+mostrando a estabilidade do método na norma-2. Ademais, temos
+\[
+	\Vert E^{h} \Vert_{2} \leq \Vert (A^{h})^{-1} \Vert_{2} \Vert \tau^{h} \Vert_{2} \leq \frac{1}{\pi^{2}} \Vert \tau^{h} \Vert_{2} = \mathcal{O}(h^{2}),
+\]
+que tende a zero conforme h tende a zero. Portanto, o método é convergente com ordem de precisão \(\mathcal{O}(h^{2})\) na norma \(L^{2}\) discreta.
+
+Vale notar que, definindo \(u_{0}^{p} = u_{m+1}^{p} = 0\), a j-ésima componente do vetor \(Au^{p}\) é
+\begin{align*}
+	(Au^{p})_{j} & = \frac{1}{h^{2}}(u_{j-1}^{p}-2u_{j}^{p} + u_{j+1}^{p})                                                        \\
+	             & = \frac{1}{h^{2}}(\sin^{}{(p\pi (j-1)h)}-2\sin^{}{(p\pi jh)}+\sin^{}{(p\pi (j+1)h)})                           \\
+	             & = \frac{1}{h^{2}}(\sin^{}{(p\pi jh)}\cos^{}{(p\pi h)}-2\sin^{}{(p\pi jh)}+\sin^{}{(p\pi jh)}\cos^{}{(p\pi h)}) \\
+	             & = \lambda_{p}u_{j}^{p},\quad j=1,2,\dotsc ,m,
+\end{align*}
+que é consistente com o fato de \(Au^{p}=\lambda_{p}u_{p}.\)
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O autovetor
+	\[
+		u^{p} = \begin{bmatrix}
+			u_{1}^{p} \\
+			u_{2}^{p} \\
+			\vdots    \\
+			u_{m}^{p}
+		\end{bmatrix},
+	\]
+	onde cada \(u_{j}\) tem a forma \(u_{j}=\sin^{}{p\pi jh},\) tem forte ligação com a autofunção do operador diferencial de grau dois \(\frac{\mathrm{d}^{2}}{\mathrm{d}x^{2}}\); de fato, as funções \(u^{p}(x)=\sin^{}{(p\pi x)}\) para \(p=1,2,\dotsc \) satisfazem a relação
+	\[
+		\frac{\mathrm{d}^{2}}{\mathrm{d}x^{2}}u^{p}(x) = (-p^{2}\pi^{2})u^{p}(x)\coloneqq \mu_{p}u^{p}(x)
+	\]
+	com condições \(u^{p}(0)=u^{p}(1)=0\). Logo, as funções
+	\[
+		u^{p}(x)=\sin^{}{(p\pi x)},\quad p=1,2,\dotsc ,
+	\]
+	são autofunções do operador diferencial \(\frac{\mathrm{d}^{2}}{\mathrm{d}x^{2}}\) em \([0,1]\) com condições de fronteira homogêneas.
+\end{tcolorbox}
+
+Note que os m autovalores de A são dados por
+\begin{align*}
+	\lambda_{p} = \frac{2}{h^{2}}(\cos^{}{(p\pi h)}-1) & = \frac{2}{h^{2}}\biggl(-\frac{1}{2}p^{2}\pi^{2}h^{2}+\frac{1}{24}p^{4}\pi^{4}h^{4}+\dotsc \biggr) \\
+	                                                   & \stackrel{h\to0^{+}}= -p^{2}\pi^{2} + \mathcal{O}(h^{2}).
+\end{align*}
+Portanto, \( \lambda_{p}\) servem como boas aproximações dos autovalores exatos \(\mu_{p}\), que são justamente as autofunções usadas para analisar o operador diferencial de grau 2, permitindo usarmos \( \lambda_{p}\) para o serviço!
+
 \end{document}
