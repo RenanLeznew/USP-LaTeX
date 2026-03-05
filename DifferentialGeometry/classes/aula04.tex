@@ -54,5 +54,177 @@ Na aula passada, terminamos definindo vértices, pontos de inflexão e estudando
 	Portanto, a parábola tem um único ponto de vértice em \(\alpha (0).\)
 \end{example}
 
+\hypertarget{fundamental_plane_curve}{
+	\begin{theorem*}[Teorema Fundamental da Teoria Local de Curvas Planas]
+		Seja \(\kappa (s)\) uma função suave definida em um intervalo aberto I. Então, existe uma curva \(\alpha :I\rightarrow \mathbb{R}^{2}\) parametrizada por comprimento de arco s cuja curvatura é \(\kappa (s)\); além disso, \(\alpha \) é única a menos de translações e rotações.
+	\end{theorem*}
+}
+\begin{proof*}
+	Se \(\alpha \) é parametrizada pelo comprimento de arco, então \(t(s)\) tem que ser um vetor unitário, ou seja,
+	\[
+		t(s)=\alpha '(s)=(\cos^{}{\theta (s)}, \sin^{}{\theta (s)}).
+	\]
+	Com isso, temos
+	\begin{align*}
+		t'(s) = \alpha''(s) & = \theta '(s)(-\sin^{}{\theta (s)}, \cos^{}{\theta (s)}) \\
+		                    & = \theta '(s)n(s)                                        \\
+		                    & = \kappa (s)n(s),
+	\end{align*}
+	de forma que \(\kappa (s)=\theta'(s)\).
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.3\textheight, width=0.3\textwidth, keepaspectratio]{./Images/tangent_04.png}
+		\end{center}
+	\end{figure}
+
+	Agora, seja \(\kappa (s)\) tal qual exigido nas hipóteses; definimos, em vista da relação obtida acima,
+	\[
+		\theta (s)=\int_{}^{}\kappa (s) \mathrm{d}s + c_{1}, \quad c_1=\mathrm{cte.}
+	\]
+	Ademais, tomemos \(\alpha :I\rightarrow \mathbb{R}^{2}\) como a curva definida por
+	\[
+		\alpha' (s) = (\cos^{}{\theta (s)}, \sin^{}{\theta (s)}).
+	\]
+	Portanto, se \(c_{2}\) denota um vetor constante, segue que
+	\[
+		\alpha (s) = \int_{}^{}(\cos^{}{(\theta (s))}, \sin^{}{(\theta (s))}) \mathrm{d}s + c_{2},
+	\]
+	cuja curvatura é exatamente
+	\[
+		\Vert t'(s) \Vert = \Vert \theta '(s) \Vert = \Vert \kappa (s) \Vert, \quad s\in I.
+	\]
+\end{proof*}
+
+Seja \( \alpha :I\rightarrow \mathbb{R}^{2}\) uma curva suave parametrizada p.c.a. Nosso objetivo seguinte será encontrar uma parametrização local da curva \(\alpha \) em relação ao sistema de coordenadas
+\[
+	\Sigma = ({\color{Firebrick3}\alpha (s_{0})}, \{{\color{Purple3}t(s_{0})}, {\color{DarkGoldenrod3}n(s_{0})}\}),
+\]
+que equivale a fazermos uma parametrização olhando para um único ponto na curva, a tangente e o vetor normal a ele. Todos esses termos podem ser expressos em termos da derivada de \(\alpha \) até a segunda ordem, e como a curva é suave, uma ideia natural que surge é de expandir \(\alpha \) em Taylor, coletar os termos até as ordens respectivas e usá-los como uma base para representar \(\alpha \); com efeito, fazendo isso,
+\begin{align*}
+	\alpha (s) & =\alpha (s_{0}) + (s-s_{0})\alpha'(s_{0}) + \frac{1}{2}(s-s_{0})^{2}\alpha ''(s_{0}) + \mathcal{O}_{3}(s-s_{0})                                                               \\
+	           & ={\color{Firebrick3}\alpha (s_{0})} + (s-s_{0}){\color{Purple3}t(s_{0})} + \frac{1}{2}(s-s_{0})^{2}\kappa (s_{0}){\color{DarkGoldenrod3}n(s_{0})} + \mathcal{O}_{3}(s-s_{0}).
+\end{align*}
+Logo, a parametrização local da curva no sistema \(\Sigma \) é
+\[
+	\beta (s)=(\underbrace{s-s_{0}+\mathcal{O}_{3}(s-s_{0})}_{{\color{Purple3}\text{Coordenada }t(s_{0})}}, \underbrace{\frac{1}{2}(s-s_{0})^{2}\kappa (s_{0})+\mathcal{O}_{3}(s-s_{0})}_{{\color{DarkGoldenrod3}\text{Coordenada }n(s_{0})}}),
+\]
+e, por isso, o sinal da curvatura fornece a posição relativa local da curva em relação à reta tangente e à reta normal!
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.8\textheight, width=0.8\textwidth, keepaspectratio]{./Images/canon_form_04.png}
+	\end{center}
+\end{figure}
+
+Da mesma forma que definimos uma curva parametrizada, seu traço pode também ser dado localmente, de forma algébrica, por uma equação de restrição do tipo
+\[
+	f(x, y)=0,
+\]
+onde f é uma função suave! Para alguns exemplos que já vimos,
+\begin{example}[Traço da Reta]
+	Para uma reta, tomamos coeficientes \(a\neq 0\) e \(b\neq 0\), escrevendo
+	\[
+		f(x, y) = ax+by+c;
+	\]
+	assim, impôr \(f(x, y)=0\) resulta numa reta.
+\end{example}
+\begin{example}[Traço da Circunferência]
+	Para a circunferência, a localização do traço é
+	\[
+		f(x, y)=(x-a)^{2}+(y-b)^{2}+c,
+	\]
+	tal que \(f(x, y)=0\) é a circunferência de centro \((a, b)\) e raio \(\sqrt[]{-c}\) caso c seja negativo.
+\end{example}
+\begin{example}[Traço da Cúspide]
+	No caso da cúspide,
+	\[
+		f(x, y)=(y^{3}-x^{2}),
+	\]
+	de modo que \(f(x, y)=0\) é a cúspide parametrizada por \(\alpha (u)=(u^{3}, u^{2})\).
+\end{example}
+
+\subsection{Contato entre Curvas: curva e reta}
+Queremos estudar os diferentes tipos de interseção de curvas; para isso, suporemos que \(\alpha \) é uma curva parametrizada por \(\alpha :I\rightarrow \mathbb{R}^{2}\) e que \(\beta \) é uma curva cujo traço é dado por uma equação \(f:\mathbb{R}^{2}\rightarrow \mathbb{R}\).
+\begin{def*}
+	Sob a configuração descrita, consideramos a \textbf{função de contato}
+	\[
+		g:I\stackrel{\alpha }\rightarrow \mathbb{R}^{2}\stackrel{f}\rightarrow \mathbb{R}
+	\]
+	dada por \(g(t)=f(\alpha (t))\). Assim, diremos que \textbf{\(\mathbf{\alpha }\) e \(\mathbf{\beta }\) têm contato de ordem k} no ponto \(t_{0}\in I\) se todas as derivadas de g até a (k-1)-ésima se anulam, mas a seguinte não, i.e.,
+	\[
+		g(t_{0})=g^{(1)}(t_{0})=\dotsc =g^{(k-1)}(t_{0})=0 \quad\&\quad g^{(k)}(t_{0})\neq 0,
+	\]
+	e diremos que o \textbf{contato é de ordem maior ou igual a k} se não tivermos a informação sobre \(g^{(k)}\), resultando apenas na condição
+	\[
+		g(t_{0})=g^{(1)}(t_{0})=\dotsc =g^{(k-1)}(t_{0})=0.\; \square
+	\]
+\end{def*}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.7\textheight, width=0.7\textwidth, keepaspectratio]{./Images/contact_point_04.png}
+	\end{center}
+	\caption{alguns dos possíveis tipos de interseções.}
+\end{figure}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O caso em que a própria função de contato se anula num ponto \(t_{0}\), um contato de ordem maior ou igual a 1 \(g(t_{0})=0\), então \(f(\alpha (t_{0}))=0\), ou seja, \(\alpha (t_{0})\) é um ponto da curva \(\beta!\) Equivalentemente, isto é o mesmo que dizer que ambas as curvas se intersectam.
+\end{tcolorbox}
+
+Suponha que \(g(t_{0})=0\); temos, então,
+\[
+	g'(t_{0}) = (f\circ \alpha )'(t) = \langle \nabla f(\alpha (t)), \alpha '(t_{0}) \rangle.
+\]
+Logo, um contato de grau maior ou igual a 2 ocorre apenas se \(\alpha'(t_{0}) \) for tangente à curva \(\beta = f(\alpha (t))\), já que
+\[
+	g'(t_{0})=0 \Longleftrightarrow \langle \nabla f(\alpha (t_{0})), \alpha '(t_{0}) \rangle=0.
+\]
+Na verdade, a relação de equivalência acima fortalece ainda mais a afirmação prévia: \(\alpha \) e \(\beta \) são tangentes em um ponto \(t_{0}\) se, e somente se, elas possuem um contato de ordem maior ou igual a 2 em \(t_{0}\).
+
+Nosso primeiro caso de contato em contextos mais específicos será o \textbf{contato com retas}, para o qual tomamos \(\alpha \) como uma curva parametrizada p.c.a. Começamos considerando o contato de \(\alpha \) no ponto \(p_{0}=\alpha (s_{0})\), com retas passando por \(p_{0}\):
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.4\textheight, width=0.4\textwidth, keepaspectratio]{./Images/contact_line_04.png}
+	\end{center}
+\end{figure}
+Aqui, entendemos como uma reta r passando por \(p_{0}\) e ortogonal a um vetor não nulo u como tendo equação
+\[
+	\langle X-p_{0}, u \rangle=0, \quad X=(x, y).
+\]
+
+Dado esse contexto, seja então \(f:\mathbb{R}^{2}\rightarrow \mathbb{R}\) a função dada por \(f(x, y)=\langle X-p_{0}, u \rangle\); o contato entre a curva \(\alpha \) e a reta r no ponto \(p_{0}\) é determinado pelas derivadas da função de contato, ou seja, de
+\[
+	g(s)=f(\alpha (s))=\langle \alpha (s)-p_{0}, u \rangle.
+\]
+Por construção, tomamos \(g(s_{0})=0\) (afinal, o caso de contato com \(\alpha (s_{0})\) sendo um ponto da reta seria chato), de forma que, derivando ela,
+\[
+	g'(s)=\langle t(s), u \rangle
+\]
+e concluímos que todas as retas passando por \(\alpha (s_{0})\) -- e que são distintas da reta tangente à curva \(\alpha \) -- têm contato de ordem 1 com ela no ponto \(\alpha (s_{0})\), pois
+\[
+	g'(s_{0})=0 \Longleftrightarrow \langle t(s_{0}), u \rangle = 0 \Longleftrightarrow \underbrace{u\parallel n(s_{0})}_{\mathclap{\text{(u é paralelo a }n(s_{0}) \text{)}}}
+\]
+
+Conforme vimos anteriormente, o contato de ordem maior ou igual a 2 equivale à reta r ser a reta tangente à curva \(\alpha \) em \(\alpha (s_{0})\), então vamos derivar mais uma vez e concluir sobre o contato de ordem maior ou igual que 3:
+\[
+	g''(s) = \kappa (s)\underbrace{\langle n(s), u \rangle}_{\neq 0}.
+\]
+Portanto, para o contato de ordem pelo menos 3 é equivalente à reta r ser a reta tangente à curva \(\alpha \) em \(\alpha (s_{0})\) e ao ponto \(\alpha (s_{0})\) ser um ponto de inflexão da curva, tendo em vista que
+\[
+	g(s_{0})=g'(s_{0})=g''(s_{0})=0 \Longleftrightarrow \left\{\begin{array}{ll}
+		g(s_{0})=0           \\
+		u\parallel n(s_{0}), \\
+		\kappa (s_{0})=0
+	\end{array}\right..
+\]
 
 \end{document}
