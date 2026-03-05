@@ -33,7 +33,8 @@ v = [1, 2, 3, 10, 9]
 
 # os elementos são acessados com índices num [] na frente do v, tal qual 
 v[0] = 1 # note que os índices começam de 0, não de 1.
-v[4] = 9
+v[4] = 10
+v[-1] = 9# Acessa o último elemento diretamente
 \end{minted}
 
 Com o Python, veremos como resolver equações de matrizes diagonais inferiores e superiores, inverter matrizes, calcular a mudança de bases, etc (podem ser temas dos trabalhos também!).
@@ -47,5 +48,71 @@ Daí, talvez tenha um trabalho que envolve montar uma rede, pegar a matriz de ad
 O ambiente dos trabalhos, que serão em duplas ou individuais, vai ser o \textit{Google Colab} com Jupyter, e o ideal será que eles sejam completos dentro de sala de aula, mas há a possibilidade de fazer em casa
 
 A parte do Python são programas clássicos presentes na bibliografia, caso alguém precise de um apoio a mais.
+
+\subsection{Introdução ao Python: estruturas básicas}
+Algumas da estruturas básicas do Python podem ser introduzidas de forma direta, durante o código; sendo assim, introduziremos as seguintes estruturas inicialmente: os condicionais e os laços. Daremos início à ideia de função, também.
+
+Em python, existem duas formas distintas de tratar de laços, uma com o comando for, que precisa de um tamanho já definido para a iteração, e o comando while, que utiliza uma condição; os nomes traduzidos de ambos ajudam a lembrar -- \textit{while} seria enquanto, dando a ideia de enquanto uma condição for satisfeita ou não, e o \textit{for} é um ``para'', como na frase ``para todo n em \(\{1,2,3,4,5\},\) ...''. Em código, a estrutura delas segue
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+ # Para variáveis, declaramos elas antes de usá-las no código,
+ # utilizando sinais de igualdade,
+ # O comando do for precisa de um índice, por exemplo i,
+ # e de um valor dentro de um range(n), que gera uma sequência até n.
+ for i in range (5):  
+    print(i) # o resultado são os números de 0 até 5
+  
+  # O comando while precisa de uma condição externa, se não ele 
+  # vai ficar em loop infinitamente.
+  # Para o mesmo comando do for, mostrando os números de 0 a 5, 
+  # seria feito da seguinte forma: 
+
+  indice = 0 #inicializa o indice externamente 
+  while indice < 5: 
+    print(indice) 
+    indice += 1
+    # a última linha serve para atualizar a variável índice, se não 
+    # ela ficaria sempre em 0, e o loop seria infinito também! 
+    # a sintaxe += pode ser lida como ``adiciona-se'',
+    # então, += 1 faz o indice ser somado 1 após exibir seu valor.
+
+ \end{minted}
+
+As condicionais, como o próprio nome sugere, agem de acordo uma condição -- ``se algo acontece, então fazer...; senão, fazer outra coisa...''.
+No Python, tem um comando chamado ``elif'', que pode ser entendido como uma alternativa ao se, tipo um ``se x, então...; ou, se y, então...; senão, fazer...'';
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+  # Para facilitar, vamos inicializar uma variável externamente e 
+  # checar se ela é positiva ou negativa.
+  x = -2 
+
+  if x > 0: # pt-br: se x > 0
+     print(''A variável é positiva'')
+  elif x == 0: # pt-br: ou então, se x é 0
+     print(''A variável é zero'')
+  else: # pt-br: senão.
+     print(''A variável é negativa'') 
+     # esse caso dá conta do único que ficou faltando, 
+     # justamente x ser negativa.
+    
+\end{minted}
+
+Na aula seguinte, vamos explorar um pouco mais a fundo o funcionamento destas estruturas e olhar alguns exemplos/exercícios.
+
+Para finalizar a aula de hoje, devemos mencionar o conceito de funções e de bibliotecas. As funções funcionam\footnote{Pleonasmo?} de forma bem parecida ao que estamos acostumados na matemática: a partir de um valor de entrada, uma certa operação é realizada e um resultado é obtido.
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+# Para definir uma função, usamos a estrutura 
+# 'def nome_função(entrada_1, entrada_2, ...)'.
+# O valor dela é devolvido por meio do comando 'return'
+def f(x):
+    return x**2 - 2**x +1
+
+# para testar a função, basta usar o nome 
+# usado para definir ela (f(), nesse caso), 
+# e colocar algum valor de entrada, como
+
+f(3) # 3 ao quadrado menos 2 à 3 mais 1.
+\end{minted}
+Funções são especialmente úteis para evitar repetições de códigos parecidos: ao invés de escrever ele toda vez, transforme em função!
+
+Seguindo essa mesma ideia, existem alguns usuários que criaram suas funções e soltaram elas ao mar para qualquer um poder usar, e elas podem ser importadas no Python pelo comando \textit{``import''}; veremos isso adiante, especialmente com as bibliotecas numpy, scipy e matplotlib.
 
 \end{document}
