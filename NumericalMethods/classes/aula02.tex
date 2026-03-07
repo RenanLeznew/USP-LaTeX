@@ -1,0 +1,345 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 05 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Estruturas Condicionais e de Repetição;
+	\item Exemplos.
+\end{itemize}
+\subsection{Introdução ao Python -- Parte 2}
+Os objetivos da aula de hoje incluem entender mais a fundo as estruturas apresentadas na aula anterior, incluindo o \texttt{if}, o \texttt{elif} e o \texttt{else}, mas olhando também para os operadores lógicos \texttt{and, or} e \texttt{not} do Python.
+Em seguida, vamos olhar a estrutura do \texttt{for} e do \texttt{while} de forma mais geral e aplicar tudo isso a problemas matemáticos.
+
+Começando pelas condicionais, vamos usar o exemplo da aula anterior para ter uma noção da estrutura básica das condicionais:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+  x = float(input("Digite um número: ")) 
+  # o input() faz com que apareça uma entrada para o 
+  # usuário digitar um valor. 
+  # Por outro lado, o float() garante que o valor seja 
+  # um número real/ponto flutuante.
+
+  if x > 0: # pt-br: se x > 0
+     print(''A variável é positiva'')
+  elif x == 0: # pt-br: ou então, se x é 0
+     print(''A variável é zero'')
+  else: # pt-br: senão.
+     print(''A variável é negativa'') 
+    
+\end{minted}
+
+Podemos deduzir, então, a seguinte estruturação básica:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+if condição:
+    bloco do que vai acontecer
+elif segunda_condição: 
+    bloco do que vai acontecer
+else: 
+    bloco do que vai acontecer
+\end{minted}
+Note que pode haver mais de um elif, ou nenhum!
+Outro exemplo para ilustrar a ideia das condicionais puras é para testar a invertibilidade de uma matriz dois por dois:
+
+\begin{listing}
+	\caption{Invertibilidade de matriz 2x2}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+ a, b, c, d = 1, 2, 3, 4
+ 
+ det = a*d - b*c 
+
+ if det != 0: 
+     print("A matriz é invertível.")
+ else: 
+     print("A matriz não é invertível.")
+ \end{minted}
+\end{listing}
+
+Os \textbf{operadores lógicos} do Python seguem os princípios da lógica Booleana e das tabelas-verdade convencionais, ou seja,
+\begin{itemize}
+	\item Um operador \textbf{and}, por exemplo \(x < 1 \;\mathrm{and}\; x > 0\), só retornará um valor verdadeiro se x for um número positivo (\(x>0\)) E x for menor que 1 (\(x < 1\));
+	\item Um operador \textbf{or}, como em \(x < 1 \;\mathrm{or}\; x > 0\), retornará um valor verdadeiro a partir do momento que uma das duas condições seja satisfeita, ou ambas (vai ser verdade se \(x>0\), ou se \(x<1\), ou se \(0<x<1\)); e
+	\item Um operador \textbf{not} inverte o valor verdade para falso, e falso para verdade.
+\end{itemize}
+Com o exemplo acima, sua implementação em Python seria
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+  if x > 0 and x < 1:
+      print("x está no intervalo (0,1)")
+\end{minted}
+
+Em relação às estruturas de repetição, o \texttt{for} é usado quando sabemos o número de repetição, como no exemplo da aula passada. Para entendê-lo melhor, seguem alguns exemplos de códigos com o for:
+\begin{listing}[H]
+	\caption{Soma parcial da série \(1/n\) de 1 até 10.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+ soma = 0 
+ n = 10
+
+ for k in range(1, n+1):
+     soma += 1/k 
+
+ print(soma)
+ \end{minted}
+
+	\caption{Produto escalar simples de vetores. }
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+   v = [1,2,3]
+   w = [4,5,6]
+
+   produto = 0 
+
+   for i in range(len(v)):
+       produto+=v[i]*w[i]
+
+   print(produto)
+   # Podemos, também, testar se são ortogonais! Basta fazer como abaixo
+   if produto == 0: 
+      print("Os vetores são ortogonais!")
+   
+ \end{minted}
+\end{listing}
+
+Por outro lado, o laço \texttt{while} é usado nos casos em que não sabemos quantas iterações precisaremos usar, tal como:
+\begin{listing}[H]
+	\caption{Método da bisseção simples}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+def f(x):
+    return x**2-2
+
+a=1
+b=2
+tol=1e-6 # quanto de erro tolero aqui? 10^-6
+
+while abs(b-a)>tol: 
+    m = (a+b)/2
+    if f(a)*f(m)<0: 
+        b = m 
+    else: 
+        a = m
+
+print(m)
+  \end{minted}
+\end{listing}
+
+Podemos misturar tudo que vimos para fornecer critérios de paradas aos processos iterativos! Temos tanto um exemplo de controle de fluxo do processo, quanto uma implementação do algoritmo de Euclides com o MDC.
+
+\begin{listing}[H]
+	\caption{Controle de fluxo}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+for i in range(10):
+    if i==1:
+        break # vai parar o laço assim que der 1.
+        print(i)
+    if i%2==0:
+        continue # vai continuar o laço sempre que 
+        # for par.
+    print(i)
+ \end{minted}
+
+	\caption{Algoritmo de Euclides (MDC, recursivo)}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+ def mdc(a, b):
+     if b == 0:
+        return a 
+     else: 
+        return mdc(b, a%b)
+
+ a = int(input("Digite um inteiro: "))
+ b = int(input("Digite um segundo iteiro: "))
+
+ while b!=0:
+     a, b = b, a%b
+     # durante o loop, a vai receber o antigo valor de b 
+     # e b vai receber o resto da divisão de a por b.
+ \end{minted}
+\end{listing}
+
+\begin{exr}
+	\begin{itemize}
+		\item[1)] Escreva um programa que verifique se um número é primo;
+		\item[2)] Calcule a soma dos n primeiros termos da série
+		      \[
+			      s_{n} = \sum\limits_{k=1}^{n}\frac{1}{k^{2}};
+		      \]
+		\item[3)] Escreva um código que calcule o fatorial usando \texttt{while}; e
+		\item[4)] Dado em vetor, conte quantos elementos dele são positivos.
+
+	\end{itemize}
+\end{exr}
+
+Antes da resposta ao desafio, vamos ver alguns outros que podemos fazer. Primeiro, criaremos um programa que testa se um número é \hyperlink{perfect_number}{\textit{perfeito}}.
+\begin{listing}[H]
+	\caption{Detectar se número é perfeito}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+ def numero_perfeito(n):
+     soma = 0 
+
+     for i in range(1, n):
+         if n % i == 0:
+             soma += 1 
+
+    return soma==n 
+    # Quando colocamos dois sinais de igualdade, verificamos 
+    # se "lade esquerdo é identico ao lado direito" é verdade. 
+    # Por exemplo, 3 == 3 retorna verdadeiro, mas 3 == "3" retorna 
+    # falso, pois "3" é uma string e 3 é um inteiro.
+
+  print(numero_perfeito(6))
+  print(numero_perfeito(28))
+ \end{minted}
+\end{listing}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Número Perfeito},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Um \hypertarget{perfect_number}{número perfeito} é qualquer número cuja soma dos próprios divisores resulta nele mesmo; por exemplo,
+	\[
+		6 = 1+2+3,
+	\]
+	logo 6 é perfeito.
+\end{tcolorbox}
+
+Podemos aproximar valores de séries usando o Python! Um exemplo bem clássico, usando a série de Leibniz
+\[
+	\pi = 4 \sum\limits_{k=0}^{\infty}\frac{(-1)^{k}}{2k+1},
+\]
+é aproximar \( \pi \):
+\begin{listing}[H]
+	\caption{Aproximação de \(\pi \)}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+ def aproxima_pi(n):
+     soma = 0 
+
+     for k in range(n):
+         soma += (-1)**k/(2*k+1)
+
+     return 4*soma
+
+  print(aproxima_pi(100000)).
+ \end{minted}
+\end{listing}
+
+Ou até mesmo determinar a convergência de uma sequência iterativa -- dada a sequência iterativa
+\[
+	x_{k+1} = \cos^{}{(x_{k})},
+\]
+queremos exibir o resultado após o erro de aproximação atingir um certo limite de tolerância \(\varepsilon \) pequeno
+\begin{listing}[H]
+	\caption{Convergência de uma sequência iterativa}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+  import math # como mencionado antes, 
+  # o import chama uma biblioteca criada por 
+  # outros usuários. Neste caso, usamos a 
+  # biblioteca math para usar sua função cosseno!
+
+  def iteracao_cos(x0, tol):
+      erro = 1 
+      x = x0
+
+      while erro > tol: 
+          x_novo = math.cos(x) 
+          erro = abs(x_novo - x)
+          x = x_novo 
+
+      return x
+
+  print(iteracao_cos(1, 1e-8))
+  \end{minted}
+\end{listing}
+
+Em um dos exemplos anteriores, mostramos como testar se dois vetores são ortogonais ou não, mas o programa ficou funcionando para vetores pré-definidos apenas.
+Utilizando as funções, podemos ultrapassar essa barreira:
+\begin{listing}[H]
+	\caption{Testagem de ortogonalidade de vetores.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+  def sao_ortogonais(v, w): 
+      produto = 0 
+
+      for i in range(len(v)):
+          produto += v[i]*w[i]
+
+      if produto == 0:
+          return "São ortogonais."
+      else: 
+          return "Não são ortogonais."
+
+  print(sao_ortogonais([1,2], [1,-1]))
+  print(sao_ortogonais([1,1], [1,-1]))
+  \end{minted}
+\end{listing}
+
+\subsection{Soluções dos exercícios.}
+Recapitulando, os exercícios propostos foram:
+\begin{itemize}
+	\item[1)] Escreva um programa que verifique se um número é primo;
+	\item[2)] Calcule a soma dos n primeiros termos da série
+	      \[
+		      s_{n} = \sum\limits_{k=1}^{n}\frac{1}{k^{2}};
+	      \]
+	\item[3)] Escreva um código que calcule o fatorial usando \texttt{while}; e
+	\item[4)] Dado em vetor, conte quantos elementos dele são positivos.
+
+\end{itemize}
+Suas soluções são dadas a seguir.
+
+\begin{listing}[H]
+	\caption{Verificar se é primo.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+ # Lembremos que, se um número tem divisor, ele tem um divisor menor 
+ # ou igua à sua raíz.
+ def testa_primo(n):
+     if n < 2: 
+        return False
+
+     for i in range(2, int(n**0.5)+1):
+         if n % i == 0:
+             return False
+     return True
+ \end{minted}
+
+	\caption{Soma da série.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+def soma_serie(n): 
+    soma = 0 
+    for k in range(1, n+1):
+        soma += 1/(k**2)
+    return soma 
+\end{minted}
+
+	\caption{Fatorial usando \texttt{while}.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+def fatorial(n):
+    resultado = 1 
+    i = 1
+
+    while i <= n: 
+        resultado *= 1 # mesmo princípio do +=.
+        i += 1
+
+    return resultado 
+\end{minted}
+\end{listing}
+
+\begin{listing}
+	\caption{Contar elementos positivos de um vetor.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+def contador_positivos(vetor):
+    contador = 0 
+
+    for elemento in vetor:
+        if elemento > 0: 
+            contador += 1 
+
+    return contador 
+\end{minted}
+\end{listing}
+\end{document}
+
