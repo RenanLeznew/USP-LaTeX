@@ -405,4 +405,53 @@ terá uma solução (na verdade, infinitas) somente se F é ortogonal ao espaço
 	\]
 \end{tcolorbox}
 
+Consideremos, agora, a equação diferencial mais parecida com uma linear
+\[
+	a(x)u''(x) + b(x)u'(x)+c(x)u(x)=f(x),\quad a < x < b
+\]
+e condições de contorno de Dirichlet
+\[
+	u(a)=\alpha \quad\&\quad u(b)=\beta .
+\]
+Podemos discretizar esta equação utilizando a aproximação por diferenças centradas, colocando \(a_{j}\coloneqq a(x_{j}),\; b_{j}\coloneqq b(x_{j}),\; c_{j}\coloneqq c(x_{j})\) e \(f_{j} \coloneqq f(x_{j})\):
+\[
+	\frac{U_{j-1}-2U_{j}+U_{j+1}}{h^{2}} + b_{j}\frac{U_{j+1}-U_{j-1}}{2h}+c_{j}U_{j}=f_{j},
+\]
+colocando \(U_{0}=\alpha \) e \(U_{m+1}=\beta \). Como consequência, obtemos uma equação da forma \(AU=F\), mas onde, dessa vez,
+\[
+	A = \frac{1}{h^{2}}\begin{bmatrix}
+		(h^{2}c_{1}-2a_{1})      & (a_1+\frac{hb_1}{2}) & \dotsc                    &                     \\
+		(a_{2}-\frac{hb_{2}}{2}) & (h^{2}c_{2}-2a_{2})  & (a_{2}+\frac{hb_2}{2})    & \dotsc              \\
+		\vdots                   & \ddots               & \ddots                    & \dotsc              \\
+		                         &                      & (a_{m}- \frac{hb_{m}}{2}) & (h^{2}c_{m}-2a_{m})
+	\end{bmatrix}
+\]
+e
+\[
+	U = \begin{bmatrix}
+		U_1     \\
+		U_2     \\
+		\vdots  \\
+		U_{m-1} \\
+		U_{m}
+	\end{bmatrix},\; F = \begin{bmatrix}
+		f(x_1)-\alpha \bigl(\frac{a_1}{h^{2}} - \frac{b_1}{2h}\bigr) \\
+		f(x_2)                                                       \\
+		\vdots                                                       \\
+		f(x_m)-\alpha \bigl(\frac{a_m}{h^{2}} - \frac{b_m}{2h}\bigr)
+	\end{bmatrix}.
+\]
+Vale mencionar que essa discretização pode não ser a melhor para certos tipos de problemas físicos, mesmo quando há acurácia de segunda ordem; muitas vezes, os problemas físicos possuirão certas propriedades que gostaríamos de preservar quando fazemos a discretização, e é importante entender o problema sendo modelado, além de ter sempre em mente as propriedades matemáticas dele antes de sair aplicando um método numérico.
+Por exemplo, considere a condução de calor em um barra com propriedades de condução que variam dependendo do pedaço considerado, ou seja, \(\kappa (x)\) varia com cada x e \(\kappa (x)>0\) para todo ponto x entre os extremos a e b da barra, resultando na equação
+\[
+	(\kappa (x)u'(x))'=f(x),\quad a <x < b,
+\]
+com duas condições de contorno \(u(a)=\alpha \) e \(u(b)=\beta \). Aplicando a regra do produto, obtemos a equação
+\[
+	\kappa (x)u''(x)+\alpha '(x)u'(x)=f(x),\quad a<x<b,
+\]
+a partir da qual podemos aplicar a discretização; porém, essa abordagem não é a melhor! Afinal, o sistema linear resultante pode não ser simétrico!!
+
+
+
 \end{document}
