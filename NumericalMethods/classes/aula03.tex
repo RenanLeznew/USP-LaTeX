@@ -1,0 +1,89 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 10 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Vetores e listas;
+\end{itemize}
+\subsection{Vetores e listas}
+Os objetivos da aula de hoje incluem entender o que são listas, conhecidos também como vetores, incluindo como acessar e modificar elementos, percorrer listas com loops, realizar operações básicas e resolver alguns desafios.
+
+Suponhamos que nosso objetivo é armazenar as notas de vários alunos; seria muito trabalhoso associar uma variável a cada um deles, como em
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{python}
+  nota1=7.5
+  nota2=8.0
+  nota3=6.5
+  nota4=9.0
+  nota5=7.0
+
+  print(nota1, nota2, nota3, nota4, nota5 )
+\end{minted}
+Para esse tipo de problema, utilizamos uma lista, demarcada por \texttt{}, e cada item é um índice dela, começando em 0:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{python}
+  notas = [7.5, 8.0, 6.5, 9.8, 7.0]
+
+  print(notas[0])
+  print(notas[2])
+\end{minted}
+
+Podemos manipular diretamente os elementos apenas sinalizando que certo índice recebe um novo valor:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{python}
+  notas = [7.5, 8.0, 6.5, 9.8, 7.0]
+
+  notas([2])=9.9
+
+  print(notas[2])
+\end{minted}
+
+Obter o tamanho de uma lista qualquer pode ser feito usando o comando \texttt{len()}, e percorrê-las é tão simples quanto usar um for:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{python}
+  notas = [7.5, 8.0, 6.5, 9.8, 7.0]
+
+  print(len(notas))
+
+  for nota in notas:
+      print(nota)
+
+  # Outra forma de fazer usando o len:
+
+  for indice in range(0, len(notas)):
+      print(nota) 
+\end{minted}
+
+Juntanto com o que vimos até o momento, fica tranquilo entender como calcular a média da turma
+
+\begin{listing}
+	\caption{Média das Notas}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{python}
+   notas = [7.5, 8.0, 6.5, 9.8, 7.0]
+
+   soma = 0
+   media = 0
+
+   for nota in notas:
+      somas+= nota
+
+   print('Soma:', soma) # O '' entre a palavra 
+   # indica que deve aparecer escrito
+   
+   media = soma/len(notas)
+
+   print('Média: ', media)
+
+   ## Alternativamente, o python tem algumas 
+   # funções prontas para listas, por exemplo
+   print('Soma: ', sum(notas))
+   print('Maior nota: ', max(notas))
+   print('Menor nota: ', min(notas))
+ \end{minted}
+\end{listing}
+
+Se quisermos adicionar uma nota nova ao final da lista, utiliza-se o \texttt{append()}
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{python}
+   notas = [7.5, 8.0, 6.5, 9.8, 7.0]
+
+   notas.append(3.0)
+   print(notas)
+\end{minted}
+
+\end{document}

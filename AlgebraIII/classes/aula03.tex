@@ -1,0 +1,393 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 03 - 10 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Extensões de Corpos;
+	\item Elementos Algébricos e Transcendentes;
+	\item Definindo \(F[X],\; F[x]/(p(x)), F(\alpha )\) e \(F[\alpha ]\).
+\end{itemize}
+\subsection{Extensões de Corpos}
+\begin{def*}
+	Seja F um corpo. Uma \textbf{extensão de \(\mathbf{F}\)} é um par \((K, j)\) onde K é um corpo e j é um morfismo de corpos. \(\square\)
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Sendo j um morfismo de corpos, então j é injetor; por isso, podemos pensar que F é um subcorpo de K!
+
+	Consequentemente, K é uma extensão de F se \(F\subseteq K\).
+\end{tcolorbox}
+\begin{def*}
+	Um \textbf{espaço vetorial sobre F} é um corpo K tal que \(F\subseteq K\). \(\square\)
+\end{def*}
+
+\begin{def*}
+	O \textbf{grau da extensão} \(F\subseteq K\) é a dimensão de K como espaço vetorial sobre F:
+	\[
+		[K:F]\coloneqq \mathrm{dim}_{F}(K). \; \square
+	\]
+\end{def*}
+Note que, se F e K são os mesmos corpos, então isso basicamente consiste uma extensão de grau 1.
+\begin{def*}
+	Seja F um corpo e \(F[X]\) o seu corpo de polinômios correspondente, i.e.,
+	\[
+		F[X]\coloneqq \{a_{0}+\dotsc a_{n}x^{n}:\; a_{i}\in F\}.
+	\]
+	O \textbf{corpo de frações de F} é dado pela frações de \(F[X]\), ou seja,
+	\[
+		\mathrm{Frac}(F[X])=\biggl\{\frac{p(x)}{q(x)}:\; p(x), q(x)\in F[X],\; q(x)\neq 0\biggr\}.\; \square
+	\]
+\end{def*}
+Existe uma outra forma de pensarmos nesse conjunto: para um anel A, considere o conjunto multiplicativo S caracterizado por
+\begin{itemize}
+	\item[i)] \(0\not\in S\); e
+	\item[ii)] \(SS \subseteq S\).
+\end{itemize}
+Então, existe uma relação de equivalência em \(A\times S\) dada por
+\[
+	(a_1, s_1)\sim (a_2, s_2) \Longleftrightarrow a_1s_2 = a_2s_1.
+\]
+Assim, se A é um domínio, \(S=A\setminus{\{0\}}\), e o corpo de frações torna-se a classe de equivalência da relação definida acima!
+
+Como corpo, \(\mathrm{Frac}(F[X])\) compõe uma extensão de F de grau infinito, pois não tem uma base finita que permita gerar \(\mathrm{Frac}(F[X])\).
+De fato, o conjunto
+\[
+	\{1,X,X^{2},X^{3},\dotsc ,X^{n}, \dotsc \}\in F[X]
+\]
+é linearmente independente sobre F, tal que \([\mathrm{Frac}(F[X]):F]=\infty\).
+
+\begin{example}[Racionais de Gauss]
+	Vamos considerar \(F=\mathbb{Q}\) e tomar \(\alpha=\sqrt[]{2}\); defina o conjunto
+	\[
+		\mathbb{Q}[\sqrt[]{2}] = \{a_{0}+a_1\sqrt[]{2}+\dotsc +a_{n}(\sqrt[]{2})^{n}:\; a_{i}\in \mathbb{Q}\}.
+	\]
+	Com esta construção, os termos \((\sqrt[]{2})^{k}\) resultam ou numa potência de 2 (k é par), ou numa potência de 2 multiplicando a raiz de 2 (k é ímpar). Logo,
+	\[
+		\mathbb{Q}[\sqrt[]{2}]=\{a+\sqrt[]{2}b:\; a, b\in \mathbb{Q}\},
+	\]
+	que é um anel comutativo com identidade e operações como
+	\[
+		(a_1+\sqrt[]{2}b_1)(a_2+\sqrt[]{2}b_2)=a_1a_2+2b_1b_2+\sqrt[]{2}(a_1b_2+a_2b_1).
+	\]
+
+	Caso \((a, b)\) seja diferente de \((0, 0)\), podemos racionalizar essa extensão ao pedir
+	\[
+		(a+\sqrt[]{2}b)^{-1}\coloneqq \frac{1}{a+ \sqrt[]{2}b} = \frac{a-\sqrt[]{2}b}{a^{2}-2b^{2}} = \frac{a}{a^{2}-2b^{2}}-\sqrt[]{2}\frac{b}{a^{2}-2b^{2}},
+	\]
+	ou seja, os elementos não nulos têm uma inversa que se mantém no anel, tornando-o um corpo! Concluímos disso que
+	\[
+		\mathrm{Frac}(\mathbb{Q}[\sqrt[]{2}]) = \mathbb{Q}(\sqrt[]{2}) = \biggl\{\frac{a+\sqrt[]{2}b}{c+\sqrt[]{2}d}:\; (c, d)\neq (0,0)\biggr\}.
+	\]
+
+	Com relação ao grau de extensão, temos
+	\[
+		[\mathbb{Q}[\sqrt[]{2}]: \mathbb{Q}]=2,
+	\]
+	então temos uma base de dois elementos para \(\mathbb{Q}[\sqrt[]{2}]\) como \(\mathbb{Q}-\)espaço vetorial.
+\end{example}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A notação \(Q(\sqrt[]{p})\) denota o corpo de frações sobre \(\mathbb{Q}[\sqrt[]{p}]\) -- o uso de parênteses indica o corpo de frações, e o uso de chaves indica o corpo de polinômios.
+\end{tcolorbox}
+
+\begin{example}[Reais como Extensão de Racionais]
+	O grau de extensão de \(\mathbb{R}\) como extensão de corpo de racionais é infinito, pois \(\mathbb{R}\) não é enumerável e \(\mathbb{Q}\) é.
+\end{example}
+
+\begin{def*}
+	Seja \(F\subseteq K\) uma extensão. O elemento \(\alpha \in K\) é chamado \textbf{algébrico} (sobre F) se existe \(f(x)\in F[x]\) tal que \(f(\alpha )=0\); caso contrário, \(\alpha \) é chamado \textbf{transcendente}. \(\square\)
+\end{def*}
+
+Passaremos um tempo estudando estes elementos, pois eles são temas centrais na teoria de Galois. Por agora, vamos fixar uma extensão K específica antes de generalizar, mas as coisas farão mais sentido num contexto maior futuramente.
+Vamos provar que o conjunto de todos os elementos algébricos de uma extensão é um corpo, e geralmente uma extensão de F, ou seja, nosso objetivo é provar que o fecho algébrico de F é um corpo, mas adiantamos a definição:
+\begin{def*}
+	Dado um corpo F, o \textbf{fecho algébrico \(\mathbf{\overline{F}}\) de F} é
+	\[
+		\overline{F}\coloneqq \{\alpha \in K:\; \exists f(x) \in F[X],\; f(\alpha )=0\},
+	\]
+	ou seja, é o corpo dos elementos algébricos sobre K. \(\square\)
+\end{def*}
+\begin{example}
+	Se \([K:F]=1\), ou seja, se K é uma extensão de grau 1 de F, então cada \(\alpha \in K\) é algébrico sobre F, pois basta considerarmos \(p(x)\in K[X]\) tal que \(p(x)=\alpha -x\), tal que \(p(\alpha )=0.\)
+\end{example}
+\begin{example}
+	Vamos considerar o caso em que \(F = \mathbb{Q}\); sabemos que, se \(\alpha =\sqrt[]{2}\), então \(p(x)=x^{2}-2\) tem \(\alpha \) como raiz, mas e se \(\alpha =\sqrt[]{2}+\sqrt[]{3}\)? Seria \(\alpha \) algébrico agora?
+
+	Ora, basta notarmos que
+	\[
+		\alpha^{2}=(\sqrt[]{2}+\sqrt[]{3})^{2} = 5 + 2\sqrt[]{6} \Rightarrow \frac{(\alpha^{2}-5)}{2}=\sqrt[]{6}.
+	\]
+	Elevando as expressões ao quadrado, obtemos
+	\[
+		\frac{1}{4}(\alpha^{4}- 10\alpha^{2} + 25) = 6,
+	\]
+	tal que, multiplicando os dois lados por 4 e subtraindo 24 de ambos, obtemos
+	\[
+		\alpha^{4}-10\alpha^{2}+1 = 0.
+	\]
+	Logo, podemos tomar o polinômio \(p(x)=x^{4}-10x +1\)
+\end{example}
+\begin{example}[Elementos Transcendentes sobre \(\mathbb{Q}\)]
+	Apesar da demonstração ser bem complicada, os elementos \(\pi \) e \(e\) são transcendentes sobre \(\mathbb{Q}\).
+\end{example}
+
+Vamos supor, então, que \(F\subseteq K\) é uma extensão e seja \(\alpha \in K\); podemos definir uma aplicação
+\begin{align*}
+	\mathrm{ev}_{\alpha }: & F[X]\rightarrow K           \\
+	                       & f(x)\longmapsto f(\alpha ),
+\end{align*}
+que justamente avalia os polinômios com coeficientes em F no ponto \(\alpha \)
+\begin{def*}
+	A aplicação \(\mathrm{ev}_{\alpha }\) é conhecida como \textbf{avaliação em \(\mathbf{\alpha }\)}. \(\square\)
+\end{def*}
+\begin{lemma*}
+	A avaliação em \(\alpha \) é um homomorfismo de anéis.
+\end{lemma*}
+\begin{proof*}
+	Para dois polinômios \(f(x), g(x)\in F[X]\), segue que
+	\[
+		\mathrm{ev}_{\alpha }(f(x)g(x))=(fg)(\alpha )=f(\alpha )g(\alpha )=(\mathrm{ev}_{\alpha }(f(x)))(\mathrm{ev}_{\alpha }(g(x)))
+	\]
+	Naturalmente, segue que \(\mathrm{ev}_{\alpha }(0)=0\) e que \(\mathrm{ev}_{\alpha }(1)=1\). \qedsymbol
+\end{proof*}
+
+Temos alguns casos em relação ao núcleo da avaliação. Primeiramente, se ele for nulo,
+\[
+	\mathrm{ker}(\mathrm{ev}_{\alpha }) = \{0\} \Longleftrightarrow \not\exists f(x)\neq 0: f(\alpha )=0,
+\]
+ou seja, \(\alpha \) é transcendente; por outro lado, caso o núcleo não seja trivial, então \(\mathrm{Ker}(\mathrm{ev}_{\alpha })\) é um ideal de \(F[X]\), e como ele é um domínio de ideais principais, existe um \(p(x)\in F[X]\) tal que
+\[
+	(p(x))=\mathrm{ker}(\mathrm{ev}_{\alpha }).
+\]
+Daí, pelo \hyperlink{euclides_algorithm}{\textit{Algoritmo de Divisão de Euclides}}, segue que \(p(x)\) é irredutível, porque segue dele que o polinômio é um polinômio de grau mínimo em \(\mathrm{Ker}(\mathrm{ev}_{\alpha })\), tal que a irredutibilidade segue e, além disso,
+\[
+	p(x)=l(x)q(x) \Rightarrow \deg{(l)}=0 \text{ ou } \deg{(q)}=0.
+\]
+Pelo \hyperlink{isomorphism_theorem}{\textit{teorema do isomorfismo}}, denotando por \(F[\alpha ]\) a imagem de \(\mathrm{ev}_{\alpha }\) e por \(F[X]/(p(x))\) a classe do resto da divisão por \(p(x)\), há uma correspondência isomórfica de anéis entre
+\[
+	F[x]/(p(x))\cong F[\alpha ],
+\]
+descrito por meio do diagrama
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+
+		\node(T) at (0,1){\(F[X]\)};
+		\node(BL) at (0,-2){\(F[X]/(p(x))\)};
+		\node(BR) at (4,1){\(\mathrm{Im}(\mathrm{ev}_{\alpha })\subseteq K\)};
+
+		\draw[Arrow](T)--node[midway, left] {\(\pi \)}(BL);
+		\draw[Arrow](T)--node[midway, above] {\(\mathrm{ev}_{\alpha }\)}(BR);
+		\draw[Arrow](BL)--node[midway, below] {\(\cong \)}(BR);
+	\end{tikzpicture}
+\end{center}
+
+Assim, sendo \(p(x)\) irredutível, o ideal \((p(x))\) é maximal, e por isso, o quociente \(F[X]/(p(x))\) é um corpo!
+Portanto, a moral da história é que \(F[\alpha ]=\mathrm{Im}(\mathrm{ev}_{\alpha })\) é um corpo isomórfico ao quociente \(F[X]/(p(x))\), ou seja,
+\[
+	F[\alpha ]\cong F(\alpha )\cong F[X]/(p(x)),
+\]
+provando o teorema
+\begin{theorem*}
+	Se \(\alpha \in K\) é algébrico sobre F, então
+	\[
+		F(\alpha )\cong F[X]/(p(x)).
+	\]
+\end{theorem*}
+Com relação ao grau, segue que
+\[
+	\biggl[F[X]/(p(x)):F\biggr] = \deg{(p)}.
+\]
+De fato, vamos considerar a proposta de base para \(F[X]/(p(x))\) como F-espaço vetorial dada por \(\mathcal{B}=\{[1], [x], \dotsc , [x^{n-1}]\},\) onde n é o grau de p e \([1]=1\).
+Para ver que \(\mathcal{B}\) gera \(F[x]/(p(x))\), basta notar que as classes dos restos módulo \(p(x)\), que estritamente têm grau menor ou igual a p.
+A independência linear pode ser provada considerando elementos \(a_{0}, \dotsc , a_{n-1}\in F\), nem todos nulos, tais que
+\[
+	a_{0}1+a_1[x]+\dotsc +a_{n-1}[x^{n-1}]=[0];
+\]
+em outras palavras, é possível que o polinômio
+\[
+	a_{0}+a_1x+\dotsc +a_{n-1}x^{n-1}
+\]
+tenha grau igual ao de p? Não, pois o grau máximo dele é 1; logo, para que seja satisfeita a relação
+\[
+	\biggl[a_{0}+a_1x+\dotsc +a_{n-1}x^{n-1}\biggr] = [0]
+\]
+mesmo para \(f(x)\neq 0\), seria necessário que \(\deg{(f(x))}\geq \deg{(p(x))}\), que é impossível aqui, e, por isso
+\[
+	a_{0}+a_1x+\dotsc +a_{n-1}x^{n-1}=0 \Rightarrow a_{i}=0,\; \forall 0\leq i\leq n-1.
+\]
+
+Portanto, acabamos de provar o
+\begin{crl*}
+	Se \(\alpha \in K\) é algébrico, então
+	\[
+		[F(\alpha ):F] < +\infty;
+	\]
+	mais ainda, se soubermos o polinômio minimal \(p(x)\) que zera \(\alpha \), então
+	\[
+		[F(\alpha ):F]=\deg{(p(x))}.
+	\]
+\end{crl*}
+Em particular, ganhamos a contra positiva de que, se \([F(\alpha ):F]=\infty\), então \(\alpha \) é transcendente.
+
+\begin{def*}
+	Se \(\alpha \) é um elemento algébrico de K, então o \textbf{grau de \(\mathbf{\alpha} \)} é exatamente o grau da extensão:
+	\[
+		\mathrm{deg}(\alpha )=[F(\alpha ):F].\; \square
+	\]
+\end{def*}
+\begin{example}
+	Caso \(F=\mathbb{Q}\) e \(\alpha = \sqrt[]{2},\) pelo que vimos antes, sabemos que \(\mathrm{deg}(\alpha )=2\) e, se \(\beta =\sqrt[]{2}+\sqrt[]{3},\) então \(\mathrm{deg}(\beta )=4.\)
+\end{example}
+
+\begin{lemma*}
+	Seja K uma extensão de F de grau finito (\([K:F]<+\infty\)); então, cada \(\alpha \in K\) é algébrico sobre F.
+\end{lemma*}
+\begin{proof*}
+	Sabemos que, como F-espaço vetorial, K tem dimensão finita; vamos mostrar que, escolhendo aleatoriamente qualquer elemento de K, existe um polinômio de grau finito que zera em \(\alpha \).
+
+	Suponha que \([K:F]=n\) e considere n+1 elementos de K
+	\[
+		1,\alpha , \alpha^{2},\dotsc , \alpha^{n-1}, \alpha ^{n}\in K.
+	\]
+	Disso, podemos concluir que o conjunto \(\{1,\alpha ,\alpha^{2},\dotsc ,\alpha^{n}\}\) é linearmente dependente, e exatamente por isso existem coeficientes \(a_{0}, \dotsc , a_{n}\in F\) não todo nulo tal que
+	\[
+		a_{0}1 + a_{0}\alpha  + \dotsc + a_{n}\alpha^{n}=0,
+	\]
+	mas, se for assim, então o polinômio
+	\[
+		f(x)=a_{n}x^{n}+\dotsc +a_1x+a_{0}\in F[X]
+	\]
+	tem exatamente a propriedade \(f(\alpha )=0.\)
+
+	Portanto, \(\alpha \) é algébrico sobre F. \qedsymbol
+\end{proof*}
+
+\begin{def*}
+	Uma extensão K de F é chamada \textbf{extensão algébrica} se cada \(\alpha \in K\) é algébrico sobre F. \(\square\)
+\end{def*}
+Consequência do Lema, é que, se o grau da extensão for finito, então ela é algébrica. Além disso,
+\begin{crl*}
+	\(\alpha \in K\) é um elemento algébrico se, e somente se, \([F(\alpha ):F]<+\infty\).
+\end{crl*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Algoritmo da Divisão de Euclides},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	O \hypertarget{euclides_algorithm}{Algoritmo de Divisão de Euclides} é enunciado como
+	\begin{theorem*}
+		Sejam \(f(x), g(x)\in A[x], \deg{g(x)}\geq 1\) e \(\ell_{g}\in A^{*}.\) Então,
+		existem polinômios únicos \(q(x)\) e \(r(x)\) em \(A[x]\) satisfazendo
+		\[
+			f(x) = q(x)g(x) + r(x),
+		\]
+		com \(\deg{r(x)} < \deg{g(x)}.\)
+	\end{theorem*}
+	\begin{example}
+		Em \(\mathbb{Z}[x],\) considere \(f(x) = 2x^{3} + x^{2} + x + 1\)  e \(g(x) = -x + 1.\)
+		Podemos aplicar o algoritmo da divisão da seguinte forma:
+		\begin{align*}
+			 & 2x^{3} + x^{2} + x + 1\quad \text{(Polinômio original)}                                                                                                 \\
+			 & 2x^{3} + x^{2} + x + 1 \underbrace{- 2x^{3} + 2x^{2}}_{-2x^{2}g(x)} \quad \bigl(-2x^{2}g(x) \substack{\text{ pois é o que falta para g ``alcançar'' o } \\ \text{ grau de f} }\bigr) \\
+			 & 3x^{2} + x + 1 - 3x^{2} \underbrace{- 3x^{2} + 3x}_{-3xg(x)} \quad \bigl(\substack{\text{Novamente, faltava multiplicar g(x) por } -3x                  \\ \text{ a fim de cancelar} .}\bigr) \\
+			 & 4x + 1 \underbrace{- 4x + 4}_{-4g(x)} \quad\text{(Mesma coisa, multiplicamos g(x) para cancelar o } 4x)                                                 \\
+			 & 5\quad\text{(Finaliza-se com um polinômio de grau 0 (constante)).}
+		\end{align*}
+		Coletamos os termos que não foram usados para cancelar os maiores graus, ou seja, \(2x^{2}, 3x\) e \(4\), multiplicamos eles por -1 e, assim, o algoritmo da divisão nos dá
+		\[
+			f(x) = g(x)(-2x^{2} -3x -4) + 5 = (-x+1)(-2x^{2}-3x-4)+5.
+		\]
+	\end{example}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Teoremas do Isomorfismo},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Existem quatro \hypertarget{isomorphism_theorem}{Teoremas do Isomorfismo}, enunciados abaixo:
+	\hypertarget{first_isomorphism}{
+		\begin{theorem*}[Primeiro Teorema do Isomorfismo]
+			Seja \(f:A\rightarrow B\) um homomorfismo de anéis. O mapa \(\overline{f}:A/\ker{(f)}\rightarrow B\)
+			é um morfismo injetor de anéis e \(A/\ker{(f)}\cong{\mathrm{Im}(f)}\)
+		\end{theorem*}}
+	\hypertarget{second_isomorphism}{
+		\begin{theorem*}[Segundo Teorema do Isomorfismo]
+			Seja \(\mathfrak{i}\trianglelefteq{A}.\) Se \(\mathfrak{j}\subseteq \mathfrak{i}\) e \(\mathfrak{j}/\mathfrak{i}\trianglelefteq{A/\mathfrak{i}},\) então:
+			\[
+				\frac{A/\mathfrak{i}}{\mathfrak{j}/\mathfrak{i}}\cong{\frac{A}{\mathfrak{j}}}
+			\]
+		\end{theorem*}}
+	\begin{theorem*}[Terceiro Teorema do Isomorfismo]
+		Seja A um anel e \(\mathfrak{i} \trianglelefteq{A}\) um ideal de A. Então,
+		\begin{itemize}
+			\item[i)] Se B é um subanel de A, tal que \(\mathfrak{i}\subseteq B\subseteq A,\) então \(B/\mathfrak{i}\) é um
+			      subanel de \(A/\mathfrak{i};\)
+			\item[ii)] Todo subanel de \(A/\mathfrak{i}\) é da forma \(B/\mathfrak{i}\) para algum subanel B de A tal que
+			      \(\mathfrak{i} \subseteq B \subseteq A\);
+			\item[iii)] Se \(\mathfrak{j}\) é um ideal de A tal que \(\mathfrak{i}\subseteq \mathfrak{j}\subseteq A,\) então
+			      \(\mathfrak{j}/\mathfrak{i}\) é um ideal de \(A/\mathfrak{i}.\)
+			\item[iv)] Todo ideal de \(A/\mathfrak{i}\) é da forma \(\mathfrak{j}/\mathfrak{i}\) para algum ideal \(\mathfrak{j}\) tal que
+			      \(\mathfrak{i}\subseteq \mathfrak{j}\subseteq R.\)
+		\end{itemize}
+	\end{theorem*}
+	\begin{theorem*}[Quarto Teorema do Isomorfismo]
+		Seja \(\mathfrak{i}\) um ideal de A. A correspondência \(A\longleftrightarrow A/\mathfrak{i}\) é uma bijeção, entre os subconjuntos B de A que contêm \(\mathfrak{i}\) e o
+		conjunto de subanéis de \(A/\mathfrak{i}\), que preserva inclusões. Além disso, o subanel B com \(\mathfrak{i} \subseteq B\) é um ideal de A se, e somente se,
+		\(B/\mathfrak{i}\) é um ideal de \(A/\mathfrak{i}\).
+	\end{theorem*}
+
+	E tem uma versão alternativa do segundo:
+	\begin{theorem*}[Segundo Teorema do Isomorfismo Alternativo]
+		Seja A um anel, S um subanel de A e \(\mathfrak{i}\) um ideal de A. Então,
+		\[
+			\frac{(S+\mathfrak{i})}{\mathfrak{i}}\cong{\frac{S}{S\cap \mathfrak{i}}}.
+		\]
+	\end{theorem*}
+\end{tcolorbox}
+\end{document}
