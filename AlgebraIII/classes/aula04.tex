@@ -1,0 +1,171 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 12 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Polinômios Minimais;
+	\item Torres de Extensões.
+\end{itemize}
+\subsection{Polinômios Minimais e Torres de Extensões}
+\begin{def*}
+	Seja \(\alpha \in K\) algébrico e \(p(x)\in F[X]\) irredutível tal que
+	\[
+		F[x]/(p(x)) \cong F(\alpha ).
+	\]
+	Se \(p(x)\) for mônico, então ele é chamado de \textbf{polinômio minimal.} \(\square\)
+\end{def*}
+Continuando a aventura de provar que a extensão \(\hat{F}\) é um corpo, queremos provar que, por exemplo, se \(\alpha , \beta \in \hat{F}\), então
+\[
+	\alpha \beta ,\; \alpha +\beta \in \hat{F}.
+\]
+\begin{lemma*}
+	Seja \(F\subseteq M\subseteq K\) uma torre de extensões; se \(\alpha \in K\) é algébrico sobre F, então \(\alpha \) é algébrico sobre M. (Algebricidade passa por andares de uma torre de corpos, caso ocorra entre o topo e o fundo).
+\end{lemma*}
+\begin{theorem*}
+	Suponha que \(F\subseteq M\subseteq K\) é uma torre de extensões tal que
+	\[
+		[M:F]<\infty \quad\&\quad [K:M]<+\infty.
+	\]
+	Então, o grau de extensão de K sobre F é
+	\[
+		[K:F]=[K:M][M:F].
+	\]
+\end{theorem*}
+O grau de extensão do topo para o fundo é o produto das extensões por andares.
+\begin{proof*}
+	Suponha que \([K:M]=n\) e que \([M:F]=m\); seja \(\{\alpha_{1}, \dotsc , \alpha_{n}\}\) uma M-base de K e \(\{\beta_1, \dotsc , \beta_{m}\}\) uma F-base de M. Para provar o resultado, é suficiente provar que \(\{\alpha_{i}\beta_{j}\}_{i, j}\) é uma F-base de K.
+
+	\textbf{\underline{Independência Linear}:} vamos considerar o produto \(\{a_{ij}\}_{\substack{i=1,\dotsc , n \\ j=1,\dotsc ,m}}\) dentro de F e supor que
+	\[
+		\sum\limits_{i, j}^{}a_{ij}\alpha_{i}\beta_{j} = 0.
+	\]
+	Expandindo em somas separadas,
+	\[
+		0\sum\limits_{i, j}^{}a_{ij}\alpha_{i}\beta_{j}= \sum\limits_{i=1}^{n}\biggl(\sum\limits_{j=1}^{m}a_{ij}\beta_{j}\biggr)\alpha_{i},
+	\]
+	mas, para todo i entre 1 e n, vale
+	\[
+		\sum\limits_{j=1}^{m}a_{ij}\beta_{j}=0,
+	\]
+	e sendo \(\{\beta_{j}\}\) uma F-base de M, se acontecer
+	\[
+		\sum\limits_{j=1}^{m}a_{ij}\beta_{j}=0,
+	\]
+	para algum i, então \(a_{ij}=0\) para todo j. Logo, para todo i e todo j, \(a_{ij}=0\), provando a Independência linear.
+
+	\textbf{\underline{Conjunto Geradores}:} resta provarmos que \(\{\alpha_{i}\beta_{j}\}\) é um conjunto de geradores de K como F-espaço vetorial. Para isso, tome \(\gamma \in K\) da forma
+	\[
+		\gamma = \sum\limits_{i=1}^{n}a_{i}\alpha_{i}, \quad a_{i}\in M.
+	\]
+	Sendo \(a_{i}\in M\), vale também que
+	\[
+		a_{i}=\sum\limits_{j=1}^{m}b_{ij}\beta_{j}, \quad b_{ij}\in F,
+	\]
+	então
+	\[
+		\gamma =\sum\limits_{i=1}^{n}a_{i}\alpha_{i}=\sum\limits_{i=1}^{n}\biggl(\sum\limits_{j=1}^{m}b_{ij}\beta_{j}\biggr)\alpha_{i} = \sum\limits_{i, j}^{}b_{ij}\alpha_{i}\beta_{j}.
+	\]
+
+	Portanto, formamos uma base. \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Seja \(F\subseteq K\) uma extensão de corpos e sejam \( \alpha , \beta \in K\). Existe uma relação entre a extensão e o corpo de frações racionais, dada por
+	\[
+		F\subseteq F(\alpha ) \subseteq K \quad\&\quad F\subseteq F(\beta )\subseteq K.
+	\]
+	Então, faz sentido convencionarmos um corpo de funções racionais com coeficientes em \(F(\alpha )\) e indeterminada \(\beta \), denotado por
+	\[
+		F(\alpha , \beta )\coloneqq F(\alpha )(\beta )=F(\beta)(\alpha).
+	\]
+\end{tcolorbox}
+\begin{example}
+	Tomemos \(F = \mathbb{Q},\; K = \mathbb{R},\; \alpha = \sqrt[]{2}\) e \(\beta = \sqrt[]{3}\), tal que
+	\[
+		F(\alpha )=\mathbb{Q}(\sqrt[]{2})=\mathbb{Q}[\sqrt[]{2}]=\{a+\sqrt[]{2}b:\; a, b\in \mathbb{Q}\}.
+	\]
+	Neste caso,
+	\[
+		\mathbb{Q}[\sqrt[]{2}][\sqrt[]{3}]=\{a_{0}+a_{1}\sqrt[]{3}+\dotsc +a_{n}\sqrt[]{3}^{n}:\; a_{i}\in \mathbb{Q}[\sqrt[]{2}]\} = \{a+\sqrt[]{3}b:\; i, b\in \mathbb{Q}[\sqrt[]{2}]\}.
+	\]
+	Para determinar a cara dos elementos deste corpo, então, devemos olhar para uma soma do tipo \(a+\sqrt[]{3}b\), sendo a e b elementos de \(\mathbb{Q}[\sqrt[]{2}]\), que podem ser escritos como
+	\[
+		a = \alpha +\sqrt[]{2}\beta  \quad\&\quad b = \gamma +\sqrt[]{2}\delta, \quad \alpha ,\;\beta ,\; \gamma ,\; \delta \in \mathbb{Q}.
+	\]
+	Logo,
+	\[
+		a+\sqrt[]{3}b = (\alpha + \sqrt[]{2}\beta )+\sqrt[]{3}(\gamma + \sqrt[]{2}\delta )= \alpha +\sqrt[]{2}\beta +\sqrt[]{3}\gamma +\sqrt[]{6}\gamma.
+	\]
+	Portanto, podemos determinar a forma explicita para os elementos de \(\mathbb{Q}[\sqrt[]{2}][\sqrt[]{3}]\) (e de \(\mathbb{Q}[\sqrt[]{3}][\sqrt[]{2}]\)):
+	\[
+		\mathbb{Q}[\sqrt[]{2}\sqrt[]{3}]=\{\alpha +\sqrt[]{2}\beta +\sqrt[]{3}\gamma + \sqrt[]{6}\delta :\; \alpha ,\; \beta ,\; \gamma ,\; \delta \in \mathbb{Q}\}.
+	\]
+
+	Note também a propriedade que
+	\[
+		\mathbb{Q}(\sqrt[]{2})(\sqrt[]{3})=\mathbb{Q}[\sqrt[]{2}][\sqrt[]{3}].
+	\]
+	No entanto, é importante uma ressalva: vamos supor que \(\alpha = \pi \), o qual sabemos ser transcendente. Então, um dos elementos do corpo de frações \(\mathbb{Q}(\pi )\), por exemplo, seria
+	\[
+		\frac{1}{1-\pi }\in \mathbb{Q}(\pi ),
+	\]
+	mas
+	\[
+		\frac{1}{1-x}=\sum\limits_{i\geq 0}^{}x^{i}\in \mathbb{Q}[[x]] = \{f(x):\; f \text{ é uma série formal}\} \cong \mathbb{Q}[x],
+	\]
+	ou seja, se \(\mathbb{Q}[\pi ] = \mathbb{Q}(\pi )\), teríamos
+	\[
+		\frac{1}{1-\pi } = a_{0}+a_1\pi +\dotsc +a_{n}\pi^{n} \Rightarrow (a_{0}+a_1\pi +\dotsc + a_{n}\pi^{n})(1-\pi )-1=0,
+	\]
+	que contradiz a transcendentalidade de \(\pi.\) Apesar disso, ainda valem, por exemplo,
+	\begin{align*}
+		 & \mathbb{Q}(\pi )(e)=\mathbb{Q}(e)(\pi )                      \\
+		 & \mathbb{Q}(\pi )(\sqrt[]{2}) = \mathbb{Q}(\sqrt[]{2})(\pi ).
+	\end{align*}
+\end{example}
+
+Ainda no tema de extensões de corpos, vamos supor que K é uma extensão de F, que \(\alpha , \beta \in K\) e que ambos são algébricos sobre F; consideremos, também, a seguinte torre:
+\[
+	\underbrace{F\subseteq F(\alpha )}_{\underbrace{}_{(I)}}\stackrel{(II)}\subseteq F(\alpha )(\beta )=F(\alpha , \beta )\subseteq K;
+\]
+sendo \(\beta \) algébrico sobre F, então \(\beta \) é algébrico também sobre \(F(\alpha )\). Logo, podemos concluir duas coisas a partir das contingências:
+\begin{itemize}
+	\item[I)] Permite concluirmos que, por \(\alpha \) ser algébrico sobre F, o grau da extensão \(F(\alpha )\) de F é finito; e
+	\item[II)] Garante que, por \(\beta \) ser algébrico sobre \(F(\alpha )\), então o grau da extensão \(F(\alpha )(\beta )\) é finito como extensão de \(F(\alpha )\).
+\end{itemize}
+Consequentemente, pela multiplicatividade do grau da extensão,
+\[
+	[F(\alpha , \beta )=F(\alpha )(\beta ):F]=[F(\alpha , \beta ):F(\alpha )][F(\alpha ):F].
+\]
+Então, \(F\subseteq F(\alpha , \beta )\) é finita e algébrica. Demonstramos, portanto, o
+\begin{lemma*}
+	Se \(\alpha , \beta \in K\) são algébricos, então \(F\subseteq F(\alpha , \beta )\) é uma extensão algébrica.
+\end{lemma*}
+\begin{theorem*}
+	Se K é uma extensão de F e \(\hat{F}\) denota o conjunto dos elementos de K algébricos sobre F, então \(\hat{F}\) é um corpo.
+\end{theorem*}
+\begin{proof*}
+	Basta provarmos que, se \(\alpha , \beta \) pertencem a \(\hat{F}\), então o produto, a soma e os inversos também pertencem. No entanto, por tudo que mostramos acima, \(\alpha \) e \(\beta \) pertencem a \(F(\alpha , \beta )\), que é um corpo. Portanto,
+	\[
+		\alpha \beta , \; \alpha \pm \beta ,\; \alpha^{-1},\; \beta^{-1}\in F(\alpha , \beta )\subseteq \hat{F}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+Um resumo parcial de tudo que vimos é que, se K é uma extensão finita de F, então ela é algébrica, mas a volta -- ``se K é uma extensão algébrica de F, então ela é finita'' -- não vale!
+\begin{example}[Não-Exemplo]
+	Vamos considerar \(F=\mathbb{Q}\) e \(\hat{\mathbb{Q}}\) o fecho algébrico relativo a \(\mathbb{R}\). Aqui, basta considerarmos \(\{\sqrt[n]{2}\}_{n\geq 1}\) para conseguir um polinômio que é infinito e \(\mathbb{Q}\)-independente, mostrando que
+	\[
+		[\hat{\mathbb{Q}}:\mathbb{Q}]=\infty.
+	\]
+\end{example}
+\end{document}

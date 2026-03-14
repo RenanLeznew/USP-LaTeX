@@ -1,0 +1,249 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 11 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Equações não lineares;
+	\item Discretização de Problemas não Lineares;
+	\item Método de Newton;
+	\item Métodos de Ordens Superiores.
+\end{itemize}
+\subsection{Equações não lineares}
+O primeiro exemplo de uma equação não linear, e um dos mais famosos, é o movimento de um pêndulo: considere o movimento de um pêndulo com uma partícula de massa m presa ao final de uma haste de comprimento L, considerada aqui sem massa, e seja \(\theta (t)\) o ângulo do pêndulo verticalmente no momento t.
+Ignorando a massa da barra, forças de atrito e a resistência do ar, o movimento deste pêndulo pode ser descrito como
+\[
+	\theta ''(t)=-\frac{g}{L}\sin^{}{(\theta (t))},
+\]
+sendo g a constante gravitacional. Aplicando a segunda lei de Newton às forças atuando na partícula presa à ponta, obtemos a relação
+\[
+	F = m a = -mg\sin^{}{(\theta )} \Rightarrow a = -g \sin^{}{(\theta )}.
+\]
+Como o comprimento de arco traçado quando o ângulo vale \(\theta \) é dado por \(s = L \theta \), observamos também que
+\[
+	v = \frac{\mathrm{d}s}{\mathrm{d}t} = L \frac{\mathrm{d}\theta }{\mathrm{d}t},
+\]
+e consequentemente
+\[
+	a = \frac{\mathrm{d}^{2}s}{\mathrm{d}t^{2}} = L \frac{\mathrm{d}^{2}\theta }{\mathrm{d}t^{2}}.
+\]
+Portanto, a descrição analítica do problema é que
+\[
+	\frac{\mathrm{d}^{2}\theta }{\mathrm{d}t^{2}}=-\frac{g}{L}\sin^{}{(\theta )}.
+\]
+
+Nosso objetivo é encontrar uma forma da solução desse sistema na qual possamos testar nossos métodos numéricos, porque o caso aqui vai ser bem diferente do que vimos anteriormente. Sendo assim, começando pela resolução do sistema, vamos supor que \(\frac{g}{L}=1\) para simplificar; com isso, temos
+\begin{align*}
+	 & \theta ''(t)=-\sin^{}{(\theta (t))}, \quad 0<t<T \\
+	 & \theta (0)=\alpha                                \\
+	 & \theta (T)=\beta ,
+\end{align*}
+mas vale observar que fornecer um valor da velocidade angular \(\theta'(0)\) é mais natural em contextos reais. Para amplitudes pequenas do ângulo \(\theta \), é costume utilizar a aproximação \(\sin^{}{(\theta (t))}\approx \theta (t)\), tornando o problema acima em
+\begin{align*}
+	 & \theta ''(t)=\theta (t), \quad 0<t<T \\
+	 & \theta (0)=\alpha                    \\
+	 & \theta (T)=\beta ,
+\end{align*}
+que sabemos resolver com soluções gerais da forma
+\[
+	\theta (t)=A\cos^{}{(t)}+B\sin^{}{(t)}.
+\]
+
+Seguindo a abordagem dos problemas lineares, podemos aproximar os valores das soluções por
+\[
+	\frac{1}{h^{2}}(\theta_{j-1}-2\theta_{j}+\theta_{j+1})+\sin^{}{(\theta_{j})}=0, \quad j=1,2,\dotsc ,m,
+\]
+onde
+\[
+	h\coloneqq \frac{T}{(m+1)},\quad \theta_{0}\coloneqq \alpha  \quad\&\quad \theta_{m+1}\coloneqq \beta .
+\]
+Transformamos o problema em um sistema de equações não lineares da forma
+\[
+	G(\theta )=0,
+\]
+onde \(G:\mathbb{R}^{m}\rightarrow \mathbb{R}^{m}\) e \(\theta = (\theta_1, \theta_2, \dotsc , \theta_{m})^{T}\),
+que tem um problema grande de não poder ser resolvido utilizando sistemas lineares tridiagonais: ao invés de usarmos métodos diretos, é necessário explorarmos métodos iterativos, tal qual o \textit{Método de Newton}.
+
+A forma como o método de Newton funciona é que, se \(\theta^{[k]}\) denota a aproximação para \(\theta \) no k-ésimo passo, então o método de Newton consiste em utilizar a expansão de Taylor
+\[
+	G(\theta^{[k+1]})=G(\theta^{[k]})+\frac{\partial^{}}{\partial \theta ^{}}G(\theta^{[k]})(\theta^{[k+1]}-\theta^{[k]})+\dotsc,
+\]
+colocar \(G(\theta^{[k+1]})=0\) como desejado, e abandonar os termos de ordens maiores, resultando em
+\[
+	0\approx G(\theta^{[k]})+\frac{\partial^{}}{\partial \theta ^{}}G(\theta^{[k]})(\theta^{[k+1]}-\theta^{[k]}).
+\]
+Disso, podemos fazer uma etapa do método conhecida como atualização, colocando
+\[
+	\theta^{[k+1]}\coloneqq \theta^{[k]}+\delta^{[k]},
+\]
+onde \(\delta^{[k]}\) é a solução da equação com Jacobiana
+\[
+	J(\theta^{[k]})\delta^{[k]}=-G(\theta^{[k]} ),
+\]
+onde
+\[
+	J(\theta )\coloneqq \frac{\partial^{}}{\partial \theta ^{}}G(\theta )\in \mathbb{R}^{m\times m}, \quad J_{ij}(\theta )=\frac{\partial^{}}{\partial \theta_{j}^{}}G_{i}(\theta ),\; i, j=1,2,\dotsc ,m.
+\]
+
+Em nosso exemplo do pêndulo,
+\[
+	G_{i}(\theta )=G_{i}(\theta_1, \theta_2, \dotsc, \theta_{m})=\frac{1}{h^{2}}(\theta_{i-1}-2\theta_{i}+\theta_{i+1})+\sin^{}{(\theta_{i})},
+\]
+tal que
+\[
+	J_{ij}(\theta )  = \left\{\begin{array}{ll}
+		\frac{1}{h^{2}},                        & \quad j=i-1 \text{ ou } j=i+1, \\
+		-\frac{2}{h^{2}}+\cos^{}{(\theta_{i})}, & \quad j=1,                     \\
+		0,                                      & \quad \text{caso contrário}
+	\end{array}\right.,
+\]
+resultando na matriz
+\[
+	A=\frac{1}{h^{2}} \begin{bmatrix}
+		-\frac{2}{h^{2}}+\cos^{}{(\theta_1)} & 1                                      & \dotsc &        &                                        \\
+		1                                    & -\frac{2}{h^{2}}+\cos^{}{(\theta_{2})} & 1      & \dotsc &                                        \\
+		\vdots                               & \ddots                                 & \ddots & \cdots &                                        \\
+		                                     &                                        &        & 1      & -\frac{2}{h^{2}}+\cos^{}{(\theta_{m})}
+	\end{bmatrix}.
+\]
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted siador
+	]
+	O método de Newton requer uma ressalva: o chute inicial deve ser perto o suficiente do valor real, e ele converge de forma quadrática se isso ocorrer!
+\end{tcolorbox}
+A solução do problema não linear acima é uma \textit{solução isolada}, no sentido que não há outras soluções em uma vizinhança dela: ela é \textit{localmente única}, mas essa \textit{não} é a única solução ao problema de valor de contorno.
+
+É importante manter em mente que há uma diferença entre a convergência do Método de Newton aplicado à solução de uma equação de diferença finitas e da convergência da aproximação de diferença finita da solução: inserindo a solução verdadeira à equação de diferenças finitas,
+\begin{align*}
+	\tau_{i} & \coloneqq \frac{1}{h^{2}}(\theta(t_{i-1})-2\theta(t_{i}))+\sin^{}{(\theta(t_{i}))}-0                                           \\
+	         & = \biggl[\theta''(t_{i})+\sin^{}{\biggl(\theta(t_{i})+\frac{1}{12}h^{2}\theta^{(4)}(t_{i})\biggr)}\biggr] + \mathcal{O}(h^{4}) \\
+	         & = \frac{1}{12}h^{2}\theta^{(4)}(t_{i})+\mathcal{O}(h^{4}),\quad i=1,2,\dotsc ,m.
+\end{align*}
+Concluímos, então, que o erro de truncamento local para a aproximação é da ordem de \(h^{2}\).
+
+Seja \(\hat{\theta }\) o vetor de valores reais numa malha de pontos, e \(\tau=(\tau_1, \tau_2, \dotsc , \tau_{m})^{T}\). Então, se \(G(\theta )=\tau \) e \(E\coloneqq \theta -\hat{\theta }\) é o erro global, temos
+\[
+	G(\theta )-G(\hat{\theta })=0-\tau = -\tau.
+\]
+No caso linear, onde \(G(\theta )=A\theta - F\), segue que
+\[
+	G(\theta )-G(\hat{\theta })=A\theta - A\hat{\theta } = -\tau \Rightarrow \dotsc \Rightarrow E^{h} = (A^{h})^{-1}(-\tau^{h});
+\]
+com uma expansão de séries de Taylor, podemos escrever
+\[
+	G(\theta )=G(\hat{\theta })+J(\hat{\theta })E + \mathcal{O}(\Vert E \Vert^{2}) \Rightarrow J(\hat{\theta })E = -\tau + \mathcal{O}(\Vert E \Vert^{2}),
+\]
+e ignorando os termos de ordem maior, então novamente temos um relação linear entre os erros locais e globais! Adotaremos a notação
+\[
+	\hat{J^{h}}\coloneqq J(\hat{\theta })
+\]
+em uma malha com espaçamento h.
+
+\begin{def*}
+	O método de diferenças não lineares \(G(\theta )=0\) é \textbf{estável em uma norma} \(\Vert \cdot  \Vert\) se as matrizes \((\hat{J^{h}})\) forem uniformemente limitadas nela, conforme h tende a zero; noutras palavras, se existe \(C>0\) e \(h_{0}>0\) tais que
+	\[
+		\biggl\Vert (\hat{J^{h}})^{-1} \biggr\Vert \leq C, \quad 0<h<h_{0}. \; \square
+	\]
+\end{def*}
+Pode-se mostrar que, se o método é estável nesse sentido e consistente no sentido de que \(\Vert \tau^{h} \Vert\) tende a zero conforme h tende também, então o método converge (\(\Vert E^{h} \Vert\to 0\) conforme \(h\to0^{+}\)).
+
+\subsection{Métodos de Ordens Maiores para o Caso Não Linear}
+Por agora, consideramos métodos de ordem no máxima segunda para resolver os PVC's, mas existem métodos que obtêm precisões de ordens maiores. Daremos uma passada por três abordagens que resultam em ordens polinomiais maiores, tais como:
+\begin{itemize}
+	\item Diferenciação de quarta ordem;
+	\item Método da Extrapolação;
+	\item Correção Adiada.
+\end{itemize}
+
+A primeira abordagem é meio óbvia -- basta utilizar uma aproximação melhor ao operador derivada ao invés da diferença de segunda ordem usada em
+\[
+	\frac{1}{h^{2}}(U_{j-1}-2U_{j}+U_{j+1})=f(x_{j}),\quad j=1,2,\dotsc ,m,
+\]
+por exemplo a aproximação de diferença finita
+\[
+	\frac{1}{12h^{2}}(-U_{j-2}+16U_{j-1}-30U_{j}+16U_{j+1}-U_{j+2})=f(x_{j}),\quad j=1,2,\dotsc ,m,
+\]
+que fornece uma aproximação de quarta ordem precisa para \(u''(x_{j})\).
+
+Para o PVC \(u''(x)=f(x)\) em uma malha com m pontos interiores, essa aproximação pode ser usada nos pontos \(j=2,3,\dotsc , m-1\), mas não nos casos \(j=1\) e \(j=m\), pois neles, precisamos usar métodos com somente um ponto no estêncil, à esquerda ou à direita, respectivamente. Daí, poderíamos obter algumas fórmulas adequadas, por exemplo a aproximação com acurácia de ordem três para \(u'''(x_1)\) dada por
+\[
+	u''(x_1)=\frac{1}{12h^{2}}(11U_{0}-20U_{1}+6U_{2}+4U_{3}-U_{4})+\mathcal{O}(h^{3}),
+\]
+ou mesmo a de acurácia de quarta ordem:
+\[
+	u''(x_1)=\frac{1}{12h^{2}}(10U_{0}-15U_{1}-4U_{2}+14U_{3}-6U_{4}+U_{5})+\mathcal{O}(h^{4}).
+\]
+
+Quanto aos métodos de extrapolação, utiliza-se o método de precisão de segunda ordem em duas malhas separadas, uma com espaçamento h, chamada de \textbf{malha grossa}, e outra com espaçamento \(h/2\), conhecida por \textbf{malha fina}; em seguida, extrapola-se em h para obter uma aproximação melhor na malha grossa, resultando em erros de ordem \(\mathcal{O}(h^{4})\). Partindo dessa ideia geral, denote a solução na malha grossa por
+\[
+	U_{j}\approx u(jh), \quad j=1,2,\dotsc , m,
+\]
+e por
+\[
+	V_{j}\approx u\biggl(\frac{jh}{2}\biggr), \quad j=1,2,\dotsc , 2m+1
+\]
+a solução na grade fina (observe que tanto \(U_{j}\) quanto \(V_{2j}\) aproximam \(u(jh)\)). Como esse método é um centrado com acurácia de segunda ordem, podemos provar que o erro tem a forma de uma expansão com potência par em expoentes de h:
+\[
+	U_{j}-u(jh)=C_{2}h^{2}+C_{4}h^{4}+C_{6}h^{6}+\dotsc ,
+\]
+onde \(u(x)\) tem que ser suficientemente suave, e os coeficientes \(C_{2},\; C_{4},\; \dotsc \) dependem de derivadas de ordens maiores de u, mas não dependem de h em cada ponto fixo \(jh\). Por outro lado, na malha fina, o erro tem forma
+\begin{align*}
+	V_{2j}-u(jh) & =C_{2}\biggl(\frac{h}{2}\biggr)^{2} + C_{4}\biggl(\frac{h}{2}\biggr)^{4} + C_{6}\biggl(\frac{h}{2}\biggr)^{6} + \dotsc \\
+	             & = \frac{1}{4}C_{2}h^{2}+\frac{1}{16}C_{4}h^{4}+\frac{1}{64}C_{6}h^{6}+\dotsc .
+\end{align*}
+Assim, o valor extrapolado é dado por
+\[
+	\overline{U}_{j}=\frac{1}{3}(4 V_{2j}-U_{j}),
+\]
+que é escolhido desta forma para que os erros de ordem \(h^{2}\) se cancelem, resultando em
+\[
+	\overline{U}_{j}-u(jh)=\frac{1}{3}\biggl(\frac{1}{4}-1\biggr)C_{4}h^{4}+\mathcal{O}(h^{6}),
+\]
+tal que o resultado final tem precisão de ordem quatro conforme h é reduzida, e um erro consideravelmente menor que aqueles de \(U_{j}\) ou \(V_{2j}\) é obtido (afinal, \(C_{4}h^{2}\) é pelo menos não maior que \(C_{2}\), normalmente sendo bem menor).
+
+O terceiro método, das \textit{correções atrasadas}, tem uma vantagem de resolver os dois problemas na mesma malha ao invés de refinar ela como no anterior. Para entender como ele funciona, vamos considerar um exemplo de resolução do sistema
+\[
+	\frac{1}{h^{2}}\begin{bmatrix}
+		-2     & 1  & \dotsc &        &        &                 \\
+		1      & -2 & 1      & \dotsc &        &                 \\
+		\vdots & 1  & -2     & 1      & \dotsc &                 \\
+		       &    &        & \ddots & \ddots & \ddots & \dotsc \\
+		       &    &        & 1      & -2     & 1               \\
+		       &    &        &        &        & 1      & -2
+	\end{bmatrix} \begin{bmatrix}
+		U_{1}   \\
+		U_{2}   \\
+		U_{3}   \\
+		\vdots  \\
+		U_{m-1} \\
+		U_{m}
+	\end{bmatrix} = \begin{bmatrix}
+		f(x_1)-\frac{\alpha }{h^{2}} \\
+		f(x_{2})                     \\
+		f(x_{3})                     \\
+		\vdots                       \\
+		f(x_{m-1})                   \\
+		f(x_{m})- \frac{\beta }{h^{2}}
+	\end{bmatrix},
+\]
+e resolvendo-o, conseguimos uma aproximação com precisão de ordem 2 para aproximar U. Com isto, o erro global \(E = U - \hat{U}\) satisfaz a equação de diferenças \(AE=-\tau \), onde \(\tau \) é o erro de truncamento local, o qual, caso conhecido, fornece uma possibilidade de obter o erro global e, consequentemente, obter uma solução exata \(\hat{U}\) simplesmente isolando ele na equação do erro. Como nem tudo são flores, isso permanece um pensamento teórico, porque, na prática, o erro de truncamento local tem a forma
+\[
+	\tau_{j}=\frac{1}{12}h^{2}u'''(x_{j})+\mathcal{O}(h^{4}),
+\]
+dependente da solução exata, que não conhecemos. No entanto, pela solução aproximada para U, podemos estimar \(\tau \) aproximando a quarta derivada de U.
+
+No caso do problema simples \(u''(x)=f(x)\), temos \(u''''(x) = f''(x)\), tal que o erro de truncamento local pode ser estimado diretamente a partir da forma de \(f(x)\) ao colocarmos
+\[
+	F_{j}= f(x_{j})+\frac{1}{12}h^{2}f''(x_{j}),
+\]
+com termos de fronteira adicionados nos pontos \(j=1\) e \(j=m\); daí, basta resolver \(AU=F\) para obter uma solução de acurácia de quarta ordem diretamente. Resumidamente: utilizamos a solução aproximada para estimar o erro de truncamento local, depois resolvemos um problema auxiliar para sair do erro local para o global; com ele, pudemos melhorar a solução aproximada!
+\end{document}

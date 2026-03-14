@@ -451,7 +451,28 @@ com duas condições de contorno \(u(a)=\alpha \) e \(u(b)=\beta \). Aplicando a
 	\kappa (x)u''(x)+\alpha '(x)u'(x)=f(x),\quad a<x<b,
 \]
 a partir da qual podemos aplicar a discretização; porém, essa abordagem não é a melhor! Afinal, o sistema linear resultante pode não ser simétrico!!
+O melhor seria discretizar o problema física diretamente
+\[
+	\kappa (x_{j+1/2})u'(x_{j+1/2})=\kappa_{j+1/2}\biggl(\frac{U_{j+1}-U_{j}}{h}\biggr),
+\]
+junto à aproximação em \(x_{j-1/2}\) de maneira análoga; assim, fazendo a diferença entre eles, obtemos uma aproximação centrada em \(x_{j}\) para \((\kappa u')'\):
+\begin{align*}
+	(\kappa u')' & \approx \frac{1}{h}\biggl[\kappa (x_{j+1/2})u'(x_{j+1/2}) - \kappa (x_{j-1/2})u'(x_{j-1/2})\biggr]                                        \\
+	             & \approx \frac{1}{h}\biggl[\kappa _{j+1/2}\biggl(\frac{U_{j+1}-U_{j}}{h}\biggr)-\kappa_{j-1/2}\biggl(\frac{U_{j}-U_{j-1}}{h}\biggr)\biggr] \\
+	             & = \frac{1}{h^{2}}(\kappa_{j-1/2}U_{j-1}-(\kappa_{j-1/2}+\kappa_{j+1/2})U_{j}+\kappa_{j+1/2}U_{j+1}),
+\end{align*}
+que leva à matriz simétrica
+\[
+	A=\frac{1}{h^{2}}\begin{bmatrix}
+		-(\kappa_{1/2}+\kappa_{3/2}) & \kappa_{3/2}                 & \dotsc                             &                                  \\
+		\kappa_{3/2}                 & -(\kappa_{3/2}+\kappa_{5/2}) & \kappa_{5/2}                       & \dotsc                           \\
+		\vdots                       & \ddots                       & \ddots                             & \dotsc                           \\
+		                             & \kappa_{m-3/2}               & -(\kappa_{m-3/2} + \kappa_{m-1/2}) & \kappa_{m-1/2}                   \\
+		                             &                              & \kappa_{m-1/2}                     & -(\kappa_{m-1/2}+\kappa_{m+1/2})
+	\end{bmatrix}
+\]
+A grande vantagem da matriz fornecida por esse método é que ela é simétrica, afinal a equação diferencial que dá origem a ela é autoadjunta; além disso, como \(\kappa >0\), a matriz obtida será não sigular e definida negativa!
 
-
+Quando resolvemos sistemas lineares por métodos iterativos, costuma ser desejável que a matriz resultante tenha propriedades como as mencionadas acima, já que alguns deles, tal qual o método do gradiente conjugado, dependem destas propriedades
 
 \end{document}
