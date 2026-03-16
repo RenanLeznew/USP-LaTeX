@@ -1,0 +1,212 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 04 - 12 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Introdução ao Numpy.
+\end{itemize}
+\subsection{Numpy}
+O \texttt{numpy} é um pacote no Python para a computação orientada às matrizes, conhecida como \textbf{ processamento matricial}; nele, as classes e métodos são majoritariamente escritos em C, garantindo eficiência computacional, e possui muitos recursos para computação científica, especialmente para resolver problemas de álgebra linear.
+Ele é um pacote muito utilizado, ao ponto de vários outros, como \texttt{pandas}, \texttt{matplotlib} (que veremos depois) e \texttt{sklearn}, dependerem dele.
+
+Para começar a usar o numpy, não basta apenas ter o Python, ele é um pacote, e precisa ser importado após baixado; supondo que tenha instalado, pode importá-lo como ``\texttt{import numpy as np}'', para que toda chamada do pacote seja com np na frente, ou ``\texttt{import numpy}'' seguido de ``from numpy import *''.
+A partir disso, a estrutura de dados básica do numpy são os chamados \textit{arrays}, que funcionam similarmente às listas em Python, mas com alguns detalhes:
+\begin{itemize}
+	\item Todo elemento em um array precisa ser do mesmo tipo, normalmente um float ou um int;
+	\item Cada dimensão de um array é chamado de eixo/\textit{axis};
+	\item Os eixos são enumerados a partir de 0; e
+	\item Os elementos são acessados de forma parecida com as listas, utilizando colchetes [].
+\end{itemize}
+Os arrays são a estrutura que viabilizam a realização eficiente de operações numéricas envolvendo quantidades enormes de dados, e são uma forma mais eficiente das listas que conhecemos, tanto é que uma das formas de construí-los é convertendo de listas para arrays; outras, seriam os próprios métodos do numpy ou a conversão de \texttt{DataFrames}:
+\begin{listing}
+	\caption{Criando arrays a partir de listas.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+ import numpy as np 
+
+ # Criando um array unidimensional a partir de uma lista 
+
+ lista = [1,3,5,7,9,10]
+ array = np.array(lista)
+ print(array)
+ print(lista)
+ # Note que, na impressão de um array, as vírgulas não aparecem 
+ # Mas, nas listas, elas aparecem.
+ 
+ # Criando um array bidimensional
+
+ matriz = [[1,3,5,7,9,11], [2,4,6,8,10,12], [0,1,2,3,4,5]] 
+ array_bidim = np.array(matriz)
+ print(array_bidim)
+
+ \end{minted}
+
+	\caption{Criando arrays pelo numpy.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+  # Criar uma array a partir dos métodos numpy é parecido com criar 
+  # listas de template. Algumas formas: 
+
+  # Arrays unidimensionais 
+
+  array_zeros = np.zeros((8)) # array com oito elementos iguais a 0
+  array_uns = np.ones((10)) # array com dez elementos iguais a 1 
+  array_cont = np.arrange(10) # array com elementos de 0 a 9
+  array_part = np.linspace(1,2,5) # array com 5 elementos igualmente 
+  # espaçados no intervalo de 1 até 2.
+
+  # Arrays bidimensonais 
+
+  cinco_tres = np.zeros((5,3)) # array 5x3 de zeros
+  cinco_dez = np.ones((5, 10)) # array com 5x10 de uns
+  identidade = np.identity(3) # matriz identidade 3x3
+ \end{minted}
+\end{listing}
+
+Os objetos correspondentes às arrays do numpy, entendidas pelo computador como objetos do tipo \texttt{ndarrays}, possuem diversos atributos que podem ser acessados:
+\begin{itemize}
+	\item \textbf{ndarray.ndim:} número de eixos/dimensões da array;
+	\item \textbf{ndarray.shape:} tupla de inteiros indicando o tamanho da array em cada dimensão;
+	\item \textbf{ndarray.size:} número total de elementos da array;
+	\item \textbf{ndarray.dtype:} tipo dos elementos da array;
+	\item \textbf{ndarray.itemsize:} tamanho, em bytes, de cada elemento da array;
+	\item \textbf{ndarray.data:} buffer de memória contendo os elementos do array.
+\end{itemize}
+Vale observar que arrays unidimensionais podem ter uma das dimensões livres: um array com \textit{shape} (5,) possui apenas 1 eixo, enquanto que um com (5,1) possui 2.
+
+Um conceito importante de ser entendido ao manipular arrays é o de \textit{view}, que é criada em algumas ocasiões, como ao realizar um \textit{slicing}, que será visto adiante, e faz referência a uma parte de uma array; é importante manter em mente que alterar os elementos de um view irá alterar os elementos da array original, então caso seja necessário preservá-la, deve-se fazer uma cópia usando o método \texttt{copy}. 
+
+Os índices de uma array variam de 0 até \(k_{i}-1\), sendo \(k_{i}\) o número de elementos na i-ésima dimensão, e a iteração é feita linha pro linha; assim, se o desejo for acessar os elementos, deve-se utilizar um laço duplo, ou a versão \textit{flat} da array:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+import numpy as np
+
+matriz = [[1,3,5,7,9,11], [2,4,6,8,10,12], [0,1,2,3,4,5]] 
+array_bidim = np.array(matriz)
+
+# percorrendo as linhas 
+for indice, linha in enumerate(array_bidim):
+    print("linha", indice, " = ", linha)
+
+# percorrendo elementos 
+for indice, linha in enumerate(array_bidim):
+    for coluna, elemento in enumerate(linha):
+        print("Elemento na posição ", i, ' ', j, ' = ', elemento)
+
+# o atributo 'flat' coloca todos os elementos em uma lista 
+for elemento in array_bidim.flat:
+    print(elemento)
+
+# pode-se utilizar os índices diretamente 
+for linha in range(array_bidim.shape[0]): # numero linhas
+    for coluna in range(array_bidim[1]): # numero colunas
+        print('Elemento', i, ' ', j, ' = ', array_bidim[i, j])
+\end{minted}
+O problema de usar os laços é que eles são pouco eficazes, computacionalmente, e existe uma alternativa conhecida como \textit{slicing} (podendo ser usado também para listas), basicamente uma visão do array original (gera uma view), sem que o dado seja copiado. Ao utilizar o glicina, tenha em mente que índices omitidos correspondem a enxergar toda a dimensão omitida.
+
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+matriz = [[1,3,5,7,9,11], [2,4,6,8,10,12], [0,1,2,3,4,5]] 
+array_bidim = np.array(matriz)
+
+# slicing de colunas 
+## array[indice_linha, :] recupera a linha inteira do indice 
+## indicado. 
+print(array_bidim[1,:]) # recupera toda a linha 1.
+
+# slicing de linhas 
+## array[:, indice_coluna] recupera a coluna inteira do indice 
+## indicado 
+print(array_bidim[:, 2]) # recupera toda a coluna 2. 
+
+# slicing em blocos 
+## podemos estabelecer a recuperação em linhas e em colunas usando 
+## blocos. 
+print('Linhas 0 e 2: ', array_bidim[[0, 2]])
+print('Colunas 0, 2 e 5: ', array_bidim[:[0,2,5]])
+print('Elementos nas posições (0,0), (1,2) e (2,5): ',
+array_bidim[[0,1,2], [0,2,5]])
+
+''' 
+quando duas listas, uma com os indices de linha, como [0,1,2], e 
+outra com indices de colunas, como [0,2,5], são passadas para o 
+slicing, os elementos são recuperados em pares! 
+Assim, as duas listas devem ter o mesmo número de elementos/indices.
+'''
+
+# linha ou coluna fixada 
+## neste caso, o slicing gera um array unidimensional 
+print('[:2, 1]: ', array_bidim[:2, 1].shape)
+print('\n[:, -1]: ', array_bidim[:, -1].shape)
+\end{minted}
+
+Também dá para acessar os elementos usando alguma forma de condicional, um valor booleano permitindo fazer as atribuições de maneira mais eficiente e elegante, conhecida como \textbf{máscara booleana}:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+matriz = [[1,3,5,7,9,11], [2,4,6,8,10,12], [0,1,2,3,4,5]] 
+array_bidim = np.array(matriz)
+
+# Mostra os valores-verdade de cada entrada da matriz
+mascara = (array_bidim > 7)
+print(mascara)
+
+# Mostra apenas os elementos que satisfazem a condição
+print(array_bidim[mascara])
+
+# Modifica apenas os elementos que satisfazem a condição
+array_bidim[mascara] = 0 
+print(array_bidim)
+\end{minted}
+
+\subsection{Manipulando Arrays}
+O numpy traz em si alguns métodos para modificar a estrutura das arrays. Dentre eles, temos
+\begin{itemize}
+	\item \textbf{\underline{reshape}:} permite reformatar (reshape) o array, modificando o número de linhas e colunas delas; porém, o novo formato (a nova shape) deve ter o mesmo número de elementos do array original: uma array com 9 elementos em linhas (1x9) pode virar uma array 3x3 (9 elementos);
+	\item \textbf{\underline{ravel}:} concatena as linhas da matriz em uma array unidimensional e gera uma view, tal que, se um elemento for modificado, a array original também será modificada;
+	\item \textbf{\underline{flatten}:} concatena as linhas da matriz em uma array unidimensional, mas faz uma cópia dos elementos;
+	\item \textbf{\underline{.T}:} transpõe a array (e matrizes!);
+\end{itemize}
+
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+array_unidim = np.arange(9)
+
+# reformata de um array aleatório com números entre 0 e 9 
+# para uma matriz 3x3
+reformatar = array_unidim.reshape((3,3))
+
+# concatena as linhas da array e cria uma cópia 
+concatena_flatten = array_unidim.flatten()
+print('array concatenada com flatten: ' concatena_flatten)
+
+# podemos alterar a nova sem alterar a original
+concatena_flatten[2]=-1
+print('array concatenada e modificada: ' concatena_flatten)
+print(array_unidim)
+
+# mas não é o caso com o ravel
+concatena_ravel = array_unidim.ravel()
+print('array concatenada com ravel: ', concatena_ravel)
+
+concatena_ravel[2]=-1 
+print('array concatenada com ravel e modificada: ', concatena_ravel)
+print('array original: ', array_unidim)
+\end{minted}
+
+\subsection{I/O: Input e Output com Numpy}
+É possível utilizar métodos para ler e escrever arrays em arquivos de textos novo. Sobre o carregamento de arquivos, os valores no arquivo devem estar separados por espaços, e cada linha dele vira uma linha da array resultante, sendo que vários parâmetros podem ser especificados com o método \texttt{loadtxt}; para os métodos de escrita de arquivos novos, também existem parâmetros que podem ser especificados. Leiam as documentações!
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+# Gerando 18 números aleatórios entre 0 e 10 e reformata em 
+# uma matriz 3x6; depois, salva ela em um arquivo chamado 
+# exemplo_escrita.txt
+
+import numpy as np
+
+array = np.random.randint(0,10,18).reshape(3,6)
+np.savetext('exemplo_escrita.txt', x, fmt = '%d')
+
+# Agora, carregamos o arquivo salvo, forçando que os elementos 
+# da matriz sejam inteiros. 
+array_arquivo = np.loadtxt('exemplo_escrita.txt', dtype=int)
+print(array_arquivo)
+
+# veja o que acontece quando `dtype` não é especificado! 
+array_teste = np.loadtxt('exemplo_escrita.txt')
+print(array_teste)
+# Elementos da matriz são do tipo "float".
+\end{minted}
+\end{document}
