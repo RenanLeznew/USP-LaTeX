@@ -1,0 +1,221 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 16 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Métodos de Ordem Quatro;
+	\item Método da Extrapolação;
+	\item Correção Adiada;
+	\item Equações Elípticas.
+\end{itemize}
+\subsection{Métodos de Ordens Maiores para o Caso Não Linear}
+Por agora, consideramos métodos de ordem no máxima segunda para resolver os PVC's, mas existem métodos que obtêm precisões de ordens maiores. Daremos uma passada por três abordagens que resultam em ordens polinomiais maiores, tais como:
+\begin{itemize}
+	\item Diferenciação de quarta ordem;
+	\item Método da Extrapolação;
+	\item Correção Adiada.
+\end{itemize}
+
+A primeira abordagem é meio óbvia -- basta utilizar uma aproximação melhor ao operador derivada ao invés da diferença de segunda ordem usada em
+\[
+	\frac{1}{h^{2}}(U_{j-1}-2U_{j}+U_{j+1})=f(x_{j}),\quad j=1,2,\dotsc ,m,
+\]
+por exemplo a aproximação de diferença finita
+\[
+	\frac{1}{12h^{2}}(-U_{j-2}+16U_{j-1}-30U_{j}+16U_{j+1}-U_{j+2})=f(x_{j}),\quad j=1,2,\dotsc ,m,
+\]
+que fornece uma aproximação de quarta ordem precisa para \(u''(x_{j})\).
+
+Para o PVC \(u''(x)=f(x)\) em uma malha com m pontos interiores, essa aproximação pode ser usada nos pontos \(j=2,3,\dotsc , m-1\), mas não nos casos \(j=1\) e \(j=m\), pois neles, precisamos usar métodos com somente um ponto no estêncil, à esquerda ou à direita, respectivamente. Daí, poderíamos obter algumas fórmulas adequadas, por exemplo a aproximação com acurácia de ordem três para \(u'''(x_1)\) dada por
+\[
+	u''(x_1)=\frac{1}{12h^{2}}(11U_{0}-20U_{1}+6U_{2}+4U_{3}-U_{4})+\mathcal{O}(h^{3}),
+\]
+ou mesmo a de acurácia de quarta ordem:
+\[
+	u''(x_1)=\frac{1}{12h^{2}}(10U_{0}-15U_{1}-4U_{2}+14U_{3}-6U_{4}+U_{5})+\mathcal{O}(h^{4}).
+\]
+
+Quanto aos métodos de extrapolação, utiliza-se o método de precisão de segunda ordem em duas malhas separadas, uma com espaçamento h, chamada de \textbf{malha grossa}, e outra com espaçamento \(h/2\), conhecida por \textbf{malha fina}; em seguida, extrapola-se em h para obter uma aproximação melhor na malha grossa, resultando em erros de ordem \(\mathcal{O}(h^{4})\). Partindo dessa ideia geral, denote a solução na malha grossa por
+\[
+	U_{j}\approx u(jh), \quad j=1,2,\dotsc , m,
+\]
+e por
+\[
+	V_{j}\approx u\biggl(\frac{jh}{2}\biggr), \quad j=1,2,\dotsc , 2m+1
+\]
+a solução na grade fina (observe que tanto \(U_{j}\) quanto \(V_{2j}\) aproximam \(u(jh)\)). Como esse método é um centrado com acurácia de segunda ordem, podemos provar que o erro tem a forma de uma expansão com potência par em expoentes de h:
+\[
+	U_{j}-u(jh)=C_{2}h^{2}+C_{4}h^{4}+C_{6}h^{6}+\dotsc ,
+\]
+onde \(u(x)\) tem que ser suficientemente suave, e os coeficientes \(C_{2},\; C_{4},\; \dotsc \) dependem de derivadas de ordens maiores de u, mas não dependem de h em cada ponto fixo \(jh\). Por outro lado, na malha fina, o erro tem forma
+\begin{align*}
+	V_{2j}-u(jh) & =C_{2}\biggl(\frac{h}{2}\biggr)^{2} + C_{4}\biggl(\frac{h}{2}\biggr)^{4} + C_{6}\biggl(\frac{h}{2}\biggr)^{6} + \dotsc \\
+	             & = \frac{1}{4}C_{2}h^{2}+\frac{1}{16}C_{4}h^{4}+\frac{1}{64}C_{6}h^{6}+\dotsc .
+\end{align*}
+Assim, o valor extrapolado é dado por
+\[
+	\overline{U}_{j}=\frac{1}{3}(4 V_{2j}-U_{j}),
+\]
+que é escolhido desta forma para que os erros de ordem \(h^{2}\) se cancelem, resultando em
+\[
+	\overline{U}_{j}-u(jh)=\frac{1}{3}\biggl(\frac{1}{4}-1\biggr)C_{4}h^{4}+\mathcal{O}(h^{6}),
+\]
+tal que o resultado final tem precisão de ordem quatro conforme h é reduzida, e um erro consideravelmente menor que aqueles de \(U_{j}\) ou \(V_{2j}\) é obtido (afinal, \(C_{4}h^{2}\) é pelo menos não maior que \(C_{2}\), normalmente sendo bem menor).
+
+O terceiro método, das \textit{correções atrasadas}, tem uma vantagem de resolver os dois problemas na mesma malha ao invés de refinar ela como no anterior. Para entender como ele funciona, vamos considerar um exemplo de resolução do sistema
+\[
+	\frac{1}{h^{2}}\begin{bmatrix}
+		-2     & 1  & \dotsc &        &        &             \\
+		1      & -2 & 1      & \dotsc &        &             \\
+		\vdots & 1  & -2     & 1      & \dotsc &             \\
+		       &    & \ddots & \ddots & \ddots & \dotsc &    \\
+		       &    &        & 1      & -2     & 1           \\
+		       &    &        &        &        & 1      & -2
+	\end{bmatrix} \begin{bmatrix}
+		U_{1}   \\
+		U_{2}   \\
+		U_{3}   \\
+		\vdots  \\
+		U_{m-1} \\
+		U_{m}
+	\end{bmatrix} = \begin{bmatrix}
+		f(x_1)-\frac{\alpha }{h^{2}} \\
+		f(x_{2})                     \\
+		f(x_{3})                     \\
+		\vdots                       \\
+		f(x_{m-1})                   \\
+		f(x_{m})- \frac{\beta }{h^{2}}
+	\end{bmatrix},
+\]
+e resolvendo-o, conseguimos uma aproximação com precisão de ordem 2 para aproximar U. Com isto, o erro global \(E = U - \hat{U}\) satisfaz a equação de diferenças \(AE=-\tau \), onde \(\tau \) é o erro de truncamento local, o qual, caso conhecido, fornece uma possibilidade de obter o erro global e, consequentemente, obter uma solução exata \(\hat{U}\) simplesmente isolando ele na equação do erro. Como nem tudo são flores, isso permanece um pensamento teórico, porque, na prática, o erro de truncamento local tem a forma
+\[
+	\tau_{j}=\frac{1}{12}h^{2}u^{(4)}(x_{j})+\mathcal{O}(h^{4}),
+\]
+dependente da solução exata, que não conhecemos. No entanto, pela solução aproximada para U, podemos estimar \(\tau \) aproximando a quarta derivada de U.
+
+No caso do problema simples \(u''(x)=f(x)\), temos \(u''''(x) = f''(x)\), tal que o erro de truncamento local pode ser estimado diretamente a partir da forma de \(f(x)\) ao colocarmos
+\[
+	F_{j}= f(x_{j})+\frac{1}{12}h^{2}u^{(4)}(x)=f(x_{j})+\frac{1}{12}h^{2}f''(x_{j}),
+\]
+com termos de fronteira adicionados nos pontos \(j=1\) e \(j=m\); daí, basta resolver \(AU=F\) para obter uma solução de acurácia de quarta ordem diretamente. Resumidamente: utilizamos a solução aproximada para estimar o erro de truncamento local, depois resolvemos um problema auxiliar para sair do erro local para o global; com ele, pudemos melhorar a solução aproximada!
+
+Às vezes, pode acontecer de não termos uma expressão algébrica para a função f, o que dificulta bastante calcular a derivada de ordem 2 dela; nestas situações, ao invés de somarmos da forma
+\[
+	F_{j}=f(x_{j})+\frac{1}{12}h^{2}f''(x_{j}),
+\]
+somamos a aproximação de diferenças finitas da própria função:
+\[
+	F_{j}=f(x_{j})+\frac{h^{2}}{12}\biggl(\frac{f(x_{j-1})-2f(x_{j})+f(x_{j+1})}{h^{2}} + \mathcal{O}(h^{2})\biggr).
+\]
+Pode parecer estranho introduzir um erro de ordem 2 quando tentamos refinar tudo para obter um de ordem 4, mas note que tal erro de ordem 2 está sendo multiplicado de ordem 2; daí, no fim das contas, temos outro erro de ordem 4! A expressão disso é
+\[
+	F_{j}=f(x_{j})+\frac{h^{2}}{12}\biggl(\frac{f(x_{j-1})-2f(x_{j})+f(x_{j+1})}{h^{2}}\biggr) + \mathcal{O}(h^{4}).
+\]
+\subsection{Equações e Problemas Elípticos}
+Em um contexto bidimensional, uma EDP elíptica com coeficientes constantes em um domínio aberto e limitado \(\Omega \subseteq \mathbb{R}^{2}\) tem a forma
+\[
+	a_1u_{xx}(x, y)+a_{2}u_{xy}(x, y)+a_{3}u_{yy}(x, y)+a_{4}u_{x}(x, y)+a_{5}u_{y}(x, y)+a_{6}u(x, y)=f(x, y), \quad (x, y)\in \Omega,
+\]
+onde os coeficientes \(a_1,\; a_2,\; a_3\) satisfazem
+\[
+	a_{2}^{2}-4a_1a_3<0.
+\]
+Usualmente, complementamos a equação com alguma condição de fronteira na fronteira \(\partial \Omega \). Essa definição não é geral, mas é válida para todas as equações de segunda ordem apresentadas na forma vista.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	As notações aqui fazem uso das derivadas parciais:
+	\[
+		u_{xx}=\frac{\partial^{2}u}{\partial x^{2}},\; u_{xy}=\frac{\partial^{}}{\partial x^{}}\biggl(\frac{\partial^{}u}{\partial y^{}}\biggr)=\frac{\partial^{2}u}{\partial x \partial y^{}}, \dotsc
+	\]
+\end{tcolorbox}
+O problema da condução de calor transiente em um espaço bidimensional pode ser escrita como (a menos de condições iniciais e de contornos)
+\[
+	u_{t}=(\kappa u_{x})_{x}+(\kappa u_{y})_{y}+\psi ,\quad t\in (0, T),\; (x, y)\in \Omega ,
+\]
+onde \(\kappa (x, y)>0\) é o coeficiente de difusividade térmica e \(\psi (x, y, t)\) é uma função-fonte.
+Se as condições e função fonte forem independentes do tempo t, então esperamos que existe um estado estacionário, que pode ser modelado como
+\[
+	(\kappa u_{x})_x+(\kappa u_{y})_{y}=-\psi , \quad (x, y)\in \Omega,
+\]
+novamente a menos de condições de contorno. A terminologia das soluções aqui segue:
+\begin{itemize}
+	\item \textbf{\underline{Solução Harmônica/LaPlace}:} \(u_{xx}+u_{yy}=0\)
+	\item \textbf{\underline{Solução de Poisson}:} \(u_{xx}+u_{yy}=\psi \)
+\end{itemize}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Notação de Gradiente},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	A notação de gradiente tem essencialmente três grandes partes, a partir do símbolo \(\nabla\coloneqq \biggl[\frac{\partial^{}}{\partial x^{}}, \frac{\partial^{}}{\partial y^{}}\biggr]^{T} \):
+	\begin{itemize}
+		\item \textbf{\underline{Gradiente}:} o gradiente é simplesmente
+		      \[
+			      \nabla u = \begin{bmatrix}
+				      u_{x} \\
+				      u_{y}
+			      \end{bmatrix};
+		      \]
+		\item \textbf{\underline{Divergente}:} o divergente, por sua vez, age como um produto escalar:
+		      \[
+			      \nabla \cdot \begin{bmatrix}
+				      u \\
+				      v
+			      \end{bmatrix} = u_{x}+ u_{y}; \;\&
+		      \]
+		\item \textbf{\underline{Laplaciano}:} o laplaciano é o divergente do gradiente:
+		      \[
+			      \nabla^{2}u\coloneqq \nabla \cdot \nabla u = \nabla \cdot \begin{bmatrix}
+				      u_{x} \\
+				      u_{y}
+			      \end{bmatrix} = u_{xx}+u_{yy}.
+		      \]
+	\end{itemize}
+\end{tcolorbox}
+Vale lembrar também as \hyperlink{boundary_conditions}{\textit{condições de contorno}} mais comuns.
+
+Considere a equação de Poisson em um domínio quadriculado com condição de contorno de Dirichlet:
+
+\[
+	\left.\begin{array}{ll}
+		\nabla ^{2}u = f, & \quad \Omega \coloneqq [0,1]\times [0, 1] \\
+		u=g,              & \quad \partial \Omega
+	\end{array}\right\}.
+\]
+Iremos discretizar o domínio usando uma malha cartesiana uniforme, isto é, uma coleção de pontos \((x_{j}, y_{j})\), onde \(x_{i}=i\Delta x\), \(y_{i}=j\Delta y\), e \(\Delta x\) e \(\Delta y\) são os tamanhos da malha\footnote{É por isso que chama malha!} nas direções x e y.
+Assim, buscaremos nossas aproximações para \(u(x_{i}, y_{j})\) e denotaremos essa solução aproximada por \(U_{ij}\); note que temos \(n \times m\) como total, sendo m o tamanho da discretização em x e n da discretização em y.
+
+Já sabemos aproximar derivadas, e podemos usar isso como ponto de partida: tendo em vista que desejamos encontrar \(U_{ij},\) considere também \(f_{ij}\coloneqq f(x_{i}, y_{j})\) e apliquemos o método de diferenças centrais à EDP:
+\begin{align*}
+	            & u_{xx}(x_{i}, y_{j})+u_{yy}(x_{i}, y_{j})=f(x_{i}, y_{j})                                                                             \\
+	\Rightarrow & \frac{1}{(\Delta x)^{2}}[u(x_{i-1}, y_{j})-2u(x_{i}, y_{j})+u(x_{i+1}, y_{j})]                                                        \\
+	+           & \frac{1}{(\Delta y)^{2}}[u(x_{i}, y_{j-1})-2u(x_{i}, y_{j})+u(x_{i}, y_{j+1})]+\mathcal{O}(\Delta x^{2}+\Delta y^{2})=f(x_{i}, y_{j}) \\
+	\Rightarrow & \frac{1}{(\Delta x)^{2}}(U_{i-1, j}-2U_{ij}+U_{i+1, j})+\frac{1}{(\Delta y)^{2}}(U_{i, j-1}-2U_{ij}+ U_{i, j+1})=f_{ij},
+\end{align*}
+onde \(i=1,2,\dotsc ,m\) e \(j=1,2,\dotsc , n\). Por simplicidade, denotar \(\Delta x = \Delta y = h\), resultando em uma aproximação centrada com 5 pontos da forma
+\[
+	\nabla_{5}^{2}U_{ij} \coloneqq \frac{1}{h^{2}}(U_{i-1, j}+U_{i+1, j}-4U_{ij}+U_{i+1, j}+U_{i, j+1})=f_{ij}.
+\]
+Consideremos as partições cartesianas \(0=x_{0}<x_1<\dotsc <x_{m}<x_{m+1}=1\) e \(0=y_{0}<y_1<\dotsc <y_{m}<y_{m+1}=1\), tal que \(h=\frac{1}{m+1}\).
+Pelas equações acima, ganhamos um sistema linear de tamanho \(m^{2}\times m^{2}\) e forma \(A U = F\), com \(1\leq i\leq m,\; 1\leq j\leq m\), onde A é uma matriz esparsa.
+\end{document}

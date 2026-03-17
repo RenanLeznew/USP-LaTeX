@@ -1,0 +1,226 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 17 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Continunado Numpy
+\end{itemize}
+\subsection{Broadcasting, Comparações e Operações Avançadas}
+Para garantir a eficiência computacional na realização de operações entre arrays, o numpy utiliza um mecanismo de extensão de arrays chamado \textbf{broadcasting}, permitindo que as operações aritméticas com as arrays sejam feitas elemento a elemento; a forma como isso é feita é transformando as arrays envolvidas nas operações aritméticas, de modo que tenham as mesmas dimensões, possibilitando justamente a possibilidade de fazer as operações elemento a elemento.
+Todas as linhas de código que usarem o numpy devem ser entendidas como tendo o comando \texttt{import numpy as np}.
+
+Quando somamos um escalar a uma array, o numpy primeiro replica o escalar em uma array com a mesma dimensão da array envolvida na operação. Vamos considerar um exemplo na prática para somar uma matriz A com o escalar 3:
+\[
+	B = s+A = \begin{bmatrix}
+		3 & 3 & 3 & 3 & 3 \\
+		3 & 3 & 3 & 3 & 3 \\
+		3 & 3 & 3 & 3 & 3 \\
+		3 & 3 & 3 & 3 & 3 \\
+		3 & 3 & 3 & 3 & 3
+	\end{bmatrix} + \begin{bmatrix}
+		0  & 1  & 2  & 3  & 4  \\
+		5  & 6  & 7  & 8  & 9  \\
+		10 & 11 & 12 & 13 & 14 \\
+		15 & 16 & 17 & 18 & 19 \\
+		20 & 21 & 22 & 23 & 24
+	\end{bmatrix}
+\]
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+A = np.arange(25).reshape(5, 5)
+s = 3 
+B = s + A 
+print(B)
+\end{minted}
+
+Broadcasting também é aplicado quando operações aritméticas são aplicadas em pares de arrays, mas com algumas restrições:
+\begin{itemize}
+	\item Os dois arrays devem possuir dimensões compatíveis em algum dos eixos;
+	\item O broadcasting é aplicado nos demais exios para que ambos os arrays tenham as mesmas dimensões;
+	\item A operação de multiplicação * corresponde a uma multiplicação elemento por elemento, não uma multiplicação matricial.
+\end{itemize}
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+A = np.arange(25).reshape(5,5)
+v = np.arange(5)
+B = v*A
+\end{minted}
+
+A ideia do que está acontecendo é:
+\begin{align*}
+	B = v*A & = \begin{bmatrix}
+		            0 & 1 & 2 & 3 & 4 \\
+	            \end{bmatrix} * \begin{bmatrix}
+		                            0  & 1  & 2  & 3  & 4  \\
+		                            5  & 6  & 7  & 8  & 9  \\
+		                            10 & 11 & 12 & 13 & 14 \\
+		                            15 & 16 & 17 & 18 & 19 \\
+		                            20 & 21 & 22 & 23 & 24
+	                            \end{bmatrix}               \\
+	        & \Rightarrow B = \begin{bmatrix}
+		                          0 & 1 & 2 & 3 & 4 \\
+		                          0 & 1 & 2 & 3 & 4 \\
+		                          0 & 1 & 2 & 3 & 4 \\
+		                          0 & 1 & 2 & 3 & 4 \\
+		                          0 & 1 & 2 & 3 & 4 \\
+	                          \end{bmatrix} * \begin{bmatrix}
+		                                          0  & 1  & 2  & 3  & 4  \\
+		                                          5  & 6  & 7  & 8  & 9  \\
+		                                          10 & 11 & 12 & 13 & 14 \\
+		                                          15 & 16 & 17 & 18 & 19 \\
+		                                          20 & 21 & 22 & 23 & 24
+	                                          \end{bmatrix}
+\end{align*}
+Quando o array v é em coluna, o broadcasting é feito nelas -- é realmente um tipo de transmissão de informação!
+\[
+	B = v*A = \begin{bmatrix}
+		0 \\
+		1 \\
+		2 \\
+		3 \\
+		4
+	\end{bmatrix} * \begin{bmatrix}
+		0  & 1  & 2  & 3  & 4  \\
+		5  & 6  & 7  & 8  & 9  \\
+		10 & 11 & 12 & 13 & 14 \\
+		15 & 16 & 17 & 18 & 19 \\
+		20 & 21 & 22 & 23 & 24
+	\end{bmatrix} \Rightarrow B = \begin{bmatrix}
+		0 & 0 & 0 & 0 & 0 \\
+		1 & 1 & 1 & 1 & 1 \\
+		2 & 2 & 2 & 2 & 2 \\
+		3 & 3 & 3 & 3 & 3 \\
+		4 & 4 & 4 & 4 & 4 \\
+	\end{bmatrix} * \begin{bmatrix}
+		0  & 1  & 2  & 3  & 4  \\
+		5  & 6  & 7  & 8  & 9  \\
+		10 & 11 & 12 & 13 & 14 \\
+		15 & 16 & 17 & 18 & 19 \\
+		20 & 21 & 22 & 23 & 24
+	\end{bmatrix}
+\]
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+A = np.arange(25).reshape(5,5)
+v = np.arange(5).reshape(5,1)
+B = v*A
+\end{minted}
+Outro caso que vale a pena ver é quando os dois operandos são arrays unidimensionais, sendo um deles array linha e outro array coluna; aqui, o broadcasting é aplicado a ambos!
+\[
+	Z = v+w \Rightarrow Z= \begin{bmatrix}
+		0 & 1 & 2 & 3 & 4
+	\end{bmatrix} + \begin{bmatrix}
+		0 \\
+		1 \\
+		2
+	\end{bmatrix} \Rightarrow Z =\begin{bmatrix}
+		0 & 1 & 2 & 3 & 4 \\
+		0 & 1 & 2 & 3 & 4 \\
+		0 & 1 & 2 & 3 & 4 \\
+		0 & 1 & 2 & 3 & 4
+	\end{bmatrix}+ \begin{bmatrix}
+		0 & 0 & 0 & 0 & 0 \\
+		1 & 1 & 1 & 1 & 1 \\
+		2 & 2 & 2 & 2 & 2
+	\end{bmatrix}
+\]
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+v = np.arange(5)
+print(v.shape)
+w=np.arange(3).reshape(3,1)
+print(w.shape)
+Z = v+w
+print(Z.shape)
+\end{minted}
+Ele também é usado em atribuições e pode ser forçado para ocorrer em um dos eixos:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+# Usando em atribuições
+A = np.zeros((5,3))
+A[:3]=[-1,-2,-3]
+print(A)
+
+# Forçando o broadcasting em v nas colunas 
+v = np.arange(5)
+A[:]=v[:, np.newaxis]
+print(A)
+
+# O comando acima equivale a fazer 
+# A[:]=v.reshape(5,1)
+\end{minted}
+
+As comparações usando as operações booleanas já foram vistas na parte das máscaras, mas para verificar se duas arrays são iguais em todos os seus elementos, deve-se utilizar o método \texttt{array\_equal}
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+A = np.arange(4).reshape(2,2)
+B = np.arange(6,2,-1).reshape(2,2)
+C = np.copy(A)
+
+print(np.array_equal(A, B))
+print(np.array_equal(A, C))
+
+# Equivalentemente, poderia ser feito 
+# D = (A==B)
+# print(np.all(D))
+\end{minted}
+
+O numpy possui métodos de redução como \texttt{sum}, \texttt{max}, \texttt{min}, \texttt{argmax} e \texttt{argmin}, que podem ser aplicadas à array como um todo ou somente às linhas ou colunas: o que controla a forma de aplicação é o parâmetro \textit{axis}, e quando ele não é especificado, a redução é aplicada à array toda:
+\begin{itemize}
+	\item \textit{axis não especificado}: retorna um valor único;
+	\item \textit{axis=0}: restringe a redução às colunas, percorrendo as linhas, e retorna uma array com número de elementos igual ao número de colunas;
+	\item \textit{axis=1}: restringe a redução às linhas, percorrendo as colunas, e retorna uma arra com número de elementos igual ao número de linhas.
+\end{itemize}
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+A = np.zeros((5,5))
+A[:]=np.arange(5)
+
+print('Soma de todos os valores: ', np.sum(A))
+print('Soma dos valores das colunas: ', np.sum(A, axis=0))
+print('Soma dos valores das linhas: ', np.sum(A, axis=1))
+
+B = np.random.randint(low=0, hight=30, size=(5,5))
+
+print('Maior valor dentre todos na matriz: ', np.max(B))
+print('Posição do maior valor dentre todos na matriz: ', np.argmax(B))
+
+print('Maior valor em cada colna: ', np.max(B, axis=0))
+print('Posição do maior valor em cada coluna: ', np.argmax(B, axis=0))
+\end{minted}
+As reduções estatísticas, como \texttt{mean}, \texttt{median} e \texttt{std}, funcionam da mesma forma (podem ser aplicadas ao array como um todo, ou especificando linhas ou colunas com o \texttt{axis}), junto aos métodos de reduções lógicas \texttt{all}, verificando se todos os elementos do array satisfazem a condição, e \texttt{any}, que verifica se algum elemento do array satisfaz a condição.
+
+Para ordenar os elementos do array, o método \texttt{sort} é utilizado com a própria variável, ou seja, a ordenação é feita diretamente no array (\textit{inplace}), com um detalhe de que o método sort invocado pelo numpy gera uma cópia ordenada do array --o original não é modificado! Por padrão, a ordenação é feita em cada linha, mas pode ser feita em cada coluna usando o \texttt{axis}.
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+A = np.random.randint(low=0,hight=30, size=(5,5))
+A.sort()
+B=np.sort(A) # Cópia de A, mas ordenada 
+A.sort(axis=0) # Ordenando por colunas
+\end{minted}
+
+O método \texttt{argsort} retorna um array contendo os índices dos elementos ordenados nas linhas:
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+A = np.array([[12.0, 1.0, 26.0],
+[23.0, 0.0, 7.0],
+[10.0, 19.0, 21.0]])
+
+I = np.argsort(A)
+print(I)
+for i in range(A.shape[0]):
+    print('Índices dos elementos ordenados na linha', i)
+    print('Linha', i, ': '+10*' ', A[i])
+    print('Linha', i, 'ordenada: ', A[i, I[i]], '\n')
+\end{minted}
+A multiplicação matricial e vetorial como definida na álgebra matricial é feita utilizando o método \texttt{dot}, mas as dimensões devem ser compatíveis!
+\begin{minted}[bgcolor = DarkBackground, linenos=true]{Python}
+A = np.zeros((2,2))
+v = np.array([1,2]).reshape(2,1)
+A[:]=v 
+b1=np.dot(A,v)
+print(b1, b1.shape)
+
+## Atenção ## 
+# O produto np.dot(v,A) não é válido, pois as dimensões 
+# são incompatíveis.
+
+# Para tornar compatíveis, precisamos transpor o vetor v! 
+b2=np.dot(v.T, A)
+print(b2, b2.shape)
+\end{minted}
+
+Existem muito mais coisas disponíveis apenas com o numpy, incluindo uma biblioteca inteira para resolução de sistema e decomposições em \textit{eigenvectors} (\texttt{numpy.linalg}), outra para aritmética, estimativas e interpolação polinomial (\texttt{numpy.polynomial}) e até transformação de Fourier (\texttt{numpy.fft}).
+
+\end{document}

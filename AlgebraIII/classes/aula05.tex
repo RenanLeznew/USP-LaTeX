@@ -1,0 +1,382 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 05 - 17 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Subcorpos Gerados;
+	\item Corpos Finitos.
+\end{itemize}
+\subsection{Subcorpos Gerados}
+\begin{def*}
+	Seja K um corpo e S um subconjunto de K; definimos o \textbf{subcorpo gerado por S}, denotado por \(\langle S \rangle,\) como a interseção de todos os subcorpos de K que contêm S. \(\square\)
+\end{def*}
+O subcorpo gerado por S é o menor corpo que contém o subconjunto S
+\begin{exr}
+	Prove justamente a afirmação acima: se F é subcorpo e \(S\subseteq F\), então \(\langle S \rangle\subseteq F\).
+\end{exr}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	O corpo primo de K é contido em \(\langle S \rangle\), isto é, se \(\mathrm{char}(K)=p\), então
+	\[
+		\langle S \rangle = \langle S \cup \mathbb{Z}_{p} \rangle,
+	\]
+	e se \(\mathrm{char}(K)=0\), então
+	\[
+		\langle S \rangle=\langle S\cup \mathbb{Q} \rangle.
+	\]
+\end{tcolorbox}
+\begin{example}
+	Suponha que K é uma extensão de corpo F e que \(\alpha \in K\). Com isso, podemos estudar o subcorpo gerado pelo conjunto
+	\[
+		S = F \cup \{\alpha \} \subseteq K
+	\]
+	por duas perspectivas: o caso onde \(\alpha \in F\), e o caso onde \(\alpha \not\in F\).
+
+	O primeiro caso é, na verdade, trivial, porque \(F\cup \{\alpha \} = \{\alpha \}\), então vai ser só o subcorpo gerado por F mesmo. O segundo, por outro lado, requer mais cuidado; afirmamos que \(\langle S \rangle=F(\alpha )\), que provamos por:
+
+	\textbf{\underline{\(\langle S \rangle\) está contido em \(\mathbf{F(\alpha )}\)}:} de fato, basta observar que \(F(\alpha )\) contém \(F\cup \{\alpha \}\);
+
+	\textbf{\underline{\(\mathbf{F(\alpha )}\) está contido em \(\langle S \rangle\)}:} por outro lado, considere um elemento \(\zeta \in F(\alpha )\) qualquer. Então, podemos escrever
+	\[
+		\zeta = \frac{a_{0}+ a_1 \alpha +\dotsc +a_{n}\alpha^{n}}{b_{0}+b_1\alpha +\dotsc +b_{n}\alpha^{n}},\quad a_{i},\; b_{i}\in F.
+	\]
+	Daí, sendo \(S=F\cup \{\alpha \}\), podemos encontrar, em \(\langle S \rangle\), todos os polinômios da forma
+	\[
+		p(\alpha )=c_{0}+c_1\alpha +\dotsc +c_{k}\alpha^{k}, \quad c_{i}\in F.
+	\]
+	Além disso, \(\langle S \rangle\) é um corpo, e por isso contém todos os quocientes de polinômios do tipo \(p(\alpha )\), provando a afirmação.
+\end{example}
+Em vista do exemplo, podemos generalizar para, caso \(S\subseteq K\), então
+\[
+	F\subseteq \langle F\cup S \rangle\langle K \rangle
+\]
+é uma torre de corpos: \(\langle F\cup S \rangle\) é, em si, uma extensão de F.
+
+\begin{def*}
+	Diremos que \(\langle F\cup S \rangle\) é uma \textbf{extensão finitamente gerada} se o tamanho de S é finito. Neste caso, denotando por \(S=\{\alpha_1,\dotsc ,\alpha_{n}\}\subseteq K\) o conjunto S de tamanho n, temos a relação
+	\[
+		\langle F\cup S \rangle=F(\alpha_1,\alpha_2,\dotsc ,\alpha_{n}). \; \square
+	\]
+\end{def*}
+\begin{prop*}
+	Seja K uma extensão de F; então, são equivalentes:
+	\begin{itemize}
+		\item[1)] O grau de extensão de K sobre F é finito;
+		\item[2)] K é finitamente gerada e algébrica sobre F; e
+		\item[3)] K é exatamente o corpo \(F(\alpha_1,\dotsc , \alpha_{n})\), ou seja, existem elementos \(\alpha_{i}\) que garantem \(K=F(\alpha_1,\dotsc ,\alpha_{n})\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	\textbf{\((1)\Rightarrow (2)\):} supondo que \([K:F]\) é finito, então \(\mathrm{dim}_{F}(K)\) é finita, levando à existência de uma F-base \(\alpha_1,\dotsc , \alpha_{n}\) de K. Daí, fica ok ver que \(F(\alpha_1,\dotsc , \alpha_n)\subseteq K\).
+
+	Além disso, sendo \( \alpha_1,\dotsc ,\alpha_{n}\) uma F-base de K, então para todo \(\xi \in K\), podemos escrever
+	\[
+		\xi = a_1\alpha_1 +\dotsc +a_{n}\alpha_{n},
+	\]
+	e como cada \(a_{i}\) pertence a F, provamos que \(\xi \in F(\alpha_1, \dotsc , \alpha_{n})\); por arbitrariedade de \(\xi \), segue que \(K\subseteq F(\alpha_1,\dotsc ,\alpha_{n})\), e que K é finitamente gerada e algébrica.
+
+	\textbf{\((2)\Rightarrow (3)\):} seja S um subconjunto de K com \(\#(S)<+\infty\), tal que, por hipótese, \(K=\langle F\cup S \rangle\). Então, isso já mostra que
+	\[
+		K=F(\alpha_1,\dotsc ,\alpha_{n}).
+	\]
+
+	\textbf{\((3)\Rightarrow (1)\):} podemos construir a extensão adicionando um \(\alpha_{i}\) de cada vez:
+	\[
+		F \stackrel{\langle F\cup \{\alpha_1\} \rangle}\subseteq F(\alpha_1)\underbrace{\stackrel{(\langle F(\alpha_1)\cup \{\alpha_2\} \rangle)}\subseteq}_{F(\alpha_1)(\alpha_2)=F(\alpha_1, \alpha_2)} F(\alpha_2)\subseteq \dotsc \stackrel{\mathclap{\langle F(\alpha_1,\dotsc ,\alpha_{n-1})\cup \alpha_{n} \rangle}}\subseteq F(\alpha_1,\dotsc ,\alpha_{n})=K.
+	\]
+	Assim,
+	\begin{align*}
+		[K:F] & =[F(\alpha_1,\dotsc ,\alpha_{n}): F]  =[F(\alpha_1,\dotsc ,\alpha_{n-1}): F]                                \\
+		      & = [F(\alpha_1, \dotsc , \alpha_{n}):(\alpha_{1},\dotsc ,\alpha_{n-1})][F(\alpha_1,\dotsc ,\alpha_{n-1}):F],
+	\end{align*}
+	que podemos repetir iterativamente até obter
+	\begin{align*}
+		[K:F] & = [F(\alpha_1, \dotsc , \alpha_{n}):(\alpha_{1},\dotsc ,\alpha_{n-1})][F(\alpha_1, \dotsc , \alpha_{n-1}):(\alpha_{1},\dotsc ,\alpha_{n-2})]\dotsc \\
+		      & \dotsc [F(\alpha_1,\dotsc ,\alpha_{n-2}):F],
+	\end{align*}
+	e como cada fator é o grau de uma extensão simples algébrica, concluímos, portanto, que o grau do produto acima é finito. \qedsymbol
+\end{proof*}
+O mais importante do resultado acima é que mostramos que qualquer extensão de corpo é algébrica e finitamente gerada se, e somente se, o grau da extensão é finito, além de termos ganhado uma torre de corpos para esses casos.
+
+\begin{prop*}
+	Sejam F e K dois corpos; se existe um homomorfismo de corpos
+	\[
+		\varphi :F\rightarrow K,
+	\]
+	então \(\mathrm{char}(F)=\mathrm{char}(K).\)
+\end{prop*}
+\begin{proof*}
+	A prova é feita observando que o diagrama
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+
+			\node(T) at (0,1){F};
+			\node(BL) at (0,-1){\(\mathbb{Z}\)};
+			\node(BR) at (2,1){K};
+
+			\draw[Arrow](BL)--node[midway, left] {\(\chi_{F}\)}(T);
+			\draw[Arrow](T)--node[midway, above] {\(\varphi \)}(BR);
+			\draw[Arrow](BL)--node[midway, right] {\(\chi_{K}\)}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	Para tanto, sendo \(\varphi \circ \chi_{F}\) um homomorfismo de anéis (de \(\mathbb{Z}\) em K) e \(\chi_{K}\) o único homomorfismo de anéis entre \(\mathbb{Z}\) e K, vale que
+	\[
+		\varphi \circ \chi_{F}=\chi_{K}.
+	\]
+	Calculamos o núcleo desses morfismos, obtendo
+	\[
+		\mathrm{ker}(\chi_{K})=\mathrm{ker}(\varphi \circ \chi_{F})=\mathrm{ker}(\chi_{F}),
+	\]
+	pois \(\varphi \) é injetor (homomorfismos entre corpos necessariamente são injetores), logo tem núcleo vazio, tal que
+	\[
+		\mathrm{ker}(\chi_{K}) = \mathrm{ker}(\chi_{F}).
+	\]
+
+	O corpo primo de K e F são, respectivamente,
+	\[
+		\mathrm{Frac}(\chi_{K}(\mathbb{Z})) \quad\&\quad \mathrm{Frac}(\chi_{F}(\mathbb{Z})).
+	\]
+	Sabendo que os núcleos são iguais, o \hyperlink{isomorphism_theorem}{\textit{Teorema do Isomorfismo}} garante que
+	\[
+		\mathrm{Im}(\chi_{K})\cong \mathrm{Im}(\chi_{F}),
+	\]
+	e portanto,
+	\[
+		\mathrm{Frac}(\mathrm{Im}(\chi_{K}))\cong \mathrm{Frac}(\mathrm{Im}(\chi_{F})).
+	\]
+\end{proof*}
+\begin{exr}
+	Finalize a prova estudando os casos
+	\begin{align*}
+		 & \mathrm{ker}(\chi_{F})=\mathrm{ker}(\chi_{K})=\{0\}      \\
+		 & \mathrm{ker}(\chi_{F})=\mathrm{ker}(\chi_{K})\neq \{0\}.
+	\end{align*}
+\end{exr}
+
+\subsection{Corpos Finitos}
+\begin{def*}
+	Um \textbf{corpo finito} é um corpo cuja cardinalidade é finita. \(\square\)
+\end{def*}
+Na verdade, podemos caracterizar que os únicos valores possíveis para corpos finitos são características primas, e o tamanho deles deve ser uma potência de um número primo!
+\begin{lemma*}
+	Se K é finito, então sua característica é \(\mathrm{char}(K)=p>0\).
+\end{lemma*}
+\begin{proof*}
+	Basta notar que um corpo primo de K não pode ser \(\mathbb{Q}\). \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Se K é um corpo finito, então existe um primo p e \(n\geq 1\) tal que
+	\[
+		\#(K)=p^{n}.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Sendo K finita, sua característica, como vimos, vale \(p>0\); logo,
+	\[
+		[K:\mathbb{Z}_{p}]<+\infty,
+	\]
+	e sendo K um \(\mathbb{Z}_{p}\)-espaço vetorial, segue que \(\mathrm{dim}_{\mathbb{Z}_{p}}(K)=\ell \), ou seja, temos uma relação do tipo
+	\[
+		K\cong \underbrace{\mathbb{Z}_{p}\times \dotsc \times \mathbb{Z}_{p}}_{\ell-\text{vezes}}.
+	\]
+	Portanto, a cardinalidade de K é exatamente \(p^{\ell }\). \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se \(K_1\) e \(K_2\) são corpos finitos e existe \(\varphi :K_1\rightarrow K_2\) é um homomorfismo, então
+	\[
+		\mathrm{char}(K_1)=\mathrm{char}(K_2),
+	\]
+	e em vista do teorema acima, se p e q são primos distintos, então não existirá tal morfismo!
+\end{tcolorbox}
+
+\subsection{Grupos de Galois}
+Finalizamos o estudo inicial de extensões de corpos, e temos uma nova meta: dado um corpo F e um polinômio \(f(x)\in F[x]\), queremos associar um grupo a \(f(x)\), que será chamado de \textit{Grupo de Galois}. Para isso, vamos associar uma extensão \(K_{f}\) de F e, dada essa extensão, consideraremos o conjunto de todos os isomorfismos de corpos
+\[
+	\varphi :K_{f}\rightarrow K_{f}
+\]
+com a propriedade de que eles fixam, pontualmente, os elementos de F: para cada a em F, \(\varphi (a)=a\). Mostraremos que esse conjunto é exatamente o grupo de Galois.
+
+Estudando as propriedades do grupo, entenderemos se é possível encontrar uma fórmula que diz como computar as raízes de \(f(x)\), e ela existirá se, e somente se, o Grupo de Galois for \textit{solúvel}.
+
+Sejam A e B dois anéis, com anéis de polinômios \(A[x]\) e \(B[x]\). Suponha que \(\psi :A\rightarrow B\) é um homomorfismo de anéis e defina
+\begin{align*}
+	\psi_{*}: & A[x]\rightarrow B[x]                                                               \\
+	          & f(x)\longmapsto (\psi_{*}f)(x)=\psi (a_{0})+\psi (a_1)x+\dotsc +\psi (a_{n})x^{n},
+\end{align*}
+onde \(f(x)=a_{0}+a_1x+\dotsc +a_{n}x^{n}\).
+\begin{lemma*}
+	Nas notações acima,
+	\begin{itemize}
+		\item[i)] \(\psi_{*}\) é homomorfismo de anéis;
+		\item[ii)] Se \(\psi \) é isomorfismo, então \(\psi_{*}\) também é.
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	Para provar o ponto (i), basta mostrar que a soma e o produto de dois polinômios mantém a \(\psi_{*}\) compatível com eles, e que \(\psi_{*}\) mapeia 0 em 0 e 1 em 1: sejam \(f(x)=a_{0}+a_1x+\dotsc +a_{n}x^{n}\) e \(g(x)=b_{0}+b_1x+\dotsc +b_{m}x^{m}\), tais que
+	\begin{align*}
+		 & (f+g)(x)=(a_{0}+b_{0})+(a_1+b_1)x+\dotsc                                            \\
+		 & (fg)(x)=\sum\limits_{k}^{}c_{k}x^{k}, \quad c_{k}=\sum\limits_{i+j=k}^{}a_{i}b_{j},
+	\end{align*}
+	então
+	\begin{align*}
+		\psi_{*}(f+g) & =\psi(a_{0}+b_{0})+\psi(a_1+b_1)x+\dotsc                  \\
+		              & = \psi(a_{0})+\psi (b_{0})+\psi (a_1)x+\psi (b_1)x+\dotsc \\
+		              & = \psi_{*}(f(x)) + \psi_{*}(g(x)).
+	\end{align*}
+	e
+	\begin{align*}
+		\psi_{*}(fg) & = \sum\limits_{k}^{}\psi (c_{k})x^{k}                                                \\
+		             & = \sum\limits_{k}^{}\psi \biggl(\sum\limits_{i+j=k}^{}a_{i}b_{j}\biggr)x^{k}         \\
+		             & = \sum\limits_{k}^{}\sum\limits_{i+j=k}^{}\biggl(\psi (a_{i})\psi(b_{j})\biggr)x^{k} \\
+		             & = (\psi_{*}f(x))(\psi_{*}g(x)). \text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+
+O que estamos realmente interessados é estudar as extensões associadas aos polinômios para obter um corpo de decomposições. Em algum sentido, temos os objetos que queremos estudar, mas costuma ser bom termos em mente os morfismos que desejamos estudar; aqui, já temos os objetos, então resta o próximo passo natural.
+Suponha que \(F_1\stackrel{i}\subseteq K_1\) e \(F_2\stackrel{j}K_2\) são duas extensões, onde o super índice denota morfismos, e seja \(\varphi :F_1\rightarrow F_2\) um homomorfismo de corpos.
+\begin{def*}
+	Diremos que \(\psi :K_1\rightarrow K_2\) é uma \textbf{extensão de \(\mathbf{\varphi }\)} se o diagrama
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-1,1){\(K_1\)};
+			\node(BL) at (-1,-1){\(F_1\)};
+			\node(TR) at (1,1){\(K_2\)};
+			\node(BR) at (1,-1){\(F_2\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\psi \)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\psi \)}(BR);
+			\draw[Arrow](BL)--node[midway, left] {i}(TL);
+			\draw[Arrow](BR)--node[midway, right] {j}(TR);
+
+		\end{tikzpicture}
+	\end{center}
+	comuta, ou seja, se \(j\circ \varphi = \psi \circ i.\; \square \)
+\end{def*}
+
+Para as próximas considerações, sejam \(F_1\stackrel{i}\subseteq K_1\) e \(F_2\stackrel{j}K_2\) duas extensões \(\psi :K_1\rightarrow K_2\) uma extensão de \(\varphi :F_1\rightarrow F_2\).
+\begin{lemma*}
+	Seja \(\alpha \in K_1\) e \(f(x)\in F_1[X]\); então,
+	\[
+		(i_{*}f)(\alpha )=0 \Longleftrightarrow ((j\circ \varphi )_{*}f)(\psi(\alpha ) )=0
+	\]
+	Em outras palavras, comuta o diagrama
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-1,1){\(\alpha\in K_1\)};
+			\node(BL) at (-1,-1){\(F_1\)};
+			\node(TR) at (1,1){\(K_2\ni \psi (\alpha )\)};
+			\node(BR) at (1,-1){\(F_2\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\psi \)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\psi \)}(BR);
+			\draw[Arrow](BL)--node[midway, left] {i}(TL);
+			\draw[Arrow](BR)--node[midway, right] {j}(TR);
+
+		\end{tikzpicture}
+	\end{center}
+	O diagrama permite enxergarmos que \(\psi_{*}f\in K_1[X]\) e que \((j\circ \varphi )_{*}f\in K_2[x]\).
+\end{lemma*}
+\begin{proof*}
+	Basta notar que
+	\[
+		((j\circ \varphi )_{*} f(x))(\psi (\alpha ))= ((\psi \circ i)_{*}f(x))(\psi (\alpha )) = (\psi_{*}\circ i_{*}(f(x))(\psi (\alpha )).
+	\]
+	Suponha que \(f(x)=a_{0}+a_1x+\dotsc +a_{n}x^{n}\); então, podemos continuar a igualdade acima com
+	\begin{align*}
+		 & (\psi_{*}\circ i_{*}(f(x))(\psi (\alpha ))  = (\psi _{*}(i(a_{0})+i(a_{1})x+\dotsc +i(a_{n})x^{n}))(\psi (\alpha ))           \\
+		 & = (\psi (i(a_{0}))+\psi (i(a_1))x+\dotsc +\psi (i(a_{n}))x^{n})(\psi (\alpha ))                                               \\
+		 & = \psi (i(a_{0}))+\psi (i(a_1))\psi (\alpha )+\dotsc +\psi (i(a_{n}))(\psi (\alpha ))^{n}                                     \\
+		 & = \psi (i(a_{0}))+\psi (i(a_{1}))\psi (\alpha )+\psi (i(a_{2}))\psi (\alpha )^{2}+\dotsc +\psi (i(a_{n}))(\psi (\alpha ))^{n} \\
+		 & = \psi \biggl(i(a_{0})+i(a_{1})\alpha +\dotsc +i(a_{n})\alpha ^{n}\biggr)                                                     \\
+		 & = \psi ((i_{*}f)(\alpha )).
+	\end{align*}
+	Portanto,
+	\[
+		\psi (i_{*}f)(\alpha ) = 0. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se temos morfismos de anéis
+	\[
+		A\stackrel{\varphi_1} \rightarrow B\stackrel{\varphi_2}\rightarrow C
+	\]
+	e
+	\[
+		A[x]\stackrel{(\varphi_1)_{*}}\rightarrow B[x]\stackrel{(\varphi_{2})_{*}}\rightarrow C[x],
+	\]
+	então
+	\[
+		(\varphi_{2}\circ \varphi_{1})_{*}=(\varphi_{2})_{*}\circ (\varphi_{1})_{*}.
+	\]
+\end{tcolorbox}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se \(F_1\subseteq K_1\) e \(F_2\subseteq K_2\) (``tirando i e j''), o que acontece é que o lema torna-se
+	\[
+		f(\alpha )=0\Rightarrow (\varphi_{*}f)(\psi (\alpha ))=0.
+	\]
+
+	Usaremos esses resultados para demonstrar partes importantes das extensões cíclicas.
+\end{tcolorbox}
+\end{document}
