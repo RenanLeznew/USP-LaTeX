@@ -3,7 +3,9 @@
 \section{Aula 07 - 23 de Março, 2026}
 \subsection{Motivações}
 \begin{itemize}
-	\item Método Vermelho-azul
+	\item Método Vermelho-azul;
+	\item Gauss-Seidel e Jacobi;
+	\item Métodos Iterativos sem Matrizes.
 \end{itemize}
 \subsection{Organização de Sistemas}
 Veremos um método de organização de sistemas de variáveis desconhecidas chamado \textbf{numeração vermelho-azul}\footnote{Na verdade, é vermelho-preto, mas  parte em preto fica pintada em azul porque todo o resto do texto já é preto; então, eu decidi colocar vermelho-azul para não sofrer o efeito Stroop.}; nele, a ideia é escrever as equações em uma cor, contendo variáveis em vermelho, e depois escrever as outras equações em cor azul, sendo as variáveis vermelhas conectadas às azuis apenas pelo estêncil laplaciano de 5-pontos.
@@ -118,5 +120,51 @@ Além disso, como \((\overline{h})^{p}<<h^{p}\), necessariamente deve ocorrer
 	\overline{E}(h)=\Vert \hat{U}(h)-\overline{U}(h) \Vert \approx \Vert U(\overline{h})-\hat{U}(\overline{h}) \Vert = E(\overline{h})<<E(h),
 \]
 ou seja, podemos assumir sem grandes receios que \(\Vert U(h)-\overline{U}(h) \Vert\) é uma boa aproximação do erro verdadeiro \(E(h)\)!
+
+Para as funções de grades, temos as seguintes normas \(L^{p}\):
+\begin{itemize}
+	\item \textbf{Norma \(\mathbf{L^{p}}\):} dado que \(U(x)\) é uma aproximação da solução \(u(x)\) no fechado \(\overline{\Omega }=[a, b]\), denotemos por \(e(x)\coloneqq U(x)-u(x)\), onde \(U(x)\) e \(u(x)\) são suficientemente suaves, a diferença da aproximação para a solução real. Então, definimos:
+	      \[
+		      \Vert e \Vert_{L^{\infty}(\Omega )}\coloneqq \max\limits_{a\leq x\leq b}| e(x) | \quad\&\quad \Vert e \Vert_{L^{p}(\Omega )} = \biggl(\int_{a}^{b}| e(x) |^{p} \mathrm{d}x\biggr)^{\frac{1}{p}},\; p\geq 1;
+	      \]
+	\item \textbf{Norma \(\mathbf{L^{p}}\) Discreta para Função Grade Unidimensional:} sejam \(U_{i}\approx u(x_{i})\) e \(e_{i}=U_{i}-u(x_{i})\), onde \(1\leq i\leq n\). Definimos
+	      \[
+		      \Vert e \Vert_{\infty}\coloneqq \max\limits_{1\leq i\leq N}| e_{i} | \quad\&\quad \Vert e \Vert_{p}\coloneqq \biggl(h \sum\limits_{i=1}^{N}| e_{i} |^{p} \mathrm{d}x\biggr)^{\frac{1}{p}}, \; p\geq 1;
+	      \]
+	\item \textbf{Norma \(\mathbf{L^{p}}\) Discreta para Função Grade Bidimensional:} sejam \(U_{ij}\approx u(x_{i}, y_{j})\) e \(e_{ij}=U_{ij}-u(x_{i}, y_{j})\), com \(1\leq i\leq M\) e \(1\leq j\leq N\); então, definimos
+	      \[
+		      \Vert e \Vert_{\infty}\coloneqq \max\limits_{\substack{1\leq i\leq M \\ 1\leq j\leq N}| e_{ij} |}\quad\&\quad \Vert e \Vert_{p}\coloneqq \biggl(\Delta x\Delta y \sum\limits_{i=1}^{M}\sum\limits_{j=1}^{N}| e_{ij} |^{p}\mathrm{d}x\biggr)^{\frac{1}{p}},\; p\geq 1.
+	      \]
+\end{itemize}
+
+Estamos suficientemente equipados para lidar com métodos iterativos sem matrizes! A ideia, aqui, é isolar  \(U_{i,j}\) em termos de outras variáveis:
+\[
+	U_{i, j}=\frac{1}{4}(U_{i-1, j}+U_{i+1, j} + U_{i, j-1}+U_{i, j+1})-\frac{h^{2}}{4}f_{i, j},
+\]
+permitindo criarmos um novo processo iterativo para produzir uma nova estimativa, denotada por \(U_{i, j}^{[k+1]},\) baseada em valores já conhecidos \(U_{i, j}^{[k]}\), que pode ser resumido na expressão
+\[
+	U_{i, j}^{[k+1]}=\frac{1}{4}(U_{i-1, j}^{[k]}+U_{i+1, j}^{[k]}+U_{i, j-1}^{[k]}+U_{i, j+1}^{[k]})-\frac{h^{2}}{4}f_{i, j},
+\]
+conhecido como \textbf{Iteração de Jacobi para o Problema de Poisson}.
+O primeiro detalhe observável é que não há a necessidade de armazenar uma matriz esparsa, mas sim dar um palpite inicial \(U_{i, j}^{[0]}\); por isso, esse método iterativo converge \textbf{muito devagar} para uma solução discreta do problema de Poisson, independente do chute inicial dado! Além disso, ela pode ser modificada para incorporar condições de fronteira de Neumann ou de Robin sem dar vontade de chorar em posição fetal por horas.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.35\textheight, width=0.35\textwidth, keepaspectratio]{./Images/jacobi_07.png}
+	\end{center}
+\end{figure}
+
+Outro método sem matrizes que vale a pena mencionar é o \textbf{Método Iterativo de Gauss-Seidel para Problemas de Poisson}; nele, utiliza-se os valores computados disponíveis mais recentemente obtidos durante a iteração na malha, resultando em
+\[
+	U_{i, j}^{[k+1]} = \frac{1}{4}(U_{i-1, j}^{[k+1]} + U_{i+1, j}^{[k]}+U_{i, j-1}^{[k+1]}+U_{i, j+1}^{[k]})-\frac{h^{2}}{4}f_{i, j},
+\]
+sendo que as mesmas considerações do método anterior permanecem ativas aqui.
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/gauss_seidel_07.png}
+	\end{center}
+	\caption{}
+\end{figure}
+
+Tanto o método de Gauss-Seidel, quanto o de Jacobi, são facilmente implementáveis, com custo de armazenamento ótimos; porém, eles são conhecidos justamente por sua lentidão para convergir durante o processo iterativo, no sentido de levar muitas e muitas iterações, às vezes mais de milhares, para conseguir uma aproximação razoável, além de ser mais difícil de vetorizar as computações (talvez o Matlab leve vantagem sobre o Python por conta disso para esses métodos).
 
 \end{document}
