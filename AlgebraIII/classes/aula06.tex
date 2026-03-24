@@ -1,0 +1,287 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 06 - 24 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Polinômios Irredutíveis;
+\end{itemize}
+\subsection{Polinômios Irredutíveis e Raízes}
+\begin{def*}
+	Um \textbf{polinômio irredutível sobre F} é um polinômio \(p(x)\in F[x]\) tal que, se
+	\[
+		p(x)=q_{1}(x)q_{2}(x), \quad q_{1}, q_{2}\in F[x],
+	\]
+	então ou \(\deg{(q_{1})}=0\), ou \(\deg{(q_{(2)}}=0. \; \square\)
+\end{def*}
+\begin{lemma*}
+	Suponha que F é um corpo e \(p(x)\in F[x]\) é um polinômio irredutível sobre F; então,
+	\[
+		\frac{F[x]}{\langle p(x) \rangle}
+	\]
+	é um corpo.
+\end{lemma*}
+O corpo acima é o das classes de x módulo p, ou seja,
+\[
+	[x]\in \frac{F[x]}{\langle p(x) \rangle},
+\]
+com zero sendo
+\begin{align*}
+	0=[p(x)] & = [a_{0}+a_1x+\dotsc +a_{n}x^{n}]         \\
+	         & = [a_{0}]+[a_1x]+ \dotsc + [a_{n}x^{n}]   \\
+	         & = [a_{0}]+[a_1][x]+\dotsc +[a_{n}][x^{n}] \\
+	         & = a_{0}+a_{1}[x]+\dotsc +a_{n}[x]^{n}.
+\end{align*}
+\begin{lemma*}
+	Se \(p(x)\in F[x]\) é irredutível sobre F, então existe uma extensão de F na qual é possível encontrar uma raiz de \(p(x)\).
+\end{lemma*}
+\begin{proof*}
+	Basta notar que
+	\[
+		F \subseteq \frac{F[x]}{\langle p(x) \rangle}
+	\]
+	é uma extensão de F e que \([x]\) é uma raiz do polinômio \(p(x)\in \frac{F[t]}{\langle p(t) \rangle}[x]\)
+\end{proof*}
+
+Agora, suponha que K é uma extensão de F e que \(p(x)\in F[x]\) é irredutível, tal que \(\displaystyle \frac{F[x]}{\langle p(x) \rangle}\) é um corpo estendendo F, e seja \(\alpha , \beta \) raízes de \(p(x)\) em K.
+\begin{lemma*}
+	Existe um único homomorfismo de corpos \( \psi \), com \(\psi (\alpha )=\beta \), tal que:
+	\begin{align*}
+		 & (1):\; \psi :F(\alpha )\rightarrow F(\beta ) \\
+		 & (2):\; \psi (a)=a, \quad \forall a\in F
+	\end{align*}
+\end{lemma*}
+\begin{proof*}
+	Consideremos o amigável diagrama trapezoidal
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(F[x]=F(\alpha )\)};
+			\node(BL) at (-2,-2){\(\displaystyle \frac{F[x]}{\langle p(x) \rangle}\)};
+			\node(BBL) at (-5,-2){\(F[x]\)};
+			\node(TR) at (2,1){\(F(\beta )\)};
+			\node(BR) at (2,-2){\(\displaystyle \frac{F[x]}{\langle p(x) \rangle}\)};
+			\node(BLB) at (-2,-4){F};
+			\node(BRB) at (2,-4){F};
+			\node(BBR) at (5,-2){\(F[x]\)};
+
+
+			\draw[Arrow](BRB)--(BR);
+			\draw[<->](BRB)--node[midway, below]{\(= \)}(BLB);
+			\draw[Arrow](BLB)--(BL);
+			\draw[Arrow, dashed](TL)--node[midway, above]{\(\psi \)}(TR);
+			\draw[Arrow](BL)--node[midway, above] {Id}(BR);
+			\draw[Arrow](BL)--node[midway, right] {\(\widetilde{\mathrm{ev}_{\alpha }}\)}(TL);
+			\draw[Arrow](BR)--node[midway, left] {\(\widetilde{\mathrm{ev}_{\beta }}\)}(TR);
+			\draw[Arrow](BBR)--node[midway, above ] {\(\pi \)}(BR);
+			\draw[Arrow](BBR)--node[midway, right ] {\(\mathrm{ev}_{\beta } \)}(TR);
+			\draw[Arrow](BBL)--node[midway, above ] {\(\pi \)}(BL);
+			\draw[Arrow](BBL)--node[midway, left ] {\(\mathrm{ev}_{\alpha } \)}(TL);
+
+		\end{tikzpicture}
+	\end{center}
+	Por ele, determinamos que \(\psi = \widetilde{\mathrm{ev}_{\beta }}\circ \mathrm{Id}\circ (\widetilde{\mathrm{ev}_{\alpha }})^{-1}\) é um isomorfismo de corpos, onde \(\widetilde{\mathrm{ev}_{\alpha }}([x])=\alpha \), tal que
+	\begin{align*}
+		\psi (\alpha ) & = \widetilde{\mathrm{ev}_{\beta }} \circ \mathrm{id}\circ (\widetilde{\mathrm{ev}_{\alpha }})^{-1}(\alpha ) \\
+		               & = \widetilde{\mathrm{ev}_{\beta }}(\mathrm{id}([x]))                                                        \\
+		               & = \widetilde{\mathrm{ev}_{\beta }}([x])                                                                     \\
+		               & =\beta
+	\end{align*}
+	e, para todo a de F,
+	\[
+		\psi (a)=a.
+	\]
+
+	\textbf{\underline{Unicidade}:} considerando
+	\[
+		F(\alpha )=\{\xi = a_{0}+a_{\alpha } +\dotsc + a_{n-1}\alpha^{n-1}:\; a_{i}\in F\}, \; n = \deg{(p)},
+	\]
+	então se \(\psi \) é o isomorfismo determinado por
+	\[
+		\psi (a)=a, \quad \forall a \in F \quad\&\quad \psi (\alpha )=\beta ,
+	\]
+	segue que, para todo \(\xi \) em \(F(\alpha )\), devemos ter
+	\[
+		\psi (\xi )=\psi (a_{0}+a_{1}\alpha +\dotsc + a_{n-1}\alpha^{n-1}) = a_{0}+a_{1}\beta +\dotsc + a_{n-1}\beta^{n-1}.
+	\]
+	Portanto, se \(\psi' :F(\alpha )\rightarrow F(\beta )\) também é um isomorfismo de corpos como acima, então ele satisfaz a mesma identidade para todo \(\xi \) em F, concluindo que
+	\[
+		\psi (\xi )=\psi '(\xi ),\quad \forall \xi \in F \Rightarrow \psi \equiv \psi '. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{crl*}
+	Sejam K uma extensão de corpo de F, \(p(x)\in F[x]\) irredutível e \(\alpha \in K\) uma raiz fixada de \(p(x)\). Então, existe uma correspondência bijetora entre os conjuntos
+	\[
+		\biggl\{\substack{\text{Raízes de }p(x) \\ \text{em K}}\biggr\}
+		\longleftrightarrow \biggl\{\substack{\eta :F(\alpha )\rightarrow K \text{ homomorfismo de} \\ \text{corpos tal que }\eta (a)=a,\; \forall a\in F }\biggr\}
+	\]
+\end{crl*}
+\begin{exr}
+	Prove o corolário acima.
+\end{exr}
+\begin{lemma*}
+	Consideremos duas extensões de dois corpos, \(F\subseteq K,\; F'\subseteq K'\), um polinômio \(p(x)\in F[x]\) irredutível, um isomorfismo de corpos \(\varphi :F\rightarrow F'\) e o polinômio \(p'(x)\coloneqq (\varphi_{*}p)(x)\in F'[x]\).
+	Suponha que \(\alpha \in K\) é raiz de \(p(x)\) e que \(\alpha '\in K'\) é raiz de m  \(p'(x)\); então, existe um isomorfismo de corpos único \(\psi :F(\alpha )\rightarrow F'(\alpha ')\) tal que:
+	\begin{align*}
+		 & (1):\; \psi (\alpha )=\alpha '                     \\
+		 & (2):\; \psi (a )=\varphi(a), \quad \forall a\in F.
+	\end{align*}
+\end{lemma*}
+\begin{proof*}
+	Escrevamos o seguinte diagrama:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-1,1){\(\displaymath \frac{F[x]}{\langle p(x) \rangle}\)};
+			\node(BL) at (-1,-1){F};
+			\node(TR) at (1,1){\(\displaymath \frac{F'[x]}{\langle p'(x) \rangle}\)};
+			\node(BR) at (1,-1){F};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\tilde{\phi}\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\phi\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {}(BL);
+			\draw[Arrow](TR)--node[midway, right] {}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	A partir dele, definimos
+	\[
+		\left\{\begin{array}{ll}
+			\tilde{\varphi }(a)=\varphi (a),\; \forall a\in F \\
+			\tilde{\varphi }([x]_{p(x)})=[x]_{p'(x)}
+		\end{array}\right.,
+	\]
+	tal que
+	\[
+		[x]_{p(x)} = x + \langle p(x) \rangle,
+	\]
+	permitindo fecharmos o diagrama por cima com
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TTL) at (-1,3){\(F(\alpha )\)};
+			\node(TTR) at (1,3){\(F(\beta )\)};
+			\node(TL) at (-1,1){\(\displaymath \frac{F[x]}{\langle p(x) \rangle}\)};
+			\node(BL) at (-1,-1){F};
+			\node(TR) at (1,1){\(\displaymath \frac{F'[x]}{\langle p'(x) \rangle}\)};
+			\node(BR) at (1,-1){F};
+
+			\draw[Arrow, dashed](TTL)--node[midway, above] {\(\psi \)}(TTR);
+			\draw[Arrow](TL)--node[midway, above] {\(\tilde{\phi}\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\phi\)}(BR);
+			\draw[Arrow](BL)--node[midway, left] {}(TL);
+			\draw[Arrow](BR)--node[midway, right] {}(TR);
+			\draw[Arrow](TL)--node[midway, left] {\(\widetilde{\mathrm{ev}_{\alpha }}\)}(TTL);
+			\draw[Arrow](TR)--node[midway, right] {\(\widetilde{\mathrm{ev}_{\alpha '}}\)}(TTR);
+		\end{tikzpicture}
+	\end{center}
+	Seguindo os caminhos do diagrama, determinamos as relações que provam o teorema:
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \psi = \widetilde{\mathrm{ev}_{\alpha '}}\circ \tilde{\phi}\circ (\widetilde{\mathrm{ev}_{\alpha }})^{-1}                                                \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \psi (\alpha )= \widetilde{\mathrm{ev}_{\alpha '}}\circ \tilde{\phi}\circ (\widetilde{\mathrm{ev}_{\alpha }})^{-1}(\alpha )=\alpha '. \text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Em particular, o lema acima dá a relação que \(p(x)\) é irredutível se, e somente se, \(p'(x)=(\varphi_{*}p)(x)\) for irredutível.
+\end{tcolorbox}
+Usando estes lemas e resultados, nosso objetivo é, dado \(f(x)\) definir o que chamamos de grupo de Galois de \(f(x)\) a partir da extensão \(K_{f}\) como uma extensão de corpo de polinômios e os isomorfismos de corpos \(\varphi :K_{f}\rightarrow K_{f}\) tais que \(\varphi (a)=a\) para todo a em F, que resultará no corpo de decomposição de f.
+O grupo de Galois de \(f(x)\) será exatamente o grupo das funções \(\varphi \) mencionadas!
+
+\subsection{Corpo de Decomposição de um Polinômio}
+Vamos considerar, adiante, a notação fixa para \(f(x)\in F[x]\), onde F é um corpo
+\begin{def*}
+	Seja K um corpo com \(F\subseteq K\); então, K é chamado \textbf{corpo de decomposição de \(\mathbf{f(x)}\) sobre F} se:
+	\begin{itemize}
+		\item[1)] o polinômio \(f(x)\) pode ser escrito em termos de polinômios minimais:
+		      \[
+			      f(x)=a \prod\limits_{j=1}^{\deg{(f)}}(x-\alpha_{j}),
+		      \]
+		      onde \(a\in F\) e \(\alpha_{j}\in K\) para \(j=1,\dotsc , \deg{(f)}\);
+		\item[2)] K é \textit{minimal} em relação a esta propriedade, ou seja, se \(K'\) é um outro corpo que contém F, satisfaz
+		      \[
+			      f(x)=b \prod\limits_{j=1}^{\deg{(f)}}(x-\beta_{j}),\quad b\in F, \; \beta_{j}\in K'
+		      \]
+		      e \(K'\subseteq K\) propriamente, então \(K=K',\;\alpha_{j}=\beta_{j}\) e \(a=b\).
+	\end{itemize}
+\end{def*}
+\begin{example}
+	Vamos considerar o caso em que \(F=\mathbb{Q}\) e \(f(x)=x^{2}-2\in \mathbb{Q}[x]\); então, \(\mathbb{Q}(\sqrt[]{2})\) é um corpo de decomposição de \(f(x)|_{\mathbb{Q}}\), assim como \(\displaystyle \frac{\mathbb{Q}[x]}{\langle x^{2}-2 \rangle}\).
+
+	Note que eles não são iguais, mas são isomorfos pelo isomorfismo
+	\[
+		\widetilde{\mathrm{ev}_{\alpha }}:\frac{\mathbb{Q}[x]}{\langle x^{2}-2 \rangle}\rightarrow \mathbb{Q}(\sqrt[]{2}).
+	\]
+\end{example}
+\begin{example}
+	Para \(F=\mathbb{Q}\) e \(f(x)=(x^{2}-2)(x^{2}-3)\), os polinômios \(h(x)=x^{2}-2\) e \(g(x)=x^{2}-3\) são ambos irredutíveis sobre \(\mathbb{Q}\), tal que o candidato a corpo de decomposição é
+	\[
+		K=\mathbb{Q}(\sqrt[]{2}, \sqrt[]{3}),
+	\]
+	pois é nele que encontramos todas as raízes de \(h, \; f\) e g, e é o menor corpo que contém essa propriedade. Observe também que
+	\[
+		\mathbb{Q}(\sqrt[]{2}, \sqrt[]{3})=\mathbb{Q}(\sqrt[]{2}+\sqrt[]{3}),
+	\]
+	tal que se demonstrarmos essa observação, ganhamos o grau da extensão como 4, conforme mostramos anteriormente.
+
+	Um lado dessa demonstração é fácil, bastando notar que o elemento \(\sqrt[]{2}+\sqrt[]{3}\) é um elemento de \(\mathbb{Q}(\sqrt[]{2}, \sqrt[]{3})\); por outro lado, temos que provar que \(\sqrt[]{2},; \sqrt[]{3}\) pertencem a \(\mathbb{Q}(\sqrt[]{2}+\sqrt[]{3})\). Com efeito, note que
+	\[
+		(\sqrt[]{2}+\sqrt[]{3})^{2}=5+2\sqrt[]{6},
+	\]
+	mostrando que \(\sqrt[]{6}\) pertence a \(\mathbb{Q}(\sqrt[]{2}+\sqrt[]{3})\); assim,
+	\[
+		\sqrt[]{6}(\sqrt[]{2}+\sqrt[]{3}) = 2\sqrt[]{3}+3\sqrt[]{2}\in \mathbb{Q}(\sqrt[]{2}+\sqrt[]{3}).
+	\]
+	Agora, podemos manipular algebricamente com o termo \(-2(\sqrt[]{2}+\sqrt[]{3})+2\sqrt[]{3}+3\sqrt[]{2}\) para obter a expressão
+	\[
+		2\sqrt[]{3}+3\sqrt[]{2}-2(\sqrt[]{2}+\sqrt[]{3})+2\sqrt[]{3}+3\sqrt[]{2} \Rightarrow \sqrt[]{2}\in \mathbb{Q}(\sqrt[]{2}+\sqrt[]{3}).
+	\]
+	Analogamente, prova-se que \(\sqrt[]{3}\in \mathbb{Q}(\sqrt[]{2}+\sqrt[]{3})\).
+
+	Portanto, concluímos que
+	\[
+		[\mathbb{Q}(\sqrt[]{2}+\sqrt[]{3}):\mathbb{Q}]=4,
+	\]
+	que é o mesmo grau de \(f(x)\).
+\end{example}
+\begin{example}
+	Dessa vez, vamos tomar um polinômio de grau 3 analisando o caso \(F=\mathbb{Q}\) e \(f(x)=x^{3}-2\in \mathbb{Q}[x]\), que é irredutível sobre \(\mathbb{Q}\).
+	Podemos considerar o quociente
+	\[
+		\frac{\mathbb{Q}[x]}{\langle x^{3}-2 \rangle}\cong \mathbb{Q}(\sqrt[3]{2}),
+	\]
+	que fornece uma extensão de grau 3. O problema é que este corpo não é o corpo de decomposição de \(f(x)\), pois nem todas as raízes estão ali dentro -- uma raiz é real, que é \(\sqrt[3]{2}\), e duas raízes complexas, que consequentemente não estão no corpo.
+	Consequentemente, este corpo de fato não é um corpo de decomposição de \(f(x)\).
+\end{example}
+\begin{exr}
+	Mostre que o corpo de decomposição da \(f(x)\) do exemplo acima é \(\mathbb{Q}(\sqrt[3]{2}, \sqrt[]{-3})\) e que
+	\[
+		[\mathbb{Q}(\sqrt[3]{2}, \sqrt[]{-3}): \mathbb{Q}]=6.
+	\]
+\end{exr}
+
+\end{document}

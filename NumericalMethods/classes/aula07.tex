@@ -1,0 +1,222 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 24 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Organização de Código;
+	\item Funções e Módulos.
+\end{itemize}
+\subsection{Organização de Código, Funções e Módulos}
+Vamos aprender, hoje, a sair dos scripts gigantes e começar a organizar nosso código matemático em blocos lógicos reutilizáveis: as \textit{funções}, os \textit{módulos} e as \textit{subrotinas}.
+
+As funções já são conhecidas por nós no Python -- elas recebem entradas (parâmetros), realizam os cálculos e retornam um valor.
+\begin{listing}
+	\caption{Calculando a Distância entre Dois Pontos}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+  import math 
+  def calcular_distancia(x1, y1, x2, y2):
+      """ Calcula a distancia euclidiana entre P1=(x1, y1) e P2=(x2, y2)."""
+      distancia = math.sqrt((x2-x1)**2+(y2-y1)**2)
+      return distancia
+
+  # Teste
+  d = calcular_distancia(1.0, 2.0, 4.0, 6.0)
+  print(f"A distância entre os pontos 1 e 2 é: {d}")
+  \end{minted}
+\end{listing}
+Diferente da matemática tradicional, uma função em Python pode retornar vários valores de uma vez usando tuplas.
+\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+## Função retornando múltiplos valores 
+def analisar_dados(lista_valores):
+    """Função Matemática: retorna média, máximo E mínimo"""
+    if len(lista_valores)==0:
+        return 0,0,0
+
+    media = sum(lista_valores)/len(lista_valores)
+    return media, max(lista_valores), min(lista_valores)
+\end{minted}
+
+Podemos criar, também, \textbf{subrotinas}, que são funções responsáeis por retornar valores não matemáticos, mas sim executar uma ação visual, como um relatório.
+\begin{listing}[H]
+	\caption{Subrotina: formatar o código de um boletim.}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+def imprimir_boletim(nome_turma, notas):
+    """Subrotina visual: chama a função matemática e formata a tela"""
+    media, nota_max, nota_min = analisar_dados(notas)
+    printf("-"*30)
+    print(f"Turma: {note_turma}")
+    print(f"Média: {media:.2f} | Max: {nota_max:.2f} |
+    Min:{nota_min:.2f}")
+    print("-"*30)
+    # o .2f arredonda o valor para duas casas decimais!
+
+# O uso fica muito mais limpo: 
+notas_turma = [4.5, 6.0, 3.2, 8.5, 5.0, 7.5]
+imprimir_boletim("Cálculo numérico: ", notas_turma)
+\end{minted}
+\end{listing}
+
+Se uma regra matemática exige uma condição, nosso código deve ser capaz de impôr essa condição antes de tentar fazer a conta; um dos exemplos clássicos disso é a regra de Cramer -- vamos criar uma função para resolver um sistema 2x2 do tipo
+\[
+	\left\{\begin{array}{ll}
+		ax +by = e \\
+		cx + dy = f
+	\end{array}\right..
+\]
+Pela álgebra linear, sabemos que o determinante da matriz dos coeficientes deve ser não nulo para que esse sistema seja resolvível, então vamos usar o comando \texttt{raise ValueError} para blindar nossa função e avisar do erro!
+\begin{listing}[H]
+	\caption{Calculo de Determinante Sensível a Erro}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+def resolver_sistema(a, b, c, d, e, f):
+    """
+    Resolve o sistema linear: 
+    ax + by = e 
+    cx + dy = f
+    """
+    # 1. Calculamos o determinante 
+    det_principal = (a*d)-(b*c)
+    
+    # 2. A Barreira de Rigor Matemático!
+    if det_principal==0:
+       raise ValueError("Erro Matemático: o determinante é zero. Sistema impossível ou indeterminado")
+    # 3. Se passou pela barreiar, o cálculo é seguro: 
+    x = ((e*d)-(b*f))/det_principal 
+    y = ((a*f)-(e*c))/det_principal
+    
+    return x, y
+
+# Teste 1: um sistema com solução (x=2, y=3)
+x_res, y_res = resolver_sistema(1,2,3,4,8,18)
+print(f"Solução do sistema: x={x_res}, y={y_res}")
+
+# Teste 2: um sistema sem solução única
+resolver_sistema(1,1,2,2,5,10)
+ 
+ \end{minted}
+\end{listing}
+
+Agora vamos aprender a organizar os arquivos como um todo criando nossas próprias bibliotecas: simularemos a criação de arquivo separado \texttt{algebra.py}, que pode ser feito com o comando \texttt{\%\%writefile nome\_arquivo.py} no Colab, logo na primeira linha da célula; depois disso, ele aparecerá na pasta lateral do Colab.
+\begin{listing}[H]
+	\caption{Criação de módulo no Colab}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+ %%writefile algebra.py 
+
+ def multiplicar_matrizes(A, B):
+    """ Multiplica a matriz A (m x n) pela B (n x p). """
+    linhas_A=len(A)
+    colunas_A = len(A[0])
+    linhas_B=len(B)
+    colunas_B = len(B[0])
+
+    if colunas_A != linhas_B:
+        raise ValueError("Erro: colunas devem ser iguais às linhas de B.")
+ 
+ # Equivalente a: 
+ # import numpy as np 
+ # C = npzeros((linhas_A, colunas_B)) 
+
+ C = []
+ for i in range(linhas_A):
+    C.append([0.0]*colunas_B)
+
+ for i in range(linhas_A):
+    for j in range(colunas_B):
+        soma = 0
+        for k in range(colunas_A):
+            soma+=A[i][k]*B[k][j]
+        C[i][j]=soma
+  return C
+
+  def imprimir_matriz(nome, matriz):
+      """Imprime a matriz formatada"""
+      print(f"Matriz {nome}: ")
+      for linha in matriz: 
+          linha_formatada = [f"{elemento:>5.1f}" for elemento in linha]
+          print(" [" + "".join(linha_formatada)+"]")
+      return 
+ \end{minted}
+\end{listing}
+
+Abaixo, vamos agir como se estivéssemos em outro arquivo e importaremos a biblioteca que criamos!
+\begin{listing}[H]
+
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import algebra as alg 
+
+matriz_A = [[1.0, 2.0], [3.0, 4.0]]
+matriz_B = [[1.0, 2.0], [3.0, 4.0]]
+
+alg.imprimir_matriz("A", matriz_A)
+alg.imprimir_matriz("B", matriz_B)
+
+resultado = alg.multiplicar_matrizes(matriz_A, matriz_B)
+alg.imprimir_matriz("C {resultado}", resultado)
+\end{minted}
+\end{listing}
+
+\subsection{Aplicação: cifra de Hill}
+\textbf{\underline{O Problema:}} queremos enviar a mensagem "BOM DIA " com um espaço no final pela rede, mas não queremos que os hackers leiam.
+Para isso, vamos transformar letras em números (Espaço)=0, A=1, B=2, etc. Se agruparmos esses números de dois em dois nas colunas, formamos a nossa \textbf{matriz da mensagem M}:
+\[
+	M = \begin{bmatrix}
+		2  & 13 & 4  & 1 \\
+		15 & 0  & 90 & 0
+	\end{bmatrix}
+\]
+
+\textbf{\underline{A Senha:}} o remetente e o destinatário combinam uma senha secreta, que é uma matriz 2x2
+\[
+	K = \begin{bmatrix}
+		2 & 1 \\
+		1 & 1
+	\end{bmatrix},
+\]
+então para trancar a mensagem, basta usar o produto da chave pela mensagem: \(C = K \times M\)
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Como nosso alfabeto do exercício tem 27 caracteres, pegamos o resultado e dividimos por 27, guardando apenas o resto da divisão; isto garante que o número sempre volte a ser uma letra!
+\end{tcolorbox}
+
+\textbf{\underline{Como Destrancar:}} não existe ``divisão'' de matrizes, então é necessário fazer o produto pela inversa.
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+%%writefile motor_cripo.py 
+"""
+====================================== 
+Módulo: motdor de criptografia 
+Objetivo: conter as funções matemática e de tradução 
+======================================
+"""
+
+ALFABETO = " ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+def texto_para_matriz(texto):
+    """Tranforma um texto par em uma matriz com 2 linhas"""
+
+    if len(texto)%2!=0:
+        texto += " "
+
+    colunas = len(texto)//2 
+    matriz = [[0]*colunas, [0]*colunas]
+
+    for i in range (colunas):
+        matriz[0][i]=ALFABETO.index(texto[i*2])
+        matriz[1][i]=ALFABETO.index(texto[i*2+1])
+
+    return matriz
+
+def operar_matriz_modular(matriz_A, matriz_B):
+    
+\end{minted}
+\end{listing}
+\end{document}
