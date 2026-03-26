@@ -133,7 +133,7 @@ Agora vamos aprender a organizar os arquivos como um todo criando nossas própri
       for linha in matriz: 
           linha_formatada = [f"{elemento:>5.1f}" for elemento in linha]
           print(" [" + "".join(linha_formatada)+"]")
-      return 
+      prit("-"*15) 
  \end{minted}
 \end{listing}
 
@@ -190,7 +190,7 @@ então para trancar a mensagem, basta usar o produto da chave pela mensagem: \(C
 \textbf{\underline{Como Destrancar:}} não existe ``divisão'' de matrizes, então é necessário fazer o produto pela inversa.
 \begin{listing}[H]
 	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
-%%writefile motor_cripo.py 
+%%writefile motor_cripto.py 
 """
 ====================================== 
 Módulo: motdor de criptografia 
@@ -216,7 +216,102 @@ def texto_para_matriz(texto):
     return matriz
 
 def operar_matriz_modular(matriz_A, matriz_B):
-    
+    """
+    Tem que multiplicar A por B e obter o resto da divisão por 27.
+    """
+    linhas_A=len(matriz_A)
+    linhas_B=len(matriz_B)
+    colunas_A=len(matriz_A[0])
+    colunas_B=len(matriz_B[0])
+
+    # Estrutura de criação de matriz nula com python puro.
+    matriz_resultado = []
+    for i in range(linhas_A):
+        matriz_resultado.append([0]*colunas_B)
+
+    # Produto matricial 
+    for i in range(linhas_A):
+        for j in range(colunas_B):
+            soma=0
+            for k in range(linhas_B):
+                soma+=matriz_A[i][k]*matriz_B[k][j] 
+
+            matriz_resultado[i][j]=soma%27
+    return matriz_resultado
+
+  # Resta converter de volta para texto: 
+  def matriz_para_texto(matriz):
+      """
+      Lê uma matriz e converte seus números em letras.
+      """
+      linhas = len(matriz)
+      colunas= len(matriz[0])
+
+      texto_final=""
+      for j in range(colunas):
+          for i in range(linhas):
+              numero=matriz[i][j]
+              texto_final+=ALFABETO[numero]
+      return texto_final
 \end{minted}
+\end{listing}
+Tendo o motor cripto montado, temos que montar o script principal, nomeado \textbf{app espião} (🤫🫢); para tanto, basta fazer
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breakline]{Python}
+ # ============================== 
+ # NASCE UM ESPIÃO
+ # ============================== 
+
+ import motor_cripto as cripto
+
+ # 1. As chaves matemáticas 
+  matriz_chave = [
+      [2,1],
+      [1,1]
+  ]
+  matriz_inversa = [
+  [1,26],
+  [26, 1]
+  ]
+
+  mensagem_original = "BOM DIA"
+
+  print("="*30)
+  print("🕵 SISTEMA DE COMUNICAÇÃO SEGURA INICIADO")
+  print("="*30)
+  print(f"Código secreto que precisamos transmitir: '{mensagem_original}'\n")
+
+  # ==================
+  # Fase 1: REMETENTE
+  # ==================
+  print(">> FASE 1: criptografando segredos...")
+  matriz_M = cripto.texto_para_matriz(mensagem_original)
+
+  matriz_C = cripto.operar_matrizes(matriz_chave, matriz_M)
+  mensagem_hacker=cripto.matriz_para_texto(matriz_C)
+
+  prit("Segredos Indecifráveis:")
+  for linha in matriz_C: 
+      print(linha)
+  print(f"☢️ TEXTO INTERCEPTADO NA REDE: '{mensagem_hacker}'\n")
+
+  # =======================
+  # Fase 2: O DESTINATÁRIO 
+  # =======================
+
+  print(">> FASE 2: desvendando os mistérios.")
+
+  matriz_C_recebida = cripto.texto_para_matriz(mensagem_hacker)
+  # Pulo do gato: multiplicar a matriz bagunçada pela inversa da chave!
+  matriz_M_recuperada = cripto.operar_matrizes(matriz_inversa, matriz_C_recebida)
+  mensagem_salva = cripto.matriz_para_texto(matriz_M_recuperada)
+
+  print("Matriz Recuperada:")
+  for linha in matriz_M_recuperada:
+      print(linha)
+  print(f"Mensagem desvendada com sucesso 😎: '{mensagem_salva}'")
+
+ \end{minted}
 \end{listing}
 \end{document}
