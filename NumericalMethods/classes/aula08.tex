@@ -1,0 +1,377 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 26 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Aplicação: redes sociais.
+\end{itemize}
+\subsection{Mineração de Dados em Redes Sociais}
+Imagine que você foi contratado como Engenheiro de Dados por uma nova rede social corporativa. A diretoria precisa que você construa um sistema modular em Python capaz de ler a matriz de conexões dos usuários para extrair inteligência de negócios dela, incluindo a descoberta dos maiores influenciadores, quem está isolada e criar um algoritmo de ``Pessoas que você talvez conheça''.
+Qual a base teórica matemática para fundamentar esse pedido?
+
+Vamos fazer uma mistura de áreas: utilizaremos a álgebra linear e a teoria de grafos; dando um contexto para esta segunda, uma rede de conexões na teoria dos grafos pode ser representada por uma matriz quadrada A de ordem n, junto a algumas regras:
+\begin{itemize}
+	\item Se o usuário da linha i segue o usuário da coluna j, então \(a_{ij}=1\); caso contrário, \(a_{ij}=0\);
+	\item A diagonal principal é sempre 0, afinal seguir a si próprio não conta;
+	\item A soma da linha i é exatamente quantas pessoas o usuário i segue; e
+	\item A soma da coluna j é exatamente quantas pessoas seguem o usuário j.
+\end{itemize}
+
+Para recomendar amigos, precisamos achar amigos em comum, e é aqui que entra a álgebra linear -- o produto da matriz de redes sociais por ela mesma resulta na matriz de conexões indiretas \(C = A \times A\)! O elemento \(c_{ij}\) indica exatamente quantos amigos em comum os usuários i e j possuem.
+Àqueles que forem fazer pelo Colab, seguem algumas instruções:
+\begin{itemize}
+	\item[1)] Preencha a lógica matemática onde está escrito TODO nos códigos;
+	\item[2)] O módulo 1, nomeado \texttt{motor\_matrizes}, não pode conter \texttt{prints} ou bibliotecas prontas, apenas matemática pura!;
+	\item[3)] Sempre que alterar o código em um módulo, rode a célula novamente para salvar o arquivo no Colab.
+\end{itemize}
+Após realizar a escrita dos códigos, há um que juntará os 3 módulos e testar se está tudo certo; nele, não altere nada! É um banco de dados fictício para avaliar se deu certo.
+
+\textbf{\underline{Dica de Ouro do Colab}:} se você rodar e der erro, arrume o código na célula de cima, rode-a novamente para salvar o arquivo, clique em \texttt{Ambiente de Execução \> Reiniciar sessão} no menu superior e tente rodar o app novamente!
+
+\begin{listing}[H]
+	\caption{\textbf{Redes Sociais:} Motor de Matrizes}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+%%writefile motor_matrizes.py
+# ================================================
+# MÓDULO 1: MOTOR DE MATRIZES (A Matemática Pura)
+# REGRAS: SEM prints, SEM bibliotecas externas.
+# ================================================
+
+def multiplicar_matrizes(A, B):
+    """Multiplica duas matrizes quadradas A e B. Retorna a matriz C."""
+    # TODO: Implemente a lógica de multiplicação usando laços 'for' aninhados.
+    # Dica: Lembre-se do aquecimento de criptografia! Crie uma matriz cheia de zeros primeiro.
+    return []
+
+def somar_coluna(M, indice_coluna):
+    """Retorna a soma de todos os elementos de uma coluna específica."""
+    soma = 0
+    # TODO: Crie um laço para somar os valores da coluna solicitada.
+    return soma
+
+def somar_linha(M, indice_linha):
+    """Retorna a soma de todos os elementos de uma linha específica."""
+    soma = 0
+    # TODO: Crie um laço para somar os valores da linha solicitada.
+    return soma
+ \end{minted}
+\end{listing}
+
+\begin{listing}[H]
+	\caption{\textbf{Redes Sociais:} Algoritmo da Rede Social}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+%%writefile algoritmo_rede.py
+# ===========================================================
+# MÓDULO 2: ALGORITMO DA REDE SOCIAL (A Lógica de Negócios)
+# ===========================================================
+import motor_matrizes as motor
+
+def encontrar_influenciador(matriz_rede):
+    """Retorna o ÍNDICE da coluna com a maior soma (mais seguidores)."""
+    # TODO: Use um laço e a função 'motor.somar_coluna' para descobrir o maior valor.
+    return -1
+
+def encontrar_isolados(matriz_rede):
+    """Retorna uma lista com os índices de quem não segue ninguém e não é seguido."""
+    isolados = []
+    # TODO: Use as funções do motor. Se a soma da linha E da coluna for 0, adicione à lista.
+    return isolados
+
+def gerar_recomendacoes(matriz_rede):
+    """Retorna a matriz resultante da operação A x A (amigos em comum)."""
+    # TODO: Chame a função do motor para multiplicar a matriz por ela mesma.
+    return []
+ \end{minted}
+\end{listing}
+
+\begin{listing}[H]
+	\caption{\textbf{Redes Sociais:} Interface de Usuário}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+%%writefile interface_usuario.py
+# =================================================
+# MÓDULO 3: INTERFACE DE USUÁRIO (A Visualização)
+# =================================================
+
+def exibir_perfil_usuario(nomes, indice_usuario, num_seguidores):
+    """Imprime os dados do influenciador da rede."""
+    # TODO: Formate e imprima o nome do usuário e a quantidade de seguidores.
+    pass
+
+def exibir_isolados(nomes, indices_isolados):
+    """Imprime os nomes dos usuários que estão isolados."""
+    # TODO: Percorra a lista de índices e imprima os nomes correspondentes.
+    pass
+
+def exibir_recomendacoes(nomes, matriz_A2, indice_alvo):
+    """Lê a linha do alvo na matriz_A2 e sugere amigos em comum."""
+    nome_alvo = nomes[indice_alvo]
+    print(f"--- SUGESTÕES DE AMIZADE PARA: {nome_alvo.upper()} ---")
+
+    # TODO: Verifique a linha da matriz_A2 correspondente ao 'indice_alvo'.
+    # Imprima quem tem conexões em comum (valor > 0) e que não seja o próprio alvo.
+    pass
+ \end{minted}
+\end{listing}
+
+\begin{listing}[H]
+	\caption{\textbf{Redes Sociais:} Painel de Testes}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# =============================================
+# SCRIPT PRINCIPAL: APP SOCIAL (Test Harness)
+# =============================================
+import motor_matrizes as math_engine
+import algoritmo_rede as rede
+import interface_usuario as ui
+
+# 1. Base de Dados
+nomes = ["Ana", "Bruno", "Carlos", "Diana", "Eduardo"]
+
+# Matriz de Conexões (A)
+matriz_A = [
+    [0, 1, 1, 0, 0],  # Ana segue Bruno e Carlos
+    [1, 0, 1, 1, 0],  # Bruno segue Ana, Carlos e Diana
+    [1, 0, 0, 1, 0],  # Carlos segue Ana e Diana
+    [1, 0, 0, 0, 0],  # Diana segue Ana
+    [0, 0, 0, 0, 0]   # Eduardo é isolado
+]
+
+print("=" * 40)
+print(" INICIANDO ANÁLISE DA REDE SOCIAL ")
+print("=" * 40 + "\n")
+
+try:
+    # 2. Processamento (Lógica)
+    indice_famoso = rede.encontrar_influenciador(matriz_A)
+
+    # Proteção: só calcula seguidores se o aluno já programou a função e não retornou -1
+    if indice_famoso != -1:
+        seguidores_famoso = math_engine.somar_coluna(matriz_A, indice_famoso)
+    else:
+        seguidores_famoso = 0
+
+    isolados = rede.encontrar_isolados(matriz_A)
+    matriz_conexoes = rede.gerar_recomendacoes(matriz_A)
+
+    # 3. Exibição (Interface)
+    ui.exibir_perfil_usuario(nomes, indice_famoso, seguidores_famoso)
+    print()
+    ui.exibir_isolados(nomes, isolados)
+    print()
+
+    # Testando recomendações para a Ana (índice 0)
+    if len(matriz_conexoes) > 0:
+        ui.exibir_recomendacoes(nomes, matriz_A, matriz_conexoes, 0)
+    else:
+        print("A matriz de recomendações ainda está vazia. Implemente a multiplicação!")
+
+except Exception as e:
+    print(f"ERRO NA EXECUÇÃO: {e}")
+    print("Verifique se você implementou as funções corretamente nos módulos!")
+ \end{minted}
+\end{listing}
+
+\subsection{Gabarito das Redes Soicais}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+%%writefile motor_matrizes.py
+# ==============================
+# GABARITO: MOTOR DE MATRIZES
+# ==============================
+
+def multiplicar_matrizes(A, B):
+    """Multiplica duas matrizes quadradas A e B. Retorna a matriz C."""
+    linhas_A = len(A)
+    colunas_B = len(B[0])
+
+    # 1. Criar a matriz C cheia de zeros
+    C = []
+    for i in range(linhas_A):
+        C.append([0] * colunas_B)
+
+    # 2. Multiplicação com 3 laços 'for' aninhados
+    for i in range(linhas_A):
+        for j in range(colunas_B):
+            soma = 0
+            for k in range(len(B)):
+                soma += A[i][k] * B[k][j]
+            C[i][j] = soma
+
+    return C
+
+def somar_coluna(M, indice_coluna):
+    """Retorna a soma de todos os elementos de uma coluna específica."""
+    soma = 0
+    linhas = len(M)
+    for i in range(linhas):
+        soma += M[i][indice_coluna]
+    return soma
+\end{minted}
+\end{listing}
+
+\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+def somar_linha(M, indice_linha):
+    """Retorna a soma de todos os elementos de uma linha específica."""
+    soma = 0
+    colunas = len(M[0])
+    for j in range(colunas):
+        soma += M[indice_linha][j]
+    return soma
+\end{minted}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+%%writefile algoritmo_rede.py
+# ====================================
+# GABARITO: ALGORITMO DA REDE SOCIAL
+# ====================================
+import motor_matrizes as motor
+
+def encontrar_influenciador(matriz_rede):
+    """Retorna o ÍNDICE da coluna com a maior soma (mais seguidores)."""
+    maior_soma = -1
+    indice_famoso = -1
+    colunas = len(matriz_rede[0])
+
+    for j in range(colunas):
+        soma_atual = motor.somar_coluna(matriz_rede, j)
+        if soma_atual > maior_soma:
+            maior_soma = soma_atual
+            indice_famoso = j
+
+    return indice_famoso
+
+def encontrar_isolados(matriz_rede):
+    """Retorna uma lista com os índices de quem não segue ninguém e não é seguido."""
+    isolados = []
+    ordem_matriz = len(matriz_rede)
+
+    for i in range(ordem_matriz):
+        quantos_segue = motor.somar_linha(matriz_rede, i) 
+        quantos_seguidores = motor.somar_coluna(matriz_rede, i) 
+
+        if quantos_segue == 0 and quantos_seguidores == 0:
+            isolados.append(i)
+
+    return isolados
+\end{minted}
+\end{listing}
+
+\pagebreak
+\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+def gerar_recomendacoes(matriz_rede):
+    """Retorna a matriz resultante da operação A x A (amigos em comum)."""
+    # Apenas uma linha de código chama o motor pesado!
+    return motor.multiplicar_matrizes(matriz_rede, matriz_rede)
+\end{minted}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+%%writefile interface_usuario.py
+# ================================
+# GABARITO: INTERFACE DE USUÁRIO
+# ================================
+
+def exibir_perfil_usuario(nomes, indice_usuario, num_seguidores):
+    """Imprime os dados do influenciador da rede."""
+    nome = nomes[indice_usuario]
+    print(f"MAIOR INFLUENCIADOR: {nome}")
+    print(f"Seguidores: {num_seguidores}")
+
+def exibir_isolados(nomes, indices_isolados):
+    """Imprime os nomes dos usuários que estão isolados."""
+    print("USUÁRIOS ISOLADOS:")
+    if len(indices_isolados) == 0:
+        print("Nenhum usuário isolado na rede.")
+    else:
+        for idx in indices_isolados:
+            print(f"- {nomes[idx]}")
+
+\end{minted}
+\end{listing}
+
+
+\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+def exibir_recomendacoes(nomes, matriz_A, matriz_A2, indice_alvo):
+    """Lê a linha do alvo na matriz_A2 e sugere amigos em comum (que ainda não sejam amigos)."""
+    nome_alvo = nomes[indice_alvo]
+    print(f"--- SUGESTÕES DE AMIZADE PARA: {nome_alvo.upper()} ---")
+
+    linha_do_alvo_A2 = matriz_A2[indice_alvo]
+    linha_do_alvo_A = matriz_A[indice_alvo] # Precisamos ver as amizades originais
+    tem_sugestao = False
+
+    # O enumerate pega o índice (j) e o valor (amigos_em_comum) de uma vez só!
+    for j, amigos_em_comum in enumerate(linha_do_alvo_A2):
+
+        ja_sao_amigos = linha_do_alvo_A[j] > 0 # Verifica na matriz original
+
+        # Só sugere se: tem amigos em comum, NÃO é a própria pessoa, e NÃO são amigos ainda
+        if amigos_em_comum > 0 and j != indice_alvo and not ja_sao_amigos:
+            print(f"Você pode se interessar por {nomes[j]} ({amigos_em_comum} pessoas que você segue também seguem esse perfil)")
+            tem_sugestao = True
+
+    if not tem_sugestao:
+        print("Nenhuma sugestão no momento.")
+\end{minted}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# =============================================
+# SCRIPT PRINCIPAL: APP SOCIAL (Test Harness)
+# =============================================
+import motor_matrizes as math_engine
+import algoritmo_rede as rede
+import interface_usuario as ui
+
+# 1. Base de Dados
+nomes = ["Ana", "Bruno", "Carlos", "Diana", "Eduardo"]
+
+# Matriz de Conexões (A)
+matriz_A = [
+    [0, 1, 1, 0, 0],  # Ana segue Bruno e Carlos
+    [1, 0, 1, 1, 0],  # Bruno segue Ana, Carlos e Diana
+    [1, 0, 0, 1, 0],  # Carlos segue Ana e Diana
+    [1, 0, 0, 0, 0],  # Diana segue Ana
+    [0, 0, 0, 0, 0]   # Eduardo é isolado
+]
+
+print("=" * 40)
+print("Beep Beep... INICIANDO ANÁLISE DA REDE SOCIAL ")
+print("=" * 40 + "\n")
+\end{minted}
+\end{listing}
+
+
+\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+try:
+    # 2. Processamento (Lógica)
+    indice_famoso = rede.encontrar_influenciador(matriz_A)
+
+    # Proteção: só calcula seguidores se o aluno já programou a função e não retornou -1
+    if indice_famoso != -1:
+        seguidores_famoso = math_engine.somar_coluna(matriz_A, indice_famoso)
+    else:
+        seguidores_famoso = 0
+
+    isolados = rede.encontrar_isolados(matriz_A)
+    matriz_conexoes = rede.gerar_recomendacoes(matriz_A) # Isso deve retornar a matriz A^2
+
+    # 3. Exibição (Interface)
+    ui.exibir_perfil_usuario(nomes, indice_famoso, seguidores_famoso)
+    print()
+    ui.exibir_isolados(nomes, isolados)
+    print()
+
+    # Testando recomendações para a Ana (índice 0)
+    if len(matriz_conexoes) > 0:
+        # CORREÇÃO AQUI: Passando matriz_A e matriz_conexoes (A^2)
+        ui.exibir_recomendacoes(nomes, matriz_A, matriz_conexoes, 0)
+    else:
+        print("A matriz de recomendações ainda está vazia. Implemente a multiplicação!")
+
+except Exception as e:
+    print(f"ERRO NA EXECUÇÃO: {e}")
+    print("Verifique se você implementou as funções corretamente nos módulos!")
+\end{minted}
+
+\end{document}
