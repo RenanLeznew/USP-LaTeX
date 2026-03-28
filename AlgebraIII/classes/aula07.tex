@@ -1,0 +1,250 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 07 - 26 de Março, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Corpos de Decomposição;
+	\item Corpos Finitos.
+\end{itemize}
+\subsection{Corpos de Decomposição}
+\begin{theorem*}
+	Existe um único corpo K, a menos de isomorfismo, que é corpo de decomposição de \(f(x)\) sobre \(F\). Mais ainda, K é uma extensão de F tal que
+	\[
+		f(x) = a \prod\limits_{j=1}^{\deg{(f)}}(x-x_{j})\in K[x], \quad a\in F,\; \alpha_{j}\in K.
+	\]
+\end{theorem*}
+\begin{proof*}
+	Vamos começar provando a seguinte afirmação:
+
+	\textbf{\underline{Afirmação}:} se \(f(x)\in F[x]\), existe um corpo de decomposição K de \(f(x)\) e \([K:F]\leq (\deg{(f(x))})!\). Com efeito, denote por n o grau de \(f(x)\); podemos supor que existe \(p(x)\) em \(F[x]\) tal que
+	\[
+		p(x)|f(x)\quad\&\quad \deg{(p(x))}\geq 2,
+	\]
+	além de pedir que \(p(x)\) seja irredutível em F. Com isso, o corpo
+	\[
+		F_{1}\coloneqq \frac{F[x]}{\langle p(x) \rangle}
+	\]
+	contém uma raiz de \(p(x)\), e por isso contém também uma raiz de \(f(x)\). Vamos supor que \(\alpha \) é esta raiz, de modo que
+	\[
+		F_1=F(\alpha ),\; [F_1:F]=\deg{(p(x))}\leq n,\; \& F\subseteq F_1=F(\alpha ),
+	\]
+	sendo \(p(x)\) e \(f(x)\) ambos polinômios em \(F_1[x].\) Consequentemente, o polinômio f(x) é totalmente redutível em \(F_1\), tendo forma
+	\[
+		f(x)=b \prod\limits_{k=1}^{\deg{(f(x))}}(x-\beta_{k}),
+	\]
+	pois se este não fosse o caso, poderíamos encontrar um polinômio \(p_1(x)\in F_1[x]\) com \(\deg{(p_{1}(x))}\geq 2\) e \(p_{1}(x)| f(x)\), onde \(p_1(x)\) é irredutível. Daí, poderíamos também construir um corpo
+	\[
+		F_{2}\coloneqq \frac{F_{1}[x]}{\langle p_{1}(x) \rangle}
+	\]
+	com \(F_{2}=F_{1}(\beta )\), sendo \(\beta \in F_{2}\) uma raiz de \(p_{1}(x)\), resultando na torre de corpos
+	\[
+		F\subseteq F_{1}=F(\alpha )\subseteq F_{2}=F(\alpha , \beta ).
+	\]
+	Logo,
+	\[
+		[F_{2}:F]=[F_{2}:F_{1}][F_{1}:F]\leq (n-1)n;
+	\]
+	enfim, repetindo isso repetidamente até dar certo, obtemos \(K= F(\alpha , \beta , \dotsc , \gamma )\), onde todas são raízes de \(f(x)\). \(\blacktriangle\)
+
+	\textbf{\underline{Afirmação}:} se K e K' são dois corpos de decomposição para \(f(x)\), então \(K\cong K'\) (são isomorfos). De fato, sejam \(f(x)\in F[x]\) e \(f'(x)\in F'[x]\), onde
+	\[
+		f'(x)=(\phi_{*}f)(x).
+	\]
+	Então, se K é um corpo de decomposição de \(f(x)\) e \(K'\) de \(f'(x)\), existe um isomorfismo de corpos \(\sigma :K\rightarrow K'\) que estende \(\phi:F\rightarrow F'\): supondo que f e f' têm mesmo grau e suas expressões são
+	\begin{align*}
+		 & f(x)=a \prod\limits_{j=1}^{n}(x-\alpha _{j}) \\
+		 & f'(x)=b \prod\limits_{j=1}^{n}(x-\beta_{j}),
+	\end{align*}
+	onde a e \(\alpha_{j}\) são do corpo F, enquanto que b e \(\beta_{j}\) são do corpo F'. Com isso, \(K=F,\; K'=F',\; \phi:F\rightarrow F'\) é isomorfismo e podemos escolher \(\sigma =\phi \); em particular, o teorema é válido no caso 1, que vai ser o passo 0 do processo de indução, e vamos supor que o teorema vale para todo polinômio \(g(x)\in F[x]\) com grau menor que n, e para todos os corpos (hipótese indutiva).
+
+	Com estas hipóteses, tome \(p(x)\in F[x]\) irredutível com grau pelo menos 2 e que divide \(f(x),\; f(x)\in F[x]\) com grau n. Podemos, então, considerar dois corpos
+	\[
+		F_{1}\coloneqq \frac{F[x]}{\langle p(x) \rangle} \quad\&\quad \frac{F'[x]}{\langle p'(x) \rangle} \eqqcolon F_{1}'
+	\]
+	tal que \(p'(x)=(\phi_{*}p)(x)\) é irredutível e divide \(f'(x)\in F'[x]\):
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-4,1){\(\displaystyle F(\alpha )=\frac{F[x]}{\langle p(x) \rangle}=F_{1}\)};
+			\node(BL) at (-4,-1){F};
+			\node(TR) at (4,1){\(\displaystyle F_{1}'=\frac{F'[x]}{\langle p'(x) \rangle}=F'(\alpha ')\)};
+			\node(BR) at (4,-1){\(F'\)};
+
+			\draw[Arrow, dashed](TL)--node[midway, above] {\(\sigma'\)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\phi\)}(BR);
+			\draw[Arrow](BL)--node[midway, left] {}(TL);
+			\draw[Arrow](BR)--node[midway, right] {}(TR);
+
+		\end{tikzpicture}
+	\end{center}
+	No qual \( \alpha \) é uma raiz de \(p(x)\) (consequentemente, de \(f(x)\)) e \(\alpha '\) é uma de \(p'(x)\) (e de f'(x)), com a existência de \(\sigma \) garantida pela hipótese indutiva (\(\deg{(\sigma (x))} < n\) e \(\deg{(\sigma'(x))} < n\)). Como vimos anteriormente, existe, então um isomorfismo de corpos \(\sigma':F_{1}\rightarrow F_{1}'\) tal que:
+	\begin{itemize}
+		\item[1)] \(\sigma (a)=\phi(a)\) para todo a de F; e
+		\item[2)] \(\sigma '(\alpha )=\alpha '\).
+	\end{itemize}
+	Juntando tudo isso, temos as seguintes relações:
+	\begin{itemize}
+		\item Em \(F_{1}[x]\), vale \(f(x)=(x-\alpha )g(x)\);
+		\item Em \(F_{1}'[x]\), vale \(f'(x)=(x-\alpha')g'(x)\);
+		\item Existe \(g(x)\) em \(F_{1}[x]\) com \(\deg{(g(x))}<\deg{(f(x))}\); e
+		\item Existe \(g'(x)\) em \(F_{1}'[x]\) com \(\deg{(g(x))}<\deg{(f'(x))}\); e
+	\end{itemize}
+	Logo, como \(f(x)\) decompõe em fatores lineares em \(K'(\alpha )\) e g(x) é um fator de \(f(x)\), temos a torre
+	\[
+		K' \subseteq K \subseteq K(\alpha ),
+	\]
+	e já que \(\alpha \in K'\), podemos concluir que a extensão tem grau 1.
+
+	Em particular, se temos dois corpos de decomposição para \(f(x)\), eles devem ser isomorfos, bastando tomar \(F=F'\) e \(\phi = \mathrm{id}_{F}.\) \(\blacktriangle\) \qedsymbol
+\end{proof*}
+
+\subsection{Corpos Finitos}
+\begin{def*}
+	Um corpo F é \textbf{finito} se \(\# (F)<\infty,\; \square\)
+\end{def*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se F é um corpo finito, então \(\mathrm{char}(F)=p>0\), com base no que já vimos!
+
+	Além disso, se F é finito com característica p, então também já sabemos que \(\#(F)=p^{n}\) para algum \(n\geq 1\) -- lembre-se que F é uma extensão de \(\mathbb{Z}_{p}\) e, em particular, um espaço vetorial de dimensão finita sobre \(\mathbb{Z}_{p}\):
+	\[
+		[F:\mathbb{Z}_{p}]=n \Rightarrow F\cong \underbrace{\mathbb{Z}_{p}\times \dotsc \times \mathbb{Z}_{p}}_{\mathclap{\text{n-vezes}}}
+	\]
+\end{tcolorbox}
+
+Os corpos finitos serão parte importante de nossa jornada, e queremos começar provando três propriedades relacionadas a eles:
+\begin{itemize}
+	\item[1)] Para cada p primo e n inteiro positivo, existe F finito tal que \(\#(F)=p^{n}\);
+	\item[2)] Se F é finito, então \(F^{*}=F\setminus{\{0\}}\) é um grupo abeliano finito; e
+	\item[3)] Existe \(a\in F^{*}\) tal que o grupo é cíclico, ou seja, tal que \(F^{*}=(a)\).
+\end{itemize}
+\begin{def*}
+	A \textbf{ordem do elemento a} de um corpo finito é o menor inteiro positivo k tal que
+	\[
+		a^{k}=1. \; \square
+	\]
+\end{def*}
+
+Diante disso, seja F um corpo finito de característica p, \(\# (F)=p^{n}\); então, \(\mathrm{ord}(F^{*})=p^{n}-1\) é a ordem do grupo cíclico \(F^{*}\), com a propriedade proveniente do \hyperlink{lagrange_theorem}{\textit{Teorema de Lagrange}} de que, dado um elemento \(a\in F^{*}\), então \(\mathrm{ord}(a)| p^{n}-1\). Logo,
+\[
+	a^{p^{n}-1}=1 \Rightarrow a^{p^{n}}=a.
+\]
+\begin{lemma*}
+	Cada a em F é uma raiz da equação
+	\[
+		X^{p^{n}}-X =0,
+	\]
+	onde \(X^{p^{n}}-X\) é um elemento de \(F[X]\)
+\end{lemma*}
+\begin{proof*}
+	Cada a não nulo satisfaz a equação proposta, e obviamente que o caso onde \(a=0\) também vale. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	O corpo F é um corpo de decomposição de \(X^{p^{n}}-X\) em F.
+\end{crl*}
+\begin{proof*}
+	Cada a em F é uma raiz de \(X^{p^{n}}-X=0\) pelo lema 1. Portanto,
+	\[
+		\#(F)=p^{n}
+	\]
+	e \(X^{p^{n}}-X\)não pode ter mais que \(p^{n}\) raízes. \qedsymbol
+\end{proof*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se F e F' forem dois corpos finitos com tamanhos iguais, então eles são isomorfos. Este resultado pode parecer meio óbvio, mas o contexto de corpos é necessário; por exemplo, para grupos abelianos finitos, ele não é verdadeiro -- basta considerar os grupos \(G_1=\mathbb{Z}_2 \times \mathbb{Z}_2\) e \(G_{2} = \mathbb{Z}_4\), ambos grupos de ordens 4, mas que não são isomorfos.
+\end{tcolorbox}
+
+\begin{theorem*}
+	Se F é finito e de tamanho \(\#(F)=p^{n}\), então \(F^{*}\) é cíclico.
+\end{theorem*}
+A prova do teorema acima consiste apenas em mostrar que existe a em \(F^{*}\) tal que a ordem de a é \(p^{n}-1\), que é a mesma ordem de \(F^{*}\).
+\begin{lemma*}
+	Seja G um grupo finito abeliano; se a e b são elemento de G tais que
+	\[
+		\mathrm{ord}(a)=n_{1},\; \mathrm{ord}(b)=n_2 \quad\&\quad (n_1, n_2)=1,
+	\]
+	onde \((\cdot , \cdot )\) é o MDC entre os inteiros (ou seja, pedimos que as ordens sejam coprimas). Nestas condições,
+	\[
+		\mathrm{ord}(B)=\mathrm{ord}(a)\mathrm{ord}(b)=n_1 n_2
+	\]
+\end{lemma*}
+\begin{proof*}
+	Por conta da ciclicidade, temos
+	\begin{align*}
+		(ab)^{n_1 n_2} = ((ab)^{n_1})^{n_2} & = (a^{n_1}b^{n_1})^{n_2} \\
+		                                    & = e (b^{n_2})^{n_1}      \\
+		                                    & = e.
+	\end{align*}
+	Logo, se definirmos \(k\coloneqq \mathrm{ord}(ab)\), então \(k | n_1 n_2\), donde segue que
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; e=(ab)^{k} \Rightarrow e=((ab)^{k})^{n_1}=b^{kn_1}\Rightarrow n_2|kn_1 \Rightarrow n_2|k  \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; e=(ab)^{k} \Rightarrow e=((ab)^{k})^{n_2}=a^{kn_2}\Rightarrow n_1|kn_2 \Rightarrow n_1|k.
+	\end{align*}
+	Portanto, \(n_1 n_2 | k\) e \(k = n_1 n_2\). \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Se G é um grupo abeliano finito, a e b são elementos de G, e
+	\[
+		n_1 = \mathrm{ord}(a) \quad\&\quad n_2=\mathrm{ord}(b),
+	\]
+	então existe c em G tal que
+	\[
+		\mathrm{ord}(c)= \mathrm{mmc}(n_1, n_2).
+	\]
+\end{crl*}
+\begin{theorem*}
+	Se G é finito, então cada a em G é tal que sua ordem divide m, onde \(m=\max\limits_{b\in G}(\mathrm{ord}(b))\).
+\end{theorem*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Teorema de Lagrange},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	O \hypertarget{lagrange_theorem}{teorema de Lagrange}, em sua forma pura, pode ser enunciado como
+	\begin{quote}
+		``Se H é um subgrupo de G, então \(| G | = [G:H] | H |\)'',
+	\end{quote}
+	onde \(| \cdot  | \) é o tamanho dos grupos e \([G:H]\) é a ordem dos subgrupos (o número de elementos deles).
+
+	Uma de suas consequências é que a ordem de qualquer elemento a de um grupo finito divide a ordem do grupo todo, porque a ordem de um elemento a é exatamente a ordem do subgrupo cíclico gerado por ele; logo, se o grupo tem n elementos, então
+	\[
+		a^{n}=e.
+	\]
+\end{tcolorbox}
+\end{document}
