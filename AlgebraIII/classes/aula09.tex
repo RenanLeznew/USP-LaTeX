@@ -1,0 +1,368 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 09 de Abril, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Final de Corpos Finitos;
+	\item Automorfismos.
+\end{itemize}
+\subsection{Finalizando Corpos Finitos}
+Hoje vai ser um ponto alto na teoria de Galois: vamos terminar a parte de corpo finito, introduzir os automorfismos de corpos e alguns exemplos. Relembremos a última proposição que vimos:
+\begin{prop*}
+	O corpo \(F_{p^{n}}\) é uma extensão de grau n do corpo \(F_{p}\), ou seja,
+	\[
+		F_{p^{n}} = F_{p}(\alpha ) \quad\&\quad [F_{p^{n}}:F_{p}] = n.
+	\]
+\end{prop*}
+\begin{proof*}
+	Sabemos que o grupo \(F_{p^{n}}^{*}\) é cíclico e que existe gerador \(\alpha \) de \(F_{p^{n}}^{*}\) tal que
+	\[
+		F_{p}(\alpha ) = F_{p^{n}},
+	\]
+	pois é claro que \(F_{p}(\alpha )\subseteq F_{p^{n}}\) e, sendo \(F_{p}(\alpha )\) o menor subcorpo de \(F_{p^{n}}\) que contém \(F_{p}\cup \{\alpha \}\), temos portanto
+	\[
+		F_{p^{n}}\subseteq F_{p}(\alpha ),
+	\]
+	pois os elementos não nulos de \(F_{p^{n}}\) são potências de \(\alpha \). \qedsymbol
+\end{proof*}
+\begin{example}
+	O primeiro exemplo é considerando \(p=3\) e \(n=2\), resultando em \(F_{9}\), que tem como corpo primo \(F_{3}\). Com o que aprendemos,
+	\[
+		[F_{9}: F_{3}]=2 \Rightarrow \mathrm{dim}_{F_{3}}(F_{9}) = 2,
+	\]
+	e pela proposição, \(F_{9}\cong F_{3}(\alpha )\). De fato, seja, por exemplo,
+	\[
+		p(x) = x^{2}+1;
+	\]
+	então, \(p(x)\) é irredutível sobre \(F_{3}[x]\), pois se fosse redutível, ele teria uma raiz em \(F_{3}\), mas \(F_{3} = \{0, 1, 2\}\), tal que
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; 0^{2} + 1 = 1\;\mathrm{mod}\; 3=1  \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; 1^{2} + 1 = 2\;\mathrm{mod}\; 3=2  \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; 2^{2} + 1 = 5\;\mathrm{mod}\; 3=2.
+	\end{align*}
+	Logo,
+	\[
+		F_{9} \cong \frac{F_{3}[x]}{\langle p(x) \rangle} = \{a_{0}+a_1 \alpha :\; a_{0}, a_1\in F_{3},\; \alpha^{2}=-1\},
+	\]
+	e como não tem -1 em \(F_{3}\), seu correspondente é 2, ou seja, o conjunto acima equivale a
+	\[
+		F_{9} \cong \frac{F_{3}[x]}{\langle p(x) \rangle} = \{a_{0}+a_1 \alpha :\; a_{0}, a_1\in F_{3},\; \alpha^{2}=2\}.
+	\]
+
+	Neste caso,
+	\[
+		F_{9}^{*} = F_{9}\setminus{\{0\}},
+	\]
+	resultando num grupo cíclico de ordem 8. Se for verdade que \(\alpha \) tem ordem 4 e que \(\alpha + 1\) tem ordem 8, então \(\alpha \) gera a extensão \(F_{p^{n}}/F_{p}\), mas não gera \(F_{p^{n}}^{*}\)!
+\end{example}
+\begin{exr}
+	Mostre que \(\alpha \) acima tem ordem 4 e que \(\alpha +1\) tem ordem 8.
+\end{exr}
+\begin{example}
+	No caso de \(F_{8}\), podemos escrever
+	\[
+		F_{8} = F_{2^{3}}/F_{2},
+	\]
+	onde \(F_{2} = \{0, 1\}\); consequentemente, \([F_{8}:F_{2}]=3\). Qual é a raiz que determina o grupo cíclico?
+
+	Vamos considerar
+	\[
+		p(x) = x^{3} + x+1\in F_{2}[x],
+	\]
+	que é irredutível. Então,
+	\[
+		F_{8}\cong \frac{F_{2}[x]}{\langle x^{3}+x+1 \rangle} = \{a_{0}+a_1\alpha +a_2\alpha^{2}:\; a_{0}, a_1, a_2\in F_{2},\; \alpha^{3} = \alpha +1\}.
+	\]
+
+	Nesse exemplo, \(F_{8}^{*} = F_{8}\setminus{\{0\}}\) é um grupo cíclico de ordem 7 e, assim, \(F_{8}^{*} = F_{2}(\alpha )\).
+\end{example}
+
+É interessante entender como os \(F_{p^{n}}\)'s interagem entre si, em que casos eles são subcorpos uns dos outros, etc.
+\begin{lemma*}
+	Suponha que n é um inteiro positivo maior que m e que \(x^{m}-1, \; x^{n}-1\in F[x]\); Então,
+	\[
+		(x^{m}-1) | (x^{n}-1) \Longleftrightarrow m |n
+	\]
+\end{lemma*}
+\begin{theorem*}
+	Seja p um primo e sejam n, m inteiros positivos distintos (sem perda de generalidade, \(n > m\)). Então,
+	\[
+		F_{p^{m}}\subseteq F_{p^{n}} \Longleftrightarrow m | n.
+	\]
+\end{theorem*}
+\begin{proof*}
+	\(\Rightarrow )\): vamos supor que
+	\[
+		F_{p}\subseteq F_{p^{m}} \subseteq F_{p^{n}};
+	\]
+	então,
+	\begin{align*}
+		n = [F_{p^{n}}:F_{p}] & = [F_{p^{n}}:F_{p^{m}}][F_{p^{m}}:F_{p}] \\
+		                      & = [F_{p^{n}}:F_{p^{m}}] m,
+	\end{align*}
+	que é exatamente a propriedade de m dividir n.
+
+	\(\Leftarrow )\): suponha que \(n = mr + d\); pelo lema, podemos escrever
+	\begin{align*}
+		                    & x^{n}-1 = (x^{m}-1)(x^{n-m}+x^{n-2m}+\dotsc +x^{n-rm}) + (x^{n-rm}-1) \\
+		\Rightarrow         & (x^{m}-1) | (x^{n}-1)                                                 \\
+		\Longleftrightarrow & x^{n-dm} = 1                                                          \\
+		\Longleftrightarrow & n = dm.
+	\end{align*}
+	Sabemos que m m divide n; logo, \((x^{m}-1) | (x^{n}-1)\), donde segue que \((p^{m}-1)|(p^{n}-1)\), e, aplicando o lema mais uma vez,
+	\[
+		(x^{p^{m}-1}-1)|(x^{p^{n}-1} - 1) \Rightarrow (x^{p^{m}}-x) | (x^{p^{n}}-x).
+	\]
+	Mais ainda, para todo k maior ou igual a 1, podemos escrever \(F_{p^{k}}\) como o corpo das raízes do polinômio \(\phi_{p, k}(x) = x^{p^{k}}-x\), e com a relação de \(x^{p^{m}}-x\) dividir \(x^{p^{n}}-x\), vale que todas as raízes de \(x^{p^{m}}-x\) são raízes do polinômio \(x^{p^{n}}-x\), e portanto
+	\[
+		F_{p^{m}}\subseteq F_{p^{n}}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\pagebreak
+As relações entre os diferentes \(F_{p^{n}}\)'s que são subcorpos formam um Poset (\textit{partially ordered set}):
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TTL) at (0, 2){\(\vdots\)};
+		\node(TTT) at (2, 2){\(\vdots\)};
+		\node(TTR) at (4, 2){\(\vdots\)};
+		\node(TT) at (1,0){\(F_{p^{6}}\)};
+		\node(TR) at (3,0){\(F_{p^{4}}\)};
+		\node(CL) at (0,-2){\(F_{p^{3}}\)};
+		\node(CR) at (2,-2){\(F_{p^{2}}\)};
+		\node(BB) at (1,-4){\(F_{p}\)};
+
+		\draw[-](BB)--(CR);
+		\draw[-](BB)--(CL);
+		\draw[-](CL)--(TT);
+		\draw[-](CR)--(TT);
+		\draw[-](CR)--(TR);
+		\draw[-](TT)--(TTT);
+		\draw[-](TT)--(TTL);
+		\draw[-](TR)--(TTT);
+		\draw[-](TR)--(TTR);
+
+
+	\end{tikzpicture}
+\end{center}
+Curiosamente, existe um máximo para esse conjunto, que será chamado de \textbf{fecho algébrico absoluto de \(F_{p}\)}, dado por
+\[
+	F_{p^{\infty}}\coloneqq \bigcup_{n\geq 1}^{}F_{p^{n}},
+\]
+e o mínimo que é \(F_{p}\). Não é óbvio que \(F_{p^{\infty}}\) é um corpo, afinal a união de corpos nem sempre é um; porém, como temos a rede de relações, torna-se mais fácil.
+Elaborar esse raciocínio fica para um futuro remoto.
+
+\subsection{Automorfismos de Corpos}
+\begin{def*}
+	Sejam F, K dois corpos e suponha que K é uma extensão de F.
+	\begin{itemize}
+		\item[1)] O homomorfismo de corpos \(\varphi :K\rightarrow K\) é chamado \textbf{automorfismo de K} se \(\varphi \) é um isomorfismo; o grupo de automorfismos (sob composição) de K é
+		      \[
+			      \mathrm{Aut}(K) \coloneqq \{\varphi :K\rightarrow K:\; \varphi \text{ é automorfismo}\};
+		      \]
+		\item[2)] Um automorfismo \(\varphi \in \mathrm{Aut}(K)\) é um \textbf{F-automorfismo} se
+		      \[
+			      \varphi (a) = a, \quad \forall a \in F,
+		      \]
+		      e o grupo deles (sob composição) será denotado por \(\mathrm{Aut}_{F}(K)\). \(\square\)
+	\end{itemize}
+\end{def*}
+De certa forma, analisando pelo diagrama
+\begin{center}
+	\begin{tikzpicture}[
+			observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+			latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+			error/.style ={circle, thick, draw, text centered},
+			confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+			outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+		]
+		\node(TL) at (-1,1){K};
+		\node(BL) at (-1,-1){F};
+		\node(TR) at (1,1){K};
+		\node(BR) at (1,-1){F};
+
+		\draw[-](TR)--node[midway, above] {}(BR);
+		\draw[Arrow](BL)--node[midway, below] {Id}(BR);
+		\draw[-](TL)--node[midway, left] {}(BL);
+		\draw[Arrow](TL)--node[midway, above] {\(\varphi \)}(TR);
+	\end{tikzpicture}
+\end{center}
+faz sentido pensar nos F-automorfismos como extensões da identidade de F a K.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Os grupo \(\mathrm{Aut}(K),\; \mathrm{Aut}_{F}(K)\) são grupos em relação à composição, e \(\mathrm{Aut}_{F}(K)\) é um subgrupo de \(\mathrm{Aut}(K)\).
+\end{tcolorbox}
+
+Em particular, se \(K = \mathbb{Q}\) ou \(K = F_{p}\) para p primo, então \(\mathrm{Aut}(K) = \{\mathrm{Id}\}\); de fato, \(\varphi (1) = 1\) e, se m é um elemento de \(F_{p}\), então
+\[
+	n = 1 + \dotsc + 1 \quad\&\quad \varphi (n) = n,
+\]
+enquanto que, no caso de \(K = \mathbb{Q}\), para todo n inteiro, temos \(\varphi (n) = n\) e \(\displaystlye \varphi \biggl(\frac{q}{p}\biggr) = \frac{q}{p},\; p, q\in \mathbb{Z}\) e \(p\neq 0\).
+Por isso, quando o corpo K for um corpo primo/primitivo (\(F_{p}\)) ou for \(\mathbb{Q}\), escreveremos apenas \(\mathrm{Aut}(K) \coloneqq \mathrm{Aut}_{F_{p}}(K) = \mathrm{Aut}_{\mathbb{Q}}(K).\)
+
+\begin{example}
+	No caso de \(K = \mathbb{Q}(\sqrt[]{2})\), os automorfismos de K são
+	\[
+		\mathrm{Aut}(K) =  \{\varphi :K\rightarrow K:\; \varphi \text{ é isomorfismo}\},
+	\]
+	e como \(K = \{a_{0}+a_1\sqrt[]{2}:\; a_{0}, a_1\in \mathbb{Q}\}\), temos
+	\[
+		\varphi (a_{0} + a_1\sqrt[]{2}) = a_{0} + a_1 \varphi (\sqrt[]{2}),
+	\]
+	ou seja, \(\varphi \) é definido unicamente uma vez que sabemos o que é \(\varphi (\sqrt[]{2})\). O que ele pode ser?
+
+	Bom, como \(\varphi\) é isomorfismo, a imagem de \(\sqrt[]{2}\) sob \(\varphi \) só pode ser a raiz da equação \(x^{2} - 2 = 0\), resultando nas opções \(\sqrt[]{2}\) ou \(-\sqrt[]{2}\); logo,
+	\[
+		\mathrm{Aut}(K) = \{\mathrm{Id}, \psi :\; \psi(\sqrt[]{2}) = -\sqrt[]{2}\}\cong \mathcal{C}_{2},
+	\]
+	onde \(\mathcal{C}_{2}\) é o \hyperlink{cyclic_group}{\textit{Grupo Cíclico de Ordem 2}}
+\end{example}
+\begin{example}
+	Consideremos, agora, \(K = \mathbb{Q}(\sqrt[]{2}, \sqrt[]{3})\), cuja forma é
+	\[
+		\mathbb{Q}(\sqrt[]{2}, \sqrt[]{3}) = \{a_{0} + a_1 \sqrt[]{2} + a_2 \sqrt[]{3} + a_3 \sqrt[]{6}:\; a_{i}\in \mathbb{Q}\},
+	\]
+	tal que \([K:\mathbb{Q}]=4\); qual é a cara dos automorfismos desse grupo?
+
+	Como cada \(\varphi \) é definido unicamente uma vez que sabemos \(\varphi (\sqrt[]{2})\) e \(\varphi (\sqrt[]{3})\), precisamos estudar estes elementos.
+	Um dos casos é \(\varphi_{0} (\sqrt[]{2}) = \sqrt[]{2}\) e \(\varphi_{0}(\sqrt[]{3}) = \sqrt[]{3}\), ou seja, \(\varphi_{0} = \mathrm{Id}\); as outras opções são listadas abaixo, seguindo mudanças de sinais:
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \varphi_{1}(\sqrt[]{2}) = -\sqrt[]{2},\; \varphi_1(\sqrt[]{3}) = \sqrt[]{3}  \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \varphi_{2}(\sqrt[]{2}) = \sqrt[]{2},\; \varphi_2(\sqrt[]{3}) = -\sqrt[]{3}  \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \varphi_{3}(\sqrt[]{2}) = -\sqrt[]{2},\; \varphi_3(\sqrt[]{3}) = -\sqrt[]{3}
+	\end{align*}
+	Poderia acontecer de \(\varphi (\sqrt[]{2}) = \sqrt[]{3}\)? Não! Basta notar que
+	\[
+		\varphi (\sqrt[]{2})\varphi (\sqrt[]{2}) = \sqrt[]{3}\sqrt[]{3} \Rightarrow \varphi (2) = 3,
+	\]
+	uma contradição.
+\end{example}
+\begin{exr}
+	Mostre que, no exemplo acima, \(\mathrm{Aut}(\mathbb{Q}(\sqrt[]{2}, \sqrt[]{3})) = \{\varphi_{0}, \varphi_1, \varphi_2, \varphi_3\}\cong \mathcal{C}_2 \times \mathcal{C}_2\).
+\end{exr}
+\begin{lemma*}
+	Se \(q(x), f(x)\in F[x]\), q é irredutível e \(\alpha \in K\), onde K é uma extensão de F tal que \(\alpha \) é uma raiz comum de \(q(x)\) e \(f(x)\), então \(q(x)\) divide \(f(x).\)
+\end{lemma*}
+\begin{exr}
+	Prove o lema acima.
+\end{exr}
+\begin{theorem*}
+	O grupo de automorfismos de um corpo finito \(F_{p^{n}}\) é isomorfo ao grupo cíclico de ordem n \(\mathcal{C}_{n}\).
+\end{theorem*}
+\begin{proof*}
+	Sabemos que
+	\[
+		[F_{p^{n}}: F_{p}] = n \quad\&\quad F_{p^{n}} = F_{p}(\alpha ).
+	\]
+	Daí, seja \(q(x)\in F_{p}[x]\) minimal para \(\alpha \) (q é mônico, irredutível, \(\deg{(q(x))}=n\) e \(q(\alpha )=0\)) e suponha que \(\alpha\in F_{p^{n}} \) é uma raiz de
+	\[
+		\mathfrak{F}_{p, n}(x) = x^{p^{n}}-x\in F_{p}[x].
+	\]
+	Então, pelo lema, segue que \(q(x)\) divide \(\mathfrak{F}_{p, n}(x)\); por isso, o polinômio \(q(x)\) possui n raízes distintas em \(F_{p^{n}},\) (polinômio assim são chamados \textit{separáveis}).
+
+	Logo, podemos afirmar que
+	\[
+		\mathrm{ord}(\mathrm{Aut}(K)) = n,
+	\]
+	pois temos uma correspondência 1 a 1 entre os automorfismos em
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-2,1){\(F_{p^{n}} = F_{p}(\alpha )\)};
+			\node(BL) at (-2,-1){ \(F_{p}\)};
+			\node(TR) at (1,1){ \(F_{p^{n}}\)};
+			\node(BR) at (1,-1){ \(F_{p}\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi \)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {}(BR);
+			\draw[Arrow](TL)--node[midway, left] {}(BL);
+			\draw[Arrow](TR)--node[midway, right] {}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	e as raízes de \(q(x)\).
+
+	Agora, vamos definir \(\mathfrak{F}_{p}:F_{p^{n}}\rightarrow F_{p^{n}}\) como \(\mathfrak{F}_{p}(a) = a^{p}\), tal que, como \(p\) divide \(\binom{p}{j}\) para todo j entre 1 e \(p-1\),
+	\begin{align*}
+		\mathfrak{F}_{p}(a+b) = (a+b)^{p} & =\sum\limits_{j=0}^{p}\binom{p}{j}a^{p-j}b^{j} \\
+		                                  & = a^{p}+b^{p}                                  \\
+		                                  & = \mathfrak{F}_{p}(a) + \mathfrak{F}_{p}(b),
+	\end{align*}
+	e
+	\[
+		\mathfrak{F}_p(ab) = (ab)^{p}=a^{p}b^{p} = \mathfrak{F}_p(a)\mathfrak{F}_p(b),
+	\]
+	concluindo que \(\mathfrak{F}_p\) é homomorfismo de corpos, e consequentemente deve ser injetor; por cardinalidade (?), \(\mathfrak{F}_p\) é sobrejetor e portanto um isomorfismo de corpos.
+
+	\textbf{\underline{Afirmação}:} O grupo de automorfismos de \(F_{p^{n}}\) é gerado por \(\mathfrak{F}_{p}\). Com efeito, a ideia da prova dessa firmação é que, para todo a em \(F_{p^{n}},\) temos
+	\[
+		\mathfrak{F}_{p}^{2}(a) = a^{p^{2}} \quad\&\quad (\mathfrak{F}_{p})^{k}(a) = a^{p^{k}},\; \forall k\geq 1.
+	\]
+	Assim,
+	\[
+		\mathfrak{F}_{p}^{n}(a) = a^{p^{n}} =a \Rightarrow \mathfrak{F}_{p}^{n} = \mathrm{Id}.
+	\]
+	Daí, se isso for suficiente para concluir que \(\mathfrak{F}_{p}^{n}\) é de ordem n, estaremos feitos; de fato, se \(F_{p^{n}}=F(\alpha )\) com \(\alpha \in F_{p^{n}}\) gerador de \(F_{p^{n}}^{*}\), então
+	\[
+		\mathfrak{F}_{p}^{k}(\alpha ) = \alpha^{p^{k}},
+	\]
+	e para todo a em \(F_{p^{n}},\) vale que
+	\[
+		a^{p^{k}}=a,
+	\]
+	ou seja, \(x^{p^{k}}-x\) possui \(p^{n}\) raízes, mas isso é uma contradição, pois \(k<n\). \(\blacktriangle\)
+
+	Portanto, \(\mathfrak{F}_{p}\) tem ordem n, e \(\mathrm{Aut}(F_{p^{n}})\) é isomorfo a um grupo cíclico de ordem n gerado pelo automorfismo de Frobenius. \qedsymbol
+\end{proof*}
+
+\begin{def*}
+	O isomorfismo \(\mathfrak{F}_{p}\) é chamado \textbf{endomorfismo de Frobenius.} \(\square\)
+\end{def*}
+\begin{exr}
+	Seja m um inteiro que divide n, tal que \(F_{p^{n}}\supseteq F_{p^{m}}\); descreva os automorfismos
+	\[
+		\mathrm{Aut}_{F_{p^{m}}}(F_{p^{n}}),
+	\]
+	ou seja, descreva os \(F_{p^{m}}\)-automorfismos de \(F_{p^{n}}.\)
+\end{exr}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Grupos Cíclicos},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	O \hypertarget{cyclic_group}{\textbf{grupo cíclico de ordem n}}, denotado \(\mathcal{C}_{n}\), é um grupo que é igual a um de seus subgrupos cíclicos de ordem n, que é o subgrupo das potências inteiras de um de seus elementos g: \(\langle g \rangle = \{g^{k}:\; k\in \mathbb{Z}\}\); a ordem dele, então, é o número de elementos em \(\langle g \rangle\).
+	No caso onde G é igual a um desses subgrupos, diremos que o elemento g que gerou o subgrupo é o \textbf{gerador de G}.
+\end{tcolorbox}
+
+\end{document}

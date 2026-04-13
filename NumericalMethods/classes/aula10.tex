@@ -1,0 +1,261 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 09 de Abril, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Computação Científica;
+	\item Erros de Arredondamento.
+\end{itemize}
+\subsection{Computação Científica}
+No computador, a memória é finita, então não é possível representar um número, como uma dízima não periódica, por completo. O padrão IEEE 754 (\textit{Double Precision}) usa 64 bits para representar um número real: 1 bit para o sinal, 11 para o expoente e 52 para a \textit{mantissa}, que é basicamente os dígitos significativos.
+Além disso, frações simples na base 10 podem virar dízimas periódicas na base 2, forçando o computador a "cortar" o número, ou seja, o computador não entende, por exemplo, "0,1"; ao invés disso, ele entende bits, e o padrão IEEE 754 é a norma mundial para aritmética de ponto flutuante.
+
+Imagine um número real x representado como:
+\[
+	x = \pm M \times B^{E}.
+\]
+Vamos explicar o que é cada parte:
+
+\textbf{O Sinal}: 1 bit (0 para positivo, 1 para negativo).
+
+\textbf{Mantissa} (M): É onde reside a precisão. No formato de precisão dupla (double), temos 52 bits. Se um número precisa de 53 bits para ser representado com exatidão, o 53º é "jogado fora", gerando o erro.
+
+\textbf{Expoente} (E): Define a ordem de grandeza. É o que permite o computador representar desde o tamanho de um átomo até a distância entre galáxias usando o mesmo número de bits.
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Como a base é B=2, números que são frações exatas em base 10 (como \(\frac{1}{10}=0.1\)) tornam-se dízimas periódicas em binário (0.00011001100...2); como a mantissa é finita, o corte é inevitável.
+\end{tcolorbox}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# DEMONSTRAÇÃO 1: A ilusão da matemática de ponto flutuante
+print("--- Teste de Soma Simples ---")
+
+resultado = 0.1 + 0.2
+print(f"O computador diz que 0.1 + 0.2 = {resultado}")
+
+if resultado == 0.3:
+    print("Conclusão: A matemática funciona perfeitamente!")
+else:
+    print("Conclusão: Ocorreu um erro de representação (arredondamento)!")
+
+# Mostrando o que o computador realmente guardou na memória (com 55 casas decimais)
+print("\n--- O que está escondido na memória ---")
+print(f"Valor real de 0.1: {0.1:.55f}")
+print(f"Valor real de 0.2: {0.2:.55f}")
+print(f"Valor real de 0.3: {0.3:.55f}")
+\end{minted}
+\end{listing}
+
+Quando o número real possui mais algarismos significativos do que a memória permite guardar, acontece um erro de armazenamento, conhecido também como \textbf{erro de arredondamento}; um exemplo disso é o erro de arrendondamento ao tentar armazenar \(\pi \) com apenas 4 casas -- ao invés de \(\pi = 3.141592\), fica \(\pi \approx 3.1416\).
+
+Outro possível erro é quando substituímos um processo matemático finito, como uma aproximação por série de Taylor, por uma versão finita sua, resultando no erro metodológico conhecido como \textbf{erro de truncamento}, onde ``truncar'' é um verbo que dá a ideia de ``cortar''. No exemplo das séries de Taylor mencionadas, se considerarmos a de \(e^{x}\), ela seria
+\[
+	e^{x} = 1 + x + \frac{x^{2}}{2!} + \dotsc ,
+\]
+mas se somarmos apenas os 3 primeiros termos, o erro entre o resultado real e o calculado é o erro de truncamento.
+
+Com base nos erros mencionados, dá para imaginar que o conjunto dos números da máquina não é um contínuo, tampouco estão igualmente espaçados -- na reta real, entre quaisquer dois números, sempre há um terceiro, mas isso não é verdade no computador! O conjunto de pontos flutuantes, \(\mathbb{F}\), é finito, e quebrar isso levanta ainda outros tipos de erros:
+\begin{itemize}
+	\item \textbf{Overflow}: ocorre quando o expoente E ultrapassa o valor máximo permitido pela arquitetura do computador: se ela libera 11 bits para precisão dupla, são permitidos expoentes até 1023, e se uma operação resulta em \(2^{1024}\), o computador não tem como registrar a magnitude -- ele desiste e retorna Inf (infinito);
+	\item \textbf{Underflow}: ocorre quando o número é tão, tão pequeno (próximo de zero) que o expoente atinge seu limite inferior: se ele for o expoente -1022, o expoente -1023 seria arredondado para 0.
+\end{itemize}
+Com isso, faz sentido definir que
+\begin{def*}
+	O \textbf{épsilon \(\mathbf{\varepsilon }\)} de uma máquina é o limite superior do erro \textit{relativo} da representação, a distância entre o número 1.0 e o próximo número imediatamente representável na máquina. \(\square\)
+\end{def*}
+Para pensar nele, ele é o número tal que, se somarmos 1.0 a qualquer valor menor que, por exemplo, \(\varepsilon/2\), então o computador ``absorve'' o valor e ele continua sendo 1.0.
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import sys
+
+# DEMONSTRAÇÃO 2: Encontrando o Épsilon da Máquina ao vivo
+eps = 1.0
+
+# O laço roda enquanto o computador conseguir notar a diferença entre 1 e (1 + eps/2)
+while 1.0 + (eps / 2.0) > 1.0:
+    eps = eps / 2.0
+
+print(f"Épsilon calculado manualmente: {eps}")
+print(f"Épsilon oficial do Python:   {sys.float_info.epsilon}")
+
+# Provando o limite da máquina
+print("\nO que acontece se somarmos metade do Épsilon ao número 1?")
+numero_minusculo = eps / 2.0
+
+if 1.0 + numero_minusculo == 1.0:
+    print("O computador ignorou o número! 1.0 + minúsculo = 1.0 (Absorção)")
+else:
+    print("O computador conseguiu registrar a soma.")
+\end{minted}
+\end{listing}
+
+No computador, o padrão de 64 bits consegue armazenar apenas em torno de 15 a 17 dígitos significativos, e isso dá origem a um fenômeno conhecido como \textbf{Cancelamento Catastrófico}, que é quando tentarmos subtrair dois números de grandezas muito próximas, como calcular \(\sqrt[]{x+1} - \sqrt[]{x}\) para \(x=10^{16}\); neste caso, os primeiro 15 dígitos das duas raízes são idênticos, e, ao subtraí-los, eles basicamente se anular! Consequentemente, a informação matemática é destruída e o computador preenche o vazio com zeros ou ``lixos de memórias''.
+
+Para evitar essa perda de dados, é comum racionalizar a equação multiplicando pelo seu conjugado, que transforma a subtração problemática no numerador em uma adição segura no \textit{denominador}:
+\[
+	y = \sqrt[]{x+1}-\sqrt[]{x} \rightsquigarrow \overline{y} = (\sqrt[]{x+1}-\sqrt[]{x}) \frac{\sqrt[]{x+1}+\sqrt[]{x}}{\sqrt[]{x+1}+\sqrt[]{x}} = \frac{1}{\sqrt[]{x+1}+\sqrt[]{x}}
+\]
+A importância prática disso se dá no fato de que, se essa equação instável for o denominador de um algoritmo maior, por exemplo uma força \(F = \frac{100}{y}\), então o ``quase zero'' vira um zero absoluto, causando um erro fatal de divisão por zero e travando o software.
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import math
+
+x = 10**16 # valor extremo
+
+print(f"--- SIMULAÇÃO: Calculando F = 100 / y para x = {x} ---\n")
+
+# --- CENÁRIO 1: Abordagem Direta (Fórmula Instável) ---
+print("MÉTODO 1: Fórmula Direta (com subtração)")
+try:
+    # A máquina tenta subtrair números idênticos. O resultado vira 0.0
+    y_instavel = math.sqrt(x + 1) - math.sqrt(x)
+
+    # O programa tenta dividir por zero e quebra
+    F_instavel = 100 / y_instavel
+    print(f"Resultado F: {F_instavel}")
+
+except ZeroDivisionError:
+    print("ERRO FATAL: Divisão por zero!")
+    print("   O y instável colapsou para 0.0 devido ao cancelamento catastrófico e quebrou o sistema.\n")
+
+# --- CENÁRIO 2: Abordagem Algébrica (Fórmula Estável) ---
+print("MÉTODO 2: Fórmula Racionalizada (com soma)")
+try:
+    # Trocamos a subtração por uma adição. A informação é preservada (5e-09)
+    y_estavel = 1 / (math.sqrt(x + 1) + math.sqrt(x))
+
+    # A divisão ocorre perfeitamente
+    F_estavel = 100 / y_estavel
+    print(f" SUCESSO: Força F = {F_estavel:.2f}")
+    print("   A precisão foi mantida. O algoritmo sobreviveu e calculou corretamente.")
+
+except Exception as e:
+    print(f"Erro: {e}")
+\end{minted}
+\end{listing}
+
+\subsection{Exercícios Teóricos e Práticos}
+
+\textbf{A Origem dos Erros}: Diferencie claramente o Erro de Arredondamento do Erro de Truncamento em métodos numéricos. Dê um exemplo clássico para cada um dos casos.
+
+\textbf{O Paradoxo da Soma}: Ao calcular a soma harmônica
+\[
+	S = \sum\limits_{n=1}^{N}\frac{1}{n}
+\]
+para um N muito grande (ex: 10 milhões) em um computador com precisão simples, um programador nota que calcular a soma de n=1 até N (ordem crescente de n) resulta em um valor ligeiramente diferente de calcular de n=N até 1 (ordem decrescente). Explique por que essa diferença ocorre e qual dos dois métodos produz o resultado mais preciso.
+
+\textbf{Fugindo do Cancelamento Catastrófico} Considere a função matemática abaixo para valores de x muito próximos de zero (ex: \(x=10^{-8}\)):
+\[
+	f(x) = \frac{1-\cos^{}{(x)}}{x^{2}}.
+\]
+
+a) Explique por que calcular essa função diretamente no computador causará uma perda severa de algarismos significativos.
+b) Utilizando a identidade trigonométrica \(\displaystyle \sin^{2}{(x)} = \frac{1-\cos^{}{(2x)}}{2}\), proponha uma equação matematicamente equivalente para f(x) que seja numericamente estável para valores pequenos de x.
+
+\textbf{Racionalização de Raízes}: A função \(g(x) = \sqrt[]{x^{2}-1}-x\) sofre de instabilidade numérica quando avaliada para valores de x muito grandes. Reescreva a função g(x) de modo a evitar o cancelamento catastrófico.
+
+\textbf{O Limite de Taylor e o Épsilon}: Sabemos que o número neperiano 𝑒 pode ser calculado pela Série de Taylor infinita:
+\[
+	e = \sum\limits_{n=0}^{\infty}\frac{1}{n!} = 1 + 1 + \frac{1}{2!} + \frac{1}{3!}+\frac{1}{4!} + \dotsc
+\]
+Escreva um programa em Python que calcule o valor de 𝑒 iterativamente. O programa deve parar de somar novos termos quando o próximo termo a ser adicionado, \(\frac{1}{n!}\), for tão pequeno que não fará mais diferença na soma total (ou seja, quando o termo for menor ou igual ao Épsilon da máquina, ou quando o valor da soma parar de mudar).
+
+\subsubsection{Gabarito}
+Respostas Teóricas e Conceituais
+
+1. Resposta:
+
+Erro de Arredondamento: É causado pela limitação física do hardware em representar números reais com infinitas casas decimais usando uma quantidade finita de memória (bits).
+
+Exemplo: Armazenar o número \(\pi \) como 3.14159265 em uma variável ou tentar representar a fração 1/10 em base binária, o que gera uma dízima periódica que precisa ser cortada.
+
+Erro de Truncamento: É originado pelo método matemático escolhido. Ocorre quando substituímos um procedimento infinito por um finito, independentemente do computador ser perfeito ou não.
+
+Exemplo: Calcular o valor de sin(x) usando apenas os 3 primeiros termos de sua Série de Taylor, ignorando o restante da série infinita.
+
+2. Resposta: Ocorre o fenômeno do acúmulo de erro por absorção. A soma mais precisa é a decrescente (de n=N até 1). Quando n é muito grande, o termo 1n é um número muito pequeno. Se somarmos do maior para o menor (começando por 11+12…), a variável acumuladora rapidamente se torna um número consideravelmente grande. Quando o laço chegar nos valores muito pequenos de \(\frac{1}{n}\), a diferença de magnitude entre a soma acumulada e o novo termo será tão grande que a mantissa não terá espaço para acomodar o termo pequeno, ocorrendo o underflow relativo (o computador ``ignora'' a soma e S+pequeno=S). Somando de n=N até 1, começamos somando números minúsculos entre si, permitindo que eles se acumulem até formarem um valor significativo antes de serem somados aos termos maiores.
+Respostas Algébricas
+
+3. Resposta: a) Para \(x\approx 0\), o valor de cos(x) se aproxima muito de 1. A operação \(1-\cos^{}{(x)}\) no numerador resultará na subtração de dois números quase idênticos (ex: 1 - 0.99999999), causando cancelamento catastrófico. Os dígitos significativos se anulam, restando apenas o erro de arredondamento.
+
+b) Se \(\displaystyle \sin^{2}{(x)}=\frac{1-\cos^{}{(2x)}}{2}\), então podemos fazer uma substituição de variável (\(u = 2x\) é o mesmo que \(x = \frac{u}{2}\)):
+\[
+	1-\cos^{}{u} = 2\sin^{2}{}\biggl(\frac{u}{2}\biggr)
+\]
+Substituindo na equação original:
+\[
+	f(x) = \frac{2\sin^{2}{}\biggl(\frac{x}{2}\biggr)}{x^{2}}.
+\]
+Como não há subtração de termos próximos nesta nova fórmula, ela é numericamente estável para \(x\approx 0\).
+
+4. Resposta: Para x muito grande, \(x^{2}+1 \approx x^{2}\), logo \(\sqrt[]{x^{2}+1}\approx x\), gerando a subtração perigosa x−x. Para resolver, multiplicamos a expressão pelo seu conjugado:
+\begin{align*}
+	 & g(x) = (\sqrt[]{x^{2}+1} - x) \frac{\sqrt[]{x^{2}+1}+x}{\sqrt[]{x^{2}+1}+x} \\
+	 & g(x) = \frac{(x^{2}+1)-x^{2}}{\sqrt[]{x^{2}+1}+x}                           \\
+	 & g(x) = \frac{1}{\sqrt[]{x^{2}+1}+x}
+\end{align*}
+Agora temos apenas uma soma no denominador, eliminando o risco de cancelamento catastrófico
+\subsection{Calculando a Variância}
+O cancelamento catastrófico afeta também a análise de dados, e pode destruí-las completamente se não for lidado corretamente.
+
+Nesse sentido, a variância \(\sigma^{2}\) mede o quão distantes da média os dados estão, e tem uma de suas formas dada por
+\[
+	\mathrm{Var}(X) = \frac{\sum\limits_{i=0}^{N}x_{i}^{2}}{N} - \mu^{2}.
+\]
+
+Imagine que você está analisando dados com valores muito altos, mas com diferenças minúsculas, como 100000000001, 100000000002, 100000000003; a média ao quadrado e a soma dos quadrados serão dois números colossais e quase idênticos, tal que, ao subtrair um do outro, a precisão desaparece! O resultado pode ser nulo ou até mesmo negativo!
+
+Por isso, bibliotecas como o Pandas e o NumPy nunca usam a fórmula clássica dos livros, usando algoritmos estáveis para proteger os dados, como o \textit{Algoritmo de Welford}.
+
+\begin{listing}[H]
+	\caption{Calculando a Variância}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+
+# --- O Conjunto de Dados ---
+# Números muito grandes com diferenças muito pequenas
+dados = [10**9 + 1.0, 10**9 + 2.0, 10**9 + 3.0]
+N = len(dados)
+
+print("Dados analisados:", dados)
+print("-" * 50)
+
+# --- MÉTODO 1: A "Fórmula do Livro" (Instável) ---
+# Var(X) = E[X^2] - (E[X])^2
+soma_quadrados = sum(x**2 for x in dados)
+media = sum(dados) / N
+
+variancia_instavel = (soma_quadrados / N) - (media**2)
+
+print("MÉTODO 1 (Fórmula Clássica Escolar):")
+print(f"Resultado da Variância: {variancia_instavel}")
+if variancia_instavel < 0:
+    print(" ERRO FATAL: Variância DEU NEGATIVA! Matematicamente impossível.")
+
+
+print("\n" + "-" * 50 + "\n")
+
+
+# --- MÉTODO 2: O Jeito Profissional (Estável - NumPy) ---
+# O NumPy utiliza algoritmos estáveis nos bastidores
+variancia_estavel = np.var(dados)
+
+print("MÉTODO 2 (Algoritmo Estável do NumPy):")
+print(f"Resultado da Variância: {variancia_estavel}")
+print(f" SUCESSO: A variância real é exatamente {variancia_estavel}")
+\end{minted}
+\end{listing}
+\end{document}

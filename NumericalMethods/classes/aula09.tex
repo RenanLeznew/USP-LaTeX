@@ -1,0 +1,392 @@
+ \documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 07 de Abril, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Matplotlib;
+	\item Tipos de Arquivos;
+	\item Cálculo Científico.
+\end{itemize}
+\subsection{Visualizando Dados}
+O \texttt{matplotlib} é uma biblioteca do python que permite a criação de gráficos e imagens com base em algum tipo de comando; ela é importada com \texttt{import matplotlib.pyplot }, por exemplo
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+  import matplotlib.pyplot as plt
+
+  x = [1, 2, 5, 9] 
+  y = [1, 4, 7, 11]
+
+  fig, eixo = plt.subplots(figsize(7, 4))
+
+  eixo.plot(x, y, color='b', linewidth=2, linestyle = '--', marker='o', label = "Série A")
+  eixo.set_title("Evolução dos Dados")
+
+  \end{minted}
+\end{listing}
+O Python consegue lidar com quase qualquer tipo de dados!
+
+\begin{listing}[H]
+	\caption{Barras, Scatterplots e Histograma}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+ import numpy as np 
+ import matplotlib.pyplot as plt 
+
+ fig, ax = plt.subplots(1, 3, figsize(15, 4))
+
+ # A. Gráficos de Barras 
+ linguagens = ['Python', 'C++', 'Java']
+ popularidade = [90, 60, 75]
+ ax[0].bar(linguagens, popularidade, color = ['b', 'r', 'g'])
+ ax[0].set_title("Barras (Categorias)")
+
+ # B. Gráfico de Dispersão/Scatterplots (Correlações)
+
+ eixo_x = [1,2,3,4,5]
+ eixo_Y = [2,5,8,4,9]
+ tamanhos = [50,200,80,500,150]
+ ax[1].scatter(eixo_x, eixo_y, s=tamanhos, c='purple', alpha=0.5)
+ ax[1].set_title("Dispersão com Tamanho Variável")
+
+ # C. Histograma 
+ notas = np.random.normal(7.0, 1.5, 100)
+ ax[2].hist(notas, bins = 10, color = 'teal', edgecolor='black', alpha = 0.7)
+ ax[2].axvline(notas.mean(), color = 'red', linestyle = 'dashed', label = 'média')
+ ax[2].set_title("Histograma das Notas")
+ ax[2].legend()
+
+ plt.tight_layout
+
+ # Destaque visual (Anotações) e Exportação
+ ax[0].annotate('Python Lidera!', xy = (0, 70), xytext=(0.5, 85), arrowprops = dict(facecolor='black', shrink=0.05, width=1))
+
+ fig.savefig("graficos_completos.png", dpi =300, bbox_inches='tight')
+ print("Gráfico salvo com sucesso!")
+
+ plt.show()
+ \end{minted}
+\end{listing}
+
+\subsection{Tipos de Arquivos e Diretórios}
+Ao ler arquivos do mundo real, um formato bem comum de dados é o \texttt{.csv}, e independente do tipo, os dados podem vir faltando ou com erro, então é útil usar o ``\texttt{try... except}'' para evitar que o programa quebre; antes de rodas as células com isso, tenha certeza de ter um arquivo `\texttt{dados.csv}' na mesma pasta, ou ele vai dar erro imediatamente!
+
+\begin{listing}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+ %%writefile dados_sensor.csv
+   nome_sensor,leitura 
+   Sensor_Sala,5.0 
+   Sensor_Cozinha,20.0 
+   Sensor_Garagem,50.0
+   Sensor_Errado,ERRO
+ \end{minted}
+
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+ import csv 
+ try:
+    with open("dados_sensor.csv", "r") as arquivo:
+        leitor = csv.reader(arquivo)
+        cabecalho = next(leitor) # pula a primeira linha 
+        for linha in leitor:
+            nome = linha[0].strip()
+            valor = float(linha[1]) # Tenta converter para número 
+            print(f"{nome}: {valor}")
+ except FileNotFoundError:
+    print("ERRO: O arquivo 'dados_sensor.csv' não existe.")
+ except ValueError:
+    print("ERRO: O arquivo tem um texto onde deveria ser número")
+ \end{minted}
+\end{listing}
+
+Alguns outros formatos são JSON e Pickle, e para entender melhor, vamos criar uma pasta isolada usando \texttt{pathlib}, salvar um dicionário de configurações em formato da web (JSON) e salvar uma lista complexa igual a ele na memória usando Pickle.
+\begin{center}
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{l c c}
+			\hline
+			Característica   & JSON                           & Pickle                                \\
+			\hline
+			Formato          & Texto                          & Binário                               \\
+			Compatibilidade  & Universal                      & Exclusivo Python                      \\
+			Tipos Suportados & Básicos (dict, list, str, int) & Quase Tudo                            \\
+			Segurança ao Ler & 100\% Seguro                   & Pode executar código oculto           \\
+			Velocidade       & Rápido para dados simples      & Muito rápido até para dados complexos \\
+			\hline
+		\end{tabular}
+		\caption{Json contra Pickle}
+	\end{table}
+\end{center}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+ import json 
+ import nympy as np 
+ from pathlib import Path 
+ import pickle 
+
+ # Cria a pasta 
+ pasta = Path("meus_projetos")
+ pasta.mkdir(exist_ok=True)
+ print(f"Pasta criada em: {pasta.absolute()}")
+
+ # A. Json para dicionário 
+ config = {"experimento": "Teste A", "sucesso": True}
+ caminho_json = pasta/"config.json"
+ with open(caminho_json, "w") as f: 
+    json.dump(config, f, indent=4)
+
+ # B. Pickle para objetos complexos 
+ matriz=  np.array([[1, 2], [3, 4]])
+ dados_complexos = [matriz, config] # Uma lista misturando 
+\end{minted}
+\end{listing}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+ caminho_pickle = pasta/"projeto_salvo.pkl"
+ with open(caminho_pickle, "wb") as f:
+    pickle.dump(dados_complexos, f)
+
+ print("Arquivos JSON e Pickle salvos com sucesso!")
+ \end{minted}
+\end{listing}
+
+Pra reforçar o que foi ensinados, vamos realizar a rotação de \(45^{\circ }\) no vetor \(v=[1, 0]\) no plano 2D, unindo numpy, pathlib, json e matplotlib.
+
+\begin{listing}[H]
+	\caption{Rodando Vetores}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+  import numpy as np
+  import matplotlib.pyplot as plt
+  import json
+  import math
+  from pathlib import Path
+ 
+   # 1. Pasta 
+   pasta_saida = Path("analise_vetorial")
+   pasta_saida.mkdir(exist_ok=True)
+
+   # 2. A Matemática 
+   v_inicial = np.array([1.0, 0.0])
+   theta = math.radians(45)
+   R = np.array([
+      [np.cos(theta), np.sin(theta)],
+      [np.sin(theta), np.cos(theta)]
+   ])
+
+   v_final = R.dot(v_inicial) # produto matricial
+
+   # 3. Persistência de Dados (JSON)
+   dados = {
+     "vetor_inicial": v_inicial.tolist(), 
+     "vetor_final": v_final.tolist()
+   }
+   with open(pasta_saida / "dados_rotacao.json", "w") as f:
+       json.dump(dados, f, indent = 4)
+
+   # 4. Visualizando 
+   fig, ax = plot.subplots(figsize=(6, 6))
+   origem = [0, 0]
+
+   ax.quiver(*origem, *v_inicial, color='blue', angles='xy', scale_units='xy', scale=1, label='$v$ Inicial')
+   ax.quiver(*origem, *v_final, color='red', angles='xy', scale_units='xy', scale=1, label='$R \cdot v$ (45°)')
+\end{minted}
+\end{listing}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground , linenos=true, breaklines]{Python}
+   # 5. Anotando
+   ax.annotate(f'Origem\n{v_inicial.tolist()}', xy=v_inicial, xytext=(1.1, 0.1), color='blue')
+   ax.annotate(f'Destino\n[{v_final[0]:.2f}, {v_final[1]:.2f}]', xy=v_final, xytext=(0.5, 0.8), color='red')
+
+   ax.set_xlim(-0.2, 1.5)
+   ax.set_ylim(-0.2, 1.5)
+   ax.axhline(0, color='black')
+   ax.axvline(0, color='black')
+   ax.grid(True, linestyle='--')
+   ax.set_title("Álgebra Linear: Rotação no 2D")
+   ax.legend()
+
+   # 6. Exportação (savefig)
+   fig.savefig(pasta_saida/"rotacao_grafico.png", dpi = 300)
+
+   plt.show()
+ \end{minted}
+\end{listing}
+
+\subsection{Exercício: O Meteorologista}
+Você recebeu dados climáticos de uma semana inteira, e sua tarefa é criar um painel visual (\textit{dashboard})
+\begin{itemize}
+	\item[1)] Crie uma janela com dois gráficos lado a lado (1 linha, 2 colunas);
+	\item[2)] O gráfico à esquerda deve ser um gráfico de linhas mostrando a temperatura ao longo de 5 dias (marker = 'o'), anotando o dia mais quente;
+	\item[3)] O gráfico à direita deve mostrar a probabilidade de chuva em \% para os mesmos 5 dias;
+	\item[4)] Exporte a imagem final como \texttt{relatorio\_clima.png} em alta resolução (dpi = 300).
+\end{itemize}
+Dados para utilizar:
+\begin{itemize}
+	\item Dias: ["Seg", "Ter", "Qua", "Qui", "Sex"];
+	\item Temperaturas: [22, 28, 31, 26, 24];
+	\item Chuva (\%): [10, 0, 5, 80, 40].
+\end{itemize}
+
+\begin{listing}[H]
+	\caption{Pedidos de um Meteorologista}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import matplotlib.pyplots as plt
+
+dias = ["Seg", "Ter", "Qua", "Qui", "Sex"]; 
+temperaturas = [22, 28, 31, 26, 24];
+chuva = [10, 0, 5, 80, 40].
+
+# 1. Criando os Subplots 
+fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+
+# 2. Gráfico 1 (Esquerda -- temperaturas)
+ax[0].plot(disa, temperaturas, marker = 'o', color='r', linewidth=2)
+ax[0].set_title("Variação de Temperaturas")
+ax[0].set_ylabel("Temperatura (Celsius)")
+ax[0].grid(True, linestyle=":")
+
+\end{minted}
+\end{listing}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# 3. Gráfico 2 (Direita -- chance de chuvas)
+ax[1].set_bar(dias, chuva, color = 'b')
+ax[1].set_title("Probabilidade de Chuva")
+ax[1].set_ylabel("Chuva (%)")
+
+# 4. Ajuste e Exportação 
+plt.tight_layout()
+fig.savefig("relatorio_clima.png", dpi=300, bbox_inches = 'tight')
+print('Dashboard exportado com sucesso!')
+
+plt.show()
+\end{minted}
+\end{listing}
+
+\subsection{Exercício: O Analista de Logs}
+Um sensor gerou leituras de pressão, mas falhou me alguns momentos, gravando alguns erros de texto.
+\begin{itemize}
+	\item[1)] Crie uma pasta chamada laboratorio usando pathlib;
+	\item[2)] O código abaixo já cria um arquivo \texttt{leituras\_brutas.txt}, leia-o para obter os dados;
+	\item[3)] Leia esse arquivo linha por linha. Use o \texttt{try... except} para lidar com os dados sujos;
+	\item[4)] Calcule a pressão máxima e salve em um arquivo \texttt{resumo.json} dentro da pasta laboratorio com a lista de leituras válidas e o valor máximo encontrado.
+\end{itemize}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+from pathlib import Path
+import json
+# A professora já preparou o arquivo sujo para você:
+pasta = Path("laboratorio")
+pasta.mkdir(exist_ok=True)
+caminho_bruto = pasta / "leituras_brutas.txt"
+caminho_bruto.write_text("10.5\n11.2\nERRO_SENSOR\n12.1\nFALHA_CONEXAO\n10.9")
+
+# Lendo e limpando os dados com Try/Except
+leituras_validas = []
+
+with open(caminho_bruto, "r") as arquivo:
+    for linha in arquivo:
+        linha_limpa = linha.strip()
+        try:
+            valor = float(linha_limpa)
+            leituras_validas.append(valor)
+        except ValueError:
+            print(f"Aviso: Ignorando linha inválida -> '{linha_limpa}'")
+
+# Calculando o máximo
+pressao_maxima = max(leituras_validas)
+print(f"\nLeituras limpas: {leituras_validas}")
+print(f"Pressão Máxima: {pressao_maxima}")
+
+# Salvando o resumo em JSON
+dados_finais = {
+    "leituras_processadas": leituras_validas,
+    "pressao_maxima": pressao_maxima,
+    "status": "sucesso"
+}
+
+caminho_json = pasta / "resumo.json"
+with open(caminho_json, "w") as f:
+    json.dump(dados_finais, f, indent=4)
+
+print(f"\nResumo salvo em: {caminho_json.absolute()}")
+\end{minted}
+\end{listing}
+
+\subsection{Exercício: O Engenheiro Geométrico}
+O objetivo desse exercício é aplicar uma transformação de escala (ampliação) em um quadrado usando álgebra linear
+\begin{itemize}
+	\item[1)] A matriz do quadrado original já é fornecida, e cada coluna é uma coordenada (x, y);
+	\item[2)] Crie a matriz de escala \(S = \begin{bmatrix}
+		      2 & 0 \\
+		      0 & 2
+	      \end{bmatrix}\);
+	\item[3)] Multiplique as matrizes (S e a do quadrado) para obter o quadrado ampliado;
+	\item[4)] Crie uma pasta ``\texttt{projeto\_geometria}'' e salve as duas matrizes em um arquivo \texttt{.pkl} (Pickle);
+	\item[5)] Use o matplotlib para desenhar o quadrado original e o ampliado, em linhas azul e vermelha, no mesmo plano.
+\end{itemize}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+import matplotlib.pyplot as plt
+from pathlib import Path
+import pickle
+
+# 1. Matriz do Quadrado Original
+quadrado_original = np.array([
+    [0, 1, 1, 0, 0],  # Coordenadas X
+    [0, 0, 1, 1, 0]   # Coordenadas Y
+])
+
+# 2. Matriz de Transformação (Escala 2x)
+S = np.array([
+    [2.0, 0.0],
+    [0.0, 2.0]
+])
+
+# 3. Aplicando a transformação
+quadrado_ampliado = S.dot(quadrado_original)
+
+# 4. Persistência de Dados
+pasta = Path("projeto_geometria")
+pasta.mkdir(exist_ok=True)
+
+dados_projeto = {
+    "original": quadrado_original,
+    "ampliado": quadrado_ampliado
+}
+
+with open(pasta / "matrizes.pkl", "wb") as f:
+    pickle.dump(dados_projeto, f)
+print("Matrizes salvas via Pickle!")
+\end{minted}
+\end{listing}
+
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# 5. Visualização
+fig, ax = plt.subplots(figsize=(6, 6))
+
+ax.plot(quadrado_original[0, :], quadrado_original[1, :], color='blue', linewidth=2, label='Original')
+ax.plot(quadrado_ampliado[0, :], quadrado_ampliado[1, :], color='red', linestyle='--', linewidth=2, label='Ampliado (Escala 2x)')
+
+# Formatação
+ax.set_xlim(-0.5, 3)
+ax.set_ylim(-0.5, 3)
+ax.axhline(0, color='black', linewidth=1)
+ax.axvline(0, color='black', linewidth=1)
+ax.grid(True, linestyle=':', alpha=0.7)
+ax.set_title("Transformação Linear: Escala")
+ax.legend()
+
+# Exportação
+fig.savefig(pasta / "transformacao_escala.png", dpi=300, bbox_inches='tight')
+
+plt.show()
+\end{minted}
+\end{listing}
+
+\end{document}

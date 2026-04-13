@@ -1,0 +1,323 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 13 de Abril, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Método Geral de 1 passo;
+	\item Método de Euler Explícito e Implícito;
+	\item Aproximações não lineares;
+	\item Método do Trapézio.
+\end{itemize}
+\subsection{Método Geral de 1-passo}
+O \textbf{método geral de 1-passo} é dado pela expressão
+\[
+	\frac{\mathbf{U}^{n+1}-\mathbf{U}^{n}}{h} = \varphi (\mathbf{U}^{n+1}, \mathbf{U}^{n}, t_{n}, h).
+\]
+Nele, se \(\varphi  = \varphi (\mathbf{U}^{n}, t_{n}, h)\), ou seja, se a função \(\varphi \) não depende de \(\mathbf{U}^{n+1}\), ele é chamado \textbf{método explícito}, e caso dependa de \(\mathbf{U}^{n+1}\), será chamado de \textbf{método implícito}.
+
+\begin{example}[Métodos de 1-passo Explícitos]
+	Alguns métodos que já vimos se enquadram nos métodos de 1-passo explícitos; dentre eles,
+	\begin{itemize}
+		\item Euler: nele, \(\varphi (\mathbf{U}^{n}, t_{n}, h) = \mathbf{f}(\mathbf{U}^{n}, t_{n})\);
+		\item Taylor de ordem q: aqui, para \(q=2\), o método é do tipo
+		      \[
+			      \varphi (\mathbf{U}^{n}, t_{n}, h) = \mathbf{f}(\mathbf{U}^{n}, t_{n}) + \frac{h}{2}\biggl(\frac{\partial^{}\mathbf{f}}{\partial \mathbf{u}^{}}\mathbf{f} + \frac{\partial^{}\mathbf{f}}{\partial t^{}}\biggr)\biggl|_{(\mathbf{U}^{n}, t_{n})}^{}\biggr..
+		      \]
+	\end{itemize}
+\end{example}
+\begin{def*}
+	O \textbf{erro de um passo} é dado pela expressão
+	\[
+		\mathcal{L}^{n} = \mathbf{u}(t_{n+1})-\mathbf{u}(t_{n}) - h \varphi (\mathbf{u}(t_{n+1}), \mathbf{u}(t_{n}), t_{n}, h). \; \square
+	\]
+\end{def*}
+Observe que, caso \(\tilde{\mathbf{U}}^{n+1}\) é outra aproximação para a solução \(\mathbf{u}(t_{n+1})\) calculada no tempo \(t_{n+1}\), considerando-se que todos os passos anteriores foram resolvidos de maneira exata, ou seja, que
+\[
+	\tilde{\mathbf{U}}^{n+1} = \mathbf{u}(t_{n}) + h \varphi (\mathbf{u}(t_{n+1}), \mathbf{u}(t_{n}), t_{n}, h),
+\]
+teremos
+\begin{align*}
+	\tilde{\mathcal{E}}^{n+1} = \mathbf{u}(t_{n+1}) - \tilde{\mathbf{U}}^{n+1} & =\mathbf{u}(t_{n+1})-\mathbf{u}(t_{n}) - h \varphi (\mathbf{u}(t_{n+1}), \mathbf{u}(t_{n}), t_{n}, h) \\
+	                                                                           & = \mathcal{L}^{n},
+\end{align*}
+ou seja, \(\mathcal{L}^{n}\) é o erro cometido em um passo, considerando que todos os outros foram resolvidos exatamente.
+
+\begin{def*}
+	O \textbf{erro de truncamento} do método de 1-passo é dado por
+	\[
+		\tau^{n} = \frac{\mathbf{u}(t_{n+1}) - \mathbf{u}(t_{n})}{h} - \varphi (\mathbf{u}(t_{n+1}), \mathbf{u}(t_{n}), t_{n}, h).\; \square
+	\]
+\end{def*}
+\begin{def*}
+	Um método de um passo é dito \textbf{consistente com a equação diferencial} se
+	\[
+		\lim_{h\to 0}\Vert \tau^{n} \Vert = 0.
+	\]
+	Em particular, se \(\Vert \tau^{n} \Vert = \mathcal{O}(h^{p})\) para algum inteiro \(p\geq 1\), diremos que o método é \textbf{consistente de ordem p}. \(\square\)
+\end{def*}
+Observe que
+\[
+	\Vert \tau^{n} \Vert = \mathcal{O}(h^{p}) \Longleftrightarrow \Vert \mathcal{L}^{n} \Vert = \mathcal{O}(h^{p+1});
+\]
+logo, não se deve confundir erro de um passo com erro de truncamento!!
+\begin{example}[Erro de Truncamento do Método de Euler]
+	Pela definição do erro de truncamento, temos
+	\begin{align*}
+		\tau^{n} & = \frac{1}{h}(\mathbf{u}(t_{n+1}) - \mathbf{u}(t_{n})) - \varphi (\mathbf{u}(t_{n+1}), \mathbf{u}(t_{n}), t_{n}, h)                                                        \\
+		         & = \frac{1}{h}(\mathbf{u}(t_{n+1}) - \mathbf{u}(t_{n})) - \mathbf{f}(\mathbf{u}(t_{n}), t_{n})                                                                              \\
+		         & = \frac{1}{h}\biggl(\mathbf{u}(t_{n}) + h \mathbf{u}'(t_{n}) + \frac{h^{2}}{2}\mathbf{u}''(t_{n})+\dotsc - \mathbf{u}(t_{n})\biggr) - \mathbf{f}(\mathbf{u}(t_{n}), t_{n}) \\
+		         & = \frac{h}{2}\mathbf{u}''(t_{n}) + \dotsc                                                                                                                                  \\
+		         & = \mathcal{O}(h).
+	\end{align*}
+	Portanto, o método de Euler é consistente de ordem \(\mathcal{O}(h)\); note ainda que \(\mathcal{L}^{n} = h \tau^{n} = \mathcal{O}(h^{2})\).
+\end{example}
+
+\begin{theorem*}
+	Um método geral de um passo é consistente com a equação diferencial \(\mathbf{u}'(t)=\mathbf{f}(\mathbf{u}(t), t)\) se
+	\[
+		\lim_{h\to 0}\varphi (\mathbf{u}(t+h), \mathbf{u}(t), t, h)=\mathbf{f}(\mathbf{u}(t), t).
+	\]
+\end{theorem*}
+\begin{proof*}
+	Segue da definição de erro de truncamento, passando o limite, que
+	\begin{align*}
+		\lim_{h\to 0}\tau^{n} & = \lim_{h\to 0}\frac{\mathbf{u}(t_{n}+h)-\mathbf{u}(t_{n})}{h}-\lim_{h\to 0}\varphi (\mathbf{u}(t_{n}+h), \mathbf{u}(t_{n}), t_{n}, h) \\
+		                      & = \mathbf{u}'(t_{n})-\lim_{h\to 0}\varphi (\mathbf{u}(t_{n}+h), \mathbf{u}(t_{n}), t_{n}, h)                                           \\
+		                      & = \mathbf{f}(\mathbf{u}(t_{n}), t_{n})-\lim_{h\to 0}\varphi (\mathbf{u}(t_{n}+h), \mathbf{u}(t_{n}), t_{n}, h)                         \\
+		                      & =0. \text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+
+\begin{example}[Consistência do Método de Taylor de \(q=2\)]
+	O método é consistente pois (verifique!)
+	\[
+		\lim_{h\to 0}\varphi (\mathbf{u}(t_{n}+h), \mathbf{u}(t_{n}), t_{n}, h)=\mathbf{f}(\mathbf{u}(t_{n}), t_{n}).
+	\]
+
+	Quanto à ordem de consistência, segue que
+	\begin{align*}
+		\tau^{n} & =\frac{1}{h}(\mathbf{u}(t_{n}+h)-\mathbf{u}(t_{n}))-\mathbf{f}(\mathbf{u}(t_{n}), t_{n})-\frac{h}{2}\biggl(\frac{\partial^{}\mathbf{f}}{\partial \mathbf{u}^{}}\mathbf{f}+\frac{\partial^{}\mathbf{f}}{\partial t^{}}\biggr)\biggl|_{(\mathbf{u}(t_{n}), t_{n})}^{}\biggr. \\
+		         & =\frac{1}{h}\biggl(\mathbf{u}(t_{n})+h \mathbf{u}'(t_{n}) + \frac{h^{2}}{2}\mathbf{u}''(t_{n})+\dotsc - \mathbf{u}(t_{n})\biggr)-\mathbf{u}'(t_{n}) - \frac{h}{2} \mathbf{u}''(t_{n})                                                                                      \\
+		         & = \frac{h^{2}}{6}\mathbf{u}'''(t_{n})+\dotsc                                                                                                                                                                                                                               \\
+		         & = \mathcal{O}(h^{2}).
+	\end{align*}
+	Portanto, o método de Taylor \(q=2\) é consistente de ordem \(\mathcal{O}(h^{2})\).
+\end{example}
+
+\begin{def*}
+	Dizemos que um método geral de um passo na forma
+	\[
+		\mathbf{U}^{n+1}=\mathbf{U}^{n}+h \varphi(\mathbf{U}^{n+1}, \mathbf{U}^{n}, t_{n}, h)
+	\]
+	\textbf{converge para a solução exata} do PVI
+	\[
+		\left\{\begin{array}{ll}
+			\mathbf{u}'(t)=\mathbf{f}(\mathbf{u}(t), t) \\
+			\mathbf{u}(0)=\mathbf{u}^{0}
+		\end{array}\right.
+	\]
+	se, para qualquer tempo T considerado dentro do intervalo de solução, tem-se
+	\[
+		\lim_{\substack{h\to 0 \\ Nh = T}}\mathbf{U}^{N}=\mathbf{u}(T) \text{ ou }\lim_{\substack{h\to 0 \\ Nh = T}}\Vert \mathbf{U}^{N}-\mathbf{u}(T) \Vert=0,
+	\]
+	para qualquer condição inicial \(\mathbf{U}^{0}\) satisfazendo \(\displaystyle \lim_{h\to 0}\mathbf{U}^{0}=\mathbf{u}^{0}.\; \square\)
+\end{def*}
+
+\begin{def*}
+	Um método geral de um passo é dito \textbf{convergente de ordem p} se existe \(C > 0\) tal que, para qualquer \(T= Nh\),
+	\[
+		\Vert \mathbf{U}^{N}-\mathbf{u}(T) \Vert \leq Ch^{p}. \; \square
+	\]
+\end{def*}
+
+Existe uma versão do \hyperlink{picard_lindelof}{\textit{Teorema de Picard-Lindelöf}} para os métodos de um passo:
+\begin{theorem*}[Convergência de Métodos de 1-Passo]
+	Um método geral de um passo que seja consistente de ordem p será convergente de ordem p se, existir um valor L positivo tal que
+	\[
+		\Vert \varphi (\mathbf{v}, \mathbf{y}, t, h)-\varphi (\mathbf{w}, \mathbf{z}, t, h) \Vert\leq L(\Vert \mathbf{v}-\mathbf{w} \Vert + \Vert \mathbf{y}-\mathbf{z} \Vert)
+	\]
+	para todo \((\mathbf{v}, \mathbf{y}, t, h)\) e \((\mathbf{w}, \mathbf{z}, t, h)\), ou seja, se \(\varphi (\cdot , \cdot , t, h)\) for Lipschitz contínua com constante de Lipschitz L.
+\end{theorem*}
+
+No caso dos métodos explícitos, podemos derrubar uma das coordenadas, escrevendo no lugar:
+\[
+	\Vert \varphi (\mathbf{v}, t, h)-\varphi (\mathbf{w}, t, h) \Vert\leq L \Vert \mathbf{v}-\mathbf{w} \Vert, \quad \forall (\mathbf{v}, t, h),\; (\mathbf{w}, t, h).
+\]
+
+Note que a consistência de ordem p \textbf{não implica} na convergência de ordem p: a condição para que isso acabe ocorrendo é que a função \(\varphi (\cdot , \cdot , t, h)\) que define o método seja Lipschitz contínua.
+Apesar disso, na maioria dos métodos, essa propriedade decorre diretamente do fato da própria \(\mathbf{f}(\cdot , t)\) ser Lipschitz contínua.
+
+\begin{example}[Convergência do Método de Taylor \(q=2\)]
+	Como já vimos alguns resultados, a convergência decorrerá ao amostrarmos que \(\varphi (\cdot , t, h)\) é Lipschitz contínua.
+
+	Sem perda de generalidade, consideremos um sistema autônomo da forma \(\mathbf{u}'(t)=\mathbf{f}(\mathbf{u}(t))\); note que, sendo a própria \(\mathbf{f}(\cdot )\) Lipschitz contínua com constante \(L>0\), obtemos
+	\[
+		\biggl\vert \frac{\partial^{}f_{i}}{\partial u_{j}^{}} \biggr\vert = \lim_{\varepsilon \to 0}\biggl\vert \frac{f_{i}(\mathbf{u}+\varepsilon \mathbf{e}_{j})-f_{i}(\mathbf{u})}{\varepsilon } \biggr\vert\leq \lim_{\varepsilon \to 0} L \biggl\Vert \frac{\mathbf{u}+\varepsilon \mathbf{e}_{j}-\mathbf{u}}{\varepsilon } \biggr\Vert = L,
+	\]
+	tal que existe \(C > 0\) satisfazendo
+	\[
+		\biggl\Vert \biggl\vert \frac{\partial^{}\mathbf{f}}{\partial \mathbf{u}^{}} \biggr\vert \biggr\Vert \leq C L,
+	\]
+	a depender da norma escolhida para a matriz Jacobiana.
+
+	Por definição, temos
+	\begin{align*}
+		\Vert \varphi (\mathbf{v}, t, h)-\varphi (\mathbf{w}, t, h) \Vert & = \biggl\Vert \mathbf{f}(v)+ \frac{h}{2}\frac{\partial^{}\mathbf{f}}{\partial \mathbf{u}^{}} \mathbf{f}(v)-\mathbf{f}(w)- \frac{h}{2}\frac{\partial^{}\mathbf{f}}{\partial \mathbf{u}^{}}\mathbf{f}(\mathbf{w}) \biggr\Vert                \\
+		                                                                  & \leq \Vert \mathbf{f}(\mathbf{v})-\mathbf{f}(\mathbf{w}) \Vert + \frac{h}{2}\biggl\Vert \biggl\vert \frac{\partial^{}\mathbf{f}}{\partial \mathbf{u}^{}} \biggr\vert \biggr\Vert \Vert \mathbf{f}(\mathbf{v})-\mathbf{f}(\mathbf{w}) \Vert \\
+		                                                                  & \leq \biggl(L+\frac{h}{2}CL^{2}\biggr)\Vert \mathbf{v} -\mathbf{w}\Vert.
+	\end{align*}
+	Portanto, \(\varphi (\cdot , t, h)\) é Lipschitz contínua e o método de Taylor \(q=2\) é convergente de ordem \(\mathcal{O}(h^{2})\).
+\end{example}
+
+Podemos começar a explorar os métodos implícitos, e assim como o início foi marcado pelo método de Euler explícito, veremos sua versão alternativa. O primeiro passo é expandir \(\mathbf{u}(t_{n})=\mathbf{u}(t_{n+1}-h)\) em Taylor ao redor de \(t_{n+1},\) obtendo
+\[
+	\mathbf{u}(t_{n})=\mathbf{u}(t_{n+1}-h)=\mathbf{u}(t_{n+1})-h \mathbf{u}'(t_{n+1}) + \underbrace{\frac{h^{2}}{2}\mathbf{u}''(t_{n+1})+\dotsc }_{\mathcal{O}(h^{2})},
+\]
+seguido da substituição \(\mathbf{u}'(t_{n+1}) = \mathbf{f}(\mathbf{u}(t_{n+1}), t_{n+1})\) e do descarte dos termos \(\mathcal{O}(h^{2})\), resultando no \textbf{Método de Euler Implícito}:
+\[
+	\boxed{\mathbf{U}^{n+1}=\mathbf{U}^{n}+h \mathbf{f}(\mathbf{U}^{n+1}, t_{n+1})},
+\]
+de modo que a solução \(\mathbf{U}^{n+1}\) passa a ser descrita implicitamente.
+
+Vale observar que, caso \(\mathbf{f}\) for, ainda por cima, uma função não linear de \(\mathbf{u}\), então \(\mathbf{U}^{n+1}\) só pode ser obtida resolvendo-se o problema não linear resultante, que obviamente vai dar mais trabalho, mas aumenta a gama de problemas que podem ser modelados.
+
+Consideremos, agora, a equação diferencial \(\mathbf{u}'(t)=\mathbf{f}(\mathbf{u}(t), t)\); integrando ambos os lados, obtemos a equação
+\[
+	\int_{t_{n}}^{t_{n+1}}\mathbf{u}'(t) \mathrm{d}t = \int_{t_{n}}^{t_{n+1}}\mathbf{f}(\mathbf{u}(t), t) \mathrm{d}t,
+\]
+sendo que a integral à esquerda pode ser resolvida pelo teorema fundamental do cálculo, mas o lado direito requer uma aproximação por uma fórmula de quadratura; utilizando a regra do trapézio, temos:
+\[
+	\mathbf{u}(t_{n+1})-\mathbf{u}(t_{n})\approx \frac{h}{2}(\mathbf{f}(\mathbf{u}(t_{n+1}), t_{n+1}) + \mathbf{f}(\mathbf{u}(t_{n}), t_{n})),
+\]
+da qual tiramos o método implícito conhecido como \textbf{método do trapézio}:
+\[
+	\boxed{\mathbf{U}^{n+1}= \mathbf{U}^{n}+ \frac{h}{2}\biggl(\mathbf{f}(\mathbf{U}^{n+1}, t_{n+1}) + \mathbf{f}(\mathbf{U}^{n}, t_{n})\biggr)}
+\]
+\begin{example}[Trapézio para Lotka-Volterra]
+	A função do modelo da presa-predador que vimos era da forma
+	\[
+		\mathbf{f}(\mathbf{u}(t), t)= \begin{bmatrix}
+			-2u_1(t)+u_1(t)u_2(t) \\
+			u_2(t)-u_1(t)u_2(t)
+		\end{bmatrix},
+	\]
+	tal que a aplicação do método do trapézio torna-se
+	\[
+		\begin{bmatrix}
+			U_{1}^{n+1} \\
+			U_{2}^{n+1}
+		\end{bmatrix}=\begin{bmatrix}
+			U_{1}^{n} \\
+			U_{2}^{n}
+		\end{bmatrix} + \frac{h}{2}\biggl(\begin{bmatrix}
+				-2U_{1}^{n+1} + U_{1}^{n+1}U_{2}^{n+1} \\
+				U_{2}^{n+1} - U_{1}^{n+1}U_{2}^{n+1}
+			\end{bmatrix} + \begin{bmatrix}
+				-2U_{1}^{n} + U_{1}^{n}U_{2}^{n} \\
+				U_{2}^{n} - U_{1}^{n}U_{2}^{n}
+			\end{bmatrix}\biggr),
+	\]
+	ou ainda
+	\[
+		\begin{bmatrix}
+			U_{1}^{n+1} \\
+			U_{2}^{n+1}
+		\end{bmatrix}
+		- \frac{h}{2}\begin{bmatrix}
+			-2U_{1}^{n+1} + U_{1}^{n+1}U_{2}^{n+1} \\
+			U_{2}^{n+1} - U_{1}^{n+1}U_{2}^{n+1}
+		\end{bmatrix} - \begin{bmatrix}
+			U_{1}^{n} \\
+			U_{2}^{n}
+		\end{bmatrix}
+		- \frac{h}{2} \begin{bmatrix}
+			-2U_{1}^{n} + U_{1}^{n}U_{2}^{n} \\
+			U_{2}^{n} - U_{1}^{n}U_{2}^{n}
+		\end{bmatrix}= \begin{bmatrix}
+			0 \\
+			0
+		\end{bmatrix},
+	\]
+	caracterizando um sistema não linear da forma \(G(x_{n+1})=0.\)
+
+	Assim sendo, para encontrar \(x_{n+1}\), utilizamos o método de Newton, consistindo em iterar aproximações sucessivas \(x^{k}\) utilizando
+	\[
+		x^{k+1}=x^{k}-J(x^{k})^{-1}G(x^{k})
+	\]
+	para \(k=0,1,2,\dotsc \), conforme vimos anteriormente, e que, no fim, equivale a resolver
+	\begin{align*}
+		 & J(x^{k})\delta ^{k}=-G(x^{k}) \\
+		 & x^{k+1}=x^{k}+\delta^{k}
+	\end{align*}
+	até que haja convergência, por exemplo pedindo um valor mínimo de delta como \(\Vert \delta^{k} \Vert< \varepsilon \); para iniciar este processo iterativo, devemos dar um chute inicial
+	\[
+		x_{0}=\begin{bmatrix}
+			U_{1}^{n} \\
+			U_{2}^{n}
+		\end{bmatrix},
+	\]
+	calcular a matriz jacobiana
+	\[
+		J(x^{k})=\begin{bmatrix}
+			1+h-\frac{h}{2}x_{2}^{k} & -\frac{h}{2}x_{1}^{k}              \\
+			\frac{h}{2}x_{2}^{k}     & 1-\frac{h}{2}+\frac{h}{2}x_{1}^{k}
+		\end{bmatrix}
+	\]
+	e, ao final do processo iterativo, as componentes do \(x^{k+1}\) mais atual possuirão aproximações para a solução no tempo \(t_{n+1}\)
+	\[
+		x= \begin{bmatrix}
+			U_{1}^{n+1} \\
+			U_{2}^{n+1}
+		\end{bmatrix}.
+	\]
+	Posteriormente, deve-se avançar ao passo seguinte e repetir o procedimento.
+
+	Uma implementação desse código em Matlab seria
+	\begin{listing}[H]
+		\begin{minted}[bgcolor = bg, linenos=true, breaklines]{Matlab}
+ function G = G_pp(u, un, h) 
+ G(1)=u(1)-0.5*h*(-2*u(1)+u(1)*u(2))-un(1)-0.5*h*(-2*un(1)+un(1)*un(2)); 
+
+ G(2)=u(2)-0.5*h*(u(2)-u(1)*u(2))-un(2)-0.5*h*(un(2)-un(1)*un(2)); 
+
+ function J = Jac_pp(u, h)
+
+ J(1,1)= 1.0+h - 0.5*h*u(2); 
+ J(1,2)=-0.5 * h * u(1); 
+ J(2,1)=1.0-0.5*h+0.5*h*u(1); 
+ J(2,2)=0.5*h*u(2);
+
+
+ ... 
+ while tn < tfim 
+    x = un;
+    for i=1:M 
+        J = Jac_pp(x, h); 
+        G = G_pp(x, un, h); 
+        delta = J\(-G); 
+        x = x + delta; 
+    end 
+    uni=x; 
+    tn=tn+h; 
+    un=un1; 
+ end 
+ ...
+ \end{minted}
+	\end{listing}
+\end{example}
+
+Neste ponto, vale a pena introduzir a família \(\theta \) de métodos, que trata-se de uma família metodológica dependente em um parâmetro \(0\leq \theta \leq 1\), cujos membros são dados por
+\[
+	\mathbf{U}^{n+1}=\mathbf{U}^{n}+h(\theta \mathbf{f}(\mathbf{U}^{n+1}, t_{n+1}) + (1-\theta )\mathbf{f}(\mathbf{U}^{n}, t_{n})),
+\]
+e qual a importância deles? Ora, basta observar que os métodos vistos até agora são todos parte dela:
+\begin{itemize}
+	\item \(\theta =0\): método de Euler explícito;
+	\item \(\theta =1\): método de Euler implícito;
+	\item \(\theta =1/2\): método do trapézio.
+\end{itemize}
+\begin{exr}
+	Mostre que o método \(\theta \) é convergente e calcule sua ordem de convergência dependendo do parâmetro \(\theta \); daí, conclua a convergência para os casos \(\theta=1\) e \(\theta = \frac{1}{2}\).
+\end{exr}
+
+\end{document}

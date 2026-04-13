@@ -1,0 +1,237 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 07 de Abril, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Tamanho de Corpos Finitos.
+\end{itemize}
+\subsection{Corpos Finitos}
+Na aula passada, faltou provar os seguintes resultados:
+\begin{lemma*}
+	Se G é um grupo abeliano finito, a e b são elementos de G, e
+	\[
+		n_1 = \mathrm{ord}(a) \quad\&\quad n_2=\mathrm{ord}(b),
+	\]
+	então existe c em G tal que
+	\[
+		\mathrm{ord}(c)= \mathrm{mmc}(n_1, n_2).
+	\]
+\end{lemma*}
+\begin{proof*}
+	Sejam \(p_{i}\) primos tais que
+	\begin{align*}
+		 & \mathrm{ord}(a) = p_{1}^{e_1}\cdot \dotsc \cdot p_{r}^{e_{r}}, \quad p_{i}\not| \mathrm{ord}(a) \Rightarrow e_{i}=0  \\
+		 & \mathrm{ord}(b) = p_{1}^{f_1}\cdot \dotsc \cdot p_{r}^{f_{r}}, \quad p_{i}\not| \mathrm{ord}(b) \Rightarrow f_{i}=0.
+	\end{align*}
+	Então, definindo
+	\[
+		\ell_{1} \coloneqq \prod\limits_{\ell_{i}\geq f_{i}}^{}p_{i}^{e_{i}} \quad\&\quad \ell_{2}\coloneqq \prod\limits_{\ell_{i} < f_{i}}^{}p_{i}^{f_{i}},
+	\]
+	segue que
+	\[
+		\ell_1 | \mathrm{ord}(a),\; \ell_2 | \mathrm{ord}(b), \mathrm{mdc}(\ell_1, \ell_2) = 1
+	\]
+	e
+	\[
+		\mathrm{mmc}(\mathrm{ord}(a), \mathrm{ord}(b))=\ell_1 \ell_2.
+	\]
+	Além disso, sabemos que
+	\[
+		a^{\frac{\mathrm{ord(a)}}{\ell_1}},\; b^{\frac{\mathrm{ord}(b)}{\ell_{2}}}\in G;
+	\]
+	assim, colocando \(c\coloneqq a^{\frac{\mathrm{ord}(a)}{\ell_1}}b^{\frac{\mathrm{ord}(b)}{\ell_2}}\), este elemento tem ordem igual ao MMC das ordens de a e b! De fato,
+	\[
+		\mathrm{ord}(a^{\frac{\mathrm{ord}(a)}{\ell_1}}) = \ell_1 \quad\&\quad \mathrm{ord}(b^{\frac{\mathrm{ord}(b)}{\ell_2}}) = \ell_{2},
+	\]
+	e sendo eles coprimos, segue portanto que
+	\begin{align*}
+		\mathrm{ord}(c) & = \mathrm{ord}(a^{\frac{\mathrm{ord}(a)}{\ell_1}})\mathrm{ord}(b^{\frac{\mathrm{ord}(b)}{\ell_2}}) \\
+		                & = \ell_1 \ell _2                                                                                   \\
+		                & = \mathrm{mmc}(\mathrm{ord}(a), \mathrm{ord}(b)). \text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{lemma*}
+	Se G é finito, então cada a em G é tal que sua ordem divide m, onde \(m=\max\limits_{b\in G}(\mathrm{ord}(b))\).
+\end{lemma*}
+\begin{proof*}
+	Tome \(m = \max\limits_{c\in G}(\mathrm{ord}(c))\), a um elemento de G e b um outro tal que
+	\[
+		\mathrm{ord}(b) = \mathrm{mmc}(m, \mathrm{ord}(a)) \geq m;
+	\]
+	então, como m é a ordem máxima dos elementos de G, devemos ter \(m\geq \mathrm{mmc}(m, \mathrm{ord}(a))\). Portanto,
+	\[
+		m = \mathrm{mmc}(m, \mathrm{ord}(a)) \Rightarrow \mathrm{ord}(a)| m. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+Juntando os resultados acima ao outro lema da aula passada, isto é, ao
+\begin{lemma*}
+	Seja G um grupo finito abeliano; se a e b são elemento de G tais que
+	\[
+		\mathrm{ord}(a)=n_{1},\; \mathrm{ord}(b)=n_2 \quad\&\quad (n_1, n_2)=1,
+	\]
+	onde \((\cdot , \cdot )\) é o MDC entre os inteiros (ou seja, pedimos que as ordens sejam coprimas). Nestas condições,
+	\[
+		\mathrm{ord}(ab)=\mathrm{ord}(a)\mathrm{ord}(b)=n_1 n_2,
+	\]
+\end{lemma*}
+podemos finalmente provar o teorema
+\begin{theorem*}
+	Se F é finito e de tamanho \(\#(F)=p^{n}\), então \(F^{*}\) é cíclico, ou seja, existe a em \(F^{*}\) tal que \(\mathrm{ord}(a) = p^{n}-1\).
+\end{theorem*}
+\begin{proof*}
+	Seja m a ordem máxima dos elementos de \(F^{*}\); então, pelos resultados que vimos, cada a em \(F^{*}\) é tal que \(\mathrm{ord}(a)\) divide m, ou seja, cada a em \(F^{*}\) é solução do polinômio
+	\[
+		X^{n}-1 = 0,
+	\]
+	que possui um número de raízes menor ou igual a m.
+
+	Por outro lado, \(\mathrm{ord}(F^{*})=p^{n}-1\), tal que \(p^{n}-1 \leq m\), mas \(p^{n}-1 \geq m\) sendo que \(m | p^{n}-1\); logo, \(p^{n}-1 = m\), implicando na existência de um \(b\in F^{*}\) tal que sua ordem é \(p^{n}-1\), provando o resultado. \qedsymbol
+\end{proof*}
+
+O bom de ter estudados os corpos finitos é que eles servem de exemplos para muitas das coisas que estaremos vendo futuramente! Assim, vale um breve resumo sobre corpos finitos:
+\begin{itemize}
+	\item[1)] A característica de um corpo finito é sempre um número p primo;
+	\item[2)] Corpos finitos é isomorfo ao produto de n-cópias de \(\mathbb{Z}_{p}\), tal que \(\#(F) = p^{n}\) é o total de elementos nele;
+	\item[3)] Se \(\#(F) = p^{n}\), então F é um corpo de decomposição do polinômio
+	      \[
+		      \Phi_{p, n}(x) = x^{p^{n}}-x.
+	      \]
+	      Por isso, se \(F_1\) e \(F_2\) são dois corpos tais que \(\#(F_1) = p^{n} = \#(F_2)\), então \(F_1\cong F_2\);
+	\item[4)] O grupo multiplicativo \(F^{*} = F\setminus{\{0\}}\) é um grupo cíclico de ordem \(p^{n}-1\).
+\end{itemize}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Sejam \(K_1,\; K_2\) dois corpos; então, não necessariamente o produto \(K_1 \times K_2\) será um corpo -- Basta notar que, como
+	\[
+		(1, 0)\cdot (0, 1) = (0, 0),
+	\]
+	ele nem satisfaz a condição de ser domínio de integridade.
+\end{tcolorbox}
+
+\begin{theorem*}
+	Se p é primo e \(n\geq 1\), então existe um corpo F com \(\#(F) = p^{n}\).
+\end{theorem*}
+\begin{proof*}
+	Considere o polinômio \(\Phi_{p, n}(x) = x^{p^{n}}-x\); é suficiente mostrarmos que:
+	\begin{itemize}
+		\item O conjunto das raízes de \(\Phi_{p, n}(x)\) é fechado em relação à ``soma'' e ao ``produto'' (definidos em qualquer corpo de decomposição de \(\Phi_{p, n}(x)\));
+		\item \(\Phi_{p, n}(x)\) não tem \hyperlink{multiple_roots}{\textit{raízes múltiplas}}, são todas distintas.
+	\end{itemize}
+
+	Para começar, como
+	\[
+		(\Phi_{p, n}(x))' = p^{n}x^{p^{n}-1}-1 = -1,
+	\]
+	vale que \(\Phi_{p, n}(x)\) não possui raízes múltiplas.
+
+	Assim, se \(\alpha \) e \(\beta \) são duas raízes, então \(\alpha - \beta \) é uma raiz,
+	\[
+		\alpha^{p^{n}} - \alpha  = 0 \quad\&\quad \beta^{p^{n}}-\beta  = 0.
+	\]
+	Logo,
+	\[
+		(\alpha +\beta)^{p^{n}}=\sum\limits_{j=0}^{p^{n}}\binom{p^{n}}{j}\alpha^{p^{n}-j}\beta^{j} = \alpha^{p^{n}} + \dotsc + \beta^{p^{n}},
+	\]
+	donde vemos que é suficiente mostrar que cada termo do tipo \(\binom{p^{n}}{j}\alpha^{p^{n}-j}\beta^{j}\) é nulo, e como tanto \(\alpha \) quanto \(\beta \) são diferentes de zero pro caso que importa (caso contrário, seria automático), precisamos mostrar que, para cada j entre 1 e \(p^{n}-1\),
+	\[
+		\binom{p^{n}}{j} = 0.
+	\]
+	Com efeito, isto pode ser realizado utilizando um processo indutivo em n: o passo 0 consiste em considerar \(n=1\), do qual segue que
+	\[
+		\binom{p}{j} = \frac{p!}{j!(p-j)!} = \frac{p(p-1)\dotsc (p-j+1)}{j!};
+	\]
+	daí, sendo \(1\leq j\leq p-1\), certamente p não divide \(j!\) e a fração é divisível por p, tal que
+	\[
+		\binom{p}{j} = 0 \Rightarrow (\alpha +\beta )^{p} = \sum\limits_{j=0}^{p}\binom{p}{j}\alpha^{p-j}\beta^{j} = \alpha +\beta.
+	\]
+	Assim, basta repetir o raciocínio a cada potência p da identidade \((\alpha +\beta )^{p} = \alpha + \beta \), obtendo o resultado desejado.
+
+	Outra solução possível é considerar m e n inteiros positivos, com \(1\leq m\leq n\), dos quais temos
+	\begin{align*}
+		m \binom{n}{m} = m \frac{n!}{(n-m)!m!} & = n \frac{(n-1)!}{(n-m)(m-1)!} \\
+		                                       & = n \binom{n-1}{m-1}.
+	\end{align*}
+	Disso, consideraríamos \(m=j\), \(n=p^{n}\) e \(1\leq j\leq p^{n}-1\), obtendo a relação
+	\[
+		j \binom{p^{n}}{j} = p^{n}\binom{p^{n}-1}{j-1}.
+	\]
+	Logo, \(p^{n}\) divide \(\binom{p^{n}}{j}\) para qualquer n natural\footnote{Ver notas de Keith Conrad sobre Corpos Finitos (\textit{Finite Fields}).}
+
+	Agora, com o resultado demonstrado, temos a relação
+	\[
+		(\alpha +\beta )^{p^{n}} = (\alpha +\beta ), \quad \forall 1\leq j\leq p^{n}-1
+	\]
+	e que p divide o binômio \(\binom{p^{n}}{j}\).
+	Dessa forma, se \(\alpha \) e \(\beta \) são soluções de \(\Phi_{p, n}(x)=0\), então
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; (\alpha \beta )^{p^{n}} = \alpha^{p^{n}}\beta^{p^{n}} = \alpha \beta               \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; (\alpha\beta^{-1})^{p^{n}} = \alpha^{p^{n}}(\beta^{p^{n}})^{-1}=\alpha \beta^{-1}.
+	\end{align*}
+
+	Portanto, usando estas relações com \(\beta \) não nulo e \(\alpha =1\), chegamos à conclusão de que \(\beta^{-1}\) é solução e, consequentemente, obtivemos um corpo cujo tamanho é \(p^{n}\) (afinal, 0 e 1 também são soluções do polinômio!). \qedsymbol
+\end{proof*}
+
+Esse teorema dá a base para um dos grandes da teoria de Galois, enunciado abaixo:
+
+\hypertarget{galois_moore}{
+	\begin{theorem*}[Galois-Moore]
+		Para cada p primo e \(n\geq 1\) inteiro, existe um corpo finito com \(p^{n}\) elementos, que é único a menos de isomorfismo e é um corpo de decomposição do polinômio \(\Phi_{p, n}(x) = x^{p^{n}}-x\).
+		Este corpo é denotado por \(F_{p^{n}}\), e temos \(F_{p} = \mathbb{Z}_{p}\).
+	\end{theorem*}
+}
+
+Naturalmente, estaremos estudando algumas propriedades destes corpos, começando por
+\begin{prop*}
+	O corpo \(F_{p^{n}}\) é uma extensão de grau n do corpo \(F_{p}\), ou seja,
+	\[
+		F_{p^{n}} = F_{p}(\alpha ) \quad\&\quad [F_{p^{n}}:F_{p}] = n.
+	\]
+\end{prop*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Raízes Múltiplas},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Uma raiz \(\alpha \) de um polinômio \(f(x)\in F[x]\) é uma \hypertarget{multiple_roots}{raiz múltipla} se, e somente se,
+	\[
+		(x-a)^{2}| f(x).
+	\]
+
+	Um critério para determinar raízes múltiplas do polinômio f(x) consiste em usar \(f(x)\) e sua \textbf{derivada formal} \(f'(x)\), que, se \(f(x) = \sum\limits_{i=0}^{n}c_{i}x^{i}\), será dada por
+	\[
+		f'(x) = \sum\limits_{i=1}^{n}ic_{i}x^{i-1}.
+	\]
+	Com isso, \(\alpha \) será uma raiz múltipla de \(f(x)\) se, e somente se, \(f'(\alpha ) = 0.\) Com efeito,
+
+	\begin{align*}
+		            & (x-a)h(x) = g(x) + (x-a)g'(x) \\
+		\Rightarrow & (x-a)(h(x)-g'(x))=g(x),
+	\end{align*}
+	então \((x-a) | g(x)\) e, por isso,
+	\[
+		f(x)=(x-a)^{2}k(x).
+	\]
+\end{tcolorbox}
+
+\end{document}

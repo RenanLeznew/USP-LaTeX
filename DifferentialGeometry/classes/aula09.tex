@@ -1,6 +1,6 @@
 \documentclass[../differential_geometry.tex]{subfiles}
 \begin{document}
-\section{Aula 09 - de Fevereiro, 2026}
+\section{Aula 09 - 07 de Abril, 2026}
 \subsection{Motivações}
 \begin{itemize}
 	\item Reparametrização;
@@ -18,6 +18,199 @@
 	Seja c um número real; então, c é um \textbf{valor regular de f} se, para todo p em \(\mathbb{R}^{3}\) tal que \(f(p)=c\), p é um valor regular. \(\square\)
 \end{def*}
 Equivalentemente, um valor crítico é um número real c tal que existe p ponto crítico de f com \(f(p)\) satisfazendo \(f(p)=c\).
+
+\begin{example}
+	No caso da função \(f(x, y, z) = y - x^{2},\) temos
+	\[
+		\nabla f(x, y, z) = (-2x, 1, 0) \neq (0, 0, 0), \quad \forall (x, y, z)\in \mathbb{R}^{3},
+	\]
+	de modo que todos os pontos de \(\mathbb{R}^{3}\) são regulares de f, e todos os valores c reais são valores regulares de f.
+\end{example}
+\begin{example}[Cone]
+	Consideremos a função \(f(x,y,z)=x^{2}+y^{2}-z^{2}\), para a qual
+	\[
+		\nabla f(x, y, z) = (2x, 2y, -2z);
+	\]
+	então, o único ponto crítico de f é a origem (0, 0, 0), e o valor crítico associado é \(f(0, 0, 0) = 0\). Mais ainda, observe que o conjunto dos pontos (x, y, z) tais que \(f(x, y, z) = 0\) é um cône!
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/cone_singularity_08.png}
+		\end{center}
+		\caption{note que S não é uma superfície!}
+	\end{figure}
+
+	O ponto \((1, 1, \sqrt[]{2})\) pertence a S, pois ele satisfaz
+	\[
+		f(1, 1, \sqrt[]{2}) = 1^{1} + 1^{2} - 2 = 0,
+	\]
+	e, em relação ao gradiente, temos
+	\[
+		\nabla f (1, 1, \sqrt[]{2}) = (2, 2, -2\sqrt[]{2})\neq (0, 0, 0),
+	\]
+	mostrando que o ponto \((1, 1, \sqrt[]{2})\) é regular -- na verdade, todos os pontos de S, exceto por (0, 0, 0), são valores regulares de f; por isso, para o valor crítico 0 de f, o conjunto \(f(x, y, z) = 0\) tem apenas uma singularidade.
+\end{example}
+
+\begin{prop*}
+	Seja \(f:V\subseteq \mathbb{R}^{3}\rightarrow \mathbb{R}\) uma função suave e seja c um valor crítico regular na imagem \(f(V)\) de f. Então, o conjunto
+	\[
+		f^{-1}(c) = \{(x, y, z)\in V:\; f(x, y, z) = c\}
+	\]
+	é uma superfície.
+\end{prop*}
+\begin{proof*}
+	Seja \(p_{0} = (x_{0}, y_{0}, z_{0})\in f^{-1}(c)\) um ponto na pré-imagem de c, tal que, por ser um valor regular de f, sabemos que
+	\[
+		\nabla f(p_{0}) = (f_{x}(p_{0}), f_{y}(p_{0}), f_{z}(p_{0}))\neq (0, 0, 0).
+	\]
+	Sem perda de generalidade, suponhamos que \(f_{z}(p_{0}) \neq 0\).
+
+	Pelo \hyperlink{implicit_function}{\textit{Teorema da Função Implícita}}, existe um aberto U de \(\mathbb{R}^{2}\) contendo \((x_{0}, y_{0})\), um aberto I de \(\mathbb{R}\) que contém \(z_{0}\) e uma função \(g:U\subseteq \mathbb{R}^{2}\rightarrow I\) suave tal que
+	\[
+		(x, y, z)\in U\times I \subseteq V,\; f(x, y, z) = 0 \Longleftrightarrow z = g(x, y).
+	\]
+	Logo,
+	\[
+		f^{-1}(c)\cap (U\times I)=\{(x, y, g(x, y)):\; (x, y)\in U\} = \Gamma (g).
+	\]
+	Portanto, \(f^{-1}(c)\) é localmente, em todos seus pontos, um gráfico de uma função, ou seja, \(f^{-1}(c)\) é uma superfície. \qedsymbol
+\end{proof*}
+Com isso, ganhamos outro critério para determinar se um certo espaço é uma superfície ou não.
+\begin{example}
+	Vamos considerar um círculo em \(\mathbb{R}^{3}\):
+	\[
+		S(r) = \{(x, y, z)\in \mathbb{R}^{3}:\; x^{2}+y^{2}+z^{2}=r^{2}\},
+	\]
+	e consideremos a função \(f(x, y, z) = x^{2} + y^{2} + z^{2}\). Temos, então, a relação \(S(r) = f^{-1}(r^{2})\) para todo ponto p de \(S(r)\); mais ainda, como o ponto \(p = (0, 0, 0)\) não faz parte de S, o gradiente de f nunca se anula, pois
+	\[
+		\nabla f(p) = (2x, 2y, 2z) \neq (0, 0, 0),\; \forall p\in \mathbb{R}^{3}\setminus{(0, 0, 0)}
+	\]
+	Portanto, \(r^{2}\) é um valor regular de f, implicando que \(S(r)\) é uma superfície.
+\end{example}
+
+\begin{prop*}
+	Seja S uma superfície em \(\mathbb{R}^{3}\), \(\underline{x}:U\subseteq \mathbb{R}^{2}\rightarrow \mathbb{R}^{n}\) uma parametrização local de \(S\), e \(h:U\rightarrow V\) um difeomorfismo; então, \(\underline{y}\coloneqq \underline{x}\circ h :V\rightarrow \mathbb{R}^{n}\) é uma parametrização local de S.
+\end{prop*}
+\begin{proof*}
+	Exercício.
+\end{proof*}
+
+\begin{exr}
+	Prove a proposição acima.
+\end{exr}
+
+\subsection{Superfícies Especiais}
+Algumas superfícies aparecem mais no mundo real e nas aplicações, por exemplo em arquitetura, do que outras, e por isso merecem certa atenção especial; dentre elas, estudaremos as \textit{superfícies de revolução}, a \textit{superfície canal} e as \textit{superfícies regradas}.
+\begin{def*}
+	Uma \textbf{superfície de revolução} é a superfície obtida girando uma curva plana em torno de um eixo. \(\square\)
+\end{def*}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.7\textheight, width=\textwidth, keepaspectratio]{./Images/surface_revolution_09.png}
+	\end{center}
+	\caption{ao rodar a curva desenhada à esquerda em torno do eixo z, obtemos a superfície.}
+\end{figure}
+
+Seja \(\alpha : I\rightarrow \mathbb{R}^{3}\) uma curva regular no plano xz, dada por
+\[
+	\alpha (v) = (f(v), 0, g(v)),
+\]
+suponha que \(\alpha \) não tem pontos de auto interseção e suponha que ela não intersecta o eixo-z, ou seja, que \(f(v)\neq 0\) para todo v em I. Girando a \(\alpha \) em torno do eixo-z por um ângulo u, ação descrita por uma matriz, obtemos
+\[
+	\begin{pmatrix}
+		\cos^{}{u} & - \sin^{}{u} & 0 \\
+		\sin^{}{u} & \cos^{}{u}   & 0 \\
+		0          & 0            & 1
+	\end{pmatrix} \begin{pmatrix}
+		f(v) \\
+		0    \\
+		g(v)
+	\end{pmatrix} = \begin{pmatrix}
+		f(v)\cos^{}{u} \\
+		f(v)\sin^{}{u} \\
+		g(v)
+	\end{pmatrix}.
+\]
+Assim, a imagem da aplicação
+\begin{align*}
+	\underline{x}: & \mathbb{R}\times I\rightarrow \mathbb{R}^{3}                                   \\
+	               & (u, v)\longmapsto \underline{x}(u, v) = (f(v)\cos^{}{u}, f(v)\sin^{}{u}, g(v))
+\end{align*}
+é uma \textit{superfície de revolução}!
+\begin{exr}
+	Prove que a superfície de revolução acima é, de fato, uma superfície.
+\end{exr}
+\begin{example}[Catenoide]
+	A catenoide é uma superfície que pode ser obtida como acima!
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.2\textheight, width=0.2\textwidth, keepaspectratio]{./Images/catenoide_09.png}
+		\end{center}
+	\end{figure}
+
+	Considere
+	\[
+		\alpha (v) = (\cosh^{}{v}, 0, v),\; v\in \mathbb{R},
+	\]
+	tal que
+	\[
+		\underline{x}(u, v) = (\cosh^{}{(v)}\cos^{}{(u)}, \cosh^{}{(v)}\sin^{}{(u)}, v),\quad (u,v)\in \mathbb{R}\times \mathbb{R}.
+	\]
+\end{example}
+
+\begin{def*}
+	Seja \(\alpha :I\rightarrow \mathbb{R}^{3}\) uma curva regular parametrizada p.c.a; para \(r > 0\) pequeno, considere a família de círculos nos planos normais, com centro \(\alpha (s)\) e raio r. Então, esses círculos formam uma superfície chamada \textbf{superfície canal}. \(\square\)
+\end{def*}
+Para obter uma parametrização da superfície canal, basta considerar
+\begin{align*}
+	\underline{x}: & I \times \mathbb{R}\rightarrow \mathbb{R}^{3}                                                                             \\
+	               & (r, \theta )\longmapsto \underline{x}(r, \theta ) = \alpha (s) + \Gamma (\cos^{}{(\theta )}n(s) + \sin^{}{(\theta )}b(s))
+\end{align*}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.3\textheight, width=0.3\textwidth, keepaspectratio]{./Images/channel_surface_09.png}
+	\end{center}
+\end{figure}
+
+\begin{def*}
+	Uma \textbf{superfície regrada} é a superfície formada por uma família de retas em \(\mathbb{R}^{3}\). \(\square\)
+\end{def*}
+
+Seja \(\alpha :I\rightarrow \mathbb{R}^{3}\) uma curva regular, \(\beta :I\rightarrow \mathbb{R}^{3}\) e suponha que \(\alpha '(t)\) e \(\beta (t)\) são linearmente independentes para todo t em I. Então, a família das retas passando por \(\alpha(t)\) e paralelas a \(\beta (t)\) formam uma superfície regrada!
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.3\textheight, width=0.3\textwidth, keepaspectratio]{./Images/superficie_regrada_09.png}
+	\end{center}
+\end{figure}
+Se \(J = (-a, a)\), onde a é pequeno, então \(\underline{x}(t, u) = \alpha (t) + u \beta (t)\) com \((t, u)\in I\times J\) é uma parametrização local da superfície regrada.
+
+\begin{exr}
+	Prove que a superfície \(x^{2}+y^{2}-z^{2}=1\), descrevendo o hiperboloide de uma folha, é uma superfície de revolução \textit{duplamente} regrada (pode ser construída com duas famílias de reta).
+\end{exr}
+
+\subsection{Plano Tangente: introdução}
+Anteriormente, vimos que o vetor tangente de uma curva \(\alpha :I\rightarrow \mathbb{R}^{n}\) no ponto \(\alpha (t)\) é o vetor \(\alpha '(t)\).
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/tangent_vector_09.png}
+	\end{center}
+\end{figure}
+
+Queremos generalizar essa ideia para objetos de dimensão maior do que uma simples curva.
+\begin{def*}
+	Seja S uma superfície em \(\mathbb{R}^{n},\; n\geq 3\). Um \textbf{vetor tangente a S no ponto p} (também em S) é o vetor \(\alpha'(0)\) para alguma curva regular \(\alpha :(-\varepsilon , \varepsilon )\rightarrow S\subseteq \mathbb{R}^{n}\) com \(\alpha (0) = p\). \(\square\)
+\end{def*}
+
+Seja \(\underline{x}:U\rightarrow \mathbb{R}^{2}\) uma parametrização local de S e q um ponto de u tal que \(\underline{x}(q) = p\); considere, também, a aplicação linear \(\mathrm{d}\underline{x}_{q}:\mathbb{R}^{2}\rightarrow \mathbb{R}^{n}\). Neste contexto, a imagem de \(\mathbb{R}^{2}\) por \(\mathrm{d}\underline{x}_{q}\) é um espaço vetorial de dimensão 2:
+\[
+	\mathrm{d}\underline{x}_{q}(\mathbb{R}^{2}) = \mathbb{R}\cdot \{\underline{x}_{u}(q), \underline{x}_{v}(q)\},
+\]
+pois \(\underline{x}_{u}(q)\) e \(\underline{x}_{v}(q)\) são linearmente independentes, formando um plano.
+\begin{prop*}
+	Seja \(\underline{x}:U\subseteq \mathbb{R}^{2}\rightarrow S\) uma parametrização local de S e q um ponto de U. Então, o plano \(\mathrm{d}\underline{x}_{q}(\mathbb{R}^{2})\) coincide com o espaço de todos os vetores tangente a s no ponto \(p = \underline{x}(q)\).
+\end{prop*}
+\begin{proof*}
+	Ver próxima aula.
+\end{proof*}
 
 \end{document}
 

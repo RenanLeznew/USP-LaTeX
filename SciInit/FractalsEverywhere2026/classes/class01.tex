@@ -1,0 +1,146 @@
+\documentclass[../fractals_everywhere.tex]{subfiles}
+\begin{document}
+\section{Seminar 01 - April 10th, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item The space of compact metric spaces.
+\end{itemize}
+\subsection{The space of compact metric spaces}
+\begin{def*}
+	Let \((X, d)\) be a complete metric space; then \(\mathcal{H}(X)\) denotes the space whose points are the compact subsets of x (without the empty set). \(\square\)
+\end{def*}
+\begin{prop*}
+	If Y and Z are elements of \(\mathcal{H}(X)\), then \(Z \cup Y\) is also an element of \(\mathcal{H}(X)\).
+\end{prop*}
+\begin{proof*}
+	Let Y and Z be two nonempty subsets in \(\mathcal{H}(X)\), so that \(Y\cup Z \neq \emptyset \); pick a sequence of sets \(\{Y_{n}\}_{n=1}^{\infty}\) in \(Y\cup Z\), so that by the pigeon house principle, \(\{Y_{n}\}_{n=1}^{\infty}\) must have infinitely many terms either in Y or in Z.
+
+	Without loss of generality, assume Y is the subset with infinitely many terms of \(\{Y_{n}\}_{n=1}^{\infty}\), and pick an infinite subsequence \(\{Y_{n_{p}}\}_{p=1}^{\infty}\). Then, because X is compact, the subsequence must have a limit point in Y, and hence \(\{Y_{n_{p}}_{n=1}^{\infty}\}\) must also have a limit point in \(Y\cup Z\) for all sequences \(\{Y_{n}\}_{n=1}^{\infty}\subseteq Y\cup Z\). Consequently,
+	\(Y\cup Z\) is compact, proving the result. \qedsymbol
+\end{proof*}
+In general, \(Y\cap Z\) is not in \(\mathcal{H}(X)\); it is sufficient to take, for instance, \(X = \mathbb{R},\; Y = [0, 1]\) and \(Z = [2, 3]\), which both are in \(\mathcal{H}(\mathbb{R})\), but their intersection is \(Y\cap Z = \emptyset \), which is not in \(\mathcal{H}(X)\).
+
+So, what is the difference between a subset of \(\mathcal{H}(X)\) and any compact nonempty subset of X? Well, a subset of \(\mathcal{H}(X)\) includes ``points'' of \(\mathcal{H}(X)\), which are subsets, while usual compact nonempty subsets have the usual points in X instead, giving meaning to the difference between, for example, \([1, 2]\subseteq X\) and \([1, 2]\in \mathcal{H}(X)\).
+
+It is in our best interest to endow \(\mathcal{H}(X)\) with some sort of metric, one that must measure distances between sets. It'll be a gradual process of defining metrics upon metrics, such as:
+\begin{def*}
+	Let \((X, d)\) be a complete metric space, \(x\in X\) and \(B\in \mathcal{H}(X)\). Then, the \textbf{distance from x to B} is given by the metric
+	\[
+		d(x, B)\coloneqq \min\limits_{}\{d(x, y):\; y\in B\}.\; \square
+	\]
+\end{def*}
+We must, however, prove that it is indeed a metric.
+
+Take \(f:B\rightarrow \mathbb{R}\) given by \(f(y) = d(x, y)\), which is continuous since metrics are so, and satisfy
+\[
+	\inf_{}f(B)  = \left\{\begin{array}{ll}
+		-\infty, \quad & \not\exists a\in \mathbb{R}:\; a\leq x,\; x\in f(B) \\
+		a, \quad       & \exists a\in \mathbb{R}:\; a\leq x,\; x\in f(B)
+	\end{array}\right..
+\]
+Since \(f(x)\geq 0\), then \(\inf_{}f(B)\neq -\infty\), and we can call it p; under these conditions, the minimum of f(B) will exist if a is a point of \(f(B)\).
+Now, because B is compact, let \(\{x_{n}\}_{n=1}^{\infty}\subseteq B\) be an infinite sequence, and consider another sequence \(\{y_{n}\}_{n=1}^{\infty}\) satisfying
+\[
+	| f(y_{n})-p |<\frac{1}{n},
+\]
+and also by compactness, the limit is in B -- there is a \(\tilde{y}\in B\) such that
+\[
+	| f(\tilde{y})-p | \stackrel{n\to \infty}\rightarrow 0.
+\]
+Hence, by continuity of f, it follows that
+\[
+	\lim_{y\to \tilde{y}}f(y) = f(\tilde{y}) = p,
+\]
+and therefore the minimum exists.
+\begin{def*}
+	Let \((X, d)\) be a complete metric space; then, the \textbf{distance between two sets A and B} in \(\mathcal{H}(X)\) is defined by
+	\[
+		d(A, B) = \max\limits_{}\{d(x, B): x\in A)\}.\; \square
+	\]
+\end{def*}
+This definition fails to be symmetric, and thus is \textbf{not} a metric, but it will be used to define the metric, which makes it important to prove that such a maximum exists.
+
+\begin{example}
+	To see that \(d(A, B)\) is not a metric, take \(B\subseteq A\); then, \(d(B, A) = 0\) since the distance from x to a set containing it is 0, and there are no points in B that are not in A, but \(d(A, B) \neq 0\), because there are points in A that are not in B: there is at least one point p in A such that \(p\not\in B\), and thus
+	\[
+		d(A, B) \geq d(p, B) = \min\limits_{x\in B}d(p, x) > 0.
+	\]
+	Therefore,
+	\[
+		d(A, B) > 0 = d(B, A).
+	\]
+\end{example}
+
+Take once again a function \(f:A\rightarrow \mathbb{R},\; f(x) = d(x, B)\), which is still continuous. Then, because A, B are compact, they are bounded (by Heine-Borel Theorem), and by picking a point x in A, we know that \(d(x, B)\) is well-defined and finite; take another point a in A, so that by boundedness of A,
+\[
+	d(a, x)\leq R,\; R\in \mathbb{R}.
+\]
+Using the triangle inequality, it follows that
+\[
+	d(a, B) \leq d(a, x) + d(x, B),
+\]
+so that \(d(a, B)\) is finite for all a in A, which implies finiteness of the supremum, say \(\sup_{}f(A) = p < \infty\).
+
+Proceeding similarly to before, take a sequence \(\{x_{n}\}_{n=1}^{\infty}\) satisfying
+\[
+	| f(x_{n}) - p | < \frac{1}{n}.
+\]
+Then, because A is compact, this limit is hit by a point \(\tilde{x}\) in A, for which \linebreak \(| f(\tilde{x}) - p |\to 0\), and by continuity of f, we must have
+\[
+	\lim_{x\to \tilde{x}}f(x) = f(\tilde{x}),
+\]
+showing that \(\max\limits_{}(f(A))\) is well-defined and finite.
+
+\begin{exr}
+	Let B, C be two sets in \(\mathcal{H}(X)\) with \(C\subseteq B\). Show that \(d(x, C)\leq d(x, C)\).
+
+	Write down
+	\begin{align*}
+		 & d(C, B) = \max\limits_{x\in C}(d(x, B))  \\
+		 & d(x, B) = \min\limits_{y\in B}(d(x, y)).
+	\end{align*}
+	It all comes down to cleverly using the triangle inequality: let w be the point in C such that \(d(x, w) = d(x, c)\); since C is a subset of B, \(d(w, B) = 0\), and the triangle inequality gives
+	\[
+		d(x, B) \leq d(x, w) + d(w, B) \Rightarrow d(x, B)\leq d(x, C).
+	\]
+\end{exr}
+
+\begin{exr}
+	We will calculate \(d(x, B)\) if \((X, d)\) is the space \((\mathbb{R}^{2}, \mathrm{Euclidean})\), x is the point \((1, 1)\), and B is a closed disk of radius \(\frac{1}{2}\) centered at \(\biggl(\frac{1}{2}, 0\biggr)\):
+	\[
+		B = \biggl\{(x, y): \biggl(x-\frac{1}{2}\biggr)^{2} + y^{2} \leq \frac{1}{4}\biggr\}.
+	\]
+	Then, by letting \(R_{B}\) denote the radius of B,
+	\begin{align*}
+		 & d(x, B) = d(x, 0) - R_{B}                                                         \\
+		 & d(x, 0) = \sqrt[]{\biggl(1-\frac{1}{2}\biggr)^{2} + 1^{2}} = \frac{\sqrt[]{5}}{2} \\
+		 & R_{B} = \frac{1}{2}.
+	\end{align*}
+	Consequently,
+	\[
+		d(x, B) = \frac{\sqrt[]{5}-1}{2}.
+	\]
+
+	With the Manhattan metric \(d(x, y) = | x_1 - y_1 | + | x_2 - y_2 |\), the euclidean circle becomes a diamond/lozenge, and \(d(x, B) = d(x, a)\), where a is the point in which the perpendicular lines b and \(R_{B}\) of the diamong and the radius meet, so that
+	\[
+		\frac{1}{2} = d \sqrt[]{2} \Rightarrow a = \biggl(\frac{1}{2}, 0\biggr) + \biggl(\frac{\sqrt[]{2}}{4}, \frac{\sqrt[]{2}}{4}\biggr) \Rightarrow a = \biggl(\frac{\sqrt[]{2}+4}{4}, \frac{\sqrt[]{2}}{4}\biggr).
+	\]
+	Therefore,
+	\[
+		d(x, R) = \sqrt[]{\biggl(1-\frac{\sqrt[]{2}+2}{4}\biggr)^{2} + \biggl(1-\frac{\sqrt[]{2}}{2}\biggr)} = \frac{3-\sqrt[]{2}}{2}.
+	\]
+\end{exr}
+
+\begin{exr}
+	Calculate \(d(x, B)\) if \((X, d)\) is \((\mathbb{R}, \mathrm{Euclidean}),\; x = \frac{1}{2}\), and
+	\[
+		B = \biggl(x_{n} = 3 + (-1)^{n}\frac{n}{n^{2}+1}:\; n\in \mathbb{N}\biggr)\cup \{3\}.
+	\]
+
+	Since the fraction \(\displaymath \frac{n}{n^{2}+1}\) is decreasing, for increasing n's, it eventually converges to 3. The closest point to x will be \(5/2\), the case n=1, since the following ones will be either too much to the left or too much to the right, it follows that
+	\[
+		d(x, B) = d\biggl(\frac{1}{2}, \frac{5}{2}\biggr) = \biggl\vert \frac{1}{2} - \frac{5}{2} \biggr\vert = 2.
+	\]
+\end{exr}
+
+\end{document}
