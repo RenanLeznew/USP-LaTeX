@@ -1,0 +1,200 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 16 de Abril, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Extensões Normais;
+	\item Extensões Separáveis.
+\end{itemize}
+\subsection{Extensões Normais e Separáveis}
+Já fizemos uma parte sobre teoria de corpos em geral, mas ainda precisamos das noções de \textit{extensões normais} e \textit{extensões separáveis}, usadas para definir as chamadas \textit{extensões de Galois}.
+
+Seja F um corpo finito; já sabemos que:
+\begin{itemize}
+	\item \(\mathrm{char}(F) = p > 0\), p primo
+	\item Temos o isomorfismo \(F \cong F_{p^{n}}\cong \overbrace{F_{p}\times \dotsc \times F_{p}}^{\text{n-vezes}}\), onde \(F_{p}\coloneqq \mathbb{Z}/\langle p \rangle = \mathbb{Z}_{p}\);
+	\item Para todo primo p e n positivo, existe um único corpo, a menos de isomorfismo, tal que \(\# (F) = p^{n}\);
+	\item O grupo de unidades \((F_{p})^{*} = F_{p}\setminus{\{0\}}\) é cíclico de ordem n;
+	\item Os \(F_{p^{n}}\)'s são extensões simples de \(F\), ou seja, existe \(\alpha \) em \(F_{p^{n}}\) tal que \(F_{p^{n}} = F_{p}(\alpha )\);
+	\item Para todo a em \(F_{p^{n}}\), a é solução de \(x^{p^{n}} - x = 0\);
+	\item Em geral, o grupo de automorfismos \(\mathrm{Aut}_{F_{p}}(F_{p^{n}})\) é um grupo cíclico de ordem n, onde K é uma extensão de F, então
+	      \[
+		      \mathrm{Aut}_{F}(K) = \{\varphi :K\rightarrow K \text{ isomorfismo de corpos}:\; \varphi (a) = a,\; \forall a\in F\}.
+	      \]
+	      Mais ainda, com o automorfismo de Frobenius
+	      \begin{align*}
+		      \mathfrak{F}_{p}: & F_{p^{n}}\rightarrow F_{p^{n}} \\
+		                        & a\longmapsto a^{p},
+	      \end{align*}
+	      temos \(\mathrm{Aut}_{F_{p}}(F_{p^{n}}) = \langle \mathfrak{F}_{p} \rangle\); e
+	\item \(F_{p^{m}}\subseteq F_{p^{n}}\) se, e somente se, m divide n.
+\end{itemize}
+
+Ao escolhermos um corpo K, podemos considerar os automorfismos de K tanto para o próprio K, consistindo apenas dos isomorfismo \(\varphi :K\rightarrow K\), ou então olhar para os automorfismos fixadores de subcorpos K, para os quais os isomorfismos atuam como a unidade nos elementos de F. Neste sentido, existe uma correspondência bijetora entre os subcorpos de K e os subgrupos de \(\mathrm{Aut}(K)\):
+\[
+	\{F\subseteq K: \text{ F subcorpo de K}\} \stackrel{\mathrm{Aut}_{(\cdot )}(K)}\longrightarrow \{G: \text{ G é subgrupo de }\mathrm{Aut}(K)\};
+\]
+por outro lado, dado G um subgrupo de Aut(K), será que podemos definir uma correspondência inversa? Vamos tomar o subconjunto de K dado por
+\[
+	\mathrm{Inv}(G)\coloneqq \{a\in K:\; \varphi (a) = a,\; \forall \varphi \in G\}.
+\]
+
+\begin{lemma*}
+	O conjunto \(\mathrm{Inv}(G)\) é um subcorpo de K.
+\end{lemma*}
+\begin{proof*}
+	Se a é um elemento de G, então \(a^{-1},\; -a\) também estão em G, assim como 1 e 0, ou seja, se a e b são elementos de \(\mathrm{Inv}(G)\), então
+	\[
+		a\pm b,\; ab \;\&\; ab^{-1}\in \mathrm{Inv}(G). \text{\qedsymbol}
+	\]
+\end{proof*}
+
+O lema dá sentido à existência da aplicação
+\[
+	\{G: \text{ G é subgrupo de }\mathrm{Aut}(K)\};\stackrel{\mathrm{Inv}(\cdot )}\longrightarrow \{F\subseteq K: \text{ F subcorpo de K}\},
+\]
+com algumas propriedades:
+\begin{lemma*}[Propriedades de Inv]
+	Considere a aplicação \(\mathrm{Inv}(\cdot )\) acima; então:
+	\begin{itemize}
+		\item[1)] Se \(F_1\subseteq F_2\) são dois subcorpos de K, então os grupos de automorfismos deles são inversamente subgrupos:
+		      \[
+			      \mathrm{Aut}_{F_{2}}(K) < \mathrm{Aut}_{F_1}(K);
+		      \]
+		\item[2)] Se \(G_1 < G_2\) são dois subgrupos de \(\mathrm{Aut}(K)\), então
+		      \[
+			      \mathrm{Inv}(G_2)\subseteq \mathrm{Inv}(G_1)
+		      \]
+		\item[3)] Seja G um subgrupo de \(\mathrm{Aut}(K)\); então, \(\mathrm{Inv}(G)\subseteq K\) e \(\mathrm{Aut}_{\mathrm{Inv}(G)}(K)>G\);
+		\item[4)] Seja F um subcorpo de K; então, \(\mathrm{Aut}_{F}(K) < \mathrm{Aut}(K)\) e \(\mathrm{Inv}(\mathrm{Aut}_{F}(K)\supseteq F\).
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	(1): Seja \(\varphi \in \mathrm{Aut}_{F_{2}}(K)\), de modo que desejamos mostrar que \(\varphi \in \mathrm{Aut}_{F_{1}}(K)\). Com efeito, sendo \(\varphi \in \mathrm{Aut}(F_{2}(K))\), sabemos que, para cada a em \(F_{2}\), vale
+	\[
+		\varphi (a) = a.
+	\]
+	Daí, como \(F_{1}\subseteq F_{2}\), vale que \(\varphi (a) = a\) para todo a em \(F_{1}\) também! Logo, \(\varphi \in \mathrm{Aut}_{F_{1}}(K)\). \qedsymbol
+\end{proof*}
+\begin{exr}
+	Demonstre 2, 3 e 4.
+\end{exr}
+\begin{exr}
+	Mostre que, se \(G = \{\mathrm{Id}\}\)l, então \(\mathrm{Inv}(G)=K\), e que, se \(G = \mathrm{Aut}(K)\), então \(\mathrm{Inv}(\mathrm{Aut}(K)) = \{a\in K:\; \varphi (a) = a,\; \forall \varphi \in \mathrm{Aut}(K)\}\) e que ele deve, pelo menos, conter um corpo primo.
+\end{exr}
+\begin{example}
+	Seja \(F = \mathbb{Q}\) e \(K = \mathbb{Q}(\sqrt[3]{2})\); então,
+	\[
+		\mathrm{Aut}_{\mathbb{Q}}(\mathbb{Q}(\sqrt[3]{2})) = \{\mathrm{Id}\},
+	\]
+	com polinômio minimal \(p(x) = x^{3} - 2\). Assim,
+	\[
+		\mathbb{Q}(\sqrt[3]{2}) \cong \frac{\mathbb{Q}[x]}{\langle p(x) \rangle}, \quad [x]_{\langle p(x) \rangle}\mapsto \sqrt[3]{2}.
+	\]
+	Lembre-se que, quando temos K um corpo contendo \(\alpha \) e \(p(x)\) é um polinômio minimal para \(\alpha \), então temos uma correspondência bijetora entre F-morfismos \(\varphi :F(\alpha )\rightarrow K\)e as raízes de \(p(x)\) em K.
+\end{example}
+
+Supondo que F é corpo e \(E/F\) é uma extensão do tipo \(E = F(\alpha_{1}, \dotsc , \alpha_{n})\), com todos os \(\alpha_{i}\) algébricos; nosso desejo agora é determinar quantos elementos estão em \(\mathrm{Aut}_{F}(E)\), ou seja, determinar a ordem \(\#(\mathrm{Aut}_{F}(E))\) de \(\mathrm{Aut}_{F}(E)\).
+\begin{lemma*}
+	Sejam f(x), g(x) polinômios em \(F[x]\) e \(K/F\) uma extensão. Então,
+	\[
+		\mathrm{mdc}_{K[x]}(f, g) = \mathrm{mdc}_{F[x]}(f, g).
+	\]
+\end{lemma*}
+\begin{proof*}
+	Sejam
+	\[
+		r(x)\coloneqq \mathrm{mdc}_{K[x]}(f, g) \quad\&\quad \ell (x) \coloneqq \mathrm{mdc}_{F[x]}(f, g),
+	\]
+	tal que \(\ell (x)\) é um divisor de \(f(x)\) e \(g(x)\) em \(K[x]\), e, por isso, \(\ell (x)\) divide também \(r(x)\) em \(K[x]\).
+
+	Sendo \(\ell (x) = \mathrm{mdc}_{F[x]}(f, g)\), existem \(a(x), b(x)\) em \(F[x]\) tais que, usando o \hyperlink{euclides_algorithm}{\textit{Algoritmo de Divisão de Euclides}},
+	\[
+		\ell (x) = a(x)f(x) + b(x)g(x),
+	\]
+	sendo \(r(x)\) um divisor de \(f(x)\) e de \(g(x)\), tornando-o um divisor de \(a(x)f(x)+b(x)g(x)\), e, por isso, \(r(x)\) divide \(\ell (x)\). \qedsymbol
+\end{proof*}
+\begin{crl*}
+	Sejam \(p(x), f(x)\in F[x]\) e \(\alpha \in K\), onde K é uma extensão de F, tais que
+	\[
+		p(\alpha ) = f(\alpha ) = 0.
+	\]
+	Se \(P(x)\) é irredutível em \(F[x]\), então
+	\[
+		p(x)| f(x).
+	\]
+\end{crl*}
+\begin{proof*}
+	Sendo \(\alpha \) a raiz em comum de \(f(x)\) e \(p(x)\) em K, segue que \((x-\alpha )\) é um divisor em comum de \(f(x)\) e \(p(x)\) em \(K[x]\). Como \(\deg{(x-a)}=1\), segue que
+	\[
+		\deg{(\mathrm{mdc}_{K[x]}(f, p))}>0 \Rightarrow \deg{(\mathrm{mdc}_{F(x)})(f, p)} > 0.
+	\]
+	Daí, sendo \(p(x)\) irredutível em \(F[x]\), concluímos que \(p(x)\) deve dividir \(f(x)\). \qedsymbol
+
+\end{proof*}
+\begin{prop*}
+	Sejam F, K dois corpos e \(\varphi_{0}:F\rightarrow K\) um morfismo. Seja \(\alpha \in K\) algébrico sobre F e \(p(x)\in F[x]\) o polinômio minimal de \(\alpha \) sobre F . Então, temos uma correspondência bijetora entre os conjunto
+	\[
+		A\coloneqq \biggl\{\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-0.5,0.5){F[\alpha ]};
+			\node(BL) at (-0.5,-0.5){F};
+			\node(TR) at (0.5,0.5){K};
+			\node(BR) at (0.5,-0.5){(\varphi_{0}F)};
+
+			\draw[Arrow](TL)--node[midway, above] {\varphi }(TR);
+			\draw[Arrow](BL)--node[midway, below] {\varphi_{0}}(BR);
+			\draw[Arrow](TL)--node[midway, left] {}(BL);
+			\draw[Arrow](TR)--node[midway, right] {}(BR);
+
+		\end{tikzpicture}, \text{ \varphi  homomorfismo}\biggr\} \longleftrightarrow \{\text{raízes de }\underbrace{(\varphi_{0})_{*}p(x)}_{\coloneqq q(x)}\text{ em K}\}\eqqcolon B,
+	\]
+	onde, se \(f(x) = a_{n}x^{n}+\dotsc + a_1x + a_{0}\), então
+	\[
+		(\varphi_{*}f)(x) = \varphi_{0}(a_{n})x^{n}+(\varphi_{0}a_{n-1})x^{n-1}+\dotsc +(\varphi_{0}a_1)x + \varphi_{0}(a_{0}).
+	\]
+\end{prop*}
+\begin{proof*}
+	Consideremos a função de avaliação
+	\begin{align*}
+		\mathrm{ev}_{\alpha }: & A\rightarrow K                        \\
+		                       & \varphi \longmapsto \varphi(\alpha ).
+	\end{align*}
+	Nossa afirmação é que ela é a bijeção proposta.
+
+	Para isso, precisamos mostrar que, para toda \(\varphi \) em A, \(\varphi(\alpha )\) é uma raiz de \(p'(x)\); de fato, suponha que \(p(x) = x^{n} + a_{n-1}x^{n-1}+\dotsc +a_1 x + a_{0}\), onde \(a_{i}\in F\) para todos os i's. Então,
+	\[
+		q(x) = (\varphi_{0})_{*}p(x) = x^{n} + \varphi_{0}(a_{n-1})x^{n-1}+\dotsc +\varphi_{0}(a_1)x + \varphi_{0}(a_{0}).
+	\]
+	Assim, como \(\varphi (a) = \varphi_{0}(a)\),
+	\[
+		q(\varphi(\alpha ))=\varphi(\alpha )^{n}+\varphi_{0}(a_{n-1})\varphi(\alpha)^{n-1}+\dotsc +\varphi_{0}(a_{0}) = \varphi(\alpha)^{n}+\varphi(a_{n-1})\varphi(\alpha)^{n-1}+\dotsc +\varphi(a_{0}),
+	\]
+	e por \(\varphi \) ser homomorfismo de corpos, obtemos
+	\[
+		q(\underbrace{\varphi (\alpha )) = \varphi (\alpha^{n}+a_{n-1}\alpha^{n-1}+\dotsc +a_{1}\alpha +a_{0}}_{p(\alpha )})=\varphi(0) = 0.
+	\]
+
+	Para ver que \(\mathrm{ev}_{\alpha }\) é injetora, tomemos \(\varphi_1,\; \varphi_2\) em A; queremos mostrar que, se \(\mathrm{ev}_{\alpha }(\lambda_1) = \mathrm{ev}_{\alpha }(\varphi_2)\), então \(\varphi_1 = \varphi_2\). Isso significa que, para todo \(\xi \in F[\alpha ]\), queremos mostrar que \(\varphi_1(\xi ) = \varphi_2(\xi )\), onde
+	\[
+		\xi = a_{m}\alpha^{m} + \dotsc +a_1 \alpha  + a_{0}.
+	\]
+	Assim,
+	\begin{align*}
+		\varphi_{1}(\xi ) = \varphi_{1}(a_{m}\alpha^{m}+\dotsc +a_{0}) & = \varphi_1(a_{m})\varphi_1(\alpha)^{m}+\dotsc +\varphi_1(a_1)\varphi(\alpha_1) + \varphi_1(a_{0}) \\
+		                                                               & = \varphi_1(a_{m})\varphi_2(\alpha)^{m}+\dotsc + \varphi_1(a_1)\varphi_2(\alpha )+\varphi_1(a_{0}) \\
+		                                                               & = \varphi_2(a_{m})\varphi_2(\alpha)^{m}+\dotsc +\varphi_2(a_1)\varphi_2(\alpha )+\varphi_2(a_{0}).
+	\end{align*}
+	Por fim, como \(\varphi_1(a) = \varphi_{0}(a) = \varphi_2(a)\) para todo a em F, concluímos que
+	\[
+		\varphi_1(\xi ) = \varphi_2(\xi ). \text{ \qedsymbol}
+	\]
+
+\end{proof*}
+
+\end{document}

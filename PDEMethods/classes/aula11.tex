@@ -1,0 +1,65 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 20 de Abril, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Métodos de Runge-Kutta
+\end{itemize}
+\subsection{Métodos Runge-Kutta Explícitos}
+Quando utilizamos o método de Euler explícito, existe uma ideia geométrica que faz uso de retas conectando os valores por trás dos panos:
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.6\textheight, width=0.6\textwidth, keepaspectratio]{./Images/geometric_euler_11.png}
+	\end{center}
+\end{figure}
+Porém, e se utilizarmos um monte de inclinações intermediárias para chegar à final? O custo certamente aumentará, mas ganharemos um tanto de precisão! Para isso, utilizamos
+\[
+	U^{n+1} = U^{n} + h \varphi (U^{n}, t_{n}, h),
+\]
+com
+\[
+	\varphi (U^{n}, t_{n}, h) = \sum\limits_{j}^{}b_{j}f(Z^{j}, t_{k_{j}}),
+\]
+onde \(t_{k_{j}}\) são os passos intermediários entre \(t_{j-1}\) e \(t_{j}\): aumentamos a ordem de precisão calculando inclinações em passos intermediários, e é essa a ideia dos \textit{métodos tipo Runge-Kutta}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.6\textheight, width=0.6\textwidth, keepaspectratio]{./Images/intermediate_steps_11.png}
+	\end{center}
+\end{figure}
+
+A forma geral dos \textbf{Métodos Runge-Kutta Explícitos de R Estágios} é:
+\begin{align*}
+	 & \mathbf{K}^{1} = \mathbf{f}(\mathbf{U}^{n}, t_{n})                                                                       \\
+	 & \mathbf{K}^{2} = \mathbf{f}(\mathbf{U}^{n}+ha_{21}\mathbf{K}^{1}, t_{n}+hc_{2})                                          \\
+	 & \mathbf{K}^{3} = \mathbf{f}(\mathbf{U}^{n} + h a_{31}\mathbf{K}^{1} + h a_{32} \mathbf{K}^{2}, t_{n} + h c_{3})          \\
+	 & \vdots                                                                                                                   \\
+	 & \mathbf{K}^{R}=\mathbf{f}\biggl(\mathbf{U}^{n} + h \sum\limits_{j=1}^{R-1}a_{R_{j}}\mathbf{K}^{j}, t_{n}+ h c_{R}\biggr) \\
+	 & \mathbf{U}^{n+1} = \mathbf{U}^{n} + h \sum\limits_{j=1}^{R}b_{j}K^{j},
+\end{align*}
+de forma que o método é completamente determinado pelo coeficientes \(a_{ij},\; b_{j}\) e \(c_{j}\).
+
+Como foi deixado bem aparente, dá para fazer uma representação dessa classe de métodos com matrizes:
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c | c c c c c}
+		0          & 0          &            &             &                &           \\
+		\(c_2\)    & \(a_{21}\) & 0          &             &                &           \\
+		\(c_3\)    & \(a_{31}\) & \(a_{32}\) & 0           &                &           \\
+		\(\vdots\) & \(\vdots\) & \(\vdots\) & \(\ddots\)  & \(\ddots\)     &           \\
+		\(c_{R}\)  & \(a_{R1}\) & \(a_{R2}\) & \(\dotsc\)  & \(a_{R, R-1}\) & 0         \\
+		\hline
+		           & \(b_1\)    & \(b_2\)    & \(\dotsc \) & \(b_{R_1}\)    & \(b_{R}\)
+	\end{tabular}
+\end{table}
+
+Ou, de forma mais curta,
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c | c}
+		\(\mathbf{c}\) & \(\mathbf{A}\)     \\
+		\hline
+		               & \(\mathbf{b}^{t}\)
+	\end{tabular}
+\end{table}
+onde \(\mathbf{A}\) é uma matriz triangular inferior com diagonal nula e \(c_{1} = 0\).
+\end{document}
