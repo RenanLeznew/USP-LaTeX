@@ -1,0 +1,221 @@
+\documentclass[../fractals_everywhere.tex]{subfiles}
+\begin{document}
+\section{Class 02 - April 17th, 2026}
+\subsection{Motivations}
+\begin{itemize}
+	\item The Hausdorff Distance.
+\end{itemize}
+\subsection{The Hausdorff Distance}
+\begin{exr}
+	Let \((X, d)\) be a complete metric space, A and B be points in \(\mathcal{H}(X)\) such that \(A\neq B\). Show that either \(d(A,B)\neq 0\) or \(d(B, A) \neq 0\), and that if \(A\subseteq B\), then \(d(A, B) = 0.\)
+
+	For the first part, if A is different from B, there is at least one point p in A that is not in B; we further know that if we pick the distance \(d(p, B),\) then \(d(p, B)\neq 0\), hence by definition of the distance from sets, it follows that \(\max\limits_{x\in A}(d(x, B))\geq d(p, B) > 0\). In conclusion, \(d(A, B)\neq 0\) and the same works for \(d(B, A)\).
+
+	Now if \(A\subseteq B\), this means that any \(p\in A\) is also in B, and if we take the minimum distance of a point x in A and a subset B, then
+	\[
+		d(x, B) = \min\limits_{y\in B}(d(x, y)) = d(x, x) = 0,
+	\]
+	from which follows that \(d(A, B) = 0.\)
+\end{exr}
+\begin{exr}
+	Let \((X, d)\) be a copmlete metric space. Show that if A, B and C are all in \(\mathcal{H}(X)\), then \(B\subseteq C\) implies \(d(A, C)\leq d(A, B)\).
+
+	Because B is a subset of C, we have \(d(B, C) = 0\), and using the triangular inequality (tbp), it follows that
+	\[
+		d(A, C) \leq d(A, B) + \underbrace{d(B, C)}_{0},
+	\]
+	therefore \(d(A, C)\leq d(A, B).\)
+\end{exr}
+\begin{exr}
+	Let \((X, d)\) be a copmlete metric space; show that if A, B and C are in \(\mathcal{H}(X)\), then
+	\[
+		d(A\cup B, C) = d(A, C) \vee d(B, C),
+	\]
+	where \(\cdot \vee \cdot \) denotes the maximum between two real numbers.
+
+	To see that it is true, notice that
+	\[
+		d(A\cup B, C) = \max\limits_{x\in A\cup B}(d(x, C)) = \max\limits_{x\in A}(d(x, C)) \vee \max\limits_{y\in B}(d(y, C)).
+	\]
+	Therefore,
+	\[
+		d(A\cup B, C) = d(A, C)\vee d(B, C).
+	\]
+\end{exr}
+\begin{exr}
+	Let \((X, d)\) be a complete metric space, and A, B and C be sets in \(\mathcal{H}(X)\). Show that
+	\[
+		d(A, B) \leq d(A, C) + d(C, B).
+	\]
+
+	Pick x in A, y in C such that \(d(x, y) = d(x, C)\), and z in B such that \(d(y, z) = d(y, B)\).
+	Then, we have
+	\[
+		d(x, z)\leq d(x, y) + d(y, z).
+	\]
+	By the definition of the points chosen, it also follow that
+	\[
+		d(x, z) \leq d(x, C) + d(y, B),
+	\]
+	so when looking at \(\max\limits_{x\in A}(d(x, B))\), and by the way the distance \(d(x, B)\) is defined, which is the minimum,
+	\[
+		d(x, B)\leq d(x, z)\leq d(A, C) + d(C, B).
+	\]
+	Therefore, since this is true for all x's in A,
+	\[
+		d(A, B)\leq d(A, C) + d(C, B).
+	\]
+
+\end{exr}
+
+As shown by the previous exercises, \(d(A, B)\) for any two compact sets A and B is not even a metric, but we want to turn \(\mathcal{H}(X)\) into a space we can work with, so it must at least have a metric.
+For that reason, we define the \textit{hausdorff distance}:
+\begin{def*}
+	Let \((X, d)\) be a copmlete metric space. Then, the \textbf{Hausdorff Distance} between sets A and B in \(\mathcal{H}(X)\) is defined by
+	\[
+		h(A, B) = d(A, B)\vee d(B, A). \; \square
+	\]
+\end{def*}
+\begin{prop*}
+	The ``metric'' h defined in \(\mathcal{H}(X)\) as above is a metric.
+\end{prop*}
+\begin{proof*}
+	For the first property, it follows from
+	\[
+		h(A, A) = d(A, A)\vee d(A, A) = 0 \vee 0 = 0;
+	\]
+
+	Symmetry of the metric is a result of
+	\[
+		\left.\begin{array}{ll}
+			h(A, B) = d(A, B)\vee d(B,A) \\
+			h(B, A) = d(B, A)\vee d(A, B)
+		\end{array}\right\} \Rightarrow h(A, B) = h(B, A).
+	\]
+
+	The property that the metric is always non-negative has already been proven today, and the triangle inequality follows from reapplying the definition of many things already seen: pick \(a\in A\), such that for all c in C,
+	\begin{align*}
+		d(a, B) = \min\limits_{b\in B}(d(a, b)) & \leq \min\limits_{b\in B}(d(a, c) + d(c, b)) \\
+		                                        & = d(a, c) + \min\limits_{b\in B}(c, b),
+	\end{align*}
+	so
+	\[
+		d(a, B)\leq \min\limits_{c\in C}(d(a, c)) + \max\limits_{b\in B}\{d(c, b):\; c\in C\}= d(a, C) + d(C, B).
+	\]
+	Because it holds for all a in A,
+	\[
+		d(A, B) \leq  d(A, C) + d(C, B).
+	\]
+	Similarly,
+	\[
+		d(B, A) \leq d(B, C) + d(C, A),
+	\]
+	form which we conclude that
+	\begin{align*}
+		h(A, B) = d(A, B)\vee d(B, A) & \leq d(B, C)\vee d(C, B) + d(A, C)\vee d(C, A) \\
+		                              & = h(B, C) + h(A, C). \text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+\begin{prop*}
+	For every A, B, C and D in \(\mathcal{H}(X)\), we have
+	\[
+		h(A\cup B, C\cup D) \leq h(A, C) \vee h(B, D).
+	\]
+\end{prop*}
+\begin{proof*}
+	For the sets above, we know that
+	\[
+		h(A\cup B, C\cup D) = d(A\cup B, C\cup D)\vee d(C\cup D, A\cup B),
+	\]
+	thus, if the point x at which the maximum is attained is a point in A,
+	\[
+		d(A\cup B, C\cup D) = d(x, C\cup D) = \min(d(x, C), d(x, D)),
+	\]
+	so
+	\[
+		d(x, C\cup D) \leq d(x, C) \leq h(A, C) \leq h(A, C)\vee h(B, D).
+	\]
+
+	On the other hand, if the maximum is a point y in B, it follows similarly that
+	\[
+		d(y,C\cup D) \leq d(y, D) \leq h(B, D)\leq h(A, C)\vee h(B, D). \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\begin{theorem*}
+	Whenever the metric space \((X, d)\) is compact, \((\mathcal{H}(x), h)\) is also compact.
+\end{theorem*}
+\begin{proof*}
+	As done a lot of the time, let's step down to points instead of sets by first considering a sequence of sets \(\{A_{k}\}_{k=1}^{\infty},\; A_{k}\in \mathcal{H}(X)\); then, pick \(x_{k}\in A_{k}\) to form a sequence of points \(\{x_{k}\}_{k=1}^{\infty}\), and by compactness of X, this sequence must have a subsequence with a limit point in X, say \(\{x_{k_{j}}\}_{j=1}^{\infty}\).
+
+	We want to build a set A such that
+	\[
+		A = \{y\in X:\; \exists x_{k_{j}}\in A_{k_{j}},\; x_{k_{j}}\to y\}.
+	\]
+
+	First, we will prove that A is compact and nonempty; as a matter of fact, we know that it is not empty because, by compactness of X, every sequence has a converging subsequence in X, such that its limit will be a point in A by the way this set was taken.
+	With respect to compactness, A must be closed, which means it must contain all of its limit points; thus, take a sequence \(\{a_{n}\}_{n=1}^{\infty}\) of elements of A, and assume it has a limit denoted by a.
+	We are going to work with the limit of this sequence and a sequence we built from the subsequences of \(\{x_{k}\}\), then show they coincide.
+
+	Pick \(\varepsilon  > 0 \), to which we can apply the definition of convergence to find a natural number m such that if \(n > m\), then
+	\[
+		d(a_{n}, y) \leq \frac{\varepsilon }{2}.
+	\]
+	Since \(a_{n}\) belong to A for all n's, there is a sequence \(\{x_{k}\}_{k=1}^{\infty}\), \(x_{k}\) in \(A_{k}\), such that for some \(k\geq n\),
+	\[
+		d(x_{k}, a_{n}) < \frac{\varepsilon }{2}.
+	\]
+	Hence,
+	\[
+		d(x_{k}, y) < d(x_{k}, a_{n}) + d(a_{n}, y) < \frac{\varepsilon }{2} + \frac{\varepsilon }{2},
+	\]
+	which means \(x_{k}\) converges to y, which, by definition, must belong to A.
+
+	Finally, we will show that the initially chosen sequence \(\{A_{k}\}\) satisfies
+	\[
+		h(A_{k}, A) \to 0.
+	\]
+	Suppose, by means of contradiction, that it is not the case, so that
+	\[
+		\lim_{k\to \infty}h(A_{k}, A) > 0.
+	\]
+	By construction, there must be a subsequence \(A_{k_{j}}\) and \(\varepsilon  > 0\) such that, for all j,
+	\[
+		h(A_{k_{j}}, A)\geq \varepsilon;
+	\]
+	consequently, for any subsequence \(\{x_{k_{j}}\}\in A_{k_{j}}\), we must also have
+	\[
+		d(x_{k_{j}}, A)\geq \varepsilon,
+	\]
+	but because X is compact, \(\{x_{k_{j}}\}\) must have a subsequence with a limit point z in X, which means z must be in A so that \(d(z, A) = 0\). However, since \(d(x_{k_{j}}, A)\geq \varepsilon \) for all j, and in particular \(d(z, A)\geq \varepsilon \) -- we have reached a contradiction.
+
+	Therefore,
+	\[
+		\lim_{k\to \infty}h(A_{k}, A) = 0. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observation,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	If we were to use the supremum and the infimum instead of the maximum and the minimum when defining \((\mathcal{H}(X), h)\) and its steps, then we would not get a metric in most cases.
+	One of the problems is with the property \(h(A ,A) = 0\) and with \(h(A, B)\neq 0\) when \(A\neq B\); for instance, consider the sets \(A = (0, 1),\; B = [0,1]\), so that
+	\[
+		\tilde{d}(A, B) = \sup_{}\{\tilde{d}(x, B):\; x\in A\} = 0,
+	\]
+	because every point in the interior of A is also in B, but the distance between the boundaries is also 0, contradicting the definition of metric.
+
+	Another counterexample is to consider \(\mathbb{R}\) and \(A = \{0\}\), in which case \linebreak \(h(A, R) = \infty\).
+\end{tcolorbox}
+
+
+\end{document}

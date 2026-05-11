@@ -1,0 +1,142 @@
+\documentclass[../fractals_everywhere.tex]{subfiles}
+\begin{document}
+\section{Class 03 - April 24th, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Dilation in Sets;
+	\item The Extension Lemma
+\end{itemize}
+\subsection{Dilations in Sets}
+
+\begin{def*}
+	Let X be a metric space, S be a subset of X and \(r\geq 0\); we define the \textbf{dilation of S by r} as
+	\[
+		S + r \coloneqq \{y\in X:\; d(y, x) \leq r,\; x\in S\}.\; \square
+	\]
+\end{def*}
+\begin{lemma*}
+	Let A and B be two members of \(\mathcal{H}(X)\) and \(\varepsilon > 0\); then,
+	\[
+		h(A, B) \leq \varepsilon  \Longleftrightarrow A \subseteq B + \varepsilon  \quad\&\quad B \subseteq A + \varepsilon .
+	\]
+\end{lemma*}
+\begin{proof*}
+	\(\Rightarrow ):\; \)Take a point a in A, so that, for some b in B, we'll have
+	\[
+		d(a, b) \leq \varepsilon .
+	\]
+	Consequently, \(a\in B+\varepsilon \) and thus \(A\subseteq B+\varepsilon \); the other inclusion follows analogously.
+
+	\(\Leftarrow ):\;\)On the other hand, let a and b be points in A and B respectively; then, there is \(b'\in B\) such that \(d(a, b')\leq \varepsilon \), from which follows that
+	\[
+		d(a, B)\leq \varepsilon  \Rightarrow d(A, B)\leq \varepsilon .
+	\]
+	Using the same reasoning, we find \(d(B, A)\leq \varepsilon \). Therefore,
+	\[
+		h(A, B)\leq \varepsilon .\text{ \qedsymbol}
+	\]
+\end{proof*}
+
+An important result we will use is the \textit{extension lemma}, stated as follows:
+\hypertarget{extension_lemma}{
+	\begin{theorem*}[The Extension Lemma]
+		Let X be a metric space (not necessarily complete), \((A_{n})_{n}\) be a Cauchy sequence in \(\mathcal{H}(X)\), and \((x_{n_{i}})_{i}\) be a sequence of elements \(x_{n_{i}}\in A_{n_{i}}\). Then, there is a Cauchy Sequence \((\tilde{x}_{n})_{n},\) where \(\tilde{x}_{n}\in A\), such that
+		\[
+			\tilde{x}_{n} = x_{n}.
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	For each n in \(\{n_{i}+1, \dotsc , n_{i+1}\}\), take \(\tilde{x}_{n}\) as a point of \(A_{n}\) minimizing the distance:
+	\[
+		d(x_{n_{i}}, x) = d(x_{n_{i}}, A_{n});
+	\]
+	note that \(\tilde{x}_{n_{i}} = x_{n_{i}}\).
+
+	Take now an \(\varepsilon > 0\), such that there is \(N_1\in \mathbb{N}\) for which \(n, m > N_{1}\) implies \(\displaystyle h(A_{n}, A_{m}) < \frac{\varepsilon }{3}\), and another \(N_{2}\in \mathbb{N}\) such that \(n_{k}, n_{j} > N_{2}\) implies \linebreak \(\displaystyle d(x_{n_{k}}, x_{n_{j}})<\frac{\varepsilon }{3}\). Then, take \(N = \max\limits_{}\{N_1, N_2\}\), for which, whenever \(n, m > N\), the triangular inequality will lead to
+	\[
+		d(\tilde{x}_{n}, \tilde{x}_{m}) \leq d(\tilde{x}_{n}, x_{n_{i}}) + d(x_{n_{i}}, x_{n_{j}}) + d(x_{n_{j}}, \tilde{x}_{m}),
+	\]
+	where \(n\in \{n_{i-1}+1, \dotsc , n_{i}\}\) and \(m\in \{n_{j-1}+1, \dotsc , n_{j}\}\) (so that \(n\leq n_{i}, m\leq n_{j}\)). Hence, by the lemma we proved above,
+	\[
+		h(A_{n}, A_{n_{i}}) < \frac{\varepsilon }{3} \Rightarrow A_{n_{i}}\subseteq A_{n}+\frac{\varepsilon }{3},
+	\]
+	thus there must be a y in \(A_{n}\) such that \(\displaystyle d(x_{n_{i}}, y)\leq \frac{\varepsilon }{3}\), but by definition \(\displaystyle d(x_{n_{i}}, \tilde{x}_{n}) \leq \frac{\varepsilon }{3}\). Therefore,
+	\[
+		d(\tilde{x}_{n}, \tilde{x}_{m}) < \frac{\varepsilon }{3} + \frac{\varepsilon }{3} + \frac{\varepsilon }{3} = \varepsilon
+	\]
+	for sufficiently large n, m, proving the sequences are complete. \qedsymbol
+\end{proof*}
+\begin{theorem*}
+	Let X be a complete metric space; then, \((\mathcal{H}(X), h)\) is a complete metric space and, if \((A_{n})_{n}\) is a Cauchy sequence, then
+	\[
+		A = \lim_{n\to \infty}A_{n} \coloneqq \{x\in X:\; \text{there is a Cauchy Sequence }(x_{n})_{n},\; x_{n}\in A_{n}, \text{ s.t. }x_{n}\to x\}.
+	\]
+\end{theorem*}
+\begin{proof*}
+	First of all, we show that the set A as above is non-empty: pick a natural \(N_{1}\) such that if \(n, m > N_{1}-1\), then \(h(A_{n}, A_{m}) < \frac{1}{2}\), and pick \(x_{N_{1}}\in A_{N_{1}}\). Next, construct a sequence \((X_{N_i})_{i}\) with
+	\[
+		h(A_{N_{i}}, A_{N_{i+1}}) < \frac{1}{2^{i}} \quad\&\quad d(x_{N_{i}}, x_{N_{i+1}}) < \frac{1}{2^{i}}.
+	\]
+
+	Let \(\varepsilon > 0\) be some arbitrary number, and take a natural N satisfying (by results of Analysis)
+	\[
+		\biggl\vert \sum\limits_{i=N}^{\infty}\frac{1}{2^{i}} \biggr\vert < \varepsilon.
+	\]
+	Then, if \(n > m > N\), then
+	\begin{align*}
+		d(x_{N_{n}}, x_{N_{m}}) & \leq d(x_{N_{n}}, x_{N_{n}+1}) + \dotsc + d(X_{N_{m}-1}, x_{N_{m}}) \\
+		                        & \leq \frac{1}{2^{N}} + \frac{1}{2^{N+1}}+\dotsc +\frac{1}{2^{M}}    \\
+		                        & < \varepsilon .
+	\end{align*}
+	Therefore, \((x_{N_{i}})_{i}\) is a Cauchy sequence, and by the \hyperlink{extension_lemma}{\textit{extension lemma}}, it can be made into a Cauchy sequence \((\tilde{x}_{n})\) of elements in \(A_{n}\), so that by completeness of X, its limit will be a part of A, proving it is non-empty.
+
+	To show now that A is closed, let \((a_{i})_{i}\) be a sequence in A (each member of the sequence is itself the limit of a Cauchy sequence) with \(a_{i}\) converging to \(a\): our goal will be to prove that a is in A. For every i, there is a sequence \((x_{n}^{i})_{n}\), where \(x_{n}^{i}\in A_{n}\), such that
+	\[
+		\lim_{n\to \infty}x_{n}^{i} = a_{i}.
+	\]
+	Take \((a_{N_{k}})_{k}\) a subsequence such that \(\displaystyle d(a_{N_{k}}, a) < \frac{1}{2^{k}}\); there is a subsequence \((x_{N_{k}}^{i})\) such that
+	\[
+		d(x_{N_{k}}^{i}, a_{i}) < \frac{1}{2^{k}}.
+	\]
+	Thus,
+	\[
+		d(x_{N_{k}}^{i}, a) \leq d(x_{N_{k}}^{i}, a_{i}) + d(a_{i}, a) < \frac{1}{2k} + \frac{1}{2k} = \frac{1}{k},
+	\]
+	and defining \(y_{k} = x_{N_{k}}^{i}\), we see that \(y_{k}\) converges to a, proving that A is closed. By the \hyperlink{extension_lemma}{\textit{extension lemma}}, it can be extended to a sequence \((y_{n})_{n}\) of elements in \(A_{n}\) with \(y_{n}\) converging to a, proving that A is closed, and hence it is complete.
+
+	Given \(\varepsilon > 0\), there is a natural N such that \(n > N\) implies \(A\subseteq A_{n}+\varepsilon \), and that
+	\[
+		h(A_{n}, A_{m}) < \varepsilon .
+	\]
+	In particular, for fixed n and taking \(m > n\), we'll have \(A_{m}\subseteq A_{n}+\varepsilon \); now take a in A and \(a_{n}\in A_{n}\) for which \(a_{n}\) converges to a, and some large enough \(N_{2}\) with
+	\[
+		m > N_{2} \Rightarrow d(a_{m}, a) < \varepsilon \quad\&\quad m>n.
+	\]
+	Note that \(a_{m}\in A_{n}+\varepsilon \) and \(A_{n}+\varepsilon \) is closed, so the limit \(\lim_{m\to \infty}a_{m} = a\) belongs to \(A_{n}+\varepsilon \), thus \(A\subseteq A_{n}+\varepsilon \).
+
+	To see that A is totally bounded, concluding the compactness, assume A is not totally bounded; then, there is some some sequence \((x_{n})_{n}\) in A such that for \(n\neq m\),
+	\[
+		d(x_{n}, x_{m}) > \varepsilon .
+	\]
+	Because \(\displaystyle A\subseteq A_{n}+ \frac{\varepsilon }{3}\) for \(n > N_1\), we can build a sequence \((y_{n})_{n}\) in A such that \(\displaystyle d(y_{n}, x_{n}) \leq  \frac{\varepsilon }{3}\), and by compactness, there must be a convergent subsequence \((y_{n_{k}})_{k}\) which, in particular, is Cauchy; hence, there is \(N_{2}\) for which whenever \(n_{i}, n_{j} > N_2\),
+	\[
+		d(y_{n_i}, y_{n_{j}}) < \frac{\varepsilon }{3}.
+	\]
+	Thus, for \(n_{i}, n_{j} > \max\limits_{}(N_1, N_2)\), we have
+	\[
+		d(x_{n_i},x_{n_{j}}) \leq d(x_{n_{i}}, y_{n_{i}}) + d(y_{n_{i}}, y_{n_{j}}) + d(y_{n_{j}}, x_{n_{j}}) < \frac{\varepsilon }{3} + \frac{\varepsilon }{3} + \frac{\varepsilon }{3} = \varepsilon ,
+	\]
+	a contradiction, from which we conclude that A is totally bounded, and henceforth that it is compact, i.e., \(A\in \mathcal{H}(X)\).
+
+	Finally, we have to show that for any \(\varepsilon > 0\) there is \(N\in \mathbb{N}\) such that if \(n > N\), then \(A_{n}\subseteq A+\varepsilon \). As a matter of facts, there is a natural number N such that if \(n, m >N\), then
+	\[
+		h(A_{n}, A_{m}) < \frac{\varepsilon }{2},
+	\]
+	which means that \(\displaystyle A_{m} \subseteq A_{n}+ \frac{\varepsilon }{2}\). Similarly as before, we fix some \(n > N\) and construct a subsequence \(N_1, \dotsc , N_{j}\) with \(n < N_{i}\) such that
+	\[
+		m, k > N_{j} \Rightarrow h(A_{m}, A_{k}) < \frac{1}{2^{j+1}} \Rightarrow A_{m} \subseteq A_{k} + \frac{1}{2^{j+1}}.
+	\]
+	Note that \(A_{n}\subseteq A_{N_1} + \frac{\varepsilon }{2}\), and pick a point \(y\in A_{n}\).
+\end{proof*}
+\end{document}

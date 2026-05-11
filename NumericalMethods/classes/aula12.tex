@@ -1,0 +1,267 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - ?? de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Matrizes Ortonormais;
+	\item Método de Cholesky.
+\end{itemize}
+\subsection{Método de Cholesky}
+Apesar de muito útil, o critério para podermos decompor uma matriz em LU ainda é meio rígido; sendo assim, seria interessante termos uma alternativa a ele também! Aqui, entra o método conhecido como \textit{método de Cholesky}, mas antes de vê-lo, temos que definir:
+\begin{def*}
+	Uma matriz simétrica \(A\in \mathbb{M}_{n}\) é dita \textbf{simétrica positiva definida} (SPD), se, para todo vetor não nulo \(v\in \mathbb{R}^{n}\), temos
+	\[
+		v \cdot Av > 0.
+	\]
+\end{def*}
+\begin{prop*}
+	Cada um dos testes abaixo é uma condição necessária e suficiente para uma matriz simétrica \(A\in \mathbb{M}_{n}\) ser SPD:
+	\begin{itemize}
+		\item[i)] Para toda menor principal \(A_{k}\), temos \(\det{(A_{k})} > 0,\; k=1, \dotsc, n\);
+		\item[ii)] Todos os autovalores de A são positivos.
+	\end{itemize}
+\end{prop*}
+\begin{example}
+	A matriz
+	\[
+		A = \begin{bmatrix}
+			3 & 2 & 0 \\
+			2 & 5 & 1 \\
+			0 & 1 & 3
+		\end{bmatrix}
+	\]
+	é SPD.
+\end{example}
+
+Dada uma matriz \(A\in \mathbb{M}_{n}\), queremos \(H\in \mathbb{M}_{n}\) tal que
+\[
+	A = H \cdot H^{T},
+\]
+com
+\[
+	H = \begin{bmatrix}
+		h_{11} &        &        &        &        \\
+		h_{21} & h_{22} &        &                 \\
+		h_{31} & h_{32} & h_{33} &        &        \\
+		\vdots & \vdots & \vdots & \ddots &        \\
+		h_{n1} & h_{n2} & h_{n3} & \dotsc & h_{nn}
+	\end{bmatrix}, \quad h_{ii} > 0,\; i = 1, \dotsc , n.
+\]
+
+Para a diagonal, temos
+\[
+	h_{ii} \Rightarrow a_{ii} = h_{ik}(h_{ki})^{T} = \sum\limits_{k=1}^{i} h_{ik}^{2} = \sum\limits_{k=1}^{i-1}h_{ik}^{2}+h_{ii}^{2},
+\]
+tal que
+\[
+	h_{ii} = \biggl(a_{i} - \sum\limits_{k=1}^{i-1}h_{ik}^{2}\biggr)^{\frac{1}{2}}.
+\]
+
+Fora da diagonal, com i maior que j,
+\[
+	a_{ij}=\sum\limits_{k=1}^{j}h_{ik}h_{jk} = \sum\limits_{k=1}^{j-1}h_{ik}h_{jk} + h_{ij}h_{jj},
+\]
+donde segue que
+\[
+	h_{ij} = \frac{a_{ij} - \sum\limits_{k=1}^{j-1}h_{ik}h_{jk}}{h_{jj}}.
+\]
+\begin{crl*}
+	Seja \(A\in \mathbb{M}_{n}\) SPD; então, existe uma única matriz triangular inferior \(H\in \mathbb{M}_{n}\) tal que
+	\[
+		A = H \cdot H^{T}.
+	\]
+\end{crl*}
+Podemos, então, estimar a complexidade para fatorar uma matriz quadrada de tamanho n com os dois métodos que conhecemos até agora:
+\begin{itemize}
+	\item LU: requer \(\displaystyle \frac{2n^{3}}{3}\) flops;
+	\item Cholesky: requer \(\displaystyle \frac{n^{3}}{3}\) flops.
+\end{itemize}
+Portanto, o método de Cholesky é 50\% mais eficiente que o método LU! Além disso, como ele usa apenas a matriz H (e sua transposta, que é basicamente a mesma coisa), este método tem economia de memória, porque armazena só uma matriz, enquanto o LU armazena a matriz L e a U.
+
+\subsection{Eliminação de Gauss: Termo Geral}
+\begin{def*}
+	Dois sistemas lineares são \textbf{equivalentes} se tiverem a mesma solução. \(\square\)
+\end{def*}
+
+Uma ferramenta extremamente útil que vamos usar é, na verdade, apenas um novo jeito de ver o que já sabemos: as operações elementares. Denotando por \(L_{i}\) a i-ésima linha (equação) de um sistema linear, temos 3 operações elementares:
+\begin{itemize}
+	\item[1)] Trocar duas linhas no sistema -- \(L_{i} \leftrightarrow L_{j}\);
+	\item[2)] Multiplicar uma linha por um escalar não nulo \(\lambda \neq 0\): \(L_{i} \leftrightarrow \lambda L_{i}\);
+	\item[3)] Somar a uma linha um múltiplo de uma outra linha: \(L_{i} \leftarrow L_{i} + \lambda L_{j}\).
+\end{itemize}
+
+\begin{theorem*}
+	Se um sistema linear é obtido a partir de um outro sistema através de uma sequência finita de operações elementares, então eles são equivalentes.
+\end{theorem*}
+
+Ao trocar duas linhas no sistema, a ideia do que acontece é \(L_{i}\leftrightarrow L_{j}:\)
+\[
+	I= \begin{bmatrix}
+		1 &        &                                 &        &                                 &        &   \\
+		  & \ddots &                                 &        &                                 &        &   \\
+		  &        & \underbrace{1}_{\text{linha i}} &        &                                 &        &   \\
+		  &        &                                 & \ddots &                                 &        &   \\
+		  &        &                                 &        & \underbrace{1}_{\text{linha j}} &        &   \\
+		  &        &                                 &        &                                 & \ddots &   \\
+		  &        &                                 &        &                                 &        & 1
+	\end{bmatrix} \Rightarrow M = \begin{bmatrix}
+		1 &        &        &        &                                 &        &   \\
+		  & \ddots &        &        &                                 &        &   \\
+		  &        & 0      & \dotsc & \underbrace{1}_{\text{linha j}} &        &   \\
+		  &        & \vdots & \ddots & \vdots                          &        &   \\
+		  &        & 1      & \dotsc & \underbrace{1}_{\text{linha i}} &        &   \\
+		  &        &        &        &                                 & \ddots &   \\
+		  &        &        &        &                                 &        & 1
+	\end{bmatrix}
+\]
+A multiplicação de uma linha por um escalar \(\lambda \neq 0\) é
+\[
+	L_{i}\leftarrow \lambda_{ii}L_{i}  \rightsquigarrow M = \begin{bmatrix}
+		1 &        &   &              &   &        &   \\
+		  & \ddots &   &              &   &        &   \\
+		  &        & 1 &              &   &        &   \\
+		  &        &   & \lambda_{ii} &   &        &   \\
+		  &        &   &              & 1 &        &   \\
+		  &        &   &              &   & \ddots &   \\
+		  &        &   &              &   &        & 1
+	\end{bmatrix}
+\]
+Somar um múltiplo de uma outra linha a uma linha:
+\[
+	L_{i}\leftarrow L_{i}+\lambda_{ij}L_{j} \rightsquigarrow M = \begin{bmatrix}
+		1 &        &              &        &   &        &   \\
+		  & \ddots &              &        &   &        &   \\
+		  &        & 1            &        &   &        &   \\
+		  &        &              & \ddots &   &        &   \\
+		  &        & \lambda_{ij} &        & 1 &        &   \\
+		  &        &              &        &   & \ddots &   \\
+		  &        &              &        &   &        & 1
+	\end{bmatrix} = I + \lambda_{ij}e_{i}e_{j}^{T},
+\]
+onde I é a matriz identidade.
+
+Algumas propriedades da operação elementar do tipo (3) inclui a preservação do determinante: se
+\(A = \begin{bmatrix}
+	\dotsc \\
+	L_{j}  \\
+	\dotsc \\
+	L_{i}  \\
+	\dotsc
+\end{bmatrix}\) e \(\tilde{A} = \begin{bmatrix}
+	\dotsc              \\
+	L_{j}               \\
+	\dotsc              \\
+	L_{i}+\lambda L_{j} \\
+	\dotsc
+\end{bmatrix}\), então
+\[
+	\det{(\tilde{A})} = \det \begin{bmatrix}
+		\dotsc                \\
+		L_{j}                 \\
+		\dotsc                \\
+		L_{i} + \lambda L_{j} \\
+		\dotsc
+	\end{bmatrix} = \det \begin{bmatrix}
+		\dotsc \\
+		L_{j}  \\
+		\dotsc \\
+		L_{i}  \\
+		\dotsc
+	\end{bmatrix} + \lambda \det \begin{bmatrix}
+		\dotsc \\
+		L_{j}  \\
+		\dotsc \\
+		L_{j}  \\
+		\dotsc
+	\end{bmatrix} = \det{(A)}.
+\]
+
+Uma outra é no cálculo da inversa:
+\[
+	M = \begin{bmatrix}
+		1 &        &              &        &   &        &   \\
+		  & \ddots &              &        &   &        &   \\
+		  &        & 1            &        &   &        &   \\
+		  &        &              & \ddots &   &        &   \\
+		  &        & \lambda_{ij} &        & 1 &        &   \\
+		  &        &              &        &   & \ddots &   \\
+		  &        &              &        &   &        & 1
+	\end{bmatrix}\Rightarrow M^{-1}=\begin{bmatrix}
+		1 &        &               &        &   &        &   \\
+		  & \ddots &               &        &   &        &   \\
+		  &        & 1             &        &   &        &   \\
+		  &        &               & \ddots &   &        &   \\
+		  &        & -\lambda_{ij} &        & 1 &        &   \\
+		  &        &               &        &   & \ddots &   \\
+		  &        &               &        &   &        & 1
+	\end{bmatrix}
+\]
+
+Dado um sistema linear \(Ax = b\) de ordem n, onde A possui todos os menores principais não singulares; isto é, \(\det{(A_{k})}\neq 0\), onde \(k=1, \dotsc , n\).
+
+Nosso objetivo é obter um sistema linear triangular superior equivalente a \(Ax = b\) usando apenas as operações elementares que preservam determinante, ou seja, operações do tipo 3, conhecidas como \textbf{escalonamento}.
+Depois, basta usar o algoritmo de substituições regressivas no sistema escalonado.
+
+Para isso, vamos utilizar a \textbf{matriz aumentada} \([ A | b ]\) e alguns passos:
+
+\textbf{\underline{Passo 1}:} anular todos os elementos abaixo do pivô \(a_{11}^{(1)}\):
+\[
+	\begin{bmatrix}
+		a_{11}^{(1)} & a_{12}^{(1)} & a_{13}^{(1)} & \dotsc & a_{1n}^{(1)} & \bigm| & b_{1}^{(1)} \\
+		a_{21}^{(1)} & a_{22}^{(1)} & a_{23}^{(1)} & \dotsc & a_{2n}^{(1)} & \bigm| & b_{2}^{(1)} \\
+		a_{31}^{(1)} & a_{32}^{(1)} & a_{33}^{(1)} & \dotsc & a_{3n}^{(1)} & \bigm| & b_{3}^{(1)} \\
+		\vdots       & \vdots       & \vdots       & \ddots & \vdots       & \bigm| & \vdots      \\
+		a_{n1}^{(1)} & a_{n2}^{(1)} & a_{n3}^{(1)} & \dotsc & a_{nn}^{(1)} & \bigm| & b_{n}^{(1)} \\
+	\end{bmatrix}
+\]
+Para \(i=2, \dotsc , n\), faça:
+\[
+	\boxed{L_{i}^{(2)}\leftarrow L_{i}^{(1)}+m_{i1}L_{1}^{(1)}, \quad m_{i1} = - \frac{a_{i1}^{(1)}}{a_{11}(1)}}
+\]
+
+Ao final do passo 1, apenas a primeira linha estará sem as colunas zeradas, tornando a matriz em:
+\[
+	\begin{bmatrix}
+		a_{11}^{(1)} & a_{12}^{(1)} & a_{13}^{(1)} & \dotsc & a_{1n}^{(1)} & \bigm| & b_{1}^{(1)} \\
+		0            & a_{22}^{(2)} & a_{23}^{(2)} & \dotsc & a_{2n}^{(2)} & \bigm| & b_{2}^{(2)} \\
+		0            & a_{32}^{(2)} & a_{33}^{(2)} & \dotsc & a_{3n}^{(2)} & \bigm| & b_{3}^{(2)} \\
+		\vdots       & \vdots       & \vdots       & \ddots & \vdots       & \bigm| & \vdots      \\
+		0            & a_{n2}^{(2)} & a_{n3}^{(2)} & \dotsc & a_{nn}^{(2)} & \bigm| & b_{n}^{(2)} \\
+	\end{bmatrix}
+\]
+
+\textbf{\underline{Passo 2}:} anular todos os elementos abaixo do pivô \(a_{22}^{(2)}\), fazendo:
+\[
+	\boxed{L_{i}^{(3)}\leftarrow L_{i}^{(2)} + m_{i2}L_{2}^{(2)}, \quad m_{i2} = -\frac{a_{i2}}{a_{k}}},
+\]
+resultando, ao final, em
+\[
+	\begin{bmatrix}
+		a_{11}^{(1)} & a_{12}^{(1)} & a_{13}^{(1)} & \dotsc & a_{1n}^{(1)} & \bigm| & b_{1}^{(1)} \\
+		0            & a_{22}^{(2)} & a_{23}^{(2)} & \dotsc & a_{2n}^{(2)} & \bigm| & b_{2}^{(2)} \\
+		0            & 0            & a_{33}^{(3)} & \dotsc & a_{3n}^{(3)} & \bigm| & b_{3}^{(3)} \\
+		\vdots       & \vdots       & \vdots       & \ddots & \vdots       & \bigm| & \vdots      \\
+		0            & 0            & a_{n3}^{(3)} & \dotsc & a_{nn}^{(3)} & \bigm| & b_{n}^{(3)} \\
+	\end{bmatrix}
+\]
+
+\textbf{\underline{Passo n-1}:} anular todos os elementos abaixo do pivô \(a_{n-1, n-1}^{(n-1)}\), utilizando:
+\[
+	\boxed{L_{i}^{(n)}\leftarrow L_{i}^{(n-1)}+m_{i, n-1}L_{n-1}^{(n-1)},\quad m_{i, n-1} = - \frac{a_{i, n-1}^{(n-1)}}{a_{n-1, n-1}^{(n-1)}}},
+\]
+obtendo a matriz diagonal superior
+\[
+	\begin{bmatrix}
+		a_{11}^{(1)} & a_{12}^{(1)} & a_{13}^{(1)} & \dotsc & a_{1n}^{(1)} & \bigm| & b_{1}^{(1)} \\
+		0            & a_{22}^{(2)} & a_{23}^{(2)} & \dotsc & a_{2n}^{(2)} & \bigm| & b_{2}^{(2)} \\
+		0            & 0            & a_{33}^{(3)} & \dotsc & a_{3n}^{(3)} & \bigm| & b_{3}^{(3)} \\
+		\vdots       & \vdots       & \vdots       & \ddots & \vdots       & \bigm| & \vdots      \\
+		0            & 0            & 0            & \dotsc & a_{nn}^{(n)} & \bigm| & b_{n}^{(n)} \\
+	\end{bmatrix}
+\]
+
+Portanto, um passo geral \(k=1, \dotsc , n-1\) é realizado com
+\[
+	\boxed{L_{i}^{(k+1)}\leftarrow L_{i}^{(k)} + m_{ik}L_{k}^{(k)},\quad m_{ik} = - \frac{a_{ik}^{(k)}}{a_{kk}^{(k)}}}
+\]
+\end{document}

@@ -1,0 +1,322 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 14 de Abril, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Métodos Iterativos para Sistemas Lineares
+\end{itemize}
+\subsection{Métodos Iterativos para Sistemas Lineares}
+O primeiro tópico para além do tutorial de Python que iremos entrar é o uso de métodos numéricos diretos para resolução de sistemas lineares do tipo
+\[
+	Ax = b,
+\]
+onde A é uma matriz n por n e x e b são vetores.
+
+Estes métodos são divididos em \textbf{métodos iterativos}, que fornecem uma sequência convergente de aproximações para o vetor solução a partir de um chute inicial \(\mathbf{x}^{(0)}\), e \textbf{métodos diretos}, que fornecem uma solução ``exata'' a menos de um erro de arredondamento, em um número finito de operações.
+
+Para estudar este assunto, vamos revisar e introduzir conceitos básicos de sistemas lineares; o primeiro deles é a representação da equação dada, \(Ax=b\), em termos das colunas de A:
+\[
+	Ax = b \Longleftrightarrow a_1x_1+a_2x_2+\dotsc +a_{n}x_{n}=b,
+\]
+onde \(a_{j}\) é a j-ésima coluna de A. Desta forma, se A é \textit{não singular}, ou seja, se o determinante de A é não nulo, então as colunas \(a_{j}\) são linearmente independentes; logo, nestas condições, o vetor b pode ser unicamente escrito como combinação linear das colunas de A!
+
+Em outras palavras, se A é uma matriz não singular, então o sistema \(Ax = b\) possui uma única solução. Algumas condições são equivalentes a isso, como:
+\begin{itemize}
+	\item[1)] \(\det{(A)}\neq 0\);
+	\item[2)] As colunas ou linhas de A são linearmente independentes;
+	\item[3)] Existe uma matriz inversa \(A^{-1}\) tal que \(AA^{-1}= A^{-1}A = I\);
+	\item[4)] O conjunto gerado pelas colunas de A é um conjunto gerador de \(\mathbb{R}^{n}\); e
+	\item[5)] O núcleo de A contém apenas o vetor nulo.
+\end{itemize}
+
+\begin{def*}
+	Seja A uma matriz \(A\in \mathbb{M}_{n}(\mathbb{R})\); o \textbf{espaço coluna de A} é o conjunto \(C(A)\) contendo todas as combinações lineares das colunas de A. A dimensão deste espaço, \(\mathrm{dim}(C(A))\), é conhecido como \textbf{posto de A}, e o conjunto \(C(A^{T})\) é o \textbf{espaço linha de A}. \(\square\)
+\end{def*}
+É possível mostrar que \(\mathrm{dim}(C(A^{T})) = \mathrm{dim}(C(A))\).
+\begin{def*}
+	Seja A uma matriz \(A\in \mathbb{M}_{n}(\mathbb{R})\); o \textbf{espaço nulo de A}, denotado por \(N(A)\), é o que contém todos os vetores z tais que \(Az = 0\). \(\square\)
+\end{def*}
+Um resultado que relaciona os conceitos apresentados afirma que, dado que \(A\in \mathbb{M}_{n}(\mathbb{R})\), então
+\[
+	\mathrm{dim}(N(A))=n-\mathrm{dim}(C(A))
+\]
+\begin{example}
+	Se considerarmos a matriz A como
+	\[
+		A = \begin{bmatrix}
+			3 & 3 \\
+			4 & 4 \\
+		\end{bmatrix},
+	\]
+	então segue que
+	\begin{align*}
+		 & N(A)=\{\alpha (1,-1)^{T}:\; \alpha \in \mathbb{R}\}; \\
+		 & C(A)=\{\beta (3,4)^{T}:\; \beta \in \mathbb{R}\}.
+	\end{align*}
+\end{example}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+
+	Dado um sistema linear de ordem n, uma primeira ideia bem natural pra qualquer estudante que tenha passado por álgebra linear é utilizar a regra de Cramer para resolvê-lo:
+	\[
+		x_{i} = \frac{\det{(A_{i})}}{\det{(A)}},
+	\]
+	ou seja, não precisamos estudar métodos numéricos porque esse já funciona perfeitamente bem, não? Fim da disciplina!
+
+	Mentira, se fosse assim, o mundo seria um lugar lindo e fácil de implementar sistemas lineares de qualquer ordem. No entanto, utilizando uma expansão de Laplace no cálculo do determinante, nota-se que são precisas \(3(n+1)!\) operações de pontos flutuantes para resolver um sistema assim à força bruta.
+	Para dar uma noção disso, se \(n=20\), seriam necessários \(1,53 \times 10^{20}\) flops (Floating Point Operations) para resolver o sistema linear de tamanho 20, que nem é tão grande assim, mas um processador i7 de algumas gerações atrás realizava apenas \(9\times 10^{9}\) flops por segundo, resultando em apenas \(1,7\times 10^{10}\) segundos pra resolver, ou 539 anos.
+
+	Dá pra ver que é inviável usar força bruta.
+\end{tcolorbox}
+
+Com matrizes triangulares superiores e inferiores, é mais plausível resolver sistemas lineares.
+\begin{def*}
+	Uma matriz \(L\in \mathbb{M}_{n}\) é dita \textbf{triangular inferior} se, para todo \(j > i \) (ou seja, se para todo par linha-coluna abaixo da diagonal principal), as entradas são nulas: \(\ell_{ij} = 0\). Por outro lado, uma matriz \(U\in \mathbb{M}_n\) é dita \textbf{triangular superior} se, para todo \(i>j\) (ou seja, se pra todo par linha-coluna acima da diagonal principal), as entradas são nulas: \(u_{ij}=0\). \(\square\)
+\end{def*}
+
+Assim, se A e B são duas matrizes triangulares inferior e superior respectivamente, qual seria a forma eficiente de calcular \(C = A \cdot B\)? Bom, neste caso,
+\[
+	c_{ij}=\sum\limits_{k=1}^{m}a_{ik}b_{kj}, \quad m = \min\limits_{}\{i, j\}.
+\]
+Daí, obtemos um sistema linear para cada uma delas; nas matrizes inferiores, ele será
+\[
+	\begin{bmatrix}
+		a_{11} &        &        &        &        \\
+		a_{21} & a_{22} &        &        &        \\
+		a_{31} & a_{32} & a_{33} &        &        \\
+		\vdots & \vdots & \vdots & \ddots &        \\
+		a_{n1} & a_{n2} & a_{n2} & \dotsc & a_{nn}
+	\end{bmatrix} \begin{bmatrix}
+		x_{1}  \\
+		x_{2}  \\
+		x_{3}  \\
+		\vdots \\
+		x_{n}  \\
+	\end{bmatrix} = \begin{bmatrix}
+		b_{1}  \\
+		b_{2}  \\
+		b_{3}  \\
+		\vdots \\
+		b_{n}  \\
+	\end{bmatrix},
+\]
+com \(a_{i}\neq 0\) para \(i=1,\dotsc , n.\) Daí, a solução de cada linha pode ser obtida por substituição direta:
+\begin{align*}
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; a_{11}x_1= b_1 \Rightarrow x_1 = \frac{b_1}{a_{11}}                                         \\
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; a_{21}x_1 + a_{22}x_2=b_2 \Rightarrow x_{2}=\frac{b_{2}-a_{21}x_1}{a_{22}}                  \\
+	 & \vdots                                                                                                                                                                  \\
+	 & \boxed{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; x_{i}=\frac{b_{i}-\sum\limits_{j=1}^{i-1}a_{ij}x_{j}}{a_{ii}},\quad i=1, \dotsc , n}
+\end{align*}
+
+Nas matrizes superiores, caso tenha forma
+\[
+	\begin{bmatrix}
+		a_{11} & a_{12} & a_{13} & \dotsc & a_{1n} \\
+		       & a_{22} & a_{23} & \dotsc & a_{2n} \\
+		       &        & a_{33} & \dotsc & a_{3n} \\
+		       &        &        & \ddots & \vdots \\
+		       &        &        &        & a_{nn}
+	\end{bmatrix} \begin{bmatrix}
+		x_{1}  \\
+		x_{2}  \\
+		x_{3}  \\
+		\vdots \\
+		x_{n}  \\
+	\end{bmatrix} = \begin{bmatrix}
+		b_{1}  \\
+		b_{2}  \\
+		b_{3}  \\
+		\vdots \\
+		b_{n}  \\
+	\end{bmatrix},
+\]
+a solução também pode ser obtida por substituições diretas, de forma bem parecida:
+\begin{align*}
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; a_{nn}x_n= b_n \Rightarrow x_1 = \frac{b_n}{a_{nn}}                                                          \\
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; a_{n-1, n-1}x_{n-1} + a_{n-1, n}x_{_n}=b_{_n-1} \Rightarrow x_{2}=\frac{b_{n-1}-a_{n-1, n}x_n}{a_{n-1, n-1}} \\
+	 & \vdots                                                                                                                                                                                   \\
+	 & \boxed{\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; x_{i}=\frac{b_{i}-\sum\limits_{j=i+1}^{n}a_{ij}x_{j}}{a_{ii}},\quad i=1, \dotsc , n}
+\end{align*}
+
+Apesar de parecer mais complexo, este método já fornece uma melhoria na quantidade de flops necessários para resolver um sistema, precisando, para cada operação, de:
+\begin{table}[H]
+	\centering
+	\caption{FLOPS para operações aritméticas básicas}
+	\begin{tabular}{c | c | c | c}
+		Soma & Subtração & Multiplicação & divisão \\
+		\hline
+		\hline
+		i-2  & 1         & i-1           & 1       \\
+	\end{tabular}
+\end{table}
+Assim,
+\[
+	\mathrm{Flops}=\sum\limits_{i=1}^{n}(i-2)+2\sum\limits_{i=1}^{n}1 + \sum\limits_{i=1}^{n}(i-1) = \frac{n(n-3)}{2} + 2n + \frac{n(n-1)}{2} = n^{2}.
+\]
+
+\begin{example}[Aplicando os Algoritmos de Subsittuição]
+	Sabendo que uma matriz A tem decomposição LU como abaixo:
+	\[
+		\begin{bmatrix}
+			2 & 0 & 1  \\
+			4 & 3 & 7  \\
+			6 & 6 & 16
+		\end{bmatrix} = \begin{bmatrix}
+			1 & 0 & 0 \\
+			2 & 1 & 0 \\
+			3 & 2 & 1
+		\end{bmatrix} \cdot \begin{bmatrix}
+			2 & 0 & 1 \\
+			0 & 3 & 5 \\
+			0 & 0 & 3
+		\end{bmatrix},
+	\]
+	como resolvemos \(Ax = b\) no caso em que \(b = [2, 1, 4]^{T}\)?
+
+	Segue que
+	\[
+		Ax = b \Longleftrightarrow (LU)x) = b \Longleftrightarrow L \cdot (Ux) = b.
+	\]
+	Chamando \(Ux\) de y, temos que resolver duas coisas: primeiro, resolver
+	\[
+		Ly = b
+	\]
+	com substituições progressivas; e, em seguida, resolver
+	\[
+		Ux = y
+	\]
+	com substituições regressivas. Tente implementar um código disso!
+\end{example}
+
+Tendo em vista o potencial da decomposição LU, dada uma matriz \(A\in \mathbb{M}_{n}\), queremos encontrar L e U em \(\mathbb{M}_{n}\) tal que
+\[
+	A = LU,
+\]
+onde
+\[
+	L = \begin{bmatrix}
+		1         &           &           &        &   \\
+		\ell_{21} & 1         &           &        &   \\
+		\ell_{31} & \ell_{32} & 1         &        &   \\
+		\vdots    & \vdots    & \vdots    & \ddots &   \\
+		\ell_{n1} & \ell_{n2} & \ell_{n3} & \dotsc & 1
+	\end{bmatrix} \quad\&\quad U = \begin{bmatrix}
+		u_{11} & u_{12} & u_{13} & \dotsc & u_{1n} \\
+		       & u_{22} & u_{23} & \dotsc & u_{2n} \\
+		       &        & u_{33} & \dotsc & u_{3n} \\
+		       &        &        & \ddots & \vdots \\
+		       &        &        &        & u_{nn}
+	\end{bmatrix}.
+\]
+Desta forma, o sistema ganha a cara
+\[
+	\begin{bmatrix}
+		a_{11} & a_{12} & a_{13} & \dotsc & a_{1n} \\
+		a_{21} & a_{22} & a_{23} & \dotsc & a_{2n} \\
+		a_{31} & a_{32} & a_{33} & \dotsc & a_{3n} \\
+		\vdots & \vdots & \vdots & \vdots & \vdots \\
+		a_{n1} & a_{n2} & a_{n3} & \dotsc & a_{nn} \\
+	\end{bmatrix} =\begin{bmatrix}
+		1         &           &           &        &   \\
+		\ell_{21} & 1         &           &        &   \\
+		\ell_{31} & \ell_{32} & 1         &        &   \\
+		\vdots    & \vdots    & \vdots    & \ddots &   \\
+		\ell_{n1} & \ell_{n2} & \ell_{n3} & \dotsc & 1
+	\end{bmatrix} \begin{bmatrix}
+		u_{11} & u_{12} & u_{13} & \dotsc & u_{1n} \\
+		       & u_{22} & u_{23} & \dotsc & u_{2n} \\
+		       &        & u_{33} & \dotsc & u_{3n} \\
+		       &        &        & \ddots & \vdots \\
+		       &        &        &        & u_{nn}
+	\end{bmatrix}.
+\]
+
+% TODO: CÓDIGO
+
+Para a primeira linha de U, teremos \(u_{1j}=a_{1j}, \; j=1, \dotsc , n\); para a primeira coluna de L, será
+\[
+	\ell_{1j} = \frac{a_{i1}}{u_{11}},\; i = 1, 2, \dotsc , n;
+\]
+na segunda linha de U, teremos
+\[
+	u_{2j} = a_{2j} - \ell_{21}u_{1j}, \quad j=2, \dotsc , n;
+\]
+na segunda coluna de L,
+\[
+	\ell_{i2} = \frac{a_{i2} - \ell_{i1}u_{12}}{u_{22}},\quad i=3, \dotsc , n;
+\]
+e, por fim, o termo geral é:
+\begin{itemize}
+	\item Para \(u_{ij}\) com \(j\geq i\),
+	      \begin{align*}
+		      a_{ij} = \sum\limits_{k=1}^{i}\ell_{ik}u_{kj} & = \sum\limits_{k=1}^{i-1}\ell_{ik}u_{kj}+\ell_{ii}u_{ij}          \\
+		      \Rightarrow                                   & \boxed{u_{ij} = a_{ij} - \sum\limits_{k=1}^{i-1}\ell_{ik}u_{kj}};
+	      \end{align*}
+	\item Para \(\ell_{ij}\) com \(i > j\),
+	      \begin{align*}
+		      a_{ij} = \sum\limits_{k=1}^{j} \ell_{ik}u_{kj} & =\sum\limits_{k=1}^{j-1}\ell_{ik}u_{kj} + \ell_{ij}u_{jj}                        \\
+		      \Rightarrow                                    & \boxed{\ell_{ij} = \frac{a_{ij}-\sum\limits_{k=1}^{j-1}\ell_{ik}u_{kj}}{u_{jj}}}
+	      \end{align*}
+\end{itemize}
+
+% TODO: CÓDIGO
+
+\begin{def*}
+	Seja \(A\in \mathbb{M}_{n}\). Os \textbf{menores principais de A} são as sub-matrizes da forma
+	\[
+		A_{k} = \begin{bmatrix}
+			a_{11} & a_{12} & \dotsc & a_{1k} \\
+			a_{21} & a_{22} & \dotsc & a_{2k} \\
+			\vdots & \vdots & \ddots & \vdots \\
+			a_{k1} & a_{k2} & \dotsc & a_{kk}
+		\end{bmatrix}, \quad k=1, \dotsc , n.\; \square
+	\]
+\end{def*}
+Com os menores principais, ganhamos um critério de existência e unicidade da decomposição LU!
+\begin{theorem*}
+	Sejam \(A\in \mathbb{M}_{n}\) e \(A_{k}\) seu menor principal de ordem k; se \(\det{(A_{k})}\neq 0\) para todo k entre 1 e n-1, então existe uma única L e uma única U, tais que
+	\[
+		A = LU.
+	\]
+\end{theorem*}
+Mais ainda, ganhamos uma forma de calcular o determinante da matriz A: se \(A = LU\), então
+\[
+	\det{(A)} = \det{(LU)} = \det{(L)} \det{(U)};
+\]
+porém, \(\det{(L)} = 1\), ou seja,
+\[
+	\det{(A)} = \prod\limits_{i=1}^{n}u_{ii}
+\]
+\begin{exr}
+	Seja
+	\[
+		A = \begin{bmatrix}
+			1  & 2 & 0 \\ ]
+			1  & 3 & 1 \\
+			-2 & 0 & 1
+		\end{bmatrix}
+	\].
+	% TODO: CÓDIGO
+
+	Responda:
+	\begin{itemize}
+		\item[1)] A matriz A possui decomposição LU?
+		\item[2)] Calcule \(A = LU\);
+		\item[3)] Calcule \(\det{(A)}\) via \(LU\); e
+		\item[4)] Resolva \(Ax = b\) com \(b = [3, 5, -1]^{T}\).
+	\end{itemize}
+\end{exr}
+
+
+\end{document}
