@@ -1,0 +1,117 @@
+\documentclass[../fractals_everywhere.tex]{subfiles}
+\begin{document}
+\section{Seminar 05 - May 15th, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Recurring Points;
+	\item Invariant measures.
+\end{itemize}
+\subsection{Recurring Points}
+\begin{def*}
+	Let \((M, \mathcal{B}, \mu )\) be a measure space and \(f:M\rightarrow M\) be a measurable function. We say \textbf{\(\mathbf{\mu }\) is f-invariant} if, for every E in \(\mathcal{B}\),
+	\[
+		\mu (E) = \mu (f^{-1}(E)),
+	\]
+	where \(f^{-1}(E)=\{x\in M:\; f(x)\in E\}.\; \square\)
+\end{def*}
+\begin{theorem*}
+	Let \(f:M\rightarrow M\) be measurable, \(\mu \) be a finite measure, and E be a measurable set of M such that \(\mu (E) > 0\). Then, for \(\mu\)-almost every point x in E, there exists infinitely many naturals \(n\in \mathbb{N}\) such that \(f^{n}(x)\in E.\)
+\end{theorem*}
+\begin{proof*}
+	Let \(E_{0}\subseteq E\) be the set of points that hover naturally to E, and suppose \(\mu (E_{0})>0\); note that \(f^{-n}(E_{0}), \; f^{-m}(E_{0})\) are disjoint for \(n\neq m\).
+
+	Suppose \(x\in f^{-n}(E_{0})\cap f^{-m}(E_{0})\), where \(m > n \geq 1\). Then, there is \(y\in E_{0}\) such that \(f^{n}(x) = y\), and we have
+	\[
+		f^{m-n}(y) = f^{m-n}(f^{n}(x)) = f^{m-n+n}(x) = f^{m}(x);
+	\]
+	however, \(f^{m}(x)\in E_{0}\), meaning \(f^{m-n}(y)\) is also in \(E_{0}\), hence
+	\[
+		f^{-n}(E_{0})\cap f^{-m}(E_{0})=\emptyset .
+	\]
+	By invariance, it also follows that \(f^{-n}(E_{0}) = \mu (E_{0})\). As a result, it is true that
+	\[
+		\mu \biggl(\bigcup_{n=1}^{\infty}f^{-n}(E_{0}))\biggr) = \sum\limits_{n=1}^{\infty}\mu (f^{-n}(E_{0})) = \sum\limits_{n=1}^{\infty}\mu (E_{0}).
+	\]
+	Since \(\mu (M)\) is finite, we must have \(\mu (E_{0}) = 0\).
+
+	Now, denote by \(F\subseteq M\) the set of points that return to E finitely many times; note that, for all x in F, there is a natural number k such that \(f^{k}(x)\in E_{0}\), which implies
+	\[
+		F\subseteq \bigcup_{n=1}^{\infty}f^{-n}(E_{0}).
+	\]
+	Thus,
+	\begin{align*}
+		\mu (F)\leq \mu \biggl(\bigcup_{n=1}^{\infty}f^{-n}(E_{0})\biggr) & = \sum\limits_{n=1}^{\infty}\mu (E_{0}) \\
+		                                                                  & = 0.
+	\end{align*}
+	Therefore,
+	\[
+		\mu (F) = 0. \text{\qedsymbol}
+	\]
+\end{proof*}
+
+\begin{def*}
+	Let M be a topological space and \(f:M\rightarrow M\) be a measurable function. We say a point x in M is \textbf{recurrent for f} if there exists a sequence of integers \(n_1, n_2, \dotsc \), \(n_{i}\in \mathbb{N}\), such that
+	\[
+		f^{n_{i}}(x)\rightarrow x. \; \square
+	\]
+\end{def*}
+In other words, the orbit of the point will get ever closer to itself for some sequence of integers.
+
+\begin{theorem*}
+	Let M be a \hyperlink{2nd_countable}{\textit{second countable topological space}}, \(f:M\rightarrow M\) be measurable, and \(\mu \) be finite and invariant under f. Then, for \(\mu \)-almost every point, they will be recurrent for f.
+\end{theorem*}
+\begin{proof*}
+	Let \((B_{k})_{k\in \mathbb{N}}\) be a basis of M; denote by \(\tilde{B}_{k}\) the set
+	\[
+		\tilde{B}_{k} = \{x\in B_{k}:\; f^{n}(x)\not\in B_{k},\; \forall n\in \mathbb{N}\};
+	\]
+	we know that, for every natural number k, \(\mu (\tilde{B}_{k}) = 0\), so
+	\[
+		\tilde{B} = \bigcup_{n=1}^{\infty}\tilde{B}_{k}
+	\]
+	also satistfies \(\mu (\tilde{B})=0.\)
+
+	Take \(x\in M\setminus{\tilde{B}}\) and a neighborhood V of x; then, for some natural number k, \(B_{k}\subseteq V\), even though \(x\not\in \tilde{B}_{k}\), which means there is some \(n\geq 1\) such that
+	\[
+		f^{n}(x)\in B_{k} \Rightarrow f^{n}(x)\in V.
+	\]
+\end{proof*}
+\begin{example}
+	Take the function \(f:[0, 1]\rightarrow [0, 1]\) mapping
+	\[
+		x\mapsto 10x - [10x],
+	\]
+	where \([10x]\) means the integer part of \(10x\); for instance,
+	\[
+		f(0.a_{0}a_{1}\dotsc ) = a_{0}.a_{1}a_{2}\dotsc -a_{0}=0.a_{1}a_{2}\dotsc,
+	\]
+	meaning the n-th iteration of f gives
+	\[
+		f^{n}(0.a_{0}a_{1}\dotsc ) = 0.a_{n}a_{n+1}\dotsc .
+	\]
+	We'll mostly show that for \(\mu \) the Lebesgue Measure, \(\mu (E) = \mu (f^{-1}(E))\); matter of factly, inbetween 0 and 1, there will be 10 subintervals given by the corresponding pairs in the horizontal and vertical pairs, which then leads to \(\mu (E) = \mu (f^{-1}(E))\).
+
+	For example, looking at the set \([0.7, 0.8[ \eqqcolon E\), then for almost every point in E, said point will return infinitely many times to E, i.e., the first digit starting off as 0.7 in its decimal expansion, after infinitely many recurrencies will indeed be a 0.7, giving infinitely many 7's in its decimal expansion!
+\end{example}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Reminder!,
+		after title={\hfill Topological space with second countable base},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	A \textbf{topological space} is a double \((X, \tau )\), where \(\tau \) is a collection containing X, \(\emptyset \), closed under arbitrary unions and under finite intersections. The elements of the collection \(\tau \) are known as \textbf{open sets}, and a subcollection \(\mathcal{B}\subseteq \tau \) is known as a \textbf{basis} if every open set contains an element of \(\mathcal{B}\), i.e.,
+	\[
+		\forall U\in \tau ,\; \exists  B\in \mathcal{B}:\; B\subseteq U.
+	\]
+	If every open set can be written as a \hypertarget{2nd_countable}{countable union of elements} of some \(\mathcal{B}\), we say the topology is \textbf{second-countable}, or that it has a \textbf{second-countable basis}.
+\end{tcolorbox}
+\end{document}

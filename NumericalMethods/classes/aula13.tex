@@ -1,0 +1,44 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - ?? de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Relacionando métodos numéricos.
+\end{itemize}
+\subsection{Eliminação de Gauss e Decomposição LU}
+Nesta aula, iremos mostrar que a Eliminação de Gauss e a Decomposição LU são, na verdade, métodos numéricos equivalentes (em particular, possuem a mesma complexidade de \(\frac{2}{3}n^{3}\) flops.
+Para isso, veremos a versão de matrizes elementares da eliminação de Gauss: dada uma equação
+\[
+	Ax = b, \quad A = \begin{bmatrix}
+		a_{11}^{(1)} & a_{12}^{(1)} & a_{13}^{(1)} & \dotsc & a_{1n}^{(1)} \\
+		a_{21}^{(1)} & a_{22}^{(1)} & a_{23}^{(1)} & \dotsc & a_{2n}^{(1)} \\
+		a_{31}^{(1)} & a_{32}^{(1)} & a_{33}^{(1)} & \dotsc & a_{3n}^{(1)} \\
+		\vdots       & \vdots       & \vdots       & \ddots & \vdots       \\
+		a_{n1}^{(1)} & a_{n2}^{(1)} & a_{n3}^{(1)} & \dotsc & a_{nn}^{(1)} \\
+	\end{bmatrix}
+\]
+começamos multiplicando ambos os lados por uma matriz \(M_{1}\), mantendo o sistema equivalente:
+\[
+	M_1 Ax = M_1 b,
+\]
+construída com o objetivo de ``matricializar'' a operação de anular os termos abaixo do pivô. Assim, queremos
+\[
+	M_{1}A = A_{1} = \begin{bmatrix}
+		a_{11}^{(1)} & a_{12}^{(1)} & a_{13}^{(1)} & \dotsc & a_{1n}^{(1)} \\
+		0            & a_{22}^{(2)} & a_{23}^{(2)} & \dotsc & a_{2n}^{(2)} \\
+		0            & a_{32}^{(2)} & a_{33}^{(2)} & \dotsc & a_{3n}^{(2)} \\
+		\vdots       & \vdots       & \vdots       & \ddots & \vdots       \\
+		0            & a_{n2}^{(2)} & a_{n3}^{(2)} & \dotsc & a_{nn}^{(2)} \\
+	\end{bmatrix}.
+\]
+Logo, \(M_{1}\) precisa ter a forma
+\[
+	M_{1} = \begin{bmatrix}
+		1      &        &        &        &   \\
+		m_{21} & 1      &        &        &   \\
+		m_{31} &        & 1      &        &   \\
+		\vdots & \vdots & \vdots & \ddots &   \\
+		m_{n1} &        &        &        & n
+	\end{bmatrix}
+\]
+\end{document}

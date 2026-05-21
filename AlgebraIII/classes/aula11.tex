@@ -1,0 +1,199 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 18 de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Provando o teorema;
+	\item Separabilidade.
+\end{itemize}
+\subsection{Provando o Grande Teorema}
+Nas aulas anteriores, vimos alguns conceitos sobre corpos -- podemos estendê-los, normalmente denotados por \(\mathbb{K}/\mathbb{F}\) quando um corpo \(\mathbb{K}\) estende outro \(\mathbb{F}\), além de outras coisas, como os grupos de automorfismos e automorfismos fixadores:
+\begin{align*}
+	 & \mathrm{Aut}(\mathbb{K})=\{\phi :\mathbb{K}\rightarrow \mathbb{K}:\; \phi \text{ é isomorfismo}  \}                   \\
+	 & \mathrm{Aut}_{\mathbb{F}}(\mathbb{K})=\{\phi \in \mathrm{Aut}(\mathbb{K}):\; \phi(a)=a,\; \forall a\in \mathbb{F}  \}
+\end{align*}
+Também aprendemos que tem como transformar subgrupos de \(\mathrm{Aut}(\mathbb{K})\) em subcorpos de \(\mathbb{K}\) com:
+\[
+	\{G: \text{ G é subgrupo de }\mathrm{Aut}(K)\};\stackrel{\mathrm{Inv}(\cdot )}\longrightarrow \{F\subseteq K: \text{ F subcorpo de K}\},
+\]
+e
+\[
+	\{F\subseteq K: \text{ F subcorpo de K}\} \stackrel{\mathrm{Aut}_{(\cdot )}(K)}\longrightarrow \{G: \text{ G é subgrupo de }\mathrm{Aut}(K)\}.
+\]
+Como propriedades, podem ser citadas:
+\begin{lemma*}[Propriedades de Inv]
+	Considere a aplicação \(\mathrm{Inv}(\cdot )\) acima; então:
+	\begin{itemize}
+		\item[1)] Se \(F_1\subseteq F_2\) são dois subcorpos de K, então os grupos de automorfismos deles são inversamente subgrupos:
+		      \[
+			      \mathrm{Aut}_{F_{2}}(K) < \mathrm{Aut}_{F_1}(K);
+		      \]
+		\item[2)] Se \(G_1 < G_2\) são dois subgrupos de \(\mathrm{Aut}(K)\), então
+		      \[
+			      \mathrm{Inv}(G_2)\subseteq \mathrm{Inv}(G_1)
+		      \]
+		\item[3)] Seja G um subgrupo de \(\mathrm{Aut}(K)\); então, \(\mathrm{Inv}(G)\subseteq K\) e \(\mathrm{Aut}_{\mathrm{Inv}(G)}(K)>G\);
+		\item[4)] Seja F um subcorpo de K; então, \(\mathrm{Aut}_{F}(K) < \mathrm{Aut}(K)\) e \(\mathrm{Inv}(\mathrm{Aut}_{F}(K)\supseteq F\).
+	\end{itemize}
+\end{lemma*}
+
+\begin{prop*}
+	Sejam F, K dois corpos e \(\varphi_{0}:F\rightarrow K\) um morfismo. Seja \(\alpha \in K\) algébrico sobre F e \(p(x)\in F[x]\) o polinômio minimal de \(\alpha \) sobre F . Então, temos uma correspondência bijetora entre os conjunto
+	\[
+		A\coloneqq \biggl\{\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-1,-3.5){\(F[\alpha ]\)};
+			\node(BL) at (-1,-4.5){F};
+			\node(TR) at (0.5,-3.5){K};
+			\node(BR) at (0.5,-4.5){\((\varphi_{0}F)\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi\) }(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\varphi_{0}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {}(BL);
+			\draw[Arrow](TR)--node[midway, right] {}(BR);
+
+		\end{tikzpicture},\;\varphi  \text{ homomorfismo}\biggr\} \longleftrightarrow \{\text{raízes de }\underbrace{(\varphi_{0})_{*}p(x)}_{\coloneqq q(x)}\text{ em K}\}\eqqcolon B,
+	\]
+	onde, se \(f(x) = a_{n}x^{n}+\dotsc + a_1x + a_{0}\), então
+	\[
+		(\varphi_{*}f)(x) = \varphi_{0}(a_{n})x^{n}+(\varphi_{0}a_{n-1})x^{n-1}+\dotsc +(\varphi_{0}a_1)x + \varphi_{0}(a_{0}).
+	\]
+\end{prop*}
+Todas já foram provadas antes! Vamos dar continuidade explorando as relações entre os subcorpos e subgrupos.
+
+\hypertarget{x_theorem}{
+	\begin{theorem*}[Teorema X]
+		Dado um corpo \(\mathbb{F}\), sejam:
+		\begin{itemize}
+			\item[i)] f(x) um polinômio em \(\mathbb{F}[x]\);
+			\item[ii)] \(\mathbb{K}/\mathbb{F}\) uma extensão de \(\mathbb{F}\);
+			\item[iii)] \(\mathbb{E}\) o corpo dado por \(\mathbb{E}\coloneqq \mathbb{F}[\alpha_1, \dotsc , \alpha_{m}]\), onde \(\alpha_1, \dotsc , \alpha_{m}\) são todas raízes da \(f(x)\) em \(\mathbb{K}.\)
+		\end{itemize}
+		Então, o tamanho do conjunto das extensões da identidade \(\varphi :\mathbb{E}\rightarrow \mathbb{K}\) (ou seja, \(\varphi (a) = a\) para todo a de \(\mathbb{F}\) e \(\varphi \) é homomorfismo) é no máximo igual ao grau de extensão \([\mathbb{E}:\mathbb{F}]\).
+	\end{theorem*}
+}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se \(\mathbb{K} = \mathbb{E}\), então o conjunto das extensões da identidade é caracterizado por
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-1,-3.5){\(\mathbb{E}\)};
+			\node(BL) at (-1,-4.5){\(\mathbb{F}\)};
+			\node(TR) at (0.5,-3.5){\(\mathbb{E}\)};
+			\node(BR) at (0.5,-4.5){\(\mathbb{F}\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\varphi\) }(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\mathrm{Id}\)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {}(BL);
+			\draw[Arrow](TR)--node[midway, right] {}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	Ou seja, é exatamente o grupo de automorfismos de \(\mathbb{E}\) que fixam \(\mathbb{F}\)! Logo, ganhamos a relação
+	\[
+		\#\mathrm{Aut}_{\mathbb{F}}(\mathbb{E})\leq [\mathbb{E}:\mathbb{F}].
+	\]
+	Em conclusão: se \(\mathbb{K}/\mathbb{F}\) é uma extensão finita,
+	\[
+		\mathrm{ord}(\mathrm{Aut}_{\mathbb{F}}(\mathbb{K}))\leq [\mathbb{K}:\mathbb{F}].
+	\]
+\end{tcolorbox}
+Nosso principal objetivo é provar o teorema
+\begin{theorem*}
+	Sejam \(\mathbb{K}\) um corpo e \(G<\mathrm{Aut}(\mathbb{K})\); se \(\mathrm{ord}(G)<+\infty\), então
+	\[
+		\mathrm{Aut}_{\mathrm{Inv}(G)}(\mathbb{K})=G.
+	\]
+\end{theorem*}
+Porém, precisamos de um último ingrediente: o \textit{Lema de Artin}
+\hypertarget{artin_lemma}{
+	\begin{lemma*}[Lema de Artin]
+		Seja \(G\) um subgrupo de \(\mathrm{Aut}(\mathbb{K})\) tal que \(\mathrm{ord}(G) < +\infty\); então, a extensão \(\mathbb{K}/\mathrm{Inv}(G)\) é finita e, mais precisamente,
+		\[
+			[\mathbb{K}:\mathrm{Inv}(G)]\leq \mathrm{ord}(G).
+		\]
+	\end{lemma*}
+}
+Agora sim,
+\begin{proof*}[Teorema]
+	Pelo \hyperlink{artin_lemma}{\textit{Lema de Artin}}, temos a relação
+	\[
+		[\mathbb{K}:\mathrm{Inv}(G)] \leq \mathrm{ord}(G) \leq \mathrm{ord}(\mathrm{Aut}_{\mathrm{Inv(G)}}(\mathbb{K})).
+	\]
+	Daí, pelo \hyperlink{x_theorem}{\textit{Teorema X}}, temos a continuação
+	\[
+		\mathrm{ord}(\mathrm{Aut}_{\mathrm{Inv}(G)}(\mathbb{K}))\leq [\mathbb{K}:\mathrm{Inv}(G)],
+	\]
+	ou seja,
+	\[
+		\mathrm{ord}(G) = \mathrm{ord}(\mathrm{Aut}_{\mathrm{Inv}(G)}(\mathbb{K})),
+	\]
+	e sendo G um subgrupo de \(\mathrm{Aut}_{\mathrm{Inv}(G)}(\mathbb{K})\), segue exatamente que
+	\[
+		G= \mathrm{Aut}_{\mathrm{Inv}(G)}(\mathbb{K}). \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\subsection{Separabilidade}
+Fixemos \(\mathbb{F}\) como um corpo.
+\begin{prop*}
+	Seja \(f(x)\in \mathbb{F}[x]\); então, as duas condições a seguir são equivalentes:
+	\begin{itemize}
+		\item[1)] f e sua derivada formal são coprimos, isto é, \(\mathrm{mdc}(f, f') = 1\);
+		\item[2)] o polinômio \(f(x)\) possui raízes simples.
+	\end{itemize}
+
+\end{prop*}
+\begin{proof*}
+	\((1)\Rightarrow (2)\): basta notar que não existe f(x) com \(\deg{(f(x))}\geq 1\) tal que
+	\[
+		f(x)|f(x) \quad\&\quad f(x)|f'(x),
+	\]
+	e consequentemente, existe \(\alpha \) uma raiz comum a \(f(x)\) e \(f'(x)\). Daí, podemos usar um lema que afirma que, neste caso, todas as raízes de \(f(x)\) são simples.
+
+	\((2)\Rightarrow (1):\) sejam \(\alpha_1, \dotsc , \alpha_{n},\; \alpha_{i}\in \mathbb{K}\), as raízes de \(f(x)\); como vimos antes, para a em \(\mathbb{F}\), podemos escrever
+	\[
+		f(x) = a \prod\limits_{j=1}^{n}(x-\alpha_{j}) \quad\&\quad f'(x) = a \sum\limits_{i=1}^{n}\prod\limits_{j\neq i}^{}(x-\alpha_{j}).
+	\]
+	Agora, seja \(h(x)\) tal que h(x) tem grau pelo menos 1 e divide tanto f(x) quanto sua derivada formal. Então, existe k entre 1 e n tal que
+	\[
+		(x-\alpha_{k})|h(x) \quad\&\quad h(x)|f(x);
+	\]
+	logo, se h(x) dividir \(f'(x)\), deve necessariamente ocorrer também que
+	\[
+		(x-\alpha_{k})|f'(x).
+	\]
+	Sendo os \(\alpha_{j}\) distintos, existe uma parcela na somatória da derivada formal onde não aparece \((x-\alpha_{k})\), e portanto, \((x-\alpha_{k})\) não divide \(h(x)\). \qedsymbol
+\end{proof*}
+\begin{def*}
+	Um polinômio \(f(x)\in F[x]\) é dito \textbf{separável} se \(f(x)\) satisfaz qualquer uma das duas condições da proposição. \(\square\)
+\end{def*}
+
+\begin{exr}
+	Prove que se \(\mathbb{F}\) for um corpo com \(\mathrm{char}(\mathbb{F}) = 0\), então qualquer polinômio \(f(x)\) irredutível é separável.
+\end{exr}
+\begin{example}
+	Se \(\mathrm{char}(\mathbb{F}) =p\), existem polinômio irredutíveis que possuem raízes múltiplas.
+\end{example}
+\end{document}
