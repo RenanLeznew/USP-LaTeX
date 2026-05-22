@@ -1,0 +1,293 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 21 de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Extensões de Galois;
+	\item Caracterizando Grupos e Extensões de Galois.
+\end{itemize}
+\subsection{Extensões de Galois}
+\begin{def*}
+	Uma extensão \(\mathbb{K}/\mathbb{F}\) algébrica é chamada \textbf{separável} se cada \(\alpha \in \mathbb{K}\) possui um polinômio minimal separável. \(\square\)
+\end{def*}
+\begin{def*}
+	Uma extensão algébrica \(\mathbb{K}/\mathbb{F}\) é chamada \textbf{normal} se, para todo \(\alpha \in \mathbb{K}\), o polinômio minimal de \(\alpha \) decompõe em fatores lineares em \(\mathbb{K}\) (ou seja, fatores de grau 1). \(\square\)
+\end{def*}
+\begin{def*}
+	Uma extensão \(\mathbb{K}/\mathbb{F}\) é chamada \textbf{extensão de Galois} se \(\mathbb{K}/\mathbb{F}\) é finita, normal e separável. \(\square\)
+\end{def*}
+\begin{example}
+	Consideremos \(\mathbb{F} = \mathbb{Q}\) e \(\mathbb{K} = \mathbb{Q}(\sqrt[3]{2})\); a extensão \(\mathbb{K}/\mathbb{F}\) é normal?
+
+	O polinômio minimal de \(\alpha = \sqrt[3]{2}\) é \(p(x) = x^{3}-2\), que possui apenas uma raiz em \(\mathbb{Q}(\sqrt[3]{2})\)! Por isso, \(p(x)\) não pode ser decomposta em fatores lineares dentro de \(\mathbb{Q}(\sqrt[3]{2})\), ou seja, a extensão \textit{não} é normal.
+
+	Mas ela é separável? Como \(\mathrm{char}(\mathbb{Q}) = 0\) e em corpos de característica 0, todos os polinômio irredutíveis são separáveis, vale que todas as extensões são separáveis.
+\end{example}
+
+\begin{theorem*}[Caracterização dos Corpos de Decomposição de Polinômios Separáveis]
+	Seja \(\mathbb{K}/\mathbb{F}\) uma extensão; então, são equivalentes:
+	\begin{itemize}
+		\item[1)] \(\mathbb{K}\) é um corpo de decomposição de \(f(x)\in \mathbb{F}[x]\) separável;
+		\item[2)] Existe um subgrupo G de \(\mathrm{Aut}(\mathbb{K})\) tal que \(F = \mathrm{Inv}(G)\); e
+		\item[3)] \(\mathbb{K}/\mathbb{F}\) é finita, separável e normal (ou seja, é de Galois).
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	\((1)\Rightarrow (2):\) Seja \(G\coloneqq \mathrm{Aut}_{\mathbb{F}}(\mathbb{K})\) e \(\mathbb{F}'\coloneqq \mathrm{Inv}(G).\) Temos:
+	\[
+		\mathbb{F}\subseteq \mathbb{F}'\subseteq \mathbb{K} \text{ (Verifique!)},
+	\]
+	\(\mathbb{K}\) é corpo de decomposição de \(f(x)\in \mathbb{F}'[x]\), e \(G = \mathrm{Aut}_{\mathbb{F}'}(\mathbb{K})\) (Verifique também!).
+
+	Como já vimos,
+	\[
+		\mathrm{ord}(\mathrm{Aut}_{\mathbb{F}}(\mathbb{K})) = [\mathbb{K}:\mathbb{F}],
+	\]
+	e pelo teorema demonstrado,
+	\[
+		G = \mathrm{Aut}_{\mathrm{Inv}(G)}(\mathbb{K}),
+	\]
+	ou seja,
+	\[
+		\mathrm{ord}(G) = [\mathbb{K}:\mathrm{Inv}(G)] = [\mathbb{K}:\mathbb{F}'].
+	\]
+	Daí, sendo \(\mathbb{F}\subseteq \mathbb{F}'\subseteq \mathbb{K}\), obtemos:
+	\begin{align*}
+		[\mathbb{K}:\mathbb{F}]                                                & = [\mathbb{K}:\mathbb{F}'][\mathbb{F}':\mathbb{F}] \\
+		\stackrel{[\mathbb{K}:\mathbb{F}]=[\mathbb{K}:\mathbb{F}']}\Rightarrow & [\mathbb{F}': \mathbb{F}]=1,
+	\end{align*}
+	e por \(\mathbb{F}\subseteq \mathbb{F}'\), obtemos \(\mathbb{F}' = \mathbb{F}\), que equivale a \(\mathbb{F} = \mathrm{Inv}(G)\).
+
+	\((2)\Rightarrow (3):\) sabemos que \(\mathbb{K}/\mathbb{F}\) é tal que
+	\[
+		\mathbb{F} = \mathrm{Inv}(G),\quad G < \mathrm{Aut}(\mathbb{K}).
+	\]
+	Pelo \hyperlink{artin_lemma}{\textit{Lema de Artin}}, \([\mathbb{K}:\mathbb{F}]\leq \mathrm{ord}(G)\), permitindo concluirmos a finitude de \(\mathbb{K}/\mathbb{F}\).
+	Agora, resta provar que \(\mathbb{K}/\mathbb{F}\) é separável e normal; para isso, usaremos dois resultados que \textbf{devem ser checados}:
+	\begin{itemize}
+		\item[1)] A extensão \(\mathbb{K}/\mathbb{F}\) é separável se, e só se, para todo polinômio irredutível \(f(x)\in \mathbb{F}[x]\), o polinômio \(f(x)\) é separável; e
+		\item[2)] A extensão \(\mathbb{K}/\mathbb{F}\) é normal se, e só se, todo polinômio \(f(x)\in \mathbb{F}[x]\) irredutível que possui uma raiz em \(\mathbb{K}\) decompõe-se, em \(\mathbb{K}[x]\), em fatores lineares.
+	\end{itemize}
+	Então, seja \(f(x)\in \mathbb{F}[x]\) irredutível e seja \(r\in \mathbb{K}\) uma raiz de \(f(x)\). Como \(G < \mathrm{Aut}(\mathbb{K})\), podemos considerar a G-órbita de r em K, denotada por \(\mathcal{O}_{r}\):
+	\[
+		\mathcal{O}_{r} = \{r \coloneqq r_1, \dotsc , r_{m}: \text{ se }i\neq j,\; r_{i}\neq r_{j} \}.
+	\]
+	Para todo índice \(r_{j}\), existe \(\varphi \in G\) tal que \(\varphi (r) = r_{j}\). Sendo \(\mathcal{O}_{r}\) a G-órbita de r, vale que, para toda \(\varphi\in G\), temos
+	\[
+		\{\varphi (r_1), \dotsc , \varphi (r_{m})\} = \mathcal{O}_{r},
+	\]
+	ou seja, G permuta os elementos de \(\mathcal{O}_{r}\). Ademais, para todo j a partir de 2 e até m, vale que \(f(r_{j}) = 0\) (\textbf{Verifique!}); com isso, para todo \(j=1, \dotsc , m\), vale que
+	\[
+		(x-r_{j})|f(x)\in \mathbb{K}[x],
+	\]
+	tal que
+	\[
+		g(x) = \prod\limits_{j=1}^{m}(x-r_{j})
+	\]
+	divide \(f(x)\) em \(\mathbb{K}[x]\). Porém, para toda \(\varphi \in G\), sabemos que
+	\[
+		(\varphi_{*}g)(x) = \prod\limits_{j=1}^{m}(x-\varphi(r_{j})) = g(x).
+	\]
+	Logo, \(g(x)\in \mathbb{F}[x]\), onde \(\mathbb{F} = \mathrm{Inv}(G)\), e por \(f(x)\) ser irredutível em \(\mathbb{F}[x]\) e \(g(x)\) dividir \(f(x)\), com \(\deg{(g(x))}\geq 1\), obtemos
+	\[
+		f(x) = a g(x), a\in \mathbb{F}.
+	\]
+	Consequentemente, \(\mathbb{K}/\mathbb{F}\) é separável e normal.
+
+	\((3)\Rightarrow (1):\) finalmente, queremos mostrar que, se \(\mathbb{K}/\mathbb{F}\) é de Galois, então existe um polinômio \(f(x)\in \mathbb{F}[x]\) irredutível para o qual \(\mathbb{K}\) é um corpo de decomposição.
+
+	Se \(\mathbb{K}/\mathbb{F}\) é finita, então sabemos que existe \(\alpha_1, \dotsc , \alpha_{n}\) em \(\mathbb{K}\) tais que \(\mathbb{K} = \mathbb{F}[\alpha_1, \dotsc , \alpha_{n}]\), onde cada \(\alpha_{i}\) é algébrico sobre \(\mathbb{F}\). A ideia de como continuar é a seguinte: para cada \(\alpha_{i}\), seja \(p_{i}(x)\in \mathbb{F}[x]\) o polinômio minimal de \(\alpha_{i}\); usando os \(p_{i}(x)\), defina um \(f(x)\) irredutível sobre \(\mathbb{F}[x]\) e separável.
+\end{proof*}
+\begin{exr}
+	Verifique as coisas exigidas na prova anterior e complete a última implicação.
+\end{exr}
+\begin{example}[Permutações em Incógnitas]
+	Considere \(\mathbb{F}\) um corpo e os conjunto de polinômio com coeficientes em \(\mathbb{F}\) e incógnitas \(x_1, \dotsc , x_{n}\), denotado por \(\mathbb{F}[x_1, \dotsc , x_{n}]\); analisando o corpo de frações desse, ele é
+	\[
+		\mathbb{F}(x_1, \dotsc , x_{n}) = \biggl\{f=\frac{p(x_1, \dotsc , x_{n})}{q(x_1, \dotsc , x_{n})}:\; p, q\in \mathbb{F}[x_1, \dotsc , x_{n}],\; q\neq 0\biggr\},
+	\]
+	que define uma extensão de \(\mathbb{F}\) da forma \(\mathbb{F}(x_1, \dotsc , x_{n})/\mathbb{F}\).
+
+	Nessa lógica, seja \(S_{n}\) o grupo de permutações em n-letras; este grupo age em \(\mathbb{F}(x_1, \dotsc , x_{n})\) por
+	\begin{align*}
+		S_{n} & \times \mathbb{F}(x_1, \dotsc , x_{n})\rightarrow \mathbb{F}(x_1, \dotsc , x_{n})                                    \\
+		      & (\sigma , f(x_1, \dotsc , x_{n}))\mapsto (\sigma f)(x_1, \dotsc , x_{n}) = f(x_{\sigma(1)}, \dotsc , x_{\sigma (n)})
+	\end{align*}
+	e \(\sigma (a) = a\) para todo a em \(\mathbb{F}\) e todo \(\sigma \) em \(S_{n}\), de modo que podemos pensar como
+	\[
+		S_{n}<\mathrm{Aut}_{\mathbb{F}}(\mathbb{F}(x_1, \dotsc , x_{n})) \quad\&\quad \mathrm{Inv}(S_{n}) = \{f(x_1, \dotsc , x_{n}):\; \sigma f = f,\; \forall \sigma \in S_{n}\}
+	\]
+
+	Por exemplo, se \(n=3\) e considerarmos \(S_{3}\), um polinômio da forma
+	\[
+		f(x_1, x_2, x_3) = \frac{x_1x_2+x_1x_3+x_2x_3}{x_1+x_2+x_3}
+	\]
+	e a permutação (\(1\rightarrow 2,\; 2\rightarrow 3,\; 3\rightarrow 1\)):
+	\[
+		\sigma  = \begin{pmatrix}
+			1 & 2 & 3 \\
+			2 & 3 & 1
+		\end{pmatrix},
+	\]
+	então
+	\[
+		(\sigma f)(x_1, x_2, x_3) = f(x_{\sigma (1)}, x_{\sigma (2)}, x_{\sigma (3)})=f(x_2, x_3, x_1),
+	\]
+	mas como assumimos que os produtos comutam,
+	\[
+		f(x_2, x_3, x_1) = f(x_1, x_2, x_3),
+	\]
+	mostrando que \(f(x_1, x_2, x_3)\in \mathrm{Inv}(S_3)\).
+
+	Por outro lado, definindo
+	\[
+		g(x_1, x_2, x_3) = \frac{x_1}{x_2},
+	\]
+	segue que \(g(x_1, x_2, x_3)\not\in \mathrm{Inv}(S_{3})\).
+\end{example}
+Para além de um exemplo, queremos encontrar uma descrição mais explícita de \(\mathrm{Inv}(S_{n})\), afinal pudemos compreender que
+\[
+	\mathbb{F}\subsetneq \mathrm{Inv}(S_{n})\subsetneq \mathbb{F}(x_1, \dotsc , x_{n})
+\]
+Isso abre o próximo tópico de estudo!
+
+\subsection{Funções Simétricas Elementares}
+Vamos definir, em \(\mathbb{F}[x_1, \dotsc , x_{n}]\), a seguinte cadeia de polinômios:
+\begin{align*}
+	 & p_{0} = 1                                           \\
+	 & p_1 = \sum\limits_{j=1}^{n}x_{j}                    \\
+	 & p_2 = \sum\limits_{1<i<j\leq n}^{}x_{i}x_{j}        \\
+	 & p_3 = \sum\limits_{1\leq i<j<k<n}^{}x_{i}x_{j}x_{k} \\
+	 & \quad \vdots                                        \\
+	 & p_{n}= x_1x_2 \dotsc x_{n},
+\end{align*}
+com forma geral
+\[
+	p_{k} = \sum\limits_{1\leq i_{1}<i_{2}<\dotsc <i_{k}\leq n}^{}x_{i_1}\dotsc x_{i_{k}}.
+\]
+\begin{def*}
+	Os polinômios \(p_1, \dotsc , p_{n}\) são chamados \textbf{funções simétricas elementares}. \(\square\)
+\end{def*}
+A justificativa para isso se dá considerando a ação do grupo de n-permutações
+\begin{align*}
+	S_{n} & \times \mathbb{F}(x_1, \dotsc , x_{n})\rightarrow \mathbb{F}(x_1, \dotsc , x_{n})                                     \\
+	      & (\sigma , f(x_1, \dotsc , x_{n}))\mapsto (\sigma f)(x_1, \dotsc , x_{n}) = f(x_{\sigma(1)}, \dotsc , x_{\sigma (n)}),
+\end{align*}
+tal que os polinômio simétricos são exatamente aqueles invariantes pela ação do grupo de permutações, ou seja, para toda permutação \(\sigma \in S_{n}\) e todo j entre 1 e n, \(\sigma p_{j} = p_{j}\).
+\begin{example}
+	No caso de \(n=2\), eles são:
+	\begin{align*}
+		 & p_1 = x_1 + x_2 \\
+		 & p_2 = x_1x_2,
+	\end{align*}
+	mas para \(n=3\), seriam
+	\begin{align*}
+		 & p_1 = x_1 + x_2 + x_3          \\
+		 & p_2 = x_1x_2 + x_1x_3 + x_3x_2 \\
+		 & p_3 = x_1x_2x_3.
+	\end{align*}
+\end{example}
+Podemos passar a considerar o corpo de frações dos polinômios simétricos elementares, denotado por \(\mathbb{F}(p_1, \dotsc , p_{n})\), e obteremos a cadeia de conjuntos
+\[
+	\mathbb{F}\subseteq \mathbb{F}(p_1, \dotsc , p_{n}) \subseteq \mathrm{Inv}(S_{n})\subseteq \mathbb{F}(x_1, \dotsc , x_{n})
+\]
+de forma natural; porém, iremos provar que, na verdade, \(\mathrm{Inv}(S_{n}) = \mathbb{F}(p_1, \dotsc , p_{n})\), e para tanto, lembre-se de dois resultados vistos anteriormente:
+\begin{theorem*}
+	Sejam \(\mathbb{K}\) um corpo e \(G<\mathrm{Aut}(\mathbb{K})\); se \(\mathrm{ord}(G)<+\infty\), então
+	\[
+		\mathrm{Aut}_{\mathrm{Inv}(G)}(\mathbb{K})=G.
+	\]
+	Em particular,
+	\[
+		[\mathbb{K}: \mathrm{Inv}(G)] = \mathrm{ord}(G)
+	\]
+\end{theorem*}
+e
+\begin{theorem*}
+	Existe um único corpo K, a menos de isomorfismo, que é corpo de decomposição de \(f(x)\) sobre \(F\). Mais ainda, K é uma extensão de F tal que
+	\[
+		f(x) = a \prod\limits_{j=1}^{\deg{(f)}}(x-x_{j})\in K[x], \quad a\in F,\; \alpha_{j}\in K.
+	\]
+	Quanto ao grau de extensão,
+	\[
+		[\mathbb{K}:\mathbb{F}] \leq n!
+	\]
+\end{theorem*}
+Voltando,
+\begin{theorem*}
+	Se \(p_1, \dotsc , p_{n}\) são os polinômios simples elementares, então
+	\[
+		\mathrm{Inv}(S_{n}) = \mathbb{F}(p_1, \dotsc , p_{n}).
+	\]
+\end{theorem*}
+\begin{proof*}
+	Consideremos
+	\[
+		P(T)\coloneqq \prod\limits_{j=1}^{n}(T-x_{j})\in \mathbb{F}(x_1, \dotsc , x_{n})[T].
+	\]
+	Então, \(\mathbb{F}(x_1, \dotsc , x_{n})\) é um corpo de decomposição de \(P(T)\) e um no qual \(P(T)\) é separável, permitindo concluirmos que \(\mathbb{F}(x_1, \dotsc , x_{n})/\mathbb{F}(p_1, \dotsc , p_{n})\) é finita! Obseve que
+	\[
+		P(T) = \sum\limits_{}^{}(-1)^{j}p_{j}T^{n-j}\in \mathbb{F}(p_1, \dotsc , p_{n})[T].
+	\]
+	Assim,
+	\[
+		[\mathbb{F}(x_1, \dotsc , x_{n}):\mathbb{F}(p_1, \dotsc , p_{n})]\geq \mathrm{ord}(\mathrm{Aut}_{\mathbb{F}(p_1, \dotsc , p_{n})}(\mathbb{F}(x_1, \dotsc , x_{n}))) \geq \mathrm{ord}(S_{n}) = n!.
+	\]
+	Por outro lado, como \(n=\deg{(P(T))}\), vale também que
+	\[
+		[\mathbb{F}(x_1, \dotsc , x_{n}):\mathbb{F}(p_1, \dotsc , p_{n})]\leq n!,
+	\]
+	concluindo que
+	\[
+		[\mathbb{F}(x_1, \dotsc , x_{n}):\mathbb{F}(p_1, \dotsc , p_{n})]=n!.
+	\]
+	Nisso, olhando para a torre
+	\[
+		\mathbb{F}\subseteq \mathbb{F}(p_1, \dotsc , p_{n})\subseteq \mathrm{Inv}(S_{n})\subseteq \mathbb{F}(x_1, \dotsc , x_{n}),
+	\]
+	temos
+	\begin{align*}
+		n! & = [\mathbb{F}(x_1, \dotsc , x_{n}):\mathbb{F}(p_1, \dotsc , p_{n})]                                          \\
+		   & = [\mathbb{F}(x_1, \dotsc , x_{n}):\mathrm{Inv}(S_{n})][\mathrm{Inv}(S_{n}):\mathbb{F}(p_1, \dotsc , p_{n})] \\
+		   & = n![\mathrm{Inv}(S_{n}):\mathbb{F}(p_1, \dotsc , p_{n})].
+	\end{align*}
+	Logo,
+	\[
+		[\mathrm{Inv}(S_{n}):\mathbb{F}(p_1, \dotsc , p_{n})]=1
+	\]
+	e
+	\[
+		\mathrm{Inv}(S_{n}) = \mathbb{F}(p_1, \dotsc , p_{n}). \text{ \qedsymbol}
+	\]
+
+\end{proof*}
+
+\begin{exr}
+	Mostre que
+	\[
+		P(T) = \sum\limits_{j=0}^{n}(-1)^{j}p_{j}T^{n-j},
+	\]
+	por exemplo, para n igual a 2:
+	\[
+		P(T) = (T-x_1)(T-x_2) = T^{2}-(x_1+x_2)T + x_1x_2
+	\]
+	e, se \(n=3\),
+	\[
+		P(T) = (T-x_1)(T-x_2)(T-x_3) = T^{3}-(x_1+x_2+x_3)T^{2}+(x_1x_2+x_1x_3+x_2x_3)T - x_1x_2x_3.
+	\]
+\end{exr}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A ação de \(S_{n}\) é sobre \(\mathbb{F}(x_1, \dotsc , x_{n})\) e sobre o conjunto de \(\{x_1, \dotsc , x_{n}\}\) raízes de \(P(T)\), sendo esta última transitiva.
+\end{tcolorbox}
+\end{document}
