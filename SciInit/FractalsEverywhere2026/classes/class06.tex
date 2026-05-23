@@ -1,0 +1,172 @@
+\documentclass[../fractals_everywhere.tex]{subfiles}
+\begin{document}
+\section{Seminar 06 - May 22nd, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Fixed Point Theorem
+\end{itemize}
+\subsection{Banach's Fixed Point Theorem}
+falta 6.4
+
+\begin{lemma*}
+	If \(f:X\rightarrow X\) is a contracting map, then f is continuous
+\end{lemma*}
+\begin{proof*}
+	Let \(0\leq s <1\) be the contracting factor of f; then, we know that
+	\[
+		d(f(x), f(y))\leq sd(x, y)
+	\]
+	and we can pick some \(\varepsilon > 0\) for which there are x, y such that whenever \(d(x, y)<\delta = \varepsilon/s\), then
+	\[
+		d(f(x), f(y)) < \varepsilon .
+	\]
+	Therefore, f is continuous. \qedsymbol
+\end{proof*}
+\hypertarget{contracting_map}{\begin{theorem*}[The Contracting Map Theorem]
+		Let \(f:X\rightarrow X\), be a mapping among a complete metric space X; then, there is a unique \(x_{f}\in X\) such that
+		\[
+			f(x_{f})=x_{f},
+		\]
+		and for all x in X, \(\{f^{n}(x)\}_{n=1}^{\infty}\) converges to \(x_{f}\), where
+		\[
+			f^{n}(x) = \underbrace{f\circ f\circ\cdots\circ f}_{\text{n-times}}.
+		\]
+	\end{theorem*}}
+\begin{proof*}
+	We will follow these few guidelines to prove it:
+	\begin{itemize}
+		\item[I)] The sequence is Cauchy;
+		\item[II)] The sequence has a limit point in X;
+		\item[III)] \(x_{f}\) is indeed a fixed point of f;
+		\item[IV)] \(x_{f}\) is unique.
+	\end{itemize}
+
+	\textbf{I)} Since f is a continuous mapping, we know that
+	\[
+		d(f(x), f(y))\leq s d(x, y).
+	\]
+	By reappling it recursively for \(f^{n}(x)\), we get:
+	\begin{align*}
+		d(f^{n}(x), f^{n}(x)) & \leq sd(f^{n-1}(x), f^{n-1}(x)) \\
+		                      & \leq s^{m^n}d(x, f^{m-n}(x)).
+	\end{align*}
+	Thus, for some k,
+	\[
+		d(x, f^{k}(x))\leq d(x, f(x))+d(f(x), f^{2}(x))+\dotsc +d(f^{k-1}(x), f^{k}(x)) \leq (1+s+s^{2}+\dotsc +s^{k})d(x, f(x));
+	\]
+	from analysis, we know
+	\[
+		\sum\limits_{i=0}^{\infty}s^{i} = \frac{1}{1-s}, \quad s< 1,
+	\]
+	giving
+	\[
+		d(x, f^{k}(x)) \leq \frac{1}{1-k}d(x, f(x)).
+	\]
+	Then, substituting it back on the relation above,
+	\[
+		d(f^{n}(x), f^{n}(x)) \leq s^{m \wedge n}\frac{1}{1-s}d(x, f(x)),
+	\]
+	and for all \(\varepsilon  > 0\), there are m and n such that
+	\[
+		d(f^{n}(x), f^{m}(x))<\varepsilon .
+	\]
+
+	\textbf{II)} Follows from completion of x, since the completeness implies closedness and thus \(\lim_{n\to \infty}f^{n}(x)\in X\), limit which we denote by \(x_{f}\).
+
+	\textbf{III)} We have
+	\[
+		f(x_{f})=f(\lim_{n\to \infty}f^{n}(x)) = \lim_{n\to \infty}f^{n+1}(x) = x_{f}.
+	\]
+
+	\textbf{IV)} Finally, suppose there are two \(x_{f}, y_{f}\) such tat \(f(x_{f}) = x_{f}\) and \(f(y_{f}) = y_{f}\); because f is a contracting map,
+	\[
+		d(f(x), f(y))\leq sd(x_{f}, x_{y}),
+	\]
+	where \((1-s)d(x_{f}, y_{f})\leq 0\) implies \(d(x_{f}, y_{f})=0\). Therefore, \(x_{f} = x_{y}.\) \qedsymbol
+
+\end{proof*}
+
+\begin{example}
+	Let \(w(x) = Ax + t\) be an affine transformation; make the coordinate change for x of the form
+	\[
+		w(x) = x' = x - x_{f}
+	\]
+	and, by assuming \(\det{(I-A)}\neq 0\), show that, if \(w'(x')\coloneqq (h\circ w\circ h^{-1}(x'))\), then:
+	\begin{align*}
+		 & w'(x') = Ax'                                                     \\
+		 & w(x) = (h^{-1}\circ w\circ h)(x) = A(x-x_{f}) + x_{f}            \\
+		 & w^{n}(x) = A^{n}(x-x_{f})+x_{f}, \quad \forall n=0, 1, 2, \dotsc
+	\end{align*}
+
+	Furthermore, show that if \(| A |<1\), where \(| \cdot  |\) denotes the appropriate norm of A as a linear operator on a two-dimensional vector space, then \(\{w^{n}(x)\}\) is a Cauchy sequence that converges to \(x_{f}\) for each \(x\in \mathbb{R}^{2}\).
+
+	To see the first equality, notice that
+	\[
+		h(x) = x-x_{f} \Rightarrow h^{-1}(x) = x+x_{f}.
+	\]
+	Hence,
+	\[
+		w\circ h^{-1}(x') = A(x'+x_{f})+t,
+	\]
+	so that
+	\[
+		h\circ w\circ h^{-1}(x) = A(x'+x_f)+t-x_f = Ax'+ Ax_{f}+t-Ax_{f}-t = Ax'.
+	\]
+
+	For the second one, it follows that
+	\[
+		w'(h(x)) = Ax'= A(x-x_{f}),
+	\]
+	thus
+	\[
+		h^{-1}w(h(x)) = A(x-x_{f}) + x_{f} = A(x-x_{f}) + Ax_{f}+t = A_{x}+t.
+	\]
+
+	Finally, for the third one,
+	\begin{align*}
+		w^{2}(x) & = h^{-1}\circ w^{-1}\circ h \circ h^{-1}\circ w'\circ h(x) \\
+		         & = h^{-1}\circ w'\circ w'\circ h(x)                         \\
+		         & = h^{-1}(w')^{2}(x')                                       \\
+		         & = h^{-1}\circ A^{2}x'                                      \\
+		         & =A^{2}(x-x_{f}) + x_{f}.
+	\end{align*}
+
+	With regards to the extra problem, assume \(| A |<1\); then,
+	\[
+		d(w(x), w(y))\leq sd(x, y),\; s < 1
+	\]
+	and
+	\[
+		d(Ax+t, Ay + t) =  \Vert Ax+t - Ay-t \Vert = \Vert A(x-y) \Vert \leq \Vert A \Vert\Vert x-y \Vert,
+	\]
+	so that
+	\[
+		\Vert A(x-y) \Vert\leq s \Vert x-y \Vert
+	\]
+	as long as \(\Vert A \Vert \Vert x-y \Vert\leq s \Vert x-y \Vert\).
+
+	If \( \Vert x-y \Vert =0\), then it is immediate, so we can assume \(x\neq y\), which leads to
+	\[
+		\Vert A \Vert \Vert x-y \Vert \leq s \Vert x-y \Vert \Longleftrightarrow \Vert A \Vert \leq \Vert s \Vert.
+	\]
+	Hence, if \(\Vert A \Vert < 1\), then there is an \(0 < s\leq 1\) such that
+	\[
+		\Vert A \Vert \leq s,
+	\]
+	so that there is a \(\rho \) such that \(\Vert A \Vert_{\rho } < 1\) implies \(w(x)\) is contractive by the \hyperlink{contracting_map}{\textit{Banach Contracting Theorem}}.
+\end{example}
+\begin{example}
+	Let \((X, d)\) be a compact metric space with more than one point and \(f:X\rightarrow X\) be a contracting map. Show that \(f(X)\subseteq X\) but \(f(X)\neq X\), i.e., that a contraction mapping on a nontrivial compact metric space is not invertible.
+
+	Because \((X, d)\) is compact, it is boundedly closed, so let \(x_{f}\) in X be the fixed point of \(f(x)\); there is a number M such that \(d(x, x_f) \leq M\) for every point x in X, so by boundedness of X, we have
+	\[
+		d(x_{f}, f(x))\leq s \underbrace{d(x_{f}, x)}_{\leq M},
+	\]
+	and because \(s<1\),
+	\[
+		d(x_f, f(x))<M.
+	\]
+	Define \(d(x_{f}, \cdot ):X\rightarrow \mathbb{R}\), which is continuous between compact spaces, meaning it must attain its maximum at some point in X, i.e., there is \(x_{0}\) such that \(d(x_{f}, x_{0}) = M\). Therefore, there is no x in X for which \(f(x) = x_{n}\), \(f(X)\neq X\).
+\end{example}
+
+\end{document}
