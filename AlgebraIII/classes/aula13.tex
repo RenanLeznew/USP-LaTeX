@@ -1,0 +1,189 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 26 de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Teorema Fundamental da Teoria de Galois.
+\end{itemize}
+\subsection{Teorema Fundamental da Teoria de Galois}
+Se \(\mathbb{K}/\mathbb{F}\) for uma extensão de Galois, denotamos o grupo de Galois da extensão por
+\[
+	\mathrm{Gal}(\mathbb{K}/\mathbb{F}) \coloneqq \mathrm{Aut}_{\mathbb{F}}(\mathbb{K},
+\]
+tal que, pelos teoremas anteriores,
+\[
+	\mathrm{ord}(\mathrm{Gal}(\mathbb{K}/\mathbb{F})) = [\mathbb{K}:\mathbb{F}].
+\]
+Hoje, enunciamos a provamos o
+\hypertarget{fundamental_galois}{
+	\begin{theorem*}[Teorema Fundamental da Teoria de Galois]
+		Para corpos \(\mathbb{K}\) e \(\mathbb{F}\) com \(\mathbb{K}/\mathbb{F}\), temos:
+		\begin{itemize}
+			\item[1)] O morfismo
+			      \[
+				      \{H < \mathrm{Gal}(\mathbb{K}/\mathbb{F})\}\stackrel{\mathrm{Inv}(\cdot )}\longrightarrow  \{\mathbb{F}\subseteq \mathbb{M}\subseteq \mathbb{M}:\; \mathfrak{M} \text{ subcorpo}\}
+			      \]
+			      é uma bijeção com inversa
+			      \[
+				      \{\mathbb{F}\subseteq \mathbb{M}\subseteq \mathbb{K}:\; \mathbb{M} \text{ corpo}\}\stackrel{\mathrm{Gal}(\mathbb{K}/(\cdot ))}\longrightarrow  \{H\subseteq \mathrm{Gal}(\mathbb{K}/\mathbb{F})\};
+			      \]
+			\item[2)] Vale que \(H_1\) é um subgrupo de \(H_2\) se, e somente se, \(\mathrm{Inv}(H_2)\subseteq \mathrm{Inv}(H_1)\);
+			\item[3)] Há uma relação entre índice de subgrupos e grau de extensão de \(\mathbb{H}_1/\mathbb{H}_2\):
+			      \[
+				      [H_2: H_1]= [\mathrm{Inv}(H_1):\mathrm{Inv}(H_2)];
+			      \]
+			\item[4)] H é um subgrupo normal de \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\) se, e somente sem a extensão \(\mathrm{Inv}(H)/\mathbb{F}\) for uma extensão normal. Neste caso, há um isomorfismo de grupos
+			      \[
+				      \mathrm{Gal}(\mathrm{Inv}(H)/\mathbb{F})\cong \frac{\mathrm{Gal}(\mathbb{K}/\mathbb{F})}{H};
+			      \]
+			\item[5)] Para toda \(\phi \in \mathrm{Gal}(\mathbb{K}/\mathbb{F})\) e todo \(H < \mathrm{Gal}(\mathbb{K}/\mathbb{F})\),
+			      \[
+				      \mathrm{Inv}(\phi H \phi^{-1}) = \phi (\mathrm{Inv}(H)).
+			      \]
+			      Em particular, se \(\mathbb{F}\subseteq \mathbb{M}\subseteq \mathbb{M}\), então
+			      \[
+				      \mathrm{Gal}(\mathbb{K}/\phi (\mathbb{M})) = \phi  \mathrm{Gal}(\mathbb{K}/\mathbb{M})\phi^{-1}.
+			      \]
+		\end{itemize}
+	\end{theorem*}}
+
+\begin{proof*}
+	Vamos provar alguns itens, mas não todos, de modo explícito.
+
+	(1):  para começar, observe duas coisas: se \(\mathbb{K}/\mathbb{F}\) for de Galois, então
+	\[
+		\mathrm{ord}(\mathrm{Gal}(\mathbb{K}/\mathbb{F}))< +\infty,
+	\]
+	e, para todo corpo \(\mathbb{M}\) intermediário da torre \(\mathbb{F}\subseteq \mathbb{M}\subseteq \mathbb{K}\), \(\mathbb{K}/\mathbb{M}\) é Galois, afinal basta observar que se \(\mathbb{K}/\mathbb{F}\) é finita, então \(\mathbb{K}/\mathbb{M}\) é finita, pois \(\mathbb{K}/\mathbb{F}\) é Galois se, e só se, \(\mathbb{K}\) é o corpo de decomposição de um polinômio \(f(x)\subseteq \mathbb{F}[x]\) separável, e por isso \(\mathbb{K}\) é corpo de decomposição também de \(f(x)\in \mathbb{M}[x]\).
+	Daí, o item (1) segue ao considerar \(H < \mathrm{Gal}(\mathbb{K}/\mathbb{F})\), de forma que \(\mathrm{ord}(H)\) é finita e, consequentemente, por um teorema que foi consequência do \hyperlink{artin_lemma}{\textit{Lema de Artin}}, segue o lado
+	\[
+		\mathrm{Gal}(\mathbb{K}/\mathrm{Inv}(H)) = H.
+	\]
+	Por outro lado, se \(\mathbb{F}\subseteq \mathbb{M}\subseteq \mathbb{K}\), então já mostramos que
+	\[
+		\mathrm{Inv}(\mathrm{Gal}(\mathbb{K}/\mathbb{M})) = \mathbb{M}.
+	\]
+
+	(2): se \(H_1 < H_2\), é sempre verdade que \(\mathrm{Inv}(H_2)\subseteq \mathrm{Inv}(H_1)\), e que, então,
+	\[
+		\mathrm{Gal}(\mathbb{K}/\mathrm{Inv}(H_1)) \subseteq \mathrm{Gal}(\mathbb{K}/\mathrm{Inv}(H_2)).
+	\]
+	No entanto, sendo \(\mathbb{K}/\mathbb{F}\) Galois, deve ocorrer
+	\[
+		\mathrm{Gal}(\mathbb{K}/\mathrm{Inv}(H_1)) = H_1 \quad\&\quad \mathrm{Gal}(\mathbb{K}/\mathrm{Inv}(H_2))=H_2.
+	\]
+	Logo,
+	\[
+		H_1 < H_2 \Longleftrightarrow \mathrm{Inv}(H_2) < \mathrm{Inv}(H_1).
+	\]
+
+	(3): sabemos que, se H for subgrupo de \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\), então
+	\[
+		\mathrm{ord}(\mathrm{Gal}(\mathbb{K}/\mathrm{Inv}(H))) = [\mathbb{K}:\mathrm{Inv}(H)].
+	\]
+	Sejam \(H_1 < H_2\) dois grupos finitos; com isto,
+	\begin{align*}
+		\mathrm{ord}(H_2) = [H_2:\overbrace{1}^{\mathclap{\substack{\text{Índice do} \\\text{grupo trivial} }}}] &= [H_2:H_1][H_1:1]\\
+		 & = [H_2:H_1]\mathrm{ord}(H_1).
+	\end{align*}
+	Além disso, para qualquer índice de H< vale
+	\[
+		\mathrm{ord}(H_{i}) = [\mathbb{K}:\mathrm{Inv}(H_1)]= \mathrm{ord}(\mathrm{Gal}(\mathbb{K}/\mathrm{Inv}(H_i))),
+	\]
+	e pela multiplicidade dos graus,
+	\[
+		[\mathbb{K}:\mathrm{Inv}(H_2)] = [\mathbb{K}:\mathrm{Inv}(H_1)][\mathrm{Inv}(H_1):\mathrm{Inv}(H_2)],
+	\]
+	implicando em
+	\[
+		\mathrm{ord}(H_2)=\mathrm{ord}(H_1)[\mathrm{Inv}(H_1):\mathrm{Inv}(H_2)].
+	\]
+	Juntando ambas, obtemos:
+	\[
+		[\mathrm{Inv}(H_1):\mathrm{Inv}(H_2)]\frac{\mathrm{ord}(H_2)}{\mathrm{ord}(H_1)} = [H_2:H_1].
+	\]
+
+	(4): Seja H um subgrupo normal de \(\mathrm{Gal}(\mathbb{K}/\mathbb{F}),\) ou seja, suponha que, para todo \(\phi \in \mathrm{Gal}(\mathbb{K}/\mathbb{F}),\) existe um elemento de H que é conjugado do original: \(\phi H \phi^{-1}=H\).
+	Pelo exercício logo abaixo, podemos definir um homomorfismo de grupo
+	\begin{align*}
+		\tau : & \mathrm{Gal}(\mathbb{K}/\mathbb{F})\rightarrow \mathrm{Aut}(\mathrm{Inv}(H)/\mathbb{F}) \\
+		       & \phi\longmapsto \phi|_{\mathrm{Inv}(H)}
+	\end{align*}
+	Usando o teorema da aula anterior e os exercícios abaixo, podemos concluir que \(\mathrm{Inv}(H)/\mathbb{F}\) é de Galois pois
+	\[
+		\mathbb{K}/\mathbb{F} \text{ é Galois } \Longleftrightarrow \exists G \subseteq \mathrm{Gal}(\mathbb{K}/\mathbb{F})
+	\]
+	é finita e \(\mathbb{F} = \mathrm{Inv}(G)\), e basta trocar G pela imagem de \(\tau \). Por sobrejetividade de \(\tau \) e pelo \hyperlink{isomorphism_theorem}{\textit{Primeiro Teorema do Isomorfismo}} para grupos, segue que
+	\[
+		\mathrm{Gal}(\mathrm{Inv}(H)/\mathbb{F})\cong \frac{\mathrm{Gal}(\mathbb{K/\mathbb{F}})}{H}.
+	\]
+
+	Por outro lado, Seja \(\mathbb{M}\) um corpo intermediário de \(\mathbb{F}\subseteq \mathbb{M}\subseteq \mathbb{K}\), tal que \(\mathbb{M}/\mathbb{F}\) é normal. Resta provar que \(H\coloneqq \mathrm{Gal}(\mathbb{K}/\mathbb{H})\) é normal, ou seja, que para toda \(\phi \in \mathrm{Gal}(\mathbb{K}/\mathbb{F})\), temos \(\phi H\phi^{-1}=H\).
+
+	Com efeito, seja \(\mathbb{M} = \mathbb{F}[\alpha_1, \dotsc , \alpha_{m}]\), onde cada \(\alpha_{i}\) é algébrico sobre \(\mathbb{F}\); se \(\phi \in \mathrm{Gal}(\mathbb{K}/\mathbb{F})\) e aplicarmos \(\phi \) ao elemento \(\alpha_{i}\), obtemos uma raiz do polinômio minimal de \(\alpha_{i}\), pois os coeficientes dele são elementos de \(\mathbb{F}\), que são fixados. Logo, dada uma raiz, aplicar \(\varphi \) dá outra, para todo \(\alpha_{i}\), e por \(\mathbb{M}/\mathbb{F}\) ser normal, também vale sempre \(\varphi (\alpha_{i})\in \mathbb{M}\). Portanto,
+	\[
+		\varphi M = M (**).
+	\]
+
+\end{proof*}
+\begin{exr}
+	Mostre que H é um subgrupo normal de \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\) se, e somente se, \(\mathrm{Inv}(H)\) é \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\)-invariante, ou seja, se para todo \(\phi \in \mathrm{Gal}(\mathbb{K}/\mathbb{F}),\) vale
+	\[
+		\phi \mathrm{Inv}(H) = \mathrm{Inv}(H).
+	\]
+	Consequentemente, que podemos definir um homomorfismo de grupo
+	\begin{align*}
+		\tau : & \mathrm{Gal}(\mathbb{K}/\mathbb{F})\rightarrow \mathrm{Aut}(\mathrm{Inv}(H)/\mathbb{F}) \\
+		       & \phi\longmapsto \phi|_{\mathrm{Inv}(H)}.
+	\end{align*}
+	Mostre que \(\tau \) é sobrejetora.
+
+	Além disso, mostre que \(\mathrm{ker}(\tau )=H\), onde
+	\[
+		\mathrm{ker}(\tau ) = \{\phi \in \mathrm{Gal}(\mathbb{K}/\mathbb{F}):\; \tau (\phi ) = \mathrm{Id}_{\mathrm{Inv(H)}}\}
+	\]
+	e que o diagrama abaixo comuta
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+
+			\node(T) at (-2,1){\(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\)};
+			\node(BL) at (-2,-1){\(\displaystyle\frac{\mathrm{Gal}(\mathbb{K}/\mathbb{F})}{H}\)};
+			\node(BR) at (2,1){\(\mathrm{Aut}(\mathrm{Inv}(H)/\mathbb{F})\)};
+
+			\draw[Arrow](T)--node[midway, left] {\(\pi \)}(BL);
+			\draw[Arrow](T)--node[midway, above] {\(\tau \)}(BR);
+			\draw[Arrow, dashed](BL)--node[midway, below] {}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	Equivalentemente, mostre que
+	\[
+		\frac{\mathrm{Gal}(\mathbb{K}/\mathbb{F})}{H}\cong \mathrm{Im}(\tau ).
+	\]
+\end{exr}
+\begin{exr}
+	Seja
+	\[
+		\mathrm{Inv}_{\mathrm{Inv}(H)}\coloneqq \{a\in \mathrm{Inv}(H): \phi (a) = a,\; \forall \phi \in \mathrm{Im}(\tau )\}.
+	\]
+	Mostre que
+	\[
+		\mathrm{Inv}_{\mathrm{Inv}(H)}(\mathrm{Im}(\tau )) = \mathbb{F}.
+	\]
+\end{exr}
+\begin{exr}
+	Mostre que (**) implica que \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\eqqcolon\) é normal.
+\end{exr}
+\begin{exr}
+	Mostre o item (5).
+\end{exr}
+
+Adiante, veremos um exemplo simples e um exemplo mais complexo, que irá requerer introduzir e trabalhar por um tempo com as chamadas classes ciclotrômicas.
+
+\end{document}

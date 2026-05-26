@@ -1,0 +1,300 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 25 de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Consistência e Estabilidade da Equação Parabólica;
+	\item Método das Linhas.
+\end{itemize}
+\subsection{Consistência e Estabilidade da Equação Parabólica}
+O método de Crank-Nicolson foi introduzido na aula passada, com forma geral
+\[
+	\boxed{-\frac{\sigma }{2}U_{j}^{n+1} + (1+\sigma )U_{j}^{n+1} -\frac{\sigma }{2}U_{j+1}^{n+1} = \frac{\sigma }{2}U_{j-1}^{n}+(1-\sigma )U_{j}^{n}+\frac{\sigma }{2}U_{j+1}^{n}}
+\]
+que dá a aproximação seguindo o triângulo de Pasqual:
+\begin{align*}
+	u(x+h, t+k) & = u(x, t) + h u_{x}(x, t) + ku_{t}(x, t)                                 \\
+	            & +\frac{1}{2!}(h^{2}u_{xx}(x, t)+2hku_{xt}(x, t) + k^{2}u_{tt}(x, t))     \\
+	            & +\frac{1}{3!}(h^{3}u_{xxx}+3h^{2}ku_{xxt} + 3hk^{2}u_{xtt}+ k^{3}u_{ttt} \\
+	            & + \dotsc,
+\end{align*}
+usado para construir a matriz do método.
+
+Assim como anteriormente, esperamos que consistência e alguma forma de estabilidade garanta a convergência do método em cada ponto fixo \((X, T)\) conforme refinamos a malha nas dimensões de espaço e tempo; mais ainda ,esperamos que, para um método estável, a ordem global de precisão concordará com a ordem local do erro de truncamento; por exemplo, para o Crank-Nicolson, espera-se que
+\[
+	U_{i}^{n} - u(X, T) = \mathcal{O}(\Delta t^{2}+h^{2})\rightarrow 0
+\]
+conforme h e k tendem a 0 quando \(ih \equiv X\) e \(n\Delta t \equiv T\) são fixos. O termo que sobra no erro de truncamento local age como se fosse um erro espúrio, um sintoma ao resolver o problema diferencial, e por isso desejamos que ela tenda a zero ao invés de explodir!
+
+A estabilidade, por sua vez, está relacionada justamente a um acúmulo exponencial de erros, pois gostaríamos que um método numérico tivesse uma solução que não explodisse; anteriormente, vimos que a zero-estabilidade estava relacionada ao esquema para discretizar a derivada, especialmente com os que não acumulassem erros desastrosamente, ao mesmo tempo que vimos a estabilidade absoluta, relacionada ao uso do método para resolver \(u'=\lambda u\) e dando uma escolha para o passo h: poderíamos escolher um passo h que restaurava a habilidade do método de resultar numa solução \textit{sem} acúmulo desastroso do erro, analisando as regiões de estabilidade e etc, fora da qual o método acumula potências enormes de erro e acabou-se o método, então a escolha adequada do h iria impedir isso ao encaixar o método dentro da região.
+No caso das equações parabólicas, usaremos mecanismos semelhantes! Ao final, iremos ``provar'' o Teorema de Equivalência de Lax:
+\begin{quote}
+	``Para EDPs lineares, ter `consistência' mais `uma forma de estabilidade' é equivalente à `convergência'.''
+\end{quote}
+
+Para entender como a teoria de estabilidade para EDPs temporais se relaciona com a teoria de estabilidades de EDOs atemporais, é mais fácil considerar o chamado \textit{\textbf{métodos das linhas}} (MOL), uma discretização das EDPs que é semidiscreta: a ideia é manter contínuo em um aspecto e discretizar no outro, por exemplo manter o tempo contínuo e discretizar no espaço\footnote{Por isso chama método das linhas -- fica com linhas em uma das dimensões!}, de forma que a equação diferencial passa a ser avaliada em
+\[
+	u_t(x_{j}, t) = u_{xx}(x_{j}, t),
+\]
+e procuramos uma discretização que respeite isso. O tempo contínua como está; para a discretização de \(u_{xx}(x_{j}, t)\), usamos a discretização
+\[
+	\frac{u(x_{j}, t) - 2u(x_{j}, t) + u(x_{j}+h, t)}{h^{2}} + \mathcal{O}(h^{2})
+\]
+e descartamos os erros, fornecendo uma aproximação para a função \(U_{j}(t)\) dada por
+\[
+	U_{j}(t)\approx u(x_{j}, t).
+\]
+Daí, a derivada temporal \(u_{t}(x_{j}, t)\) passa a ser uma derivada ordinária!
+\[
+	\boxed{\frac{\mathrm{d}}{\mathrm{d}t}U_{j}(t) = \frac{1}{h^{2}}\biggl(U_{j-1}(t) - 2U_{j}(t) + U_{j+1}(t)\biggr)}
+\]
+Obtivemos um sistema de EDOs, que torna-se um PVI! Ao fazer a discretização espacial, as condições de contorno ficam embutidas na forma acima, e a condição inicial continua tratada conforme anteriormente; por exemplo, se \(u(x, 0) = \eta (x)\), ficamos com \(U_{j}(0) = \eta (x_{j})\) para todo j.
+O bom disso é que sabemos (supostamente) resolver PVI's.
+
+Se outra discretização espacial fosse feita, outro método teria sido obtido, mas exploraremos esse que conseguimos por um tempo, igualmente descrito pelo problema
+\[
+	\frac{\mathrm{d}}{\mathrm{d}t} \underline{U}(t) = A \underline{U}(t) + \overbrace{\underline{g}(t)}^{\mathclap{\text{Condições de contorno}}}, \quad A = \frac{1}{h^{2}}\begin{bmatrix}
+		-2     & 1      &        &        \\
+		1      & -2     & 1      &        \\
+		\vdots & \vdots & \ddots & \vdots \\
+		       &        & 1      & -2
+	\end{bmatrix}
+\]
+\begin{example}[Contorno de Dirichlet]
+	Se tivéssemos condições de contorno
+	\[
+		g(t)\left\{\begin{array}{ll}
+			u(0, t) = g_{0}(t) \\
+			u(1, t) = g_1(t)
+		\end{array}\right.,
+	\]
+	o sistema acima daria
+	\[
+		A = \frac{1}{h^{2}}\begin{bmatrix}
+			-2     & 1      &        &        \\
+			1      & -2     & 1      &        \\
+			\vdots & \vdots & \ddots & \vdots \\
+			       &        & 1      & -2
+		\end{bmatrix}, \quad
+		g(t) = \begin{bmatrix}
+			\frac{1}{h^{2}}g_{0}(t) \\
+			0                       \\
+			\vdots                  \\
+			0                       \\
+			\frac{1}{h^{2}}g_1(t)
+		\end{bmatrix}
+	\]
+	e
+	\[
+		\underline{U}(0) = \begin{bmatrix}
+			\eta (x_1) \\
+			\eta (x_2) \\
+			\vdots     \\
+			\eta (x_m) \\
+		\end{bmatrix} \quad\&\quad \underline{U}(t) = \begin{bmatrix}
+			U_1(t)   \\
+			U_2(t)   \\
+			\vdots   \\
+			U_{m}(t) \\
+		\end{bmatrix}.
+	\]
+\end{example}
+
+Agora, podemos ficar aplicando os métodos que já conhecemos; com o método de Euler, obteríamos
+\[
+	\underline{U}^{n+1} = \underline{U}^{n} + \Delta t[A\underline{U}^{n} + \underline{g}^{n}],
+\]
+ou
+\[
+	\underline{U}^{n+1} = ( I + \Delta t A) \underline{U}^{n} + \Delta t \underline{g}^{n},
+\]
+tal que
+\[
+	I+\Delta t A = \begin{bmatrix}
+		(1-2\sigma ) & \sigma       &        &              \\
+		\sigma       & (1-2\sigma ) & \sigma &              \\
+		\vdots       & \vdots       & \ddots & \vdots       \\
+		             &              & \sigma & (1-2\sigma )
+	\end{bmatrix},
+\]
+exatamente o Euler progressivo! Se fosse o Euler implícito aplicado, recuperaríamos o Euler regressivo.
+
+Com o trapézio, ficaria
+\[
+	\underline{U}^{n+1} = \underline{U}^{n} + \frac{\Delta t}{2}(\underline{F}(\underline{U}^{n}) + \underline{F}(\underline{U}^{n+1})),
+\]
+que com o exemplo, teríamos
+\[
+	\underline{U}^{n+1} = \underline{U}^{n} + \frac{\Delta t}{2}(A\underline{U}^{n} + \underline{g}^{n}) + \frac{\Delta t}{2}(A \underline{U}^{n+1} + \underline{g}^{n+1}),
+\]
+ou então
+\[
+	\biggl(I-\frac{\Delta }{t}2A\biggr) \underline{U}^{n+1} = \biggl(I+\frac{\Delta t}{2}\biggr)\underline{U}^{n} + \frac{\Delta t}{2}(\underline{g}^{n} + \underline{g}^{n+1}),
+\]
+que é exatamente o método de Crank-Nicolson, mas obtido muito mais simplesmente -- apenas discretizamos em espaço, resultando numa EDP, seguida de uma discretização no tempo com o método do trapézio.
+
+Essa técnica dá diversos métodos que podemos usar para resolver e que nem vimos aqui, por exemplo discretizando em espaço e usando RK para resolver a EDO resultante. Porém, o mais interessante dessa técnica é que ela permite utilizar essa transformação do problema em um PVI para analisar a estabilidade do problema de equações parabólicas, e é exatamente essa tática que usaremos.
+Tomando o método de Euler de exemplo, ele está aplicado ao problema linear
+\[
+	\frac{\mathrm{d}}{\mathrm{d}t} \underline{U}(t) = A \underline{U}(t) + \underline{g}(t),
+\]
+e analisar a estabilidade dele requer conhecimento do espectro de A, olhando qual dos autovalores dá a maior restrição no espectro de tempo. Porém, a A daqui é uma A especial -- ela aparece na tridiagonal resultante da discretização por diferenças centrais, então já sabemos que os autovalores são
+\[
+	\lambda_p = \frac{2}{h^{2}}(\cos^{}{(p\pi h)}-1), \quad p=1,2,\dotsc ,m,
+\]
+onde m e h são relacionados por \(\displaystyle h = \frac{1}{m+1}\). Sabemos, sobre o método de Euler, que a região de estabilidade dele é um círculo de raio 1 centrado em -1, mas temos que olhar a questão da estabilidade nova; gostaríamos que todos os \(\Delta t \lambda_p\) estejam dentro da região de estabilidade do Método de Euler, pois isso garante que a solução não exploda de erros.
+
+Sobre os autovalores, percebe-se que eles são todos números reais negativos, caindo exatamente no eixo-x que corta o círculo no meio, apenas para a esquerda do 0, e que o autovalor de maior módulo é o menor autovalor sem módulo; assim, para que \(\lambda_{m}\) pertença à região de estabilidade absoluta, como
+\[
+	\lambda_{m} = \frac{2}{h^{2}}\biggl(\cos^{}{\biggl(\frac{m}{m+1}\pi \biggr)}-1\biggr)
+\]
+implica que é necessário que
+\[
+	-\frac{4}{h^{2}}\Delta t > -2 \Rightarrow \frac{\Delta t}{h^{2}} < \frac{1}{2},
+\]
+dando uma restrição que diz que o método de Euler é estável, mas é \textbf{condicionalmente estável}, e a condição para ele ser estável é \(\displaystyle \frac{\Delta t}{h^{2}}\leq \frac{1}{2}\).
+
+Temos, então, uma ``competição'' entre os autovalores e a análise do problema de valor inicial: queremos que os autovalores estejam dentro da região, precisando que \(\Delta t\) seja reduzido; porém, ao reduzir \(h\), o termo cresce, jogando os autovalores para fora ao refinar o h! Fica uma briga que tende muito mais ao h do que ao \(\Delta t\) por conta do termo \(h^{2}\). Logo, ao resolver um problema desse, mesmo usando um \(\Delta t\) moderado, é necessário usar um h muito pequeno para satisfazer a condição!
+Normalmente, o que se faz é pedir que \(\Delta t\) seja menor ou igual a um fator de tolerância \(\xi \) multiplicado por \(h^{2}\), onde \(\xi < 1/2\).
+
+Vamos repetir essa análise para o método do trapézio, cuja região de estabilidade é metade o hiperplano esquerdo do plano complexo -- é irrestrito! Então, qual seria a condição para que \(\Delta t \lambda_p\) esteja dentro da região de estabilidade? Ora, basta que \(\lambda_p\) seja negativo, que ele já satisfaz por natureza, então a condição não existe! Todos os autovalores sempre estarão dentro dela. Portanto, o método de Crank-Nicolson é \textbf{Incondicionalmente Estável}.
+Apesar de métodos implícitos serem mais caros, eles garantem a estabilidade incondicional, enquanto os métodos diretos são baratos, mas têm estabilidade condicional.
+
+Testemos com a \textit{regra do ponto médio}, dada por
+\[
+	\boxed{\underline{U}^{n+2} = \underline{U}^{n} + 2\Delta t \underline{U}F^{n+1}}.
+\]
+Ela resolve um problema parabólico? Não! Os autovalores são reais positivos, então eles nunca vão para a região de estabilidade do ponto médio, que é dada pelos números puramente imaginários (apenas no eixo-y), garantindo um método \textbf{incondicionalmente instável}, podendo ser usado apenas nos casos em que os autovalores são complexos, especialmente os que são puramente complexos (basta que A seja antissimétrica).
+
+\subsection{Exemplos de Códigos}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+import matplotlib.pyplot as plt
+import time
+
+# Dados iniciais
+a = 0.
+b = 1.
+T = 0.5
+kappa = 1.
+
+N = 40               # discretizacao em x
+dx = (b - a)/N
+
+# Calcula dt para que sigma seja menor que 0.5
+dt = 0.4*dx*dx/kappa
+
+M = int(np.ceil(T/dt))
+dt = T/M
+
+sigma = kappa*dt/(dx*dx)
+print(f'sigma = {sigma:.6f}')
+
+U = np.zeros((N + 1, M + 1))
+x = np.linspace(a, b, N + 1)
+
+# Condicao inicial
+U[:, 0] = x*(1 - x)
+
+
+\end{minted}
+	\caption{Implementação do Parabólico Explícito}
+\end{listing}
+\pagebreak
+\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# Aplicando o metodo de Euler explicito
+start_time = time.time()
+for n in range(M):
+    for i in range(1, N):
+        U[i, n + 1] = U[i, n] + sigma*(U[i - 1, n] - 2*U[i, n] + U[i + 1, n])
+
+elapsed_time = time.time() - start_time
+print(f"Tempo de execucao: {elapsed_time:.6f} segundos")
+# Plot
+plt.figure(figsize=(8, 5))
+# for n in range(0, M + 1, max(1, M // 10)):
+#     plt.plot(x, U[:, n], label=f't={n*dt:.3f}')
+for n in range(0, M + 1):
+    plt.plot(x, U[:, n], label=f't={n*dt:.3f}')
+plt.xlabel('x')
+plt.ylabel('U(x,t)')
+plt.title('Solucao da Equacao do Calor - Metodo Explicito')
+# plt.legend()
+plt.grid(True)
+plt.show()
+\end{minted}
+
+\begin{listing}[H]
+	\caption{Implementação de Crank-Nicolson}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+import matplotlib.pyplot as plt
+import time
+from scipy.linalg import solve
+
+# Dados iniciais
+a = 0.
+b = 1.
+T = 0.5
+kappa = 1.
+
+N = 40  # discretizacao em x
+M = 10  # discretizacao em t
+
+dx = (b - a)/N
+dt = T/M
+
+sigma = kappa*dt/(dx*dx)
+
+# limite para estabilidade
+dt_lim = 0.5*dx*dx/kappa
+sigma_lim = kappa*dt_lim/(dx*dx)
+
+print(f'dx = {dx:.6f}, dt = {dt:.6f}, sigma = {sigma:.6f}, sigma_lim = {sigma_lim:.6f}')
+
+U = np.zeros((N + 1, M + 1))
+x = np.linspace(a, b, N + 1)
+
+# Condição inicial
+U[:, 0] = x * (1 - x)
+\end{minted}
+\end{listing}
+\pagebreak
+\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# Montagem das matrizes A e B
+main_diag_A = (2 + 2*sigma)*np.ones(N - 1)
+diag_A2 = -sigma*np.ones(N - 2)
+A = np.diag(main_diag_A) + np.diag(diag_A2, 1) + np.diag(diag_A2, -1)
+
+main_diag_B = (2 - 2*sigma)*np.ones(N - 1)
+diag_B2 = sigma*np.ones(N - 2)
+B = np.diag(main_diag_B) + np.diag(diag_B2, 1) + np.diag(diag_B2, -1)
+
+start_time = time.time()
+
+for n in range(M):
+    # Condicoes de Dirichlet
+    U[0, n + 1] = 0
+    U[-1, n + 1] = 0
+
+    # Resolve o sistema linear
+    c = np.zeros(N - 1)
+    U[1:-1, n + 1] = solve(A, B @ U[1:-1, n] + c)
+
+elapsed_time = time.time() - start_time
+print(f"Tempo de execucao: {elapsed_time:.6f} segundos")
+
+# Plot
+plt.figure(figsize=(8, 5))
+for n in range(M + 1):
+    plt.plot(x, U[:, n], label=f't={n * dt:.3f}')
+plt.xlabel('x')
+plt.ylabel('U(x,t)')
+plt.title('Solucao da Equacao do Calor - Metodo de Crank-Nicolson')
+plt.legend()
+plt.grid(True)
+plt.show()
+\end{minted}
+\end{document}
