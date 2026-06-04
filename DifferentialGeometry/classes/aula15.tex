@@ -1,11 +1,191 @@
 \documentclass[../differential_geometry.tex]{subfiles}
 \begin{document}
-\section{Aula 15 - de Fevereiro, 2026}
+\section{Aula 15 - Bônus}
 \subsection{Motivações}
 \begin{itemize}
 	\item Operadores Auto-adjuntos.
 \end{itemize}
 \subsection{Operadores Auto-adjuntos}
+\begin{def*}
+	Um \textbf{operador autoadjunto} é um operador \(A:X\rightarrow X\) com
+	\[
+		\langle Ax, y \rangle = \langle x, Ay \rangle, \quad x, y\in T_{p}S.\; \square
+	\]
+\end{def*}
+
+Se \(\underline{x}:U\subseteq \mathbb{R}^{2}\rightarrow S\subseteq \mathbb{R}^{3}\) é uma parametrização local de S, tal que
+\[
+	N(\underline{x}(u, v))=\frac{\underline{x}_u(u, v)\times \underline{x}_v(u, v)}{\Vert \underline{x}_u(u, v)\times \underline{x}_v(u, v) \Vert}.
+\]
+Vimos que a derivada da aplicação de Gauss \(\mathrm{d}N_{p}:T_pS\rightarrow T_pS\) é um operador autoadjunto, tal que ele satisfaz
+\[
+	\langle \mathrm{d}N_{p}(w_1), w_2 \rangle = \langle w_1, \mathrm{d}N_p(w_2) \rangle, \quad \forall w_1, w_2\in T_pS.
+\]
+Seja \(\ell:V\rightarrow V\) um operador e \(\{v_1, v_2\}\) uma base de V; escreva
+\begin{align*}
+	 & \ell(v_1) = a_{11}v_1 + a_{21}v_2  \\
+	 & \ell(v_1) = a_{12}v_1 + a_{22}v_2.
+\end{align*}
+Então, a matriz de \(\underline{\ell} \) na base \(\{v_1, v_2\}\); assim, se \(w = \alpha v_1 + \beta v_2\in V\)  e \(\underline{\ell }(w) = \gamma v_1 + \eta v_2\), temos
+\[
+	\begin{bmatrix}
+		\gamma \\
+		\eta
+	\end{bmatrix} = A \begin{bmatrix}
+		\alpha \\
+		\beta
+	\end{bmatrix}
+\]
+O determinante não depende da escolha da base de V, e vale \(\det{(A)} = a_{11}a_{22} - a_{12}a_{21}\), pois se \(\tilde{A}\) é a matriz de \(\underline{\ell }\) em relação a uma outra base de V, temos:
+\[
+	\tilde{A} = PAP^{-1}
+\]
+para alguma matriz invertível P, ou seja, \(\det{\tilde{A}} = \det{A}\). Por conta disso, escrevemos simplesmente \(\det{(\underline{\ell })=a_{11}a_{22}-a_{12}a_{21}}\)
+
+Por essa mesma lógica, o traço \(a_{11} + a_{22}\) de A também não depende da escolha da base de V, e escrevemos
+\[
+	\mathrm{tr}(\underline{\ell}) = a_{11} + a_{22}.
+\]
+
+\begin{theorem*}
+	Seja \(\underline{\ell }:V\rightarrow V\) um operador autoadjunto; existe uma base ortonormal \(\{e_1, e_2\}\) de V de autovetores de \(\underline{\ell }\):
+	\begin{align*}
+		 & \underline{\ell }(e_1) = \lambda_1e_1  \\
+		 & \underline{\ell }(e_2) = \lambda_2e_2,
+	\end{align*}
+	onde \(\lambda_1\) e \(\lambda_{2}\) são os autovetores de \(\underline{\ell }\). Além disso, a matriz de \(\underline{\ell }\) na base \(\{e_1, e_2\}\) é
+	\[
+		\mathrm{Matriz}(\underline{\ell }) = \begin{bmatrix}
+			\lambda_1 & 0      \\
+			0         & \ell_2
+		\end{bmatrix},
+	\]
+	e valem as relações
+	\begin{align*}
+		 & \det{(\underline{\ell })}=\lambda_1\lambda_2            \\
+		 & \mathrm{tr}(\underline{\ell }) = \lambda_1 + \lambda_2.
+	\end{align*}
+\end{theorem*}
+Vamos calcular \(\det{(\underline{\ell })},\; \mathrm{tr}(\underline{\ell })\) em relação a uma base qualquer de V, denotada por \(\{v_1, v_2\}\). Além disso, escreveremos os coeficientes da primeira forma fundamental como
+\[
+	E = \langle v_1, v_1 \rangle,\quad F = \langle v_1, v_2 \rangle \quad\&\quad G = \langle v_2, v_2 \rangle;
+\]
+e os da segunda forma fundamental como
+\[
+	\ell = \langle \underline{\ell }(v_1), v_1 \rangle,\quad m = \langle \ell (v_1), v_2 \rangle \quad\&\quad n = \langle \underline{\ell} (v_2), v_2 \rangle.
+\]
+Com isso, seja A a matriz de \(\underline{\ell }\) em relação a \(\{v_1, v_2\}\) com coeficientes
+\[
+	A = \begin{bmatrix}
+		a_{11} & a_{12} \\
+		a_{21} & a_{22}
+	\end{bmatrix};
+\]
+então, segue que:
+\begin{align*}
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \ell = \langle \underline{\ell }(v_1), v_1 \rangle = \langle a_{11}v_1 + a_{21}v_2, v_1 \rangle = a_{11}\langle v_1, v_1 \rangle + a_{21}\langle v_{2}, v_1 \rangle = a_{11}E + a_{21}F \\
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; m = \langle \underline{\ell }(v_1), v_2 \rangle = \langle v_1, \underline{\ell }(v_2) \rangle = a_{11}F + a_{21}G = a_{12}E + a_{22}F,                                                  \\
+	 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; n = \langle \underline{\ell }(v_2), v_2 \rangle = a_{12}F + a_{22}G,
+\end{align*}
+ou seja,
+\[
+	\begin{bmatrix}
+		\ell & m \\
+		m    & n
+	\end{bmatrix} = \begin{bmatrix}
+		E & F \\
+		F & G
+	\end{bmatrix} \begin{bmatrix}
+		a_{11} & a_{12} \\
+		a_{21} & a_{22}
+	\end{bmatrix},
+\]
+com determinante
+\[
+	\det{\underline{\ell }} = \frac{\ell n - m^{2}}{EG - F^{2}}.
+\]
+Temos, também,
+\[
+	\begin{bmatrix}
+		a_{11} & a_{12} \\
+		a_{21} & a_{22}
+	\end{bmatrix} = \begin{bmatrix}
+		E & F \\
+		F & G
+	\end{bmatrix}^{-1}\begin{bmatrix}
+		\ell & m \\
+		m    & n
+	\end{bmatrix} = \frac{1}{EG-F^{2}}\begin{bmatrix}
+		G  & -F \\
+		-F & E
+	\end{bmatrix}\begin{bmatrix}
+		\ell & m \\
+		m    & n
+	\end{bmatrix};
+\]
+logo,
+\[
+	\mathrm{tr}(\underline{\ell }) = \frac{\ell G - 2mF + nE}{EG-F^{2}}.
+\]
+
+E quanto aos autovalores e autovetores de \(\underline{\ell }\)?
+O escalar \(\lambda \) é um autovalor de \(\underline{\ell }\) se, e somente se,
+\[
+	\det \begin{pmatrix}
+		a_{11} - \lambda & a_{12}           \\
+		a_{21}           & a_{22} - \lambda
+	\end{pmatrix} = 0 \Longleftrightarrow \lambda^{2}-\lambda \mathrm{tr}(\underline{\ell })+\det{(\underline{\ell })}=0.
+\]
+Portanto, \(\lambda_1,\; \lambda_2\) são soluções da equação
+\[
+	\lambda^{2} - \frac{\ell G - 2mF + nE}{EG-F^{2}}\lambda  + \frac{\ell n - m^{2}}{EG-F^{2}} = 0.
+\]
+Um vetor \(\alpha_1v_1+\alpha_2v_2\), por sua vez, será um autovetor de \(\underline{\ell }\) associados ao autovalor \(\lambda \) se, e somente se,
+\begin{align*}
+	                    & \underline{\ell }(\alpha_{1}v_1 + \alpha_2v_2) = \lambda (\alpha_1v_1+\alpha_2v_2)                     \\
+	\Longleftrightarrow & \alpha_1(a_{11}v_1 + a_{21}v_2) + \alpha_2(a_{12}v_1 + a_{22}v_2) = \lambda(\alpha_1v_1 + \alpha_2v_2) \\
+	\Longleftrightarrow & \left\{\begin{array}{ll}
+		                             \alpha_1a_{11} + \alpha_2a_{12} = \lambda\alpha_1 \\
+		                             \alpha_1a_{21} + \alpha_2a_{22} = \lambda\alpha_2
+	                             \end{array}\right..
+\end{align*}
+Daí, eliminando \(\lambda\), obtemos
+\[
+	a_{12}\alpha_{1}^{2} + (a_{11}-a_{22})\alpha_1\alpha_2 - a_{21}\alpha_{1}^{2} = (Gm-Fn)\alpha_{2}^{2}+(G\ell -En)\alpha_{1}\alpha_{2}+(F\ell -Em)\alpha_{1}^{2}=0,
+\]
+que pode ser escrito como
+\[
+	\det \begin{bmatrix}
+		\alpha_{2}^{2} & -\alpha_1\alpha_2 & \alpha_{1}^{2} \\
+		E              & F                 & G              \\
+		\ell           & m                 & n
+	\end{bmatrix} = 0.
+\]
+
+Agora, associamos a \(\underline{\ell }:V\rightarrow V\) a forma quadrática
+\begin{align*}
+	Q: & V\rightarrow \mathbb{R}                                             \\
+	   & w\longmapsto Q(w)\coloneqq \langle \underline{\ell }(w), w \rangle;
+\end{align*}
+com isto, seja \(\{e_1, e_2\}\) uma base ortonormal de autovetores de \(\underline{\ell }\) e w um vetor unitário em V, caracterizado por \(\langle w, w \rangle = 1\). Nestas condições, se \(\theta = \mathrm{ang}(w, e_1)\), obtemos
+\[
+	w = \cos^{}{\theta } e_1 + \sin^{}{\theta }e_2
+\]
+e
+\begin{align*}
+	Q(w) = \langle \underline{\ell }(w), w \rangle & =\langle \underline{\ell }(\cos^{}{\theta }e_1 + \sin^{}{\theta }e_2), \cos^{}{\theta }e_1 + \sin^{}{\theta }e_2 \rangle \\
+	                                               & =\langle \cos^{}{\theta }\ell (e_1)+\sin^{}{\theta }\ell (e_2), \cos^{}{\theta }e_1 + \sin^{}{\theta }e_2 \rangle        \\
+	                                               & =\lambda_1 \cos^{2}{\theta } + \lambda_2\sin^{2}{\theta },
+\end{align*}
+permitindo concluirmos que a forma quadrática associada a \(\underline{\ell }\) tem forma
+\[
+	\boxed{Q(w) = \lambda_1 \cos^{2}{\theta } + \lambda_2 \sin^{2}{\theta }}
+\]
+Derivando em relação a \(\theta \),
+\[
+	\frac{\mathrm{d}Q}{\mathrm{d}\theta }=2 (\lambda_2 - \lambda_1)\sin^{}{\theta }\cos^{}{\theta }.
+\]
+Portanto, se \(\lambda_1\neq \lambda_2\), Q atinge os valores máximos/mínimos quando \(w = \pm e_1\) ou \(w=\pm e_2\).
 
 \end{document}
 

@@ -1,0 +1,121 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 01 de Junho, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Problemas multidimensionais.
+\end{itemize}
+\subsection{Alguns Comentários Sobre Equações Parabólicas}
+Antes do próximo toco, é importante comentarmos algumas coisas sobre equações parabólicas, por exemplo que o tratamento de condições de contorno de Neumann são similares ao caso anterior, envolvendo os pontos fantasmas para estimar o ponto com a derivada e alterações à matriz \(B(\Delta t)\); então, a consequência disso é que a análise de estabilidade de Von Neumann torna-se inutilizável para melhor descrever um problema de contorno de Neumann: se um problema de estabilidade vier da discretização, a análise de Von Neumann não irá pegar ela.
+
+Se tivermos duas condições de contorno de Neumann, o problema deixa de ser singular, tal que ele pode atingir um estágio estacionário, ou não! A solução pode ou não evoluir até a derivada temporal ser nula, como se tivesse uma fonte fornecendo cada vez mais calor ao sistema; ainda assim, podemos resolver esse sistema, mas a solução será transiente.
+
+Da mesma forma que fizemos a discretização espacial do tipo
+\[
+	\frac{\mathrm{d}}{\mathrm{d}x}\biggl(\kappa (x)\frac{\mathrm{d}u}{\mathrm{d}x}\biggr) = f(x)
+\]
+previamente, poderíamos fazer algo parecido para problemas temporais, especialmente quando modelamos meios porosos: se considerarmos uma função como \(\kappa(x, t)\), então a discretização espacial seria algo como
+\[
+	\frac{\partial^{}u}{\partial t^{}} = \frac{\partial^{}}{\partial x^{}}\underbrace{\biggl(\kappa (x, t)\frac{\partial^{}p}{\partial x^{}}\biggr)}_{\text{\textbf{velocidade de escoamento}}} + f(x, t),
+\]
+usado bastante, por exemplo, para avaliar a extração de petróleo em um meio poroso com permeabilidade \(\kappa (x).\)
+
+O último comentário vai aparecer inclusive quando formos estudar equações hiperbólicas, e envolve os chamados problemas de difusão
+\[
+	\frac{\partial^{}u}{\partial t^{}} + v \frac{\partial^{}u}{\partial x^{}} = \kappa \frac{\partial^{2}u}{\partial x^{2}},
+\]
+onde aparece o \textbf{termo de transporte} \(\displaystyle v \frac{\partial^{}u}{\partial x^{}}\), o qual também deve ser discretizado. É interessante, também, o caso geral desse, onde há uma equação não linear
+\[
+	\frac{\partial^{}u}{\partial t^{}}=f\biggl(x, t, u, \frac{\partial^{}u}{\partial x^{}}, \frac{\partial^{2}u}{\partial x^{2}}, \frac{\partial^{}u}{\partial t^{}}\biggr),
+\]
+ou quasilinear (sem o termo \(\partial_t u\)); para resolver um problema desse tipo, é necessário fazer método de Newton e discretizar a função f, sendo que, dependendo da forma como isso é feito, a aplicação do método das linhas, a exemplo, geraria algo do tipo
+\[
+	\frac{\mathrm{d}}{\mathrm{d}t}U_{j} = f(x_{j}, t, U_{j}(t), \text{Discretizações}),
+\]
+como no caso de
+\[
+	\frac{\mathrm{d}}{\mathrm{d}t}U_{j}=f\biggl(x_{j}, t, \frac{U_{j+1}^{}(t)-U_{j-1}(t)}{2h}, \frac{U_{j+1}(t) - 2U_{j}(t) + U_{j+1}(t)}{h^{2}}\biggr),
+\]
+e aplicar um método de Euler normalmente, ou RK, Crank-Nickolson, etc, gerando métodos implícitos ou explícitos e todo o processo que já vimos.
+\subsection{Problemas Multidimensionais}
+
+Armados com um grande arcabouço ferramental dos diversos métodos estudados até agora, o próximo passo é aumentar a complexidade do problema: resolver um problema de uma caixa como um unidimensional é considerar que a linha onde resolvemos aproxima bem tudo que ocorre abaixo dela; ao invés disso, poderíamos recortar a caixa diagonalmente por um plano, analisando o escoamento nele, dando uma modelagem um pouco melhor já, mas foi preciso aprender a resolver um problema parabólico com mais dimensões espaciais (2, especificamente); mas esse é o melhor que podemos fazer? E se considerarmos o cubo todo?
+
+Vamos comentar esse caso, que não muda muito do processo de passagem das condições de contorno para equações elípticas. Nosso problema consiste em encontrar uma função \(u(\underline{x}, t)\), onde \(\underline{x}\) é, agora, um vetor da forma
+\[
+	\underline{x}=\begin{bmatrix}
+		x \\
+		y
+	\end{bmatrix}\in \mathbb{R}^{2},
+\]
+permitindo escrevermos \(u(x, y, t)\), e queremos que u satisfaça uma equação parabólica do tipo, como
+\[
+	\frac{\partial^{}u}{\partial t^{}} = \frac{\partial^{2}u}{\partial x^{2}} + \frac{\partial^{2}u}{\partial y^{2}}.
+\]
+Podemos supor que conhecemos a solução num certo contorno \(\Gamma_1\), dada por \(u(\underline{x}, t) = g(\underline{x}, t),\; \underline{x}\in \Gamma_1\), ou com uma condição de Neumann em outro contorno \(\Gamma_2\)
+\[
+	\nabla u(\underline{x}, t) \cdot n = \sigma (\underline{x}, t) \quad \forall x\in \Gamma_2,
+\]
+junto a uma condição inicial \(u(\underline{x}, 0)=\eta (\underline{x})\).
+
+Essencialmente, precisamos discretizar espacialmente o domínio \(\Omega \), suposto por simplicidade como sendo \(\Omega = (0, 1) \times (0, 1)\), como no caso dos problemas elípticos, tal qual usando o Laplaciano de 5 pontos:
+\[
+	\nabla_{h}^{2} U_{ij} = \frac{1}{h^{2}}\biggl(U_{i-1, j} + U_{i+1, j} + U_{i, j-1} + U_{i, j+1} - 4U_{ij}\biggr), \quad 1\leq i, j\leq m.
+\]
+Discretizando no tempo também em seguida, supondo que estamos usando algo tipo Euler, teríamos a equação
+\[
+	\frac{\partial^{}u}{\partial t^{}}(x_{ij}, t_{n}) = \frac{\partial^{2}u}{\partial x^{2}}(x_{ij}, t_{n}) + \frac{\partial^{2}u}{\partial y^{2}}(\underline{x}_{ij}, t_{n}),
+\]
+que, discretizada, é
+\begin{align*}
+	\frac{u(x_{i}, y_{j}, t_{n+1})}{\Delta t} + \mathcal{O}(\Delta t) & = \frac{u(x_{i}+\Delta x, y_{j}, t_{n}) - 2u(x_{i}, y_{j}, t_{n}) + u(x_{i}-\Delta x, y_{j}, t_{n}) }{\Delta x^{2}} + \mathcal{O}(\Delta x^{2}) \\
+	                                                                  & + \frac{u(x_{i}, y_{j}+\Delta y, t_{n}) - 2u(x_{i}, y_{j}, t_{n}) + u(x_{i}, y_{j}-\Delta y, t_{n})}{\Delta y^{2}} + \mathcal{O}(\Delta y^{2}).
+\end{align*}
+Descartando os erros, portanto, ganhamos a aproximação com base em \(U_{i,j}^{n}\approx u(x_{i}, y_{j}, t_{n})\) e
+\[
+	\boxed{\frac{U_{i,j}^{n+1}-U_{ij}^{n}}{\Delta t} = \frac{U_{i+i, j}^{n} -2U_{i, j}^{n} + U_{i-1, j}^{n}}{\Delta x^{2}}+ \frac{U_{i, j+1}^{n} - 2U_{i, j}^{n} + U_{i, j-1}^{n}}{\Delta y^{2}}}.
+\]
+
+Vamos pensar no caso do meio poroso, tipo um complexo de pedras que têm canais diferentes fazendo o escoamento poroso muito mais rápido numa direção do que em outro. Dessa forma, seria interessante introduzir uma discretização que fosse fina na direção de maior escoamento, para capturar mais coisa, e grossa em outra: o \(\Delta x\) e o \(\Delta y\) seriam diferentes, justamente porque existe uma diferença na prioridade do que queremos capturar. Fazendo isso, a parte do lado direito pode ser simplificada para algo do tipo
+\[
+	U_{i,j}^{n+1} = U_{i, j}^{n}+\frac{\Delta t}{h^{2}}\biggl(U_{i+1, j}^{n} + U_{i-1, j}^{n} + U_{i, j+1}^{n} + U_{i, j-1}^{n} - 4U_{i, j}^{n}\biggr),
+\]
+ou, usando a notação do operador laplaciano discretizado
+\[
+	\nabla_{h}^{2} U_{i, j}^{n} \coloneqq U_{i+1, j}^{n} + U_{i-1, j}^{n} + U_{i, j+1}^{n} + U_{i, j-1}^{n} - 4U_{i, j}^{n},
+\]
+simplesmente escrever
+\[
+	U_{i, j}^{n+1} = U_{i, j}^{n} + \frac{\Delta t}{h^{2}}\nabla_{h}^{2}U_{i, j}^{n}.
+\]
+Poderíamos escrever isso na forma matricial, mas ganharíamos um problema com o ordenamento das incógnitas (também já vimos como lidar), usando a enumeração por linhas, por coluna, o red-blue (red-black), etc, levando a
+\[
+	\underline{U}^{n+1} = \underline{U}^{n} + \Delta t A \underline{U}^{n}, \quad A = \frac{1}{h^{2}}\begin{bmatrix}
+		-4     & 1      & 0      & \dotsc & 1      &        &        &        \\
+		1      & -4     & 1      & \dotsc & 0      & 1      &        &        \\
+		0      & 1      & -4     & \dotsc & 0      & 0      & 1      &        \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots &        \\
+		1      & 0      & \dotsc & 1      & -4     & 1      & \dotsc & 1      \\
+		\vdots & \vdots & \ddots & \vdots & \vdots & \vdots & \vdots & \vdots
+	\end{bmatrix},
+\]
+que é exatamente a mesma coisa de antes! A única coisa que muda é a complexidade dos termos, dos vetores, etc, mudando um pouco a notação, mas nem tanto, afinal a expressão acima é exatamente
+\[
+	\underline{U}^{n+1} = B(\Delta t)\underline{U}^{n} + \underline{g}^{n}, \quad B(\Delta t) = I + \Delta tA.
+\]
+O método de Crank-Nickolson dessa versão, pela mesma lógica, ficaria
+\[
+	U_{i, j}^{n+1} = U_{i, j}^{n} + \frac{\Delta t}{h^{2}}\biggl(\nabla_{h}^{2} U_{i, j}^{n} + \Delta_{h}^{2}U_{i, j}^{n+1}\biggr),
+\]
+ou
+\begin{align*}
+	                    & U_{i, j}^{n+1} - \frac{\Delta t}{2h^{2}}\nabla_{h}^{2} U_{i, j}^{n+1} = U_{i, j}^{n} + \frac{\Delta t}{2h^{2}}\nabla_{h}^{2} U_{i, j}^{n} \\
+	\Longleftrightarrow & \biggl(I-\frac{\Delta t}{2h^{2}}\nabla_{h}^{2}\biggr)U_{i, j}^{n+1} = \biggl(I-\frac{\Delta t}{2h^{2}}\nabla_{h}^{2}\biggr)U_{i, j}^{n}   \\
+	\Longleftrightarrow & \biggl(I - \frac{\Delta t}{2h^{2}}A\biggr)\underline{U}^{n+1} = \biggl(I-\frac{\Delta t}{2h^{2}}A\biggr)\underline{U}^{n}                 \\
+	\overbrace{\Longleftrightarrow}^{\mathllap{\substack{\text{Considerando h }                                                                                     \\ \text{dentro de }\nabla_{h}^{2}}}} & \boxed{\biggl(I - \frac{\Delta t}{2}A\biggr)\underline{U}^{n+1} = \biggl(I-\frac{\Delta t}{2}A\biggr)\underline{U}^{n}}                           \\
+\end{align*}
+A única mudança realmente grande é que é preciso enumerar certinho as dimensões e tomar cuidados com indexação, mas a forma geral dos métodos continua praticamente igual; a do Crank-Nickolson geral, por exemplo, é
+\[
+	\underline{U}^{n+1} = \underbrace{\biggl(I - \frac{\Delta t}{2}A\biggr)^{-1}\biggl(I + \frac{\Delta t}{2}A\biggr)}_{B(\Delta t)}U_{i, j}^{n} + \underbrace{\biggl(I - \frac{\Delta t}{2}A\biggr)^{-1}}_{b(\Delta t)}(g^{n} + g^{n+1}).
+\]
+\end{document}

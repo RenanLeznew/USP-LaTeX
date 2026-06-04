@@ -1,0 +1,266 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 27 de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Análise de Convergência;
+	\item Estabilidade Lax-Richtmyer;
+	\item Equivalência de Lax/Critério da Matriz.
+\end{itemize}
+\subsection{Análise de Convergência}
+Até o momento, os métodos que estudamos podem ser resumidamente escritos na forma
+\[
+	\underline{U}^{n+1} = \underline{B}(\Delta t)\underline{U}^{n} + \underline{b}^{n}(\Delta t),
+\]
+onde \(B(\Delta t)\in \mathbb{R}^{m\times m}\) é uma matriz em uma malha, com \(h = \frac{1}{m+1}\) e \(b^{n}(\Delta t)\in \mathbb{R}^{m}\). Em geral, estes métodos dependem tanto de \(\Delta t\) quanto de h, mas vamos assumir que alguma regra fixa relaciona h e \(\Delta t\), como foi o caso quando vimos o método de Euler anteriormente e obtivemos a restrição \(\Delta t\leq \frac{1}{2}h^{2}\).
+Aproveitando a menção do exemplo, vamos olhar ele pela óptica da equação geral acima.
+\begin{example}[Encaixando Euler]
+	A equação de Euler progressiva aplicada ao sistema MOL
+	\[
+		U'(t) = AU(t) + g(t)
+	\]
+	deu
+	\[
+		\underline{U}^{n+1} =\underline{U}^{n} + \Delta t A \underline{U}^{n} + \Delta t \underline{g}^{n},
+	\]
+	ou seja, em termos da expressão vista,
+	\[
+		\underline{b}^{n}(\Delta t) = \Delta t \underline{g}^{n}, \quad B(\Delta t) = (I+\Delta A).
+	\]
+\end{example}
+\begin{example}[Encaixando Crank-Nicolson]
+	No caso de Crank-Nicolson, a equação era
+	\[
+		\underline{U}^{n+1} = \underline{U}^{n} + \frac{\Delta t}{2}(A\underline{U}^{n+1} + A \underline{U}^{n}) + \frac{\Delta t}{2}(\underline{g}^{n}+\underline{g}^{n+1}),
+	\]
+	que, isolando o termo (n+1), dá
+	\[
+		\biggl(I - \frac{\Delta t }{2}A\biggr) \underline{U}^{n+1} = \biggl(I + \frac{\Delta t}{2}A\biggr)\underline{U}^{n} + \frac{\Delta t}{2}(\underline{g}^{n} + \underline{g}^{n+1}),
+	\]
+	ou seja,
+	\[
+		B(\Delta t) = \biggl(I - \frac{\Delta t}{2}A\biggr)^{-1}\biggl(I + \frac{\Delta t}{2} A\biggr)\underline{U}^{n}
+	\]
+	e
+	\[
+		b(\Delta t) = \frac{\Delta t}{2} \biggl(I - \frac{\Delta t}{2}A\biggr)^{-1}(\underline{g}^{n}+\underline{g}^{n+1}).
+	\]
+\end{example}
+É importante colocarmos esta forma geral pois ela permitirá conversarmos sobre convergência, estabilidade e consistência. Como de costume, a consistência requer que o erro de truncamento tenda a 0 conforme o intervalo de tempo \(\Delta t\) faz o mesmo; a estabilidade, por sua vez, é um tipo conhecida por \textbf{Lax-Richtmyer}:
+\begin{def*}
+	Um método linear da forma
+	\[
+		\underline{U}^{n+1} = B(\Delta t)U^{n} + b^{n}(\Delta t)
+	\]
+	é dito \textbf{Lax-Richtmyer estável} se, para todo tempo T, existir uma constante \(c_{T} > 0\) tal que
+	\[
+		\Vert B(\Delta t)^{n} \Vert \leq c_{T}
+	\]
+	para todo \(\Delta t > 0\) e inteiros n tais que \(n\Delta t \leq T.\; \square\)
+\end{def*}
+Com isso,
+\hypertarget{lax_equivalence}{\begin{theorem*}[Equivalência de Lax]
+		Um método linear consistente da forma
+		\[
+			\underline{U}^{n+1} = B(\Delta t)U^{n} + b^{n}(\Delta t)
+		\]
+		é convergente se, e somente se, ele é Lax-Richtmyer estável.
+	\end{theorem*}}
+
+Finalmente, ganhamos um critério para a convergência, apesar de ficar meio estranha a questão de
+\[
+	\Vert B(\Delta t)^{n} \Vert< c_{T}.
+\]
+Para ajudar, vamos tentar entender o caso do método de Euler, onde
+\[
+	B(\Delta t) = (I+\Delta tA);
+\]
+para que o termo \(B(\Delta t)^{n}\) seja limitado, uma das formas disso já foi feita, que foi quando olhamos os autovalores \textit{da matriz A}
+\[
+	\lambda_{p}^{A}=\frac{2}{h^{2}}\cos^{}{(p\pi h)-1}.
+\]
+Para a matriz B, eles serão
+\[
+	\lambda_{p}^{B} = 1 + \Delta t \frac{2}{h^{2}}\cos^{}{(p\pi h)-1}.
+\]
+Assim, para ser Lax-Richtmyer estável, é necessário que potências da norma de \(B(\Delta t)\) sejam limitadas, que, no sentido da convergência forte, consiste em mostrar que a norma de B em \(L^{2}\) é menor que 1; para tanto, é necessário mostrar que \(\lambda_{p}^{B}\) têm que ser menor que 1!
+Fazendo isso, ganhamos
+\begin{align*}
+	-1 < 1 + \Delta t \frac{2}{h^{2}}\cos^{}{(p\pi h)-1} < 1  \Longleftrightarrow & -2 < \Delta t \frac{2}{h^{2}}(\cos^{}{(p\pi h)}-1) < 0 \\
+	\Longleftrightarrow                                                           & -h^{2} < \Delta t (\cos^{}{(p\pi h)}-1) < 0            \\
+	\stackrel{\mathllap{\substack{\text{pior caso é}                                                                                       \\ \cos^{}{(p\pi h-1)=-1}}}}\Longleftrightarrow &  -h^{2}\leq -2\Delta t \\
+	\Longleftrightarrow                                                           & \Delta t \leq \frac{h^{2}}{2}.
+\end{align*}
+Outro nome dessa análise é \textbf{critério da matriz}.
+\begin{exr}
+	Repita a análise para o método de Euler implícito.
+\end{exr}
+
+Para ambos os métodos que vimos, obtivemos \(\Vert B \Vert \leq 1\), que é chamada \textbf{estabilidade forte}; porém, dá pra relaxar o critério: se existir uma constante \(\alpha \) tal que \(\Vert B \Vert \leq 1 + \alpha \Delta t\) para alguma norma, então ainda assim temos estabilidade Lax-Richtmyer nessa norma, já que
+\[
+	\Vert B^{n} \Vert \leq (1+\alpha \Delta t)^{n} \leq e^{\alpha T}, \quad n\Delta t\leq T.
+\]
+
+Existe uma forma diferente de analisar a estabilidade, conhecida como \textit{Estabilidade de Von Neumann}, que é um pouco mais simplificada do que a versão vista: nela, é preciso utilizar a norma de B, mas é complicado encontrar uma forma fechada dos autovalores de B quando ela não for tridiagonal.
+
+O método de Von Neumann é um método mais simplificado para fazer a análise de estabilidade, mas tem seus poréns, como esperado -- vamos considerar que o problema é de Cauchy, indo de \(-\infty\) a \(\infty\), sem condições de contorno (poderia-se pensar que é em torno de um círculo/periódico ao invés disso); a ideia é pegar a expansão de Fourier, pegar cada um dos modos dela independentemente e testar se a propagação do método é desastrosa.
+A ideia física deses método é que, num sistema estável, a energia de todos os componentes de frequência decaem independentemente para 0 conforme o tempo evolui.
+
+Na prática, suponha que V é obtido de um conjunto de \(v(x)\in L^{2}(\mathbb{R})\) em pontos de grade \(x_{j}=jh\) para \(j=0, \pm 1, \pm 2, \dotsc \), que podem ser pensadas como versões discretas de \(v(x)\), as chamadas \textbf{funções de malha/grade}; então, propriedades de Fourier bem semelhantes ao caso contínuo continuam válidos!
+Se \(V_{j}\in \ell_{2}(\mathbb{Z})\), ou seja, se
+\[
+	\Vert V \Vert_{2}\coloneqq \biggl(h \sum\limits_{j=-\infty}^{\infty}| V_{j} |^{2}\biggr)^{\frac{1}{2}} < \infty,
+\]
+então \(V_{j}\) pode ser expressa como na \hyperlink{fourier_transform}{\textit{Transformada de Fourier}}:
+\[
+	V_{j} = \frac{1}{\sqrt[]{2\pi }}\int_{-\frac{\pi }{h}}^{\frac{\pi }{h}}\hat{V}(\zeta )e^{i(jh)\zeta } \mathrm{d}\zeta,
+\]
+onde
+\[
+	\hat{V}(\zeta ) = \frac{h}{2h}\sum\limits_{j=-\infty}^{\infty}V_{j}e^{-i(jh)\zeta } = \langle V_{j}, e^{i(jh)\zeta } \rangle_{\ell_{2}}.
+\]
+Note que a frequência do número de onda, \(\pi /h\), tende a infinito conforme a malha é reduzida em tamanho.
+A transformação linear entre \(V_{j}\) e \(\hat{V}(\zeta )\) também preserva norma e satisfaz a \hyperlink{parseval_relation}{\textit{relação de Parseval}}, com:
+\[
+	\Vert V \Vert_{2} \coloneqq \biggl(h \sum\limits_{j=-\infty}^{\infty}| V_{j} |^{2}\biggr)^{\frac{1}{2}} \quad\&\quad \Vert \hat{V} \Vert_{2}\coloneqq \biggl(\int_{-\frac{\pi }{h}}^{\frac{\pi }{h}}| \hat{V}(\zeta ) |^{2} \mathrm{d}\biggr)^{\frac{1}{2}}.
+\]
+
+Gostaríamos de mostrar que o método de diferenças finitas é estável na 2-norma, que constitui mostrar, para todo n, que
+\[
+	\Vert U^{n+1} \Vert_{2} \leq (1+\alpha \Delta t) \Vert U^{n} \Vert_{2},
+\]
+mas é complicado fazer isso diretamente. Como temos a identidade de Parseval em mãos e \(\Vert U^{n} \Vert_{2} = \Vert \hat{U}^{2} \Vert_{2}\), é suficiente mostra que, na verdade, para todo n
+\[
+	\Vert \hat{U}^{n+1} \Vert_{2} \leq (1+\alpha \Delta t) \Vert \hat{U}^{n} \Vert_{2}.
+\]
+Mais ainda, aplicando a transformação de Fourier em ambos os lados do método, junto à \hyperlink{translation_rule}{\textit{regra de Translação}}, chegamos em
+\[
+	\hat{U}^{n+1}(\zeta ) = g(\zeta )\hat{U}^{n}(\zeta ),
+\]
+onde \(g(\zeta )\) vai dependes da matriz \(B(\Delta t)\). Logo, se mostrarmos que
+\[
+	| g(\zeta ) | \leq 1 + \alpha \Delta t,
+\]
+onde \(\alpha \) independe de \(\zeta \), obteremos a estabilidade, pois, para todo \(\zeta \)
+\[
+	| \hat{U}_{j}^{n+1}(\zeta ) | \leq (1+\alpha \Delta t)| \hat{U}_{j}^{n}(\zeta ) |.
+\]
+
+Agora que temos o desenho do que vamos fazer, consideremos um método de diferenças finitas progressivo
+\[
+	U_{j}^{n+1} = U_{j}^{n} + \frac{\Delta t}{h^{2}}(U_{j-1}^{n} - 2 U_{j}^{n} + U_{j+1}^{n}).
+\]
+Para aplicar a análise de Von Neumann, temos que considerar como este método irá funcionar num número de onda \(\zeta \neq 0\), que corresponde a impôr \(U_{j}^{n} = e^{ijh\zeta }\); esperamos que
+\[
+	U_{j}^{n+1} = g(\zeta )e^{ijh\zeta },
+\]
+onde \(g(\zeta )\) é o \textit{fator de amplificação} para o número de onda \(\zeta \). Substituindo estes termos no método, obtemos
+\[
+	g(\zeta )e^{ijh\zeta } = e^{ijh\zeta } + \frac{\Delta t}{h^{2}}(e^{i\zeta (j-1)} -2e^{ijh\zeta } + e^{i\zeta (j+1)h}) = e^{ijh\zeta }\biggl(1 + \frac{\Delta t}{h^{2}}(e^{-ih\zeta }-2 + e^{jh\zeta })\biggr).
+\]
+Consequentemente,
+\[
+	g(\zeta ) = 1 + \frac{2\Delta t}{h^{2}}(\cos^{}{(\zeta h)}-1).
+\]
+O pior caso possível é quando o cosseno vale -1, que dá exatamente o caso que vimos antes: para todo \(\zeta \neq 0\),
+\[
+	1 - \frac{4\Delta t}{h^{2}} < g(\zeta ) < 1,
+\]
+e garantir que \(| g(\zeta ) |\leq 1\) para todo \(\zeta \) consistirá em pedir que
+\[
+	\frac{4\Delta t}{h^{2}} \leq 2,
+\]
+que é exatamente a restrição
+\[
+	\Delta t \leq \frac{h^{2}}{2}.
+\]
+\begin{exr}
+	Refaça os raciocínios acima para o método Crank-Nicolson, escrito na forma de componentes como
+	\[
+		U_{j}^{n+1} = U_{j}^{n} + \frac{\Delta t}{2h^{2}} (U_{j-1}^{n} - 2U_{j}^{n} + U_{j}^{n+1} + U_{j-1}^{n} - 2U_{j}^{n+1} + U_{j+1}^{n+1}).
+	\]
+	Spoiler: tem que obter \(\displaystyle g = \frac{1+\frac{1}{2}z}{1-\frac{1}{2}z}\), onde
+	\[
+		z = \frac{2\Delta t}{h^{2}}(\cos^{}{(\zeta h)}-1),
+	\]
+	e obtendo que o \(| g | \leq 1\) para todo \(\zeta \neq 0\), equivalente à estabilidade incondicional.
+\end{exr}
+
+A principal diferença entre a análise de Lax-Richtmyer e a de Von Neumann é que, nesta segunda, descartamos completamente os termos de condições de contorno, e tudo bem em alguns casos, mas se fosse uma condição de Robin, por exemplo, que modifica a matriz do método, então pode haver um problema de estabilidade que será detectada pela estabilidade de Lax-Richtmyer, mas não pela de Von Neumann, justamente porque ela nem existiria nele! Isso pode ser um grande problema dependendo do problema analisado!
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Produto interno \(L^{2}\) e Transformada de Fourier},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Se \(v(x)\in L^{2}(\mathbb{R})\), onde
+	\[
+		L^{2}(\mathbb{R})\coloneqq \biggl\{v:\mathbb{R}\rightarrow \mathbb{R}:\; \int_{-\infty}^{\infty}\Vert v \Vert_{2} < \infty\biggr\}, \quad \Vert v \Vert_{2} = (| v(x) |^{2})^{\frac{1}{2}}\mathrm{d}x.
+	\]
+	Então, existe uma base de funções que pode ser usada para expressar \(v(x)\) em uma combinação linear, dada por \(\{e^{i\zeta x}:\; \zeta \in \mathbb{R}\} \subseteq L^{2}(\mathbb{R})\), e com a expressão sendo:
+	\[
+		v(x) = \frac{1}{\sqrt[]{2\pi }}\int_{-\infty}^{\infty}\hat{v}(\zeta )e^{i\zeta x} \mathrm{d}\zeta.
+	\]
+	Aqui, as projeções \(\hat{v}(\zeta )\) é conhecido como \textbf{\hypertarget{fourier_transform}{transformada de Fourier}} de v(x), expressa por
+	\[
+		\hat{v}(\zeta ) = \frac{1}{\sqrt[]{2\pi }} \int_{-\infty}^{\infty} v(x)e^{-i\zeta x} \mathrm{d}x = \langle v(x), e^{i\zeta x} \rangle_{L^{2}},
+	\]
+	que é exatamente o produto interno de \(L^{2}\) entre \(v(x)\) e \(e^{i\zeta x}\).
+\end{tcolorbox}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Propriedades da Transformada de Fourier},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	A \hypertarget{parseval_relation}{\textbf{relação de Parseval}} é a propriedade de preservação de Norma da transformada de Fourier:
+	\[
+		\Vert v \Vert_{2} = \Vert \hat{v} \Vert_{2},
+	\]
+	e para qualquer translação do ponto \(\overline{x}\), vale a \hypertarget{translation_rule}{\textbf{Regra da translação}}
+	\[
+		v(x-\overline{x}) = e^{-i\zeta \overline{x}}\hat{v}(\zeta ).
+	\]
+
+\end{tcolorbox}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Relação de Euler},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Para um ângulo \(\theta \), valem as relações:
+	\[
+		e^{i\theta } = \cos^{}{\theta } + i \sin^{}{\theta },
+	\]
+	e, por isso,
+	\[
+		\cos^{}{\theta } = \frac{e^{i\theta } + e^{-i\theta }}{2} \quad\&\quad  \sin^{}{\theta } = \frac{e^{i\theta }-e^{-i\theta }}{2i}
+	\]
+\end{tcolorbox}
+\end{document}

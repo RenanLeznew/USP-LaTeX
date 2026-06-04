@@ -1,0 +1,132 @@
+\documentclass[../fractals_everywhere.tex]{subfiles}
+\begin{document}
+\section{Seminar 07 - May 29th, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Contracting maps;
+	\item IFS's.
+\end{itemize}
+\subsection{Iterated Functions System}
+\begin{lemma*}
+	Let \(w:X\rightarrow X\) be continuous; then, \(\tilde{w}:\mathcal{H}(X)\rightarrow \mathcal{H}(X),\; A \mapsto w(A)\) is well-defined.
+\end{lemma*}
+\begin{proof*}
+	Let \(\{w(x_{n})\}_{n\in \mathbb{N}}\) be a sequence in \(w(A)\); note that there is a convergent subsequence \(\{x_{n_{k}}\}_{k\in \mathbb{N}}\) in A such that
+	\[
+		x_{n_{k}}\rightarrow p \Rightarrow w(x_{n_{k}})\rightarrow w(p),
+	\]
+	showing that \(w(A)\) is compact and \(w(A)\in \mathcal{H}(X)\). \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Let \(w:X\rightarrow X\) be a contraction with contracting factor s. Then, \(\tilde{w}\) is also a contraction with the same contracting factor s.
+\end{lemma*}
+\begin{proof*}
+	Let A, B be two sets in \(\mathcal{H}(X)\), so that
+	\[
+		h(\tilde{w}(A), \tilde{w}(B)) = \max\limits_{}(d(\tilde{w}(A), \tilde{w}(B)), d(\tilde{w}(B), \tilde{w}(A))).
+	\]
+	Consider
+	\[
+		d(\tilde{w}(A), \tilde{w}(B)) = \max\limits_{}(\min\limits_{}\{d(w(a), w(b))\}:\;b\in B, a\in A),
+	\]
+	which satisfies
+	\[
+		d(\tilde{w}(A), \tilde{w}(B))\leq s \max\limits_{}(\min\limits_{}\{d(a, b):\;b\in B, a\in A\}) = s d(A, B).
+	\]
+	Doing the same for \(d(\tilde{w}(B), \tilde{w}(A))\) yields
+	\[
+		d(\tilde{w}(B), \tilde{w}(A))\leq sd(B, A),
+	\]
+	so that
+	\[
+		h(\tilde{w}(A), \tilde{w}(B)) \leq sh(A, B). \text{\qedsymbol}
+	\]
+\end{proof*}
+\begin{lemma*}
+	For all A, B, C, D in \(\mathcal{H}(X)\), we have
+	\[
+		h(A\cup B, C\cup D)\leq \max\limits_{}(h(A, C), h(B, D)).
+	\]
+\end{lemma*}
+\begin{proof*}
+	First of all,
+	\begin{align*}
+		 & d(A\cup B, C\cup D) = \max\limits_{}(d(A, C\cup D), d(B, C\cup D))  \\
+		 & d(A\cup B, C\cup D) = \min\limits_{}(d(A\cup B, C), d(A\cup B, D)).
+	\end{align*}
+	Hence,
+	\begin{align*}
+		d(A\cup B, C\cup D) & \leq \max\limits_{}(d(A, C\cup D), d(B, C\cup D)) \\
+		                    & \leq \max\limits_{}(d(A, C), d(B, D)),
+	\end{align*}
+	since
+	\[
+		d(A, C\cup D) = \max\limits_{}(\min\limits_{}(d(x, y):\; x\in A, y\in C\cup D)).
+	\]
+	We could also do the same for \(d(C\cup D, A\cup B)\) to get the analogous version. Therefore, taking maximums,
+	\[
+		h(A\cup B, C\cup D)\leq \max\limits_{}(h(A, C), h(B, D)). \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{lemma*}
+	Let X be a metric space and, for naturals \(n=1, 2, \dotsc , N\), define \(w_{n}:X\rightarrow X\) to be a contraction with contracting factor \(s_{n}\); further define
+	\begin{align*}
+		w: & \mathcal{H}(X)\rightarrow\mathcal{H}(X) \\
+		   & A\longmapsto \bigcup_{n=1}^{N}w_{n}(A).
+	\end{align*}
+	Then W is a contraction whose contracting factor is \(s\coloneqq \max\limits_{1\leq n\leq N}(s_{n})\).
+\end{lemma*}
+\begin{proof*}
+	For \(N=1\), there is nothing to prove. We proceed by induction, with inudctive hypothesis being the (k-1)-th case:
+	\[
+		h\biggl(\bigcup_{n=1}^{k-1}w_{n}(A), \bigcup_{n=1}^{k-1}w_{n}(B)\biggr)\leq sh(A, B);
+	\]
+	for the induction step, take \(A, B\in \mathcal{H}(X)\), so that
+	\begin{align*}
+		h(w(A), w(B)) & = h\biggl(\bigcup_{n=1}^{k}w_{n}(A), w_{n}(B)\biggr)                                                                           \\
+		              & = h\biggl(w_{k}(A)\bigcup_{n=1}^{k-1}w_{n}(A), w_{k}(B)\cup \bigcup_{n=1}^{k-1}w_{n}(B)\biggr)                                 \\
+		              & \leq\max\limits_{}\biggl(h(w_{k}(A), h_{k}(B)), h\biggl(\bigcup_{n=1}^{k-1}w_{k}(A), \bigcup_{n=1}^{k-1}w_{k}(B)\biggr)\biggr) \\
+		              & \leq \max\limits_{}(s_{k}h(A, B), sh(A, B))                                                                                    \\
+		              & \leq s'h(A, B),
+	\end{align*}
+	where
+	\[
+		s'=\max\limits_{}(s_{k}, s) = \max\limits_{}\{s_{1}, \dotsc , s_{k-1}, s_{k}\}.
+	\]
+\end{proof*}
+\begin{def*}
+	A \textbf{hyperbolic iterated functions system}, or just IFS for short, consists of a pair
+	\[
+		\{X; w_{1}, \dotsc , w_{N}\}\coloneqq \biggl(X, \{w_1, \dotsc , w_{N}\}\biggr)
+	\]
+	where X is a complete metric space, and each \(w_{n}:X\rightarrow X\) is a contraction with contracting factor \(s_{n}\).
+
+	The number \(s\coloneqq \max\limits_{1\leq n\leq N}(s_{n})\) is known as \textbf{the contracting factor of the IFS.} \(\square\)
+\end{def*}
+It may seem like an abuse of notation to call such `s' as the contracting factor of, well, just a pair of things; however, an IFS induces a contraction W for which there is a unique fixed point \(A\in \mathcal{H}(X)\) such that
+\[
+	A = W(A) = W^{2}(A)=\dotsc,
+\]
+meaning the fixed point of the induced contraction is a \textit{self-similar set}, starting the discussion of fractal sets. For a more formal setting,
+\begin{def*}
+	The fixed point of the contractiong induced by the IFS is called \textbf{the attractor of the IFS}, which satisfies
+	\[
+		\lim_{n\to \infty}W^{n}(B) = A
+	\]
+	for every \(b\in \mathcal{H}(X).\; \square\)
+\end{def*}
+\begin{example}[Cantor Set]
+	Take \(\displaystyle w_1(x) = \frac{x}{3}\) and \(\displaystyle w_2(x) = \frac{1}{3}x+\frac{2}{3}\), as well as \(X = \mathbb{R}\), giving the IFS
+	\[
+		\{\mathbb{R}; w_1, w_2\}.
+	\]
+	Then,
+	\[
+		W([0, 1]) = w_1([0, 1])\cup w_2([0, 1]) = \biggl[0, \frac{1}{3}\biggr]\cup \biggl[\frac{2}{3}, 1\biggr],
+	\]
+	and by reappling many times is what is defined as the \textbf{cantor set}:
+	\[
+		\mathcal{C} = \lim_{n\to \infty}W^{n}([0, 1]).
+	\]
+\end{example}
+\end{document}

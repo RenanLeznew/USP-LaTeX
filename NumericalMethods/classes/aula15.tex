@@ -1,0 +1,438 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 28 de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Método de Autovalores;
+\end{itemize}
+\subsection{Método de Autovalores: uma introdução}
+\begin{def*}
+	Seja A uma matriz em \(\mathbb{M}_{n}\). Um escalar \(\lambda \in \mathbb{C}\) é um \textbf{autovalor de A} se existir um vetor \(\underline{v}\in \mathbb{R}^{n}\), com \(\underline{v}\neq 0\), tal que
+	\[
+		A \underline{v} = \lambda \underline{v}.
+	\]
+	O vetor \(\underline{v}\) é chamado de \textbf{autovetor} associado a \(\lambda.\; \square\)
+\end{def*}
+
+Como calcular \(\lambda \)? Pelas raízes do \textbf{polinômio característico associado ao autovalor} \(\lambda \):
+\[
+	A\underline{v} = \lambda \underline{v} = \lambda I \underline{v} \Longleftrightarrow (A - \lambda I)\underline{v} = 0 \Longleftrightarrow \det{(A - \lambda I)} = 0,
+\]
+e definimos
+\[
+	P(\lambda ) \coloneqq \det{(A - \lambda I)}.
+\]
+\begin{def*}
+	O \textbf{espectro da matriz A} em \(\mathbb{M}_{n}\) é o conjunto formado pelos seus autovalores, i.e.,
+	\[
+		\Lambda (A) = \{\lambda_1, \lambda_2, \dotsc , \lambda_{n}\}. \; \square
+	\]
+\end{def*}
+\begin{def*}
+	Uma matriz \(A\in \mathbb{M}_{n}\) cujas n colunas e linhas formam um conjunto ortonormal é dita \textbf{ortogonal}. \(\square\)
+\end{def*}
+\begin{prop*}
+	Se \(A\in \mathbb{M}_{n}\) é ortogonal, então:
+	\begin{itemize}
+		\item[1)] Sua transposta é sua inversa \(A^{T} = A^{-1}\);
+		\item[2)] Para todo vetor \(\underline{v}\in \mathbb{R}^{n}\), vale
+		      \[
+			      \Vert A \underline{v} \Vert_{2} = \Vert \underline{v} \Vert_{2};
+		      \]
+		\item[3)] Os autovalores de A são \(\pm 1\);
+		\item[4)] O determinante de A é \(\pm 1\).
+	\end{itemize}
+\end{prop*}
+\begin{proof*}
+	Para o primeiro, seja \(a_{j}\) a j-ésima coluna de A; então,
+	\[
+		A^{T}A = \begin{bmatrix}
+			a_{1}^{T} \\
+			a_{2}^{T} \\
+			\vdots    \\
+			a_{n}^{T} \\
+		\end{bmatrix}\begin{bmatrix}
+			a_{1}^{T} &
+			a_{2}^{T} &
+			\vdots    &
+			a_{n}^{T}
+		\end{bmatrix} = \begin{bmatrix}
+			a_{1} \cdot a_{1}^{} & a_{1} \cdot a_2 & \dotsc & a_1 a_{n} \\
+			a_{1} \cdot a_{2}^{} & a_{2} \cdot a_2 & \dotsc & a_2 a_{n} \\
+			\vdots               & \vdots          & \ddots & \vdots    \\
+			a_{1} \cdot a_{n}^{} & a_{2} \cdot a_n & \dotsc & a_n a_{n} \\
+		\end{bmatrix} = I
+	\]
+
+	Quanto ao segundo, para todo \(\underline{v}\) em \(\mathbb{R}^{n}\),
+	\[
+		\Vert A \underline{v} \Vert_{2}^{2}= A \underline{v} \cdot A \underline{v} = \underline{v} \cdot A^{T}A \underline{v} = \underline{v} \cdot \underline{v} = \Vert \underline{v} \Vert_{2}^{2},
+	\]
+	e
+	\[
+		\Vert \underline{v} \Vert_{2} = \Vert A\underline{v} \Vert_{2}=\Vert \lambda \underline{v} \Vert_{2}=| \lambda  |\Vert \underline{v} \Vert_{2} \Rightarrow \lambda =\pm1
+	\]
+	O último é automático. \qedsymbol
+\end{proof*}
+\begin{def*}
+	Duas matrizes \(A, B\in \mathbb{M}_{n}\) são \textbf{semelhantes} se existe \(P\in \mathbb{M}_{n}\) invertível tal que
+	\[
+		B = P^{-1}A P. \; \square
+	\]
+\end{def*}
+\begin{prop*}
+	Se A e B são semelhantes, então elas possuem os mesmos autovalores.
+\end{prop*}
+
+Toda matriz simétrica \(A\in \mathbb{M}_{n}\) pode ser diagonalizada por uma matriz ortogonal \(V\in \mathbb{M}_{n}\), isto é,
+\[
+	D = V^{T}AV,
+\]
+onde D é uma matriz diagonal formada pelos autovalores reais de A, sendo as colunas de V os seus respectivo autovetores. Logo,
+\[
+	A = VDV^{T}.
+\]
+
+Um processo super importante que levará ao processo de Gram-Schmidt, é a projeção ortogonal de um vetor u sobre um vetor v, com fórmula dada por
+\[
+	\mathrm{pr}_{\underline{v}}(\underline{u}) = \frac{\underline{u}\cdot \underline{v}}{\underline{v}\cdot \underline{v}}\underline{v} = \frac{\underline{u}\cdot \underline{v}}{\Vert \underline{v} \Vert_{2}^{2}}\underline{v}.
+\]
+No caso onde \(\Vert \underline{v} \Vert_{2} = 1\), segue que \(\mathrm{pr}_{\underline{v}}= \underline{v}\underline{v}^{T}\). Há também a projeção no eixo oposto, ou no \textit{complemento ortogonal}, dada por
+\[
+	\mathrm{pr}_{\perp \underline{v}}(\underline{u}) = \underline{u} - \mathrm{pr}_{\underline{v}}(\underline{u}),
+\]
+e no caso onde \(\Vert \underline{v} \Vert_{2} = 1\), teremos
+\[
+	\mathrm{pr}_{\perp \underline{v}}=I - \underline{v}\underline{v}^{T}.
+\]
+
+Com isso, podemos introduzir o \hypertarget{gram_schmidt}{Processo de Ortogonalização de Gram-Schmidt}: dado um conjunto linearmente independente \(\{a_1, a_2, \dotsc , a_{n}\}\) de \(\mathbb{R}^{m}\) com \(m\geq n\), é um processo que retorna um conjunto de vetores \(\{q_1, q_2, \dotsc , q_{n}\}\) ortonormais. Para isso, é feito:
+\[
+	v_1 = a_1 \Rightarrow q_1 = \frac{v_1}{\Vert v_1 \Vert_{2}};
+\]
+depois, subtrai-se \(a_2\) da sua projeção sobre \(q_1\):
+\[
+	v_2 = a_2 - (q_1 \cdot a_2)q_1 \Rightarrow q_2 = \frac{v_2}{\Vert v_2 \Vert_2},
+\]
+repetindo o mesmo para \(v_3\):
+\[
+	v_3 = a_3 - [\underbrace{(q_1 \cdot a_3)q_1}_{\mathrm{pr}_{q_1}(a_3)} + \underbrace{(q_2 \cdot a_3) q_2}_{\mathrm{pr}_{q_2}(a_3)}]
+\]
+e
+\[
+	q_3 = \frac{v_3}{\Vert v_3 \Vert_2}.
+\]
+Em forma geral, para obter \(v_{j}\) ortogonal a \(q_1, \dotsc , q_{j-1}\),
+\[
+	\boxed{v_{j} = a_{j}-\sum\limits_{i=1}^{j-1}(q_{i} \cdot  a_{j})q_{i}},
+\]
+depois normalizar o vetor \(v_{j}\):
+\[
+	\boxed{q_{j} = \frac{v_{j}}{\Vert v_{j} \Vert_2}}
+\]
+
+Podemos finalmente ver a chamada \textbf{decomposição QR completa de A}, dada pelo produto entre uma matriz ortogonal \(Q\) e uma triangular superior \(R\):
+\[
+	A = Q \cdot R;
+\]
+tem uma versão reduzida para matrizes assimétricas \(A\in \mathbb{M}_{m, n}\), onde \(m\geq n\), levando à \textbf{decomposição QR reduzida de A}: \(A = \hat{Q} \cdot \hat{R},\) onde \(\hat{Q}\in \mathbb{M}_{m, n}\) e \(\hat{R}\in \mathbb{M}_{n, n}\).
+\begin{listing}[H]
+	\caption{Método QR Clássico e Modificado}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+
+# QR Clássico (CGS)
+def clgsQR(A):
+    m, n = np.shape(A)
+    Q = np.zeros((m, n))
+    R = np.zeros((n, n))
+
+    for j in np.arange(n):
+        V = A[:, j]
+        for i in np.arange(j):
+            R[i, j] = Q[:, i].dot(A[:, j])
+            V = V - R[i, j] * Q[:, i]
+        R[j, j] = np.linalg.norm(V)
+        Q[:, j] = V / R[j, j]
+
+    return Q, R
+  \end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+
+# QR Modificado (MGS)
+def mgsQR(A):
+    m, n = np.shape(A)
+    V = np.copy(A)
+    Q = np.zeros((m, n))
+    R = np.zeros((n, n))
+
+    for j in np.arange(n):
+        for i in np.arange(j):
+            R[i, j] = Q[:, i].dot(V[:, j])
+            V[:, j] = V[:, j] - R[i, j] * Q[:, i]
+        R[j, j] = np.linalg.norm(V[:, j])
+        Q[:, j] = V[:, j] / R[j, j]
+
+    return Q, R
+
+  \end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# Exemplo
+#B = np.array([[1, 1, 1],
+#              [1, 0, 2],
+#              [1, 0, 1],
+#              [0, 1, 3]], dtype='double')
+
+# Matriz de Läuchli com epsilon = 1e-8
+epsilon = 1e-8
+B = np.array([[1,       1,       1      ],
+              [epsilon, 0,       0      ],
+              [0,       epsilon, 0      ],
+              [0,       0,       epsilon]], dtype='double')
+
+print(B)
+m, n = np.shape(B)
+
+print('\n--- Calculando decomposição QR clássica ---')
+Q_c, R_c = clgsQR(B)
+print("Q:\n", Q_c)
+print("R:\n", R_c)
+
+B_calc = Q_c.dot(R_c)
+norm_B = np.linalg.norm(B - B_calc, 'fro')
+print('O erro da decomposição é: %.2e' % norm_B)
+
+I_calc = np.transpose(Q_c).dot(Q_c)
+I = np.eye(n)
+norm_I = np.linalg.norm(I - I_calc, 'fro')
+print('O erro de ortogonalidade é: %.2e\n' % norm_I)
+
+  \end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+print('--- Calculando decomposição QR modificada ---')
+Q_m, R_m = mgsQR(B)
+print("Q:\n", Q_m)
+print("R:\n", R_m)
+
+B_calc_m = Q_m.dot(R_m)
+norm_B_m = np.linalg.norm(B - B_calc_m, 'fro')
+print('O erro da decomposição é: %.2e' % norm_B_m)
+
+I_calc_m = np.transpose(Q_m).dot(Q_m)
+norm_I_m = np.linalg.norm(I - I_calc_m, 'fro')
+print('O erro de ortogonalidade é: %.2e\n' % norm_I_m)
+
+print('--- Comparando com a do Python (NumPy) ---')
+Q_python, R_python = np.linalg.qr(B)
+print("Q:\n", Q_python)
+print("R:\n", R_python)
+
+B_calc_py = Q_python.dot(R_python)
+norm_B_py = np.linalg.norm(B - B_calc_py, 'fro')
+print('O erro da decomposição é: %.2e' % norm_B_py)
+
+I_calc_py = np.transpose(Q_python).dot(Q_python)
+norm_I_py = np.linalg.norm(I - I_calc_py, 'fro')
+print('O erro de ortogonalidade é: %.2e\n' % norm_I_py)
+\end{minted}
+\end{listing}
+
+Para um exemplo,
+\begin{example}
+	Calculemos a decomposição QR da matriz \(A = \begin{bmatrix}
+		3 & 1  \\
+		4 & -1
+	\end{bmatrix}.\)
+
+	Os vetores colunas de A são \(a_1 = [3, 4]^{T}\) e \(a_2 = [1, -1]^{T}\); logo,
+	\[
+		r_{11} = \Vert v_1 \Vert_{2} = \Vert a_{1} \Vert_{2} = \sqrt[]{3^{2}+4^{2}}=5 \Rightarrow q_1 = \frac{v_1}{\Vert v_1 \Vert_{2}} = \biggl[\frac{3}{5}, \frac{4}{5}\biggr]^{T}.
+	\]
+	Disso,
+	\[
+		v_{2} = a_{2} - (q_1 \cdot a_2)q_1 = [1, -1]^{T}-\biggl(-\frac{1}{5}\biggr)\biggl[\frac{3}{5}, \frac{4}{5}\biggr]^{T} = \biggl[\frac{28}{25}, -\frac{21}{25}\biggr]^{T}.
+	\]
+	Logo,
+	\[
+		r_{22} = \Vert v_2 \Vert_{2} = \frac{7}{5}
+	\]
+	e
+	\[
+		q_2 = \frac{v_2}{\Vert v_2 \Vert_2} = \biggl[\frac{4}{5}, -\frac{3}{5}\biggr]^{T}.
+	\]
+	Portanto,
+	\[
+		Q = \begin{bmatrix}
+			\frac{3}{5} & \frac{4}{5}  \\
+			\frac{4}{5} & -\frac{3}{5}
+		\end{bmatrix} \quad\&\quad R = \begin{bmatrix}
+			5 & -\frac{1}{5} \\
+			0 & \frac{7}{5}
+		\end{bmatrix}.
+	\]
+\end{example}
+
+Um dos problemas do método de Gram-Schmidt é que ele é numericamente instável, ou seja, é sensível a erros de arredondamento; podemos fazer algumas pequenas modificações nele para deixá-lo numericamente estável, num processo conhecido como \textbf{retro-substituição}:
+aplica-se \(\mathrm{pr}_{\perp q_{i}}\) a todos \(v_{j}\) assim que \(q_{i}\) é determinado. Este método tem complexidade \(2mn^{2}\) flops.
+\begin{align*}
+	\text{Clássico:} \quad
+	 & v_j \gets a_j                               \\
+	 & v_j \gets v_j - (q_1 \cdot a_j) q_1         \\
+	 & v_j \gets v_j - (q_2 \cdot a_j) q_2         \\
+	 & \;\;\vdots                                  \\
+	 & v_j \gets v_j - (q_{j-1} \cdot a_j) q_{j-1} \\
+	 & q_j \gets \frac{v_j}{\|v_j\|_2}             \\
+	\\
+	\text{Modificado:} \quad
+	 & v_j \gets a_j                               \\
+	 & v_j \gets v_j - (q_1 \cdot v_j) q_1         \\
+	 & v_j \gets v_j - (q_2 \cdot v_j) q_2         \\
+	 & \;\;\vdots                                  \\
+	 & v_j \gets v_j - (q_{j-1} \cdot v_j) q_{j-1} \\
+	 & q_j \gets \frac{v_j}{\|v_j\|_2}
+\end{align*}
+
+\begin{listing}[H]
+	\caption{Retro-substituição em Python}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+
+# 1. Função de Retro-substituição para matrizes triangulares superiores
+def retro_substituicao(R, y):
+    n = len(y)
+    x = np.zeros(n)
+
+    # Começa da última linha (n-1) e vai subindo até a primeira (0)
+    for i in range(n-1, -1, -1):
+        # Multiplica os valores de x já encontrados pelos coeficientes de R
+        soma = np.dot(R[i, i+1:], x[i+1:])
+        # Isola o x atual
+        x[i] = (y[i] - soma) / R[i, i]
+
+    return x
+  \end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# ==========================================
+# Exemplo Prático
+# ==========================================
+
+# Definindo um sistema linear 3x3 (A) e um vetor de resultados (b)
+A = np.array([[ 2,  1,  1],
+              [ 4, -6,  0],
+              [-2,  7,  2]], dtype=float)
+
+b = np.array([5, -2, 9], dtype=float)
+
+print("Matriz A:")
+print(A)
+print("\nVetor b:", b)
+\end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+
+# PASSO 1: Fazer a decomposição QR
+# Nota: Você pode trocar 'np.linalg.qr' pelas suas funções 'mgsQR' ou 'houseQR'
+Q, R = np.linalg.qr(A)
+
+# PASSO 2: Calcular o vetor y = Q^T * b
+y = np.transpose(Q).dot(b)
+
+# PASSO 3: Resolver o sistema triangular Rx = y
+x = retro_substituicao(R, y)
+
+print("\n----------------------------------")
+print("Solução encontrada para x:")
+print(x)
+print("----------------------------------")
+
+# Verificação (Prova real)
+# Multiplicar a matriz original A pelo x encontrado tem que dar o vetor b original
+b_calculado = A.dot(x)
+erro = np.linalg.norm(b - b_calculado)
+
+print("\nVerificação (A * x):", b_calculado)
+print("Erro residual da solução: %.2e" % erro)
+\end{minted}
+\end{listing}
+
+\begin{listing}[H]
+	\caption{Determinantes e Inversas com Matriz QR}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+
+# Reutilizando a função de retro-substituição do exemplo anterior
+def retro_substituicao(R, y):
+    n = len(y)
+    x = np.zeros(n)
+    for i in range(n-1, -1, -1):
+        soma = np.dot(R[i, i+1:], x[i+1:])
+        x[i] = (y[i] - soma) / R[i, i]
+    return x
+  \end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# 1. Função para calcular o Determinante via QR
+def determinante_QR(Q, R):
+    # O determinante de uma matriz triangular é o produto da sua diagonal
+    det_R = np.prod(np.diag(R))
+    # O determinante de Q é sempre +1 ou -1
+    det_Q = np.linalg.det(Q)
+
+    return det_Q * det_R
+  \end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# 2. Função para calcular a Inversa via QR
+def inversa_QR(Q, R):
+    n = R.shape[0]
+    QT = np.transpose(Q)
+    A_inv = np.zeros((n, n))
+
+    # Resolve o sistema R * x = coluna_i(Q^T) para cada coluna
+    for i in range(n):
+        A_inv[:, i] = retro_substituicao(R, QT[:, i])
+    return A_inv
+  \end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# ==========================================
+# Teste Prático com uma Matriz 3x3
+A = np.array([[3, 2, 4],
+              [1, 1, 2],
+              [4, 3, 2]], dtype=float)
+
+# Passo 1: Decomposição (usando o do NumPy, mas funciona com o seu houseQR)
+Q, R = np.linalg.qr(A)
+print("--- MATRIZ ORIGINAL A ---")
+print(A)
+
+# --- TESTE DO DETERMINANTE ---
+det_nosso = determinante_QR(Q, R)
+det_numpy = np.linalg.det(A)
+
+print("\n--- CÁLCULO DO DETERMINANTE ---")
+print(f"Determinante via QR: {det_nosso:.4f}")
+print(f"Determinante do NumPy: {det_numpy:.4f}")
+\end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# --- TESTE DA INVERSA ---
+inversa_nossa = inversa_QR(Q, R)
+inversa_numpy = np.linalg.inv(A)
+
+print("\n--- CÁLCULO DA MATRIZ INVERSA ---")
+print("Nossa Inversa via QR:")
+print(inversa_nossa)
+print("\nInversa do NumPy:")
+print(inversa_numpy)
+
+# Verificação da Inversa: A * A_inv deve ser igual à Identidade
+print("\n--- VERIFICAÇÃO DA INVERSA (A * A_inv) ---")
+identidade_teste = A.dot(inversa_nossa)
+print(np.round(identidade_teste, 2)) # Arredondando para limpar resíduos numéricos
+\end{minted}
+\end{listing}
+\end{document}

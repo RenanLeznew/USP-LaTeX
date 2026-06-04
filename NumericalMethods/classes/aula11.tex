@@ -307,8 +307,79 @@ porém, \(\det{(L)} = 1\), ou seja,
 			-2 & 0 & 1
 		\end{bmatrix}
 	\].
-	% TODO: CÓDIGO
 
+	\begin{listing}[H]
+		\caption{Implementação do Método LU}
+		\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+from scipy.linalg import solve_triangular
+
+# Triangular Superior (Substituição para trás)
+def TriangularSup_simples(A, b):
+    # Garante que as entradas sejam arrays do NumPy tipo float
+    A = np.array(A, dtype=float)
+    b = np.array(b, dtype=float)
+
+    n = len(b)
+    x = np.zeros(n) # Já cria um array de zeros do tamanho certo
+
+    # Começa do último elemento e vai até o primeiro
+    for i in range(n-1, -1, -1):
+        # b[i] menos o produto escalar da linha i (a partir da diagonal) por x
+        x[i] = (b[i] - A[i, i+1:] @ x[i+1:]) / A[i, i]
+
+    return x
+ \end{minted}
+
+		\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# Triangular Inferior (Substituição para frente)
+def TriangularInf_simples(A, b):
+    # Garante que as entradas sejam arrays do NumPy tipo float
+    A = np.array(A, dtype=float)
+    b = np.array(b, dtype=float)
+
+    n = len(b)
+    x = np.zeros(n)
+
+    # Começa do primeiro elemento e vai até o último
+    for i in range(n):
+        # b[i] menos o produto escalar da linha i (até a diagonal) por x
+        x[i] = (b[i] - A[i, :i] @ x[:i]) / A[i, i]
+
+    return x
+  \end{minted}
+	\end{listing}
+	\begin{listing}[H]
+		\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# --- Testando os Dados ---
+
+# Dados Superior
+A_sup = np.array([[3, 2, 4], [0, 1/3, 2/3], [0, 0, 1]])
+b_sup = np.array([1, 5/3, 0])
+x_sup = TriangularSup_simples(A_sup, b_sup)
+
+print("Solução Triangular Superior:")
+print(x_sup)
+
+# Dados Inferior (Usando a transposta de A_sup como você fez)
+A_inf = A_sup.T
+b_inf = np.array([1, 5/3, 0])
+x_inf = TriangularInf_simples(A_inf, b_inf)
+
+print("\nSolução Triangular Inferior:")
+print(x_inf)
+# ---- Usando Scipy ----
+
+A_sup = np.array([[3, 2, 4], [0, 1/3, 2/3], [0, 0, 1]])
+b_sup = np.array([1, 5/3, 0])
+
+# lower=False indica que é triangular superior
+x_sup_scipy = solve_triangular(A_sup, b_sup, lower=False)
+
+print("Solução SciPy (Superior):")
+print(x_sup_scipy)
+ \end{minted}
+	\end{listing}
 	Responda:
 	\begin{itemize}
 		\item[1)] A matriz A possui decomposição LU?
@@ -318,5 +389,113 @@ porém, \(\det{(L)} = 1\), ou seja,
 	\end{itemize}
 \end{exr}
 
+\subsubsection{Extra: usando Sympy}
+Vamos ver a decomposição LU usando o pacote ``\texttt{sympy}'':
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import sympy
+import numpy as np
 
+print("--- DECOMPOSIÇÃO COM SYMPY ---")
+# Decomposição LU com SymPy
+A_sym = sympy.Matrix([[1, 2, 0], [1, 3, 1], [-2, 0, 1]])
+b_sym = sympy.Matrix([3, 5, -1])
+L_sym, U_sym, _ = A_sym.LUdecomposition()
+print("L (SymPy):")
+sympy.pprint(L_sym)
+print("U (SymPy):")
+sympy.pprint(U_sym)
+x_sym = A_sym.solve(b_sym)
+print("Solução x (SymPy):")
+sympy.pprint(x_sym)
+print("\n" + "="*30 + "\n")
+
+print("--- DECOMPOSIÇÃO COM NUMPY ---")
+
+# Decomposição LU Original
+def decompLU(A):
+    n = np.shape(A)[0]
+    L = np.eye(n)
+    U = np.zeros((n,n))
+    for k in np.arange(n):
+        for j in np.arange(k,n):
+            U[k,j]=A[k,j]
+            for s in np.arange(k):
+                U[k,j] = U[k,j] - L[k,s]*U[s,j]
+        for i in np.arange(k+1,n):
+            L[i,k]=A[i,k]
+            for s in np.arange(k):
+                L[i,k] = L[i,k] - L[i,s]*U[s,k]
+            L[i,k] = L[i,k]/U[k,k]
+    return L, U
+\end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# Decomposição LU Simplificada (Vetorizada)
+def decompLU_simples(A):
+    n = A.shape[0]
+    L = np.eye(n)
+    U = np.zeros((n, n))
+    for k in range(n):
+        U[k, k:] = A[k, k:] - L[k, :k] @ U[:k, k:]
+        if k < n - 1:
+            L[k+1:, k] = (A[k+1:, k] - L[k+1:, :k] @ U[:k, k]) / U[k, k]
+    return L, U
+
+\end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+def LUsolve(A, b):
+    n = np.shape(A)[0]
+    L, U = decompLU_simples(A)
+    # IMPORTANTE: Faz uma cópia de b como float para não alterar o original
+    y = b.astype(float).copy()
+
+    # Substituição para frente (Ly = b)
+    for k in range(1, n):
+        y[k] = y[k] - L[k, 0:k].dot(y[0:k])
+
+    # Substituição para trás (Ux = y)
+    for k in range(n-1, -1, -1):
+        y[k] = (y[k] - U[k, k+1:n].dot(y[k+1:n])) / U[k, k]
+    return y
+\end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+def LUsolve2(A, b):
+    n = np.shape(A)[0]
+    L, U = decompLU(A)
+    # IMPORTANTE: Faz uma cópia de b como float para não alterar o original
+    y = b.astype(float).copy()
+
+    for k in range(1, n):
+        y[k] = y[k] - L[k, 0:k].dot(y[0:k])
+
+    for k in range(n-1, -1, -1):
+        y[k] = (y[k] - U[k, k+1:n].dot(y[k+1:n])) / U[k, k]
+    return y
+\end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# Exemplo NumPy
+# Usando dtype=float para evitar problemas de arredondamento inteiro
+A = np.array([[1, 2, 0], [1, 3, 1], [-2, 0, 1]], dtype=float)
+b = np.array([3, 5, -1], dtype=float)
+
+# Capturamos L e U explicitamente para poder imprimir depois
+L_np, U_np = decompLU_simples(A)
+
+x = LUsolve(A, b)
+y = LUsolve2(A, b)
+
+print("L (NumPy):")
+print(L_np)
+print("\nU (NumPy):")
+print(U_np)
+print("\nSolução x (usando LU simples):")
+print(x)
+print("\nSolução y (usando LU original):")
+print(y)
+\end{minted}
+\end{listing}
 \end{document}

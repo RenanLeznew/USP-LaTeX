@@ -1,0 +1,87 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 03 de Junho, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Problemas Multidimensionais
+\end{itemize}
+\subsection{Problemas Multidimensionais}
+Antes de continuarmos, retomemos a forma geral dos métodos numérico para problemas parabólicos:
+\[
+	\boxed{\underline{U}^{n+1} = B(\Delta t)\underline{U}^{n} + \underline{b}(\Delta t)}
+\]
+Seja \(A = I - \frac{\Delta t}{2}\nabla_{h}^{2}\), com os mesmos padrões de entradas não nulas que a matriz de \(\nabla_{h}^{2}\), mas multiplicados por \(\Delta t/2\) e subtraída da identidade; os autovalores de A, com \(\displaystyle h = \frac{1}{m+1}\), são:
+\[
+	\Lambda_{p, q} = 1 - \frac{\Delta t}{h^{2}}\biggl((\cos^{}{(p\pi h)}-1) + (\cos^{}{(q\pi h)}-1)\biggr) > 0, \quad p, q = 1, 2, \dotsc , m.
+\]
+A numeração p, q é conveniência da numeração bidimensional, mas são \(m^{2}\) autovalores ao todo.
+
+Logo, os maiores e menores autovalores são dados por
+\begin{align*}
+	 & \lambda_{m, m}\approx 1 - \frac{\Delta t}{h^{2}}(-2 -2) = 1 + \frac{4\Delta t}{h^{2}}=\mathcal{O}\biggl(\frac{\Delta t}{h^{2}}\biggr)                                                                      \\
+	 & \lambda_{1, 1}= 1 - \frac{2\Delta t}{h^{2}}\biggl(1 - \frac{\pi^{2}h^{2}}{2} + \frac{\pi^{4}h^{4}}{24} + \dotsc - 1\biggr) = 1 + \pi^{2}\Delta t + \mathcal{O}(\Delta th^{2}) = 1 + \mathcal{O}(\Delta t).
+\end{align*}
+Continuando as contas, no caso unidimensional, chegamos na relação \(\displaystyle \frac{\Delta t}{\Delta x^{2}} \leq \frac{1}{2}\), mas para o Euler, foi \(\displaystyle \frac{\Delta t}{\Delta x^{2}} \leq \frac{1}{4}\) por conta de um termo de \(1/2\) nos autovalores
+A partir de um número muito grande de incógnitas, fica muito complicado resolver estes problemas com métodos diretos, sendo necessário entrar com os métodos iterativos, tendo em mente que eles têm muita sensibilidade ao raio espectral da matriz. Assim, é de interesse entender que, decorrente dos resultados acima, o número de condição de A é
+\[
+	\kappa_{2}(A)=\Vert A \Vert_{2}\Vert A^{-1} \Vert_{2} = \frac{\lambda_{m, m}}{\lambda_{1, 1}} = \mathcal{O}(\Delta t h^{-2}),
+\]
+formalmente definido por
+\begin{def*}
+	O \textbf{número de condição} de uma matriz A é a razão de seu maior autovalor pelo menor autovalor:
+	\[
+		\kappa_2(A) = \frac{\lambda_{m, m}}{\lambda_{1, 1}}.\; \square
+	\]
+\end{def*}
+Por outro lado, o operador \(\nabla_{h}^{2}\) sozinho tem número de condição \(\mathcal{O}(h^{-2})\); quanto menor o número de condição, pelo menos no caso presente, mais rápida será a convergência dos métodos iterativos, pois o número de condição cresce quadraticamente com o inverso de h.
+
+Veremos algumas formas de reduzir o custo computacional, mas dando uma breve contextualização antes. Por exemplo, vamos considerar chutes para \(U^{n+1}\) no método de Crank-Nicolson:
+\[
+	U_{ij}^{n+1} = U_{ij}^{n} + \frac{\Delta t}{2}\biggl(\nabla_{h}^{2}U_{ij}^{n}+\nabla_{h}^{2} U_{ij}^{n+1}\biggr), \quad 1 \leq i, j\leq m.
+\]
+Como \(U_{ij}^{n+1} = U_{ij}^{n} + \mathcal{O}(\Delta t)\), podemos usar \(U_{ij}^{n}\) (ou seja, valores das últimas passadas de tempo) como chutes para um método iterativo; melhor ainda, é possível fazer uma extrapolação progressiva no tempo usando
+\[
+	U_{ij}^{[0]} = 2U_{ij}^{n} - U_{ij}^{n-1},
+\]
+ou mesmo com um método explícito
+\[
+	U_{ij}^{[0]} = (1+\Delta t \nabla _{h}^{2})U_{ij}^{n}.
+\]
+Ao invés de resolver uma equação de matriz esparsa acoplada para cada incógnita, partindo da equação discretizada de Crank-Nicolson na forma de operador
+\[
+	\nabla_{h}^{2}U_{ij}^{n} = \underbrace{\frac{1}{h^{2}}(U_{i-1, j}^{}-2U_{ij}+U_{i+1, j})}_{\coloneqq D_{x}^{2}} + \underbrace{\frac{1}{h^{2}}(U_{i, j-1} - 2U_{ij} + U_{i, j+1})}_{\coloneqq D_{y}^{2}}
+\]
+e do método de Crank-Nicolson em sua forma matricial
+\[
+	\biggl(I - \frac{\Delta t}{2}A\biggr)\underline{U}^{n+1} = \biggl(I + \frac{\Delta t}{2}A\biggr)\underline{U}^{n},
+\]
+uma alternativa é utilizar o \textbf{método localmente unidimensional} (LOD -- \textit{Locally One-Dimensional method}): como a difusão atua em todas as direções ao mesmo tempo, vamos desacoplar ela primeiro, resolver o problema em uma direção, e depois reacoplar. Primeiro, resolvemos apenas a direção x, depois na direção y:
+\begin{align*}
+	 & U_{ij}^{*} = U_{ij}^{n} + \frac{\Delta t}{2}(D_{x}^{2}U_{ij}^{n} + D_{x}^{2}U_{ij}^{*}) \quad (\text{Crank-Nicolson na direção x})     \\
+	 & U_{ij}^{n+1} = U_{ij}^{*} + \frac{\Delta t}{2}(D_{y}^{2}U_{ij}^{*} + D_{y}^{2}U_{ij}^{n+1}) \quad (\text{Crank-Nicolson na direção y})
+\end{align*}
+Após obter o termo \(U_{ij}^{*}\), ele foi utilizado para resolver a discretização na direção y -- resolvemos na direção x, obtivemos \(U_{ij}^{*}\) e prosseguimos resolvendo na direção y.
+
+Parte da física desse sistema, porém, acaba demorando mais para ser propagada, passando a ter um retardo na difusão; no entanto, sendo um processo iterativo, este efeito tende a ser minimizado, apesar de infelizmente depender bastante da escolha inicial, principalmente para casos onde a difusão começa muito mais forte em alguma direção específica.
+
+Mesmo com todas estas consequências, estas ideias dão algumas coisas bem interessantes, como prevenir a resolução de uma matriz pentadiagonal, para a qual métodos diretos resolvem com \(\mathcal{O}(N^{3})\) operações, e \(\mathcal{O}(N^{2})\) para os métodos iterativos, então é bem caro; usando o LOD, porém, o termo \(I-\frac{\Delta t}{2}D_{x}\) e o mesmo no y são duas matrizes tridiagonais, tornando o custo computacional bem mais barato de apenas duas matrizes com custo \(\mathcal{O}(N)\).
+Não entraremos em detalhes sobre isso, mas o LOD é bem ruim em lidar com condições de contorno.
+
+Outro método usado frequentemente é uma modificação do LOD; ou melhor, é uma classe de métodos conhecidos como ADI (\textit{Alternating Direction Implicitly method}), que trata as direções alternando-as ao invés de separando-as. Sua forma clássica é
+\begin{align*}
+	 & U_{ij}^{*} = U_{ij}^{n} + \frac{\Delta t}{2}(D_{y}^{2}U_{ij}^{n} + D_{x}^{2}U_{ij}^{*}),      \\
+	 & U_{ij}^{n+1} = U_{ij}^{*} + \frac{\Delta t}{2}(D_{x}^{2} U_{ij}^{*} + D_{y}^{2}U_{ij}^{n+1}),
+\end{align*}
+dando novamente sistemas tridiagonais desacoplados em cada etapa:
+\begin{align*}
+	 & \biggl(I - \frac{\Delta t}{2}D_{x}^{2}\biggr)U^{*} = \biggl(I + \frac{\Delta t}{2}D_{y}\biggr)U_{ij}^{n}  \\
+	 & \biggl(I - \frac{\Delta t}{2}D_{y}^{2}\biggr)U^{*} = \biggl(I + \frac{\Delta t}{2}D_{x}\biggr)U_{ij}^{n},
+\end{align*}
+com cada uma delas alternando qual operador será o implícito e qual será o explícito.
+
+Daqui pra frente, o grau de complexidade continua aumentando, podendo incluir mais termos, coeficientes que ficam alternando, presença de termos não lineares; mas todas as tecnologias que vimos para lidar com isso continuam funcionando, como a linearização por método de Newton, por preditor-corretor, etc. O problema multidimensional não introduz novos problemas, mas introduz novas complexidades, principalmente quanto à enumeração das incógnitas.
+A grande novidade daqui é justamente o ADI!
+
+Se tivéssemos um problema tridimensional, poderíamos gerar um ADI de três etapas, cada uma em uma direção, mas com erros e complexidades que ficam se acumulando a cada aumento desses -- todo mundo depende de todo mundo, e desacoplar gera um retardo cada vez maior de acordo com isso. O bom deles é que eles preservam a estrutura das malhas, uma grande vantagem conforme surgem problemas piores.
+
+\end{document}

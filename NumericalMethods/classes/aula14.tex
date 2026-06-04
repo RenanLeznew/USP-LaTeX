@@ -1,0 +1,373 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 26 de Maio, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Método de Gauss-Seidel
+\end{itemize}
+\subsection{Método de Gauss-Seidel}
+O objetivo da aula de hoje é definir um processo iterativa tal que a sequência de vetores \(\{\underline{x}^{(0)}, \underline{x}^{(1)}, \underline{x}^{(2)}, \dotsc \}\) produzida por este processo \textit{convirja para a solução x}, independentemente da escolha do chute inicial \(\underline{x}^{(0)}\in \mathbb{R}^{n}\).
+
+Mas pra que fazer isso? Muitas vezes, os métodos diretos podem ter problemas de implementação computacional; nestes casos, é necessário recorrer ao processo acima, que utiliza uma iteração convergente, mas aumentam o custo computacional.
+\begin{def*}
+	Uma sequência de vetores\(\{\underline{x}^{(0)}, \underline{x}^{(1)}, \underline{x}^{(2)}, \dotsc \}\) \textbf{convege para x} se
+	\[
+		\lim_{k\to \infty}\Vert \underline{x}^{(k)}-\underline{x} \Vert = 0. \; \square
+	\]
+\end{def*}
+Denotamos o processo acima por \(\underline{x}^{(k)}\rightarrow \underline{x}.\)
+
+A ideia principal do que faremos é criar um processo recursivo através de um sistema equivalente \(Ax = b\); dele, criaremos um sistema equivalente da forma
+\[
+	\underline{x} = C\underline{x} + \underline{g},
+\]
+onde \(C\in \mathbb{M}_{n}\) e \(\underline{g}\in \mathbb{R}^{n}\) são conhecidos. Daí, a partir de um chute inicial \(\underline{x}^{(0)}\), obtemos uma sequência \(\{\underline{x}^{(0)}, \underline{x}^{(1)}, \dotsc \}\) pelo processo iterativo
+\[
+	\boxed{\underline{x}^{(k+1)} = C \underline{x}^{(k)} + \underline{g}}, \quad k = 0, 1, 2, \dotsc
+\]
+
+Naturalmente, surgem algumas perguntas, principalmente:
+\begin{itemize}
+	\item É possível, dado \(A\underline{x}= \underline{b}\), obter um sistema equivalente da forma \(\underline{x} = C\underline{x} + \underline{g}\)? Sim! Basta tomar \(C = I-A \) e \(\underline{g} = \underline{b}\);
+	\item Se a sequência \(\underline{x}^{(k)}\) converge para \(\underline{x}\), então \(\underline{x}\) será mesmo solução de \(A\underline{x} = \underline{b}\)? De fato, basta passar o limite em ambos os lados da equação recursiva, obtendo \(\underline{x} = C \underline{x} + \underline{g}\); pela hipótese de equivalência, segue que \(\underline{x} = \underline{x}\);
+	\item Quando \(\underline{x}^{(k)}\rightarrow \underline{x}\) e quando parar o processo iterativo?
+\end{itemize}
+As duas primeiras puderam ser prontamente respondidas, mas as outras duas requerem mais cuidado.
+
+\begin{def*}
+	O \textbf{raio espectral} de uma matriz \(A\in \mathbb{M}_{n}\) é definido como
+	\[
+		\rho (A) = \max\limits_{i\in \{1, \dotsc , n\}} \{| \lambda_{i} |\},
+	\]
+	onde \(\lambda_{i}\) são os autovalores de A. \(\square\)
+\end{def*}
+Noutras palavras, o raio espectral é o maior autovalor de A, em módulo.
+
+\hypertarget{general_criterion}{
+	\begin{theorem*}[Critério Geral de Convergência]
+		Seja \(\{\underline{x}^{(0)}, \underline{x}^{(1)}, \underline{x}^{(2)}, \dotsc \}\) a sequência gerada pelo processo iterativo
+		\[
+			\underline{x}^{(k+1)} = C \underline{x}^{(k)} + \underline{g}.
+		\]
+		Temos os critério de convergência:
+		\begin{itemize}
+			\item[1)] Se \(\Vert C \Vert_{M} < 1\), onde \(\Vert \cdot  \Vert_{M}\) é uma norma consistente qualquer, então a sequência converge;
+			\item[2)] As iterações convergem para a solução se, e somente se, \(\rho (C) < 1\).
+		\end{itemize}
+	\end{theorem*}
+}
+
+Isso responde, em primeira vista, parte da última pergunta; quanto ao critério de parada, vamos tomar \(\varepsilon > 0\) e \(k_{\mathrm{max}}\in \mathbb{N}\) o natural correspondente ao passo máximo que faremos antes de para; então, temos alguns critérios:
+\begin{itemize}
+	\item \textbf{\underline{Erro absoluto}:} consiste em \(\Vert \underline{x}^{(k+1)} - \underline{x}^{(k)} \Vert <\varepsilon \);
+	\item \textbf{\underline{Erro relativo}:} consiste no critério \(\displaystyle \frac{\Vert \underline{x}^{(k+1)} - \underline{x}^{(k)} \Vert}{\Vert \underline{x}^{(k+1)} \Vert} < \varepsilon \);
+	\item \textbf{\underline{Teste de resíduo}:} corresponde ao teste \(\Vert \underline{b} - A\underline{x}^{(k)} \Vert < \varepsilon \);
+	\item \textbf{\underline{Número máximo de iterações}:} simplesmente determinar \(k_{\mathrm{max}} = k\).
+\end{itemize}
+
+Dado \(Ax = b\) (e supondo que \(a_{ii}\neq 0\) sem perda de generalidade, para todo i), temos:
+\[
+	\left\{\begin{array}{ll}
+		a_{11}x_1 + a_{12}x_2 + a_{13}x_3 + \dotsc + a_{1n}x_{n} = b_1 \\
+		a_{21}x_1 + a_{22}x_2 + a_{23}x_3 + \dotsc + a_{2n}x_{n} = b_2 \\
+		a_{31}x_1 + a_{32}x_2 + a_{33}x_3 + \dotsc + a_{3n}x_{n} = b_3 \\
+		\vdots                                                         \\
+		a_{n1}x_1 + a_{n2}x_2 + a_{n3}x_3 + \dotsc + a_{nn}x_{n} = b_n \\
+	\end{array}\right.
+\]
+Este contexto será usado para introduzir o \textbf{método de Gauss-Jacobi}: ele transforma \(A\underline{x} = \underline{b}\) em \(\underline{x} = C\underline{x} + \underline{g}\) isolando cada coordenada i-ésima do vetor, ou seja, \(x_{i}\), na i-ésima equação do sistema. Logo,
+Logo,
+\[
+	\left\{\begin{array}{ll}
+		x_1 = (b_1-a_{12}x_2 - a_{13}x_3 -\dotsc - a_{1n}x_{n})/a_{11}       \\
+		x_2 = (b_2-a_{22}x_1 - a_{23}x_3 -\dotsc - a_{2n}x_{n})/a_{22}       \\
+		x_3 = (b_3-a_{32}x_1 - a_{33}x_2 -\dotsc - a_{3n}x_{n})/a_{33}       \\
+		\vdots                                                               \\
+		x_n = (b_n-a_{n2}x_2 - a_{n3}x_3 -\dotsc - a_{n, n-1}x_{n-1})/a_{nn} \\
+	\end{array}\right.
+\]
+Logo, o sistema equivalente \(\underline{x} = C\underline{x} + \underline{g}\) é
+\[
+	C = \begin{bmatrix}
+		0              & -a_{12}/a_{11} & -a_{13}/a_{11} & \cdots            & -a_{1n}/a_{11} \\
+		-a_{21}/a_{22} & 0              & -a_{23}/a_{22} & \cdots            & -a_{2n}/a_{22} \\
+		-a_{31}/a_{33} & -a_{32}/a_{33} & 0              & \cdots            & -a_{3n}/a_{33} \\
+		\vdots         & \vdots         & \vdots         & \ddots            & \vdots         \\
+		-a_{n1}/a_{nn} & -a_{n2}/a_{nn} & \cdots         & -a_{n,n-1}/a_{nn} & 0
+	\end{bmatrix},\quad g=\begin{bmatrix}
+		b_1/a_{11} \\
+		b_2/a_{22} \\
+		b_3/a_{33} \\
+		\vdots     \\
+		b_n/a_{nn}
+	\end{bmatrix}.
+\]
+Portanto, dado o chute inicial \(\underline{x}^{(0)},\) o processo iterativo é dado por:
+\[
+	\left\{\begin{array}{ll}
+		x_1^{(k+1)} = (b_1-a_{12}x_2^{(k)} - a_{13}x_3^{(k)} -\dotsc - a_{1n}     x_{n}^{(k)})/a_{11}  \\
+		x_2^{(k+1)} = (b_2-a_{22}x_1^{(k)}- a_{23}x_3 ^{(k)}-\dotsc - a_{2n}      x_{n}^{(k)})/a_{22}  \\
+		x_3^{(k+1)} = (b_3-a_{32}x_1^{(k)}- a_{33}x_2 ^{(k)}-\dotsc - a_{3n}      x_{n}^{(k)})/a_{33}  \\
+		\vdots                                                                                         \\
+		x_n^{(k+1)} = (b_n-a_{n2}x_2^{(k)} - a_{n3}x_3^{(k)} -\dotsc - a_{n, n-1}x_{n-1}^{(k)})/a_{nn} \\
+	\end{array}\right.
+\]
+e o sistema fica \(\underline{x}^{(k+1)} = C\underline{x}^{(k)} + \underline{g}\):
+\[
+	C = \begin{bmatrix}
+		0              & -a_{12}/a_{11} & -a_{13}/a_{11} & \cdots            & -a_{1n}/a_{11} \\
+		-a_{21}/a_{22} & 0              & -a_{23}/a_{22} & \cdots            & -a_{2n}/a_{22} \\
+		-a_{31}/a_{33} & -a_{32}/a_{33} & 0              & \cdots            & -a_{3n}/a_{33} \\
+		\vdots         & \vdots         & \vdots         & \ddots            & \vdots         \\
+		-a_{n1}/a_{nn} & -a_{n2}/a_{nn} & \cdots         & -a_{n,n-1}/a_{nn} & 0
+	\end{bmatrix},\quad g=\begin{bmatrix}
+		b_1/a_{11} \\
+		b_2/a_{22} \\
+		b_3/a_{33} \\
+		\vdots     \\
+		b_n/a_{nn}
+	\end{bmatrix}.
+\]
+A forma como obter \(\underline{x}^{(k+1)} = C\underline{x}^{(k)} + \underline{g}\) a partir de \(Ax = b\) é considerando \(D\) como uma matriz diagonal formada pela diagonal de A, tal que
+\[
+	Ax = b \Longleftrightarrow (A-D+D)x = b \Longleftrightarrow (A-D)x + Dx = b.
+\]
+Dessa forma,
+\[
+	(A-D)\underline{x}^{(k)} + D\underline{x}^{(k+1)}=\underline{b} \Longleftrightarrow D\underline{x}^{(k+1)} = (D-A)\underline{x}^{(k)} + \underline{b}
+\]
+Portanto,
+\[
+	\underline{x}^{(k+1)} = \underbrace{(I-D^{-1}A)}_{C}\underline{x}^{(k)} + \underbrace{D^{-1}\underline{b}}_{\underline{g}}
+\]
+Implementando em python, ele fica:
+\begin{listing}[H]
+	\caption{Método de Gauss-Jacobi em Python}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+
+def gauss_jacobi(A, b, x0, tol, kmax=10000):
+    A = A.astype(float)
+    b = b.astype(float)
+    d = np.diag(A)
+
+    # Verifica se há zeros na diagonal para evitar divisão por zero
+    if np.any(d == 0):
+        raise ValueError("A diagonal principal contém zeros.")
+
+    # Criando a matriz de iteração C e o vetor constante g
+    # D_inv @ A é equivalente a dividir cada linha de A pelo elemento da diagonal
+    D_inv_A = A / d[:, None]
+    C = np.eye(len(b)) - D_inv_A
+    g = b / d
+
+    x = x0.astype(float)
+    for k in range(kmax):
+        x_novo = C @ x + g
+
+        # Critério de parada pelo resíduo
+        if np.linalg.norm(b - A @ x_novo) < tol:
+            return x_novo, k + 1
+
+        x = x_novo
+
+    print('Erro: o método não converge no tempo estipulado.')
+    return None, kmax
+\end{minted}
+\end{listing}
+Podemos ir ao nosso primeiro critério de convergência: o método de Gauss-Jacobi converge para a solução de \(A\underline{x} = \underline{b}\), independentemente da escolha de \(\underline{x}^{(0)}\), se satisfizer um dos critérios:
+
+\textbf{\underline{Critério das Linhas}:} o método converge se o máximo dos valores de \(\alpha_{k}\), onde
+\[
+	\alpha_{k} = \frac{\sum\limits_{\substack{j\neq k \\ j=1}}^{n}| a_{kj} |}{| a_{k} |},
+\]
+for estritamente menor que 1.
+
+\textbf{\underline{Critério das Colunas}:} o método converge se o máximo dos valores de \(\beta_{k}\), onde
+\[
+	\beta_{k} = \frac{\sum\limits_{\substack{i\neq k \\ i=1}}^{n}| a_{ik} |}{| a_{kk} |}.
+\]
+\begin{def*}
+	Uma matriz que satisfaz o critério das linhas é chamada \textbf{estritamente diagonal dominante}. \(\square\)
+\end{def*}
+Quanto menor o valor de \(\alpha \), mais rápida será a convergência!
+
+Para acelerar a convergência do método de Gauss-Jacobi, podemos usar os valores atualizados \(x_{1}^{(k+1)}, \dotsc , x_{i-1}^{(k+1)}\) e os restantes \(x_{i+1}^{(k)}, \dotsc , x_{n}^{(k)}\) no cálculo de \(x_{i}^{(k+1)}\):
+\[
+	\left\{\begin{array}{ll}
+		x_1^{(k+1)} = (b_1-a_{12}x_2^{(k)} - a_{13}x_3^{(k)} -\dotsc - a_{1n}     x_{n}^{(k)})/a_{11}        \\
+		x_2^{(k+1)} = (b_2-a_{22}x_1^{(k+1)}- a_{23}x_3 ^{(k)}-\dotsc - a_{2n}      x_{n}^{(k)})/a_{22}      \\
+		x_3^{(k+1)} = (b_3-a_{32}x_1^{(k+1)}- a_{33}x_2 ^{(k+1)}-\dotsc - a_{3n}      x_{n}^{(k)})/a_{33}    \\
+		\vdots                                                                                               \\
+		x_n^{(k+1)} = (b_n-a_{n2}x_2^{(k+1)} - a_{n3}x_3^{(k+1)} -\dotsc - a_{n, n-1}x_{n-1}^{(k+1)})/a_{nn} \\
+	\end{array}\right.
+\]
+
+Agora, outra forma de obtenção da forma matricial \(\underline{x}^{(k+1)} = C\underline{x}^{(k)} + g\), vamos utilizar o chamado \textbf{método de Gauss-Seidel}. Considere \(A = L + R\), sendo L a matriz triangular inferior de A e R a superior, mas sem a diagonal; desta forma,
+\[
+	A \underline{x}= \underline{b} \Longleftrightarrow (L+R)\underline{x} = \underline{b} \Longleftrightarrow L\underline{x}+R\underline{x} = \underline{b},
+\]
+tal que
+\[
+	L \underline{x}^{(k+1)}+R\underline{x}^{(k)} = \underline{b} \Longleftrightarrow L\underline{x}^{(k+1)} = - R\underline{x}^{(k)} + \underline{b}.
+\]
+Portanto, isolando o k+1-ésimo termo, obtemos
+\[
+	\boxed{\underline{x}^{(k+1)}=(-L^{-1}R)\underline{x}^{(k)}+L^{-1}\underline{b}}
+\]
+\begin{listing}[H]
+	\caption{Método de Gauss-Seidel em Python}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+
+def gauss_seidel(A, b, x0, tol, kmax=10000):
+    A = A.astype(float)
+    b = b.astype(float)
+    x = x0.astype(float)
+
+    # Decomposição
+    L = np.tril(A)      # Triangular inferior (com a diagonal)
+    R = np.triu(A, 1)   # Triangular superior estrita
+
+    for k in range(kmax):
+        # Em vez de inv(L), resolvemos o sistema L @ x_novo = b - R @ x
+        # Isso é equivalente a: x_novo = inv(L) @ (b - R @ x)
+        rhs = b - R @ x
+        x_novo = np.linalg.solve(L, rhs)
+
+        # Critério de parada pelo resíduo
+        if np.linalg.norm(b - A @ x_novo) < tol:
+            return x_novo, k + 1
+
+        x = x_novo
+
+    print('Erro: o método não converge.')
+    return None, kmax
+
+# Exemplo
+A = np.array([[4, -1, 0], [-1, 4, -1], [0, -1, 3]])
+b = np.array([12, -1, 0])
+x0 = np.zeros_like(b)
+
+x, k = gauss_seidel(A, b, x0, 1e-6)
+print(f"Solução: {x} | Iterações: {k}")
+\end{minted}
+\end{listing}
+
+O método de Gauss-Seidel converge para a solução de \(A \underline{x} = \underline{b}\), independentemente da escolha do chute inicial, se ele satisfaz o critério de Sassenfeld: denotando por
+\[
+	\beta_1 = \frac{\sum\limits_{j=2}^{n}| a_{1j} |}{| a_{11} |} \quad\&\quad \beta_{i} = \frac{\sum\limits_{j=1}^{i-1}| a_{ij} |\beta_{j} + \sum\limits_{j=i+1}^{n}|a_{ij} |}{| a_{i} |},
+\]
+o método convergirá se
+\[
+	\beta =\max\limits_{1\leq i\leq n}\beta_{i} < 1,
+\]
+e quanto menor for o \(\beta \), mais rápida será a convergência.
+
+A diferença entre os dois métodos é que o Gauss-Seidel converge mais rápido, mas o Gauss-Jacobi permite computações paralelas.
+
+\subsection{Extra: Método dos Gradientes}
+\begin{def*}
+	Sejam \(A\in \mathbb{M}_{n},\; \underline{b}\in \mathbb{R}^{n}\) e c um número real. Uma \textbf{forma quadrática} é uma função \(F:\mathbb{R}^{n}\rightarrow \mathbb{R}\) escrita da forma
+	\[
+		F(x) = \frac{1}{2}\underline{x}^{T}A \underline{x} - \underline{x}^{T}\underline{b} + c. \; \square
+	\]
+\end{def*}
+
+\begin{prop*}
+	Se A é uma matriz simétrica, positiva e definida, então \(F(\underline{x})\) é minimizada pela solução de \(A \underline{x} = \underline{b}\).
+\end{prop*}
+\begin{proof*}[Esboço]
+	O primeiro passo da prova é mostrar que \(\underline{x}\) é ponto crítico de F, ou seja,
+	\[
+		\nabla F(\underline{x}) = A \underline{x}-\underline{b} = 0 \Rightarrow A \underline{x} = \underline{b}.
+	\]
+	O segundo é mostrar que x é um mínimo, onde usa-se a \textit{matriz Hessiana}
+	\[
+		H = \biggl[\frac{\partial^{2}F(\underline{x})}{\partial x_{i}x_{j}^{}}\biggr] = A,
+	\]
+	e finalizar usando que A é SPD, portanto que x é ponto de mínimo. \qedsymbol
+\end{proof*}
+
+Com este contexto, o objetivo dos \textbf{métodos dos gradientes} é construir um processo iterativo \(\underline{x}^{(k)}\) (ou seja, uma sequência) que aproxime \(\underline{x}\). A ideia dele é descer o parabolóide da segunda forma no sentido contrário ao gradiente \(\nabla F(\underline{x})\), isto é,
+\[
+	- \nabla F(\underline{x}^{(k)}) = \underline{b} - A \underline{x}^{(k)} = \underline{r}^{(k)},
+\]
+onde \(\underline{r}^{(k)}\) é conhecido como \textbf{resíduo}. Dado um chute inicial \(\underline{x}^{(0)},\) obtemos \(\underline{x}^{(1)}\) da seguinte forma:
+\[
+	\underline{x}^{(1)}=\underline{x}^{(0)}-\alpha \nabla F(\underline{x}^{(0)}) = \underline{x}^{(0)} + \alpha \underline{r}^{(0)},
+\]
+tal que estaremos ``caminhando numa reta''... Mas, qual o tamanho do passo \(\alpha \)?
+
+Para isso, o valor de \(\alpha \) tem que minimizar \(F(\underline{x})\) ao longo da reta \(\underline{x}^{(1)}=\underline{x}^{(0)} + \alpha \underline{r}^{(0)}\), que equivale a minimizar \(F(\underline{x}^{(1)})\). Logo,
+\[
+	\frac{\partial^{}F}{\partial \alpha ^{}}(\underline{x}^{(1)})=\nabla F(\underline{x}^{(1)}) \frac{\partial^{}\underline{x}^{(1)}}{\partial \alpha ^{}} = \overbrace{\nabla F(\underline{x}^{(1)})}^{=-\underline{r}^{(1)}}\cdot \underline{r}^{(0)}=0.
+\]
+Portanto, \(\underline{r}^{(1)}\) e \(\underline{r}^{(0)}\) são ortogonais (produto interno deles é nulo), e segue que
+\begin{align*}
+	0 = \underline{r}^{(1)}\cdot \underline{r}^{(0)} & =\biggl[\underline{b}-A\underline{x}^{(1)}\biggr]\cdot \underline{r}^{(0)}                                \\
+	                                                 & =[\underline{b} - A(\underline{x}^{(0)} + \alpha \underline{r}^{(0)})]\cdot \underline{r}^{(0)}           \\
+	                                                 & =[(\underline{b} - A \underline{x}^{(0)}) - \alpha A \underline{r}^{(0)}]\cdot \underline{r}^{(0)}        \\
+	                                                 & =[\underline{r}^{(0)}-\alpha A \underline{r}^{(0)}]\cdot \underline{r}^{(0)}                              \\
+	                                                 & =\underline{r}^{(0)}\cdot \underline{r}^{(0)} - \alpha (\underline{r}^{(0)} \cdot A \underline{r}^{(0)}).
+\end{align*}
+Daí,
+\[
+	\alpha = \frac{\underline{r}^{(0)}\cdot \underline{r}^{(0)}}{\underline{r}^{(0)}\cdot A \underline{r}^{(0)}},
+\]
+e o processo iterativo do método dos Gradientes é composto por:
+\begin{align*}
+	 & \underline{r}^{(k)} = \underline{b} - A \underline{x}^{(k)};                                                        \\
+	 & \alpha ^{(k)} = \frac{\underline{r}^{(k)}\cdot \underline{r}^{(k)}}{\underline{r}^{(k)}\cdot A \underline{r}^{(k)}} \\
+	 & \underline{x}^{(k+1)} = \underline{x}^{(k)} + \alpha^{(k)}\underline{r}^{(k)}.
+\end{align*}
+\begin{listing}[H]
+	\caption{Método dos Gradientes em Python}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+from numpy import linalg as LA
+def metodos_dos_gradientes(A, b, x, tol=1e-10, kmax=10000):
+    # Garantir tipos float e converter para arrays caso sejam listas
+    A = np.asanyarray(A).astype(float)
+    b = np.asanyarray(b).astype(float)
+    x = np.asanyarray(x).astype(float)
+
+    # Verificação de simetria
+    if not np.allclose(A, A.T):
+        raise ValueError('A matriz A precisa ser simétrica.')
+
+    # Verificação de Positiva Definida (via Cholesky - mais rápido que autovalores)
+    try:
+        np.linalg.cholesky(A)
+    except np.linalg.linalg.LinAlgError:
+        raise ValueError('A matriz A precisa ser positiva definida.')
+    r = b - A @ x
+    k = 0
+    while LA.norm(r) > tol and k < kmax:
+        p = r
+        q = A @ p
+
+        # Alpha é o tamanho do passo que minimiza f(x) na direção p
+        alpha = (r @ r) / (p @ q)
+
+        x = x + alpha * p
+        r = b - A @ x  # Recalcular o resíduo para evitar acúmulo de erro numérico
+        k += 1
+
+    return x, k
+\end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+
+# Exemplo de uso
+A = np.array([[3, 2], [2, 6]])
+b = np.array([2, -8])
+x0 = np.array([0, 0])
+
+solucao, iteracoes = metodos_dos_gradientes(A, b, x0)
+print(f"Solução: {solucao} em {iteracoes} iterações")
+\end{minted}
+\end{listing}
+
+\end{document}

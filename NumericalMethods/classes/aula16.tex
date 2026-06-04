@@ -1,0 +1,261 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 02 de Junho, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Método de Francis
+\end{itemize}
+\subsection{Método de Francis}
+Seja \(A\in \mathbb{M}_{n}\) uma matriz simétrica; vamos usar a decomposição QR para calcular todos os seus autovalores e autovetores:
+\begin{align*}
+	 & A_1 = A \Rightarrow A_1 = Q_1 R_1                             \\
+	 & A_2 = R_1Q_1 \Rightarrow A_2 = Q_2R_2                         \\
+	 & A_3 = R_2Q_2 \Rightarrow A_3 = Q_3R_3                         \\
+	 & \quad \vdots                                                  \\
+	 & A_{k-1} = R_{k-2}Q_{k-2} \Rightarrow A_{k-1} = Q_{k-1}R_{k-1} \\
+	 & A_{k} = R_{k-1}Q_{k-1}.
+\end{align*}
+Mostraremos duas coisas:
+\begin{itemize}
+	\item[i)] Todas as matrizes desta sequência são semelhantes; e
+	\item[ii)] As matrizes\(A_{k}\) convergem para uma matriz diagonal.
+\end{itemize}
+Começando do final,
+\begin{prop*}
+	As matrizes A e \(A_{k}\) possuem os mesmos autovalores; além disso, os autovetores estarão contidos no produto de todas as \(Q_{i},\; 1\leq i\leq k-1\).
+\end{prop*}
+\begin{proof*}
+	Como \(A_{k-1}=Q_{k-1}R_{k-1}\), vale também que
+	\[
+		R_{k-1} = Q_{k-1}^{T}A_{k-1} \quad\&\quad A_{k} = R_{k-1}Q_{k-1}.
+	\]
+	Daí, substituindo em \(R_{k-1}\), temos \(A_{k} = Q_{k-1}^{T}A_{k-1}Q_{k-1}\) e, consequentemente,
+	\begin{align*}
+		A_{k} & = Q_{k-1}^{T}A_{k-1}Q_{k-1}                                          \\
+		      & = Q_{k-1}^{T}Q_{k-2}^{T}A_{k-2}Q_{k-2}Q_{k-1}                        \\
+		      & \vdots                                                               \\
+		      & = Q_{k-1}^{T}Q_{k-2}^{T}\dotsc Q_{1}^{T}A_1Q_1 \dotsc Q_{k-2}Q_{k-1} \\
+		      & = (Q_1 \dotsc Q_{k-2}Q_{k-1})^{T}A (Q_1 \dotsc Q_{k-2}Q_{k-1}).
+	\end{align*}
+	Assim, fazendo \(V=Q_1 \dotsc Q_{k-2}Q_{k-1}\), obtemos a relação de A e \(A_{k} = V^{T}AV\) serem semelhantes. Portanto, os autovalores de A e \(A_{k}\) são os mesmos, com os autovetores contidos na matriz V. \qedsymbol
+\end{proof*}
+\begin{prop*}
+	A sequência \(A_{k}\) converge para uma matriz diagonal.
+\end{prop*}
+Logo, os elementos da diagonal de \(A_{k}\) fornecem uma aproximação para os autovalores de A, enquanto as colunas da matriz \(V = Q_1Q_2 \dotsc Q_{k-1}\) fornecem uma aproximação dos seus respectivos autovetores.
+Implementando em código,
+\begin{listing}[H]
+	\caption{Implementação do Método de Francis e Comparações}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+
+# QR Clássico
+def clgsQR(A):
+    (m, n) = np.shape(A)
+    Q = np.zeros((m, n))
+    R = np.zeros((n, n))
+
+    for j in range(n):
+        V = A[:, j].copy()
+        for i in range(j):
+            R[i, j] = Q[:, i].dot(A[:, j])
+            V = V - R[i, j] * Q[:, i]
+        R[j, j] = np.linalg.norm(V)
+        Q[:, j] = V / R[j, j]
+
+    return Q, R
+ \end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# QR Modificado
+def mgsQR(A):
+    (m, n) = np.shape(A)
+    V = np.copy(A).astype(float) # Força float para evitar problemas de tipo
+    Q = np.zeros((m, n))
+    R = np.zeros((n, n))
+
+    for j in range(n):
+        for i in range(j):
+            R[i, j] = Q[:, i].dot(V[:, j])
+            V[:, j] = V[:, j] - R[i, j] * Q[:, i]
+        R[j, j] = np.linalg.norm(V[:, j])
+        Q[:, j] = V[:, j] / R[j, j]
+
+    return Q, R
+ \end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+def francis(A, tol, flag):
+    if flag == 'classico':
+        print('QR', flag, '\n')
+        qr = clgsQR
+    elif flag == 'modificado':
+        print('QR', flag, '\n')
+        qr = mgsQR
+    elif flag == 'python':
+        print('QR', flag, '\n')
+        qr = np.linalg.qr
+
+    n = np.shape(A)[0]
+    A_local = np.copy(A).astype(float) # Garante que estamos tratando como float
+    V = np.eye(n)
+    erro = np.inf
+ \end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+    # Trava de segurança para não travar o computador em loops infinitos
+    max_iter = 5000
+    it_atual = 0
+
+    while erro > tol and it_atual < max_iter:
+        [Q, R] = qr(A_local)
+
+        A_local = R.dot(Q)
+        V = V.dot(Q)
+
+        # Calcula o erro olhando o maior valor absoluto abaixo da diagonal principal
+        erro = np.max(np.abs(np.tril(A_local, -1)))
+        it_atual += 1
+
+    if it_atual == max_iter:
+        print(f"Aviso: O método atingiu o limite de {max_iter} iterações sem convergir totalmente.")
+    else:
+        print(f"Convergiu em {it_atual} iterações.")
+
+    D = np.diag(A_local)
+    return D, V
+
+ \end{minted}
+\end{listing}
+Para testar o código, temos alguns exemplos.
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# ========================================================
+# EXEMPLO INTERESSANTE: Construindo a Matriz de Teste
+# ========================================================
+epsilon = 1e-4
+B = np.array([[1,       1,       1      ],
+              [epsilon, 0,       0      ],
+              [0,       epsilon, 0      ],
+              [0,       0,       epsilon]], dtype=float)
+
+# Multiplicamos B^T * B para gerar uma matriz simétrica para o método de Francis
+
+C = np.transpose(B).dot(B)
+
+print("--- Matriz de Teste C (Simétrica e Mal-Condicionada) ---")
+print(C)
+print("-" * 60)
+
+tol = 1e-5
+
+\end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# ------------------------------------------------------------
+# Teste 1: Francis com Gram-Schmidt Clássico
+# ------------------------------------------------------------
+print("\n>>> Executando Francis com Gram-Schmidt CLÁSSICO...")
+D_c, V_c = francis(C, tol, flag='classico')
+
+print("Autovalores encontrados (CGS):", D_c)
+I_c = np.transpose(V_c).dot(V_c)
+erro_ort_c = np.linalg.norm(np.eye(len(C)) - I_c, 'fro')
+print(f"Erro de Ortogonalidade dos Autovetores (V): {erro_ort_c:.2e}")
+print("-" * 60)
+\end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# ------------------------------------------------------------
+# Teste 2: Francis com Gram-Schmidt Modificado
+# ------------------------------------------------------------
+print("\n>>> Executando Francis com Gram-Schmidt MODIFICADO...")
+D_m, V_m = francis(C, tol, flag='modificado')
+
+print("Autovalores encontrados (MGS):", D_m)
+I_m = np.transpose(V_m).dot(V_m)
+erro_ort_m = np.linalg.norm(np.eye(len(C)) - I_m, 'fro')
+print(f"Erro de Ortogonalidade dos Autovetores (V): {erro_ort_m:.2e}")
+print("-" * 60)
+\end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# ------------------------------------------------------------
+# Teste 3: Francis com o QR nativo do Python (NumPy)
+# ------------------------------------------------------------
+print("\n>>> Executando Francis com o QR nativo do PYTHON...")
+D_p, V_p = francis(C, tol, flag='python')
+
+print("Autovalores encontrados (Python):", D_p)
+I_p = np.transpose(V_p).dot(V_p)
+erro_ort_p = np.linalg.norm(np.eye(len(C)) - I_p, 'fro')
+print(f"Erro de Ortogonalidade dos Autovetores (V): {erro_ort_p:.2e}")
+print("-" * 60)
+\end{minted}
+\end{listing}
+
+Agora, para finalizarmos, um exemplo com matriz cheia:
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# =========================================
+# NOVO EXEMPLO: Uma matriz cheia
+# =========================================
+# Esta matriz não é diagonal e vai exigir que o QR esmague os elementos inferiores
+C = np.array([[6.0, 2.0, 1.0],
+              [2.0, 5.0, 2.0],
+              [1.0, 2.0, 7.0]], dtype=float)
+
+print("--- Nova Matriz de Teste C (Cheia e Densa) ---")
+print(C)
+print("-" * 60)
+
+tol = 1e-12
+
+\end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# -------------------------------------------------
+# Teste 1: Francis com Gram-Schmidt Clássico
+# -------------------------------------------------
+print("\n>>> Executando Francis com Gram-Schmidt CLÁSSICO...")
+D_c, V_c = francis(C, tol, flag='classico')
+
+print("Autovalores encontrados (CGS):\n", D_c)
+I_c = np.transpose(V_c).dot(V_c)
+erro_ort_c = np.linalg.norm(np.eye(len(C)) - I_c, 'fro')
+print(f"Erro de Ortogonalidade dos Autovetores (V): {erro_ort_c:.2e}")
+print("-" * 60)
+\end{minted}
+\end{listing}
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# ---------------------------------------------------
+# Teste 2: Francis com Gram-Schmidt Modificado
+# ---------------------------------------------------
+print("\n>>> Executando Francis com Gram-Schmidt MODIFICADO...")
+D_m, V_m = francis(C, tol, flag='modificado')
+
+print("Autovalores encontrados (MGS):\n", D_m)
+I_m = np.transpose(V_m).dot(V_m)
+erro_ort_m = np.linalg.norm(np.eye(len(C)) - I_m, 'fro')
+print(f"Erro de Ortogonalidade dos Autovetores (V): {erro_ort_m:.2e}")
+print("-" * 60)
+\end{minted}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# --------------------------------------------------
+# Teste 3: Francis com o QR nativo do Python (NumPy)
+# --------------------------------------------------
+print("\n>>> Executando Francis com o QR nativo do PYTHON...")
+D_p, V_p = francis(C, tol, flag='python')
+
+print("Autovalores encontrados (Python):\n", D_p)
+I_p = np.transpose(V_p).dot(V_p)
+erro_ort_p = np.linalg.norm(np.eye(len(C)) - I_p, 'fro')
+print(f"Erro de Ortogonalidade dos Autovetores (V): {erro_ort_p:.2e}")
+print("-" * 60)
+\end{minted}
+\end{listing}
+\end{document}
+
