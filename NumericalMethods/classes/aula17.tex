@@ -1,0 +1,32 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 09 de Junho, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Decomposição SVD
+\end{itemize}
+\subsection{Decomposição SVD}
+Para uma matriz \(A\in \mathbb{M}(m, n)\), a sua \textbf{decomposição SVD}, ou \textit{Singular Value Decomposition}, é dada por
+\[
+	\boxed{A = U \Sigma V^{T}},
+\]
+onde as matrizes \(U\in \mathbb{M}_{m}\) é ortogonal, \(\Sigma \in \mathbb{M}(m, n)\) é diagonal e \(V\in \mathbb{M}_{n}\) é ortogonal.
+Os coeficientes \(\sigma_{i}\) da diagonal de \(\Sigma \) são chamados \textbf{valores singulares de A}.
+Uma representação mais compacta deste método é na forma reduzida, dada por
+\[
+	A = \hat{U}\hat{\Sigma }V^{T},
+\]
+com \(\hat{U}\in \mathbb{M}(m, n),\; \hat{\Sigma }\in \mathbb{M}_{n}\) e \(V\in \mathbb{M}_{n}\).
+
+\begin{theorem*}[Decomopsição SVD]
+	Toda matriz \(A\in \mathbb{M}(m, n)\) de posto p positivo possui uma decomposição SVD, dada por \(A = U\Sigma V^{T}\) com \(\sigma_1\geq \sigma_2\geq \dotsc \geq \sigma_p > 0\).
+\end{theorem*}
+Uma forma um tanto ineficiente de calcular a decomposição SVD de A é utilizando o já conhecido método de Francis nas matrizes simétricas \(A^{T}A\) e \(AA^{T}\), dado que
+\begin{align*}
+	 & A^{T}A = (U\Sigma V^{T})^{T}(U\Sigma V^{T}) = V\Sigma (U^{T}U)\Sigma V^{T} = V\Sigma^{2}V^{T} \\
+	 & AA^{T} = (U\Sigma V^{T})(U\Sigma V^{T})^{T} = U\Sigma (V^{T}V)\Sigma U^{T} = U\Sigma^{2}U^{T}
+\end{align*}
+Note que a diagonal de \(\Sigma^{2}\) é formada pelo quadrado dos valores singulares de A!
+
+Uma aplicação bem comum desse método é na compressão de imagens.
+\end{document}

@@ -1,0 +1,238 @@
+\documentclass[../algebraIII_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 16 de Junho, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item a
+\end{itemize}
+\subsection{Grupos Derivados}
+Previamente, definimos os grupos solúveis como os que possuem uma cadeia de subgrupos crescente e normais, cujos quocientes consecutivos são abelianos. Observe que não necessariamente, se \(i-j>1\) (ou seja, se i e j não forem consecutivos), os subgrupos \(H_{i}\) é normal em \(H_{j}\)! Se \(H_{i+1}\) tem \(H_{i}\) como subgrupo normal, talvez \(H_{i+2}\) não tenha.
+Vamos ver alguns outros grupos normais que recorrem:
+\begin{example}
+	Se G é abeliano, então G é solúvel, bastando tomar \(H_{0} = G\) e \(H_{1} = \{e\}\), que formam a cadeia
+	\[
+		H_{0} \trianglerighteq H_1;
+	\]
+	em particular, se \(n\leq 2\), o grupo \(S_{n}\) é solúvel.
+\end{example}
+\begin{example}[O grupo de permutações de 3 elementos]
+	Para ver que \(S_3\) é solúvel, tome \(H_{0} = S_3\) e \(H_1 = A_{3}\), terminando em \(H_2 = \{e\}\), tais que
+	\[
+		S_3 \trianglerighteq A_3 \trianglelefteq \{e\}.
+	\]
+	Para todo n, vale a relação
+	\[
+		\mathrm{ord}(A_{n}) = \frac{\mathrm{ord}(S_{n})}{2},
+	\]
+	indicando que o índice de \(A_{n}\) em \(S_{n}\) é 2, e por isso \(A_{n}\trianglelefteq S_{n}\); além disso, como \(\mathrm{ord}(A_3) = 3\),
+	\[
+		\mathrm{ord}(S_3/A_3) = 2 = \mathrm{ord}(A_3/\{e\}),
+	\]
+	implicando que \(S_3/A_3\) e \(A_3/\{e\}\) são abeliano; logo, \(S_3\) é solúvel.
+\end{example}
+\begin{example}[O grupo de permutações de 4 elementos]
+	Tomando \(H)0 = S_4, H_1 = A_4 \)  e \(V = H_2 = \{e, (12)(34), (14)(23), (13)(24)\}\), temos a cadeia
+	\[
+		S_4 \trianglerighteq A_4\trianglerighteq V\trianglerighteq \{e\}.
+	\]
+	\begin{exr}
+		Demonstre que V é isomorfo ao \textit{grupo de Klein} (\(\cong \mathbb{Z}_2 \times \mathbb{Z}_2\)), que \(V \trianglelefteq A_4\) e que \(A_4/V,\; A_4/\{e\}\) são abelianos.
+	\end{exr}
+\end{example}
+Para todo \(n\geq 5\), o grupo de n permutações \(S_{n}\) \textbf{não é solúvel}, e esse é um dos teoremas que vamos demonstrar hoje, mas talvez o mais complicado.
+\begin{def*}
+	Seja G um grupo e sejam \(a, b\) elementos de G. Definimos o \textbf{comutador de a e b} por
+	\[
+		[a, b]\coloneqq a^{-1}b^{-1}ab
+	\]
+	e o \textbf{primeiro grupo derivado \(\mathbf{G^{(1)}}\)} pelo grupo gerado pelo conjunto de todos os comutadores:
+	\[
+		G^{(1)}=[G, G]\coloneqq \langle a^{-1}b^{-1}ab:\; a, b, \in G \rangle. \; \square
+	\]
+\end{def*}
+Os grupos derivados são bons para encontrar grupos solúveis.
+\begin{lemma*}
+	Para um grupo G, temos
+	\begin{itemize}
+		\item[1)] O primeiro grupo derivado é um subgrupo normal de G; e
+		\item[2)] O grupo quociente \(G/G^{(1)}\) é abeliano.
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	\textbf{\underline{(1):}} Sejam \(a, b\) e \(g\) elementos de G; então,
+	\[
+		g^{-1}[a, b]g = g^{-1}(a^{-1}b^{-1}ab)g = [g^{-1}ag, g^{-1}ag] \Rightarrow G^{(1)}\trianglelefteq G.
+	\]
+
+	\textbf{\underline{(2):}} dados \(a, b\) em G, vale \([a]=aG^{(1)}\) e \([b]=bG^{(1)}\), tais que
+	\[
+		[a][b]=[ab] \Rightarrow aG^{(1)}bG^{(1)} = (ab)G^{(1)}
+	\]
+	e, consequentemente,
+	\begin{align*}
+		(ab)G^{(1)} & = (ba)(ba)^{-1}(ab)G^{(1)}    \\
+		            & = (ba)(a^{-1}b^{-1}ab)G^{(1)} \\
+		            & = (ba)[a, b]G^{(1)}           \\
+		            & = (ba)G^{(1)}.
+	\end{align*}
+	Portanto, o quociente é abeliano. \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Se \(H\trianglelefteq G\) e \(G/H\) for abeliano, então \(G^{(1)}\trianglelefteq H\).
+\end{lemma*}
+\begin{proof*}
+	Para todos a, b em G, o fato de \(G/H\) ser abeliano leva a
+	\[
+		abH = baH,
+	\]
+	ou seja, isolando tudo de um dos lados,
+	\[
+		a^{-1}b^{-1}abH = H.
+	\]
+	Logo, para todos a e b em G, \([a, b]\in H\) e portanto \(G^{(1)}\subseteq H\).
+\end{proof*}
+Claramente, tanto pelo nome quanto pela definição, a construção dos grupos derivados pode ser derivada: começamos com G e ganhamos \(G^{(1)}\); a partir de \(G^{(1)}\), podemos considerar \(G^{(2)}\) o grupo derivado do grupo derivado -- \(G^{(2)}\coloneqq [G^{(1)}, G^{(1)}]\). Esta ideia elucida a definição
+\begin{def*}
+	O \textbf{k-ésimo grupo derivado}, para \(k\in \mathbb{N}\), é o comutador do (k-1)-ésimo grupo derivado:
+	\[
+		G^{(k)}\coloneqq [G^{(k-1)}, G^{(k-1)}],
+	\]
+	com \(G^{(0)}=G.\; \square\)
+\end{def*}
+Pelo primeiro lema, para todo \(k\geq 1\), temos
+\[
+	G^{(k)}\trianglelefteq G^{(k-1)} \quad\&\quad G^{(k-1)}/G^{(k)} \text{ abeliano},
+\]
+e por isso, ganhamos a chamada \textbf{série derivada de G}:
+\[
+	G = G^{(0)}\trianglerighteq G^{(1)}\trianglerighteq G^{(2)}\trianglerighteq G^{(3)}\trianglerighteq \dotsc
+\]
+\begin{theorem*}
+	G é solúvel se, e só se, existe \(k\) tal que \(G^{(k-1)}\neq \{e\}\) mas \(G^{(k)}=\{e\}\): a série derivada de G não pode ser infinita, nem trivial.
+\end{theorem*}
+\begin{proof*}
+	\(\Leftarrow ):\;\)se existe k como no enunciado, é automático que G é solúvel.
+
+	\(\Rightarrow):\;\) se G é solúvel, sabe-se que existe uma cadeia do tipo
+	\[
+		G=H_{0}\trianglerighteq H_1\trianglerighteq H_2\trianglerighteq \dotsc \trianglerighteq H_{k-1}\trianglerighteq H_{k}=\{e\}
+	\]
+	tal que \(H_{j-1}/H_{j}\) é abeliano. Para finalizar a demonstração, é suficiente provar que \(G^{(k)}\subseteq H_{k}\) para todo k, porque vai se formar exatamente uma série derivada de G caso isto ocorra.
+	A demonstração segue do segundo lema usando indução sobre k (exercício). \qedsymbol
+\end{proof*}
+\begin{exr}
+	Finalize a prova do teorema acima.
+\end{exr}
+\begin{exr}
+	Demonstre que a imagem de um grupo solúvel é solúvel. \textbf{\underline{Dica}:} segue do teorema anterior e do fato que, se \(\varphi \) é homomorfismo de grupo,
+	\[
+		\varphi [G^{(k)}, G^{(k)}]=[\varphi (G^{(k)}), \varphi (G^{(k)})].
+	\]
+\end{exr}
+\begin{lemma*}
+	Seja H um subgrupo normal de G; então, \(H^{(1)}\) também é um subgrupo normal de G.
+\end{lemma*}
+\begin{proof*}
+	Basta tomar \(g\) em G e \(a, b\) em H, tais que
+	\[
+		g^{-1}[a, b]g = [\underbrace{g^{-1}ag}_{\mathclap{H}}, \underbrace{g^{-1}bg}_{\mathclap{H}}]\in H^{(1)}.
+	\]
+\end{proof*}
+O lema abaixo é crucial para demonstrarmos um resultado importante hoje:
+\begin{lemma*}
+	Seja \(n\geq 5\) e coloque \(S_{n}\); então, para todo k, \(G^{(k)}\) contém cada 3-ciclo de \(S_{n}\).
+\end{lemma*}
+\begin{proof*}
+	Seja N um subgrupo normal de \(S_{n}\); vamos mostrar que, se N contém todos os 3-ciclos de \(S_{n}\), então \(N^{(1)}\) contém todos os 3-ciclos de \(S_{n}\).
+
+	Dada a hipótese de que N contém todos os 3-ciclos de \(S_{n}\), N contém \((123)\) e \((145),\) mas como
+	\[
+		(123)^{-1}(145)^{-1}(123)(145)=(142) \text{    (checar)},
+	\]
+	vale que \((142)\in N^{(1)}\). Além disso, como \(N\trianglelefteq S_{n}\), o terceiro lema da aula de hoje implica que \(N^{(1)}\trianglelefteq S_{n}\).
+
+	Agora, demonstraremos que, escolhendo oportunamente uma permutação, ganhamos todos os 3-ciclos de \(S_{n}\)! Daí, todos os 3-ciclos de \(S_{n}\) serão elementos de \(N^{(1)}\), pois para todo \(\sigma \in S_{n}\), vale que \(\sigma^{-1}(142)\sigma \in N^{(1)}\); sejam índices \(i_1, i_2, i_3\in [n]=\{1, 2, \dotsc , n\}\) distintos e \(\sigma \in S_{n}\) tal que
+	\[
+		\sigma^{-1}(1) = i_1, \sigma^{-1}(2)=i_2 \quad\&\quad \sigma^{-1}(4) = i_2
+	\]
+	e note que (\textbf{exercício})
+	\[
+		\sigma^{-1}(142)\sigma=(i_1i_2i_3).
+	\]
+	Como, para todo \(i_1, i_2, i_3\in [n]\), o ciclo \((i_1i_2i_3)\in N^{(1)}\), todos os 3-ciclos de \(S_{n}\) estão também contidos em \(N^{(1)}\), pois escolhemos um 3-ciclo super genérico.
+
+	Seja \(N = S_{n}\), tal que
+	\[
+		[N, N]\trianglelefteq \trianglelefteq N\trianglelefteq S_{n},
+	\]
+	e então \([S_{n}, S_{n}]\) contém todos os 3-ciclos de \(S_{n}\). O resto é exercício. \qedsymbol
+\end{proof*}
+\begin{exr}
+	Itere o argumento final do lema acima para concluir que, para todo k, \(G^{(k)}\) contém todos os 3-ciclos de \(G=S_{n}\). \textbf{\underline{Dica}:} para todo j, \(G^{(j)}\trianglelefteq S_{n}\).
+\end{exr}
+O resultado, com o lema acima, é basicamente automático:
+\begin{theorem*}
+	Para todo \(n\geq 5\), o grupo \(S_{n}\) não é solúvel.
+\end{theorem*}
+
+Voltando à teoria de Galois em si, queremos provar o seguinte resultado:
+\begin{theorem*}
+	Se \(f(x)=x^{5}-ax+2\in \mathbb{Q}[x]\), então \(f(x)=0\) não possui soluções em radicais!
+\end{theorem*}
+Antes de sua demonstração, valem alguns comentários preliminares. O primeiro é que \(f(x)=x^{5}-4x + 2\) é irredutível em \(\mathbb{Q}\) pelo \hyperlink{eisenstein_criterion}{\textit{Critério de Eisenstein com \(p=2\)}}, e por isso, \(f(x)\) é separável; logo, o Grupo de Galois de \(f(x)\) pode ser mergulhado em \(S_5\).
+
+O segundo comentário é que o grupo de Galois de \(f(x)\) age transitivamente sobre o conjunto de todas as raízes de \(f(x) = 0\).
+\begin{lemma*}
+	Seja p um primo e \(G < S_p\) um grupo que age transitivamente em \([p]=\{1, \dotsc , p\}\), contendo pelo menos uma transposição; então, \(G=S_p\)
+\end{lemma*}
+\begin{proof*}
+	Seja \(\sim\) a relação definida em \([p]\) por
+	\[
+		i\sim j = \left\{\begin{array}{ll}
+			i=j \text{ ou} \\
+			(ij)\in G < S_p
+		\end{array}\right.
+	\]
+	\begin{exr}
+		Demonstre que \((ij)(jk)(ij)=(ik)\) é um elemento de \(S_p\) e que, por isso, \(\sim\) é de equivalência.
+	\end{exr}
+	Para todo i em \([p]\), seja \(E[i]\) a classe de equivalência de i; mostraremos que, para todos i, j, o número de elementos da classe \(E[i]\) é igual ao da classe \(E[j]\).
+
+	Com efeito, sejam i e j dois índices em \([p]\), tal que existe \(\sigma \in G\) trocando i por j, \(\sigma (i) = j\), pois a ação de G é transitiva; seja \(a\in E[i]\) diferente de i, tal que \((ia)\in G\), e considere
+	\[
+		\sigma (ia)\sigma^{-1} \Rightarrow \sigma(ia)\sigma^{-1}(\sigma(a)) = \sigma (i) \quad\&\quad \sigma(ia)\sigma^{-1}(\sigma(i))=\sigma(a),
+	\]
+	além de que, se \(k\neq \sigma (i)\) e \(k\neq \sigma (a)\), então \(\sigma(ia)\sigma^{-1}(k) = k\), mostrando que \(\sigma \) é uma transposição e \(\sigma (ia)\sigma^{-1}=(\sigma (i)\sigma(a))\), tal que
+	\[
+		\sigma (ia)\sigma^{-1}=(\sigma (i)\sigma (a))=(j\sigma (a)),
+	\]
+	e como \(\sigma(ia)\sigma^{-1}\in G\), vale
+	\[
+		j\sim \sigma (a) \Rightarrow \sigma (a)\in E[j],
+	\]
+	donde segue que \(\#E[i]\leq \#E[j]\); o processo análogo mostra o outro lado, concluindo que \(\#(E[i])=\#(E[j])\) para todos i e j.
+
+	Portanto, sendo p primo, podemos concluir que existe apenas uma classe de equivalência, e nela podem estar todas as transposições, implicando que, para todo i, j em \([p]\), a transposição \((ij)\in G\), ou seja, \(G = S_p\). \qedsymbol
+\end{proof*}
+\begin{lemma*}
+	Seja \(f(x\in \mathbb{Q}[x])\) tal que
+	\begin{itemize}
+		\item[a)] \(f(x)\) é irredutível;
+		\item[b)] o grau de \(f(x)\) é um p primo; e
+		\item[c)] f possui exatamente 2 raízes complexas\footnote{Pois a conjugação complexa restrita ao conjunto das raízes vira uma transposição, que troca as raízes, justificando inclusive a hipótese de G ter ao menos uma transposição do Lema anterior.}.
+	\end{itemize}
+	Então, o grupo de Galois de f é \(S_p\)
+\end{lemma*}
+Agora, torna-se questão de aplicar este lema para demonstrar o teorema
+\begin{proof*}[Prova do Teorema]
+	A prova do teorema consiste em mostrar que o grupo de Galois de \(f(x)\) é isomorfo a \(S_5\). Aplicaremos os lemas acima para mostrar que \(x^{5}-4x+2 = 0\) não possui soluções radicais: a primeira propriedade, de ser irredutível, já foi mostrada; a segunda é óbvia, pois 5 é primo; e, por fim, para ver que temos exatamente duas raízes complexas que são conjugadas é o seguinte processo: note que
+	\[
+		f(-2) < 0, \quad f(0)> 0, \quad f(1) < 0 \quad\&\quad f(2) > 0,
+	\]
+	mostrando que \(f(x)\) possui pelo menos 3 raízes reais, mas não mais do que isso, porque se \(| x | > 2\) (ou seja, \(x > 2\) ou \(x < -2\)),
+	\[
+		f'(x) = 5x^{4} - 4 > 0
+	\]
+	e por isso, possui exatamente 3 raízes. Portanto, o grupo de Galois de f é \(S_5\), que não é solúvel. \qedsymbol
+\end{proof*}
+\end{document}

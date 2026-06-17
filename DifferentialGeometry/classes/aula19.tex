@@ -5,7 +5,224 @@
 \begin{itemize}
 	\item O Teorema Egreguim de Gauss.
 \end{itemize}
-\subsection{O Teorema Egreguim de Gauss: aplicações}
+\subsection{Aplicação do Teorema Egreguim e Equações de Compatibilidade}
+\begin{def*}
+	Uma parametrização local \(\underline{x}:U\subseteq \mathbb{R}^{2}\rightarrow \mathbb{R}^{3}\) de uma superfície é \textbf{ortogonal} se \(F=0\); mais ainda, ela é dita \textbf{isotérmica} se
+	\[
+		F = 0, \quad E = \lambda^{2} \quad\&\quad G = \lambda^{2}. \square
+	\]
+\end{def*}
+\begin{prop*}
+	Se \(\underline{x}\) é uma parametrização ortogonal de S, então a curvatura gaussiana tem forma
+	\[
+		K = -\frac{1}{2\sqrt[]{EG}}\biggl[\biggl(\frac{E_{v}}{\sqrt[]{EG}}\biggr)_{v} + \biggl(\frac{G_{u}}{\sqrt[]{EG}}\biggr)_{u}\biggr].
+	\]
+\end{prop*}
+\begin{example}[Curvatura Gaussiana do Plano Hiperbólico]
+	Vamos calcular a curvatura Gaussiana do plano hiperbólico \((\mathbb{H}, \mathrm{d}s^{2})\), onde
+	\[
+		\mathbb{H}=\{w\in \mathbb{C}:\; \mathrm{Im}(\omega )>0\} = \{(u, v)\in \mathbb{R}^{2}:\; v > 0\}
+	\]
+	e
+	\[
+		\mathrm{d}s^{2} = \frac{1}{v^{2}}(\mathrm{d}u^{2}+\mathrm{d}v^{2}),
+	\]
+	ou seja,
+	\[
+		E = \frac{1}{v^{2}},\; F = 0,\; G = \frac{1}{v^{2}}.
+	\]
+	Como a parametrização é ortogonal, vale
+	\begin{align*}
+		K & = - \frac{1}{2\sqrt[]{EG}}\biggl[\biggl(\frac{E_{v}}{\sqrt[]{EG}}\biggr)_{v} + \biggl(\frac{G_{u}}{\sqrt[]{EG}}\biggr)_{u}\biggr] \\
+		  & = -\frac{1}{2\sqrt[]{\frac{1}{v^{4}}}}\biggl[\biggl(\frac{-\frac{2v}{v^{4}}}{\sqrt[]{\frac{1}{v^{4}}}}\biggr)_{v}\biggr]          \\
+		  & =-\frac{v^{2}}{2}\biggl(\frac{-\frac{2}{v^{3}}}{\frac{1}{v^{2}}}\biggr)_{v}                                                       \\
+		  & = v^{2}\biggl(\frac{1}{v}\biggr)_{v}                                                                                              \\
+		  & = -1.
+	\end{align*}
+	Logo, a curvatura do plano hiperbólico é constante e igual a -1.
+\end{example}
+\begin{example}[Curvatura do Toro]
+	Seja S a superfície em \(\mathbb{R}^{4}\) definida por
+	\[
+		x_{1}^{2} + x_{2}^{2}= r_{1}^{2} \quad\&\quad x_{3}^{2} + x_{4}^{2}=r_{2}^{2},
+	\]
+	o \textbf{toro em \(\mathbf{\mathbb{R}^{4}}\)}. Esta superfície tem uma parametrização local dada por
+	\[
+		\underline{x}(u, v) = \biggl(r_1\cos^{}{\biggl(\frac{u}{r_1}\biggr)}, r_1 \sin^{}{\biggl(\frac{u}{r_1}\biggr)}, r_2 \cos^{}{\biggl(\frac{v}{r_{2}}\biggr), r_2 \sin^{}{\biggl(\frac{v}{r_2}\biggr)}}\biggr),
+	\]
+	onde \((u, v)\in \mathbb{R}^{2}\). Assim, temos \(E = 1,\; F = 0\) e \(G=1\), garantindo a existência de uma isometria local entre o plano \(\mathbb{R}^{2}\) e a superfície S. Portanto, a curvatura Gaussiana K de S é identicamente nula.
+\end{example}
+
+\begin{example}[Superfície de Revolução]
+	Considere a parametrização
+	\[
+		\underline{x}(u, v) = (f(v)\cos^{}{u}, f(v)\sin^{}{v}, g(v));
+	\]
+	previamente, calculamos
+	\[
+		E = f^{2}(v), \quad F = 0, \quad G = f^{2'}(v) + g^{'2}(v).
+	\]
+	Como a parametrização é ortogonal, temos (\textbf{exercício})
+	\begin{align*}
+		K & = \frac{1}{2\sqrt[]{EG}}\biggl[\biggl(\frac{E_{v}}{\sqrt[]{EG}}\biggr)_{v} + \biggl(\frac{G_{u}}{\sqrt[]{EG}}\biggr)_{u}\biggr] \\
+		  & = \frac{1}{2\sqrt[]{f^{2}(f^{'2}+g^{'2})}}\biggl(\frac{2ff'}{\sqrt[]{f^{2}(f^{'2}+g^{'2})}}\biggr)'                             \\
+		  & = \frac{1}{2ff'}\biggl(\frac{1}{1+\bigl(\frac{f'}{g'}\bigr)^{2}}\biggr)'.
+	\end{align*}
+\end{example}
+\subsection{Equações de Compatibilidade e o Teorema de Bonnet}
+Nosso objetivo agora é enunciar um resultado análogo ao teorema fundamental da teoria local de curvas; para isso, lembremos que
+\begin{align*}
+	 & -N_{u} = a_{11}\underline{x}_u + a_{21}\underline{x}_v     \\
+	 & -N_{v} = a_{12}\underline{x}_{u} + a_{22}\underline{x}_{v}
+\end{align*}
+e
+\[
+	\begin{bmatrix}
+		a_{11} & a_{12} \\
+		a_{21} & a_{22}
+	\end{bmatrix} = \frac{1}{EG - F^{2}}\begin{bmatrix}
+		G  & -F \\
+		-F & E
+	\end{bmatrix} \begin{bmatrix}
+		\ell & m \\
+		m    & n
+	\end{bmatrix} = \begin{bmatrix}
+		\frac{G \ell -Fm}{EG-F^{2}}   & \frac{Gm - Fn}{EG-F^{2}}   \\
+		\frac{Em - F \ell }{EG-F^{2}} & \frac{En - Fm}{EG - F^{2}}
+	\end{bmatrix};
+\]
+Usando a notação de Christoffel para escrever as derivadas duplas, temos:
+\begin{align*}
+	 & \underline{x}_{{\color{DodgerBlue2}uu}} = \Gamma_{{\color{DodgerBlue2}11}}^{{\color{DarkGoldenrod1}1}}\underline{x}_{{\color{DarkGoldenrod1}u}} + \Gamma_{{\color{DodgerBlue2}11}}^{{\color{DarkOrchid4}2}}\underline{x}_{{\color{DarkOrchid4}v}} + \ell N                                                            \\
+	 & \underline{x}_{{\color{Chartreuse2}v}{\color{DodgerBlue2}u}} = \Gamma_{{\color{Chartreuse2}2}{\color{DodgerBlue2}1}}^{{\color{DarkGoldenrod1}1}}\underline{x}_{{\color{DarkGoldenrod1}u}} + \Gamma_{{\color{Chartreuse2}2}{\color{DodgerBlue2}1}}^{{\color{DarkOrchid4}2}}\underline{x}_{{\color{DarkOrchid4}v}}+mN   \\
+	 & \underline{x}_{{\color{Chartreuse2}vv}} = \Gamma_{{\color{Chartreuse2} 22}}^{{\color{DarkGoldenrod1}1}}\underline{x}_{{\color{DarkGoldenrod1}u}} + \Gamma_{{\color{Chartreuse2} 22}}^{{\color{DarkOrchid4}2}}\underline{x}_{{\color{DarkOrchid4}v}}+mN                                                              ,
+\end{align*}
+onde \(\Gamma_{ij}^{k} = \Gamma_{ji}^{k}\). Podemos obter relações entre os símbolos de Cristoffel usando as identidades
+\[
+	\left\{\begin{array}{ll}
+		(\underline{x}_{uu})_{v} - (\underline{x}_{uv})_{v} = 0 \\
+		(\underline{x}_{vv})_{u} - (\underline{x}_{vu})_{v} = 0 \\
+		N_{uv} - N_{vu} = 0
+	\end{array}\right.
+\]
+Daí, como \(\underline{x}_{u},\; \underline{x}_{v},\; N\) formam uma base de \(\mathbb{R}^{3}\), escrevemos os vetores na seguinte forma:
+\[
+	\left\{\begin{array}{ll}
+		A_{1}\underline{x}_{u} + B_1\underline{x}_{v} + C_1 N = 0 \\
+		A_{2}\underline{x}_{u} + B_2\underline{x}_{v} + C_2 N = 0 \\
+		A_{3}\underline{x}_{u} + B_3\underline{x}_{v} + C_3 N = 0
+	\end{array}\right.,
+\]
+com \(A_{i}\equiv 0,\; B_{i}\equiv 0,\; C_{i}\equiv 0\) e \(i=1, 2, 3.\) Vamos determinar o \(A_1\): expandindo \((\underline{x}_{uu})_{v} = (\underline{x}_{uv})_{u}\),
+\begin{align*}
+	                    & (\Gamma_{11}^{1}\underline{x}_{u} + \Gamma_{11}^{2}\underline{x}_{v} + \ell N)_{v} = (\Gamma_{12}^{1}\underline{x}_{u} + \Gamma_{12}^{2}\underline{x}_{v} + mN)_{u}              \\
+	\Longleftrightarrow & \Gamma_{11}^{1}\underline{x}_{uv} + \Gamma_{11}^{2}\underline{x}_{vv} + \ell N_{v} + (\Gamma_{11}^{1})_{v}\underline{x}_{u} + (\Gamma_{11}^{2})_{v}\underline{x}_{v} + \ell_{v}N \\
+	\Longleftrightarrow & =\Gamma_{12}^{1}\underline{x}_{uu} + \Gamma_{12}^{2}\underline{x}_{uv} + mN_{u} + (\Gamma_{12}^{1})_{u}\underline{x}_{u} + (\Gamma_{12}^{2})_{u}\underline{x}_{v} + m_{u}N;
+\end{align*}
+daí, igualando os coeficientes do vetor \(\underline{x}_{v}\) nos dois lados, obtemos
+\begin{align*}
+	                    & \Gamma_{11}^{1}\Gamma_{12}^{2} + \Gamma_{11}^{2}\Gamma_{22}^{2}-\ell a_{22}+(\Gamma_{11}^{2})_{v} = \Gamma_{12}^{1}\Gamma_{11}^{2} + \Gamma_{12}^{2}\Gamma_{12}^{2}-ma_{21}+(\Gamma_{12}^{2})_{u} \\
+	\Longleftrightarrow & (\gamma_{12}^{2})_{u}-(\gamma_{11}^{2})_{v}+\gamma_{12}^{1}\gamma_{11}^{2} + \gamma_{12}^{2}\gamma_{12}^{2}-\gamma_{11}^{1}\gamma_{12}^{2}-\gamma_{11}^{2}=ma_{21}-\ell a_{22}.
+\end{align*}
+Agora,
+\[
+	ma_{21}-\ell a_{22} = m \biggl(\frac{Em- F \ell }{EG-F^{2}}\biggr) - \ell \biggl(\frac{En - Fm}{EG-F^{2}}\biggr) = \frac{E(m^{2}-\ell n)}{EG-F^{2}}=-EK.
+\]
+Essa relação pode ser alterada para dar a \textbf{\hypertarget{gauss_formula}{Fórmula de Gauss}}:
+\[
+	\boxed{(\gamma_{12}^{2})_{u}-(\gamma_{11}^{2})_{v}+\gamma_{12}^{1}\gamma_{11}^{2} + \gamma_{12}^{2}\gamma_{12}^{2}-\gamma_{11}^{1}\gamma_{12}^{2}-\gamma_{11}^{2}=-EK }
+\]
+e fornece um método para calcular K em função de E, F, G e suas derivadas, fornecendo também uma outra demonstração do Teorema de Gauss.
+
+Comparando os coeficientes do vetor \(\underline{x}_{u}\), obtemos
+\[
+	(\Gamma_{12}^{1})_{u} - (\Gamma_{11}^{1})_{v} + \Gamma_{12}^{1}\Gamma_{12}^{2}-\Gamma_{11}^{2}\Gamma_{22}^{1}=FK,
+\]
+e comparando coeficientes de N, obtém-se
+\[
+	m\Phi_{11}^{2}+n\Gamma_{11}^{2} + \ell_{v} = \ell \Gamma_{12}^{1} + m \Gamma_{12}^{2} + m_{u},
+\]
+equivalendo a
+\[
+	\boxed{\ell_{v}-m_{U} = \ell \Gamma_{12}^{1} + m (\Gamma_{12}^{2}-\Gamma_{11}^{1}) - n \Gamma_{11}^{2}}
+\]
+Repetindo o mesmo processo para \(A_{2} = 0,\; B_{2}=0\) e \(C_{2} = 0\), obtemos
+\[
+	\boxed{m_{v}-n_{u}=\ell \Gamma_{22}^{1}-m(\Gamma_{22}^{2}-\Gamma_{12}^{1})-n\Gamma_{12}^{2}}
+\]
+Essas duas equações são chamadas de \textbf{equações de Mainardi-Codazzi}, e elas em conjunto da fórmula de Gauss são chamadas \hypertarget{compatibility_equations}{\textbf{Equações de Compatibilidade}}.
+\hypertarget{bonnet_theorem}{\begin{theorem*}[Teorema de Bonnet]
+		Sejam E, F, G, \(\ell\), m, n funções diferenciáveis em um aberto \(V\subseteq \mathbb{R}^{2}\) com \(E> 0,\; G>0\). Suponha que as funções dadas satisfazem as equações de compatibilidade e que \(EG-F^{2}>0\); então, para todo q em V, existe \(U\subseteq V\) com \(q\in U\) e um difeomorfismo
+		\[
+			\underline{x}:U\rightarrow \underline{x}(U)\subseteq \mathbb{R}^{3}
+		\]
+		tal que a superfície regular \(\underline{x}(U)\) tem E, F, G, \(\ell\), m, n como os coeficientes da primeira e segunda formas fundamentais. Além disso, \(\underline{x}(U)\) é única a menos de um movimento rígido em \(\mathbb{R}^{3}\).
+	\end{theorem*}}
+
+Vamos ver agora como usa a fórmula de Gauss para calcular a curvatura K.
+\begin{example}
+	Sejam \(E=2+v^{2},\; F = 1,\; G=1\) os coeficientes da primeira forma de uma superfície S; mostraremos que \(K = - \frac{1}{(1+v^{2})^{2}}\).
+
+	Com efeito, como não temos a parametrização local de S, nem sabemos onde S mora, faz sentido usarmos a fórmula de Gauss para calcular K. Temos:
+	\[
+		E_{u}=0,\; F_{u}=0,\; G_{u}=0 \quad\&\quad E_{v}=2v,\; F_{v}=0,\; G_{v}=0.
+	\]
+
+	\textbf{\underline{Calculando os coeficientes de Cristoffel}:} usamos
+	\[
+		\left\{\begin{array}{ll}
+			\Gamma_{11}^{1}E + \Gamma_{11}^{2}F = \frac{1}{2}E_{u} \\
+			\Gamma_{11}^{1}F + \Gamma_{11}^{2}G = F_{u}-\frac{1}{2}E_{v}
+		\end{array}\right.\Rightarrow \left\{\begin{array}{ll}
+			(2+v^{2})\Gamma_{11}^{1} + \Gamma_{11}^{2} = 0 \\
+			\Gamma_{12}^{1} + \Gamma_{12}^{1}=0
+		\end{array}\right.,
+	\]
+	obtemos
+	\[
+		\Gamma_{11}^{1} = \frac{v}{1+v^{2}} \quad\&\quad \Gamma_{11}^{2} = -\frac{v^{3}+2v}{1+v^{2}};
+	\]
+	usando agora
+	\[
+		\left\{\begin{array}{ll}
+			\Gamma_{12}^{1}E + \Gamma_{12}^{2} F = \frac{1}{2}E_{v} \\
+			\Gamma_{12}^{1}F + \Gamma_{12}^{2}G = \frac{1}{2}G_{u}
+		\end{array}\right. \Rightarrow \left\{\begin{array}{ll}
+			(2+v^{2})\Gamma_{12}^{1} + \Gamma_{12}^{2} = v \\
+			\Gamma_{12}^{1} + \Gamma_{12}^{2}=0
+		\end{array}\right.,
+	\]
+	resultando em
+	\[
+		\Gamma_{12}^{1} = \frac{v}{1+v^{2}} \quad\&\quad \Gamma_{12}^{2}=\frac{v}{1+v^{2}}.
+	\]
+	Agora,
+	\[
+		\left\{\begin{array}{ll}
+			\Gamma_{22}^{1}E + \Gamma_{22}^{2}F = F_{v} - \frac{1}{2}G_{u} = 0 \\
+			\Gamma_{22}^{1}F + \Gamma_{22}^{2}G = \frac{1}{2}G_{v} = 0
+		\end{array}\right.\Rightarrow \Gamma_{22}^{1} = \Gamma_{22}^{2}=0.
+	\]
+	Pela \hyperlink{gauss_formula}{\textit{fórmula de Gauss}},
+	\[
+		(\Gamma_{12}^{2})_{u} - (\Gamma_{11}^{2})_{v} + \Gamma_{12}^{1}\Gamma _{11}^{2} + \Gamma_{12}^{2}\Gamma_{12}^{2} - \Gamma_{11}^{1}\Gamma_{12}^{2}-\Gamma_{11}^{2} \Gamma_{22}^{2}=-EK,
+	\]
+	e como
+	\[
+		(\Gamma_{11}^{2})_{v}=-\frac{v^{4}+v^{2}+2}{(1+v^{2})^{2}},
+	\]
+	obtemos
+	\[
+		K= - \frac{1}{(1+v^{2})^{2}}.
+	\]
+\end{example}
+\begin{exr}
+	Dados \(E=1,\; F=0,\; G=G(u)\), mostre que \(\Gamma_{12}^{1} = \Gamma_{21}^{2} = \frac{G_{u}}{2G}\), que \(\Gamma_{22}^{1} = -\frac{1}{2}G_{u}\) e que os demais coeficientes são nulos. Ademais, mostre uqe
+	\[
+		K = -\frac{(\sqrt[]{G})_{uu}}{\sqrt[]{G}}
+	\]
+	sem usar a fórmula para parametrizações ortogonais.
+\end{exr}
 
 \end{document}
 

@@ -1,11 +1,170 @@
 \documentclass[../differential_geometry.tex]{subfiles}
 \begin{document}
-\section{Aula 20 - de Fevereiro, 2026}
+\section{Aula 20 - 11 de Junho, 2026}
 \subsection{Motivações}
 \begin{itemize}
-	\item As Equações de Compatibilidade.
+	\item Curvatura Geodésica;
+	\item Definição de Geodésica;
+	\item Equações das Geodésicas.
 \end{itemize}
-\subsection{As Equações de Compatibilidade}
+\subsection{Geodésicas}
+Seja \(\beta \) uma curva em uma superfície \(S\subseteq \mathbb{R}^{3}\) e suponha que \(\beta \) é parametrizada p.c.a, caso no qual temos
+\[
+	\beta''=\kappa_{g} N\times t + \kappa_{n}N,
+\]
+onde \(\beta'=t\) e N é o vetor normal a S, \(\kappa_{g}\) é a curvatura geodésica e \(\kappa_{n}\) é a curvatura normal.
 
+Buscaremos uma \textbf{expressão de \(\mathbf{\kappa_{g}}\)}: como \(\beta \) é parametrizada p.c.a, vale
+\[
+	\kappa_{g} = \langle \beta'', N\times \beta' \rangle = \langle \beta '\times \beta'', N \rangle;
+\]
+por outro lado, se \(\beta (t)\) é uma curva regular em S com t um parâmetro qualquer, reparametrizamos \(\beta \) p.c.a., escrevemos \(\beta (s) = \beta (t(s))\) com \(t(s)=\ell^{-1}(s)\), onde
+\[
+	\ell (s) = \int_{s_{0}}^{s}\Vert \beta'(u) \Vert \mathrm{d}u,
+\]
+e já mostramos antes que
+\[
+	\frac{\mathrm{d}}{\mathrm{d}s}=\frac{1}{\Vert \beta ' \Vert}\frac{\mathrm{d}}{\mathrm{d}t},
+\]
+além de
+\[
+	\frac{\mathrm{d}\beta }{\mathrm{d}s}=\frac{1}{\Vert \beta '' \Vert}\frac{\mathrm{d}\beta }{\mathrm{d}t} = \frac{1}{\Vert \beta '' \Vert}\beta '.
+\]
+Logo, juntando ambos,
+\begin{align*}
+	\frac{\mathrm{d}^{2}\beta }{\mathrm{d}s^{2}} = \frac{\mathrm{d}}{\mathrm{d}s}\biggl(\frac{\mathrm{d}\beta }{\mathrm{d}s}\biggr) & = \frac{\mathrm{d}}{\mathrm{d}t}\biggl(\frac{\mathrm{d}\beta }{\mathrm{d}s}\biggr)\frac{\mathrm{d}t}{\mathrm{d}s}                       \\
+	                                                                                                                                & = \frac{1}{\Vert \beta '\Vert}\frac{\mathrm{d}}{\mathrm{d}t}\biggl(\frac{1}{\Vert \beta ' \Vert \beta '}\biggr)                         \\
+	                                                                                                                                & = \frac{1}{\Vert \beta ' \Vert}\biggl(\frac{1}{\Vert \beta ' \Vert}\beta '\biggr)'                                                      \\
+	                                                                                                                                & = \frac{1}{\Vert \beta ' \Vert}\biggl[\biggl(\frac{1}{\Vert \beta ' \Vert}\biggr)'\beta' + \frac{1}{\Vert \beta ' \Vert}\beta ''\biggr] \\
+	                                                                                                                                & = \frac{1}{\Vert \beta ' \Vert}\biggl(\frac{1}{\Vert \beta ' \Vert}\biggr)'\beta' + \frac{1}{\Vert \beta ' \Vert^{2}}\beta''.
+\end{align*}
+Daí,
+\begin{align*}
+	\kappa_{g} = \biggl\langle \frac{\mathrm{d}^{2}\beta }{\mathrm{d}s^{2}}, N \times \frac{\mathrm{d}\beta }{\mathrm{d}s} \biggr\rangle & = \biggl\langle \frac{1}{\Vert \beta ' \Vert}\biggl(\frac{1}{\Vert \beta' \Vert}\biggr)'\beta '\times \frac{1}{\Vert \beta ' \Vert^{2}}\beta '', \frac{1}{\Vert \beta ' \Vert}N\times \beta'  \biggr\rangle \\
+	                                                                                                                                     & =\frac{1}{\Vert \beta ' \Vert^{3}}\langle \beta '', N\times \beta ' \rangle                                                                                                                                 \\
+	                                                                                                                                     & = \frac{\langle \beta '\times \beta '', N \rangle}{\Vert \beta' \Vert^{3}}.
+\end{align*}
+Portanto,
+\[
+	\boxed{\kappa_{g} = \frac{\langle \beta '\times \beta '', N \rangle}{\Vert \beta'  \Vert^{3}}}
+\]
+\begin{def*}
+	Seja S uma superfície em \(\mathbb{R}^{3}\); a curva \(\beta (t)\) em S é uma \textbf{curva geodésica} se o vetor aceleração \(\beta ''(t)\) é sempre ortogonal a S. \(\square\)
+\end{def*}
+\begin{example}
+	O primeiro exemplo é uma curva \(\beta (t) = a + tb,\; a, b\in \mathbb{R}^{3}\) e \(b\neq (0, 0, 0)\). Suponha que \(\beta (t)\) está em S para todo t, onde S é uma superfície em \(\mathbb{R}^{3}\); então,
+	\[
+		\beta '=b \quad\&\quad \beta ''=0,
+	\]
+	e consequentemente, \(\beta (t)\) é uma geodésica em S.
+\end{example}
+\begin{example}
+	Considere os círculos maiores na esfera \(\mathbb{S}^{2}(1)\) contida em \(\mathbb{R}^{3}\); sejam \(a,\; b\) dois vetores ortonormais em \(\mathbb{R}^{3}\) e
+	\[
+		\beta (t) = a\cos^{}{t} + b\sin^{}{t}
+	\]
+	uma parametrização do círculo maior \(\mathbb{S}^{2}(1)\cap \mathbb{R}+\{a, b\}\). Neste caso, temos
+	\begin{align*}
+		 & \beta '(t) = -a\sin^{}{t} + b\cos^{}{t}                                \\
+		 & \beta ''(t) = -a\cos^{}{t} - b\sin^{}{t} = -\beta (t) = -N(\beta (t)),
+	\end{align*}
+	e portanto \(\beta (t)\) é uma geodésica em \(\mathbb{S}^{2}(1)\).
+\end{example}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Na parametrização do círculo maior no exemplo 2, temos \(\Vert \beta ' \Vert = 1\); a parametrização
+	\[
+		\beta (t) = a\cos^{}{t^{2}}+b\sin^{}{t^{2}}, \quad t\in (0, 1),
+	\]
+	parametrizando um pedaço de círculo maior. \linebreak Temos \(\beta '(t) = -2at \sin^{}{t^{2}} + 2bt\cos^{}{t^{2}}\) e
+	\[
+		\frac{1}{2}\beta ''(t) = - (\sin^{}{t^{2}} + 2t^{2}\cos^{}{t^{2}})a + (\cos^{}{t^{2}}-2t^{2}\sin^{}{t^{2}})b.
+	\]
+	O vetor \(\beta ''(t)\) não é paralelo a \(N(\beta (t)) = \beta (t)\), e portanto \(\beta \) não é uma geodésica -- \textbf{a parametrização da curva é importante!}
+\end{tcolorbox}
+\begin{lemma*}
+	Seja \(\beta (t)\) uma geodésica em \(S\subseteq \mathbb{R}^{3}\); então, \(\Vert \beta '(t) \Vert\) é constante, isto é, \(\beta \) é parametrizada \textit{proporcionalmente} ao comprimento de arco.
+\end{lemma*}
+\begin{proof*}
+	Temos
+	\[
+		(\langle \beta ', \beta ' \rangle)^{'}=2\langle \beta '', \beta ' \rangle = 0,
+	\]
+	pois \(\beta ''\) é ortogonal a S. Portanto,
+	\[
+		\langle \beta ', \beta ' \rangle = \mathrm{cte}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{lemma*}
+	A curva \(\beta (t)\) em uma superfície S de \(\mathbb{R}^{3}\) é uma geodésica se, e somente se, \(\Vert \beta ' \Vert\) for constante e a curvatura geodésica \(\kappa_{g}(t) = 0\) para todo t.
+\end{lemma*}
+\begin{proof*}
+	Suponha que \(\beta \) é uma geodésica; pelo lema anterior, a norma de sua tangente é constante, e como \(\beta ''// N\), temos
+	\[
+		\kappa_{g} = \frac{1}{\Vert \beta ' \Vert^{3}}\langle \beta '\times \beta '', N \rangle = 0.
+	\]
+	Por outro lado, suponha que \(\Vert \beta ' \Vert\) é constante e que \(\kappa_{g}\equiv 0\). Segue que
+	\[
+		\left.\begin{array}{ll}
+			\langle \beta '', \beta ' \rangle = \frac{1}{2}(\langle \beta ', \beta ' \rangle)'=0 \\
+			\langle \beta '', N\times \beta ' \rangle = \Vert \beta ' \Vert^{3} \kappa_{g} = 0.
+		\end{array}\right\}
+	\]
+	Portanto, \(\beta ''\) é paralelo a N, mostrando que \(\beta \) é uma geodésica.
+\end{proof*}
+\subsection{Equações da Geodésica}
+Seja \(\underline{x}:U\rightarrow S\) uma parametrização local de S e seja \(\beta (t) = \underline{x}(u(t), v(t))\) uma curva em \(\underline{x}(U)\subseteq S\). Por definição, \(\beta \) é geodésica se, e somente se,
+\[
+	\left.\begin{array}{ll}
+		\langle \beta '', \underline{x}_{u} \rangle=0 \\
+		\langle \beta '', \underline{x}_{v} \rangle=0
+	\end{array}\right\}.
+\]
+Disso, derivando \(\beta (t) = \underline{x}(u(t), v(t))\), segue que:
+\begin{align*}
+	 & \beta ' = u'\underline{x}_{u}+v'\underline{x}_{v}                                                                                                      \\
+	 & \beta ''=u''\underline{x}_{u}+u'(u'\underline{x}_{uu} + v'\underline{x}_{uv}) + v''\underline{x}_{v} +v'(u'\underline{x}_{uv} + v'\underline{x}_{vv})) \\
+	 & \beta ''=u''\underline{x}_{u} + v''\underline{x}_{v} + (u')^{2}\underline{x}_{uu} + 2u'v'\underline{x}_{uv} + (v')^{2}\underline{x}_{vv},
+\end{align*}
+e por isso
+\[
+	\langle \beta '', \underline{x}_{u} \rangle = u''\langle \underline{x}_{u}, \underline{x}_{u} \rangle + v''\langle \underline{x}_{v}, \underline{x}_{u} \rangle+(u')^{2}\langle \underline{x}_{uu}, \underline{x}_{u} \rangle + 2u'v'\langle \underline{x}_{uv}, \underline{x}_{u} \rangle + (v')^{2}\langle \underline{x}_{vv}, \underline{x}_{u} \rangle.
+\]
+consequentemente, obtemos dois sistemas de equações diferenciais de segunda ordem para caracterizar \(\beta (t)\) ser uma geodésica:
+\begin{align*}
+	 & \langle \beta '', \underline{x}_{u} \rangle = 0 \Longleftrightarrow \boxed{u''E + v''F + \frac{1}{2}(u')^{2}E_{u} + u'v'E_{v}+(v')^{2}\biggl(F_{v}-\frac{1}{2}G_{u}\biggr)=0} \\
+	 & \langle \beta '', \underline{x}_{v} \rangle = 0 \Longleftrightarrow \boxed{u''F + v''G + \frac{1}{2}(v')^{2}G_{v} + u'v'G_{u}+(u')^{2}\biggl(F_{u}-\frac{1}{2}E_{v}\biggr)=0}
+\end{align*}
+Por isso, \(\beta (t)=\underline{x}(u(t), v(t))\) é uma geodésica se, e somente se, \(u(t),\; v(t)\) são soluções do sistema de equações diferenciais de ordem 2!
+
+Este sistema não é linear, e não pode ser resolvido explicitamente em geral... MAS! Temos um teorema de existência e unicidade de soluções.
+\begin{theorem*}
+	Seja \(p\in S\) e \(x\in T_{p}S\setminus{\{0\}}\); então, existe \(\varepsilon > 0\) e uma única geodésica \(\beta :(-\varepsilon , \varepsilon )\rightarrow S\) tal que \(\beta (0) = p\) e \(\beta '(0) = x\).
+\end{theorem*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	As equações das geodésicas envolvem somente os coeficientes da primeira forma fundamental e suas derivadas. Então, a geodésica é um conceito \textbf{intrínseco} e depende apenas da métrica em S, e não de onde S mora.
+
+	Portanto, se \(f:S\rightarrow \tilde{S}\) for uma isometria local, então as imagens por f de geodésicas em S são geodésicas em \(\tilde{S}\).
+\end{tcolorbox}
 \end{document}
-

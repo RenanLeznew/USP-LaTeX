@@ -7,5 +7,249 @@
 	\item Soluções radicais.
 \end{itemize}
 \subsection{Corpos solúveis e soluções radicais.}
+A aula de hoje começará ao contrário -- jogaremos nosso resultado principal desde já e introduziremos o que for necessário até prová-lo.
+\begin{theorem*}[Caracterização de Soluções em Radicais]
+	Seja \(f(x)\in \mathbb{F}[x]\) separável; então, \(f(x) = 0\) possui soluções em radicais se, e só se, o grupo de Galois de \(f(x)\) for solúvel.
+\end{theorem*}
+\begin{def*}
+	Se \(f(x)\in \mathbb{F}[x]\) é separável, o \textbf{grupo de Galois de \(\mathbf{f(x)}\) sobre \(\mathbf{\mathbb{F}}\)} é \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\), onde \(\mathbb{K}\) é um corpo de decomposição de \(f(x)\) sobre \(\mathbb{F}.\; \square\)
+\end{def*}
+\begin{exr}
+	Sejam \(\mathbb{K}, \tilde{\mathbb{K}}\) dois corpos de decomposição de \(f(x)\) sobre \(\mathbb{F}\). Mostre que
+	\[
+		\mathrm{Gal}(\mathbb{K}/\mathbb{F})\cong \mathrm{Gal}(\tilde{\mathbb{K}}/\mathbb{F});
+	\]
+	de fato, existe \(\psi :\mathbb{K}\rightarrow \tilde{\mathbb{K}}\) isomorfismo de corpos tal que \(\psi (a) = a\) para todo a em \(\mathbb{F}\), e mostrar o item acima equivale a mostrar a comutatividade do seguinte diagrama:
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+			\node(TL) at (-1,1){\(\mathbb{K}\)};
+			\node(BL) at (-1,-1){\(\mathbb{K}\)};
+			\node(TR) at (1,1){\(\tilde{\mathbb{K}}\)};
+			\node(BR) at (1,-1){\(\tilde{\mathbb{K}}\)};
+
+			\draw[Arrow](TL)--node[midway, above] {\(\psi \)}(TR);
+			\draw[Arrow](BL)--node[midway, below] {\(\psi \)}(BR);
+			\draw[Arrow](TL)--node[midway, left] {\(\phi \)}(BL);
+			\draw[Arrow](TR)--node[midway, right] {}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	Resultando, por fim, em \(\psi \circ \phi \circ \psi^{-1}\in \mathrm{Gal}(\tilde{\mathbb{K}}/\mathbb{F})\).
+\end{exr}
+
+Outra noção, familiar a alguns e não a outros, é
+\begin{def*}
+	Um grupo G é chamado \textbf{solúvel} se existe uma cadeia de subgrupos de G
+	\[
+		\{e\} = G_{0}\subseteq G_1\subseteq \dotsc \subseteq G_{n} = G,
+	\]
+	com \(G_{i}\) subgrupos de G satisfazendo:
+	\begin{itemize}
+		\item[i)] Os subgrupos são crescentemente normais -- \(G_{i}\) é um subgrupo normal de \(G_{i+1}\) para todo i; e
+		\item[ii)] Os subgrupos quocientes são todos abelianos -- para todo i, \(G_{i+1}/G_{i}\) é abeliano. \(\square\)
+	\end{itemize}
+\end{def*}
+A ideia do termo ``solúvel'' é justamente de ter associação à resolução de algo; o termo veio de Évariste Galois em meados de 1830, e veremos justamente que uma equação polinomial é \textit{resolvível em radicais} se, e somente se, o grupo de Galois correspondente a ela for \textit{solúvel} (SOLVABLE GROUP, 2011; \cite{solvable2011})!
+\begin{example}
+	Todo grupo abeliano é solúvel.
+\end{example}
+
+No entanto, o que significa para um polinômio ter \textit{soluções em radicais}?
+\begin{def*}
+	Uma extensão \(\mathbb{K}/\mathbb{F}\) é dita uma \textbf{extensão radical} se existe uma torre de corpos
+	\[
+		\mathbb{F} = \mathbb{K}_{0}\subseteq \mathbb{K}_1 \subseteq \dotsc \subseteq \mathbb{K}_{t-1}\subseteq \mathbb{K}_{t} = \mathbb{K}
+	\]
+	tal que \(\mathbb{K}_{j}=\mathbb{K}_{j-1}(\omega_{j})\), onde \(\omega_{j}^{n_{j}}\in \mathbb{K}_{j-1}\), com n sendo inteiro maior ou igual a 2. \(\square\)
+\end{def*}
+Se \(a_{j}=\omega_{j}^{n_{j}}\), então vale
+\[
+	x^{n_{j}} - a_{j}\in \mathbb{F}_{j-1}[x],
+\]
+e veremos que sempre valerá a propriedade de \(\mathbb{F}_{j}\) ser um corpo de decomposição de \(x^{n_{j}}-a_{j}\) sobre \(\mathbb{F}_{j-1}\).
+\begin{def*}
+	Se \(f(x)\in \mathbb{F}[x]\), então uma equação polinomial \(f(x) = 0\) possui \textbf{soluções em radicais} se, e só se, dado um corpo de decomposição \(\tilde{\mathbb{K}}\) de \(f(x)\) sobre \(\mathbb{F}\), valer
+	\[
+		\mathbb{F}\subseteq \tilde{\mathbb{K}}\subseteq \mathbb{K}. \; \square
+	\]
+\end{def*}
+\begin{example}
+	Consideremos um corpo \(\mathbb{F}\) de característica 0 e o polinômio\linebreak \(ax^{2} + bx +c\in \mathbb{F}[x]\) com a equação
+	\[
+		ax^{2} + bx + c = 0,
+	\]
+	cujas soluções, como sabemos, são da forma
+	\[
+		x_{1, 2} = \frac{-b \pm \sqrt[]{b^{2}-4ac}}{2a}.
+	\]
+	Desta forma, \(\mathbb{F}\subseteq \mathbb{F}(\sqrt[]{b^{2}-4ac})\) e \(\mathbb{F}(\sqrt[]{b^{2}-4ac})\) é um corpo de decomposição de\linebreak \(ax^{2}+bx+c\in \mathbb{F}[x]\).
+
+	Quanto à equação polinomial \(ax^{3} + bx^{2} + cx + d = 0\), se colocarmos \( y = 3ax + b\), ela pode ser escrita como
+	\[
+		y^{3} + py + q = 0.
+	\]
+	Daí, colocando \(y = w + z\), com \(w = -p/(3z)\), obtemos
+	\[
+		z^{3} + \biggl(-\frac{p}{3z}\biggr)^{3} + q= 0,
+	\]
+	tal que
+	\[
+		z^{3} = -\frac{q}{2} + \sqrt[]{q^{2} + \frac{p^{3}}{27}}
+	\]
+	é uma solução da equação quadrática em \(z^{3}\), e
+	\[
+		\gamma \coloneqq \sqrt[3]{-\frac{q}{2}+\sqrt[]{q^{2}+\frac{p^{3}}{27}}}
+	\]
+	é uma solução da equação original. Para encontrar todas as soluções dela, seria necessário considerar uma raiz cúbica da unidade \(\omega \), que passaria a ser uma solução de \(x^{2}+x+1 = 0\), e obter-se-ia
+	\begin{align*}
+		 & \alpha_1 \coloneqq \gamma ,          \\
+		 & \alpha_2\coloneqq \gamma \omega      \\
+		 & \alpha_3 \coloneqq \gamma \omega^{2}
+	\end{align*}
+	como todas as soluções.
+\end{example}
+\begin{lemma*}
+	Seja \(\mathbb{F}\) um corpo com característica 0 tal que \(\mathbb{F}\) contém todas as raízes n-ésimas da unidade para dado n. Considere \(x^{n} - q \in \mathbb{F}[x]\); então,
+	\begin{itemize}
+		\item[1)] Se u é uma solução de \(x^{n}-a=0\), então \(\mathbb{F}(u)\) é um corpo de decomposição de \(x^{n}-a\) sobre \(\mathbb{F}\); e
+		\item[2)] \(\mathrm{Gal}(\mathbb{F}(u))/\mathbb{F}\) é abeliano.
+	\end{itemize}
+\end{lemma*}
+\begin{proof*}
+	(1): Seja u uma solução de \(x^{n} = a\) e \(\omega \) uma raiz primitiva n-ésima da unidade; com isso, \(u,\; \omega u,\; \omega^{2}u, \dotsc , \omega^{n-1}u\) pertencem a \(\mathbb{F}(u)\). Além disso, (\textbf{verifique})
+	\[
+		(\omega^{k}u)^{n} = a \quad\&\quad \omega^{k}u\neq \omega^{j}u,\; \forall k\neq j.
+	\]
+	Logo, se \(\mathbb{K}\) é um corpo de decomposição de \(x^{n}-a\) sobre \(\mathbb{F}\), então \(\mathbb{K}\subseteq \mathbb{F}(u)\); porém,\linebreak \(\mathbb{F}\) está contido em \(\mathbb{K}\), e por conta disso, \(\mathbb{K}\) contém \(\omega^{j}\) para todo j, além de que \(u\in \mathbb{K}\).
+
+	Desta forma, \(\mathbb{K} = \mathbb{F}(u)\), e \(\mathbb{F}(u)/\mathbb{F}\) é de Galois porque \(\mathbb{F}(u)\) é corpo de decomposição de \(x^{n}-a\) sobre \(\mathbb{F}\), o qual é separável sobre \(\mathbb{F}\).
+
+	(2): Sejam \(\phi , \psi \in \mathrm{Gal}(\mathbb{F}(u)/\mathbb{F})\) definidas unicamente para o ``valor'' \(\phi (u),\; \psi (u)\):
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \phi (u) = u\omega^{j} \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \psi (u)=u\omega^{k}.
+	\end{align*}
+	Uma propriedade desses automorfismos é que
+	\begin{align*}
+		\phi \circ \psi (u) = \phi (u\omega ^{k}) & = \phi (u)\phi (\omega^{k}) \\
+		                                          & = \omega^{k}\phi (u)        \\
+		                                          & = u\omega^{k}\omega^{j}     \\
+		                                          & = \psi \circ \phi (u).
+	\end{align*}
+	Portanto, o grupo é abeliano. \qedsymbol
+\end{proof*}
+
+\begin{theorem*}
+	Seja \(\mathbb{F}\) um corpo de característica 0 e que, para todo \(n\geq 2\), contenha todas as raízes n-ésimas da unidade.
+
+	Se \(f(x)\in \mathbb{F}[x]\) for separável e \(f(x) = 0\) possuir soluções em radicais, então o grupo de Galois de \(f(x)\) é solúvel.
+\end{theorem*}
+Atente-se ao fato de que a hipótese é que exista uma extensão \(\mathbb{K}/\mathbb{F}\) tal que
+\[
+	\mathbb{F} = \mathbb{K}_{0}\subseteq \mathbb{K}_1 \subseteq \dotsc \subseteq \mathbb{K}_{t-1}\subseteq \mathbb{K}_{t} = \mathbb{K}
+\]
+com \(\mathbb{K}_{j}=\mathbb{K}_{j-1}(\omega_{j})\), onde \(\omega_{j}^{n_{j}}\in \mathbb{K}_{j-1}\). Assim, se \(\tilde{\mathbb{K}}\) é um corpo de
+decomposição de \(f(x)\) sobre \(\mathbb{F}\), teremos \(\mathbb{F}\subseteq \tilde{\mathbb{K}}\subseteq \mathbb{K}\).
+Antes de prová-lo, mais algumas observações e lembretes fazem-se importantes.
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se \(\mathbb{K} = \mathbb{F}(\omega_1, \omega_2, \dotsc , \omega_{t-1})\), então \(\mathbb{K}/\mathbb{F}\) é finita, mas não necessariamente é Galois; iremos assumir que sim, no entanto.
+
+	Ademais, se \(\mathbb{K}/\mathbb{F}\) é Galois e \(\mathbb{F}\subseteq \mathbb{M}\subseteq \mathbb{K}\), então \(\mathbb{K}/\mathbb{M}\) é Galois.
+
+	Finalmente, H é um subgrupo normal de \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\) se, e somente se, \(\mathrm{Inv}(H)\) é uma extensão normal de \(\mathbb{F}\), caso no qual
+	\[
+		\mathrm{Gal}\biggl(\frac{\mathrm{Inv}(H)}{\mathbb{F}}\biggr)\cong \frac{\mathrm{Gal}(\mathbb{K}/\mathbb{F})}{H}.
+	\]
+\end{tcolorbox}
+
+Agora sim,
+\begin{proof*}[Teorema]
+	Sendo \(\mathbb{K}/\mathbb{F}\) Galois, vale que \(\mathbb{K}/\mathbb{K}_{j}\) é Galois para todo j; mais ainda, sendo \(\mathbb{K}_{j}=\mathbb{K}_{j-1}(\omega_{j})\), vale que \(\mathbb{K}_{j}\) é um corpo de decomposição de \(x^{n_{j}}-a_{j}\) sobre \(\mathbb{K}_{j-1}\), ou seja, garantimos que \(\mathbb{K}_{j}/\mathbb{K}_{j-1}\) é Galois, e para todo j, vale
+	\[
+		\mathbb{K}_{j-1}\subseteq \mathbb{K}_{j}\subseteq \mathbb{K}\Rightarrow \mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})<\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j-1}).
+	\]
+	Na verdade, \textbf{essa relação é de subgrupo normal}: \(\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})\trianglelefteq \mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j-1})\)! De fato, como \(\mathbb{K}/\mathbb{K}_{j}\) é Galois, sabemos que \(\mathrm{Inv}(\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j}))=\mathbb{K}_{j}\), de forma que
+	\[
+		\mathrm{Inv}(\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j}))/\mathbb{K}_{j-1} = \mathbb{K}_{j}/\mathbb{K}_{j-1}.
+	\]
+	Note que \(\mathbb{K}_{j}/\mathbb{K}_{j-1}\) é Galois, e consequentemente, normal; daí, pondo \(H=\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})\), obtemos justamente \(\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})\trianglelefteq \mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j-1}).\)
+
+	Logo, existe uma cadeia de subgrupos de \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\) do tipo:
+	\[
+		\{e\}\subseteq \mathrm{Gal}(\mathbb{K}_{t}/\mathbb{K}_{t-1})\trianglelefteq \mathrm{Gal}(\mathbb{K}_{t}/\mathbb{K}_{t-2})\trianglelefteq \dotsc \trianglelefteq \mathrm{Gal}(\mathbb{K}_{t}/\mathbb{K}_{0}) = \mathrm{Gal}(\mathbb{K}/\mathbb{F}).
+	\]
+	Agora, para terminar a demonstração, resta provar que o grupo quociente\linebreak \(\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j-1})/\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})\) é abeliano para todo j. Com efeito, dado j, sabemos que \(\mathbb{K}_{j}/\mathbb{K}_{j-1}\) é Galois, e \(\mathrm{Gal}(\mathbb{K}_{j}/\mathbb{K}_{j-1})\) é abeliano.
+	Nosso objetivo final é provar que
+	\[
+		\mathrm{Gal}(\mathbb{K}_{j}/\mathbb{K}_{j-1})\cong \frac{\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j-1})}{\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})}.
+	\]
+	Realmente, como \(\mathbb{K}/\mathbb{K}_{j}\) é Galois e usando a propriedade do começo com \(H = \mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})\), temos
+	\[
+		\mathrm{Gal}(\mathbb{K}_{j}/\mathbb{K}_{j-1})=\mathrm{Gal}(\mathrm{Inv}(\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})/\mathbb{K}_{j-1}))\cong \frac{\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j-1})}{\mathrm{Gal}(\mathbb{K}/\mathbb{K}_{j})},
+	\]
+	cumprindo mais uma etapa: mostramos que \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\) é solúvel; agora, resta mostrar que \(\mathrm{Gal}(\tilde{\mathbb{K}}/\mathbb{F})\) é solúvel, onde \(\tilde{\mathbb{K}}\) é intermediário de \(\mathbb{K}\) e \(\mathbb{F}\), e um corpo de decomposição de \(f(x)\) sobre \(\mathbb{F}.\)
+
+	Sabemos que:
+	\begin{itemize}
+		\item A extensão \(\mathbb{K}/\mathbb{F}\) é Galois;
+		\item O grupo \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\) é solúvel;
+		\item A extensão \(\tilde{\mathbb{K}}/\mathbb{F}\) é Galois (\(f(x)\) é separável); e
+		\item Temos a intermediação \(\mathbb{F}\subseteq \tilde{\mathbb{K}}\subseteq \mathbb{K}\).
+	\end{itemize}
+	Por essas propriedades, concluímos que, como \(\mathbb{K}/\mathbb{F}\) é Galois, então \(\mathbb{K}/\tilde{\mathbb{K}}\) também é; que \(\mathrm{Inv}(\mathrm{Gal}(H/\tilde{\mathbb{K}}))=\tilde{\mathbb{K}}\); e que
+	\[
+		\mathbb{F}\subseteq \tilde{\mathbb{K}}\subseteq \mathbb{K} \Rightarrow \mathrm{Gal}(\mathbb{K}/\tilde{\mathbb{K}})\trianglelefteq \mathrm{Gal}(\mathbb{K}/\mathbb{F}).
+	\]
+	Temos, então,
+	\begin{align*}
+		 & \mathrm{Inv}(\mathrm{Gal}(\mathbb{K}/\tilde{\mathbb{K}}))/\mathbb{F} = \tilde{\mathbb{K}}/\mathbb{F}                                                          \\
+		 & \mathrm{Gal}(\mathrm{Inv}(\mathrm{Gal}(\mathbb{K}/\tilde{\mathbb{K}})))\cong \mathrm{Gal}(\mathbb{K}/\mathbb{F})/\mathrm{Gal}(\mathbb{K}/\tilde{\mathbb{K}}).
+	\end{align*}
+	Porém,
+	\[
+		\mathrm{Gal}(\mathrm{Inv}(\mathrm{Gal}(\mathbb{K}/\tilde{\mathbb{K}})))=\mathrm{Gal}(\tilde{\mathbb{K}}/\mathbb{F}),
+	\]
+	e assim
+	\[
+		\mathrm{Gal}(\tilde{\mathbb{K}}/\mathbb{F})\cong \mathrm{Gal}(\mathbb{K}/\mathbb{F})/\mathrm{Gal}(\mathbb{K}/\tilde{\mathbb{K}}),
+	\]
+	mostrando que \(\mathrm{Gal}(\mathbb{K}/\mathbb{F})\) é solúvel.
+
+	Para finalizar, relembre-se de uma \hyperlink{soluble.group.properties}{\textit{propriedade dos grupos solúveis}}; por ela, segue que \(\mathrm{Gal}(\tilde{\mathbb{K}}/\mathbb{F})\) é solúvel. \qedsymbol
+
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Solubilidade do Quociente},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	\hypertarget{soluble.group.properties}{Suponha que} G é solúvel e que \(\phi:G\rightarrow H\) é um homomorfismo sobrejetor. Então, \(G/\mathrm{ker}(\phi )\) é solúvel e, como \(G/\mathrm{ker}(\phi )\cong H\), o H também é solúvel.
+\end{tcolorbox}
 
 \end{document}
