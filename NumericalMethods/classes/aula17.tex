@@ -28,5 +28,63 @@ Uma forma um tanto ineficiente de calcular a decomposição SVD de A é utilizan
 \end{align*}
 Note que a diagonal de \(\Sigma^{2}\) é formada pelo quadrado dos valores singulares de A!
 
-Uma aplicação bem comum desse método é na compressão de imagens.
+Uma aplicação bem comum desse método é na compressão de imagens: toda imagem é um conjunto \(m\times n\) de pixels (considerando imagens cinzas aqui); a partir disso, uma imagem \(\mathcal{I}\) pode ser representada como uma matriz \(A\in \mathbb{M}_{m\times n}\) de coeficientes entre 0 e 1.
+Daí, uma compressão via SVD consiste em trocar a matriz A por \(A_{k}\), que possui apenas os k-primeiros valores singulares de A, e armazenamos \(k(m+n+1)\) números ao invés de \(mn\) -- assim, se uma imagem original tinha \(k_{0}=374\) valores singulares, poderíamos substituir por \(k_1=120\) e obter uma compressão de 44\%, ou \(k_2 = 50\) e comprimir um 77\%!
+
+\subsection{Método das Potências}
+O último método que veremos no curso é chamado \textbf{Método das Potências}; o contexto necessário é considerar uma matriz diagonalizável \(A\in \mathbb{M}_{n}\), com autovalores \(\lambda_1, \dotsc , \lambda_{n}\) associados a um conjunto de autovetores \(\{v_1, \dotsc , v_{n}\}\subseteq \mathbb{R}^{n}\) linearmente independentes e de norma 1; mais ainda, suponha que haja uma ordenação dos autovalores da seguinte forma:
+\[
+	| \lambda_1 | > | \lambda_2 | \geq | \lambda_3 | \geq \dotsc \geq | \lambda_{n} |.
+\]
+O objetivo deste método é calcular o autovalor dominante \(\lambda_1\) e o seu autovetor associado, \(v_1\).
+\begin{def*}
+	Para um  \(\mathbf{x}\) e uma matriz \(A\), o \textbf{quociente de Rayleigh} é a fração
+	\[
+		\mu (\mathbf{x}) = \frac{\mathbf{x}\cdot A \mathbf{x}}{\Vert \mathbf{x} \Vert_{2}^{2}}. \; \square
+	\]
+\end{def*}
+A importância do quociente de Rayleigh está no fato de que, quando x é um autovetor de A, segue:
+\[
+	\mu (\mathbf{x}) = \frac{\mathbf{x} \cdot A \mathbf{x}}{\Vert \mathbf{x} \Vert_{2}^{2}}=\frac{\mathbf{x}\cdot \lambda \mathbf{x}}{\Vert \mathbf{x} \Vert_{2}^{2}}= \lambda \frac{\Vert \mathbf{x} \Vert_{2}^{2}}{\Vert \mathbf{x} \Vert_{2}^{2}} = \lambda ,
+\]
+ou seja, \(\mu (\mathbf{x})\) fornece o autovalor associado a ele! Ele será útil em breve.
+
+Dado um chute inicial \(\mathbf{x}^{(0)}\in \mathbb{R}^{n}\) não nulo, o método das potências é um processo iterativo de k passos que consiste em calcular, primeiro, o valor \(\mathbf{y}^{(0)} = \frac{\mathbf{x}^{(0)}}{\Vert \mathbf{x}^{(0)} \Vert_{2}}\) e, a partir disso, fazer
+\[
+	\boxed{\underline{x}^{(k)} = A \underline{y}^{(k-1)},\; \underline{y}^{(k)} = \frac{\underline{x}^{(k)}}{\Vert \underline{x}^{(k)} \Vert_{2}},\; \lambda_{1}^{(k)} = \underline{y}^{(k)}\cdot A\underline{y}^{(k)}}
+\]
+Pela recursão acima,
+\[
+	\underline{y}^{(k)}=\beta^{(k)}A^{(k)}\underline{x}^{(0)}, \quad \beta^{(k)} = \frac{1}{\prod\limits_{i=0}^{k}\Vert \underline{x}^{(i)} \Vert_{2}} = \frac{1}{\Vert A^{k}\underline{x}^{(0)} \Vert_{2}}
+\]
+
+\textbf{\underline{Afirmação}:} as iterações \(\underline{y}^{(k)}\) convergem para \(\pm \underline{v}_1\).
+Com efeito, em cada passo, obtemos:
+\begin{align*}
+	 & n=0:\; \underline{x}^{(0)} = \sum\limits_{i=1}^{n}\alpha_{i}\underline{v}_{i} \Rightarrow y^{(0)}=\beta^{(0)}\sum\limits_{i=1}^{n}\alpha_{i}\underline{v}_{i}, \quad \beta^{(0)}=\frac{1}{\Vert \underline{x}^{(0)} \Vert_{2}} \\
+	 & n=1:\; \underline{x}^{(1)} = A\underline{y}^{(0)} = \beta^{(0)}A \sum\limits_{i=1}^{n}\alpha_{i}\underline{v}_{i} = \beta^{(0)}\sum\limits_{i=1}^{n}\alpha_{i}\lambda_{i}\underline{v}_{i}                                     \\
+	 & \Rightarrow  \underline{y}^{(1)}=\beta^{(1)} \sum\limits_{i=1}^{n}\alpha_{i}\lambda_{i}\underline{v}_{i}, \quad \beta^{(1)}=\frac{1}{\Vert \underline{x}^{(0)} \Vert_{2} \Vert \underline{x}^{(1)} \Vert_{2}}                  \\
+	 & \quad \vdots                                                                                                                                                                                                                   \\
+	 & n=k:\; \underline{y}^{(k)}=\beta^{(k)}\sum\limits_{i=1}^{n}\alpha_{i}\lambda_{i}^{k}\underline{v}_{i}, \quad \beta^{(k)}=\frac{1}{\Vert \underline{x}^{(0)} \Vert_{2}\dotsc \Vert \underline{x}^{(k)} \Vert_{2}},
+\end{align*}
+que pode ser expandido como
+\[
+	\underline{y}^{(k)} = \beta^{(k)}\sum\limits_{i=1}^{n}\alpha_{i}\lambda_{i}^{k}\underline{v}_{i}=\beta^{(k)}\lambda_{1}^{k}\biggl(\alpha_1\underline{v}_1 + \underbrace{\sum\limits_{i=2}^{n}\alpha_{i}\frac{\lambda_{i}^{k}}{\lambda_{1}^{k}}\underline{v}_{i}}_{\underline{r}^{(k)}}\biggr);
+\]
+assim, como \(| \lambda_1 | > | \lambda_{i} |\), ao passar o limite, segue que
+\[
+	\lim_{k\to \infty}\biggl(\frac{\lambda_{i}}{\lambda_1}\biggr)^{k} = 0 \Rightarrow \lim_{k\to \infty}\underline{r}^{(k)}=\overline{0},
+\]
+e assim,
+\[
+	\lim_{k\to \infty}\underline{y}^{(k)}=\lim_{k\to \infty}\beta^{(k)}\lambda_{1}^{k}\alpha_1 \underline{v}_1.
+\]
+Com isso, quase completamos a prova da afirmação; resta provar que \(\beta^{(k)}\lambda_{1}^{k}\alpha_1\) converge para \(\pm 1\). De fato, basta notar que
+\[
+	\beta^{(k)} = \frac{1}{\Vert A^{k}\underline{x}^{(0)} \Vert_{2}}=\frac{1}{\Vert \lambda^{k}(\alpha_1\underline{v}_1 + \underline{r}^{(k)}) \Vert_{2}} \quad\&\quad \Vert \underline{v}_1 \Vert_{2} = 1,
+\]
+e portanto
+\[
+	\beta^{(k)}\lambda_{1}^{k}\alpha_1=\frac{\lambda_1^{k}\alpha_1}{\Vert A^{k}\underline{x}^{(0)} \Vert_{2}}\to \pm 1.
+\]
 \end{document}

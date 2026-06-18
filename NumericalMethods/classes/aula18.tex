@@ -1,0 +1,230 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 11 de Junho, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Critério de Parada do Método da Potência;
+	\item Potências Inversas;
+\end{itemize}
+\subsection{Método da Potência com Critério de Parada e Potência Inversa}
+Dado \(\varepsilon > 0\) e \(k_{max}\in \mathbb{N}\) um valor máximo de iterações, queremos que o método das potências pare quando \(k=k_{max}\), ou se
+\[
+	| \lambda_{1}^{(k+1)} - \lambda_{1}^{(k)} | < \varepsilon,
+\]
+ou mesmo utilizando o teste de alinhamento entre os vetores \(\underline{y}^{(k+1)}\) e \(\underline{y}^{(k)}\), que seria quando o cosseno do ângulo entre eles fica aproximadamente 1:
+\[
+	| | \underline{y}^{(k+1)} \cdot \underline{y}^{(k)} | - 1 | < \varepsilon .
+\]
+Usando o critério de parada, podemos fazer uma implementação inicial do método das potências:
+\begin{listing}[H]
+	\caption{Método da Potência com critério de parada}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+import numpy as np
+from scipy import linalg as lin
+
+# Método da Potência (Maior Autovalor em Módulo)
+def potencia(A, tol):
+    k = 0
+    kmax = 10000
+    erro = np.inf
+    n = A.shape[0]
+
+    # Vetor inicial chuta 1 na primeira posição
+    y0 = np.zeros(n)
+    y0[0] = 1.0
+
+    while erro > tol and k < kmax:
+        x = A.dot(y0)
+        y = x / np.linalg.norm(x)
+        erro = np.abs(np.abs(y0.dot(y)) - 1)
+        y0 = y
+        k += 1
+
+    lambda_ = y.dot(A.dot(y))
+    return lambda_, y, k
+   \end{minted}
+\end{listing}
+
+Agora, seja \(A\in \mathbb{M}_{n}\) uma matriz invertível e suponha que os seus autovalores estão ordenados da seguinte forma:
+\[
+	| \lambda_1 | \geq | \lambda_2 | \geq \dotsc > \lambda_{n} > 0.
+\]
+Com isso, se calcularmos o menor autovalor em módulo \(\lambda_{n}\) e o seu autovetor associado \(\underline{v}_{n}\), obteremos
+\[
+	A \underline{v}_{j} = \lambda_{j}\underline{v}_{j} \Longleftrightarrow A^{-1}\underline{v}_{j} = \frac{1}{\lambda_{j}}\underline{v}_{j},
+\]
+mostrando que os autovalores de \(A^{-1}\) são dados pelas recíprocas dos autovalores de A; logo, \(\frac{1}{\lambda_{n}}\) é o autovalor dominante de \(A^{-1}\)! Isso permite repetirmos os raciocínios do método da potência normal da seguinte forma: dado um chute inicial \(\underline{x}^{(0)}\in \mathbb{R}^{n}\) não nulo, comece computando \(\underline{y}^{(0)}=\frac{\underline{x}^{(0)}}{\Vert \underline{x}^{(0)} \Vert_{2}}\). A partir disso, para os k subsequentes, faça:
+\[
+	\boxed{\underline{x}^{(k)} = A^{-1}\underline{y}^{(k-1)},\; \underline{y}^{(k)} = \frac{\underline{x}^{(k)}}{\Vert \underline{x}^{(k)} \Vert_{2}},\; \lambda_{n}^{(k)} = \underline{y}^{(k)}\cdot A \underline{y}^{(k)}}
+\]
+Apesar de ser bastante parecido com o anterior, é necessário resolver o sistema linear \(A\underline{x}^{(k)} = \underline{y}^{(k-1)}\) a cada iteração, que pode ser feito calculando a decomposição \(LU\) de A e armazenando \(L\) e \(U\), seguido dos algoritmos de substituição para resolver os sistemas obtidos. No entanto, como calcular um autovalor arbitrário \(\lambda_{j}\) e o seu autovetor associado \(\underline{v}_{j}\)?
+
+A ideia é considerar \(\alpha \in \mathbb{C}\) que não seja um autovalor de \(A\), de modo que
+\[
+	\Lambda (A) = \{\lambda_1, \dotsc , \lambda_{n}\} \Rightarrow \Lambda (A-\alpha I)=\{\lambda_{1}-\alpha , \dotsc , \lambda_{n}-\alpha \};
+\]
+assim, os autovalores de \(B = (A-\alpha I)^{-1}\) são da forma
+\[
+	\boxed{\gamma_{j}=\frac{1}{\lambda_{j}-\alpha }}
+\]
+e, portanto, quanto mais próximo \(\alpha \) estiver de \(\lambda_{j}\), mais dominante será \(\gamma_{j}\)! Por isso, o valor \(\alpha \) leva o nome de \textbf{deslocamento}. Então, como resposta à pergunta prévia, basta aplicar o método da potência inversa na matriz deslocada \(B\).
+A implementação no código pode ser feita com
+\begin{listing}[H]
+	\caption{Implementação do Método da PotÊncia Inversa}
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# Método da Potência Inversa (Menor Autovalor em Módulo)
+def potencia_inv(A, tol):
+    k = 0
+    kmax = 10000
+    erro = np.inf
+    n = A.shape[0]
+    y0 = np.zeros(n)
+    y0[0] = 1.0
+
+    # Fatoração LU para evitar resolver o sistema do zero em todo loop
+    lu, piv = lin.lu_factor(A)
+
+    while erro > tol and k < kmax:
+        # Resolve usando a matriz já fatorada (muito mais rápido)
+        x = lin.lu_solve((lu, piv), y0)
+        y = x / np.linalg.norm(x)
+        erro = np.abs(np.abs(y0.dot(y)) - 1)
+        y0 = y
+        k += 1
+
+    lambda_ = y.dot(A.dot(y))
+    return lambda_, y, k
+\end{minted}
+\end{listing}
+Para testar, usamos
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# --- Execução do Exemplo e Validação ---
+
+A = np.array([[-4, 14, 0],
+              [-5, 13, 0],
+              [-1, 0, 2]], dtype='double')
+
+# 1. Cálculo nativo do Python (Gabarito)
+D_python, V_python = np.linalg.eig(A)
+
+print("=" * 50)
+print("AUTOVALORES REAIS (Nativo do Python):")
+print(D_python)
+print("=" * 50)
+
+# 2. Teste do Método da Potência Regular
+print('\nCálculo do MAIOR autovalor em módulo de A')
+lambda_, y, k = potencia(A, 0.000001)
+print('-> Método da Potência: %.4f (usando %d iterações)' % (lambda_, k))
+print('-> Gabarito do Python: %.4f' % (np.max(np.abs(D_python))))
+
+# 3. Teste do Método da Potência Inversa
+print('\nCálculo do MENOR autovalor em módulo de A')
+lambda_inv, y_inv, k_inv = potencia_inv(A, 0.000001)
+print('-> Potência Inversa:  %.4f (usando %d iterações)' % (lambda_inv, k_inv))
+print('-> Gabarito do Python: %.4f' % (np.min(np.abs(D_python))))
+print("=" * 50)
+\end{minted}
+\end{listing}
+
+\begin{listing}[H]
+	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
+# ==========================================
+# DEFINIÇÃO DE MATRIZ DE EXEMPLO (10x10)
+# ==========================================
+
+B = np.array([
+    [  1,   0,   0,   0,   0,   0,   0,   0,   0,   0],
+    [ -3,   2,   0,   0,   0,   0,   0,   0,   0,   0],
+    [  3,  -1,   3,   0,   0,   0,   0,   0,   0,   0],
+    [ -6,   3,  -3,   4,   0,   0,   0,   0,   0,   0],
+    [ -4,  -1,   1,   1,   5,   0,   0,   0,   0,   0],
+    [  0,   6,   6,  -3,  -3,   6,   0,   0,   0,   0],
+    [-44,  25,  -7,   2,  -7,   1,   7,   0,   0,   0],
+    [-45,   7, -19,  14,   6,  -4,   0,   8,   0,   0],
+    [153, -20,  72, -32, -31,  11,   4,   1,   9,   0],
+    [  1,   5,  -5,   0, -15,  -3,   8,   3,   1,  10]
+], dtype='double')
+
+# Cálculo dos autovalores de referência (gabarito do Python)
+D_python_B, _ = np.linalg.eig(B)
+
+# ==========================================
+# TESTES COM A MATRIZ B
+# ==========================================
+
+print("\n" + "=" * 60)
+print("TESTES COM A MATRIZ B")
+print("=" * 60)
+print("Todos os autovalores reais de B (Nativo):\n", np.round(D_python_B, 4))
+print("-" * 60)
+
+# Maior de B
+print('Cálculo do MAIOR autovalor em módulo de B')
+lambda_B_max, _, k = potencia(B, 0.000001)
+print('-> Potência: %.4f usando %d iterações' % (lambda_B_max, k))
+print('-> Python:   %.4f\n' % (np.max(np.abs(D_python_B))))
+
+# Menor de B
+print('Cálculo do MENOR autovalor em módulo de B')
+lambda_B_min, _, k = potencia_inv(B, 0.000001)
+print('-> Potência Inversa: %.4f usando %d iterações' % (lambda_B_min, k))
+print('-> Python:           %.4f' % (np.min(np.abs(D_python_B))))
+print("=" * 60)
+\end{minted}
+\end{listing}
+
+O problema é que a resposta levantou outra pergunta: como escolher \(\alpha \)? Como \(\alpha \) mora no plano dos complexos, usaremos um pouco deles para conseguir.
+\begin{def*}
+	Seja \(A\in \mathbb{M}_{n}\); o \textbf{disco de Gershgorin} de centro \(a_{ii}\) e raio \(r_{i}\) associado à i-ésima linha de A é definido como
+	\[
+		\mathcal{D}_{A}(a_{ii}, r_{i}) = \{z\in \mathbb{C}:\; | z-a_{ii} | < r_{i}\},  \quad r_{i} = \sum\limits_{\substack{j=1 \\ j\neq i}}^{n} | a_{ij} |
+	\]
+\end{def*}
+Com ele, podemos propor uma proposição que fornece um teste de rejeição no cálculo dos autovalores e uma boa região, apesar de grande, para escolher o deslocamento \(\alpha \) no método da potência inversa:
+\begin{prop*}
+	Seja \(A\in \mathbb{M}_{n}\); então,
+	\[
+		\Lambda (A) \subseteq \biggl(\bigcup_{i=1}^{n}\mathcal{D}_{A}(a_{ii}, r_{i})\biggr)\cap \biggl(\bigcup_{i=1}^{n}\mathcal{D}_{A^{T}}(a_{ii}, r_{i})\biggr).
+	\]
+\end{prop*}
+Nos casos onde \(A=A^{T}\), o teorema espectral garante que \(\Lambda (A)\subseteq \mathbb{R}\), permitindo restringir de um disco a um intervalo!
+\subsection{Alguns Conceitos Adicionais}
+Para ajudar no Trabalho 3, sobre Ordenação de Páginas, alguns conceitos adicionais são necessários.
+\begin{def*}
+	Um vetor \(\underline{p}\in \mathbb{R}^{n}\) com \(p_{i}\geq 0\) e \(\sum\limits_{i=1}^{n}p_{i}=1\) é chamado \textbf{vetor estocástico}.
+
+	Uma matriz cujos vetores coluna são estocásticos é chamada \textbf{matriz estocástica}. \(\square\)
+\end{def*}
+\begin{prop*}
+	Se \(A\in \mathbb{M}_{n}\) e \(\underline{p}\in \mathbb{R}^{n}\) são estocásticos, então o vetor \(A \underline{p}\) é estocástico e \(\lambda =1\) é um autovalor de \(A\).
+\end{prop*}
+Dada uma matriz estocástica A e uma distribuição de probabilidade \(\underline{p}^{(t)}\) no tempo t, podemos descobrir a distribuição no tempo (t+k) pelo processo
+\[
+	\underline{p}^{(t+k)}=A^{k}\underline{p}^{(t)}.
+\]
+\begin{example}
+	Se uma cidade tem pessoas que ficam apenas nos estados corporais magra (1), gorda (2) e sarada (3), com distribuição inicial \(\underline{p}^{(0)} = (1/3, 1/3, 1/3)^{T}\), a matriz estocástica determina como esse sistema evoluirá com o passar dos tempos; por exemplo:
+	\[
+		A = \begin{bmatrix}
+			\frac{1}{2} & 0           & \frac{1}{4} \\
+			0           & \frac{1}{2} & \frac{1}{4} \\
+			\frac{1}{2} & \frac{1}{2} & \frac{1}{2}
+		\end{bmatrix} \Rightarrow \underline{p}^{(1)} = A \underline{p}^{(0)}  = \begin{bmatrix}
+			\frac{1}{4} \\
+			\frac{1}{4} \\
+			\frac{1}{2}
+		\end{bmatrix}.
+	\]
+\end{example}
+\begin{theorem*}[Perron-Frobenius]
+	Seja \(A\in \mathbb{M}_{n}\) uma matriz estocástica; então,
+	\begin{itemize}
+		\item[1)] 1 é o autovalor dominante de A; e
+		\item[2)] O autovetor \(\underline{v}\) associado a \(\lambda \) possui todas as entradas ou positivas, ou negativas; em particular, para \(\lambda \), existe um único autovalor que é estocástico.
+	\end{itemize}
+\end{theorem*}
+Portanto, a convergência do processo de Markové garantida pelo método das potências! O autovetor \(\underline{v}\) tal que \(\underline{p}^{(k)}\to \underline{v}\) é chamado \textbf{vetor estacionário} de A.
+
+\end{document}
