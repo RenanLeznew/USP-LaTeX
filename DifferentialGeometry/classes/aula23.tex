@@ -5,7 +5,307 @@
 \begin{itemize}
 	\item Demonstração do Teorema de Gauss-Bonnet.
 \end{itemize}
-\subsection{Demonstração do Teorema de Gauss-Bonnet}
+\subsection{Demonstração e Aplicações do Teorema de Gauss-Bonnet}
+Recentemente, enunciamos dois resultados:
 
+\begin{theorem*}
+	Seja R uma região regular de uma superfície orientável S; se \(\theta_1, \dotsc , \theta_r\) são os ângulos externos nos vértices de \(\partial R\), então
+	\[
+		\boxed{\int_{\partial R}^{}\kappa_{g} \mathrm{d}s + \iint_{R}K \mathrm{d}A + \sum\limits_{j=1}^{r}\theta_{j} = 2\pi \chi (R)}.
+	\]
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.3\textheight, width=0.3\textwidth, keepaspectratio]{./Images/gauss_bonnet_23.png}
+		\end{center}
+	\end{figure}
+\end{theorem*}
+\begin{crl*}
+	Se S é uma superfície fechada, então
+	\[
+		\boxed{\iint_{S}K \mathrm{d}A = 2\pi \chi (S)}
+	\]
+\end{crl*}
+Este corolário mostra que a curvatura gaussiana total de uma superfície fechada é uma propriedade topológica da superfície, preservando-se quando passa por transformações contínuas.
+\begin{example}
+	Uma amoeba sem furos é topologicamente igual a um círculo, cuja curvatura é
+	\[
+		\iint_{S}K \mathrm{d}A = 2\pi \chi (S) = 2\pi 2 = 4\pi .
+	\]
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/sphere_homeomorphism_23.png}
+		\end{center}
+	\end{figure}
+\end{example}
+\begin{example}[Dois toros]
+	Para um toro com único furo (geno 1), vale
+	\[
+		\iint_{T}K \mathrm{d}A =0,
+	\]
+	mas para um toro com dois furos (geno 2), temos
+	\[
+		\iint_{S}K \mathrm{d}A = 2\pi (-2) = -4\pi .
+	\]
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/different_genus_23.png}
+		\end{center}
+	\end{figure}
+\end{example}
+Vamos ver aplicações de Gauss-Bonnet e uma ideia da sua demonstração.
+
+\begin{theorem*}
+	Seja S uma superfície fechada, conexa por caminhos e orientada em \(\mathbb{R}^{3}\) com curvatura \(K\geq 0\); então, S é homeomorfa a uma esfera.
+\end{theorem*}
+\begin{proof*}
+	Existe um ponto elíptico \(p_{0}\in S\) (ou seja, com \(K(p_{0}) > 0\)), e por continuidade, existe uma região regular R em S onde a curvatura vai ser estritamente positiva para todo \(p\in R\). Logo,
+	\[
+		\iint_{S}K \mathrm{d}A \geq \iint_{R} K \mathrm{d}A > 0,
+	\]
+	tal que, pelo corolário, \(\chi (S) = 2\), que é a mesma característica de Euler que a esfera tem. Portanto, S é homeomorfa a \(\mathbb{S}^{2}\). \qedsymbol
+\end{proof*}
+
+\begin{theorem*}
+	Se S é homeomorfa a \(\mathbb{R}^{2}\) e \(K(p)\leq 0\) em todo ponto p, então S não possui uma geodésica regular simplesmente fechada (sem autointerseção).
+\end{theorem*}
+\begin{proof*}
+	Suponha que tal geodésica existe; então, pelo teorema de Jordan, essa geodésica \(\gamma \) delimita uma região R da superfície, homeomorfa ao disco. Assim, pelo \hyperlink{gauss_bonnet}{\textit{Teorema de Gauss-Bonnet}},
+	\[
+		\underbrace{\int_{\gamma }^{}K_g \mathrm{d}S}_{\mathclap{=0,\; \gamma\text{ é geodésica}}} + \iint_{R}K\mathrm{d}A + \underbrace{\sum\limits_{j=0}^{r}\theta_{j}}_{\mathclap{=0,\; \gamma \text{ é regular}}} = 2\pi \chi (R) = 2\pi.
+	\]
+	Portanto,
+	\[
+		\iint_{R}K \mathrm{d}A >0,
+	\]
+	mas é uma contradição pois \(K(p) \leq 0\). \qedsymbol
+\end{proof*}
+
+\begin{theorem*}
+	Se S é orientável em \(\mathbb{R}^{3}\) e \(K\leq 0\), então quaisquer duas geodésicas distintas \(\gamma_1\) e \(\gamma_2\) pelo ponto p não podem se encontrar em qualquer ponto \(q\in S\); assim, os traços de \(\gamma_1\) e \(\gamma_2\) entre p e q delimitam uma região em S homeomorfa ao disco.
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/two_geodesics_23.png}
+		\end{center}
+	\end{figure}
+\end{theorem*}
+\begin{proof*}
+	Suponha, por contradição, que \(\gamma_1\) e \(\gamma_2\) delimitam uma região em S homeomorfa a um disco; pelo \hyperlink{gauss_bonnet}{\textit{Teorema de Gauss-Bonnet}},
+	\[
+		\iint_{R}K\mathrm{d}A = 2\pi -(\theta_1 + \theta_2).
+	\]
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.4\textheight, width=0.4\textwidth, keepaspectratio]{./Images/gauss_bonnet_applied_23.png}
+		\end{center}
+	\end{figure}
+	Como \(K\leq 0\), temos
+	\[
+		2\pi -(\theta_1 + \theta_2) \leq 0 \Rightarrow \theta_1 + \theta_2 \geq 2\pi ,
+	\]
+	mas tanto \(\theta_1\) quanto \(\theta_2\) estão no intervalo \([-\pi , \pi ]\), e portanto
+	\[
+		\theta_1 = \theta_2 = \pi  \Rightarrow \gamma_1 = \gamma_2.
+	\]
+	Contradição. \qedsymbol
+\end{proof*}
+
+Para o esboço de demonstração do Gauss-Bonnet, precisamos dos seguintes resultados:
+\hypertarget{green_theorem}{
+	\begin{theorem*}[Teorema de Green]
+		Sejam \(P(u, v)\) e \(Q(u, v)\) duas funções suaves definidas em um aberto \(U\subseteq \mathbb{R}^{2}\) e seja \(\Gamma \) uma curva fechada, simples, contínua por partes e contida em U. Então,
+		\[
+			\int_{\Gamma }^{}\biggl(P \frac{\partial^{}u}{\partial t^{}} + Q \frac{\partial^{}v}{\partial t^{}}\biggr) \mathrm{d}t = \iint_{\text{Interior de }\Gamma }\biggl(\frac{\partial^{}Q}{\partial u^{}} - \frac{\partial^{}P}{\partial v^{}}\biggr)\mathrm{d}u\mathrm{d}v.
+		\]
+	\end{theorem*}
+}
+\begin{prop*}
+	Seja \(\underline{x}(u, v)\) uma parametrização local ortogonal de uma superfície S, e seja \(\alpha (s) = \underline{x}(u(s), v(s))\) uma curva em S parametrizada por comprimento de arco; então, a curva geodésica \(K_g\) de \(\alpha \) é dada por
+	\[
+		K_g = \frac{1}{2\sqrt[]{EG}}\biggl(G_u \frac{\mathrm{d}v}{\mathrm{d}s} - E_v \frac{\mathrm{d}u}{\mathrm{d}s}\biggr) + \frac{\mathrm{d}\varphi }{\mathrm{d}s},
+	\]
+	onde \(0\leq \gamma \leq 2\pi \) é o ângulo orientado entre \(\underline{x}_u(u(s), v(s))\) e \(\alpha '(s).\)
+\end{prop*}
+\begin{proof*}
+	Temos
+	\[
+		\kappa_g = \langle \alpha'\times \alpha '', N \rangle, \quad N = \frac{\underline{x}_u \times \underline{x}_v}{\Vert \underline{x}_u \times \underline{x}_v \Vert}.
+	\]
+	Sejam os vetores ortonormais por hipótese
+	\[
+		e_1 = \frac{1}{\sqrt[]{E}}\underline{x}_u \quad\&\quad \frac{1}{\sqrt[]{G}}\underline{x}_v,
+	\]
+	de forma que \(N = e_1 \times e_2\); como \(\alpha \) é p.c.a, temos
+	\[
+		\alpha '=\cos^{}{\varphi }e_1 + \sin^{}{\gamma }e_2,
+	\]
+	tal que
+	\[
+		\alpha ''=(-\sin^{}{\varphi } e_1 + \cos^{}{\varphi }e_2) \varphi ' + \cos^{}{\varphi }e_1'+\sin^{}{\varphi }e_2'.
+	\]
+
+	Com isso, calculando \(\kappa_g\), obtemos
+	\[
+		\kappa_g = \varphi'+\cos^{2}{\varphi }\langle e_1', e_1 \rangle - \sin^{2}{\varphi }\langle e_1, e_2' \rangle,
+	\]
+	e como \(\langle e_1, e_2 \rangle = 0\), vale
+	\[
+		\langle e_1', e_2 \rangle + \langle e_1, e_2' \rangle = 0,
+	\]
+	donde obtemos
+	\[
+		\kappa_g = \varphi '+\langle e_1', e_2 \rangle.
+	\]
+
+	Agora, pela regra da cadeia e pela ortogonalidade de \(e_1\) e \(e_2\),
+	\begin{align*}
+		\langle e_1', e_2 \rangle & = \biggl\langle \frac{\partial^{}e_1}{\partial u^{}} u'+ \frac{\partial^{}e_1}{\partial v^{}}v', e_2 \biggr\rangle                                                                                            \\
+		                          & = \biggl\langle \frac{\partial^{}}{\partial u^{}}\biggl(\frac{\underline{x}_u}{\sqrt[]{E}}\biggr)u' + \frac{\partial^{}}{\partial v^{}} \biggl(\frac{\underline{x}_u}{\sqrt[]{E}}\biggr)v', e_2 \biggr\rangle \\
+		                          & = \frac{1}{\sqrt[]{EG}}(\langle \underline{x}_{uu}, \underline{x}_v \rangle u' + \langle \underline{x}_{uv}, \underline{x}_v \rangle v').
+	\end{align*}
+	No entanto,
+	\[
+		\langle \underline{x}_{uu}, \underline{x}_v \rangle = Fu - \frac{E}{2}v = -\frac{1}{2}E_v  \quad\&\quad \langle \underline{x}_{uv}, \underline{x}_v \rangle = \frac{1}{2}G_u,
+	\]
+	e portanto
+	\[
+		\langle e_1', e_2 \rangle = \frac{1}{2\sqrt[]{EG}}(G_uv'-E_vu'). \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\begin{def*}
+	Seja T uma região em uma superfície S cujo bordo \(\partial T\) é a união de três arcos, ou seja, traços de curvas regulares em S. Se T é homeomorfo a um disco fechado, diremos que T é \textbf{um triângulo em S}.
+
+	Além disso, se cada arco de \(\partial T\) for um segmento de uma geodésica, diremos que T é um \textbf{triângulo geodésico}. \(\square\)
+\end{def*}
+\hypertarget{winding_index}{
+	\begin{theorem*}[Índice de Rotação/Winding Index]
+		Seja \(\underline{x}(u, v)\), onde \((u, v)\in U\), uma parametrização local de uma superfície S, e seja T um triângulo em \(\underline{x}(U)\); se \(\varphi \) denota o ângulo entre os arcos de \(\partial T\) e \(\underline{x}_u\), então
+		\[
+			\int_{\partial T}^{}\frac{\mathrm{d}\varphi }{\mathrm{d}s} \mathrm{d}s = \alpha + \beta + \gamma -\pi ,
+		\]
+		onde a integral é no sentido anti-horário.
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/winding_index_24.png}
+			\end{center}
+		\end{figure}
+	\end{theorem*}
+}
+Vamos demonstrar o Gauss-Bonnet para triângulos! Seu enunciado é
+\hypertarget{triangle_gb}{
+	\begin{theorem*}[Gauss-Bonnet para Triângulos]
+		Seja \(\underline{x}(u, v),\; (u, v)\in U\), uma parametrização local de uma superfície S e seja T um triângulo em \(\underline{x}(U)\); então,
+		\[
+			\int_{\partial T}^{}\kappa_g \mathrm{d}s + \iint_{T}K \mathrm{d}A = \alpha +\beta +\gamma -\pi ,
+		\]
+		onde a integral é no sentido anti-horário.
+	\end{theorem*}
+}
+\begin{proof*}
+	Suponhamos que \(\underline{x}(U, v)\) é uma parametrização ortogonal, de forma que a proposição enunciada garante
+	\[
+		\kappa_g = \frac{\mathrm{d}\varphi }{\mathrm{d}s} + \frac{1}{2\sqrt[]{EG}}\biggl(G_u \frac{\mathrm{d}v}{\mathrm{d}s} - E_v \frac{\mathrm{d}u}{\mathrm{d}s}\biggr).
+	\]
+	Desta forma,
+	\[
+		\int_{\partial T}^{}\kappa_g = \int_{\partial T}^{}\frac{\mathrm{d}\varphi }{\mathrm{d}s} \mathrm{d}s + \int_{\partial T}^{}\frac{1}{2\sqrt[]{EG}}\biggl(G_u \frac{\mathrm{d}v}{\mathrm{d}s} - E_v \frac{\mathrm{d}u}{\mathrm{d}s}\biggr) \mathrm{d}s.
+	\]
+	Aplicando o \hyperlink{green_theorem}{\textit{Teorema de Green}}, obtemos
+	\begin{align*}
+		\int_{\partial T}^{}\biggl(\frac{G_u}{2\sqrt[]{EG}}\frac{\mathrm{d}v}{\mathrm{d}s} - \frac{E_v}{2\sqrt[]{EG}}\frac{\mathrm{d}u}{\mathrm{d}s}\biggr) \mathrm{d}s & = \iint_{T}\biggl(\frac{\partial^{}}{\partial u^{}} \biggl(\frac{G_u}{\sqrt[]{EG}}\biggr) + \frac{\partial^{}}{\partial v^{}}\biggl(\frac{E_v}{\sqrt[]{EG}}\biggr)\biggr)\frac{\sqrt[]{EG}}{2\sqrt[]{EG}}\mathrm{d}u\mathrm{d}v \\
+		                                                                                                                                                                & = - \iint_{T}K \mathrm{d}A,
+	\end{align*}
+	onde usamos a fórmula para K em coordenadas ortogonais. Portanto, o resultado segue do \hyperlink{winding_index}{\textit{Índice de Rotação}}. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	SE T no teorema anterior é geodésico, então
+	\[
+		\iint_{T}K \mathrm{d}A = \alpha + \beta + \gamma - \pi .
+	\]
+\end{crl*}
+\begin{example}[Triângulos Euclidianos]
+	No plano euclidiano, \(K \equiv 0\), tal que
+	\[
+		\iint_{T}K \mathrm{d}A = 0 \Rightarrow \alpha +\beta +\gamma -\pi = 0
+	\]
+	e
+	\[
+		\alpha +\beta +\gamma =\pi ,
+	\]
+	que é o resultado sobre ``as somas dos ângulos internos de um triângulo retângulo é \(180^{\circ }\)''.
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/regular_triangle_24.png}
+		\end{center}
+	\end{figure}
+\end{example}
+\begin{example}[Triângulos Esféricos]
+	Na esfera unitária, \(K = \frac{1}{r^{2}} = 1\), tal que
+	\[
+		\iint_{T}1 \mathrm{d}A = \text{área}(T) > 0,
+	\]
+	e portanto
+	\[
+		\alpha +\beta +\gamma > \pi
+	\]
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/sphere_triangle_24.png}
+		\end{center}
+	\end{figure}
+\end{example}
+\begin{example}[Triângulos Hiperbólicos]
+	No plano hiperbólico, \(K = -1\), tal que
+	\[
+		\alpha + \beta + \gamma -\pi <0 \Rightarrow \alpha +\beta +\gamma < \pi
+	\]
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/hyperbolic_triangle_24.png}
+		\end{center}
+	\end{figure}
+\end{example}
+\begin{proof*}[Demonstração do \hyperlink{gauss_bonnet}{\textit{Teorema de Gauss-Bonnet}}]
+	Nosso objetivo é provar a fórmula
+	\[
+		\int_{\partial R}^{}\kappa_g \mathrm{d}s + \iint_{R}K \mathrm{d}A + \sum\limits_{j=1}^{r}\theta_{j} = 2\pi \chi (R),
+	\]
+	sendo R é uma região regular de S. Para tanto, faremos uma triangulação de R!
+
+	Para cada triângulo \(T_{i}\), sejam \(\alpha_{i},\; \beta_{i},\; \gamma_{i}\) os ângulos de \(T_{i}\) e \(-\pi \leq \theta_{k}\leq \pi \):
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.6\textheight, width=0.5\textwidth, keepaspectratio]{./Images/many_triangles_24.png}
+		\end{center}
+	\end{figure}
+\end{proof*}
+Sejam V, A, F, respectivamente, o número de vértices, arestas e faces da triangulação; aplicando o Gauss-Bonnet para Triângulos em \(T_{i}\) e somando, obtemos:
+\[
+	\int_{\partial R}^{}\kappa_g \mathrm{d}s + \iint_{R}K \mathrm{d}A = \sum\limits_{i=1}^{F}(\alpha_{i}+\beta_{i}+\gamma_{i}) - \pi F,
+\]
+pois as integrais de linha cancelam ao longo das arestas internas devido à orientação dos triângulos.
+
+O número de vértices externos e arestas externas é igual a r, que também é o número de vértices de \(\partial R\); como cada triângulo tem 3 arestas, cada uma das internas é a aresta de dois triângulos, e cada uma das externas é a aresta de um único triângulo, temos a relação
+\[
+	3F = 2(A-r) + r = 2A - r.
+\]
+Daí, como em cada vértice interno, a soma dos ângulos internos é \(2\pi \) e em cada vértice externo a soma do ângulo interno com o externo é \(\pi \), obtemos
+\[
+	\sum\limits_{i=1}^{F}(\alpha_{i}+\beta_{i}+\gamma_{i}) + \sum\limits_{j=1}^{r}\theta_{j}=2\pi (V-r) + \pi r = (2V-r) \pi.
+\]
+Logo,
+\[
+	\sum\limits_{i=1}^{F}(\alpha_{i}+\beta_{i}+\gamma_{i}) - \pi F = \pi (2V-r) - \sum\limits_{j=1}^{r}\theta_{j}-\pi F,
+\]
+e substituindo \(r=2A - 3F,\) segue que
+\begin{align*}
+	\sum\limits_{i=1}^{F}(\alpha_{i}+\beta_{i}+\gamma_{i}) - \pi F & = 2\pi V + \pi (3F-2A) - \sum\limits_{j=1}^{r}\theta_{j}-\pi F \\
+	                                                               & = 2\pi (F-A+V)-\sum\limits_{j=1}^{r}\theta_{j}                 \\
+	                                                               & = 2\pi \chi (R) - \sum\limits_{j=1}^{r}\theta_{j}.
+\end{align*}
+Portanto,
+\[
+	\int_{\partial R}^{}\kappa_g \mathrm{d}s + \iint_{R}K \mathrm{d}A=2\pi \chi (R) - \sum\limits_{j=1}^{r}\theta_{j}. \text{ \qedsymbol}
+\]
 \end{document}
 

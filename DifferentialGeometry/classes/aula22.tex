@@ -3,9 +3,240 @@
 \section{Aula 22 - 18 de Junho, 2026}
 \subsection{Motivações}
 \begin{itemize}
+	\item Geodésicas no Plano Hiperbólico;
 	\item O Teorema de Gauss-Bonnet.
 \end{itemize}
-\subsection{Teorema de Gauss-Bonnet e Aplicações}
+\subsection{Geodésicas no Plano Hiperbólico}
+Conforme vimos antes, o plano hiperbólico pode ser descrito por
+\[
+	\mathbb{H} = \{(u, v)\in \mathbb{R}^{2}:\; v> 0\}, \quad \mathrm{d}s^{2} = \frac{\mathrm{d}u^{2} + \mathrm{d}v^{2}}{v^{2}},
+\]
+com
+\[
+	E = \frac{1}{v^{2}}, \quad F = 0 \quad\&\quad G = \frac{1}{v^{2}}.
+\]
+Nestas configurações, uma curva \(\beta (t) = (u(t), v(t))\) é uma geodésica se, e somente se,
+\[
+	\left\{\begin{array}{ll}
+		\frac{u''}{v^{2}} - \frac{u'v'}{v^{3}} = 0 \\
+		\frac{v''}{v^{2}} + \frac{(u')^{2}}{v^{3}}-\frac{(v')^{2}}{v^{3}} = 0
+	\end{array}\right. \Longleftrightarrow \left\{\begin{array}{ll}
+		\biggl(\frac{u'}{v^{2}}\biggr)' = 0 \\
+		v'' + \frac{u^{'2}-v^{'2}}{v} = 0
+	\end{array}\right..
+\]
+Resolvendo a A, segue que
+\[
+	\frac{u'}{v^{2}} = c \Longleftrightarrow u'=cv^{2},\; c = \mathrm{cte}.
+\]
+Assim, podemos fazer uma análise com base nos casos de c!
 
+\textbf{\underline{Caso 1}: c=0} -- neste, ocorrerá \(u'= 0\) e u sendo constante, tal que
+\[
+	\beta (t) = (u_{0}, v(t)),
+\]
+que é uma semireta vertical.
+Assuma que \(\beta \) é proporiconal ao comprimento de arco, isto é, que \(\Vert \beta ' \Vert\) é constante; então,
+\[
+	\Vert \beta ' \Vert^{2} = u^{'2}E + 2u'v'F + (v')^{2}G = \frac{v^{'2}}{v^{2}} = k \Longleftrightarrow v'=\pm \tilde{k}v, \; \tilde{k}= \sqrt[]{k},
+\]
+de forma que, derivando mais uma vez, obtemos
+\[
+	\left.\begin{array}{ll}
+		v''=\pm \tilde{k}v'=\pm \tilde{k}(\pm \tilde{k}v)=kv \\
+		\frac{(u')^{2}-(v')^{2}}{v}=-\frac{kv^{2}}{v} = -kv
+	\end{array}\right\} \Rightarrow v''+\frac{u^{'2}-v^{'2}}{v} = 0,
+\]
+que garante a satisfação da segunda equação, e que \(\beta \) é uma geodésica.
+
+\textbf{\underline{Caso 2}: \(\mathbf{c\neq 0}\)} -- seja \(\beta (t) = \underline{x}(u(t), v(t))\) parametrizada por proporcionalmente ao comprimento de arco, i.e. \(\Vert \beta ' \Vert^{2} = k^{2}\), onde k é uma constante. Com isso,
+\[
+	\frac{u^{'2}+v^{'2}}{v^{2}} = k^{2} \Longleftrightarrow u^{'2}\biggl(1 + \frac{v^{'2}}{u^{'2}}\biggr) = k^{2}v^{2},
+\]
+e usando a primeira equação da geodésica, \(u'=cv^{2}\), obtemos
+\begin{align*}
+	c^{2}v^{4}\biggl(1 + \frac{v^{'2}}{u^{'2}}\biggr) = k^{2}v^{2} & \Rightarrow 1 + \biggl(\frac{\mathrm{d}v}{\mathrm{d}u}\biggr)^{2} = \frac{1}{\lambda^{2}v^{2}}              \\
+	                                                               & \Rightarrow \biggl(\frac{\mathrm{d}v}{\mathrm{d}u}\biggr)^{2} = \frac{1-\lambda^{2}v^{2}}{\lambda^{2}v^{2}} \\
+	                                                               & \Rightarrow \frac{\mathrm{d}v}{\mathrm{d}u}=\pm \frac{\sqrt[]{1-\lambda^{2}v^{2}}}{\lambda v},
+\end{align*}
+e, consequentemente,
+\[
+	\mathrm{d}u = \pm \frac{\lambda v}{\sqrt[]{1-\lambda^{2}v^{2}}}\mathrm{d}v.
+\]
+Integrando ambos os lados,
+\[
+	\pm \frac{\sqrt[]{1-\lambda^{2}v^{2}}}{\lambda } = u-a, \quad a=\mathrm{cte},
+\]
+que equivale a
+\[
+	(1-\lambda^{2}v^{2}) = \lambda^{2}(u-a)^{2} \Longleftrightarrow (u-a)^{2} + v^{2} = \frac{1}{\lambda^{2}},
+\]
+garantindo que o traço de \(\beta \) é um semicírculo do centro \((a, 0)\), que é um ponto do eixo real.
+
+Agora, seja \(\beta (t) = (u_{0}+r\cos^{}{\theta (t)}, r\sin^{}{\theta (t)})\) uma parametrização por proporcionalmente ao comprimento de arco de um semicírculo. Com isso,
+\[
+	k^{2} = \Vert \beta ' \Vert^{2} = \frac{u^{'2}+v^{'2}}{v^{2}}=\frac{r^{2}\theta^{'2}\sin^{2}{\theta }}{r^{2}\sin^{2}{\theta }}+\frac{r^{2}\theta^{'2}\cos^{2}{\theta }}{r^{2}\sin^{2}{\theta }},
+\]
+que podemos usar para encontrar \(\theta \):
+\[
+	\theta^{'2}=k^{2}\sin^{2}{\theta } \Longleftrightarrow \theta^{'}=\pm k\sin^{}{\theta } \Rightarrow \theta ''=k^{2}\sin^{}{\theta }\cos^{}{\theta }.
+\]
+Com isso, vemos que \(u\) e \(v\) satifazem a segunda equação geodésica, provando que \(\beta \) é uma.
+
+Ao todo, provamos o seguinte resultado:
+
+\begin{theorem*}
+	As geodésicas no plano hiperbólico (modelo semiplano superior) são as semiretas verticais e os semicírculos com centros no eixo real (quando parametrizada proporcionalmente ao comprimento de arco).
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/hyperbolic_geodesics_22.png}
+		\end{center}
+	\end{figure}
+\end{theorem*}
+
+Para ver que realmente essas são as únicas geodésicas, é suficiente considerar o caso \(c=0\): sejam p e q dois pontos que não pertencem a uma semi reta vertical; então, existe uma \textit{transformação de Möbius}
+\[
+	z\mapsto \frac{az+b}{cz+d}
+\]
+que leva o semieixo imaginário ao semicírculo de centro num ponto no eixo real e que passe por p e q; daí, como a transformação de Möbius é uma isometria, os semicírculos são, consequentemente, geodésicas.
+
+Para qualquer ponto p em \(\mathbb{H}\) e qualquer direção X em p, existe um semicírculo por p tangente a X e de centro no eixo real, mostrando que, realmente, os semicírculos e as semiretas verticais são as únicas geodésicas em \(\mathbb{H}\).
+
+Vale observar outras duas coisas: a primeira é que o quinto postulado de Euclides \textbf{não vale} no plano hiperbólico: por um único ponto, podem passar infinitas ``retas'' por p que são paralelas a r:
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.6\textheight, width=0.6\textwidth, keepaspectratio]{./Images/infinite_parallel_22.png}
+	\end{center}
+\end{figure}
+
+A segunda, é que usando a isometria \(f(w) = \frac{w-i}{w+i}\) entre \(\mathbb{H}\) e o disco unitário, obtemos as geodésicas no modelo disco unitário de Poincaré do plano hiperbólico:
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/hyperbolic_unit_disk_22.png}
+	\end{center}
+\end{figure}
+
+Um resumo do que aprendemos sobre geodésicas:
+\begin{itemize}
+	\item Se S é uma superfície em \(\mathbb{R}^{3}\), então \(\beta (t)\) é uma geodésica em S se \(\beta ''\) é normal a S;
+	\item \(\beta \) é uma geodésica se, e somente se, \(\kappa_{g}\equiv 0\) e \(\Vert \beta ' \Vert=\mathrm{cte}\);
+	\item Dado p em S e \(x\in T_{p}S\), existe uma geodésica única \(\beta (t),\; t\in (-\varepsilon , \varepsilon )\), com \(\beta (0) = p \) e \(\beta '(0) = x\);
+	\item As geodésicas \textit{podem} minimizar distância entre pontos em S;
+	\item As equações das geodésicas dependem apenas dos coeficientes da primeira forma fundamental;
+	\item Isometrias preservam geodésicas;
+	\item Geodésicas no plano são retas;
+	\item Geodésicas na esfera são os círculos maiores;
+	\item Geodésicas em superfícies de revolução são os meridianos, algumas paralelas e curvas com \(f(v(t))\cos^{}{v(t)}=\mathrm{cte}\);
+	\item As geodésicas no plano hiperbólico são as semiretas verticais e os semicírculos de centro no eixo real.
+\end{itemize}
+\subsection{Teorema de Gauss-Bonnet e Aplicações}
+Para discutir o Teorema de Gauss-Bonnet, precisaremos de algumas noções de topologia real.
+\begin{def*}
+	A \textbf{triangulação de uma região R} de uma superfície é uma divisão de R em uma união de triângulos tais que quaisquer dois deles são disjuntos, se intersectam ao longo de uma aresta comum ou têm um vértice em comum. \(\square\)
+\end{def*}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/triangulation_23.png}
+	\end{center}
+\end{figure}
+\begin{example}
+	Se subdividirmos um triângulo, acrescentaremos o número de faces em 1, o número de arestas em 2 e o número de vértices em 1:
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/faces_edges_vertices_23.png}
+		\end{center}
+	\end{figure}
+	A grande vantagem é que isso não muda o número \(F-A+V\) -- na verdade, qualquer triangulação da região R dá o mesmo inteiro \(F-A+V\).
+\end{example}
+\begin{def*}
+	A soma de arestas com faces subtraídas do número de arestas é chamado \textbf{característica de Euler de R}, denotado por
+	\[
+		\chi(R) = F-A + V.\; \square
+	\]
+\end{def*}
+\begin{example}
+	Alguns exemplos que podem ser verificados são: para o quadrado, \(\chi (R)\) vale 1; para a esfera, vale 2
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.3\textheight, width=0.3\textwidth, keepaspectratio]{./Images/sphere_23.png}
+		\end{center}
+		\caption{para a esfera, \(F=8,\; A=12\) e \(V=6\).}
+	\end{figure}
+	e, para o Toro, vale 0:
+	\begin{figure}[H]
+		\begin{center}
+			\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/torus_23.png}
+		\end{center}
+		\caption{neste caso, \(\chi (\mathrm{toro}) = 8-12+4=0\)}
+	\end{figure}
+\end{example}
+
+\begin{def*}
+	Duas superfícies \(S_1\) e \(S_2\) são \textbf{homeomorfos} se existe uma aplicação contínua \(f:S_1\rightarrow S_2\) que admite uma aplicação inversa \(f^{-1}:S_2\rightarrow S_1\) também contínua. \(\square\)
+\end{def*}
+\begin{def*}
+	Uma região R de uma superfície é \textbf{conexa por caminhos} se, para quasiquer dois pontos p e q em R, existe uma aplicação contínua
+	\[
+		\varphi :[0, 1]\rightarrow S
+	\]
+	com \(\varphi (0) = p\) e \(\varphi (1)=q.\; \square\)
+\end{def*}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/pathwise_connected_23.png}
+	\end{center}
+\end{figure}
+\begin{def*}
+	Uma \textbf{superfície fechada} é uma superfície compacta sem bordo.
+\end{def*}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/closed_surfaces_23.png}
+	\end{center}
+	\caption{superfícies fechadas}
+\end{figure}
+No entanto, o disco fechado não é uma superfície fechada, justamente porque tem um bordo.
+
+\hypertarget{jordan_theorem}{
+	\begin{theorem*}[Jordan]
+		\begin{itemize}
+			\item[i)]Qualquer superfície fechada e conexa por caminho S pode ser triangularizada e satisfaz \(\chi (S)\leq 2\);
+			\item[ii)] Duas superfícies fechadas e conexas por caminho têm a mesma característica de Euler se, e somente se, elas são homeomorfas;
+			\item[iii)] Seja S uma superfície em \(\mathbb{R}^{3}\) fechada e conexa por caminho. Se S é orientável, então \(\chi (S) = 2-2g\), onde g é o chamado \textbf{gênero da superfície}:
+			      \begin{figure}[H]
+				      \begin{center}
+					      \includegraphics[height=\textheight, width=\textwidth, keepaspectratio]{./Images/surface_genus_23.png}
+				      \end{center}
+			      \end{figure}
+		\end{itemize}
+	\end{theorem*}
+}
+\begin{def*}
+	Uma região R conexa por caminho em uma superfície é dita \textbf{regular} se ela for compacta e seu bordo \(\partial R\) for ou vazio, ou a união de curvas regulares que não se intersectam, nem autointersectam. \(\square\)
+\end{def*}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[height=0.5\textheight, width=0.5\textwidth, keepaspectratio]{./Images/regular_region_23.png}
+	\end{center}
+\end{figure}
+\hypertarget{gauss_bonnet}{
+	\begin{theorem*}
+		Seja R uma região regular de uma superfície orientável S; se \(\theta_1, \dotsc , \theta_r\) são os ângulos externos nos vértices de \(\partial R\), então
+		\[
+			\boxed{\int_{\partial R}^{}\kappa_{g} \mathrm{d}s + \iint_{R}K \mathrm{d}A + \sum\limits_{j=1}^{r}\theta_{j} = 2\pi \chi (R)}.
+		\]
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[height=0.3\textheight, width=0.3\textwidth, keepaspectratio]{./Images/gauss_bonnet_23.png}
+			\end{center}
+		\end{figure}
+	\end{theorem*}
+}
+\begin{crl*}
+	Se S é uma superfície fechada, então
+	\[
+		\boxed{\iint_{S}K \mathrm{d}A = 2\pi \chi (S)}
+	\]
+\end{crl*}
 \end{document}
 

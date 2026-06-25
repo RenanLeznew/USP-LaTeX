@@ -1,0 +1,258 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 22 - 24 de Junho, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Equação da Onda;
+	\item Equações não Lineares.
+\end{itemize}
+\subsection{Estabilidade da Equação da Onda}
+Vamos considerar a equação
+\[
+	u_{tt} + c^{2}u_{xx} = 0,
+\]
+com condições iniciais e de contorno como antes e \(\sigma = c \frac{\Delta t}{\Delta x}\). Na análise de Estabilidade Von-Neumann, escrevemos
+\[
+	U_{j}^{n}=e^{i\beta j} \quad\&\quad U_{j}^{n+1} = \zeta U_{j}^{n},
+\]
+além de podermos escrever até o passo anterior em termos de \(U_{j}^{n}\):
+\[
+	\zeta U_{j}^{n-1} = U_{j}^{n} \Rightarrow U_{j}^{n-1} = \zeta^{-1}U_{j}^{n};
+\]
+usaremos isso para analisar quando que \(| \zeta  | \leq 1\), garantindo a estabilidade.
+
+Discretizando a equação da onda e usando a relação acima, segue que
+\begin{align*}
+	U_{j}^{n+1} & = U_{j}^{n-1} + \sigma^{2}U_{j-1}^{n} + (2-2\sigma^{2})U_{j}^{n} + \sigma^{2}U_{j+1}^{n}\zeta e^{i\beta j}    \\
+	            & = -\zeta^{-1}e^{i\beta j}+\sigma^{2} e^{i\beta (j-1)}+(2-2\sigma^{2})e^{i\beta j}+\sigma^{2}e^{i\beta (j+1)}.
+\end{align*}
+Isolando os termos com \(\zeta \) obtemos
+\begin{align*}
+	                                    & \zeta +\zeta^{-1}=\sigma^{2}e^{-i\beta }+(2-2\sigma^{2})+\sigma^{2}e^{i\beta } \\
+	\stackrel{\times \zeta }\Rightarrow & \zeta^{2}+ 1 - \zeta(2\sigma^{2}\cos^{}{\beta } + 2 - 2\sigma^{2})=0           \\
+	\Rightarrow                         & \zeta^{2}-\zeta [2\sigma^{2}\cos^{}{\beta }+2-2\sigma^{2}] + 1 = 0.
+\end{align*}
+Assim, aplicando a identidade
+\[
+	\cos^{}{\beta } = \cos^{}{\biggl(\frac{\beta }{2} + \frac{\beta }{2}\biggr)} = \cos^{2}{\frac{\beta }{2}}-\sin^{2}{\frac{\beta }{2}} = 1-2\sin^{2}{\frac{\beta }{2}},
+\]
+o termo em colchetes pode ser escrito como
+\[
+	2\sigma^{2} - \underbrace{4\sigma^{2}\sin^{2}{\frac{\beta }{2}}}_{\alpha } + 2 - 2\sigma^{2},
+\]
+permitindo tratarmos a equação de antes como uma quadrática em \(\zeta \), e colocando \(b = \alpha -2\), seu discriminante é
+\[
+	\Delta  = \sqrt[]{(\alpha -2)^{2}-2} = \sqrt[]{\alpha (\alpha -4)},
+\]
+e suas raízes são
+\[
+	\zeta_{1, 2} = \frac{-(\alpha -2) \pm \sqrt[]{\alpha (\alpha -4)}}{2}.
+\]
+
+\textbf{\underline{Caso \(\mathbf{\alpha >4}\)}:} quando \(\alpha \) é maior que quatro, temos
+\[
+	| \zeta_1 |\leq 1 \Longleftrightarrow  -2 \leq -(\alpha -2) + \sqrt[]{\alpha (\alpha -4)}\leq 2 \Rightarrow -2 + \alpha  - 2 \leq \sqrt[]{\alpha (\alpha -4)}\leq 2+\alpha -2,
+\]
+ou seja,
+\[
+	\alpha -4 \leq \sqrt[]{\alpha (\alpha -4)}\leq \alpha,
+\]
+que é basicamente a expressão
+\[
+	p^{2}\leq pq \leq q^{2}
+\]
+com \(p = \alpha -4\) e \(q=\alpha \). Logo, a primeira raiz satisfaz a condição de estabilidade.
+
+A segunda, por sua vez, cai no caso da desigualdade
+\[
+	\underbrace{\alpha - 4}_{>0} \leq \underbrace{-\sqrt[]{\alpha (\alpha -4)}}_{<0} \leq \underbrace{\alpha}_{>0} ,
+\]
+que é um absurdo, mostrando que \(\alpha \) tal que \(| \zeta_2 | < 1\) não existe
+
+\textbf{\underline{Caso \(\mathbf{\alpha }< 4\)}:} neste caso, \(0 > \Delta =\sqrt[]{\alpha (\alpha -4)} = i \sqrt[]{\alpha (4-a)}\); daí,
+\[
+	| \zeta  |^{2} = \frac{(\alpha -2)^{2}}{4} + \frac{(\sqrt[]{\alpha (4-\alpha )})^{2}}{4} = 1
+\]
+para qualquer uma das raízes. Consequentemente, as raízes sempre têm módulo menor ou igual a 1.
+
+\begin{exr}
+	Analise a estabilidade para \(\alpha =4\).
+\end{exr}
+
+A análise de Von-Neumann mostra que \(\alpha \leq 4\) garante a estabilidade do método, mas \(\alpha > 4\) quebra isso. Retomando quem era \(\alpha \), a condição equivale a
+\[
+	4\sigma^{2}\sin^{2}{\frac{\beta }{2}}\leq 4 \Rightarrow \sigma^{2}\leq 1 \Rightarrow | c |\frac{\Delta t}{\Delta x} \leq 1.
+\]
+
+\subsection{Uma Breve Menção dos Problemas não Lineares}
+Conforme a pessoa se aprofunda mais em métodos numéricos para equações diferenciais, ela se depara eventualmente com as chamadas \textbf{leis de conservação}, que permitem inclusive reescrever todo o conteúdo apresentado em termos delas, mas trazem a grande vantagem de permitirem lidar com o caso não linear! A segunda forma de lidar com eles, e provavelmente a principal, é o \textbf{esquema de volumes finitos} (Ver o livro do Mishra!\cite{mishra2010}).
+Considerando um domínio genérico \(\Omega \) limitado por \(\partial \Omega \), podemos dizer que a variação temporal de alguma propriedade em \(\Omega \) é balanceada pelo fluxo na fronteira e o que está sendo criado ou destruído dentro dele (Teorema da Divergência):
+\[
+	\underbrace{\frac{\mathrm{d}}{\mathrm{d}t}\int_{\omega }^{}U \mathrm{d}x}_{\substack{\text{variação temporal da} \\ \text{quantidade total de U em }\Omega }} + \underbrace{\int_{\omega }^{}\mathrm{div}(F) \mathrm{d}x}_{\substack{\text{fluxo de conteúdo} \\ \text{escoando na fronteira}}} = \underbrace{\int_{\omega }^{}S \mathrm{d}x}_{\substack{\text{fonte de criação ou} \\ \text{destruição de algo}}}
+\]
+para todo subdomínio genérico \(\omega \) de \(\Omega \), e podemos escolher um \(\omega \) infinitesimal para obter a chamada \textbf{Lei de Balanço}
+\[
+	\underline{U}_t + \mathrm{div}(\underline{F}) = S.
+\]
+Quanto a fonte vale 0, ou seja, quando \(S=0\), então temos uma \textbf{lei de conservação}
+\[
+	\underline{U}_t + \mathrm{div}(\underline{F}) = 0.
+\]
+\begin{example}[Equação de Transporte Linear]
+	Se a equação for \(F = au\) e u for um escalar, a lei de balanço fornece
+	\[
+		U_t + a U_x = 0,
+	\]
+	que é exatamente a equação do transporte linear
+\end{example}
+\begin{example}[Equação do Calor]
+	Usando a Lei de Fick-Fourier, que dita
+	\[
+		\underline{F}(\underline{U}) = -k \nabla U,
+	\]
+	e substituindo na equação do balanço, temos
+	\[
+		U_t + U_{xx} = 0,
+	\]
+	que é a equação do calor.
+\end{example}
+Quando a equação fica não-linear, por exemplo quando tomamos \(a = u\) na equação do transporte:
+\[
+	u_t + u u_x = 0,
+\]
+temos que definir uma função de fluxo para reescrever a equação acima; neste caso, \(f(u) = \frac{u^{2}}{2}\) dá
+\[
+	u_t + f(u)_x = u_t + f'(u) u_x = u_t + uu_x = 0.
+\]
+A equação acima é chamada \textbf{equação de Burgers}, e ela mostra um problema sério com a solução! Basta considerar que, considerando uma condição inicial \(U_{0}\) suave com pelo menos um ponto onde \(U_0'(x) = 0,\); então, independentemente da suavidade da condição inicial, a equação de Burgers irá desenvolver uma descontinuidade em
+\[
+	t_min = - \frac{1}{\min\limits_{x\in \mathbb{R}}U_{0}'(x)},
+\]
+causando até mesmo o cruzamento de múltiplas curvas características mencionado anteriormente, tornando impossível encontrar qual é a solução!
+Essa descontinuidade leva o nome de \textbf{choque}, que ocorre, por exemplo, quando o escoamento do ar em torno do avião (modelado por uma equação hiperbólica) tem a frente de pressão rompida e ocorre a quebra da barreira do som.
+
+Se a continuação inicial for composta por duas partes uniformes desconectadas, como uma função salto, o ponto de transição entre elas (a linha reta conectando o fim da linha 0 e o começo da linha 1) causa outra descontinuidade do tipo \textbf{rarefação}, e tanto o choque quanto a rarefação aparecem na equação de Burgers.
+Logo, precisamos dar algum sentido a estes problemas, e isso é feito olhando a ``solução fraca'' do problema: considere a lei de conservação \(u_t + f(u)_x = 0\); multiplicaremos isso por uma função-teste \(\varphi \in \mathcal{C}_{c}^{1}(\mathbb{R}\times \mathbb{R}_{+})\) e integrar no domínio:
+\[
+	\int_{\mathbb{R}_{+}}^{}\int_{\mathbb{R}}^{}\varphi u_t + \varphi f(u)_x \mathrm{d}x \mathrm{d}t=0,
+\]
+que podemos fazer por partes, e essa é a tática desejada (pelo menos nesse caso), pois muda a derivada para a \(\varphi \) ao invés da u:
+\[
+	\boxed{\int_{\mathbb{R}_{+}}^{}\int_{\mathbb{R}}^{}u \varphi_t +f(u)\varphi_x\mathrm{d}x \mathrm{d}t + \int_{\mathbb{R}}^{}u_{0}(x)\varphi(x, 0) \mathrm{d}x=0}
+\]
+mudando o espaço das soluções para todas as que satisfazem a relação acima ao invés da equação inicial. Um resultado particularmente importante é que
+\begin{prop*}
+	Se U for uma solução fraca do problema acima e ela for diferenciável, então ela satisfaz a equação diferencial pontualmente.
+\end{prop*}
+\begin{def*}
+	Uma função \(U\in L^{\infty}(\mathbb{R}\times \mathbb{R}_{+})\) é uma \textbf{solução fraca} da equação diferencial se, para toda função teste \(\varphi \in \mathcal{C}_{c}^{1}(\mathbb{R}\times \mathbb{R}_{+})\), ela satisfaz
+	\[
+		\int_{\mathbb{R}_{+}}^{}\int_{\mathbb{R}}^{}u \varphi_t +f(u)\varphi_x\mathrm{d}x \mathrm{d}t + \int_{\mathbb{R}}^{}u_{0}(x)\varphi(x, 0) \mathrm{d}x=0.\; \square
+	\]
+\end{def*}
+
+É possível mostrar que, se a solução vier sempre da esquerda, ela resolve a equação; mas, se ela vier sempre da direita, também resolve! Há um problema com a unicidadae da solução. Para isso, é necessário introduzir um conceito de \textit{entropia} como uma noção de restringir a solução para a forma que funciona na natureza.
+Por exemplo, se tivéssemos parabolizado a equação, teríamos uma solução única para
+\[
+	u_t + f(u)_x = \varepsilon u_{xx},
+\]
+e uma solução da equação não linear seria
+\[
+	u=\lim_{\varepsilon \to 0}u^{\varepsilon },
+\]
+tal que, com a entropia, dá pra provar que essa é a única solução certa naturalmente, e consiste nas médias das soluções que vêm pela esquerda e pela direita.
+\begin{def*}
+	Sejam U uma solução fraca de \(u_t + f(u)_x = 0\) e \(U_l,\; U_r\) os valores de choque e rarefação com uma certa velocidade s. Diremos que a solução satisfaz a \textbf{condição de entropia de Oleinik} se:
+	\begin{itemize}
+		\item[i)]Para todo k entre \(U_l\) e \(U_r\), vale
+		      \[
+			      \frac{f(U_r) - f(k)}{U_r - k} \leq s \leq \frac{f(U_l)-k}{U_l - k};
+		      \]
+		\item[ii)] Se \(U_r > U_l\), então
+		      \[
+			      f(\alpha U_l + (1-\alpha )U_r)\geq \alpha f(U_l)+(1-\alpha )f(U_r), \quad \forall \alpha \in [0,1]; \text{ e}
+		      \]
+		\item[iii)] Se \(u_r < U_l\), então
+		      \[
+			      f(\alpha U_l + (1-\alpha )U_r)\leq \alpha f(U_l)+(1-\alpha )f(U_r), \quad \forall \alpha \in [0,1]. \; \square
+		      \]
+	\end{itemize}
+\end{def*}
+
+Agora, quanto à resolução numérica disso tudo, alteramos o paradigma de aproximação trabalhando com conjuntos \(\mathcal{C}_{j}=[x_{j-1/2}, x_{j+1/2}]\), onde houve uma discretização do espaço \([x_{L}, x_{R}]\) por pontos denotados como
+\[
+	x_{j} = x_{L}+(j+1/2)\Delta x, \quad j=0, \dotsc , m, \; \Delta x = \frac{x_R - x_L}{m+1}.
+\]
+Com isso, a aproximação numérica será a média formal nos \(\mathcal{C}_{j}\):
+\[
+	U_{j}^{n}\approx \frac{1}{\Delta x}\int_{\mathcal{C}_{j}}^{} U(x, t^{n})\mathrm{d}x.
+\]
+Essa é a base do \textbf{método dos volumes finitos}, com o objetivo de atualizar a média de cada célula da malha e da parte desconhecida a cada passo no tempo, começando em
+\[
+	U_{j}^{0} = \frac{1}{\Delta x} \int_{x_{j-1/2}}^{x_{j+1/2}}U_{0}(x) \mathrm{d}x.
+\]
+Assim, podemos escrever a lei de conservação numa forma integral com
+\[
+	\int_{t_{n}}^{t_{n+1}}\int_{x_{j-1/2}}^{x_{j+1/2}}u_{t}(x, t) \mathrm{d}x \mathrm{d}t + \int_{t_{n}}^{t_{n+1}}\int_{x_{j-1/2}}^{x_{j+1/2}}f(u)_x \mathrm{d}x \mathrm{d}t=0,
+\]
+e, pelo Teorema Fundamental do Cálculo, isso dá
+\[
+	\int_{x_{j-1/2}}^{x_{j+1/2}}u(x, t_{n+1}) - u(x, t_{n}) \mathrm{d}x + \int_{t_{n}}^{t_{n+1}}f(u(x_{j+1/2}, t))-f(u(x_{j-1/2}, t)) \mathrm{d}t = 0.
+\]
+Para aparecer o \(U_{j}^{n}\), multiplicamos tudo por \(\frac{1}{\Delta x}\), dando origem à relação
+\[
+	\frac{1}{\Delta x}\int_{x_{j-1/2}}^{x_{j+1/2}}u(x, t_{n+1}) - u(x, t_{n}) \mathrm{d}x =-\frac{1}{\Delta x} \int_{t_{n}}^{t_{n+1}}f(u(x_{j+1/2}, t))-f(u(x_{j-1/2}, t)) \mathrm{d}t,
+\]
+ou seja,
+\[
+	U_{j}^{n+1}-U_{j}^{n}=- \frac{1}{\Delta x}\int_{t_{n}}^{t_{n+1}}f(u(x_{j+1/2}, t)) \mathrm{d}t + \frac{1}{\Delta x}\int_{t_{n}}^{t_{n+1}}f(u(x_{j-1/2}, t)) \mathrm{d}t.
+\]
+
+Definimos uma função \(\overline{F}_{j+1/2}^{n}\) como a média temporal da função de fluxo:
+\[
+	\overline{F}_{j+1/2}^{n}=\frac{1}{\Delta t} \int_{t_{n}}^{t_{n+1}}f(U(x_{j+1/2}, t)) \mathrm{d}t,
+\]
+que pode ser substituída na relação encontrada anteriormente para dar a \textbf{forma fundamental dos métodos de volume finito}:
+\[
+	\boxed{U_{j}^{n+1} = U_{j}^{n}-\frac{\Delta t}{\Delta x} (\overline{F}_{j+1/2}^{n}-\overline{F}_{j-1/2}^{n})}
+\]
+Até agora, não houve nenhuma aproximação, mas elas surgem agora para tornar o método interpretável, trocando \(F_{j+1/2}^{n}\approx \overline{F}_{j+1/2}^{n}\).
+
+A equação acima age como uma fábrica de métodos de volumes finitos, e um deles é devido a Godunov, que notou a presença, em cada célula, de um problema do tipo Riemann, que as pessoas já sabem resolver; disso, bastou resolverem o problema de Riemann em cada passo:
+\[
+	\left\{\begin{array}{ll}
+		U_t + f(U)_x = 0 \\
+		U(x, t^{n}) = \left\{\begin{array}{ll}
+			                     U_{j}^{n}, \quad x < x_{j+1/2} \\
+			                     U_{j+1}^{n}, \quad x > x_{j+1/2}
+		                     \end{array}\right.
+	\end{array}\right.
+\]
+A cada passo \(\Delta t\), o problema de Riemann é definido e resolvido, que é a essência do método de Godunov. Uma de suas limitações é que pode ocorrer das características se cruzarem dentro de uma célula, mas dá pra contornar isso impondo uma condição CFL do tipo
+\[
+	\max\limits_{j}| f'(U_{j}^{n}) |\frac{\Delta t}{\Delta x}\leq \frac{1}{2}.
+\]
+
+A grande maioria dos métodos usados nesses contextos são chamado de \textbf{solucionadores de Riemann aproximados}, justamente porque eles não tentam resolver os problemas Riemann de maneira exata quando necessário, mas sim aproximar a solução deles, por exemplo pedindo que \(F_{j+1/2}^{n} = \frac{1}{2}(U_{j+1}+U_{j})\), que, sendo substituída na fábrica de métodos, fornece o método de diferenças centrais, mas ele não estável, então essa função de fluxo não serve.
+Outra ideia é linearizar localmente a função de fluxo não linear a cada passo, conhecido como \textbf{método Roe}, resultando em
+\[
+	F_{j+1/2}^{n} = F^{\mathrm{Roe}}(U_{j}^{n}, U_{j+1}^{n}) = \left\{\begin{array}{ll}
+		f(U_{j}^{n}), \quad \hat{A}_{j+1/2}\geq 0 \\
+		f(U_{j+1}^{n}), \quad \hat{A}_{j+1/2}<0,
+	\end{array}\right.
+\]
+onde
+\[
+	\hat{A}_{j+1/2}  = \left\{\begin{array}{ll}
+		\frac{f(U_{j+1}^{n})-f(U_{j}^{n})}{U_{j+1}^{n}-U_{j}^{n}}, \quad U_{j+1}^{n}\neq U_{j}^{j} \\
+		f'(U_{j}^{n}), \quad U_{j+1}^{n}=U_{j}^{n}
+	\end{array}\right.,
+\]
+é basicamente o método upwind!
+
+É possível definir versões do Lax-Friedrichs, esquemas centrais, e todo o resto pensando em diferentes escolhas de fluxos para aproximar; Lax-Friedrichs, no caso, tem
+\[
+	F_{j+1/2}^{n} = \frac{f(U_{j}^{n})+f(U_{j+1}^{n})}{2}-\frac{\Delta x}{2\Delta t}(U_{j+1}^{n}-U_{j}^{n}),
+\]
+mas obviamente tem métodos novos também.
+\end{document}

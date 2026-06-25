@@ -1,0 +1,217 @@
+\documentclass[../differential_methods.tex]{subfiles}
+\begin{document}
+\section{Aula 21 - 22 de Junho, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Equações da onda.
+\end{itemize}
+\subsection{Equação da Onda}
+Consideremos a equação da onda
+\[
+	u_{tt} - c^{2}u_{xx} = 0, \quad x\in [0, 1],
+\]
+com condições iniciais
+\[
+	u(x, 0) = f(x),\quad  u_{t}(x, 0) = g(x)
+\]
+e fronteiras
+\[
+	u(0, t) = h_1(t), \quad u(1, t)=h_2(t).
+\]
+Vamos definir \(v = cu_x\) e \(w=-u_t\); assim, obtemos as equações
+\[
+	v_{t} = cu_{tt},\; v_{x} = cu_{xx},\; w_{x} = -u_{tt} \;\&\; w_{t} = -u_{tt},
+\]
+ou seja, obtivemos o sistema acoplado
+\[
+	\left\{\begin{array}{ll}
+		v_t + cw_x =0                 \\
+		w_t + cv_x = 0                \\
+		v(x, 0) = cu_x(x, 0) = cf'(x) \\
+		w(x, 0) = -u_t(x, 0) = -g(x)
+	\end{array}\right.
+\]
+que, em forma de matriz, assume
+\[
+	\frac{\partial^{}}{\partial t^{}}\begin{bmatrix}
+		v \\
+		w
+	\end{bmatrix} + \frac{\partial^{}}{\partial x^{}} \begin{bmatrix}
+		0 & c \\
+		c & 0
+	\end{bmatrix} \begin{bmatrix}
+		v \\
+		w
+	\end{bmatrix} = 0, \quad \underline{u}(x, 0) = \begin{bmatrix}
+		cf'(x) \\
+		-g(x)
+	\end{bmatrix},
+\]
+e chegamos na equação
+\[
+	\underline{u}_t + A \underline{u}_x = 0.
+\]
+Agora, diagonalizamos A por meio dos seus autovalores e autovetores para desacoplar o sistema:
+\[
+	\det{(A-\lambda I)}=0 \Rightarrow \det \begin{bmatrix}
+		-\lambda & c
+		c        & -\lambda
+	\end{bmatrix} =0 \Rightarrow \lambda^{2} - c^{2}=0 \Rightarrow \lambda_1 = -c, \; \lambda_2 = c.
+\]
+Os autovetores, por sua vez, são
+\[
+	\left\{\begin{array}{ll}
+		A \underline{v}^{1} = -c \underline{v}^{1} \\
+		A \underline{v}^{2} = -c \underline{v}^{2}
+	\end{array}\right. \Rightarrow \underline{v}^{1}=\begin{bmatrix}
+		-1 \\
+		1
+	\end{bmatrix} \quad\&\quad \underline{v}^{2} = \begin{bmatrix}
+		1 \\
+		1
+	\end{bmatrix}
+\]
+Sendo assim, colocando
+\[
+	R = \begin{bmatrix}
+		-1 & 1 \\
+		1  & 1
+	\end{bmatrix} \Rightarrow R^{-1}=\begin{bmatrix}
+		-\frac{1}{2} & \frac{1}{2} \\
+		\frac{1}{2}  & \frac{1}{2}
+	\end{bmatrix},\; \Lambda = \begin{bmatrix}
+		-c & 0 \\
+		0  & c
+	\end{bmatrix},
+\]
+obtemos a diagonalização de A como \(A = R\Lambda R^{-1}\). Na equação diferencial, obtemos
+\[
+	\underline{u}_t + A \underline{u}_x = 0 \Rightarrow \underline{u}_t + R\Lambda R^{-1}\underline{u}_x = 0 \Rightarrow R^{-1}\underline{u}_t + \Lambda R^{-1}\underline{u}_x = 0,
+\]
+tal que, colocando \(\underline{w} \coloneqq R^{-1}\underline{u}\) com coordenadas \(w_1\) e \(w_2\), a equação torna-se
+\[
+	\underline{w}_t + \Lambda \underline{w}_x = 0 \Rightarrow \left\{\begin{array}{ll}
+		\frac{\partial^{}}{\partial t^{}}w_1 - c \frac{\partial^{}}{\partial x^{}}w_1 = 0 \\
+		\frac{\partial^{}}{\partial t^{}}w_2 + c \frac{\partial^{}}{\partial x^{}}w_2 = 0
+	\end{array}\right.
+\]
+Pra que todo esse esforço? Pois estes \(w_1\) e \(w_2\) desacoplados podem ser vistos como ondas fundamentais da solução, e são duas equações de transporte com sinais opostos: a primeira transporta a onda \(w_1\) para a esquerda, e a outra transporta a \(w_2\) para a direita -- a solução da onda nada mais é do que duas soluções da equação do transporte!
+Uma delas gera características indo pra esquerda, a outra gera pra direita, sem que haja sobreposição de informações!
+
+Construir a solução exata dessa equação se dá por um processo semelhante ao das equações dos transportes: considerando cada uma isolada, sabemos que a solução se dá pela condição inicial, ou seja,
+\[
+	w_1(x, t) = w_1(x+ct, 0) \quad\&\quad w_2(x, t) = w_2(x- ct, 0),
+\]
+mas isso requer que as condições iniciais do sistema que usamos no começo também passem pelas transformações aplicadas (depois de resolver, pode reverter as transformações pelas inversas).
+
+Finalmente, podemos estimar a solução numérica dos sistemas acoplado (Sistema 1) e desacoplado (Sistema 2); este segundo, por ser só duas equações do transporte, já temos uma boa noção do que fazer -- por exemplo, podemos aplicar Lax-Friedrischs, utilizando as notações
+\[
+	w_1(x_{j}, t_{n})\cong W_{1}\biggl|_{j}^{n}\biggr. \quad\& \quad w_2(x_{j}, t_{n})\cong W_{2}\biggl|_{j}^{n}\biggr.
+\]
+para obter
+\[
+	W_{1}\biggl|_{j}^{n+1}\biggr. = \frac{1}{2}(W_{1} \biggl|_{j+1}^{n}\biggr. + W_1 \biggl|_{j-1}^{n}\biggr.) - (-c)\frac{\Delta t}{2\Delta x}(W_1 \biggl|_{j+1}^{n}\biggr. - W_1 \biggl|_{j-1}^{n}\biggr.)
+\]
+e
+\[
+	W_{2}\biggl|_{j}^{n+1}\biggr. = \frac{1}{2}(W_{2} \biggl|_{j+1}^{n}\biggr. + W_2 \biggl|_{j-1}^{n}\biggr.) - (-c)\frac{\Delta t}{2\Delta x}(W_2 \biggl|_{j+1}^{n}\biggr. - W_2 \biggl|_{j-1}^{n}\biggr.),
+\]
+com forma matricial
+\[
+	\begin{bmatrix}
+		W_1 \bigl|_{j}^{n+1}\bigr. \\
+		W_2 \bigl|_{j}^{n+1}\bigr.
+	\end{bmatrix} = \frac{1}{2}\biggl(\begin{bmatrix}
+			W_1 \bigl|_{j+1}^{n}\bigr. \\
+			W_2 \bigl|_{j+1}^{n}\bigr.
+		\end{bmatrix}+\begin{bmatrix}
+			W_1 \bigl|_{j-1}^{n}\bigr. \\
+			W_2 \bigl|_{j-1}^{n}\bigr.
+		\end{bmatrix} \biggr) - \Lambda \frac{\Delta t}{2\Delta x}\biggl(\begin{bmatrix}
+			W_1 \bigl|_{j+1}^{n}\bigr. \\
+			W_2 \bigl|_{j+1}^{n}\bigr.
+		\end{bmatrix} - \begin{bmatrix}
+			W_1 \bigl|_{j-1}^{n}\bigr. \\
+			W_2 \bigl|_{j-1}^{n}\bigr.
+		\end{bmatrix}\biggr),
+\]
+ou, equivalentemente,
+\[
+	\underline{W}_{j}^{n+1} = \frac{1}{2}(\underline{W}_{j+1}^{n}+\underline{W}_{j-1}^{n})-\Lambda \frac{\Delta t}{2\Delta x}(\underline{W}_{j+1}^{n}-\underline{W}_{j-1}^{n}),
+\]
+que podemos multiplicar por R para chegar em
+\begin{align*}
+	                    & R\underline{W}_{j}^{n+1} = \frac{1}{2}R(\underline{W}_{j+1}^{n}+\underline{W}_{j-1}^{n})-R\Lambda \frac{\Delta t}{2\Delta x}(\underline{W}_{j+1}^{n}-\underline{W}_{j-1}^{n})                   \\
+	\Longleftrightarrow & RR^{-1}\underline{W}_{j}^{n+1} = \frac{1}{2}RR^{-1}(\underline{W}_{j+1}^{n}+\underline{W}_{j-1}^{n})-RR^{-1}\Lambda \frac{\Delta t}{2\Delta x}(\underline{W}_{j+1}^{n}-\underline{W}_{j-1}^{n}) \\
+	\Longleftrightarrow & \boxed{\underline{U}_{j}^{n+1} = \frac{1}{2}(U_{j+1}^{n}+U_{j-1}^{n}) - A \frac{\Delta t}{2\Delta x}(\underline{U}_{j+1}^{n} - \underline{U}_{j-1}^{n})}
+\end{align*}
+Com \(\underline{U}_{j}^{n} = \begin{bmatrix}
+	V_{j}^{n} \\
+	W_{j}^{n}
+\end{bmatrix}\), recuperamos o \hyperlink{lax_friedrichs}{\textit{Lax-Friedrichs}} de antes, com a única diferença de que o escalar ``a'' multiplicando tornou-se uma matriz ``A''! Similarmente, o \hyperlink{lax_wandroff}{\textit{Lax-Wandroff}} assume a forma
+\[
+	\boxed{\underline{U}_{j}^{n+1} = \underline{U}_{j}^{n} - \frac{\Delta t}{2\Delta x} A (\underline{U}_{j+1}^{n} - \underline{U}_{j-1}^{n}) + \frac{\Delta t^{2}}{2\Delta x^{2}} A^{2}(\underline{U}_{j+1}^{n}-2\underline{U}_{j}^{n}+\underline{U}_{j-1}^{n})}
+\]
+e o \hyperlink{up_wind}{\textit{upwind}} também, mas com uma pequena mudança de que a aproximação pra \(w_1\) e \(w_2\) têm sinais opostos, então separamos a matriz em uma só para a parte positiva e outra só para a parte negativa:
+\[
+	\Lambda  = \begin{bmatrix}
+		-c & 0 \\
+		0  & c
+	\end{bmatrix} = \begin{bmatrix}
+		0 & 0 \\
+		0 & c
+	\end{bmatrix} + \begin{bmatrix}
+		-c & 0 \\
+		0  & 0
+	\end{bmatrix} \eqqcolon \Lambda^{+} + \Lambda^{-},
+\]
+fornecendo a aproximação para \(\underline{W}_{j}^{n+1}\) na forma
+\[
+	\underline{W}_{j}^{n+1} = \underline{W}_{i}^{n} - \frac{\Delta t}{\Delta x}\Lambda^{+}(\underline{W}_{j}^{n} - \underline{W}_{j-1}^{n}) - \frac{\Delta t}{\Delta x}\Lambda^{-}(\underline{W}_{j+1}^{n} - \underline{W}_{j}^{n}).
+\]
+\begin{exr}
+	Faça a transformação que fizemos previamente para obter a forma do sistema acoplado, com \(A^{+} \coloneqq R\Lambda^{+}R^{-1}\) e \(A^{-}\coloneqq R\Lambda ^{-}R^{-1}\).
+\end{exr}
+
+Existe um método mais direto para resolver, partindo da mesma equação definida no começo,
+\[
+	u_{tt} - c^{2}u_{xx} = 0, \quad x\in [0, 1],
+\]
+com condições iniciais
+\[
+	u(x, 0) = f(x),\quad  u_{t}(x, 0) = g(x)
+\]
+e contorno
+\[
+	u(0, t) = h_1(t), \quad u(1, t)=h_2(t).
+\]
+Dessa vez, faremos a estratégia de discretizar em x e em t com 2 passos e níveis (a discretização em cruz), com todo aquele processo que já conhecemos de avaliar em \((x_{j}, t_{n})\), substituir a derivada, descartar o erro de truncamento, etc, resultando em
+\[
+	\frac{1}{\Delta t^{2}}(U_{j}^{n+1} - 2 U_{j}^{n} + U_{j}^{n-1}) - c^{2} \frac{1}{\Delta x^{2}}(U_{j+1}^{n}-2U_{j}^{n} + U_{j-1}^{n}) = 0.
+\]
+Reescrevendo ela, com \(\sigma^{2} \coloneqq c^{2}\frac{\Delta t^{2}}{\Delta x^{2}}\), chegamos em
+\[
+	U_{j}^{n+1} = -U_{j}^{n-1} + \sigma^{2}U_{j-1}^{n} + (2-2\sigma ^{2})U_{j}^{n} + \sigma^{2}U_{j+1}^{n},
+\]
+que normalmente cairia na questão de ter um problema no limite de tempo mais no passado ou mais no futuro, mas podemos nos aproveitar da condição \(u_t(x, 0) = g(x)\) para lidar com isso: quando \(n=0\), a equação seria
+\[
+	U_{j}^{1} = - U_{j}^{-1} + \sigma^{2} U_{j-1}^{0} + (2-2\sigma^{2})U_{j}^{0} + \sigma^{2}U_{j+1}^{0};
+\]
+todos os termos \(U^{0}\) são da forma \(f(x_{j})\) pela condição inicial, enquanto que o \(-U_{j}^{-1}\) pode ser lidado com utilizando a derivada:
+\[
+	U_t(x_{j}, 0) = g(x_{j}) \Rightarrow \frac{U_{j}^{1} - U_{j}^{-1}}{2\Delta t} = g(x_{j}) \Rightarrow U_{j}^{-1} = U_{j}^{1} - 2\Delta tg(x_{j}),
+\]
+a partir do qual basta substituir na equação original:
+\begin{align*}
+	            & U_{j}^{1} = - U_{j}^{1} + 2\Delta tg(x_{j}) + \sigma^{2} U_{j-1}^{0} + (2-2\sigma^{2})U_{j}^{0} + \sigma^{2}U_{j+1}^{0} \\
+	\Rightarrow & \boxed{2U_{j}^{1} = 2\Delta tg(x_{j}) + \sigma^{2} U_{j-1}^{0} + (2-2\sigma^{2})U_{j}^{0} + \sigma^{2} U_{j+1}^{0}}
+\end{align*}
+Agora, fica a grande pergunta -- este método funciona? Descubra!
+\begin{exr}
+	Analise a convergência do método: compute o erro de truncamento, mostre que a consistência dele é da ordem \(\mathcal{O}(\Delta t^{2}+\Delta x^{2})\) e que a estabilidade dele por Von Neumann é dada pela condição \(| c |\frac{\Delta t}{\Delta x}\leq 1\)
+\end{exr}
+Surpreendentemente, o método de diferenças centrais funciona bem aqui, mesmo sendo horrível para a equação do transporte! Moral da história: se for propor um método diferente, tem que analisar ele pra ver se vai funcionar ou não, independente do que você ache que vá acontecer.
+
+Um último comentário é da questão da condição CFL, que mantém-se na forma \(\frac{| c |\Delta t}{\Delta x} \leq 1\), e a condição é satisfeita para que haja a convergência.
+
+\end{document}
