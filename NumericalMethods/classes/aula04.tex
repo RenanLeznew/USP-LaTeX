@@ -49,7 +49,7 @@ Os arrays são a estrutura que viabilizam a realização eficiente de operaçõe
 
   array_zeros = np.zeros((8)) # array com oito elementos iguais a 0
   array_uns = np.ones((10)) # array com dez elementos iguais a 1 
-  array_cont = np.arrange(10) # array com elementos de 0 a 9
+  array_cont = np.arange(10) # array com elementos de 0 a 9
   array_part = np.linspace(1,2,5) # array com 5 elementos igualmente 
   # espaçados no intervalo de 1 até 2.
 
@@ -97,8 +97,8 @@ for elemento in array_bidim.flat:
 
 # pode-se utilizar os índices diretamente 
 for linha in range(array_bidim.shape[0]): # numero linhas
-    for coluna in range(array_bidim[1]): # numero colunas
-        print('Elemento', i, ' ', j, ' = ', array_bidim[i, j])
+    for coluna in range(array_bidim.shape[1]): # numero colunas
+        print('Elemento', linha, ' ', coluna, ' = ', array_bidim[i, j])
 \end{minted}
 \end{listing}
 O problema de usar os laços é que eles são pouco eficazes, computacionalmente, e existe uma alternativa conhecida como \textit{slicing} (podendo ser usado também para listas), basicamente uma visão do array original (gera uma view), sem que o dado seja copiado. Ao utilizar o glicina, tenha em mente que índices omitidos correspondem a enxergar toda a dimensão omitida.
@@ -122,7 +122,7 @@ print(array_bidim[:, 2]) # recupera toda a coluna 2.
 ## podemos estabelecer a recuperação em linhas e em colunas usando 
 ## blocos. 
 print('Linhas 0 e 2: ', array_bidim[[0, 2]])
-print('Colunas 0, 2 e 5: ', array_bidim[:[0,2,5]])
+print('Colunas 0, 2 e 5: ', array_bidim[:, [0,2,5]])
 print('Elementos nas posições (0,0), (1,2) e (2,5): ',
 array_bidim[[0,1,2], [0,2,5]])
 
@@ -176,11 +176,11 @@ reformatar = array_unidim.reshape((3,3))
 
 # concatena as linhas da array e cria uma cópia 
 concatena_flatten = array_unidim.flatten()
-print('array concatenada com flatten: ' concatena_flatten)
+print('array concatenada com flatten: ', concatena_flatten)
 
 # podemos alterar a nova sem alterar a original
 concatena_flatten[2]=-1
-print('array concatenada e modificada: ' concatena_flatten)
+print('array concatenada e modificada: ', concatena_flatten)
 print(array_unidim)
 
 # mas não é o caso com o ravel
@@ -202,7 +202,7 @@ print('array original: ', array_unidim)
 import numpy as np
 
 array = np.random.randint(0,10,18).reshape(3,6)
-np.savetext('exemplo_escrita.txt', x, fmt = '%d')
+np.savetext('exemplo_escrita.txt', array, fmt = '%d')
 
 # Agora, carregamos o arquivo salvo, forçando que os elementos 
 # da matriz sejam inteiros. 

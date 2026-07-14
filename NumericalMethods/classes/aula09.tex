@@ -16,7 +16,7 @@ O \texttt{matplotlib} é uma biblioteca do python que permite a criação de gr�
   x = [1, 2, 5, 9] 
   y = [1, 4, 7, 11]
 
-  fig, eixo = plt.subplots(figsize(7, 4))
+  fig, eixo = plt.subplots(figsize=(7, 4))
 
   eixo.plot(x, y, color='b', linewidth=2, linestyle = '--', marker='o', label = "Série A")
   eixo.set_title("Evolução dos Dados")
@@ -42,7 +42,7 @@ O Python consegue lidar com quase qualquer tipo de dados!
  # B. Gráfico de Dispersão/Scatterplots (Correlações)
 
  eixo_x = [1,2,3,4,5]
- eixo_Y = [2,5,8,4,9]
+ eixo_y = [2,5,8,4,9]
  tamanhos = [50,200,80,500,150]
  ax[1].scatter(eixo_x, eixo_y, s=tamanhos, c='purple', alpha=0.5)
  ax[1].set_title("Dispersão com Tamanho Variável")
@@ -117,7 +117,7 @@ Alguns outros formatos são JSON e Pickle, e para entender melhor, vamos criar u
 \begin{listing}[H]
 	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
  import json 
- import nympy as np 
+ import numpy as np 
  from pathlib import Path 
  import pickle 
 
@@ -167,7 +167,7 @@ Pra reforçar o que foi ensinados, vamos realizar a rotação de \(45^{\circ }\)
    v_inicial = np.array([1.0, 0.0])
    theta = math.radians(45)
    R = np.array([
-      [np.cos(theta), np.sin(theta)],
+      [np.cos(theta), -np.sin(theta)],
       [np.sin(theta), np.cos(theta)]
    ])
 
@@ -182,7 +182,7 @@ Pra reforçar o que foi ensinados, vamos realizar a rotação de \(45^{\circ }\)
        json.dump(dados, f, indent = 4)
 
    # 4. Visualizando 
-   fig, ax = plot.subplots(figsize=(6, 6))
+   fig, ax = plt.subplots(figsize=(6, 6))
    origem = [0, 0]
 
    ax.quiver(*origem, *v_inicial, color='blue', angles='xy', scale_units='xy', scale=1, label='$v$ Inicial')
@@ -229,17 +229,17 @@ Dados para utilizar:
 \begin{listing}[H]
 	\caption{Pedidos de um Meteorologista}
 	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
-import matplotlib.pyplots as plt
+import matplotlib.pyplot as plt
 
 dias = ["Seg", "Ter", "Qua", "Qui", "Sex"]; 
 temperaturas = [22, 28, 31, 26, 24];
-chuva = [10, 0, 5, 80, 40].
+chuva = [10, 0, 5, 80, 40]
 
 # 1. Criando os Subplots 
 fig, ax = plt.subplots(1, 2, figsize=(12, 5))
 
 # 2. Gráfico 1 (Esquerda -- temperaturas)
-ax[0].plot(disa, temperaturas, marker = 'o', color='r', linewidth=2)
+ax[0].plot(dias, temperaturas, marker = 'o', color='r', linewidth=2)
 ax[0].set_title("Variação de Temperaturas")
 ax[0].set_ylabel("Temperatura (Celsius)")
 ax[0].grid(True, linestyle=":")
@@ -250,7 +250,7 @@ ax[0].grid(True, linestyle=":")
 \begin{listing}[H]
 	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
 # 3. Gráfico 2 (Direita -- chance de chuvas)
-ax[1].set_bar(dias, chuva, color = 'b')
+ax[1].bar(dias, chuva, color = 'b')
 ax[1].set_title("Probabilidade de Chuva")
 ax[1].set_ylabel("Chuva (%)")
 

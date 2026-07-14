@@ -1,0 +1,121 @@
+\documentclass[../fractals_everywhere.tex]{subfiles}
+\begin{document}
+\section{Class 09 - July 3rd, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Ergodic Measures
+\end{itemize}
+\subsection{Ergodic measures}
+\begin{def*}
+	A measure preserving transformation \((X, \mathcal{B}, \mu , T)\) is \textbf{ergodic} if every invariant set E (\(E\subseteq T^{-1}(E)\)) satisfies \(\mu (E) = 0\) or \(\mu (X\setminus{E}) = 0.\; \square\)
+\end{def*}
+For this lecture, we define two norms:
+\[
+	\Vert f \Vert_{1}\coloneqq \int_{}^{}| f | \mathrm{d}\mu \quad\&\quad \Vert f \Vert_{\infty} = \sup_{}| f(x) |.
+\]
+\begin{theorem*}
+	Let \((X, \mathcal{B}, \mu , T)\) be a probability (\(\mu (X)=1\)) preserving transformation and \(f\in L^{1}\), i.e., its 1-norm is finite. Then, the limit
+	\[
+		\overline{f}(x) = \lim_{n\to \infty}\frac{1}{n}\sum\limits_{k=0}^{n-1}f(T^{k}x)
+	\]
+	exists almost everywhere and
+	\[
+		\frac{1}{n}\sum\limits_{k=0}^{n-1}f\circ T^{k} \stackrel{L^{1}}\to \overline{f}.
+	\]
+	Moreover, \(\overline{f}\) is T-invariant, \(\overline{f}\in L^{1}\), and
+	\[
+		\int_{}\overline{f} d\mu_{} = \int_{}f d\mu_{}.
+	\]
+	In particular, if \(\mu \) is ergodic,
+	\[
+		\overline{f} =\int_{}f d\mu_{}
+	\]
+\end{theorem*}
+\begin{proof*}
+	Suppose, without loss of generality, that \(f\geq 0\); define \[A_{n}(x) = \frac{1}{n}\sum\limits_{k=0}^{n-1}f(T^{k}x) \], and the two measurable, T-invariant maps
+	\[
+		\overline{A}(x) = \limsup_{n\to \infty}A_{n}(x) \quad\&\quad \underline{A}(x) = \liminf_{n\to \infty}A_{n}(x),
+	\]
+	so that \(\overline{A}(x), \underline{A}(x)\in [0, \infty]\). With such a definition for \(A_{n}\), what follows is
+	\[
+		A_{n}(x) = \frac{1}{n}f(x) + \frac{1}{n}\sum\limits_{k=1}^{n-1}f(T^{k}x)=\frac{1}{n}f(x) + \frac{1}{n}\sum\limits_{k=0}^{n-2}f(T^{k}(Tx))=\frac{f(x)}{n}+\frac{n-1}{n}A_{n-1}(Tx)
+	\]
+	Taking the limits, we find that
+	\[
+		\overline{A}(x) = \overline{A}(Tx) \quad\&\quad \underline{A}(x) = \underline{A}(Tx).
+	\]
+	We will show that
+	\[
+		\int_{}f d\mu_{} \geq \int_{}\overline{A} d\mu_{} \quad\&\quad \int_{}f d\mu_{}\leq \int_{}\underline{A} d\mu_{}.
+	\]
+
+	For our first step, fix \(\varepsilon,\; L,\; M\) to be positive numbers and define \(\overline{A}_{L}(x)\coloneqq \min\limits_{}(\overline{A}(x), L)\) (which is also T-invariant) and note that
+	\[
+		\tau_{L}(x)\coloneqq \min\limits_{n\in \mathbb{N}}\{A_{n}(x)>\overline{A}_{L}(x) - \varepsilon\}
+	\]
+	is well-defined everywhere and finite. We will classify the points (``color the space'') 0, 1, ..., N-1, as follows:
+
+	\(\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\) If \(\tau_{L}(x) = \tau_{L}(T^{0}x)\) is greater than M, color 0 as red; if \(\tau_{L}(T^{k}x)\leq M\), color the next \(\tau_{L}(x)\) points blue and move on to the next uncolored k;
+
+	\(\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\) If \(\tau_{L}(T^{k}x) > M\), color k red; otherwise, color the next \(\tau_{L}(T^{k}x)\) points blue and move on to the next uncolored k;
+
+	\(\tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\) Repeat until all points are colored or until \(\tau_{L}(T^{k}x) > N - k.\)
+
+	Thus, there will be at most M uncolored points, and hence at least \(N-M\) colored points. Notice that if k is red, then
+	\[
+		T^{k}x;in [\tau_{L} > M]\coloneqq \{y\in X: \tau_{L}(y) > M\},
+	\]
+	so, if \(1_{\cdot }\) denotes the subobject classifier of Sets,
+	\[
+		\sum\limits_{k \text{ red}}^{} 1_{[\tau_{L}>M]}(T^{k}x) = \#(\text{reds}),
+	\]
+	and if the average of \(f(A_{n})\) on each blue segment of length \(\tau_{L}(T^{k}x)\) is larger than \(\overline{A}_{L}(T^{k}x)-\varepsilon = \overline{A}_{L}(x) - \varepsilon \) by invariance. Then,
+	\[
+		\sum\limits_{k\in \text{blue segment}}^{}f(T^{k}x) \geq (\text{length of segment})(\overline{A}_{L}(x)-\varepsilon ),
+	\]
+	In particular,
+	\[
+		\sum\limits_{k \text{ blue}}^{}f(T^{k})\geq \#(\text{blues})(\overline{A}_{L}(x) - \varepsilon ),
+	\]
+	which, by adding the inequalities, turns to
+	\begin{align*}
+		\sum\limits_{k=0}^{N-1}(f+\overline{A}_{L}1_{[\tau_{L}>M]})(T^{k}x) & \geq \sum\limits_{k \text{ colored}}^{} (f+\overline{A}_{L}1_{[\tau_{L}>M]})(x)          \\
+		                                                                    & \geq \#(\text{blues}) (\overline{A}_{L}(x)-\varepsilon )+\#(\text{reds})\overline{A}_{L} \\
+		                                                                    & \geq \#(\text{colored})(\overline{A}_{L}(x) - \varepsilon )                              \\
+		                                                                    & \geq (N-M)(\overline{A}_{L}(x)-\varepsilon ).
+	\end{align*}
+	Dividing by N, we find
+	\[
+		\frac{1}{N}\sum\limits_{k=0}^{N-1}(f+\overline{A}_{L}1_{[\tau_{L}>M]})(T^{k}x)\geq \biggl(1-\frac{M}{N}\biggr)(\overline{A}_{L}(x)-\varepsilon ),
+	\]
+	so that the expression on the left is integrable because \(\overline{A}_{L}\) is already bounded above by L, yielding
+	\[
+		\frac{1}{N}\sum\limits_{k=0}^{N-1}\int_{}(f+\overline{A}_{L}1_{[\tau_{L}>M]})\circ T^{k} d\mu_{} \geq \biggl(1-\frac{M}{N}\biggr)\underbrace{\int_{}\overline{A}_{L}(x)-\varepsilon  d\mu_{}}_{\mathclap{\biggl(1-\frac{M}{N}\biggr)\int_{}\overline{A}_{L} d\mu_{} - \varepsilon}}
+	\]
+	By properties of measure theory, it is possible to break it down into
+	\begin{align*}
+		\frac{1}{N}\sum\limits_{k=0}^{N-1}\int_{}f d\mu_{}+\int_{[\tau_{L}>M]}\overline{A}_{L} d\mu_{} & = \int_{f} d\mu_{} + \int_{[\tau_{L}>M]}\overline{A}_{L} d\mu_{}                                                     \\
+		                                                                                               & \geq \int_{}\overline{A}_{L} d\mu_{}-\varepsilon -\frac{M}{N}\int_{}\overline{A}_{L} d\mu_{}+\frac{\varepsilon M}{N} \\
+		                                                                                               & \geq \int_{}\overline{A}_{L} d\mu_{}-\varepsilon -\frac{ML}{N}+\frac{\varepsilon M}{N}                               \\
+		                                                                                               & \geq \int_{}\overline{A}_{L} d\mu_{}-\varepsilon -\frac{ML}{N}.
+	\end{align*}
+	Consequently,
+	\[
+		\int_{}f d\mu_{} \geq \int_{[\tau_{L}\leq M]}^{}\overline{A}_{L} \mathrm{d}\mu -\varepsilon -\frac{ML}{N};
+	\]
+	by letting N go to infinity, \((ML)/N\) vanishes; as M goes to \(\infty\) too, the set \([\tau_{L}\leq M]\) becomes the whole space; and as L goest to infinity, \(\overline{A}_{L}(x)\) converges to \(\overline{A}(X)\) pointwise and monotonically, allowing interchangeability between the limit and integral to get
+	\[
+		\int_{}f d\mu_{}\geq \lim_{L\to \infty}\int_{}\overline{A}_{L} d\mu_{}-\varepsilon =\int_{}\lim_{L\to \infty}\overline{A}_{L} d\mu_{}-\varepsilon,
+	\]
+	hence, for any \(\varepsilon > 0\),
+	\[
+		\int_{}f d\mu_{} \geq \int_{}\overline{A} d\mu_{} - \varepsilon ,
+	\]
+	and letting \(\varepsilon \) go to 0, we finally get
+	\[
+		\int_{}f d\mu_{}\geq \int_{}\overline{A} d\mu_{}.
+	\]
+	This concludes part 1.
+\end{proof*}
+
+\end{document}

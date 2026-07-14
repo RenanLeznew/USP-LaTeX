@@ -44,11 +44,11 @@ Para consertar um problema de domínio de dependência separados, é preciso aju
 
 Para o método upwind, o domínio de dependência real e numérico para um ponto \((x_{j}, t_{n})\) são, respectivamente,
 \[
-	\mathcal{D}_{E}(u(x_{j}, t_{n})) = \{x_{j}-at_{n}\} \quad\&\quad \mathcal{D}_{N}(U_{j}^{n}) = [x_{j}-n\Delta t, x_{j}],
+	\mathcal{D}_{E}(u(x_{j}, t_{n})) = \{x_{j}-at_{n}\} \quad\&\quad \mathcal{D}_{N}(U_{j}^{n}) = [x_{j}-n\Delta x, x_{j}],
 \]
 tal que a \hyperlink{cfl_condition}{\textit{Condição CFL}} passa a ser
 \[
-	\mathcal{D}_{E}\subseteq \mathcal{D}_{N} \Longleftrightarrow x_{j}-nh \leq x_{j}-an\Delta t\leq x_{j} \Longleftrightarrow -n\Delta x \leq -a_{n}\Delta t\leq 0,
+	\mathcal{D}_{E}\subseteq \mathcal{D}_{N} \Longleftrightarrow x_{j}-nh \leq x_{j}-an\Delta t\leq x_{j} \Longleftrightarrow -n\Delta x \leq -an\Delta t\leq 0,
 \]
 que resulta na condição
 \[
@@ -129,7 +129,7 @@ O que resta, portanto, é construir métodos melhores, mas construídos de manei
 	u_t + u u_x = 0,
 \]
 que parece até que simples, mas mesmo que fosse dada uma condição inicial suave, como as características têm inclinação dada pela recíproca da velocidade de transporte, a u em si explode para infinito rapidamente quando chega ao fim da inclinação suave! A solução fica cada vez menos suave, até chegar ao ponto de ficar descontínua, resultando também em cruzamento de características -- duas características chegam ao mesmo ponto e torna-se impossível distinguir qual das soluções é a certa.
-Logo, mesmo com condições iniciais suaves, os problemas lineares ainda ficam descontínuo, e o que significa uma solução descontínua de uma equação que tem derivadas?
+Logo, mesmo com condições iniciais suaves, os problemas não lineares ainda ficam descontínuo, e o que significa uma solução descontínua de uma equação que tem derivadas?
 
 Por conta disso, entram os métodos de volumes finitos ou elementos finitos, porque os métodos de diferenças finitas não dão conta desses grandes problemas.
 

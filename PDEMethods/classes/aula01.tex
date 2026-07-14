@@ -23,7 +23,7 @@ uma outra expressão com limite igualando a u' é
 \]
 que corresponde à reta secante de pontos que vêm antes do \(\overline{x}\), com uma delas errando para mais e outra errando para menos, mas não são apenas essas -- também nos interessa, por exemplo, a média dessas duas aproximações! Afinal, se uma erra para mais e outra para menos, faz sentido considerar o meio termo, definindo o operador
 \[
-	u'(x)\approx D_{0}u(\overline{x})\coloneqq \frac{u(\overline{x}+h)-u(\overline{x}-h)}{h} = \frac{1}{2}[D_{+}u(\overline{x}) + D_{-}u(\overline{x})].
+	u'(x)\approx D_{0}u(\overline{x})\coloneqq \frac{u(\overline{x}+h)-u(\overline{x}-h)}{2h} = \frac{1}{2}[D_{+}u(\overline{x}) + D_{-}u(\overline{x})].
 \]
 Estes três operadores respectivamente levam os nomes de \textbf{operador de diferenças progressivo}, \textbf{operador de diferenças regressivo} e \textbf{operador de diferenças centrais}.
 \begin{figure}[H]
@@ -35,7 +35,7 @@ Estes três operadores respectivamente levam os nomes de \textbf{operador de dif
 
 Outras aproximações poderiam ser feitas, como uma considerando o terceiro termo de uma série expansiva, que veremos mais adiante, mas com expressão dada por
 \[
-	u'(\overline{x})\approx D_{3}u(\overline{x})\coloneqq \frac{1}{6h}[2u(\overline{x}+h)+3u(\overline{x})-6u(\overline{x}-h)-2u(\overline{x}-2h)],
+	u'(\overline{x})\approx D_{3}u(\overline{x})\coloneqq \frac{1}{6h}[2u(\overline{x}+h)+3u(\overline{x})-6u(\overline{x}-h)-u(\overline{x}-2h)],
 \]
 que envolve mais avaliações da função u.
 
@@ -52,7 +52,7 @@ Logo, um dos nosso objetivos será ver as diferenças, vantagens e desvantagens 
 				\hline
 				1.0e-01 & -4.2939e-02   & 4.1138e-02               & -9.0005e-04               & 6.8207e-05               \\
 				5.0e-02 & -2.1257e-02   & 2.0807e-02               & -2.2510e-04               & 8.6491e-06               \\
-				1.0e-03 & -4.2163e-03   & 4.1983e-03               & -9.0050e-06               & 6.9941e-08               \\
+				1.0e-02 & -4.2163e-03   & 4.1983e-03               & -9.0050e-06               & 6.9941e-08               \\
 				5.0e-03 & -2.1059e-03   & 2.1014e-03               & -2.2513e-06               & 8.7540e-09               \\
 				1.0e-03 & -4.2083e-04   & 4.2065e-04               & -9.0050e-08               & 6.0979e-11               \\
 				\hline
@@ -158,7 +158,7 @@ Vamos ver, então, como ficam as ordens das aproximações ou \textbf{erros de t
 	\]
 	Neste caso específico, essa fórmula se traduz como
 	\[
-		{\color{RoyalBlue3} u'(\overline{x})} = {\color{DeepPink2}\frac{u(\overline{x}-h)-u(\overline{x})}{h}} + {\color{SpringGreen4}\mathcal{O}(h)}.
+		{\color{RoyalBlue3} u'(\overline{x})} = {\color{DeepPink2}\frac{u(\overline{x}+h)-u(\overline{x})}{h}} + {\color{SpringGreen4}\mathcal{O}(h)}.
 	\]
 \end{example}
 \begin{example}[Operador \(D_{-}\)]
@@ -168,7 +168,7 @@ Vamos ver, então, como ficam as ordens das aproximações ou \textbf{erros de t
 	\]
 	Portanto, pela mesma lógica, temos
 	\begin{align*}
-		u'(\overline{x})=\frac{u(\overline{x})-u(\overline{x}-h)}{h}+\frac{1}{2}hu''(\zeta ) & = D_{-}u(\overline{x})-\frac{1}{2}hu''(\zeta ) \\
+		u'(\overline{x})=\frac{u(\overline{x})-u(\overline{x}-h)}{h}+\frac{1}{2}hu''(\zeta ) & = D_{-}u(\overline{x})+\frac{1}{2}hu''(\zeta ) \\
 		                                                                                     & = D_{-}u(\overline{x})+\mathcal{O}(h).
 	\end{align*}
 \end{example}
@@ -230,7 +230,7 @@ Pelos exemplos, ambas as aproximações indicam que o erro cai linearmente com h
 	\end{align*}
 \end{example}
 
-Nós vimos como essas aproximações se comportam, susã importâncias e algumas delas; porém, dado um certo conjunto de pontos onde queremos aproximar a derivada, gostaríamos de determinar qual é a aproximação.
+Nós vimos como essas aproximações se comportam, suas importâncias e algumas delas; porém, dado um certo conjunto de pontos onde queremos aproximar a derivada, gostaríamos de determinar qual é a aproximação.
 Para tanto, estudaremos, por meio do exemplo a seguir, o chamado \textbf{método dos coeficientes não determinados} -- suponha que queremos achar a aproximação por diferenças finitas de \(u'(\overline{x})\), digamos
 \[
 	u'(\overline{x})\approx D_{2}u(\overline{x}) \coloneqq au(\overline{x}) +bu(\overline{x}-h)+ cu(\overline{x}-2h),

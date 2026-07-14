@@ -43,8 +43,8 @@ Podemos criar, também, \textbf{subrotinas}, que são funções responsáeis por
 def imprimir_boletim(nome_turma, notas):
     """Subrotina visual: chama a função matemática e formata a tela"""
     media, nota_max, nota_min = analisar_dados(notas)
-    printf("-"*30)
-    print(f"Turma: {note_turma}")
+    print(f"-"*30)
+    print(f"Turma: {nome_turma}")
     print(f"Média: {media:.2f} | Max: {nota_max:.2f} |
     Min:{nota_min:.2f}")
     print("-"*30)
@@ -102,30 +102,30 @@ Agora vamos aprender a organizar os arquivos como um todo criando nossas própri
  %%writefile algebra.py 
 
  def multiplicar_matrizes(A, B):
-    """ Multiplica a matriz A (m x n) pela B (n x p). """
-    linhas_A=len(A)
-    colunas_A = len(A[0])
-    linhas_B=len(B)
-    colunas_B = len(B[0])
+     """ Multiplica a matriz A (m x n) pela B (n x p). """
+     linhas_A=len(A)
+     colunas_A = len(A[0])
+     linhas_B=len(B)
+     colunas_B = len(B[0])
 
-    if colunas_A != linhas_B:
-        raise ValueError("Erro: colunas devem ser iguais às linhas de B.")
+     if colunas_A != linhas_B:
+         raise ValueError("Erro: colunas devem ser iguais às linhas de B.")
  
- # Equivalente a: 
- # import numpy as np 
- # C = npzeros((linhas_A, colunas_B)) 
-
- C = []
- for i in range(linhas_A):
-    C.append([0.0]*colunas_B)
-
- for i in range(linhas_A):
-    for j in range(colunas_B):
-        soma = 0
-        for k in range(colunas_A):
-            soma+=A[i][k]*B[k][j]
-        C[i][j]=soma
-  return C
+     # Equivalente a: 
+     # import numpy as np 
+     # C = np.zeros((linhas_A, colunas_B)) 
+ 
+     C = []
+     for i in range(linhas_A):
+         C.append([0.0]*colunas_B)
+ 
+     for i in range(linhas_A):
+         for j in range(colunas_B):
+             soma = 0
+             for k in range(colunas_A):
+                 soma+=A[i][k]*B[k][j]
+             C[i][j]=soma
+     return C
 
   def imprimir_matriz(nome, matriz):
       """Imprime a matriz formatada"""
@@ -133,7 +133,7 @@ Agora vamos aprender a organizar os arquivos como um todo criando nossas própri
       for linha in matriz: 
           linha_formatada = [f"{elemento:>5.1f}" for elemento in linha]
           print(" [" + "".join(linha_formatada)+"]")
-      prit("-"*15) 
+      print("-"*15) 
  \end{minted}
 \end{listing}
 
@@ -150,7 +150,7 @@ alg.imprimir_matriz("A", matriz_A)
 alg.imprimir_matriz("B", matriz_B)
 
 resultado = alg.multiplicar_matrizes(matriz_A, matriz_B)
-alg.imprimir_matriz("C {resultado}", resultado)
+alg.imprimir_matriz("C", resultado)
 \end{minted}
 \end{listing}
 
@@ -215,7 +215,7 @@ def texto_para_matriz(texto):
 
     return matriz
 
-def operar_matriz_modular(matriz_A, matriz_B):
+def operar_matrizes(matriz_A, matriz_B):
     """
     Tem que multiplicar A por B e obter o resto da divisão por 27.
     """
@@ -294,7 +294,7 @@ Tendo o motor cripto montado, temos que montar o script principal, nomeado \text
   matriz_C = cripto.operar_matrizes(matriz_chave, matriz_M)
   mensagem_hacker=cripto.matriz_para_texto(matriz_C)
 
-  prit("Segredos Indecifráveis:")
+  print("Segredos Indecifráveis:")
   for linha in matriz_C: 
       print(linha)
   print(f"TEXTO INTERCEPTADO NA REDE: '{mensagem_hacker}'\n")

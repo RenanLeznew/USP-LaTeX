@@ -5,7 +5,7 @@
 \begin{itemize}
 	\item Equação do Calor/de Difusão.
 \end{itemize}
-\subsection{Equação do Calor: método progressivo, retrógrado e Crank-Nickolson.}
+\subsection{Equação do Calor: método progressivo, retrógrado e Crank-Nicolson.}
 Vamos considerar a equação do calor em um domínio limitado \(x\in (0, 1)\) para tempo \(t > t_{0} = 0\), um exemplo clássico da equação parabólica:
 \[
 	u_{t} = ku_{xx}, \quad 0<x<1,\; t>0.
@@ -86,7 +86,7 @@ ou, juntando tudo, ao sistema
 	U_{}^{n+1} = A U^{n} + g^{n}.
 \]
 
-Veremos mais alguns métodos hoje, incluindo o método regressivo e o método de \textit{Crank-Nickolson}
+Veremos mais alguns métodos hoje, incluindo o método regressivo e o método de \textit{Crank-Nicolson}
 
 E se mudássemos a discretização? Agora, queremos uma discretização espacial, mas regressiva temporalmente, para a qual fica parecida com a progressiva, mas com uma mudança:
 \begin{align*}
@@ -132,7 +132,7 @@ conhecido como \textit{Euler Regressivo} (Mais uma vez), que é o método de Eul
 \end{align*}
 O método ficou mais caro, mas veremos que ele tem uma vantagem em breve. Esperamos que esses métodos tenham erros de truncamento da ordem \(\mathcal{O}(\Delta t + h^{2})\), pois foram os dois termos descartados, e deseja-se que este erro tenda a zero quando \(\Delta t\) e h tendem a 0.
 
-Quanto ao método de Crank-Nickolson, ele seria um método de diferenças centrais com uma maracutaia -- se fizermos um método por diferenças centrais usuais, gostaríamos de evitar fazer dois níveis por enquanto por conta da quantidade de pontos que ele vai envolver; faremos uma ampliação da malha espaço-temporal com \(t_{n+1/2} = t_{n} + \frac{\Delta t}{2}\), dando
+Quanto ao método de Crank-Nicolson, ele seria um método de diferenças centrais com uma maracutaia -- se fizermos um método por diferenças centrais usuais, gostaríamos de evitar fazer dois níveis por enquanto por conta da quantidade de pontos que ele vai envolver; faremos uma ampliação da malha espaço-temporal com \(t_{n+1/2} = t_{n} + \frac{\Delta t}{2}\), dando
 \begin{align*}
 	u(x_{n}, t_{n+1/2}) = u_{xx}(x_{j}, t_{n+1/2})                                            & = \frac{u(x_{n}, t_{n} + \Delta t) - u(x_{j}, t_{n})}{2\bigl(\frac{\Delta t}{2}\bigr)} + \mathcal{O}(\Delta t^{2}) \Rightarrow \\
 	\frac{u(x_{n}, t_{n} + \Delta t) - u(x_{j}, t_{n})}{\Delta t} + \mathcal{O}(\Delta t^{2}) & = \frac{u(x_{j}-h, t_{n+1/2})-2u(x_{j}, t_{n+1/2})+u(x_{j}+h, t_{n+1/2})}{h^{2}}                                               \\
@@ -145,9 +145,9 @@ só que isso resulta em pontos no meio da malha, e isso aumenta a resolução do
 \end{align*}
 Passando a discretização, obtemos
 \begin{align*}
-	            & \frac{U_{j}^{n+1}-U_{i}^{n}}{\Delta t} = \frac{1}{2}\frac{U_{j-1}^{n+1}-2U_{j}^{n}+U_{j+1}^{n+1}}{h^{2}} + \frac{1}{2}\frac{U_{j-1}^{n}-2U_{j}^{n}+U_{j+1}^{n}}{h^{2}}   \\
-	\Rightarrow & U_{j}^{n+1}-U_{j}^{n}=\frac{\sigma }{2} (U_{j+1}^{n+1}-2U_{j}^{n+1}+U_{j+1}^{n+1}+\frac{\sigma }{2} (U_{j-1}^{n}-2U_{j}^{n}+U_{j+1}^{n})                                 \\
-	\Rightarrow & -\frac{\sigma }{2}U_{j}^{n+1} + (1+\sigma )U_{j}^{n+1} -\frac{\sigma }{2}U_{j+1}^{n+1} = \frac{\sigma }{2}U_{j-1}^{n}+(1-\sigma )U_{j}^{n}+\frac{\sigma }{2}U_{j+1}^{n},
+	            & \frac{U_{j}^{n+1}-U_{i}^{n}}{\Delta t} = \frac{1}{2}\frac{U_{j-1}^{n+1}-2U_{j}^{n}+U_{j+1}^{n+1}}{h^{2}} + \frac{1}{2}\frac{U_{j-1}^{n}-2U_{j}^{n}+U_{j+1}^{n}}{h^{2}}     \\
+	\Rightarrow & U_{j}^{n+1}-U_{j}^{n}=\frac{\sigma }{2} (U_{j+1}^{n+1}-2U_{j}^{n+1}+U_{j+1}^{n+1}+\frac{\sigma }{2} (U_{j-1}^{n}-2U_{j}^{n}+U_{j+1}^{n})                                   \\
+	\Rightarrow & -\frac{\sigma }{2}U_{j+1}^{n+1} + (1+\sigma )U_{j}^{n+1} -\frac{\sigma }{2}U_{j+1}^{n+1} = \frac{\sigma }{2}U_{j-1}^{n}+(1-\sigma )U_{j}^{n}+\frac{\sigma }{2}U_{j+1}^{n},
 \end{align*}
 cuja matriz fica
 \begin{align*}
@@ -194,9 +194,9 @@ No fim, é só muita conta algébrica mesmo. Este método ainda é um método im
 \[
 	A\underline{U}^{n+1} = B\underline{U}^{n} + \underline{g}^{n} + \underline{g}^{n+1},
 \]
-resultando no método de Crank-Nickolson
+resultando no método de Crank-Nicolson
 \[
-	\boxed{-\frac{\sigma }{2}U_{j}^{n+1} + (1+\sigma )U_{j}^{n+1} -\frac{\sigma }{2}U_{j+1}^{n+1} = \frac{\sigma }{2}U_{j-1}^{n}+(1-\sigma )U_{j}^{n}+\frac{\sigma }{2}U_{j+1}^{n}}
+	\boxed{-\frac{\sigma }{2}U_{j+1}^{n+1} + (1+\sigma )U_{j}^{n+1} -\frac{\sigma }{2}U_{j+1}^{n+1} = \frac{\sigma }{2}U_{j-1}^{n}+(1-\sigma )U_{j}^{n}+\frac{\sigma }{2}U_{j+1}^{n}}
 \]
 \textbf{Não é potência! É índice!}
 

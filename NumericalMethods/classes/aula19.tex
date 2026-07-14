@@ -1,0 +1,87 @@
+\documentclass[../numerical_methods.tex]{subfiles}
+\begin{document}
+\section{Aula Extra}
+\subsection{Motivações}
+\begin{itemize}
+	\item Noções de Erros e Pontos Flutuantes.
+\end{itemize}
+\subsection{Noções de Erros e Pontos Flutuante}
+A ideia de pontos flutuantes é encontrar uma forma de representar os números reais, essencialmente infinitos tanto em tamanho quanto em granularidade, em um computador, que não tem processamento e nem memória infinita.
+\begin{def*}
+	O conjunto \(\mathbb{F} = \{\text{representação de x}:\; x\in \mathbb{R}\}\) é o conjunto cujos elementos \(\overline{x}\in \mathbb{F}\) são chamados de \textbf{pontos flutuantes}. \(\square\)
+\end{def*}
+A representação deles consiste primeiro em entender bases numéricas para inteiros, como a já conhecida base decimal e a base binária. Formalmente,
+\begin{def*}
+	Dado um inteiro N, sua versão na base \(\beta \) é dada por
+	\[
+		N = d_{k}\beta^{k}+d_{k-1}\beta^{k-1} +\dotsc +d_1\beta^{1} + d_{0}\beta^{0},
+	\]
+	onde \(0\leq d_{i}\leq (\beta-1)\) para \(i=0, \dotsc , k\). Denotamos \textbf{N na base \(\mathbf{\beta }\)} por \(N = (d_kd_{k-1}\dotsc d_1d_0)_\beta. \; \square\)
+\end{def*}
+\begin{example}[Conversão da Base Binária para Decimal]
+	Vamos converter o número \((10011)_{2}\) para a base decimal:
+	\[
+		(10011)_{2} = 1 \times 2^{4} + 0 \times 2^{3} + 0 \times 2^{2} + 1 \times 2 + 1\times 2^{0} = 19 = 1\times 10^{1} + 9\times 10^{}0 = (19)_{10}.
+	\]
+
+
+	Para o caminho contrário, dado N um número inteiro na base decimal, desejamos representar N na forma
+	\[
+		(d_k d_{k-1}\dotsc d_1d_0)_{2} = d_{k}2^{k}+\dotsc +d_1 2^{1} + d_{0}2^{0};
+	\]
+	logo,
+	\begin{align*}
+		N & = 2 (d_k \times 2^{k-1} + d_{k-1}2^{k-1}+\dotsc +d_2 2^{1} + d_1) + d_{0} \\
+		  & = 2 (2 (d_{k} 2^{k-2} + d_{k-1}2^{k-3}+\dotsc +d_2)+d_1)+d_0              \\
+		  & \vdots
+	\end{align*}
+	Assim adiante, até o quociente ficar nulo. Tente mostrar que \(2(11101)_{2} = (29)_{10}.\)
+\end{example}
+Com base no exemplo acima, dá pra montar um algoritmo bem simples que converte da decimal pra binária:
+\begin{flushleft}
+
+	Entrada: \(N \in \mathbb{Z}\)
+
+	Saída: \(N = (d_kd_{k-1}\ldots d_1d_0)_2\)
+
+	\vspace{0.4cm}
+
+	\(k = 0;\)
+
+	Calcule \(R\) e \(Q\) tais que \(N = 2Q + R;\)
+
+	\(d_k = R;\)
+
+	\vspace{0.3cm}
+
+	Enquanto \(Q \neq 0\) faça
+
+	\hspace{1cm} \(k = k + 1;\)
+
+	\hspace{1cm} \(N = Q;\)
+
+	\hspace{1cm} Calcule \(R\) e \(Q\) tais que \(N = 2Q + R;\)
+
+	\hspace{1cm} \(d_k = R;\)
+
+	Fim do Enquanto
+
+\end{flushleft}
+
+Agora que temos a noção de como funciona pros inteiros, podemos explicar o raciocínio para um número N no intervalo \((0, 1):\) se \(N=0, d_1d_2 \dotsc d_{k}\), nosso objetivo é escrever
+\[
+	N = (0, d_1d_2\cdots d_k)_{2} = d_1 2^{-1} + d_2 2^{-2} + \dotsc + d_{k}2^{-k},
+\]
+e multiplicando por 2 a equação acima, obtemos
+\[
+	2 N = d_1 + d_2 \times \underbrace{2^{-1} + \dotsc + d_{k} 2^{-k+1}}_{N_1},
+\]
+ou seja, \(d_1\) é a ``parte inteira'' de \(2N\) e \(N_1\) é a ``parte fracionária''. Multiplicando \(N_1\) por 2 em ambos os lados, assim como antes, chegamos em
+\[
+	2 N_1 = d_2 + d_3 \times 2^{-1} + \dotsc + d_{k} \times 2^{-k+2},
+\]
+resultando na parte inteira de \((2 N_1)\) sendo \(d_2\) e, indutivamente, repete-se o processo até zerar a parte fracionária.
+\begin{exr}
+	Represente os números 0,125, 3,8 na base \(\beta =2\) [Spoiler: \(0,125 = (0,001)_{2}\) e \(3,8 = (11,110011001100 \dotsc )_{2}\)], e tente fazer um algoritmo para representar um número decimal fracionário em um número binário (o oposto também).
+\end{exr}
+\end{document}

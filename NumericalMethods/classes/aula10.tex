@@ -12,7 +12,7 @@ Além disso, frações simples na base 10 podem virar dízimas periódicas na ba
 
 Imagine um número real x representado como:
 \[
-	x = \pm M \times B^{E}.
+	\overline{x} = \pm M \times B^{E} = \pm (0, d_1 d_2, \dotsc , d_{t})_{\beta }\times \beta^{E}.
 \]
 Vamos explicar o que é cada parte:
 
@@ -21,6 +21,11 @@ Vamos explicar o que é cada parte:
 \textbf{Mantissa} (M): É onde reside a precisão. No formato de precisão dupla (double), temos 52 bits. Se um número precisa de 53 bits para ser representado com exatidão, o 53º é "jogado fora", gerando o erro.
 
 \textbf{Expoente} (E): Define a ordem de grandeza. É o que permite o computador representar desde o tamanho de um átomo até a distância entre galáxias usando o mesmo número de bits.
+
+Com a notação dos pontos flutuantes, um sistema de mantissa dessa forma pode ser escrito como \(\mathbb{F}(\beta , t, m, M)\), com \([m, M]\) sendo o intervalo do expoente.
+\begin{example}
+	No sistema \(\mathbb{F}(2, 3, -2, 1)\), a quantidade de números não nulos que podem ser representados é \(2 \times 1 \times 2 \times 2 \times 4 = 32\) números; no sistema \(\mathbb{F}(10, 3, -5, 5)\), o menor e maior número em valor absoluto que podem ser representados é \(l = 10^{-6}\) e \(u = 99900.\)
+\end{example}
 
 \begin{tcolorbox}[
 		skin=enhanced,
@@ -36,6 +41,12 @@ Vamos explicar o que é cada parte:
 	]
 	Como a base é B=2, números que são frações exatas em base 10 (como \(\frac{1}{10}=0.1\)) tornam-se dízimas periódicas em binário (0.00011001100...2); como a mantissa é finita, o corte é inevitável.
 \end{tcolorbox}
+
+Com base no que foi visto, os números \(\overline{x}\in \mathbb{F}\) são limitados às cotas
+\[
+	l \leq | \overline{x} | \leq u,
+\]
+tal que, se \(| \overline{x} | < l\), o erro é chamado de \textbf{underflow}, e, se \(| \overline{x} | > u\) é chamado de \textbf{overflow}.
 \begin{listing}[H]
 	\begin{minted}[bgcolor = DarkBackground, linenos=true, breaklines]{Python}
 # DEMONSTRAÇÃO 1: A ilusão da matemática de ponto flutuante
