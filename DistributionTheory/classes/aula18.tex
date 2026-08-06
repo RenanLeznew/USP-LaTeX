@@ -1,0 +1,265 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 18 - 25 de Outubro, 2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Distribuições com Suporte Compacto.
+\end{itemize}
+\subsection{Distribuições com Suporte Compacto}
+Na aula passada, fizemos nossas considerações finais sobre a segunda parte do nosso estudo da convolução ``\(u*\varphi \)'' descrevendo o contexto que faz surgir o conceito de \textit{solução fundamental}: inverter continuamente um ODPCC \(P(D):\mathcal{C}_{c}^{\infty}\rightarrow \mathcal{C}_{c}^{\infty}\) equivale a encontrar uma distribuição \(E\in \mathcal{D}'(\mathbb{R}^{n})\) tal que \(P(D)E=\delta \), com o argumento baseando-se numa caracterização dos operadores do tipo convolução de uma função teste com uma distribuição fixa (\(T\varphi =u*\varphi \)).
+
+Note que \(P(D):\mathcal{C}_{c}^{\infty}\rightarrow \mathcal{C}_{c}^{\infty}\) é contínuo, e se for também bijetivo (em particular, se for sobrejetiva), a presença de um ``teorema da aplicação aberta'' garantiria que \(P(D)\) seria aberta, e que equivaleria a continuidade de sua inversa; em resumo, seria suficiente provar a bijetividade de \(P(D)\) para mostrar a existência de uma solução fundamental para o mesmo.
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Quando provarmos que, também, \(\overline{\mathcal{C}_{c}^{\infty}(\Omega )}^{*} = \mathcal{D}'(\Omega )\), poderemos dizer que, embora nem sempre se tenha \(\mathcal{C}_{c}^{\infty}(\Omega )\) denso em \(W^{m, p}(\Omega )\), isso ocorrerá ao menos em \(\mathcal{D}'(\Omega )\), ao vermos os elementos de \(W^{m, p}(\Omega )\) como distribuições.
+\end{tcolorbox}
+
+Uma consequência importante do teorema estudado é que as localizações de uma \(u\in \mathcal{D}'(\Omega )\) a caracterizam completamente, conforme o seguinte teorema:
+\begin{theorem*}
+	Seja \((U_{\lambda })_{\lambda \in L}\) uma família de abertos de \(\mathbb{R}^{n}\) e suponhamos que, a cada \(\lambda \in L\), está associada uma \(u_{\lambda }\in \mathcal{D}'(U_{\lambda })\), tal que
+	\[
+		U_{\lambda }\cap U_{\mu }\neq \emptyset \Rightarrow u_{\lambda } = u_{\mu }
+	\]
+	em \(U_{\lambda} \cap U_{\mu }\).
+
+	Nestas condições, existe uma única u em \(\mathcal{D}'(U)\) com \(U\coloneqq \bigcup_{\lambda \in L}^{}U_{\lambda }\) de modo que \(u|_{U_{\lambda }}=u_{\lambda }.\)
+\end{theorem*}
+\begin{proof*}
+	(i) \textbf{\underline{Existência}}: dado K contido em U um compacto, tomamos \(K\subseteq U_{\lambda_1}\cup \dotsc \cup U_{\lambda_{m}} \) uma subcobertura finita de K por abertos da família \((U_{\lambda })_{\lambda \in L}\) e \(\psi_1, \dotsc , \psi_{m}\) uma partição da unidade associada a eles; com isso, se \(\varphi \in \mathcal{C}_{c}^{\infty}(K)\), definimos
+	\[
+		\langle u, \varphi  \rangle \coloneqq \sum\limits_{j=1}^{m}\langle u_{\lambda_{j}}, \psi_{j}\varphi  \rangle.
+	\]
+	Devemos verificar que u está bem definida (ou seja, não depende nem da cobertura, nem da partição); com efeito, sejam \(K\subseteq U_{\mu_1} \cup \dotsc \cup U_{\mu_r}\) e \(\varphi_1, \dotsc , \varphi_{r}\) outra partição da unidade associada. Já sabemos que
+	\[
+		K\subseteq \bigcup_{j=1}^{m}\bigcup_{\ell =1}^{r}(U_{\lambda_{j}}\cap U_{\mu_{\ell }})
+	\]
+	e, além disso, em \(U_{\lambda_{j}}\cap U_{\mu_{\ell }}\), temos
+	\[
+		U_{\lambda_{j}}\cap U_{\mu_{\ell }}\neq\emptyset \Rightarrow u_{\lambda_{j}}=u_{\mu_{\ell }}.
+	\]
+	Daí, se \(\varphi \in \mathcal{C}_{c}^{\infty}(K)\), para toda \(\varphi \in \mathcal{C}_{c}^{\infty}(K)\), j e l,
+	\[
+		\langle u_{\lambda_{j}}, \psi_{j}(\phi_{\ell }\varphi ) \rangle=\langle u_{\mu_{\ell}}, \phi_{\ell}(\psi_{j}\varphi ) \rangle,
+	\]
+	porque \(\psi_{j}(\phi_{\ell}\varphi )\) é uma função teste  em \(\mathcal{C}_{c}^{\infty}(U_{\lambda_{j}})\cap U_{\mu_{\ell}}\); como, para todos \(\ell \) e j,
+	\[
+		\phi_{\ell}\varphi =\sum\limits_{j=1}^{m}\psi_{j}(\phi_{\ell}\varphi ) \quad\&\quad \psi_{j}\phi = \sum\limits_{\ell =1}^{r}\phi_{\ell }(\psi_{j}\varphi ),
+	\]
+	pois \(\sum\limits_{}^{}\psi_{j}\equiv \sum \phi_{\ell}\equiv 1\) em K, onde \(\varphi \) está suportada, e obtemos que
+	\begin{align*}
+		\sum\limits_{j=1}^{m}\langle u_{\lambda_{j}}, \psi_{j}\varphi  \rangle & =\sum\limits_{j=1}^{m}\biggl\langle u_{\lambda_{j}}, \sum\limits_{\ell =1}^{r} \phi_{\ell }(\psi_{j}\varphi ) \biggr\rangle \\
+		                                                                       & =\sum\limits_{j=1}^{m}\sum\limits_{\ell =1}^{r}\langle u_{\lambda_{j}}, \phi_{\ell}(\psi_{j}\varphi ) \rangle               \\
+		                                                                       & =\sum\limits_{j=1}^{m}\sum\limits_{\ell =1}^{r}\langle u_{\mu \ell }, \phi_{\ell}(\psi_{j}\varphi ) \rangle                 \\
+		                                                                       & = \sum\limits_{\ell =1}^{r}\sum\limits_{j=1}^{m}\langle u_{\mu \ell }, \psi_{j}(\phi_{\ell}\varphi ) \rangle                \\
+		                                                                       & = \sum\limits_{\ell =1}^{r}\langle u_{\mu \ell }, \phi_{\ell}\varphi \rangle
+	\end{align*}
+	e qualquer das duas maneiras que usamos para definirmos \(u\) irá resultar no mesmo valor ``\(\langle u, \varphi  \rangle\)'', mostrando a boa-definição de u.
+
+	(ii) \textbf{\underline{Continuidade de u}:} se \(\varphi_{\ell}\) converge para 0 em \(\mathcal{C}_{c}^{\infty}(\Omega )\), então \(\varphi_{\ell}\) também converge para 0 em \(\mathcal{C}_{c}^{\infty}(K)\) para algum K contido em U; mais ainda, se \(K\subseteq U_{\lambda_1}\cup \dotsc \cup U_{\lambda_{m}}\) e \(\psi_1, \dotsc , \psi_{m}\) são como em (i), então, em \(\mathcal{C}_{c}^{\infty}(U_{\lambda_{j}})\)
+	\[
+		\psi_{j}\varphi_{\ell}\stackrel{\ell \to \infty}\longrightarrow 0, \quad \forall j,
+	\]
+	donde
+	\[
+		\langle u_{\lambda_{j}}, \psi_{j}\varphi_{\ell} \rangle\stackrel{\ell \to \infty} 0, \quad \forall j=1, 2, \dotsc , m,
+	\]
+	consequentemente, como soma finita de sequências que convergem converge,
+	\[
+		\langle u, \varphi_{\ell} \rangle = \sum\limits_{j=1}^{m}\langle u_{\lambda_{j}}, \psi_{j}\varphi_{\ell} \rangle\to 0
+	\]
+
+	(iii) \textbf{\underline{Unicidade}:} resulta do resultado anterior, pois se \(v\in \mathcal{D}'(U)\) é tal que \(v|_{U_{\lambda }}=u_{\lambda }\) para todo \(\lambda \), então
+	\[
+		\mathrm{supp}(u-v) = \emptyset \Rightarrow u-v=0
+	\]
+	em \(U\setminus{\mathrm{supp}(u-v)} = U\).
+
+	Quando \(\varphi \in \mathcal{C}_{c}^{\infty}(U_{\lambda })\), tomando \(\psi \) como a função de Urysohn associada a \(K=\mathrm{supp}(\varphi)\) resulta em \((\psi )\) sendo a partição da unidade associada à cobertura \(K\subseteq U_{\lambda }\) e, portanto,
+	\[
+		\langle u, \varphi  \rangle = \langle u_{\lambda }, \psi \varphi  \rangle=\langle u_{\lambda }, \varphi  \rangle,
+	\]
+	provando a última afirmação. \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A forma que usamos para demonstrar que \(u\) era bem-definida é a mesma técnica usada para a definição da integral de uma forma com suporte compacto \(\omega \in \Lambda^{m}C(M)\) numa superfície m-dimensional orientada M, mas o caso do suporte não necessariamente compacto envolveria partições da unidade enumeráveis.
+\end{tcolorbox}
+Com o resultado acima, podemos assegurar que a definições que demos para distribuições coincide com a usual em abertos de \(\mathbb{R}^{n}\)!
+\subsection{Distribuições com Suporte Compacto}
+Se \(\Omega \subseteq \mathbb{R}^{n}\) é um aberto, definimos inicialmente \(\mathcal{E}'(\Omega ) \coloneqq [\mathcal{C}^{\infty}(\Omega )]'\) como o espaço das distribuições com suporte compacto, sendo \(\mathcal{C}^{\infty}(\Omega )\) munido da topologia da convergência uniforme em compactos das funções e de suas derivadas, dada pelas seminormas
+\[
+	p_{(m, j)}(\varphi ) = \sum\limits_{| \alpha  |\leq m}^{}\sup_{x\in K_{j}}| \partial ^{\alpha }\varphi (x) |,
+\]
+onde \((K_{j})_{j\in \mathbb{N}}\) é um esgotamento de \(\Omega \) e \(m=0, 1, 2, \dotsc \).
+
+Desse modo, \(u\) é uma distribuição com suporte compacto se, e somente se, existe um compacto \(K\subseteq \Omega \), uma constante \(c> 0\) e uma ordem de derivação m tais que
+\[
+	| \langle u, \varphi  \rangle | \leq c \sum\limits_{| \alpha  |\leq m}^{}\sup_{x\in K}| \partial^{\alpha }\varphi (x) |, \quad \forall \varphi \in \mathcal{C}^{\infty}(\Omega ).
+\]
+Além disso, inferimos que, como \(\mathcal{C}_{c}^{\infty}(\Omega )\hookrightarrow \mathcal{C}^{\infty}(\Omega )\), temos a relação de \(\mathcal{E}'(\Omega )\hookrightarrow \mathcal{D}'(\Omega )\), no sentido que
+\[
+	u\in \mathcal{E}'(\Omega ) \Rightarrow u|_{\mathcal{C}_{c}^{\infty}(\Omega )} \in \mathcal{D}'(\Omega ).
+\]
+Com isso, podemos provar os seguintes resultados:
+\begin{prop*}
+	Se \(u\in \mathcal{E}'(\Omega )\) e definirmos v como a restrição de u às funções testes \(\mathcal{C}_{c}^{\infty}(\Omega )\), então \(\mathrm{supp}(v)\) é compacto e contido em \(\Omega \).
+\end{prop*}
+\begin{proof*}
+	Com efeito, se \(c > 0\), K está contido em \(\Omega \) e se \(m=0, 1,\dotsc \) são como na nossa inferência, então toda função teste \(\varphi \) cujo suporte é disjunto de K será identicamente nula em uma vizinhança de K, pois \(K\subseteq \mathbb{R}^{n}\setminus{\mathrm{supp}(\varphi )}\), e consequentemente
+	\[
+		\partial^{\alpha }\varphi \equiv 0
+	\]
+	em K para todo \(\alpha \), levando à soma à direita sendo nula e ao produto interno satisfazendo
+	\[
+		\langle u, \varphi  \rangle = 0 \Rightarrow \langle v, \varphi  \rangle=\langle u, \varphi  \rangle=0,
+	\]
+	provando que \(v|_{\Omega \setminus{K}}=0\), porque, como \(\mathrm{supp}(\varphi )\subseteq \Omega \setminus{K}\), vale
+	\[
+		\mathrm{supp}(\Omega )\cap K = \emptyset \Rightarrow \varphi \in \mathcal{C}_{c}^{\infty}(\Omega \setminus{K}).
+	\]
+	Portanto, por definição, \(\mathrm{supp}(v)\subseteq K\). \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A proposição acima justifica o nome do espaço \(\mathcal{E}'(\Omega )\)!
+\end{tcolorbox}
+
+Reciprocamente, uma distribuição em \(\mathcal{D}'(\Omega )\) ter suporte compacto garante que ela pertença a \(\mathcal{E}'(\Omega )\), conforme a
+\begin{prop*}
+	Se \(v\in \mathcal{D}'(\Omega )\) e \(\mathrm{supp}(v)\) é compacto, então v admite uma única extensão \(u:\mathcal{C}^{\infty}(\Omega )\rightarrow \mathbb{C}\) com \(u\in \mathcal{E}'(\Omega )\).
+\end{prop*}
+\begin{proof*}
+	Seja \(K\coloneqq \mathrm{supp}(v)\subseteq \Omega \) e fixemos \(\psi \in \mathcal{C}_{c}^{\infty}(\Omega )\) uma função de Urysohn associada a K. Nestas condições, definimos
+	\begin{align*}
+		u: & \mathcal{C}^{\infty}(\Omega )\rightarrow \mathbb{C}                                         \\
+		   & \varphi \longmapsto \langle u, \varphi  \rangle \coloneqq \langle v, \psi \varphi  \rangle.
+	\end{align*}
+	A princípio, v está só definida em \(\mathcal{C}_{c}^{\infty}(\Omega )\), e \(\psi \varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\), que dá sentido à definição de u.
+
+	Como antes, devemos mostrar que u não depende de \(\psi \); com efeito, se \(\psi_{0}\) é outra função de Urysohn associada a K, então segue imediatamente que
+	\[
+		\varphi =\psi \varphi +(1-\psi )\varphi \;\&\; \varphi =\psi_{0}\varphi +(1-\psi_{0})\varphi
+	\]
+	implicam em
+	\[
+		\psi_{0}\varphi =\psi_{0}\psi \varphi +(1-\psi )\psi_{0}\varphi \;\&\; \psi \varphi =\psi \psi_{0}\varphi +(1-\psi_{0})\psi \varphi .
+	\]
+
+  Agora, como tanto \((1-\psi )\psi_{0}\varphi \) quanto \((1-\psi_{0})\psi \varphi \) pertencem a \(\mathcal{C}_{c}^{\infty}\), ambas tendo suporte disjunto de K por serem a identidade em K, valem as relações 
+  
+ \begin{align*}
+      \langle v, \psi_{0}\varphi  \rangle = \langle v, \psi_{0}\psi \varphi  \rangle + \langle v, (1-\psi )\psi_{0}\varphi  \rangle &= \langle u, \psi_{0}\psi\varphi  \rangle
+      &= \langle v, \psi_{0}\psi \varphi  \rangle + \langle v, (1-\psi_{0})\psi \varphi  \rangle\\ 
+      &= \langle u, \psi \varphi  \rangle,
+ \end{align*}
+ mostrando a independência da função de Uryhson.
+
+ Resta mostrarmos que \(u\in \mathcal{E}'(\Omega )\). De fato, associado a \(K_{0}\coloneqq \mathrm{supp}(\psi )\), existem \(c>0\) e m um número não negativo tais que 
+   \[
+     | \langle v, \varphi  \rangle | \leq c \sum\limits_{| \alpha  |\leq m}^{}\sup_{x\in K_{0}}| \partial^{\alpha }\varphi (x) |, \quad \forall \varphi \in \mathcal{C}_{c}^{\infty}(K_{0}),
+   \]
+   de maneira que, se \(\varphi \in \mathcal{C}^{\infty}(\Omega )\) é qualquer função suave, então \(\psi \varphi\in \mathcal{C}_{c}^{\infty}(K_{0})\subseteq \mathcal{C}_{c}^{\infty}(\Omega ) \), e consequentemente, a estimativa acima é válida para \(\langle v, \psi \varphi  \rangle\); mais ainda, da Regra de Leibniz, segue também a existência de \(c_{0}\) positiva tal que, para cada \(\alpha \) com \(| \alpha  |\leq m\), tem-se 
+     \[
+       \sup_{x\in K_{0}}| \partial^{\alpha }(\psi \varphi )(x) |\leq c_{0}\sum\limits_{| \beta  |\leq | \alpha  |}^{}\sup_{x\in K_{0}}| \partial^{\beta }\varphi (x) |,
+     \]
+     donde obtemos, para alguma constante M positiva, a finalização da prova: 
+     \begin{align*}
+         | \langle v, \psi \varphi  \rangle | \leq c \sum\limits_{| \alpha  |\leq m}^{}\sup_{x\in K_{0}}| \partial^{\alpha }(\psi \varphi )(x) |&\leq cc_{0}\sum\limits_{| \alpha  |\leq m}^{}\sum\limits_{| \beta  |\leq | \alpha  |}^{}\sup_{x\in K_{0}}| \partial^{\beta }\varphi (x) |\\ 
+         &= M \sum\limits_{| \alpha  |\leq m}^{}\sup_{x\in K_{0}}| \partial^{\alpha }\varphi (x) |. \text{ \qedsymbol}
+     \end{align*}
+\end{proof*}
+Na prática, não faremos distinção entre uma distribuição \(u\in \mathcal{E}'(\Omega )\) e sua restrição \(u|_{\mathcal{C}_{c}^{\infty}},\) nem entre uma distribuição \(v\in \mathcal{D}'\) com suporte compacto e sua extensão \(u\in \mathcal{E}'\).
+
+\begin{example}
+  Se \(u\in \mathcal{C}(\mathbb{R}^{n})\), então \(\mathrm{supp}(u)\) como função e como distribuição coincidem.
+\end{example}
+\begin{example}
+  Para a distribuição de Dirac, se \(\varphi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}\setminus{\{0 \}})\), então \(\varphi (0) = 0\) e \(\langle \delta , \varphi  \rangle=0\). Portanto, 
+    \[
+      \mathrm{supp}(\delta )\subseteq \{0\}.
+    \]
+    Por outro lado, para todo \(r>0\), existe \(\varphi_{r}\) em \(\mathcal{C}_{c}^{\infty}(\overline{B}(0; r))\) com \(\varphi_{r}(0)\neq 0\), tal que 
+      \[
+        \langle \delta , \varphi_{r} \rangle\neq 0
+      \]
+      e provando que \(0\in \mathrm{supp}(\delta )\), concluindo, então, que \(\mathrm{supp}(\delta )=\{0\}\).
+\end{example}
+\begin{example}
+  Se 
+    \[
+      \langle u, \varphi  \rangle = \int_{\mathbb{R}}^{}\varphi (x, x) \mathrm{d}x, \quad \varphi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}),
+    \]
+    então \(\mathrm{supp}(u)=\{(x, x):x\in \mathbb{R}\}\).
+\end{example}
+\begin{prop*}
+  Com relação ao suporte de uma distribuição u, valem as seguintes propriedades: 
+  \begin{itemize}
+    \item[1)] \(\mathrm{supp}(u) = \emptyset \) se, e somente se, \(u = 0\);
+    \item[2)] x é um elemento do suporte de u se, e somente se, para todo r positivo existir \(\varphi \in \mathcal{C}_{c}^{\infty}(\overline{B}(x; r)\) tal que \(\langle u, \varphi  \rangle\neq 0\); e 
+    \item[3)] Para toda \(u\in \mathcal{D}'(\Omega )\) e todo \(j=1, \dotsc , n\), temos 
+      \[
+        \mathrm{supp}\biggl(\frac{\partial^{}u}{\partial x_{j}^{}}\biggr) \subseteq \mathrm{supp}(u); 
+      \]
+      \item[4)] Para \(f\in \mathcal{C}^{\infty}(\Omega )\) e \(u\in \mathcal{D}'(\Omega )\), 
+        \[
+          \mathrm{supp}(fu)\subseteq \mathrm{supp}(U)\cap \mathrm{supp}(f);
+        \]
+        \item[5)] Existe \(\alpha \in \mathbb{Z}_{+}^{n}\) tal que \(\partial^{\alpha }\delta =0\)? Ou seja, \(\mathrm{supp}(\partial^{\alpha }\delta )\subseteq \{0\}\) para todo \(\alpha \) e indagamos se existe \(\alpha \) tal que um suporte diminui.
+  \end{itemize}
+\end{prop*}
+\begin{proof*}
+Provamos o item (3); com efeito, se \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega \setminus{\mathrm{supp}(\Omega )})\), então 
+    \[
+      \mathrm{supp}\biggl(\frac{\partial^{}\varphi }{\partial x_{j}^{}}\biggr)\subseteq \mathrm{supp}(\varphi ),
+    \]
+    donde 
+      \[
+        \biggl\langle \frac{\partial^{}u}{\partial x_{j}^{}}, \varphi  \biggr\rangle = -\biggl\langle u, \frac{\partial^{}\varphi }{\partial x_{j}^{}} \biggr\rangle = 0 \quad\&\quad \frac{\partial^{}u}{\partial x_{j}^{}}|_{\Omega \setminus{\mathrm{supp}(u)}}=0.
+      \]
+\end{proof*}
+   \begin{tcolorbox}[
+   skin=enhanced,
+   title=Observação,
+   fonttitle=\bfseries,
+ colframe=black,
+   colbacktitle=cyan!75!white, 
+   colback=cyan!15,
+   colbacklower=black,
+ coltitle=black,
+   drop fuzzy shadow,
+   %drop large lifted shadow
+   ]
+   As propriedades mostram que o suporte das distribuições comportam-se de modo bem diferente dos suportes de funções contínuas, pois nenhuma função contínua pode ser suportada num conjunto de medida nula; mas, a função \(f=\chi_{\mathbb{Q}}\in L_{\mathrm{loc}}^{1}(\mathbb{R})\) satisfaz \(\mathrm{supp}(f) = \emptyset \), embora f, como função, não seja identicamente nula!
+   \end{tcolorbox}
+\end{document}
