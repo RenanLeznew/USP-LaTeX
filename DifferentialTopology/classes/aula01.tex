@@ -1,0 +1,105 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 01 - 06 de Agosto, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Introdução ao Curso;
+	\item Variedades em \(\mathbb{R}^{k}\)
+\end{itemize}
+\subsection{Variedades no k-Espaço Euclidiano}
+O grande tipo de objeto que focaremos ao longo deste curso será a variedade em \(\mathbb{R}^{n}\); definiremos aplicações e derivadas entre elas, o espaço tangente e seguiremos este caminho, eventualmente apresentando as formas locais de aplicações \(f:\mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\) e apresentar a teoria de Morse.
+Sem mais delongas,
+
+\begin{def*}
+	Sejam \(f:U \subseteq \mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\), U um aberto, \(x\) um ponto de U e f de ordem \(\mathcal{C}^{k},\; k\geq 1\). Dizemos que f é uma \textbf{submersão em x} se a derivada \(f'(x):\mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\) for sobrejetora. \(\square\)
+\end{def*}
+
+Em particular, segue que \(m \geq n\) e podemos escrever \(m = n + p\), além de descrever \(\mathbb{R}^{m}\) em termos de um produto cartesiano:
+\[
+	\mathbb{R}^{m} = \mathbb{R}^{n}\times \mathbb{R}^{p}.
+\]
+\begin{example}
+	Um exemplo bem simples de submersões é a \textbf{submersão canônica}, dada por
+	\begin{align*}
+		\pi : & \mathbb{R}^{n}\times \mathbb{R}^{p}\rightarrow \mathbb{R}^{n} \\
+		      & (x, y)\longmapsto x.
+	\end{align*}
+\end{example}
+Sobre submersões, um dos resultados da análise em \(\mathbb{R}^{n}\) é a forma local delas:
+
+\hypertarget{local_submersions}{
+	\begin{theorem*}[Forma Local das Submersões]
+		Sejam \(U\subseteq \mathbb{R}^{m+n},\; f:U\rightarrow \mathbb{R}^{n}\) uma submersão em \(z_{0}\in U\) e \(\mathbb{R}^{m+n} = E \oplus F\), tais que a restrição da derivada de \(f'\) no ponto \(z_{0}\) é um isomorfismo como
+		\[
+			f'(z_{0})|_{E}:E\rightarrow \mathbb{R}^{n}.
+		\]
+		Se \(z_{0} = (x_{0}, y_{0})\) onde \(x_{0}\in E\) e \(y_{0}\in F\), então existem abertos Z com \(z_{0}\in Z\) em U, V com \(x_{0}\in V\) em E e W com \(f(z_{0})\in W\) em \(\mathbb{R}^{n}\), assim como um difeomorfismo \(h:V\times W\rightarrow Z\), tais que
+		\[
+			\pi = f\circ h,
+		\]
+		onde \(\pi \) é a submersão canônica.
+	\end{theorem*}
+}
+\begin{def*}
+	Sejam \(f:U\subseteq \mathbb{R}^{m}\rightarrow \mathbb{R}^{n},\; U\) um aberto, \(x\) um ponto de U e f uma função de classe \(\mathcal{C}^{k},\; k \geq 1.\) Dizemos que f é uma \textbf{imersão em x} se \(f'(x):\mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\) é injetora. \(\square\)
+\end{def*}
+Assim como antes, segue da definição que \(m\leq n\) e que podemos escrever
+\[
+	\mathbb{R}^{n} = \mathbb{R}^{m}\times \mathbb{R}^{p}.
+\]
+Note que, desta vez, não é o domínio da função que pode ser decomposto, mas sim seu contradomínio.
+
+\begin{example}
+	O exemplo mais simples de uma imersão é, potencialmente, a \textbf{imersão canônica}:
+	\begin{align*}
+		i: & \mathbb{R}^{m}\hookrightarrow \mathbb{R}^{m}\times \mathbb{R}^{p} \\
+		   & x\longmapsto (x, 0).
+	\end{align*}
+\end{example}
+Analogamente ao caso das submersões, também é possível expressar as imersões de forma local utilizando a imersão canônica:
+
+\hypertarget{local_imersions}{
+	\begin{theorem*}[Forma Local das Imersões]
+		Sejam \(U\subseteq \mathbb{R}^{m}\) e \(f:U\rightarrow \mathbb{R}^{m+n}\) uma imersão em \(x_{0}\in U\). Então, existem vizinhanças abertas \(Z\) com \(f(x_{0})\in Z\) em \(\mathbb{R}^{m+n}\), V com \(x_{0}\in V\) em U e W com \(0\in W\) em \(\mathbb{R}^{n}\), assim como um difeomorfismo \(h:Z\rightarrow V\times W\) de classe \(\mathcal{C}^{k}\) tais que
+		\[
+			h\circ f = i.
+		\]
+	\end{theorem*}
+}
+
+Para definirmos as variedades em \(\mathbb{R}^{k}\), precisamos generalizar as noções de diferenciabilidade usadas entre espaços \(\mathbb{R}^{k}\).
+\begin{def*}
+	Sejam X um subconjunto de \(\mathbb{R}^{k}\) e Y um subconjunto de \(\mathbb{R}^{\ell }\); diremos que \textbf{f é de classe \(\mathbf{\mathcal{C}^{r}}\)} se, para todo x de X, existir um aberto U contendo x em \(\mathbb{R}^{k}\) e uma função multivariada \(F:U\rightarrow \mathbb{R}^{\ell }\) tais que
+	\[
+		F |_{X\cap U} = f |_{X\cap U},
+	\]
+	ou seja, quando F, de classe \(\mathcal{C}^{r}\), é aplicada a pontos de U, ela é idêntica à f. \(\square\)
+\end{def*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A composição de funções de classe \(\mathcal{C}^{r}\) entre subconjuntos dos espaços euclidianos também é uma função de classe \(\mathcal{C}^{r}\) (claro, dado que todas as partes também sejam).
+	A identidade \(\mathrm{Id}_{X}:X\rightarrow X\) também sempre é de classe \(\mathcal{C}^{r}\) pra qualquer valor de r.
+\end{tcolorbox}
+
+\begin{def*}
+	Dizemos que uma função \(f:X\rightarrow Y\) é um \textbf{difeomorfismo \(\mathbf{\mathcal{C}^{r}}\)} se \(f:X\rightarrow Y\) for um homeomorfismo e tanto a f quanto sua inversa forem funções \(\mathcal{C}^{r}.\; \square\)
+\end{def*}
+
+Para finalizar a primeira aula, introduzimos as variedades com as definições acima:
+\begin{def*}
+	Dizemos que \(M\subseteq \mathbb{R}^{k}\) é uma \textbf{variedade \(\mathbf{\mathcal{C}^{r}}\) de dimensão \(n\)} se, para todos os seus pontos \(x\in M\), existem abertos U de \(\mathbb{R}^{n}\) e V contendo x tais que existe um difeomorfismo \(\mathcal{C}^{r}\) da forma \(\varphi :U\rightarrow V\).
+	O difeomorfismo leva o nome de \textbf{parametrização de x}, sua pré-imagem \(\varphi^{-1}\) é chamada de \textbf{carta de M em x} e, quando escrita como \(\varphi^{-1}=(x_1, \dotsc , x_{n})\) será chamada de \textbf{coordenadas de M}. \(\square\)
+\end{def*}
+
+\end{document}
