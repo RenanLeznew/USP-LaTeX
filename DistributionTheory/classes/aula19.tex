@@ -3,21 +3,228 @@
 \section{Aula 19 - 01 de Novembro, 2024}
 \subsection{Motivações}
 \begin{itemize}
-	\item Localizações
+	\item Continuação do teorema de localização;
+	\item Suporte Singular;
+	\item Distribuições com Suporte Compacto.
 \end{itemize}
-\subsection{Localizações}
-Nas aulas passadas, introduzimos e começamos a provar o resultado que determina que uma distribuição fica completamente determinada por suas localizações:
+
+\subsection{Uma Distribuição Fica Completamente Determinada por suas Localizações}
+Nossa última aula terminou no meio da prova do seguinte teorema:
 \begin{theorem*}
-	Se \(\{U_{\lambda }\}_{\lambda \in L}\) é uma família de abertos de modo que, a cada \(\lambda \in L\) está associada uma \(u_{\lambda }\in \mathcal{D}'(U_{\lambda })\) tal que \(U_{\lambda }\cap U_{\mu }\neq \emptyset \) implica nas distribuições \(u_{\lambda }=u_{\mu }\) em \(U_{\lambda }\cap U_{\mu }\), então existe uma única \(u\in \mathcal{D}'(U)\), onde \(U\coloneqq \bigcup_{\lambda \in L}^{}U_{\lambda }\), tal que
+	Se \((U_{\lambda })_{\lambda \in L}\) é uma família de abertos de modo que, a cada \(\lambda \in L\), está associada uma \(u_{\lambda }\in \mathcal{D}'(U_{\lambda })\), tal que
 	\[
-		u|_{U_{\lambda }} = u_{\lambda }, \quad \forall \lambda \in L.
+		U_{\lambda }\cap U_{\mu }\neq \emptyset \Rightarrow u_{\lambda }=u_{\mu }
+	\]
+	em \(U_{\lambda }\cap U_{\mu }\), então existe uma única \(u\in \mathcal{D}'(U)\), onde
+	\[
+		U\coloneqq \bigcup_{\lambda \in L}U_{\lambda },
+	\]
+	tal que
+	\[
+		u|_{U_{\lambda }}=u_{\lambda },\quad \forall \lambda \in L.
 	\]
 \end{theorem*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Usamos partições de unidade para ``colar'' os pedaços \(u_{\lambda }\). É como se a u já existisse a princípio.
+\end{tcolorbox}
+
 \begin{proof*}
-	Dado \(K\subseteq U\), tomando uma subcoleção \(K\subseteq U_{\lambda_1}\cup \dotsc \cup U_{\lambda_{m}}\) e \(\psi_1, \dotsc , \psi_{m}\) uma partição da unidade associada, para \(\varphi \in \mathcal{C}_{c}^{\infty}(K)\) pomos
+	\((\dotsc)\) Dado \(K\Subset U\), tomando
 	\[
-		\langle u, \varphi  \rangle \coloneqq \sum\limits_{j=1}^{m}\langle u_{\lambda_{j}}, \underbrace{\psi_{j}\varphi }_{\in \mathcal{C}_{c}^{\infty}(U_{\lambda_{j}})} \rangle.
+		K\subseteq U_{\lambda _1}\cup \dotsc \cup U_{\lambda _m}
 	\]
-	Nas condições acima, vimos que
+	e \(\psi _1,\dotsc ,\psi _m\) uma partição da unidade associada, para \(\varphi \in \mathcal{C}_{c}^{\infty}(K)\) pomos
+	\[
+		\langle u,\varphi \rangle \coloneqq \sum\limits_{j=1}^{m}\langle u_{\lambda _j},\psi _j\varphi \rangle. \qquad (\#)
+	\]
+
+	Vimos que, nas condições acima,
+	\[
+		u:\mathcal{C}_{c}^{\infty}(K)\longrightarrow \mathbb{C}
+	\]
+	está bem definida, no sentido de que o valor do lado direito não depende nem da cobertura e nem da partição da unidade; trata-se do mesmo princípio usado na prova de que \(\int_{M}\omega,\) para \(\omega \in \Lambda^{m}\mathcal{C}_{c}(M^{m})\), com M orientável, está bem definida.
+
+	Finalmente, para essa parte da existência, devemos mostrar também que não há problema devido à escolha de K. Para isso, escrevemos momentaneamente \(u_{K}\) para a u definida em \((\#)\), tomamos \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\) e \(K_{1},K_{2}\) compactos com
+	\[
+		\mathrm{supp}(\varphi )\subseteq K_{1}\cap K_{2}.
+	\]
+	Daí, \(K_{1}\cup K_{2}\) é um compacto tal que, se
+	\[
+		K_{1}\cup K_{2}\subseteq U_{\lambda _1}\cup \dotsc \cup U_{\lambda _N}
+	\]
+	e \(\psi _1,\dotsc ,\psi _N\) é uma partição da unidade associada, então a cobertura e a partição estão associadas a \(K_{1}\) e \(K_{2}\), simultaneamente. Sendo \(\varphi \in \mathcal{C}_{c}^{\infty}(K_{1}\cup K_{2})\), temos
+	\[
+		\langle u_{K_{1}},\varphi \rangle
+		=
+		\langle u_{K_{1}\cup K_{2}},\varphi \rangle
+		=
+		\langle u_{K_{2}},\varphi \rangle,
+	\]
+	pois \(\mathrm{supp}(\varphi )\subseteq K_{1}\), no primeiro caso, \(K_{1}\cup K_{2}\) é o K usado em \((\#)\), no segundo, e \(\mathrm{supp}(\varphi )\subseteq K_{2}\), no terceiro.
+
+	\underline{\textbf{(ii)} \(\mathbf{u\in \mathcal{D}'(U)}\)}: a linearidade resulta do que foi feito acima; se \(\varphi ,\psi \in \mathcal{C}_{c}^{\infty}(\Omega )\), \(K\supseteq \mathrm{supp}(\varphi )\cup \mathrm{supp}(\psi )\) e \(\alpha \in \mathbb{C}\), então
+	\begin{align*}
+		\langle u,\varphi +\alpha \psi \rangle
+		 & =\sum\limits_{j=1}^{m}\langle u_{\lambda _j},\psi _j(\varphi +\alpha \psi )\rangle \\
+		 & =\sum\limits_{j=1}^{m}\langle u_{\lambda _j},\psi _j\varphi \rangle
+		+\alpha \sum\limits_{j=1}^{m}\langle u_{\lambda _j},\psi _j\psi \rangle               \\
+		 & =\langle u,\varphi \rangle+\alpha \langle u,\psi \rangle.
+	\end{align*}
+
+	\underline{\textbf{(iii)} \(\mathbf{u|_{U_{\lambda }}=u_{\lambda },\;\forall \lambda \in L}\)}: com efeito, se \(\varphi \in \mathcal{C}_{c}^{\infty}(U_{\lambda })\) e \(\psi \in \mathcal{C}_{c}^{\infty}(U_{\lambda })\) é a função de Urysohn associada a \(K=\mathrm{supp}(\varphi )\), então \(\psi \), sozinha, é uma partição da unidade subordinada a \(K\subseteq U_{\lambda }\) e, por definição de u,
+	\[
+		\langle u,\varphi \rangle=\langle u_{\lambda },\psi \varphi \rangle=\langle u_{\lambda },\varphi \rangle,
+	\]
+	pois \(\psi \varphi =\varphi \), já que \(\psi \equiv 1\) em K.
+
+	\underline{(iv) \textbf{Unicidade}}: se \(v\in \mathcal{D}'(U)\) também cumpre \(v|_{U_{\lambda }}=u_{\lambda }\), então
+	\[
+		u-v=0\quad \text{em }U_{\lambda },\quad \forall \lambda \in L,
+	\]
+	donde \(u-v=0\) em U, pois
+	\[
+		\mathrm{supp}(u-v)=U\setminus U=\emptyset
+	\]
+	e uma distribuição é nula fora do seu suporte, completando a prova. \qedsymbol
 \end{proof*}
+
+\subsection{Suporte Singular}
+\begin{def*}
+	Se \(u\in \mathcal{D}'(\Omega )\), consideramos o conjunto dos pontos de \(\Omega \) tais que a u, restrita a alguma vizinhança deles, é suave:
+	\[
+		V=V(u)\coloneqq \bigl\{x_{0}\in \Omega :\; \exists V_{x_{0}}\text{ vizinhança de }x_{0}\text{ em }\Omega \text{ tal que }u|_{V_{x_{0}}}\in \mathcal{C}^{\infty}\bigr\}.
+	\]
+	Definimos o \textbf{suporte singular \(\mathbf{\mathcal{C}^{\infty}}\) de u} por
+	\[
+		\mathrm{supp\,sing}(u)\coloneqq \Omega \setminus V.
+	\]
+	Assim,
+	\[
+		x_{0}\in \mathrm{supp\,sing}(u)
+		\Longleftrightarrow
+		\forall r>0,\; \nexists f\in \mathcal{C}^{\infty}(B(x_{0};r))\text{ tal que }u=f\text{ em }B(x_{0};r). \;\square
+	\]
+\end{def*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	A partir dessa definição e do teorema anterior podemos demonstrar que\(u\in \mathcal{C}^{\infty}\bigl(\Omega \setminus \mathrm{supp\,sing}(u)\bigr)\)
+	e, além disso, \(V=\Omega \setminus \mathrm{supp\,sing}(u)\) é o maior aberto sobre o qual u é \(\mathcal{C}^{\infty}\).
+\end{tcolorbox}
+
+Com efeito, para cada \(x\in V\), existem \(V_{x}\) vizinhança e \(f_{x}\in \mathcal{C}^{\infty}(V_{x})\) tais que
+\[
+	\langle u,\varphi \rangle=\int_{V_{x}}f_{x}\varphi ,\quad \forall \varphi \in \mathcal{C}_{c}^{\infty}(V_{x}).
+\]
+Naturalmente,
+\[
+	V_{x}\cap V_{y}\neq \emptyset \Rightarrow f_{x}=f_{y}\quad \text{em }V_{x}\cap V_{y},
+\]
+por um lema do começo do curso, segundo o qual
+\[
+	L_{\mathrm{loc}}^{1}(V_{x})\longrightarrow \mathcal{D}'(V_{x})
+\]
+é injetiva.
+
+Portanto, pelo teorema anterior, existe uma única \(f\in \mathcal{D}'(V)\) tal que
+\[
+	f=f_{x}\quad \text{em }V_{x},\quad \forall x\in V.
+\]
+Mas isso significa que \(f\in \mathcal{C}^{\infty}(V)\) e, além disso,
+\[
+	f=f_{x}=u\quad \text{em }V_{x}\Rightarrow f=u\quad \text{em }V,
+\]
+pela unicidade também dada no teorema anterior.
+
+Por fim, o fato de que V é o maior aberto com essa propriedade segue de
+\[
+	u|_{U}\in \mathcal{C}^{\infty}\Rightarrow \forall x\in U,\; U\text{ é a vizinhança exigida para que }x\in V,
+\]
+completando a prova.
+
+\subsection{Distribuições com Suporte Compacto}
+Se \(\Omega \subseteq \mathbb{R}^{n}\), definimos inicialmente
+\[
+	\mathcal{E}'(\Omega )\coloneqq [\mathcal{C}^{\infty}(\Omega )]'
+\]
+como o dual de \(\mathcal{C}^{\infty}(\Omega )\), munido da topologia dada pela sequência de seminormas
+\[
+	p_{(m,j)}(\varphi )=\sum\limits_{|\alpha |\leq m}\sup_{x\in K_{j}}|\partial^{\alpha }\varphi (x)|,\quad m,j\in \mathbb{N},
+\]
+sendo \((K_{j})_{j}\) um esgotamento de \(\Omega \). Daí,
+\[
+	u\in \mathcal{E}'(\Omega )\Longleftrightarrow\exists K\Subset \Omega,\; c>0\text{ e }m\in \mathbb{N}\cup \{0\}
+\]
+tais que
+\[
+	|\langle u,\varphi \rangle|\leq c\sum\limits_{|\alpha |\leq m}\sup_{x\in K}|\partial^{\alpha }\varphi (x)|,\quad \forall \varphi \in \mathcal{C}^{\infty}(\Omega ).\qquad (I)
+\]
+mostrando que
+\[
+	\varphi _{j}\longrightarrow 0\text{ em }\mathcal{C}_{c}^{\infty}(\Omega )	\Rightarrow \langle u,\varphi _{j}\rangle\longrightarrow 0.
+\]
+Consequentemente,
+\[
+	v\coloneqq u|_{\mathcal{C}_{c}^{\infty}(\Omega )}\in \mathcal{D}'(\Omega ).
+\]
+Além disso, como \(\mathcal{C}_{c}^{\infty}(\Omega )\) é denso em \(\mathcal{C}^{\infty}(\Omega )\), se \(w\in \mathcal{E}'(\Omega )\) satisfaz
+\[
+	w|_{\mathcal{C}_{c}^{\infty}}=u|_{\mathcal{C}_{c}^{\infty}},
+\]
+então \(u=w\).
+
+A proposição a seguir garante que \(\mathrm{supp}(v)\) é compacto e contido em \(\Omega \).
+\begin{prop*}
+	Se \(v\coloneqq u|_{\mathcal{C}_{c}^{\infty}(\Omega )}\) é a restrição de u a \(\mathcal{C}_{c}^{\infty}(\Omega )\), sendo \(u\in \mathcal{E}'(\Omega )\), então \(\mathrm{supp}(v)\subseteq \Omega \) é compacto.
+\end{prop*}
+\begin{proof*}
+	Basta notar que, se \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\) e
+	\[
+		\mathrm{supp}(\varphi )\cap K=\emptyset,
+	\]
+	onde K é como em (I), então
+	\[
+		\varphi \equiv 0\quad \text{em }\Omega \setminus \mathrm{supp}(\varphi )\supseteq K
+	\]
+	e, consequentemente,
+	\[
+		\partial ^{\alpha }\varphi \equiv 0\quad \text{em K},\quad \forall \alpha .
+	\]
+	O lado direito de (I) é nulo; logo, \(v=0\) em \(\Omega \setminus K\). Portanto,
+	\[
+		\mathrm{supp}(v)\subseteq K,
+	\]
+	como queríamos. \qedsymbol
+\end{proof*}
+
+Reciprocamente, podemos provar que, se \(u\in \mathcal{D}'(\Omega )\) possui suporte compacto, então ``\(u\in \mathcal{E}'(\Omega )\)'' no seguinte sentido:
+\begin{prop*}
+	Se \(u\in \mathcal{D}'(\Omega )\) possui suporte compacto, então existe uma única
+	\[
+		\overline{u}:\mathcal{C}^{\infty}(\Omega )\longrightarrow \mathbb{C}
+	\]
+	extensão de u com \(\overline{u}\in \mathcal{E}'(\Omega )\).
+\end{prop*}
 \end{document}

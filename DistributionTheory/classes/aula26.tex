@@ -1,0 +1,264 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 26 - 25 de Novembro, 2024}
+\subsection{Continuação das Propriedades da Transformada de Fourier em $L^1$}
+Das propriedades anteriores da transformada de Fourier, obtemos uma consequência importante para funções suficientemente regulares e rapidamente decrescentes.
+
+\begin{crl*}
+ Seja $f\in\mathcal C^\infty(\mathbb R^n)$ tal que
+ \[
+  x^\alpha\partial^\beta f\in L^1(\mathbb R^n)\cap C_0(\mathbb R^n),
+  \qquad \forall\alpha,\beta\in\mathbb Z_+^n.
+ \]
+ Então $\widehat f\in\mathcal C^\infty$ e, para todos os multi-índices, as expressões $\xi^\alpha\partial_\xi^\beta\widehat f(\xi)$ tendem a zero quando $|\xi|\to\infty$. Em particular, $\widehat f$ é rapidamente decrescente juntamente com todas as suas derivadas.
+\end{crl*}
+
+\begin{proof*}
+ Das fórmulas
+ \[
+  \partial_\xi^\beta\widehat f
+  =\bigl[(-2\pi i x)^\beta f\bigr]^\wedge
+ \]
+ e
+ \[
+  \widehat{\partial^\alpha g}(\xi)
+  =(2\pi i\xi)^\alpha\widehat g(\xi),
+ \]
+ obtemos, aplicando-as sucessivamente,
+ \[
+  \xi^\alpha\partial_\xi^\beta\widehat f(\xi)
+  =(2\pi i)^{-|\alpha|}\left[\partial^\alpha\bigl((-2\pi i x)^\beta f\bigr)\right]^\wedge(\xi).
+ \]
+ O termo dentro da transformada pertence a $L^1$, pela regra de Leibniz e pelas hipóteses. O lema de Riemann--Lebesgue fornece então a conclusão. \qedsymbol
+\end{proof*}
+
+\begin{prop*}
+ Se $f,g\in L^1(\mathbb R^n)$, então
+ \[
+  \int_{\mathbb R^n}\widehat f(\xi)g(\xi)\,d\xi
+  =\int_{\mathbb R^n}f(x)\widehat g(x)\,dx.
+ \]
+\end{prop*}
+
+\begin{proof*}
+ Pelo teorema de Fubini,
+ \begin{align*}
+  \int\widehat f(\xi)g(\xi)\,d\xi
+  &=\int\left[\int e^{-2\pi i x\cdot\xi}f(x)\,dx\right]g(\xi)\,d\xi\\
+  &=\int f(x)\left[\int e^{-2\pi i x\cdot\xi}g(\xi)\,d\xi\right]dx\\
+  &=\int f(x)\widehat g(x)\,dx.
+ \end{align*}
+ A aplicação de Fubini é permitida porque $(x,\xi)\mapsto f(x)g(\xi)$ é integrável em $\mathbb R^n\times\mathbb R^n$. \qedsymbol
+\end{proof*}
+
+\subsection{Algumas Transformadas Explícitas}
+Duas aplicações centrais da transformada de Fourier são o estudo de funções periódicas, por meio de séries de Fourier, e o estudo de funções integráveis em $\mathbb R^n$. No contexto de EDPs, a transformada converte derivação em multiplicação e, assim, transforma certas equações diferenciais em equações algébricas ou ordinárias no parâmetro dual.
+
+\subsubsection*{1. Função característica de um intervalo}
+Se $a>0$ e
+\[
+ f=\chi_{[-a,a]},
+\]
+então $f\in L^1(\mathbb R)$ e
+\[
+ \widehat f(0)=\int_{-a}^{a}dx=2a.
+\]
+Para $\xi\neq0$,
+\begin{align*}
+ \widehat f(\xi)
+ &=\int_{-a}^{a}e^{-2\pi i x\xi}\,dx\\
+ &=\frac{e^{-2\pi ia\xi}-e^{2\pi ia\xi}}{-2\pi i\xi}
+ =\frac{\sin(2\pi a\xi)}{\pi\xi}.
+\end{align*}
+Logo
+\[
+ \widehat{\chi_{[-a,a]}}(\xi)
+ =\begin{cases}
+ \dfrac{\sin(2\pi a\xi)}{\pi\xi},&\xi\neq0,\\[0.4em]
+ 2a,&\xi=0.
+ \end{cases}
+\]
+
+\subsubsection*{2. A função $e^{-a|x|}$}
+Se $a>0$ e
+\[
+ f_a(x)=e^{-a|x|},
+\]
+então
+\begin{align*}
+ \widehat f_a(\xi)
+ &=\int_{-\infty}^0e^{-2\pi i x\xi}e^{ax}\,dx
+ +\int_0^\infty e^{-2\pi i x\xi}e^{-ax}\,dx\\
+ &=\frac{1}{a-2\pi i\xi}+\frac{1}{a+2\pi i\xi}
+ =\frac{2a}{a^2+4\pi^2\xi^2}.
+\end{align*}
+
+Escolhendo $a=2\pi t$, $t>0$, obtemos
+\[
+ \widehat{e^{-2\pi t|x|}}(\xi)
+ =\frac1\pi\frac{t}{t^2+\xi^2}.
+\]
+A função
+\[
+ P(t,\xi)=\frac1\pi\frac{t}{t^2+\xi^2},
+ \qquad t>0,
+\]
+é o núcleo de Poisson no semiplano superior. Além disso,
+\[
+ \int_{\mathbb R}P(t,\xi)\,d\xi=1.
+\]
+
+\subsubsection*{3. A gaussiana}
+Se $a>0$ e
+\[
+ f(x)=e^{-\pi a|x|^2},\qquad x\in\mathbb R^n,
+\]
+então
+\[
+ \widehat f(\xi)=a^{-n/2}e^{-\pi|\xi|^2/a}.
+\]
+
+Para demonstrá-lo, basta primeiro tratar o caso unidimensional $f(x)=e^{-\pi ax^2}$. Como
+\[
+ f'(x)=-2\pi axf(x),
+\]
+usando as propriedades da transformada,
+\[
+ 2\pi i\xi\widehat f(\xi)
+ =\widehat{f'}(\xi)
+ =-2\pi a\widehat{xf}(\xi)
+ =-\frac{a}{i}\frac{d\widehat f}{d\xi}(\xi).
+\]
+Logo
+\[
+ \frac{d\widehat f}{d\xi}
+ =-\frac{2\pi}{a}\xi\widehat f,
+\]
+e, portanto,
+\[
+ \widehat f(\xi)=C e^{-\pi\xi^2/a}.
+\]
+A constante é
+\[
+ C=\widehat f(0)=\int_{\mathbb R}e^{-\pi ax^2}\,dx=a^{-1/2},
+\]
+usando a integral gaussiana. Para $n$ variáveis, escrevemos o produto em coordenadas e obtemos
+\[
+ \widehat{e^{-\pi a|x|^2}}(\xi)
+ =a^{-n/2}e^{-\pi|\xi|^2/a}.
+\]
+
+Em particular, $e^{-\pi|x|^2}$ é ponto fixo da transformada de Fourier.
+
+Tomando $a=(4\pi t)^{-1}$, $t>0$, obtemos o núcleo do calor
+\[
+ E(x,t)=\frac{1}{(4\pi t)^{n/2}}e^{-|x|^2/(4t)},
+\]
+cuja transformada em $x$ é
+\[
+ \widehat{E(\cdot,t)}(\xi)=e^{-4\pi^2t|\xi|^2}.
+\]
+Esse é o fator que aparece na resolução da equação do calor
+\[
+ \partial_tu=\Delta u.
+\]
+
+\subsection{Transformada de Fourier no Espaço de Schwartz}
+Queremos agora estudar globalmente o comportamento da transformada em funções do espaço de Schwartz $\mathcal S(\mathbb R^n)$.
+
+Recordemos que $\mathcal S$ é o espaço das funções $f\in\mathcal C^\infty(\mathbb R^n)$ tais que
+\[
+ p_{(\alpha,\beta)}(f)
+ :=\sup_{x\in\mathbb R^n}|x^\alpha\partial^\beta f(x)|<\infty,
+ \qquad \forall\alpha,\beta\in\mathbb Z_+^n.
+\]
+Uma família equivalente de seminormas é
+\[
+ q_{(\alpha,\beta)}(f)
+ :=\sup_{x\in\mathbb R^n}|\partial^\beta(x^\alpha f)(x)|.
+\]
+
+\begin{lemma*}
+ Para $f\in\mathcal C^\infty(\mathbb R^n)$, são equivalentes:
+ \begin{enumerate}
+  \item $f\in\mathcal S$;
+  \item $x^\alpha\partial^\beta f\in L^\infty$ para todos $\alpha,\beta$;
+  \item $\partial^\beta(x^\alpha f)\in L^\infty$ para todos $\alpha,\beta$.
+ \end{enumerate}
+ Além disso, as famílias $(p_{(\alpha,\beta)})$ e $(q_{(\alpha,\beta)})$ definem a mesma topologia em $\mathcal S$.
+\end{lemma*}
+
+\begin{proof*}
+ A implicação entre as duas famílias decorre da regra de Leibniz. Por exemplo,
+ \[
+  \partial^\beta(x^\alpha f)
+  =\sum_{\gamma\leq\alpha,\,\gamma\leq\beta}
+  \frac{\beta!}{\gamma!(\beta-\gamma)!}
+  (\partial^\gamma x^\alpha)
+  (\partial^{\beta-\gamma}f),
+ \]
+ e cada derivada de $x^\alpha$ é um múltiplo de um monômio $x^{\alpha-\gamma}$. Isso fornece
+ \[
+  q_{(\alpha,\beta)}(f)
+  \leq C_{\alpha,\beta}
+  \sum p_{(\gamma,\delta)}(f).
+ \]
+ A fórmula inversa é obtida isolando o termo $x^\alpha\partial^\beta f$ na regra de Leibniz e procedendo por indução. \qedsymbol
+\end{proof*}
+
+\begin{lemma*}
+ Para todo $1\leq p\leq\infty$,
+ \[
+  \mathcal S(\mathbb R^n)\hookrightarrow L^p(\mathbb R^n).
+ \]
+\end{lemma*}
+
+\begin{proof*}
+ O caso $p=\infty$ é imediato. Para $1\leq p<\infty$, escolha $N$ com $Np>n$. Então
+ \[
+  |f(x)|^p
+  =(1+|x|)^{-Np}\bigl[(1+|x|)^N|f(x)|\bigr]^p
+  \leq C\|f\|_{(N,0)}^p(1+|x|)^{-Np},
+ \]
+ e $(1+|x|)^{-Np}$ é integrável, como se vê em coordenadas polares. \qedsymbol
+\end{proof*}
+
+\begin{theorem*}
+ A transformada de Fourier
+ \[
+  \mathcal F:\mathcal S(\mathbb R^n)\longrightarrow\mathcal S(\mathbb R^n)
+ \]
+ está bem definida e é contínua.
+\end{theorem*}
+
+\begin{proof*}
+ Seja $f\in\mathcal S$. Pelo lema anterior, todos os termos necessários pertencem a $L^1$, e as fórmulas de derivação e multiplicação podem ser aplicadas. Para $\alpha,\beta\in\mathbb Z_+^n$,
+ \begin{align*}
+  \partial_\xi^\beta(\xi^\alpha\widehat f)
+  &=(2\pi i)^{-|\alpha|}\partial_\xi^\beta
+  \left[\widehat{\partial_x^\alpha f}\right]\\
+  &=(2\pi i)^{-|\alpha|}
+  \left[(-2\pi i x)^\beta\partial_x^\alpha f\right]^\wedge.
+ \end{align*}
+ Consequentemente,
+ \[
+  q_{(\alpha,\beta)}(\widehat f)
+  \leq (2\pi)^{|\beta|-|\alpha|}
+  \|x^\beta\partial^\alpha f\|_{L^1}.
+ \]
+ Escolhendo $N>n$ e escrevendo
+ \[
+  |x^\beta\partial^\alpha f(x)|
+  \leq (1+|x|)^{-N}
+  \sup_y(1+|y|)^N|y^\beta\partial^\alpha f(y)|,
+ \]
+ obtemos
+ \[
+  q_{(\alpha,\beta)}(\widehat f)
+  \leq C_{N,\alpha,\beta}
+  \|f\|_{(N+|\beta|,\alpha)}.
+ \]
+ Isso prova simultaneamente que $\widehat f\in\mathcal S$ e que $\mathcal F$ é contínua para as topologias dadas pelas seminormas. \qedsymbol
+\end{proof*}
+
+\end{document}

@@ -1,0 +1,269 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 21 - 08 de Novembro, 2024}
+\subsection{Motivações}
+Na aula passada demonstramos um dos resultados mais impressionantes do curso: para uma distribuição $u\in\mathcal D'(\mathbb R^n)$,
+\[
+ \operatorname{supp}(u)=\{0\}
+ \quad\Longleftrightarrow\quad
+ u=\sum_{|\alpha|\leq m}a_\alpha\partial^\alpha\delta,
+\]
+para algum $m$ e constantes $a_\alpha\in\mathbb C$.
+
+Nesse caso, o suporte caracteriza a forma que a distribuição assume. Na prova, quase todo o trabalho foi transferido para propriedades de funções teste, sendo indispensáveis os seguintes pontos:
+\begin{enumerate}
+ \item a fórmula de Taylor com resto integral, escrita em notação de multi-índices;
+ \item a independência da função de Urysohn $\psi$ associada a $K=\operatorname{supp}(u)$ na avaliação
+ \[
+   \langle u,\varphi\rangle=\langle u,\psi\varphi\rangle;
+ \]
+ \item a construção de funções de Urysohn por convolução com uma família regularizante $(\varphi_\varepsilon)_{\varepsilon>0}$;
+ \item as estimativas satisfeitas por distribuições em $\mathcal E'(\Omega)$.
+\end{enumerate}
+
+Nosso objetivo é reunir alguns fatos sobre distribuições e localizações para ampliar o alcance dos resultados anteriores. Em particular, provaremos a densidade de $\mathcal C_c^\infty(\Omega)$ em $\mathcal D'(\Omega)$ na topologia fraca $*$ e introduziremos o teorema de estrutura local das distribuições.
+
+O resultado local afirma, de maneira bastante surpreendente, que dados $u\in\mathcal D'(\Omega)$ e $U\Subset\Omega$, existem um multi-índice $\alpha\in\mathbb Z_+^n$ e uma função contínua $f\in\mathcal C(U)$ tais que
+\[
+ u=\partial^\alpha f\quad\text{em }\mathcal D'(U).
+\]
+
+\begin{tcolorbox}[
+ skin=enhanced,
+ title=Observação,
+ fonttitle=\bfseries,
+ colframe=black,
+ colbacktitle=cyan!75!white,
+ colback=cyan!15,
+ colbacklower=black,
+ coltitle=black,
+ drop fuzzy shadow]
+ Se $u\in\mathcal D'(\Omega)$ tem suporte compacto $K$, fixando uma função de Urysohn $\psi\in\mathcal C_c^\infty(\Omega)$ associada a $K$ e pondo $K_0=\operatorname{supp}(\psi)$, existem $M>0$ e $m\in\mathbb Z_+$ tais que
+ \[
+  |\langle u,f\rangle|
+  \leq M\sum_{|\alpha|\leq m}\sup_{x\in K_0}|\partial^\alpha f(x)|,
+  \qquad \forall f\in\mathcal C^\infty(\Omega),
+ \]
+ quando se interpreta $u$ por sua extensão única a $\mathcal C^\infty(\Omega)$. Em particular, para uma função teste $\varphi$,
+ \[
+  |\langle u,\varphi\rangle|
+  \leq M\sum_{|\alpha|\leq m}\sup_{x\in\mathbb R^n}|\partial^\alpha\varphi(x)|.
+ \]
+ Assim, não apenas $u$ tem ordem finita: a constante da estimativa pode ser tomada independentemente de um compacto que contenha o suporte da função teste.
+\end{tcolorbox}
+
+\subsection{Densidade das Funções Teste em $\mathcal D'(\Omega)$}
+Começamos com um lema sobre a localização do suporte de uma convolução.
+
+\begin{lemma*}
+ Se $u\in\mathcal D'(\mathbb R^n)$ e $\varphi\in\mathcal C_c^\infty(\mathbb R^n)$, então
+ \[
+   \operatorname{supp}(u*\varphi)
+   \subseteq \operatorname{supp}(u)+\operatorname{supp}(\varphi).
+ \]
+\end{lemma*}
+
+\begin{proof*}
+ Para $x\in\mathbb R^n$,
+ \[
+  (u*\varphi)(x)=\langle u,\tau_x\check\varphi\rangle,
+ \]
+ e
+ \[
+  \operatorname{supp}(\tau_x\check\varphi)
+  =x-\operatorname{supp}(\varphi).
+ \]
+ Logo, se
+ \[
+  x\notin\operatorname{supp}(u)+\operatorname{supp}(\varphi),
+ \]
+ então
+ \[
+  (x-\operatorname{supp}(\varphi))\cap\operatorname{supp}(u)=\emptyset,
+ \]
+ e portanto $\langle u,\tau_x\check\varphi\rangle=0$. Assim,
+ \[
+  \operatorname{supp}(u*\varphi)
+  \subseteq \overline{\operatorname{supp}(u)+\operatorname{supp}(\varphi)}.
+ \]
+ Como um dos suportes é compacto, a soma é fechada, concluindo a prova. \qedsymbol
+\end{proof*}
+
+Também utilizaremos a observação já demonstrada:
+\begin{lemma*}
+ Se $f\in\mathcal C^\infty(\Omega)$ e $u\in\mathcal D'(\Omega)$, então
+ \[
+   \operatorname{supp}(fu)
+   \subseteq\operatorname{supp}(f)\cap\operatorname{supp}(u).
+ \]
+\end{lemma*}
+
+\begin{theorem*}
+ Seja $\Omega\subseteq\mathbb R^n$ um aberto qualquer. Então $\mathcal C_c^\infty(\Omega)$ é denso em $\mathcal D'(\Omega)$ na topologia fraca $*$.
+\end{theorem*}
+
+\begin{proof*}
+ Em primeiro lugar, $\mathcal E'(\Omega)$ é denso em $\mathcal D'(\Omega)$. De fato, se $u\in\mathcal D'(\Omega)$, $(K_j)$ é um esgotamento de $\Omega$ e $\psi_j\in\mathcal C_c^\infty(\Omega)$ é uma função de Urysohn associada a $K_j$, então
+ \[
+  \psi_j\varphi\longrightarrow\varphi
+  \quad\text{em }\mathcal C_c^\infty(\Omega),
+  \qquad \forall\varphi\in\mathcal C_c^\infty(\Omega),
+ \]
+ e, portanto,
+ \[
+  \langle\psi_j u,\varphi\rangle
+  =\langle u,\psi_j\varphi\rangle
+  \longrightarrow\langle u,\varphi\rangle.
+ \]
+ Pelo lema anterior,
+ \[
+  \operatorname{supp}(\psi_j u)
+  \subseteq\operatorname{supp}(\psi_j),
+ \]
+ que é compacto; assim $\psi_j u\in\mathcal E'(\Omega)$.
+
+ Resta aproximar uma distribuição de suporte compacto por funções teste. Seja, então, $u\in\mathcal E'(\Omega)$ e $K=\operatorname{supp}(u)$. Escolha uma família regularizante padrão $(\varphi_\varepsilon)_{\varepsilon>0}$. Considerando $u$ como uma distribuição de $\mathbb R^n$ por uma extensão de suporte compacto, temos
+ \[
+  u*\varphi_\varepsilon\in\mathcal C^\infty(\mathbb R^n)
+ \]
+ e, para $\varepsilon<d(K,\mathbb R^n\setminus\Omega)$,
+ \[
+  \operatorname{supp}(u*\varphi_\varepsilon)
+  \subseteq K+\overline{B(0,\varepsilon)}\Subset\Omega.
+ \]
+ Portanto
+ \[
+  u*\varphi_\varepsilon\in\mathcal C_c^\infty(\Omega).
+ \]
+ Além disso, para $\phi\in\mathcal C_c^\infty(\Omega)$,
+ \begin{align*}
+  \langle u*\varphi_\varepsilon,\phi\rangle
+  &=(u*\varphi_\varepsilon)*\check\phi(0)\\
+  &=u*(\varphi_\varepsilon*\check\phi)(0)\\
+  &=\langle u,(\varphi_\varepsilon*\check\phi)^\vee\rangle
+  \longrightarrow\langle u,\phi\rangle,
+ \end{align*}
+ pois $\varphi_\varepsilon*\phi\to\phi$ em $\mathcal C_c^\infty$.
+
+ Assim, $\mathcal C_c^\infty(\Omega)$ é denso em $\mathcal E'(\Omega)$ e $\mathcal E'(\Omega)$ é denso em $\mathcal D'(\Omega)$, concluindo a prova. \qedsymbol
+\end{proof*}
+
+\subsection{Estrutura Local das Distribuições}
+Queremos demonstrar que toda distribuição é, localmente, uma derivada de ordem suficientemente alta de uma função contínua.
+
+Fixemos um retângulo aberto
+\[
+ U\subseteq\prod_{j=1}^n(a_j,b_j),
+ \qquad \overline U\Subset\Omega,
+\]
+e seja $u\in\mathcal D'(\Omega)$. Existe $c>0$ e $r\in\mathbb Z_+$ tais que
+\[
+ |\langle u,\phi\rangle|
+ \leq c\sum_{|\alpha|\leq r}\sup_{x\in\overline U}|\partial^\alpha\phi(x)|,
+ \qquad \forall\phi\in\mathcal C_c^\infty(U). \tag{*}
+\]
+
+O ponto-chave é estimar cada derivada de ordem menor por uma derivada de ordem suficientemente alta. Se $\phi\in\mathcal C_c^\infty(U)$, então, para cada $j$,
+\[
+ \phi(x_1,\ldots,x_n)
+ =\int_{a_j}^{x_j}\frac{\partial\phi}{\partial x_j}
+ (x_1,\ldots,t,\ldots,x_n)\,dt,
+\]
+logo
+\[
+ \sup|\phi|
+ \leq(b_j-a_j)\sup\left|\frac{\partial\phi}{\partial x_j}\right|.
+\]
+Iterando $r$ vezes em uma mesma variável,
+\[
+ \sup|\phi|
+ \leq(b_j-a_j)^r\sup|\partial_j^r\phi|.
+\]
+Aplicando sucessivamente esse procedimento às várias derivadas que aparecem em (*), podemos completar seus expoentes de derivação até a ordem máxima $r$. Em particular,
+\begin{align*}
+ \sup|\phi|&\leq c_0\sup|\partial_1^r\cdots\partial_n^r\phi|,\\
+ \sup|\partial_k\phi|&\leq c_k\sup|\partial_1^r\cdots\partial_n^r\phi|,\\
+ &\ \vdots\\
+ \sup|\partial_1^{\alpha_1}\cdots\partial_n^{\alpha_n}\phi|
+ &\leq c_\alpha\sup|\partial_1^r\cdots\partial_n^r\phi|,
+ \qquad |\alpha|\leq r.
+\end{align*}
+Consequentemente, existe $c'>0$ tal que
+\[
+ |\langle u,\phi\rangle|
+ \leq c'\sup_{x\in U}|\partial_1^r\cdots\partial_n^r\phi(x)|.
+ \tag{**}
+\]
+
+Por outro lado, aplicando o teorema fundamental do cálculo em todas as variáveis, para $\phi\in\mathcal C_c^\infty(U)$,
+\[
+ \partial_1^r\cdots\partial_n^r\phi(x)
+ =\int_{A_x}\partial_1^{r+1}\cdots\partial_n^{r+1}\phi(y)\,dy,
+\]
+onde
+\[
+ A_x=\{y\in\mathbb R^n:y_j<x_j,\ j=1,\ldots,n\}.
+\]
+Logo
+\[
+ \sup_x|\partial_1^r\cdots\partial_n^r\phi(x)|
+ \leq\|\partial_1^{r+1}\cdots\partial_n^{r+1}\phi\|_{L^1(U)}.
+\]
+Combinando com (**),
+\[
+ |\langle u,\phi\rangle|
+ \leq c'\|\partial_1^{r+1}\cdots\partial_n^{r+1}\phi\|_{L^1(U)}.
+ \tag{***}
+\]
+
+Considere o subespaço
+\[
+ E:=\left\{\partial_1^{r+1}\cdots\partial_n^{r+1}\phi:
+ \phi\in\mathcal C_c^\infty(U)\right\}\subseteq L^1(U)
+\]
+e defina
+\[
+ \xi:E\longrightarrow\mathbb C,
+ \qquad
+ \xi\bigl(\partial_1^{r+1}\cdots\partial_n^{r+1}\phi\bigr)
+ :=\langle u,\phi\rangle.
+\]
+A estimativa (***) mostra que $\xi$ está bem definida e é contínua:
+\[
+ |\xi(\Phi)|\leq c'\|\Phi\|_{L^1(U)},\qquad \Phi\in E.
+\]
+Pelo teorema de Hahn--Banach, $\xi$ se estende a um funcional contínuo $\overline\xi$ em $L^1(U)$, com a mesma norma. Pelo teorema de representação de Riesz,
+\[
+ [L^1(U)]'=L^\infty(U),
+\]
+logo existe $g\in L^\infty(U)$ tal que
+\[
+ \overline\xi(\Phi)=\int_U g(y)\Phi(y)\,dy,
+ \qquad \forall\Phi\in L^1(U).
+\]
+Em particular, para toda $\phi\in\mathcal C_c^\infty(U)$,
+\begin{align*}
+ \langle u,\phi\rangle
+ &=\overline\xi(\partial_1^{r+1}\cdots\partial_n^{r+1}\phi)\\
+ &=\int_U g(y)\partial_1^{r+1}\cdots\partial_n^{r+1}\phi(y)\,dy\\
+ &=(-1)^{n(r+1)}
+ \langle\partial_1^{r+1}\cdots\partial_n^{r+1}g,\phi\rangle.
+\end{align*}
+Portanto, pondo
+\[
+ g_0:=(-1)^{n(r+1)}g,
+\]
+temos
+\[
+ u=\partial_1^{r+1}\cdots\partial_n^{r+1}g_0
+ \quad\text{em }\mathcal D'(U),
+\]
+com $g_0\in L^\infty(U)$.
+
+Estendendo $g_0$ por zero a $\mathbb R^n$ e integrando sucessivamente em cada variável, obtemos uma função contínua $f$ em $U$ cuja derivada de ordem suficientemente alta é $u$. Em particular, existe $\alpha\in\mathbb Z_+^n$ e $f\in\mathcal C(U)$ tais que
+\[
+ \partial^\alpha f=u\quad\text{em }\mathcal D'(U),
+\]
+completando a ideia do teorema de estrutura local.
+
+\end{document}

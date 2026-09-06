@@ -1,0 +1,409 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 28 - 02 de Dezembro, 2024}
+\subsection{Conclusão sobre a Transformada de Fourier}
+Na sexta-feira, finalizamos uma apresentação da transformada de Fourier em três níveis:
+\begin{enumerate}
+ \item funções integráveis, $L^1(\mathbb R^n)$;
+ \item funções de Schwartz, $\mathcal S(\mathbb R^n)$;
+ \item distribuições temperadas, $\mathcal S'=[\mathcal S]'$.
+\end{enumerate}
+
+Quando $f\in L^1$, sua transformada é a função $\widehat f\in C_0$ dada por
+\[
+ \widehat f(\xi)=\int_{\mathbb R^n}e^{-2\pi i x\cdot\xi}f(x)\,dx,
+\]
+enquanto sua transformada inversa é
+\[
+ \check f(x)=\widehat f(-x)
+ =\int_{\mathbb R^n}e^{2\pi i x\cdot\xi}f(\xi)\,d\xi.
+\]
+Se $R$ denota a reflexão, $Rf(x)=f(-x)$, então $\mathcal F^{-1}=R\circ\mathcal F$ quando a fórmula de inversão se aplica.
+
+Demonstramos que
+\[
+ \mathcal F:\mathcal S\longrightarrow\mathcal S
+\]
+é linear e contínua e, usando a fórmula de inversão, um isomorfismo topológico. A identidade
+\[
+ \int_{\mathbb R^n}\widehat\varphi(x)\psi(x)\,dx
+ =\int_{\mathbb R^n}\varphi(x)\widehat\psi(x)\,dx,
+ \qquad \varphi,\psi\in\mathcal S,
+\]
+permite estender a transformada a $\mathcal S'$ por dualidade:
+\[
+ \langle\widehat u,\varphi\rangle
+ :=\langle u,\widehat\varphi\rangle,
+ \qquad u\in\mathcal S',\ \varphi\in\mathcal S.
+\]
+
+Como $\mathcal F:\mathcal S\to\mathcal S$ é isomorfismo, também
+\[
+ \mathcal F:\mathcal S'\longrightarrow\mathcal S'
+\]
+é um isomorfismo e
+\[
+ \mathcal F^{-1}=R\circ\mathcal F
+\]
+no espaço das distribuições temperadas.
+
+\begin{tcolorbox}[
+ skin=enhanced,
+ title=Observações,
+ fonttitle=\bfseries,
+ colframe=black,
+ colbacktitle=cyan!75!white,
+ colback=cyan!15,
+ colbacklower=black,
+ coltitle=black,
+ drop fuzzy shadow]
+ \begin{enumerate}
+  \item Para todo $1\leq p\leq\infty$, temos $L^p\hookrightarrow\mathcal S'$. Portanto toda função $L^p$ pode ser transformada no sentido das distribuições temperadas.
+  \item O fato de $\mathcal F$ não preservar $\mathcal C_c^\infty$ é justamente o que impede definir sua transposta diretamente em $\mathcal D'$. O teorema de Paley--Wiener explicará esse fenômeno quantitativamente.
+ \end{enumerate}
+\end{tcolorbox}
+
+Como aplicação, lembramos que, para a equação do calor
+\[
+ \partial_tu=\Delta u,
+\]
+a transformada em $x$ transforma a equação em
+\[
+ \partial_t\widehat u(\xi,t)
+ =-4\pi^2|\xi|^2\widehat u(\xi,t),
+\]
+e, portanto,
+\[
+ \widehat u(\xi,t)=e^{-4\pi^2t|\xi|^2}\widehat f(\xi).
+\]
+A inversão conduz à solução
+\[
+ u(x,t)=E_t*f(x),
+ \qquad
+ E_t(x)=\frac{1}{(4\pi t)^{n/2}}e^{-|x|^2/(4t)},
+\]
+que satisfaz $u(\cdot,t)\to f$ quando $t\to0^+$ nas classes apropriadas.
+
+Nesta aula, concluiremos a extensão da teoria por três resultados:
+\begin{enumerate}
+ \item o Teorema de Plancherel, que estende $\mathcal F$ unitariamente a $L^2$;
+ \item a transformada de Fourier--Laplace de distribuições com suporte compacto;
+ \item o Teorema de Paley--Wiener, que caracteriza transformadas de funções e distribuições com suporte compacto.
+\end{enumerate}
+
+\subsection{A Transformada de Fourier em $L^2$}
+\begin{lemma*}[Identidade de Parseval em $\mathcal S$]
+ Se $f,g\in\mathcal S(\mathbb R^n)$, então
+ \[
+  (\widehat f,\widehat g)_{L^2}
+  =(f,g)_{L^2}.
+ \]
+ Em particular,
+ \[
+  \|\widehat f\|_{L^2}=\|f\|_{L^2}.
+ \]
+\end{lemma*}
+
+\begin{proof*}
+ Pela fórmula de inversão em $\mathcal S$,
+ \[
+  \overline{\widehat g(\xi)}
+  =\widehat{\overline g}(-\xi)
+  =\check{\overline g}(\xi).
+ \]
+ Então, usando Fubini e a fórmula de inversão,
+ \begin{align*}
+  (\widehat f,\widehat g)_{L^2}
+  &=\int_{\mathbb R^n}\widehat f(\xi)
+  \overline{\widehat g(\xi)}\,d\xi\\
+  &=\int\widehat f(\xi)\check{\overline g}(\xi)\,d\xi\\
+  &=\int f(x)\overline{g(x)}\,dx
+  =(f,g)_{L^2}.
+ \end{align*}
+ Tomando $g=f$, obtemos a igualdade das normas. \qedsymbol
+\end{proof*}
+
+Como $\mathcal S$ é denso em $L^2$, para $f\in L^2$ escolhemos uma sequência $(\varphi_j)\subset\mathcal S$ com
+\[
+ \varphi_j\longrightarrow f\quad\text{em }L^2.
+\]
+Pela identidade acima,
+\[
+ \|\widehat\varphi_j-\widehat\varphi_k\|_{L^2}
+ =\|\varphi_j-\varphi_k\|_{L^2},
+\]
+logo $(\widehat\varphi_j)$ é de Cauchy em $L^2$. Definimos
+\[
+ \mathcal F_2f:=\lim_{j\to\infty}\widehat\varphi_j
+ \quad\text{em }L^2.
+\]
+A definição independe da sequência aproximante, e
+\[
+ \|\mathcal F_2f\|_{L^2}=\|f\|_{L^2}.
+\]
+
+\begin{theorem*}[Plancherel]
+ A transformada de Fourier possui uma única extensão
+ \[
+  \mathcal F:L^2(\mathbb R^n)\longrightarrow L^2(\mathbb R^n)
+ \]
+ que coincide com a transformada usual em $\mathcal S$ e é um operador unitário. Mais precisamente,
+ \[
+  \|\widehat f\|_2=\|f\|_2
+ \]
+ e
+ \[
+  (\widehat f,\widehat g)_{L^2}=(f,g)_{L^2},
+  \qquad f,g\in L^2.
+ \]
+ Além disso,
+ \[
+  \mathcal F^{-1}=R\circ\mathcal F.
+ \]
+\end{theorem*}
+
+\begin{proof*}
+ A construção anterior fornece uma isometria linear de $L^2$ em $L^2$. Como em $\mathcal S$ temos
+ \[
+  R\circ\mathcal F\circ\mathcal F=I,
+ \]
+ e $\mathcal S$ é denso em $L^2$, a mesma identidade se estende por continuidade a todo $L^2$. Assim $R\circ\mathcal F$ é a inversa de $\mathcal F$, que é, portanto, sobrejetiva e unitária. \qedsymbol
+\end{proof*}
+
+\begin{tcolorbox}[
+ skin=enhanced,
+ title=Observação,
+ fonttitle=\bfseries,
+ colframe=black,
+ colbacktitle=cyan!75!white,
+ colback=cyan!15,
+ colbacklower=black,
+ coltitle=black,
+ drop fuzzy shadow]
+ Mais rigorosamente, a notação $\widehat f$ para $f\in L^2$ representa a extensão de Plancherel. Quando $f\in L^1\cap L^2$, essa extensão coincide quase em todo ponto com a transformada definida pela integral.
+\end{tcolorbox}
+
+\subsection{Transformada de Fourier--Laplace}
+As propriedades das derivadas e da multiplicação por polinômios permanecem válidas em $\mathcal S'$:
+\begin{prop*}
+ Para $u\in\mathcal S'$ e $\alpha\in\mathbb Z_+^n$,
+ \[
+  \partial_\xi^\alpha\widehat u
+  =\bigl[(-2\pi i x)^\alpha u\bigr]^\wedge,
+ \]
+ e
+ \[
+  \widehat{\partial^\alpha u}
+  =(2\pi i\xi)^\alpha\widehat u.
+ \]
+\end{prop*}
+
+\begin{proof*}
+ Para $\varphi\in\mathcal S$,
+ \begin{align*}
+  \langle\partial_\xi^\alpha\widehat u,\varphi\rangle
+  &=(-1)^{|\alpha|}\langle\widehat u,\partial^\alpha\varphi\rangle\\
+  &=(-1)^{|\alpha|}\langle u,\widehat{\partial^\alpha\varphi}\rangle\\
+  &=\langle u,(-2\pi i x)^\alpha\widehat\varphi\rangle\\
+  &=\left\langle\bigl[(-2\pi i x)^\alpha u\bigr]^\wedge,\varphi\right\rangle.
+ \end{align*}
+ A segunda identidade é análoga. \qedsymbol
+\end{proof*}
+
+Como $\mathcal S\hookrightarrow\mathcal C^\infty$ continuamente, seu dual contém $\mathcal E'$. Para uma distribuição de suporte compacto, a transformada admite uma extensão natural a variáveis complexas.
+
+\begin{theorem*}
+ Seja $u\in\mathcal E'(\mathbb R^n)$. Para $\xi\in\mathbb R^n$, sua transformada é representada pela função
+ \[
+  \widehat u(\xi)=\langle u(x),e^{-2\pi i x\cdot\xi}\rangle.
+ \]
+ Além disso, essa função admite uma extensão inteira a $\mathbb C^n$, definida por
+ \[
+  \widetilde u(\zeta)
+  :=\langle u(x),e^{-2\pi i x\cdot\zeta}\rangle,
+  \qquad \zeta=(\zeta_1,\dots,\zeta_n)\in\mathbb C^n.
+ \]
+ Essa extensão é chamada \textbf{transformada de Fourier--Laplace} de $u$.
+\end{theorem*}
+
+\begin{proof*}
+ Fixe uma família regularizante padrão $(\varphi_\varepsilon)_{\varepsilon>0}$. Como $u\in\mathcal E'$, a convolução $\widehat u*\varphi_\varepsilon$ é uma função suave. Para $\xi\in\mathbb R^n$,
+ \begin{align*}
+  (\widehat u*\varphi_\varepsilon)(\xi)
+  &=\langle\widehat u,\tau_\xi\check\varphi_\varepsilon\rangle\\
+  &=\langle u,[\tau_\xi\check\varphi_\varepsilon]^\wedge\rangle\\
+  &=\left\langle u(y),e^{-2\pi i\xi\cdot y}\widehat\varphi(\varepsilon y)\right\rangle.
+ \end{align*}
+ Como $\widehat\varphi(\varepsilon y)\to1$, juntamente com todas as derivadas, uniformemente em compactos, e $u$ possui suporte compacto,
+ \[
+  (\widehat u*\varphi_\varepsilon)(\xi)
+  \longrightarrow\langle u(y),e^{-2\pi i\xi\cdot y}\rangle.
+ \]
+ Por outro lado, $\widehat u*\varphi_\varepsilon\to\widehat u$ em $\mathcal S'$, o que identifica a restrição real da função acima com a transformada de $u$.
+
+ Para $\zeta\in\mathbb C^n$, escrevemos a série
+ \[
+  e^{-2\pi i x\cdot\zeta}
+  =\sum_{m=0}^\infty\frac{(-2\pi i)^m}{m!}(x\cdot\zeta)^m.
+ \]
+ Pelo teorema multinomial,
+ \[
+  (x\cdot\zeta)^m
+  =\sum_{|\alpha|=m}\frac{m!}{\alpha!}x^\alpha\zeta^\alpha.
+ \]
+ A série exponencial converge em $\mathcal C^\infty$ uniformemente para $\zeta$ em compactos de $\mathbb C^n$ e $x$ num compacto contendo $\operatorname{supp}(u)$. Portanto podemos aplicar $u$ termo a termo:
+ \begin{align*}
+  \widetilde u(\zeta)
+  &=\sum_{m=0}^\infty\frac{(-2\pi i)^m}{m!}
+  \langle u,(x\cdot\zeta)^m\rangle\\
+  &=\sum_{m=0}^\infty(-2\pi i)^m
+  \sum_{|\alpha|=m}\frac{\langle u,x^\alpha\rangle}{\alpha!}\zeta^\alpha.
+ \end{align*}
+ Essa é uma série de potências em $\zeta$ com convergência normal em compactos; logo $\widetilde u$ é inteira. \qedsymbol
+\end{proof*}
+
+Suponha, por exemplo, que
+\[
+ \operatorname{supp}(u)\subseteq\overline{B(0,A)}.
+\]
+Como $u$ é de ordem finita, existem $c>0$ e $M\in\mathbb Z_+$ tais que
+\[
+ |\langle u,f\rangle|
+ \leq c\sum_{|\beta|\leq M}
+ \sup_{|x|\leq A}|\partial^\beta f(x)|.
+\]
+Aplicando isso ao exponencial,
+\[
+ \partial_x^\beta e^{-2\pi i x\cdot\zeta}
+ =(-2\pi i\zeta)^\beta e^{-2\pi i x\cdot\zeta},
+\]
+e
+\[
+ |e^{-2\pi i x\cdot\zeta}|
+ =e^{2\pi x\cdot\operatorname{Im}\zeta}
+ \leq e^{2\pi A|\operatorname{Im}\zeta|},
+\]
+obtemos uma estimativa do tipo
+\[
+ |\widetilde u(\zeta)|
+ \leq C(1+|\zeta|)^M
+ e^{2\pi A|\operatorname{Im}\zeta|}. \tag{*}
+\]
+Esse é o modelo das estimativas do teorema de Paley--Wiener.
+
+\subsection{Teorema de Paley--Wiener}
+\begin{theorem*}[Paley--Wiener]
+ Seja $A>0$.
+ \begin{enumerate}
+  \item Uma função inteira $U:\mathbb C^n\to\mathbb C$ é a transformada de Fourier--Laplace de uma função
+  \[
+   \varphi\in\mathcal C_c^\infty(\overline{B(0,A)})
+  \]
+  se, e somente se, para cada $N\in\mathbb N$ existe $C_N>0$ tal que
+  \[
+   |U(\zeta)|
+   \leq C_N(1+|\zeta|)^{-N}
+   e^{2\pi A|\operatorname{Im}\zeta|},
+   \qquad \forall\zeta\in\mathbb C^n.
+  \]
+
+  \item Uma função inteira $U:\mathbb C^n\to\mathbb C$ é a transformada de Fourier--Laplace de uma distribuição
+  \[
+   u\in\mathcal E'(\mathbb R^n),
+   \qquad \operatorname{supp}(u)\subseteq\overline{B(0,A)},
+  \]
+  se, e somente se, existem $C>0$ e $N\in\mathbb Z_+$ tais que
+  \[
+   |U(\zeta)|
+   \leq C(1+|\zeta|)^N
+   e^{2\pi A|\operatorname{Im}\zeta|},
+   \qquad \forall\zeta\in\mathbb C^n.
+  \]
+ \end{enumerate}
+\end{theorem*}
+
+Provaremos a primeira equivalência.
+
+\begin{proof*}
+ Suponha inicialmente
+ \[
+  \varphi\in\mathcal C_c^\infty(\overline{B(0,A)})
+ \]
+ e defina
+ \[
+  U(\zeta)=\int_{B(0,A)}e^{-2\pi i x\cdot\zeta}\varphi(x)\,dx.
+ \]
+ Já sabemos que $U$ é inteira. Para cada $j=1,\dots,n$ e $N\in\mathbb Z_+$,
+ \[
+  \widehat{\partial_j^N\varphi}(\zeta)
+  =(2\pi i\zeta_j)^N U(\zeta),
+ \]
+ onde a igualdade, inicialmente válida em $\mathbb R^n$, se estende a $\mathbb C^n$ por holomorfia.
+
+ Por outro lado,
+ \begin{align*}
+  |\widehat{\partial_j^N\varphi}(\zeta)|
+  &\leq\int_{B(0,A)}|\partial_j^N\varphi(x)|
+  |e^{-2\pi i x\cdot\zeta}|\,dx\\
+  &\leq m(B(0,A))\|\partial_j^N\varphi\|_\infty
+  e^{2\pi A|\operatorname{Im}\zeta|}.
+ \end{align*}
+ Portanto
+ \[
+  (2\pi)^N|\zeta_j|^N|U(\zeta)|
+  \leq C_{N,j}e^{2\pi A|\operatorname{Im}\zeta|}.
+ \]
+ Somando em $j$ e usando a equivalência das normas em $\mathbb C^n$,
+ \[
+  (1+|\zeta|)^N|U(\zeta)|
+  \leq C_Ne^{2\pi A|\operatorname{Im}\zeta|},
+ \]
+ ou seja,
+ \[
+  |U(\zeta)|
+  \leq C_N(1+|\zeta|)^{-N}
+  e^{2\pi A|\operatorname{Im}\zeta|}.
+ \]
+
+ Reciprocamente, suponha que $U$ seja inteira e satisfaça essas estimativas. Em particular, sua restrição a $\mathbb R^n$ é rapidamente decrescente e
+ \[
+  (1+|\xi|)^N U(\xi)\in L^1(\mathbb R^n)
+ \]
+ para todo $N$. Defina
+ \[
+  \varphi(x):=\int_{\mathbb R^n}e^{2\pi i x\cdot\xi}U(\xi)\,d\xi.
+ \]
+ Podemos derivar indefinidamente sob o sinal de integral; logo $\varphi\in\mathcal C^\infty(\mathbb R^n)$ e, pela inversão da transformada em $\mathcal S$,
+ \[
+  \widehat\varphi=U|_{\mathbb R^n}.
+ \]
+
+ Resta provar que $\operatorname{supp}(\varphi)\subseteq\overline{B(0,A)}$. Fixe $x\in\mathbb R^n$ com $|x|>A$. Como $U$ é inteira, podemos deslocar o domínio de integração da reta real para o plano paralelo $\mathbb R^n+i\eta$, obtendo
+ \[
+  \varphi(x)
+  =\int_{\mathbb R^n}e^{2\pi i x\cdot(\xi+i\eta)}
+  U(\xi+i\eta)\,d\xi.
+ \]
+ Escolhendo $N>n$ e usando a hipótese,
+ \begin{align*}
+  |\varphi(x)|
+  &\leq C_Ne^{-2\pi x\cdot\eta}
+  e^{2\pi A|\eta|}
+  \int_{\mathbb R^n}(1+|\xi+i\eta|)^{-N}\,d\xi.
+ \end{align*}
+ Tome $\eta=t x$, $t>0$. A integral é uniformemente limitada em $t$, enquanto
+ \[
+  -2\pi x\cdot\eta+2\pi A|\eta|
+  =2\pi t|x|(A-|x|)\longrightarrow-\infty.
+ \]
+ Portanto $\varphi(x)=0$. Como isso vale para todo $|x|>A$,
+ \[
+  \operatorname{supp}(\varphi)
+  \subseteq\overline{B(0,A)}.
+ \]
+ Assim $U$ é a transformada de Fourier--Laplace de uma função teste suportada em $\overline{B(0,A)}$. \qedsymbol
+\end{proof*}
+
+A segunda parte do teorema é a versão para distribuições de suporte compacto: o decaimento rápido $(1+|\zeta|)^{-N}$ é substituído por crescimento polinomial $(1+|\zeta|)^N$, refletindo a ordem finita da distribuição, enquanto o fator exponencial codifica o tamanho do suporte.
+
+\end{document}

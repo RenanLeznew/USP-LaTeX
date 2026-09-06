@@ -1,0 +1,354 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 20 - 04 de Novembro, 2024}
+\subsection{Motivações}
+\begin{itemize}
+	\item Distribuições com suporte concentrado em um ponto;
+	\item Densidade das funções teste em \(\mathcal{D}'(\Omega )\) para um aberto arbitrário \(\Omega \subseteq \mathbb{R}^{n}\);
+	\item Preparativos para o produto de convolução de duas distribuições.
+\end{itemize}
+
+\subsection{Distribuições com Suporte Compacto e Distribuições Suportadas em um Ponto}
+O objetivo da aula passada foi identificar o espaço \(\mathcal{E}'(\Omega )\), dual topológico de \(\mathcal{C}^{\infty}(\Omega )\), sendo este último munido da topologia da convergência uniforme em compactos de \(\Omega \) das funções e de suas derivadas, com um subespaço de \(\mathcal{D}'(\Omega )\): precisamente, aquele formado pelas distribuições que possuem suporte compacto. Além disso, aprendemos como usar partições da unidade para ``reconstruir'' uma distribuição a partir de suas localizações.
+
+A fim de estabelecermos a identificação acima, por um lado, dada \(u\in \mathcal{E}'(\Omega )\), existem \(K\Subset \Omega \), \(c>0\) e \(m\in \mathbb{Z}_{+}\) tais que
+\[
+	|\langle u, f \rangle |\leq c\sum\limits_{|\alpha |\leq m}^{}\sup_{x\in K}|\partial^{\alpha }f(x)|,\quad \forall f\in \mathcal{C}^{\infty}(\Omega ). \qquad (\#)
+\]
+Com efeito, a família de seminormas
+\[
+	p_{(m,K)}(f)=\sum\limits_{|\alpha |\leq m}^{}\sup_{x\in K}|\partial^{\alpha }f(x)|,
+\]
+para \(K\subset \Omega \) e \(m\in \mathbb{Z}_{+}\), define a topologia de \(\mathcal{C}^{\infty}(\Omega )\). Da estimativa \((\#)\), se \(\varphi_{j}\to 0\) em \(\mathcal{C}_{c}^{\infty}(\Omega )\), então
+\[
+	p_{(m,K)}(\varphi_{j})\to 0 \Rightarrow \langle u, \varphi_{j} \rangle\to 0,
+\]
+mostrando que a restrição \(v\coloneqq u|_{\mathcal{C}_{c}^{\infty}(\Omega )}\) pertence a \(\mathcal{D}'(\Omega )\). Além disso, se \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\) satisfaz \(\mathrm{supp}(\varphi )\cap K=\emptyset \), então \(p_{(m,K)}(\varphi )=0\), donde
+\[
+	\langle v, \varphi  \rangle=0,
+\]
+e, consequentemente,
+\[
+	\mathrm{supp}(v)\subseteq K,
+\]
+de modo que \(v\) possui suporte compacto contido em \(\Omega \).
+
+Por outro lado, dada \(u\in \mathcal{D}'(\Omega )\) com suporte compacto K, \(\mathrm{supp}(u)=K\subset \Omega \), fixemos uma função de Urysohn \(\psi \in \mathcal{C}_{c}^{\infty}(\Omega )\) associada a K, isto é, \(\psi \equiv 1\) em uma vizinhança de K, e definamos
+\begin{align*}
+	\overline{u}: & \mathcal{C}^{\infty}(\Omega )\longrightarrow \mathbb{C}                         \\
+	              & f\longmapsto \langle \overline{u}, f\rangle \coloneqq \langle u, \psi f\rangle.
+\end{align*}
+Vimos que \(\overline{u}\) está bem definida independentemente da escolha de \(\psi \), que \(\overline{u}\in \mathcal{E}'(\Omega )\) e que ela é a única extensão de u a \(\mathcal{C}^{\infty}(\Omega )\) pertencente a \(\mathcal{E}'(\Omega )\), pois \(\mathcal{C}_{c}^{\infty}(\Omega )\) é denso em \(\mathcal{C}^{\infty}(\Omega )\); mais precisamente, se \(K_{0}=\mathrm{supp}(\psi )\), então existem \(c>0\) e \(m\in \mathbb{Z}_{+}\) tais que
+\[
+	|\langle \overline{u}, f\rangle |\leq c\sum\limits_{|\alpha |\leq m}^{}\sup_{x\in K_{0}}|\partial^{\alpha }f(x)|,\quad \forall f\in \mathcal{C}^{\infty}(\Omega ),
+\]
+confirmando, mais uma vez, que \(\overline{u}\in \mathcal{E}'(\Omega )\).
+
+Queremos agora utilizar parte das ideias acima para estabelecer um dos fatos mais relevantes da teoria, segundo o qual qualquer distribuição com suporte sendo \(\{0\}\)\footnote{Basta ser um conjunto unitário, ou tem que ser suportada no 0? Talvez um argumento de translação responda isso.} pode ser escrita como uma combinação linear de um número finito de derivadas da distribuição \(\delta \).
+
+Dependendo do tempo, ampliaremos ainda para um aberto arbitrário \(\Omega \subseteq \mathbb{R}^{n}\) o resultado de densidade das funções teste em \(\mathcal{D}'(\mathbb{R}^{n})\), demonstrado anteriormente, e iniciaremos os preparativos para a terceira parte da convolução, em que ambos os fatores são distribuições.
+
+Sabemos que \(\mathrm{supp}(\delta )=\{0\}\) e, como
+\[
+	\mathrm{supp}(\partial^{\alpha }u)\subseteq \mathrm{supp}(u),\quad \forall u\in \mathcal{D}'(\Omega ),\; \alpha \in \mathbb{Z}_{+}^{n},
+\]
+temos, em particular,
+\[
+	\mathrm{supp}(\partial^{\alpha }\delta )\subseteq \{0\},\quad \forall \alpha \in \mathbb{Z}_{+}^{n}.
+\]
+Considerando os monômios
+\[
+	\psi_{\alpha }(x)=(-1)^{|\alpha |}\frac{x^{\alpha }}{\alpha !},
+\]
+(ou versões deles multiplicadas por uma função de Urysohn ao redor da origem), veremos que
+\[
+	\langle \partial ^{\alpha }\delta , \psi_{\alpha } \rangle=1,
+\]
+e portanto, para qualquer mmjk, \(\partial^{\alpha }\delta \neq 0\), levando à conclusão de que o suporte de \(\partial^{\alpha }\delta \) não pode ser vazio, donde segue que ele necessariamente deve ser sempre o conjunto \(\{0\}\).
+
+Partindo destas funções \(\psi_{\alpha }\), vamos mostrar que, mais geralmente, se \(u = \sum\limits_{| \alpha  |\leq m}^{}a_{\alpha }\partial^{\alpha }\delta \) tem algum \(a_{\alpha }\neq 0\), então o suporte de \(u\) deve ser \(\{0\}\)
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Para as funções \(\psi_{\alpha }(x)=(-1)^{|\alpha |}x^{\alpha }/\alpha !\), as derivadas de \(\delta \) satisfazem um ``delta de Kronecker'':
+	\[
+		\langle \partial^{\beta }\delta , \psi_{\alpha }\rangle
+		=(-1)^{|\beta |}\partial^{\beta }\psi_{\alpha }(0)
+		=\begin{cases}
+			1, & \beta =\alpha ,     \\
+			0, & \beta \neq \alpha .
+		\end{cases}
+	\]
+\end{tcolorbox}
+
+\begin{theorem*}
+	Seja \(u\in \mathcal{D}'(\mathbb{R}^{n})\) com \(\mathrm{supp}(u)=\{0\}\). Existem \(m\in \mathbb{Z}_{+}\) e escalares \(a_{\alpha }\in \mathbb{C}\), com \(|\alpha |\leq m\), tais que
+	\[
+		u=\sum\limits_{|\alpha |\leq m}^{}a_{\alpha }\partial^{\alpha }\delta .
+	\]
+\end{theorem*}
+
+A demonstração possui alguns pontos-chave, um deles sendo a seguinte forma da Fórmula de Taylor.
+\begin{theorem*}[Fórmula de Taylor com Resto Integral]
+	Se \(f\in \mathcal{C}^{m+1}(\mathbb{R}^{n})\), com \(m=0,1,2,\dotsc \), então, para todo \(x\in \mathbb{R}^{n}\),
+	\[
+		f(x)=\sum\limits_{|\alpha |\leq m}^{}\frac{\partial^{\alpha }f(0)}{\alpha !}x^{\alpha }+R_{m}(x),
+	\]
+	em que
+	\[
+		R_{m}(x)=(m+1)\sum\limits_{|\alpha |=m+1}^{}\int_{0}^{1}(1-t)^{m}\frac{\partial^{\alpha }f(tx)}{\alpha !}x^{\alpha }\mathrm{d}t
+	\]
+	é o resto integral.
+\end{theorem*}
+O fato crucial para o que segue é que, quando \(f\in \mathcal{C}^{\infty}(\mathbb{R}^{n})\), o resto \(R_{m}\) também pertence a \(\mathcal{C}^{\infty}(\mathbb{R}^{n})\), sendo suficiente uma derivação sob o sinal de integral pela Regra de Leibniz.
+
+\begin{proof*}
+	Seja \(f\in \mathcal{C}^{\infty}(\mathbb{R}^{n})\) qualquer; pelo teorema anterior, para todo \(N\in \mathbb{N}\), podemos escrever
+	\[
+		f(x)=\sum\limits_{|\alpha |\leq N}^{}\frac{\partial^{\alpha }f(0)}{\alpha !}x^{\alpha }+R_{N}(x). \qquad (I)
+	\]
+	Como \(\mathrm{supp}(u)=\{0\}\), identificamos u com sua extensão a \(\mathcal{E}'(\mathbb{R}^{n})\). Se \(\psi \in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\) é qualquer função de Urysohn associada a \(\{0\}\), então
+	\[
+		\langle u, f\rangle=\langle u, \psi f\rangle.
+	\]
+	Decompondo \(f\) de acordo com \((I)\), obtemos
+	\begin{align*}
+		\langle u, f\rangle
+		 & =\biggl\langle u, \sum\limits_{|\alpha |\leq N}^{}\frac{\partial^{\alpha }f(0)}{\alpha !}\psi x^{\alpha }+\psi R_{N}\biggr\rangle        \\
+		 & =\sum\limits_{|\alpha |\leq N}^{}\frac{\partial^{\alpha }f(0)}{\alpha !}\langle u, \psi x^{\alpha }\rangle+\langle u, \psi R_{N}\rangle.
+	\end{align*}
+	Como
+	\[
+		\langle \partial^{\alpha }\delta , f\rangle=(-1)^{|\alpha |}\partial^{\alpha }f(0)
+	\]
+	e \(\langle u, \psi x^{\alpha }\rangle\) independe da escolha da função de Urysohn \(\psi \), podemos definir
+	\[
+		a_{\alpha }\coloneqq \frac{(-1)^{|\alpha |}}{\alpha !}\langle u, \psi x^{\alpha }\rangle,
+	\]
+	para \(\alpha \in \mathbb{Z}_{+}^{n}\). Assim,
+	\[
+		\langle u, f\rangle
+		=\sum\limits_{|\alpha |\leq N}^{}a_{\alpha }\langle \partial^{\alpha }\delta , f\rangle+\langle u, \psi R_{N}\rangle
+		=\biggl\langle \sum\limits_{|\alpha |\leq N}^{}a_{\alpha }\partial^{\alpha }\delta , f\biggr\rangle+\langle u, \psi R_{N}\rangle.
+	\]
+	Logo, o teorema estará demonstrado se encontrarmos N e uma função de Urysohn conveniente para os quais
+	\[
+		\langle u, \psi R_{N}\rangle=0.
+	\]
+
+	Com efeito, fixemos \(\varphi \in \mathcal{C}_{c}^{\infty}(\overline{B}(0;1))\) tal que \(\varphi \geq 0\) e \(\int \varphi =1\), e coloquemos
+	\[
+		\varphi_{\varepsilon }(x)=\varepsilon^{-n}\varphi \biggl(\frac{x}{\varepsilon }\biggr).
+	\]
+	Para \(\varepsilon >0\), definimos
+	\[
+		\psi_{\varepsilon }(x)
+		\coloneqq \varepsilon^{-n}\int_{\overline{B}(0;2\varepsilon )}^{}\varphi \biggl(\frac{x-y}{\varepsilon }\biggr)\mathrm{d}y
+		=\varphi_{\varepsilon }*\chi_{\overline{B}(0;2\varepsilon )}(x).
+	\]
+	Examinando a demonstração do Lema de Urysohn, vemos que \(\psi_{\varepsilon }\) é uma função de Urysohn associada a \(K=\{0\}\); de fato,
+	\[
+		\mathrm{supp}(\psi_{\varepsilon })
+		\subseteq \overline{B}(0;\varepsilon )+\overline{B}(0;2\varepsilon )
+		=\overline{B}(0;3\varepsilon )
+	\]
+	e
+	\[
+		\psi_{\varepsilon }(x)=1,\quad \forall x\in B(0;\varepsilon ).
+	\]
+
+	Passamos às estimativas: para \(\beta \in \mathbb{Z}_{+}^{n}\),
+	\begin{align*}
+		\partial^{\beta }\psi_{\varepsilon }(x)
+		 & =\varepsilon^{-n-|\beta |}\int_{\overline{B}(0;2\varepsilon )}^{}(\partial^{\beta }\varphi )\biggl(\frac{x-y}{\varepsilon }\biggr)\mathrm{d}y,
+	\end{align*}
+	donde
+	\[
+		\|\partial^{\beta }\psi_{\varepsilon }\|_{\infty }
+		\leq 2^{n}B_{n}\varepsilon^{-|\beta |}\|\partial^{\beta }\varphi \|_{\infty },
+	\]
+	onde \(B_{n}=\mathrm{vol}(\overline{B}(0;1))\).
+
+	Por outro lado, lembrando que
+	\[
+		\partial^{\eta }x^{\alpha }
+		=\frac{\alpha !}{(\alpha -\eta )!}x^{\alpha -\eta }
+	\]
+	quando \(\eta_{j}\leq \alpha_{j}\) para todo \(j=1,\dotsc ,n\), e que \(\partial^{\eta }x^{\alpha }=0\) se algum \(\eta_{j}>\alpha_{j}\), a Regra de Leibniz fornece
+	\begin{align*}
+		\partial^{\beta }R_{N}(x)
+		 & =(N+1)\sum\limits_{|\alpha |=N+1}^{}\int_{0}^{1}(1-t)^{N}\partial^{\beta }\biggl(\frac{\partial^{\alpha }f(tx)}{\alpha !}x^{\alpha }\biggr)\mathrm{d}t \\
+		 & =(N+1)\sum\limits_{|\alpha |=N+1}^{}\int_{0}^{1}(1-t)^{N}
+		\sum\limits_{\substack{\gamma +\eta =\beta                                                                                                                \\ \eta \leq \alpha }}^{}
+		\frac{\beta !}{\gamma !\eta !}\frac{t^{|\gamma |}\partial^{\gamma +\alpha }f(tx)}{\alpha !}
+		\frac{\alpha !}{(\alpha -\eta )!}x^{\alpha -\eta }\mathrm{d}t.
+	\end{align*}
+	Consequentemente, para \(|x|\leq 1\) e \(|\beta |\leq N+1\), existe uma constante \(C_{N}^{(\beta )}>0\) tal que
+	\[
+		|\partial^{\beta }R_{N}(x)|\leq C_{N}^{(\beta )}|x|^{N+1-|\beta |}. \qquad (II)
+	\]
+	Aqui, as constantes dependem apenas de N, \(\beta \) e de uma quantidade finita de derivadas de f sobre \(\overline{B}(0;1)\). O destrinchar das contas é:
+	%TODO
+
+	Como \(K_{0}=\overline{B}(0;1)\) é compacto, existem \(c>0\) e \(m\in \mathbb{Z}_{+}\) tais que
+	\[
+		|\langle u, \phi \rangle |
+		\leq c\sum\limits_{|\beta |\leq m}^{}\sup_{x\in \overline{B}(0;1)}|\partial^{\beta }\phi (x)|,
+		\quad \forall \phi \in \mathcal{C}_{c}^{\infty}(\overline{B}(0;1)).
+	\]
+	Se \(0<\varepsilon <\frac{1}{3}\), então
+	\[
+		\mathrm{supp}(\psi_{\varepsilon }R_{N})\subseteq \overline{B}(0;3\varepsilon )\subseteq \overline{B}(0;1),
+	\]
+	e, portanto,
+	\[
+		|\langle u, \psi_{\varepsilon }R_{N}\rangle |
+		\leq c\sum\limits_{|\beta |\leq m}^{}\sup_{|x|\leq 3\varepsilon }|\partial^{\beta }(\psi_{\varepsilon }R_{N})(x)|. \qquad (\#\#)
+	\]
+	Aplicando novamente a Regra de Leibniz e as estimativas anteriores, para \(|\beta |\leq N+1\) e \(|x|\leq 3\varepsilon \), obtemos
+	\begin{align*}
+		|\partial^{\beta }(\psi_{\varepsilon }R_{N})(x)|
+		 & \leq \sum\limits_{\gamma +\eta =\beta }^{}\frac{\beta !}{\gamma !\eta !}
+		|\partial^{\gamma }\psi_{\varepsilon }(x)|\,|\partial^{\eta }R_{N}(x)|      \\
+		 & \leq \sum\limits_{\gamma +\eta =\beta }^{}\frac{\beta !}{\gamma !\eta !}
+		\bigl[2^{n}B_{n}\|\partial^{\gamma }\varphi \|_{\infty }\varepsilon^{-|\gamma |}\bigr]
+		\bigl[C_{N}^{(\eta )}\varepsilon^{N+1-|\eta |}\bigr]                        \\
+		 & \leq d_{(m,N)}\varepsilon^{N+1-|\beta |},
+	\end{align*}
+	para alguma constante \(d_{(m,N)}>0\).
+
+	Finalmente, como em \((\#\#)\) a ordem máxima de derivação é m, escolhemos \(N=m\). Então, para \(|\beta |\leq m\) e \(0<\varepsilon <1\),
+	\[
+		\varepsilon^{m+1-|\beta |}\leq \varepsilon,
+	\]
+	de modo que
+	\[
+		\sup_{|x|\leq 3\varepsilon }|\partial^{\beta }(\psi_{\varepsilon }R_{m})(x)|\leq d_{(n,m)}\varepsilon .
+	\]
+	Voltando a \((\#\#)\), resulta que, para alguma constante \(\widetilde{d}_{(n,m)}>0\),
+	\[
+		|\langle u, \psi_{\varepsilon }R_{m}\rangle |\leq \widetilde{d}_{(n,m)}\varepsilon .
+	\]
+	Entretanto, \(\psi_{\varepsilon }\) é função de Urysohn associada a \(\mathrm{supp}(u)=\{0\}\), logo o valor
+	\[
+		\langle u, \psi_{\varepsilon }R_{m}\rangle=\langle u, R_{m}\rangle
+	\]
+	independe de \(\varepsilon \). Fazendo \(\varepsilon \to 0^{+}\), concluímos que
+	\[
+		\langle u, R_{m}\rangle=0,
+	\]
+	e, portanto,
+	\[
+		u=\sum\limits_{|\alpha |\leq m}^{}a_{\alpha }\partial^{\alpha }\delta . \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\subsection{Densidade das Funções Teste em \(\mathcal{D}'(\Omega )\)}
+Queremos demonstrar que \(\mathcal{C}_{c}^{\infty}(\Omega )\) é denso, na topologia fraca-*, em \(\mathcal{D}'(\Omega )\), para um aberto arbitrário \(\Omega \subseteq \mathbb{R}^{n}\). Grande parte das ideias necessárias já apareceu na demonstração do mesmo resultado para \(\Omega =\mathbb{R}^{n}\); por isso, o caso geral segue essencialmente de algumas observações que permitem ajustar aquela prova.
+
+\begin{theorem*}
+	Se \(\Omega \subseteq \mathbb{R}^{n}\) é um aberto, então \(\mathcal{C}_{c}^{\infty}(\Omega )\) é denso em \(\mathcal{D}'(\Omega )\) na topologia fraca-*.
+\end{theorem*}
+\begin{proof*}
+	Começamos com algumas observações.
+
+	(1) Se \(f\in \mathcal{C}^{\infty}(\Omega )\) e \(u\in \mathcal{D}'(\Omega )\), então
+	\[
+		\mathrm{supp}(fu)\subseteq \mathrm{supp}(f)\cap \mathrm{supp}(u).
+	\]
+	Com efeito, se \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega \setminus{\mathrm{supp}(u)})\), então
+	\[
+		\mathrm{supp}(f\varphi )\subseteq \mathrm{supp}(f)\cap \mathrm{supp}(\varphi )
+	\]
+	e \(f\varphi \in \mathcal{C}_{c}^{\infty}(\Omega \setminus{\mathrm{supp}(u)})\). Logo,
+	\[
+		\langle fu, \varphi  \rangle=\langle u, f\varphi  \rangle=0,
+	\]
+	donde \(\mathrm{supp}(fu)\subseteq \mathrm{supp}(u)\). Analogamente, se \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega \setminus{\mathrm{supp}(f)})\), então \(f\varphi =0\), e assim \(\mathrm{supp}(fu)\subseteq \mathrm{supp}(f)\).
+
+	(2) Seja \((K_{j})_{j}\) um esgotamento de \(\Omega \), e seja \(\psi_{j}\in \mathcal{C}_{c}^{\infty}(\Omega )\) uma função de Urysohn associada a \(K_{j}\). Se \(\varphi \in \mathcal{C}^{\infty}(\Omega )\), então
+	\[
+		\psi_{j}\varphi \stackrel{j\to \infty}\longrightarrow \varphi \quad \text{em }\mathcal{C}^{\infty}(\Omega ).
+	\]
+	Portanto, \(\mathcal{C}_{c}^{\infty}(\Omega )\) é denso em \(\mathcal{C}^{\infty}(\Omega )\).
+
+	(3) Se \(u\in \mathcal{D}'(\Omega )\) e \(\psi \in \mathcal{C}_{c}^{\infty}(\Omega )\), então
+	\[
+		\psi u\in \mathcal{E}'(\Omega ),
+	\]
+	pois, por (1),
+	\[
+		\mathrm{supp}(\psi u)\subseteq \mathrm{supp}(\psi ),
+	\]
+	que é compacto.
+
+	(4) O espaço \(\mathcal{E}'(\Omega )\) é denso em \(\mathcal{D}'(\Omega )\). Com efeito, se \(u\in \mathcal{D}'(\Omega )\) e \((\psi_{j})_{j}\) é como em (2), então \(\psi_{j}u\in \mathcal{E}'(\Omega )\) e, para toda \(\varphi \in \mathcal{C}_{c}^{\infty}(\Omega )\),
+	\[
+		\langle \psi_{j}u, \varphi  \rangle
+		=\langle u, \psi_{j}\varphi  \rangle
+		\stackrel{j\to \infty}\longrightarrow \langle u, \varphi  \rangle.
+	\]
+	Assim,
+	\[
+		\psi_{j}u\stackrel{j\to \infty}\longrightarrow u\quad \text{em }\mathcal{D}'(\Omega ).
+	\]
+
+	(5) Resta mostrar que \(\mathcal{C}_{c}^{\infty}(\Omega )\) é denso em \(\mathcal{E}'(\Omega )\), este último naturalmente munido da topologia fraca-* como subespaço de \(\mathcal{D}'(\Omega )\). Seja, então, \(u\in \mathcal{E}'(\Omega )\) e ponhamos\(K=\mathrm{supp}(u).\)
+	Fixada a família regularizante padrão \((\varphi_{\varepsilon })_{\varepsilon >0}\), se
+	\[
+		0<\varepsilon <d(K,\mathbb{R}^{n}\setminus \Omega ). \qquad (\#')
+	\]
+	então
+	\[
+		\mathrm{supp}(u*\varphi_{\varepsilon })\subseteq \Omega ,
+	\]
+	e, como \(u*\varphi_{\varepsilon }\in \mathcal{C}^{\infty}(\mathbb{R}^{n})\), segue que
+	\[
+		u*\varphi_{\varepsilon }\in \mathcal{C}_{c}^{\infty}(\Omega ).
+	\]
+	Além disso, como \(u\in \mathcal{E}'(\Omega )\) pode ser vista como uma distribuição em \(\mathcal{D}'(\mathbb{R}^{n})\), pelo caso já provado em \(\mathbb{R}^{n}\),
+	\[
+		u*\varphi_{\varepsilon }\stackrel{\varepsilon \to 0^{+}}\longrightarrow u\quad \text{em }\mathcal{D}'(\mathbb{R}^{n}),
+	\]
+	e, em particular,
+	\[
+		u*\varphi_{\varepsilon }\stackrel{\varepsilon \to 0^{+}}\longrightarrow u\quad \text{em }\mathcal{D}'(\Omega ).
+	\]
+	Isto mostra que \(\mathcal{C}_{c}^{\infty}(\Omega )\) é denso em \(\mathcal{E}'(\Omega )\); combinando com (4), concluímos a densidade em \(\mathcal{D}'(\Omega )\).
+
+	Só falta justificar a afirmação usada em \((\#')\). Por definição,
+	\[
+		u*\varphi_{\varepsilon }(x)=\langle u, \varphi_{\varepsilon }(x-\cdot )\rangle
+		=\langle u(y), \varphi_{\varepsilon }(x-y)\rangle.
+	\]
+	Como
+	\[
+		\mathrm{supp}_{y}\bigl(\varphi_{\varepsilon }(x-y)\bigr)
+		=x-\mathrm{supp}(\varphi_{\varepsilon })
+		=\overline{B}(x;\varepsilon ),
+	\]
+	se \(\overline{B}(x;\varepsilon )\cap \mathrm{supp}(u)=\emptyset \), então
+	\[
+		u*\varphi_{\varepsilon }(x)=0.
+	\]
+	Consequentemente,
+	\[
+		d(x,K)>\varepsilon \Rightarrow u*\varphi_{\varepsilon }(x)=0,
+	\]
+	e portanto
+	\[
+		\mathrm{supp}(u*\varphi_{\varepsilon })\subseteq \overline{O}_{\varepsilon }(K)
+		\coloneqq \{x\in \mathbb{R}^{n}:d(x,K)\leq \varepsilon \}.
+	\]
+	Escolhendo \(\varepsilon \) como em \((\#')\), temos \(\overline{O}_{\varepsilon }(K)\subseteq \Omega \), concluindo a prova. \qedsymbol
+\end{proof*}
+\end{document}

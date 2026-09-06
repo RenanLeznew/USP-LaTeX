@@ -1,0 +1,276 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 23 - 15 de Novembro, 2024}
+\subsection{Soluções Fundamentais de Operadores Clássicos}
+Se
+\[
+ P(D)=\sum_{|\alpha|\leq m}a_\alpha\partial^\alpha
+\]
+é um operador diferencial parcial linear com coeficientes constantes, uma solução fundamental de $P(D)$ é uma distribuição $E\in\mathcal D'(\mathbb R^n)$ tal que
+\[
+ P(D)E=\delta.
+\]
+Quando $E\in L^1_{\mathrm{loc}}(\mathbb R^n)$, para toda $\varphi\in\mathcal C_c^\infty$ vale, no sentido das distribuições,
+\[
+ \langle P(D)E,\varphi\rangle
+ =\int_{\mathbb R^n}E(x)P(-D)\varphi(x)\,dx.
+\]
+
+Queremos agora apresentar as soluções fundamentais canônicas dos operadores de Laplace e de Cauchy--Riemann. O ponto de partida para o primeiro será o teorema de Stokes, por meio da segunda identidade de Green, e para o segundo uma fórmula de integração por partes.
+
+\subsection{O Operador de Laplace}
+Consideramos
+\[
+ \Delta=\sum_{j=1}^n\frac{\partial^2}{\partial x_j^2}
+ \qquad\text{em }\mathbb R^n.
+\]
+Nos concentraremos no caso $n\geq3$; o caso $n=2$ fica como exercício.
+
+\begin{lemma*}[Segunda identidade de Green]
+ Seja $\Omega\subseteq\mathbb R^n$ um domínio com fronteira regular. Para $u,v\in\mathcal C^2(\overline\Omega)$,
+ \[
+  \int_\Omega(u\Delta v-v\Delta u)\,dx
+  =\int_{\partial\Omega}\left(u\frac{\partial v}{\partial\nu}
+  -v\frac{\partial u}{\partial\nu}\right)d\sigma,
+ \]
+ onde $\nu$ é o vetor normal unitário exterior a $\partial\Omega$.
+\end{lemma*}
+
+\begin{tcolorbox}[
+ skin=enhanced,
+ title=Observação,
+ fonttitle=\bfseries,
+ colframe=black,
+ colbacktitle=cyan!75!white,
+ colback=cyan!15,
+ colbacklower=black,
+ coltitle=black,
+ drop fuzzy shadow]
+ Dizer que $\Omega$ tem fronteira regular significa que $\overline\Omega$ é uma superfície compacta com bordo de dimensão $n$ suficientemente regular, $\Omega=\operatorname{int}(\overline\Omega)$ e o bordo dessa superfície coincide com a fronteira topológica $\partial\Omega$.
+\end{tcolorbox}
+
+Consideremos, para $n\geq3$,
+\[
+ E_0:\mathbb R^n\setminus\{0\}\longrightarrow\mathbb R,
+ \qquad E_0(x)=|x|^{2-n}.
+\]
+Calculando suas derivadas,
+\[
+ \frac{\partial|x|}{\partial x_j}=\frac{x_j}{|x|},
+\]
+\[
+ \frac{\partial E_0}{\partial x_j}(x)
+ =(2-n)x_j|x|^{-n},
+\]
+e
+\[
+ \frac{\partial^2E_0}{\partial x_j^2}(x)
+ =(2-n)\left(|x|^{-n}-n x_j^2|x|^{-n-2}\right).
+\]
+Consequentemente,
+\begin{align*}
+ \Delta E_0
+ &=(2-n)\left[n|x|^{-n}-n|x|^{-n-2}\sum_{j=1}^n x_j^2\right]\\
+ &=0\qquad\text{em }\mathbb R^n\setminus\{0\}.
+\end{align*}
+Assim $E_0$ é harmônica fora da origem.
+
+Recordemos que, se
+\[
+ S_r^{n-1}=\{x\in\mathbb R^n:|x|=r\},
+\]
+então
+\[
+ \sigma(S_r^{n-1})=r^{n-1}\sigma(S^{n-1}).
+\]
+Em particular, para $n=2$, $\sigma(S_r^1)=2\pi r$.
+
+\begin{lemma*}[Integração em coordenadas polares]
+ Se $f(x)=g(|x|)$ é mensurável positiva ou integrável, então
+ \[
+  \int_{\mathbb R^n}f(x)\,dx
+  =\sigma(S^{n-1})\int_0^\infty g(r)r^{n-1}\,dr.
+ \]
+\end{lemma*}
+
+Aplicando o lema a $g(r)=r^{2-n}$ numa bola, vemos que $E_0\in L^1_{\mathrm{loc}}(\mathbb R^n)$ e, portanto, $E_0$ define uma distribuição.
+
+\begin{prop*}
+ Para $E_0(x)=|x|^{2-n}$, $n\geq3$,
+ \[
+  \Delta E_0=(2-n)\sigma(S^{n-1})\delta
+ \]
+ no sentido das distribuições.
+\end{prop*}
+
+\begin{proof*}
+ Seja $\varphi\in\mathcal C_c^\infty(\mathbb R^n)$ e escolha $R>0$ com $\operatorname{supp}(\varphi)\subset B(0,R)$. Para $0<\varepsilon<R$, ponha
+ \[
+  F_\varepsilon=\{x\in\mathbb R^n:\varepsilon<|x|<R\}.
+ \]
+ Como $E_0$ é harmônica em $F_\varepsilon$, a segunda identidade de Green fornece
+ \[
+  \int_{F_\varepsilon}(\varphi\Delta E_0-E_0\Delta\varphi)\,dx
+  =\int_{\partial F_\varepsilon}
+  \left(\varphi\frac{\partial E_0}{\partial\nu}
+  -E_0\frac{\partial\varphi}{\partial\nu}\right)d\sigma.
+ \]
+ Na esfera externa $S_R$ os termos se anulam, pois $\varphi$ é identicamente zero numa vizinhança dela. Na esfera interna $S_\varepsilon$, a normal exterior a $F_\varepsilon$ aponta para a origem, isto é,
+ \[
+  \nu(x)=-\frac{x}{|x|}.
+ \]
+ Como $E_0=\varepsilon^{2-n}$ em $S_\varepsilon$ e
+ \[
+  \nabla E_0(x)=(2-n)|x|^{-n}x,
+ \]
+ temos
+ \[
+  \frac{\partial E_0}{\partial\nu}
+  =(n-2)\varepsilon^{1-n}.
+ \]
+ Logo
+ \begin{align*}
+  -\int_{F_\varepsilon}E_0\Delta\varphi\,dx
+  &=-\frac{2-n}{\varepsilon^{n-1}}
+  \int_{S_\varepsilon}\varphi\,d\sigma
+  +\varepsilon^{2-n}\int_{S_\varepsilon}
+  \frac{\partial\varphi}{\partial\nu}\,d\sigma.
+ \end{align*}
+ O segundo termo tende a zero, pois
+ \[
+  \left|\varepsilon^{2-n}\int_{S_\varepsilon}
+  \frac{\partial\varphi}{\partial\nu}\,d\sigma\right|
+  \leq \|\nabla\varphi\|_\infty\varepsilon^{2-n}\sigma(S_\varepsilon)
+  =O(\varepsilon).
+ \]
+ Quanto ao primeiro,
+ \[
+  \frac{1}{\varepsilon^{n-1}}
+  \int_{S_\varepsilon}\varphi\,d\sigma
+  =\sigma(S^{n-1})\,
+  \frac{1}{\sigma(S_\varepsilon)}\int_{S_\varepsilon}\varphi\,d\sigma
+  \longrightarrow\sigma(S^{n-1})\varphi(0).
+ \]
+ Portanto
+ \[
+  \langle\Delta E_0,\varphi\rangle
+  =(2-n)\sigma(S^{n-1})\varphi(0),
+ \]
+ como queríamos. \qedsymbol
+\end{proof*}
+
+Assim,
+\[
+ E(x)=\frac{1}{(2-n)\sigma(S^{n-1})}|x|^{2-n}
+\]
+é uma solução fundamental do Laplaciano. Para $n=3$, como $\sigma(S^2)=4\pi$,
+\[
+ E(x)=-\frac{1}{4\pi|x|},
+\]
+o potencial gravitacional newtoniano.
+
+\subsection{O Operador de Cauchy--Riemann}
+Em $\mathbb R^2\simeq\mathbb C$, escrevemos $z=x+iy$ e consideramos
+\[
+ \frac{\partial}{\partial\overline z}
+ :=\frac12\left(\frac{\partial}{\partial x}
+ +i\frac{\partial}{\partial y}\right).
+\]
+Nosso candidato natural é
+\[
+ E_0(z)=\frac1z,\qquad z\neq0,
+\]
+isto é,
+\[
+ E_0(x,y)=\frac{x}{x^2+y^2}-i\frac{y}{x^2+y^2}.
+\]
+As identidades
+\[
+ \frac{\partial}{\partial x}\frac{x}{x^2+y^2}
+ =\frac{y^2-x^2}{(x^2+y^2)^2},
+ \qquad
+ \frac{\partial}{\partial y}\frac{y}{x^2+y^2}
+ =\frac{x^2-y^2}{(x^2+y^2)^2},
+\]
+e
+\[
+ \frac{\partial}{\partial y}\frac{x}{x^2+y^2}
+ =-\frac{2xy}{(x^2+y^2)^2},
+ \qquad
+ \frac{\partial}{\partial x}\frac{y}{x^2+y^2}
+ =-\frac{2xy}{(x^2+y^2)^2}
+\]
+mostram que $\partial_{\overline z}E_0=0$ em $\mathbb C\setminus\{0\}$.
+
+Além disso, $E_0\in L^1_{\mathrm{loc}}(\mathbb R^2)$, pois
+\[
+ \iint_{B(0,1)}|E_0(x,y)|\,dx\,dy
+ =\int_0^{2\pi}\int_0^1\frac1r\,r\,dr\,d\theta
+ =2\pi<\infty.
+\]
+
+\begin{prop*}
+ No sentido das distribuições,
+ \[
+  \frac{\partial E_0}{\partial\overline z}=\pi\delta.
+ \]
+ Consequentemente,
+ \[
+  E(z)=\frac1{\pi z}
+ \]
+ é uma solução fundamental de $\partial/\partial\overline z$.
+\end{prop*}
+
+\begin{proof*}
+ Seja $\Phi=\varphi+i\psi\in\mathcal C_c^\infty(\mathbb R^2;\mathbb C)$ e, para $\varepsilon>0$, retiremos o disco $B(0,\varepsilon)$ do suporte. Por definição,
+ \[
+  \left\langle\frac{\partial E_0}{\partial\overline z},\Phi\right\rangle
+  =-\left\langle E_0,\frac{\partial\Phi}{\partial\overline z}\right\rangle
+  =-\lim_{\varepsilon\to0^+}
+  \iint_{F_\varepsilon}E_0\frac{\partial\Phi}{\partial\overline z}\,dx\,dy.
+ \]
+ Escrevendo as partes real e imaginária e integrando por partes, os termos de volume cancelam pelas equações de Cauchy--Riemann satisfeitas por $E_0$ fora da origem. Restam apenas integrais sobre a circunferência $S_\varepsilon$. Na orientação apropriada,
+ \[
+  \operatorname{Re}\iint_{F_\varepsilon}E_0
+  \frac{\partial\Phi}{\partial\overline z}\,dx\,dy
+  \longrightarrow-\pi\varphi(0),
+ \]
+ e, analogamente,
+ \[
+  \operatorname{Im}\iint_{F_\varepsilon}E_0
+  \frac{\partial\Phi}{\partial\overline z}\,dx\,dy
+  \longrightarrow-\pi\psi(0).
+ \]
+ Portanto
+ \[
+  \left\langle\frac{\partial E_0}{\partial\overline z},\Phi\right\rangle
+  =\pi(\varphi(0)+i\psi(0))
+  =\pi\Phi(0),
+ \]
+ isto é, $\partial_{\overline z}E_0=\pi\delta$. \qedsymbol
+\end{proof*}
+
+\subsection{Apêndice}
+O teorema da divergência de Gauss--Ostrogradski afirma que, se $\Omega$ é um domínio com fronteira regular e $w=(w_1,\dots,w_n)\in\mathcal C^1(\overline\Omega)$, então
+\[
+ \int_\Omega\operatorname{div}w\,dx
+ =\int_{\partial\Omega}w\cdot\nu\,d\sigma.
+\]
+Tomando $w=u\nabla v$, temos
+\[
+ \operatorname{div}(u\nabla v)=\nabla u\cdot\nabla v+u\Delta v,
+\]
+logo
+\[
+ \int_\Omega(\nabla u\cdot\nabla v+u\Delta v)\,dx
+ =\int_{\partial\Omega}u\frac{\partial v}{\partial\nu}\,d\sigma.
+\]
+Trocando os papéis de $u$ e $v$ e subtraindo as identidades, recuperamos a segunda identidade de Green.
+
+Se $G$ é outra solução fundamental do Laplaciano, então
+\[
+ \Delta(G-E)=0
+\]
+em $\mathbb R^n$, de modo que $G=E+H$ com $H$ harmônica. Analogamente, duas soluções fundamentais de $\partial/\partial\overline z$ diferem por uma função inteira holomorfa. Essas observações serão retomadas mais adiante.
+
+\end{document}

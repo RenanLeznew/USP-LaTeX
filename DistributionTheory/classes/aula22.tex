@@ -1,0 +1,238 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 22 - 11 de Novembro, 2024}
+\subsection{Produto de Convolução -- Terceira Parte}
+Vimos que, se
+\[
+ P(D)=\sum_{|\alpha|\leq m}a_\alpha\partial^\alpha
+\]
+é um operador diferencial parcial linear com coeficientes constantes e $E\in\mathcal D'(\mathbb R^n)$ é uma solução fundamental, isto é, $P(D)E=\delta$, então, para toda $f\in\mathcal C_c^\infty(\mathbb R^n)$,
+\[
+ u:=E*f
+\]
+é uma solução $\mathcal C^\infty$ de $P(D)u=f$.
+
+Para demonstrarmos fatos de existência, unicidade e, mais adiante, ampliarmos o conjunto dos termos não homogêneos, precisamos definir o produto de convolução em situações nas quais ambos os fatores sejam distribuições. O caso básico será aquele em que pelo menos um dos fatores possui suporte compacto.
+
+\begin{def*}
+ Para $u\in\mathcal E'(\mathbb R^n)$ e $\varphi\in\mathcal C^\infty(\mathbb R^n)$, ou para $u\in\mathcal D'(\mathbb R^n)$ e $\varphi\in\mathcal C_c^\infty(\mathbb R^n)$, definimos
+ \[
+  (u*\varphi)(x):=\langle u,\tau_x\check\varphi\rangle
+  =\langle u(y),\varphi(x-y)\rangle,
+  \qquad x\in\mathbb R^n.
+ \]
+ Aqui $\tau_x\check\varphi(y)=\varphi(x-y)$.
+\end{def*}
+
+\begin{lemma*}
+ Para $u\in\mathcal E'(\mathbb R^n)$ e $\varphi\in\mathcal C^\infty(\mathbb R^n)$ valem:
+ \begin{enumerate}
+  \item $\delta*\varphi=\varphi$;
+  \item $u*\varphi\in\mathcal C^\infty(\mathbb R^n)$ e
+  \[
+   \partial^\alpha(u*\varphi)
+   =(\partial^\alpha u)*\varphi
+   =u*(\partial^\alpha\varphi),
+   \qquad \alpha\in\mathbb Z_+^n;
+  \]
+  \item
+  \[
+   (u*\varphi)*\psi=u*(\varphi*\psi),
+  \]
+  sempre que $\varphi$ ou $\psi$ tiver suporte compacto.
+ \end{enumerate}
+\end{lemma*}
+
+\begin{proof*}
+ As duas primeiras propriedades são as mesmas já demonstradas para o caso $u\in\mathcal D'$ e $\varphi\in\mathcal C_c^\infty$. Para a primeira, escolhendo uma função de Urysohn $\chi\equiv1$ numa vizinhança de $\{0\}$, a extensão de $\delta$ a $\mathcal C^\infty$ satisfaz
+ \[
+  \langle\delta,f\rangle=\langle\delta,\chi f\rangle=f(0),
+ \]
+ e, portanto,
+ \[
+  (\delta*\varphi)(x)=\langle\delta(y),\varphi(x-y)\rangle=\varphi(x).
+ \]
+
+ Na associatividade, se, por exemplo, $\psi\in\mathcal C_c^\infty$, então $u*\varphi$ é uma função suave e $(u*\varphi)*\psi$ está bem definido; ao mesmo tempo $\varphi*\psi\in\mathcal C^\infty$ e $u*(\varphi*\psi)$ também está bem definido. O caso em que $\varphi$ tem suporte compacto é análogo. Os detalhes reduzem-se às identidades já vistas e ao teorema de Fubini. \qedsymbol
+\end{proof*}
+
+\begin{def*}
+ Dados $u_1,u_2\in\mathcal D'(\mathbb R^n)$, com, digamos, $u_2\in\mathcal E'(\mathbb R^n)$, para toda $\varphi\in\mathcal C_c^\infty(\mathbb R^n)$ ficam bem definidas as funções
+ \[
+  u_1*(u_2*\varphi),\qquad u_2*(u_1*\varphi),
+ \]
+ pois $u_2*\varphi\in\mathcal C_c^\infty$ e $u_1*\varphi\in\mathcal C^\infty$.
+\end{def*}
+
+Nessas condições, consideremos
+\[
+ T\varphi:=u_1*(u_2*\varphi),
+ \qquad
+ S\varphi:=u_2*(u_1*\varphi).
+\]
+
+\begin{lemma*}
+ Os operadores $T,S:\mathcal C_c^\infty(\mathbb R^n)\to\mathcal C^\infty(\mathbb R^n)$ são lineares, sequencialmente contínuos e invariantes por translação:
+ \[
+  \tau_h(T\varphi)=T(\tau_h\varphi),
+  \qquad
+  \tau_h(S\varphi)=S(\tau_h\varphi),
+  \qquad h\in\mathbb R^n.
+ \]
+\end{lemma*}
+
+\begin{proof*}
+ A invariância por translação decorre das identidades já provadas para a convolução de uma distribuição com uma função teste. Por exemplo,
+ \begin{align*}
+  \tau_h(T\varphi)
+  &=\tau_h\bigl[u_1*(u_2*\varphi)\bigr]\\
+  &=u_1*\tau_h(u_2*\varphi)\\
+  &=u_1*\bigl[u_2*(\tau_h\varphi)\bigr]
+  =T(\tau_h\varphi).
+ \end{align*}
+ A linearidade é imediata da linearidade das distribuições e das operações de translação e reflexão.
+
+ Para a continuidade, basta mostrar que, se $\varphi_j\to0$ em $\mathcal C_c^\infty$, então $u*\varphi_j\to0$ em $\mathcal C^\infty$ quando $u\in\mathcal E'$. De fato, existe um compacto $K_1$ contendo todos os suportes de $\varphi_j$ e
+ \[
+  \operatorname{supp}(u*\varphi_j)
+  \subseteq\operatorname{supp}(u)+K_1,
+ \]
+ um compacto fixo. Se
+ \[
+  |\langle u,f\rangle|
+  \leq c\sum_{|\alpha|\leq m}\sup_{y\in K}|\partial^\alpha f(y)|,
+ \]
+ então, para $x\in\mathbb R^n$,
+ \begin{align*}
+  |(u*\varphi_j)(x)|
+  &=|\langle u,\tau_x\check\varphi_j\rangle|\\
+  &\leq c\sum_{|\alpha|\leq m}
+  \sup_{z\in\mathbb R^n}|\partial^\alpha\varphi_j(z)|
+  \longrightarrow0.
+ \end{align*}
+ Analogamente, para todo multi-índice $\beta$,
+ \[
+  |\partial^\beta(u*\varphi_j)(x)|
+  =|u*(\partial^\beta\varphi_j)(x)|
+  \leq c\sum_{|\alpha|\leq m}
+  \sup_z|\partial^{\alpha+\beta}\varphi_j(z)|
+  \longrightarrow0.
+ \]
+ Portanto $u*\varphi_j\to0$ em $\mathcal C^\infty$. Aplicando isso aos dois fatores, obtemos a continuidade de $T$ e $S$. \qedsymbol
+\end{proof*}
+
+Pelo resultado que caracteriza operadores lineares contínuos invariantes por translação, existem únicas distribuições $u,v\in\mathcal D'(\mathbb R^n)$ tais que
+\[
+ u_1*(u_2*\varphi)=u*\varphi,
+ \qquad
+ u_2*(u_1*\varphi)=v*\varphi,
+ \qquad \forall\varphi\in\mathcal C_c^\infty.
+\]
+
+\begin{def*}
+ Nessas condições definimos
+ \[
+  u_1*u_2:=u,
+  \qquad
+  u_2*u_1:=v.
+ \]
+ Assim,
+ \[
+  (u_1*u_2)*\varphi=u_1*(u_2*\varphi),
+  \qquad
+  (u_2*u_1)*\varphi=u_2*(u_1*\varphi).
+ \]
+\end{def*}
+
+\subsection{Propriedades da Convolução de Distribuições}
+Supondo sempre que as convoluções estejam definidas, valem as propriedades usuais.
+
+\begin{prop*}
+ \begin{enumerate}
+  \item $\delta*u=u*\delta=u$;
+  \item $u_1*(u_2*u_3)=(u_1*u_2)*u_3$ se ao menos dois dos fatores tiverem suporte compacto;
+  \item $u_1*u_2=u_2*u_1$;
+  \item
+  \[
+   \partial^\alpha(u_1*u_2)
+   =(\partial^\alpha u_1)*u_2
+   =u_1*(\partial^\alpha u_2),
+   \qquad \alpha\in\mathbb Z_+^n;
+  \]
+  \item
+  \[
+   \operatorname{supp}(u_1*u_2)
+   \subseteq\operatorname{supp}(u_1)+\operatorname{supp}(u_2);
+  \]
+  \item se um dos fatores é uma função suave, as definições nova e antiga coincidem.
+ \end{enumerate}
+\end{prop*}
+
+\begin{proof*}
+ Para o elemento neutro, se $\varphi\in\mathcal C_c^\infty$,
+ \[
+  (\delta*u)*\varphi=\delta*(u*\varphi)=u*\varphi,
+ \]
+ logo $\delta*u=u$; analogamente, $(u*\delta)*\varphi=u*(\delta*\varphi)=u*\varphi$.
+
+ Para a associatividade, convolvemos ambos os lados com uma função teste e usamos repetidamente a própria definição. Por exemplo,
+ \begin{align*}
+  [u_1*(u_2*u_3)]*\varphi
+  &=u_1*[(u_2*u_3)*\varphi]\\
+  &=u_1*[u_2*(u_3*\varphi)]\\
+  &=(u_1*u_2)*(u_3*\varphi)\\
+  &=[(u_1*u_2)*u_3]*\varphi.
+ \end{align*}
+ Como duas distribuições que têm a mesma convolução com toda função teste coincidem, segue a igualdade.
+
+ Para a comutatividade, tomemos $\varphi,\psi\in\mathcal C_c^\infty$. Pela associatividade já provada,
+ \begin{align*}
+  (u_1*u_2)*(\varphi*\psi)
+  &=(u_1*\psi)*(u_2*\varphi),\\
+  (u_2*u_1)*(\varphi*\psi)
+  &=(u_2*\varphi)*(u_1*\psi).
+ \end{align*}
+ Os lados direitos são iguais pela comutatividade usual da convolução de funções. Fazendo $\psi*\varphi_\varepsilon\to\psi$ em $\mathcal C_c^\infty$, concluímos
+ \[
+  (u_1*u_2)*\psi=(u_2*u_1)*\psi,
+ \]
+ para toda $\psi$, e portanto $u_1*u_2=u_2*u_1$.
+
+ Para as derivadas, por definição,
+ \begin{align*}
+  [ (\partial^\alpha u_1)*u_2]*\varphi
+  &=(\partial^\alpha u_1)*(u_2*\varphi)\\
+  &=u_1*[\partial^\alpha(u_2*\varphi)]\\
+  &=[u_1*(\partial^\alpha u_2)]*\varphi,
+ \end{align*}
+ e a outra igualdade segue tomando uma família regularizante e passando ao limite.
+
+ Para o suporte, usaremos o lema: se $u_j\to u$ em $\mathcal D'$ e $\operatorname{supp}(u_j)\subseteq F_j$, com $F_j$ fechados e $F_j\downarrow F$, então
+ \[
+  \operatorname{supp}(u)\subseteq F.
+ \]
+ De fato, se $\varphi\in\mathcal C_c^\infty(\mathbb R^n\setminus F)$, para $j$ grande seu suporte é disjunto de $F_j$, logo $\langle u_j,\varphi\rangle=0$ e, passando ao limite, $\langle u,\varphi\rangle=0$.
+
+ Agora, se $\varphi_\varepsilon$ é uma família regularizante,
+ \[
+  (u_1*u_2)*\varphi_\varepsilon
+  =u_1*(u_2*\varphi_\varepsilon),
+ \]
+ e, pelo lema do suporte para convolução de distribuição com função,
+ \begin{align*}
+  \operatorname{supp}[(u_1*u_2)*\varphi_\varepsilon]
+  &\subseteq\operatorname{supp}(u_1)
+  +\operatorname{supp}(u_2*\varphi_\varepsilon)\\
+  &\subseteq\operatorname{supp}(u_1)+\operatorname{supp}(u_2)
+  +\overline{B(0,\varepsilon)}.
+ \end{align*}
+ Como $(u_1*u_2)*\varphi_\varepsilon\to u_1*u_2$ em $\mathcal D'$, o lema anterior dá
+ \[
+  \operatorname{supp}(u_1*u_2)
+  \subseteq\operatorname{supp}(u_1)+\operatorname{supp}(u_2).
+ \]
+
+ Finalmente, quando $u_1$ ou $u_2$ é uma função suave, a associatividade já demonstrada para uma distribuição e funções mostra que a definição por operadores coincide com a definição anterior. \qedsymbol
+\end{proof*}
+
+\end{document}

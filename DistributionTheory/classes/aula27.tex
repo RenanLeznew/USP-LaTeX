@@ -1,0 +1,307 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 27 - 29 de Novembro, 2024}
+\subsection{Transformada de Fourier no Espaço de Schwartz}
+Na aula passada estudamos as propriedades da transformada de Fourier de funções integráveis. Para $f\in L^1(\mathbb R^n)$,
+\[
+ \widehat f(\xi)=\int_{\mathbb R^n}e^{-2\pi i x\cdot\xi}f(x)\,dx,
+\]
+e o operador $\mathcal F$ satisfaz, entre outras, as propriedades:
+\begin{enumerate}
+ \item
+ \[
+  \mathcal F:L^1\longrightarrow C_0,
+  \qquad
+  \|\widehat f\|_\infty\leq\|f\|_{L^1};
+ \]
+ \item
+ \[
+  \widehat{\tau_h f}(\xi)
+  =e^{-2\pi i h\cdot\xi}\widehat f(\xi);
+ \]
+ \item se $T:\mathbb R^n\to\mathbb R^n$ é um isomorfismo,
+ \[
+  \widehat{f\circ T}(\xi)
+  =|\det T|^{-1}\widehat f((T^*)^{-1}\xi);
+ \]
+ \item
+ \[
+  \widehat{f*g}=\widehat f\,\widehat g;
+ \]
+ \item
+ \[
+  \int\widehat f\,g=\int f\,\widehat g;
+ \]
+ \item
+ \[
+  \partial_\xi^\alpha\widehat f
+  =\left[(-2\pi i x)^\alpha f\right]^\wedge;
+ \]
+ \item sob hipóteses naturais de integrabilidade e decaimento,
+ \[
+  \widehat{\partial^\alpha f}
+  =(2\pi i\xi)^\alpha\widehat f.
+ \]
+\end{enumerate}
+Recordemos também duas transformadas explícitas:
+\[
+ \widehat{\chi_{[-a,a]}}(\xi)=\frac{\sin(2\pi a\xi)}{\pi\xi},
+\]
+com o valor $2a$ em $\xi=0$, e
+\[
+ \widehat{e^{-\pi a|x|^2}}(\xi)
+ =a^{-n/2}e^{-\pi|\xi|^2/a},
+ \qquad a>0.
+\]
+Em particular, $e^{-\pi|x|^2}$ é um ponto fixo de $\mathcal F$.
+
+Queremos agora analisar a transformada no espaço de Schwartz $\mathcal S(\mathbb R^n)$. O resultado central é que $\mathcal F$ é um isomorfismo de $\mathcal S$ em $\mathcal S$, permitindo estendê-la por dualidade ao espaço $\mathcal S'$ das distribuições temperadas.
+
+\subsection{Seminormas do Espaço de Schwartz}
+Para $f\in\mathcal C^\infty(\mathbb R^n)$, consideremos
+\[
+ p_{(\alpha,\beta)}(f)
+ =\sup_{x\in\mathbb R^n}|x^\alpha\partial^\beta f(x)|
+\]
+e
+\[
+ q_{(\alpha,\beta)}(f)
+ =\sup_{x\in\mathbb R^n}|\partial^\beta(x^\alpha f)(x)|.
+\]
+
+\begin{lemma*}
+ As seguintes condições são equivalentes:
+ \begin{enumerate}
+  \item $f\in\mathcal S$;
+  \item $p_{(\alpha,\beta)}(f)<\infty$ para todos $\alpha,\beta$;
+  \item $q_{(\alpha,\beta)}(f)<\infty$ para todos $\alpha,\beta$.
+ \end{enumerate}
+ Além disso, as famílias $(p_{(\alpha,\beta)})$ e $(q_{(\alpha,\beta)})$ definem a mesma topologia em $\mathcal S$.
+\end{lemma*}
+
+\begin{proof*}
+ Pela regra de Leibniz,
+ \[
+  \partial^\beta(x^\alpha f)
+  =\sum_{\gamma\leq\beta}
+  \binom{\beta}{\gamma}
+  \partial^\gamma(x^\alpha)\,
+  \partial^{\beta-\gamma}f.
+ \]
+ Cada $\partial^\gamma(x^\alpha)$ é um múltiplo de um monômio ou é zero. Assim, cada $q_{(\alpha,\beta)}$ é majorada por uma combinação linear finita de seminormas $p_{(\mu,\nu)}$. Isolando o termo $x^\alpha\partial^\beta f$ na mesma identidade e procedendo por indução em $|\beta|$, obtemos a estimativa inversa. \qedsymbol
+\end{proof*}
+
+\begin{lemma*}
+ Para todo $1\leq p\leq\infty$,
+ \[
+  \mathcal S(\mathbb R^n)\hookrightarrow L^p(\mathbb R^n)
+ \]
+ continuamente.
+\end{lemma*}
+
+\begin{proof*}
+ O caso $p=\infty$ é imediato. Para $p<\infty$, escolha $N\in\mathbb Z_+$ com $Np>n$. Então
+ \begin{align*}
+  \int_{\mathbb R^n}|f(x)|^p\,dx
+  &=\int(1+|x|)^{-Np}
+  \bigl[(1+|x|)^N|f(x)|\bigr]^p\,dx\\
+  &\leq C\|f\|_{(N,0)}^p
+  \int_{\mathbb R^n}(1+|x|)^{-Np}\,dx<\infty.
+ \end{align*}
+ A última integral é finita por coordenadas polares. \qedsymbol
+\end{proof*}
+
+\begin{theorem*}
+ A transformada de Fourier
+ \[
+  \mathcal F:\mathcal S\longrightarrow\mathcal S
+ \]
+ está bem definida e é contínua.
+\end{theorem*}
+
+\begin{proof*}
+ Seja $f\in\mathcal S$. Como, para todos $\alpha,\beta$, $x^\alpha\partial^\beta f\in L^1$, podemos usar as propriedades de derivação e multiplicação. Assim,
+ \begin{align*}
+  \partial_\xi^\beta(\xi^\alpha\widehat f)(\xi)
+  &=(2\pi i)^{-|\alpha|}
+  \partial_\xi^\beta\left[\widehat{\partial_x^\alpha f}\right](\xi)\\
+  &=(2\pi i)^{-|\alpha|}
+  \left[(-2\pi i x)^\beta\partial_x^\alpha f\right]^\wedge(\xi).
+ \end{align*}
+ Portanto
+ \[
+  q_{(\alpha,\beta)}(\widehat f)
+  \leq(2\pi)^{|\beta|-|\alpha|}
+  \|x^\beta\partial^\alpha f\|_{L^1}. \tag{*}
+ \]
+
+ Escolha $N>n+|\beta|$. Então
+ \begin{align*}
+  \|x^\beta\partial^\alpha f\|_{L^1}
+  &\leq\int(1+|x|)^{-N}
+  (1+|x|)^N|x|^{|\beta|}|\partial^\alpha f(x)|\,dx\\
+  &\leq C_N\|f\|_{(N+|\beta|,\alpha)}.
+ \end{align*}
+ Substituindo em (*),
+ \[
+  q_{(\alpha,\beta)}(\widehat f)
+  \leq C_{N,\alpha,\beta}
+  \|f\|_{(N+|\beta|,\alpha)}.
+ \]
+ Isso mostra que $\widehat f\in\mathcal S$ e, ao mesmo tempo, a continuidade de $\mathcal F$. \qedsymbol
+\end{proof*}
+
+\begin{tcolorbox}[
+ skin=enhanced,
+ title=Observação,
+ fonttitle=\bfseries,
+ colframe=black,
+ colbacktitle=cyan!75!white,
+ colback=cyan!15,
+ colbacklower=black,
+ coltitle=black,
+ drop fuzzy shadow]
+ O teorema anterior fornece um espaço invariante pela transformada de Fourier. Isso é essencial para estender $\mathcal F$ por dualidade. A mesma estratégia não funciona diretamente em $\mathcal D'$ porque uma função teste não permanece, em geral, com suporte compacto após a transformada; isso será formalizado pelo teorema de Paley--Wiener.
+\end{tcolorbox}
+
+\subsection{Transformada de Fourier de Distribuições Temperadas}
+Denotemos por $\mathcal S'=\mathcal S'(\mathbb R^n)$ o dual topológico de $\mathcal S$. Para $u\in\mathcal S'$, definimos sua transformada de Fourier $\widehat u=\mathcal F(u)$ por
+\[
+ \langle\widehat u,\varphi\rangle
+ :=\langle u,\widehat\varphi\rangle,
+ \qquad \forall\varphi\in\mathcal S.
+\]
+Essa definição faz sentido porque $\widehat\varphi\in\mathcal S$ e $\mathcal F:\mathcal S\to\mathcal S$ é contínua. Em particular, $\widehat u$ é linear e contínua em $\mathcal S$.
+
+Se $\mathcal S'$ é munido da topologia fraca $*$, a transformada é contínua, pois, para cada $\varphi\in\mathcal S$,
+\[
+ p_\varphi(\widehat u)
+ =|\langle\widehat u,\varphi\rangle|
+ =|\langle u,\widehat\varphi\rangle|
+ =p_{\widehat\varphi}(u).
+\]
+
+Também é útil recordar a reflexão
+\[
+ (Rf)(x)=f(-x).
+\]
+Com nossas convenções,
+\[
+ \mathcal F^{-1}=R\circ\mathcal F
+\]
+no nível das funções para as quais a inversão já é válida.
+
+\begin{tcolorbox}[
+ skin=enhanced,
+ title=Exercício,
+ fonttitle=\bfseries,
+ colframe=black,
+ colbacktitle=cyan!75!white,
+ colback=cyan!15,
+ colbacklower=black,
+ coltitle=black,
+ drop fuzzy shadow]
+ Mostre que $\mathcal E'\hookrightarrow\mathcal S'$. Uma maneira é usar que $\mathcal C^\infty\supset\mathcal S$ e que as estimativas que definem uma distribuição de suporte compacto são controladas pelas seminormas de Schwartz.
+\end{tcolorbox}
+
+\subsection{Inversão da Transformada de Fourier}
+Usaremos os fatos seguintes.
+\begin{enumerate}
+ \item Para $a>0$,
+ \[
+  f_a(x)=e^{-\pi a|x|^2}
+  \quad\Longrightarrow\quad
+  \widehat f_a(\xi)=a^{-n/2}e^{-\pi|\xi|^2/a}.
+ \]
+ \item Tomando $a=4\pi t$, $t>0$,
+ \[
+  \widehat f_{4\pi t}(\xi)
+  =\frac{1}{(4\pi t)^{n/2}}e^{-|\xi|^2/(4t)}.
+ \]
+ \item Definindo
+ \[
+  g(\xi)=\pi^{-n/2}e^{-|\xi|^2},
+  \qquad
+  g_s(\xi)=s^{-n}g(\xi/s),
+ \]
+ temos $\int g=1$ e $(g_s)$ é uma família regularizante.
+ \item Se $f\in L^1$, então
+ \[
+  g_s*f\longrightarrow f\quad\text{em }L^1,
+  \qquad s\to0^+.
+ \]
+ \item Para $f,g\in L^1$,
+ \[
+  \int\widehat f\,g=\int f\,\widehat g.
+ \]
+\end{enumerate}
+
+\begin{theorem*}[Inversão da Transformada de Fourier]
+ Seja $f\in L^1(\mathbb R^n)$ tal que $\widehat f\in L^1(\mathbb R^n)$. Então $f$ coincide quase em todo ponto com uma função contínua $f_0$ dada por
+ \[
+  f_0(x)=\int_{\mathbb R^n}e^{2\pi i x\cdot\xi}\widehat f(\xi)\,d\xi.
+ \]
+ Em outras palavras,
+ \[
+  f=\check{\widehat f}\qquad\text{q.t.p.}
+ \]
+\end{theorem*}
+
+\begin{proof*}
+ Para $s>0$, $g_s*f$ é contínua e
+ \[
+  g_s*f\longrightarrow f\quad\text{em }L^1.
+ \]
+ Por outro lado, usando a identidade de dualidade da transformada e a transformada explícita da gaussiana, obtemos
+ \begin{align*}
+  (g_s*f)(x)
+  &=\int_{\mathbb R^n}
+  e^{-c_s|\xi|^2}e^{2\pi i x\cdot\xi}\widehat f(\xi)\,d\xi,
+ \end{align*}
+ onde $c_s\to0$ quando $s\to0$. Como $\widehat f\in L^1$ e o fator gaussiano tem módulo menor ou igual a $1$, pelo teorema da convergência dominada,
+ \[
+  (g_s*f)(x)
+  \longrightarrow
+  \int e^{2\pi i x\cdot\xi}\widehat f(\xi)\,d\xi
+  =:f_0(x).
+ \]
+ A função $f_0$ é contínua pelo mesmo argumento usado para provar a continuidade da transformada de uma função $L^1$.
+
+ Como $g_s*f\to f$ em $L^1$, existe uma subsequência convergindo para $f$ quase em todo ponto. O limite pontual dessa subsequência também é $f_0$, portanto $f=f_0$ q.t.p. \qedsymbol
+\end{proof*}
+
+\begin{crl*}
+ A transformada de Fourier é um isomorfismo de $\mathcal S$ em $\mathcal S$.
+\end{crl*}
+
+\begin{proof*}
+ Se $f\in\mathcal S$, então $f,\widehat f\in L^1$, e o teorema de inversão se aplica. Assim,
+ \[
+  \mathcal F^{-1}=R\circ\mathcal F
+ \]
+ em $\mathcal S$. Como $R$ e $\mathcal F$ são contínuos em $\mathcal S$, a inversa também é contínua. \qedsymbol
+\end{proof*}
+
+\begin{tcolorbox}[
+ skin=enhanced,
+ title=Exemplo,
+ fonttitle=\bfseries,
+ colframe=black,
+ colbacktitle=cyan!75!white,
+ colback=cyan!15,
+ colbacklower=black,
+ coltitle=black,
+ drop fuzzy shadow]
+ Para todo $1\leq p\leq\infty$,
+ \[
+  L^p(\mathbb R^n)\hookrightarrow\mathcal S'(\mathbb R^n).
+ \]
+ Se $1\leq p<\infty$ e $p'$ é o expoente conjugado, então $\mathcal S\hookrightarrow L^{p'}$; para $f\in L^p$,
+ \[
+  \left|\int f(x)\varphi(x)\,dx\right|
+  \leq\|f\|_{L^p}\|\varphi\|_{L^{p'}},
+ \]
+ que é controlado por uma seminorma de Schwartz. O caso $p=\infty$ é análogo, usando $\mathcal S\hookrightarrow L^1$.
+\end{tcolorbox}
+
+\end{document}

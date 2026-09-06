@@ -1,0 +1,205 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 02 - 18 de Agosto, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Subvariedades.
+\end{itemize}
+\subsection{Subvariedades}
+Começamos com alguns exemplos de variedades:
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se \(X\subseteq \mathbb{R}^{k}\) é um conjunto discreto, então X é uma variedade de dimensão 0;
+		\item[2)] Se \(X\subseteq \mathbb{R}^{k}\) é aberto, então X é uma variedade de dimensão k;
+		\item[3)] Dada uma função \(f:U\subseteq \mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\) suave, então seu gráfico
+		      \[
+			      M = \mathrm{Graf}(f) = \{(x, f(x)):x\in U\}
+		      \]
+		      é uma variedade m-dimensional. Uma parametrização possível, neste caso, consiste em
+		      \begin{align*}
+			      \varphi : & U\subseteq \mathbb{R}^{m}\rightarrow \mathbb{R}^{m}\times \mathbb{R}^{n} \\
+			                & x\longmapsto \varphi (x)=(x, f(x)).
+		      \end{align*}
+		      Veremos depois que a recíproca ``local'' é verdade;
+		\item[4)] A esfera a dimensional é uma variedade de dimensão n:
+		      \[
+			      \mathbb{S}^{n}=\{x=(x_1, \dotsc , x_{n+1})\in \mathbb{R}^{n+1}: \Vert x \Vert=1\},
+		      \]
+		      e temos uma família de parametrizações da forma \(\varphi_{i}^{\pm}:\mathbb{R}^{n}\rightarrow \mathbb{S}^{n}\), onde \(i=1, \dotsc , n\), dadas por
+		      \[
+			      \varphi_{i}^{\pm}(x_1, \dotsc , x_{n}) = (x_1, \dotsc , x_{i-1}, \pm \sqrt[]{1-\Vert x \Vert^{2}}, x_{i+1}, \dotsc , x_{n});
+		      \]
+		      Com estas parametrizações, \(\mathbb{S}^{n}\) torna-se uma variedade;
+		\item[5)] Se \(M^{n}\subseteq \mathbb{R}^{k}\) e \(N^{m}\subseteq \mathbb{R}^{\ell }\) são variedades, então o produto \(M\times N\subseteq \mathbb{R}^{k+\ell }\) é uma variedade (n+m)-dimensional; em particular, o toro \(\mathbb{T}^{2} = \mathbb{S}^{1}\times \mathbb{S}^{1}\) é uma variedade.
+		\item[6)] O conjunto das matrizes \(m\times n\) com coeficientes reais, \(\mathbb{M}_{m\times n}(\mathbb{R})\cong \mathbb{R}^{mn}\), é uma variedade de dimensão mn;
+		\item[7)] Uma variedade particularmente importante é o conjunto
+		      \[
+			      M = GL(n) = \{A\in \mathbb{M}_{n}(\mathbb{R}):\; \mathrm{det}(A)\neq 0\},
+		      \]
+		      que é uma variedade de dimensão \(n^{2}\), que também pode ser definida em termos de \(M = \det^{-1}{(\mathbb{R}\setminus{\{0\}})}\).
+		\item[8)] Similar ao exemplo acima, o conjunto de matrizes simétricas, ou seja, matrizes A tais que \(A^{T}=A\), é uma variedade de dimensão \(\frac{n(n+1)}{2}\).
+	\end{itemize}
+\end{example}
+\begin{def*}
+	Seja \(M\) uma variedade suave em \(\mathbb{R}^{k}\); um subconjunto N de M é uma \textbf{subvariedade de M} se N também é uma variedade em \(\mathbb{R}^{k}.\; \square\)
+\end{def*}
+\begin{example}
+	Seja \(f:U\subseteq \mathbb{R}^{m}\rightarrow \mathbb{R}^{m}\) uma função suave; se \(c\in \mathbb{R}^{m}\) é um valor regular de f, então \(f^{-1}(c)\) é uma variedade de U com dimensão dada por \((n+m)-m = n\), de acordo com o \hyperlink{implicit_function_theorem}{\textit{Teorema da Função Implícita}}.
+\end{example}
+Observe que ser variedade é uma propriedade local.
+
+\begin{example}
+	Considere o conjunto
+	\[
+		M = \mathcal{O}(n) = \{A\in \mathbb{M}_{n}(\mathbb{R}): A^{T}A = I\}.
+	\]
+	Se definirmos
+	\begin{align*}
+		f: & GL(n)\rightarrow \mathrm{Sim}(n) \\
+		   & A\longmapsto A^{T}A,
+	\end{align*}
+	então \(\mathcal{O}(n) = f^{-1}(I)\).
+	\begin{exr}
+		Prove que a identidade I é um valor regular de f.
+	\end{exr}
+	Logo, \(\mathcal{O}(n)\) é subvariedade de \(GL(n)\) de dimensão
+	\[
+		n^{2} - \frac{n(n+1)}{2}=\frac{n(n-1)}{2}.
+	\]
+\end{example}
+\begin{theorem*}
+	Seja \(\mathbb{M}^{m}\subseteq \mathbb{R}^{n}\) uma variedade suave; para todo p em M, existe um ponto p em um aberto W de \(\mathbb{R}^{n}\), assim como uma função \(g:W\subseteq \mathbb{R}^{n}\rightarrow \mathbb{R}^{n-m}\) suave, tais que:
+	\begin{itemize}
+		\item[i)] \(0\in \mathbb{R}^{n-m}\) é um valor regular de g;
+		\item[ii)] Vale \(g^{-1}(0) = M \cap W\)
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Existe uma vizinhança de p em M que é gráfico de uma função suave \(f:U\subseteq \mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\); seja \(\varphi :U\subseteq \mathbb{R}^{m}\rightarrow V\subseteq M\) uma parametrização de M em \(p\in V\).
+	Considere a projeção canônica \(\pi_{1}:\mathbb{R}^{m}\oplus \mathbb{R}^{n-m} \rightarrow \mathbb{R}^{m}\) tal que
+	\[
+		\pi_1|_{\varphi '(x_{0})\cdot \mathbb{R}^{m}}:\varphi '(x_{0})\cdot \mathbb{R}^{m}\rightarrow \mathbb{R}^{m}
+	\]
+	é isomorfismo.
+	Note que \(\varphi '(x_{0}):\mathbb{R}^{m}\rightarrow \mathbb{R}^{n}\) satisfaz \(\mathrm{dim}_{}(\varphi '(x_{0})\cdot \mathbb{R}^{m})=m\).
+
+	Com isso,
+	\begin{align*}
+		\pi_1\circ \varphi : & U\subseteq \mathbb{R}^{n}\rightarrow\mathbb{R}^{m}                                                              \\
+		                     & x_{0}\longmapsto (\pi_1\circ \varphi)'(x_{0})=  \pi_1\circ \varphi'(x_{0})                                      \\
+		                     & (\pi_1\circ \varphi )'(x_{0})\cdot \mathbb{R}^{m}=\pi_1(\varphi '(x_{0}\cdot \mathbb{R}^{m})) = \mathbb{R}^{m},
+	\end{align*}
+	mostrando que \((\pi_1\circ \varphi )'(x_{0})\) é um isomorfismo.
+
+\end{proof*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Valor Regular},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Um ponto \(c\in \mathbb{R}^{m}\) é um valor regular se, e somente se, \(f'(x):\mathbb{R}^{m+n}\rightarrow \mathbb{R}^{m}\) é sobrejetora para todo x em \(f'(c).\)
+\end{tcolorbox}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Teorema da Função Implícita},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	O teorema da função implícita é
+	\hypertarget{implicit_function}{
+		\begin{theorem*}[Teorema da Função Implícita]
+			Seja \(f:U\subseteq \mathbb{R}^{m+1}\rightarrow \mathbb{R}\) uma função de classe \(\mathcal{C}^{1}\) e escrevamos os pontos de \(\mathbb{R}^{m+1}\) na forma \((x, y)\), sendo x um vetor em \(\mathbb{R}^{m}\) e y um número real. Seja, também, \(p=(x_{0}, y_{0})\) um ponto de U e escreva \(c=f(p).\) Nessas condições, se \(\frac{\partial^{}f}{\partial y^{}}(p)\) é deiferente de 0, então:
+			\begin{itemize}
+				\item[i)] Existem \(\delta \) e \(\varepsilon \), ambos positivos, tais que
+				      \[
+					      \overline{B}(x_{0}; \delta ) \times [y_{0}-\varepsilon , y_{0}+\varepsilon ] \subseteq U;\; \frac{\partial^{}f}{\partial y^{}}(x, y)\neq 0;
+				      \]
+				\item[ii)] Existe uma função \(\xi :B\rightarrow J\) de classe \(\mathcal{C}^{1}\) e tal que
+				      \[
+					      f^{-1}(c)\cap (B\times J) = \mathrm{Graf}(\xi );
+				      \]
+				\item[iii)] Para todo x em B,
+				      \[
+					      \frac{\partial^{}\xi }{\partial x_{i}^{}}(x) = -\frac{\frac{\partial^{}f}{\partial x_{i}^{}}(x, \xi (x))}{\frac{\partial^{}f}{\partial y^{}}(x, \xi (x))}.
+				      \]
+			\end{itemize}
+		\end{theorem*}
+	}
+	\begin{proof*}
+		(i) Suponhamos que \(\frac{\partial^{}f}{\partial y^{}}(p)\) é positivo. Da continuidade da função
+		\[
+			\frac{\partial^{}f}{\partial y^{}}:U\rightarrow \mathbb{R},
+		\]
+		obtemos \(\delta > 0 \) e \(\varepsilon  > 0\) como em (i). Logo,
+		\[
+			\frac{\partial^{}f}{\partial y^{}}(x, y)>0,\; \forall (x, y)\in B \times J.
+		\]
+
+		(ii) Com isso, notemos que, pela função que age por
+		\[
+			[y_{0}-\varepsilon , y_{0}-\varepsilon ]\ni y \mapsto f(x_{0}, y)\in \mathbb{R}
+		\]
+		ser crescente, temos
+		\[
+			f(x_{0}, y_{0}-\varepsilon ) < c < f(x_{0}, y_{0}+\varepsilon ),
+		\]
+		tal que podemos ir diminuindo \(\delta  > 0\) se necessário até fazer sentido impôr, para todo x em \(\overline{B}\), que
+		\[
+			f(x, y_{0}-\varepsilon ) < c < f(x, y_{0}+\varepsilon ),
+		\]
+		pois f é contínua. Desta maneira, fixado x em B, pela continuidade de
+		\[
+			J\ni y \mapsto f(x, y)\in \mathbb{R}
+		\]
+		e pelo Teorema do Valor Intermediário, existe \(\xi (x)\) em \(\overline{J}\) tal que
+		\[
+			f(x, \xi (x)) = c;
+		\]
+		necessariamente, então, \(\xi (x)\in J\), pois o mapa de y até f(x, y) é crescente. Além disso, \(\xi (x)\) é o único que satisfaz essa condição, provando o item (ii).
+
+		iii) Para o cálculo das derivadas, fixados x em B e t não nulo, escrevamos
+		\[
+			h(t) = \xi (x+te_{i}) - \xi (x),
+		\]
+		tal que, para todo t diferente de 0,
+		\[
+			\xi (x + t e_{i}) = \xi (x) + h(t) \Rightarrow c = f(x+t e_{i}, \xi (x + t e_{i})) = f(x, \xi (x));
+		\]
+		ou, ainda,
+		\[
+			f(x+t e_{i}, \xi (x) + h(t)) = f(x, \xi (x)) = c.
+		\]
+
+		Por um lema de análise,
+		\begin{align*}
+			0 & = \sum\limits_{j=1}^{m}\frac{\partial^{}f}{\partial x_{j}^{}}((x, \xi (x)) + \theta \cdot (te_{i}, h(t)))\cdot h_{j} + \frac{\partial^{}f}{\partial y^{}}((x, \xi (x)), \theta (t e_{i}, h))\cdot h  \\
+			  & \Longleftrightarrow \frac{\partial^{}f}{\partial x_{i}^{}}(x+\theta t e_{i}, \xi (x) + \theta h(t)) \cdot t + \frac{\partial^{}f}{\partial y^{}}(x+\theta t e_{i}, \xi (x) + \theta h(t))\cdot h(t).
+		\end{align*}
+		Como \(\xi \) é contínua (vide observação), \(h(t)\) tende a 0 conforme o próprio t tende, e podemos escrever
+		\[
+			\frac{\xi (x + te_{i})-\xi (x)}{t} = \frac{h(t)}{t} = - \frac{\frac{\partial^{}f}{\partial x_{i}^{}}(x+\theta t e_{i}, \xi (x) + \theta h(t))}{\frac{\partial^{}f}{\partial y^{}}(x + \theta te_{i}, \xi (x) + \theta h(t))} \rightarrow -\frac{\frac{\partial^{}f}{\partial x_{i}^{}}(x, \xi (x))}{\frac{\partial^{}f}{\partial y^{}}(x, \xi (x))}. \text{ \qedsymbol}
+		\]
+	\end{proof*}
+
+\end{tcolorbox}
+
+
+\end{document}

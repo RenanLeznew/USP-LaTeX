@@ -1,0 +1,292 @@
+\documentclass[../distribution_theory_notes.tex]{subfiles}
+\begin{document}
+\section{Aula 25 - 22 de Novembro, 2024}
+\subsection{Transformada de Fourier de Funções L-1}
+\begin{def*}
+	Seja $f\in L^1(\mathbb R^n)$. Usando o produto escalar euclidiano
+	\[
+		x\cdot y=x_1y_1+\cdots+x_ny_n,
+	\]
+	definimos:
+	\begin{enumerate}
+		\item a \textbf{transformada de Fourier} de $f$ em $\xi\in\mathbb R^n$ por
+		      \[
+			      \widehat f(\xi)=\int_{\mathbb R^n}f(x)e^{-2\pi i x\cdot\xi}\,dx;
+		      \]
+		\item a \textbf{transformada de Fourier inversa} de $f$ em $x\in\mathbb R^n$ por
+		      \[
+			      \check f(x)=\int_{\mathbb R^n}f(\xi)e^{2\pi i x\cdot\xi}\,d\xi.
+		      \]
+	\end{enumerate}
+	Em particular,
+	\[
+		\check f(x)=\widehat f(-x).
+	\]
+	O operador transformada de Fourier será denotado por
+	\[
+		\mathcal F:L^1(\mathbb R^n)\longrightarrow
+		\{\widehat f:\mathbb R^n\to\mathbb C:f\in L^1\},
+		\qquad \mathcal F(f)=\widehat f.
+	\]
+\end{def*}
+
+A linearidade de $\mathcal F$ é imediata da linearidade da integral.
+
+\begin{prop*}
+	Se $f\in L^1(\mathbb R^n)$, então
+	\[
+		\widehat f\in C_B(\mathbb R^n),
+	\]
+	o espaço das funções contínuas e limitadas, e
+	\[
+		\|\widehat f\|_\infty\leq\|f\|_{L^1}.
+	\]
+\end{prop*}
+
+\begin{proof*}
+	Como $|e^{-2\pi i x\cdot\xi}|=1$,
+	\[
+		|\widehat f(\xi)|
+		\leq\int_{\mathbb R^n}|f(x)|\,dx
+		=\|f\|_{L^1},
+	\]
+	logo $\widehat f$ é limitada.
+
+	Se $\xi_j\to\xi_0$, então
+	\[
+		f(x)e^{-2\pi i x\cdot\xi_j}
+		\longrightarrow f(x)e^{-2\pi i x\cdot\xi_0}
+	\]
+	pontualmente e
+	\[
+		|f(x)e^{-2\pi i x\cdot\xi_j}|\leq|f(x)|\in L^1.
+	\]
+	Pelo teorema da convergência dominada,
+	\[
+		\widehat f(\xi_j)\longrightarrow\widehat f(\xi_0),
+	\]
+	e $\widehat f$ é contínua. \qedsymbol
+\end{proof*}
+
+A seguir listamos algumas propriedades básicas da transformada de Fourier.
+
+\begin{prop*}
+	Sejam $f,g\in L^1(\mathbb R^n)$. Então:
+	\begin{enumerate}
+		\item para $h,\xi\in\mathbb R^n$,
+		      \[
+			      \widehat{\tau_h f}(\xi)
+			      =e^{-2\pi i h\cdot\xi}\widehat f(\xi),
+			      \qquad (\tau_hf)(x)=f(x-h);
+		      \]
+		\item para $h,\xi\in\mathbb R^n$,
+		      \[
+			      \widehat{e^{2\pi i h\cdot x}f(x)}(\xi)
+			      =\widehat f(\xi-h)
+			      =(\tau_h\widehat f)(\xi);
+		      \]
+		\item se $T:\mathbb R^n\to\mathbb R^n$ é um isomorfismo e
+		      \[
+			      S=(T^*)^{-1},
+		      \]
+		      então
+		      \[
+			      \widehat{f\circ T}(\xi)
+			      =|\det T|^{-1}(\widehat f\circ S)(\xi);
+		      \]
+		\item
+		      \[
+			      \widehat{f*g}=\widehat f\,\widehat g;
+		      \]
+		\item se $x^\alpha f\in L^1$ para $|\alpha|\leq m$, então
+		      \[
+			      \partial_\xi^\alpha\widehat f
+			      =\bigl[(-2\pi i x)^\alpha f\bigr]^\wedge;
+		      \]
+		\item se $f\in C^m$ e
+		      \[
+			      \partial^\alpha f\in L^1,
+			      \quad |\alpha|\leq m,
+		      \]
+		      e, para $|\alpha|\leq m-1$, $\partial^\alpha f\in C_0(\mathbb R^n)$, então
+		      \[
+			      \widehat{\partial^\alpha f}(\xi)
+			      =(2\pi i\xi)^\alpha\widehat f(\xi);
+		      \]
+		\item \textbf{Lema de Riemann--Lebesgue:}
+		      \[
+			      \widehat f\in C_0(\mathbb R^n),
+			      \qquad
+			      \lim_{|\xi|\to\infty}\widehat f(\xi)=0.
+		      \]
+	\end{enumerate}
+\end{prop*}
+
+\begin{proof*}
+	Para a primeira propriedade, pelo teorema da mudança de variáveis, com $y=x-h$,
+	\begin{align*}
+		\widehat{\tau_h f}(\xi)
+		 & =\int_{\mathbb R^n}f(x-h)e^{-2\pi i x\cdot\xi}\,dx  \\
+		 & =\int_{\mathbb R^n}f(y)e^{-2\pi i(y+h)\cdot\xi}\,dy \\
+		 & =e^{-2\pi i h\cdot\xi}\widehat f(\xi).
+	\end{align*}
+
+	A segunda é análoga:
+	\begin{align*}
+		\widehat{e^{2\pi i h\cdot x}f}(\xi)
+		 & =\int f(x)e^{-2\pi i x\cdot(\xi-h)}\,dx \\
+		 & =\widehat f(\xi-h).
+	\end{align*}
+
+	Para a terceira, tomando $y=Tx$,
+	\begin{align*}
+		\widehat{f\circ T}(\xi)
+		 & =\int_{\mathbb R^n}e^{-2\pi i x\cdot\xi}f(Tx)\,dx \\
+		 & =|\det T|^{-1}\int_{\mathbb R^n}
+		e^{-2\pi i(T^{-1}y)\cdot\xi}f(y)\,dy                 \\
+		 & =|\det T|^{-1}
+		\widehat f((T^*)^{-1}\xi).
+	\end{align*}
+	\qedsymbol
+\end{proof*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Corolários,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow]
+	Dois casos particulares da transformação linear são importantes.
+	\begin{enumerate}
+		\item Se $T$ é uma rotação, então $T^*T=I$, $T^{-1}=T^*$ e $|\det T|=1$; logo
+		      \[
+			      \widehat{f\circ T}(\xi)=\widehat f(T\xi).
+		      \]
+		      Assim, a transformada de Fourier é invariante por rotações no sentido natural.
+
+		\item Para a dilatação $T_t x=tx$, $t>0$, temos
+		      \[
+			      \widehat{f(tx)}(\xi)=t^{-n}\widehat f(\xi/t).
+		      \]
+		      Na notação usual das famílias regularizantes,
+		      \[
+			      \widehat{f_t}(\xi)=\widehat f(t\xi)
+		      \]
+		      para $f_t(x)=t^{-n}f(x/t)$.
+	\end{enumerate}
+\end{tcolorbox}
+
+\begin{proof*}[Prova da propriedade da convolução]
+	Usando o teorema de Fubini,
+	\begin{align*}
+		\widehat{f*g}(\xi)
+		 & =\int_{\mathbb R^n}e^{-2\pi i x\cdot\xi}
+		\left[\int_{\mathbb R^n}f(x-y)g(y)\,dy\right]dx \\
+		 & =\int_{\mathbb R^n}g(y)
+		\left[\int_{\mathbb R^n}e^{-2\pi i x\cdot\xi}f(x-y)\,dx\right]dy.
+	\end{align*}
+	Pela propriedade de translação, a integral interna é
+	\[
+		e^{-2\pi i y\cdot\xi}\widehat f(\xi),
+	\]
+	logo
+	\[
+		\widehat{f*g}(\xi)
+		=\widehat f(\xi)\int g(y)e^{-2\pi i y\cdot\xi}\,dy
+		=\widehat f(\xi)\widehat g(\xi).
+	\]
+	\qedsymbol
+\end{proof*}
+
+\begin{proof*}[Derivação em $\xi$]
+	Suponha inicialmente $m=1$. Como $x_jf(x)\in L^1$,
+	\begin{align*}
+		\frac{\partial\widehat f}{\partial\xi_j}(\xi)
+		 & =\frac{\partial}{\partial\xi_j}
+		\int e^{-2\pi i x\cdot\xi}f(x)\,dx                 \\
+		 & =\int(-2\pi i x_j)e^{-2\pi i x\cdot\xi}f(x)\,dx \\
+		 & =\bigl[(-2\pi i x_j)f\bigr]^\wedge(\xi).
+	\end{align*}
+	A passagem da derivada para dentro da integral é justificada pela convergência dominada. A fórmula para multi-índices segue por indução. \qedsymbol
+\end{proof*}
+
+\begin{proof*}[Transformada das derivadas]
+	Basta provar primeiro para uma derivada parcial. Integrando por partes na variável $x_j$,
+	\begin{align*}
+		\int_{\mathbb R}e^{-2\pi i x\cdot\xi}
+		\frac{\partial f}{\partial x_j}(x)\,dx_j
+		 & =\lim_{N\to\infty}
+		\left[e^{-2\pi i x\cdot\xi}f(x)\right]_{-N}^{N} \\
+		 & \quad +(2\pi i\xi_j)
+		\int_{\mathbb R}e^{-2\pi i x\cdot\xi}f(x)\,dx_j.
+	\end{align*}
+	O termo de bordo é nulo porque $f\in C_0$. Integrando nas demais variáveis,
+	\[
+		\widehat{\frac{\partial f}{\partial x_j}}(\xi)
+		=(2\pi i\xi_j)\widehat f(\xi).
+	\]
+	A fórmula geral segue por indução. \qedsymbol
+\end{proof*}
+
+\begin{proof*}[Lema de Riemann--Lebesgue]
+	Primeiro suponha $f\in C_c^1(\mathbb R^n)$. Pela fórmula anterior,
+	\[
+		|\xi_j\widehat f(\xi)|
+		=\frac1{2\pi}
+		\left|\widehat{\partial_jf}(\xi)\right|
+		\leq\frac1{2\pi}\|\partial_jf\|_{L^1}.
+	\]
+	Assim,
+	\[
+		\left(\sum_{j=1}^n|\xi_j|\right)|\widehat f(\xi)|
+		\leq\frac1{2\pi}\|\nabla f\|_{L^1},
+	\]
+	e portanto $\widehat f(\xi)\to0$ quando $|\xi|\to\infty$.
+
+	Para $f\in L^1$ geral, usamos que $C_c^1$ é denso em $L^1$ e que
+	\[
+		\|\widehat f-\widehat g\|_\infty
+		\leq\|f-g\|_{L^1}.
+	\]
+	Dado $\varepsilon>0$, escolha $g\in C_c^1$ com
+	\[
+		\|f-g\|_{L^1}<\varepsilon/2.
+	\]
+	Como $\widehat g(\xi)\to0$, existe $N$ tal que $|\xi|\geq N$ implica $|\widehat g(\xi)|<\varepsilon/2$. Então
+	\[
+		|\widehat f(\xi)|
+		\leq|\widehat f(\xi)-\widehat g(\xi)|+|\widehat g(\xi)|
+		<\varepsilon.
+	\]
+	Logo $\widehat f\in C_0$. \qedsymbol
+\end{proof*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow]
+	Escrevendo
+	\[
+		e^{-2\pi i n x}=\cos(2\pi nx)-i\sin(2\pi nx),
+	\]
+	o lema de Riemann--Lebesgue fornece, para funções reais integráveis,
+	\[
+		\lim_{n\to\infty}\int\cos(2\pi nx)f(x)\,dx=0,
+	\]
+	e
+	\[
+		\lim_{n\to\infty}\int\sin(2\pi nx)f(x)\,dx=0.
+	\]
+\end{tcolorbox}
+
+\end{document}
