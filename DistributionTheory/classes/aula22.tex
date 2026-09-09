@@ -1,238 +1,437 @@
 \documentclass[../distribution_theory_notes.tex]{subfiles}
 \begin{document}
 \section{Aula 22 - 11 de Novembro, 2024}
-\subsection{Produto de Convolução -- Terceira Parte}
+\subsection{Motivações}
+\begin{itemize}
+	\item Produto de Convolução - Terceira Parte;
+	\item Convolução de duas distribuições quando ao menos uma delas possui suporte compacto.
+\end{itemize}
+
+\subsection{Produto de Convolução - Terceira Parte}
 Vimos que, se
 \[
- P(D)=\sum_{|\alpha|\leq m}a_\alpha\partial^\alpha
+	P(D)=\sum\limits_{|\alpha|\leq m}a_{\alpha}\partial^{\alpha}
 \]
-é um operador diferencial parcial linear com coeficientes constantes e $E\in\mathcal D'(\mathbb R^n)$ é uma solução fundamental, isto é, $P(D)E=\delta$, então, para toda $f\in\mathcal C_c^\infty(\mathbb R^n)$,
+é um ODPCC com solução fundamental \(E\in \mathcal{D}'(\mathbb{R}^{n})\), então, para toda \(f\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), \(u\coloneqq E*f\) é solução \(\mathcal{C}^{\infty}\) de
 \[
- u:=E*f
+	P(D)u=f.
 \]
-é uma solução $\mathcal C^\infty$ de $P(D)u=f$.
 
-Para demonstrarmos fatos de existência, unicidade e, mais adiante, ampliarmos o conjunto dos termos não homogêneos, precisamos definir o produto de convolução em situações nas quais ambos os fatores sejam distribuições. O caso básico será aquele em que pelo menos um dos fatores possui suporte compacto.
+A fim de demonstrar a recíproca deste fato e, portanto, a unicidade de soluções além de, também, ampliar o conjunto de termos não-homogêneos f de \(\mathcal{C}_{c}^{\infty}\) para \(\mathcal{E}'\), isto é, provar que
+\[
+	\forall v\in \mathcal{E}'\quad \exists!\,u\in \mathcal{D}'\quad\text{tal que}\quad P(D)u=v,
+\]
+precisaremos estabelecer, ou desenvolver, o produto de convolução permitindo que ambos os fatores em ``\(u*v\)'' sejam distribuições. O caso que apresentaremos é aquele que exige que ao menos um dos fatores possua suporte compacto, explorando eventualmente, nos exercícios, situações mais gerais que enfraquecem essa condição.
+
+Todas as ferramentas necessárias para a definição que daremos já foram suficientemente discutidas, restando apenas detalhes, ajustes e introdução de notações. Vejamos como isso pode ser formulado a partir dos lemas e definições a seguir.
 
 \begin{def*}
- Para $u\in\mathcal E'(\mathbb R^n)$ e $\varphi\in\mathcal C^\infty(\mathbb R^n)$, ou para $u\in\mathcal D'(\mathbb R^n)$ e $\varphi\in\mathcal C_c^\infty(\mathbb R^n)$, definimos
- \[
-  (u*\varphi)(x):=\langle u,\tau_x\check\varphi\rangle
-  =\langle u(y),\varphi(x-y)\rangle,
-  \qquad x\in\mathbb R^n.
- \]
- Aqui $\tau_x\check\varphi(y)=\varphi(x-y)$.
+	Para \(u\in \mathcal{E}'(\mathbb{R}^{n})\) e \(\varphi\in \mathcal{C}^{\infty}(\mathbb{R}^{n})\), podemos, em analogia ao caso \(u\in \mathcal{D}'(\mathbb{R}^{n})\) e \(\varphi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), definir, para \(x\in \mathbb{R}^{n}\), a \textbf{convolução de u por \(\mathbf{\varphi}\)} como
+	\[
+		u*\varphi(x)\coloneqq \langle u,\tau_{x}\check{\varphi}\rangle
+		=\langle u(y),\varphi(x-y)\rangle,
+	\]
+	pois, para cada \(x\in \mathbb{R}^{n}\),
+	\[
+		[\tau_{x}\check{\varphi}](y)=\varphi(x-y)
+	\]
+	é uma função de \(\mathcal{C}^{\infty}(\mathbb{R}^{n})\). \(\square\)
 \end{def*}
 
+A partir daí, podemos enunciar:
+
 \begin{lemma*}
- Para $u\in\mathcal E'(\mathbb R^n)$ e $\varphi\in\mathcal C^\infty(\mathbb R^n)$ valem:
- \begin{enumerate}
-  \item $\delta*\varphi=\varphi$;
-  \item $u*\varphi\in\mathcal C^\infty(\mathbb R^n)$ e
-  \[
-   \partial^\alpha(u*\varphi)
-   =(\partial^\alpha u)*\varphi
-   =u*(\partial^\alpha\varphi),
-   \qquad \alpha\in\mathbb Z_+^n;
-  \]
-  \item
-  \[
-   (u*\varphi)*\psi=u*(\varphi*\psi),
-  \]
-  sempre que $\varphi$ ou $\psi$ tiver suporte compacto.
- \end{enumerate}
+	Para \(u\in \mathcal{E}'(\mathbb{R}^{n})\) e \(\varphi\in \mathcal{C}^{\infty}(\mathbb{R}^{n})\), valem as seguintes propriedades da convolução:
+	\begin{itemize}
+		\item[(0)] \(\delta*\varphi=\varphi\);
+		\item[(i)] \(u*\varphi\in \mathcal{C}^{\infty}(\mathbb{R}^{n})\), com
+		      \[
+			      \partial^{\alpha}(u*\varphi)
+			      =(\partial^{\alpha}u)*\varphi
+			      =u*(\partial^{\alpha}\varphi),
+			      \quad \forall \alpha\in \mathbb{Z}_{+}^{n};
+		      \]
+		\item[(ii)]
+		      \[
+			      (u*\varphi)*\psi=u*(\varphi*\psi),
+		      \]
+		      desde que \(\varphi\) ou \(\psi\) tenha suporte compacto.
+	\end{itemize}
 \end{lemma*}
-
 \begin{proof*}
- As duas primeiras propriedades são as mesmas já demonstradas para o caso $u\in\mathcal D'$ e $\varphi\in\mathcal C_c^\infty$. Para a primeira, escolhendo uma função de Urysohn $\chi\equiv1$ numa vizinhança de $\{0\}$, a extensão de $\delta$ a $\mathcal C^\infty$ satisfaz
- \[
-  \langle\delta,f\rangle=\langle\delta,\chi f\rangle=f(0),
- \]
- e, portanto,
- \[
-  (\delta*\varphi)(x)=\langle\delta(y),\varphi(x-y)\rangle=\varphi(x).
- \]
+	Basta repetir, com as devidas adaptações, os mesmos argumentos que usamos para a demonstração do resultado análogo no caso em que tínhamos \(u\in \mathcal{D}'(\mathbb{R}^{n})\) e \(\varphi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\). Mencionamos apenas que:
 
- Na associatividade, se, por exemplo, $\psi\in\mathcal C_c^\infty$, então $u*\varphi$ é uma função suave e $(u*\varphi)*\psi$ está bem definido; ao mesmo tempo $\varphi*\psi\in\mathcal C^\infty$ e $u*(\varphi*\psi)$ também está bem definido. O caso em que $\varphi$ tem suporte compacto é análogo. Os detalhes reduzem-se às identidades já vistas e ao teorema de Fubini. \qedsymbol
+	\textbf{(1º)} A extensão \(\overline{\delta }\) de \(\delta\in \mathcal{D}'(\mathbb{R}^{n})\) a \(\mathcal{C}^{\infty}(\mathbb{R}^{n})\) é definida assim: escolhe-se, arbitrariamente, \(\psi\in \mathcal{C}_{c}^{\infty}\) uma função de Urysohn associada ao compacto \(K=\{0\}\) e põe-se
+	\[
+		\langle \overline{\delta},f\rangle
+		=\langle \delta,\psi f\rangle
+		=(\psi f)(0)=\psi(0)f(0)=f(0),
+	\]
+	pois \(\psi(0)=1\). Portanto, \(\overline{\delta}\) atua em \(\mathcal{C}^{\infty}\) do mesmo modo que em \(\mathcal{C}_{c}^{\infty}\), e, obviamente, usamos o mesmo símbolo \(\delta\) para indicar a distribuição tanto em \(\mathcal{D}'\) como em \(\mathcal{E}'\). Assim,
+	\[
+		\delta*\varphi(x)
+		=\langle \delta(y),\varphi(x-y)\rangle
+		=\varphi(x-0)=\varphi(x),
+	\]
+	como antes.
+
+	\textbf{(2º)} Em (ii), se for \(\psi\in \mathcal{C}_{c}^{\infty}\), então o lado esquerdo será bem definido porque \(u*\varphi\in L_{\mathrm{loc}}^{1}\) e \(\psi\in \mathcal{C}_{c}^{\infty}\); o lado direito será bem definido porque \(\varphi*\psi\in \mathcal{C}^{\infty}\) e \(u\in \mathcal{E}'\). Analogamente, caso seja \(\varphi\in \mathcal{C}_{c}^{\infty}\), então \(u*\varphi\in \mathcal{C}_{c}^{\infty}\), pelo lema da aula passada, e \(\psi\in \mathcal{C}^{\infty}\), de modo que \((u*\varphi)*\psi\) está bem definido; por outro lado, \(\varphi*\psi\in \mathcal{C}^{\infty}\), e, com \(u\in \mathcal{E}'\), \(u*(\varphi*\psi)\) faz sentido conforme a definição anterior.
+
+	Assim, em todos os casos possíveis, ambas as funções que aparecem em (ii) estão definidas. Os detalhes técnicos são deixados como exercício. \qedsymbol
 \end{proof*}
 
 \begin{def*}
- Dados $u_1,u_2\in\mathcal D'(\mathbb R^n)$, com, digamos, $u_2\in\mathcal E'(\mathbb R^n)$, para toda $\varphi\in\mathcal C_c^\infty(\mathbb R^n)$ ficam bem definidas as funções
- \[
-  u_1*(u_2*\varphi),\qquad u_2*(u_1*\varphi),
- \]
- pois $u_2*\varphi\in\mathcal C_c^\infty$ e $u_1*\varphi\in\mathcal C^\infty$.
+	Dados \(u_{1},u_{2}\in \mathcal{D}'(\mathbb{R}^{n})\), com, digamos, \(u_{2}\in \mathcal{E}'(\mathbb{R}^{n})\), estão bem definidas as funções
+	\[
+		u_{1}*(u_{2}*\varphi):\mathbb{R}^{n}\longrightarrow \mathbb{C}
+		\quad\text{e}\quad
+		u_{2}*(u_{1}*\varphi):\mathbb{R}^{n}\longrightarrow \mathbb{C},
+	\]
+	qualquer que seja \(\varphi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), pois:
+	\begin{itemize}
+		\item[(a)] \(u_{2}*\varphi\in \mathcal{C}_{c}^{\infty}\) e \(u_{1}\in \mathcal{D}'\); e
+		\item[(b)] \(u_{1}*\varphi\in \mathcal{C}^{\infty}\) e \(u_{2}\in \mathcal{E}'\).
+	\end{itemize}
+	\(\square\)
 \end{def*}
 
-Nessas condições, consideremos
-\[
- T\varphi:=u_1*(u_2*\varphi),
- \qquad
- S\varphi:=u_2*(u_1*\varphi).
-\]
+Nessas condições, temos o seguinte resultado.
 
 \begin{lemma*}
- Os operadores $T,S:\mathcal C_c^\infty(\mathbb R^n)\to\mathcal C^\infty(\mathbb R^n)$ são lineares, sequencialmente contínuos e invariantes por translação:
- \[
-  \tau_h(T\varphi)=T(\tau_h\varphi),
-  \qquad
-  \tau_h(S\varphi)=S(\tau_h\varphi),
-  \qquad h\in\mathbb R^n.
- \]
+	Se \(u_{1}\in \mathcal{D}'(\mathbb{R}^{n})\) e \(u_{2}\in \mathcal{E}'(\mathbb{R}^{n})\), definindo, para \(\varphi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\),
+	\[
+		T\varphi=u_{1}*(u_{2}*\varphi)
+		\quad\text{e}\quad
+		S\varphi=u_{2}*(u_{1}*\varphi),
+	\]
+	valem as seguintes propriedades:
+	\begin{itemize}
+		\item[(i)] \(T:\mathcal{C}_{c}^{\infty}\to \mathcal{C}^{\infty}\) é sequencialmente contínuo e linear;
+		\item[(ii)] \(S:\mathcal{C}_{c}^{\infty}\to \mathcal{C}^{\infty}\) é sequencialmente contínuo e linear;
+		\item[(iii)] T e S são invariantes por translação, isto é, para todo \(h\in \mathbb{R}^{n}\),
+		      \[
+			      \tau_{h}(T\varphi)=T(\tau_{h}\varphi)
+			      \quad\text{e}\quad
+			      \tau_{h}(S\varphi)=S(\tau_{h}\varphi).
+		      \]
+	\end{itemize}
 \end{lemma*}
-
 \begin{proof*}
- A invariância por translação decorre das identidades já provadas para a convolução de uma distribuição com uma função teste. Por exemplo,
- \begin{align*}
-  \tau_h(T\varphi)
-  &=\tau_h\bigl[u_1*(u_2*\varphi)\bigr]\\
-  &=u_1*\tau_h(u_2*\varphi)\\
-  &=u_1*\bigl[u_2*(\tau_h\varphi)\bigr]
-  =T(\tau_h\varphi).
- \end{align*}
- A linearidade é imediata da linearidade das distribuições e das operações de translação e reflexão.
+	A afirmação (iii) é consequência do que já vimos quando \(u\in \mathcal{D}'\) e \(\psi\in \mathcal{C}_{c}^{\infty}\), pois
+	\[
+		\tau_{h}(u*\psi)=(\tau_{h}u)*\psi=u*(\tau_{h}\psi).
+	\]
+	Isso é suficiente para demonstrar a propriedade para T, já que
+	\begin{align*}
+		\tau_{h}(T\varphi)
+		 & =\tau_{h}[u_{1}*(u_{2}*\varphi)] \\
+		 & =u_{1}*[\tau_{h}(u_{2}*\varphi)] \\
+		 & =u_{1}*[u_{2}*(\tau_{h}\varphi)]
+		=T(\tau_{h}\varphi).
+	\end{align*}
 
- Para a continuidade, basta mostrar que, se $\varphi_j\to0$ em $\mathcal C_c^\infty$, então $u*\varphi_j\to0$ em $\mathcal C^\infty$ quando $u\in\mathcal E'$. De fato, existe um compacto $K_1$ contendo todos os suportes de $\varphi_j$ e
- \[
-  \operatorname{supp}(u*\varphi_j)
-  \subseteq\operatorname{supp}(u)+K_1,
- \]
- um compacto fixo. Se
- \[
-  |\langle u,f\rangle|
-  \leq c\sum_{|\alpha|\leq m}\sup_{y\in K}|\partial^\alpha f(y)|,
- \]
- então, para $x\in\mathbb R^n$,
- \begin{align*}
-  |(u*\varphi_j)(x)|
-  &=|\langle u,\tau_x\check\varphi_j\rangle|\\
-  &\leq c\sum_{|\alpha|\leq m}
-  \sup_{z\in\mathbb R^n}|\partial^\alpha\varphi_j(z)|
-  \longrightarrow0.
- \end{align*}
- Analogamente, para todo multi-índice $\beta$,
- \[
-  |\partial^\beta(u*\varphi_j)(x)|
-  =|u*(\partial^\beta\varphi_j)(x)|
-  \leq c\sum_{|\alpha|\leq m}
-  \sup_z|\partial^{\alpha+\beta}\varphi_j(z)|
-  \longrightarrow0.
- \]
- Portanto $u*\varphi_j\to0$ em $\mathcal C^\infty$. Aplicando isso aos dois fatores, obtemos a continuidade de $T$ e $S$. \qedsymbol
+	Do mesmo modo, se \(v\in \mathcal{E}'\) e \(f\in \mathcal{C}^{\infty}\), dado h, tem-se, para \(x\in \mathbb{R}^{n}\),
+	\begin{align*}
+		[\tau_{h}(v*f)](x)
+		 & =v*f(x-h)
+		=\langle v,\tau_{x-h}\check f\rangle             \\
+		 & =\langle v,\tau_{-h}(\tau_{x}\check f)\rangle
+		=\langle \tau_{h}v,\tau_{x}\check f\rangle
+		=[(\tau_{h}v)*f](x),
+	\end{align*}
+	e, por outro lado,
+	\begin{align*}
+		\langle v,\tau_{x-h}\check f\rangle
+		 & =\langle v,\tau_{x}(\tau_{-h}\check f)\rangle
+		=\langle v,\tau_{x}\check{(\tau_{h}f)}\rangle    \\
+		 & =[v*(\tau_{h}f)](x).
+	\end{align*}
+	Esta é precisamente a propriedade de que precisávamos para repetir, para S, a prova dada para T.
+
+	Provemos (i) e deixemos (ii) como exercício. Antes de tudo, T de fato mapeia \(\mathcal{C}_{c}^{\infty}\) em \(\mathcal{C}^{\infty}\), pela conclusão (i) do lema anterior, e a linearidade é imediata da linearidade das distribuições, das translações e das reflexões. Por exemplo,
+	\begin{align*}
+		\bigl\{u_{1}*[u_{2}*(\varphi+\psi)]\bigr\}(x)
+		 & =\left\langle u_{1},\tau_{x}\bigl[(u_{2}*\varphi)+(u_{2}*\psi)\check{\bigr]}\right\rangle \\
+		 & =\langle u_{1},\tau_{x}(u_{2}*\varphi\check{)}\rangle
+		+\langle u_{1},\tau_{x}(u_{2}*\psi\check{)}\rangle                                           \\
+		 & =[u_{1}*(u_{2}*\varphi)](x)+[u_{1}*(u_{2}*\psi)](x).
+	\end{align*}
+
+	Para a continuidade, provemos o seguinte passo intermediário:
+	\[
+		\text{se }u\in \mathcal{E}'\text{ e }\varphi_{j}\longrightarrow 0\text{ em }\mathcal{C}_{c}^{\infty},
+		\text{ então }u*\varphi_{j}\longrightarrow 0\text{ em }\mathcal{C}_{c}^{\infty}.
+	\]
+	Com efeito, primeiramente existe um compacto \(K_{1}\) tal que
+	\[
+		\mathrm{supp}(\varphi_{j})\subseteq K_{1},\quad \forall j.
+	\]
+	Logo,
+	\[
+		\mathrm{supp}(u*\varphi_{j})
+		\subseteq \mathrm{supp}(u)+\mathrm{supp}(\varphi_{j})
+		\subseteq \mathrm{supp}(u)+K_{1},\quad \forall j,
+	\]
+	e, como \(\mathrm{supp}(u)+K_{1}\) é um compacto, a primeira parte da convergência segue.
+
+	Para a segunda, consideremos \(c>0\), \(m\in \mathbb{Z}_{+}\) e \(K\subseteq \mathbb{R}^{n}\) compacto tais que
+	\[
+		|\langle u,f\rangle|
+		\leq c\sum\limits_{|\alpha|\leq m}\sup_{y\in K}|\partial^{\alpha}f(y)|,
+		\quad \forall f\in \mathcal{C}^{\infty}(\mathbb{R}^{n}).
+	\]
+	Daí, em particular, para \(f=\tau_{x}\check{\varphi}_{j}\), \(x\in \mathbb{R}^{n}\), temos
+	\begin{align*}
+		|u*\varphi_{j}(x)|
+		 & =|\langle u,\tau_{x}\check{\varphi}_{j}\rangle|                                               \\
+		 & \leq c\sum\limits_{|\alpha|\leq m}\sup_{y\in K}
+		|\partial_{y}^{\alpha}(\tau_{x}\check{\varphi}_{j})(y)|                                          \\
+		 & =c\sum\limits_{|\alpha|\leq m}\sup_{y\in K}
+		|(-1)^{|\alpha|}(\partial^{\alpha}\varphi_{j})(x-y)|                                             \\
+		 & \leq c\sum\limits_{|\alpha|\leq m}\sup_{z\in \mathbb{R}^{n}}|\partial^{\alpha}\varphi_{j}(z)|
+		\stackrel{j\to\infty}{\longrightarrow}0,
+	\end{align*}
+	pois \(\varphi_{j}\to0\) em \(\mathcal{C}_{c}^{\infty}\).
+
+	Analogamente, se \(\beta\in \mathbb{Z}_{+}^{n}\), temos que
+	\begin{align*}
+		|\partial_{x}^{\beta}(u*\varphi_{j})(x)|
+		 & =|u*(\partial^{\beta}\varphi_{j})(x)|                                \\
+		 & \leq c\sum\limits_{|\alpha|\leq m}\sup_{t\in \mathbb{R}^{n}}
+		|\partial^{\alpha}(\partial^{\beta}\varphi_{j})(t)|                     \\
+		 & =c\sum\limits_{|\alpha|\leq m}\sup_{t\in \mathbb{R}^{n}}
+		|\partial^{\alpha+\beta}\varphi_{j}(t)|                                 \\
+		 & \leq c\sum\limits_{|\gamma|\leq m+|\beta|}\sup_{t\in \mathbb{R}^{n}}
+		|\partial^{\gamma}\varphi_{j}(t)|
+		\stackrel{j\to\infty}{\longrightarrow}0,
+	\end{align*}
+	e nossa afirmação é correta.
+
+	De modo inteiramente análogo, demonstra-se que
+	\[
+		v\in \mathcal{D}'\text{ e }\psi_{j}\longrightarrow0\text{ em }\mathcal{C}_{c}^{\infty}
+		\quad\Longrightarrow\quad
+		v*\psi_{j}\longrightarrow0\text{ em }\mathcal{C}^{\infty}.
+	\]
+	Juntando os dois fatos,
+	\[
+		\varphi_{j}\to0\text{ em }\mathcal{C}_{c}^{\infty},\quad u_{2}\in \mathcal{E}'
+		\Longrightarrow u_{2}*\varphi_{j}\to0\text{ em }\mathcal{C}_{c}^{\infty}
+	\]
+	e, portanto,
+	\[
+		u_{1}*(u_{2}*\varphi_{j})\longrightarrow0\text{ em }\mathcal{C}^{\infty},
+	\]
+	pois \(u_{1}\in \mathcal{D}'\). Isso completa a prova de (i). \qedsymbol
 \end{proof*}
 
-Pelo resultado que caracteriza operadores lineares contínuos invariantes por translação, existem únicas distribuições $u,v\in\mathcal D'(\mathbb R^n)$ tais que
-\[
- u_1*(u_2*\varphi)=u*\varphi,
- \qquad
- u_2*(u_1*\varphi)=v*\varphi,
- \qquad \forall\varphi\in\mathcal C_c^\infty.
-\]
+Na presença deste lema e do nosso conhecimento dos operadores do tipo convolução, podemos fazer a seguinte definição.
 
 \begin{def*}
- Nessas condições definimos
- \[
-  u_1*u_2:=u,
-  \qquad
-  u_2*u_1:=v.
- \]
- Assim,
- \[
-  (u_1*u_2)*\varphi=u_1*(u_2*\varphi),
-  \qquad
-  (u_2*u_1)*\varphi=u_2*(u_1*\varphi).
- \]
+	Dados \(u_{1}\in \mathcal{D}'(\mathbb{R}^{n})\) e \(u_{2}\in \mathcal{E}'(\mathbb{R}^{n})\), existem únicas \(u,v\in \mathcal{D}'(\mathbb{R}^{n})\) tais que, para toda \(\varphi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\),
+	\begin{itemize}
+		\item[(i)] \(u_{1}*(u_{2}*\varphi)=u*\varphi\), isto é, \(T\varphi=u*\varphi\);
+		\item[(ii)] \(u_{2}*(u_{1}*\varphi)=v*\varphi\), isto é, \(S\varphi=v*\varphi\).
+	\end{itemize}
+	Nessas condições, definimos
+	\[
+		u\coloneqq u_{1}*u_{2}
+	\]
+	como a \textbf{convolução de \(u_{1}\) com \(u_{2}\)}, e
+	\[
+		v\coloneqq u_{2}*u_{1}
+	\]
+	como a \textbf{convolução de \(u_{2}\) com \(u_{1}\)}.
+
+	Dessa forma, valem as relações, para toda \(\varphi\in \mathcal{C}_{c}^{\infty}\),
+	\[
+		u_{1}*(u_{2}*\varphi)=(u_{1}*u_{2})*\varphi
+	\]
+	e
+	\[
+		u_{2}*(u_{1}*\varphi)=(u_{2}*u_{1})*\varphi.\quad \square
+	\]
 \end{def*}
 
-\subsection{Propriedades da Convolução de Distribuições}
-Supondo sempre que as convoluções estejam definidas, valem as propriedades usuais.
+Veremos a seguir que o produto ``\(u_{1}*u_{2}\)'' de duas distribuições, uma delas possuindo suporte compacto, obedece a todas as propriedades que se espera de uma convolução.
 
 \begin{prop*}
- \begin{enumerate}
-  \item $\delta*u=u*\delta=u$;
-  \item $u_1*(u_2*u_3)=(u_1*u_2)*u_3$ se ao menos dois dos fatores tiverem suporte compacto;
-  \item $u_1*u_2=u_2*u_1$;
-  \item
-  \[
-   \partial^\alpha(u_1*u_2)
-   =(\partial^\alpha u_1)*u_2
-   =u_1*(\partial^\alpha u_2),
-   \qquad \alpha\in\mathbb Z_+^n;
-  \]
-  \item
-  \[
-   \operatorname{supp}(u_1*u_2)
-   \subseteq\operatorname{supp}(u_1)+\operatorname{supp}(u_2);
-  \]
-  \item se um dos fatores é uma função suave, as definições nova e antiga coincidem.
- \end{enumerate}
+	Sempre que as convoluções abaixo estiverem definidas nas condições anteriores, valem:
+	\begin{itemize}
+		\item[(I)] Para toda \(u\in \mathcal{D}'(\mathbb{R}^{n})\), \(\delta*u=u*\delta\);
+		\item[(II)] Se ao menos duas das distribuições tiverem suporte compacto,
+		      \[
+			      u_{1}*(u_{2}*u_{3})=(u_{1}*u_{2})*u_{3};
+		      \]
+		\item[(III)] Comutatividade: \(u_{1}*u_{2}=u_{2}*u_{1}\);
+		\item[(IV)] Para todo \(\alpha\in \mathbb{Z}_{+}^{n}\),
+		      \[
+			      \partial^{\alpha}(u_{1}*u_{2})
+			      =(\partial^{\alpha}u_{1})*u_{2}
+			      =u_{1}*(\partial^{\alpha}u_{2});
+		      \]
+		\item[(V)]
+		      \[
+			      \mathrm{supp}(u_{1}*u_{2})
+			      \subseteq \mathrm{supp}(u_{1})+\mathrm{supp}(u_{2});
+		      \]
+		\item[(VI)] se \(u_{1}\), ou \(u_{2}\), é \(\mathcal{C}^{\infty}\), ou \(\mathcal{C}_{c}^{\infty}\), as definições nova e antiga coincidem.
+	\end{itemize}
 \end{prop*}
-
 \begin{proof*}
- Para o elemento neutro, se $\varphi\in\mathcal C_c^\infty$,
- \[
-  (\delta*u)*\varphi=\delta*(u*\varphi)=u*\varphi,
- \]
- logo $\delta*u=u$; analogamente, $(u*\delta)*\varphi=u*(\delta*\varphi)=u*\varphi$.
+	\textbf{(I)} Com efeito, por definição, se \(\varphi\in \mathcal{C}_{c}^{\infty}\), então
+	\[
+		(\delta*u)*\varphi
+		=\delta*(u*\varphi)
+		=u*\varphi,
+	\]
+	donde \(\delta*u=u\). Do mesmo modo,
+	\[
+		(u*\delta)*\varphi=u*(\delta*\varphi)=u*\varphi.
+	\]
+	Portanto,
+	\[
+		\delta*u=u*\delta=u.
+	\]
 
- Para a associatividade, convolvemos ambos os lados com uma função teste e usamos repetidamente a própria definição. Por exemplo,
- \begin{align*}
-  [u_1*(u_2*u_3)]*\varphi
-  &=u_1*[(u_2*u_3)*\varphi]\\
-  &=u_1*[u_2*(u_3*\varphi)]\\
-  &=(u_1*u_2)*(u_3*\varphi)\\
-  &=[(u_1*u_2)*u_3]*\varphi.
- \end{align*}
- Como duas distribuições que têm a mesma convolução com toda função teste coincidem, segue a igualdade.
+	\textbf{(II)} Realmente, porque, dada \(\varphi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n})\), podemos escrever
+	\begin{align*}
+		[u_{1}*(u_{2}*u_{3})]*\varphi
+		 & =u_{1}*[(u_{2}*u_{3})*\varphi]  \\
+		 & =u_{1}*[u_{2}*(u_{3}*\varphi)]  \\
+		 & =(u_{1}*u_{2})*(u_{3}*\varphi)  \\
+		 & =[(u_{1}*u_{2})*u_{3}]*\varphi.
+	\end{align*}
+	A propriedade segue porque
+	\[
+		u*\varphi=v*\varphi,
+		\quad \forall \varphi\in \mathcal{C}_{c}^{\infty}
+		\quad\Longrightarrow\quad u=v.
+	\]
 
- Para a comutatividade, tomemos $\varphi,\psi\in\mathcal C_c^\infty$. Pela associatividade já provada,
- \begin{align*}
-  (u_1*u_2)*(\varphi*\psi)
-  &=(u_1*\psi)*(u_2*\varphi),\\
-  (u_2*u_1)*(\varphi*\psi)
-  &=(u_2*\varphi)*(u_1*\psi).
- \end{align*}
- Os lados direitos são iguais pela comutatividade usual da convolução de funções. Fazendo $\psi*\varphi_\varepsilon\to\psi$ em $\mathcal C_c^\infty$, concluímos
- \[
-  (u_1*u_2)*\psi=(u_2*u_1)*\psi,
- \]
- para toda $\psi$, e portanto $u_1*u_2=u_2*u_1$.
+	\textbf{(III)} Primeiramente, dadas \(\varphi,\psi\in \mathcal{C}_{c}^{\infty}\), tem-se
+	\begin{align*}
+		(u_{1}*u_{2})*(\varphi*\psi)
+		 & =u_{1}*[u_{2}*(\varphi*\psi)]                \\
+		 & =u_{1}*[(u_{2}*\varphi)*\psi]                \\
+		 & =u_{1}*[\psi*(u_{2}*\varphi)]                \\
+		 & =(u_{1}*\psi)*(u_{2}*\varphi), \tag{$\cdot$}
+	\end{align*}
+	e, do mesmo modo,
+	\begin{align*}
+		(u_{2}*u_{1})*(\varphi*\psi)
+		 & =u_{2}*[u_{1}*(\varphi*\psi)]                     \\
+		 & =u_{2}*[(u_{1}*\varphi)*\psi]                     \\
+		 & =u_{2}*[\psi*(u_{1}*\varphi)]                     \\
+		 & =(u_{2}*\psi)*(u_{1}*\varphi). \tag{$\cdot\cdot$}
+	\end{align*}
+	Assim, \((\cdot)=(\cdot\cdot)\).
 
- Para as derivadas, por definição,
- \begin{align*}
-  [ (\partial^\alpha u_1)*u_2]*\varphi
-  &=(\partial^\alpha u_1)*(u_2*\varphi)\\
-  &=u_1*[\partial^\alpha(u_2*\varphi)]\\
-  &=[u_1*(\partial^\alpha u_2)]*\varphi,
- \end{align*}
- e a outra igualdade segue tomando uma família regularizante e passando ao limite.
+	Como, para uma família regularizante \((\varphi_{\varepsilon})_{\varepsilon>0}\),
+	\[
+		\psi*\varphi_{\varepsilon}
+		\stackrel{\varepsilon\to0^{+}}{\longrightarrow}\psi
+		\quad\text{em }\mathcal{C}_{c}^{\infty},
+	\]
+	obtemos que
+	\begin{align*}
+		(u_{1}*u_{2})*\psi
+		 & =\lim_{\varepsilon\to0^{+}}(u_{1}*u_{2})*(\psi*\varphi_{\varepsilon}) \\
+		 & =\lim_{\varepsilon\to0^{+}}(u_{2}*u_{1})*(\psi*\varphi_{\varepsilon}) \\
+		 & =(u_{2}*u_{1})*\psi,
+		\quad \forall \psi\in \mathcal{C}_{c}^{\infty}.
+	\end{align*}
+	Logo,
+	\[
+		u_{1}*u_{2}=u_{2}*u_{1}.
+	\]
 
- Para o suporte, usaremos o lema: se $u_j\to u$ em $\mathcal D'$ e $\operatorname{supp}(u_j)\subseteq F_j$, com $F_j$ fechados e $F_j\downarrow F$, então
- \[
-  \operatorname{supp}(u)\subseteq F.
- \]
- De fato, se $\varphi\in\mathcal C_c^\infty(\mathbb R^n\setminus F)$, para $j$ grande seu suporte é disjunto de $F_j$, logo $\langle u_j,\varphi\rangle=0$ e, passando ao limite, $\langle u,\varphi\rangle=0$.
+	\textbf{(IV)} Com efeito,
+	\begin{align*}
+		[(\partial^{\alpha}u_{1})*u_{2}]*\varphi
+		 & =(\partial^{\alpha}u_{1})*(u_{2}*\varphi)  \\
+		 & =u_{1}*[\partial^{\alpha}(u_{2}*\varphi)]  \\
+		 & =u_{1}*[(\partial^{\alpha}u_{2})*\varphi]  \\
+		 & =[u_{1}*(\partial^{\alpha}u_{2})]*\varphi,
+	\end{align*}
+	para toda \(\varphi\in \mathcal{C}_{c}^{\infty}\) e \(\alpha\in \mathbb{Z}_{+}^{n}\). Isso demonstra a segunda igualdade.
 
- Agora, se $\varphi_\varepsilon$ é uma família regularizante,
- \[
-  (u_1*u_2)*\varphi_\varepsilon
-  =u_1*(u_2*\varphi_\varepsilon),
- \]
- e, pelo lema do suporte para convolução de distribuição com função,
- \begin{align*}
-  \operatorname{supp}[(u_1*u_2)*\varphi_\varepsilon]
-  &\subseteq\operatorname{supp}(u_1)
-  +\operatorname{supp}(u_2*\varphi_\varepsilon)\\
-  &\subseteq\operatorname{supp}(u_1)+\operatorname{supp}(u_2)
-  +\overline{B(0,\varepsilon)}.
- \end{align*}
- Como $(u_1*u_2)*\varphi_\varepsilon\to u_1*u_2$ em $\mathcal D'$, o lema anterior dá
- \[
-  \operatorname{supp}(u_1*u_2)
-  \subseteq\operatorname{supp}(u_1)+\operatorname{supp}(u_2).
- \]
+	Para ver a primeira, consideramos \((\varphi_{\varepsilon})_{\varepsilon>0}\) uma família regularizante e observamos que
+	\begin{align*}
+		[\partial^{\alpha}(u_{1}*u_{2})]*\varphi_{\varepsilon}
+		 & =(u_{1}*u_{2})*(\partial^{\alpha}\varphi_{\varepsilon})  \\
+		 & =u_{1}*[u_{2}*(\partial^{\alpha}\varphi_{\varepsilon})]  \\
+		 & =u_{1}*[(\partial^{\alpha}u_{2})*\varphi_{\varepsilon}]  \\
+		 & =[u_{1}*(\partial^{\alpha}u_{2})]*\varphi_{\varepsilon},
+		\qquad \varepsilon>0.
+	\end{align*}
+	Como
+	\[
+		u*\varphi_{\varepsilon}
+		\stackrel{\varepsilon\to0^{+}}{\longrightarrow}u
+		\quad\text{em }\mathcal{D}',
+		\quad \forall u\in \mathcal{D}',
+	\]
+	a propriedade é válida.
 
- Finalmente, quando $u_1$ ou $u_2$ é uma função suave, a associatividade já demonstrada para uma distribuição e funções mostra que a definição por operadores coincide com a definição anterior. \qedsymbol
+	\textbf{(V)} Esta propriedade pode ser provada por meio do lema a seguir.
+
+	\begin{lemma*}
+		Se \(u_{j}\stackrel{*}{\longrightarrow}u\) e \(\mathrm{supp}(u_{j})\subseteq F_{j}\), para todo j, com \(F_{j}\) fechados, então
+		\[
+			\mathrm{supp}(u)\subseteq \bigcap_{j=1}^{\infty}F_{j}.
+		\]
+	\end{lemma*}
+	\begin{proof*}
+		Com efeito, se \(F=\bigcap_{j=1}^{\infty}F_{j}\) e \(\varphi\in \mathcal{C}_{c}^{\infty}(\mathbb{R}^{n}\setminus F)\), então
+		\[
+			\mathrm{supp}(\varphi)
+			\subseteq \bigcup_{j=1}^{\infty}(\mathbb{R}^{n}\setminus F_{j})
+			=\mathbb{R}^{n}\setminus F.
+		\]
+		Logo,
+		\[
+			\langle u_{j},\varphi\rangle=0,\quad \forall j,
+		\]
+		e, portanto,
+		\[
+			\langle u,\varphi\rangle
+			=\lim_{j\to\infty}\langle u_{j},\varphi\rangle=0.
+		\]
+		Isto é, \(u|_{\mathbb{R}^{n}\setminus F}=0\) e, assim, \(\mathrm{supp}(u)\subseteq F\). \qedsymbol
+	\end{proof*}
+
+	Diante disso, escolhemos uma família regularizante e escrevemos
+	\begin{align*}
+		\mathrm{supp}[(u_{1}*u_{2})*\varphi_{\varepsilon}]
+		 & =\mathrm{supp}[u_{1}*(u_{2}*\varphi_{\varepsilon})]                             \\
+		 & \subseteq \mathrm{supp}(u_{1})+\mathrm{supp}(u_{2}*\varphi_{\varepsilon})       \\
+		 & \subseteq \mathrm{supp}(u_{1})+\mathrm{supp}(u_{2})+\overline{B}(0;\varepsilon)
+		\eqqcolon F_{\varepsilon}.
+	\end{align*}
+	Como
+	\[
+		(u_{1}*u_{2})*\varphi_{\varepsilon_{j}}
+		\stackrel{j\to\infty}{\longrightarrow}u_{1}*u_{2},
+		\quad \varepsilon_{j}\to0^{+},
+	\]
+	a propriedade está provada.
+
+	\textbf{(VI)} Se \(u_{1}\), ou \(u_{2}\), é \(\mathcal{C}^{\infty}\), ou \(\mathcal{C}_{c}^{\infty}\), as definições nova e antiga coincidem, simplesmente da associatividade que já concluímos quando dois fatores são distribuições. Por exemplo, caso \(u_{2}\in \mathcal{C}_{c}^{\infty}\), a definição nova satisfaz
+	\[
+		(u_{1}*u_{2})*\varphi=u_{1}*(u_{2}*\varphi).
+	\]
+	Por outro lado, no sentido antigo, temos
+	\begin{align*}
+		(u_{1}*u_{2})*\varphi
+		 & =u_{1}*(u_{2}*\varphi)  \\
+		 & =(u_{2}*\varphi)*u_{1}  \\
+		 & =u_{2}*(\varphi*u_{1})  \\
+		 & =u_{2}*(u_{1}*\varphi)  \\
+		 & =(u_{2}*u_{1})*\varphi  \\
+		 & =(u_{1}*u_{2})*\varphi.
+	\end{align*}
+	Logo, as duas definições coincidem. \qedsymbol
 \end{proof*}
 
 \end{document}

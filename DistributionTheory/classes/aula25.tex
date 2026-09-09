@@ -1,268 +1,446 @@
 \documentclass[../distribution_theory_notes.tex]{subfiles}
 \begin{document}
 \section{Aula 25 - 22 de Novembro, 2024}
-\subsection{Transformada de Fourier de Funções L-1}
+\subsection{Motivações}
+\begin{itemize}
+	\item Transformada de Fourier de funções em $L^{1}(\mathbb{R}^{n})$;
+	\item Propriedades operacionais da Transformada de Fourier;
+	\item Lema de Riemann--Lebesgue.
+\end{itemize}
+
+\subsection{Transformada de Fourier de Funções $L^{1}(\mathbb{R}^{n})$}
 \begin{def*}
-	Seja $f\in L^1(\mathbb R^n)$. Usando o produto escalar euclidiano
+	Seja $f\in L^{1}(\mathbb{R}^{n})$. Usaremos a notação
 	\[
-		x\cdot y=x_1y_1+\cdots+x_ny_n,
+		x\cdot y=x_{1}y_{1}+\cdots+x_{n}y_{n},
 	\]
-	definimos:
-	\begin{enumerate}
-		\item a \textbf{transformada de Fourier} de $f$ em $\xi\in\mathbb R^n$ por
+	para o produto escalar euclidiano, e definimos:
+	\begin{itemize}
+		\item[(i)] A \textbf{transformada de Fourier de $f$} em $\xi\in\mathbb{R}^{n}$ é o número
 		      \[
-			      \widehat f(\xi)=\int_{\mathbb R^n}f(x)e^{-2\pi i x\cdot\xi}\,dx;
+			      \widehat f(\xi)
+			      \coloneqq
+			      \int_{\mathbb{R}^{n}}f(x)e^{-2\pi i x\cdot\xi}\,dx.
 		      \]
-		\item a \textbf{transformada de Fourier inversa} de $f$ em $x\in\mathbb R^n$ por
+
+		\item[(ii)] A \textbf{transformada de Fourier inversa de $f$} em $x\in\mathbb{R}^{n}$ é
 		      \[
-			      \check f(x)=\int_{\mathbb R^n}f(\xi)e^{2\pi i x\cdot\xi}\,d\xi.
+			      \check f(x)
+			      \coloneqq
+			      \int_{\mathbb{R}^{n}}f(\xi)e^{2\pi i x\cdot\xi}\,d\xi.
 		      \]
-	\end{enumerate}
-	Em particular,
-	\[
-		\check f(x)=\widehat f(-x).
-	\]
-	O operador transformada de Fourier será denotado por
-	\[
-		\mathcal F:L^1(\mathbb R^n)\longrightarrow
-		\{\widehat f:\mathbb R^n\to\mathbb C:f\in L^1\},
-		\qquad \mathcal F(f)=\widehat f.
-	\]
+		      Note que
+		      \[
+			      \check f(x)=\widehat f(-x).
+		      \]
+
+		\item[(iii)] O operador \textbf{transformada de Fourier}, ou apenas \textbf{Transformada de Fourier}, é, por definição, o operador
+		      \[
+			      \mathcal{F}:L^{1}(\mathbb{R}^{n})\longrightarrow X,
+		      \]
+		      onde
+		      \[
+			      X\coloneqq
+			      \left\{\widehat f:\mathbb{R}^{n}\longrightarrow\mathbb{C};\
+			      \widehat f(\xi),\ \xi\in\mathbb{R}^{n},\
+			      \text{para algum }f\in L^{1}\right\},
+		      \]
+		      dado por
+		      \[
+			      f\longmapsto \mathcal{F}(f)=\widehat f,
+		      \]
+		      onde $\widehat f$ é dada por (i).
+	\end{itemize}
+	A linearidade de $\mathcal{F}$ é imediata a partir da linearidade da integral. \(\square\)
 \end{def*}
 
-A linearidade de $\mathcal F$ é imediata da linearidade da integral.
+Comecemos destacando que a Transformada de Fourier é um processo que regulariza as funções.
 
 \begin{prop*}
-	Se $f\in L^1(\mathbb R^n)$, então
+	Se $f\in L^{1}(\mathbb{R}^{n})$, então
 	\[
-		\widehat f\in C_B(\mathbb R^n),
+		\widehat f\in \mathcal{C}_{B}(\mathbb{R}^{n})
+		\coloneqq
+		\{\text{funções contínuas limitadas}\},
 	\]
-	o espaço das funções contínuas e limitadas, e
+	com
 	\[
-		\|\widehat f\|_\infty\leq\|f\|_{L^1}.
+		\|\mathcal{F}f\|_{\infty}\leq \|f\|_{L^{1}}.
 	\]
+	Em particular, $\mathcal{F}$ é contínua.
 \end{prop*}
 
 \begin{proof*}
-	Como $|e^{-2\pi i x\cdot\xi}|=1$,
+	Com efeito, $\widehat f\in L^{\infty}$, porque
 	\[
 		|\widehat f(\xi)|
-		\leq\int_{\mathbb R^n}|f(x)|\,dx
-		=\|f\|_{L^1},
+		\leq
+		\int_{\mathbb{R}^{n}}|f(x)|\,dx
+		=\|f\|_{L^{1}},
 	\]
-	logo $\widehat f$ é limitada.
+	já que $e^{-2\pi i x\cdot\xi}$ tem valor absoluto $1$. Portanto,
+	\[
+		\|\widehat f\|_{\infty}\leq\|f\|_{L^{1}},
+		\qquad \forall f\in L^{1}.
+	\]
 
-	Se $\xi_j\to\xi_0$, então
+	Agora, se $\xi_{j}\to\xi_{0}$ em $\mathbb{R}^{n}$, então
 	\[
-		f(x)e^{-2\pi i x\cdot\xi_j}
-		\longrightarrow f(x)e^{-2\pi i x\cdot\xi_0}
+		f(x)e^{-2\pi i x\cdot\xi_{j}}
+		\longrightarrow
+		f(x)e^{-2\pi i x\cdot\xi_{0}},
+		\qquad \forall x\in\mathbb{R}^{n}.
 	\]
-	pontualmente e
+	De fato, fixando um representante para $[f]$, isso decorre da continuidade da exponencial complexa. Além disso,
 	\[
-		|f(x)e^{-2\pi i x\cdot\xi_j}|\leq|f(x)|\in L^1.
+		\left|f(x)e^{-2\pi i x\cdot\xi_{j}}\right|
+		\leq |f(x)|,
+		\qquad \forall x\text{ e }j,
 	\]
-	Pelo teorema da convergência dominada,
+	com $f\in L^{1}$. Pelo Teorema da Convergência Dominada,
 	\[
-		\widehat f(\xi_j)\longrightarrow\widehat f(\xi_0),
+		\widehat f(\xi_{j})
+		=
+		\int_{\mathbb{R}^{n}}f(x)e^{-2\pi i x\cdot\xi_{j}}\,dx
+		\longrightarrow
+		\int_{\mathbb{R}^{n}}f(x)e^{-2\pi i x\cdot\xi_{0}}\,dx
+		=\widehat f(\xi_{0}),
 	\]
-	e $\widehat f$ é contínua. \qedsymbol
+	e, portanto, $\widehat f$ é contínua em $\xi_{0}$. \qedsymbol
 \end{proof*}
 
-A seguir listamos algumas propriedades básicas da transformada de Fourier.
+A seguir, são listadas as primeiras propriedades de $\mathcal{F}$ relacionadas a algumas operações que podemos realizar com as funções.
 
-\begin{prop*}
-	Sejam $f,g\in L^1(\mathbb R^n)$. Então:
-	\begin{enumerate}
-		\item para $h,\xi\in\mathbb R^n$,
-		      \[
-			      \widehat{\tau_h f}(\xi)
-			      =e^{-2\pi i h\cdot\xi}\widehat f(\xi),
-			      \qquad (\tau_hf)(x)=f(x-h);
-		      \]
-		\item para $h,\xi\in\mathbb R^n$,
-		      \[
-			      \widehat{e^{2\pi i h\cdot x}f(x)}(\xi)
-			      =\widehat f(\xi-h)
-			      =(\tau_h\widehat f)(\xi);
-		      \]
-		\item se $T:\mathbb R^n\to\mathbb R^n$ é um isomorfismo e
-		      \[
-			      S=(T^*)^{-1},
-		      \]
-		      então
-		      \[
-			      \widehat{f\circ T}(\xi)
-			      =|\det T|^{-1}(\widehat f\circ S)(\xi);
-		      \]
-		\item
-		      \[
-			      \widehat{f*g}=\widehat f\,\widehat g;
-		      \]
-		\item se $x^\alpha f\in L^1$ para $|\alpha|\leq m$, então
-		      \[
-			      \partial_\xi^\alpha\widehat f
-			      =\bigl[(-2\pi i x)^\alpha f\bigr]^\wedge;
-		      \]
-		\item se $f\in C^m$ e
-		      \[
-			      \partial^\alpha f\in L^1,
-			      \quad |\alpha|\leq m,
-		      \]
-		      e, para $|\alpha|\leq m-1$, $\partial^\alpha f\in C_0(\mathbb R^n)$, então
-		      \[
-			      \widehat{\partial^\alpha f}(\xi)
-			      =(2\pi i\xi)^\alpha\widehat f(\xi);
-		      \]
-		\item \textbf{Lema de Riemann--Lebesgue:}
-		      \[
-			      \widehat f\in C_0(\mathbb R^n),
-			      \qquad
-			      \lim_{|\xi|\to\infty}\widehat f(\xi)=0.
-		      \]
-	\end{enumerate}
-\end{prop*}
+\subsection{Propriedades da Transformada de Fourier}
+Sejam $f,g\in L^{1}(\mathbb{R}^{n})$. Valem as propriedades a seguir.
+
+\medskip
+\noindent\textbf{(I)} Para todo $h,\xi\in\mathbb{R}^{n}$,
+\[
+	\widehat{\tau_{h}f}(\xi)
+	=e^{-2\pi i h\cdot\xi}\widehat f(\xi).
+\]
 
 \begin{proof*}
-	Para a primeira propriedade, pelo teorema da mudança de variáveis, com $y=x-h$,
+	Pelo Teorema da Mudança de Variáveis, fazendo $y=x-h$, temos
 	\begin{align*}
-		\widehat{\tau_h f}(\xi)
-		 & =\int_{\mathbb R^n}f(x-h)e^{-2\pi i x\cdot\xi}\,dx  \\
-		 & =\int_{\mathbb R^n}f(y)e^{-2\pi i(y+h)\cdot\xi}\,dy \\
+		\widehat{\tau_{h}f}(\xi)
+		 & =\int_{\mathbb{R}^{n}}f(x-h)e^{-2\pi i x\cdot\xi}\,dx   \\
+		 & =\int_{\mathbb{R}^{n}}f(y)e^{-2\pi i (y+h)\cdot\xi}\,dy \\
 		 & =e^{-2\pi i h\cdot\xi}\widehat f(\xi).
-	\end{align*}
-
-	A segunda é análoga:
-	\begin{align*}
-		\widehat{e^{2\pi i h\cdot x}f}(\xi)
-		 & =\int f(x)e^{-2\pi i x\cdot(\xi-h)}\,dx \\
-		 & =\widehat f(\xi-h).
-	\end{align*}
-
-	Para a terceira, tomando $y=Tx$,
-	\begin{align*}
-		\widehat{f\circ T}(\xi)
-		 & =\int_{\mathbb R^n}e^{-2\pi i x\cdot\xi}f(Tx)\,dx \\
-		 & =|\det T|^{-1}\int_{\mathbb R^n}
-		e^{-2\pi i(T^{-1}y)\cdot\xi}f(y)\,dy                 \\
-		 & =|\det T|^{-1}
-		\widehat f((T^*)^{-1}\xi).
 	\end{align*}
 	\qedsymbol
 \end{proof*}
 
+\medskip
+\noindent\textbf{(II)} Para todo $h,\xi\in\mathbb{R}^{n}$,
+\[
+	\widehat{\left(e^{2\pi i h\cdot x}f\right)}(\xi)
+	=(\tau_{h}\widehat f)(\xi).
+\]
+
+\begin{proof*}
+	Analogamente ao item anterior,
+	\begin{align*}
+		\widehat{\left(e^{2\pi i h\cdot x}f\right)}(\xi)
+		 & =\int_{\mathbb{R}^{n}}e^{2\pi i x\cdot h}f(x)e^{-2\pi i x\cdot\xi}\,dx \\
+		 & =\int_{\mathbb{R}^{n}}f(x)e^{-2\pi i x\cdot(\xi-h)}\,dx                \\
+		 & =\widehat f(\xi-h)
+		=(\tau_{h}\widehat f)(\xi).
+	\end{align*}
+	\qedsymbol
+\end{proof*}
+
+\medskip
+\noindent\textbf{(III)} Se $T:\mathbb{R}^{n}\to\mathbb{R}^{n}$ é um isomorfismo e
+\[
+	S\coloneqq(T^{*})^{-1},
+\]
+então
+\[
+	\widehat{(f\circ T)}(\xi)
+	=|\det(T)|^{-1}(\widehat f\circ S)(\xi)
+	=|\det(T)|^{-1}\widehat f(S\xi),
+	\qquad \xi\in\mathbb{R}^{n}.
+\]
+
+\begin{proof*}
+	Ainda pelo Teorema da Mudança de Variáveis, usando a definição do adjunto $T^{*}$ e a substituição $y=Tx$, temos
+	\begin{align*}
+		\widehat{(f\circ T)}(\xi)
+		 & =\int_{\mathbb{R}^{n}}e^{-2\pi i x\cdot\xi}f(Tx)\,dx \\
+		 & =\int_{\mathbb{R}^{n}}
+		e^{-2\pi i (T^{-1}y)\cdot\xi}f(y)|\det(T^{-1})|\,dy     \\
+		 & =|\det(T)|^{-1}
+		\int_{\mathbb{R}^{n}}
+		e^{-2\pi i y\cdot[(T^{-1})^{*}\xi]}f(y)\,dy             \\
+		 & =|\det(T)|^{-1}\widehat f(S\xi),
+	\end{align*}
+	pois
+	\[
+		(T^{-1})^{*}=(T^{*})^{-1}=S.
+	\]
+	\qedsymbol
+\end{proof*}
+
+\begin{crl*}
+	Dois casos particulares da propriedade acima merecem destaque.
+
+	\medskip
+	\noindent\textbf{(1º)} Se $T$ é uma rotação, isto é,
+	\[
+		T\circ T^{*}=I,
+	\]
+	então
+	\[
+		T^{-1}=T^{*}
+		\quad\Longrightarrow\quad
+		T=(T^{*})^{-1},
+		\qquad |\det(T)|=1.
+	\]
+	Logo,
+	\[
+		\widehat{(f\circ T)}(\xi)=\widehat f(T\xi),
+	\]
+	isto é, $\mathcal{F}$ é invariante, ou comuta, por rotações.
+
+	\medskip
+	\noindent\textbf{(2º)} Se
+	\[
+		T_{t}x\coloneqq tx,
+	\]
+	é uma dilatação, com $t>0$, então
+	\[
+		T_{t}^{*}=T_{t},
+		\qquad
+		(T_{t}^{*})^{-1}=T_{t^{-1}},
+		\qquad
+		\det(T_{t})=t^{n}.
+	\]
+	Portanto,
+	\[
+		\widehat{(f\circ T_{t})}(\xi)
+		=t^{-n}\widehat f(\xi/t)
+		=(\widehat f)_{t}(\xi),
+	\]
+	na notação usada nas famílias regularizantes. Em particular,
+	\[
+		\boxed{\ \widehat{f(tx)}(\xi)=(\widehat f)_{t}(\xi)\ }.
+	\]
+
+	\medskip
+	\noindent\textbf{(IV)} Vale
+	\[
+		\widehat{(f*g)}(\xi)=\widehat f(\xi)\widehat g(\xi),
+		\qquad \forall \xi\in\mathbb{R}^{n}.
+	\]
+	Pela desigualdade de Young, se $f,g\in L^{1}$, então $f*g\in L^{1}$.
+\end{crl*}
+\begin{proof*}
+	Um cálculo direto, usando o Teorema de Fubini, dá
+	\begin{align*}
+		\widehat{(f*g)}(\xi)
+		 & =\int_{\mathbb{R}^{n}}e^{-2\pi i x\cdot\xi}(f*g)(x)\,dx \\
+		 & =\int_{\mathbb{R}^{n}}e^{-2\pi i x\cdot\xi}
+		\left[\int_{\mathbb{R}^{n}}f(x-y)g(y)\,dy\right]dx         \\
+		 & =\int_{\mathbb{R}^{n}}g(y)
+		\left[\int_{\mathbb{R}^{n}}e^{-2\pi i x\cdot\xi}f(x-y)\,dx\right]dy.
+	\end{align*}
+	Pelo item (I), o termo entre colchetes é
+	\[
+		e^{-2\pi i y\cdot\xi}\widehat f(\xi).
+	\]
+	Assim,
+	\[
+		\widehat{(f*g)}(\xi)
+		=\widehat f(\xi)
+		\int_{\mathbb{R}^{n}}g(y)e^{-2\pi i y\cdot\xi}\,dy
+		=\widehat f(\xi)\widehat g(\xi).
+	\]
+	A passagem das integrais é permitida pelo Teorema de Fubini, pois
+	\[
+		(x,y)\longmapsto f(x-y)g(y)
+	\]
+	é integrável em $\mathbb{R}^{n}\times\mathbb{R}^{n}$ pelo Teorema de Tonelli, o que se prova usando que $f,g$ são Borel-mensuráveis. \qedsymbol
+\end{proof*}
+
+\medskip
+\noindent\textbf{(V)} Se $f$ é tal que
+\[
+	x^{\alpha}f\in L^{1},
+	\qquad \forall |\alpha|\leq m,
+\]
+então
+\[
+	\widehat f\in \mathcal{C}^{m}(\mathbb{R}^{n})
+\]
+e vale a igualdade
+\[
+	\partial_{\xi}^{\alpha}\widehat f(\xi)
+	=\widehat{\left[(-2\pi i x)^{\alpha}f\right]}(\xi).
+\]
+
 \begin{tcolorbox}[
 		skin=enhanced,
-		title=Corolários,
+		title=Observação,
 		fonttitle=\bfseries,
 		colframe=black,
 		colbacktitle=cyan!75!white,
 		colback=cyan!15,
 		colbacklower=black,
 		coltitle=black,
-		drop fuzzy shadow]
-	Dois casos particulares da transformação linear são importantes.
-	\begin{enumerate}
-		\item Se $T$ é uma rotação, então $T^*T=I$, $T^{-1}=T^*$ e $|\det T|=1$; logo
-		      \[
-			      \widehat{f\circ T}(\xi)=\widehat f(T\xi).
-		      \]
-		      Assim, a transformada de Fourier é invariante por rotações no sentido natural.
-
-		\item Para a dilatação $T_t x=tx$, $t>0$, temos
-		      \[
-			      \widehat{f(tx)}(\xi)=t^{-n}\widehat f(\xi/t).
-		      \]
-		      Na notação usual das famílias regularizantes,
-		      \[
-			      \widehat{f_t}(\xi)=\widehat f(t\xi)
-		      \]
-		      para $f_t(x)=t^{-n}f(x/t)$.
-	\end{enumerate}
+		drop fuzzy shadow,
+	]
+	A igualdade significa que, se
+	\[
+		p_{\alpha}(x)=(-2\pi i x)^{\alpha}
+	\]
+	indica o polinômio correspondente, então
+	\[
+		\partial_{\xi}^{\alpha}\widehat f(\xi)
+		=\widehat{(p_{\alpha}f)}(\xi).
+	\]
+	Assim, a Transformada de Fourier transforma multiplicação por polinômio em derivação: ``decaimento implica regularidade''.
 \end{tcolorbox}
 
-\begin{proof*}[Prova da propriedade da convolução]
-	Usando o teorema de Fubini,
+\begin{proof*}
+	A prova é feita por indução a partir do caso $m=1$, derivando sob o sinal de integral. Uma vez que
+	\[
+		\frac{\partial}{\partial \xi_{j}}
+		\left(e^{-2\pi i x\cdot\xi}f(x)\right)
+		=-2\pi i x_{j}e^{-2\pi i x\cdot\xi}f(x),
+	\]
+	e que $x_{j}f\in L^{1}$, temos
 	\begin{align*}
-		\widehat{f*g}(\xi)
-		 & =\int_{\mathbb R^n}e^{-2\pi i x\cdot\xi}
-		\left[\int_{\mathbb R^n}f(x-y)g(y)\,dy\right]dx \\
-		 & =\int_{\mathbb R^n}g(y)
-		\left[\int_{\mathbb R^n}e^{-2\pi i x\cdot\xi}f(x-y)\,dx\right]dy.
+		\frac{\partial\widehat f}{\partial\xi_{j}}(\xi)
+		 & =\frac{\partial}{\partial\xi_{j}}
+		\int_{\mathbb{R}^{n}}e^{-2\pi i x\cdot\xi}f(x)\,dx                    \\
+		 & =\int_{\mathbb{R}^{n}}
+		\frac{\partial}{\partial\xi_{j}}
+		\left(e^{-2\pi i x\cdot\xi}f(x)\right)dx                              \\
+		 & =\int_{\mathbb{R}^{n}}(-2\pi i x_{j})e^{-2\pi i x\cdot\xi}f(x)\,dx \\
+		 & =\widehat{\left[(-2\pi i x_{j})f\right]}(\xi).
 	\end{align*}
-	Pela propriedade de translação, a integral interna é
+	Como $(-2\pi i x_{j})f\in L^{1}$, segue da proposição anterior que
 	\[
-		e^{-2\pi i y\cdot\xi}\widehat f(\xi),
+		\frac{\partial\widehat f}{\partial\xi_{j}}\in\mathcal{C}(\mathbb{R}^{n}).
 	\]
-	logo
-	\[
-		\widehat{f*g}(\xi)
-		=\widehat f(\xi)\int g(y)e^{-2\pi i y\cdot\xi}\,dy
-		=\widehat f(\xi)\widehat g(\xi).
-	\]
-	\qedsymbol
+	Sendo $j$ qualquer, $\widehat f\in\mathcal{C}^{1}(\mathbb{R}^{n})$. Repetindo o argumento, obtemos o caso geral. \qedsymbol
 \end{proof*}
 
-\begin{proof*}[Derivação em $\xi$]
-	Suponha inicialmente $m=1$. Como $x_jf(x)\in L^1$,
-	\begin{align*}
-		\frac{\partial\widehat f}{\partial\xi_j}(\xi)
-		 & =\frac{\partial}{\partial\xi_j}
-		\int e^{-2\pi i x\cdot\xi}f(x)\,dx                 \\
-		 & =\int(-2\pi i x_j)e^{-2\pi i x\cdot\xi}f(x)\,dx \\
-		 & =\bigl[(-2\pi i x_j)f\bigr]^\wedge(\xi).
-	\end{align*}
-	A passagem da derivada para dentro da integral é justificada pela convergência dominada. A fórmula para multi-índices segue por indução. \qedsymbol
-\end{proof*}
+\medskip
+\noindent\textbf{(VI)} Se, por outro lado, $f\in\mathcal{C}^{m}$ e satisfaz
+\begin{itemize}
+	\item[(i)] $\partial^{\alpha}f\in L^{1}$, para todo $|\alpha|\leq m$;
+	\item[(ii)] $\partial^{\alpha}f\in\mathcal{C}_{0}(\mathbb{R}^{n})$, para $|\alpha|\leq m-1$, sendo
+	      \[
+		      \mathcal{C}_{0}(\mathbb{R}^{n})
+		      =\{\text{funções contínuas que se anulam no infinito}\},
+	      \]
+\end{itemize}
+então
+\[
+	\widehat{\partial^{\alpha}f}(\xi)
+	=(2\pi i\xi)^{\alpha}\widehat f(\xi).
+\]
 
-\begin{proof*}[Transformada das derivadas]
-	Basta provar primeiro para uma derivada parcial. Integrando por partes na variável $x_j$,
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+	]
+	Novamente, a Transformada de Fourier transforma derivação em multiplicação por polinômio: ``regularidade implica decaimento''. Quando $n=1$, a condição (ii) é satisfeita automaticamente.
+\end{tcolorbox}
+
+\begin{proof*}
+	A prova também se faz por indução a partir do caso $m=1$ e integrando por partes. Para uma derivada na variável $x_{j}$,
+	\[
+		\widehat{\left(\frac{\partial f}{\partial x_{j}}\right)}(\xi)
+		=\int_{\mathbb{R}^{n}}e^{-2\pi i x\cdot\xi}\frac{\partial f}{\partial x_{j}}(x)\mathrm{d}x = \int_{\mathbb{R}^{n-1}}^{}\biggl[\int_{\mathbb{R}}^{}e^{-2\pi ix \xi }\frac{\partial^{}f(x)}{\partial x_{j}^{}} \mathrm{d}x_{j}\biggr] \mathrm{d}x_1 \dotsc \widehat{\mathrm{d}x_{j}}\dotsc \mathrm{d}x_{n}.
+	\]
+	Fixando as demais variáveis, a integral na coordenada $x_{j}$ calcula-se por partes:
 	\begin{align*}
-		\int_{\mathbb R}e^{-2\pi i x\cdot\xi}
-		\frac{\partial f}{\partial x_j}(x)\,dx_j
+		\int_{\mathbb{R}}e^{-2\pi i x\cdot\xi}
+		\frac{\partial f}{\partial x_{j}}(x)\,\mathrm{d}x_{j}
 		 & =\lim_{N\to\infty}
-		\left[e^{-2\pi i x\cdot\xi}f(x)\right]_{-N}^{N} \\
-		 & \quad +(2\pi i\xi_j)
-		\int_{\mathbb R}e^{-2\pi i x\cdot\xi}f(x)\,dx_j.
+		\left[
+			e^{-2\pi i x\cdot\xi}f(x)
+		\right]_{x_{j}=-N}^{x_{j}=N}                      \\
+		 & \quad-\int_{-N}^{N}
+		(-2\pi i\xi_{j})e^{-2\pi i x\cdot\xi}f(x)\,dx_{j} \\
+		 & =(2\pi i\xi_{j})
+		\int_{\mathbb{R}}e^{-2\pi i x\cdot\xi}f(x)\,dx_{j},
 	\end{align*}
-	O termo de bordo é nulo porque $f\in C_0$. Integrando nas demais variáveis,
+	pois o termo de bordo se anula, já que $f\in\mathcal{C}_{0}(\mathbb{R}^{n})$. Substituindo na integral nas variáveis restantes, obtemos
 	\[
-		\widehat{\frac{\partial f}{\partial x_j}}(\xi)
-		=(2\pi i\xi_j)\widehat f(\xi).
+		\widehat{\left(\frac{\partial f}{\partial x_{j}}\right)}(\xi) = \int_{\mathbb{R}^{n-1}}^{}\biggl[\int_{\mathbb{R}}^{}e^{-2\pi ix \xi }f(x) \mathrm{d}x_{j}\biggr] \mathrm{d}x_1 \dotsc \widehat{\mathrm{d}x_{j}}\dotsc \mathrm{d}x_{n}
+		=(2\pi i\xi_{j})\widehat f(\xi),
 	\]
-	A fórmula geral segue por indução. \qedsymbol
+	completando o caso $m=1$. O caso geral segue por indução. \qedsymbol
 \end{proof*}
 
-\begin{proof*}[Lema de Riemann--Lebesgue]
-	Primeiro suponha $f\in C_c^1(\mathbb R^n)$. Pela fórmula anterior,
-	\[
-		|\xi_j\widehat f(\xi)|
-		=\frac1{2\pi}
-		\left|\widehat{\partial_jf}(\xi)\right|
-		\leq\frac1{2\pi}\|\partial_jf\|_{L^1}.
-	\]
-	Assim,
-	\[
-		\left(\sum_{j=1}^n|\xi_j|\right)|\widehat f(\xi)|
-		\leq\frac1{2\pi}\|\nabla f\|_{L^1},
-	\]
-	e portanto $\widehat f(\xi)\to0$ quando $|\xi|\to\infty$.
+\medskip
+\noindent\textbf{(VII) Lema de Riemann--Lebesgue.} Para toda $f\in L^{1}(\mathbb{R}^{n})$, tem-se
+\[
+	\widehat f\in\mathcal{C}_{0}(\mathbb{R}^{n}),
+\]
+isto é,
+\[
+	\lim_{|\xi|\to\infty}\widehat f(\xi)=0.
+\]
 
-	Para $f\in L^1$ geral, usamos que $C_c^1$ é denso em $L^1$ e que
+\begin{proof*}
+	Isso é claro quando $f\in\mathcal{C}_{c}^{1}(\mathbb{R}^{n})$, porque, por (VI) e pela proposição inicial,
 	\[
-		\|\widehat f-\widehat g\|_\infty
-		\leq\|f-g\|_{L^1}.
+		|\xi_{j}\widehat f(\xi)|
+		=\frac{1}{2\pi}
+		\left|\widehat{\left(\partial_{j}f\right)}(\xi)\right|
+		\leq\frac{1}{2\pi}\|\partial_{j}f\|_{L^{1}}.
 	\]
-	Dado $\varepsilon>0$, escolha $g\in C_c^1$ com
+	Logo,
 	\[
-		\|f-g\|_{L^1}<\varepsilon/2.
+		\left(\sum_{j=1}^{n}|\xi_{j}|\right)|\widehat f(\xi)|
+		\leq\frac{1}{2\pi}\|\nabla f\|_{L^{1}}<\infty,
 	\]
-	Como $\widehat g(\xi)\to0$, existe $N$ tal que $|\xi|\geq N$ implica $|\widehat g(\xi)|<\varepsilon/2$. Então
+	e, portanto,
+	\[
+		\lim_{|\xi|\to\infty}|\widehat f(\xi)|=0.
+	\]
+
+	O caso geral resulta do fato de que $\mathcal{C}_{c}^{1}$ é denso em $L^{1}$, de que
+	\[
+		\mathcal{F}:L^{1}\longrightarrow\mathcal{C}_{B}
+	\]
+	é contínua e de que $\mathcal{C}_{0}$ é subespaço fechado de $\mathcal{C}_{B}$. Os detalhes são exercícios. Explicitamente, dado $\varepsilon>0$, escolhemos $f_{\varepsilon}\in\mathcal{C}_{c}^{1}$ com
+	\[
+		\|f_{\varepsilon}-f\|_{L^{1}}<\frac{\varepsilon}{2}.
+	\]
+	Então
 	\[
 		|\widehat f(\xi)|
-		\leq|\widehat f(\xi)-\widehat g(\xi)|+|\widehat g(\xi)|
-		<\varepsilon.
+		\leq
+		|\widehat f(\xi)-\widehat f_{\varepsilon}(\xi)|
+		+|\widehat f_{\varepsilon}(\xi)|.
 	\]
-	Logo $\widehat f\in C_0$. \qedsymbol
+	Pela continuidade de $\mathcal{F}$,
+	\[
+		|\widehat f(\xi)-\widehat f_{\varepsilon}(\xi)|
+		\leq \|f-f_{\varepsilon}\|_{L^{1}}
+		<\frac{\varepsilon}{2},
+	\]
+	e, como $\widehat f_{\varepsilon}\in\mathcal{C}_{0}$, existe $N\in\mathbb{N}$ tal que
+	\[
+		|\xi|\geq N
+		\quad\Longrightarrow\quad
+		|\widehat f_{\varepsilon}(\xi)|<\frac{\varepsilon}{2}.
+	\]
+	Daí $|\widehat f(\xi)|<\varepsilon$ para $|\xi|\geq N$. \qedsymbol
 \end{proof*}
 
 \begin{tcolorbox}[
@@ -274,18 +452,23 @@ A seguir listamos algumas propriedades básicas da transformada de Fourier.
 		colback=cyan!15,
 		colbacklower=black,
 		coltitle=black,
-		drop fuzzy shadow]
+		drop fuzzy shadow,
+	]
 	Escrevendo
 	\[
-		e^{-2\pi i n x}=\cos(2\pi nx)-i\sin(2\pi nx),
+		e^{-2\pi i n x}=\cos(2\pi n x)+i\sin(2\pi n x),
 	\]
-	o lema de Riemann--Lebesgue fornece, para funções reais integráveis,
+	temos
 	\[
-		\lim_{n\to\infty}\int\cos(2\pi nx)f(x)\,dx=0,
+		\widehat f(n)
+		=\int\cos(2\pi n x)f(x)\,dx
+		+i\int\sin(2\pi n x)f(x)\,dx.
 	\]
-	e
+	Quando $f$ é real, obtém-se o enunciado clássico do Lema de Riemann--Lebesgue (ou escrevendo $\xi=n/(2\pi)$, $n\in\mathbb{Z}$):
 	\[
-		\lim_{n\to\infty}\int\sin(2\pi nx)f(x)\,dx=0.
+		\lim_{n\to\infty}\int\cos(2\pi n x)f(x)\,dx=0,
+		\qquad
+		\lim_{n\to\infty}\int\sin(2\pi n x)f(x)\,dx=0.
 	\]
 \end{tcolorbox}
 
