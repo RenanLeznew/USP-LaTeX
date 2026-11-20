@@ -1,0 +1,168 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 11 - 08 de Outubro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Resultados em Variedades sem Bordo.
+\end{itemize}
+\subsection{Resultados em Variedades sem Bordo}
+Para enunciar os resultados, consideraremos que:
+\begin{itemize}
+	\item Uma variedade sem bordo é tal que \(\partial f^{-1}(Z)=\emptyset \);
+	\item Denotaremos \(\partial f = f|_{\partial \mathbb{H}^{2}}\), onde \(f:M\rightarrow N\) com \(\partial M \neq\emptyset\) implica que \(\partial f:\partial M\rightarrow N\); e
+	\item Como \(\partial f(x, 0) = 0,\; \partial f=0\), de modo que \(0\in \mathbb{R}\) não é valor regular de \(f\) se, e somente se, \(\partial f \pitchfork Z\).
+\end{itemize}
+Lembremos também que, se \(f:M\rightarrow N,\; g:P\rightarrow N\) e \(c\in N\) é valor regular de f e g, então \(p=(c, c)\) é também valor regular de \(f\times g = (f, g):M\times P\rightarrow N\) e \(f^{-1}(p)\cap g^{-1}(p)\) é uma subvariedade.
+
+\begin{theorem*}
+	Sejam \(f:M\rightarrow N\) suave, M com bordo e Z subvariedade de N; se \(f\) e \(\partial f\) são transversais a Z, então \(f^{-1}(Z)\) é subvariedade de M com bordo dado por
+	\[
+		\partial (f^{-1}(Z)) = f^{-1}(Z)\cap \partial M.
+	\]
+\end{theorem*}
+
+\begin{theorem*}
+	Sejam M uma variedade com bordo e \(f:M\rightarrow N\) suave; então, o conjunto de valores regulares de f e de \(\partial f\) é denso.
+\end{theorem*}
+A demonstração é segue do \hyperlink{sard_theorem}{\textit{Teorema de Sard}}.
+
+\hypertarget{brower_fpt}{
+	\begin{theorem*}[Teorema do Ponto Fixo de Brower]
+		Denote por \(D^{m}\) o disco fechado em dimensão n. Toda aplicação contínua \(f:D^{m}\rightarrow D^{m}\) tem ponto fixo, ou seja, existe \(x\in D^{m}\) com \(f(x)=x\).
+	\end{theorem*}
+}
+\begin{lemma*}
+	Seja M uma variedade compacta com bordo não vazio. Então, não existe retração suave \(r:M\rightarrow \partial M\).
+\end{lemma*}
+\begin{exr}
+	Por que a hipótese de M ser compacta é necessária? Busque um contraexemplo.
+\end{exr}
+\begin{proof*}
+	Suponha que exista uma retração suave \(r : M\rightarrow \partial M\); pelo \hyperlink{sard_theorem}{\textit{Teorema de Sard}}, existe \(c\) no bordo de M que é um valor regular de \(r \) e de \(\partial r \), tal que \(r^{-1}(c)\) é uma 1-variedade compacta com bordo; daí, segue que
+	\[
+		r^{-1}\cong \mathbb{S}^{1} \text{ ou } r^{-1}(c)\cong [a, b],
+	\]
+	mas ambas não tem bordo! Por outro lado, \(y\in \partial (r^{-1}(c))\) significa que \(r(y) = y = c\), ou seja, \(\partial r^{-1}(c)= \{c\}\), que é um absurdo uma variedade sem bordo ter bordo. \qedsymbol
+\end{proof*}
+\begin{crl*}
+	A identidade \(\mathrm{id}_{\mathbb{S}^{n-1}}:\mathbb{S}^{n-1}\rightarrow \mathbb{S}^{n-1}\) não pode ser estendida a uma aplicação contínua \(F:D^{n}\rightarrow \mathbb{S}^{n-1}\).
+\end{crl*}
+\begin{proof*}
+	De fato, se existisse uma extensão assim, então sua restrição ao bordo seria a identidade; porém, como \(\partial D^{n} = \mathbb{S}^{n-1}\), isso faria de F uma retração de \(D^{n}\) sobre \(\partial D^{n}\), que é impossível. \qedsymbol
+\end{proof*}
+
+Agora, podemos provar o Teorema do Ponto Fixo de Brower.
+
+\begin{proof*}
+	Seja \(f:D^{m}\rightarrow D^{m}\) contínua e suponha, por absurdo, que f não tenha ponto fixo, ou seja,
+	\[
+		f(x)\neq x, \quad \forall x\in D^{m}.
+	\]
+	Aproximando \(f\) por uma aplicação suave suficientemente próxima, podemos ainda por cima supor que f é suave e sem ponto fixo.
+
+	Defina a aplicação
+	\[
+		r:D^{m}\rightarrow \partial D^{m} (=\mathbb{S}^{m-1})
+	\]
+	tomando, para cada \(x\in D^{m}\), que \(r(x)\) seja o ponto em que a semirreta que sai de \(f(x)\) e passa por \(x\) encontra \(\partial D^{m}\):
+	\[
+		r(x) = f(x) + \lambda (x)\frac{x-f(x)}{\Vert x-f(x) \Vert}, \quad \lambda (x)>0,
+	\]
+	onde \(\lambda (x)\) é escolhido tal que \(r(x)\in \partial D^{m}\). Desta forma, \(r\) é contínua e, para \(x\) em \(\partial D^{m},\) vale
+	\[
+		r(x) = x \Rightarrow r|_{\partial D^{m}} = \mathrm{id}_{\partial D^{m}},
+	\]
+	ou seja, encontramos uma retração de \(D^{m}\) sobre \(\partial D^{m}\), contradizendo o lema anterior.
+
+	Portanto, toda aplicação contínua \(f:D^{m}\rightarrow D^{m}\) tem pelo menos um ponto fixo.
+\end{proof*}
+\begin{theorem*}
+	A esfera \(\mathbb{S}^{n}\) para \(n\geq 2\) é simplesmente conexa.
+\end{theorem*}
+\begin{proof*}
+	Seja \(f:\mathbb{S}^{1}\rightarrow \mathbb{S}^{n}\) contínua (na verdade, podemos até supor suave). Pelo \hyperlink{sard_theorem}{\textit{Teorema de Sard}}, \(f(\mathbb{S}^{1})\) não pode todo \(\mathbb{S}^{n}\) por uma questão de dimensão; logo, existe pelo menos um ponto \(p\in \mathbb{S}^{n}\setminus{f(\mathbb{S}^{1})}\).
+
+	Considere agora a projeção estereográfica
+	\[
+		\pi_{p}:\mathbb{S}^{n}\setminus{\{p\}}\rightarrow \mathbb{R}^{n};
+	\]
+	então, como \(\mathbb{R}^{n}\) é contrátil, a aplicação \(\pi_{p}\circ f\) é homotópica a uma constante, e compondo com \(\pi_{p}^{-1},\) podemos concluir que f também é homotópica a uma constante! Portanto, \(\mathbb{S}^{n}\) é simplesmente conexa. \qedsymbol
+\end{proof*}
+\hypertarget{transversality_theorem}{
+	\begin{theorem*}[Teorema da Transversalidade com Bordo]
+		Seja M uma variedade com bordo, Z uma subvariedade de N e
+		\[
+			F:M\times S\rightarrow N
+		\]
+		uma aplicação suave. Suponha que \(F\pitchfork Z\) e \(\partial F \pitchfork Z\), onde \(\partial F = F|_{\partial M\times S}\), e defina, para cada s em S,
+		\[
+			f_{s}:M\rightarrow N, \quad f_{s}(x) = F(x, s).
+		\]
+		Então, para um conjunto denso de \(s\in S\), temos
+		\[
+			f_{s}\pitchfork Z \quad\&\quad \partial f_{s}\pitchfork Z, \quad \partial f_{s} = f_{s}|_{\partial M}.
+		\]
+	\end{theorem*}
+}
+\begin{proof*}
+	Sejam:
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; W = F^{-1}(Z) = \{(x, s)\in M\times S:\; F(x, s)\in Z\}      \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \partial W = \partial F^{-1}(Z) = W\cap (\partial M\times S) \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; \pi :W\rightarrow S, \quad \pi (x, 1) = 1.
+	\end{align*}
+	Se \(s\in S\) é um valor regular de \(\pi \), então \(f_{s}\) é transversal a Z: seja \(y = F(x, s)\in Z\), tal que, por \(F\) ser transversal a Z,
+	\[
+		\mathrm{d}F_{(x, s)}(T_{(x, s)(M\times S)}) + T_{y}Z = T_{y}N.
+	\]
+	Por outro lado,
+	\[
+		T_{(x, s)}W = \{u\in T_{(x, s)}(M\times S):\; \mathrm{d}F_{(x, s)}(u)\in T_{y}Z\},
+	\]
+	e se s é valor regular de \(\pi \), então \(\mathrm{d}\pi_{(x, s)}\) é sobrejetora.
+
+	Agora, dado \(v\in T_{y}N\), podemos usar a transversalidade de \(F\) para garantir que exista
+	\[
+		u = (u_{M}, u_{S})\in T_{x}M \oplus T_{s}S
+	\]
+	tal que \(v-\mathrm{d}F_{(x, s)}(u)\) seja um vetor em \(T_{y}Z\); pela sobrejetividade de \(\mathrm{d}\pi_{(x, s)}\), também, existe
+	\[
+		\tilde{u} = (\tilde{u}_{M}, u_{S})\in T_{(x, s)}W \Rightarrow \mathrm{d}F_{(x, s)}(\tilde{u})\in T_{y}Z.
+	\]
+	Assim, subtraindo, obtemos que \(v-\mathrm{d}F_{(x, s)}(u-\tilde{u})\) é um vetor de \(T_{y}Z\); no entanto,
+	\[
+		u-\tilde{u}=(u_{M}-\tilde{u}_{M}, 0) \Rightarrow \mathrm{d}F_{(x, s)}(u-\tilde{u}=\mathrm{d}f_{s}(x)(u_{M}-\tilde{u}_{M}).
+	\]
+	Logo, para algum \(w\in T_{x}M\), temos \(v-\mathrm{d}f_{s}(x)(w)\in T_{y}Z\), e portanto
+	\[
+		\mathrm{d}f_{s}(x)(T_{x}M) \cdot T_{x}M + T_{f_s(x)}Z = T_{f_{s}(x)}N,
+	\]
+	isto é, \(f_{s}\pitchfork Z\).
+	Mais ainda, se \(s\in S\) é um valor regular de \(\partial \pi \), então \(\partial f_{s}\) é transversal a Z!
+
+	Destes dois fatos segue o teorema, pois o conjunto de valores regulares de \(\pi \) e \(\partial \pi \) em S é denso.
+\end{proof*}
+\begin{example}
+	Como caso particular de uso do teorema, tome \(f:M\rightarrow \mathbb{R}^{N}\) como uma aplicação suave e \(S\subseteq \mathbb{R}^{N}\) um aberto; defina
+	\[
+		F:M\times S\rightarrow \mathbb{R}^{N}, \quad F(x, s) = f(x) + s
+	\]
+	e para cada s em S, considere
+	\[
+		f_{s}:M\rightarrow \mathbb{R}^{N}, \quad f_{s}(x) = f(x) + s.
+	\]
+	Em outras palavras, queremos aplicar o teorema anterior ao caso particular da translação.
+
+	Com efeito, para ver que \(F\) é transversal, note que
+	\[
+		\mathrm{d}F_{(x, s)}(u, v) = \mathrm{d}f_{x}(u) + v.
+	\]
+	Como \(v\in T_{s}S\cong \mathbb{R}^{N}\) pode variar livremente, o termo \(\mathrm{d}f_{x}(u)+v\) acaba ``percorrendo'' todo o espaço \(\mathbb{R}^{N}\), ou seja,
+	\[
+		\mathrm{d}F_{(x, s)}(T_{x}M \oplus T_{s}S)=\mathbb{R}^{N}.
+	\]
+	Logo, para quaisquer subvariedades de \(\mathbb{R}^{N}\), F será transversal a Z e, pelo mesmo motivo, a restrição ao bordo também será.
+
+	Sendo assim, segue que, para um conjunto denso de \(s\in S\), a aplicação \(f_{s}\) é transversal a Z: para quase toda translação s, a aplicação \(x\mapsto f(x)+s\) é transversal a Z.
+\end{example}
+\end{document}

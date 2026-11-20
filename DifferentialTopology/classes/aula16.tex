@@ -1,0 +1,68 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - 10 de Novembro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Índices de Campos de Vetores.
+\end{itemize}
+\subsection{Índices de Campos de Vetores}
+\begin{def*}
+	Dada uma aplicação \(f:M\rightarrow N\) suave, uma \textbf{singularidade isolada} é um ponto \(p\in M\) tal que existe uma vizinhança \(U\subseteq \mathbb{R}^{n}\) de p com
+	\[
+		\left\{\begin{array}{ll}
+			v(p) = 0 \\
+			v(q)\neq 0, \quad \forall q \in U\setminus{\{p\}}
+		\end{array}\right.\; \square
+	\]
+\end{def*}
+
+Seja \(v:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}\) uma aplicação suave (é um vetor) com \(p\in \mathbb{R}^{n}\) uma singularidade isolada dele.
+Considerando primeiro o caso da esfera, podemos tomar o campo de vetores sendo
+\begin{align*}
+	\overline{v}: & S(p, r)\rightarrow\mathbb{S}^{n-1}                                \\
+	              & q\longmapsto \overline{v}\coloneqq \frac{v(q)}{\Vert v(q) \Vert}.
+\end{align*}
+Neste contexto,
+\begin{def*}
+	O \textbf{índice de p} é o grau da normalização do campo de vetores:
+	\[
+		i(v, p) = \deg{(\overline{v})}.\; \square
+	\]
+\end{def*}
+Quando temos essa situação, o índice é um valor inteiro, mas isso não necessariamente precisa ser verdade: por exemplo, quando temos um campo de linhas ao invés de um campo de vetores, o índice pode ser um número racional.
+\begin{example}
+	\begin{itemize}
+		\item[i)] O campo radial, formado pelos vetores-identidades \(v:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n},\; v(x) = x\), tem índice 1:
+		      \[
+			      i(v, 0) = 1,
+		      \]
+		      com a única singularidade sendo o 0.
+
+		\item[2)] Considere o campo de vetores dados por \(v:\mathbb{C}\rightarrow \mathbb{C}^{2},\; v(z) = z^{k}\), formando uma esfera com índice k; a singularidade isolada é \(0\) novamente e o índice nela é
+		      \[
+			      i(v, 0) = k.
+		      \]
+		      O conjugado dessa aplicação, que envia \(z\) para \(z^{-k}\), segue tendo o mesmo ponto de singularidade, mas agora o índice é
+		      \[
+			      i(v, 0) = -k.
+		      \]
+		\item[3)] Para o caso geral de campos lineares no plano, precisamos utilizar uma ADO: se, por exemplo
+		      \[
+			      v:\mathbb{R}^{2}\rightarrow \mathbb{R}^{2},\; v(x, y) = \begin{bmatrix}
+				      1 & 0  \\
+				      0 & -1
+			      \end{bmatrix} \begin{bmatrix}
+				      x \\
+				      y
+			      \end{bmatrix},
+		      \]
+		      então podemos encontrar \(X = (x(t),y(t))\) por meio da EDO \(X'(t) = v(X(t))\), com solução
+		      \[
+			      x(t) = e^{t} \quad\&\quad y(t) = e^{-t}.
+		      \]
+		      Aqui, \((0, 0)\) é singularidade isolada de \(v\). Como as coordenadas tendem a 0 quando o \(t\) vai para \(-\infty\), a solução forma um vetor partindo para \(-\infty\) (e vice-versa para \(y(t)\)); para os caminhos no meio-termo, forma-se a imagem usual de uma sela.
+		      Conhecendo o retrato de fase local de um sistema autônomo, podemos falar do índice de forma geométrica como contendo localmente a imagem em uma esfera de raio r (orientação canônica), normalizar os vetores (eles entram dentro da esfera com orientação invertida) e acompanhar a imagem deles, preenchendo a esfera de vetores com orientação oposta! Ao final, teremos dado exatamente uma volta na esfera, e isso corresponde ao índice -1: \(\overline{v}\) será um difeomorfismo (pois preenche a esfera um-pra-um) que reverte orientação.
+		      Essa estratégia é muito útil para calcular o índice de algumas figuras.
+	\end{itemize}
+\end{example}
+\end{document}

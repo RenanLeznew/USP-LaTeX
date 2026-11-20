@@ -1,0 +1,181 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 17 - 12 de Novembro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Conjugação de campos vetoriais
+	\item Invariância do índice.
+\end{itemize}
+\subsection{Conjugação de campos vetoriais}
+\begin{example}
+	Considere o campo vetorial \(u:\mathbb{R}^{2}\rightarrow \mathbb{R}^{2}\) definido por
+	\[
+		u(x, y) = \begin{bmatrix}
+			\cos^{}{\theta } & -\sin^{}{\theta } \\
+			\sin^{}{\theta } & \cos^{}{\theta }
+		\end{bmatrix} \begin{bmatrix}
+			x \\
+			y
+		\end{bmatrix},
+	\]
+	onde \(\theta \) é um ângulo fixo. A matriz acima nada mais é que uma matriz de rotação do vetor \((x, y)\) por \(\theta \), e obtemos
+	\[
+		u(x, y) = \begin{bmatrix}
+			x\cos^{}{\theta } & -y\sin^{}{\theta } \\
+			x\sin^{}{\theta } & y\cos^{}{\theta }
+		\end{bmatrix};
+	\]
+	para entender o índice da singularidade em \((0, 0)\), que é a única singularidade isolada do campo vetorial, consideramos uma circunferência centrada na origem
+	\[
+		\gamma (t) = (r\cos^{}{t}, r\sin^{}{t}), \quad 0\leq t \leq 2\pi , \; r > 0,
+	\]
+	que pode ser substituída no campo para obter
+	\[
+		u(\gamma (t)) = \begin{bmatrix}
+			r\cos^{}{t+\theta } \\
+			r\sin^{}{t+\theta }
+		\end{bmatrix}.
+	\]
+	Desta forma, enquanto percorremos uma volta em torno da origem, o campo vetorial também realiza uma volta em torno da origem no espaço vetorial! Logo, o índice do campo vetorial em \((0, 0) = p\) é
+	\[
+		i(u, p) = 1.
+	\]
+\end{example}
+
+O índice \(i(v, p)\), apresentado na aula anterior, não caracteriza a estrutura local do retrato de fase de mm numa vizinhança de \(p\), exceto quando a singularidade \(p\) é ``hiperbólica'' (autovalores de \(u'(p)\) têm parte real não nula), caso no qual \(i(v, p)\) caracteriza o retrato de fase local em \(p\).
+
+\begin{def*}
+	Sejam \(u,\; v\) campos de vetores em M e N, respectivamente, e \(f:M\rightarrow N\) um difeomorfismo. Dizemos que \(u\) e \(v\) \textbf{são conjugados por \(\mathbf{f}\)} se
+	\[
+		v(f(p)) = f'(p)u(p).\; \square
+	\]
+\end{def*}
+No contexto acima, temos um campo de vetores \(u\) sobre M que associa um vetor \(u(p)\in T(p)M\) para cada ponto p; a aplicação \(f\) transporta este ponto para \(f(p)\) em N, enquanto a diferncial \(\mathrm{d}f_p\) transporta o vetor \(u(p)\) para o espaço tangente \(T_{f(p)}\), resultando num campo de vetores sobre N. Este processo de relação entre \(v_{f(p)} = \mathrm{d}f(p)(u(p))\) e \(u(p)\) é, na verdade, um conceito bem comum na área:
+\begin{def*}
+	Se M e N são duas variedades diferenciáveis, \(f:M\rightarrow N\) é um difeomorfismo e \(u\) um campo de vetores em M, definimos o \textbf{pushforward de \(\mathbf{u}\) por \(\mathbf{f}\)}, denotado por \(f_{*}u\), como o campo de vetores em N dado por
+	\[
+		(f_{*}u)_{f(p)} = \mathrm{d}f(p)(u(p)) = f'(p)\cdot u(p).\; \square
+	\]
+\end{def*}
+Em contrapartida, a volta é menos presente no contexto atual de estudos, mas ela é o pullback:
+\begin{def*}
+	Para M e N variedades diferenciáveis, \(f:M\rightarrow N\) um difeomorfismo e \(\omega \) uma 1-forma diferencial em N, o \textbf{pullback de \(\mathbf{\omega }\) por \(\mathbf{f}\)}, denotado por \(f^{*}\omega \), é a 1-forma em M dada por
+	\[
+		(f^{*}\omega )(v(p))= \omega_{f(p)}(f'(v(p))), \quad \forall p\in M,\; v\in T_{p}M.\; \square
+	\]
+\end{def*}
+No caso dos campos de vetores, se escrevemos \(x = x(u)\) e \(\omega = v(x)\mathrm{d}x\) para a 1-forma com o campo \(v\), então
+\[
+	f^{*}\omega  = v(x(u))x'(u)\mathrm{d}u.
+\]
+
+Deixando de lado o adendo notacional, a relação entre os dois campos vetoriais \(u\) e \(v\) descreve o transporte de curvas por um difeomorfismo: para um certo caminho \(\varphi _{t}(p)\) passando por \(p\), cuja composição de etapas \(t\) e \(s\) é simplesmente a extensão do caminho
+\[
+	\varphi _{s}(\varphi _{t}(p)) = \varphi _{s+t}(p),
+\]
+então podemos relacionar a taxa de conteúdo pelo caminho (o fluxo dele) com o campo de vetores
+\[
+	\frac{\mathrm{d}}{\mathrm{d}t}(\varphi_{t}(p)) = v(\varphi_{t}(p)),
+\]
+onde o campo é do tipo \(x'= v(x).\)
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se \(u_{t},\; v_{t},\; t\in \mathbb{R}\) são os fluxos de \(u\) e de \(v\), respectivamente, e se \(f\) é a conjugação em \(u\) e \(v\), então
+	\[
+		v_{t} = f\circ u_{t}\circ f^{-1}, \quad \forall t\in \mathbb{R},
+	\]
+	que é um tanto importante, pois toda vez que temos um campo de vetores, temos um sistema dinâmica contínuo (basta olhas o conjunto M como o espaço euclidiano, por exemplo, onde cada posição tem uma partícula e uma lei neste ambiente que faz com que elas mexam-se); o que a conjugação está dizendo é, mesmo após a aplicação de \(f\), olhando a partícula correspondente em N mostra que a trajetória passando por \(p\) de \(u\), \(\mathcal{O}_{p}(u)\), é preservada como a trajetória passando por \(f(p)\) por \(v\), \(\mathcal{O}_{f(p)}(v)\):
+	\[
+		f(\mathcal{O_{p}}(u)) = \mathcal{O}_{f(p)}(v).
+	\]
+\end{tcolorbox}
+Sob a conjugação, o fluxo de v e o de u satisfazem as EDOs
+\[
+	\frac{\mathrm{d}}{\mathrm{d}t}v_{t}(p) = v(v_{t}(p)) \quad\&\quad \frac{\mathrm{d}}{\mathrm{d}t}(u_{t}(q)) = u(u_{t}(q)),
+\]
+mas e a relação
+\[
+	v_{t}(p) = f\circ u_{t}\circ f^{-1}(p)?
+\]
+Vamos chamar de \(w_{t}(p)\) o fluxo de \(v\); neste caso, calculando a derivada pela regra da cadeia,
+\begin{align*}
+	\frac{\mathrm{d}}{\mathrm{d}t}(\omega_{t}(p)) & = f'(u_{t}(f^{-1}(p)))\cdot \frac{\mathrm{d}}{\mathrm{d}t} (u_{t}(f^{-1}(p)))             \\
+	                                              & = f'(\underbrace{u_{t}(f^{-1}(p))}_{``p''})\cdot u(\underbrace{u_{t}(f^{-1}(p))}_{``p''}) \\
+	                                              & = v(f(u_{t}(f^{-1}(p))))                                                                  \\
+	                                              & = f'(p)\cdot u(p).
+\end{align*}
+Portanto, a conjugação nada mais é que
+\[
+	\frac{\mathrm{d}}{\mathrm{d}t}(w_{t}(p)) = v(w_{t}(p)) \Rightarrow (f\circ u_{t}\circ f^{-1})(p) = w_{t}(p) = v_{t}(p).
+\]
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Existe também uma noção de \textit{conjugação topológica} entre \(u_{t}\) e \(v_{t}\), que é um homeomorfismo \(h:M\rightarrow N\) satisfazendo, para todo t em \(\mathbb{R}\),
+	\[
+		v_{t} = h\circ u_{t}\circ h^{-1},
+	\]
+	tal que o retrato de fases de um campo é preservado por homeomorfismos a menos de conjugação topológica\footnote{? me perdi.}.
+\end{tcolorbox}
+
+\begin{theorem*}[Invariância dos Índices por Conjugação]
+	Sejam U e V abertos de \(\mathbb{R}^{n},\; u:U\rightarrow \mathbb{R}^{n},\; v:V\rightarrow \mathbb{R}^{n}\) campos conjugados pelo difeomorfismo \(f:U\rightarrow V\) e \(p\) um ponto de U. Caso \(p\) seja uma singularidade isolada de \(u\), valem:
+	\begin{itemize}
+		\item[i)] \(f(p)\) é uma singularidade isolada de \(v\);
+		\item[ii)] os índices são os mesmos para os dois campos, nos respectivos pontos:
+		      \[
+			      i(u, p) = i(v, f(p)).
+		      \]
+	\end{itemize}
+\end{theorem*}
+\begin{proof*}
+	Começamos a prova por uma afirmação:
+
+	\textbf{\underline{Afirmação}:} Todo difeomorfismo \(f:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}\) que preserva orientação é isotópico à identidade. A prova é super simples, utilizando apenas ferramentas de cálculo, mas curiosamente modelando fenômenos desde mesas de bilhar até o problema dos três corpos.
+	Dito isso, há uma ideia parecida com a prova do Lema de Morse na prova, e isso é a única dificuldade maior.
+
+	Dito isso, existem duas possibilidades para \(f\): ou ela preserva orientação, ou ela inverte; se ela preserva orientação, então temos uma isotopia \(F: f \cong \mathrm{id}\) com a identidade, digamos
+	\[
+		F:U\times I\rightarrow V',\quad  F_{t}(x) = F(x, t),\; F_{0} = f,\; F_{1} = \mathrm{id}.
+	\]
+	Podemos supor que \(u(0) = 0\), tal que
+	\[
+		F_{t}(0) = 0,\; v(0) = 0,
+	\]
+	e sendo \(u\) conjugado por \(v\), vale que, para todo \(t\),
+	\[
+		v_{t} = f\circ u_{t}\circ f^{-1},
+	\]
+	de forma que o fluxo de \((F_{s})_{*}u\) é uma família de campo de vetores \(w^{s}\) mapeada por \(F_{s}\circ u_t \circ F_{s}^{-1}\) (\(w^{s}\) é o campo dado pelo pushforward do conjugado); para esta família, a isotopia garante as relações
+	\begin{align*}
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; w^{0} = f_{*}u = v \\
+		 & \tikz[baseline=-0.5ex]\draw[black, fill=black, radius=1.5pt](0, 0)circle;\; w^{1} = u,
+	\end{align*}
+	formando uma isotopia entre os campos \(u\) e \(v\). Logo, \(u\) e \(v\) têm os mesmos graus, e \(\overline{u}\) também será isotópico a \(\overline{v}\), fornecendo a relação
+	\[
+		i(u, 0) = i(v, 0).
+	\]
+
+	Se \(f\) não preserva orientação, a afirmação mostra que, olhando todos os difeomorfismos e considerando a classe de isotopia à identidade, o espaço é dividido entre todos os que preservam a orientação e todos que não preservam; lembrando das aplicações \(R_{i}\) que invertem o sinal da i-ésima coordenada, todas as \(R\)'s estão no lado que inverte a orientação, tal que podemos usar isto para transformar \(f\) em \(R_{i}\circ f\), fazendo com que \(f\) preserve orientação agora! Portanto, podemo repetir o argumento anterior para finalizar a prova. \qedsymbol
+\end{proof*}
+
+\end{document}

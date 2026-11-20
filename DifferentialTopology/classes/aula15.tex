@@ -1,0 +1,262 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 15 - 05 de Novembro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Propriedades dos Graus
+\end{itemize}
+\subsection{Propriedades dos Graus}
+Começamos provando os dois lemas utilizados na aula passada:
+\begin{lemma*}
+	Suponha que \(M = \partial X\), onde X é uma variedade orientável com bordo. Se \(f:M\rightarrow N\) admite uma extensão \(F:X\rightarrow N\), então \(\mathrm{deg}(f) = 0\).
+\end{lemma*}
+\begin{proof*}
+	Se \(y\in N\) é um valor regular de F, então \(F^{-1}(y)\) é uma subvariedade compacta de dimensão 1, pois
+	\[
+		\mathrm{dim}_{}(F^{-1}(y)) = \mathrm{dim}_{}(X) - \mathrm{dim}_{}(N) = (n+1) - n = 1,
+	\]
+	que satisfaz
+	\[
+		\partial F^{-1}(y) = F^{-1}(y)\cap \partial M.
+	\]
+	Pela classificação das variedades compactas de dimensão 1, \(F^{-1}(y)\) é uma união finita e disjunta de circunferências e de arcos fechados, e como essas componentes não possuem bordo, cada arco possui exatamente dois pontos de extremidades. Considere A uma dessas componentes homeomorfas a um arco com extremidades \(a, b\) em M e orientemos ela por meio das orientação de X e N.
+
+	Para cada ponto \(x\in A\), escolhemos uma base positivamente orientada de \(T_{x}X\), digamos
+	\[
+		(v_1(x), v_2(x), \dotsc , v_{n+1}(x)),
+	\]
+	de maneira que
+	\[
+		T_{x}A = \langle v_1(x) \rangle
+	\]
+	com base positiva
+	\[
+		\left(\mathrm{d}F_x(v_2(x)), \dotsc , \mathrm{d}F_{x}(v_{n+1}(x))\right)
+	\]
+	Por isso, \(v_1(x)\) determina a orientação de \(A\), e escolhemos a orientação do arco de modo que, na extremidade \(a\), o vetor tangente aponte para fora de X, enquanto que, em \(b\), aponte para dentro; pela orientação induzida no bordo, as duas extremidades contribuem com sinais opostos para o grau de \(f\) devido à convenção da normal exterior (faz com que o sinal muda quanto o vetor tangente orientado passa de fora para dentro!), tal que
+	\[
+		\mathrm{sgn}(\mathrm{d}f_{a}) + \mathrm{sgn}(\mathrm{d}f_{b}) = 0.
+	\]
+
+	Consequentemente, cada componente de \(F^{-1}(y)\) que é um arco contribui em nada para a soma que define o grau, ao passo que, como as componentes homeomorfas às circunferências não possuem pontos no bordo, também não contribuem. Portanto,
+	\[
+		\mathrm{deg}(f) = 0. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{lemma*}
+	Se \(f\) e \(g\) são aplicações isotópicas, então para todo valor regular comum, vale
+	\[
+		\mathrm{deg}(f, y) = \mathrm{deg}(g, y).
+	\]
+\end{lemma*}
+\begin{proof*}
+	Como \(f\) e \(g\) são isotópicas, existe uma aplicação suave
+	\[
+		F:M\times [0, 1]\rightarrow N
+	\]
+	com
+	\[
+		F(x, 0) = f(x), \quad F(x, 1) = g(x);
+	\]
+	Denotando-na por \(F_{t}(x) = F(x, t)\), podemos escrever simplesmente, para facilitar,
+	\[
+		F_{0} = f, \quad F_{1} = g.
+	\]
+
+	Dito isso, escolha \(y\in N\) que seja ao mesmo tempo um valor regular de \(F,\; f\) e de \(g\), a qual existe devido ao \hyperlink{sard_theorem}{\textit{Teorema de Sard}}. Tome a variedade com bordo \(X = [0, 1]\times M\), com a orientação usual do produto e tal que o bordo seja formado por duas cópias de M com orientações opostas:
+	\[
+		\partial X = M_{1} \sqcup -M_{0},
+	\]
+	onde usamos a estratégia super útil\footnote{Axioma da Escolha!!} de
+	\[
+		M_{i} = M\times i, \quad i = 0, 1.
+	\]
+
+	Pelo teorema da pré-imagem, \(F^{-1}(y)\) é uma subvariedade compacta de dimensão 1 com
+	\[
+		\partial F^{-1}(y) = F^{-1}(y)\cap (M_{0}\cup M_1),
+	\]
+	e assim como no Lema 1, as componentes de \(F^{-1}(y)\) são arcos e circunferências, com cada um possuindo duas extremidades e cujas contribuições para o grau se cancelam.
+
+	Utilizando o Lema anterior à aplicação \(F\), concluímos que
+	\[
+		\deg{(F|_{\partial X})}=0;
+	\]
+	no entanto, a orientação de \(M_1\) coincide com a original de \(M\), ao passo que \(M_{0}\) é oposta e
+	\[
+		\mathrm{deg}(F|_{\partial X}) = \deg{(g)} - \deg{(f)}.
+	\]
+	Portanto,
+	\[
+		\deg{(g)} - \deg{(f)} = 0 \Longleftrightarrow \deg{(g)} = \deg{(f)}. \text{ \qedsymbol}
+	\]
+\end{proof*}
+\begin{prop*}[Grau da composição]
+	Sejam M, N e P variedades diferenciáveis, orientadas e de mesma dimensão, com M e N compactas e N e P conexas. Sejam ainda as aplicações suaves
+	\[
+		f:M\rightarrow N \quad\&\quad g:N\rightarrow P.
+	\]
+	Então,
+	\[
+		\mathrm{deg}(g\circ f) = \mathrm{deg}(g)\cdot\mathrm{deg}(f).
+	\]
+\end{prop*}
+\begin{proof*}
+	Escolha um ponto \(a\in P\) que seja valor regular tanto de g quanto de \(g\circ f\); tal escolha é possível pelo \hyperlink{sard_theorem}{\textit{Teorema de Sard}}. Pela regra da cadeia,
+	\[
+		(g\circ f)'(x) = g'(f(x))\circ f'(x).
+	\]
+	Como a diferencial da composição é um isomorfismo para cada \(x\in (g\circ f)^{-1}(a)\), e como os espaços tangentes possuem a mesma dimensão, as diferenciais \(g'(f(x))\) e \(f'(x)\) também são isomorfismos. Assim, todo \(y\in g^{-1}(a)\) é valor regular de \(f\) (inclusive quando \(f^{-1}(y)=\emptyset\)).
+
+	Pela definição do grau e pela multiplicatividade do sinal do determinante, temos
+	\begin{align*}
+		\mathrm{deg}(g\circ f)
+		 & = \sum\limits_{x\in (g\circ f)^{-1}(a)}\mathrm{sgn}\bigl((g\circ f)'(x)\bigr)                                                                                    \\
+		 & = \sum\limits_{x\in (g\circ f)^{-1}(a)}\mathrm{sgn}\bigl(g'(f(x))\bigr)\cdot\mathrm{sgn}\bigl(f'(x)\bigr)                                                        \\
+		 & = \sum\limits_{y\in g^{-1}(a)}\sum\limits_{x\in f^{-1}(y)}\mathrm{sgn}\bigl(g'(y)\bigr)\cdot\mathrm{sgn}\bigl(f'(x)\bigr)                                        \\
+		 & = \sum\limits_{y\in g^{-1}(a)}\mathrm{sgn}\bigl(g'(y)\bigr)\underbrace{\left(\sum\limits_{x\in f^{-1}(y)}\mathrm{sgn}\bigl(f'(x)\bigr)\right)}_{\mathrm{deg}(f)} \\
+		 & = \mathrm{deg}(f)\sum\limits_{y\in g^{-1}(a)}\mathrm{sgn}\bigl(g'(y)\bigr)                                                                                       \\
+		 & = \mathrm{deg}(f)\cdot\mathrm{deg}(g). \text{ \qedsymbol}
+	\end{align*}
+\end{proof*}
+
+\begin{example}[Aplicação antipodal]
+	Para \(n\geq 1\), considere a aplicação antipodal \(A:\mathbb{S}^{n}\rightarrow\mathbb{S}^{n}\), dada por
+	\[
+		A(x_1,\dotsc,x_{n+1})=(-x_1,\dotsc,-x_{n+1}).
+	\]
+	Ela pode ser escrita como uma composição de \(n+1\) reflexões,
+	\[
+		A=R_1\circ R_2\circ\dotsc\circ R_{n+1},
+	\]
+	onde \(R_i\) é a reflexão definida em aulas passadas. Cada reflexão inverte a orientação da esfera, de modo que \(\mathrm{deg}(R_i)=-1\) e pela proposição anterior,
+	\[
+		\mathrm{deg}(A)=\prod\limits_{i=1}^{n+1}\mathrm{deg}(R_i)=(-1)^{n+1}.
+	\]
+	Como \(\mathrm{deg}(\mathrm{id}_{\mathbb{S}^{n}})=1\), a invariância do grau por homotopia implica que, se n é par,
+	\[
+		A\not\cong\mathrm{id}_{\mathbb{S}^{n}}.
+	\]
+	Quando n é ímpar, a antipodal é homotópica à identidade: nesse caso, \(n+1\) é par e podemos obter uma homotopia por meio de rotações simultâneas nos planos coordenados \((x_1,x_2),\dotsc,(x_n,x_{n+1})\).
+\end{example}
+
+\subsection{O Teorema da Bola Cabeluda e Outra Prova do TFA}
+\begin{def*}
+	Seja \(M\subset\mathbb{R}^{k}\) uma variedade diferenciável. Um \textbf{campo vetorial tangente suave} sobre M é uma aplicação suave
+	\[
+		v:M\rightarrow\mathbb{R}^{k}
+	\]
+	tal que \(v(x)\in T_xM\) para todo \(x\in M\). Dizemos que v é \textbf{não nulo} se \(v(x)\neq 0\) para todo \(x\in M\). \(\square\)
+\end{def*}
+
+\begin{example}
+	Quando \(M=\mathbb{S}^{n}\subset\mathbb{R}^{n+1}\), temos
+	\[
+		T_x\mathbb{S}^{n}=\{w\in\mathbb{R}^{n+1}:\langle x,w\rangle=0\}.
+	\]
+	Assim, v é tangente à esfera se, e somente se, \(\langle x,v(x)\rangle=0\) para todo \(x\in\mathbb{S}^{n}\).
+\end{example}
+
+\hypertarget{hairy_ball}{\begin{theorem*}[Teorema da Bola Cabeluda]
+		A esfera \(\mathbb{S}^{n}\) admite um campo vetorial tangente suave e não nulo se, e somente se, n é ímpar.
+	\end{theorem*}}
+\begin{proof*}
+	Suponha, inicialmente, que exista um campo tangente suave \(v:\mathbb{S}^{n}\rightarrow\mathbb{R}^{n+1}\), com \(v(x)\neq0\) para todo x. Dividindo v por sua norma, podemos supor \(\Vert v(x)\Vert=1\) em toda a esfera.
+
+	Defina a aplicação
+	\[
+		F:\mathbb{S}^{n}\times[0,\pi]\rightarrow\mathbb{S}^{n},\quad F(x,\theta)=x\cos\theta+v(x)\sin\theta.
+	\]
+	Como v é tangente à esfera, vale \(\langle x,v(x)\rangle=0\); logo,
+	\begin{align*}
+		\Vert F(x,\theta)\Vert^{2}
+		 & =\Vert x\Vert^{2}\cos^{2}\theta+2\langle x,v(x)\rangle\cos\theta\sin\theta+\Vert v(x)\Vert^{2}\sin^{2}\theta \\
+		 & =\cos^{2}\theta+\sin^{2}\theta=1.
+	\end{align*}
+	Logo, F está bem definida e fornece uma homotopia entre a identidade e a antipodal, pois
+	\[
+		F(x,0)=x \quad\&\quad F(x,\pi)=-x.
+	\]
+	Pela invariância do grau por homotopia e pelo exemplo anterior,
+	\[
+		1=\mathrm{deg}(\mathrm{id}_{\mathbb{S}^{n}})=\mathrm{deg}(A)=(-1)^{n+1},
+	\]
+	o que implica que n é ímpar.
+
+	Reciprocamente, se n é ímpar, \(n+1\) é par. Defina
+	\[
+		v(x_1,x_2,\dotsc,x_n,x_{n+1})=(-x_2,x_1,\dotsc,-x_{n+1},x_n).
+	\]
+	Temos \(\langle x,v(x)\rangle=0\) e \(\Vert v(x)\Vert=\Vert x\Vert=1\). Portanto, v é um campo tangente suave e não nulo sobre \(\mathbb{S}^{n}\), demonstrando a recíproca. \qedsymbol
+\end{proof*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se \(f:M\rightarrow N\) é uma aplicação suave entre variedades orientadas de mesma dimensão, com M compacta e N conexa, e f não é sobrejetora, então existe \(c\in N\setminus f(M)\). Como \(f^{-1}(c)=\emptyset\), c é um valor regular de f e
+	\[
+		\mathrm{deg}(f)=\sum\limits_{x\in f^{-1}(c)}\mathrm{sgn}(f'(x))=0.
+	\]
+	Em particular, vale a contrapositiva
+	\[
+		\mathrm{deg}(f)\neq0\Rightarrow f\text{ é sobrejetora}.
+	\]
+\end{tcolorbox}
+
+\hypertarget{fundamental_theorem_algebra}{\begin{theorem*}[Teorema Fundamental da Álgebra]
+		Todo polinômio não constante com coeficientes complexos possui pelo menos uma raiz complexa.
+	\end{theorem*}}
+\begin{proof*}
+	Considere um polinômio mônico de grau \(n\geq1\), escrito como
+	\[
+		p(z)=z^{n}+c_{n-1}z^{n-1}+\dotsc+c_1z+c_0=z^{n}+Q(z),
+	\]
+	onde \(\mathrm{deg}(Q)<n\), quando \(Q\neq0\). Consideremos a homotopia
+	\[
+		F:\mathbb{C}\times[0,1]\rightarrow\mathbb{C},\quad F(z,t)=z^{n}+tQ(z),
+	\]
+	de modo que \(F_0(z)=z^{n}\) e \(F_1(z)=p(z)\).
+
+	Como Q possui grau menor que n, podemos escolher \(R>0\) suficientemente grande para que
+	\[
+		|Q(z)|<|z|^{n},\quad\text{se }|z|=R.
+	\]
+	Então, para todo \(t\in[0,1]\) e \(|z|=R\), temos \(|tQ(z)|<|z|^{n}\), levando a \(F(z,t)\neq0\). Isso permite normalizar F sobre a circunferência e definir
+	\[
+		H:\mathbb{S}^{1}\times[0,1]\rightarrow\mathbb{S}^{1},\quad
+		H(u,t)=\frac{F(Ru,t)}{|F(Ru,t)|};
+	\]
+	notemos que
+	\[
+		H(u,0)=u^{n} \quad\&\quad H(u,1)=\frac{p(Ru)}{|p(Ru)|}.
+	\]
+	Como H é uma homotopia e a aplicação \(u\mapsto u^{n}\) possui grau n (cada valor regular tem n pré-imagens com sinal positivo), segue que
+	\[
+		\mathrm{deg}(H_1)=\mathrm{deg}(H_0)=n\neq0.
+	\]
+
+	Suponha, por absurdo, que p não possua raízes complexas; então, a aplicação suave
+	\[
+		G:D_R\rightarrow\mathbb{S}^{1},\quad G(z)=\frac{p(z)}{|p(z)|},\quad
+		D_R=\{z\in\mathbb{C}:|z|\leq R\},
+	\]
+	estaria bem definida em todo o disco fechado e satisfaria \(G(Ru)=H_1(u)\) em seu bordo. Logo, \(H_1\) se estenderia ao disco e seria homotópica a uma aplicação constante: por exemplo, por meio de
+	\[
+		K(u,t)=G((1-t)Ru),\quad t\in[0,1].
+	\]
+	Pela invariância do grau por homotopia, teríamos \(\mathrm{deg}(H_1)=0\), contradizendo \(\mathrm{deg}(H_1)=n\neq0\). Portanto, existe \(z_0\in\mathbb{C}\) tal que
+	\[
+		p(z_0)=0. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\end{document}

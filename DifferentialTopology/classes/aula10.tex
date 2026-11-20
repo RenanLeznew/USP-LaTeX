@@ -1,0 +1,105 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 10 - 06 de Outubro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Variedades com Bordo.
+\end{itemize}
+\subsection{Variedades com Bordo}
+\begin{def*}
+	Uma variedade \(M\subseteq \mathbb{R}^{\ell }\) é uma \textbf{variedade n-dimensional com bordo} se toda vizinhança distinta de M é difeomorfa a um aberto do hiperplano n-dimensional \(\mathbb{H}^{n}\), onde
+	\[
+		\mathbb{H}^{n} =\{(x_1, \dotsc , x_{n})\in \mathbb{R}^{n}:\; x_{n}\geq 0\}.\; \square
+	\]
+\end{def*}
+\begin{def*}
+	Se M é uma variedade n-dimensional com bordo e \(\mathcal{P}\) o conjunto das parametrizações \(\varphi :U\subseteq \mathbb{H}^{n}\rightarrow V\subseteq M\), o \textbf{bordo de M} é definido por
+	\[
+		\partial M = \bigcup_{\varphi\in \mathcal{P} }^{}\varphi (U\cap \underbrace{\partial \mathbb{H}^{n}}_{\cong \mathbb{R}^{n-1}})
+	\]
+\end{def*}
+
+O bordo de uma n-variedade pode ser vazio, mas caso não seja, então ele será uma variedade de dimensão (n-1).
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Em geral, se M e N são variedades com bordo, não necessariamente teremos \(M\times N\) sendo uma variedade com bordo também! BAsta considerar o exemplo
+	\[
+		M = N = I = [0, 1] \Rightarrow M\times N = I^{2}.
+	\]
+	Porém, nem sempre será o caso de \(M\times N\) não ter bordo: se colocarmos \(M = \mathbb{S}^{1}\) e \(N=I\), por sua vez, temos \(\partial I = \{0, 1\}\) e \(M\times N\) será uma variedade com bordo dado por
+	\[
+		\partial (M\times N) = S_{0} \times S_{1} = \mathbb{S}^{1} \times \{0, 1\}, \quad S_{0} = \mathbb{S}^{1}\times \{0\},\;\&\; S_{1} = \mathbb{S}^{1}\times \{1\}.
+	\]
+
+	Em geral, se M é uma variedade sem bordo e N é com bordo, então \(M\times N\) é variedade com bordo dado por \(\partial (M\times N) = M\times \partial N\), pois se \(U\subseteq \mathbb{R}^{m}\) e \(V\subseteq \mathbb{H}^{n}\) são abertos, então \(U\times V\) é aberto de
+	\[
+		\mathbb{R}^{m}\times \mathbb{H}^{n} = \{(x_1, \dotsc , x_{m}, y_1, \dotsc , y_{n}):\; y_{n}\geq 0\} = \mathbb{H}^{m+n},
+	\]
+	mas \textbf{não necessariamente} temos \(\mathbb{H}^{m}\times \mathbb{H}^{n} = \mathbb{H}^{m+n}\)
+\end{tcolorbox}
+
+Para traduzirmos a teoria discutida até o momento ao caso das variedades com bordo, precisamos primeiro entender como fica a derivada nesse contexto.
+\begin{def*}
+	Sejam \(U\subseteq \mathbb{H}^{n}\) um aberto e \(g:U\rightarrow \mathbb{R}^{\ell }\) suave; definimos a \textbf{derivada de g} em dois casos:
+	\begin{itemize}
+		\item[i)] Se \(x\) for um ponto no interior de U \( (\ring{U})\), então \(g'(x)\) é bem-definida como nos casos anteriores;
+		\item[ii)] Se \(x\) não for um ponto interior de U, então existe um aberto V de \(\mathbb{R}^{n}\) contendo x e \(\tilde{g}:V\rightarrow \mathbb{R}^{\ell }\) que permite definirmos
+		      \[
+			      g'(x) = \tilde{g}'(x), \quad  g|_{U\cap V} = \tilde{g}|_{U\cap V}.\; \square
+		      \]
+	\end{itemize}
+\end{def*}
+Para ver que a derivada \(g'(x)\) é de fato bem-definida, seja \(\hat{g}:V\rightarrow \mathbb{R}^{\ell }\) uma outra extensão de \(g\) em \(x\) e tome uma sequência \(\{x_{n}\}\subseteq V\cap \ring{U}\) tal que \(x_{n}\) converge para \(x\); então, em cada \(x_{n}\), temos
+\[
+	\tilde{g}'(x_{n}) = \hat{g}'(x_{n}) \Rightarrow \tilde{g}'(x) = \lim_{n\to \infty}(\tilde{g}'(x_{n})) = \lim_{n\to \infty}(\hat{g}'(x_{n})) = \hat{g}'(x)
+\]
+\begin{def*}
+	Sejam \(M^{n}\) uma variedade com bordo e \(p\in M\); se \(\varphi :U\subseteq \mathbb{H}^{n}\rightarrow V \subseteq M\) for uma parametrização de M em p, então o \textbf{espaço/plano tangente} de M em p é o  conjunto
+	\[
+		\varphi '(x_{0})\cdot \mathbb{R}^{n} = T_{p}M. \; \square
+	\]
+\end{def*}
+A definição de derivada de uma função \(f:M\rightarrow N\), onde M e N eventualmente podem ter bordo, é a mesma que no caso sem bordo, sendo a regra da cadeia ainda válida também!
+
+Note que, se \(x\) é um ponto no bordo de M e \(\varphi :U\subseteq \mathbb{H}^{n}\rightarrow V\subseteq M\) for uma parametrização de M em \(p\), como \(\varphi_{0} = \varphi|_{U\cap \partial \mathbb{H}^{n}}\) é uma parametrização de \(\mathbb{H}^{n}\) do bordo \(\partial M\) em \(x\), temos a relação
+\[
+	T_{x}(\partial M) = \varphi_{0}'(x_{0})\cdot \mathbb{R}^{n-1} = \varphi'(x_{0})\cdot (\mathbb{R}^{n-1}\times \{0\})\subseteq \varphi '(x_{0})\cdot \mathbb{R}^{n} = T_{x}M,
+\]
+ou seja, o plano tangente do bordo da variedade num ponto é subespaço de codimensão 1 do plano tangente da variedade no mesmo ponto.
+Usaremos a notação \(\partial f\) para a restrição de \(f\) ao bordo.
+\begin{example}
+	Considere a aplicação \(f:\mathbb{H}^{2}\rightarrow \mathbb{R},\; f(x, y) = y\); temos:
+	\begin{align*}
+		 & f = \pi |_{\mathbb{H}^{2}}; \quad \pi :\mathbb{R}^{2}\rightarrow \mathbb{R},\; \pi (x, y) = y \\
+		 & z = \{0\} \Rightarrow f \pitchfork Z,
+	\end{align*}
+	pois \(u\in \mathbb{R}\) é valor regular de \(f\); no entanto, \(f^{-1}(z)=f^{-1}(0)\), que é o eixo x, e com isso é subvariedade de \(\mathbb{H}^{2}\).
+	Essa variedade é sem bordo, com \(\partial f^{-1}(z) = \emptyset \), mas
+	\[
+		\partial f = f|_{\partial \mathbb{H}^{2}}, \quad (f:M\rightarrow N,\; \partial M \neq \emptyset \Rightarrow \partial f :\partial M\rightarrow N,\; \partial f = f|_{\partial M})_{M\in \mathbb{R}^{\ell }}
+	\]
+	Assim,
+	\[
+		\partial f(x, 0) = 0, \quad \partial f = 0,
+	\]
+	e como 0 não é um valor regular de \(\partial f\), devemos ter \(\partial f\) não transversal a Z.
+\end{example}
+\begin{theorem*}
+	Sejam \(f:M\rightarrow N\) suave, M com bordo e seja \(z\) um ponto de N. Se \(f\) é transversal a \(z\) e \(\partial f\) transversal a \(z\), então \(f^{-1}(z)\) é uma subvariedade de M com bordo, e
+	\[
+		\partial (f^{-1}(z)) = f^{-1}(z)\cap \partial M.
+	\]
+\end{theorem*}
+
+Lembramos que, quando \(f:M\rightarrow N,\; g:P\rightarrow N\) e \(p\in N\) é um valor regular de f e g, então p é valor regular de \((f, g):M\times P\rightarrow N\), tal que \(f^{-1}(p)\cap g^{-1}(p)\) é subvariedade.
+\end{document}

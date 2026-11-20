@@ -1,0 +1,174 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 12 - 22 de Outubro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Grau de uma aplicação;
+	\item Lema da Homogeneidade
+\end{itemize}
+\subsection{Grau de uma aplicação}
+Ao longo desta aula, denotaremos uma homotopia \(F:X\times I\rightarrow Y\) de \(f\) e \(g\) por \(F:f\cong g\), e colocaremos \(F(x, t) = F_{t}(x)\).
+\begin{def*}
+	Diremos que \(f, g:X\rightarrow Y\) são difeomorfismos \textbf{equivalentes isotópicas} se existe uma homotopia suave \(F:f\cong g\) tal que \(F_{t}:X\rightarrow Y\) é um difeomorfismo. \(\square\)
+\end{def*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Resto de divisão por 2},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Diremos que dois elementos \(p\) e \(q\) são equivalentes mod 2 se \(p-q=2\ell \) para algum \(\ell \) inteiro; em particular, segue que
+	\[
+		p + q = 2r \Rightarrow p = 2r-q \Rightarrow p - q = 2(r-q).
+	\]
+\end{tcolorbox}
+
+\hypertarget{homotopy_lemma}{
+	\begin{lemma*}[Lema da Homotopia]
+		Seja M e N duas variedades de dimensão \(n\) com \(\partial M = \emptyset \) e seja \(y\in N\) um valor regular de \(f:M\rightarrow N\) e de \(g:M\rightarrow N\); se \(f\cong g\), então vale a seguinte relação entre os números de elementos nas suas pré-imagens:
+		\[
+			\# f^{-1}(y) = \#g^{-1}(U) \;\mathrm{mod}\; 2
+		\]
+	\end{lemma*}
+}
+\begin{proof*}
+	Sejam \(f:M\rightarrow N\) e \(g:M\rightarrow \mathbb{R}\) aplicações suaves, e considere a homotopia \(F:M\times I\rightarrow N\) como antes; queremos demonstrar que, se \(y\) é um valor regular de \(f\), então
+	\[
+		\# f^{-1}(y) = \#g^{-1}(U) \;\mathrm{mod}\; 2.
+	\]
+	Para isso, considere a aplicação suave \(G:M\times I\rightarrow N\) cujas restrições às componentes do bordo são \(f\) e \(g\).
+
+	\textbf{Caso 1:} \(y\) é valor regular de \(f\). Neste caso, garantimos que \(G^{-1}(y)\) é uma subvariedade de \(M\times I\), e como a dimensão dessa pré-imagem é 1, a subvariedade em si também é unidimensional.
+
+	Por outro lado, como \(G^{-1}(y)\) está contida em \(M\times I\), seu bordo é justamente a interseção de \(G^{-1}(y)\) com \(\partial (M\times I)\), tal que
+	\begin{align*}
+		\partial G^{-1}(y) & = G^{-1}(y)\cap \partial (M\times I) \\
+		                   & = G^{-1}(Y) \cap (M_{0}\cup M_1)     \\
+		                   & = f^{-1}(y) \cup g^{-1}(y),
+	\end{align*}
+	e como a união é disjunta, obtemos
+	\[
+		\#\partial F^{-1}(y) = \#f^{-1}(y)+\#g^{-1}(y).
+	\]
+	No entanto, como toda variedade compacta unidimensional possui um número par de pontos no bordo, devemos ter
+	\[
+		\# \partial F^{-1}(y) = 0 \;\mathrm{mod}\;2.
+	\]
+	Logo, como vale \(a + b \equiv 0 \) se e só se \(a \equiv b\) em relações mod 2, concluímos que
+	\[
+		\#f^{-1}(y) + \#g^{-1}(y)\equiv 0 \; \mathrm{mod}\;2 \Longleftrightarrow \# f^{-1}(y) \equiv \# g^{-1}(y) \; \mathrm{mod}\; 2.
+	\]
+
+	\textbf{Caso 2:} \(y\) não é valor regular de \(F\). Neste caso, mostraremos a seguinte afirmação:
+
+	\textbf{\underline{Afirmação}:} existe uma vizinhança V contida em N de \(y\) tal que, para todo \(y'\in V\) que seja valor regular de \(f\) e de \(g\), temos
+	\[
+		\# f^{-1}(y) = \# f^{-1}(y') \quad\&\quad \#g^{-1}(y)=\#g^{-1}(y').
+	\]
+	Com efeito, como \(y\) é um valor regular de \(f\), o conjunto \(f^{-1}(y)\) é discreto. Mais ainda, pela compacidade de M, esse conjunto é finito, permitindo que escrevamos
+	\[
+		f^{-1}(y) = \{x_1, \dotsc , x_{k}\};
+	\]
+	em particular, cada ponto \(x_{i}\) é um valor regular de \(f\), de modo que o \hyperlink{inverse_function}{\textit{Teorema da Aplicação Inversa}} garante a existência de vizinhanças abertas \(U_{i}\) de \(x_{i}\) e \(V_{i}\) de \(y\) tais que
+	\[
+		f|_{U_{i}}:U_{i}\rightarrow V_{i}
+	\]
+	é um difeomorfismo. Assim, escolhendo as vizinhanças \(U_{i}\) disjuntas par-a-par, todo ponto \(y'\) na interseção das vizinhanças \(V_{i}\) corresponde a exatamente uma pré-imagem de \(y'\) em cada \(U_{i}\).
+
+	Tudo o que resta para finalizar a afirmação é mostrar que não existem outras pré-imagens fora dessas vizinhanças, e para tanto, consideremos o conjunto de M removendo todos os \(U_{i}\):
+	\[
+		K = M\setminus{\bigcup_{i=1}^{k}U_{i}},
+	\]
+	que é um fechado em M, logo compacto em M e com \(f(K)\) compacto (e fechado) de N. Como todos os pontos de \(f^{-1}(y)\) estão na união de \(U_{i}\), necessariamente vale \(y\not\in f(K)\), ao passo que existirá uma vizinhança V de \(y\) com
+	\[
+		V\subseteq \bigcap_{i=1}^{k}V_{i} \quad\&\quad V\cap f(K) = \emptyset ,
+	\]
+	ou seja, para todo \(y'\in V\), cada \(U_{i}\) contém precisamente uma pré-imagem de \(y'\), enquanto \(K\) contém nenhuma, provando que
+	\[
+		\#f^{-1}(y') = k = \#f^{-1}(y).
+	\]
+	Repetindo o argumento para \(g\), a afirmação segue provada. \(\blacktriangle\)
+
+	Agora, seja \(y'\in V\) um valor regular de \(f\) suficientemente próxima de \(y\); pelo primeiro caso, contanto que \(y'\) também seja valor regular de \(F\), sabemos que a relação do enunciado está valendo; além disso, pela afirmação feita, vale
+	\[
+		\# f^{-1}(y) = \# f^{-1}(y') \quad\&\quad \#g^{-1}(y)=\#g^{-1}(y').
+	\]
+	Portanto,
+	\[
+		\#f^{-1}(y) =\#g^{-1}(y) \text{ mod }2. \text{ \qedsymbol}
+	\]
+\end{proof*}
+
+\begin{def*}
+	O \textbf{grau módulo 2} de uma aplicação \(f:M\rightarrow N\) é o número de elementos mod 2 na pré-imagem de um valor regular dela: para algum \(y\in N\) valor regular de \(f\),
+	\[
+		\deg_{2}{(f)} \coloneqq \#f^{-1}(y) \text{ mod 2}. \square
+	\]
+\end{def*}
+
+\hypertarget{homogeneity_lemma}{
+	\begin{lemma*}[Lema da Homogeneidade]
+		Seja N uma variedade conexa; dados \(p, q\in N\), existe um difeomorfismo \(h:N\rightarrow N\) tal que:
+		\begin{itemize}
+			\item[i)] A aplicação leva \(p\) em \(q\) (\(h(p) = q\)); e
+			\item[ii)] A aplicação é isotópica à identidade \(\mathrm{id}_{N}:N\rightarrow N\).
+		\end{itemize}
+	\end{lemma*}}
+
+\begin{theorem*}
+	Sejam M uma variedade compacta sem bordo e N uma variedade conexa, ambas de mesma dimensão. Se \(y, z\in N\) são valores regulares de \(f:M\rightarrow N\), então
+	\[
+		\# f^{-1}(y) = \# f^{-1}(z) \text{ mod 2}
+	\]
+\end{theorem*}
+\begin{proof*}
+	Pelo \hyperlink{homogeneity_lemma}{\textit{Lema da Homogeneidade}}, existe uma aplicação \(h:N\rightarrow N\) isotópica à identidade com \(h(y)=z\).
+	Como z é valor regular de \(h\circ f\) e \(f\), e como \(h\circ f\) é homotópica à \(f\), o \hyperlink{homotopy_lemma}{\textit{Lema da Homotopia}} garante que
+	\[
+		\# (h\circ f)^{-1}(z) = \# f^{-1}(z)\quad \mathrm{mod}\;2 \quad\&\quad \# (h\circ f)^{-1}(z) = \#f^{-1}(h^{-1}(z))=\#f^{-1}(y).
+	\]
+	Portanto,
+	\[
+		\#f^{-1}(y) = \#f^{-1}(z) \quad \mathrm{mod}\;2
+	\]
+\end{proof*}
+\begin{crl*}
+	Se \(f\) e \(g\) são homotópicas, então \(\mathrm{deg}_{2}(f) = \mathrm{deg}_{2}(g)\).
+\end{crl*}
+\begin{example}
+	\begin{itemize}
+		\item[1)] O primeiro exemplo é o de uma aplicação \(c:M\rightarrow N\) constante; nestes casos, \(\mathrm{deg}_{2}(c) = 0\);
+		\item[2)] Se \(\mathrm{id}_{N}:N\rightarrow N\) for a identidade em N, sua pré-imagem é injetora, tal que \(\mathrm{deg}_{2}(\mathrm{id}_{N}) = 1\). Na verdade, isto vale para qualquer difeomorfismo.
+	\end{itemize}
+\end{example}
+\begin{example}[Prova Alternativa de Brower]
+	Outra forma de provar que não existe retração suave do disco é olhá-la como uma homotopia: por contradição, seja \(r:D^{n}\rightarrow \mathbb{S}^{n-1}\) uma retração suave com restrição \(r|_{\mathbb{S}^{n-1}}=\mathrm{id}_{\mathbb{S}^{n-1}}\); defina
+	\begin{align*}
+		F: & \mathbb{S}^{n-1}\times I\rightarrow\mathbb{S}^{n-1} \\
+		   & (x, t)\longmapsto F(x, t) = v(tx),
+	\end{align*}
+	de modo que \(F(x, 0) = r(0) = c\) e \(F(x, 1) = r(x) = x\). Se houvesse tal retração suave, teríamos
+	\[
+		F:\mathrm{id}_{\mathbb{S}^{n-1}}\cong r(0) \Rightarrow 1 = \mathrm{deg}_{2}(\mathrm{id}_{\mathbb{S}^{n-1}}) = \mathrm{deg}_{2}(r(0)) = 0,
+	\]
+	uma contradição.
+\end{example}
+
+Para provar o \hyperlink{homogeneity_lemma}{\textit{Lema da Homogeneidade}}, é suficiente provar a versão local, i.e., se q pertence a uma vizinhança de p, temos uma família de difeomorfismos isotópicos à identidade \(h_{i}:M\rightarrow N\) com
+\[
+	h_1(p) = p_1, h_2(p_1)=p_2, \dotsc , h_{n-1}(p_{k-1}) = q,
+\]
+e a composição também é isotópica à identidade, dada por \(h=h_{k-1}\circ h_{k-2}\circ \dotsc \circ h_1:N\rightarrow N\).
+
+O \hyperlink{homogeneity_lemma}{\textit{lema}} tem relação com fluxos, EDOs, campos completos (o intervalo da solução maximal é a reta toda, a partícula usa o tempo todo pra se transportar) e suas aplicações.
+No fim, toda essa teoria depende de contar as pré-imagens de valores regulares, então a teoria sequer existiria sem o \hyperlink{sard_theorem}{\textit{Teorema de Sard}}.
+\end{document}

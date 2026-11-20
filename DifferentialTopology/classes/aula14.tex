@@ -1,0 +1,117 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 14 - 29 de Outubro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Grau de Brouwer
+\end{itemize}
+\subsection{Grau de Brouwer}
+\begin{def*}
+	Sejam M e N orientáveis sem bordo com \(\mathrm{dim}_{}(M) = \mathrm{dim}_{}(N) = n\) e N conexa. Definimos:
+	\begin{itemize}
+		\item[i)] Se \(x\in M\) é um ponto regular de \(f:M\rightarrow N\), definimos o \textbf{sinal de \(\mathbf{f'(x)}\)} como
+		      \[
+			      \mathrm{sgn} f'(x) = \left\{\begin{array}{ll}
+				      1, \quad & f'(x) \text{ preserva orientação} \\
+				      -1,      & \text{caso contrário}
+			      \end{array}\right.
+		      \]
+		\item[ii)] Para cada \(y\in N\) que seja valor regular de \(f:M\rightarrow N\), define-se o \textbf{grau de \(\mathbf{f}\) em \(\mathbf{y}\)} por
+		      \[
+			      \mathrm{deg}(f, y)=\sum\limits_{x\in f^{-1}(y)}^{}\mathrm{sgn}f'(x)
+		      \]
+	\end{itemize}
+\end{def*}
+
+\begin{prop*}
+	No contexto anterior, quando M for uma variedade compacta, então \linebreak \(\mathrm{deg}(f, y)\) é um inteiro e é localmente constante.
+\end{prop*}
+
+\begin{lemma*}
+	Suponha que \(M = \partial X\), onde X é uma variedade orientável com bordo. Se \(f:M\rightarrow N\) admite uma extensão \(F:X\rightarrow N\), então \(\mathrm{deg}(f) = 0\).
+\end{lemma*}
+\begin{lemma*}
+	Se \(f\) e \(g\) são aplicações isotópicas, então para todo valor regular comum, vale
+	\[
+		\mathrm{deg}(f, y) = \mathrm{deg}(g, y).
+	\]
+\end{lemma*}
+
+\begin{theorem*}
+	O grau \(\mathrm{deg}(f, y)\) não depende do valor regular \(y\in N\) usado.
+\end{theorem*}
+\begin{proof*}
+	Seja \(z\in N\) um valor regular de \(f\). Pelo \hyperlink{homogeneity_lemma}{\textit{Lema da Homogeneidade}}, existe uma aplicação \(h:N\rightarrow N\) tal que \(h(y) = z\) e que \(h\) é isotópica à identidade: \(\mathrm{id}_{N}\cong h\); assim, a composta \(h\circ f\) deverá ser isotópica à própria \(f\), tal que, pelo segundo lema,
+	\[
+		\mathrm{deg}(h\circ f, z) = \mathrm{deg}(f, z).
+	\]
+
+	Como um difeomorfismo só pode preservar ou reverter orientação, e a identidade é um que canonicamente preserva a orientação, é necessário que \(h\) e \(\mathrm{id}_{N}\) sejam conectados por um caminho de difeomorfismos, os quais todos preservam orientação.
+	Logo, \(h\) preserva orientação, permitindo que calculemos o grau por
+	\begin{align*}
+		\mathrm{deg}(h\circ f, h(y)) = \sum\limits_{x\in (h\circ f)^{-1}(h(y))}^{} \mathrm{sgn}(h\circ f)'(x) & = \sum\limits_{x\in f^{-1}(y)}^{}\mathrm{sgn}(h'(f(x))\cdot f'(x)) \\
+		                                                                                                      & =\sum\limits_{x\in f^{-1}(y)}^{}\mathrm{sgn}f'(x).
+	\end{align*}
+	Portanto, da relação
+	\[
+		\mathrm{deg}(f\circ h, z) = \mathrm{deg}(f, y) \Longleftrightarrow \mathrm{deg}(h\circ f, z) = \mathrm{deg}(f, z),
+	\]
+	segue a conclusão
+	\[
+		\mathrm{deg}(f, y) = \mathrm{deg}(f, z). \text{ \qedsymbol}
+	\]
+
+\end{proof*}
+\begin{def*}
+	O \textbf{grau de Brouwer de f} é, para algum \(y\in N\) valor regular de f,
+	\[
+		\mathrm{deg}(f) = \mathrm{deg}(f, y).\; \square
+	\]
+\end{def*}
+\begin{theorem*}
+	Sejam \(f, g:M\rightarrow N\); se \(g\) e \(f\) forem isotópicas, então seus graus são iguais.
+\end{theorem*}
+
+\begin{example}
+	\begin{itemize}
+		\item[1)] Se \(f:M\rightarrow N\) for a função constante, então
+		      \[
+			      \mathrm{deg}(f) = 0;
+		      \]
+		\item[2)] Se \(f:N\rightarrow N\) for a identidade, então
+		      \[
+			      \mathrm{deg}(\mathrm{id}) = \mathrm{deg}(f) = 1;
+		      \]
+		\item[3)] Dado um difeomorfismo qualquer \(f:M\rightarrow N\), vale
+		      \[
+			      \mathrm{deg}(f)  = \left\{\begin{array}{ll}
+				      1, \quad  & f\text{ preserva orientação} \\
+				      -1, \quad & f \text{ reverte orientação}
+			      \end{array}\right.
+		      \]
+		\item[4)] Considere \(f:\mathbb{C}\rightarrow \mathbb{C}\) definida por \(f(z) = z^{k}\); então, \(f'(z) = k z^{k-1}\), mas olhando para isso na forma polar -- mais especificamente, o determinante disso -- nota-se que
+		      \[
+			      \mathrm{deg}f'(z) = \Vert kz^{k-1} \Vert^{2} > 0.
+		      \]
+		      Daí, qualquer número complexo não nulo é um valor regular, então basta tomarmos a pré-imagem de 1, \(f^{-1}(1) = \mathcal{U}_{n}\), onde \(\mathcal{U}_{n}\) é o conjunto das raízes da unidade
+		      \[
+			      \mathcal{U}_{n} = \{z: z^{n-1} = 0\},
+		      \]
+		      tal que
+		      \[
+			      \mathrm{deg}(f, 1) = \mathrm{deg}(f) =\sum\limits_{z\in f^{-1}(1)}^{}1 = k,
+		      \]
+		      pois para \(z^{k}\) teremos k raízes da unidade;
+		\item[5)] Seja \(R_{i}:\mathbb{S}^{n-1}\rightarrow \mathbb{S}^{n-1}\) a reflexão na i-ésima coordenada, \textit{i.e.},
+		      \[
+			      R_{i}(x_1, \dotsc , x_{n}) = (x_1, \dotsc ,-x_{i}, \dotsc , x_{n}).
+		      \]
+		      Neste caso, \(\mathrm{deg}(R_{i}) = -1\), e isso é um resultado muito importante (mas falta um teorema ainda pra entender como), pois permite que analisemos o grau da aplicação antipodal \(A:\mathbb{S}^{n-1}\rightarrow \mathbb{S}^{n-1}\), dada pela composição de todas as \(R_{i}\)'s:
+		      \[
+			      A \coloneqq R_1\circ \dotsc R_{n},
+		      \]
+		      ou seja, se soubermos como calcular o grau de uma composição de funções, podemos encontrar o grau da aplicação antipodal (Spoiler: \(\mathrm{deg}(A) = (-1)^{n}\)).
+	\end{itemize}
+\end{example}
+
+\end{document}

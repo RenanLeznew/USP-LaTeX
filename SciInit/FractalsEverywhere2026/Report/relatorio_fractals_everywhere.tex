@@ -97,243 +97,44 @@
 
 \newpage
 
-\section*{Resumo}
+\section*{Revisando Espaço de Compactos}
+Durante este semestre, houve a inclusão de um novo integrante, Igor, que começou a estudar as bases para entender sistemas iterados de funções, jogos do caos e teoria ergódica.
 
-Este relatório reúne e organiza os principais tópicos estudados durante o semestre, no grupo de estudos ``\emph{Seminários de Sexta: Fractals Everywhere}''; o início deu-se na construção do espaço formado pela coleção dos subconjuntos compactos não vazios de um espaço métrico, cobtindo tópicos como a distância de Hausdorff, resultados de completude, e eventualmente chegando no Teorema do Ponto Fixo de Banach. Em seguida, introduzem-se os sistemas iterados de funções (IFS, Iterated Function Systems) e o que são seus atratores, incluindo o conjunto de Cantor como exemplo mais importante; ao final do estudo, são discutidas medidas invariantes, pontos recorrentes e um pouco de medidas ergódicas, mostrando como conceitos métricos, dinâmicos e probabilísticos entram em sistemas autossemelhantes.
+Tendo em vista que ele não possuía uma forte base nos métodos da matemática e de conceitos importantes, foi julgado necessário a retomada do assunto do início em seminários apresentados especialmente por ele, com pontuações, dicas e correções onde julgou-se necessário, e por conta disso, a maior parte dos assuntos tratados no período do relatório parcial repetem os temas previamente vistos.
+Após finalizada a parte introdutória, o grupo começou o estudo da parte de teoria ergódica, utilizando o conjunto de Cantor como um exemplo.
 
-\noindent\textbf{Palavras-chave:} fractais; distância de Hausdorff; contrações; ponto fixo; sistemas iterados de funções; recorrência; ergodicidade.
-
-\newpage
-
-\section*{ATIVIDADES REALIZADAS}
-
-O estudo foi organizado em uma sequência de seminários dedicados à construção matemática de objetos fractais por sequências aleatórias: no lugar de começar direto por exemplos geométricos, começou-se com a definição de um espaço cujos ``pontos'' são conjuntos compactos, pois, ao trabalhar com fractais, o objeto a cada iteração não é necessariamente um ponto isolado (na verdade, tirando exemplos triviais, quase nunca será), mas sim um conjunto inteiro.
-
-A sequência conceitual utilizada ao longo dos seminários pode ser resumida por
+Recapitulando brevemente o que foi estudado, o estudo começou definindo o espaço de conjuntos compactos não vazios de um espaço métrico \((X, d)\), denotado por \(\mathcal{H(X)}\), junto à formalização da noção de distância de um ponto a um conjunto, que levou à primeira ideia de uma distância entre conjuntos, mas que falhava em ser simétrica.
+Em seguida, a distância de Hausdorff, métrica oficial entre compactos foi construída, analisada e determinada sobre suas principais propriedades, culminando no espaço principal onde estarão os conjuntos autossimilares: \((\mathcal{H}(X), h)\), onde h é a métrica
 \[
-	(X,d)
-	\longrightarrow
-	\Hc(X)
-	\longrightarrow
-	\text{completude}
-	\longrightarrow
-	\text{contrações}
-	\longrightarrow
-	\text{ponto fixo}
-	\longrightarrow
-	\text{IFS}
-	\longrightarrow
-	\text{atrator}.
+	h(A, B)=\max_{}(d(A, B), d(B, A)), \quad d(A, B) = \min\limits_{x\in A}d(x, B),
 \]
+onde A e B são compactos não vazios. Com ela, foi confirmado que \((\mathcal{H}(X), h)\) é um espaço métrico que herda a compacidade de X.
 
-Após a introdução dos conceitos essenciais, o estudo é direcionado para a dinâmica de pontos sob iterações de funções \textit{mensuráveis} e transformações que preservam medida, possiblitando abordar temas como recorrência e ergodicidade.
-
-\section*{O espaço dos compactos}
-
-Ao longo da sessão, a não ser que explicitamente dito o contrário, $(X,d)$ denota um espaço métrico completo.
-\begin{def*}
-	Define-se o \textbf{conjunto de compactos do espaço métrico X} como
-	\[
-		\Hc(X)=\{K\subseteq X: K\neq\varnothing \text{ e } K \text{ é compacto}\}.
-	\]
-	Os elementos de $\Hc(X)$ são, portanto, conjuntos compactos de $X$. \(\square\)
-\end{def*}
-Algumas propriedades sobre estes podem ser estudadas utilizando apenas a definição: se $Y,Z\in\Hc(X)$, então $Y\cup Z$ continua sendo compacto e não vazio; logo,
-\[
-	Y\cup Z\in\Hc(X).
-\]
-No entanto, a interseção não precisa pertencer a $\Hc(X)$, pois pode ser vazia, bastando considerar
-\[
-	Y=[0,1],\qquad Z=[2,3],
-\]
-para os quais $Y\cap Z=\varnothing$, apesar de ambos serem compactos.
-
-Para construir uma métrica em $\Hc(X)$, o primeiro passo é medir a distância de um ponto a um conjunto compacto.
-\begin{def*}
-	Se $x\in X$ e $B\in\Hc(X)$, define-se
-	\[
-		d(x,B)=\min_{y\in B} d(x,y). \square
-	\]
-\end{def*}
-O fato do mínimo existir utiliza a compacidade de $B$, afinal a função
-\[
-	f:B\to\R,\qquad f(y)=d(x,y)
-\]
-é contínua, e uma função contínua sobre um compacto sempre atinge o mínimo e o máximo; aassim, existe $y_0\in B$ tal que
-\[
-	d(x,B)=d(x,y_0).
-\]
-Esse resultado será utilizado repetidamente para passar de propriedades de pontos para propriedades de conjuntos.
-
-A partir da distância ponto--conjunto, define-se
-\[
-	d(A,B)=\max_{x\in A}d(x,B),
-	\qquad A,B\in\Hc(X),
-\]
-que mede, essencialmente, o quanto os pontos de $A$ podem se afastar de $B$. Entretanto, ela não é simétrica: se $B\subseteq A$, então todo ponto de $B$ já pertence a $A$ por definição, de modo que
-\[
-	d(B,A)=0,
-\]
-porém, $A$ pode possuir pontos fora de $B$, levando a
-\[
-	d(A,B)>0.
-\]
-Assim, $d(A,B)$ ainda não define uma métrica sobre $\Hc(X)$. Como eliminar essa assimetria? Tomando o máximo entre as duas distâncias dirigidas:
-\begin{def*}
-	Se $A,B\in\Hc(X)$, a distância de Hausdorff é definida por
-	\[
-		h(A,B)=\max\{d(A,B),d(B,A)\}. \square
-	\]
-\end{def*}
-Dessa vez, $h(A,B)$ mede o menor erro máximo necessário para que cada conjunto esteja contido em uma vizinhança do outro.
-
-\begin{def*}
-	Se $S\subseteq X$ e $r\geq 0$, define-se a dilatação de $S$ por raio $r$ por
-	\[
-		S+r=\{y\in X: d(y,x)\leq r \text{ para algum }x\in S\}. \square
-	\]
-\end{def*}
-
-Para melhor utilizar estas métricas, alguns lemas devem ser discutidos:
+Com o espaço básico construído, foram vistos os conceitos de dilatação dos conjuntos e como eles relacionam-se com a distância de Hausdorff; o objetivo deste assunto foi encontrar uma maneira de melhor operacionalizar a métrica de Hausdorff, permitindo a demonstração do Lema da Extensão:
 \begin{lemma*}
-	Para $A,B\in\Hc(X)$ e $\eps>0$,
+	Seja X um espaço métrico (não necessariamente completo), \((A_{n})_{n}\) uma sequência de Cauchy em \(\mathcal{H}(X)\) e \((x_{n_{i}})_{i}\) uma sequência de elementos \(x_{n_{i}}\) em \(A_{n_{i}}\); então, existe uma sequência de Cauchy \((\tilde{x}_{n})_{n}\) de elementos de A, tais que
 	\[
-		h(A,B)\leq\eps
-		\quad\Longleftrightarrow\quad
-		A\subseteq B+\eps
-		\text{ e }
-		B\subseteq A+\eps.
+		\tilde{x}_{n} = x_{n}.
 	\]
 \end{lemma*}
-\begin{proof*}
-	Se $h(A,B)\leq\eps$, então $d(A,B)\leq\eps$, tal que, para cada $a\in A$, existe $b\in B$ cuja distância a $a$ é no máximo $\eps$, ou seja, $a\in B+\eps$. Desta forma, $A\subseteq B+\eps$, e o mesmo argumento, trocando $A$ e $B$, fornece $B\subseteq A+\eps$.
+Explorando a relação entre as sequências de elementos e sequências de conjuntos, foi demonstrado que \((\mathcal{H}(X), h)\) herda, também, a completude do espaço métrico X.
 
-	Reciprocamente, se cada ponto de $A$ está à distância no máximo $\eps$ de $B$, então $d(A,B)\leq\eps$, enquanto a segunda inclusão fornece $d(B,A)\leq\eps$. Portanto,
+A partir do momento que o espaço e algumas de suas propriedades topológicas foram decididas e comprovadas, o foco tornou-se às contrações, tópico no qual foram demonstradas a existência e unicidade de pontos-fixos para contrações por meio do Teorema do Ponto-Fixo de Banach, que fora enunciado como
+\begin{theorem*}[Teorema da Contração de Banach]
+	Seja \(f:X\rightarrow X\) uma contração em um espaço métrico completo X; então, existe um único \(x_{f}\in X\) tal que
 	\[
-		h(A,B)=\max\{d(A,B),d(B,A)\}\leq\eps. \text{\qedsymbol}
+		f(x_{f})=x_{f},
 	\]
-\end{proof*}
-
-Utilizando a desigualdade triangular
-\[
-	d(A,B)\leq d(A,C)+d(C,B),
-\]
-segue que $h$ satisfaz a desigualdade triangular. Portanto, junto à simetria, positividade e propriedade de separação de pontos, a conclusão é que $(\Hc(X),h)$ é um espaço métrico.
-Como a construção de conjuntos fractais baseia-se fortemente na união de imagens, é de forte interesse enunciar que
-\begin{prop*}
-	Para $A,B,C,D\in\Hc(X)$,
+	e, para todo \(x\in X\), a sequência de composições \(\{f^{n}(x)\}_{n}\) converge para \(x_{f},\) onde
 	\[
-		h(A\cup B,C\cup D)
-		\leq
-		\max\{h(A,C),h(B,D)\}.
+		f^{n}(x)= \underbrace{f\circ f\circ\cdots\circ f}_{n-\text{vezes}}.
 	\]
-\end{prop*}
-
-Além disso, foi mostrado que a completude do espaço original é garante a completude do espaço dos compactos com a métrica de Hausdorff.
-
-\begin{theorem*}
-	Se $(X,d)$ é completo, então $(\Hc(X),h)$ também é completo.
 \end{theorem*}
-\begin{proof*}[Esboço]
-	A demonstração consiste brevemente em construir o limite de uma sequência de Cauchy $(A_n)$ em $\Hc(X)$ por meio de sequências de pontos $x_n\in A_n$, sendo o conjunto limite caracterizado por
-	\[
-		A=\left\{x\in X:\ \text{existe uma sequência de Cauchy }(x_n),\ x_n\in A_n,
-		\text{ com }x_n\to x\right\}.
-	\]
-	Partindo disto, prova-se que $A$ é não vazio, mostrar que é fechado, estabelecer aproximações do tipo
-	\[
-		A\subseteq A_n+\eps
-		\quad\text{e}\quad
-		A_n\subseteq A+\eps
-	\]
-	para $n$ suficientemente grande, e concluir que
-	\[
-		h(A_n,A)\longrightarrow 0.
-	\]
-\end{proof*}
-O espaço \(\Hc{(X)}\) herda, também, a compacidade do espaço  original, permitindo ``controlar'' sequências de conjuntos usando propriedades de compacidade do espaço ambiente.
+A prova seguiu, como passos, demonstrar que a sequência é de Cauchy; que ela tem um ponto de acumulação em X; que \(x_{f}\) era de fato um ponto fixo; e a unicidade.
+Alguns exemplos de aplicações foram estudados, como o caso das transformações afins e suas relações às contrações, e a demonstração de que contrações de fato tornam o conjunto \(f(X)\) num subconjunto próprio de X.
 
 \section*{Sistemas Iterados de Funções}
-
-\begin{def*}
-	Se $(M,\mathcal{B},\mu)$ é um espaço de medida e $f:M\to M$ é mensurável, diz-se que $\mu$ é $f$-invariante quando, para todo $E\in\mathcal{B}$,
-	\[
-		\mu(E)=\mu(f^{-1}(E)). \square
-	\]
-\end{def*}
-
-\begin{theorem*}
-	Se $f:M\to M$ é mensurável, $\mu$ é uma medida finita e invariante, e $E\subseteq M$ é mensurável com $\mu(E)>0$, então, para $\mu$-quase todo $x\in E$, existem infinitos $n\in\N$ tais que
-	\[
-		f^n(x)\in E.
-	\]
-\end{theorem*}
-A ideia da prova consiste em considerar o conjunto de pontos que saem de $E$ e nunca mais retornam; as pré-imagens iteradas desse conjunto são disjuntas e possuem, por invariância, a mesma medida. Sendo assim, como a medida total do espaço é finita, esse conjunto deve ter medida nula. A finalização consiste em mostrar que o conjunto de pontos que retornam apenas finitas vezes também possui medida nula.
-
-\begin{def*}
-	Um ponto $x$ de um espaço topológico $M$ é recorrente para $f$ quando existe uma sequência de inteiros positivos $n_1,n_2,\ldots$ tal que
-	\[
-		f^{n_i}(x)\longrightarrow x. \square
-	\]
-\end{def*}
-Quando o espaço possui uma base enumerável e a medida é finita e invariante, todo ponto será recorrente.
-\begin{example}
-	Considere
-	\[
-		f:[0,1]\to[0,1],
-		\qquad
-		f(x)=10x-\lfloor 10x\rfloor.
-	\]
-	Se
-	\[
-		x=0.a_0a_1a_2\ldots
-	\]
-	é a expansão decimal de $x$, então
-	\[
-		f(x)=0.a_1a_2a_3\ldots,
-	\]
-	e, de forma geral,
-	\[
-		f^n(x)=0.a_na_{n+1}a_{n+2}\ldots.
-	\]
-	Logo, faz sentido visualizar a recorrência em termos do reaparecimento de ``blocos'' repetidos na expansão decimal dos pontos.
-\end{example}
-
-Com este ferramental uma parte essencial da construção de atratores como conjuntos fractais é o teorema do ponto fixo de Banach, que requer algumas definições antes de ser enunciado e provado.
-\begin{def*}
-	Uma aplicação $f:X\to X$ é uma contração quando existe $s$, com $0\leq s<1$, tal que
-	\[
-		d(f(x),f(y))\leq s\,d(x,y)
-	\]
-	para todos $x,y\in X$. O número $s$ é chamado fator de contração. \(\square\)
-\end{def*}
-Por definição, toda contração é contínua, já que a desigualdade de contração fornece um fator direto para controlar a distância entre pontos na imagem.
-
-\begin{theorem*}[Teorema do Ponto Fixo de Banach]
-	Se $(X,d)$ é um espaço métrico completo e $f:X\to X$ é uma contração, então existe um único ponto $x_f\in X$ tal que
-	\[
-		f(x_f)=x_f.
-	\]
-	Além disso, para qualquer $x\in X$,
-	\[
-		f^n(x)\longrightarrow x_f.
-	\]
-\end{theorem*}
-
-A aplicação do teorema de Banach ao espaço $\Hc(X)$ conduz diretamente aos sistemas iterados de funções, um dos objetos de estudo principais.
-Primeiro, se $w:X\to X$ é contínua, então a aplicação induzida
-\[
-	\widetilde{w}:\Hc(X)\to\Hc(X),
-	\qquad
-	\widetilde{w}(A)=w(A),
-\]
-é bem-definida, pois a imagem contínua de um compacto é compacta.
-Mais ainda, se $w$ é uma contração de fator $s$, sua aplicação induzida também contrai a distância de Hausdorff:
-\[
-	h(\widetilde{w}(A),\widetilde{w}(B))
-	\leq s\,h(A,B).
-\]
-
+Quanto à introdução de dinâmica e sistemas iterados de funções, a definição utilizada foi de
 \begin{def*}
 	Um \textbf{sistema iterado de funções hiperbólico}, ou IFS, é um par
 	\[
@@ -343,9 +144,9 @@ Mais ainda, se $w$ é uma contração de fator $s$, sua aplicação induzida tam
 	\[
 		w_i:X\to X
 	\]
-	é uma contração com fator $s_i$. \(\square\)
+	é uma contração com fator $s_i$. O valor \(s=\max\limits_{1\leq i\leq N}(s_{i})\) é chamado \textbf{fator de contração do IFS} \(\square\)
 \end{def*}
-Ao IFS, associa-se o operador
+Para que sequer faça sentido chamar s de ``fator de contração do IFS'', que é essencialmente só um par de objetos, utiliza-se o operador associado
 \[
 	W:\Hc(X)\to\Hc(X),
 	\qquad
@@ -360,25 +161,15 @@ e usando a propriedade da distância de Hausdorff para uniões, obtém-se
 	s=\max_{1\leq i\leq N}s_i<1.
 \]
 Portanto, $W$ é uma contração em $\Hc(X)$.
-Como $X$ é completo, $\Hc(X)$ também é completo, garantindo, pelo Teorema do Ponto Fixo de Banach aplicado diretamente a $W$, a existência de um ponto-fixo.
-
-\begin{theorem*}
-	Existe um único conjunto $A\in\Hc(X)$ tal que
-	\[
-		W(A)=A.
-	\]
-	Além disso, para qualquer $B\in\Hc(X)$,
-	\[
-		W^n(B)\longrightarrow A
-	\]
-	na distância de Hausdorff.
-\end{theorem*}
-
+Como $X$ é completo, $\Hc(X)$ também é completo, garantindo, pelo Teorema do Ponto Fixo de Banach aplicado diretamente a $W$, a existência de um ponto-fixo \(A\in \mathcal{H(X)}\) tal que
+\[
+	A = W(A) = W^{2}(A) = \dotsc ,
+\]
+dando sentido ao nome de um conjunto autossimilar. Além disso, utilizando a propriedade de qualquer ponto ser ``puxado'' para o ponto-fixo proveniente do Teorema da Contração de Banach, nota-se que, na distância de Hausdorff, qualquer conjunto B em \(\mathcal{H(X)}\) que sofra aplicações consecutivas de W convergirá sem falha ao ponto-fixo \(A\):
 \begin{def*}
 	O ponto fixo $A$ do operador $W$ é chamado \textbf{atrator do IFS}.\(\square\)
 \end{def*}
-Esse resultado fornece a formalização principal da construção de conjuntos autossimilares: o fractal aparece como o conjunto que permanece invariável, o ponto-fixo do operador de contração, após a união das imagens produzidas pelas contrações do sistema.
-
+A ideia de ser um atrator é justamente por conta da última constatação antes da definição, e fornece uma formalização da autossimilaridade que os conjuntos fractais apresentam. Um dos exemplos mais relevantes é o conjunto de Cantor:
 \begin{example}[Conjunto de Cantor]
 	A construção usual do conjunto de Cantor ilustra como ele pode ser um candidato a atrator: considere
 	\[
@@ -412,7 +203,81 @@ Esse resultado fornece a formalização principal da construção de conjuntos a
 	\]
 \end{example}
 
-Para uma introdução à ergodicidade,
+A última atividade realizada teve como objetivo dar motivação ao estudo futuro de teoria ergódica, abordando os aspectos das transformações preservando medidas, ergodicidade e médias temporais, e um resultado inicial
+
+Para relacionar essas ideias ao conjunto de Cantor, considere inicialmente a transformação mapeando x para 3x:
+\[
+	T:[0,1)\longrightarrow[0,1),
+	\qquad
+	T(x)=3x-\lfloor 3x\rfloor.
+\]
+Se
+\[
+	x=0.a_1a_2a_3\ldots{}_3 == \frac{a_1}{3} + \frac{a_2}{3^{2}}+ \frac{a_3}{3^{3}} + \dotsc
+\]
+é a expansão ternária de $x$, então, usando a expansão que não termina em uma sequência infinita de 2
+\begin{align*}
+	T(x) = 3x - a_1 & = 3\biggl(\frac{a_1}{3} + \frac{a_2}{3^{3}}+\dotsc \biggr)-a_1 \\
+	                & = a_1 + \frac{a_2}{3} + \frac{a_3}{3^{2}}+\dotsc -a_1          \\
+	                & = \frac{a_2}{3} + \frac{a_3}{3^{2}} + \dotsc                   \\
+	                & = 0.a_2a_3a_4\ldots{}_3
+\end{align*}
+Assim, $T$ atua como um deslocamento dos dígitos da expansão ternária.
+
+O conjunto de Cantor do terço médio pode ser caracterizado como os números de \([0, 1]\) que possuem uma expansão em base 3 sem o dígito 1:
+\[
+	C=\left\{0.a_1a_2a_3\ldots{}_3:\;a_i\in\{0,2\}\right\},
+\]
+que mostra a compatibilidade entre a dinâmica de $T$ e o conjunto de Cantor: ao remover o primeiro dígito de uma sequência formada apenas por $0$'s e $2$'s, o resultado será novamente uma sequência formada apenas por $0$ e $2$.
+
+Além disso, existe um ponto cuja órbita se acumula em todo o conjunto de Cantor, funcionando como um atrator; para construí-lo, considere o número cuja expansão ternária é obtida concatenando, em ordem crescente de tamanho, todas as combinações tipo palavras, mas formadas pelos dígitos $0$ e $2$:
+\[
+	x=0.\,0\,2\,00\,02\,20\,22\,000\,002\,020\,022\,200\,202\,220\,222\ldots{}_3.
+\]
+Se $y=0.b_1b_2b_3\ldots{}_3\in C$, então, para cada $m$, a palavra $b_1b_2\ldots b_m$ aparece na expansão de $x$, de modo que, se k é a posição onde ela aparece,
+\[
+	T^{k}(x) = 0.b_1b_2\ldots b_mc_{m+1}c_{m+2}\dotsc_{3}
+\]
+Observando que, como os dígitos no conjunto de Cantor são 0 ou 2, vale a desigualdade \(| c_{j}-b_{j} |\leq 2\), tem-se
+\begin{align*}
+	\left|T^{k}(x)-y\right| = \biggl\vert \sum\limits_{j=m+1}^{\infty}\frac{c_{j}-b_{j}}{3^{j}} \biggr\vert & \leq \sum\limits_{j=m+1}^{\infty}\frac{2}{3^{j}}            \\
+	                                                                                                        & =2\biggl(\frac{1}{3^{m+1}}+\frac{1}{3^{m+2}}+\dotsc \biggr) \\
+	                                                                                                        & \leq \frac{1}{3^m},
+\end{align*}
+e, portanto, $T^{k}(x)\to y$. Logo, a órbita de $x$ é densa em $C$ e, em particular, acumula-se no conjunto de Cantor.
+
+Após as bases serem estabelecidas, os estudos voltaram-se à introdução da teoria ergódica, que generaliza e sistematiza a construção apresentada para a origem do conjunto de Cantor como uma órbita se acumulando; pouco antes do teorema do ponto fixo de Banach, um seminário de motivação fora dado, onde apresentou-se a ideia de pontos recorrentes e medidas invariantes
+\begin{def*}
+	Se $(M,\mathcal{B},\mu)$ é um espaço de medida e $f:M\to M$ é mensurável, diz-se que $\mu$ é $f$-invariante quando, para todo $E\in\mathcal{B}$,
+	\[
+		\mu(E)=\mu(f^{-1}(E)). \square
+	\]
+\end{def*}
+Com a invariância, as ideias de permanência e recorrência foram introduzidas, respectivamente sob a forma de um teorema e a definição
+\begin{theorem*}
+	Se $f:M\to M$ é mensurável, $\mu$ é uma medida finita e invariante, e $E\subseteq M$ é mensurável com $\mu(E)>0$, então, para $\mu$-quase todo $x\in E$, existem infinitos $n\in\N$ tais que
+	\[
+		f^n(x)\in E.
+	\]
+\end{theorem*}
+A ideia da prova consiste em considerar o conjunto de pontos que saem de $E$ e nunca mais retornam; as pré-imagens iteradas desse conjunto são disjuntas e possuem, por invariância, a mesma medida. Sendo assim, como a medida total do espaço é finita, esse conjunto deve ter medida nula. A finalização consiste em mostrar que o conjunto de pontos que retornam apenas finitas vezes também possui medida nula.
+\begin{def*}
+	Um ponto $x$ de um espaço topológico $M$ é \textbf{recorrente para $\mathbf{f}$} quando existe uma sequência de inteiros positivos $n_1,n_2,\ldots$ tal que
+	\[
+		f^{n_i}(x)\longrightarrow x. \square
+	\]
+\end{def*}
+Quando o espaço possui uma base enumerável e a medida é finita e invariante, todo ponto será recorrente.
+
+Em estudos futuros, será construída uma medida de probabilidade invariante suportada no conjunto de Cantor $C$. De forma breve, pode-se atribuir probabilidade $1/2$ a cada escolha dos dígitos $0$ e $2$, essencialmente oferecendo 50\% de chance de aleatoriamente escolher qualquer um deles e, para cada intervalo dado por uma palavra $a_1\ldots a_n\in\{0 ,2\}^n$, definir a medida
+\[
+	\mu(I_{a_1\ldots a_n})=2^{-n}.
+\]
+Como resultado, é obtida uma medida de probabilidade de Borel $\mu$ suportada em $C$, e como a transformação $T$ remove o primeiro dígito da expansão ternária e os dígitos são escolhidos com a mesma distribuição em cada posição, essa medida satisfaz
+\[
+	\mu(T^{-1}(E))=\mu(E),
+\]
+para todo conjunto de Borel $E$ no intervalo \([0, 1]\); portanto, $\mu$ é $T$-invariante.
 \begin{def*}
 	Uma transformação que preserva medida $(X,\mathcal{B},\mu,T)$ é \textbf{ergódica} quando todo conjunto invariante $E$ satisfaz
 	\[
@@ -421,45 +286,15 @@ Para uma introdução à ergodicidade,
 		\mu(X\setminus E)=0. \square
 	\]
 \end{def*}
-Em outros termos, conjuntos invariantes não podem decompor o espaço em duas partes de medida positiva, remoendo separações mensuráveis não-triviais que sejam preservadas por $T$.
 
-Para uma função integrável $f$, é comum referir-se `às médias temporais
-\[
-	A_n(x)=\frac{1}{n}\sum_{k=0}^{n-1}f(T^k x).
-\]
+\subsection*{Conclusões e Direções Futuras}
+Com os temas estudados, tanto o grupo quanto o integrante novo ficaram mais próximos de um nível semelhante para dar continuidade aos estudos na área de teoria ergódica, além da motivação fornecida pelos exemplos mais avançados que guiam estudos futuros.
 
-\begin{theorem*}[Teorema ergódico apresentado no material]
-	Se $(X,\mathcal{B},\mu,T)$ preserva uma medida de probabilidade e $f\in L^1(\mu)$, então o limite
-	\[
-		\bar f(x)=\lim_{n\to\infty}\frac{1}{n}
-		\sum_{k=0}^{n-1}f(T^k x)
-	\]
-	existe para quase todo $x$. Além disso, $\bar f$ é $T$-invariante e satisfaz
-	\[
-		\int_X \bar f\,d\mu
-		=
-		\int_X f\,d\mu.
-	\]
-	No caso ergódico,
-	\[
-		\bar f(x)=\int_X f\,d\mu
-	\]
-	para quase todo $x$.
-\end{theorem*}
-Logo, sob ergodicidade, a média temporal observada ao longo de uma órbita coincide, para \textit{quase todo} ponto inicial, com a média espacial determinada pela medida, dando origem a uma ponte entre a evolução dinâmica e a descrição estatística do sistema.
-
-\subsection{Conclusão}
-
-A completude de $\Hc(X)$ possibilita aplicar o Teorema do Ponto Fixo de Banach não apenas a pontos de $X$, mas também a operadores que transformam conjuntos compactos, estabelecendo o fundamento dos sistemas iterados de funções: uma família finita de contrações $w_1,\ldots,w_N$ gera o operador
-\[
-	W(A)=\bigcup_{i=1}^{N}w_i(A),
-\]
-que é, em si, uma contração na métrica de Hausdorff. No entanto, o ponto fixo de $W$ é um conjunto, e não um ponto ordinário, conhecido como atrator do IFS, uma possível definição matemática concreta para conjuntos autossimilares.
-
-Logo, os IFS's surgem de maneira natural, o operador associado a um IFS é contrativo e, portanto, possui um único atrator, e o conjunto de Cantor surge como um exemplo direto dessa construção, construído a partir dos limites das iterações de duas contrações afins. Os outros temas, como medidas invariantes, recorrência e ergodicidade, permitem estender o estudo para propriedades assintóticas das órbitas e fornecem uma futura descrição de propriedades por resultados de teoria da medida.
+Dentre os possíveis temas de futuros estudos, estão os \textit{Martingales}, a construção de uma medida suportada no conjunto de Cantor, e explorar a teoria ergódica mais profundamente.
 
 \begin{thebibliography}{9}
 	\bibitem{barnsley}BARNSLEY, Michael F. Fractals everywhere. 2. ed. \textbf{Boston: Academic Press}, 1993.
+	\bibitem{tao}TAO, Terence. An introduction to measure theory. \textbf{Providence: American Mathematical Society}, 2011. (Graduate Studies in Mathematics, v. 126).
 \end{thebibliography}
 
 \end{document}

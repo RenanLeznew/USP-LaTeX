@@ -1,0 +1,124 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 08 - 22 de Setembro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Função de Morse
+\end{itemize}
+\subsection{Função de Morse}
+\begin{def*}
+	Uma função \(f:M\rightarrow \mathbb{R}\) suave é dita ser uma \textbf{função de Morse} se todo ponto crítico é não degenerado. \(\square\)
+\end{def*}
+Sempre que temos uma função de Morse, temos um campo gradiente, permitindo usar o teorema de Poincaré-Hopf\footnote{\textbf{Lembrete: adicionar lembrete!!}} nele!
+\begin{prop*}
+	Pontos críticos não degenerados são pontos isolados.
+\end{prop*}
+\begin{proof*}
+	Seja \(f:U\subseteq \mathbb{R}^{m}\rightarrow \mathbb{R}\) uma função suave, com \(p\in U\) um ponto crítico não degenerado; coloque \(g = \nabla f:U\rightarrow \mathbb{R}^{m}\) como o gradiente de f, de maneira que p ser ponto crítico não degenerado de f significa que \(g(p)\) é nula e sua derivada \(g'(p)\) é não singular.
+
+	Pelo \hyperlink{inverse_function}{\textit{Teorema da Função Inversa}}, podemos supor que \(g:U\rightarrow V\subseteq \mathbb{R}^{m}\) é difeomorfismo, tal que, se \(f'(q) = 0\) para algum \(q\in U\), então
+	\[
+		0 = f'(q) = g''(q) = g''(p),
+	\]
+	e portanto, \(q=p\). \qedsymbol
+\end{proof*}
+A condição da derivada faz com que g seja um difeomorfismo, e portanto injetora, fazendo com que tenha um único ponto singular. Isso é bem comum em áreas de matemática que utilizam condições nas derivadas, como EDO, e suas transformações respectivas.
+
+\begin{crl*}
+	Seja \(f:M\rightarrow \mathbb{R}\) uma função de Morse e denote por \(\mathrm{Crit}(f)\) o conjunto dos pontos críticos de \(f\); então, \(\mathrm{Crit}(f)\) é discreto (e, em particular, se a variedade for compacta, será finito).
+\end{crl*}
+\subsection{Existência de Funções de Morse}
+Uma das aplicações mais diretas do \hyperlink{sard_theorem}{\textit{Teorema de Sard}} é na demonstração da existência de funções de Morse: seja \(M\subseteq \mathbb{R}^{k}\) e \(f:M\rightarrow \mathbb{R}\) suave; para cada \(a\in \mathbb{R}^{k}\), seja \(f_{a}:M\rightarrow \mathbb{R}\) dada por
+\[
+	f_{a}(x) = f(x) + x \cdot a,
+\]
+ou seja, \(f_{a}\) é \(f\) a menos de um funcional linear em \(\mathbb{R}^{k}\).
+\begin{theorem*}
+	O conjunto \(\{a\in \mathbb{R}^{k}:\; f_{a} \text{ é Morse}\}\) é denso.
+\end{theorem*}
+\begin{proof*}
+	Podemos supor que a função é do tipo \(f:U\subseteq \mathbb{R}^{k}\rightarrow \mathbb{R}\); colocamos \(g=f^{-1}:U\rightarrow \mathbb{R}^{k}\) tal que
+	\[
+		f_{a}'(p) = g(p)+a
+	\]
+	Se p é ponto crítico de \(f_{a}\), então
+	\[
+		f'(p) = g(p)+a = 0 \Longleftrightarrow g(p) = -a.
+	\]
+	Logo, \(\mathrm{Hess}(f_{a}) = \mathrm{Hess}(f)\).
+
+	Agora, se \(\mathrm{Reg}(g)\) denotar o conjunto dos valores regulares de \(g\), o \hyperlink{sard_theorem}{\textit{Teorema de Sard}} afirma que este conjunto é denso, e já temos um valor para \(g\), pois acabamos de determinar que \(g(p)=-a\), tal que \(a\in \mathrm{Reg}(g)\), com sua derivada \(g'(p) = \mathrm{Hess}(f_{a})\) sendo não singular, que é equivalente a \(p\) ser ponto crítico não degenerado de \(f_{a}\).
+	Portanto, \(f_{a} \) é Morse para quase todo (para \(a\) num conjunto denso) \(a\in \mathbb{R}^{k}\)
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Toda aplicação \(f:M\rightarrow \mathbb{R}\) suave pode ser ``aproximada'' por uma \(g:M\rightarrow \mathbb{R}\) de Morse, porque o conjunto das funções de Morse é denso no conjunto das funções suaves.
+\end{tcolorbox}
+
+\subsection{Mergulhos de Whitney}
+A segunda aplicação é a dos chamados \textbf{Mergulhos de Whitney}, que visa mostrar como cada variedade compacta n-dimensional admite um mergulho em \(\mathbb{R}^{2n+1}\); na verdade, o caso ótimo, que não iremos fazer, é quando o mergulho for em \(\mathbb{R}^{2m}\), mas não é possível mergulhar em menos do que isso.
+A projeção da variedade não pode ser feita de qualquer jeito, pois pode, por exemplo, acontecer de aparecerem pontos duplos -- não podemos projetar um círculo jogando a luz por cima, vai formar um X e deixar de ser variedade.
+Queremos, então, detectar estes pontos duplos, que é a parte essencial da prova, e achar a projeção compondo-a com a imersão 1-a-1 \(f:M\rightarrow \mathbb{R}^{N}\).
+
+Se N for \(2n+1\), não há nada a ser provado, então supomos que \(N > 2n+1\); a partir disso, vamos projetar e ver que dá para encontrar um mergulho em dimensão 1 a menos do que N, levando a um processo indutivo, até que cheguemos a \(2n+1\): encontraremos a projeção
+\[
+	\pi :\mathbb{R}^{N}\rightarrow \mathbb{R}^{2n+1}
+\]
+tal que
+\[
+	(\pi \circ f):M\rightarrow \mathbb{R}^{2n+1}
+\]
+é imersão um-a-um.
+
+Definimos duas funções: a primeira é
+\[
+	h:M\times M \times \mathbb{R}\rightarrow \mathbb{R}^{N}, \quad h(x, y, t) = t(f(fx)-f(y));
+\]
+levando em conta que as projeções formam um vetor \(f(x)-f(y)\) que deve ser limitado, é preciso tomar cuidado com o caso quando as projeções formem o ponto duplo, e o objetivo de \(h\) é justamente evitar esses pontos utilizando paralelismos.
+A segunda aplicação é
+\[
+	g:TM\rightarrow \mathbb{R}^{N}, \quad g(x, v) = f'(x)\cdot v, \quad \quad f'(x):T_{x}M\rightarrow \mathbb{R}^{N}.
+\]
+Quando N é maior que \(2n+1\), uma função suave entre uma variedade de dimensão menor (\(TM\)) em uma de dimensão maior (\(\mathbb{R}^{N}\)) nunca será sobrejetora, tal que existe um ponto \(a\in \mathbb{R}^{N}\) com \(a\) fora da imagem de \(g\); porém, a imagem contém a origem \(0\), e em particular, \(a\neq 0\), pois estamos procurando direções ao longo das quais podemos projetar.
+Note que, como pontos regulares são o oposto de pontos críticos, e pontos críticos necessariamente devem estar na imagem, os pontos fora da imagem são todos regulares! Mais ainda, \(a\) não está na imagem de h!
+
+Agora, seja \(\mathbb{H}\) o hiperplano de \(\mathbb{R}^{N}\) com normal ``\(a\)'', \(\pi :\mathbb{R}^{N}\rightarrow H\) a projeção tal que \(\mathbb{H}\cong \mathbb{R}^{N-1}\); entao,
+\[
+	\pi \circ f:M\rightarrow \mathbb{H}
+\]
+é um-a-um e, se \(\pi \circ f(x) = \pi f(y)\), então o vetor \(f(x)-f(y)\) é paralelo a \(a\), dado por
+\[
+	f(x)-f(y) = ta, \quad t\in \mathbb{R}.
+\]
+Já que \(f\) é 1-1, \(t\) é não nulo, de modo que
+\[
+	h(x, y, 1/t) = \frac{1}{t}(f(x)-f(y))= a \Rightarrow a\in \mathrm{Im}(h),
+\]
+uma contradição!
+
+Finalmente, para ver que \(\pi \circ f\) é imersão, considere a aplicação
+\[
+	(\pi \circ f)'(x):T_{x}M\rightarrow \mathbb{H}
+\]
+e olhemos para um representante nulo:
+\[
+	(\pi \circ f)'(x)\cdot v = \pi (f'(x)\cdot v)) = 0,
+\]
+mas para ser nulo, é necessário que \(f'(x)\cdot v\) seja paralelo a \(a\), significando de novo que \(f'(x)\cdot v = ta\); caso t seja nulo, v será nulo automaticamente. Caso contrário, se \(t\neq 0\), temos
+\[
+	g \biggl(x, \frac{1}{t}v\biggr) = f'(x) \biggl(\frac{1}{t}v\biggr) = a \in \mathrm{Img}(g),
+\]
+outra contradição!
+
+Portanto, encontramos uma projeção \(\pi :\mathbb{R}^{N}\rightarrow \mathbb{R}^{2n+1}\) tal que \(\pi \circ f:M\rightarrow \mathbb{R}^{2n+1}\) é uma imersão 1-1.
+\end{document}

@@ -1,0 +1,94 @@
+
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 16 - Índice de Campos Vetoriais e o Teorema de Poincaré--Hopf}
+\subsection{Motivações}
+\begin{itemize}
+	\item Linearização de campos vetoriais;
+	\item Teorema de Poincaré--Hopf.
+\end{itemize}
+\subsection{O Teorema de Poincaré--Hopf}
+
+\begin{theorem*}[Teorema de Poincaré--Hopf]
+	Seja M uma variedade compacta e \(v\) um campo vetorial suave em M. Suponhamos que, se \(\partial M\neq\emptyset\), o campo \(v\) aponta para fora de M ao longo de seu bordo. Se suas singularidades são isoladas e
+	\[
+		\operatorname{Sing}(v)=\{p_1,\dotsc,p_{\ell}\},
+	\]
+	então
+	\[
+		\boxed{\chi(M)=\sum_{j=1}^{\ell}i(v,p_j),}
+	\]
+	onde \(\chi(M)\) é a característica de Euler de M.
+\end{theorem*}
+\begin{proof*}
+	\textbf{Caso inicial:} suponhamos que \(M\subseteq\mathbb{R}^{m}\) seja uma variedade compacta de dimensão m, com bordo. Seja
+	\[
+		g:\partial M\rightarrow\mathbb{S}^{m-1}
+	\]
+	a aplicação normal de Gauss, que associa a cada ponto do bordo seu vetor normal exterior unitário. A primeira etapa da demonstração consiste em provar que
+	\[
+		\boxed{\sum_{j=1}^{\ell}i(v,p_j)=\mathrm{deg}(g).}
+	\]
+
+	Escolha \(\varepsilon>0\) suficientemente pequeno para que as bolas fechadas
+	\[
+		B_i=\overline{B_{\varepsilon}(p_i)}
+	\]
+	estejam contidas no interior de M e sejam duas a duas disjuntas. Removendo seus interiores, obtemos a variedade compacta com bordo
+	\[
+		X=M\setminus\bigcup_{i=1}^{\ell}\operatorname{int}(B_i).
+	\]
+	Escrevendo \(S_i=\partial B_i\), seu bordo é formado pelo bordo original de M e pelas esferas que estão nas redondezas das singularidades:
+	\[
+		\partial X=\partial M\sqcup\left(\bigsqcup_{i=1}^{\ell}(-S_i)\right),
+	\]
+	onde o sinal negativo indica a orientação oposta à orientação exterior usual de cada esfera \(S_i\).
+
+	Como \(v\) não se anula em X, podemos considerar o campo normalizado
+	\[
+		\overline v:X\rightarrow\mathbb{S}^{m-1},\qquad
+		\overline v(x)=\frac{v(x)}{\Vert v(x)\Vert};
+	\]
+	pelo lema sobre aplicações que se estendem a uma variedade com bordo, temos
+	\[
+		\mathrm{deg}(\overline v|_{\partial X})=0,
+	\]
+	e, levando em conta a orientação das componentes de \(\partial X\), obtemos
+	\[
+		0=\mathrm{deg}(\overline v|_{\partial M})
+		-\sum_{i=1}^{\ell}\mathrm{deg}(\overline v|_{S_i}).
+	\]
+	Pela definição do índice de uma singularidade isolada,
+	\[
+		\mathrm{deg}(\overline v|_{S_i})=i(v,p_i),
+	\]
+	de onde segue que
+	\[
+		\boxed{\mathrm{deg}(\overline v|_{\partial M})
+			=\sum_{i=1}^{\ell}i(v,p_i).}
+	\]
+
+	Por hipótese, o campo \(v\) aponta para fora ao longo do bordo, o que significa que, para \(x\in\partial M\), o ângulo entre \(v(x)\) e a normal exterior \(g(x)\) é estritamente menor que \(\frac{\pi}{2}\) (em particular, \(\overline v(x)\) e \(g(x)\) não são opostos).
+
+	Podemos, então, construir uma homotopia entre \(g\) e \(\overline v|_{\partial M}\), normalizando a combinação dos dois campos:
+	\[
+		H(x,t)=\frac{g(x)\cos t+\overline v(x)\sin t}
+		{\Vert g(x)\cos t+\overline v(x)\sin t\Vert},
+		\qquad 0\leq t\leq\frac{\pi}{2}.
+	\]
+	Como o ângulo entre os dois vetores é agudo, o denominador é não nulo durante toda a homotopia. Além disso,
+	\[
+		H(x,0)=g(x),\qquad H\left(x,\frac{\pi}{2}\right)=\overline v(x).
+	\]
+	Pela invariância do grau por homotopia,
+	\[
+		\mathrm{deg}(\overline v|_{\partial M})=\mathrm{deg}(g).
+	\]
+	Portanto,
+	\[
+		\boxed{\sum_{j=1}^{\ell}i(v,p_j)=\mathrm{deg}(g).}
+	\]
+	(Continua...)
+\end{proof*}
+\end{document}
+

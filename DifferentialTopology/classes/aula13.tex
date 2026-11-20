@@ -1,0 +1,190 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 13 - 27 de Outubro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Grau de Aplicações;
+	\item Lema da Homogeneidade;
+	\item Fluxos de Campos Vetoriais.
+\end{itemize}
+\subsection{Grau de Aplicações e Difeomorfismos}
+\begin{def*}
+	Uma variedade M é \textbf{orientável} se existe uma orientação \(\mathcal{O}\) de \(TM\) tal que
+	\begin{itemize}
+		\item \(\mathcal{O}(x)\) é orientação de \(T_{x}M\) para todo x em M;
+		\item Para todo x em M, existe parametrização \(\varphi :U\subseteq \mathbb{R}^{n}\rightarrow V \subseteq M\), onde \(x\in V\), que satisfaça \((\varphi^{-1})'[\mathcal{O}(x)]\) ser uma base positiva da orientação canônica de \(\mathbb{R}^{n}\)
+	\end{itemize}
+\end{def*}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Lembrete!,
+		after title={\hfill Orientabilidade},
+		fonttitle=\bfseries,
+		sharp corners=downhill,
+		colframe=black,
+		colbacktitle=yellow!75!white,
+		colback=yellow!30,
+		colbacklower=black,
+		coltitle=black,
+		%drop fuzzy shadow,
+		drop large lifted shadow
+	]
+	Uma \textbf{orientação} em \(\mathbb{R}^{n}\) consiste na escolha de duas classes de equivalência de bases ordenadas a partir do sinal do determinante da matriz-coluna composta por vetores dela: se denotarmos por \(\mathcal{B} = (v_1, \dotsc , v_{n})\), então teremos uma:
+	\begin{itemize}
+		\item \textbf{base positiva} se \(\mathrm{det}(v_1, \dotsc , v_{n}) > 0\);
+		\item \textbf{base negativa} se \(\mathrm{det}(v_1, \dotsc , v_{n}) > 0\).
+	\end{itemize}
+	Se o determinante da matriz de mudança de base entre duas bases ordenadas for positivo, as duas bases têm a mesma orientação (têm orientações opostas caso contrário).
+
+	Uma escolha global e consistente de orientação para \(\mathbb{R}^{n}\) é tomar a base canônica \((e_1, \dotsc , e_{n})\) como a que define o que é uma orientação positiva.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Se M é orientável, então M admite duas orientações (uma positiva e uma negativa).
+
+	Além disso, se M é uma variedade com bordo, a orientação \(\mathcal{O}\) de M induz a orientação em \(\partial M\): se \(\mathcal{O}(x)=(v_1(x), \dotsc , v_{n}(x))\) for uma base positiva de \(T_{x}M\) com
+	\[
+		\langle v_2(x), \dotsc , v_{n}(x) \rangle = T_{x}\partial M,
+	\]
+	então induzimos \(\partial \mathcal{O}\) de \(\partial M\) tomando
+	\[
+		\partial \mathcal{O}(x) \coloneqq (v_2(x), \dotsc , v_{n}(x)).
+	\]
+\end{tcolorbox}
+
+\begin{def*}
+	Sejam M e N orientáveis; diremos que um difeomorfismo local \(f:M\rightarrow N\) \textbf{preserva orientação} se \(\mathrm{det}(f'(x))>0\) para todo \(x\) em \(M.\; \square\)
+\end{def*}
+
+Sejam M, \(M'\) e N variedades suaves orientadas de mesma dimensão, \(f:M\rightarrow N\) uma aplicação suave e \(h':M'\rightarrow M\) um difeomorfismo.
+Definimos a aplicação
+\[
+	\tilde{f} = f\circ h':M'\rightarrow N.
+\]
+Se h preserva a orientação, então o grau de f em um valor regular \(z\in N\) é o mesmo que o de \(\tilde{f}\), ou seja,
+\[
+	\deg_z{(f)} = \deg_z{(\tilde{f})},
+\]
+propriedade a qual decorre da invariância do grau quando fazemos uma mudança de coordenadas que preserva a orientação (isso será muito útil!)
+Em particular, caso h inverta a orientação, o grau irá mudar de sinal, e difeomorfismos isotópicos à identidade hão de preservar a orientação, não alterando o grau.
+
+\hypertarget{homogeneity_lemma}{\begin{lemma*}[Lema da Homogeneidade]
+		Seja N uma variedade diferenciável conexa. Para quaisquer dois pontos \(p,q\in N\), existe um difeomorfismo
+		\[
+			h:M\rightarrow N
+		\]
+		tal que ela é isotópica à identidade \(\mathrm{id}_{N}\) e
+		\[
+			h(p) = q.
+		\]
+	\end{lemma*}}
+Em outra forma, isso significa que existe uma família suave de difeomorfismos \(H_{t}\), onde \(t\in [0, 1]\), que satisfaça
+\[
+	H_{0} = \mathrm{id}_{N}, \quad H_{1} = h,
+\]
+permitindo que transporte um ponto qualquer a outro ``deformando continuamente'' através de difeomorfismos, até chegar na identidade.
+\begin{proof*}
+	Considere dois pontos \(p, q\) contidos no interior de uma bola
+	\[
+		B^{n}\subseteq \mathbb{R}^{n};
+	\]
+	iremos construir um difeomorfismo que leve \(p\) a \(q\) e que seja a identidade fora dela!
+
+	A priori, escolha o vetor \(v=q-p\) e considere o campo vetorial constante \(Y(x) = v\), a equação associada será
+	\[
+		x'(t)=v, \quad x(0)=x_{0},
+	\]
+	que tem como solução
+	\[
+		x(t) = x_{0}+ vt.
+	\]
+	Seja \(\lambda :\mathbb{R}^{n}\rightarrow \mathbb{R}\) uma função suave positiva nos pontos no interior da bola e identicamente nula fora dela; a partir disto, defina o campo vetorial
+	\[
+		X(x) = \lambda (x)v,
+	\]
+	tal que a equação torna-se
+	\[
+		\left\{\begin{array}{ll}
+			x'(t) = X(x(t)) = \lambda (x(t))v \\
+			x(0)= x_{0}
+		\end{array}\right.
+	\]
+	Como \(\lambda \) é nula fora da bola, os pontos dessa região ficam fixos, enquanto que o interior produz um deslocamento na direção de \(v\).
+
+	A construção de \(\lambda \) se dá ao considerar a função inicial
+	\[
+		\psi :\mathbb{R}\rightarrow \mathbb{R}, \quad \psi (t)  = \left\{\begin{array}{ll}
+			e^{-\frac{1}{t}}, \quad & t> 0,     \\
+			0,                      & t\leq 0 .
+		\end{array}\right.,
+	\]
+	que é suave em toda a reta real, até mesmo em \(t=0\) (neste ponto, todas as derivadas são nulas). Partindo dela, definimos
+	\begin{align*}
+		\lambda : & \mathbb{R}^{n}\rightarrow\mathbb{R} \\
+		          & x\longmapsto \psi (1-| x |^{2}),
+	\end{align*}
+	cujo comportamento irá depender da posição de \(x\) relativo à bola unitária: no interior dela, tem-se
+	\[
+		1-| x |^{2} < 0 \Longleftrightarrow | x | < 1 \Rightarrow \lambda (x) > 0;
+	\]
+	quando é um ponto da fronteira ou do exterior,
+	\[
+		1-| x |^{2}\leq 0 \Longleftrightarrow | x |\geq 1 \Rightarrow \lambda (x) = 0,
+	\]
+	levando a uma função suave com suporte contido na bola unitária fechada.
+
+	Com respeito à descrição do fluxo de X, que é a família de aplicações obtidas das soluções da equação diferencial associada ao campo, denote a posição no instante \(t\) da trajetória a partir de \(x_{0}\) por
+	\[
+		\Phi_{t}(x_{0}) = x(t, x_{0}).
+	\]
+	Como \(X\) é suave (e tem suporte compacto), suas soluções existem para todo \(t\) real, tornando o fluxo um global, ou seja,
+	\[
+		\Phi_{t}:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}
+	\]
+	com duas propriedades especiais: no instante inicial, nenhum ponto é deslocado, tal que
+	\[
+		\Phi_{0}(x) = x = \mathrm{id}_{\mathbb{R}^{n}}(x), \quad \forall x\in \mathbb{R}^{n};
+	\]
+	em segundo lugar, a evolução num intervalo \(s+t\) é equivalente a compor o processo durante \(t\) e depois durante \(s\), tal que
+	\[
+		\Phi_{s+t} = \Phi_{s}\circ \Phi_{t} \Rightarrow \Phi_{t}^{-1}=\Phi_{-t}.
+	\]
+
+	Utilizando as duas propriedades, cada \(\Phi_{t}\) é um difeomorfismo de \(\mathbb{R}^{n}\), e a aplicação
+	\[
+		\Phi :\mathbb{R}\rightarrow \mathrm{Diff}(\mathbb{R}^{n}), \quad t\mapsto \Phi_{t}
+	\]
+	é um homomorfismo de grupos (\(\mathbb{R}\) com a adição usual e \(\circ \) no grupo de difeomorfismos), e como \(X(x) = 0\) para \(| x |\leq 1\), temos
+	\[
+		\Phi_{t}(x) = x, \quad x\notin B^{n}, \; t\in \mathbb{R}.
+	\]
+
+	Agora, para finalizar a construção de \(h\), como a bola é convexa, o segmento \(v=p-q\) necessariamente deve estar no interior dela; nele, \(\lambda \) é positiva, tal que o fluxo pode transportar \(p\) até \(q\) em uma quantidade finita de tempo: existe \(t_{0}\) para o qual
+	\[
+		\Phi_{t_{0}}(p) = q,
+	\]
+	levando à escolha natural
+	\[
+		h\coloneqq \Phi_{t_{0}} \Rightarrow h(p) = q
+	\]
+	sendo que \(h\) é a identidade fora de \(B^{n}\).
+
+	Portanto, \(h\) é isotópica à identidade, pois a família
+	\[
+		h_{s} = \Phi_{st_{0}}, \quad s\in [0, 1]
+	\]
+	satisfaz \(h_{0}=\mathrm{id}_{N}\) e \(h_{1} = h.\) \qedsymbol
+\end{proof*}
+\end{document}

@@ -1,0 +1,174 @@
+\documentclass[../differential_topology.tex]{subfiles}
+\begin{document}
+\section{Aula 09 - 24 de Setembro, 2026}
+\subsection{Motivações}
+\begin{itemize}
+	\item Prova do Teorema de Sard
+\end{itemize}
+\subsection{Provando o Teorema de Sard}
+Antes de demonstrá-lo, vamos retomar seu enunciado:
+\begin{theorem*}[Teorema de Sard-Morse]
+	O conjunto dos valores críticos de uma aplicação suave \(f:M\rightarrow N\) tem medida nula (em N).
+	Na verdade, a classe de diferenciabilidade da f necessária não é \(\infty\), mas pelo menos satisfazer \(f\in \mathcal{C}^{r}(M, N)\) com
+	\[
+		r\geq \max\limits\{m-n+1, 1\}
+	\]
+\end{theorem*}
+\begin{proof*}
+	Vamos supor que a dimensão de M é m, de N é k, que a função atua como \(f:U\subseteq \mathbb{R}^{n}\rightarrow \mathbb{R}^{k}\) e que \(n\geq k\) (pois, caso contrário, na melhor das hipóteses, a imagem vai ser uma subvariedade de dimensão n, e subvariedades têm medida nula).
+	Definamos os conjuntos dos pontos críticos C e o conjunto dos pontos em U tais que todas as derivadas parciais de f de ordem até i sejam nulas:
+	\[
+		C = \{x\in U: \mathrm{rank}(f'(x)) < k\} \quad\&\quad C_{n} = \{x\in U: \partial_{j}f^{(i)}(x) = 0,\; \forall i \leq n,\; j\leq k\};
+	\]
+	note que os conjuntos \(C_{n}\)'s formam uma cadeia de contingência de conjuntos do tipo:
+	\[
+		\dotsc C_{i+1}\subseteq C_{i}\subseteq \dotsc C_{1} \subseteq C,
+	\]
+	e como o maior de todos é o C, podemos decompô-lo em anéis intermediários dados por \(C\setminus{C_1},\; C_1\setminus{C_2}, \dotsc , C_{j}\setminus{C_{j+1}}\), permitindo escrevemos
+	\[
+		C = (C\setminus{C_1})\cup \bigcup_{i=1}^{j-2}(C_{i}\setminus{C_{i+1}})\cup C_{j+1},
+	\]
+	formando o conjunto dos pontos críticos.
+
+	Para mostrar que ele tem medida nula, note que
+	\[
+		f(C) \subseteq  f(C\setminus{C_1})\cup \bigcup_{i=1}^{j-2}f(C_{i}\setminus{C_{i+1}})\cup f(C_{j}),
+	\]
+	então basta mostrar que cada um dos conjuntos cobrindo \(f(C)\) tem medida nula! Com efeito, mostraremos por indução 3 coisas:
+	\begin{align*}
+		 & \text{(i): }\; m(f(C\setminus{C_1})) = 0                       \\
+		 & \text{(ii): }\; m(f(C_{i}\setminus{C_{i+1}})) = 0,\; \forall i \\
+		 & \text{(iii): }\; j > > 0 \Rightarrow m(f(c_{j})) = 0,
+	\end{align*}
+	com o caso-base sendo automático, pois a medida de um conjunto discreto é nula; suponha, então, que (i), (ii) e (iii) são válidas para aplicações de \(\mathbb{R}^{n-1}\) em \(\mathbb{R}^{k}\) e tome \(\overline{x}\) em \(C\setminus{C_1}\), ou seja, \(\overline{x}\) é um ponto crítico tal que todas as derivadas parciais de ordem até 1 não são nulas:
+	\[
+		\overline{x}\not\in C_{1} \Rightarrow \frac{\partial^{}f_1}{\partial x_1^{}}(\overline{x})\neq 0,
+	\]
+	e se a derivada parcial não nula fosse outra que não a primeira, bastaria alterar o índice, mas vamos manter a hipótese de ser a primeira para não carregar muita notação. Defina o difeomorfismo sobre sua própria imagem
+	\begin{align*}
+		h: & U\rightarrow \mathbb{R}^{n}                                                                \\
+		   & x=(x_1, \dotsc , x_{n})\longmapsto h(x_1, \dotsc , x_{n}) = (f_1(x), x_2, \dotsc , x_{n}),
+	\end{align*}
+	denotando por W a imagem de \(h\); até o momento, temos o diagrama
+	\begin{center}
+		\begin{tikzpicture}[
+				observed/.style = {rectangle, thick, text centered, draw, text width = 6em},
+				latent/.style = {ellipse, thick, draw, text centered, text width = 6em},
+				error/.style ={circle, thick, draw, text centered},
+				confounding/.style = {rectangle, thick, text centered, draw, text width = 6em, minimum width = 5.5in},
+				outcome/.style = {rectangle, thick, draw, text centered, minimum height = 3.5in, text width = 6em},
+			]
+
+			\node(T) at (0,1){U};
+			\node(BL) at (1,-1){W};
+			\node(BR) at (2,1){\(\mathbb{R}^{k}\)};
+
+			\draw[Arrow](T)--node[midway, left] {h}(BL);
+			\draw[Arrow](T)--node[midway, above] {f}(BR);
+			\draw[Arrow](BL)--node[midway, right] {g}(BR);
+
+		\end{tikzpicture}
+	\end{center}
+	Com isso, os pontos críticos da \(g\) são enviados aos pontos críticos da \(f\) por \(h\), tornando os postos iguais, tudo isso por \(h\) ser um difeomorfismo: ela preserva pontos críticos!
+	Logo, mostrar que um conjunto para \(f\) tem medida nula é equivalente a mostrar que seu correspondente em \(h\) tem medida nula, que requer a definição de \(g\), a qual tomamos como
+	\[
+		g = f\circ h^{-1}:W\rightarrow \mathbb{R}^{k}, \quad g = (g_1, \dotsc , g_{k}),
+	\]
+	só que \(g\) terá uma primeira coordenada \(g_1\) muito peculiar: tomando um ponto \linebreak\((t, x_2, \dotsc , x_{n})\in W\), vale a relação
+	\[
+		f_1\circ h^{-1}(t, x_2, \dotsc , x_{n}) = f_1(x) = g_1(t, x_2, \dotsc , x_{n}) = t,
+	\]
+	isto é, a primeira coordenada de g é tal que a primeira coordenada fica fixa
+	\[
+		g(t, x_2, \dotsc , x_{n}) = (t, \underbrace{g_{2}(t, x_2, \dotsc , x_{n}), \dotsc , g_{k}(t, x_{2}, \dotsc , x_{n})}_{g^{t}}) \in \{t\}\times \mathbb{R}^{k-1}
+	\]
+	Ademais, note que após a primeira coordenada, a função \(g\) deveria satisfazer que seus pontos críticos são as uniões dos pontos críticos de cada t fixo das \(g^{t}\)'s, onde tomamos elas como
+	\[
+		g^{t}:(\{t\} \times \mathbb{R}^{n-1})\cap W\rightarrow \mathbb{R}^{k-1},
+	\]
+	e a derivada de \(g\) é a matriz em blocos
+	\[
+		f'(z) = \begin{bmatrix}
+			1      & \dotsc      \\
+			\vdots & (g^{t})'(z)
+		\end{bmatrix}
+	\]
+	Colocando \(C_{t}\) como o conjunto dos pontos críticos de \(g^{t}\), por hipótese de indução,
+	\[
+		m(g_{t}(C_{t})) = 0,
+	\]
+	donde podemos aplicar o Teorema de Fubini para integrar esse conjunto de medida nula ao longo de todos os t, resultando em
+	\[
+		m(g(C_{g})) = 0,
+	\]
+	onde \(C_{g}\) é o conjunto de pontos críticos de \(g\). Isto finaliza o item (i). \(\blacktriangle\)
+
+	O item (ii) é mais complicado do que o item (i), porque \(m(f(C_{i}\setminus{C_{i+1}}))=0\) significa que alguma derivada de ordem (i+1) de alguma coordenada não é nula; vamos supor novamente que é a primeira, tal que
+	\[
+		\overline{x}\not\in C_{i+1} \Rightarrow \frac{\partial^{}f_1}{\partial x_{\ell_{1}} \partial x_{\ell _{2}}\dotsc \partial x_{\ell_{i+1}}^{}}(\overline{x}) \neq 0,
+	\]
+	e como a derivada de ordem até i é nula, também vale que
+	\[
+		\frac{\partial^{}f_1}{\partial x_{\ell _{2}}\dotsc \partial x_{\ell_{i+1}}^{}}(\overline{x}) = 0.
+	\]
+	Defina por
+	\begin{align*}
+		\omega : & U\rightarrow\mathbb{R}                                                                                     \\
+		         & x\longmapsto \omega (x) = \frac{\partial^{i}f_1}{\partial x_{\ell_2}\dotsc \partial x_{\ell_{i+1}}^{}}(x),
+	\end{align*}
+	de forma que
+	\[
+		\omega|_{C_{i}}\equiv 0 \quad\&\quad \frac{\partial^{}\omega }{\partial x_1^{}}(\overline{x})\neq 0,
+	\]
+	e podemos proceder de forma semelhante à anterior, colocando \(h:U\rightarrow \mathbb{R}^{k},\; h(x) = (\omega (x), x_2, \dotsc , x_{n})\) como um difeomorfismo sobre W e colocando \(g=f\circ h^{-1}\), mostrando eventualmente que a medida é nula.
+	\(\blacktriangle\)
+
+	Finalmente, quanto ao item (iii), para i suficientemente grande, queremos mostrar que a medida de \(m(f(C_{i})) = 0\). De fato, considere um cubo \(I^{n}\) de lado \(\delta \) em \(\mathbb{R}^{n}\); se mostrarmos que a imagem desse pedacinho tem medida nula na interseção com \(C_{i}\), poderemos cobrir tudo com enumeráveis conjuntos de medidas nulas, finalizando o resultado: vamos mostrar que
+	\[
+		m(f(C_{i}\cap I^{n}))=0.
+	\]
+	Podemos dividir esse cubo \(I^{n}\) ainda mais em subcubos de tamanhos \(\delta /r\), tal que temos \(r^{n}\) cubos que descrevem \(I^{n}\) completamente:
+	\[
+		I^{n} = \bigcup_{j=1}^{r^{n}}I_{j}, \quad I_{j} = \text{ cubo de lado }\frac{\delta }{r},\; \delta > r.
+	\]
+	Expandindo \(f(x+h)\) em Taylor em torno de um ponto \(x\in C_{i}\cap I^{n}\), todos os termos até o i-ésimo serão nulos, deixando apenas um termo e um resto que depende de x e de h, sendo o resto um termo que satisfaz a limitação
+	\[
+		f(x+h) = f(x) + R(x, h), \quad \Vert R(x, h) \Vert \leq \lambda \Vert h \Vert^{i+1}.
+	\]
+	Agora, é suficiente mostrar que \(m(f(C_{i}\cap I_{j}))=0\), com a vantagem de podemos escolher qualquer intervalo sem mudar o argumento; escolhemos o \(I_1\), mostrando, então, que \(m(f(C_{i}\cap I_{1}))=0\).
+	Um ponto \(y\in I_{1}\) será da forma
+	\[
+		y = x+h,\; x\in C_{i} \;\&\; \Vert h \Vert\leq \sqrt[]{n} \frac{\delta }{r},
+	\]
+	tal que \(f(I_1)\) está contido em um cubo de lado \(\frac{a}{r^{i+1}},\) onde \(a = 2\lambda (\sqrt[]{n}\delta )^{i+1}\), tais que, para \(z=x+k\),
+	\begin{align*}
+		\Vert f(z) - f(y) \Vert \leq \Vert f(x+k) - f(x) \Vert + \Vert f(x) - f(x+h) \Vert & \leq 2\lambda \Vert h \Vert^{i+1}                             \\
+		                                                                                   & \leq 2\lambda \biggl(\sqrt[]{n}\frac{\delta }{r}\biggr)^{i+1} \\
+		                                                                                   & \leq \frac{a}{r^{i+1}}.
+	\end{align*}
+	Logo, \(f(C_{i}\cap I^{n})\) está contido em uma união de no máximo \(r^{n}\) cubos de lados \(\frac{a}{r^{i+1}},\) ou seja,
+	\[
+		m(f(C_{i}\cap I^{n})) \leq r^{n}\biggl(\frac{a}{r^{i+1}}\biggr)^{k} = a^{k}r^{n-k(i+1)} \eqqcolon V,
+	\]
+	e a partir daqui tiramos a estimativa da ``classe de diferenciação i ser grande o suficiente'', já que
+	\[
+		n-k(i+1)<0 \Rightarrow \frac{n}{k} < (i+1) \Rightarrow i > \frac{n}{k}-1,
+	\]
+	de forma que se i satisfaz a desigualdade acima, o volume \(V_{i}\) tende a 0 quando \(r\) tende a 0 e, assim, \(m(f(C_{i}\cap I^{n})) = 0\). Portanto, terminamos a prova. \qedsymbol
+\end{proof*}
+\begin{tcolorbox}[
+		skin=enhanced,
+		title=Observação,
+		fonttitle=\bfseries,
+		colframe=black,
+		colbacktitle=cyan!75!white,
+		colback=cyan!15,
+		colbacklower=black,
+		coltitle=black,
+		drop fuzzy shadow,
+		%drop large lifted shadow
+	]
+	Quando não for possível derivar até a ordem exigida na demonstração, o problema que irá surgir é que os conjuntos fechados que compõem o C não conseguirão preencher o conjunto todo: ficará um buraco! Ele é preenchido pela união com \(C_{i+1}\); então, mesmo que todos tenham medida nula, não será possível afirmar que C tem se \(C_{i+1}\) não tiver, e para que ele tenha, é necessário cumprir a condição da ordem de diferenciabilidade.
+\end{tcolorbox}
+
+\end{document}
